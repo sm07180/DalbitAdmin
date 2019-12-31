@@ -36,4 +36,10 @@ public class SampleController {
     public String login(){
         return "/login/login";
     }
+
+    @GetMapping("admin")
+    public String admin(){
+        return "/admin";
+    }
+
 }
