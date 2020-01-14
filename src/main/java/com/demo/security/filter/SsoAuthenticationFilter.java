@@ -53,6 +53,11 @@ public class SsoAuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse)servletResponse;
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, OPTIONS");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
         if(!isIgnore(request)) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -90,7 +95,6 @@ public class SsoAuthenticationFilter implements Filter {
 
                             // SSO Cookie update
                             Cookie ssoCookie = cookieUtil.createCookie(SSO_COOKIE_NAME, cookieUtil.getValue(SSO_COOKIE_NAME), SSO_DOMAIN, "/", isTokenValid ? SSO_COOKIE_MAX_AGE : 0); // 60 * 60 * 24 * 30 = 30days
-                            HttpServletResponse response = (HttpServletResponse)servletResponse;
                             response.addCookie(ssoCookie);
                         }
                     }
