@@ -24,7 +24,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 @MapperScan(basePackages= "com.dalbit")
-@EnableTransactionManagement
 public class DatabaseConfig {
 
     @Value("${spring.datasource.driverClassName}")
