@@ -10,7 +10,8 @@ public class UserVo extends BaseVo {
 
     public static UserVo getUserInfo() {
         SecurityUserVo user = (SecurityUserVo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user.getUserInfo();
+        return null;
+        //return user.getUserInfo();
     }
 
     private String id;

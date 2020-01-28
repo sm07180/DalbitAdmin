@@ -1,9 +1,13 @@
 package com.dalbit.util;
 
+import com.dalbit.member.vo.MemberVo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -14,6 +18,16 @@ import java.util.*;
 @Slf4j
 @Component
 public class DalbitUtil {
+
+    private static Environment environment;
+
+    @Autowired
+    private Environment activeEnvironment;
+
+    @PostConstruct
+    private void init () {
+        environment = this.activeEnvironment;
+    }
 
     public static boolean isNullBlank(String checkValue) {
         return checkValue == null || "".equals(checkValue);
@@ -144,11 +158,11 @@ public class DalbitUtil {
      * </p>
      *
      * <pre>
-     *  DalbitUtil.isEmpty(null)      = true
-     *  DalbitUtil.isEmpty("")        = true
-     *  DalbitUtil.isEmpty(" ")       = false
-     *  DalbitUtil.isEmpty("bob")     = false
-     *  DalbitUtil.isEmpty("  bob  ") = false
+     *  StringUtil.isEmpty(null)      = true
+     *  StringUtil.isEmpty("")        = true
+     *  StringUtil.isEmpty(" ")       = false
+     *  StringUtil.isEmpty("bob")     = false
+     *  StringUtil.isEmpty("  bob  ") = false
      * </pre>
      *
      * @param str - 체크 대상 스트링오브젝트이며 null을 허용함
@@ -162,10 +176,10 @@ public class DalbitUtil {
      * <p>기준 문자열에 포함된 모든 대상 문자(char)를 제거한다.</p>
      *
      * <pre>
-     * DalbitUtil.remove(null, *)       = null
-     * DalbitUtil.remove("", *)         = ""
-     * DalbitUtil.remove("queued", 'u') = "qeed"
-     * DalbitUtil.remove("queued", 'z') = "queued"
+     * StringUtil.remove(null, *)       = null
+     * StringUtil.remove("", *)         = ""
+     * StringUtil.remove("queued", 'u') = "qeed"
+     * StringUtil.remove("queued", 'z') = "queued"
      * </pre>
      *
      * @param str  입력받는 기준 문자열
@@ -193,13 +207,13 @@ public class DalbitUtil {
      * <p>입력값 중 <code>null</code>이 있을 경우 <code>-1</code>을 반환.</p>
      *
      * <pre>
-     * DalbitUtil.indexOf(null, *)          = -1
-     * DalbitUtil.indexOf(*, null)          = -1
-     * DalbitUtil.indexOf("", "")           = 0
-     * DalbitUtil.indexOf("aabaabaa", "a")  = 0
-     * DalbitUtil.indexOf("aabaabaa", "b")  = 2
-     * DalbitUtil.indexOf("aabaabaa", "ab") = 1
-     * DalbitUtil.indexOf("aabaabaa", "")   = 0
+     * StringUtil.indexOf(null, *)          = -1
+     * StringUtil.indexOf(*, null)          = -1
+     * StringUtil.indexOf("", "")           = 0
+     * StringUtil.indexOf("aabaabaa", "a")  = 0
+     * StringUtil.indexOf("aabaabaa", "b")  = 2
+     * StringUtil.indexOf("aabaabaa", "ab") = 1
+     * StringUtil.indexOf("aabaabaa", "")   = 0
      * </pre>
      *
      * @param str  검색 문자열
@@ -220,13 +234,13 @@ public class DalbitUtil {
      * </p>
      *
      * <pre>
-     * DalbitUtil.decode(null, null, "foo", "bar")= "foo"
-     * DalbitUtil.decode("", null, "foo", "bar") = "bar"
-     * DalbitUtil.decode(null, "", "foo", "bar") = "bar"
-     * DalbitUtil.decode("하이", "하이", null, "bar") = null
-     * DalbitUtil.decode("하이", "하이  ", "foo", null) = null
-     * DalbitUtil.decode("하이", "하이", "foo", "bar") = "foo"
-     * DalbitUtil.decode("하이", "하이  ", "foo", "bar") = "bar"
+     * StringUtil.decode(null, null, "foo", "bar")= "foo"
+     * StringUtil.decode("", null, "foo", "bar") = "bar"
+     * StringUtil.decode(null, "", "foo", "bar") = "bar"
+     * StringUtil.decode("하이", "하이", null, "bar") = null
+     * StringUtil.decode("하이", "하이  ", "foo", null) = null
+     * StringUtil.decode("하이", "하이", "foo", "bar") = "foo"
+     * StringUtil.decode("하이", "하이  ", "foo", "bar") = "bar"
      * </pre>
      *
      * @param sourceStr 비교할 문자열
@@ -259,12 +273,12 @@ public class DalbitUtil {
      * </p>
      *
      * <pre>
-     * DalbitUtil.decode(null, null, "foo") = "foo"
-     * DalbitUtil.decode("", null, "foo") = ""
-     * DalbitUtil.decode(null, "", "foo") = null
-     * DalbitUtil.decode("하이", "하이", "foo") = "foo"
-     * DalbitUtil.decode("하이", "하이 ", "foo") = "하이"
-     * DalbitUtil.decode("하이", "바이", "foo") = "하이"
+     * StringUtil.decode(null, null, "foo") = "foo"
+     * StringUtil.decode("", null, "foo") = ""
+     * StringUtil.decode(null, "", "foo") = null
+     * StringUtil.decode("하이", "하이", "foo") = "foo"
+     * StringUtil.decode("하이", "하이 ", "foo") = "하이"
+     * StringUtil.decode("하이", "바이", "foo") = "하이"
      * </pre>
      *
      * @param sourceStr 비교할 문자열
@@ -313,9 +327,9 @@ public class DalbitUtil {
      * <p>{@link String#toLowerCase()}를 이용하여 소문자로 변환한다.</p>
      *
      * <pre>
-     * DalbitUtil.lowerCase(null)  = null
-     * DalbitUtil.lowerCase("")    = ""
-     * DalbitUtil.lowerCase("aBc") = "abc"
+     * StringUtil.lowerCase(null)  = null
+     * StringUtil.lowerCase("")    = ""
+     * StringUtil.lowerCase("aBc") = "abc"
      * </pre>
      *
      * @param str 소문자로 변환되어야 할 문자열
@@ -333,9 +347,9 @@ public class DalbitUtil {
      * <p>{@link String#toUpperCase()}를 이용하여 대문자로 변환한다.</p>
      *
      * <pre>
-     * DalbitUtil.upperCase(null)  = null
-     * DalbitUtil.upperCase("")    = ""
-     * DalbitUtil.upperCase("aBc") = "ABC"
+     * StringUtil.upperCase(null)  = null
+     * StringUtil.upperCase("")    = ""
+     * StringUtil.upperCase("aBc") = "ABC"
      * </pre>
      *
      * @param str 대문자로 변환되어야 할 문자열
@@ -424,7 +438,7 @@ public class DalbitUtil {
         try{
             return map.get(key).toString();
         }catch (Exception e){
-            log.error("DalbitUtil.getStringMap error - key name is [{}]", key);
+            log.error("StringUtil.getStringMap error - key name is [{}]", key);
             return "";
         }
     }
@@ -433,8 +447,8 @@ public class DalbitUtil {
         try{
             return Integer.valueOf(getStringMap(map, key));
         }catch (Exception e){
-            log.error("DalbitUtil.getIntMap error - key name is [{}]", key);
-            return -1;
+            log.error("StringUtil.getIntMap error - key name is [{}]", key);
+            return 0;
         }
     }
 
@@ -442,9 +456,18 @@ public class DalbitUtil {
         try{
             return Boolean.valueOf(getStringMap(map, key));
         }catch (Exception e){
-            log.error("DalbitUtil.getBooleanMap error - key name is [{}]", key);
+            log.error("StringUtil.getBooleanMap error - key name is [{}]", key);
             return false;
         }
+    }
+
+    public static String getProperty(String key){
+        return environment.getProperty(key);
+
+    }
+
+    public static boolean isLogin(){
+        return !("anonymousUser".equals(MemberVo.getMyMemNo()) || MemberVo.getMyMemNo().startsWith("8"));
     }
 
 }

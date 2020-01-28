@@ -1,10 +1,18 @@
 package com.dalbit.security.service;
 
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.exception.CustomUsernameNotFoundException;
+import com.dalbit.member.service.MemberService;
+import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.security.dao.LoginDao;
-import com.dalbit.common.vo.UserVo;
 import com.dalbit.security.vo.SecurityUserVo;
+import com.dalbit.util.DalbitUtil;
+import com.dalbit.util.RedisUtil;
+import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,70 +20,103 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Profile("local")
+@Slf4j
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private LoginDao loginDao;
 
+    @Autowired
+    private MemberService memberService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    HttpServletRequest request;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    	
-    	UserVo userVo = loginDao.login(username);
 
-        if(userVo == null) {
-            throw new UsernameNotFoundException("아이디와 비밀번호를 확인하신 후 다시 로그인해 주세요.");
+        //MemberVo memberVo;
+        P_LoginVo pLoginVo = new P_LoginVo(
+            DalbitUtil.convertRequestParamToString(request,"memType")
+            , DalbitUtil.convertRequestParamToString(request,"memId")
+            , DalbitUtil.convertRequestParamToString(request,"memPwd")
+            , DalbitUtil.convertRequestParamToInteger(request,"os")
+            , DalbitUtil.convertRequestParamToString(request,"deviceId")
+            , DalbitUtil.convertRequestParamToString(request,"deviceToken")
+            , DalbitUtil.convertRequestParamToString(request,"appVer")
+            , DalbitUtil.convertRequestParamToString(request,"appAdId")
+        );
+
+        ProcedureVo procedureVo = memberService.callMemberLogin(pLoginVo);
+        log.debug("로그인 결과 : {}", new Gson().toJson(procedureVo));
+
+        if(procedureVo.getRet().equals(Status.로그인실패.getMessageCode())) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패);
+
+        }else if(procedureVo.getRet().equals(Status.로그인실패.getMessageCode())) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패);
+
+        }else if(procedureVo.getRet().equals(Status.로그인실패.getMessageCode())) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패.getMessageKey());
         }
-        /*//직책이 있는 사용자의 경우 MANAGER 등급 부여
-        if(!"Y".equals(userInfo.getCareerauth()) && userInfo.getDuty().length() > 0){
-        	userInfo.setCareerauth("Y");
-        	userInfo.setCareerGrade("MANAGER");
+
+        MemberVo paramMemberVo = new MemberVo();
+        paramMemberVo.setMemId(DalbitUtil.convertRequestParamToString(request,"memId"));
+        paramMemberVo.setMemSlct(DalbitUtil.convertRequestParamToString(request, "memType"));
+
+        MemberVo memberVo = loginDao.loginUseMemId(paramMemberVo);
+        if(memberVo == null) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패);
         }
-
-        if(!"Y".equals(userInfo.getCareerauth())){
-        	throw new UsernameNotFoundException("접속권한이 없습니다.");
-        }
-
-        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
-        if("Y".equals(userInfo.getRegularetype()) && "ABGZ".indexOf(userInfo.getGrade())>=0) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
-            switch(userInfo.getCareerGrade()) {
-                case "ROOT": {
-                    authorities.add(new SimpleGrantedAuthority("ROLE_MASTER"));
-                    authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-                    authorities.add(new SimpleGrantedAuthority("ROLE_DIRECTOR"));
-                    authorities.add(new SimpleGrantedAuthority("ROLE_ROOT"));
-                    break;
-                }
-                case "DIRECTOR": {
-                    authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-                    authorities.add(new SimpleGrantedAuthority("ROLE_DIRECTOR"));
-                    break;
-                }
-                case "MANAGER": {
-                    authorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
-                    break;
-                }
-            }
-
-            if(userInfo.getDepartment().equals("GZ")) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_MASTER"));
-            }
-
-        }else{
-            throw new UsernameNotFoundException("아이디와 비밀번호를 확인하신 후 다시 로그인해 주세요.3");
-        }*/
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        SecurityUserVo securityUserVo = new SecurityUserVo(userVo.getId(), userVo.getPassword(), authorities);
-        securityUserVo.setUserInfo(userVo);
+        SecurityUserVo securityUserVo = new SecurityUserVo(memberVo.getMemId(), memberVo.getMemPasswd(), authorities);
+        securityUserVo.setMemberVo(memberVo);
+
+        return securityUserVo;
+    }
+
+
+    public UserDetails loadUserBySsoCookieFromDb(String memNo) throws UsernameNotFoundException {
+
+        MemberVo memberVo = loginDao.loginUseMemNo(memNo);
+
+        if(memberVo == null) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패);
+        }
+
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        SecurityUserVo securityUserVo = new SecurityUserVo(memberVo.getMemId(), memberVo.getMemPasswd(), authorities);
+        securityUserVo.setMemberVo(memberVo);
+
+        return securityUserVo;
+    }
+
+    public UserDetails loadUserBySsoCookieFromRedis(String memNo) throws UsernameNotFoundException {
+
+        MemberVo memberVo = redisUtil.getMemberInfoFromRedis(memNo);
+
+        if(memberVo == null) {
+            return null;
+        }
+
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+
+        SecurityUserVo securityUserVo = new SecurityUserVo(memberVo.getMemId(), memberVo.getMemPasswd(), authorities);
+        securityUserVo.setMemberVo(memberVo);
 
         return securityUserVo;
     }

@@ -1,8 +1,9 @@
 package com.dalbit.exception.handler;
 
 import com.dalbit.common.code.ErrorStatus;
+import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
-import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class RestControllerAdvice {
     @Autowired
     MessageUtil messageUtil;
 
+    @Autowired
+    GsonUtil gsonUtil;
+
     @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public String exceptionAdvice(HttpServletRequest httpServletRequest, Exception exception, HandlerMethod handlerMethod){
@@ -31,7 +35,7 @@ public class RestControllerAdvice {
         Object errorRequestUrl = httpServletRequest.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
         Object errorMessage = httpServletRequest.getAttribute(RequestDispatcher.ERROR_MESSAGE);
 
-        String result = new Gson().toJson(messageUtil.setExceptionInfo(ErrorStatus.권한없음, null));
+        String result = gsonUtil.toJson(new JsonOutputVo(ErrorStatus.권한없음));
         log.error(result);
 
         return result;

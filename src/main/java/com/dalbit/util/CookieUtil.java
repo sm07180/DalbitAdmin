@@ -42,7 +42,16 @@ public class CookieUtil {
 
     public static Cookie createCookie(String name, String value, String domain,
                                       String path, int maxAge) throws IOException {
-        Cookie cookie = new Cookie(name, URLEncoder.encode(value, "utf-8"));
+        Cookie cookie = new Cookie(name, value);
+        cookie.setDomain(domain);
+        cookie.setPath(path);
+        cookie.setMaxAge(maxAge);
+        return cookie;
+    }
+
+    public static Cookie deleteCookie(String name, String domain,
+                                      String path, int maxAge) throws IOException {
+        Cookie cookie = new Cookie(name, null);
         cookie.setDomain(domain);
         cookie.setPath(path);
         cookie.setMaxAge(maxAge);

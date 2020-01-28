@@ -1,7 +1,8 @@
 package com.dalbit.exception;
 
 import com.dalbit.common.code.ErrorStatus;
-import com.dalbit.exception.vo.ExceptionVo;
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,25 +20,31 @@ public class GlobalException extends Exception {
     private String errorCode;
     private String messageKey;
     private ErrorStatus errorStatus;
+    private Status status;
+    private Object data;
 
-    public GlobalException(){}
     public GlobalException(ErrorStatus errorStatus){
         setErrorStatus(errorStatus);
     }
+    public GlobalException(Status status){
+        setStatus(status);
+    }
 
-    public static ExceptionVo throwException(ErrorStatus errorStatus){
+    public GlobalException(Status status, Object data){
+        setStatus(status);
+        setData(data);
+    }
+
+    public static JsonOutputVo throwException(ErrorStatus errorStatus){
         return throwException(errorStatus, null);
     }
 
-    public static ExceptionVo throwException(ErrorStatus errorStatus, HashMap data){
-        return new ExceptionVo(errorStatus, data);
+    public static JsonOutputVo throwException(ErrorStatus errorStatus, HashMap data){
+        return new JsonOutputVo(errorStatus, data);
     }
 
-    public static ExceptionVo throwException(String message){
-        return throwException(message, null);
+    public static JsonOutputVo throwException(Status status, Object data){
+        return throwException(status, data);
     }
 
-    public static ExceptionVo throwException(String message, HashMap data){
-        return new ExceptionVo(null, message, data);
-    }
 }

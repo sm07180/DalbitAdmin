@@ -1,5 +1,6 @@
 package com.dalbit.common.vo;
 
+import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.Status;
 import com.dalbit.util.DalbitUtil;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class JsonOutputVo {
 
     public JsonOutputVo(Status status){
         setStatus(status);
+        setTimestamp(DalbitUtil.getTimeStamp());
     }
 
     public JsonOutputVo(Status status, Object data){
@@ -24,11 +26,20 @@ public class JsonOutputVo {
         setTimestamp(DalbitUtil.getTimeStamp());
     }
 
+    public JsonOutputVo(ErrorStatus errorStatus){
+        setErrorStatus(errorStatus);
+        setTimestamp(DalbitUtil.getTimeStamp());
+    }
+
+    public JsonOutputVo(ErrorStatus errorStatus, Object data){
+        setErrorStatus(errorStatus);
+        setData(data);
+        setTimestamp(DalbitUtil.getTimeStamp());
+    }
+
     private String result;
 
-    private Status status;
-
-    private String messageCode;
+    private String code;
     private String messageKey;
     private String message;
 
@@ -37,9 +48,15 @@ public class JsonOutputVo {
     private String timestamp;
 
     public void setStatus(Status status){
-        //this.messageCode = status.getMessageCode();
-        this.messageKey = status.getMessageKey();
-        this.result = status.getResult();
+        setCode(status.getMessageCode());
+        setMessageKey(status.getMessageKey());
+        setResult(status.getResult());
+    }
+
+    public void setErrorStatus(ErrorStatus errorStatus){
+        setCode(errorStatus.getErrorCode());
+        setMessageKey(errorStatus.getMessageKey());
+        setResult(errorStatus.getResult());
     }
 
 }

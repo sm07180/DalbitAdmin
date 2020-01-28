@@ -1,11 +1,11 @@
 package com.dalbit.config;
 
-import com.dalbit.security.filter.SsoAuthenticationFilter;
+import com.dalbit.security.handler.LogoutSuccessHandlerImpl;
 import com.dalbit.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,16 +14,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+//import com.dalbit.security.handler.LogoutSuccessHandlerImpl;
 
 /**
  * spring Security 설정
  */
-@Profile("local")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -34,13 +35,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired private AuthenticationSuccessHandler authSuccessHandler;
     @Autowired private AuthenticationFailureHandler authFailureHandler;
+    @Autowired private LogoutSuccessHandlerImpl logoutSuccessHandler;
     @Autowired private UserDetailsServiceImpl userDetailsService;
     @Autowired private AuthenticationProvider authProvider;
-    @Autowired private SsoAuthenticationFilter ssoAuthenticationFilter;
+
+    @Value("${server.servlet.session.cookie.name}")
+    private String SECURITY_COOKIE_NAME;
+
+    @Value("${sso.cookie.name}")
+    private String SSO_COOKIE_NAME;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public DelegatingPasswordEncoder passwordEncoder() {
+        DelegatingPasswordEncoder delegatingPasswordEncoder = (DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
+        return delegatingPasswordEncoder;
     }
 
     @Override
@@ -59,22 +68,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
             .csrf().disable() // 기본값이 on인 csrf 취약점 보안을 해제한다. on으로 설정해도 되나 설정할경우 웹페이지에서 추가처리가 필요함.
-
             .formLogin() // 권한없이 페이지 접근하면 로그인 페이지로 이동한다.
             .loginPage("/login")
-            .loginProcessingUrl("/login/authenticate")
+            .loginProcessingUrl("/member/login")
             .defaultSuccessUrl("/login/success")
 
-            .usernameParameter("id")         //id
-            .passwordParameter("password")      //password
+            .usernameParameter("s_id")         //id
+            .passwordParameter("s_pwd")      //password
 
             .successHandler(authSuccessHandler) //로그인 성공 시 처리
             .failureHandler(authFailureHandler) //로그인 실패 시 처리
 
             .and()
-            .addFilterBefore(ssoAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)   //cookie 기반 sso 필터 추가
             .exceptionHandling().accessDeniedPage("/login")
 
             .and()
@@ -88,20 +96,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/sample"
                     ).hasRole("USER") // USER 권한만 접근 가능
                     .anyRequest().permitAll() // 나머지 리소스에 대한 접근 설정
-
-            /*.and()
+            .and()
                 .oauth2Login()
                 .loginPage("/login")
-*/
+
             .and()
                 .logout()
-                    .deleteCookies("SESSION")
+                    //.logoutUrl("/logout")
+                    .deleteCookies(SECURITY_COOKIE_NAME, SSO_COOKIE_NAME)
                     .invalidateHttpSession(true)
+                    //.logoutSuccessUrl("/")
+                    .logoutSuccessHandler(logoutSuccessHandler)
 
             .and()
                 .sessionManagement()
                 .maximumSessions(1)
-                .expiredUrl("/login")
+                .expiredUrl("/logout")
+
+
 
         ;
     }

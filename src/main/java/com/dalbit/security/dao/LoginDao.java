@@ -1,9 +1,10 @@
 package com.dalbit.security.dao;
 
-import com.dalbit.common.vo.UserVo;
+import com.dalbit.member.vo.MemberVo;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoginDao {
-    UserVo login(String userId);
+    MemberVo loginUseMemId(MemberVo memberVo);
+    MemberVo loginUseMemNo(String userId);
 }

@@ -3,18 +3,15 @@ package com.dalbit.security.service;
 import com.dalbit.security.vo.SecurityUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-@Profile("local")
+import javax.servlet.http.HttpSession;
+
 @Slf4j
 @Component("authProvider")
 public class AuthenticationProviderImpl implements AuthenticationProvider {
@@ -23,30 +20,21 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private HttpSession httpSession;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String userName = authentication.getName();
-        String password = (String)authentication.getCredentials();
-        SecurityUserVo securityUserVo = null;
-        
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userName);
-        if(userDetails != null) {
-            securityUserVo = (SecurityUserVo)userDetails;
-            
-            if(securityUserVo == null) {
-            	log.debug(securityUserVo.getUsername());
-                throw new UsernameNotFoundException("아이디와 비밀번호를 확인하고 다시 로그인해 주세요.");
-            }
+        //String userName = authentication.getName();
+        //String password = (String)authentication.getCredentials();
 
-            //passwordEncoder.encode(password);
-            if (!passwordEncoder.matches(password, securityUserVo.getPassword())) {
-            	log.debug(securityUserVo.getPassword());
-                throw new UsernameNotFoundException("아이디와 비밀번호를 확인하고 다시 로그인해 주세요.");
-            }
-        }   
-        return new UsernamePasswordAuthenticationToken(securityUserVo, password, securityUserVo.getAuthorities());
+        SecurityUserVo securityUserVo = (SecurityUserVo)userDetailsService.loadUserByUsername("");
+
+        httpSession.setAttribute("MEMBER_INFO", securityUserVo.getMemberVo());
+
+        return new UsernamePasswordAuthenticationToken(
+                securityUserVo.getMemberVo().getMemNo()
+                , securityUserVo.getMemberVo().getMemPasswd()
+                , securityUserVo.getAuthorities());
     }
 
     @Override

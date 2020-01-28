@@ -2,12 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.security.dao.LoginDao" >
 
-    <select id="login" parameterType="String" resultType="com.dalbit.common.vo.UserVo">
-    /* Login.xml - login */
+    <select id="loginUseMemId" parameterType="com.dalbit.member.vo.MemberVo" resultType="com.dalbit.member.vo.MemberVo">
+    /* Login.xml - loginUseMemId */
         SELECT
-            *
-        FROM MEMBER
-        WHERE id = #{id}
+            idx
+            , mem_no memNo
+            , mem_id memId
+            , mem_phone memPhone
+            , mem_passwd memPasswd
+            , mem_nick memNick
+            , mem_sex memSex
+            , mem_birth_year memBirthYear
+            , mem_birth_month memBirthMonth
+            , mem_birth_day memBirthDay
+            , mem_slct memSlct
+            , mem_adid memAdid
+            , mem_state memState
+            , mem_join_date memJoinDate
+            , last_upd_date lastUpdDate
+        FROM tb_member_basic
+        WHERE mem_id = #{memId}
+            AND mem_slct = #{memSlct}
+    </select>
+
+    <select id="loginUseMemNo" parameterType="com.dalbit.member.vo.MemberVo" resultType="com.dalbit.member.vo.MemberVo">
+    /* Login.xml - loginUseMemNo */
+        SELECT
+            idx
+            , mem_no memNo
+            , mem_id memId
+            , mem_phone memPhone
+            , mem_passwd memPasswd
+            , mem_nick memNick
+            , mem_sex memSex
+            , mem_birth_year memBirthYear
+            , mem_birth_month memBirthMonth
+            , mem_birth_day memBirthDay
+            , mem_slct memSlct
+            , mem_adid memAdid
+            , mem_state memState
+            , mem_join_date memJoinDate
+            , last_upd_date lastUpdDate
+        FROM tb_member_basic
+        WHERE mem_no = #{memNo}
     </select>
 
 </mapper>

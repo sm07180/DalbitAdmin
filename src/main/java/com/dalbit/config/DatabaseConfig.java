@@ -1,6 +1,8 @@
 package com.dalbit.config;
 
 import com.dalbit.mybatis.RefreshableSqlSessionFactoryBean;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 import net.sf.log4jdbc.tools.Log4JdbcCustomFormatter;
 import net.sf.log4jdbc.tools.LoggingType;
@@ -13,9 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
@@ -27,31 +27,47 @@ import javax.sql.DataSource;
 public class DatabaseConfig {
 
     @Value("${spring.datasource.driverClassName}")
-    private String jdbcDriverClassName;
+    private String JDBC_DRIVER_CLASS_NAME;
 
     @Value("${spring.datasource.url}")
-    private String jdbcUrl;
+    private String JDBC_URL;
 
     @Value("${spring.datasource.username}")
-    private String jdbcUsername;
+    private String JDBC_USERNAME;
 
     @Value("${spring.datasource.password}")
-    private String jdbcPassword;
+    private String JDBC_PASSWORD;
+
+    @Value("${spring.datasource.connection.timeout}")
+    private String CONNECTION_TIMEOUT;
+
+    @Value("${spring.datasource.idle.timeout}")
+    private String IDLE_TIMEOUT;
+
+    @Bean
+    public HikariConfig hikariConfig() {
+        HikariConfig hikariConfig = new HikariConfig();
+        hikariConfig.setDriverClassName(JDBC_DRIVER_CLASS_NAME);
+        hikariConfig.setJdbcUrl(JDBC_URL);
+        hikariConfig.setUsername(JDBC_USERNAME);
+        hikariConfig.setPassword(JDBC_PASSWORD);
+        hikariConfig.setConnectionTimeout(Long.valueOf(CONNECTION_TIMEOUT));
+        hikariConfig.setIdleTimeout(Long.valueOf(IDLE_TIMEOUT));
+        hikariConfig.setMaxLifetime(Long.valueOf(IDLE_TIMEOUT));
+        return hikariConfig;
+    }
 
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(jdbcDriverClassName);
-        dataSource.setUrl(jdbcUrl);
-        dataSource.setUsername(jdbcUsername);
-        dataSource.setPassword(jdbcPassword);
-
+        DataSource dataSource = new HikariDataSource(hikariConfig());
         Log4JdbcCustomFormatter formatter = new Log4JdbcCustomFormatter();
-        formatter.setLoggingType(LoggingType.MULTI_LINE);
+        formatter.setLoggingType(LoggingType.SINGLE_LINE);
         formatter.setSqlPrefix("[RUNNING SQL] => ");
+
         Log4jdbcProxyDataSource log4jdbcDs = new Log4jdbcProxyDataSource(dataSource);
         log4jdbcDs.setLogFormatter(formatter);
         return log4jdbcDs;
+
     }
 
     @Bean

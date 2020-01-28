@@ -1,46 +1,25 @@
 package com.dalbit.security.handler;
 
-import com.dalbit.common.code.Status;
-import com.dalbit.util.MessageUtil;
 import com.dalbit.common.vo.JsonOutputVo;
-import com.google.gson.Gson;
+import com.dalbit.exception.CustomUsernameNotFoundException;
+import com.dalbit.util.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 
-@Profile("local")
 @Component("authFailureHandler")
 public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHandler {
 
-    @Autowired
-    MessageUtil messageUtil;
+    @Autowired GsonUtil gsonUtil;
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        String url = "/index";
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException{
 
-        HttpSession session = request.getSession(false);
-        if(session != null) {
-            session.setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, exception.getMessage());
-        }
-
-        HashMap map = new HashMap();
-        map.put("returnUrl", "/index");
-
-        PrintWriter out = response.getWriter();
-        out.print(new Gson().toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.로그인실패, map))));
-        out.flush();
-        out.close();
+        gsonUtil.responseJsonOutputVoToJson(response, new JsonOutputVo(((CustomUsernameNotFoundException) exception).getStatus()));
     }
 }

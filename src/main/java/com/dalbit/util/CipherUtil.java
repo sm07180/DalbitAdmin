@@ -30,9 +30,9 @@ public class CipherUtil {
         }
     }
 
-    public static String encryptSha(CIPHER_ALGORITHM algorithm, String originalMsg, UPPER_LOWER_CASE upperLowerCase) {
+    public static String encryptSha(CipherUtil.CIPHER_ALGORITHM algorithm, String originalMsg, CipherUtil.UPPER_LOWER_CASE upperLowerCase) {
         String returnMessage = "";
-        if (upperLowerCase == UPPER_LOWER_CASE.UPPER) {
+        if (upperLowerCase == CipherUtil.UPPER_LOWER_CASE.UPPER) {
             returnMessage = encryptSha(algorithm, originalMsg).toUpperCase();
         } else {
             returnMessage = encryptSha(algorithm, originalMsg).toLowerCase();
@@ -41,7 +41,7 @@ public class CipherUtil {
         return returnMessage;
     }
 
-    public static String encryptSha(CIPHER_ALGORITHM algorithm, String originalMsg) {
+    public static String encryptSha(CipherUtil.CIPHER_ALGORITHM algorithm, String originalMsg) {
         String rtValue = "";
         String algorithmString = "";
         switch(algorithm) {
