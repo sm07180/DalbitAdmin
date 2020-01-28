@@ -1,4 +1,4 @@
-package com.dalbit.util;
+package com.dalbit.util.adapter;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -7,23 +7,23 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class StringAdapter extends TypeAdapter<String> {
+public class IntegerAdapter extends TypeAdapter<Integer> {
 
     @Override
-    public void write(JsonWriter writer, String value) throws IOException {
+    public void write(JsonWriter writer, Integer value) throws IOException {
         if(value == null){
-            writer.value("");
+            writer.value(0);
         }else{
-            writer.value(value.trim());
+            writer.value(value);
         }
     }
 
     @Override
-    public String read(JsonReader in) throws IOException {
+    public Integer read(JsonReader in) throws IOException {
         if(in.peek() == JsonToken.NULL){
             in.nextNull();
-            return "";
+            return 0;
         }
-        return in.nextString().trim();
+        return in.nextInt();
     }
 }

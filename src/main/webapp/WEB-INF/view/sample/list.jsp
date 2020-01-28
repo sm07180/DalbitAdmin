@@ -85,19 +85,14 @@
 
 
     function fn_success(dst_id, response){
-        alert('??');
-        console.log(response);
-        console.log('----');
+        dalbitLog(response);
 
         var template = $('#tmp_list').html();
         var templateScript = Handlebars.compile(template);
-        console.log(templateScript);
         var context = response;
         var html = templateScript(context);
-        console.log(html);
 
         $("#tableBody").append(html);
-
 
         $('#dataTables-example').DataTable({
             responsive: true

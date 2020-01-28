@@ -1,3 +1,10 @@
+/*로그 찍기*/
+function dalbitLog(data){
+    //todo - local, dev에서만 작동하도록 설정
+    console.log(data);
+}
+
+/*ajax 호출 모듈*/
 function getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc){
     $.ajax({
         type : 'POST',
@@ -17,3 +24,4 @@ function getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc){
         }
     });
 }
+
