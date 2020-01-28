@@ -1,3 +1,4 @@
+/*
 package com.dalbit.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -11,9 +12,11 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 
+*/
 /**
  * Redis 설정
- */
+ *//*
+
 @Configuration
 @EnableRedisRepositories
 public class RedisRepositoryConfig {
@@ -52,3 +55,4 @@ public class RedisRepositoryConfig {
         return new ConcurrentTaskScheduler();
     }
 }
+*/
