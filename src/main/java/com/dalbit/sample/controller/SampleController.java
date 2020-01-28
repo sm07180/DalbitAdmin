@@ -1,39 +1,24 @@
 package com.dalbit.sample.controller;
 
 import com.dalbit.sample.service.SampleService;
-import com.dalbit.sample.vo.SampleVo;
-import com.dalbit.common.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
+@RequestMapping("sample")
 public class SampleController {
 
     @Autowired
     SampleService sampleService;
 
-    @GetMapping("sample")
-    public String sayhello(Model model){
-
-        int cnt = sampleService.getCount();
-        log.debug("카운트는 ? : {}", cnt);
-
-        List<SampleVo> list = sampleService.getList();
-        log.debug("리스트 ? : {}", list);
-
-        model.addAttribute("userInfo", UserVo.getUserInfo());
-
-        return "welcome";
+    @GetMapping("list")
+    public String list(Model model){
+        return "/sample/list";
     }
 
-    @GetMapping("login")
-    public String login(){
-        return "/login/login";
-    }
 }
