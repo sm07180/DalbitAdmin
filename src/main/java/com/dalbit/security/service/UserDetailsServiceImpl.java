@@ -9,7 +9,6 @@ import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.security.dao.LoginDao;
 import com.dalbit.security.vo.SecurityUserVo;
 import com.dalbit.util.DalbitUtil;
-import com.dalbit.util.RedisUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private MemberService memberService;
 
     @Autowired
-    private RedisUtil redisUtil;
-
-    @Autowired
     HttpServletRequest request;
 
     @Override
@@ -45,78 +41,37 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         //MemberVo memberVo;
         P_LoginVo pLoginVo = new P_LoginVo(
-            DalbitUtil.convertRequestParamToString(request,"memType")
+            "p"
             , DalbitUtil.convertRequestParamToString(request,"memId")
             , DalbitUtil.convertRequestParamToString(request,"memPwd")
-            , DalbitUtil.convertRequestParamToInteger(request,"os")
-            , DalbitUtil.convertRequestParamToString(request,"deviceId")
-            , DalbitUtil.convertRequestParamToString(request,"deviceToken")
-            , DalbitUtil.convertRequestParamToString(request,"appVer")
-            , DalbitUtil.convertRequestParamToString(request,"appAdId")
+            , 1
+            , "deviceId"
+            , "deviceToken"
+            , "appVer"
+            , "appAdId"
         );
 
         ProcedureVo procedureVo = memberService.callMemberLogin(pLoginVo);
         log.debug("로그인 결과 : {}", new Gson().toJson(procedureVo));
 
-        if(procedureVo.getRet().equals(Status.로그인실패.getMessageCode())) {
-            throw new CustomUsernameNotFoundException(Status.로그인실패);
+        if(procedureVo.getRet().equals(Status.로그인실패_회원가입필요.getMessageCode())) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패_회원가입필요);
 
-        }else if(procedureVo.getRet().equals(Status.로그인실패.getMessageCode())) {
-            throw new CustomUsernameNotFoundException(Status.로그인실패);
+        }else if(procedureVo.getRet().equals(Status.로그인실패_패스워드틀림.getMessageCode())) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패_패스워드틀림);
 
-        }else if(procedureVo.getRet().equals(Status.로그인실패.getMessageCode())) {
-            throw new CustomUsernameNotFoundException(Status.로그인실패.getMessageKey());
-        }
-
-        MemberVo paramMemberVo = new MemberVo();
-        paramMemberVo.setMemId(DalbitUtil.convertRequestParamToString(request,"memId"));
-        paramMemberVo.setMemSlct(DalbitUtil.convertRequestParamToString(request, "memType"));
-
-        MemberVo memberVo = loginDao.loginUseMemId(paramMemberVo);
-        if(memberVo == null) {
-            throw new CustomUsernameNotFoundException(Status.로그인실패);
+        }else if(procedureVo.getRet().equals(Status.로그인실패_파라메터이상.getMessageCode())) {
+            throw new CustomUsernameNotFoundException(Status.로그인실패_파라메터이상.getMessageKey());
         }
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
-        SecurityUserVo securityUserVo = new SecurityUserVo(memberVo.getMemId(), memberVo.getMemPasswd(), authorities);
-        securityUserVo.setMemberVo(memberVo);
-
-        return securityUserVo;
-    }
-
-
-    public UserDetails loadUserBySsoCookieFromDb(String memNo) throws UsernameNotFoundException {
-
-        MemberVo memberVo = loginDao.loginUseMemNo(memNo);
-
-        if(memberVo == null) {
-            throw new CustomUsernameNotFoundException(Status.로그인실패);
-        }
-
-        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-        SecurityUserVo securityUserVo = new SecurityUserVo(memberVo.getMemId(), memberVo.getMemPasswd(), authorities);
-        securityUserVo.setMemberVo(memberVo);
-
-        return securityUserVo;
-    }
-
-    public UserDetails loadUserBySsoCookieFromRedis(String memNo) throws UsernameNotFoundException {
-
-        MemberVo memberVo = redisUtil.getMemberInfoFromRedis(memNo);
-
-        if(memberVo == null) {
-            return null;
-        }
-
-        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
-        SecurityUserVo securityUserVo = new SecurityUserVo(memberVo.getMemId(), memberVo.getMemPasswd(), authorities);
-        securityUserVo.setMemberVo(memberVo);
+        SecurityUserVo securityUserVo = new SecurityUserVo(
+                DalbitUtil.convertRequestParamToString(request,"memId")
+                , DalbitUtil.convertRequestParamToString(request, "memType")
+                , authorities);
+        //securityUserVo.setMemberVo(memberVo);
 
         return securityUserVo;
     }

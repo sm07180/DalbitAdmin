@@ -1,9 +1,7 @@
 package com.dalbit.config;
 
-import com.dalbit.security.handler.LogoutSuccessHandlerImpl;
 import com.dalbit.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,15 +32,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired private AuthenticationSuccessHandler authSuccessHandler;
     @Autowired private AuthenticationFailureHandler authFailureHandler;
-    @Autowired private LogoutSuccessHandlerImpl logoutSuccessHandler;
     @Autowired private UserDetailsServiceImpl userDetailsService;
     @Autowired private AuthenticationProvider authProvider;
-
-    @Value("${server.servlet.session.cookie.name}")
-    private String SECURITY_COOKIE_NAME;
-
-    @Value("${sso.cookie.name}")
-    private String SSO_COOKIE_NAME;
 
     @Bean
     public DelegatingPasswordEncoder passwordEncoder() {
@@ -60,8 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**.html"
                     , "/favicon.ico"
                     , "/robots.txt"
-                    //"/js/**"
-                    //, "/resources/**"
+                    , "/js/**"
+                    , "/template/**"
             );
     }
 
@@ -72,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable() // 기본값이 on인 csrf 취약점 보안을 해제한다. on으로 설정해도 되나 설정할경우 웹페이지에서 추가처리가 필요함.
             .formLogin() // 권한없이 페이지 접근하면 로그인 페이지로 이동한다.
             .loginPage("/login")
-            .loginProcessingUrl("/member/login")
+            .loginProcessingUrl("/login/authenticate")
             .defaultSuccessUrl("/login/success")
 
             .usernameParameter("s_id")         //id
@@ -88,28 +79,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .authorizeRequests()
                     .antMatchers(
-                        "/error**"
-                    ).permitAll()       //모두 접근 가능
-
-                    .antMatchers(
-                        "/sample"
-                    ).hasRole("USER") // USER 권한만 접근 가능
-                    .anyRequest().permitAll() // 나머지 리소스에 대한 접근 설정
+                            "/login"
+                    ).permitAll()
+                    .antMatchers("/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
             .and()
                 .logout()
-                    //.logoutUrl("/logout")
-                    .deleteCookies(SECURITY_COOKIE_NAME, SSO_COOKIE_NAME)
+                    .logoutUrl("/logout")
+                    .deleteCookies("JSESSIONID")
                     .invalidateHttpSession(true)
-                    //.logoutSuccessUrl("/")
-                    .logoutSuccessHandler(logoutSuccessHandler)
 
             .and()
                 .sessionManagement()
                 .maximumSessions(1)
-                .expiredUrl("/logout")
-
-
-
+                .expiredUrl("/login")
         ;
     }
 

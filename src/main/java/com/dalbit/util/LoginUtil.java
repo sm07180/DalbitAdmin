@@ -1,3 +1,4 @@
+/*
 package com.dalbit.util;
 
 import com.dalbit.common.code.ErrorStatus;
@@ -52,10 +53,12 @@ public class LoginUtil {
 
         }else{
             String cookieValue = request.getHeader(DalbitUtil.getProperty("sso.header.cookie.name"));
-            /*TokenVo tokenVo = jwtUtil.getTokenVoFromJwt(cookieValue);
+            */
+/*TokenVo tokenVo = jwtUtil.getTokenVoFromJwt(cookieValue);
             String jwtToken = jwtUtil.generateToken(tokenVo.getMemNo(), true);
 
-            ssoCookie = makeSsoCookie(jwtToken);*/
+            ssoCookie = makeSsoCookie(jwtToken);*//*
+
         }
 
         response.addCookie(ssoCookie);
@@ -68,13 +71,15 @@ public class LoginUtil {
                 ssoCookie = expireSsoCookie();
 
             }else{
-                /*CookieUtil cookieUtil = new CookieUtil(request);
+                */
+/*CookieUtil cookieUtil = new CookieUtil(request);
 
                 TokenVo tokenVo = jwtUtil.getTokenVoFromJwt(cookieUtil.getValue(DalbitUtil.getProperty("sso.cookie.name")));
 
                 String jwtToken = jwtUtil.generateToken(tokenVo.getMemNo(), tokenVo.isLogin());
 
-                ssoCookie = makeSsoCookie(jwtToken);*/
+                ssoCookie = makeSsoCookie(jwtToken);*//*
+
             }
             response.addCookie(ssoCookie);
 
@@ -107,3 +112,4 @@ public class LoginUtil {
         }
     }
 }
+*/

@@ -19,9 +19,6 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private HttpSession httpSession;
-
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         //String userName = authentication.getName();
@@ -29,11 +26,9 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 
         SecurityUserVo securityUserVo = (SecurityUserVo)userDetailsService.loadUserByUsername("");
 
-        httpSession.setAttribute("MEMBER_INFO", securityUserVo.getMemberVo());
-
         return new UsernamePasswordAuthenticationToken(
-                securityUserVo.getMemberVo().getMemNo()
-                , securityUserVo.getMemberVo().getMemPasswd()
+                securityUserVo.getUsername()
+                , securityUserVo.getPassword()
                 , securityUserVo.getAuthorities());
     }
 

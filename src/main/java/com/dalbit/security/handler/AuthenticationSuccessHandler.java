@@ -15,19 +15,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 
 @Component("authSuccessHandler")
 public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    //@Autowired JwtUtil jwtUtil;
     @Autowired GsonUtil gsonUtil;
-
-    @Value("${sso.domain}")
-    private String SSO_DOMAIN;
-    @Value("${sso.cookie.name}")
-    private String SSO_COOKIE_NAME;
-    @Value("${sso.cookie.max.age}")
-    private int SSO_COOKIE_MAX_AGE;
 
     /**
      * 로그인 성공 시
@@ -39,19 +32,10 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
      */
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
 
-        //String jwtToken = jwtUtil.generateToken(MemberVo.getMyMemNo(), true);
+        HashMap map = new HashMap();
+        map.put("returnUrl", "index.html");
 
-        //aveSsoCookie(response, jwtToken);
-
-        gsonUtil.responseJsonOutputVoToJson(response, new JsonOutputVo(Status.로그인));
+        gsonUtil.responseJsonOutputVoToJson(response, new JsonOutputVo(Status.로그인성공, map));
     }
 
-    /**
-     * SSO 쿠키 저장
-     * @param response
-     * @throws IOException
-     */
-    public void saveSsoCookie(HttpServletResponse response, String jwtToken) throws IOException {
-        response.addCookie(CookieUtil.createCookie(SSO_COOKIE_NAME, jwtToken, SSO_DOMAIN, "/", SSO_COOKIE_MAX_AGE)); // 60 * 60 * 24 * 30 = 30days
-    }
 }

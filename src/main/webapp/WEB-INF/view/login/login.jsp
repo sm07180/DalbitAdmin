@@ -2,140 +2,79 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Spring Boot Application with JSP</title></head>
-    <style>
-        body{
-            font-family: 'Open Sans', sans-serif;
-            background:#3498db;
-            margin: 0 auto 0 auto;
-            width:100%;
-            text-align:center;
-            margin: 20px 0px 20px 0px;
-        }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        p{
-            font-size:12px;
-            text-decoration: none;
-            color:#ffffff;
-        }
+    <title>달빛라디오 관리자 - 로그인</title>
 
-        h1{
-            font-size:1.5em;
-            color:#525252;
-        }
+    <!-- Bootstrap Core CSS -->
+    <link href="/template/css/bootstrap.min.css" rel="stylesheet">
 
-        .box{
-            background:white;
-            width:300px;
-            border-radius:6px;
-            margin: 0 auto 0 auto;
-            padding:0px 0px 70px 0px;
-            border: #2980b9 4px solid;
-        }
+    <!-- MetisMenu CSS -->
+    <link href="/template/css/metisMenu.min.css" rel="stylesheet">
 
-        .email{
-            background:#ecf0f1;
-            border: #ccc 1px solid;
-            border-bottom: #ccc 2px solid;
-            padding: 8px;
-            width:250px;
-            color:#AAAAAA;
-            margin-top:10px;
-            font-size:1em;
-            border-radius:4px;
-        }
+    <!-- Custom CSS -->
+    <link href="/template/css/startmin.css" rel="stylesheet">
 
-        .password{
-            border-radius:4px;
-            background:#ecf0f1;
-            border: #ccc 1px solid;
-            padding: 8px;
-            width:250px;
-            font-size:1em;
-        }
+    <!-- Custom Fonts -->
+    <link href="/template/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-        .btn{
-            background:#2ecc71;
-            width:125px;
-            padding-top:5px;
-            padding-bottom:5px;
-            color:white;
-            border-radius:4px;
-            border: #27ae60 1px solid;
-
-            margin-top:20px;
-            margin-bottom:20px;
-            float:left;
-            margin-left:16px;
-            font-weight:800;
-            font-size:0.8em;
-        }
-
-        .btn:hover{
-            background:#2CC06B;
-        }
-
-        #btn2{
-            float:left;
-            background:#3498db;
-            width:125px;  padding-top:5px;
-            padding-bottom:5px;
-            color:white;
-            border-radius:4px;
-            border: #2980b9 1px solid;
-
-            margin-top:20px;
-            margin-bottom:20px;
-            margin-left:10px;
-            font-weight:800;
-            font-size:0.8em;
-        }
-
-        #btn2:hover{
-            background:#3594D2;
-        }
-    </style>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 <body>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
-    <form id="loginFrm" method="post">
-        <div class="box">
-            <h1>Dashboard</h1>
-            <input type="text" name="id" id="id" value="test" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
-            <input type="password" name="password" id="password" value="1234" onFocus="field_focus(this, 'email');" onblur="field_blur(this, 'email');" class="email" />
-            <a href="javascript://" id="loginBtn"><div class="btn">Sign In</div></a> <!-- End Btn -->
-            <a href="javascript://"><div id="btn2">Sign Up</div></a> <!-- End Btn2 -->
-        </div> <!-- End Box -->
-    </form>
-    <p>Forgot your password? <u style="color:#f1c40f;">Click Here!</u></p>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" type="text/javascript"></script>
+    <div class="container">
+        <form id="loginFrm" method="post">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Please Sign In</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="아이디" name="memId" type="memId" value="010-1234-0006" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" placeholder="비밀번호" name="memPwd" type="memPwd" value="1234">
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                        </label>
+                                    </div>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <a href="javascript://" id="loginBtn" class="btn btn-lg btn-success btn-block">Login</a>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- jQuery -->
+    <script src="/template/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/template/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/template/js/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/template/js/startmin.js"></script>
     <script type="text/javascript">
-        function field_focus(field, email)
-        {
-            if(field.value == email)
-            {
-                field.value = '';
-            }
-        }
-
-        function field_blur(field, email)
-        {
-            if(field.value == '')
-            {
-                field.value = email;
-            }
-        }
-
-        //Fade in dashboard box
-        $(document).ready(function(){
-            $('.box').hide().fadeIn(1000);
-        });
-
-        //Stop click event
-        $('a').click(function(event){
-            event.preventDefault();
-        });
-
         $('#loginBtn').on('click', function(){
             ajaxLogin();
         });

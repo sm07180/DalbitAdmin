@@ -17,10 +17,6 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Tables</h1>
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -31,13 +27,13 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
-                                        <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Rendering engine</th>
+                                        <th>Browser</th>
+                                        <th>Platform(s)</th>
+                                        <th>Engine version</th>
+                                        <th>CSS grade</th>
+                                    </tr>
                                     </thead>
                                     <tbody id="tableBody"></tbody>
                                 </table>
@@ -80,7 +76,7 @@
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/sample/list", "", fn_success, fn_fail);
+        getAjaxData("list", "/rest/member/list", "", fn_success, fn_fail);
     });
 
 
@@ -106,13 +102,13 @@
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
-        <tr>
-            <td>{{renderingEngine}}</td>
-            <td>{{browser}}</td>
-            <td>{{platform}}</td>
-            <td class="center">{{version}}</td>
-            <td class="center">{{grade}}</td>
-        </tr>
+    <tr>
+        <td>{{renderingEngine}}</td>
+        <td>{{browser}}</td>
+        <td>{{platform}}</td>
+        <td class="center">{{version}}</td>
+        <td class="center">{{grade}}</td>
+    </tr>
     {{/data}}
 </script>
 
