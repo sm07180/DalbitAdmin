@@ -20,7 +20,6 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-//import com.dalbit.security.handler.LogoutSuccessHandlerImpl;
 
 /**
  * spring Security 설정
@@ -96,10 +95,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/sample"
                     ).hasRole("USER") // USER 권한만 접근 가능
                     .anyRequest().permitAll() // 나머지 리소스에 대한 접근 설정
-            .and()
-                .oauth2Login()
-                .loginPage("/login")
-
             .and()
                 .logout()
                     //.logoutUrl("/logout")

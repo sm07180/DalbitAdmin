@@ -1,4 +1,4 @@
-package com.dalbit.sample.controller;
+package com.dalbit.sample.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
