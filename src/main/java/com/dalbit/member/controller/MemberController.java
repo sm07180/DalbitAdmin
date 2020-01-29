@@ -16,9 +16,34 @@ public class MemberController {
     @Autowired
     SampleService sampleService;
 
+    /**
+     * 회원리스트
+     * @param model
+     * @return
+     */
     @GetMapping("list")
     public String list(Model model){
         return "/member/list";
+    }
+
+    /**
+     * 회원프로필
+     * @param model
+     * @return
+     */
+    @GetMapping("profile")
+    public String profile(Model model){
+        return "/member/profile";
+    }
+
+    /**
+     * 회원프로필 > 방송기록
+     * @param model
+     * @return
+     */
+    @GetMapping("profile/broadList")
+    public String profileBroadList(Model model){
+        return "/member/profile/broadList";
     }
 
 }
