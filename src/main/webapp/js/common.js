@@ -25,3 +25,39 @@ function getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc){
     });
 }
 
+/* Null 체크 */
+function isEmpty(value){
+    return !value ? true : false;
+}
+
+/* Date Type 체크 */
+function isDate(value){
+    var date = new Date(value);
+    return !isEmpty(date);
+}
+
+/* Date to Number 변환 ex.) 2019-05-13 ==> 20190513 */
+function dateToNumber(date){
+    if(isEmpty(date)){
+        dalbitLog("[dateToNumber] 데이터가 Null 입니다. (" + date + ")" )
+        return "-";
+    }
+
+    if(isDate(date)){
+        dalbitLog("[dateToNumber] Date 형식이 아닙니다. (" + date + ")" )
+        return "-";
+    }
+
+    var regExp = /\d/gi;
+    return date.toString().replace(regExp, "");
+}
+
+
+
+function getMaxDay(year, month){
+    var date = new Date(year, month, 0);
+
+    if(isEmpty(date)) return 0;
+
+    return date.getDate();
+}
