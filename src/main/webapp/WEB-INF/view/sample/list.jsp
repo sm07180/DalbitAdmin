@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@include file="../include/header.jsp"%>
+    <tiles:insertAttribute name="header" />
 </head>
 <body>
 
 <div id="wrapper">
 
-    <%@include file="../include/navigation.jsp"%>
+    <tiles:insertAttribute name="navi" />
 
     <div id="page-wrapper">
         <div class="container-fluid">
