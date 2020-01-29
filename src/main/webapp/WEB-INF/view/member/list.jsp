@@ -84,7 +84,9 @@
 <!-- Custom Theme JavaScript -->
 <script src="/template/js/startmin.js"></script>
 <script src="/js/handlebars-v4.7.2.js"></script>
+<script src="/js/moment-v2.24.0.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/helper.js"></script>
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
@@ -125,10 +127,10 @@
             </td>
             <td>{{Name}}</td>
             <td>{{NickName}}</td>
-            <td >{{PhoneNum}}</td>
+            <td>{{PhoneNum}}</td>
             <td>{{Email}}</td>
-            <td>{{JoinDate}}</td>
-            <td>{{BirthDate}}</td>
+            <td>{{convertToDate JoinDate "YYYY.MM.DD"}}</td>
+            <td>{{convertToDate BirthDate "YYYY.MM.DD"}}</td>
             <td>{{Live}}</td>
             <td><label></label>
                 <select class="form-control">

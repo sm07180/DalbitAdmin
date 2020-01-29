@@ -38,8 +38,8 @@ public class MemberRestController {
             map.put("NickName", "내이름은난난");
             map.put("PhoneNum", "01099410000");
             map.put("Email", "Radio00@gmail.com");
-            map.put("JoinDate", "YY,MM.DD");
-            map.put("BirthDate", "00:00:00");
+            map.put("JoinDate", "20191231");
+            map.put("BirthDate", "2000.04.18");
             map.put("Live", "♠");
             map.put("Status", "");
 
