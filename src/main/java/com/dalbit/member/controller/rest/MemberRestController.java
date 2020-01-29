@@ -30,15 +30,35 @@ public class MemberRestController {
     public String list(Model model){
 
         ArrayList<HashMap> list = new ArrayList<HashMap>();
-        for(int i = 0; i++ < 20;){
-            HashMap map = new HashMap();
-            map.put("renderingEngine", DalbitUtil.randomValue("string", 10));
-            map.put("browser", DalbitUtil.randomValue("string", 6));
-            map.put("platform", DalbitUtil.randomValue("string", 9));
-            map.put("version", DalbitUtil.randomValue("number", 4));
-            map.put("grade", DalbitUtil.randomValue("string", 1));
+        HashMap map = new HashMap();
+
+        for(int i=0; i++ <20;) {
+            map.put("NO", "NO");
+            map.put("Name", "양위디");
+            map.put("NickName", "내이름은난난");
+            map.put("PhoneNum", "01099410000");
+            map.put("Email", "Radio00@gmail.com");
+            map.put("JoinDate", "YY,MM.DD");
+            map.put("BirthDate", "00:00:00");
+            map.put("Live", "♠");
+            map.put("Status", "");
+
+
             list.add(map);
         }
+//        for(int i = 0; i++ < 20;){
+//            map = new HashMap();
+//            map.put("NO", DalbitUtil.randomValue("string", 1));
+//            map.put("Name", "테스트인포렉스");
+//            map.put("NickName", DalbitUtil.randomValue("string", 6));
+//            map.put("PhoneNum", DalbitUtil.randomValue("string", 9));
+//            map.put("Email", DalbitUtil.randomValue("String", 20));
+//            map.put("JoinDate", DalbitUtil.randomValue("Date", 6));
+//            map.put("BirthDate", DalbitUtil.randomValue("getTime()", 6));
+//            map.put("Live", DalbitUtil.randomValue("string", 1));
+//            map.put("Status", DalbitUtil.randomValue("string", 1));
+//            list.add(map);
+//        }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }

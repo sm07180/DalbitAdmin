@@ -88,6 +88,7 @@
         var context = response;
         var html = templateScript(context);
 
+        console.log(html);
         $("#tableBody").append(html);
 
         $('#dataTables-example').DataTable({

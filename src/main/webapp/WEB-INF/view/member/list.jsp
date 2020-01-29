@@ -20,7 +20,11 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            DataTables Advanced Tables
+                            <div>
+                                <button type="button" class="btn btn-default">선택삭제</button>
+
+                                <button type="button" class="btn btn-default">Excel 출력</button>
+                            </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -28,14 +32,23 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
+                                            <th><label>
+                                                    <input type="checkbox" value="">NO
+                                                </label>
+                                            </th>
+                                            <th>Name</th>
+                                            <th>NickName</th>
+                                            <th>PhoneNum</th>
+                                            <th>Email</th>
+                                            <th>JoinDate</th>
+                                            <th>BirthDate</th>
+                                            <th>Live</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tableBody"></tbody>
+                                    <tbody id="tableBody">
+
+                                    </tbody>
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
@@ -88,6 +101,8 @@
         var context = response;
         var html = templateScript(context);
 
+        console.log(html)
+
         $("#tableBody").append(html);
 
         $('#dataTables-example').DataTable({
@@ -103,11 +118,25 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
         <tr>
-            <td>{{renderingEngine}}</td>
-            <td>{{browser}}</td>
-            <td>{{platform}}</td>
-            <td class="center">{{version}}</td>
-            <td class="center">{{grade}}</td>
+            <td>
+                <label>
+                    <input type="checkbox" value="">{{NO}}
+                </label>
+            </td>
+            <td>{{Name}}</td>
+            <td>{{NickName}}</td>
+            <td >{{PhoneNum}}</td>
+            <td>{{Email}}</td>
+            <td>{{JoinDate}}</td>
+            <td>{{BirthDate}}</td>
+            <td>{{Live}}</td>
+            <td><label></label>
+                <select class="form-control">
+                    <option>정상</option>
+                    <option>탈퇴</option>
+                    <option>정지</option>
+                </select>
+            </td>
         </tr>
     {{/data}}
 </script>
