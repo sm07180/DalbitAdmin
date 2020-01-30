@@ -34,33 +34,43 @@ public class MemberRestController {
 
         for(int i=0; i++ <20;) {
             map.put("NO", "NO");
-            map.put("Name", "양위디");
-            map.put("NickName", "내이름은난난");
-            map.put("PhoneNum", "01099410000");
-            map.put("Email", "Radio00@gmail.com");
-            map.put("JoinDate", "20191231");
-            map.put("BirthDate", "2000.04.18");
-            map.put("Live", "♠");
-            map.put("Status", "");
+            map.put("Name", "양위디");             // 이름
+            map.put("NickName", "내이름은난난");   // 닉네임
+            map.put("PhoneNum", "01099410000");    // 휴대전화번호
+            map.put("Email", "Radio00@gmail.com"); // 이메일
+            map.put("JoinDate", "20191231");       // 가입일
+            map.put("BirthDate", "20000418");      // 생년월일
+            map.put("Live", "♠");                 // 생방여부
+            map.put("Status", "");                 // 상태 정렬
 
 
             list.add(map);
         }
-//        for(int i = 0; i++ < 20;){
-//            map = new HashMap();
-//            map.put("NO", DalbitUtil.randomValue("string", 1));
-//            map.put("Name", "테스트인포렉스");
-//            map.put("NickName", DalbitUtil.randomValue("string", 6));
-//            map.put("PhoneNum", DalbitUtil.randomValue("string", 9));
-//            map.put("Email", DalbitUtil.randomValue("String", 20));
-//            map.put("JoinDate", DalbitUtil.randomValue("Date", 6));
-//            map.put("BirthDate", DalbitUtil.randomValue("getTime()", 6));
-//            map.put("Live", DalbitUtil.randomValue("string", 1));
-//            map.put("Status", DalbitUtil.randomValue("string", 1));
-//            list.add(map);
-//        }
+
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+    }
+
+    @PostMapping("profile/broadList")
+    public String broadList(Model model) {
+        ArrayList<HashMap> broadList = new ArrayList<>();
+        HashMap map = new HashMap();
+
+        for(int i=0; i++<100;) {
+            map.put("NO", "NO");
+            map.put("RoomTitle", "신나는 주말");  // 방제목
+            map.put("StartTime", "20191225");     // 방송 시작 시간
+            map.put("EndTime", "현재 진행 중");      // 방송 종료 시간
+            map.put("OnAirTime", "01:05:01");      // 방송 진행 시간
+            map.put("MaxListener", "xx");     // 최대 청취자 수
+            map.put("AvgListener", "50");     // 평균 청취자 수
+            map.put("Good", "XX");     // 받은 좋아요 수
+            map.put("Gift", "1");     // 받은 선물 아이템 수
+
+            broadList.add(map);
+        }
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, broadList));
     }
 
 }
