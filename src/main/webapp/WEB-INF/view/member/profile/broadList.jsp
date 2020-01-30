@@ -36,14 +36,14 @@
                                                     <input type="checkbox" value="">NO
                                                 </label>
                                             </th>
-                                            <th>Name</th>
-                                            <th>NickName</th>
-                                            <th>PhoneNum</th>
-                                            <th>Email</th>
-                                            <th>JoinDate</th>
-                                            <th>BirthDate</th>
-                                            <th>Live</th>
-                                            <th>Status</th>
+                                            <th>RoomTitle</th>
+                                            <th>StartTime</th>
+                                            <th>EndTime</th>
+                                            <th>OnAirTime</th>
+                                            <th>MaxListener</th>
+                                            <th>AvgListener</th>
+                                            <th>Good</th>
+                                            <th>Gift</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tableBody">
@@ -69,27 +69,30 @@
 <!-- /#wrapper -->
 
 <!-- jQuery -->
-<script src="/template/js/jquery.min.js"></script>
+<script src="/../template/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/template/js/bootstrap.min.js"></script>
+<script src="/../template/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="/template/js/metisMenu.min.js"></script>
+<script src="/../template/js/metisMenu.min.js"></script>
 
 <!-- DataTables JavaScript -->
-<script src="/template/js/dataTables/jquery.dataTables.min.js"></script>
-<script src="/template/js/dataTables/dataTables.bootstrap.min.js"></script>
+<script src="/../template/js/dataTables/jquery.dataTables.min.js"></script>
+<script src="/../template/js/dataTables/dataTables.bootstrap.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="/template/js/startmin.js"></script>
-<script src="/js/handlebars-v4.7.2.js"></script>
-<script src="/js/common.js"></script>
+<script src="/../template/js/startmin.js"></script>
+<script src="/../js/handlebars-v4.7.2.js"></script>
+<script src="/../js/moment-v2.24.0.js"></script>
+<script src="/../js/common.js"></script>
+<script src="/../js/helper.js"></script>
+
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/list", "", fn_success, fn_fail);
+        getAjaxData("broadList", "/rest/member/profile/broadList", "", fn_success, fn_fail);
     });
 
 
@@ -123,20 +126,14 @@
                     <input type="checkbox" value="">{{NO}}
                 </label>
             </td>
-            <td>{{Name}}</td>
-            <td>{{NickName}}</td>
-            <td >{{PhoneNum}}</td>
-            <td>{{Email}}</td>
-            <td>{{JoinDate}}</td>
-            <td>{{BirthDate}}</td>
-            <td>{{Live}}</td>
-            <td><label></label>
-                <select class="form-control">
-                    <option>정상</option>
-                    <option>탈퇴</option>
-                    <option>정지</option>
-                </select>
-            </td>
+            <td>{{RoomTitle}}</td>
+            <td>{{convertToDate StartTime "YYYY.MM.DD"}}</td>
+            <td>{{EndTime}}</td>
+            <td>{{OnAirTime}}</td>
+            <td>{{MaxListener}}</td>
+            <td>{{AvgListener}}</td>
+            <td>{{Good}}</td>
+            <td>{{Gift}}</td>
         </tr>
     {{/data}}
 </script>
