@@ -1,1374 +1,1118 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie ie9" lang="en" class="no-js"> <![endif]-->
+<!--[if !(IE)]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
-    <meta name="msapplication-tap-highlight" content="no">
-    <!--
-    =========================================================
-    * ArchitectUI HTML Theme Dashboard - v1.0.0
-    =========================================================
-    * Product Page: https://dashboardpack.com
-    * Copyright 2019 DashboardPack (https://dashboardpack.com)
-    * Licensed under MIT (https://github.com/DashboardPack/architectui-html-theme-free/blob/master/LICENSE)
-    =========================================================
-    * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    -->
-<link href="assets/css/main.css" rel="stylesheet"></head>
-<body>
-    <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
-        <div class="app-header header-shadow">
-            <div class="app-header__logo">
-                <div class="logo-src"></div>
-                <div class="header__pane ml-auto">
-                    <div>
-                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="app-header__mobile-menu">
-                <div>
-                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                        <span class="hamburger-box">
-                            <span class="hamburger-inner"></span>
-                        </span>
-                    </button>
-                </div>
-            </div>
-            <div class="app-header__menu">
-                <span>
-                    <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                        <span class="btn-icon-wrapper">
-                            <i class="fa fa-ellipsis-v fa-w-6"></i>
-                        </span>
-                    </button>
-                </span>
-            </div>    <div class="app-header__content">
-                <div class="app-header-left">
-                    <div class="search-wrapper">
-                        <div class="input-holder">
-                            <input type="text" class="search-input" placeholder="Type to search">
-                            <button class="search-icon"><span></span></button>
-                        </div>
-                        <button class="close"></button>
-                    </div>
-                    <ul class="header-menu nav">
-                        <li class="nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-database"> </i>
-                                Statistics
-                            </a>
-                        </li>
-                        <li class="btn-group nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-edit"></i>
-                                Projects
-                            </a>
-                        </li>
-                        <li class="dropdown nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
-                                <i class="nav-link-icon fa fa-cog"></i>
-                                Settings
-                            </a>
-                        </li>
-                    </ul>        </div>
-                <div class="app-header-right">
-                    <div class="header-btn-lg pr-0">
-                        <div class="widget-content p-0">
-                            <div class="widget-content-wrapper">
-                                <div class="widget-content-left">
-                                    <div class="btn-group">
-                                        <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/1.jpg" alt="">
-                                            <i class="fa fa-angle-down ml-2 opacity-8"></i>
-                                        </a>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <button type="button" tabindex="0" class="dropdown-item">User Account</button>
-                                            <button type="button" tabindex="0" class="dropdown-item">Settings</button>
-                                            <h6 tabindex="-1" class="dropdown-header">Header</h6>
-                                            <button type="button" tabindex="0" class="dropdown-item">Actions</button>
-                                            <div tabindex="-1" class="dropdown-divider"></div>
-                                            <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="widget-content-left  ml-3 header-user-info">
-                                    <div class="widget-heading">
-                                        Alina Mclourd
-                                    </div>
-                                    <div class="widget-subheading">
-                                        VP People Manager
-                                    </div>
-                                </div>
-                                <div class="widget-content-right header-user-info ml-3">
-                                    <button type="button" class="btn-shadow p-1 btn btn-primary btn-sm show-toastr-example">
-                                        <i class="fa text-white fa-calendar pr-1 pl-1"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>        </div>
-            </div>
-        </div>        <div class="ui-theme-settings">
-            <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
-                <i class="fa fa-cog fa-w-16 fa-spin fa-2x"></i>
-            </button>
-            <div class="theme-settings__inner">
-                <div class="scrollbar-container">
-                    <div class="theme-settings__options-wrapper">
-                        <h3 class="themeoptions-heading">Layout Options
-                        </h3>
-                        <div class="p-3">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="switch has-switch switch-container-class" data-class="fixed-header">
-                                                    <div class="switch-animate switch-on">
-                                                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Fixed Header
-                                                </div>
-                                                <div class="widget-subheading">Makes the header top fixed, always visible!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="switch has-switch switch-container-class" data-class="fixed-sidebar">
-                                                    <div class="switch-animate switch-on">
-                                                        <input type="checkbox" checked data-toggle="toggle" data-onstyle="success">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Fixed Sidebar
-                                                </div>
-                                                <div class="widget-subheading">Makes the sidebar left fixed, always visible!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left mr-3">
-                                                <div class="switch has-switch switch-container-class" data-class="fixed-footer">
-                                                    <div class="switch-animate switch-off">
-                                                        <input type="checkbox" data-toggle="toggle" data-onstyle="success">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Fixed Footer
-                                                </div>
-                                                <div class="widget-subheading">Makes the app footer bottom fixed, always visible!
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <h3 class="themeoptions-heading">
-                            <div>
-                                Header Options
-                            </div>
-                            <button type="button" class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm switch-header-cs-class" data-class="">
-                                Restore Default
-                            </button>
-                        </h3>
-                        <div class="p-3">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <h5 class="pb-2">Choose Color Scheme
-                                    </h5>
-                                    <div class="theme-settings-swatches">
-                                        <div class="swatch-holder bg-primary switch-header-cs-class" data-class="bg-primary header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-secondary switch-header-cs-class" data-class="bg-secondary header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-success switch-header-cs-class" data-class="bg-success header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-info switch-header-cs-class" data-class="bg-info header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-warning switch-header-cs-class" data-class="bg-warning header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-danger switch-header-cs-class" data-class="bg-danger header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-light switch-header-cs-class" data-class="bg-light header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-dark switch-header-cs-class" data-class="bg-dark header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-focus switch-header-cs-class" data-class="bg-focus header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-alternate switch-header-cs-class" data-class="bg-alternate header-text-light">
-                                        </div>
-                                        <div class="divider">
-                                        </div>
-                                        <div class="swatch-holder bg-vicious-stance switch-header-cs-class" data-class="bg-vicious-stance header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-midnight-bloom switch-header-cs-class" data-class="bg-midnight-bloom header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-night-sky switch-header-cs-class" data-class="bg-night-sky header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-slick-carbon switch-header-cs-class" data-class="bg-slick-carbon header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-asteroid switch-header-cs-class" data-class="bg-asteroid header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-royal switch-header-cs-class" data-class="bg-royal header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-warm-flame switch-header-cs-class" data-class="bg-warm-flame header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-night-fade switch-header-cs-class" data-class="bg-night-fade header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-sunny-morning switch-header-cs-class" data-class="bg-sunny-morning header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-tempting-azure switch-header-cs-class" data-class="bg-tempting-azure header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-amy-crisp switch-header-cs-class" data-class="bg-amy-crisp header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-heavy-rain switch-header-cs-class" data-class="bg-heavy-rain header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-mean-fruit switch-header-cs-class" data-class="bg-mean-fruit header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-malibu-beach switch-header-cs-class" data-class="bg-malibu-beach header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-deep-blue switch-header-cs-class" data-class="bg-deep-blue header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-ripe-malin switch-header-cs-class" data-class="bg-ripe-malin header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-arielle-smile switch-header-cs-class" data-class="bg-arielle-smile header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-plum-plate switch-header-cs-class" data-class="bg-plum-plate header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-happy-fisher switch-header-cs-class" data-class="bg-happy-fisher header-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-happy-itmeo switch-header-cs-class" data-class="bg-happy-itmeo header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-mixed-hopes switch-header-cs-class" data-class="bg-mixed-hopes header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-strong-bliss switch-header-cs-class" data-class="bg-strong-bliss header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-grow-early switch-header-cs-class" data-class="bg-grow-early header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-love-kiss switch-header-cs-class" data-class="bg-love-kiss header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-premium-dark switch-header-cs-class" data-class="bg-premium-dark header-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-happy-green switch-header-cs-class" data-class="bg-happy-green header-text-light">
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <h3 class="themeoptions-heading">
-                            <div>Sidebar Options</div>
-                            <button type="button" class="btn-pill btn-shadow btn-wide ml-auto btn btn-focus btn-sm switch-sidebar-cs-class" data-class="">
-                                Restore Default
-                            </button>
-                        </h3>
-                        <div class="p-3">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <h5 class="pb-2">Choose Color Scheme
-                                    </h5>
-                                    <div class="theme-settings-swatches">
-                                        <div class="swatch-holder bg-primary switch-sidebar-cs-class" data-class="bg-primary sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-secondary switch-sidebar-cs-class" data-class="bg-secondary sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-success switch-sidebar-cs-class" data-class="bg-success sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-info switch-sidebar-cs-class" data-class="bg-info sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-warning switch-sidebar-cs-class" data-class="bg-warning sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-danger switch-sidebar-cs-class" data-class="bg-danger sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-light switch-sidebar-cs-class" data-class="bg-light sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-dark switch-sidebar-cs-class" data-class="bg-dark sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-focus switch-sidebar-cs-class" data-class="bg-focus sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-alternate switch-sidebar-cs-class" data-class="bg-alternate sidebar-text-light">
-                                        </div>
-                                        <div class="divider">
-                                        </div>
-                                        <div class="swatch-holder bg-vicious-stance switch-sidebar-cs-class" data-class="bg-vicious-stance sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-midnight-bloom switch-sidebar-cs-class" data-class="bg-midnight-bloom sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-night-sky switch-sidebar-cs-class" data-class="bg-night-sky sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-slick-carbon switch-sidebar-cs-class" data-class="bg-slick-carbon sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-asteroid switch-sidebar-cs-class" data-class="bg-asteroid sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-royal switch-sidebar-cs-class" data-class="bg-royal sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-warm-flame switch-sidebar-cs-class" data-class="bg-warm-flame sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-night-fade switch-sidebar-cs-class" data-class="bg-night-fade sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-sunny-morning switch-sidebar-cs-class" data-class="bg-sunny-morning sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-tempting-azure switch-sidebar-cs-class" data-class="bg-tempting-azure sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-amy-crisp switch-sidebar-cs-class" data-class="bg-amy-crisp sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-heavy-rain switch-sidebar-cs-class" data-class="bg-heavy-rain sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-mean-fruit switch-sidebar-cs-class" data-class="bg-mean-fruit sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-malibu-beach switch-sidebar-cs-class" data-class="bg-malibu-beach sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-deep-blue switch-sidebar-cs-class" data-class="bg-deep-blue sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-ripe-malin switch-sidebar-cs-class" data-class="bg-ripe-malin sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-arielle-smile switch-sidebar-cs-class" data-class="bg-arielle-smile sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-plum-plate switch-sidebar-cs-class" data-class="bg-plum-plate sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-happy-fisher switch-sidebar-cs-class" data-class="bg-happy-fisher sidebar-text-dark">
-                                        </div>
-                                        <div class="swatch-holder bg-happy-itmeo switch-sidebar-cs-class" data-class="bg-happy-itmeo sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-mixed-hopes switch-sidebar-cs-class" data-class="bg-mixed-hopes sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-strong-bliss switch-sidebar-cs-class" data-class="bg-strong-bliss sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-grow-early switch-sidebar-cs-class" data-class="bg-grow-early sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-love-kiss switch-sidebar-cs-class" data-class="bg-love-kiss sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-premium-dark switch-sidebar-cs-class" data-class="bg-premium-dark sidebar-text-light">
-                                        </div>
-                                        <div class="swatch-holder bg-happy-green switch-sidebar-cs-class" data-class="bg-happy-green sidebar-text-light">
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <h3 class="themeoptions-heading">
-                            <div>Main Content Options</div>
-                            <button type="button" class="btn-pill btn-shadow btn-wide ml-auto active btn btn-focus btn-sm">Restore Default
-                            </button>
-                        </h3>
-                        <div class="p-3">
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <h5 class="pb-2">Page Section Tabs
-                                    </h5>
-                                    <div class="theme-settings-swatches">
-                                        <div role="group" class="mt-2 btn-group">
-                                            <button type="button" class="btn-wide btn-shadow btn-primary btn btn-secondary switch-theme-class" data-class="body-tabs-line">
-                                                Line
-                                            </button>
-                                            <button type="button" class="btn-wide btn-shadow btn-primary active btn btn-secondary switch-theme-class" data-class="body-tabs-shadow">
-                                                Shadow
-                                            </button>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>        <div class="app-main">
-                <div class="app-sidebar sidebar-shadow">
-                    <div class="app-header__logo">
-                        <div class="logo-src"></div>
-                        <div class="header__pane ml-auto">
-                            <div>
-                                <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
-                                    <span class="hamburger-box">
-                                        <span class="hamburger-inner"></span>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="app-header__mobile-menu">
-                        <div>
-                            <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
-                                <span class="hamburger-box">
-                                    <span class="hamburger-inner"></span>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="app-header__menu">
-                        <span>
-                            <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
-                                <span class="btn-icon-wrapper">
-                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
-                                </span>
-                            </button>
-                        </span>
-                    </div>    <div class="scrollbar-sidebar">
-                        <div class="app-sidebar__inner">
-                            <ul class="vertical-nav-menu">
-                                <li class="app-sidebar__heading">Dashboards</li>
-                                <li>
-                                    <a href="index.html" class="mm-active">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                        Dashboard Example 1
-                                    </a>
-                                </li>
-                                <li class="app-sidebar__heading">UI Components</li>
-                                <li
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                >
-                                    <a href="#">
-                                        <i class="metismenu-icon pe-7s-diamond"></i>
-                                        Elements
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                    >
-                                        <li>
-                                            <a href="elements-buttons-standard.html">
-                                                <i class="metismenu-icon"></i>
-                                                Buttons
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-dropdowns.html">
-                                                <i class="metismenu-icon">
-                                                </i>Dropdowns
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-icons.html">
-                                                <i class="metismenu-icon">
-                                                </i>Icons
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-badges-labels.html">
-                                                <i class="metismenu-icon">
-                                                </i>Badges
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-cards.html">
-                                                <i class="metismenu-icon">
-                                                </i>Cards
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-list-group.html">
-                                                <i class="metismenu-icon">
-                                                </i>List Groups
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-navigation.html">
-                                                <i class="metismenu-icon">
-                                                </i>Navigation Menus
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="elements-utilities.html">
-                                                <i class="metismenu-icon">
-                                                </i>Utilities
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                >
-                                    <a href="#">
-                                        <i class="metismenu-icon pe-7s-car"></i>
-                                        Components
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                        
-                                    >
-                                        <li>
-                                            <a href="components-tabs.html">
-                                                <i class="metismenu-icon">
-                                                </i>Tabs
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-accordions.html">
-                                                <i class="metismenu-icon">
-                                                </i>Accordions
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-notifications.html">
-                                                <i class="metismenu-icon">
-                                                </i>Notifications
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-modals.html">
-                                                <i class="metismenu-icon">
-                                                </i>Modals
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-progress-bar.html">
-                                                <i class="metismenu-icon">
-                                                </i>Progress Bar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-tooltips-popovers.html">
-                                                <i class="metismenu-icon">
-                                                </i>Tooltips &amp; Popovers
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-carousel.html">
-                                                <i class="metismenu-icon">
-                                                </i>Carousel
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-calendar.html">
-                                                <i class="metismenu-icon">
-                                                </i>Calendar
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-pagination.html">
-                                                <i class="metismenu-icon">
-                                                </i>Pagination
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-scrollable-elements.html">
-                                                <i class="metismenu-icon">
-                                                </i>Scrollable
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="components-maps.html">
-                                                <i class="metismenu-icon">
-                                                </i>Maps
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li  >
-                                    <a href="tables-regular.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Tables
-                                    </a>
-                                </li>
-                                <li class="app-sidebar__heading">Widgets</li>
-                                <li>
-                                    <a href="dashboard-boxes.html">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Dashboard Boxes
-                                    </a>
-                                </li>
-                                <li class="app-sidebar__heading">Forms</li>
-                                <li>
-                                    <a href="forms-controls.html">
-                                        <i class="metismenu-icon pe-7s-mouse">
-                                        </i>Forms Controls
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="forms-layouts.html">
-                                        <i class="metismenu-icon pe-7s-eyedropper">
-                                        </i>Forms Layouts
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="forms-validation.html">
-                                        <i class="metismenu-icon pe-7s-pendrive">
-                                        </i>Forms Validation
-                                    </a>
-                                </li>
-                                <li class="app-sidebar__heading">Charts</li>
-                                <li>
-                                    <a href="charts-chartjs.html">
-                                        <i class="metismenu-icon pe-7s-graph2">
-                                        </i>ChartJS
-                                    </a>
-                                </li>
-                                <li class="app-sidebar__heading">PRO Version</li>
-                                <li>
-                                    <a href="https://dashboardpack.com/theme-details/architectui-dashboard-html-pro/" target="_blank">
-                                        <i class="metismenu-icon pe-7s-graph2">
-                                        </i>
-                                        Upgrade to PRO
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>    <div class="app-main__outer">
-                    <div class="app-main__inner">
-                        <div class="app-page-title">
-                            <div class="page-title-wrapper">
-                                <div class="page-title-heading">
-                                    <div class="page-title-icon">
-                                        <i class="pe-7s-car icon-gradient bg-mean-fruit">
-                                        </i>
-                                    </div>
-                                    <div>Analytics Dashboard
-                                        <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="page-title-actions">
-                                    <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
-                                        <i class="fa fa-star"></i>
-                                    </button>
-                                    <div class="d-inline-block dropdown">
-                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
-                                            <span class="btn-icon-wrapper pr-2 opacity-7">
-                                                <i class="fa fa-business-time fa-w-20"></i>
-                                            </span>
-                                            Buttons
-                                        </button>
-                                        <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-                                            <ul class="nav flex-column">
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        <i class="nav-link-icon lnr-inbox"></i>
-                                                        <span>
-                                                            Inbox
-                                                        </span>
-                                                        <div class="ml-auto badge badge-pill badge-secondary">86</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        <i class="nav-link-icon lnr-book"></i>
-                                                        <span>
-                                                            Book
-                                                        </span>
-                                                        <div class="ml-auto badge badge-pill badge-danger">5</div>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="javascript:void(0);" class="nav-link">
-                                                        <i class="nav-link-icon lnr-picture"></i>
-                                                        <span>
-                                                            Picture
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a disabled href="javascript:void(0);" class="nav-link disabled">
-                                                        <i class="nav-link-icon lnr-file-empty"></i>
-                                                        <span>
-                                                            File Disabled
-                                                        </span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>    </div>
-                        </div>            <div class="row">
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content bg-midnight-bloom">
-                                    <div class="widget-content-wrapper text-white">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">Total Orders</div>
-                                            <div class="widget-subheading">Last year expenses</div>
-                                        </div>
-                                        <div class="widget-content-right">
-                                            <div class="widget-numbers text-white"><span>1896</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content bg-arielle-smile">
-                                    <div class="widget-content-wrapper text-white">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">Clients</div>
-                                            <div class="widget-subheading">Total Clients Profit</div>
-                                        </div>
-                                        <div class="widget-content-right">
-                                            <div class="widget-numbers text-white"><span>$ 568</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content bg-grow-early">
-                                    <div class="widget-content-wrapper text-white">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">Followers</div>
-                                            <div class="widget-subheading">People Interested</div>
-                                        </div>
-                                        <div class="widget-content-right">
-                                            <div class="widget-numbers text-white"><span>46%</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content bg-premium-dark">
-                                    <div class="widget-content-wrapper text-white">
-                                        <div class="widget-content-left">
-                                            <div class="widget-heading">Products Sold</div>
-                                            <div class="widget-subheading">Revenue streams</div>
-                                        </div>
-                                        <div class="widget-content-right">
-                                            <div class="widget-numbers text-warning"><span>$14M</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 col-lg-6">
-                                <div class="mb-3 card">
-                                    <div class="card-header-tab card-header-tab-animation card-header">
-                                        <div class="card-header-title">
-                                            <i class="header-icon lnr-apartment icon-gradient bg-love-kiss"> </i>
-                                            Sales Report
-                                        </div>
-                                        <ul class="nav">
-                                            <li class="nav-item"><a href="javascript:void(0);" class="active nav-link">Last</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0);" class="nav-link second-tab-toggle">Current</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="tabs-eg-77">
-                                                <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
-                                                    <div class="widget-chat-wrapper-outer">
-                                                        <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
-                                                            <canvas id="canvas"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Top Authors</h6>
-                                                <div class="scroll-area-sm">
-                                                    <div class="scrollbar-container">
-                                                        <ul class="rm-list-borders rm-list-borders-scroll list-group list-group-flush">
-                                                            <li class="list-group-item">
-                                                                <div class="widget-content p-0">
-                                                                    <div class="widget-content-wrapper">
-                                                                        <div class="widget-content-left mr-3">
-                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/9.jpg" alt="">
-                                                                        </div>
-                                                                        <div class="widget-content-left">
-                                                                            <div class="widget-heading">Ella-Rose Henry</div>
-                                                                            <div class="widget-subheading">Web Developer</div>
-                                                                        </div>
-                                                                        <div class="widget-content-right">
-                                                                            <div class="font-size-xlg text-muted">
-                                                                                <small class="opacity-5 pr-1">$</small>
-                                                                                <span>129</span>
-                                                                                <small class="text-danger pl-2">
-                                                                                    <i class="fa fa-angle-down"></i>
-                                                                                </small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="widget-content p-0">
-                                                                    <div class="widget-content-wrapper">
-                                                                        <div class="widget-content-left mr-3">
-                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/5.jpg" alt="">
-                                                                        </div>
-                                                                        <div class="widget-content-left">
-                                                                            <div class="widget-heading">Ruben Tillman</div>
-                                                                            <div class="widget-subheading">UI Designer</div>
-                                                                        </div>
-                                                                        <div class="widget-content-right">
-                                                                            <div class="font-size-xlg text-muted">
-                                                                                <small class="opacity-5 pr-1">$</small>
-                                                                                <span>54</span>
-                                                                                <small class="text-success pl-2">
-                                                                                    <i class="fa fa-angle-up"></i>
-                                                                                </small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="widget-content p-0">
-                                                                    <div class="widget-content-wrapper">
-                                                                        <div class="widget-content-left mr-3">
-                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
-                                                                        </div>
-                                                                        <div class="widget-content-left">
-                                                                            <div class="widget-heading">Vinnie Wagstaff</div>
-                                                                            <div class="widget-subheading">Java Programmer</div>
-                                                                        </div>
-                                                                        <div class="widget-content-right">
-                                                                            <div class="font-size-xlg text-muted">
-                                                                                <small class="opacity-5 pr-1">$</small>
-                                                                                <span>429</span>
-                                                                                <small class="text-warning pl-2">
-                                                                                    <i class="fa fa-dot-circle"></i>
-                                                                                </small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="widget-content p-0">
-                                                                    <div class="widget-content-wrapper">
-                                                                        <div class="widget-content-left mr-3">
-                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
-                                                                        </div>
-                                                                        <div class="widget-content-left">
-                                                                            <div class="widget-heading">Ella-Rose Henry</div>
-                                                                            <div class="widget-subheading">Web Developer</div>
-                                                                        </div>
-                                                                        <div class="widget-content-right">
-                                                                            <div class="font-size-xlg text-muted">
-                                                                                <small class="opacity-5 pr-1">$</small>
-                                                                                <span>129</span>
-                                                                                <small class="text-danger pl-2">
-                                                                                    <i class="fa fa-angle-down"></i>
-                                                                                </small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="list-group-item">
-                                                                <div class="widget-content p-0">
-                                                                    <div class="widget-content-wrapper">
-                                                                        <div class="widget-content-left mr-3">
-                                                                            <img width="42" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
-                                                                        </div>
-                                                                        <div class="widget-content-left">
-                                                                            <div class="widget-heading">Ruben Tillman</div>
-                                                                            <div class="widget-subheading">UI Designer</div>
-                                                                        </div>
-                                                                        <div class="widget-content-right">
-                                                                            <div class="font-size-xlg text-muted">
-                                                                                <small class="opacity-5 pr-1">$</small>
-                                                                                <span>54</span>
-                                                                                <small class="text-success pl-2">
-                                                                                    <i class="fa fa-angle-up"></i>
-                                                                                </small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-lg-6">
-                                <div class="mb-3 card">
-                                    <div class="card-header-tab card-header">
-                                        <div class="card-header-title">
-                                            <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
-                                            Bandwidth Reports
-                                        </div>
-                                        <div class="btn-actions-pane-right">
-                                            <div class="nav">
-                                                <a href="javascript:void(0);" class="border-0 btn-pill btn-wide btn-transition active btn btn-outline-alternate">Tab 1</a>
-                                                <a href="javascript:void(0);" class="ml-1 btn-pill btn-wide border-0 btn-transition  btn btn-outline-alternate second-tab-toggle-alt">Tab 2</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-content">
-                                        <div class="tab-pane fade active show" id="tab-eg-55">
-                                            <div class="widget-chart p-3">
-                                                <div style="height: 350px">
-                                                    <canvas id="line-chart"></canvas>
-                                                </div>
-                                                <div class="widget-chart-content text-center mt-5">
-                                                    <div class="widget-description mt-0 text-warning">
-                                                        <i class="fa fa-arrow-left"></i>
-                                                        <span class="pl-1">175.5%</span>
-                                                        <span class="text-muted opacity-8 pl-1">increased server resources</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="pt-2 card-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="widget-content">
-                                                            <div class="widget-content-outer">
-                                                                <div class="widget-content-wrapper">
-                                                                    <div class="widget-content-left">
-                                                                        <div class="widget-numbers fsize-3 text-muted">63%</div>
-                                                                    </div>
-                                                                    <div class="widget-content-right">
-                                                                        <div class="text-muted opacity-6">Generated Leads</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="widget-progress-wrapper mt-1">
-                                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" style="width: 63%;"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="widget-content">
-                                                            <div class="widget-content-outer">
-                                                                <div class="widget-content-wrapper">
-                                                                    <div class="widget-content-left">
-                                                                        <div class="widget-numbers fsize-3 text-muted">32%</div>
-                                                                    </div>
-                                                                    <div class="widget-content-right">
-                                                                        <div class="text-muted opacity-6">Submitted Tickers</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="widget-progress-wrapper mt-1">
-                                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="width: 32%;"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="widget-content">
-                                                            <div class="widget-content-outer">
-                                                                <div class="widget-content-wrapper">
-                                                                    <div class="widget-content-left">
-                                                                        <div class="widget-numbers fsize-3 text-muted">71%</div>
-                                                                    </div>
-                                                                    <div class="widget-content-right">
-                                                                        <div class="text-muted opacity-6">Server Allocation</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="widget-progress-wrapper mt-1">
-                                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="widget-content">
-                                                            <div class="widget-content-outer">
-                                                                <div class="widget-content-wrapper">
-                                                                    <div class="widget-content-left">
-                                                                        <div class="widget-numbers fsize-3 text-muted">41%</div>
-                                                                    </div>
-                                                                    <div class="widget-content-right">
-                                                                        <div class="text-muted opacity-6">Generated Leads</div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="widget-progress-wrapper mt-1">
-                                                                    <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100" style="width: 41%;"></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Total Orders</div>
-                                                <div class="widget-subheading">Last year expenses</div>
-                                            </div>
-                                            <div class="widget-content-right">
-                                                <div class="widget-numbers text-success">1896</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Products Sold</div>
-                                                <div class="widget-subheading">Revenue streams</div>
-                                            </div>
-                                            <div class="widget-content-right">
-                                                <div class="widget-numbers text-warning">$3M</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Followers</div>
-                                                <div class="widget-subheading">People Interested</div>
-                                            </div>
-                                            <div class="widget-content-right">
-                                                <div class="widget-numbers text-danger">45,9%</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-xl-none d-lg-block col-md-6 col-xl-4">
-                                <div class="card mb-3 widget-content">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left">
-                                                <div class="widget-heading">Income</div>
-                                                <div class="widget-subheading">Expected totals</div>
-                                            </div>
-                                            <div class="widget-content-right">
-                                                <div class="widget-numbers text-focus">$147</div>
-                                            </div>
-                                        </div>
-                                        <div class="widget-progress-wrapper">
-                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" style="width: 54%;"></div>
-                                            </div>
-                                            <div class="progress-sub-label">
-                                                <div class="sub-label-left">Expenses</div>
-                                                <div class="sub-label-right">100%</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-header">Active Users
-                                        <div class="btn-actions-pane-right">
-                                            <div role="group" class="btn-group-sm btn-group">
-                                                <button class="active btn btn-focus">Last Week</button>
-                                                <button class="btn btn-focus">All Month</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th class="text-center">#</th>
-                                                <th>Name</th>
-                                                <th class="text-center">City</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="text-center text-muted">#345</td>
-                                                <td>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left mr-3">
-                                                                <div class="widget-content-left">
-                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/4.jpg" alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-content-left flex2">
-                                                                <div class="widget-heading">John Doe</div>
-                                                                <div class="widget-subheading opacity-7">Web Developer</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center">Madrid</td>
-                                                <td class="text-center">
-                                                    <div class="badge badge-warning">Pending</div>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">Details</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center text-muted">#347</td>
-                                                <td>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left mr-3">
-                                                                <div class="widget-content-left">
-                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/3.jpg" alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-content-left flex2">
-                                                                <div class="widget-heading">Ruben Tillman</div>
-                                                                <div class="widget-subheading opacity-7">Etiam sit amet orci eget</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center">Berlin</td>
-                                                <td class="text-center">
-                                                    <div class="badge badge-success">Completed</div>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" id="PopoverCustomT-2" class="btn btn-primary btn-sm">Details</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center text-muted">#321</td>
-                                                <td>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left mr-3">
-                                                                <div class="widget-content-left">
-                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/2.jpg" alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="widget-content-left flex2">
-                                                                <div class="widget-heading">Elliot Huber</div>
-                                                                <div class="widget-subheading opacity-7">Lorem ipsum dolor sic</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center">London</td>
-                                                <td class="text-center">
-                                                    <div class="badge badge-danger">In Progress</div>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" id="PopoverCustomT-3" class="btn btn-primary btn-sm">Details</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center text-muted">#55</td>
-                                                <td>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left mr-3">
-                                                                <div class="widget-content-left">
-                                                                    <img width="40" class="rounded-circle" src="assets/images/avatars/1.jpg" alt=""></div>
-                                                            </div>
-                                                            <div class="widget-content-left flex2">
-                                                                <div class="widget-heading">Vinnie Wagstaff</div>
-                                                                <div class="widget-subheading opacity-7">UI Designer</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center">Amsterdam</td>
-                                                <td class="text-center">
-                                                    <div class="badge badge-info">On Hold</div>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" id="PopoverCustomT-4" class="btn btn-primary btn-sm">Details</button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="d-block text-center card-footer">
-                                        <button class="mr-2 btn-icon btn-icon-only btn btn-outline-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i></button>
-                                        <button class="btn-wide btn btn-success">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-danger mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-danger">71%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Income Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-success mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-success">54%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100" style="width: 54%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Expenses Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-warning mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-warning">32%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100" style="width: 32%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Spendings Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-3">
-                                <div class="card-shadow-info mb-3 widget-chart widget-chart2 text-left card">
-                                    <div class="widget-content">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left pr-2 fsize-1">
-                                                    <div class="widget-numbers mt-0 fsize-3 text-info">89%</div>
-                                                </div>
-                                                <div class="widget-content-right w-100">
-                                                    <div class="progress-bar-xs progress">
-                                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100" style="width: 89%;"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="widget-content-left fsize-1">
-                                                <div class="text-muted opacity-6">Totals Target</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="app-wrapper-footer">
-                        <div class="app-footer">
-                            <div class="app-footer__inner">
-                                <div class="app-footer-left">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 1
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 2
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="app-footer-right">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                Footer Link 3
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">
-                                                <div class="badge badge-success mr-1 ml-0">
-                                                    <small>NEW</small>
-                                                </div>
-                                                Footer Link 4
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>    </div>
-                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-        </div>
-    </div>
-<script type="text/javascript" src="./assets/scripts/main.js"></script></body>
+	<title>Dashboard | KingAdmin - Admin Dashboard</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="KingAdmin - Bootstrap Admin Dashboard Theme">
+	<meta name="author" content="The Develovers">
+
+	<!-- CSS -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
+
+	<!--[if lte IE 9]>
+		<link href="assets/css/main-ie.css" rel="stylesheet" type="text/css"/>
+		<link href="assets/css/main-ie-part2.css" rel="stylesheet" type="text/css"/>
+	<![endif]-->
+
+	<!-- CSS for demo style switcher. you can remove this -->
+	<link href="assets/css/style-switcher.css" rel="stylesheet" type="text/css">
+
+	<!-- Fav and touch icons -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/kingadmin-favicon144x144.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/kingadmin-favicon114x114.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/kingadmin-favicon72x72.png">
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="assets/ico/kingadmin-favicon57x57.png">
+	<link rel="shortcut icon" href="assets/ico/favicon.png">
+</head>
+
+<body class="dashboard">
+	<!-- WRAPPER -->
+	<div class="wrapper">
+		<!-- TOP BAR -->
+		<div class="top-bar">
+			<div class="container">
+				<div class="row">
+					<!-- logo -->
+					<div class="col-md-2 logo">
+						<a href="index.html"><img src="assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard" /></a>
+						<h1 class="sr-only">KingAdmin Admin Dashboard</h1>
+					</div>
+					<!-- end logo -->
+					<div class="col-md-10">
+						<div class="row">
+							<div class="col-md-3">
+								<!-- search box -->
+								<div id="tour-searchbox" class="input-group searchbox">
+									<input type="search" class="form-control" placeholder="enter keyword here...">
+									<span class="input-group-btn">
+										<button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+									</span>
+								</div>
+								<!-- end search box -->
+							</div>
+							<div class="col-md-9">
+								<div class="top-bar-right">
+									<!-- responsive menu bar icon -->
+									<a href="#" class="hidden-md hidden-lg main-nav-toggle"><i class="fa fa-bars"></i></a>
+									<!-- end responsive menu bar icon -->
+									<button type="button" id="start-tour" class="btn btn-link"><i class="fa fa-refresh"></i> Start Tour</button>
+									<button type="button" id="global-volume" class="btn btn-link btn-global-volume"><i class="fa"></i></button>
+									<div class="notifications">
+										<ul>
+											<!-- notification: inbox -->
+											<li class="notification-item inbox">
+												<div class="btn-group">
+													<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+														<i class="fa fa-envelope"></i><span class="count">2</span>
+														<span class="circle"></span>
+													</a>
+													<ul class="dropdown-menu" role="menu">
+														<li class="notification-header">
+															<em>You have 2 unread messages</em>
+														</li>
+														<li class="inbox-item clearfix">
+															<a href="#">
+																<div class="media">
+																	<div class="media-left">
+																		<img class="media-object" src="assets/img/user1.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Antonius</h5>
+																		<p class="text">The problem just happened this morning. I can't see ...</p>
+																		<span class="timestamp">4 minutes ago</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item unread clearfix">
+															<a href="#">
+																<div class="media">
+																	<div class="media-left">
+																		<img class="media-object" src="assets/img/user2.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Michael</h5>
+																		<p class="text">Hey dude, cool theme!</p>
+																		<span class="timestamp">2 hours ago</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item unread clearfix">
+															<a href="#">
+																<div class="media">
+																	<div class="media-left">
+																		<img class="media-object" src="assets/img/user3.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Stella</h5>
+																		<p class="text">Ok now I can see the status for each item. Thanks! :D</p>
+																		<span class="timestamp">Oct 6</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item clearfix">
+															<a href="#">
+																<div class="media">
+																	<div class="media-left">
+																		<img class="media-object" src="assets/img/user4.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">Jane Doe</h5>
+																		<p class="text"><i class="fa fa-reply"></i> Please check the status of your ...</p>
+																		<span class="timestamp">Oct 2</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="inbox-item clearfix">
+															<a href="#">
+																<div class="media">
+																	<div class="media-left">
+																		<img class="media-object" src="assets/img/user5.png" alt="Antonio">
+																	</div>
+																	<div class="media-body">
+																		<h5 class="media-heading name">John Simmons</h5>
+																		<p class="text"><i class="fa fa-reply"></i> I've fixed the problem :)</p>
+																		<span class="timestamp">Sep 12</span>
+																	</div>
+																</div>
+															</a>
+														</li>
+														<li class="notification-footer">
+															<a href="#">View All Messages</a>
+														</li>
+													</ul>
+												</div>
+											</li>
+											<!-- end notification: inbox -->
+											<!-- notification: general -->
+											<li class="notification-item general">
+												<div class="btn-group">
+													<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+														<i class="fa fa-bell"></i><span class="count">8</span>
+														<span class="circle"></span>
+													</a>
+													<ul class="dropdown-menu" role="menu">
+														<li class="notification-header">
+															<em>You have 8 notifications</em>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">1 minute ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-user green-font"></i>
+																<span class="text">New registered user</span>
+																<span class="timestamp">12 minutes ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">18 minutes ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-shopping-cart red-font"></i>
+																<span class="text">4 new sales order</span>
+																<span class="timestamp">4 hours ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-edit yellow-font"></i>
+																<span class="text">3 product reviews awaiting moderation</span>
+																<span class="timestamp">1 day ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">3 days ago</span>
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-comment green-font"></i>
+																<span class="text">New comment on the blog post</span>
+																<span class="timestamp">Oct 15</span>
+															</a>
+														</li>
+														<li>
+															<a href="#">
+																<i class="fa fa-warning red-font"></i>
+																<span class="text red-font">Low disk space!</span>
+																<span class="timestamp">Oct 11</span>
+															</a>
+														</li>
+														<li class="notification-footer">
+															<a href="#">View All Notifications</a>
+														</li>
+													</ul>
+												</div>
+											</li>
+											<!-- end notification: general -->
+										</ul>
+									</div>
+									<!-- logged user and the menu -->
+									<div class="logged-user">
+										<div class="btn-group">
+											<a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+												<img src="assets/img/user-avatar.png" alt="User Avatar" />
+												<span class="name">Stacy Rose</span> <span class="caret"></span>
+											</a>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a href="#">
+														<i class="fa fa-user"></i>
+														<span class="text">Profile</span>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fa fa-cog"></i>
+														<span class="text">Settings</span>
+													</a>
+												</li>
+												<li>
+													<a href="#">
+														<i class="fa fa-power-off"></i>
+														<span class="text">Logout</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<!-- end logged user and the menu -->
+								</div>
+								<!-- /top-bar-right -->
+							</div>
+						</div>
+						<!-- /row -->
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /top -->
+		<!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+		<div class="bottom">
+			<div class="container">
+				<div class="row">
+					<!-- left sidebar -->
+					<div class="col-md-2 left-sidebar">
+						<!-- main-nav -->
+						<nav class="main-nav">
+							<ul class="main-menu">
+								<li class="active">
+									<a href="#" class="js-sub-menu-toggle">
+										<i class="fa fa-dashboard fa-fw"></i><span class="text">Dashboard</span>
+										<i class="toggle-icon fa fa-angle-down"></i>
+									</a>
+									<ul class="sub-menu open">
+										<li class="active"><a href="index.html"><span class="text">Dashboard v1</span></a></li>
+										<li><a href="index-dashboard-v2.html"><span class="text">Dashboard v2 <span class="badge element-bg-color-blue">New</span></span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" class="js-sub-menu-toggle">
+										<i class="fa fa-clipboard fa-fw"></i><span class="text">Pages</span>
+										<i class="toggle-icon fa fa-angle-left"></i>
+									</a>
+									<ul class="sub-menu ">
+										<li><a href="page-profile.html"><span class="text">Profile</span></a></li>
+										<li><a href="page-invoice.html"><span class="text">Invoice</span></a></li>
+										<li><a href="page-knowledgebase.html"><span class="text">Knowledge Base</span></a></li>
+										<li><a href="page-inbox.html"><span class="text">Inbox</span></a></li>
+										<li><a href="page-new-message.html"><span class="text">New Message</span></a></li>
+										<li><a href="page-view-message.html"><span class="text">View Message</span></a></li>
+										<li><a href="page-search-result.html"><span class="text">Search Result</span></a></li>
+										<li><a href="page-submit-ticket.html"><span class="text">Submit Ticket</span></a></li>
+										<li><a href="page-file-manager.html"><span class="text">File Manager <span class="badge element-bg-color-blue">New</span></span></a></li>
+										<li><a href="page-projects.html"><span class="text">Projects <span class="badge element-bg-color-blue">New</span></span></a></li>
+										<li><a href="page-project-detail.html"><span class="text">Project Detail <span class="badge element-bg-color-blue">New</span></span></a></li>
+										<li><a href="page-faq.html"><span class="text">FAQ <span class="badge element-bg-color-blue">New</span></span></a></li>
+										<li><a href="page-register.html"><span class="text">Register</span></a></li>
+										<li><a href="page-login.html"><span class="text">Login</span></a></li>
+										<li><a href="page-404.html"><span class="text">404</span></a></li>
+										<li><a href="page-blank.html"><span class="text">Blank Page</span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" class="js-sub-menu-toggle">
+										<i class="fa fa-bar-chart-o fw"></i><span class="text">Charts &amp; Statistics</span>
+										<i class="toggle-icon fa fa-angle-left"></i>
+									</a>
+									<ul class="sub-menu ">
+										<li><a href="charts-statistics.html"><span class="text">Charts</span></a></li>
+										<li><a href="charts-statistics-interactive.html"><span class="text">Interactive Charts</span></a></li>
+										<li><a href="charts-statistics-real-time.html"><span class="text">Realtime Charts</span></a></li>
+										<li><a href="charts-d3charts.html"><span class="text">D3 Charts</span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" class="js-sub-menu-toggle">
+										<i class="fa fa-edit fw"></i><span class="text">Forms</span>
+										<i class="toggle-icon fa fa-angle-left"></i>
+									</a>
+									<ul class="sub-menu ">
+										<li><a href="form-inplace-editing.html"><span class="text">In-place Editing</span></a></li>
+										<li><a href="form-elements.html"><span class="text">Form Elements</span></a></li>
+										<li><a href="form-layouts.html"><span class="text">Form Layouts</span></a></li>
+										<li><a href="form-bootstrap-elements.html"><span class="text">Bootstrap Elements</span></a></li>
+										<li><a href="form-validations.html"><span class="text">Validation</span></a></li>
+										<li><a href="form-file-upload.html"><span class="text">File Upload</span></a></li>
+										<li><a href="form-text-editor.html"><span class="text">Text Editor</span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" class="js-sub-menu-toggle">
+										<i class="fa fa-list-alt fw"></i><span class="text">UI Elements</span>
+										<i class="toggle-icon fa fa-angle-left"></i>
+									</a>
+									<ul class="sub-menu ">
+										<li><a href="ui-elements-general.html"><span class="text">General Elements</span></a></li>
+										<li><a href="ui-elements-tabs.html"><span class="text">Tabs</span></a></li>
+										<li><a href="ui-elements-buttons.html"><span class="text">Buttons</span></a></li>
+										<li><a href="ui-elements-icons.html"><span class="text">Icons <span class="badge element-bg-color-blue">Updated</span></span></a></li>
+										<li><a href="ui-elements-flash-message.html"><span class="text">Flash Message</span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="widgets.html">
+										<i class="fa fa-puzzle-piece fa-fw"></i><span class="text">Widgets <span class="badge element-bg-color-blue">Updated</span></span>
+									</a>
+								</li>
+								<li>
+									<a href="#" class="js-sub-menu-toggle">
+										<i class="fa fa-gears fw"></i><span class="text">Components</span>
+										<i class="toggle-icon fa fa-angle-left"></i>
+									</a>
+									<ul class="sub-menu ">
+										<li><a href="components-wizard.html"><span class="text">Wizard (with validation)</span></a></li>
+										<li><a href="components-calendar.html"><span class="text">Calendar</span></a></li>
+										<li><a href="components-maps.html"><span class="text">Maps</span></a></li>
+										<li><a href="components-gallery.html"><span class="text">Gallery</span></a></li>
+										<li><a href="components-tree-view.html"><span class="text">Tree View <span class="badge element-bg-color-blue">New</span></span></a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="#" class="js-sub-menu-toggle">
+										<i class="fa fa-table fw"></i><span class="text">Tables</span>
+										<i class="toggle-icon fa fa-angle-left"></i>
+									</a>
+									<ul class="sub-menu ">
+										<li><a href="tables-static-table.html"><span class="text">Static Table</span></a></li>
+										<li><a href="tables-dynamic-table.html"><span class="text">Dynamic Table</span></a></li>
+									</ul>
+								</li>
+								<li><a href="typography.html"><i class="fa fa-font fa-fw"></i><span class="text">Typography</span></a></li>
+								<li>
+									<a href="#" class="js-sub-menu-toggle"><i class="fa fa-bars"></i>
+										<span class="text">Menu Lvl 1 <span class="badge element-bg-color-blue">New</span></span>
+										<i class="toggle-icon fa fa-angle-left"></i>
+									</a>
+									<ul class="sub-menu">
+										<li class="">
+											<a href="#" class="js-sub-menu-toggle">
+												<span class="text">Menu Lvl 2</span>
+												<i class="toggle-icon fa fa-angle-left"></i>
+											</a>
+											<ul class="sub-menu">
+												<li><a href="#">Menu Lvl 3</a></li>
+												<li><a href="#">Menu Lvl 3</a></li>
+												<li><a href="#">Menu Lvl 3</a></li>
+											</ul>
+										</li>
+										<li>
+											<a href="#">
+												<span class="text">Menu Lvl 2</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+						<!-- /main-nav -->
+						<div class="sidebar-minified js-toggle-minified">
+							<i class="fa fa-angle-left"></i>
+						</div>
+						<!-- sidebar content -->
+						<div class="sidebar-content">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h5><i class="fa fa-lightbulb-o"></i> Tips</h5>
+								</div>
+								<div class="panel-body">
+									<p>You can do live search to the widget at search box located at top bar. It's very useful if your dashboard is full of widget.</p>
+								</div>
+							</div>
+							<h5 class="label label-default"><i class="fa fa-info-circle"></i> Server Info</h5>
+							<ul class="list-unstyled list-info-sidebar bottom-30px">
+								<li class="data-row">
+									<div class="data-name">Disk Space Usage</div>
+									<div class="data-value">
+										274.43 / 2 GB
+										<div class="progress progress-xs">
+											<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+												<span class="sr-only">10%</span>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="data-row">
+									<div class="data-name">Monthly Bandwidth Transfer</div>
+									<div class="data-value">
+										230 / 500 GB
+										<div class="progress progress-xs">
+											<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100" style="width: 46%">
+												<span class="sr-only">46%</span>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Database Disk Space</span>
+									<span class="data-value">219.45 MB</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Operating System</span>
+									<span class="data-value">Linux</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Apache Version</span>
+									<span class="data-value">2.4.6</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">PHP Version</span>
+									<span class="data-value">5.3.27</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">MySQL Version</span>
+									<span class="data-value">5.5.34-cll</span>
+								</li>
+								<li class="data-row">
+									<span class="data-name">Architecture</span>
+									<span class="data-value">x86_64</span>
+								</li>
+							</ul>
+						</div>
+						<!-- end sidebar content -->
+					</div>
+					<!-- end left sidebar -->
+					<!-- top general alert -->
+					<div class="alert alert-danger top-general-alert">
+						<span>If you <strong>can't see the logo</strong> on the top left, please reset the style on right style switcher (for upgraded theme only).</span>
+						<button type="button" class="close">&times;</button>
+					</div>
+					<!-- end top general alert -->
+					<!-- content-wrapper -->
+					<div class="col-md-10 content-wrapper">
+						<div class="row">
+							<div class="col-md-4 ">
+								<ul class="breadcrumb">
+									<li><i class="fa fa-home"></i><a href="#">Home</a></li>
+									<li class="active">Dashboard</li>
+								</ul>
+							</div>
+							<div class="col-md-8 ">
+								<div class="top-content">
+									<ul class="list-inline mini-stat">
+										<li>
+											<h5>LIKES <span class="stat-value stat-color-orange"><i class="fa fa-plus-circle"></i> 81,450</span></h5>
+											<span id="mini-bar-chart1" class="mini-bar-chart"></span>
+										</li>
+										<li>
+											<h5>SUBSCRIBERS <span class="stat-value stat-color-blue"><i class="fa fa-plus-circle"></i> 150,743</span></h5>
+											<span id="mini-bar-chart2" class="mini-bar-chart"></span>
+										</li>
+										<li>
+											<h5>CUSTOMERS <span class="stat-value stat-color-seagreen"><i class="fa fa-plus-circle"></i> 43,748</span></h5>
+											<span id="mini-bar-chart3" class="mini-bar-chart"></span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- main -->
+						<div class="content">
+							<div class="main-header">
+								<h2>DASHBOARD</h2>
+								<em>the first priority information</em>
+							</div>
+							<div class="main-content">
+								<div class="row">
+									<div class="col-md-9">
+										<!-- WIDGET NO HEADER -->
+										<div class="widget widget-hide-header">
+											<div class="widget-header hide">
+												<h3>Summary Info</h3>
+											</div>
+											<div class="widget-content">
+												<div class="row">
+													<div class="col-md-3">
+														<div class="easy-pie-chart green" data-percent="70">
+															<span class="percent">70</span>
+														</div>
+														<p class="text-center">Task Completion</p>
+													</div>
+													<div class="col-md-3">
+														<div class="easy-pie-chart red" data-percent="22">
+															<span class="percent">22</span>
+														</div>
+														<p class="text-center">Overall Project Completion</p>
+													</div>
+													<div class="col-md-3">
+														<div class="easy-pie-chart yellow" data-percent="65">
+															<span class="percent">65</span>
+														</div>
+														<p class="text-center">Disk Space Used</p>
+													</div>
+													<div class="col-md-3">
+														<div class="easy-pie-chart red" data-percent="87">
+															<span class="percent">87</span>
+														</div>
+														<p class="text-center">Bandwidth Used</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- WIDGET NO HEADER -->
+									</div>
+									<div class="col-md-3">
+										<!-- WIDGET REMINDER -->
+										<div class="widget widget-hide-header widget-reminder">
+											<div class="widget-header hide">
+												<h3>Today's Reminder</h3>
+											</div>
+											<div class="widget-content">
+												<div class="today-reminder">
+													<h4 class="reminder-title">Project Meeting</h4>
+													<p class="reminder-time"><i class="fa fa-clock-o"></i> 9:00 AM</p>
+													<p class="reminder-place">War Room</p>
+													<em class="reminder-notes">Bring weekly report summary</em>
+													<i class="fa fa-bell"></i>
+													<div class="btn-group btn-group-xs">
+														<button type="button" class="btn btn-warning"><i class="fa fa-cloud-upload"></i> Sync</button>
+														<div class="btn-group  btn-group-xs">
+															<button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Remind Me <span class="caret"></span></button>
+															<ul class="dropdown-menu pull-right">
+																<li><a href="#">15 minutes later</a></li>
+																<li><a href="#">30 minutes later</a></li>
+																<li><a href="#">1 hour later</a></li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- END WIDGET REMINDER -->
+									</div>
+								</div>
+
+								<!-- WIDGET MAIN CHART WITH TABBED CONTENT -->
+								<div class="widget">
+									<div class="widget-header">
+										<h3><i class="fa fa-bar-chart-o"></i> Sales Stat</h3> <em>- Visits, Sales and Traffic Source</em>
+										<button type="button" class="btn btn-link btn-help"><i class="fa fa-question-circle"></i></button>
+										<div class="btn-group widget-header-toolbar">
+											<a href="#" id="tour-focus" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+											<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+											<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+										</div>
+									</div>
+									<div class="widget-content">
+										<!-- chart tab nav -->
+										<div class="chart-nav">
+											<strong>Select period: </strong>
+											<ul id="sales-stat-tab">
+												<li class="active"><a href="#week">Weekly</a></li>
+												<li><a href="#month">Monthly</a></li>
+												<li><a href="#year">Annually</a></li>
+											</ul>
+										</div>
+										<!-- end chart tab nav -->
+										<!-- chart placeholder-->
+										<div class="chart-content">
+											<div class="demo-flot-chart sales-chart"></div>
+										</div>
+										<!-- end chart placeholder-->
+										<hr class="separator">
+										<!-- secondary stat -->
+										<div class="secondary-stat">
+											<div class="row">
+												<div class="col-lg-4">
+													<div id="secondary-stat-item1" class="secondary-stat-item big-number-stat clearfix">
+														<div class="data">
+															<span class="col-left big-number">260</span>
+															<span class="col-right"><em>New Orders</em><em>3% <i class="fa fa-caret-down"></i></em></span>
+														</div>
+														<div id="spark-stat1" class="inlinesparkline">Loading...</div>
+													</div>
+												</div>
+												<div class="col-lg-4">
+													<div id="secondary-stat-item2" class="secondary-stat-item big-number-stat clearfix">
+														<p class="data">
+															<span class="col-left big-number">$23,000</span>
+															<span class="col-right"><em>Revenue</em><em>5% <i class="fa fa-caret-up"></i></em></span>
+														</p>
+														<div id="spark-stat2" class="inlinesparkline">Loading...</div>
+													</div>
+												</div>
+												<div class="col-lg-4">
+													<div id="secondary-stat-item3" class="secondary-stat-item big-number-stat clearfix">
+														<p class="data">
+															<span class="col-left big-number">$47,000</span>
+															<span class="col-right"><em>Total Sales</em><em>7% <i class="fa fa-caret-up"></i></em></span>
+														</p>
+														<div id="spark-stat3" class="inlinesparkline">Loading...</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- end secondary stat -->
+									</div>
+								</div>
+								<!-- END WIDGET MAIN CHART WITH TABBED CONTENT -->
+
+								<div class="row">
+									<div class="col-md-6">
+										<!-- WIDGET TABLE -->
+										<div class="widget widget-table">
+											<div class="widget-header">
+												<h3><i class="fa fa-desktop"></i> Browser &amp; OS</h3>
+												<div class="btn-group widget-header-toolbar">
+													<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+													<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+													<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+												</div>
+												<div class="btn-group widget-header-toolbar">
+													<div class="control-inline toolbar-item-group">
+														<span class="control-title">New Visits:</span>
+														<div class="label label-success"><i class="fa fa-caret-up"></i> 3.5%</div>
+													</div>
+												</div>
+											</div>
+											<div class="widget-content">
+												<table id="visit-stat-table" class="table table-sorting table-striped table-hover datatable">
+													<thead>
+														<tr>
+															<th>Browser</th>
+															<th>Operating System</th>
+															<th>Visits</th>
+															<th>New Visits</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Chrome</td>
+															<td>Macintosh</td>
+															<td>360</td>
+															<td>82.78%</td>
+														</tr>
+														<tr>
+															<td>Chrome</td>
+															<td>Windows</td>
+															<td>582</td>
+															<td>87.24%</td>
+														</tr>
+														<tr>
+															<td>Chrome</td>
+															<td>Linux</td>
+															<td>172</td>
+															<td>45.21%</td>
+														</tr>
+														<tr>
+															<td>Chrome</td>
+															<td>iOS</td>
+															<td>86</td>
+															<td>35.23%</td>
+														</tr>
+														<tr>
+															<td>Firefox</td>
+															<td>Windows</td>
+															<td>280</td>
+															<td>63.12%</td>
+														</tr>
+														<tr>
+															<td>Firefox</td>
+															<td>Android</td>
+															<td>236</td>
+															<td>58.02%</td>
+														</tr>
+														<tr>
+															<td>Internet Explorer</td>
+															<td>Windows</td>
+															<td>145</td>
+															<td>45.23%</td>
+														</tr>
+														<tr>
+															<td>Safari</td>
+															<td>Macintosh</td>
+															<td>103</td>
+															<td>22.12%</td>
+														</tr>
+														<tr>
+															<td>Safari</td>
+															<td>iOS</td>
+															<td>302</td>
+															<td>56.98%</td>
+														</tr>
+														<tr>
+															<td>Opera</td>
+															<td>Windows</td>
+															<td>328</td>
+															<td>67.12%</td>
+														</tr>
+														<tr>
+															<td>Opera</td>
+															<td>Macintosh</td>
+															<td>22</td>
+															<td>87.21%</td>
+														</tr>
+														<tr>
+															<td>Chrome</td>
+															<td>iOS</td>
+															<td>45</td>
+															<td>23.21%</td>
+														</tr>
+														<tr>
+															<td>Firefox</td>
+															<td>Windows</td>
+															<td>67</td>
+															<td>27.11%</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<!-- END WIDGET TABLE -->
+
+										<!-- WIDGET DONUT AND PIE CHART -->
+										<div class="widget">
+											<div class="widget-header">
+												<h3><i class="fa fa-truck"></i> Traffic Source</h3> <em>- Visits based on source of traffic</em>
+												<div class="btn-group widget-header-toolbar">
+													<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+													<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+													<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+												</div>
+											</div>
+											<div class="widget-content">
+												<div class="demo-flot-chart" id="demo-donut-chart"></div>
+												<div class="panel panel-default panel-pie-chart">
+													<div class="panel-heading">
+														<h3 class="panel-title">Last Week Visits</h3></div>
+													<div class="panel-body">
+														<ul class="list-inline">
+															<li><span id="mini-pie-chart1" class="mini-pie-chart"></span><div>Mon</div></li>
+															<li><span id="mini-pie-chart2" class="mini-pie-chart"></span><div>Tue</div></li>
+															<li><span id="mini-pie-chart3" class="mini-pie-chart"></span><div>Wed</div></li>
+															<li><span id="mini-pie-chart4" class="mini-pie-chart"></span><div>Thu</div></li>
+															<li><span id="mini-pie-chart5" class="mini-pie-chart"></span><div>Fri</div></li>
+															<li><span id="mini-pie-chart6" class="mini-pie-chart"></span><div>Sat</div></li>
+															<li><span id="mini-pie-chart7" class="mini-pie-chart"></span><div>Sun</div></li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- END WIDGET DONUT AND PIE CHART -->
+									</div>
+									<div class="col-md-6">
+										<!-- WIDGET SALES MAP -->
+										<div class="widget">
+											<div class="widget-header">
+												<h3><i class="fa fa-globe"></i> US Sales Map</h3> <em> - US map with plottable latitude and longitude</em>
+												<div class="btn-group widget-header-toolbar">
+													<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+													<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+													<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+												</div>
+											</div>
+											<div class="widget-content">
+												<div class="map-custom-width data-us-map">
+													<div class="map"></div>
+													<div class="plotLegend"></div>
+												</div>
+											</div>
+										</div>
+										<!-- END WIDGET SALES MAP -->
+
+										<!-- WIDGET INLINE SPARKLINE -->
+										<div class="widget widget-sparkline">
+											<div class="widget-header">
+												<h3><i class="fa fa-bar-chart-o"></i> Visits Stat</h3> <em>- Sparkline Charts With Random Data</em>
+												<div class="btn-group widget-header-toolbar">
+													<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+													<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+													<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+												</div>
+											</div>
+											<div class="widget-content">
+												<div class="row first">
+													<div class="col-md-6">
+														<div class="sparkline-stat-item">
+															<div class="info"><span>Visits</span><strong>1,363</strong></div>
+															<span id="sparkline1" class="inlinesparkline">Loading...</span>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="sparkline-stat-item">
+															<div class="info"><span>Unique Visitors</span><strong>1,221</strong></div>
+															<span id="sparkline2" class="inlinesparkline">Loading...</span>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="sparkline-stat-item last">
+															<div class="info"><span>Page Views</span><strong>2,300</strong></div>
+															<span id="sparkline3" class="inlinesparkline">Loading...</span>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="sparkline-stat-item">
+															<div class="info"><span>Pages/Visit</span><strong>1.19</strong></div>
+															<span id="sparkline4" class="inlinesparkline">Loading...</span>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="sparkline-stat-item">
+															<div class="info"><span>Avg. Visit Duration</span><strong>00:00:30</strong></div>
+															<span id="sparkline5" class="inlinesparkline">Loading...</span>
+														</div>
+													</div>
+													<div class="col-md-6">
+														<div class="sparkline-stat-item last">
+															<div class="info"><span>% New Visits</span><strong>28.35%</strong></div>
+															<span id="sparkline6" class="inlinesparkline">Loading...</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- END WIDGET INLINE SPARKLINE -->
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<!-- WIDGET TASKS -->
+										<div class="widget">
+											<div class="widget-header">
+												<h3><i class="fa fa-tasks"></i> My Tasks</h3> <em>- Summary of Tasks</em>
+												<div class="btn-group widget-header-toolbar">
+													<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+													<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+													<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+												</div>
+											</div>
+											<div class="widget-content">
+												<ul class="task-list">
+													<li>
+														<p>Updating Users Settings <span class="label label-danger">23%</span></p>
+														<div class="progress progress-xs">
+															<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="23" aria-valuemin="0" aria-valuemax="100" style="width:23%">
+																<span class="sr-only">23% Complete</span>
+															</div>
+														</div>
+													</li>
+													<li>
+														<p>Load &amp; Stress Test <span class="label label-success">80%</span></p>
+														<div class="progress progress-xs">
+															<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+																<span class="sr-only">80% Complete</span>
+															</div>
+														</div>
+													</li>
+													<li>
+														<p>Data Duplication Check <span class="label label-success">100%</span></p>
+														<div class="progress progress-xs">
+															<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+																<span class="sr-only">Success</span>
+															</div>
+														</div>
+													</li>
+													<li>
+														<p>Server Check <span class="label label-warning">45%</span></p>
+														<div class="progress progress-xs">
+															<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+																<span class="sr-only">45% Complete</span>
+															</div>
+														</div>
+													</li>
+													<li>
+														<p>Mobile App Development <span class="label label-danger">10%</span></p>
+														<div class="progress progress-xs">
+															<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
+																<span class="sr-only">10% Complete</span>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<!-- END WIDGET TASKS -->
+									</div>
+									<div class="col-md-8">
+										<!-- WIDGET REAL-TIME CHART -->
+										<div class="widget real-time-chart">
+											<div class="widget-header">
+												<h3><i class="fa fa-cogs"></i> CPU Load</h3> <em>- Realtime chart</em>
+												<div class="btn-group widget-header-toolbar">
+													<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+													<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+													<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+												</div>
+											</div>
+											<div class="widget-content">
+												<div class="demo-flot-chart" id="demo-real-time-chart"></div>
+											</div>
+										</div>
+										<!-- END WIDGET REAL-TIME CHART -->
+									</div>
+								</div>
+								<!-- WIDGET TICKET TABLE -->
+								<div class="widget widget-table">
+									<div class="widget-header">
+										<h3><i class="fa fa-group"></i> Support Tickets</h3> <em>- List of Support Tickets</em>
+										<div class="btn-group widget-header-toolbar">
+											<a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+											<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+											<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+										</div>
+										<div class="widget-header-toolbar">
+											<div class="label label-danger"><i class="fa fa-warning"></i> 2 Critical Messages</div>
+										</div>
+									</div>
+									<div class="widget-content">
+										<table id="ticket-table" class="table table-sorting">
+											<thead>
+												<tr>
+													<th>Number</th>
+													<th>Date</th>
+													<th>Category</th>
+													<th>Name</th>
+													<th>Title</th>
+													<th>Priority</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><a href="#">[#18765]</a></td>
+													<td>Nov 21, 2013 15:45</td>
+													<td>Front-End Site</td>
+													<td>Smith</td>
+													<td><a href="#">Product Review Problem</a></td>
+													<td><span class="label label-high">#4 - High</span></td>
+												</tr>
+												<tr>
+													<td><a href="#">[#18766]</a></td>
+													<td>Nov 21, 2013 16:12</td>
+													<td>Technical Support</td>
+													<td>Sean</td>
+													<td><a href="#">Can't Download the Guide Doc</a></td>
+													<td><span class="label label-medium">#5 - Medium</span></td>
+												</tr>
+												<tr>
+													<td><a href="#">[#18767]</a></td>
+													<td>Nov 21, 2013 16:43</td>
+													<td>General Info</td>
+													<td>Jane Doe</td>
+													<td><a href="#">Regarding Customer Support</a></td>
+													<td><span class="label label-medium">#5 - Medium</span></td>
+												</tr>
+												<tr>
+													<td><a href="#">[#18768]</a></td>
+													<td>Nov 22, 2013 08:24</td>
+													<td>General Info</td>
+													<td>Smith</td>
+													<td><a href="#">Can't Change My Address</a></td>
+													<td><span class="label label-urgent">#3 - Urgent</span></td>
+												</tr>
+												<tr>
+													<td><a href="#">[#18769]</a></td>
+													<td>Nov 22, 2013 08:30</td>
+													<td>Sales</td>
+													<td>Smith</td>
+													<td><a href="#">Review Tab Malfunction</a></td>
+													<td><span class="label label-low">#6 - Low</span></td>
+												</tr>
+												<tr>
+													<td><a href="#">[#18770]</a></td>
+													<td>Nov 22, 2013 08:47</td>
+													<td>Front-End Site</td>
+													<td>John Doe</td>
+													<td><a href="#">Broken Link</a></td>
+													<td><span class="label label-emergency">#2 - Emergency</span></td>
+												</tr>
+												<tr>
+													<td><a href="#">[#18771]</a></td>
+													<td>Nov 23, 2013 14:08</td>
+													<td>Sales</td>
+													<td>Jack</td>
+													<td><a href="#">Need Info About My Order Status</a></td>
+													<td><span class="label label-critical">#1 - Critical</span></td>
+												</tr>
+												<tr>
+													<td><a href="#">[#18772]</a></td>
+													<td>Nov 23, 2013 17:45</td>
+													<td>Techincal Support</td>
+													<td>Darren</td>
+													<td><a href="#">Bouncing Email</a></td>
+													<td><span class="label label-critical">#1 - Critical</span></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!-- END WIDGET TICKET TABLE -->
+							</div>
+							<!-- /main-content -->
+						</div>
+						<!-- /main -->
+						<!-- FOOTER -->
+						<footer class="footer">
+							&copy; 2014-2015 The Develovers
+						</footer>
+						<!-- END FOOTER -->
+					</div>
+					<!-- /content-wrapper -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
+	</div>
+	<!-- /wrapper -->
+
+	<!-- STYLE SWITCHER -->
+	<div class="del-style-switcher">
+		<div class="del-switcher-toggle toggle-hide"></div>
+		<form>
+			<section class="del-section del-section-skin">
+				<h5 class="del-switcher-header">Choose Skins:</h5>
+				<ul>
+					<li><a href="#" title="Slate Gray" class="switch-skin slategray" data-skin="assets/css/skins/slategray.css">Slate Gray</a></li>
+					<li><a href="#" title="Dark Blue" class="switch-skin darkblue" data-skin="assets/css/skins/darkblue.css">Dark Blue</a></li>
+					<li><a href="#" title="Dark Brown" class="switch-skin darkbrown" data-skin="assets/css/skins/darkbrown.css">Dark Brown</a></li>
+					<li><a href="#" title="Light Green" class="switch-skin lightgreen" data-skin="assets/css/skins/lightgreen.css">Light Green</a></li>
+					<li><a href="#" title="Orange" class="switch-skin orange" data-skin="assets/css/skins/orange.css">Orange</a></li>
+					<li><a href="#" title="Red" class="switch-skin red" data-skin="assets/css/skins/red.css">Red</a></li>
+					<li><a href="#" title="Teal" class="switch-skin teal" data-skin="assets/css/skins/teal.css">Teal</a></li>
+					<li><a href="#" title="Yellow" class="switch-skin yellow" data-skin="assets/css/skins/yellow.css">Yellow</a></li>
+				</ul>
+				<button type="button" class="switch-skin-full fulldark" data-skin="assets/css/skins/fulldark.css">Full Dark</button>
+				<button type="button" class="switch-skin-full fullbright" data-skin="assets/css/skins/fullbright.css">Full Bright</button>
+			</section>
+			<label class="fancy-checkbox">
+				<input type="checkbox" id="fixed-top-nav"><span>Fixed Top Navigation</span>
+			</label>
+			<p><a href="#" title="Reset Style" class="del-reset-style">Reset Style</a></p>
+		</form>
+	</div>
+	<!-- END STYLE SWITCHER -->
+
+	<!-- Javascript -->
+	<script src="assets/js/jquery/jquery-2.1.0.min.js"></script>
+	<script src="assets/js/bootstrap/bootstrap.js"></script>
+	<script src="assets/js/plugins/modernizr/modernizr.js"></script>
+	<script src="assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>
+	<script src="assets/js/king-common.js"></script>
+	<script src="assets/js/deliswitch.js"></script>
+	<script src="assets/js/plugins/stat/jquery.easypiechart.min.js"></script>
+	<script src="assets/js/plugins/raphael/raphael-2.1.0.min.js"></script>
+	<script src="assets/js/plugins/stat/flot/jquery.flot.min.js"></script>
+	<script src="assets/js/plugins/stat/flot/jquery.flot.resize.min.js"></script>
+	<script src="assets/js/plugins/stat/flot/jquery.flot.time.min.js"></script>
+	<script src="assets/js/plugins/stat/flot/jquery.flot.pie.min.js"></script>
+	<script src="assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js"></script>
+	<script src="assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+	<script src="assets/js/plugins/datatable/jquery.dataTables.min.js"></script>
+	<script src="assets/js/plugins/datatable/dataTables.bootstrap.js"></script>
+	<script src="assets/js/plugins/jquery-mapael/jquery.mapael.js"></script>
+	<script src="assets/js/plugins/raphael/maps/usa_states.js"></script>
+	<script src="assets/js/king-chart-stat.js"></script>
+	<script src="assets/js/king-table.js"></script>
+	<script src="assets/js/king-components.js"></script>
+</body>
+
 </html>
