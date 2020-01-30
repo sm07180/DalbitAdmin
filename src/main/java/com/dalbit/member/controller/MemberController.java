@@ -23,7 +23,7 @@ public class MemberController {
      */
     @GetMapping("list")
     public String list(Model model){
-        return "/member/list";
+        return "member/list";
     }
 
     /**
@@ -33,7 +33,7 @@ public class MemberController {
      */
     @GetMapping("profile")
     public String profile(Model model){
-        return "/member/profile";
+        return "member/profile";
     }
 
     /**
@@ -43,7 +43,7 @@ public class MemberController {
      */
     @GetMapping("profile/broadList")
     public String profileBroadList(Model model){
-        return "/member/profile/broadList";
+        return "member/profile/broadList";
     }
 
 }

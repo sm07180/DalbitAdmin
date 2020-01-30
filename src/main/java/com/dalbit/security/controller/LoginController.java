@@ -11,7 +11,7 @@ public class LoginController {
 
     @GetMapping("login")
     public String list(Model model){
-        return "/login/login";
+        return "login/login";
     }
 
 }
