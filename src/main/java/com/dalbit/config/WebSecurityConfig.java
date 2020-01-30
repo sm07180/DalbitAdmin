@@ -53,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     , "/robots.txt"
                     , "/js/**"
                     , "/template/**"
+                    , "/template2/**"
             );
     }
 

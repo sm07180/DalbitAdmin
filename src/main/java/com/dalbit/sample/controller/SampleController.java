@@ -21,4 +21,9 @@ public class SampleController {
         return "/sample/list";
     }
 
+    @GetMapping("index")
+    public String index(Model model){
+        return "/sample/index";
+    }
+
 }
