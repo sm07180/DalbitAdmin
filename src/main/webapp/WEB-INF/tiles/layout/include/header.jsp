@@ -1,34 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<title>Dashboard | KingAdmin - Admin Dashboard</title>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="KingAdmin - Bootstrap Admin Dashboard Theme">
+<meta name="author" content="The Develovers">
 
-<title>달빛라디오 관리자</title>
+<!-- CSS -->
+<link href="/template2/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/template2/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="/template2/assets/css/main.css" rel="stylesheet" type="text/css">
+<link href="/template2/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
 
-<!-- Bootstrap Core CSS -->
-<link href="/template/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- MetisMenu CSS -->
-<link href="/template/css/metisMenu.min.css" rel="stylesheet">
-
-<!-- DataTables CSS -->
-<link href="/template/css/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-
-<!-- DataTables Responsive CSS -->
-<link href="/template/css/dataTables/dataTables.responsive.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="/template/css/startmin.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="/template/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+<!--[if lte IE 9]>
+<link href="/template2/assets/css/main-ie.css" rel="stylesheet" type="text/css"/>
+<link href="/template2/assets/css/main-ie-part2.css" rel="stylesheet" type="text/css"/>
 <![endif]-->
+
+<!-- CSS for demo style switcher. you can remove this -->
+<link href="/template2/assets/css/style-switcher.css" rel="stylesheet" type="text/css">
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/template2/assets/ico/kingadmin-favicon144x144.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/template2/assets/ico/kingadmin-favicon114x114.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/template2/assets/ico/kingadmin-favicon72x72.png">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/template2/assets/ico/kingadmin-favicon57x57.png">
+<link rel="shortcut icon" href="/template2/assets/ico/favicon.png">

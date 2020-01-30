@@ -1,4 +1,3 @@
-<%--
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- TOP BAR -->
@@ -9,7 +8,7 @@
             <a href="#" class="pull-left toggle-sidebar-collapse"><i class="fa fa-bars"></i></a>
             <!-- logo -->
             <div class="pull-left left logo">
-                <a href="index.html"><img src="assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard"></a>
+                <a href="index.html"><img src="/template2/assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard"></a>
                 <h1 class="sr-only">KingAdmin Admin Dashboard</h1>
             </div>
             <!-- end logo -->
@@ -45,7 +44,7 @@
                                             <a href="#">
                                                 <div class="media">
                                                     <div class="media-left">
-                                                        <img class="media-object" src="assets/img/user1.png" alt="Antonio">
+                                                        <img class="media-object" src="/template2/assets/img/user1.png" alt="Antonio">
                                                     </div>
                                                     <div class="media-body">
                                                         <h5 class="media-heading name">Antonius</h5>
@@ -59,7 +58,7 @@
                                             <a href="#">
                                                 <div class="media">
                                                     <div class="media-left">
-                                                        <img class="media-object" src="assets/img/user2.png" alt="Antonio">
+                                                        <img class="media-object" src="/template2/assets/img/user2.png" alt="Antonio">
                                                     </div>
                                                     <div class="media-body">
                                                         <h5 class="media-heading name">Michael</h5>
@@ -73,7 +72,7 @@
                                             <a href="#">
                                                 <div class="media">
                                                     <div class="media-left">
-                                                        <img class="media-object" src="assets/img/user3.png" alt="Antonio">
+                                                        <img class="media-object" src="/template2/assets/img/user3.png" alt="Antonio">
                                                     </div>
                                                     <div class="media-body">
                                                         <h5 class="media-heading name">Stella</h5>
@@ -87,7 +86,7 @@
                                             <a href="#">
                                                 <div class="media">
                                                     <div class="media-left">
-                                                        <img class="media-object" src="assets/img/user4.png" alt="Antonio">
+                                                        <img class="media-object" src="/template2/assets/img/user4.png" alt="Antonio">
                                                     </div>
                                                     <div class="media-body">
                                                         <h5 class="media-heading name">Jane Doe</h5>
@@ -101,7 +100,7 @@
                                             <a href="#">
                                                 <div class="media">
                                                     <div class="media-left">
-                                                        <img class="media-object" src="assets/img/user5.png" alt="Antonio">
+                                                        <img class="media-object" src="/template2/assets/img/user5.png" alt="Antonio">
                                                     </div>
                                                     <div class="media-body">
                                                         <h5 class="media-heading name">John Simmons</h5>
@@ -198,7 +197,7 @@
                     <div class="logged-user">
                         <div class="btn-group">
                             <a href="#" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
-                                <img src="assets/img/user-avatar.png" alt="User Avatar">
+                                <img src="/template2/assets/img/user-avatar.png" alt="User Avatar">
                                 <span class="name">Stacy Rose</span> <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
@@ -231,4 +230,4 @@
     </div>
     <!-- /container -->
 </div>
-<!-- /top -->--%>
+<!-- /top -->

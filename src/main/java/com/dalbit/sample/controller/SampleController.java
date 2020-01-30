@@ -31,4 +31,9 @@ public class SampleController {
         return "/sample/select_date";
     }
 
+    @GetMapping("index")
+    public String index(Model model){
+        return "/sample/index";
+    }
+
 }

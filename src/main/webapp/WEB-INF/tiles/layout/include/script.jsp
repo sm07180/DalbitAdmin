@@ -1,16 +1,26 @@
-<script src="/template/js/jquery.min.js"></script>
+<script src="https://www.google-analytics.com/analytics.js"></script>
+<script src="/template2/assets/js/jquery/jquery-2.1.0.min.js"></script>
+<script src="/template2/assets/js/bootstrap/bootstrap.js"></script>
+<script src="/template2/assets/js/plugins/modernizr/modernizr.js"></script>
+<script src="/template2/assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>
+<script src="/template2/assets/js/king-common.js"></script>
+<script src="/template2/assets/js/deliswitch.js"></script>
+<script src="/template2/assets/js/plugins/stat/jquery.easypiechart.min.js"></script>
+<script src="/template2/assets/js/plugins/raphael/raphael-2.1.0.min.js"></script>
+<script src="/template2/assets/js/plugins/stat/flot/jquery.flot.min.js"></script>
+<script src="/template2/assets/js/plugins/stat/flot/jquery.flot.resize.min.js"></script>
+<script src="/template2/assets/js/plugins/stat/flot/jquery.flot.time.min.js"></script>
+<script src="/template2/assets/js/plugins/stat/flot/jquery.flot.pie.min.js"></script>
+<script src="/template2/assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js"></script>
+<script src="/template2/assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+<script src="/template2/assets/js/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="/template2/assets/js/plugins/datatable/dataTables.bootstrap.js"></script>
+<script src="/template2/assets/js/plugins/jquery-mapael/jquery.mapael.js"></script>
+<script src="/template2/assets/js/plugins/raphael/maps/usa_states.js"></script>
+<script src="/template2/assets/js/king-chart-stat.js"></script>
+<script src="/template2/assets/js/king-table.js"></script>
+<script src="/template2/assets/js/king-components.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/template/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/template/js/metisMenu.min.js"></script>
-
-<!-- DataTables JavaScript -->
-<script src="/template/js/dataTables/jquery.dataTables.min.js"></script>
-<script src="/template/js/dataTables/dataTables.bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/template/js/startmin.js"></script>
+<!-- dalbit -->
 <script src="/js/handlebars-v4.7.2.js"></script>
 <script src="/js/common.js"></script>

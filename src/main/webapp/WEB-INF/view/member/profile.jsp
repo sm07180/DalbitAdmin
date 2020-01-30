@@ -20,38 +20,135 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div>
-                                <button type="button" class="btn btn-default">선택삭제</button>
-
-                                <button type="button" class="btn btn-default">Excel 출력</button>
+                            <div align="right">
+                                    <button type="button" class="btn btn-default">리스트</button>
+                                    <button type="button" class="btn btn-default">수정하기</button>
                             </div>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th><label>
-                                                    <input type="checkbox" value="">NO
-                                                </label>
-                                            </th>
-                                            <th>Name</th>
-                                            <th>NickName</th>
-                                            <th>PhoneNum</th>
-                                            <th>Email</th>
-                                            <th>JoinDate</th>
-                                            <th>BirthDate</th>
-                                            <th>Live</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tableBody">
-
-                                    </tbody>
-                                </table>
+                            <div class="panel panel-green">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="panel-body"> ProfileImg </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">Name</div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">Age</div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">Id</div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">Gender</div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-body">  </div>
+                                </div>
                             </div>
-                            <!-- /.table-responsive -->
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="panel-body"> ProfileImg </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">NickName</div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">Level</div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">DJGrade</div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">ListenerGrade</div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-body">  </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="panel-body"> ProfileImg </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">Email</div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel-body">  </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="panel-heading">PhoneNum</div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="panel-body">  </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="panel-body"> ProfileImg </div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-heading">Password</div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="panel-body">  </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="panel-heading">BirthDate</div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="panel-body">  </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="panel-heading">OnAir</div>
+                                </div>
+                                <div class="col-lg-1">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel-heading">JoinPath</div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel-body">  </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="panel-heading">RewriteDate</div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="panel-body">  </div>
+                                </div>
+                            </div>
+
+                            </div>
+
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -84,12 +181,14 @@
 <!-- Custom Theme JavaScript -->
 <script src="/template/js/startmin.js"></script>
 <script src="/js/handlebars-v4.7.2.js"></script>
+<script src="/js/moment-v2.24.0.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/helper.js"></script>
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/list", "", fn_success, fn_fail);
+        getAjaxData("profile", "/rest/member/profile", "", fn_success, fn_fail);
     });
 
 
@@ -103,7 +202,7 @@
 
         console.log(html)
 
-        $("#tableBody").append(html);
+        $("#panel-body").append(html);
 
         $('#dataTables-example').DataTable({
             responsive: true
@@ -118,25 +217,22 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
         <tr>
-            <td>
-                <label>
-                    <input type="checkbox" value="">{{NO}}
-                </label>
-            </td>
+            <td>{{ProfileImg}}</td>
             <td>{{Name}}</td>
+            <td>{{Age}}</td>
+            <td>{{Id}}</td>
+            <td>{{Gender}}</td>
             <td>{{NickName}}</td>
-            <td >{{PhoneNum}}</td>
+            <td>{{Level}}</td>
+            <td>{{DJGrade}}</td>
+            <td>{{ListenerGrade}}</td>
             <td>{{Email}}</td>
-            <td>{{JoinDate}}</td>
-            <td>{{BirthDate}}</td>
-            <td>{{Live}}</td>
-            <td><label></label>
-                <select class="form-control">
-                    <option>정상</option>
-                    <option>탈퇴</option>
-                    <option>정지</option>
-                </select>
-            </td>
+            <td>{{PhoneNum}}</td>
+            <td>{{Password}}</td>
+            <td>{{convertToDate BirthDate "YYYY.MM.DD"}}</td>
+            <td>{{OnAir}}</td>
+            <td>{{JoinPath}}</td>
+            <td>{{convertToDate RewriteDate "YYYY.MM.DD"}}</td>
         </tr>
     {{/data}}
 </script>
