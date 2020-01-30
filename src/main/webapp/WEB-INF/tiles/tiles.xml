@@ -4,9 +4,21 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
+    <definition name="onlyBody" template="/WEB-INF/tiles/layout/onlyBody.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/include/header.jsp" />
+        <put-attribute name="script" value="/WEB-INF/tiles/layout/include/script.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <definition name="login/*" extends="onlyBody">
+        <put-attribute name="body" value="/WEB-INF/view/login/{1}.jsp" />
+    </definition>
+
+
     <definition name="base" template="/WEB-INF/tiles/layout/default.jsp">
-        <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />
-        <put-attribute name="navi" value="/WEB-INF/tiles/layout/navigation.jsp" />
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/include/header.jsp" />
+        <put-attribute name="navi" value="/WEB-INF/tiles/layout/include/navigation.jsp" />
+        <put-attribute name="script" value="/WEB-INF/tiles/layout/include/script.jsp" />
         <put-attribute name="body" value="" />
     </definition>
 
@@ -21,17 +33,5 @@
     <definition name="*/*/*" extends="base">
         <put-attribute name="body" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
     </definition>
-
-    <!--<definition name="login/login" extends="base" template="/WEB-INF/tiles/layout/login.jsp">
-        <put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
-    </definition>-->
-
-    <!--<definition name="login" template="/WEB-INF/tiles/layout/login.jsp">
-        <put-attribute name="body" value="" />
-    </definition>
-
-    <definition name="test" extends="login">
-        <put-attribute name="body" value="/view/jsp/view/member/login.jsp" />
-    </definition>-->
 
 </tiles-definitions>

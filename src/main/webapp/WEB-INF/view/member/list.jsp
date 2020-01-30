@@ -3,13 +3,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@include file="../include/header.jsp"%>
+    <%@include file="../../tiles/layout/include/header.jsp"%>
 </head>
 <body>
 
 <div id="wrapper">
 
-    <%@include file="../include/navigation.jsp"%>
+    <%@include file="../../tiles/layout/include/navigation.jsp"%>
 
     <div id="page-wrapper">
         <div class="container-fluid">
