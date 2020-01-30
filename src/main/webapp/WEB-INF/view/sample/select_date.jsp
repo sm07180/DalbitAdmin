@@ -147,14 +147,14 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="/template/js/startmin.js"></script>
-<script src="/js/handlebars-v4.7.2.js"></script>
+<script src="/js/lib/handlebars-v4.7.2.js"></script>
 <script src="/js/common.js"></script>
 
 
 <!-- Datepicker -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker3.min.css">
-<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-<script src="/js/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
+<link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css">
+<script type='text/javascript' src="/js/lib/bootstrap-datepicker.min.js"></script>
+<script src="/js/lib/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
 <script>

@@ -28,12 +28,12 @@ public class SampleController {
 
     @GetMapping("select_date")
     public String select_date(Model model){
-        return "/sample/select_date";
+        return "sample/select_date";
     }
 
     @GetMapping("index")
     public String index(Model model){
-        return "/sample/index";
+        return "sample/index";
     }
 
 }
