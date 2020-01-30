@@ -3,6 +3,7 @@
 <script src="/template2/assets/js/bootstrap/bootstrap.js"></script>
 <script src="/template2/assets/js/plugins/modernizr/modernizr.js"></script>
 <script src="/template2/assets/js/plugins/bootstrap-tour/bootstrap-tour.custom.js"></script>
+<script src="/template2/assets/js/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/template2/assets/js/king-common.js"></script>
 <script src="/template2/assets/js/deliswitch.js"></script>
 <script src="/template2/assets/js/plugins/stat/jquery.easypiechart.min.js"></script>
@@ -15,14 +16,22 @@
 <script src="/template2/assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
 <script src="/template2/assets/js/plugins/datatable/jquery.dataTables.min.js"></script>
 <script src="/template2/assets/js/plugins/datatable/dataTables.bootstrap.js"></script>
+<script src="/template2/assets/js/plugins/datatable/exts/dataTables.colVis.bootstrap.js"></script>
+<script src="/template2/assets/js/plugins/datatable/exts/dataTables.colReorder.min.js"></script>
+<script src="/template2/assets/js/plugins/datatable/exts/dataTables.tableTools.min.js"></script>
+<script src="/template2/assets/js/plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="/template2/assets/js/plugins/jqgrid/jquery.jqGrid.fluid.js"></script>
+<script src="/template2/assets/js/plugins/jqgrid/i18n/grid.locale-en.js"></script>
 <script src="/template2/assets/js/plugins/jquery-mapael/jquery.mapael.js"></script>
 <script src="/template2/assets/js/plugins/raphael/maps/usa_states.js"></script>
 <script src="/template2/assets/js/king-chart-stat.js"></script>
 <script src="/template2/assets/js/king-table.js"></script>
 <script src="/template2/assets/js/king-components.js"></script>
+<script src="/template2/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+
 
 <!-- plugin -->
-<script src="/js/lib/bootstrap-datepicker.min.js"></script>
+<%--<script src="/js/lib/bootstrap-datepicker.min.js"></script>--%>
 <script src="/js/lib/bootstrap-datepicker.kr.js"></script>
 
 <!-- dalbit -->
