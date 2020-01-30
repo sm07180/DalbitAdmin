@@ -21,4 +21,14 @@ public class SampleController {
         return "/sample/list";
     }
 
+    @GetMapping("select")
+    public String select(Model model){
+        return "/sample/select";
+    }
+
+    @GetMapping("select_date")
+    public String select_date(Model model){
+        return "/sample/select_date";
+    }
+
 }
