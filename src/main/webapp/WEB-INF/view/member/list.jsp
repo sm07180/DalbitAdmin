@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-
-
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
