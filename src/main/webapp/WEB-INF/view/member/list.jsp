@@ -8,23 +8,20 @@
     <div class="widget-content">
         <table id="memberList" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default" type="button">Delete</button>
-                <button class="btn btn-default" type="button">Excel Print</button>
+                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
+                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
             <tr>
-                <th><input type="checkbox">
-                    <span>NO</span>
-                </th>
-                <th>Name</th>
+                <th>NO</th>
+                <th>UserID</th>
                 <th>NickName</th>
+                <th>Name</th>
                 <th>PhoneNum</th>
-                <th>Email</th>
-                <th>JoinDate</th>
-                <th>BirthDate</th>
+                <th>JoinPlatform</th>
+                <th>Login_out</th>
                 <th>Live</th>
-                <th>Status</th>
-            </tr>
+                </tr>
             </thead>
             <tbody id="tableBody">
 
@@ -76,24 +73,14 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>
-            <input type="checkbox">
-            <span>{{NO}}</span>
-        </td>
-        <td>{{Name}}</td>
+        <td>{{NO}}</td>
+        <td>{{UserID}}</td>
         <td>{{NickName}}</td>
+        <td>{{Name}}</td>
         <td>{{PhoneNum}}</td>
-        <td>{{Email}}</td>
-        <td>{{convertToDate JoinDate "YYYY.MM.DD"}}</td>
-        <td>{{convertToDate BirthDate "YYYY.MM.DD"}}</td>
+        <td>{{JoinPlatform}}</td>
+        <td>{{Login_out}}</td>
         <td>{{Live}}</td>
-        <td>
-            <select name="select2" id="select2" class="select2">
-                <option value="option1">정상</option>
-                <option value="option2">탈퇴</option>
-                <option value="option3">정지</option>
-            </select>
-        </td>
     </tr>
     {{/data}}
 </script>

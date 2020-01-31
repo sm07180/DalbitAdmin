@@ -19,6 +19,7 @@
         <put-attribute name="header" value="/WEB-INF/tiles/layout/include/header.jsp" />
         <put-attribute name="top" value="/WEB-INF/tiles/layout/include/top.jsp" />
         <put-attribute name="left" value="/WEB-INF/tiles/layout/include/left.jsp" />
+        <put-attribute name="gnb" value="/WEB-INF/tiles/layout/include/gnb.jsp" />
         <put-attribute name="script" value="/WEB-INF/tiles/layout/include/script.jsp" />
         <put-attribute name="setting" value="/WEB-INF/tiles/layout/include/setting.jsp" />
         <put-attribute name="body" value="" />

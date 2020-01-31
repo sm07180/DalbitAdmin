@@ -41,14 +41,13 @@ public class MemberRestController {
 
         for(int i=0; i++ <20;) {
             map.put("NO", "NO");
-            map.put("Name", "양위디");             // 이름
-            map.put("NickName", "내이름은난난");   // 닉네임
-            map.put("PhoneNum", "01099410000");    // 휴대전화번호
-            map.put("Email", "Radio00@gmail.com"); // 이메일
-            map.put("JoinDate", "20191231");       // 가입일
-            map.put("BirthDate", "20000418");      // 생년월일
-            map.put("Live", "♠");                 // 생방여부
-            map.put("Status", "");                 // 상태 정렬
+            map.put("UserID", "DaldalE");
+            map.put("NickName", "다달이");
+            map.put("Name", "양달님");
+            map.put("PhoneNum", "010-9941-0000");
+            map.put("JoinPlatform", "달빛");
+            map.put("Login_out", "Login");
+            map.put("Live", "생방중♠");
 
 
             list.add(map);
@@ -78,15 +77,15 @@ public class MemberRestController {
             map.put("Gender", "남");                   // 성별
             map.put("NickName", "위뒤위뒤");           // 닉네임
             map.put("Level", "52");                    //레벨
-            map.put("DJGrade", "베스트DJ");           // DJ 등급
-            map.put("ListenerGrade", "베스트청취자"); // 청취자 등급
+            map.put("DJGrade", "베스트DJ");            // DJ 등급
+            map.put("ListenerGrade", "베스트청취자");  // 청취자 등급
             map.put("Email", "Radio00@gmail.com");     // 이메일
             map.put("PhoneNum", "010-9941-0000");      // 휴대폰번호
             map.put("Password", "*******");            // 비밀번호
             map.put("BirthDate", "2000.12.25");        // 생년월일
-            map.put("OnAir", "On Air ♠");        // 생방송 여부
+            map.put("OnAir", "On Air ♠");             // 생방송 여부
             map.put("JoinPath", "Naver 인증");         // 회원가입 경로
-            map.put("ModifyDate", "20191225");        // 최근정보 수정일
+            map.put("ModifyDate", "20191225");         // 최근정보 수정일
 
             profile.add(map);
 
@@ -108,14 +107,14 @@ public class MemberRestController {
 
         for(int i=0; i++<100;) {
             map.put("NO", "NO");
-            map.put("RoomTitle", "신나는 주말");  // 방제목
-            map.put("StartTime", "20191225");     // 방송 시작 시간
-            map.put("EndTime", "현재 진행 중");      // 방송 종료 시간
-            map.put("OnAirTime", "01:05:01");      // 방송 진행 시간
-            map.put("MaxListener", "xx");     // 최대 청취자 수
-            map.put("AvgListener", "50");     // 평균 청취자 수
-            map.put("Good", "XX");     // 받은 좋아요 수
-            map.put("Gift", "1");     // 받은 선물 아이템 수
+            map.put("RoomType", "노래/연주");
+            map.put("RoomTitle", "다달이와 함께하는 라디오");
+            map.put("StartTime", "20200501");
+            map.put("EndTime", "20200501");
+            map.put("OnAirTime", "xx");
+            map.put("AvgListener", "50");
+            map.put("Good", "XX");
+            map.put("Gift", "1");
 
             broadList.add(map);
         }

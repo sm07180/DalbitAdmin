@@ -8,19 +8,17 @@
     <div class="widget-content">
         <table id="broadList" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default" type="button">Delete</button>
-                <button class="btn btn-default" type="button">Excel Print</button>
+               <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
+                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
             <tr>
-                <th><input type="checkbox">
-                    <span>NO</span>
-                </th>
+                <th>NO</th>
+                <th>RoomType</th>
                 <th>RoomTitle</th>
                 <th>StartTime</th>
                 <th>EndTime</th>
                 <th>OnAirTime</th>
-                <th>MaxListener</th>
                 <th>AvgListener</th>
                 <th>Good</th>
                 <th>Gift</th>
@@ -67,15 +65,12 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>
-            <input type="checkbox">
-            <span>{{NO}}</span>
-        </td>
-        <td>{{RoomTitle}}</td>
+        <td>{{NO}}</td>
+        <td>{{RoomType}}</td>
+        <td>{{convertToDate RoomTitle "YYYY.MM.DD"}}</td>
         <td>{{convertToDate StartTime "YYYY.MM.DD"}}</td>
         <td>{{EndTime}}</td>
         <td>{{OnAirTime}}</td>
-        <td>{{MaxListener}}</td>
         <td>{{AvgListener}}</td>
         <td>{{Good}}</td>
         <td>{{Gift}}</td>
