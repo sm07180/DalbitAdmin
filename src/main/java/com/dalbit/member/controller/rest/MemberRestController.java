@@ -86,7 +86,7 @@ public class MemberRestController {
             map.put("BirthDate", "2000.12.25");        // 생년월일
             map.put("OnAir", "On Air ♠");        // 생방송 여부
             map.put("JoinPath", "Naver 인증");         // 회원가입 경로
-            map.put("RewriteDate", "20191225");        // 최근정보 수정일
+            map.put("ModifyDate", "20191225");        // 최근정보 수정일
 
             profile.add(map);
 

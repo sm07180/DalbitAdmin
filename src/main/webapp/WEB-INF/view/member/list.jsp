@@ -1,66 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="wrapper">
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Tables</h1>
-                </div>
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <div>
-                                <button type="button" class="btn btn-default">선택삭제</button>
 
-                                <button type="button" class="btn btn-default">Excel 출력</button>
-                            </div>
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th><label>
-                                                    <input type="checkbox" value="">NO
-                                                </label>
-                                            </th>
-                                            <th>Name</th>
-                                            <th>NickName</th>
-                                            <th>PhoneNum</th>
-                                            <th>Email</th>
-                                            <th>JoinDate</th>
-                                            <th>BirthDate</th>
-                                            <th>Live</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tableBody">
+<!-- SHOW HIDE COLUMNS DATA TABLE -->
+<div class="widget widget-table">
 
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
+    <div class="widget-content">
+        <table id="memberList" class="table table-sorting table-hover table-bordered datatable">
+            <span>
+                <button class="btn btn-default" type="button">Delete</button>
+                <button class="btn btn-default" type="button">Excel Print</button>
+            </span>
+            <thead>
+            <tr>
+                <th><input type="checkbox">
+                    <span>NO</span>
+                </th>
+                <th>Name</th>
+                <th>NickName</th>
+                <th>PhoneNum</th>
+                <th>Email</th>
+                <th>JoinDate</th>
+                <th>BirthDate</th>
+                <th>Live</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="tableBody">
+
+            </tbody>
+        </table>
     </div>
-    <!-- /#page-wrapper -->
-
 </div>
-<!-- /#wrapper -->
+<!-- END SHOW HIDE COLUMNS DATA TABLE -->
 
-
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     $(document).ready(function() {
         getAjaxData("list", "/rest/member/list", "", fn_success, fn_fail);
@@ -75,13 +48,24 @@
         var context = response;
         var html = templateScript(context);
 
-        console.log(html)
+
 
         $("#tableBody").append(html);
 
-        $('#dataTables-example').DataTable({
-            responsive: true
+        $('#memberList').DataTable({
+            retrieve: true,
+            paging: false,
+            searching: true,
+            /*sDom: "RC"+
+            "t"+
+            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            colVis: {
+                buttonText: 'Show / Hide Columns',
+                restore: "Restore",
+                showAll: "Show all"
+            },*/
         });
+
     }
 
     function fn_fail(data, textStatus, jqXHR){
@@ -91,26 +75,25 @@
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
-        <tr>
-            <td>
-                <label>
-                    <input type="checkbox" value="">{{NO}}
-                </label>
-            </td>
-            <td>{{Name}}</td>
-            <td>{{NickName}}</td>
-            <td>{{PhoneNum}}</td>
-            <td>{{Email}}</td>
-            <td>{{convertToDate JoinDate "YYYY.MM.DD"}}</td>
-            <td>{{convertToDate BirthDate "YYYY.MM.DD"}}</td>
-            <td>{{Live}}</td>
-            <td><label></label>
-                <select class="form-control">
-                    <option>정상</option>
-                    <option>탈퇴</option>
-                    <option>정지</option>
-                </select>
-            </td>
-        </tr>
+    <tr>
+        <td>
+            <input type="checkbox">
+            <span>{{NO}}</span>
+        </td>
+        <td>{{Name}}</td>
+        <td>{{NickName}}</td>
+        <td>{{PhoneNum}}</td>
+        <td>{{Email}}</td>
+        <td>{{convertToDate JoinDate "YYYY.MM.DD"}}</td>
+        <td>{{convertToDate BirthDate "YYYY.MM.DD"}}</td>
+        <td>{{Live}}</td>
+        <td>
+            <select name="select2" id="select2" class="select2">
+                <option value="option1">정상</option>
+                <option value="option2">탈퇴</option>
+                <option value="option3">정지</option>
+            </select>
+        </td>
+    </tr>
     {{/data}}
 </script>

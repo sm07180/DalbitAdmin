@@ -37,6 +37,5 @@
 <!-- dalbit -->
 <script src="/js/lib/handlebars-v4.7.2.min.js"></script>
 <script src="/js/lib/moment-v2.24.0.js"></script>
-<script src="/js/lib/handlebars-v4.7.2.min.js"></script>
 <script src="/js/common.js"></script>
 <script src="/js/helper.js"></script>
