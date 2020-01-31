@@ -67,8 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .loginProcessingUrl("/login/authenticate")
             .defaultSuccessUrl("/login/success")
 
-            .usernameParameter("s_id")         //id
-            .passwordParameter("s_pwd")      //password
+            .usernameParameter("memId")       //id
+            .passwordParameter("memPwd")      //password
 
             .successHandler(authSuccessHandler) //로그인 성공 시 처리
             .failureHandler(authFailureHandler) //로그인 실패 시 처리
