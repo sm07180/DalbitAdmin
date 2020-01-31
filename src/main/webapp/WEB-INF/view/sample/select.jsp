@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <%--<%@include file="../include/header.jsp"%>--%>
-</head>
-<body>
-
 <div id="wrapper">
-
-    <%--<%@include file="../tiles/layout/include/navigation.jsp"%>--%>
-
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -167,7 +157,6 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
-
 </div>
 <!-- /#wrapper -->
 
@@ -268,6 +257,3 @@
     </tr>
     {{/data}}
 </script>
-
-</body>
-</html>
