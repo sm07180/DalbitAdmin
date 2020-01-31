@@ -31,6 +31,11 @@ public class SampleController {
         return "sample/select_date";
     }
 
+    @GetMapping("select_date_edit")
+    public String select_date_edit(Model model){
+        return "sample/select_date_edit";
+    }
+
     @GetMapping("index")
     public String index(Model model){
         return "sample/index";

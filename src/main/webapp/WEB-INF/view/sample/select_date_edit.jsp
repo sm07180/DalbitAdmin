@@ -85,59 +85,101 @@
 
             <div class="row" align="right">
                 <input type="submit" class="btn btn-default" id="bt_list" value="리스트"></input>
-                <input type="submit" class="btn btn-default" id="bt_edit" value="수정하기"></input>
+                <input type="submit" class="btn btn-default" id="bt_edit" value="수정완료"></input>
             </div>
             <div class="row">
                 <div class="col-md-3" align="right">
                     <div align="center">
                         <img src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" />
                     </div>
-                    <%--<div align="center">--%>
-                        <%--<button type="submit" class="btn btn-default" id="bt_imgChg">사진변경</button>--%>
-                    <%--</div>--%>
-                    <%--<div align="center">--%>
-                        <%--<button type="submit" class="btn btn-default" id="br_imgDel">사진삭제</button>--%>
-                    <%--</div>--%>
+                    <div align="center">
+                        <button type="submit" class="btn btn-default" id="bt_imgChg">사진변경</button> <button type="submit" class="btn btn-default" id="br_imgDel">사진삭제</button>
+                    </div>
                 </div>
                 <div class="col-md-9">
                     <div class="col-md-12">
                         <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">이름</span><span class="data-value" style="width: 60%">양위디</span></p>
-                        </div>
-                        <%--<div class="col-md-1">--%>
-                            <%--<button type="button" id="bt_nameEdit" class="btn btn-primary"  style="padding:5px 10px;font-size:12px;line-height:1.5;border-radius:3px;width: 100%;">수정하기</button>--%>
-                        <%--</div>--%>
-                        <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">나이</span><span class="data-value" style="width: 60%">22세</span></p>
-                        </div>
-                        <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">성별</span><span class="data-value" style="width: 60%">남</span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">닉네임</span><span class="data-value" style="width: 60%">위디위디</span></p>
-                        </div>
-                        <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">레벨</span><span class="data-value" style="width: 60%">52</span></p>
-                        </div>
-                        <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">휴대폰정보</span><span class="data-value" style="width: 60%">010-9999-0000</span></p>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="basic-info col-md-4">
                             <p class="data-row">
-                                <span class="data-name" style="width: 100px">이메일</span><span class="data-value" style="width: 60%">Redio00@gmail.com</span>
+                                <span class="data-name" style="width: 100px">이름</span>
+                                <input type="text" class="bootstrap-slider" id="txt_name" value="양위디" style="width: 35%">
+                                <button type="button" id="bt_nameEdit" class="btn btn-primary btn-xs"  style="border-radius:3px;width: 25%;">수정하기</button>
+                            </p>
+                        </div>
+                        <div class="basic-info col-md-2">
+                            <p class="data-row"><span class="data-name" style="width: 100px">나이</span><span class="data-value" >22세</span></p>
+                        </div>
+                        <div class="basic-info col-md-6">
+                            <p class="data-row">
+                                <span class="data-name" style="width: 100px">성별</span>
+                                <%--<span class="data-value" style="width: 60%">남</span>--%>
+                                <label class="control-inline fancy-radio">
+                                    <input type="radio" name="inline-radio" checked>
+                                    <span><i></i>남</span>
+                                </label>
+                                <label class="control-inline fancy-radio">
+                                    <input type="radio" name="inline-radio">
+                                    <span><i></i>여</span>
+                                </label>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">비밀번호</span><span class="data-value" style="width: 60%">**********************</span></p>
+                            <p class="data-row">
+                                <span class="data-name" style="width: 100px">닉네임</span>
+                                <input type="text" class="bootstrap-slider" id="txt_nickName" value="위디위디" style="width: 35%">
+                                <button type="button" id="bt_nickCheck" class="btn btn-primary btn-xs"  style="border-radius:3px;width: 25%;">중복체크</button>
+                            </p>
                         </div>
-                        <div class="basic-info col-md-4">
-                            <p class="data-row"><span class="data-name" style="width: 100px">생년월일</span><span class="data-value" style="width: 60%">1990.10.26</span></p>
+                        <div class="basic-info col-md-2">
+                            <p class="data-row"><span class="data-name" style="width: 100px">레벨</span><span class="data-value">52</span></p>
+                        </div>
+                        <div class="basic-info col-md-6">
+                            <p class="data-row">
+                                <span class="data-name" style="width: 100px">휴대폰번호</span>
+                                <input type="text" class="bootstrap-slider" id="txt_phon" value="010-9999-0000" style="width: 25%">
+                                <input type="text" class="bootstrap-slider" id="txt_authNumber" placeholder="인증번호" value="" style="width: 15%">
+                                <label id="lb_authNumber"></label>
+                                <button type="button" id="bt_authNumberSend" class="btn btn-primary btn-xs"  style="border-radius:3px;width: 20%">인증번호 발송</button>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="basic-info col-md-12">
+                            <p class="data-row">
+                                <span class="data-name" style="width: 100px">이메일</span>
+                                <input type="text" class="bootstrap-slider" id="txt_mailID" value="Redio00" style="width: 13%">@
+                                <input type="text" class="bootstrap-slider" id="txt_mailAdr" value="naver.com" style="width: 13%">
+                                <select id="cob_mail" name="emailSelection" style="width: 13%">
+                                    <option value="1" selected="selected">직접입력</option>
+                                    <option value="gmail.com">gmail.com</option>
+                                    <option value="naver.com">naver.com</option>
+                                    <option value="hanmail.net">hanmail.net</option>
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="basic-info col-md-6">
+                            <p class="data-row">
+                                <span class="data-name" style="width: 100px">비밀번호</span>
+                                <input type="password" class="bootstrap-slider" id="txt_pass" value="****" style="width: 25%">
+                                <button type="button" id="bt_tempPassMail" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 27%;">임시 비밀번호 메일 발송</button>
+                                <button type="button" id="bt_tempPassPhon" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 27%;">임시 비밀번호 문자 발송</button>
+                            </p>
+                        </div>
+                        <div class="basic-info col-md-6">
+                            <p class="data-row input-group date">
+                                <span class="data-name" style="width: 100px">생년월일</span>
+                                <%--<span class="data-value" style="width: 60%">1990.10.26</span>--%>
+                                <input type="text" class="bootstrap-slider" id="txt_birthEdit" style="width: 25%">
+                                <span class="input-group-addon" style="display: inline-block; width: 13%;"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>
+                                <%--<input type="text" class="bootstrap-slider" id="txt_birthEdit">--%>
+                            </p>
+
+                            <%--<div class="input-group date" id="date_birthEdit">--%>
+                                <%--<input type="text" class="bootstrap-slider" id="txt_birthEdit"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>--%>
+                            <%--</div>--%>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -261,10 +303,78 @@
 
     });
 
-    $('#bt_edit').click( function() {
+    var tmp_sw="true";
 
+    $('#cob_mail').change(function () {
+        var tmp = $('#cob_mail').val();
+        if(tmp == "1"){
+            $("#txt_mailAdr").val("");
+        }else{
+            $("#txt_mailAdr").val($('#cob_mail').val());
+        }
+    });
+    $("#txt_authNumber").hide();
+    $('#bt_authNumberSend').click( function() {
+        if($(this).val() == '인증번호 발송'){
+            $(this).val("재발송");
+        }
+        $("#txt_authNumber").show();
+        if (tmp_sw == "true") {
+            tmp_sw = "false";
+            time();
+        }
+    });
+
+    $('#bt_list').click( function() {       //리스트
 
     });
+
+    $('#bt_edit').click( function() {       //수정완료
+
+    });
+
+
+    $('#bt_nameEdit').click( function() {       //이름 수정
+
+    });
+
+    $('#bt_nickCheck').click( function() {       //닉네임중복체크
+
+    });
+
+    $('#bt_tempPassMail').click( function() {       //임시비밀번호메일발송
+
+    });
+
+    $('#bt_tempPassPhon').click( function() {       //임시비밀번호문자발송
+
+    });
+
+    var num = 60 * 1; // 몇분을 설정할지의 대한 변수 선언
+    var myVar;
+    function time(){
+        myVar = setInterval(alertFunc, 1000);
+    }
+    function alertFunc() {
+        var min = num / 60;
+        min = Math.floor(min);
+        var sec = num - (60 * min);
+        var input = min + '분' + sec + '초';
+        console.log(input);
+        $("#lb_authNumber").text(input);
+
+        if(num == 0){
+            num = 60 * 1;
+            myVar;
+            tmp_sw ="true";
+            clearInterval(myVar); // num 이 0초가 되었을대 clearInterval로 타이머 종료
+        }
+        num--;
+    }
+
+
+
+
 
 
     function fn_success(dst_id, response){
@@ -285,7 +395,6 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
-
 </script>
 
 <script id="tmp_list" type="text/x-handlebars-template">
