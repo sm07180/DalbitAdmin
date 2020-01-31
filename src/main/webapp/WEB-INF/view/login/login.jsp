@@ -7,7 +7,7 @@
                 <h3 class="panel-title">Please Sign In</h3>
             </div>
             <div class="panel-body">
-                <form role="form">
+                <form id="form">
                     <fieldset>
                         <div class="form-group">
                             <input class="form-control" placeholder="아이디" name="memId" type="memId" value="010-1234-0006" autofocus>
