@@ -25,6 +25,45 @@ function getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc){
     });
 }
 
+/* Excell DownLoad 모듈*/
+function excelDownload(btn, url, data, successFunc, errorFunc){
+    btn.button('loading');
+
+    var sendData = data;
+    if(data instanceof FormData){
+        sendData = {};
+        data.forEach(function(value, key){
+            sendData[key] = value;
+        });
+    }
+
+    $.fileDownload(url,{
+        httpMethod: "POST",
+        data:sendData,
+        successCallback: function (url) {
+            dalbitLog(url);
+            setTimeout(function () {
+                btn.button('reset');
+            }, 500)
+        },
+        failCallback: function (responseHtml, url) {
+            dalbitLog(responseHtml)
+            dalbitLog(url)
+            setTimeout(function () {
+                btn.button('reset');
+            }, 500)
+        }
+    })
+    .done(function(){
+        if (successFunc != null) successFunc();
+    })
+    .fail(function(){
+        if (errorFunc != null) errorFunc();
+    });
+}
+
+
+
 /* Null 체크 */
 function isEmpty(value){
     return !value ? true : false;

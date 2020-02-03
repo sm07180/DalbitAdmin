@@ -41,4 +41,12 @@ public class SampleController {
         return "sample/index";
     }
 
+
+
+
+    @GetMapping("excel")
+    public String init(){
+        return "sample/excel";
+    }
+
 }

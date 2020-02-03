@@ -12,7 +12,11 @@ public enum Status {
     로그인실패_파라메터이상("-2", "login.param.error", "로그인 실패 시 - 파라메터이상"),
 
     //CRUD
-    조회("1001", "read.success", "조회");
+    조회("1001", "read.success", "조회"),
+
+    //엑셀 다운로드
+    엑셀다운로드성공("1", "excel.download.success", "엑셀 다운로드 성공 시"),
+    엑셀다운로드실패("0", "excel.download.fail", "엑셀 다운로드 실패 시"),
 
     ;
 
