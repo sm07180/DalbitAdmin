@@ -15,38 +15,38 @@
                     <li class="active"><a href="#" class="js-sub-menu-toggle"><i class="fa fa-dashboard fa-fw"></i><span class="text">회원정보</span>
                         <i class="toggle-icon fa fa-angle-down"></i></a>
                         <ul class="sub-menu open">
-                            <li class="active"><a href="index.html"><span class="text">회원검색</span></a></li>
+                            <li class="active"><a href="/member/member/list"><span class="text">회원검색</span></a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="js-sub-menu-toggle"><i class="fa fa-navicon"></i><span class="text">방송/청취기록</span>
-                        <i class="toggle-icon fa fa-angle-left"></i></a>
-                        <ul class="sub-menu ">
-                            <li><a href="nav-default-fixed.html"><span class="text">방송기록</span></a></li>
-                            <li><a href="nav-normal.html"><span class="text">청취기록</span></a></li>
+                    <li class="active"><a href="#" class="js-sub-menu-toggle"><i class="fa fa-navicon"></i><span class="text">방송/청취기록</span>
+                        <i class="toggle-icon fa fa-angle-down"></i></a>
+                        <ul class="sub-menu open">
+                            <li><a href="/member/broadcast/list"><span class="text">방송기록</span></a></li>
+                            <li><a href="/member/listen/list"><span class="text">청취기록</span></a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="js-sub-menu-toggle"><i class="fa fa-columns"></i><span class="text">개인결제</span>
-                        <i class="toggle-icon fa fa-angle-left"></i></a>
-                        <ul class="sub-menu ">
-                            <li><a href="layout-collapsed.html"><span class="text">결제/환불내역</span></a></li>
-                            <li><a href="layout-minified.html"><span class="text">선물내역</span></a></li>
-                            <li><a href="layout-ontop-navigation.html"><span class="text">환전내역</span></a></li>
+                    <li class="active"><a href="#" class="js-sub-menu-toggle"><i class="fa fa-columns"></i><span class="text">개인결제</span>
+                        <i class="toggle-icon fa fa-angle-down"></i></a>
+                        <ul class="sub-menu open">
+                            <li><a href="/member/pay/list"><span class="text">결제/환불내역</span></a></li>
+                            <li><a href="/member/gift/list"><span class="text">선물내역</span></a></li>
+                            <li><a href="/member/exchange/list"><span class="text">환전내역</span></a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">MyStar</span></a>
+                        <a href="/member/myStar" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">MyStar</span></a>
                     </li>
                     <li>
-                        <a href="#" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">Fan</span></a>
+                        <a href="/member/fan" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">Fan</span></a>
                     </li>
                     <li>
-                        <a href="#" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">개별/방송 중 공지</span></a>
+                        <a href="/member/notice/list" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">개별/방송 중 공지</span></a>
                     </li>
                     <li>
-                        <a href="#" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">신고/1:1문의</span></a>
+                        <a href="/member/receipt/list" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">신고/1:1문의</span></a>
                     </li>
                     <li>
-                        <a href="#" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">회원접속 기록</span></a>
+                        <a href="/member/connect/list" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">회원접속 기록</span></a>
                     </li>
                 </c:if>
 
