@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 @Slf4j
 @RestController
-@RequestMapping("rest/member")
+@RequestMapping("rest/member/member")
 public class MemberRestController {
 
     @Autowired
