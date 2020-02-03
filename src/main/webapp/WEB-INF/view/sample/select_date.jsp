@@ -2,8 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-    .a{
-        border:1px solid #5e5e5e;
+    .text_center{
+        text-align: center;
+    }
+    .text_middle{
+        display:table-cell;
+        vertical-align:middle
+    }
+    .p{
+        padding-left: 0px;
+        padding-right: 0px;
     }
 
 </style>
@@ -85,167 +93,138 @@
                 </div>
             </div>
 
-            <%--<div class="row">--%>
-            <%--<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3<br>Resize your viewport or check it out on your phone for an example.</div>--%>
-            <%--&lt;%&ndash;<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>&ndash;%&gt;--%>
-
-            <%--<!-- Add the extra clearfix for only the required viewport -->--%>
-            <%--<div class="clearfix visible-xs-block"></div>--%>
-
-            <%--<div class="col-xs-6 col-sm-3">.1</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.1</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.1</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.1</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.1</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.1</div>--%>
-
-            <%--<div class="clearfix visible-xs-block"></div>--%>
-
-            <%--<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>--%>
-            <%--<div class="col-xs-6 col-sm-3">.col-xs-6 .col-sm-3</div>--%>
-
-            <%--</div>--%>
-
-            <div class="row col-lg-12 form-inline">
-                <div class="col-lg-5">
+             <div class="row col-lg-12 form-inline">
+                <div class="col-lg-6">
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="height:150px;text-align: center;display:table-cell;vertical-align:middle">프로필 이미지</span>
-                            <img src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" style="width:150px; height: 150px"/>
+                            <span class="data-name col-lg-3 form-control text_center text_middle" style="height:150px">프로필 이미지</span>
+                            <img src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" style="width:150px; height: 150px" id="img_profileImg"/>
                             <button type="submit" class="btn btn-default" id="bt_imgChg">사진변경</button>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">UserID</span><span class="data-value col-lg-5">DaldalE</span>
+                            <span class="data-name col-lg-6 form-control text_center">UserID</span>
+                            <span class="data-value col-lg-6" id="lb_userId">DaldalE</span>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">닉네임</span>
-                            <input type="text" class="bootstrap-slider col-lg-6" id="txt_nickName" value="다달이">
+                            <span class="data-name col-lg-3 form-control text_center">닉네임</span>
+                            <input type="text" class="form-control col-lg-6" id="txt_nickName" value="다달이">
                         </p>
                     </div>
 
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">이름</span>
-                            <input type="text" class="bootstrap-slider col-lg-6" id="txt_name" value="양달님">
+                            <span class="data-name col-lg-3 form-control text_center">이름</span>
+                            <input type="text" class="form-control col-lg-6" id="txt_name" value="양달님">
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <%--<p class="data-row input-group date">--%>
-                            <span class="data-name col-lg-3" style="text-align: center">생년월일</span>
-                            <%--<input type="text" class="bootstrap-slider" id="txt_birth" style="width: 47%">--%>
-                            <%--<span class="input-group-addon" style="display: inline-block; width: 13%;"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>--%>
+                        <%--<p class="data-row input-group date">--%>
+                            <span class="data-name col-lg-3 form-control text_center">생년월일</span>
+                            <%--<input type="text" class="form-control col-lg-4" id="txt_birth" >--%>
+                            <%--<span class="input-group-addon" style="display: inline-block;"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>--%>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">나이</span>
+                            <span class="data-name col-lg-3 form-control text_center">나이</span>
                             <span class="data-value col-lg-5" id="lb_age">33세</span>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">성별</span>
-                            <label class="radio-inline"><input type="radio" name="broad" id="radio_male" value="option1" checked="true">남자</label>
+                            <span class="data-name col-lg-3 form-control text_center">성별</span>
+                            <label class="radio-inline"><input class="" type="radio" name="broad" id="radio_male" value="option1" checked="true">남자</label>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_female" value="option2">여자</label>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">연락처</span>
-                            <input type="text" class="bootstrap-slider col-lg-6" id="txt_phon" value="010-1111-2222">
+                            <span class="data-name col-lg-3 form-control text_center">연락처</span>
+                            <input type="text" class="form-control col-lg-6" id="txt_phon" value="010-1111-2222">
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">이메일</span>
-                            <input type="text" class="bootstrap-slider col-lg-6" id="txt_eMail" value="dabit00@gmail.com">
+                            <span class="data-name col-lg-3 form-control text_center">이메일</span>
+                            <input type="text" class="form-control col-lg-6" id="txt_eMail" value="dabit00@gmail.com">
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">비밀번호</span>
-                            <input type="password" class="bootstrap-slider col-lg-6" id="txt_pass" value="123412341234">
-                            <button type="button" id="bt_resatPass" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">비밀번호 초기화</button>
+                            <span class="data-name col-lg-3 form-control text_center">비밀번호</span>
+                            <input type="password" class="form-control col-lg-6" id="txt_pass" value="123412341234">
+                            <button type="button" id="bt_resatPass" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">비밀번호 초기화</button>
                         </p>
                     </div>
 
-                    <div class="col-lg-12" style="height:56px;">
+                    <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="height:56px;text-align: center;">방송기록</span>
-                            <span class="data-value col-lg-6">총00건</span>
-                            <button type="button" id="bt_broadHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <span class="data-name col-lg-3 form-control text_center">방송기록</span>
+                            <span class="data-value col-lg-6" id="lb_broadCnt">총00건</span>
+                            <button type="button" id="bt_broadHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12" style="height:56px;">
+                    <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="height:56px;text-align: center">청취기록</span>
-                            <span class="data-value col-lg-6">총00건</span>
-                            <button type="button" id="bt_listenHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <span class="data-name col-lg-3 form-control text_center">청취기록</span>
+                            <span class="data-value col-lg-6" id="lb_listenCnt">총00건</span>
+                            <button type="button" id="bt_listenHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
 
-                    <%--<div class="col-lg-12" style="height:87px;">--%>
-                    <%--<p class="data-row">--%>
-                    <%--<span class="data-name col-lg-2" style="height:87px;text-align: center">개인결제정보</span>--%>
-                    <%--</p>--%>
-                    <%--<div class="col-lg-9">--%>
-                    <%--<p class="data-row">--%>
-                    <%--<span class="data-name col-lg-2" style="width: 20%;">결제</span><span class="data-value">총00건</span>--%>
-                    <%--<button type="button" id="bt_payHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>--%>
-                    <%--</p>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-lg-9">--%>
-                    <%--<p class="data-row">--%>
-                    <%--<span class="data-name col-lg-2" style="width: 20%">환불</span><span class="data-value">총00건</span>--%>
-                    <%--<button type="button" id="bt_refundHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>--%>
-                    <%--</p>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-lg-9">--%>
-                    <%--<p class="data-row">--%>
-                    <%--<span class="data-name col-lg-2" style="width: 20%">선물</span><span class="data-value">총00건</span>--%>
-                    <%--<button type="button" id="bt_giftHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>--%>
-                    <%--</p>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-lg-9">--%>
-                    <%--<p class="data-row">--%>
-                    <%--<span class="data-name col-lg-2" style="width: 20%">환전</span><span class="data-value col-lg-2">총00건</span>--%>
-                    <%--<button type="button" id="bt_exchangeHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>--%>
-                    <%--</p>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="col-lg-12">--%>
-                    <%--<p class="data-row">--%>
-                    <%--<span class="data-name col-lg-3">현재 접속 플랫폼</span>--%>
-                    <%--<span class="data-value col-lg-5" html="">Mobile (Android)</span>--%>
-                    <%--<button type="button" id="bt_accessPlatform" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>--%>
-                    <%--</p>--%>
-                    <%--</div>--%>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">개인결제정보</span>
+                            <span class="data-value col-lg-6" id="lb_payCnt">총00건</span>
+                            <button type="button" id="bt_payHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">개인환불정보</span>
+                            <span class="data-value col-lg-6" id="lb_refundCnt">총00건</span>
+                            <button type="button" id="bt_refundHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">개인선물정보</span>
+                            <span class="data-value col-lg-6" id="lb_giftCnt">총00건</span>
+                            <button type="button" id="bt_giftHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">개인환전정보</span>
+                            <span class="data-value col-lg-6" id="lb_exchangeCnt">총00건</span>
+                            <button type="button" id="bt_exchangeHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
                 </div>
+
                 <div class="col-lg-6">
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">회원레벨</span>
-                            <select id="cob_userLevel" name="emailSelection" style="width: 50%">
+                            <span class="data-name col-lg-3 form-control text_center">회원레벨</span>
+                            <select id="cob_userLevel" name="emailSelection" class="col-lo-6 form-control text_center">
                                 <option value="1" selected="selected">직접입력</option>
-                                <option value="gmail.com">gmail.com</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="hanmail.net">hanmail.net</option>
+                                <option value="1">01레벨</option>
+                                <option value="2">02레벨</option>
+                                <option value="3">03레벨</option>
                             </select>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">DJ등급</span>
-                            <select id="cob_djLevel" name="emailSelection" style="width: 50%">
+                            <span class="data-name col-lg-3 form-control text_center">DJ등급</span>
+                            <select id="cob_djLevel" name="emailSelection" class="col-lo-6 form-control text_center">
                                 <option value="normal">일반DJ</option>
                                 <option value="best">베스트DJ</option>
                             </select>
@@ -253,8 +232,8 @@
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">청취자 등급</span>
-                            <select id="cob_lisLevel" name="emailSelection" style="width: 50%">
+                            <span class="data-name col-lg-3 form-control text_center">청취자 등급</span>
+                            <select id="cob_lisLevel" name="emailSelection" class="col-lo-6 form-control text_center">
                                 <option value="normal">일반청취자</option>
                                 <option value="best">베스트 청취자</option>
                             </select>
@@ -262,190 +241,124 @@
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">접속상태</span>
+                            <span class="data-name col-lg-3 form-control text_center">접속상태</span>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_login" value="option1" checked="true">Login</label>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_logout" value="option2">Logout</label>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">생방상태</span>
+                            <span class="data-name col-lg-3 form-control text_center">생방상태</span>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_liveOn" value="option1" checked="true">생방중</label>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_liveOff" value="option2">방송OFF</label>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">청취상태</span>
+                            <span class="data-name col-lg-3 form-control text_center">청취상태</span>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_lisOn" value="option1" checked="true">청취중</label>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_lisOff" value="option2">청취OFF</label>
                         </p>
                     </div>
-
+                    <%--<div class="col-lg-12">--%>
+                        <%--<p class="data-row">--%>
+                            <%--<span class="data-name col-lg-3 form-control text_center" >&nbsp;</span><span class="data-value" style="width: 50%">&nbsp;</span>--%>
+                        <%--</p>--%>
+                    <%--</div>--%>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" >&nbsp;</span><span class="data-value" style="width: 50%">&nbsp;</span>
-                        </p>
-                    </div>
-                    <div class="col-lg-12" style="height:56px;">
-                        <p class="data-row">
-                            <span class="data-name col-lg-3" style="height:56px;text-align: center;">가입플랫폼(첫연동일)</span>
-                            <span class="data-value" style="width: 20%">달빛</span>
-                            <span class="data-value" style="width: 20%">페이스북</span>
+                            <span class="data-name col-lg-3 form-control text_center">가입플랫폼(첫연동일)</span>
+                            <span class="data-value" style="width: 50%" id="lb_platform">달빛</span>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">회원가입일시</span>
+                            <span class="data-name col-lg-3 form-control text_center">회원가입일시</span>
                             <span class="data-value" style="width: 50%" id="lb_joinDate">2020.02.03 09:27:30</span>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">회원탈퇴일시</span>
+                            <span class="data-name col-lg-3 form-control text_center">회원탈퇴일시</span>
                             <span class="data-value" style="width: 50%" id="lb_cancelMb">2020.02.03 09:27:30</span>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">최근 정보 수정일시</span>
+                            <span class="data-name col-lg-3 form-control text_center">최근 정보 수정일시</span>
                             <span class="data-value" style="width: 50%" id="lb_editDate">2020.02.03 09:27:30</span>
                         </p>
                     </div>
                     <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-name col-lg-3" style="text-align: center">최근 정보 수정 처리자</span>
+                            <span class="data-name col-lg-3 form-control text_center">최근 정보 수정 처리자</span>
                             <span class="data-value" style="width: 50%" id="lb_editUser">admin</span>
                         </p>
                     </div>
-
-                    <div class="col-lg-12" style="height:87">
+                    <div class="col-lg-12">
                         <p class="data-row">
-                            <span class="data-row data-name " style="height:87px;text-align: center">개인결제정보</span>
-                            <span class="data-name" style="width: 20%;text-align: left;heigth:24">내가 등록한 MyStar</span>
-                            <span class="data-value" style="width: 20%;heigth:24">총00건</span>
-                            <button type="button" id="bt_mystarHistory1" class="btn btn-primary btn-xs disabled" style="border-radius:3px;width: 110px;float:right">세부내역</button>
-
-                            <span class="data-name" style="width: 20%;text-align: left;heigth:24">나를 MyStar로 등록한 회언</span>
-                            <span class="data-value" style="width: 20%;heigth:24">총00건</span>
-                            <button type="button" id="bt_mystarHistory2" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <span class="data-name col-lg-3 form-control text_center">내가 등록한 Mystar</span>
+                            <span class="data-value col-lg-6" id="lb_myStarCnt">총00건</span>
+                            <button type="button" id="bt_registmyStarList" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
-                        <%--<p class="data-row">--%>
-
-                            <%--<span class="data-row data-name " style="height:87px;text-align: center">개인결제정보</span>--%>
-                            <%--<span class="data-name" style="width: 20%;text-align: center">내가 등록한 MyStar</span>--%>
-                            <%--<span class="data-value" style="width: 20%">총00건</span>--%>
-                            <%--<button type="button" id="bt_mystarHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>--%>
-
-                            <%--&lt;%&ndash;<span class="data-name" style="width: 20%">나를 MyStar로 등록한 회언</span>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<span class="data-value" style="width: 20%">총00건</span>&ndash;%&gt;--%>
-                            <%--&lt;%&ndash;<button type="button" id="bt_mystarHistory" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 110px;float:right">세부내역</button>&ndash;%&gt;--%>
-                        <%--</p>--%>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">나를 Mystar로 등록한 회원</span>
+                            <span class="data-value col-lg-6" id="lb_meStarList">총00건</span>
+                            <button type="button" id="bt_registMeStarList" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">내가 등록한 Fan</span>
+                            <span class="data-value col-lg-6" id="lb_myFan">총00건</span>
+                            <button type="button" id="bt_registMyFanlist" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">나를 등록한 Fan</span>
+                            <span class="data-value col-lg-6" id="lb_meFan">총00건</span>
+                            <button type="button" id="bt_registMeFanlist" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">개인공지</span>
+                            <span class="data-value col-lg-6" id="lb_noticeCnt">총00건</span>
+                            <button type="button" id="bt_myNotice" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">방송 중 공지</span>
+                            <span class="data-value col-lg-6" id="lb_broadNoticeCnt">총00건</span>
+                            <button type="button" id="bt_broadNotice" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">내가 신고한 정보</span>
+                            <span class="data-value col-lg-6" id="lb_myDeclarCnt">총00건</span>
+                            <button type="button" id="bt_registMyDeclar" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">나를 신고한 정보</span>
+                            <span class="data-value col-lg-6" id="lb_meDeclarCnt">총00건</span>
+                            <button type="button" id="bt_registMeDeclar" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
+                    </div>
+                    <div class="col-lg-12">
+                        <p class="data-row">
+                            <span class="data-name col-lg-3 form-control text_center">1:1문의 정보</span>
+                            <span class="data-value col-lg-6" id="lb_resPonseCnt">총00건</span>
+                            <button type="button" id="bt_resPonse" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                        </p>
                     </div>
                 </div>
-
-
-
-
-                <%--<div class="col-lg-9">--%>
-                <%--<div class="col-lg-12">--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row">--%>
-                <%--<span class="data-name" style="width: 100px">이름</span>--%>
-                <%--<input type="text" class="bootstrap-slider" id="1" value="양위디" style="width: 35%">--%>
-                <%--<button type="button" id="bt_nameEdit" class="btn btn-primary btn-xs"  style="border-radius:3px;width: 25%;">수정하기</button>--%>
-                <%--</p>--%>
-                <%--</div>--%>
-                <%--<div class="basic-info col-lg-2">--%>
-                <%--<p class="data-row"><span class="data-name" style="width: 100px">나이</span><span class="data-value" >22세</span></p>--%>
-                <%--</div>--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row">--%>
-                <%--<span class="data-name" style="width: 100px">성별</span>--%>
-                <%--&lt;%&ndash;<span class="data-value" style="width: 60%">남</span>&ndash;%&gt;--%>
-                <%--<label class="control-inline fancy-radio">--%>
-                <%--<input type="radio" name="inline-radio" checked>--%>
-                <%--<span><i></i>남</span>--%>
-                <%--</label>--%>
-                <%--<label class="control-inline fancy-radio">--%>
-                <%--<input type="radio" name="inline-radio">--%>
-                <%--<span><i></i>여</span>--%>
-                <%--</label>--%>
-                <%--</p>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-lg-12">--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row">--%>
-                <%--<span class="data-name" style="width: 100px">닉네임</span>--%>
-                <%--&lt;%&ndash;<input type="text" class="bootstrap-slider" id="txt_nickName" value="위디위디" style="width: 35%">&ndash;%&gt;--%>
-                <%--<button type="button" id="bt_nickCheck" class="btn btn-primary btn-xs"  style="border-radius:3px;width: 25%;">중복체크</button>--%>
-                <%--</p>--%>
-                <%--</div>--%>
-                <%--<div class="basic-info col-lg-2">--%>
-                <%--<p class="data-row"><span class="data-name" style="width: 100px">레벨</span><span class="data-value">52</span></p>--%>
-                <%--</div>--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row">--%>
-                <%--<span class="data-name" style="width: 100px">휴대폰번호</span>--%>
-                <%--<input type="text" class="bootstrap-slider" id="txt_phon1" value="010-9999-0000" style="width: 25%">--%>
-                <%--<input type="text" class="bootstrap-slider" id="txt_authNumber" placeholder="인증번호" value="" style="width: 15%">--%>
-                <%--<label id="lb_authNumber"></label>--%>
-                <%--<button type="button" id="bt_authNumberSend" class="btn btn-primary btn-xs"  style="border-radius:3px;width: 20%">인증번호 발송</button>--%>
-                <%--</p>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-lg-12">--%>
-                <%--<div class="basic-info col-lg-12">--%>
-                <%--<p class="data-row">--%>
-                <%--<span class="data-name" style="width: 100px">이메일</span>--%>
-                <%--<input type="text" class="bootstrap-slider" id="txt_mailID" value="Redio00" style="width: 13%">@--%>
-                <%--<input type="text" class="bootstrap-slider" id="txt_mailAdr" value="naver.com" style="width: 13%">--%>
-                <%--<select id="cob_mail" name="emailSelection" style="width: 13%">--%>
-                <%--<option value="1" selected="selected">직접입력</option>--%>
-                <%--<option value="gmail.com">gmail.com</option>--%>
-                <%--<option value="naver.com">naver.com</option>--%>
-                <%--<option value="hanmail.net">hanmail.net</option>--%>
-                <%--</select>--%>
-                <%--</p>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-lg-12">--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row">--%>
-                <%--<span class="data-name" style="width: 100px">비밀번호</span>--%>
-                <%--<input type="password" class="bootstrap-slider" id="txt_pass1" value="****" style="width: 25%">--%>
-                <%--<button type="button" id="bt_tempPassMail" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 27%;">임시 비밀번호 메일 발송</button>--%>
-                <%--<button type="button" id="bt_tempPassPhon" class="btn btn-primary btn-xs disabled"  style="border-radius:3px;width: 27%;">임시 비밀번호 문자 발송</button>--%>
-                <%--</p>--%>
-                <%--</div>--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row input-group date">--%>
-                <%--&lt;%&ndash;<span class="data-name" style="width: 100px">생년월일</span>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<span class="data-value" style="width: 60%">1990.10.26</span>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<input type="text" class="bootstrap-slider" id="txt_birthEdit" style="width: 25%">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<span class="input-group-addon" style="display: inline-block; width: 13%;"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<input type="text" class="bootstrap-slider" id="txt_birthEdit">&ndash;%&gt;--%>
-                <%--</p>--%>
-
-                <%--&lt;%&ndash;<div class="input-group date" id="date_birthEdit">&ndash;%&gt;--%>
-                <%--&lt;%&ndash;<input type="text" class="bootstrap-slider" id="txt_birthEdit"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>&ndash;%&gt;--%>
-                <%--&lt;%&ndash;</div>&ndash;%&gt;--%>
-                <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="col-lg-12">--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row"><span class="data-name" style="width: 100px">생방송여부</span><span class="data-value" style="width: 60%">on air</span></p>--%>
-                <%--</div>--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row"><span class="data-name" style="width: 100px">회원가입경로</span><span class="data-value" style="width: 60%">Naver</span></p>--%>
-                <%--</div>--%>
-                <%--<div class="basic-info col-lg-6">--%>
-                <%--<p class="data-row"><span class="data-name" style="width: 100px">최근정보 수정일</span><span class="data-value" style="width: 60%">2020.01.03 18:00:00</span></p>--%>
-                <%--</div>--%>
-                <%--</div>--%>
-
-                <%--</div>--%>
             </div>
         </div>
         <!-- /.row -->
@@ -519,28 +432,67 @@
         }
     });
 
+    // img_profileImg					// 프로필 이미지
+    // lb_userId						// 사용자 ID
+    // txt_nickName						// 닉네임
+    // txt_name							// 이름
+    // lb_age							// 나이
+    // radio_male						// 남
+    // radio_female						// 여
+    // txt_phon							// 핸드폰번호
+    // txt_eMail						// 이메일
+    // txt_pass							// 비밀번호
+    // lb_broadCnt						// 방송 기록 수
+    // lb_listenCnt						// 청취자 기록 수
+    // lb_payCnt						// 결재 건 수
+    // lb_refundCnt						// 환불 정보 수
+    // lb_giftCnt						// 선물 수
+    // lb_exchangeCnt					// 환전 수
+    //
+    // lb_platform						// 가입 플랫폼
+    // lb_joinDate						// 회원 가입 일시
+    // lb_cancelMb						// 회원 탈퇴 일시
+    // lb_editDate						// 최근정보 수정 일
+    // lb_editUser						// 최근정보 수정 처리자
+    // lb_myStarCnt						// 내가 등록한 mystar 수
+    // lb_meStarList					// 나를 mystart등록한 수
+    // lb_myFan							// 내가 등록한 fan
+    // lb_meFan							// 나를 등록한 fan 수
+    // lb_noticeCnt						// 개인공지 수
+    // lb_broadNoticeCnt				// 방송중 공지 수
+    // lb_myDeclarCnt					// 내가 신고한 수
+    // lb_meDeclarCnt					// 나를 신고한 수
+    // lb_resPonseCnt					// 1:1 문의 정보
+    //
+    // cob_userLevel					// 회원레벨
+    // cob_djLevel						// DC등급
+    // cob_lisLevel						// 청취자등급
+    // radio_login						// 로그인
+    // radio_lgout						// 로그아웃
+    // radio_liveOn						// 생방중
+    // radio_liveOff					// 생방아님
+    // radio_lisOn						// 청취중
+    // radio_lisOn						// 청취 아님
+    //
+    // bt_imgChg						// 사진변경
+    // bt_resatPass						// 비밀번호초기화
+    // bt_broadHistory					// 방송 기록 세부내역
+    // bt_listenHistory  			    // 청취 기록 세부내역
+    // bt_payHistory					// 개인 결제 정보
+    // bt_refundHistory				    // 개인 환불 정보
+    // bt_giftHistory					// 개인 선물 정보
+    // bt_exchangeHistory			    // 개인 환불 정보
+    // bt_registMyStarList			    // 내가 등록한 mystart
+    // bt_registMeStarList			    // 나를 mystart로 등록한 회원
+    // bt_registFanMylist			    // 내가 등록한 fan
+    // bt_registMeFanlist			    // 나를 fan 으로 등록한 회원
+    // bt_myNotice						// 개인 공지
+    // bt_broadNotice					// 방송 중 공지
+    // bt_registMyDeclar				// 내가 신고한 정보
+    // bt_registMeDeclar				// 나를 신고한 정보
+    // bt_resPonse						// 1:1 문의 정보
+
     $('#bt_list').click( function() {       //리스트
-
-    });
-
-    $('#bt_edit').click( function() {       //수정완료
-
-    });
-
-
-    $('#bt_nameEdit').click( function() {       //이름 수정
-
-    });
-
-    $('#bt_nickCheck').click( function() {       //닉네임중복체크
-
-    });
-
-    $('#bt_tempPassMail').click( function() {       //임시비밀번호메일발송
-
-    });
-
-    $('#bt_tempPassPhon').click( function() {       //임시비밀번호문자발송
 
     });
 
@@ -565,10 +517,6 @@
         }
         num--;
     }
-
-
-
-
 
 
     function fn_success(dst_id, response){
