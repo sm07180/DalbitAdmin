@@ -6,9 +6,9 @@
 <div class="widget widget-table">
 
     <div class="widget-content">
-        <table id="broadList" class="table table-sorting table-hover table-bordered datatable">
+        <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-               <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
+                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
@@ -19,7 +19,7 @@
                 <th>StartTime</th>
                 <th>EndTime</th>
                 <th>OnAirTime</th>
-                <th>AvgListener</th>
+                <th>DJNickName</th>
                 <th>Good</th>
                 <th>Gift</th>
             </tr>
@@ -35,7 +35,7 @@
 
 <script>
     $(document).ready(function() {
-        getAjaxData("broadList", "/rest/member/profile/broadList", "", fn_success, fn_fail);
+        getAjaxData("list", "/rest/member/listen/list", "", fn_success, fn_fail);
     });
 
 
@@ -49,7 +49,7 @@
 
         $("#tableBody").append(html);
 
-        $('#broadList').DataTable({
+        $('#list').DataTable({
             retrieve : true,
             paging : false,
             searching : true,
@@ -71,7 +71,7 @@
         <td>{{convertToDate StartTime "YYYY.MM.DD"}}</td>
         <td>{{EndTime}}</td>
         <td>{{OnAirTime}}</td>
-        <td>{{AvgListener}}</td>
+        <td>{{DJNickName}}</td>
         <td>{{Good}}</td>
         <td>{{Gift}}</td>
     </tr>

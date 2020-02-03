@@ -6,7 +6,7 @@
 <div class="widget widget-table">
 
     <div class="widget-content">
-        <table id="memberList" class="table table-sorting table-hover table-bordered datatable">
+        <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
                 <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
@@ -33,7 +33,7 @@
 
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
+        getAjaxData("list", "/rest/member/gift/list", "", fn_success, fn_fail);
     });
 
 
@@ -49,7 +49,7 @@
 
         $("#tableBody").append(html);
 
-        $('#memberList').DataTable({
+        $('#list').DataTable({
             retrieve: true,
             paging: false,
             searching: true,

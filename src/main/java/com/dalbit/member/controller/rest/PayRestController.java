@@ -3,7 +3,6 @@ package com.dalbit.member.controller.rest;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.sample.service.SampleService;
-import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,8 @@ import java.util.HashMap;
 
 @Slf4j
 @RestController
-@RequestMapping("rest/member/member")
-public class MemberRestController {
+@RequestMapping("rest/member/pay")
+public class PayRestController {
 
     @Autowired
     SampleService sampleService;
@@ -56,6 +55,7 @@ public class MemberRestController {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }
+
 
 
 

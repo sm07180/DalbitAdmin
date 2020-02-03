@@ -10,21 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("member/member")
-public class MemberController {
+@RequestMapping("member/broadcast")
+public class BroadcastController {
 
     @Autowired
     SampleService sampleService;
 
     /**
-     * 회원리스트
+     * 회원프로필 > 방송기록
      * @param model
      * @return
      */
     @GetMapping("list")
     public String list(Model model){
-        return "member/member/list";
+        return "member/broadcast/list";
     }
-
 
 }

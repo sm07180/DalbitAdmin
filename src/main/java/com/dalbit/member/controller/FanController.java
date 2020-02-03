@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("member/member")
-public class MemberController {
+@RequestMapping("member/fan")
+public class FanController {
 
     @Autowired
     SampleService sampleService;
@@ -23,7 +23,7 @@ public class MemberController {
      */
     @GetMapping("list")
     public String list(Model model){
-        return "member/member/list";
+        return "member/fan/list";
     }
 
 

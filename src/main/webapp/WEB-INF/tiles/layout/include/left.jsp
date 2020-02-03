@@ -34,19 +34,19 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/member/myStar" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">MyStar</span></a>
+                        <a href="/member/myStar/list"><i class="fa fa-clipboard fa-fw"></i><span class="text">MyStar</span></a>
                     </li>
                     <li>
-                        <a href="/member/fan" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">Fan</span></a>
+                        <a href="/member/fan/list"><i class="fa fa-clipboard fa-fw"></i><span class="text">Fan</span></a>
                     </li>
                     <li>
-                        <a href="/member/notice/list" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">개별/방송 중 공지</span></a>
+                        <a href="/member/notice/list"><i class="fa fa-clipboard fa-fw"></i><span class="text">개별/방송 중 공지</span></a>
                     </li>
                     <li>
-                        <a href="/member/receipt/list" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">신고/1:1문의</span></a>
+                        <a href="/member/receipt/list"><i class="fa fa-clipboard fa-fw"></i><span class="text">신고/1:1문의</span></a>
                     </li>
                     <li>
-                        <a href="/member/connect/list" class="js-sub-menu-toggle"><i class="fa fa-clipboard fa-fw"></i><span class="text">회원접속 기록</span></a>
+                        <a href="/member/connect/list"><i class="fa fa-clipboard fa-fw"></i><span class="text">회원접속 기록</span></a>
                     </li>
                 </c:if>
 
