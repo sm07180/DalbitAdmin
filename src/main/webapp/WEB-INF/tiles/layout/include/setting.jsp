@@ -7,7 +7,7 @@
         <section class="del-section del-section-skin">
             <h5 class="del-switcher-header">Choose Skins:</h5>
             <ul>
-                <li><a href="#" title="Slate Gray" class="switch-skin slategray" data-skin="/template2/assets/css/skins/slategray.css">Slate Gray</a></li>
+                <li><a href="#" title="Slate Gray" class="switch-skin slategray" data-skin="/template2/assets/css/skins/dalbitRadio.css">Slate Gray</a></li>
                 <li><a href="#" title="Dark Blue" class="switch-skin darkblue" data-skin="/template2/assets/css/skins/darkblue.css">Dark Blue</a></li>
                 <li><a href="#" title="Dark Brown" class="switch-skin darkbrown" data-skin="/template2/assets/css/skins/darkbrown.css">Dark Brown</a></li>
                 <li><a href="#" title="Light Green" class="switch-skin lightgreen" data-skin="/template2/assets/css/skins/lightgreen.css">Light Green</a></li>

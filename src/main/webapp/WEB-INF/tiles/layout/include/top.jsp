@@ -214,7 +214,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/logout">
                                         <i class="fa fa-power-off"></i>
                                         <span class="text">Logout</span>
                                     </a>

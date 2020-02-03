@@ -33,7 +33,7 @@
 
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/list", "", fn_success, fn_fail);
+        getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
     });
 
 
