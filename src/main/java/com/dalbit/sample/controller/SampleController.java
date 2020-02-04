@@ -46,6 +46,11 @@ public class SampleController {
         return "sample/detail";
     }
 
+    @GetMapping("detail2")
+    public String detail2(){
+        return "sample/detail2";
+    }
+
 
 
 
