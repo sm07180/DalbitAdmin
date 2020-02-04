@@ -126,7 +126,7 @@
                     <label class="text_middle" style="font-size: 11px;height: 27px;"> ㆍ회원 상세 정보는 [수정하기] 버튼을 통해 변경이 가능합니다.</label>
                 </div>
                 <div class="col-lg-7 p_0">
-                    <button type="button" id="bt_edite" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 80px;float:right;height: 24px">수정하기</button>
+                    <button type="button" id="bt_edite" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;width: 80px;;height: 24px">수정하기</button>
                 </div>
             </div>
             <div class="row col-lg-12 form-inline " style="padding-top: 0px;">
@@ -137,7 +137,7 @@
                     <div class="col-lg-12 p">
                         <p class="data-row" style="height:203.94px">
                             <span class="data-name col-lg-3 form-control text_center text_middle" style="height:203.94px">프로필 이미지</span>
-                            <img class="text_middle" src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" style="width:150px; height: 150px" id="img_profileImg"/>
+                            <img src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" style="width:150px; height: 150px" id="img_profileImg"/>
                             <button type="submit" class="btn btn-default" id="bt_imgChg">사진변경</button>
                         </p>
                     </div>
@@ -197,7 +197,7 @@
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">비밀번호</span>
                             <input type="password" class="form-control col-lg-6" id="txt_pass" value="123412341234">
-                            <button type="button" id="bt_resatPass" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">비밀번호 초기화</button>
+                            <button type="button" id="bt_resatPass" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px">비밀번호 초기화</button>
                         </p>
                     </div>
 
@@ -205,14 +205,14 @@
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">방송기록</span>
                             <span class="data-value col-lg-6" id="lb_broadCnt">총00건</span>
-                            <button type="button" id="bt_broadHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_broadHistory" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">청취기록</span>
                             <span class="data-value col-lg-6" id="lb_listenCnt">총00건</span>
-                            <button type="button" id="bt_listenHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_listenHistory" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
 
@@ -220,7 +220,7 @@
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인결제정보</span>
                             <span class="data-value col-lg-6" id="lb_payCnt">총00건</span>
-                            <button type="button" id="bt_payHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_payHistory" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
 
@@ -228,7 +228,7 @@
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인환불정보</span>
                             <span class="data-value col-lg-6" id="lb_refundCnt">총00건</span>
-                            <button type="button" id="bt_refundHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_refundHistory" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
 
@@ -236,14 +236,14 @@
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인선물정보</span>
                             <span class="data-value col-lg-6" id="lb_giftCnt">총00건</span>
-                            <button type="button" id="bt_giftHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_giftHistory" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인환전정보</span>
                             <span class="data-value col-lg-6" id="lb_exchangeCnt">총00건</span>
-                            <button type="button" id="bt_exchangeHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_exchangeHistory" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                 </div>
@@ -338,63 +338,63 @@
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">내가 등록한 Mystar</span>
                             <span class="data-value col-lg-6" id="lb_myStarCnt">총00건</span>
-                            <button type="button" id="bt_registmyStarList" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_registmyStarList" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">나를 Mystar로 등록한 회원</span>
                             <span class="data-value col-lg-6" id="lb_meStarList">총00건</span>
-                            <button type="button" id="bt_registMeStarList" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_registMeStarList" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">내가 등록한 Fan</span>
                             <span class="data-value col-lg-6" id="lb_myFan">총00건</span>
-                            <button type="button" id="bt_registMyFanlist" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_registMyFanlist" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">나를 등록한 Fan</span>
                             <span class="data-value col-lg-6" id="lb_meFan">총00건</span>
-                            <button type="button" id="bt_registMeFanlist" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_registMeFanlist" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인공지</span>
                             <span class="data-value col-lg-6" id="lb_noticeCnt">총00건</span>
-                            <button type="button" id="bt_myNotice" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_myNotice" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">방송 중 공지</span>
                             <span class="data-value col-lg-6" id="lb_broadNoticeCnt">총00건</span>
-                            <button type="button" id="bt_broadNotice" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_broadNotice" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">내가 신고한 정보</span>
                             <span class="data-value col-lg-6" id="lb_myDeclarCnt">총00건</span>
-                            <button type="button" id="bt_registMyDeclar" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_registMyDeclar" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">나를 신고한 정보</span>
                             <span class="data-value col-lg-6" id="lb_meDeclarCnt">총00건</span>
-                            <button type="button" id="bt_registMeDeclar" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_registMeDeclar" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">1:1문의 정보</span>
                             <span class="data-value col-lg-6" id="lb_resPonseCnt">총00건</span>
-                            <button type="button" id="bt_resPonse" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
+                            <button type="button" id="bt_resPonse" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;">세부내역</button>
                         </p>
                     </div>
                 </div>
@@ -535,13 +535,41 @@
         }
     });
 
-    $('#bt_list').click( function() {       //리스트
+    $('#bt_edite').click( function() {       //리스트
+        var str = ""
+        var tdArr = new Array();	// 배열 선언
+        var checkBtn = $(this);
+
+        // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+        // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+        var tr = checkBtn.parent().parent();
+        var td = tr.children();
+
+        console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+
+        var no = td.eq(0).text();
+        var userid = td.eq(1).text();
+        var name = td.eq(2).text();
+        var email = td.eq(3).text();
+
+
+        // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+        td.each(function(i){
+            tdArr.push(td.eq(i).text());
+        });
+
+        console.log("배열에 담긴 값 : "+tdArr);
+
+        str +=	" * 클릭된 Row의 td값 = No. : <font color='red'>" + no + "</font>" +
+            ", 아이디 : <font color='red'>" + userid + "</font>" +
+            ", 이름 : <font color='red'>" + name + "</font>" +
+            ", 이메일 : <font color='red'>" + email + "</font>";
 
     });
 
     $("#list").click(function(){
 
-        var str = ""
+        var str = "";
         // var tdArr = new Array();    // 배열 선언
 
         // 현재 클릭된 Row(<tr>)
@@ -556,14 +584,15 @@
 
         // console.log("배열에 담긴 값 : "+tdArr);
 
-        var mem_no = td.eq(1).text();
+        // var mem_no = td.eq(1).text();
+        var mem_no = "1111111111111";
 
         var list = new Array();
         var obj = new Object();
         obj.men_no = mem_no;
         list.push(obj);
         var jsonData = JSON.stringify(list);
-
+        //
         alert(jsonData) ;
         getAjaxData("info", "/rest/member/member/info", jsonData, info_sel_success, fn_fail);
         console.log("@@@@@@@@@@@@@@@@@@@@@@@  2");
@@ -623,13 +652,21 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
+
+    function getDetail(id){
+        // alert(id);
+        var mem_no = id;
+        getAjaxData("info", "/rest/member/member/info", mem_no, info_sel_success, fn_fail);
+
+    }
 </script>
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
         <td>{{NO}}</td>
-        <td>{{UserID}}</td>
+        <td>{{MemNo}}</td>
+        <td><a href="#" onclick="javascript:getDetail(this.id);" id="{{MemNo}}">{{UserID}}</a></td>
         <td>{{NickName}}</td>
         <td>{{Name}}</td>
         <td>{{PhoneNum}}</td>
