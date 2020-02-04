@@ -22,7 +22,7 @@
     </li>
 
     <li class="${fn:startsWith(url, '/broadcast/') ? 'active' : ''}">
-        <a href="/broadcast/broadcast/list" aria-expanded="false"><i class="fa fa-headphones"></i> 방송관리</a>
+        <a href="/broadcast/broadcast/list" aria-expanded="false"><i class="fa fa-microphone"></i>방송관리</a>
     </li>
 
     <li class="${fn:startsWith(url, '/manage/') ? 'active' : ''}">
@@ -30,7 +30,7 @@
     </li>
 
     <li class="">
-        <a href="#following" aria-expanded="false"><i class="fa fa-comments"></i> 고객센터관리</a>
+        <a href="#following" aria-expanded="false"><i class="fa fa-phone"></i> 고객센터관리</a>
     </li>
 
     <li class="">
