@@ -31,9 +31,22 @@
 </div>
 <!-- END SHOW HIDE COLUMNS DATA TABLE -->
 
+<%-- 연습용 --%>
+
+
+
+
+
+
+
+
+
+
+
+<%-- RestController --%>
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
+        getAjaxData("list", "/rest/member/member/memberList", "", fn_success, fn_fail);
     });
 
 
@@ -73,9 +86,9 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
+        <td>{{memNo}}</td>
         <td>{{UserID}}</td>
-        <td>{{NickName}}</td>
+        <td>{{memNick}}</td>
         <td>{{Name}}</td>
         <td>{{PhoneNum}}</td>
         <td>{{JoinPlatform}}</td>

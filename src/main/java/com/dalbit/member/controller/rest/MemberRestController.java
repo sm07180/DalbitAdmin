@@ -2,6 +2,8 @@ package com.dalbit.member.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.member.service.MemberService;
+import com.dalbit.member.vo.MemberListVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.sample.service.SampleService;
 import com.dalbit.util.DalbitUtil;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -28,6 +31,8 @@ public class MemberRestController {
     @Autowired
     SampleService sampleService;
 
+    @Autowired
+    MemberService memberService;
     @Autowired
     GsonUtil gsonUtil;
 
@@ -40,6 +45,10 @@ public class MemberRestController {
 
     @PostMapping("list")
     public String list(Model model){
+
+
+
+
         ArrayList<HashMap> list = new ArrayList<HashMap>();
         HashMap map = new HashMap();
         for(int i=0; i++ <20;) {
@@ -57,6 +66,12 @@ public class MemberRestController {
             list.add(map);
         }
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+
+
+
+
+
+
     }
 
     //@PostMapping("")        //formdata
@@ -94,5 +109,7 @@ public class MemberRestController {
         }
         return json.toString();
     }
+
+
 
 }

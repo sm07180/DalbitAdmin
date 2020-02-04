@@ -1,7 +1,10 @@
 package com.dalbit.member.service;
 
+
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.MemberDao;
+import com.dalbit.member.vo.MemberListVo;
+
 import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -9,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -28,6 +33,11 @@ public class MemberService {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
         memberDao.callMemberLogin(procedureVo);
         return procedureVo;
+    }
+
+    public List<MemberListVo> getMemberList(){
+        List<MemberListVo> list = memberDao.getMemberList();
+        return list;
     }
 
 }
