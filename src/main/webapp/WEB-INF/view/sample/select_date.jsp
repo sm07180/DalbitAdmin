@@ -34,8 +34,8 @@
 
 
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
-                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 80px;height: 27px"> 회원검색 </label>
-                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 80px;height: 27px"> 회원검색 </label>
+                <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;" >
                 <div class="col-lg-6 p_10" style="background: #f8efc0">
@@ -87,32 +87,37 @@
                 <label class="text_middle" style="font-size: 11px;height: 27px"> ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다. </label>
                 <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
+            <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        DataTables Advanced Tables
+                <div class="col-lg-12" id="ex1_Result1" ></div>
+                <div class="col-lg-12" id="ex1_Result2" ></div>
+                <div class="widget widget-table">
+                    <div class="widget-content">
+                        <table id="list" class="table table-sorting table-hover table-bordered datatable">
+                            <span>
+                                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
+                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                            </span>
+                            <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>UserID</th>
+                                <th>NickName</th>
+                                <th>Name</th>
+                                <th>PhoneNum</th>
+                                <th>JoinPlatform</th>
+                                <th>Login_out</th>
+                                <th>Live</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tableBody">
+
+                            </tbody>
+                        </table>
                     </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                <tr>
-                                    <th>Rendering engine</th>
-                                    <th>Browser</th>
-                                    <th>Platform(s)</th>
-                                    <th>Engine version</th>
-                                    <th>CSS grade</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tableBody"></tbody>
-                            </table>
-                        </div>
-                        <!-- /.table-responsive -->
-                    </div>
-                    <!-- /.panel-body -->
                 </div>
             </div>
+            <!-- DATA TABLE END -->
             <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
                 <div class="col-lg-1 p_0">
                     <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 10%;height: 27px"> 검색 상세 정보 </label>
@@ -127,12 +132,12 @@
             <div class="row col-lg-12 form-inline " style="padding-top: 0px;">
                 <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
-             <div class="row col-lg-12 form-inline p">
+            <div class="row col-lg-12 form-inline p">
                 <div class="col-lg-6">
                     <div class="col-lg-12 p">
-                        <p class="data-row">
-                            <span class="data-name col-lg-3 form-control text_center text_middle" style="height:150px">프로필 이미지</span>
-                            <img src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" style="width:150px; height: 150px" id="img_profileImg"/>
+                        <p class="data-row" style="height:203.94px">
+                            <span class="data-name col-lg-3 form-control text_center text_middle" style="height:203.94px">프로필 이미지</span>
+                            <img class="text_middle" src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" style="width:150px; height: 150px" id="img_profileImg"/>
                             <button type="submit" class="btn btn-default" id="bt_imgChg">사진변경</button>
                         </p>
                     </div>
@@ -157,7 +162,7 @@
                     </div>
                     <div class="col-lg-12 p">
                         <p class="data-row">
-                        <%--<p class="data-row input-group date">--%>
+                            <%--<p class="data-row input-group date">--%>
                             <span class="data-name col-lg-3 form-control text_center">생년월일</span>
                             <%--<input type="text" class="form-control col-lg-4" id="txt_birth" >--%>
                             <%--<span class="input-group-addon" style="display: inline-block;"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>--%>
@@ -295,9 +300,9 @@
                         </p>
                     </div>
                     <%--<div class="col-lg-12">--%>
-                        <%--<p class="data-row">--%>
-                            <%--<span class="data-name col-lg-3 form-control text_center" >&nbsp;</span><span class="data-value" style="width: 50%">&nbsp;</span>--%>
-                        <%--</p>--%>
+                    <%--<p class="data-row">--%>
+                    <%--<span class="data-name col-lg-3 form-control text_center" >&nbsp;</span><span class="data-value" style="width: 50%">&nbsp;</span>--%>
+                    <%--</p>--%>
                     <%--</div>--%>
                     <div class="col-lg-12 p">
                         <p class="data-row">
@@ -428,9 +433,73 @@
 <script src="/js/lib/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
+
+<%-- bt_edite                         // 수정하기--%>
+
+<%-- img_profileImg					// 프로필 이미지--%>
+<%-- lb_userId						// 사용자 ID--%>
+<%-- txt_nickName						// 닉네임--%>
+<%-- txt_name							// 이름--%>
+<%-- lb_age							// 나이--%>
+<%-- radio_male						// 남--%>
+<%-- radio_female						// 여--%>
+<%-- txt_phon							// 핸드폰번호--%>
+<%-- txt_eMail						// 이메일--%>
+<%-- txt_pass							// 비밀번호--%>
+<%-- lb_broadCnt						// 방송 기록 수--%>
+<%-- lb_listenCnt						// 청취자 기록 수--%>
+<%-- lb_payCnt						// 결재 건 수--%>
+<%-- lb_refundCnt						// 환불 정보 수--%>
+<%-- lb_giftCnt						// 선물 수--%>
+<%-- lb_exchangeCnt					// 환전 수--%>
+
+<%-- lb_platform						// 가입 플랫폼--%>
+<%-- lb_joinDate						// 회원 가입 일시--%>
+<%-- lb_cancelMb						// 회원 탈퇴 일시--%>
+<%-- lb_editDate						// 최근정보 수정 일--%>
+<%-- lb_editUser						// 최근정보 수정 처리자--%>
+<%-- lb_myStarCnt						// 내가 등록한 mystar 수--%>
+<%-- lb_meStarList					// 나를 mystart등록한 수--%>
+<%-- lb_myFan							// 내가 등록한 fan--%>
+<%-- lb_meFan							// 나를 등록한 fan 수--%>
+<%-- lb_noticeCnt						// 개인공지 수--%>
+<%-- lb_broadNoticeCnt				// 방송중 공지 수--%>
+<%-- lb_myDeclarCnt					// 내가 신고한 수--%>
+<%-- lb_meDeclarCnt					// 나를 신고한 수--%>
+<%-- lb_resPonseCnt					// 1:1 문의 정보--%>
+
+<%-- cob_userLevel					// 회원레벨--%>
+<%-- cob_djLevel						// DC등급--%>
+<%-- cob_lisLevel						// 청취자등급--%>
+<%-- radio_login						// 로그인--%>
+<%-- radio_lgout						// 로그아웃--%>
+<%-- radio_liveOn						// 생방중--%>
+<%-- radio_liveOff					// 생방아님--%>
+<%-- radio_lisOn						// 청취중--%>
+<%-- radio_lisOn						// 청취 아님--%>
+
+<%-- bt_imgChg						// 사진변경--%>
+<%-- bt_resatPass						// 비밀번호초기화--%>
+<%-- bt_broadHistory					// 방송 기록 세부내역--%>
+<%-- bt_listenHistory  			    // 청취 기록 세부내역--%>
+<%-- bt_payHistory					// 개인 결제 정보--%>
+<%-- bt_refundHistory				    // 개인 환불 정보--%>
+<%-- bt_giftHistory					// 개인 선물 정보--%>
+<%-- bt_exchangeHistory			    // 개인 환불 정보--%>
+<%-- bt_registMyStarList			    // 내가 등록한 mystart--%>
+<%-- bt_registMeStarList			    // 나를 mystart로 등록한 회원--%>
+<%-- bt_registFanMylist			    // 내가 등록한 fan--%>
+<%-- bt_registMeFanlist			    // 나를 fan 으로 등록한 회원--%>
+<%-- bt_myNotice						// 개인 공지--%>
+<%-- bt_broadNotice					// 방송 중 공지--%>
+<%-- bt_registMyDeclar				// 내가 신고한 정보--%>
+<%-- bt_registMeDeclar				// 나를 신고한 정보--%>
+<%-- bt_resPonse						// 1:1 문의 정보--%>
+
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/sample/list", "", fn_success, fn_fail);
+        getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
+
         $('.input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -466,70 +535,38 @@
         }
     });
 
-    // bt_edite                         // 수정하기
-
-    // img_profileImg					// 프로필 이미지
-    // lb_userId						// 사용자 ID
-    // txt_nickName						// 닉네임
-    // txt_name							// 이름
-    // lb_age							// 나이
-    // radio_male						// 남
-    // radio_female						// 여
-    // txt_phon							// 핸드폰번호
-    // txt_eMail						// 이메일
-    // txt_pass							// 비밀번호
-    // lb_broadCnt						// 방송 기록 수
-    // lb_listenCnt						// 청취자 기록 수
-    // lb_payCnt						// 결재 건 수
-    // lb_refundCnt						// 환불 정보 수
-    // lb_giftCnt						// 선물 수
-    // lb_exchangeCnt					// 환전 수
-
-    // lb_platform						// 가입 플랫폼
-    // lb_joinDate						// 회원 가입 일시
-    // lb_cancelMb						// 회원 탈퇴 일시
-    // lb_editDate						// 최근정보 수정 일
-    // lb_editUser						// 최근정보 수정 처리자
-    // lb_myStarCnt						// 내가 등록한 mystar 수
-    // lb_meStarList					// 나를 mystart등록한 수
-    // lb_myFan							// 내가 등록한 fan
-    // lb_meFan							// 나를 등록한 fan 수
-    // lb_noticeCnt						// 개인공지 수
-    // lb_broadNoticeCnt				// 방송중 공지 수
-    // lb_myDeclarCnt					// 내가 신고한 수
-    // lb_meDeclarCnt					// 나를 신고한 수
-    // lb_resPonseCnt					// 1:1 문의 정보
-
-    // cob_userLevel					// 회원레벨
-    // cob_djLevel						// DC등급
-    // cob_lisLevel						// 청취자등급
-    // radio_login						// 로그인
-    // radio_lgout						// 로그아웃
-    // radio_liveOn						// 생방중
-    // radio_liveOff					// 생방아님
-    // radio_lisOn						// 청취중
-    // radio_lisOn						// 청취 아님
-
-    // bt_imgChg						// 사진변경
-    // bt_resatPass						// 비밀번호초기화
-    // bt_broadHistory					// 방송 기록 세부내역
-    // bt_listenHistory  			    // 청취 기록 세부내역
-    // bt_payHistory					// 개인 결제 정보
-    // bt_refundHistory				    // 개인 환불 정보
-    // bt_giftHistory					// 개인 선물 정보
-    // bt_exchangeHistory			    // 개인 환불 정보
-    // bt_registMyStarList			    // 내가 등록한 mystart
-    // bt_registMeStarList			    // 나를 mystart로 등록한 회원
-    // bt_registFanMylist			    // 내가 등록한 fan
-    // bt_registMeFanlist			    // 나를 fan 으로 등록한 회원
-    // bt_myNotice						// 개인 공지
-    // bt_broadNotice					// 방송 중 공지
-    // bt_registMyDeclar				// 내가 신고한 정보
-    // bt_registMeDeclar				// 나를 신고한 정보
-    // bt_resPonse						// 1:1 문의 정보
-
     $('#bt_list').click( function() {       //리스트
 
+    });
+
+    $("#list").click(function(){
+
+        var str = ""
+        // var tdArr = new Array();    // 배열 선언
+
+        // 현재 클릭된 Row(<tr>)
+        var tr = $(this);
+        var td = tr.children();
+
+        // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+
+        // td.each(function(i){
+        //     tdArr.push(td.eq(i).text());
+        // });
+
+        // console.log("배열에 담긴 값 : "+tdArr);
+
+        var mem_no = td.eq(1).text();
+
+        var list = new Array();
+        var obj = new Object();
+        obj.men_no = mem_no;
+        list.push(obj);
+        var jsonData = JSON.stringify(list);
+
+        alert(jsonData) ;
+        getAjaxData("info", "/rest/member/member/info", jsonData, info_sel_success, fn_fail);
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@  2");
     });
 
     var num = 60 * 1; // 몇분을 설정할지의 대한 변수 선언
@@ -565,9 +602,22 @@
 
         $("#tableBody").append(html);
 
-        $('#dataTables-example').DataTable({
-            responsive: true
+        $('#list').DataTable({
+            retrieve: true,
+            paging: false,
+            searching: true,
+            /*sDom: "RC"+
+            "t"+
+            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+            colVis: {
+                buttonText: 'Show / Hide Columns',
+                restore: "Restore",
+                showAll: "Show all"
+            },*/
         });
+    }
+    function info_sel_success(dst_id, response) {
+        console.log("@@@@@@@@@@@@@@@@@@@ 3");
     }
 
     function fn_fail(data, textStatus, jqXHR){
@@ -578,11 +628,14 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{renderingEngine}}</td>
-        <td>{{browser}}</td>
-        <td>{{platform}}</td>
-        <td class="center">{{version}}</td>
-        <td class="center">{{grade}}</td>
+        <td>{{NO}}</td>
+        <td>{{UserID}}</td>
+        <td>{{NickName}}</td>
+        <td>{{Name}}</td>
+        <td>{{PhoneNum}}</td>
+        <td>{{JoinPlatform}}</td>
+        <td>{{Login_out}}</td>
+        <td>{{Live}}</td>
     </tr>
     {{/data}}
 </script>
