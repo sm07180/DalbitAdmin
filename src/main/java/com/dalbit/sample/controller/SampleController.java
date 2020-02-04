@@ -18,12 +18,12 @@ public class SampleController {
 
     @GetMapping("list")
     public String list(Model model){
-        return "/sample/list";
+        return "sample/list";
     }
 
     @GetMapping("select")
     public String select(Model model){
-        return "/sample/select";
+        return "sample/select";
     }
 
     @GetMapping("select_date")
@@ -39,6 +39,11 @@ public class SampleController {
     @GetMapping("index")
     public String index(Model model){
         return "sample/index";
+    }
+
+    @GetMapping("detail")
+    public String detail(){
+        return "sample/detail";
     }
 
 
