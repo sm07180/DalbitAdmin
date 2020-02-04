@@ -13,6 +13,18 @@
         padding-left: 0px;
         padding-right: 0px;
     }
+    .p_0{
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .p_10{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 
 </style>
 
@@ -20,39 +32,43 @@
     <div id="page-wrapper">
         <div class="container-fluid">
 
-            <div class="row col-lg-12 form-inline" >
-                <div class="row well col-lg-6 form-inline">
-                    <div class="row col-lg-12 form-inline" >
+
+            <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
+                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 80px;height: 27px"> 회원검색 </label>
+                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+            </div>
+            <div class="row col-lg-12 form-inline " style="padding-top: 2px;" >
+                <div class="col-lg-6 p_10" style="background: #f8efc0">
+                    <div class="col-lg-12" >
                         <label style="font-weight: bold">공지등록 기간</label>
                     </div>
-                    <div class="row col-lg-12 form-inline">
+                    <div class="col-lg-12">
                         <label class="radio-inline"><input type="radio" name="broad" id="radio_dateAll" value="option1" checked="true">전체</label>
                         <label class="radio-inline"><input type="radio" name="broad" id="radio_dateDay" value="option2">오늘</label>
                         <label class="radio-inline"><input type="radio" name="broad" id="radio_dateWeek" value="option3">1주일</label>
                         <label class="radio-inline"><input type="radio" name="broad" id="radio_dateMon" value="option3">한달</label>
                     </div>
 
-                    <div class="row col-lg-12 form-inline">
+                    <div class="col-lg-12">
                         <label class="checkbox-inline"><input type="checkbox" id="check_dateSel">기간 선택</label>
-                        <div class="input-group date col-lg-6" id="date_startSel">
+                        <div class="input-group date col-lg-4" id="date_startSel">
                             <input type="text" class="form-control" id="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                         <label>~</label>
-                        <div class="input-group date col-sm-4" id="date_endSel">
+                        <div class="input-group date col-lg-4" id="date_endSel">
                             <input type="text" class="form-control" id="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </div>
                 </div>
-                <div class="row col-lg-6 form-inline">
-                    <div class="row col-lg-12 form-inline" >
+                <div class="row col-lg-6 form-inline p_10">
+                    <div class="col-lg-12 " >
                         <div class="col-lg-12">
                             <label style="font-weight: bold">로그인된 아이콘</label>
                         </div>
                     </div>
                     <div class="row col-lg-12 form-inline" >
                         <div class="col-lg-12">
-
-                            <select id="selectGubun" name="selectGubun">
+                            <select class="form-control" id="selectGubun" name="selectGubun">
                                 <option value="1" selected="selected">전체</option>
                                 <option value="userid">User ID</option>
                                 <option value="usernickname">User 닉네임</option>
@@ -66,6 +82,11 @@
                 </div>
             </div>
 
+            <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
+                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 검색 결과 정보 </label>
+                <label class="text_middle" style="font-size: 11px;height: 27px"> ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다. </label>
+                <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+            </div>
             <div class="row col-lg-12 form-inline">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -92,36 +113,49 @@
                     <!-- /.panel-body -->
                 </div>
             </div>
-
-             <div class="row col-lg-12 form-inline">
+            <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
+                <div class="col-lg-1 p_0">
+                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 10%;height: 27px"> 검색 상세 정보 </label>
+                </div>
+                <div class="col-lg-4 p_0">
+                    <label class="text_middle" style="font-size: 11px;height: 27px;"> ㆍ회원 상세 정보는 [수정하기] 버튼을 통해 변경이 가능합니다.</label>
+                </div>
+                <div class="col-lg-7 p_0">
+                    <button type="button" id="bt_edite" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 80px;float:right;height: 24px">수정하기</button>
+                </div>
+            </div>
+            <div class="row col-lg-12 form-inline " style="padding-top: 0px;">
+                <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+            </div>
+             <div class="row col-lg-12 form-inline p">
                 <div class="col-lg-6">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center text_middle" style="height:150px">프로필 이미지</span>
                             <img src="../../../template2/assets/img/profile-avatar.png" alt="Profile Picture" style="width:150px; height: 150px" id="img_profileImg"/>
                             <button type="submit" class="btn btn-default" id="bt_imgChg">사진변경</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-6 form-control text_center">UserID</span>
                             <span class="data-value col-lg-6" id="lb_userId">DaldalE</span>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">닉네임</span>
                             <input type="text" class="form-control col-lg-6" id="txt_nickName" value="다달이">
                         </p>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">이름</span>
                             <input type="text" class="form-control col-lg-6" id="txt_name" value="양달님">
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                         <%--<p class="data-row input-group date">--%>
                             <span class="data-name col-lg-3 form-control text_center">생년월일</span>
@@ -129,32 +163,32 @@
                             <%--<span class="input-group-addon" style="display: inline-block;"><i class="glyphicon glyphicon-calendar"  style="height: 17px"></i></span>--%>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">나이</span>
                             <span class="data-value col-lg-5" id="lb_age">33세</span>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">성별</span>
                             <label class="radio-inline"><input class="" type="radio" name="broad" id="radio_male" value="option1" checked="true">남자</label>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_female" value="option2">여자</label>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">연락처</span>
                             <input type="text" class="form-control col-lg-6" id="txt_phon" value="010-1111-2222">
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">이메일</span>
                             <input type="text" class="form-control col-lg-6" id="txt_eMail" value="dabit00@gmail.com">
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">비밀번호</span>
                             <input type="password" class="form-control col-lg-6" id="txt_pass" value="123412341234">
@@ -162,14 +196,14 @@
                         </p>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">방송기록</span>
                             <span class="data-value col-lg-6" id="lb_broadCnt">총00건</span>
                             <button type="button" id="bt_broadHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">청취기록</span>
                             <span class="data-value col-lg-6" id="lb_listenCnt">총00건</span>
@@ -177,7 +211,7 @@
                         </p>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인결제정보</span>
                             <span class="data-value col-lg-6" id="lb_payCnt">총00건</span>
@@ -185,7 +219,7 @@
                         </p>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인환불정보</span>
                             <span class="data-value col-lg-6" id="lb_refundCnt">총00건</span>
@@ -193,14 +227,14 @@
                         </p>
                     </div>
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인선물정보</span>
                             <span class="data-value col-lg-6" id="lb_giftCnt">총00건</span>
                             <button type="button" id="bt_giftHistory" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인환전정보</span>
                             <span class="data-value col-lg-6" id="lb_exchangeCnt">총00건</span>
@@ -210,7 +244,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">회원레벨</span>
                             <select id="cob_userLevel" name="emailSelection" class="col-lo-6 form-control text_center">
@@ -221,7 +255,7 @@
                             </select>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">DJ등급</span>
                             <select id="cob_djLevel" name="emailSelection" class="col-lo-6 form-control text_center">
@@ -230,7 +264,7 @@
                             </select>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">청취자 등급</span>
                             <select id="cob_lisLevel" name="emailSelection" class="col-lo-6 form-control text_center">
@@ -239,21 +273,21 @@
                             </select>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">접속상태</span>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_login" value="option1" checked="true">Login</label>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_logout" value="option2">Logout</label>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">생방상태</span>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_liveOn" value="option1" checked="true">생방중</label>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_liveOff" value="option2">방송OFF</label>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">청취상태</span>
                             <label class="radio-inline"><input type="radio" name="broad" id="radio_lisOn" value="option1" checked="true">청취중</label>
@@ -265,93 +299,93 @@
                             <%--<span class="data-name col-lg-3 form-control text_center" >&nbsp;</span><span class="data-value" style="width: 50%">&nbsp;</span>--%>
                         <%--</p>--%>
                     <%--</div>--%>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">가입플랫폼(첫연동일)</span>
                             <span class="data-value" style="width: 50%" id="lb_platform">달빛</span>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">회원가입일시</span>
                             <span class="data-value" style="width: 50%" id="lb_joinDate">2020.02.03 09:27:30</span>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">회원탈퇴일시</span>
                             <span class="data-value" style="width: 50%" id="lb_cancelMb">2020.02.03 09:27:30</span>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">최근 정보 수정일시</span>
                             <span class="data-value" style="width: 50%" id="lb_editDate">2020.02.03 09:27:30</span>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">최근 정보 수정 처리자</span>
                             <span class="data-value" style="width: 50%" id="lb_editUser">admin</span>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">내가 등록한 Mystar</span>
                             <span class="data-value col-lg-6" id="lb_myStarCnt">총00건</span>
                             <button type="button" id="bt_registmyStarList" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">나를 Mystar로 등록한 회원</span>
                             <span class="data-value col-lg-6" id="lb_meStarList">총00건</span>
                             <button type="button" id="bt_registMeStarList" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">내가 등록한 Fan</span>
                             <span class="data-value col-lg-6" id="lb_myFan">총00건</span>
                             <button type="button" id="bt_registMyFanlist" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">나를 등록한 Fan</span>
                             <span class="data-value col-lg-6" id="lb_meFan">총00건</span>
                             <button type="button" id="bt_registMeFanlist" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">개인공지</span>
                             <span class="data-value col-lg-6" id="lb_noticeCnt">총00건</span>
                             <button type="button" id="bt_myNotice" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">방송 중 공지</span>
                             <span class="data-value col-lg-6" id="lb_broadNoticeCnt">총00건</span>
                             <button type="button" id="bt_broadNotice" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">내가 신고한 정보</span>
                             <span class="data-value col-lg-6" id="lb_myDeclarCnt">총00건</span>
                             <button type="button" id="bt_registMyDeclar" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">나를 신고한 정보</span>
                             <span class="data-value col-lg-6" id="lb_meDeclarCnt">총00건</span>
                             <button type="button" id="bt_registMeDeclar" class="btn-primary btn-xs form-control"  style="border-radius:3px;width: 110px;float:right">세부내역</button>
                         </p>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 p">
                         <p class="data-row">
                             <span class="data-name col-lg-3 form-control text_center">1:1문의 정보</span>
                             <span class="data-value col-lg-6" id="lb_resPonseCnt">총00건</span>
@@ -432,6 +466,8 @@
         }
     });
 
+    // bt_edite                         // 수정하기
+
     // img_profileImg					// 프로필 이미지
     // lb_userId						// 사용자 ID
     // txt_nickName						// 닉네임
@@ -448,7 +484,7 @@
     // lb_refundCnt						// 환불 정보 수
     // lb_giftCnt						// 선물 수
     // lb_exchangeCnt					// 환전 수
-    //
+
     // lb_platform						// 가입 플랫폼
     // lb_joinDate						// 회원 가입 일시
     // lb_cancelMb						// 회원 탈퇴 일시
@@ -463,7 +499,7 @@
     // lb_myDeclarCnt					// 내가 신고한 수
     // lb_meDeclarCnt					// 나를 신고한 수
     // lb_resPonseCnt					// 1:1 문의 정보
-    //
+
     // cob_userLevel					// 회원레벨
     // cob_djLevel						// DC등급
     // cob_lisLevel						// 청취자등급
@@ -473,7 +509,7 @@
     // radio_liveOff					// 생방아님
     // radio_lisOn						// 청취중
     // radio_lisOn						// 청취 아님
-    //
+
     // bt_imgChg						// 사진변경
     // bt_resatPass						// 비밀번호초기화
     // bt_broadHistory					// 방송 기록 세부내역
