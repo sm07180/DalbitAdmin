@@ -54,26 +54,9 @@
         var template = $('#tmp_list').html();
         console.log(template);
         var templateScript = Handlebars.compile(template);
-        var html ="";
-        for (var i=0; i<response.length; i++){
-            var context = {
-                data: [
-                    {
-                        memNo : response[i].memNo
-                        , memId : response[i].memId
-                        , memNick : response[i].memNick
-                        , Name : ""
-                        , memPhone : response[i].memPhone
-                        , JoinPlatform : ""
-                        , Login_out : ""
-                        , memState : response[i].memState
-                    }
-                ]
-            };
-            html= templateScript(context);
-            $("#tableBody").append(html);
-        }
-
+        var context = response;
+        var html = templateScript(context);
+        $("#tableBody").append(html);
 
         $('#list').DataTable({
             retrieve: true,
@@ -88,8 +71,8 @@
                 showAll: "Show all"
             },*/
         });
-
     }
+
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);

@@ -73,12 +73,9 @@ public class MemberRestController {
     }
 
     @PostMapping("memberList")
-    public List<MemberListVo> selectMemberList(){
+    public String selectMemberList(){
         List<MemberListVo> memberListVo = memberService.getMemberList();
-        return memberListVo;
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberListVo));
     }
-
-
-
 
 }
