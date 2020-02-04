@@ -49,18 +49,31 @@
         getAjaxData("list", "/rest/member/member/memberList", "", fn_success, fn_fail);
     });
 
-
     function fn_success(dst_id, response){
         dalbitLog(response);
-
         var template = $('#tmp_list').html();
+        console.log(template);
         var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
+        var html ="";
+        for (var i=0; i<response.length; i++){
+            var context = {
+                data: [
+                    {
+                        memNo : response[i].memNo
+                        , memId : response[i].memId
+                        , memNick : response[i].memNick
+                        , Name : ""
+                        , memPhone : response[i].memPhone
+                        , JoinPlatform : ""
+                        , Login_out : ""
+                        , memState : response[i].memState
+                    }
+                ]
+            };
+            html= templateScript(context);
+            $("#tableBody").append(html);
+        }
 
-
-
-        $("#tableBody").append(html);
 
         $('#list').DataTable({
             retrieve: true,
@@ -87,13 +100,13 @@
     {{#data}}
     <tr>
         <td>{{memNo}}</td>
-        <td>{{UserID}}</td>
+        <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{Name}}</td>
-        <td>{{PhoneNum}}</td>
+        <td>{{memPhone}}</td>
         <td>{{JoinPlatform}}</td>
         <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
+        <td>{{memState}}</td>
     </tr>
     {{/data}}
 </script>
