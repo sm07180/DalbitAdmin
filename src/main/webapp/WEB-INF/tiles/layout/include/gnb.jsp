@@ -10,11 +10,11 @@
     </li>
 
     <li class="">
-        <a href="#followers" aria-expanded="false"><i class="fa fa-bar-chart-o fw"></i>분석</a>
+        <a href="#followers" aria-expanded="false"><i class="fa fa-bar-chart"></i> 분석</a>
     </li>
 
     <li class="">
-        <a href="#following" aria-expanded="false"><i class="fa fa-bar-chart-o fw"></i>현황분석</a>
+        <a href="#following" aria-expanded="false"><i class="fa fa-line-chart"></i> 현황분석</a>
     </li>
 
     <li class="${fn:startsWith(url, '/member/') ? 'active' : ''}">
