@@ -553,9 +553,9 @@
             calendarWeeks: false,
             autoclose: true,
             format: "yyyy-mm-dd",
-            language: 'kr'
+            language: 'kr',
+            maxDate:0
         }).datepicker("setDate", new Date());
-
 
         $('#date_radio').change(function() {
             if($('input[name="radio_date"]:checked').val() == "all"){               // 전체
