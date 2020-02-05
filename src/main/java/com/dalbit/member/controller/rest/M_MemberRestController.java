@@ -26,8 +26,6 @@ public class M_MemberRestController {
     M_MemberService mMemberService;
 
     @Autowired
-    M_MemberService memberService;
-    @Autowired
     GsonUtil gsonUtil;
 
 
@@ -78,13 +76,13 @@ public class M_MemberRestController {
         apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
         apiData.setMem_no(memNo);
         apiData.setTarget_mem_no(memNo);
-        String result = memberService.callMemberInfo(apiData);
+        String result = mMemberService.callMemberInfo(apiData);
         return result;
     }
 
     @PostMapping("memberList")
     public String getMemberList(){
-        List<MemberListVo> memberListVo = memberService.getMemberList();
+        List<MemberListVo> memberListVo = mMemberService.getMemberList();
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberListVo));
     }
 
