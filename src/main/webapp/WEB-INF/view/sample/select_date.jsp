@@ -13,12 +13,6 @@
         padding-left: 0px;
         padding-right: 0px;
     }
-    .p_0{
-        padding-top: 0px;
-        padding-bottom: 0px;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
     .p_10{
         padding-top: 10px;
         padding-bottom: 10px;
@@ -89,25 +83,25 @@
             </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
-                <div class="col-lg-12" id="ex1_Result1" ></div>
-                <div class="col-lg-12" id="ex1_Result2" ></div>
                 <div class="widget widget-table">
+
                     <div class="widget-content">
-                        <table id="list" class="table table-sorting table-hover table-bordered datatable">
+                        <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
                             <span>
-                                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
+                               <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
                             </span>
                             <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>UserID</th>
-                                <th>NickName</th>
-                                <th>Name</th>
-                                <th>PhoneNum</th>
-                                <th>JoinPlatform</th>
-                                <th>Login_out</th>
-                                <th>Live</th>
+                                <th>MemNo</th>
+                                <th>ID</th>
+                                <th>닉네임</th>
+                                <th>이름</th>
+                                <th>전화번호</th>
+                                <th>로그인경로</th>
+                                <th>로그인상태</th>
+                                <th>생방중</th>
                             </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -119,13 +113,13 @@
             </div>
             <!-- DATA TABLE END -->
             <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
-                <div class="col-lg-1 p_0">
+                <div class="col-lg-1 no-padding">
                     <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 10%;height: 27px"> 검색 상세 정보 </label>
                 </div>
-                <div class="col-lg-4 p_0">
+                <div class="col-lg-4 no-padding">
                     <label class="text_middle" style="font-size: 11px;height: 27px;"> ㆍ회원 상세 정보는 [수정하기] 버튼을 통해 변경이 가능합니다.</label>
                 </div>
-                <div class="col-lg-7 p_0">
+                <div class="col-lg-7 no-padding">
                     <button type="button" id="bt_edite" class="btn-primary pull-right btn-xs form-control"  style="border-radius:3px;width: 80px;;height: 24px">수정하기</button>
                 </div>
             </div>
@@ -513,6 +507,7 @@
 
     });
 
+
     var tmp_sw="true";
 
     $('#cob_mail').change(function () {
@@ -535,68 +530,32 @@
         }
     });
 
-    $('#bt_edite').click( function() {       //리스트
-        var str = ""
-        var tdArr = new Array();	// 배열 선언
-        var checkBtn = $(this);
 
-        // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-        // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-        var tr = checkBtn.parent().parent();
+    $(document).on('click', '#list_info tbody tr', function(){
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@ 1");
+        var tr = $(this); // 현재 클릭된 row
         var td = tr.children();
-
-        console.log("클릭한 Row의 모든 데이터 : "+tr.text());
-
-        var no = td.eq(0).text();
-        var userid = td.eq(1).text();
-        var name = td.eq(2).text();
-        var email = td.eq(3).text();
-
-
-        // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
-        td.each(function(i){
-            tdArr.push(td.eq(i).text());
-        });
-
-        console.log("배열에 담긴 값 : "+tdArr);
-
-        str +=	" * 클릭된 Row의 td값 = No. : <font color='red'>" + no + "</font>" +
-            ", 아이디 : <font color='red'>" + userid + "</font>" +
-            ", 이름 : <font color='red'>" + name + "</font>" +
-            ", 이메일 : <font color='red'>" + email + "</font>";
-
-    });
-
-    $("#list").click(function(){
-
-        var str = "";
-        // var tdArr = new Array();    // 배열 선언
-
-        // 현재 클릭된 Row(<tr>)
-        var tr = $(this);
-        var td = tr.children();
-
-        // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
-
+        // var tdArray = new Array(); // 배열선언
         // td.each(function(i){
-        //     tdArr.push(td.eq(i).text());
+        //     tdArray.push(td.eq(i).text());
         // });
-
-        // console.log("배열에 담긴 값 : "+tdArr);
-
-        // var mem_no = td.eq(1).text();
-        var mem_no = "1111111111111";
-
-        var list = new Array();
+        // console.log("배열에 담은 값 : " + tdArray);
+        // 특정 셀 값 알아내기
+        var mem_no = td.eq(1).text();
         var obj = new Object();
-        obj.men_no = mem_no;
-        list.push(obj);
-        var jsonData = JSON.stringify(list);
-        //
-        alert(jsonData) ;
-        getAjaxData("info", "/rest/member/member/info", jsonData, info_sel_success, fn_fail);
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@  2");
+        obj.mem_no = mem_no;
+        console.log("@@@@@@@@@ > "  + mem_no);
+
+        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+
+
     });
+
+    $('#bt_edite').click( function() {       //수정하기
+
+
+    });
+
 
     var num = 60 * 1; // 몇분을 설정할지의 대한 변수 선언
     var myVar;
@@ -646,7 +605,81 @@
         });
     }
     function info_sel_success(dst_id, response) {
-        console.log("@@@@@@@@@@@@@@@@@@@ 3");
+        // dalbitLog(response);
+
+        // console.log(response.result);
+        // console.log(response.data.memNo);
+        // console.log(response.data.nickNm);
+        // console.log(response.data.gender);
+        // console.log(response.data.age);
+
+        $("#txt_nickName").val(response.data.nickNm);
+        if(response.data.gender == "m"){
+            $("#radio_male").prop("checked", true).change();
+        //     $("#radio_male").val(true);
+        // }else{
+        //     $("#radio_female").val(true);
+        }
+        $("#lb_age").html(response.data.age + "세");
+
+
+        // this.memNo=target_mem_no;
+        // this.nickNm=target.getNickName();
+        // this.gender=target.getMemSex();
+        // this.age=target.getAge();
+        // this.memId=target.getMemId();
+        // this.bgImg=new ImageVo(target.getBackgroundImage(), DalbitUtil.getProperty("server.photo.url"));
+        // this.profImg=new ImageVo(target.getProfileImage(), DalbitUtil.getProperty("server.photo.url"));
+        // this.profMsg=target.getProfileMsg();
+        // this.level=target.getLevel();
+        // this.fanCnt=target.getFanCount();
+        // this.starCnt=target.getStarCount();
+        // this.exp=target.getExp();
+        // this.expNext=target.getExpNext();
+        // this.grade=target.getGrade();
+
+
+        <%-- img_profileImg					// 프로필 이미지--%>
+        <%-- lb_userId						// 사용자 ID--%>
+        <%-- txt_nickName						// 닉네임--%>
+        <%-- txt_name							// 이름--%>
+        <%-- lb_age							// 나이--%>
+        <%-- radio_male						// 남--%>
+        <%-- radio_female						// 여--%>
+        <%-- txt_phon							// 핸드폰번호--%>
+        <%-- txt_eMail						// 이메일--%>
+        <%-- txt_pass							// 비밀번호--%>
+        <%-- lb_broadCnt						// 방송 기록 수--%>
+        <%-- lb_listenCnt						// 청취자 기록 수--%>
+        <%-- lb_payCnt						// 결재 건 수--%>
+        <%-- lb_refundCnt						// 환불 정보 수--%>
+        <%-- lb_giftCnt						// 선물 수--%>
+        <%-- lb_exchangeCnt					// 환전 수--%>
+
+        <%-- lb_platform						// 가입 플랫폼--%>
+        <%-- lb_joinDate						// 회원 가입 일시--%>
+        <%-- lb_cancelMb						// 회원 탈퇴 일시--%>
+        <%-- lb_editDate						// 최근정보 수정 일--%>
+        <%-- lb_editUser						// 최근정보 수정 처리자--%>
+        <%-- lb_myStarCnt						// 내가 등록한 mystar 수--%>
+        <%-- lb_meStarList					// 나를 mystart등록한 수--%>
+        <%-- lb_myFan							// 내가 등록한 fan--%>
+        <%-- lb_meFan							// 나를 등록한 fan 수--%>
+        <%-- lb_noticeCnt						// 개인공지 수--%>
+        <%-- lb_broadNoticeCnt				// 방송중 공지 수--%>
+        <%-- lb_myDeclarCnt					// 내가 신고한 수--%>
+        <%-- lb_meDeclarCnt					// 나를 신고한 수--%>
+        <%-- lb_resPonseCnt					// 1:1 문의 정보--%>
+
+        <%-- cob_userLevel					// 회원레벨--%>
+        <%-- cob_djLevel						// DC등급--%>
+        <%-- cob_lisLevel						// 청취자등급--%>
+        <%-- radio_login						// 로그인--%>
+        <%-- radio_lgout						// 로그아웃--%>
+        <%-- radio_liveOn						// 생방중--%>
+        <%-- radio_liveOff					// 생방아님--%>
+        <%-- radio_lisOn						// 청취중--%>
+        <%-- radio_lisOn						// 청취 아님--%>
     }
 
     function fn_fail(data, textStatus, jqXHR){
@@ -654,10 +687,10 @@
     }
 
     function getDetail(id){
-        // alert(id);
-        var mem_no = id;
-        getAjaxData("info", "/rest/member/member/info", mem_no, info_sel_success, fn_fail);
+        var obj = new Object();
+        obj.mem_no = id;
 
+        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 </script>
 

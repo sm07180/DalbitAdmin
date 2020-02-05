@@ -16,6 +16,8 @@ public interface MemberDao {
 //    ProcedureVo callChangePassword(ProcedureVo procedureVo);
 //    ProcedureVo callMemberInfoView(ProcedureVo procedureVo);
 
+    ProcedureVo callMemberInfo(ProcedureVo procedureVo);
+
     /* 연습용 */
     List<MemberListVo> getMemberList();
 }
