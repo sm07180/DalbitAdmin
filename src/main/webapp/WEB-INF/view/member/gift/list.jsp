@@ -8,19 +8,18 @@
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
             <tr>
                 <th>NO</th>
+                <th>Sort</th>
+                <th>Item</th>
+                <th>Num</th>
+                <th>Amount</th>
+                <th>Date</th>
                 <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
+                <th>Refund</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -74,13 +73,13 @@
     {{#data}}
     <tr>
         <td>{{NO}}</td>
+        <td>{{Sort}}</td>
+        <td>{{Item}}</td>
+        <td>{{Num}}</td>
+        <td>{{Amount}}</td>
+        <td>{{Date}}</td>
         <td>{{UserID}}</td>
-        <td>{{NickName}}</td>
-        <td>{{Name}}</td>
-        <td>{{PhoneNum}}</td>
-        <td>{{JoinPlatform}}</td>
-        <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
+        <td>{{Refund}}</td>
     </tr>
     {{/data}}
 </script>

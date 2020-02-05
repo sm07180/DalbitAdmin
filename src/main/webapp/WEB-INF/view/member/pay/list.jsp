@@ -8,20 +8,20 @@
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
             <tr>
                 <th>NO</th>
-                <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
-                </tr>
+                <th>Sort</th>
+                <th>Item</th>
+                <th>PayRefundNum</th>
+                <th>PayRefundAmt</th>
+                <th>PayRefundDate</th>
+                <th>PayBy</th>
+                <th>Status</th>
+                <th>Refund</th>
+            </tr>
             </thead>
             <tbody id="tableBody">
 
@@ -74,13 +74,14 @@
     {{#data}}
     <tr>
         <td>{{NO}}</td>
-        <td>{{UserID}}</td>
-        <td>{{NickName}}</td>
-        <td>{{Name}}</td>
-        <td>{{PhoneNum}}</td>
-        <td>{{JoinPlatform}}</td>
-        <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
+        <td>{{Sort}}</td>
+        <td>{{Item}}</td>
+        <td>{{PayRefundNum}}</td>
+        <td>{{PayRefundAmt}}</td>
+        <td>{{convertToDate PayRefundDate "YYYY.MM.DD"}}</td>
+        <td>{{PayBy}}</td>
+        <td>{{Status}}</td>
+        <td>{{Refund}}</td>
     </tr>
     {{/data}}
 </script>
