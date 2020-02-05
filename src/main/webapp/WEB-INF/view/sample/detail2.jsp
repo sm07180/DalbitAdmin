@@ -60,8 +60,8 @@
                         <div class="col-md-6">
                             <label class="col-md-3 control-label">UserID</label>
                             <div class="col-md-3"><span>TEST1234</span></div>
-                            <label class="col-md-3 control-label">닉네임</label>
-                            <div class="col-md-3"><input type="text" class="form-control" placeholder="text field"></div>
+                            <label class="col-md-2 control-label">닉네임</label>
+                            <div class="col-md-4"><input type="text" class="form-control" placeholder="text field"></div>
                         </div>
                     </div>
 
@@ -92,9 +92,18 @@
                             <div class="col-md-3">
                                 <input type="text" class="form-control" placeholder="text field">
                             </div>
-                            <label class="col-md-3 control-label">성별</label>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="text field">
+                            <label class="col-md-2 control-label">성별</label>
+                            <div class="col-md-4">
+                                <div class="col-lg-12">
+                                    <label class="control-inline fancy-radio">
+                                        <input type="radio" name="inline-radio">
+                                        <span><i></i>남자</span>
+                                    </label>
+                                    <label class="control-inline fancy-radio">
+                                        <input type="radio" name="inline-radio">
+                                        <span><i></i>여자</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -190,98 +199,126 @@
                         </div>
                     </div>
 
+
                     <div class="form-group">
-                        <div class="col-md-6">
-                            <label class="col-md-1 control-label">개인결제 정보</label>
-
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">결제</label>
-                            </div>
+                        <div>
                             <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
+                                <div class="col-md-12 no-padding">
+                                    <div class="col-md-3">개인결제 정보</div>
+                                    <div class="col-md-9 no-padding">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">결제</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">환불</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">선물</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">환전</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="col-md-6">접속 플랫폼</div>
+                                    <div class="col-md-6 no-padding">
+                                        총 00건
+                                        <button type="button" class="btn pull-right">세부내역</button>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">환불</label>
-                            </div>
                             <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
+                                <div>
+                                    <div class="col-md-2">공지</div>
+                                    <div class="col-md-10">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">개인공지</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">선물</label>
-                            </div>
-                            <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">방송중공지</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">환전</label>
-                            </div>
-                            <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
+                                <div>
+                                    <div class="col-md-2">신고/문의</div>
+                                    <div class="col-md-10">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">내가 신고한 정보</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                            <div class="col-md-12 no-padding">
-                                <label class="col-md-3 control-label">현재 접속 플랫폼</label>
-                                <div class="col-md-9">
-                                    모바일 (Andriod)
-                                    <button type="button" class="btn pull-right">세부내역</button>
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">나를 신고한 정보</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">1:1 문의정보</div>
+                                            <div class="col-md-9 no-padding">
+                                                <div>
+                                                    총 00건
+                                                    <button type="button" class="btn pull-right">세부내역</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="col-md-6">
-                            <label class="col-md-1 control-label">공지</label>
-
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">개인공지</label>
-                            </div>
-                            <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
-
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">방송 중 공지</label>
-                            </div>
-                            <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
-
-
-                            <label class="col-md-1 control-label">신고/문의</label>
-
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">내가 신고한 정보</label>
-                            </div>
-                            <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
-
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">나를 신고한 정보</label>
-                            </div>
-                            <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
-                            <div class="col-md-5">
-                                <label class="col-md-12 control-label">1:1 문의정보</label>
-                            </div>
-                            <div class="col-md-6">
-                                총 00건
-                                <button type="button" class="btn pull-right">세부내역</button>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
