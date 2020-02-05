@@ -15,6 +15,7 @@
           , mem_phone
           , mem_slct
           , mem_state
+          , mem_state
         FROM tb_member_basic
     </select>
 

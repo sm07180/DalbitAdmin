@@ -10,11 +10,11 @@ import java.util.List;
 @Repository
 public interface MemberDao {
 
-    ProcedureVo callNickNameCheck(ProcedureVo procedureVo);
+//    ProcedureVo callNickNameCheck(ProcedureVo procedureVo);
     ProcedureVo callMemberLogin(ProcedureVo procedureVo);
-    ProcedureVo callMemberJoin(ProcedureVo procedureVo);
-    ProcedureVo callChangePassword(ProcedureVo procedureVo);
-    ProcedureVo callMemberInfoView(ProcedureVo procedureVo);
+//    ProcedureVo callMemberJoin(ProcedureVo procedureVo);
+//    ProcedureVo callChangePassword(ProcedureVo procedureVo);
+//    ProcedureVo callMemberInfoView(ProcedureVo procedureVo);
 
     /* 연습용 */
     List<MemberListVo> getMemberList();

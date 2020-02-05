@@ -71,6 +71,7 @@
                 showAll: "Show all"
             },*/
         });
+
     }
 
 
@@ -85,10 +86,10 @@
         <td>{{memNo}}</td>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
-        <td>{{Name}}</td>
+        <td>{{memNick}}</td>
         <td>{{memPhone}}</td>
-        <td>{{JoinPlatform}}</td>
-        <td>{{Login_out}}</td>
+        <td>{{memSlct}}</td>
+        <td>{{memState}}</td>
         <td>{{memState}}</td>
     </tr>
     {{/data}}
