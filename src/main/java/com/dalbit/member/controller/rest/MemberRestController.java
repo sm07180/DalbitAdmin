@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.member.service.MemberService;
 import com.dalbit.member.vo.MemberListVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.P_MemberInfoVo;
 import com.dalbit.sample.service.SampleService;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -45,71 +46,53 @@ public class MemberRestController {
 
     @PostMapping("list")
     public String list(Model model){
-
-
-
-
         ArrayList<HashMap> list = new ArrayList<HashMap>();
-        HashMap map = new HashMap();
-        for(int i=0; i++ <20;) {
-            map.put("NO", "NO");
-            map.put("MemNo", "99999999999");
-            map.put("UserID", "DaldalE");
-            map.put("NickName", "다달이");
+//        HashMap map = new HashMap();
+        for(int i=0; i<3;i++) {
+            HashMap map = new HashMap();
+            map.put("NO", i);
+            if(i == 0) {
+                map.put("MemNo", "11577690655946");
+                map.put("UserID", "1111");
+                map.put("NickName", "aaaa");
+            }else if(i == 1) {
+                map.put("MemNo", "11577931027280");
+                map.put("UserID", "2222");
+                map.put("NickName", "bbbb");
+            }else {
+                map.put("MemNo", "11577950603958");
+                map.put("UserID", "3333");
+                map.put("NickName", "cccc");
+            }
             map.put("Name", "양달님");
             map.put("PhoneNum", "010-9941-0000");
             map.put("JoinPlatform", "달빛");
             map.put("Login_out", "Login");
             map.put("Live", "생방중♠");
-
-
             list.add(map);
         }
+
+
+
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
-
-
-
-
-
-
     }
 
-    //@PostMapping("")        //formdata
-    @RequestMapping(value="info", produces="text/plain;Charset=UTF-8")
-    @ResponseBody
-    public ModelAndView info(HttpServletRequest request, @RequestBody Map<String, Object> params){
-        String memNo = (String) params.get("mem_no");
-        log.info("memNo: {}", memNo);
+    @PostMapping("info")
+    public String info(HttpServletRequest request){
+        String memNo = (String) request.getParameter("mem_no");
 
-        log.info(request.getParameter("men_no"));
-
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("memNo", memNo);
-
-
-        log.info(DalbitUtil.convertRequestParamToString(request, "men_no"));
-
-        //String memNo = DalbitUtil.convertRequestParamToString(request, "men_no");
-
-        return mv;
+        P_MemberInfoVo apiData = new P_MemberInfoVo();
+        apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
+        apiData.setMem_no(memNo);
+        apiData.setTarget_mem_no(memNo);
+        String result = memberService.callMemberInfo(apiData);
+        return result;
     }
 
-    private String readJSONStringFromRequestBody(HttpServletRequest request){
-        StringBuffer json = new StringBuffer();
-        String line = null;
-
-        try {
-            BufferedReader reader = request.getReader();
-            while((line = reader.readLine()) != null) {
-                json.append(line);
-            }
-
-        }catch(Exception e) {
-            System.out.println("Error reading JSON string: " + e.toString());
-        }
-        return json.toString();
+    @PostMapping("memberList")
+    public String selectMemberList(){
+        List<MemberListVo> memberListVo = memberService.getMemberList();
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberListVo));
     }
-
-
 
 }
