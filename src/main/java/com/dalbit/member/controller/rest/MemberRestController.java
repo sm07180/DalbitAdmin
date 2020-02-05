@@ -90,7 +90,7 @@ public class MemberRestController {
     }
 
     @PostMapping("memberList")
-    public String selectMemberList(){
+    public String getMemberList(){
         List<MemberListVo> memberListVo = memberService.getMemberList();
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberListVo));
     }

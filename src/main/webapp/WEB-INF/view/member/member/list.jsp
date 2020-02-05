@@ -8,7 +8,6 @@
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>

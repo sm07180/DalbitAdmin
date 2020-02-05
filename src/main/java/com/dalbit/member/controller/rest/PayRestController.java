@@ -32,6 +32,8 @@ public class PayRestController {
      * @return
      */
 
+
+
     @PostMapping("list")
     public String list(Model model){
 
@@ -40,14 +42,15 @@ public class PayRestController {
 
         for(int i=0; i++ <20;) {
             map.put("NO", "NO");
-            map.put("UserID", "DaldalE");
-            map.put("NickName", "다달이");
-            map.put("Name", "양달님");
-            map.put("PhoneNum", "010-9941-0000");
-            map.put("JoinPlatform", "달빛");
-            map.put("Login_out", "Login");
-            map.put("Live", "생방중♠");
-
+            map.put("Sort", "결제");
+            map.put("Item", "루비");
+            map.put("PayRefundNum", "OO건");
+            map.put("PayRefundAmt", "00,000원");
+            map.put("PayRefundDate", "20200305");
+            map.put("PayBy", "신용카드");
+            map.put("PayBy", "휴대폰결제");
+            map.put("Status", "11:00:01");
+            map.put("Refund", "처리직원명");
 
             list.add(map);
         }
@@ -55,7 +58,6 @@ public class PayRestController {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }
-
 
 
 

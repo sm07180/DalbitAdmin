@@ -2,6 +2,7 @@ package com.dalbit.member.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.member.vo.BroadListVo;
 import com.dalbit.sample.service.SampleService;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -52,8 +54,10 @@ public class ExchangeRestController {
             list.add(map);
         }
 
-
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+
+
+
     }
 
 

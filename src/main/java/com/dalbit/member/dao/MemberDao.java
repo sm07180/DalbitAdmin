@@ -1,6 +1,7 @@
 package com.dalbit.member.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.vo.BroadListVo;
 import com.dalbit.member.vo.MemberListVo;
 import com.dalbit.member.vo.MemberVo;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,6 @@ public interface MemberDao {
 
     /* 연습용 */
     List<MemberListVo> getMemberList();
+
+
 }

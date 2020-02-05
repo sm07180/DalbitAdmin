@@ -40,13 +40,13 @@ public class GiftRestController {
 
         for(int i=0; i++ <20;) {
             map.put("NO", "NO");
-            map.put("UserID", "DaldalE");
-            map.put("NickName", "다달이");
-            map.put("Name", "양달님");
-            map.put("PhoneNum", "010-9941-0000");
-            map.put("JoinPlatform", "달빛");
-            map.put("Login_out", "Login");
-            map.put("Live", "생방중♠");
+            map.put("Sort", "보낸선물");
+            map.put("Item", "루비");
+            map.put("Num", "OO건");
+            map.put("Amount", "00,000원");
+            map.put("Date", "20200325");
+            map.put("UserID", "tt.mm.ss");
+            map.put("Refund", "처리직원 ID");
 
 
             list.add(map);

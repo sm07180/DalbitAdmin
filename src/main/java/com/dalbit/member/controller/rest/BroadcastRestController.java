@@ -2,6 +2,8 @@ package com.dalbit.member.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.member.service.BroadcastService;
+import com.dalbit.member.vo.BroadListVo;
 import com.dalbit.sample.service.SampleService;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -20,7 +23,7 @@ import java.util.HashMap;
 public class BroadcastRestController {
 
     @Autowired
-    SampleService sampleService;
+    BroadcastService broadcastService;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -30,8 +33,7 @@ public class BroadcastRestController {
      * @param model
      * @return
      */
-
-    @PostMapping("list")
+   /* @PostMapping("list")
     public String list(Model model) {
         ArrayList<HashMap> list = new ArrayList<HashMap>();
         HashMap map = new HashMap();
@@ -51,5 +53,13 @@ public class BroadcastRestController {
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
-    }
+    }*/
+
+   @PostMapping("list")
+    public String getBroadList() {
+       List<BroadListVo> broadListVo = broadcastService.getBroadList();
+       return gsonUtil.toJson(new JsonOutputVo(Status.조회, broadListVo));
+   }
+
+
 }

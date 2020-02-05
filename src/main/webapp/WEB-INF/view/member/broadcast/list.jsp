@@ -8,7 +8,6 @@
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-               <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
@@ -65,15 +64,15 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
-        <td>{{RoomType}}</td>
-        <td>{{convertToDate RoomTitle "YYYY.MM.DD"}}</td>
-        <td>{{convertToDate StartTime "YYYY.MM.DD"}}</td>
-        <td>{{EndTime}}</td>
-        <td>{{OnAirTime}}</td>
-        <td>{{AvgListener}}</td>
-        <td>{{Good}}</td>
-        <td>{{Gift}}</td>
+        <td>{{roomNo}}</td>
+        <td>{{roomType}}</td>
+        <td>{{title}}</td>
+        <td>{{startDt}}</td>
+        <td>{{startDt}}</td>
+        <td>{{startDt}}</td>
+        <td>{{entryCnt}}</td>
+        <td>{{likeCnt}}</td>
+        <td>{{likeCnt}}</td>
     </tr>
     {{/data}}
 </script>
