@@ -19,19 +19,6 @@
         FROM tb_member_basic
     </select>
 
-    <select id="getBroadList" resultType="com.dalbit.member.vo.BroadListVo">
-        SELECT
-          room_no
-          , subject_type
-          , title
-          , start_date
-          , start_date
-          , start_date
-          , count_entry
-          , count_good
-          , count_good
-        FROM tb_broadcast_room
-    </select>
 
     <select id="callMemberInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
     call sp_member_info_view(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
