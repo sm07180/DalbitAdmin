@@ -3,8 +3,7 @@ package com.dalbit.security.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.exception.CustomUsernameNotFoundException;
-import com.dalbit.member.service.MemberService;
-import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.service.M_MemberService;
 import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.security.dao.LoginDao;
 import com.dalbit.security.vo.SecurityUserVo;
@@ -31,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private LoginDao loginDao;
 
     @Autowired
-    private MemberService memberService;
+    private M_MemberService mMemberService;
 
     @Autowired
     HttpServletRequest request;
@@ -51,7 +50,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             , "appAdId"
         );
 
-        ProcedureVo procedureVo = memberService.callMemberLogin(pLoginVo);
+        ProcedureVo procedureVo = mMemberService.callMemberLogin(pLoginVo);
         log.debug("로그인 결과 : {}", new Gson().toJson(procedureVo));
 
         if(procedureVo.getRet().equals(Status.로그인실패_회원가입필요.getMessageCode())) {
