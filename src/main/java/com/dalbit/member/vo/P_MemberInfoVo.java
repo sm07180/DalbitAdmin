@@ -3,6 +3,8 @@ package com.dalbit.member.vo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class P_MemberInfoVo {
@@ -22,8 +24,8 @@ public class P_MemberInfoVo {
     private String slct;
     private String adid;
     private String state;
-    private String join_date;
-    private String upd_date;
+    private String mem_join_date;
+    private String last_upd_date;
     private String name;
     private String email;
     private String profileImage;
@@ -32,5 +34,7 @@ public class P_MemberInfoVo {
     private int exp;
     private int broadcastingCnt;
     private int listeningCnt;
+    private int starCnt;
+    private int fanCnt;
 
 }

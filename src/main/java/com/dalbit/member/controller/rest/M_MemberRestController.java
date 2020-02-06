@@ -3,6 +3,8 @@ package com.dalbit.member.controller.rest;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.member.service.M_MemberService;
+import com.dalbit.member.vo.MemberInfoLevelListVo;
+import com.dalbit.member.vo.MemberInfoOutVo;
 import com.dalbit.member.vo.MemberListVo;
 import com.dalbit.member.vo.P_MemberInfoVo;
 import com.dalbit.util.DalbitUtil;
@@ -68,6 +70,15 @@ public class M_MemberRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }
 
+    @PostMapping("level")
+    public String level(HttpServletRequest request){
+        MemberInfoLevelListVo apiData = new MemberInfoLevelListVo();
+        apiData.setLevel((String) request.getParameter("level"));
+        log.info("callMemberLevelList start");
+        String result = mMemberService.callMemberLevelList(apiData);
+        return result;
+    }
+
     @PostMapping("info")
     public String info(HttpServletRequest request){
         String memNo = (String) request.getParameter("mem_no");
@@ -77,6 +88,9 @@ public class M_MemberRestController {
         apiData.setMem_no(memNo);
         apiData.setTarget_mem_no(memNo);
         String result = mMemberService.callMemberInfo(apiData);
+
+        log.info("controller resultList : {} " + result);
+
         return result;
     }
 

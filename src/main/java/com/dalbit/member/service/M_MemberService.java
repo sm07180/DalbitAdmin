@@ -98,8 +98,10 @@ public class M_MemberService {
             returnMap.put("slct", list.get(i).getSlct());
             returnMap.put("adid", list.get(i).getAdid());
             returnMap.put("state", list.get(i).getState());
-            returnMap.put("join_date", list.get(i).getJoin_date());
-            returnMap.put("upd_date", list.get(i).getUpd_date());
+//            log.info("list.get(i).getJoin_date() : " + list.get(i).getJoin_date());
+//            log.info("list.get(i).getJoin_date() : " + DalbitUtil.getUTCFormat(list.get(i).getJoin_date()));
+            returnMap.put("join_date", list.get(i).getMem_join_date());
+            returnMap.put("upd_date", list.get(i).getLast_upd_date());
             returnMap.put("name", list.get(i).getName());
             returnMap.put("email", list.get(i).getEmail());
             returnMap.put("profileImage", new ImageVo(list.get(i).getProfileImage(), list.get(i).getMemSex(), DalbitUtil.getProperty("server.photo.url")));
@@ -107,7 +109,10 @@ public class M_MemberService {
             returnMap.put("level", list.get(i).getLevel());
             returnMap.put("grade", list.get(i).getGrade());
             returnMap.put("exp", list.get(i).getExp());
-            returnMap.put("exp", list.get(i).getExp());
+            returnMap.put("broadcastingCnt", list.get(i).getBroadcastingCnt());
+            returnMap.put("listeningCnt", list.get(i).getListeningCnt());
+            returnMap.put("starCnt", list.get(i).getStarCnt());
+            returnMap.put("fanCnt", list.get(i).getFanCnt());
             procedureVo.setData(returnMap);
         }
 

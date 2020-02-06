@@ -217,7 +217,7 @@
                             </div>
                             <label class="col-md-2">성별</label>
                             <div class="col-md-4">
-                                <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked="true">남자</label>
+                                <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
                                 <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
                             </div>
                         </div>
@@ -280,7 +280,7 @@
                         <div class="col-md-6">
                             <label class="col-md-3">방송기록</label>
                             <div class="col-md-9">
-                                <label id="lb_broadCnt">총00건</label>
+                                <label id="lb_broadCnt">총0건</label>
                                 <button type="button" id="bt_broadHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
@@ -290,12 +290,12 @@
                         <div class="col-md-5">
                             <label class="col-md-6">내가 등록한 Mystar</label>
                             <div class="col-md-6">
-                                <label class="col-md-6" id="lb_myStarCnt">총00건</label>
+                                <label class="col-md-6" id="lb_myStarCnt">총0건</label>
                                 <button type="button" id="bt_registmyStarList" class="btn-xs pull-right">세부내역</button>
                             </div>
                             <label class="col-md-6">나를 Mystar로 등록한 회원</label>
                             <div class="col-md-6">
-                                <label class="col-md-6" id="lb_meStarList">총00건</label>
+                                <label class="col-md-6" id="lb_meStarCnt">총0건</label>
                                 <button type="button" id="bt_registMeStarList" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
@@ -304,7 +304,7 @@
                         <div class="col-md-6">
                             <label class="col-md-3">청취기록</label>
                             <div class="col-md-9">
-                                <label id="lb_listenCnt">총00건</label>
+                                <label id="lb_listenCnt">총0건</label>
                                 <button type="button" id="bt_listenHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
@@ -314,12 +314,12 @@
                         <div class="col-md-5">
                             <label class="col-md-6">내가 등록한 Fan</label>
                             <div class="col-md-6">
-                                <label class="col-md-6" id="lb_myFan">총00건</label>
+                                <label class="col-md-6" id="lb_myFanCnt">총0건</label>
                                 <button type="button" id="bt_registMyFanlist" class="btn-xs pull-right">세부내역</button>
                             </div>
                             <label class="col-md-6">나를 등록한 Fan</label>
                             <div class="col-md-6">
-                                <label class="col-md-6" id="lb_meFan">총00건</label>
+                                <label class="col-md-6" id="lb_meFanCnt">총0건</label>
                                 <button type="button" id="bt_registMeFanlist" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
@@ -334,7 +334,7 @@
                                             <div class="col-md-3">결제</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_payCnt">총00건</label>
+                                                    <label id="lb_payCnt">총0건</label>
                                                     <button type="button" id="bt_payHistory" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -344,7 +344,7 @@
                                             <div class="col-md-3">환불</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_refundCnt">총00건</label>
+                                                    <label id="lb_refundCnt">총0건</label>
                                                     <button type="button" id="bt_refundHistory" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -354,7 +354,7 @@
                                             <div class="col-md-3">선물</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_giftCnt">총00건</label>
+                                                    <label id="lb_giftCnt">총0건</label>
                                                     <button type="button" id="bt_giftHistory" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -364,7 +364,7 @@
                                             <div class="col-md-3">환전</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_exchangeCnt">총00건</label>
+                                                    <label id="lb_exchangeCnt">총0건</label>
                                                     <button type="button" id="bt_exchangeHistory" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -389,7 +389,7 @@
                                             <div class="col-md-3">개인공지</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_noticeCnt">총00건</label>
+                                                    <label id="lb_noticeCnt">총0건</label>
                                                     <button type="button" id="bt_myNotice" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -399,7 +399,7 @@
                                             <div class="col-md-3">방송중공지</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_broadNoticeCnt">총00건</label>
+                                                    <label id="lb_broadNoticeCnt">총0건</label>
                                                     <button type="button" id="bt_broadNotice" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -414,7 +414,7 @@
                                             <div class="col-md-3">내가 신고한 정보</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_myDeclarCnt">총00건</label>
+                                                    <label id="lb_myDeclarCnt">총0건</label>
                                                     <button type="button" id="bt_registMyDeclar" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -424,7 +424,7 @@
                                             <div class="col-md-3">나를 신고한 정보</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_meDeclarCnt">총00건</label>
+                                                    <label id="lb_meDeclarCnt">총0건</label>
                                                     <button type="button" id="bt_registMeDeclar" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -434,7 +434,7 @@
                                             <div class="col-md-3">1:1 문의정보</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
-                                                    <label id="lb_resPonseCnt">총00건</label>
+                                                    <label id="lb_resPonseCnt">총0건</label>
                                                     <button type="button" id="bt_resPonse" class="btn-xs pull-right">세부내역</button>
                                                 </div>
                                             </div>
@@ -705,14 +705,20 @@
         $("#txt_name").val(response.data.name);
         $("#lb_age").html(response.data.age + "세");
         $("#txt_phon").val(response.data.phone);
-
         $("#txt_eMail").val(response.data.email);
         $("#txt_pass").val(response.data.passwd);
-
         $("#cob_djLevel").val(response.data.grade);
         $("#cob_userLevel").val(response.data.level);
+        $("#lb_broadCnt").html("총" + response.data.broadcastingCnt + "건");
+        $("#lb_listenCnt").html("총" + response.data.listeningCnt + "건");
+        $("#lb_joinDate").html(response.data.join_date);
+        $("#lb_editDate").html(response.data.upd_date);
+        $("#lb_meStarCnt").html("총" + response.data.starCnt + "건");
+        $("#lb_meFanCnt").html("총" + response.data.fanCnt + "건");
+        console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
+        //$("txt_birth#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
+        $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
 
-        // $("#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         // $("#").val(response.data.profileImage);
 
         // if(response.data.gender == "m"){
