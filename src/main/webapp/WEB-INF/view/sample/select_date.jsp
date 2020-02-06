@@ -137,19 +137,19 @@
                         <div class="col-md-6">
                             <label class="col-md-3">회원레벨</label>
                             <div class="col-md-9">
-                                <select id="cob_userLevel" name="emailSelection" class="form-control">
-                                    <option value="1" selected="selected">직접입력</option>
-                                    <option value="1">01레벨</option>
-                                    <option value="2">02레벨</option>
-                                    <option value="3">03레벨</option>
-                                </select>
+                                <form id="cob_level">
+                                    <select id="cob_userLevel" name="emailSelection" class="form-control">
+                                        <option value="00" selected="selected">직접입력</option>
+
+                                    </select>
+                                </form>
                             </div>
                             <label class="col-md-3">DJ등급</label>
                             <div class="col-md-9">
-                                <select id="cob_djLevel" name="emailSelection" class="form-control">
-                                    <option value="normal">일반DJ</option>
-                                    <option value="best">베스트DJ</option>
-                                </select>
+                                <form id="cob_grade">
+                                    <select id="cob_djLevel" name="emailSelection" class="form-control">
+                                    </select>
+                                </form>
                             </div>
                             <label class="col-md-3">청취자 등급</label>
                             <div class="col-md-9">
@@ -544,7 +544,8 @@
 <script>
     $(document).ready(function() {
         getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
-
+        getLevelData();
+        getGradeData();
         $('.input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -597,7 +598,16 @@
             }
         });
     });
-
+    function getLevelData(){
+        var obj = new Object();
+        obj.level = "level";
+        getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
+    }
+    function getGradeData(){
+        var obj = new Object();
+        obj.level = "grade";
+        getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
+    }
     $(document).on('click', '#list_info tbody tr', function(){
         var tr = $(this); // 현재 클릭된 row
         var td = tr.children();
@@ -610,7 +620,6 @@
         var mem_no = td.eq(1).text();
         var obj = new Object();
         obj.mem_no = mem_no;
-        console.log("@@@@@@@@@ > "  + mem_no);
 
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     });
@@ -638,12 +647,7 @@
 
         console.log($('#txt_startSel').val() + " / " + $('#txt_endSel').val());
 
-
-
-
-
         console.log(); //1개월 후
-
         getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
     });
 
@@ -651,7 +655,7 @@
     });
 
     function fn_success(dst_id, response){
-        dalbitLog(response);
+        // dalbitLog(response);
 
         var template = $('#tmp_list').html();
         var templateScript = Handlebars.compile(template);
@@ -674,42 +678,48 @@
             },*/
         });
     }
+    function fn_code_list_success(dst_id, response){
+        // dalbitLog(response);
+
+        if(response.data[0].gubun == "level"){
+            var template = $('#level_select').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response;
+            var html = templateScript(context);
+            $("#cob_userLevel").append(html);
+        }else if (response.data[0].gubun == "grade"){
+            var template = $('#grade_select').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response;
+            var html = templateScript(context);
+
+            $("#cob_djLevel").append(html);
+        }
+    }
 
     function info_sel_success(dst_id, response) {
         // dalbitLog(response);
 
-        $("#txt_nickName").val(response.data.nickNm);
+        $("#lb_userId").html(response.data.memId);
+        $("#txt_nickName").val(response.data.nickName);
+        $("#txt_name").val(response.data.name);
+        $("#lb_age").html(response.data.age + "세");
+        $("#txt_phon").val(response.data.phone);
 
+        $("#txt_eMail").val(response.data.email);
+        $("#txt_pass").val(response.data.passwd);
 
-        //('input:radio[name="radio_gender"]:radio[value=" + response.data.gender + "]').prop('checked', true); // 선택하기
+        $("#cob_djLevel").val(response.data.grade);
+        $("#cob_userLevel").val(response.data.level);
+
+        // $("#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
+        // $("#").val(response.data.profileImage);
 
         // if(response.data.gender == "m"){
         //     $("#radio_male").prop("checked", true).change();
         // }else{
         //     $("#radio_female").prop("checked", true).change();
         // }
-
-        $('input:radio[name=radio_date]:input[value=' + response.data.gender + ']').attr("checked", true);
-        // $('input[name="radio_date"]:checked').val([response.data.gender]);
-
-        $("#lb_age").html(response.data.age + "세");
-
-        // this.memNo=target_mem_no;
-        // this.nickNm=target.getNickName();
-        // this.gender=target.getMemSex();
-        // this.age=target.getAge();
-        // this.memId=target.getMemId();
-        // this.bgImg=new ImageVo(target.getBackgroundImage(), DalbitUtil.getProperty("server.photo.url"));
-        // this.profImg=new ImageVo(target.getProfileImage(), DalbitUtil.getProperty("server.photo.url"));
-        // this.profMsg=target.getProfileMsg();
-        // this.level=target.getLevel();
-        // this.fanCnt=target.getFanCount();
-        // this.starCnt=target.getStarCount();
-        // this.exp=target.getExp();
-        // this.expNext=target.getExpNext();
-        // this.grade=target.getGrade();
-
-
     }
 
     function getDetail(id){
@@ -722,9 +732,6 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
-
-
-
 
 
     // var tmp_sw="true";
@@ -784,5 +791,17 @@
         <td>{{Login_out}}</td>
         <td>{{Live}}</td>
     </tr>
+    {{/data}}
+</script>
+
+
+<script id="level_select" type="text/x-handlebars-template">
+    {{#data}}
+    <option value="{{level}}">{{level}}레벨</option>
+    {{/data}}
+</script>
+<script id="grade_select" type="text/x-handlebars-template">
+    {{#data}}
+    <option value="{{grade}}">{{grade}}</option>
     {{/data}}
 </script>

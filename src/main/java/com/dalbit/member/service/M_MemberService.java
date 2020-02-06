@@ -2,23 +2,27 @@ package com.dalbit.member.service;
 
 
 import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.ProcedureOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.M_MemberDao;
-import com.dalbit.member.vo.MemberInfoOutVo;
-import com.dalbit.member.vo.MemberListVo;
+import com.dalbit.member.vo.*;
 
-import com.dalbit.member.vo.P_LoginVo;
-import com.dalbit.member.vo.P_MemberInfoVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -49,29 +53,90 @@ public class M_MemberService {
     /**
      * 회원 정보 조회
      */
-    public String callMemberInfo(P_MemberInfoVo pMemberInfo) {
-        ProcedureVo procedureVo = new ProcedureVo(pMemberInfo);
-        mMemberDao.callMemberInfo(procedureVo);
-
-        log.info("프로시저 응답 코드: {}", procedureVo.getRet());
-        log.info("프로시저 응답 데이타: {}", procedureVo.getExt());
-        log.info(" ### 프로시저 호출결과 ###");
-
-        P_MemberInfoVo MemberInfo = new Gson().fromJson(procedureVo.getExt(), P_MemberInfoVo.class);
-        MemberInfoOutVo memberInfoOutVo = new MemberInfoOutVo(MemberInfo, pMemberInfo.getTarget_mem_no());
-
-        String result;
-        if(procedureVo.getRet().equals(Status.회원정보보기_성공.getMessageCode())) {
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, memberInfoOutVo)));
-        }else if(procedureVo.getRet().equals(Status.회원정보보기_회원아님.getMessageCode())) {
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_회원아님)));
-        }else if(procedureVo.getRet().equals(Status.회원정보보기_대상아님.getMessageCode())) {
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_대상아님)));
-        }else{
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_실패)));
+    public String callMemberLevelList(MemberInfoLevelListVo memberInfoLevelListVo) {
+        List<MemberInfoLevelListVo> list = new ArrayList<>();
+        log.info("memberInfoLevelListVo.getLevel() {} " + memberInfoLevelListVo.getLevel());
+        if(memberInfoLevelListVo.getLevel().equals("level")){
+            list = mMemberDao.callMemberLevelList(memberInfoLevelListVo);
+        } else if(memberInfoLevelListVo.getLevel().equals("grade")){
+            list = mMemberDao.callMemberGradeList(memberInfoLevelListVo);
         }
-        log.info("result:{}" + result);
+
+        ProcedureVo procedureVo = new ProcedureVo();
+        List<Map<String,Object>> returnList = new ArrayList<>();
+        for (int i=0; i<list.size(); i++) {
+            HashMap returnMap = new HashMap();
+            returnMap.put("gubun", list.get(i).getGubun());
+            returnMap.put("level", list.get(i).getLevel());
+            returnMap.put("grade", list.get(i).getGrade());
+            returnMap.put("exp", list.get(i).getExp());
+            returnList.add(returnMap);
+        }
+        procedureVo.setData(returnList);
+        String result;
+        result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
+
+        log.info(" ### 호출결과 ###" + result);
+
         return result;
     }
+    public String callMemberInfo(P_MemberInfoVo pMemberInfo) {
+        ProcedureVo procedureVo = new ProcedureVo();
+        List<P_MemberInfoVo> list = mMemberDao.callMemberInfo(pMemberInfo);
+
+        for (int i=0; i<list.size(); i++) {
+            HashMap returnMap = new HashMap();
+            returnMap.put("mem_no", list.get(i).getMem_no());
+            returnMap.put("memId", list.get(i).getMemId());
+            returnMap.put("phone", list.get(i).getPhone());
+            returnMap.put("passwd", list.get(i).getPasswd());
+            returnMap.put("nickName", list.get(i).getNickName());
+            returnMap.put("memSex", list.get(i).getMemSex());
+            returnMap.put("birthYear", list.get(i).getBirthYear());
+            returnMap.put("birthMonth", list.get(i).getBirthMonth());
+            returnMap.put("birthDay", list.get(i).getBirthDay());
+            returnMap.put("slct", list.get(i).getSlct());
+            returnMap.put("adid", list.get(i).getAdid());
+            returnMap.put("state", list.get(i).getState());
+            returnMap.put("join_date", list.get(i).getJoin_date());
+            returnMap.put("upd_date", list.get(i).getUpd_date());
+            returnMap.put("name", list.get(i).getName());
+            returnMap.put("email", list.get(i).getEmail());
+            returnMap.put("profileImage", new ImageVo(list.get(i).getProfileImage(), list.get(i).getMemSex(), DalbitUtil.getProperty("server.photo.url")));
+            returnMap.put("age", Integer.toString(DalbitUtil.ageCalculation(Integer.parseInt(list.get(i).getBirthYear()))));
+            returnMap.put("level", list.get(i).getLevel());
+            returnMap.put("grade", list.get(i).getGrade());
+            returnMap.put("exp", list.get(i).getExp());
+            returnMap.put("exp", list.get(i).getExp());
+            procedureVo.setData(returnMap);
+        }
+
+//
+//        ProcedureOutputVo procedureOutputVo;
+//        if(DalbitUtil.isEmpty(list)){
+//            procedureOutputVo = null;
+//        }else{
+//            List<MemberInfoOutVo> outVoList = new ArrayList<>();
+//            for (int i=0; i<list.size(); i++){
+//                HashMap returnMap = new HashMap();
+//                returnMap.put(list.get(i).getNickName());
+//                procedureVo.setData(returnMap);
+//
+//
+//                outVoList.add(new MemberInfoOutVo(list.get(i)));
+//            }
+//            procedureOutputVo = new ProcedureOutputVo(procedureVo, outVoList);
+//        }
+//        HashMap roomList = new HashMap();
+//        roomList.put("list", procedureOutputVo.getOutputBox());
+
+        String result;
+        result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
+
+        log.info(" ### 호출결과 ###" + result);
+
+        return result;
+    }
+
 
 }

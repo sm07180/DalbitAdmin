@@ -19,9 +19,51 @@
         FROM tb_member_basic
     </select>
 
+    <select id="callMemberInfo" parameterType="com.dalbit.member.vo.P_MemberInfoVo" resultType="com.dalbit.member.vo.P_MemberInfoVo">
+       SELECT
+          a.mem_no						as mem_no
+          ,a.mem_id                     as memId
+          ,a.mem_phone                  as phone
+          ,a.mem_passwd                 as passwd
+          ,a.mem_nick 				    as nickName
+          ,a.mem_sex 					as memSex
+          ,a.mem_birth_year             as birthYear
+          ,a.mem_birth_month            as birthMonth
+          ,a.mem_birth_day              as birthDay
+          ,a.mem_slct                   as slct
+          ,a.mem_adid                   as adid
+          ,a.mem_state                  as state
+          ,a.mem_join_date              as join_date
+          ,a.last_upd_date              as upd_date
+          ,b.mem_name                   as name
+          ,b.mem_email                  as email
+          ,b.image_profile 		        as profileImage
+          ,c.level 						as level
+          ,c.grade 						as grade
+          ,c.exp 						as exp
+          ,(select count(*) as cnt from tb_member_broadcast_broadcasting where mem_no = a.mem_no) as broadcastingCnt
+          ,(select count(*) as cnt from tb_member_broadcast_listening where mem_no = a.mem_no) as listeningCnt
+        FROM tb_member_basic a, tb_member_profile b, tb_member_level c
+       WHERE a.mem_no = b.mem_no AND a.mem_no = c.mem_no
+         AND a.mem_no = #{mem_no}
+    </select>
 
-    <select id="callMemberInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
-    call sp_member_info_view(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    <select id="callMemberLevelList" parameterType="com.dalbit.member.vo.MemberInfoLevelListVo" resultType="com.dalbit.member.vo.MemberInfoLevelListVo">
+       SELECT 'level' as gubun
+               ,level
+               ,grade
+               ,exp
+         FROM tbl_level_exp
+        ORDER BY LEVEL DESC
+    </select>
+
+    <select id="callMemberGradeList" parameterType="com.dalbit.member.vo.MemberInfoLevelListVo" resultType="com.dalbit.member.vo.MemberInfoLevelListVo">
+       SELECT DISTINCT
+               'grade'  as gubun
+               ,grade
+         FROM tbl_level_exp
+        ORDER BY LEVEL DESC
+
     </select>
 
 
