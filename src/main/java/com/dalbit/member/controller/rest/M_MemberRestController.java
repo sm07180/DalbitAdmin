@@ -31,11 +31,11 @@ public class M_MemberRestController {
 
     /**
      * 회원리스트
-     * @param model
+     * //@param model
      * @return
      */
 
-    @PostMapping("list")
+    /*@PostMapping("list")
     public String list(Model model){
         ArrayList<HashMap> list = new ArrayList<HashMap>();
 //        HashMap map = new HashMap();
@@ -66,7 +66,14 @@ public class M_MemberRestController {
 
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+    }*/
+
+    @PostMapping("list")
+    public String getMemberList(){
+        List<MemberListVo> memberListVo = mMemberService.getMemberList();
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberListVo));
     }
+
 
     @PostMapping("info")
     public String info(HttpServletRequest request){
@@ -80,10 +87,5 @@ public class M_MemberRestController {
         return result;
     }
 
-    @PostMapping("memberList")
-    public String getMemberList(){
-        List<MemberListVo> memberListVo = mMemberService.getMemberList();
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberListVo));
-    }
 
 }
