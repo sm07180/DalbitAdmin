@@ -13,6 +13,7 @@
             <thead>
             <tr>
                 <th>NO</th>
+                <th>회원번호</th>
                 <th>UserID</th>
                 <th>닉네임</th>
                 <th>이름</th>
@@ -77,6 +78,7 @@
     {{#data}}
     <tr>
         <td></td>
+        <td>{{memNo}}</td>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{memName}}</td>

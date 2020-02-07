@@ -14,6 +14,7 @@
 
     <select id="getMemberList" resultType="com.dalbit.member.vo.MemberListVo">
         select b.mem_id
+            , b.mem_no
             , b.mem_nick
             , p.mem_name
             , b.mem_phone
