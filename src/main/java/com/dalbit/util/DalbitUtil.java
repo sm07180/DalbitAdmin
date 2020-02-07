@@ -1,10 +1,14 @@
 package com.dalbit.util;
 
+import com.dalbit.common.vo.LocationVo;
 import com.dalbit.member.vo.MemberVo;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -13,6 +17,9 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
@@ -452,6 +459,15 @@ public class DalbitUtil {
         }
     }
 
+    public static Double getDoubleMap(HashMap map, String key){
+        try{
+            return Double.valueOf(getStringMap(map, key));
+        }catch (Exception e){
+            log.error("StringUtil.getDoubleMap error - key name is [{}]", key);
+            return 0.0;
+        }
+    }
+
     public static boolean getBooleanMap(HashMap map, String key) {
         try{
             return Boolean.valueOf(getStringMap(map, key));
@@ -469,5 +485,108 @@ public class DalbitUtil {
     public static boolean isLogin(){
         return !("anonymousUser".equals(MemberVo.getMyMemNo()) || MemberVo.getMyMemNo().startsWith("8"));
     }
+
+
+    /**
+     * IP 주소 가져오기
+     */
+    public static String getIp(HttpServletRequest request){
+        String clientIp = request.getHeader("Proxy-Client-IP");
+        if (clientIp == null) {
+            clientIp = request.getHeader("WL-Proxy-Client-IP");
+            if (clientIp == null) {
+                clientIp = request.getHeader("X-Forwarded-For");
+                if (clientIp == null) {
+                    clientIp = request.getRemoteAddr();
+                }
+            }
+        }
+        return clientIp;
+    }
+
+    /**
+     * 지역정보, 위도, 경도 가져오기
+     */
+    public static LocationVo getLocation(HttpServletRequest request){
+
+        return getLocation(getIp(request));
+    }
+    /**
+     * 지역정보, 위도, 경도 가져오기
+     */
+    public static LocationVo getLocation(String ip){
+
+        String apiResult = RestApiUtil.sendGet(getProperty("geo.location.server.url") + ip);
+        LocationVo locationVo = new LocationVo();
+        try {
+            locationVo = new Gson().fromJson(apiResult, LocationVo.class);
+        }catch (Exception e){
+            locationVo.setRegionName("정보없음");
+        }
+
+        return locationVo;
+    }
+    /**
+     * 이미지 path 경로 치환
+     */
+    public static String replacePath(String path){
+        return path.replace("/temp", "");
+    }
+
+    /**
+     * UTC 로 변경
+     *
+     * @param dt
+     * @return
+     */
+    public static LocalDateTime getUTC(Date dt){
+        return LocalDateTime.ofInstant(dt.toInstant(), ZoneId.of("UTC"));
+    }
+
+    /**
+     * UTC기준 날짜 문자 변환
+     *
+     * @param dt
+     * @return
+     */
+    public static String getUTCFormat(Date dt){
+        return getUTC(dt).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+    }
+
+    /**
+     * UTC기준 타임스탬프 변환
+     *
+     * @param dt
+     * @return
+     */
+    public static long getUTCTimeStamp(Date dt){
+        return Timestamp.valueOf(getUTC(dt)).getTime() / 1000;
+    }
+
+    /**
+     * 로그인 권한
+     * @return
+     */
+    public static Collection<GrantedAuthority> getAuthorities(){
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
+    }
+
+    public static Collection<GrantedAuthority> getGuestAuthorities(){
+        Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
+        return authorities;
+    }
+
+    public static boolean isEmptyHeaderAuthToken(String header){
+        return isEmpty(header) || "undefined".equals(header);
+    }
+
+    public static boolean isAnonymousUser(Object principal){
+        return isEmpty(principal) || "anonymousUser".equals(principal);
+    }
+
+
 
 }

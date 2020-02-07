@@ -4,7 +4,6 @@
 
 <!-- SHOW HIDE COLUMNS DATA TABLE -->
 <div class="widget widget-table">
-
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>

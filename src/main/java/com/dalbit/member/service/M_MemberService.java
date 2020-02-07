@@ -5,19 +5,16 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.M_MemberDao;
-import com.dalbit.member.vo.MemberInfoOutVo;
-import com.dalbit.member.vo.MemberListVo;
+import com.dalbit.member.vo.*;
 
-import com.dalbit.member.vo.P_LoginVo;
-import com.dalbit.member.vo.P_MemberInfoVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -40,38 +37,52 @@ public class M_MemberService {
         return procedureVo;
     }
 
-    public List<MemberListVo> getMemberList(){
-        List<MemberListVo> list = mMemberDao.getMemberList();
-        return list;
+    public String getMemberList(MemberListVo memberListVo){
+        List<MemberListVo> list = mMemberDao.getMemberList(memberListVo);
+        ProcedureVo procedureVo = new ProcedureVo();
+        procedureVo.setData(list);
+        String result;
+        result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
+        log.info(" ### 호출결과 ###" + result);
+        return result;
     }
 
 
     /**
-     * 회원 정보 조회
+     * 회원 레벨 목록
      */
-    public String callMemberInfo(P_MemberInfoVo pMemberInfo) {
-        ProcedureVo procedureVo = new ProcedureVo(pMemberInfo);
-        mMemberDao.callMemberInfo(procedureVo);
-
-        log.info("프로시저 응답 코드: {}", procedureVo.getRet());
-        log.info("프로시저 응답 데이타: {}", procedureVo.getExt());
-        log.info(" ### 프로시저 호출결과 ###");
-
-        P_MemberInfoVo MemberInfo = new Gson().fromJson(procedureVo.getExt(), P_MemberInfoVo.class);
-        MemberInfoOutVo memberInfoOutVo = new MemberInfoOutVo(MemberInfo, pMemberInfo.getTarget_mem_no());
-
-        String result;
-        if(procedureVo.getRet().equals(Status.회원정보보기_성공.getMessageCode())) {
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, memberInfoOutVo)));
-        }else if(procedureVo.getRet().equals(Status.회원정보보기_회원아님.getMessageCode())) {
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_회원아님)));
-        }else if(procedureVo.getRet().equals(Status.회원정보보기_대상아님.getMessageCode())) {
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_대상아님)));
-        }else{
-            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_실패)));
+    public String callMemberLevelList(MemberInfoLevelListVo memberInfoLevelListVo) {
+        List<MemberInfoLevelListVo> list = new ArrayList<>();
+        log.info("memberInfoLevelListVo.getLevel() {} " + memberInfoLevelListVo.getLevel());
+        if(memberInfoLevelListVo.getLevel().equals("level")){
+            list = mMemberDao.callMemberLevelList(memberInfoLevelListVo);
+        } else if(memberInfoLevelListVo.getLevel().equals("grade")){
+            list = mMemberDao.callMemberGradeList(memberInfoLevelListVo);
         }
-        log.info("result:{}" + result);
+        ProcedureVo procedureVo = new ProcedureVo();
+        procedureVo.setData(list);
+        String result;
+        result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
+        log.info(" ### 호출결과 ###" + result);
         return result;
     }
 
+    /**
+     * 선택 회원 정보
+     */
+    public String callMemberInfo(P_MemberInfoVo pMemberInfo) {
+        ProcedureVo procedureVo = new ProcedureVo();
+        List<P_MemberInfoVo> list = mMemberDao.callMemberInfo(pMemberInfo);
+
+        List<MemberInfoOutVo> outVoList = new ArrayList<>();
+        for (int i = 0; i< list.size(); i++){
+            outVoList.add(new MemberInfoOutVo(list.get(i)));
+        }
+        procedureVo.setData(outVoList.get(0));
+
+        String result;
+        result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
+        log.info(" ### 호출결과 ###" + result);
+        return result;
+    }
 }
