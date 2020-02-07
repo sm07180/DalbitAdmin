@@ -11,6 +11,7 @@ public class MemberListVo extends BaseVo {
     /* member/member/list 를 위한 Vo */
 
     private String memId;
+    private String memNo;
     private String memNick;
     private String memName;
     private String memPhone;
