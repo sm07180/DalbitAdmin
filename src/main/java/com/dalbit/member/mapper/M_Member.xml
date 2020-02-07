@@ -7,15 +7,17 @@
     </select>
 
     <select id="getMemberList" resultType="com.dalbit.member.vo.MemberListVo">
-        select b.mem_id
+        /* M_Member.xml - getMemberList */
+        SELECT
+            b.mem_id
             , b.mem_no
             , b.mem_nick
             , p.mem_name
             , b.mem_phone
             , b.mem_slct
-        from tb_member_basic b
+        FROM tb_member_basic b
             , tb_member_profile p
-        where b.mem_no = p.mem_no
+        WHERE b.mem_no = p.mem_no
     </select>
 
 

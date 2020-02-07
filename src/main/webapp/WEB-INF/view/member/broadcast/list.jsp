@@ -64,11 +64,11 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td></td>
+        <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
         <td>{{title}}</td>
-        <td>{{startDate}}</td>
-        <td>{{endDate}}</td>
+        <td>{{convertToDate startDate ""}}</td>
+        <td>{{convertToDate endDate ""}}</td>
         <td>{{airtime}}</td>
         <td>{{listener}}</td>
         <td>{{good}}</td>

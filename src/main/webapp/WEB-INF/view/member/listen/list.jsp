@@ -13,14 +13,13 @@
             <thead>
             <tr>
                 <th>NO</th>
-                <th>RoomType</th>
-                <th>RoomTitle</th>
-                <th>StartTime</th>
-                <th>EndTime</th>
-                <th>OnAirTime</th>
-                <th>DJNickName</th>
-                <th>Good</th>
-                <th>Gift</th>
+                <th>청취방주제</th>
+                <th>청취 방송제목</th>
+                <th>청취시작시간</th>
+                <th>청취종료시간</th>
+                <th>청취진행시간</th>
+                <th>받은 루비 개수</th>
+                <th>청취 DJ 닉네임</th>
             </tr>
             </thead>
             <tbody id="tableBody">
@@ -64,15 +63,14 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
-        <td>{{RoomType}}</td>
-        <td>{{convertToDate RoomTitle "YYYY.MM.DD"}}</td>
-        <td>{{convertToDate StartTime "YYYY.MM.DD"}}</td>
-        <td>{{EndTime}}</td>
-        <td>{{OnAirTime}}</td>
-        <td>{{DJNickName}}</td>
-        <td>{{Good}}</td>
-        <td>{{Gift}}</td>
+        <td>{{index @index}}</td>
+        <td>{{subjectType}}</td>
+        <td>{{title}}</td>
+        <td>{{convertToDate startDate ""}}</td>
+        <td>{{convertToDate endDate ""}}</td>
+        <td>{{listenTime}}</td>
+        <td>{{giftRuby}}</td>
+        <td>{{memNick}}</td>
     </tr>
     {{/data}}
 </script>

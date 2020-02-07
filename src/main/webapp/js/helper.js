@@ -85,3 +85,8 @@ Handlebars.registerHelper("dalbit_if", function(v1, operator, v2, options){
             return options.inverse(this);
     }
 })
+
+Handlebars.registerHelper("index", function(value, options)
+{
+    return parseInt(value) + 1;
+});

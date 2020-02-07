@@ -3,4 +3,22 @@
 <mapper namespace="com.dalbit.member.dao.M_ListenDao" >
 
 
+    <select id="getListenList" resultType="com.dalbit.member.vo.ListenListVo">
+        /* M_Listen.xml - getListenList */
+        SELECT
+          basic.subject_type
+          , basic.title
+          , listen.start_date
+          , listen.end_date
+          , listen.listentime
+          , listen.gift_ruby
+          , member.mem_nick
+        FROM tb_member_broadcast_basic basic
+          , tb_member_broadcast_broadcasting broad
+          , tb_member_broadcast_listening listen
+          , tb_member_basic member
+        WHERE basic.mem_no = broad.mem_no
+          AND broad.room_no = listen.room_no
+          AND listen.mem_no = member.mem_no
+    </select>
 </mapper>

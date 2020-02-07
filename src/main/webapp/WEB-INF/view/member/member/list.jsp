@@ -77,7 +77,7 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td></td>
+        <td>{{index @index}}</td>
         <td>{{memNo}}</td>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
