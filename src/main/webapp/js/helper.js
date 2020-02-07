@@ -41,9 +41,47 @@ Handlebars.registerHelper("convertToDate", function (date, format) {
 })
 
 
-
+/**
+ * Date 구분자 제거
+ *
+ */
 Handlebars.registerHelper("dateToNumber", function (value) {
     var regExp = /\d/gi;
 
     return value.toString().replace(regExp, "");
+})
+
+
+/**
+ * if
+ *
+ * ex.)
+ * {{#dalbit_if value1 "==" "test1"}}
+ *      true code      {{! value1 == "test1" }}
+ * {{else}}
+ *      false code      {{! value1 != "test1" }}
+ * {{/dalbit_if}}
+ *
+ */
+Handlebars.registerHelper("dalbit_if", function(v1, operator, v2, options){
+    switch (operator) {
+        case '==':
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case '===':
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case '!=':
+            return (v1 != v2) ? options.fn(this) : options.inverse(this);
+        case '!==':
+            return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+        case '<':
+            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+        case '<=':
+            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+        case '>':
+            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+        case '>=':
+            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
 })
