@@ -262,7 +262,7 @@
                             <label class="col-md-3">비밀번호</label>
                             <div class="col-md-9">
                                 <div class="col-md-9">
-                                    <input type="password" class="form-control" id="txt_pass" value="123412341234">
+                                    <input type="password" class="form-control" id="txt_pass" value="1234">
                                 </div>
                                 <div class="col-md-3">
                                     <button type="button" id="bt_resatPass" class="btn-xs pull-right">비밀번호 초기화</button>
@@ -706,7 +706,7 @@
         $("#lb_age").html(response.data.age + "세");
         $("#txt_phon").val(response.data.phone);
         $("#txt_eMail").val(response.data.email);
-        $("#txt_pass").val(response.data.passwd);
+        // $("#txt_pass").val(response.data.passwd);
         $("#cob_djLevel").val(response.data.grade);
         $("#cob_userLevel").val(response.data.level);
         $("#lb_broadCnt").html("총" + response.data.broadcastingCnt + "건");
