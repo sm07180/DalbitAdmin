@@ -12,7 +12,7 @@
         call sp_member_login(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
-    <select id="getMemberList" resultType="com.dalbit.member.vo.MemberListVo">
+    <select id="getMemberList" parameterType="com.dalbit.member.vo.MemberListVo" resultType="com.dalbit.member.vo.MemberListVo">
         select b.mem_id
             , b.mem_no
             , b.mem_nick
@@ -22,6 +22,28 @@
         from tb_member_basic b
             , tb_member_profile p
         where b.mem_no = p.mem_no
+        <if test='search != null'>
+            <choose>
+                <when test='gubun == "0"'>      <!-- 전체 -->
+                    and (b.mem_no like CONCAT('%',#{search},'%')
+                    or b.mem_nick like CONCAT('%',#{search},'%')
+                    or b.mem_phone like CONCAT('%',#{search},'%')
+                    or p.mem_name like CONCAT('%',#{search},'%'))
+                </when>
+                <when test='gubun == "1"'>      <!-- userid -->
+                    and p.mem_no like CONCAT('%',#{search},'%')
+                </when>
+                <when test='gubun == "2"'>      <!-- 닉네임 -->
+                    and p.mem_nick like CONCAT('%',#{search},'%')
+                </when>
+                <when test='gubun == "3"'>      <!-- 폰번호 -->
+                    and p.mem_phone like CONCAT('%',#{search},'%')
+                </when>
+                <otherwise>        <!-- 이름 -->
+                    and p.mem_name like CONCAT('%',#{search},'%')
+                </otherwise>
+            </choose>
+        </if>
     </select>
 
     <select id="callMemberInfo" parameterType="com.dalbit.member.vo.P_MemberInfoVo" resultMap="result" resultType="com.dalbit.member.vo.P_MemberInfoVo">

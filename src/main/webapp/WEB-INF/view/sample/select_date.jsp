@@ -63,10 +63,11 @@
                     <div class="row col-lg-12 form-inline" >
                         <div class="col-lg-12">
                             <select class="form-control" name="selectGubun">
-                                <option value="1" selected="selected">전체</option>
-                                <option value="userid">User ID</option>
-                                <option value="usernickname">User 닉네임</option>
-                                <option value="phonnumber">연락처</option>
+                                <option value="0" selected="selected">전체</option>
+                                <option value="1">User ID</option>
+                                <option value="2">User 닉네임</option>
+                                <option value="3">연락처</option>
+                                <option value="4">이름</option>
                             </select>
 
                             <label><input type="text" class="form-control" id="txt_search"></label>
@@ -87,20 +88,20 @@
                     <div class="widget-content">
                         <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
                             <span>
-                                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
                             </span>
                             <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>MemNo</th>
-                                <th>ID</th>
+                                <th>회원번호</th>
+                                <th>UserID</th>
                                 <th>닉네임</th>
                                 <th>이름</th>
-                                <th>전화번호</th>
-                                <th>로그인경로</th>
-                                <th>로그인상태</th>
-                                <th>생방중</th>
+                                <th>연락처</th>
+                                <th>가입플랫폼</th>
+                                <th>접속상태</th>
+                                <th>생방상태</th>
+                                <th>자세히보기</th>
                             </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -543,9 +544,13 @@
 
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
+        getAjaxData("memberList", "/rest/member/member/list", "", fn_success, fn_fail);
+        // getUserInfo();
         getLevelData();
         getGradeData();
+
+
+
         $('.input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -597,7 +602,84 @@
                 $('#txt_startSel').val(moment().format("YYYY-MM-DD"));
             }
         });
+
+        $('input[id="txt_search"]').keydown(function() {
+            if (event.keyCode === 13) {
+                getUserInfo();
+            };
+        });
+
+        <!-- 버튼 -->
+        $('#bt_search').click( function() {       //검색
+            getUserInfo();
+        });
+
+
+        $('#bt_edite').click( function() {                //    수정하기
+        });
+        $('#bt_imgChg').click(function() {					//   사진변경
+        });
+        $('#bt_resatPass').click(function() {				//   비밀번호초기화
+        });
+        $('#bt_broadHistory').click(function() {		    //   방송기록세부내역
+
+            var form = document.createElement('form');
+            var objs;
+            objs = document.createElement('input');
+            objs.setAttribute('type', 'hidden');
+            objs.setAttribute('id', $("#lb_userId").val());
+            form.appendChild(objs);
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', "/sample/select_date_edit");
+            document.body.appendChild(form);
+            form.submit();
+        });
+        $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
+        });
+        $('#bt_payHistory').click(function() {			    //   개인결제정보
+        });
+        $('#bt_refundHistory').click(function() {		    //   개인환불정보
+        });
+        $('#bt_giftHistory').click(function() {			//   개인선물정보
+        });
+        $('#bt_exchangeHistory').click(function() {	    //   개인환불정보
+        });
+        $('#bt_registMyStarList').click(function() {	    //   내가등록한mystart
+        });
+        $('#bt_registMeStarList').click(function() {	    //   나를mystart로등록한회원
+        });
+        $('#bt_registFanMylist').click(function() {		//   내가등록한fan
+        });
+        $('#bt_registMeFanlist').click(function() {		//   나를fan으로등록한회원
+        });
+        $('#bt_myNotice').click(function() {				//   개인공지
+        });
+        $('#bt_broadNotice').click(function() {			//   방송중공지
+        });
+        $('#bt_registMyDeclar').click(function() {		    //   내가신고한정보
+        });
+        $('#bt_registMeDeclar').click(function() {		    //   나를신고한정보
+        });
+        $('#bt_resPonse').click(function() {				//   1:1문의정보
+        });
+    // $(document).on('click', '#list_info tbody tr', function(){
+    //     var tr = $(this); // 현재 클릭된 row
+    //     var td = tr.children();
+    //     // var tdArray = new Array(); // 배열선언
+    //     // td.each(function(i){
+    //     //     tdArray.push(td.eq(i).text());
+    //     // });
+    //     // console.log("배열에 담은 값 : " + tdArray);
+    //     // 특정 셀 값 알아내기
+    //     var mem_no = td.eq(1).text();
+    //     var obj = new Object();
+    //     obj.mem_no = mem_no;
+    //
+    //     getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+    // });
     });
+
+
     function getLevelData(){
         var obj = new Object();
         obj.level = "level";
@@ -608,54 +690,22 @@
         obj.level = "grade";
         getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
     }
-    $(document).on('click', '#list_info tbody tr', function(){
-        var tr = $(this); // 현재 클릭된 row
-        var td = tr.children();
-        // var tdArray = new Array(); // 배열선언
-        // td.each(function(i){
-        //     tdArray.push(td.eq(i).text());
-        // });
-        // console.log("배열에 담은 값 : " + tdArray);
-        // 특정 셀 값 알아내기
-        var mem_no = td.eq(1).text();
-        var obj = new Object();
-        obj.mem_no = mem_no;
 
-        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
-    });
-
-    // function init() {
-    //     $('#check_dateSel').click(function () {       //기간 선택
-    //         if ($('input[id="check_dateSel"]:checked').val() == "on") {
-    //             $('#txt_startSel').attr('disabled', true);
-    //             $('#txt_endSel').attr('disabled', true);
-    //             $('#i_startSel').attr('disabled', true);
-    //             $('#i_endSel').attr('disabled', true);
-    //     });
-    // }
-
-    $('#bt_search').click( function() {       //검색
-        // $('#list_info').empty();
+    function getUserInfo(){                 // 검색
         $("#list_info tr:not(:first)").remove();
-
         var obj = new Object();
-        obj.search_text = $('#txt_search').val();
-        obj.date = $('input[name="radio_date"]:checked').val();
-        obj.gubun = $("select[name='selectGubun']").val();
-        obj.stDate = $('#txt_startSel').val();
-        obj.edDate = $('#txt_endSel').val();
+        obj.search = $('#txt_search').val();                   // 검색명
+        obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
+        obj.gubun = $("select[name='selectGubun']").val();          // 검색 조건
+        obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
+        obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
 
-        console.log($('#txt_startSel').val() + " / " + $('#txt_endSel').val());
+        getAjaxData("memberList", "/rest/member/member/list", obj, fn_success, fn_fail);
 
-        console.log(); //1개월 후
-        getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
-    });
-
-    $('#bt_edite').click( function() {       //수정하기
-    });
+    }
 
     function fn_success(dst_id, response){
-        // dalbitLog(response);
+        dalbitLog(response);
 
         var template = $('#tmp_list').html();
         var templateScript = Handlebars.compile(template);
@@ -668,14 +718,6 @@
             retrieve: true,
             paging: false,
             searching: true,
-            /*sDom: "RC"+
-            "t"+
-            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-            colVis: {
-                buttonText: 'Show / Hide Columns',
-                restore: "Restore",
-                showAll: "Show all"
-            },*/
         });
     }
     function fn_code_list_success(dst_id, response){
@@ -698,9 +740,9 @@
     }
 
     function info_sel_success(dst_id, response) {
-        // dalbitLog(response);
-
-        $("#lb_userId").html(response.data.memId);
+        dalbitLog(response);
+        $("#lb_userId").html(response.data.mem_no);
+        // $("#lb_userId").html(response.data.memId);
         $("#txt_nickName").val(response.data.nickName);
         $("#txt_name").val(response.data.name);
         $("#lb_age").html(response.data.age + "세");
@@ -731,6 +773,8 @@
     function getDetail(id){
         var obj = new Object();
         obj.mem_no = id;
+
+        console.log(id);
 
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
@@ -786,16 +830,18 @@
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
-    <tr>
-        <td>{{NO}}</td>
-        <td>{{MemNo}}</td>
-        <td><a href="#" onclick="javascript:getDetail(this.id);" id="{{MemNo}}">{{UserID}}</a></td>
-        <td>{{NickName}}</td>
-        <td>{{Name}}</td>
-        <td>{{PhoneNum}}</td>
-        <td>{{JoinPlatform}}</td>
+    <tr><td>{{NO}}</td>
+        <td>{{memNo}}</td>
+        <td><a href="#" onclick="javascript:getDetail(this.id);" id="{{memNo}}">{{memId}}</a></td>
+        <td>{{memNick}}</td>
+        <td>{{memName}}</td>
+        <td>{{memPhone}}</td>
+        <td>{{memSlct}}</td>
         <td>{{Login_out}}</td>
         <td>{{Live}}</td>
+        <td>
+            <button type="button" class="btn btn-indigo btn-sm m-0">자세히보기</button>
+        </td>
     </tr>
     {{/data}}
 </script>

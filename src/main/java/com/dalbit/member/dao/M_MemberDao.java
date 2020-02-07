@@ -23,7 +23,7 @@ public interface M_MemberDao {
     List<MemberInfoLevelListVo> callMemberGradeList(MemberInfoLevelListVo memberInfoLevelListVo);
 
     /* 연습용 */
-    List<MemberListVo> getMemberList();
+    List<MemberListVo> getMemberList(MemberListVo memberListVo);
 
 
 }

@@ -17,4 +17,10 @@ public class MemberListVo extends BaseVo {
     private String memPhone;
     private String memSlct;
 
+    private String search;
+    private String date;
+    private String gubun;
+    private String stDate;
+    private String edDate;
+
 }
