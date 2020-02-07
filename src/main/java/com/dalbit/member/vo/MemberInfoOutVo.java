@@ -27,48 +27,45 @@ public class MemberInfoOutVo {
     String upd_date;
     String name;
     String email;
-    String profileImage;
+    ImageVo profileImage;
+    int age;
     int level;
     String grade;
     int exp;
+    int broadcastingCnt;
+    int listeningCnt;
+    int starCnt;
+    int fanCnt;
 
 
-//    public MemberInfoOutVo(P_MemberInfoVo target, String Mem_no) {
-//
-//        this.mem_no=Mem_no;
-//        this.memId=target.getMemId();
-//        this.phone=target.getPhone();
-//        this.passwd=target.getPasswd();
-//        this.nickName=target.getNickName();
-//        this.memSex=target.getMemSex();
-//        this.birthYear=target.getBirthYear();
-//        this.birthMonth=target.getBirthMonth();
-//        this.birthDay=target.getBirthDay();
-//        this.slct=target.getSlct();
-//        this.adid=target.getAdid();
-//        this.state=target.getState();
-//        this.join_date=target.getJoin_date();
-//        this.upd_date=target.getUpd_date();
-//        this.name=target.getName();
-//        this.email=target.getEmail();
-//        this.profileImage=target.getProfileImage();
-//        this.level=target.getLevel();
-//        this.grade=target.getGrade();
-//        this.exp=target.getExp();
 
-//        this.mem_no=target.getMem_no();
-//        this.nickNm=target.getNickName();
-//        this.gender=target.getMemSex();
-//        this.age=target.getAge();
-//        this.memId=target.getMemId();
-//        this.bgImg=new ImageVo(target.getBackgroundImage(), DalbitUtil.getProperty("server.photo.url"));
-//        this.profImg=new ImageVo(target.getProfileImage(), DalbitUtil.getProperty("server.photo.url"));
-//        this.profMsg=target.getProfileMsg();
-//        this.level=target.getLevel();
-//        this.fanCnt=target.getFanCount();
-//        this.starCnt=target.getStarCount();
-//        this.exp=target.getExp();
-//        this.expNext=target.getExpNext();
-//        this.grade=target.getGrade();
-//    }
+    public MemberInfoOutVo(P_MemberInfoVo target) {
+
+        this.mem_no=target.getMem_no();
+        this.memId=target.getMemId();
+        this.phone=target.getPhone();
+        this.passwd=target.getPasswd();
+        this.nickName=target.getNickName();
+        this.memSex=target.getMemSex();
+        this.birthYear=target.getBirthYear();
+        this.birthMonth=target.getBirthMonth();
+        this.birthDay=target.getBirthDay();
+        this.slct=target.getSlct();
+        this.adid=target.getAdid();
+        this.state=target.getState();
+        this.join_date=target.getMem_join_date();
+        this.upd_date=target.getLast_upd_date();
+        this.name=target.getName();
+        this.email=target.getEmail();
+        this.profileImage=new ImageVo(target.getProfileImage(), DalbitUtil.getProperty("server.photo.url"));
+        this.age=DalbitUtil.ageCalculation(Integer.parseInt(target.getBirthYear()));
+        this.level=target.getLevel();
+        this.grade=target.getGrade();
+        this.exp=target.getExp();
+        this.broadcastingCnt=target.getBroadcastingCnt();
+        this.listeningCnt=target.getListeningCnt();
+        this.starCnt=target.getStarCnt();
+        this.fanCnt=target.getFanCnt();
+
+    }
 }

@@ -832,7 +832,7 @@
     {{#data}}
     <tr><td>{{NO}}</td>
         <td>{{memNo}}</td>
-        <td><a href="#" onclick="javascript:getDetail(this.id);" id="{{memNo}}">{{memId}}</a></td>
+        <td><a href="javascript://" onclick="javascript:getDetail(this.id);" id="{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{memName}}</td>
         <td>{{memPhone}}</td>

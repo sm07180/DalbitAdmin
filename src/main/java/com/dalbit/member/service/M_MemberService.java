@@ -38,8 +38,6 @@ public class M_MemberService {
     }
 
     public String getMemberList(MemberListVo memberListVo){
-        log.info(" ### getGubun : " + memberListVo.getGubun());
-        log.info(" ### getSearch: " + memberListVo.getSearch());
         List<MemberListVo> list = mMemberDao.getMemberList(memberListVo);
         ProcedureVo procedureVo = new ProcedureVo();
         procedureVo.setData(list);
@@ -61,14 +59,11 @@ public class M_MemberService {
         } else if(memberInfoLevelListVo.getLevel().equals("grade")){
             list = mMemberDao.callMemberGradeList(memberInfoLevelListVo);
         }
-
         ProcedureVo procedureVo = new ProcedureVo();
         procedureVo.setData(list);
         String result;
         result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
-
         log.info(" ### 호출결과 ###" + result);
-
         return result;
     }
 
@@ -78,13 +73,16 @@ public class M_MemberService {
     public String callMemberInfo(P_MemberInfoVo pMemberInfo) {
         ProcedureVo procedureVo = new ProcedureVo();
         List<P_MemberInfoVo> list = mMemberDao.callMemberInfo(pMemberInfo);
-        procedureVo.setData(list.get(0));
+
+        List<MemberInfoOutVo> outVoList = new ArrayList<>();
+        for (int i = 0; i< list.size(); i++){
+            outVoList.add(new MemberInfoOutVo(list.get(i)));
+        }
+        procedureVo.setData(outVoList.get(0));
 
         String result;
         result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
-
         log.info(" ### 호출결과 ###" + result);
-
         return result;
     }
 }

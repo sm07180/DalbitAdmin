@@ -39,7 +39,7 @@
                 <when test='gubun == "3"'>      <!-- 폰번호 -->
                     and p.mem_phone like CONCAT('%',#{search},'%')
                 </when>
-                <otherwise>        <!-- 이름 -->
+                <otherwise>                      <!-- 이름 -->
                     and p.mem_name like CONCAT('%',#{search},'%')
                 </otherwise>
             </choose>

@@ -64,9 +64,6 @@ public class M_MemberRestController {
             map.put("Live", "생방중♠");
             list.add(map);
         }
-
-
-
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }*/
 
@@ -78,7 +75,6 @@ public class M_MemberRestController {
         apiData.setGubun((String) request.getParameter("gubun"));
         apiData.setStDate((String) request.getParameter("stDate"));
         apiData.setEdDate((String) request.getParameter("edDate"));
-
         String result = mMemberService.getMemberList(apiData);
         return result;
     }
@@ -88,7 +84,6 @@ public class M_MemberRestController {
     public String level(HttpServletRequest request){
         MemberInfoLevelListVo apiData = new MemberInfoLevelListVo();
         apiData.setLevel((String) request.getParameter("level"));
-        log.info("callMemberLevelList start");
         String result = mMemberService.callMemberLevelList(apiData);
         return result;
     }
@@ -96,17 +91,11 @@ public class M_MemberRestController {
     @PostMapping("info")
     public String info(HttpServletRequest request){
         String memNo = (String) request.getParameter("mem_no");
-
-        log.info("memNo : {} " + memNo);
-
         P_MemberInfoVo apiData = new P_MemberInfoVo();
         apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
         apiData.setMem_no(memNo);
         apiData.setTarget_mem_no(memNo);
         String result = mMemberService.callMemberInfo(apiData);
-
-        log.info("controller resultList : {} " + result);
-
         return result;
     }
 }
