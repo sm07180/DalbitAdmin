@@ -3,8 +3,6 @@ package com.dalbit.member.controller.rest;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.member.service.M_MemberService;
-import com.dalbit.member.vo.MemberInfoLevelListVo;
-import com.dalbit.member.vo.MemberInfoOutVo;
 import com.dalbit.member.vo.MemberListVo;
 import com.dalbit.member.vo.P_MemberInfoVo;
 import com.dalbit.util.DalbitUtil;
@@ -37,7 +35,7 @@ public class M_MemberRestController {
      * @return
      */
 
-    @PostMapping("list")
+    /*@PostMapping("list")
     public String list(Model model){
         ArrayList<HashMap> list = new ArrayList<HashMap>();
 //        HashMap map = new HashMap();
@@ -68,7 +66,14 @@ public class M_MemberRestController {
 
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+    }*/
+
+    @PostMapping("list")
+    public String getMemberList(){
+        List<MemberListVo> memberListVo = mMemberService.getMemberList();
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberListVo));
     }
+
 
     @PostMapping("level")
     public String level(HttpServletRequest request){

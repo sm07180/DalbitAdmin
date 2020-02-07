@@ -4,17 +4,17 @@
 
 
     <select id="getBroadList" resultType="com.dalbit.member.vo.BroadListVo">
-        SELECT
-          room_no
-          , subject_type
-          , title
-          , start_date
-          , start_date
-          , start_date
-          , count_entry
-          , count_good
-          , count_good
-        FROM tb_broadcast_room
+        select b.subject_type
+              , b.title
+              , b.start_date
+              , b.end_date
+              , b.airtime
+              , m.listener
+              , m.good
+              , m.gold
+        from tb_broadcast_room b
+              , tb_member_broadcast_broadcasting m
+        where b.mem_no = m.mem_no;
     </select>
 
 

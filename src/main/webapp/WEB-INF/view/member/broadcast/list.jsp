@@ -13,14 +13,14 @@
             <thead>
             <tr>
                 <th>NO</th>
-                <th>RoomType</th>
-                <th>RoomTitle</th>
-                <th>StartTime</th>
-                <th>EndTime</th>
-                <th>OnAirTime</th>
-                <th>AvgListener</th>
-                <th>Good</th>
-                <th>Gift</th>
+                <th>방송주제</th>
+                <th>방송제목</th>
+                <th>방송시작시간</th>
+                <th>방송종료시간</th>
+                <th>방송진행시간</th>
+                <th>종료 시 평균 청취자 수</th>
+                <th>받은 좋아요 수</th>
+                <th>받은 골드 수</th>
             </tr>
             </thead>
             <tbody id="tableBody">
@@ -64,15 +64,15 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{roomNo}}</td>
-        <td>{{roomType}}</td>
+        <td></td>
+        <td>{{subjectType}}</td>
         <td>{{title}}</td>
-        <td>{{startDt}}</td>
-        <td>{{startDt}}</td>
-        <td>{{startDt}}</td>
-        <td>{{entryCnt}}</td>
-        <td>{{likeCnt}}</td>
-        <td>{{likeCnt}}</td>
+        <td>{{startDate}}</td>
+        <td>{{endDate}}</td>
+        <td>{{airtime}}</td>
+        <td>{{listener}}</td>
+        <td>{{good}}</td>
+        <td>{{gold}}</td>
     </tr>
     {{/data}}
 </script>

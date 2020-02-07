@@ -14,13 +14,13 @@
             <tr>
                 <th>NO</th>
                 <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
-                </tr>
+                <th>닉네임</th>
+                <th>이름</th>
+                <th>연락처</th>
+                <th>가입플랫폼</th>
+                <th>접속상태</th>
+                <th>생방상태</th>
+            </tr>
             </thead>
             <tbody id="tableBody">
 
@@ -30,31 +30,25 @@
 </div>
 <!-- END SHOW HIDE COLUMNS DATA TABLE -->
 
-<%-- 연습용 --%>
 
 
 
 
 
-
-
-
-
-
-
-<%-- RestController --%>
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/member/memberList", "", fn_success, fn_fail);
+        getAjaxData("list", "/rest/member/member/list", "", fn_success, fn_fail);
     });
 
     function fn_success(dst_id, response){
         dalbitLog(response);
+
+
         var template = $('#tmp_list').html();
-        console.log(template);
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
+
         $("#tableBody").append(html);
 
         $('#list').DataTable({
@@ -69,10 +63,10 @@
                 restore: "Restore",
                 showAll: "Show all"
             },*/
+
+
         });
-
     }
-
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -82,14 +76,14 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{memNo}}</td>
+        <td></td>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
-        <td>{{memNick}}</td>
+        <td>{{memName}}</td>
         <td>{{memPhone}}</td>
         <td>{{memSlct}}</td>
-        <td>{{memState}}</td>
-        <td>{{memState}}</td>
+        <td></td>
+        <td></td>
     </tr>
     {{/data}}
 </script>

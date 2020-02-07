@@ -7,12 +7,16 @@ import lombok.Setter;
 @Setter
 public class BroadListVo {
 
-    private String roomNo;
-    private int roomType;
+    /* member/broadcast/list 를 위한 Vo */
+
+    private int subjectType;
     private String title;
-    private String startDt;
-    private int entryCnt;
-    private int likeCnt;
+    private String startDate;
+    private String endDate;
+    private int airtime;
+    private int listener;
+    private int good;
+    private int gold;
 
 
 }

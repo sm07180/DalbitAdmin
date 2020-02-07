@@ -8,11 +8,12 @@ import lombok.Setter;
 @Setter
 public class MemberListVo extends BaseVo {
 
-    private String memNo;
-    private String memNick;
+    /* member/member/list 를 위한 Vo */
+
     private String memId;
+    private String memNick;
+    private String memName;
     private String memPhone;
     private String memSlct;
-    private String memState;
 
 }

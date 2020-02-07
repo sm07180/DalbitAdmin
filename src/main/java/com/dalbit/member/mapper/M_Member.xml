@@ -13,16 +13,14 @@
     </select>
 
     <select id="getMemberList" resultType="com.dalbit.member.vo.MemberListVo">
-        SELECT
-          mem_no
-          , mem_id
-          , mem_nick
-          , mem_nick
-          , mem_phone
-          , mem_slct
-          , mem_state
-          , mem_state
-        FROM tb_member_basic
+        select b.mem_id
+            , b.mem_nick
+            , p.mem_name
+            , b.mem_phone
+            , b.mem_slct
+        from tb_member_basic b
+            , tb_member_profile p
+        where b.mem_no = p.mem_no
     </select>
 
     <select id="callMemberInfo" parameterType="com.dalbit.member.vo.P_MemberInfoVo" resultMap="result" resultType="com.dalbit.member.vo.P_MemberInfoVo">
