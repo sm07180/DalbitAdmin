@@ -14,14 +14,15 @@
             <thead>
             <tr>
                 <th>NO</th>
-                <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
-                </tr>
+                <th>접속 일시</th>
+                <th>OS 환경</th>
+                <th>App Ver</th>
+                <th>Browser</th>
+                <th>Device</th>
+                <th>Mobile Device ID</th>
+                <th>Mobile AD ID</th>
+                <th>IP 주소</th>
+            </tr>
             </thead>
             <tbody id="tableBody">
 
@@ -73,14 +74,14 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
+        <td>{{index @index}}</td>
         <td>{{UserID}}</td>
         <td>{{NickName}}</td>
         <td>{{Name}}</td>
         <td>{{PhoneNum}}</td>
         <td>{{JoinPlatform}}</td>
         <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
+
     </tr>
     {{/data}}
 </script>

@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.member.dao.M_FanDao" >
 
+    <select id="getFanList" resultType="com.dalbit.member.vo.FanListVo">
+        select b.mem_id
+          , b.mem_nick
+          , f.reg_date
+        from tb_member_basic b
+          , tb_member_fanstar f
+        where f.mem_no_fan = b.mem_no
+    </select>
 
 
 </mapper>

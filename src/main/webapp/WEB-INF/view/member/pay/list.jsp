@@ -13,14 +13,14 @@
             <thead>
             <tr>
                 <th>NO</th>
-                <th>Sort</th>
-                <th>Item</th>
-                <th>PayRefundNum</th>
-                <th>PayRefundAmt</th>
-                <th>PayRefundDate</th>
-                <th>PayBy</th>
-                <th>Status</th>
-                <th>Refund</th>
+                <th>구분</th>
+                <th>아이템명</th>
+                <th>결제/환불 건 수</th>
+                <th>결제/환불 금액</th>
+                <th>결제/환불일시</th>
+                <th>결제 수단</th>
+                <th>결제/환불 상태</th>
+                <th>처리자ID</th>
             </tr>
             </thead>
             <tbody id="tableBody">
@@ -73,7 +73,7 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
+        <td>{{index @index}}</td>
         <td>{{Sort}}</td>
         <td>{{Item}}</td>
         <td>{{PayRefundNum}}</td>

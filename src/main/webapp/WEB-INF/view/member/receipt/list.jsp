@@ -13,15 +13,19 @@
             </span>
             <thead>
             <tr>
-                <th>NO</th>
-                <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
-                </tr>
+                <th>
+                    <input type="checkbox">
+                </th>
+                <th>No</th>
+                <th>구분</th>
+                <th>신고대상 ID</th>
+                <th>신고 내용</th>
+                <th>신고 접수일시</th>
+                <th>처리일시</th>
+                <th>처리내용</th>
+                <th>처리상태</th>
+                <th>처리자ID</th>
+            </tr>
             </thead>
             <tbody id="tableBody">
 
@@ -74,7 +78,7 @@
     {{#data}}
     <tr>
         <td>{{NO}}</td>
-        <td>{{UserID}}</td>
+        <td>{{index @index}}</td>
         <td>{{NickName}}</td>
         <td>{{Name}}</td>
         <td>{{PhoneNum}}</td>

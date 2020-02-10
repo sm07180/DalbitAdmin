@@ -31,44 +31,9 @@ public class M_MemberRestController {
     GsonUtil gsonUtil;
 
 
-    /**
-     * 회원리스트
-     * //@param model
-     * @return
-     */
-
-    /*@PostMapping("list")
-    public String list(Model model){
-        ArrayList<HashMap> list = new ArrayList<HashMap>();
-//        HashMap map = new HashMap();
-        for(int i=0; i<3;i++) {
-            HashMap map = new HashMap();
-            map.put("NO", i);
-            if(i == 0) {
-                map.put("MemNo", "11577690655946");
-                map.put("UserID", "1111");
-                map.put("NickName", "aaaa");
-            }else if(i == 1) {
-                map.put("MemNo", "11577931027280");
-                map.put("UserID", "2222");
-                map.put("NickName", "bbbb");
-            }else {
-                map.put("MemNo", "11577950603958");
-                map.put("UserID", "3333");
-                map.put("NickName", "cccc");
-            }
-            map.put("Name", "양달님");
-            map.put("PhoneNum", "010-9941-0000");
-            map.put("JoinPlatform", "달빛");
-            map.put("Login_out", "Login");
-            map.put("Live", "생방중♠");
-            list.add(map);
-        }
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
-    }*/
 
     @PostMapping("list")
-    public String getMemberList(HttpServletRequest request){
+    public String list(HttpServletRequest request){
         MemberListVo apiData = new MemberListVo();
         apiData.setSearch((String) request.getParameter("search"));
         apiData.setDate((String) request.getParameter("date"));

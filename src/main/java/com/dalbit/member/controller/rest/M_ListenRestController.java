@@ -26,7 +26,7 @@ public class M_ListenRestController {
     GsonUtil gsonUtil;
 
    @PostMapping("list")
-    public String getListenList() {
+    public String list() {
        List<ListenListVo> listenListVo = mListenService.getListenList();
        return gsonUtil.toJson(new JsonOutputVo(Status.조회, listenListVo));
    }

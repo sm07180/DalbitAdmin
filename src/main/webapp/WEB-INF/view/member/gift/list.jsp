@@ -13,13 +13,13 @@
             <thead>
             <tr>
                 <th>NO</th>
-                <th>Sort</th>
-                <th>Item</th>
-                <th>Num</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>UserID</th>
-                <th>Refund</th>
+                <th>구분</th>
+                <th>아이템명</th>
+                <th>보낸/받은/교환 건 수</th>
+                <th>보낸 선물 금액</th>
+                <th>보낸/받은 선물 일시</th>
+                <th>선물 보낸/받은 UserID</th>
+                <th>처리자ID</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -72,7 +72,7 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
+        <td>{{index @index}}</td>
         <td>{{Sort}}</td>
         <td>{{Item}}</td>
         <td>{{Num}}</td>

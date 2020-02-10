@@ -13,15 +13,15 @@
             </span>
             <thead>
             <tr>
+                <th>
+                    <input type="checkbox">
+                </th>
                 <th>NO</th>
-                <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
-                </tr>
+                <th>구분</th>
+                <th>방송제목</th>
+                <th>공지내용</th>
+                <th>등록 일시</th>
+            </tr>
             </thead>
             <tbody id="tableBody">
 
@@ -73,14 +73,12 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
-        <td>{{UserID}}</td>
+        <td><input type="checkbox"></td>
+        <td>{{index @index}}</td>
         <td>{{NickName}}</td>
         <td>{{Name}}</td>
         <td>{{PhoneNum}}</td>
         <td>{{JoinPlatform}}</td>
-        <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
     </tr>
     {{/data}}
 </script>

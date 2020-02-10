@@ -8,20 +8,24 @@
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
+                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Fan등록</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>선택삭제</button>
             </span>
+
             <thead>
             <tr>
-                <th>NO</th>
-                <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
-                </tr>
+                <th>
+                        <input type="checkbox">
+                </th>
+                <th>No</th>
+                <th>MyStar ID</th>
+                <th>MyStar 닉네임</th>
+                <th>보낸 건 수</th>
+                <th>보낸 개수</th>
+                <th>등록 일시</th>
+                <th>해제 일시</th>
+            </tr>
             </thead>
             <tbody id="tableBody">
 
@@ -73,14 +77,14 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
-        <td>{{UserID}}</td>
-        <td>{{NickName}}</td>
-        <td>{{Name}}</td>
-        <td>{{PhoneNum}}</td>
-        <td>{{JoinPlatform}}</td>
-        <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
+        <td><input type="checkbox"></td>
+        <td>{{index @index}}</td>
+        <td>{{memId}}</td>
+        <td>{{memNick}}</td>
+        <td></td>
+        <td></td>
+        <td>{{convertToDate regDate ""}}</td>
+        <td></td>
     </tr>
     {{/data}}
 </script>

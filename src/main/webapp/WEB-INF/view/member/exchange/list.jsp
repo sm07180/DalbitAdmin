@@ -8,19 +8,21 @@
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default" type="button"><i class="fa fa-close"></i>Delete</button>
                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
             <tr>
                 <th>NO</th>
-                <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
+                <th>보유 루비 수</th>
+                <th>보유 골드 수</th>
+                <th>환전 요청 건 수</th>
+                <th>환전 요청 금액</th>
+                <th>환전 신청일</th>
+                <th>환전 처리일</th>
+                <th>증빙서류 확인</th>
+                <th>본인 확인</th>
+                <th>환전상태</th>
+                <th>처리자ID</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -73,13 +75,16 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
+        <td>{{index @index}}</td>
         <td>{{UserID}}</td>
         <td>{{NickName}}</td>
         <td>{{Name}}</td>
         <td>{{PhoneNum}}</td>
         <td>{{JoinPlatform}}</td>
         <td>{{Login_out}}</td>
+        <td>{{Live}}</td>
+        <td>{{Live}}</td>
+        <td>{{Live}}</td>
         <td>{{Live}}</td>
     </tr>
     {{/data}}
