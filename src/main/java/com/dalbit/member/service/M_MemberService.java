@@ -37,14 +37,8 @@ public class M_MemberService {
         return procedureVo;
     }
 
-    public String getMemberList(MemberListVo memberListVo){
-        List<MemberListVo> list = mMemberDao.getMemberList(memberListVo);
-        ProcedureVo procedureVo = new ProcedureVo();
-        procedureVo.setData(list);
-        String result;
-        result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
-        log.info(" ### 호출결과 ###" + result);
-        return result;
+    public List<MemberListVo> getMemberList(MemberListVo memberListVo){
+        return mMemberDao.getMemberList(memberListVo);
     }
 
 
