@@ -19,9 +19,9 @@ public enum Status {
     엑셀다운로드실패("0", "excel.download.fail", "엑셀 다운로드 실패 시"),
 
     //회원정보보기 (프로필, 마이페이지 통합)
-    회원정보보기_성공("0", "member.info.view.success", "회원 팬 등록 성공 시"),
+    회원정보보기_성공("0", "member.info.view.success", "회원정보보기 성공 시"),
     회원정보보기_회원아님("-1", "member.no", "회원이 아닐 시"),
-    회원정보보기_대상아님("-2", "member.this.no", "회원 팬 등록 실패 시 "),
+    회원정보보기_대상아님("-2", "member.this.no", "대상 회원이 아닐 시 "),
     회원정보보기_실패("C006", "member.info.view.fail", "회원정보보기 실패 시"),
 
     //방송기록보기
@@ -33,8 +33,8 @@ public enum Status {
     청취기록보기실패("C006", "listen.list.view.fail", "청취기록 보기 실패 시"),
 
     //결제/환불내역 보기
-    결제환불내역보기성공("0", "pay.list.view.success", "결제환불 보기 성공 시"),
-    결제환불내역보기실패("C006", "pay.list.view.fail", "결제환불 보기 실패 시"),
+    결제환불내역보기성공("0", "pay.list.view.success", "결제환불내역 보기 성공 시"),
+    결제환불내역보기실패("C006", "pay.list.view.fail", "결제환불내역 보기 실패 시"),
 
     //선물내역보기
     선물내역보기성공("0", "gift.list.view.success", "선물내역 보기 성공 시"),
