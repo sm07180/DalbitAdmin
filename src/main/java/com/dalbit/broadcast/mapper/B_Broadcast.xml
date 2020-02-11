@@ -1,7 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.broadcast.dao.B_BroadcastDao" >
+    <select id="callbBroadcastTypeList" parameterType="com.dalbit.broadcast.vo.BroadcastTypeListVo" resultType="com.dalbit.broadcast.vo.BroadcastTypeListVo">
+        SELECT *
+          FROM tbl_code_define
+         WHERE type=#{type}
+         ORDER BY VALUE
+    </select>
 
-
-
+    <select id="getBroadcastList" parameterType="com.dalbit.broadcast.vo.BroadcastListVo" resultType="com.dalbit.broadcast.vo.BroadcastListVo">
+        /* Sample.xml - getCount */
+        SELECT a.room_no       AS roomNo
+                ,a.title        AS title
+                ,a.msg_welcom   AS msgWelcom
+                ,(CASE  a.type_entry WHEN 0 THEN '제한없음' WHEN 1 THEN '펜만' WHEN 2 THEN '20세이상' end) AS typeEntry
+                ,a.notice       AS notice
+                ,(SELECT code FROM tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') state
+                ,a.count_entry  AS count_entry
+                ,a.count_good   AS count_good
+                ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')   AS start_date
+                ,a.mem_no       AS memNo
+                ,b.mem_nick     AS memNick
+                ,b.mem_sex      AS memSex
+                ,b.mem_id       AS memId
+          FROM tb_broadcast_room a, tb_member_basic b
+         WHERE state != 4
+           AND a.mem_no = b.mem_no
+          <if test='value != "9999"'>
+            AND a.subject_type = #{value}
+          </if>
+          <if test='search != null and search != ""'>
+            <choose>
+                <when test="gubun == 9999">      <!-- 전체 -->
+                    AND (b.mem_id LIKE CONCAT('%',#{search},'%')
+                    OR b.mem_nick LIKE CONCAT('%',#{search},'%')
+                    OR a.title LIKE CONCAT('%',#{search},'%'))
+                </when>
+                <when test="gubun == 1">      <!-- DJ 닉네임 -->
+                    AND b.mem_nick LIKE CONCAT('%',#{search},'%')
+                </when>
+                <when test="gubun == 2">      <!-- DJ ID -->
+                    AND b.mem_id LIKE CONCAT('%',#{search},'%')
+                </when>
+                <otherwise>                   <!-- 방송제목 -->
+                    AND a.title LIKE CONCAT('%',#{search},'%')
+                </otherwise>
+            </choose>
+        </if>
+         ORDER BY count_entry, count_good, start_date DESC
+    </select>
 </mapper>

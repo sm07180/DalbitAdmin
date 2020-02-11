@@ -35,6 +35,8 @@ public class SampleController {
     public String select_date_edit(Model model){
         return "sample/select_date_edit";
     }
+    @GetMapping("broadcast")
+    public String broadcast(Model model){return "sample/broadcast";}
 
     @GetMapping("index")
     public String index(Model model){

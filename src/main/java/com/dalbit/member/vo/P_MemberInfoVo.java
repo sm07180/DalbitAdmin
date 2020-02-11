@@ -8,26 +8,23 @@ import java.util.Date;
 @Getter
 @Setter
 public class P_MemberInfoVo {
-
-
     private int memLogin;
-    private String mem_no;
-    private String target_mem_no;
+    private String memNo;
     private String memId;
-    private String phone;
-    private String passwd;
-    private String nickName;
+    private String memPhone;
+    private String memPasswd;
+    private String memNick;
     private String memSex;
     private String birthYear;
     private String birthMonth;
     private String birthDay;
-    private String slct;
-    private String adid;
+    private String memSlct;
+    private String memAdid;
     private String state;
     private String mem_join_date;
     private String last_upd_date;
-    private String name;
-    private String email;
+    private String memName;
+    private String memEmail;
     private String profileImage;
     private int level;
     private String grade;

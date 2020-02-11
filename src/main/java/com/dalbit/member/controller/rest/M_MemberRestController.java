@@ -6,6 +6,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.M_MemberService;
+import com.dalbit.member.vo.MemberBroadcastHistoryListVo;
 import com.dalbit.member.vo.MemberInfoLevelListVo;
 import com.dalbit.member.vo.MemberListVo;
 import com.dalbit.member.vo.P_MemberInfoVo;
@@ -99,7 +100,6 @@ public class M_MemberRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 
-
     @PostMapping("level")
     public String level(HttpServletRequest request){
         MemberInfoLevelListVo apiData = new MemberInfoLevelListVo();
@@ -110,11 +110,9 @@ public class M_MemberRestController {
 
     @PostMapping("info")
     public String info(HttpServletRequest request){
-        String memNo = (String) request.getParameter("mem_no");
         P_MemberInfoVo apiData = new P_MemberInfoVo();
         apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
-        apiData.setMem_no(memNo);
-        apiData.setTarget_mem_no(memNo);
+        apiData.setMemNo((String) request.getParameter("mem_no"));
         String result = mMemberService.callMemberInfo(apiData);
         return result;
     }

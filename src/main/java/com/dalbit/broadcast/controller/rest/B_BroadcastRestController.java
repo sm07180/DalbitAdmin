@@ -2,6 +2,8 @@ package com.dalbit.broadcast.controller.rest;
 
 
 import com.dalbit.broadcast.service.B_BroadcastService;
+import com.dalbit.broadcast.vo.BroadcastListVo;
+import com.dalbit.broadcast.vo.BroadcastTypeListVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.util.GsonUtil;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,29 +31,30 @@ public class B_BroadcastRestController {
 
     /**
      * 회원리스트
-     * @param model
+     * //@param model
      * @return
      */
 
+    @PostMapping("type")
+    public String level(HttpServletRequest request){
+        BroadcastTypeListVo apiData = new BroadcastTypeListVo();
+        apiData.setType((String) request.getParameter("type"));
+        String result = bBroadcastService.callbBroadcastTypeList(apiData);
+        return result;
+    }
+
     @PostMapping("list")
-    public String list(Model model){
-        ArrayList<HashMap> list = new ArrayList<HashMap>();
-        HashMap map = new HashMap();
-        for(int i=0; i++ < 20;) {
+    public String getBroadcastList(HttpServletRequest request){
+        BroadcastListVo apiData = new BroadcastListVo();
+        apiData.setSearch((String) request.getParameter("search"));
+        apiData.setDate((String) request.getParameter("date"));
+        apiData.setGubun(request.getParameter("gubun"));
+        apiData.setType((String) request.getParameter("type"));
+        apiData.setValue(request.getParameter("value"));
+        apiData.setStDate((String) request.getParameter("stDate"));
+        apiData.setEdDate((String) request.getParameter("edDate"));
 
-            map.put("NO", i);
-            map.put("MemNo", "11577950603958");
-            map.put("UserID", "3333");
-            map.put("NickName", "cccc");
-            map.put("Name", "양달님");
-            map.put("PhoneNum", "010-9941-0000");
-            map.put("JoinPlatform", "달빛");
-            map.put("Login_out", "Login");
-            map.put("Live", "생방중♠");
-            list.add(map);
-        }
-
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+        String result = bBroadcastService.getBroadcastList(apiData);
+        return result;
     }
 }

@@ -65,6 +65,7 @@ public class M_MemberService {
      * 선택 회원 정보
      */
     public String callMemberInfo(P_MemberInfoVo pMemberInfo) {
+        log.info("@@@@@@@@@@@@ " + pMemberInfo.getMemNo());
         ProcedureVo procedureVo = new ProcedureVo();
         List<P_MemberInfoVo> list = mMemberDao.callMemberInfo(pMemberInfo);
 
@@ -79,4 +80,5 @@ public class M_MemberService {
         log.info(" ### 호출결과 ###" + result);
         return result;
     }
+
 }

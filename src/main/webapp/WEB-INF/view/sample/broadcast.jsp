@@ -58,12 +58,14 @@
                     </div>
                     <div class="row col-lg-12 form-inline" >
                         <div class="col-lg-12">
+                            <select class="form-control" id="selectSubject_type">
+                                <option value="9999" selected="selected">방송주제</option>
+                            </select>
                             <select class="form-control" name="selectGubun">
                                 <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
+                                <option value="1">DJ 닉네임</option>
+                                <option value="2">DJ ID</option>
+                                <option value="3">방송제목</option>
                             </select>
 
                             <label><input type="text" class="form-control" id="txt_search"></label>
@@ -74,8 +76,8 @@
             </div>
 
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
-                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 검색 결과 정보 </label>
-                <label class="text_middle" style="font-size: 11px;height: 27px"> ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다. </label>
+                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 검색 결과 </label>
+                <label class="text_middle" style="font-size: 11px;height: 27px"> ㆍ방송 제목을 클릭하면 상세정보를 확인할 수 있습니다. </label>
                 <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
             <!-- DATA TABLE -->
@@ -89,13 +91,11 @@
                             <thead>
                             <tr>
                                 <th>NO</th>
-                                <th>회원번호</th>
-                                <th>UserID</th>
-                                <th>닉네임</th>
-                                <th>이름</th>
-                                <th>연락처</th>
-                                <th>가입플랫폼</th>
-                                <th>접속상태</th>
+                                <th>DJ ID</th>
+                                <th>DJ 닉네임</th>
+                                <th>방송주제</th>
+                                <th>방송제목</th>
+                                <th>방송시작 일시</th>
                                 <th>생방상태</th>
                                 <th>자세히보기</th>
                             </tr>
@@ -110,10 +110,10 @@
             <!-- DATA TABLE END -->
             <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
                 <div class="col-lg-1 no-padding">
-                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 10%;height: 27px"> 검색 상세 정보 </label>
+                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 10%;height: 27px"> 방송 상세정보 </label>
                 </div>
                 <div class="col-lg-4 no-padding">
-                    <label class="text_middle" style="font-size: 11px;height: 27px;"> ㆍ회원 상세 정보는 [수정하기] 버튼을 통해 변경이 가능합니다.</label>
+                    <label class="text_middle" style="font-size: 11px;height: 27px;"> ㆍ방송상세정보를 수정하고 [수정완료] 버튼으로 변경된 정보를 반영합니다.</label>
                 </div>
                 <div class="col-lg-7 no-padding">
                     <button type="button" id="bt_edite" class="pull-right btn-xs form-control"  style="border-radius:3px;width: 80px;;height: 24px">수정하기</button>
@@ -126,156 +126,88 @@
                 <div class="form-horizontal">
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3 control-label">프로필 이미지</label>
+                            <label class="col-md-3 control-label">배경 이미지</label>
                             <div class="col-md-9">
                                 <img src="/template2/assets/img/profile-avatar.png" alt="Profile Picture" style="height:100px;">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">회원레벨</label>
+                            <label class="col-md-3">방송 주제</label>
                             <div class="col-md-9">
                                 <form id="cob_level">
-                                    <select id="cob_userLevel" name="emailSelection" class="form-control">
-                                        <option value="9999" selected="selected">직접입력</option>
-
+                                    <select class="form-control" id="selectSubject_type_detail">
+                                        <option value="9999" selected="selected">방송주제</option>
                                     </select>
                                 </form>
                             </div>
-                            <label class="col-md-3">DJ등급</label>
+                            <label class="col-md-3">방송 제목</label>
                             <div class="col-md-9">
-                                <form id="cob_grade">
-                                    <select id="cob_djLevel" name="emailSelection" class="form-control">
-                                    </select>
-                                </form>
+                                <input type="text" class="form-control col-md-12" id="txt_title" value="">
                             </div>
-                            <label class="col-md-3">청취자 등급</label>
+                            <label class="col-md-3">DJ ID</label>
                             <div class="col-md-9">
-                                <select id="cob_lisLevel" name="emailSelection" class="form-control">
-                                    <option value="normal">일반청취자</option>
-                                    <option value="best">베스트 청취자</option>
-                                </select>
+                                <div class="col-md-3"><label id="lb_djID">DaldalE</label></div>
                             </div>
-                            <label class="col-md-3">접속상태</label>
+                            <label class="col-md-3">DJ 닉네임</label>
                             <div class="col-md-9">
-                                <form id="login_radio">
-                                    <label class="radio-inline"><input type="radio" name="radio_login" value="option1" checked="true">Login</label>
-                                    <label class="radio-inline"><input type="radio" name="radio_login" value="option2">Logout</label>
-                                </form>
+                                <div class="col-md-3"><label id="lb_djNickname">다달이</label></div>
                             </div>
-                            <label class="col-md-3">생방상태</label>
+                            <label class="col-md-3">DJ 성별</label>
                             <div class="col-md-9">
-                                <form id="live_radio">
-                                    <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option1" checked="true">생방중</label>
-                                    <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option2">방송OFF</label>
-                                </form>
-                            </div>
-                            <label class="col-md-3">청취상태</label>
-                            <div class="col-md-9">
-                                <form id="listen_radio">
-                                    <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option1" checked="true">청취중</label>
-                                    <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option2">청취OFF</label>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">UserID</label>
-                            <div class="col-md-3"><label id="lb_userId">DaldalE</label></div>
-                            <label class="col-md-2">닉네임</label>
-                            <div class="col-md-4"><input type="text" class="form-control" id="txt_nickName" value="다달이"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">이름</label>
-                            <div class="col-md-9"><input type="text" class="form-control" id="txt_name" value="양달님"></div>
-                            <label class="col-md-3">생년월일</label>
-                            <div class="col-md-9 input-group date " id="date_birth">
-                                <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="col-md-3 control-label">가입플랫폼<br />(첫 연동일)</label>
-                            <div class="col-md-9">
-                                <div>달빛 : 2020.03.02 15:40:21</div>
-                                <div>페이스북 : 2020.03.12 09:40:40</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">나이</label>
-                            <div class="col-md-3">
-                                <label id="lb_age">33세</label>
-                            </div>
-                            <label class="col-md-2">성별</label>
-                            <div class="col-md-4">
                                 <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
                                 <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <label class="col-md-3">회원가입일시</label>
-                            <div class="col-md-9">
-                                <label id="lb_joinDate">2020.02.03 09:27:30</label>
-                            </div>
-                        </div>
-
                     </div>
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">연락처</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control col-md-12" id="txt_phon" value="010-1111-2222">
-                            </div>
+                            <label class="col-md-3">환영 인사말</label>
+                            <div class="col-md-9"><textarea type="textarea" class="form-control" id="txt_nickName" value="다달이"></textarea></div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">회원탈퇴일시</label>
-                            <div class="col-md-9">
-                                <label id="lb_cancelMb">2020.02.03 09:27:30</label>
-                            </div>
+                            <label class="col-md-3">생방상태</label>
+                            <div class="col-md-9"><label id="lb_live">다달이</label></div>
+                            <label class="col-md-3">방송 시작일</label>
+                            <div class="col-md-9"><label id="lb_live_stDate">2020-02-10 13:43:10</label></div>
+                            <label class="col-md-3">방송 종료일시</label>
+                            <div class="col-md-9"><label id="lb_live_edDate">2020-02-10 13:43:10</label></div>
                         </div>
                     </div>
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">이메일</label>
+                            <label class="col-md-3">입장제한</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control col-md-9" id="txt_eMail" value="dabit00@gmail.com">
+                                <label class="radio-inline"><input type="radio" name="radio_entry" value="0" checked>전체</label>
+                                <label class="radio-inline"><input type="radio" name="radio_entry" value="1">펜만입장</label>
+                                <label class="radio-inline"><input type="radio" name="radio_entry" value="2">20세이상</label>
+                            </div>
+                            <label class="col-md-3">얼리기</label>
+                            <div class="col-md-9">
+                                <label class="radio-inline"><input type="radio" name="radio_freezing" value="0" checked>얼리기</label>
+                                <label class="radio-inline"><input type="radio" name="radio_freezing" value="1">해제</label>
+                            </div>
+                            <label class="col-md-3">방송강제종료</label>
+                            <div class="col-md-9">
+                                <label class="radio-inline"><input type="radio" name="radio_forcedExit" value="0" checked>유지</label>
+                                <label class="radio-inline"><input type="radio" name="radio_forcedExit" value="1">강제종료</label>
                             </div>
                         </div>
                         <div class="col-md-6">
+                            <label class="col-md-3">방송 플랫폼 정보</label>
+                            <div class="col-md-9"><label id="lb_platform">PC</label></div>
                             <label class="col-md-3">최근 정보 수정일시</label>
                             <div class="col-md-9">
-                                <label id="lb_editDate">2020.02.03 09:27:30</label>
+                                <label id="lb_editDate">2020-02-10 13:43:10</label>
+                                <button type="button" id="bt_editDate" class="btn-xs pull-right">세부내역</button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">비밀번호</label>
-                            <div class="col-md-9">
-                                <div class="col-md-9">
-                                    <input type="password" class="form-control" id="txt_pass" value="1234">
-                                </div>
-                                <div class="col-md-3">
-                                    <button type="button" id="bt_resatPass" class="btn-xs pull-right">비밀번호 초기화</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <label class="col-md-3">최근 정보 수정 처리자</label>
-                            <div class="col-md-9">
-                                <label id="lb_editUser">admin</label>
-                            </div>
+                            <div class="col-md-9"><label id="lb_editUser">DaldalE</label></div>
                         </div>
                     </div>
-                    <div class="col-md-12 no-padding">
+
+                   <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">방송기록</label>
+                            <label class="col-md-3">받은 좋아요</label>
                             <div class="col-md-9">
                                 <label id="lb_broadCnt">총0건</label>
                                 <button type="button" id="bt_broadHistory" class="btn-xs pull-right">세부내역</button>
@@ -372,7 +304,7 @@
                                 <div class="col-md-12">
                                     <div class="col-md-6">접속 플랫폼</div>
                                     <div class="col-md-6 no-padding">
-                                        <label id="lb_platform">Mobile(Android)</label>
+                                        <label id="lb_platform1">Mobile(Android)</label>
                                         <button type="button" id="bt_platform" class="btn-xs pull-right">세부내역</button>
                                     </div>
                                 </div>
@@ -439,37 +371,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
-                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 세부내역 </label>
-                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
-                </div>
-                <!-- DATA TABLE -->
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table">
-                        <div class="widget-content">
-                            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                                <thead id="tableTop_detail">
-                                <%--<tr>--%>
-                                    <%--<th>방송주제</th>--%>
-                                    <%--<th>방송제목</th>--%>
-                                    <%--<th>방송시작시간</th>--%>
-                                    <%--<th>방송종료시간</th>--%>
-                                    <%--<th>방송진행시간</th>--%>
-                                    <%--<th>종료시 평균 청취자 수</th>--%>
-                                    <%--<th>받은 좋아요 수</th>--%>
-                                    <%--<th>받은 아이템 수</th>--%>
-                                <%--</tr>--%>
-                                </thead>
-                                <tbody id="tableBody_detail">
-
-                                </tbody>
-                            </table>
-                            <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -571,12 +472,10 @@
 
 <script>
     $(document).ready(function() {
-        //getAjaxData("memberList", "/rest/member/member/list", "", fn_success, fn_fail);
+        // getAjaxData("memberList", "/rest/member/member/list", "", fn_success, fn_fail);
         // getUserInfo();
-        getLevelData();
-        getGradeData();
+        getSubject_type_Data();
 
-        var memNo;
 
 
         $('.input-group.date').datepicker({
@@ -593,7 +492,7 @@
 
         $('#date_radio').change(function() {
             if($('input[name="radio_date"]:checked').val() == "all"){               // 전체
-                //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
+                                                                                    //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
             }else if($('input[name="radio_date"]:checked').val() == "week"){        //1주일
                 $('#txt_startSel').val(moment().add(-7,'d').format("YYYY-MM-DD"));
                 $('#txt_endSel').val(moment().format("YYYY-MM-DD"));
@@ -650,7 +549,8 @@
         $('#bt_resatPass').click(function() {				//   비밀번호초기화
         });
         $('#bt_broadHistory').click(function() {		    //   방송기록세부내역
-            getHistoryDetail("broadHistory");
+
+
         });
         $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
         });
@@ -680,45 +580,44 @@
         });
         $('#bt_resPonse').click(function() {				//   1:1문의정보
         });
-    // $(document).on('click', '#list_info tbody tr', function(){
-    //     var tr = $(this); // 현재 클릭된 row
-    //     var td = tr.children();
-    //     // var tdArray = new Array(); // 배열선언
-    //     // td.each(function(i){
-    //     //     tdArray.push(td.eq(i).text());
-    //     // });
-    //     // console.log("배열에 담은 값 : " + tdArray);
-    //     // 특정 셀 값 알아내기
-    //     var mem_no = td.eq(1).text();
-    //     var obj = new Object();
-    //     obj.mem_no = mem_no;
-    //
-    //     getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
-    // });
+        // $(document).on('click', '#list_info tbody tr', function(){
+        //     var tr = $(this); // 현재 클릭된 row
+        //     var td = tr.children();
+        //     // var tdArray = new Array(); // 배열선언
+        //     // td.each(function(i){
+        //     //     tdArray.push(td.eq(i).text());
+        //     // });
+        //     // console.log("배열에 담은 값 : " + tdArray);
+        //     // 특정 셀 값 알아내기
+        //     var mem_no = td.eq(1).text();
+        //     var obj = new Object();
+        //     obj.mem_no = mem_no;
+        //
+        //     getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+        // });
     });
 
 
-    function getLevelData(){
+    function getSubject_type_Data(){
         var obj = new Object();
-        obj.level = "level";
-        getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
-    }
-    function getGradeData(){
-        var obj = new Object();
-        obj.level = "grade";
-        getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
+        obj.type = "subject_type";
+        getAjaxData("type", "/rest/broadcast/broadcast/type",obj, fn_code_list_success, fn_fail);
     }
 
     function getUserInfo(){                 // 검색
         $("#list_info tr:not(:first)").remove();
         var obj = new Object();
-        obj.search = $('#txt_search').val();                   // 검색명
+
+        obj.search = $('#txt_search').val();                        // 검색명
         obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
         obj.gubun = $("select[name='selectGubun']").val();          // 검색 조건
+        obj.value = $("select[id='selectSubject_type']").val();    // 방송주제
+        obj.type = "subject_type";
         obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
         obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
 
-        getAjaxData("memberList", "/rest/member/member/list", obj, fn_success, fn_fail);
+        // console.log("값 " + $("select[id='selectSubject_type']").val());
+        getAjaxData("broadcastList", "/rest/broadcast/broadcast/list", obj, fn_success, fn_fail);
 
     }
 
@@ -732,49 +631,46 @@
 
         $("#tableBody").append(html);
 
-        $('#list_info').DataTable({
+        $('#list').DataTable({
             retrieve: true,
-            paging: true,
+            paging: false,
             searching: true,
         });
     }
     function fn_code_list_success(dst_id, response){
-        // dalbitLog(response);
+        dalbitLog(response);
 
-        if(response.data[0].gubun == "level"){
-            var template = $('#level_select').html();
+        if(response.data[0].type == "subject_type"){
+            var template = $('#subject_type_Select').html();
             var templateScript = Handlebars.compile(template);
             var context = response;
             var html = templateScript(context);
-            $("#cob_userLevel").append(html);
-        }else if (response.data[0].gubun == "grade"){
-            var template = $('#grade_select').html();
+            $("#selectSubject_type").append(html);
+
+            var template = $('#selectSubject_type_detail').html();
             var templateScript = Handlebars.compile(template);
             var context = response;
             var html = templateScript(context);
-
-            $("#cob_djLevel").append(html);
+            $("#selectSubject_type").append(html);
         }
     }
 
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
-
-        memNo = response.data.memNo;
-        $("#lb_userId").html(response.data.memId);
+        $("#lb_userId").html(response.data.mem_no);
         // $("#lb_userId").html(response.data.memId);
-        $("#txt_nickName").val(response.data.memNick);
-        $("#txt_name").val(response.data.memName);
+        $("#txt_nickName").val(response.data.nickName);
+        $("#txt_name").val(response.data.name);
         $("#lb_age").html(response.data.age + "세");
-        $("#txt_phon").val(response.data.memPhone);
-        $("#txt_eMail").val(response.data.memEmail);
-        // $("#txt_pass").val(response.data.memPasswd);
+        $("#txt_phon").val(response.data.phone);
+        $("#txt_eMail").val(response.data.email);
+        // $("#txt_pass").val(response.data.passwd);
         $("#cob_djLevel").val(response.data.grade);
         $("#cob_userLevel").val(response.data.level);
         $("#lb_broadCnt").html("총" + response.data.broadcastingCnt + "건");
         $("#lb_listenCnt").html("총" + response.data.listeningCnt + "건");
-        $("#lb_joinDate").html(response.data.mem_join_date);
-        $("#lb_editDate").html(response.data.last_upd_date);
+        $("#lb_joinDate").html(response.data.join_date);
+        $("#lb_editDate").html(response.data.upd_date);
         $("#lb_meStarCnt").html("총" + response.data.starCnt + "건");
         $("#lb_meFanCnt").html("총" + response.data.fanCnt + "건");
         // console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
@@ -790,72 +686,11 @@
         // }
     }
 
-    function getMemNo_info(id){
+    function getDetail(id){
         var obj = new Object();
         obj.mem_no = id;
 
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
-    }
-
-    function getHistoryDetail(tmp){     // 상세보기
-        $("#tableTop_detail").empty();
-        table_col_set(tmp);
-    }
-
-    function table_col_set(id){
-        if(id == "broadHistory"){
-            var data = {
-                header: [
-                    { columnNm : "방송주제"},
-                    { columnNm : "방송제목"},
-                    { columnNm : "방송시작시간"},
-                    { columnNm : "방송종료시간"},
-                    { columnNm : "방송진행시간"},
-                    { columnNm : "종료시 평균 청취자 수"},
-                    { columnNm : "받은 좋아요 수"},
-                    { columnNm : "받은 아이템 수"}
-                ]
-            };
-        }
-        var template = $('#tmp_list_top_column').html();
-        var templateScript = Handlebars.compile(template);
-        var context = data;
-        var html = templateScript(context);
-
-        $("#tableTop_detail").append(html);
-
-        $('#list_info_detail').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
-
-        $("#tableBody_detail").empty();
-
-        var obj = new Object();
-        obj.mem_no = memNo;
-        obj.tmp = id;
-        getAjaxData(id, "/rest/member/broadcast/memberHistory_detail", obj, fn_success_detail, fn_fail);
-
-    }
-
-    function fn_success_detail(dst_id, response) {
-        dalbitLog(response);
-        var template;
-        if(dst_id == "broadHistory"){
-            template = $('#broadhistory_detail').html();
-        }
-        var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
-
-        $("#tableBody_detail").append(html);
-
-        $('#list_info_detail').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
     }
 
     function fn_fail(data, textStatus, jqXHR){
@@ -909,53 +744,22 @@
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
-    <tr>
-        <td>{{NO}}</td>
-        <td>{{memNo}}</td>
-        <td><a href="javascript://" onclick="javascript:getMemNo_info(this.id);" id="{{memNo}}">{{memId}}</a></td>
-        <td>{{memNick}}</td>
-        <td>{{memName}}</td>
-        <td>{{memPhone}}</td>
-        <td>{{memSlct}}</td>
-        <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
+    <tr><td>{{NO}}</td>
+        <td>{{memId}}</td>
+        <td><a href="javascript://" onclick="javascript:getDetail(this.id);" id="{{memNo}}">{{nickName}}</a></td>
+        <td>{{type_entry}}</td>
+        <td>{{title}}</td>
+        <td>{{start_date}}</td>
+        <td>{{Livr}}</td>
         <td>
             <button type="button" class="btn btn-indigo btn-sm m-0">자세히보기</button>
         </td>
     </tr>
     {{/data}}
 </script>
-<script id="level_select" type="text/x-handlebars-template">
-    {{#data}}
-    <option value="{{level}}">{{level}}레벨</option>
-    {{/data}}
-</script>
-<script id="grade_select" type="text/x-handlebars-template">
-    {{#data}}
-    <option value="{{grade}}">{{grade}}</option>
-    {{/data}}
-</script>
 
-<script id="tmp_list_top_column" type="text/x-handlebars-template">
-    <tr>
-    {{#header}}
-        <th>{{columnNm}}</th>
-    {{/header}}
-    </tr>
-</script>
-
-
-<script id="broadhistory_detail" type="text/x-handlebars-template">
+<script id="subject_type_Select" type="text/x-handlebars-template">
     {{#data}}
-    <tr>
-        <td>{{subject_type}}</td>
-        <td>{{title}}</td>
-        <td>{{start_date}}</td>
-        <td>{{end_date}}</td>
-        <td>{{airtime}}</td>
-        <td>{{listener}}</td>
-        <td>{{good}}</td>
-        <td>{{gold}}</td>
-    </tr>
+        <option value="{{value}}">{{code}}</option>
     {{/data}}
 </script>

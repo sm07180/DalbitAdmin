@@ -19,5 +19,21 @@
         WHERE b.room_no = m.room_no
     </select>
 
+    <select id="getMemberHistory_detail" parameterType="com.dalbit.member.vo.MemberBroadcastHistoryListVo" resultType="com.dalbit.member.vo.MemberBroadcastHistoryListVo">
+        /* M_Broadcast.xml - getBroadList */
+        SELECT
+           (SELECT aa.code From tbl_code_define aa WHERE aa.type='subject_type' and aa.value = lpad(b.subject_type,2,'0')) as subject_type
+            , b.title as title
+            , DATE_FORMAT(b.start_date,'%Y-%m-%d %H:%i:%s') as start_date
+            , DATE_FORMAT(b.end_date,'%Y-%m-%d %H:%i:%s') as end_date
+            , b.airtime as  airtime
+            , m.listener as listener
+            , m.good
+            , m.gold
+        FROM tb_broadcast_room b, tb_member_broadcast_broadcasting m
+       WHERE b.room_no = m.room_no
+         AND b.mem_no = #{memNo}
+    </select>
+
 
 </mapper>

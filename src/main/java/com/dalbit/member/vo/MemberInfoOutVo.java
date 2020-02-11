@@ -10,23 +10,22 @@ import lombok.ToString;
 @Getter @Setter
 @ToString
 public class MemberInfoOutVo {
-
-    String mem_no;
+    String memNo;
     String memId;
-    String phone;
-    String passwd;
-    String nickName;
+    String memPhone;
+    String memPasswd;
+    String memNick;
     String memSex;
     String birthYear;
     String birthMonth;
     String birthDay;
-    String slct;
-    String adid;
+    String memSlct;
+    String memAdid;
     String state;
-    String join_date;
-    String upd_date;
-    String name;
-    String email;
+    String mem_join_date;
+    String last_upd_date;
+    String memName;
+    String memEmail;
     ImageVo profileImage;
     int age;
     int level;
@@ -37,26 +36,24 @@ public class MemberInfoOutVo {
     int starCnt;
     int fanCnt;
 
-
-
     public MemberInfoOutVo(P_MemberInfoVo target) {
 
-        this.mem_no=target.getMem_no();
+        this.memNo=target.getMemNo();
         this.memId=target.getMemId();
-        this.phone=target.getPhone();
-        this.passwd=target.getPasswd();
-        this.nickName=target.getNickName();
+        this.memPhone=target.getMemPhone();
+        this.memPasswd=target.getMemPasswd();
+        this.memNick=target.getMemNick();
         this.memSex=target.getMemSex();
         this.birthYear=target.getBirthYear();
         this.birthMonth=target.getBirthMonth();
         this.birthDay=target.getBirthDay();
-        this.slct=target.getSlct();
-        this.adid=target.getAdid();
+        this.memSlct=target.getMemSlct();
+        this.memAdid=target.getMemAdid();
         this.state=target.getState();
-        this.join_date=target.getMem_join_date();
-        this.upd_date=target.getLast_upd_date();
-        this.name=target.getName();
-        this.email=target.getEmail();
+        this.mem_join_date=target.getMem_join_date();
+        this.last_upd_date=target.getLast_upd_date();
+        this.memName=target.getMemName();
+        this.memEmail=target.getMemEmail();
         this.profileImage=new ImageVo(target.getProfileImage(), DalbitUtil.getProperty("server.photo.url"));
         this.age=DalbitUtil.ageCalculation(Integer.parseInt(target.getBirthYear()));
         this.level=target.getLevel();
