@@ -331,9 +331,12 @@
 
 <script>
     $(document).ready(function() {
+        var roomNo;
+
         // getAjaxData("memberList", "/rest/member/member/list", "", fn_success, fn_fail);
         // getUserInfo();
         getSubject_type_Data();
+
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -389,18 +392,39 @@
 
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getUserInfo();
+                getRoomInfo();
             };
         });
 
         <!-- 버튼 -->
-        $('#bt_search').click( function() {       //검색
-            getUserInfo();
+        $('#bt_search').click( function() {                //검색
+            getRoomInfo();
         });
-        $('#bt_edite').click( function() {                //    수정하기
+        $('#bt_edite').click( function() {                 //   수정하기
         });
         $('#bt_imgChg').click(function() {					//   사진변경
         });
+        $('#bt_editDate').click(function() {				//   최근정보수정일시
+        });
+        $('#bt_likeHistory').click(function() {			//   받은 좋아요
+        });
+        $('#bt_menagerHistory').click(function() {				//   매니저
+        });
+        $('#bt_giftHistory').click(function() {				//   받은선물
+        });
+        $('#bt_guestHistory').click(function() {				//   게스트
+        });
+        $('#bt_contentsHistory').click(function() {			//   받은사연
+        });
+        $('#bt_banHistory').click(function() {					//   등록금지어
+        });
+        $('#bt_listenerHistory').click(function() {			//   청취자
+            getHistoryDetail("listener");
+        });
+        $('#bt_forceKickHistory').click(function() {			//   강제퇴장회원
+        });
+
+
     });
 
 
@@ -410,7 +434,7 @@
         getAjaxData("type", "/rest/broadcast/broadcast/type",obj, fn_code_list_success, fn_fail);
     }
 
-    function getUserInfo(){                 // 검색
+    function getRoomInfo(){                 // 검색
         $("#list_info tr:not(:first)").remove();
         var obj = new Object();
 
@@ -463,6 +487,7 @@
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
 
+        roomNo = response.data.roomNo;
         $("#selectSubject_type_detail").val(response.data.type);
         $("#txt_title").val(response.data.title);
         $("#lb_djID").html(response.data.memId);
@@ -498,10 +523,70 @@
         getAjaxData("info", "/rest/broadcast/broadcast/info", obj, info_sel_success, fn_fail);
     }
 
+    function getHistoryDetail(tmp){     // 상세보기
+        $("#tableTop_detail").empty();
+        table_col_set(tmp);
+    }
+
+    function table_col_set(id){
+        if(id == "listener"){
+            var data = {
+                header: [
+                    { columnNm : "No"},
+                    { columnNm : "구분"},
+                    { columnNm : "User ID"},
+                    { columnNm : "User 닉네임"},
+                    { columnNm : "청취 시작 일시"},
+                    { columnNm : "임명 시작 일시"},
+                    { columnNm : "임명 취소 일시"},
+                    { columnNm : "매니저 임명상태"}
+                ]
+            };
+        }
+        var template = $('#tmp_list_top_column').html();
+        var templateScript = Handlebars.compile(template);
+        var context = data;
+        var html = templateScript(context);
+        $("#tableTop_detail").append(html);
+        $('#list_info_detail').DataTable({
+            retrieve: true,
+            paging: true,
+            searching: true,
+        });
+
+        $("#tableBody_detail").empty();
+        var obj = new Object();
+        obj.roomNo = roomNo;
+        obj.tmp = id;
+        console.log("roomNo : " + roomNo + "id : " + id);
+        getAjaxData(id, "/rest/broadcast/member/broadcastHistory_detail", obj, fn_success_detail, fn_fail);
+
+    }
+
+    function fn_success_detail(dst_id, response) {
+        console.log("2");
+        dalbitLog(response);
+        console.log("3");
+        var template;
+        if(dst_id == "listener"){
+            template = $('#listener_detail').html();
+        }
+        var templateScript = Handlebars.compile(template);
+        var context = response;
+        var html = templateScript(context);
+        $("#tableBody_detail").append(html);
+        $('#list_info_detail').DataTable({
+            retrieve: true,
+            paging: true,
+            searching: true,
+        });
+    }
+
+
+
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
-
 </script>
 
 <script id="tmp_list" type="text/x-handlebars-template">
@@ -524,5 +609,26 @@
 <script id="subject_type_Select" type="text/x-handlebars-template">
     {{#data}}
         <option value="{{value}}">{{code}}</option>
+    {{/data}}
+</script>
+<script id="tmp_list_top_column" type="text/x-handlebars-template">
+    <tr>
+        {{#header}}
+        <th>{{columnNm}}</th>
+        {{/header}}
+    </tr>
+</script>
+<script id="listener_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{No}}</td>
+        <td>{{auth}}</td>
+        <td>{{memNo}}</td>
+        <td>{{memNick}}</td>
+        <td>{{listenStDate}}</td>
+        <td>{{menagerStDate}}</td>
+        <td>{{menagerEdDate}}</td>
+        <td>{{menager}}</td>
+    </tr>
     {{/data}}
 </script>
