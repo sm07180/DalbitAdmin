@@ -23,6 +23,47 @@ public enum Status {
     회원정보보기_회원아님("-1", "member.no", "회원이 아닐 시"),
     회원정보보기_대상아님("-2", "member.this.no", "회원 팬 등록 실패 시 "),
     회원정보보기_실패("C006", "member.info.view.fail", "회원정보보기 실패 시"),
+
+    //방송기록보기
+    방송기록보기성공("0", "broadcast.list.view.success", "방송기록 보기 성공 시"),
+    방송기록보기실패("C006", "broadcast.list.view.fail", "방송기록 보기 실패 시"),
+
+    //청취기록보기
+    청취기록보기성공("0", "listen.list.view.success", "청취기록 보기 성공 시"),
+    청취기록보기실패("C006", "listen.list.view.fail", "청취기록 보기 실패 시"),
+
+    //결제/환불내역 보기
+    결제환불내역보기성공("0", "pay.list.view.success", "결제환불 보기 성공 시"),
+    결제환불내역보기실패("C006", "pay.list.view.fail", "결제환불 보기 실패 시"),
+
+    //선물내역보기
+    선물내역보기성공("0", "gift.list.view.success", "선물내역 보기 성공 시"),
+    선물내역보기실패("C006", "gift.list.view.fail", "선물내역 보기 실패 시"),
+
+    //환전내역보기
+    환전내역보기성공("0", "exchange.list.view.success", "환전내역 보기 성공 시"),
+    환전내역보기실패("C006", "exchange.list.view.fail", "환전내역 보기 실패 시"),
+
+    //MyStar 목록 보기
+    MyStar목록보기성공("0", "myStar.list.view.success", "MyStar 목록보기 성공 시"),
+    MyStar목록보기실패("C006", "myStar.list.view.fail", "MyStar 목록보기 실패 시"),
+
+    //Fan 목록 보기
+    Fan목록보기성공("0", "fan.list.view.success", "Fan 목록보기 성공 시"),
+    Fan목록보기실패("C006", "fan.list.view.fail", "Fan 목록보기 실패 시"),
+
+    //개별/방송 중 공지
+    공지보기성공("0", "notice.list.view.success", "공지보기 성공 시"),
+    공지보기실패("C006", "notice.list.view.fail", "공지보기 실패 시"),
+
+    //신고/1:1문의
+    신고문의보기성공("0", "receipt.list.view.success", "신고문의보기 성공 시"),
+    신고문의보기실패("C006", "receipt.list.view.fail", "신고문의보기 실패 시"),
+
+    //회원접속기록
+    회원접속기록보기성공("0", "connect.list.view.success", "회원접속기록보기 성공 시"),
+    회원접속기록보기실패("C006", "connect.list.view.fail", "회원접속기록보기 실패 시"),
+
     ;
 
     final private String SUCCESS_RESULT = "success";
