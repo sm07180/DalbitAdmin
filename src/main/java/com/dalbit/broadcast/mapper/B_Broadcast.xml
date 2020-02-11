@@ -71,7 +71,7 @@
                 ,a.count_good       as goodCnt
                 ,d.gift_cnt         as giftCnt
                 ,(SELECT count(*) cnt from tb_broadcast_room_story where room_no = a.room_no) as contentsCnt
-                ,(SELECT count(*) cnt from tb_broadcast_room_member where room_no = a.room_no) as listenCnt
+                ,(select count(*) cnt from tb_broadcast_room_member aa, tb_member_basic bb where aa.mem_no = bb.mem_no and aa.room_no=a.room_no) as listenCnt
                 ,(select count(*) cnt from tb_broadcast_room_block where mem_no = a.mem_no) as forceKickCnt
           from tb_broadcast_room a, tb_member_basic b,
                 tb_member_basic c, tb_broadcast_room_member d
