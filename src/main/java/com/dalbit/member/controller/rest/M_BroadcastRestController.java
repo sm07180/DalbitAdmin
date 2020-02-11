@@ -6,7 +6,9 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.M_BroadcastService;
+import com.dalbit.member.service.M_ListenService;
 import com.dalbit.member.vo.BroadListVo;
+import com.dalbit.member.vo.ListenListVo;
 import com.dalbit.member.vo.MemberBroadcastHistoryListVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -29,6 +31,7 @@ public class M_BroadcastRestController {
 
     @Autowired
     M_BroadcastService mBroadcastService;
+
 
     @Autowired
     ExcelService excelService;
@@ -78,15 +81,16 @@ public class M_BroadcastRestController {
        return gsonUtil.toJson(new JsonOutputVo(Status. 엑셀다운로드성공));
    }
 
-    @PostMapping("memberHistory_detail")
-    public String memberHistory_detail(HttpServletRequest request){
+    @PostMapping("broadHistory_detail")
+    public String broadHistory_detail(HttpServletRequest request){
         MemberBroadcastHistoryListVo apiData = new MemberBroadcastHistoryListVo();
         apiData.setMemNo((String) request.getParameter("mem_no"));
         apiData.setTmp((String) request.getParameter("tmp"));
         log.info("@@@ " + (String) request.getParameter("mem_no") + (String) request.getParameter("tmp"));
 
-        List<MemberBroadcastHistoryListVo> list = mBroadcastService.getMemberHistory_detail(apiData);
-        return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
+        List<MemberBroadcastHistoryListVo> list = mBroadcastService.getBroadHistory_detail(apiData);
+        return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list));
+
     }
 
 }

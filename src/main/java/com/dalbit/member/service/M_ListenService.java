@@ -23,4 +23,13 @@ public class M_ListenService {
         return list;
     }
 
+    public List<ListenListVo> getListenHistory_detail(ListenListVo listenListVo) {
+        List<ListenListVo> resultList = null;
+        if(listenListVo.getTmp().equals("listenHistory")) {
+            //청취기록
+            resultList = mListenDao.getListenHistory_detail(listenListVo);
+        }
+        return resultList;
+    }
+
 }

@@ -19,7 +19,7 @@
         WHERE b.room_no = m.room_no
     </select>
 
-    <select id="getMemberHistory_detail" parameterType="com.dalbit.member.vo.MemberBroadcastHistoryListVo" resultType="com.dalbit.member.vo.MemberBroadcastHistoryListVo">
+    <select id="getBroadHistory_detail" parameterType="com.dalbit.member.vo.MemberBroadcastHistoryListVo" resultType="com.dalbit.member.vo.MemberBroadcastHistoryListVo">
         /* M_Broadcast.xml - getBroadList */
         SELECT
            (SELECT aa.code From tbl_code_define aa WHERE aa.type='subject_type' and aa.value = lpad(b.subject_type,2,'0')) as subject_type

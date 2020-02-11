@@ -84,7 +84,7 @@
                     <div class="widget-content">
                         <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
                             <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                                <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
                             </span>
                             <thead>
                             <tr>
@@ -579,6 +579,7 @@
         var memNo;
 
 
+
         $('.input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -653,6 +654,7 @@
             getHistoryDetail("broadHistory");
         });
         $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
+            getHistoryDetail("listenHistory");
         });
         $('#bt_payHistory').click(function() {			    //   개인결제정보
         });
@@ -806,6 +808,7 @@
         if(id == "broadHistory"){
             var data = {
                 header: [
+                    { columnNm : "NO"},
                     { columnNm : "방송주제"},
                     { columnNm : "방송제목"},
                     { columnNm : "방송시작시간"},
@@ -816,7 +819,21 @@
                     { columnNm : "받은 아이템 수"}
                 ]
             };
+        }else if(id == "listenHistory") {
+            var data = {
+                header: [
+                    { columnNm : "NO"},
+                    { columnNm : "청취방주제"},
+                    { columnNm : "청취 방송제목"},
+                    { columnNm : "청취시작시간"},
+                    { columnNm : "청취종료시간"},
+                    { columnNm : "청취진행시간"},
+                    { columnNm : "받은 루비 개수"},
+                    { columnNm : "청취 DJ 닉네임"}
+                ]
+            }
         }
+
         var template = $('#tmp_list_top_column').html();
         var templateScript = Handlebars.compile(template);
         var context = data;
@@ -835,7 +852,11 @@
         var obj = new Object();
         obj.mem_no = memNo;
         obj.tmp = id;
-        getAjaxData(id, "/rest/member/broadcast/memberHistory_detail", obj, fn_success_detail, fn_fail);
+        if(id == "broadHistory") {
+            getAjaxData(id, "/rest/member/broadcast/broadHistory_detail", obj, fn_success_detail, fn_fail);
+        } else if(id == "listenHistory") {
+            getAjaxData(id, "/rest/member/listen/listenHistory_detail", obj, fn_success_detail, fn_fail);
+        }
 
     }
 
@@ -844,6 +865,8 @@
         var template;
         if(dst_id == "broadHistory"){
             template = $('#broadhistory_detail').html();
+        } else if(dst_id == "listenHistory") {
+            template = $('#listenhistory_detail').html();
         }
         var templateScript = Handlebars.compile(template);
         var context = response;
@@ -862,6 +885,25 @@
         console.log(data, textStatus, jqXHR);
     }
 
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        /*formData.append("search", "test001");
+        formData.append("test003", "test003");*/
+
+        excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    function fn_success_excel(){
+        alert("fn_success_excel");
+    }
+
+    function fn_fail_excel(){
+        alert("fn_fail_excel");
+    }
+    /*==================================*/
 
     // var tmp_sw="true";
     // $('#cob_mail').change(function () {
@@ -948,6 +990,7 @@
 <script id="broadhistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>NO</td>
         <td>{{subject_type}}</td>
         <td>{{title}}</td>
         <td>{{start_date}}</td>
@@ -956,6 +999,21 @@
         <td>{{listener}}</td>
         <td>{{good}}</td>
         <td>{{gold}}</td>
+    </tr>
+    {{/data}}
+</script>
+
+<script id="listenhistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>NO</td>
+        <td>{{subjectType}}</td>
+        <td>{{title}}</td>
+        <td>{{startDate}}</td>
+        <td>{{endDate}}</td>
+        <td>{{listenTime}}</td>
+        <td>{{giftRuby}}</td>
+        <td>{{memNick}}</td>
     </tr>
     {{/data}}
 </script>

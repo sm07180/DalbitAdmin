@@ -10,4 +10,6 @@ public interface M_ListenDao {
 
     List<ListenListVo> getListenList();
 
+    List<ListenListVo> getListenHistory_detail(ListenListVo listenListVo);
+
 }

@@ -57,10 +57,16 @@ public class M_MemberRestController {
         String[] headers = {"회원번호", "UserID", "닉네임", "이름", "연락처", "가입플랫폼", "접속상태", "생방상태"};
         int[] headerWidths = {5000, 5000, 4000, 3000, 5000, 1000, 3000, 3000};
 
-        MemberListVo memberListVo = new MemberListVo();
+        MemberListVo apiData = new MemberListVo();
+        apiData.setSearch(request.getParameter("search"));
+        apiData.setDate(request.getParameter("date"));
+        apiData.setGubun(request.getParameter("gubun"));
+        apiData.setStDate(request.getParameter("stDate"));
+        apiData.setEdDate(request.getParameter("edDate"));
 
-        List<MemberListVo> list = mMemberService.getMemberList(memberListVo);
-
+        /**/
+        List<MemberListVo> list = mMemberService.getMemberList(apiData);
+        /**/
 
         List<Object[]> bodies = new ArrayList<>();
 

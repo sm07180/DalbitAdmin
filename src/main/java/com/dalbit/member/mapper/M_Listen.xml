@@ -3,7 +3,7 @@
 <mapper namespace="com.dalbit.member.dao.M_ListenDao" >
 
 
-    <select id="getListenList" resultType="com.dalbit.member.vo.ListenListVo">
+    <select id="getListenList" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
         /* M_Listen.xml - getListenList */
         SELECT
           basic.subject_type
@@ -21,4 +21,28 @@
           AND broad.room_no = listen.room_no
           AND listen.mem_no = member.mem_no
     </select>
+
+    <select id="getListenHistory_detail" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
+        SELECT
+          (SELECT c.code
+            FROM tbl_code_define c
+            WHERE c.type='subject_type'
+              AND c.value=basic.subject_type
+          ) as subjectType
+          , basic.title                       /*읽힘*/
+          , DATE_FORMAT(listen.start_date, '%Y-%m-%d %H:%i:%s') as startDate
+          , DATE_FORMAT(listen.end_date, '%Y-%m-%d %H:%i:%s') as endDate
+          , listen.listentime as listenTime   /*읽힘*/
+          , listen.gift_ruby as giftRuby
+          , member.mem_nick as memNick
+          FROM tb_member_broadcast_basic basic
+              , tb_member_broadcast_broadcasting broad
+              , tb_member_broadcast_listening listen
+              , tb_member_basic member
+          where basic.mem_no = broad.mem_no
+            and broad.room_no = listen.room_no
+            and listen.mem_no = member.mem_no
+            and listen.mem_no = #{memNo}
+    </select>
+
 </mapper>

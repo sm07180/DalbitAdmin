@@ -11,6 +11,6 @@ public interface M_BroadcastDao {
 
     List<BroadListVo> getBroadList();
 
-    List<MemberBroadcastHistoryListVo> getMemberHistory_detail(MemberBroadcastHistoryListVo memberBroadcastHistoryListVo);
+    List<MemberBroadcastHistoryListVo> getBroadHistory_detail(MemberBroadcastHistoryListVo memberBroadcastHistoryListVo);
 
 }
