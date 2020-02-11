@@ -122,7 +122,7 @@
             <div class="row col-lg-12 form-inline" style="padding-top: 0px;">
                 <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
-            <div class="widget-content">
+            <div class="widget-content row col-lg-12 form-inline">
                 <div class="form-horizontal">
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
@@ -292,8 +292,8 @@
                             </tbody>
                         </table>
                         <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                            </span>
+                            <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                        </span>
                     </div>
                 </div>
             </div>
