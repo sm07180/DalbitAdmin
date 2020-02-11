@@ -8,7 +8,7 @@
     <div class="widget-content">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
             <span>
-                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
             </span>
             <thead>
             <tr>
@@ -58,6 +58,21 @@
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
+    }
+
+    $('#excelDownBtn').on('click', function() {
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+
+        excelDownload($(this), "/rest/member/broadcast/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    function fn_success_excel() {
+        alert("fn_success_excel");
+    }
+
+    function fn_fail_excel() {
+        alert("fn_fail_excel");
     }
 </script>
 

@@ -30,7 +30,7 @@ public class M_FanRestController {
     @PostMapping("list")
     public String list() {
         List<FanListVo> fanListVo = mFanService.getFanList();
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, fanListVo));
+        return gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, fanListVo));
     }
 
 

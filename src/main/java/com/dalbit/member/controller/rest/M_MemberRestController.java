@@ -52,37 +52,32 @@ public class M_MemberRestController {
     }
 
     @PostMapping("listExcel")
-    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model)throws GlobalException {
+    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model) throws GlobalException {
 
-        String[] headers = {"회원정보", "userId", "닉네임", "Double", "Date", "Calendar", "Long", "ㅇㅇㅇㅇ"};
-        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
+        String[] headers = {"회원번호", "UserID", "닉네임", "이름", "연락처", "가입플랫폼", "접속상태", "생방상태"};
+        int[] headerWidths = {5000, 5000, 4000, 3000, 5000, 1000, 3000, 3000};
 
-        MemberListVo apiData = new MemberListVo();
-        apiData.setSearch(request.getParameter("search"));
-        apiData.setDate(request.getParameter("date"));
-        apiData.setGubun(request.getParameter("gubun"));
-        apiData.setStDate(request.getParameter("stDate"));
-        apiData.setEdDate(request.getParameter("edDate"));
-        List<MemberListVo> list = mMemberService.getMemberList(apiData);
+        MemberListVo memberListVo = new MemberListVo();
+
+        List<MemberListVo> list = mMemberService.getMemberList(memberListVo);
+
 
         List<Object[]> bodies = new ArrayList<>();
 
-        list.stream().forEach(memberListVo -> {
+
+        for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
-            hm.put("memNo", DalbitUtil.isEmpty(memberListVo.getMemNo()) ? "" : memberListVo.getMemNo());
-            hm.put("memId", DalbitUtil.isEmpty(memberListVo.getMemId()) ? "" : memberListVo.getMemId());
-            hm.put("nickNm", DalbitUtil.isEmpty(memberListVo.getMemNick()) ? "" : memberListVo.getMemNick());
-            hm.put("name", DalbitUtil.isEmpty(memberListVo.getMemName()) ? "" : memberListVo.getMemName());
-            hm.put("phone", DalbitUtil.isEmpty(memberListVo.getMemPhone()) ? "" : memberListVo.getMemPhone());
-            hm.put("gubun", DalbitUtil.isEmpty(memberListVo.getGubun()) ? "" : memberListVo.getGubun());
+
+            hm.put("memNo", DalbitUtil.isEmpty(list.get(i).getMemNo()) ? "" : list.get(i).getMemNo());
+            hm.put("memId", DalbitUtil.isEmpty(list.get(i).getMemId()) ? "" : list.get(i).getMemId());
+            hm.put("nickNm", DalbitUtil.isEmpty(list.get(i).getMemNick()) ? "" : list.get(i).getMemNick());
+            hm.put("name", DalbitUtil.isEmpty(list.get(i).getMemName()) ? "" : list.get(i).getMemName());
+            hm.put("phone", DalbitUtil.isEmpty(list.get(i).getMemPhone()) ? "" : list.get(i).getMemPhone());
+            hm.put("memSlct", DalbitUtil.isEmpty(list.get(i).getMemSlct()) ? "" : list.get(i).getMemSlct());
             hm.put("connect", false);
             hm.put("live", false);
 
             bodies.add(hm.values().toArray());
-        });
-
-        for(int i = 0; i < list.size(); i++){
-
         }
 
 

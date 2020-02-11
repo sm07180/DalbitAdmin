@@ -30,7 +30,7 @@ public class M_MyStarRestController {
     @PostMapping("list")
     public String list() {
         List<MyStarListVo> myStarListVo = mMyStarService.getMyStarList();
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, myStarListVo));
+        return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, myStarListVo));
     }
 
 

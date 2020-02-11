@@ -41,9 +41,9 @@
 </div>
 
 <script type="text/javascript">
-    $('#loginBtn').on('click', function(e){
+    //$('#loginBtn').on('click', function(e){
         ajaxLogin();
-    });
+    //});
 
     function ajaxLogin(){
         getAjaxData("login", "/login/authenticate", $("#form").serialize(), loginSuccess, loginFail);

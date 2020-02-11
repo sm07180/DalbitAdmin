@@ -37,6 +37,9 @@ public class M_MemberService {
         return procedureVo;
     }
 
+    /**
+     * 회원 리스트
+     */
     public List<MemberListVo> getMemberList(MemberListVo memberListVo){
         return mMemberDao.getMemberList(memberListVo);
     }
