@@ -110,7 +110,7 @@
             <!-- DATA TABLE END -->
             <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
                 <div class="col-lg-1 no-padding">
-                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 10%;height: 27px"> 검색 상세 정보 </label>
+                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 120px;height: 27px"> 검색 상세 정보 </label>
                 </div>
                 <div class="col-lg-4 no-padding">
                     <label class="text_middle" style="font-size: 11px;height: 27px;"> ㆍ회원 상세 정보는 [수정하기] 버튼을 통해 변경이 가능합니다.</label>

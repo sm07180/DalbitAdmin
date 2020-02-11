@@ -2,6 +2,7 @@ package com.dalbit.broadcast.controller.rest;
 
 
 import com.dalbit.broadcast.service.B_BroadcastService;
+import com.dalbit.broadcast.vo.BroadcastInfoVo;
 import com.dalbit.broadcast.vo.BroadcastListVo;
 import com.dalbit.broadcast.vo.BroadcastTypeListVo;
 import com.dalbit.common.code.Status;
@@ -39,7 +40,7 @@ public class B_BroadcastRestController {
     public String level(HttpServletRequest request){
         BroadcastTypeListVo apiData = new BroadcastTypeListVo();
         apiData.setType((String) request.getParameter("type"));
-        String result = bBroadcastService.callbBroadcastTypeList(apiData);
+        String result = bBroadcastService.callBroadcastTypeList(apiData);
         return result;
     }
 
@@ -54,7 +55,16 @@ public class B_BroadcastRestController {
         apiData.setStDate((String) request.getParameter("stDate"));
         apiData.setEdDate((String) request.getParameter("edDate"));
 
-        String result = bBroadcastService.getBroadcastList(apiData);
+        String result = bBroadcastService.callBroadcastList(apiData);
+        return result;
+    }
+
+    @PostMapping("info")
+    public String info(HttpServletRequest request){
+        BroadcastInfoVo apiData = new BroadcastInfoVo();
+        log.info("roomNo" + (String) request.getParameter("roomNo"));
+        apiData.setRoomNo((String) request.getParameter("roomNo"));
+        String result = bBroadcastService.callBroadcastInfo(apiData);
         return result;
     }
 }
