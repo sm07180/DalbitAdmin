@@ -90,7 +90,7 @@
                             </span>
                             <thead>
                             <tr>
-                                <th>방번호</th>
+                                <%--<th>방번호</th>--%>
                                 <th>DJ ID</th>
                                 <th>DJ 닉네임</th>
                                 <th>방송주제</th>
@@ -112,10 +112,10 @@
                 <div class="col-lg-1 no-padding">
                     <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 120px;height: 27px"> 방송 상세정보 </label>
                 </div>
-                <div class="col-lg-4 no-padding">
+                <div class="col-lg-5 no-padding">
                     <label class="text_middle" style="font-size: 11px;height: 27px;"> ㆍ방송상세정보를 수정하고 [수정완료] 버튼으로 변경된 정보를 반영합니다.</label>
                 </div>
-                <div class="col-lg-7 no-padding">
+                <div class="col-lg-6 no-padding">
                     <button type="button" id="bt_edite" class="pull-right btn-xs form-control"  style="border-radius:3px;width: 80px;;height: 24px">수정하기</button>
                 </div>
             </div>
@@ -322,7 +322,6 @@
 <script src="/js/lib/handlebars-v4.7.2.js"></script>
 <script src="/js/common.js"></script>
 
-
 <!-- Datepicker -->
 <link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css">
 <script type='text/javascript' src="/js/lib/bootstrap-datepicker.min.js"></script>
@@ -332,11 +331,7 @@
 <script>
     $(document).ready(function() {
         var roomNo;
-
-        // getAjaxData("memberList", "/rest/member/member/list", "", fn_success, fn_fail);
-        // getUserInfo();
         getSubject_type_Data();
-
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -395,8 +390,7 @@
                 getRoomInfo();
             };
         });
-
-        <!-- 버튼 -->
+        <!-- 버튼 시작 -->
         $('#bt_search').click( function() {                //검색
             getRoomInfo();
         });
@@ -415,6 +409,7 @@
         $('#bt_guestHistory').click(function() {				//   게스트
         });
         $('#bt_contentsHistory').click(function() {			//   받은사연
+            getHistoryDetail("contents");
         });
         $('#bt_banHistory').click(function() {					//   등록금지어
         });
@@ -423,8 +418,7 @@
         });
         $('#bt_forceKickHistory').click(function() {			//   강제퇴장회원
         });
-
-
+        <!-- 버튼 끝 -->
     });
 
 
@@ -486,7 +480,6 @@
 
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
-
         roomNo = response.data.roomNo;
         $("#selectSubject_type_detail").val(response.data.type);
         $("#txt_title").val(response.data.title);
@@ -507,12 +500,11 @@
         $("#lb_banCnt").html("총"+response.data.banCnt+"건");
         $("#lb_listenerCnt").html("총"+response.data.listenCnt+"건");
         $("#lb_forceKickCnt").html("총"+response.data.forceKickCnt+"건");
-
+        $('input:radio[name=radio_entry]:input[value=' + response.data.typeEntry + ']').prop("checked", true);
+        $('input:radio[name=radio_gender]:input[value=' + response.data.memSex + ']').prop("checked", true);
+        $('input:radio[name=radio_freezing]:input[value=' + response.data.freezing + ']').prop("checked", true);
         //$("#backgroundImg").		backgroundImage
-        //$("#radio_entry").		typeEntry
         //$("#radio_forcedExit").	forceExit
-        //$("#radio_freezing").		freezing
-        //$("#radio_gender").		memSex
 
     }
 
@@ -527,7 +519,6 @@
         $("#tableTop_detail").empty();
         table_col_set(tmp);
     }
-
     function table_col_set(id){
         if(id == "listener"){
             var data = {
@@ -542,6 +533,16 @@
                     { columnNm : "매니저 임명상태"}
                 ]
             };
+        }else if(id == "contents"){
+            var data = {
+                header: [
+                    { columnNm : "No"},
+                    { columnNm : "사연 보낸 청취자 닉네임"},
+                    { columnNm : "사연 보낸 청취자 ID"},
+                    { columnNm : "보낸 일시"},
+                    { columnNm : "사연 내용"}
+                ]
+            };
         }
         var template = $('#tmp_list_top_column').html();
         var templateScript = Handlebars.compile(template);
@@ -550,7 +551,7 @@
         $("#tableTop_detail").append(html);
         $('#list_info_detail').DataTable({
             retrieve: true,
-            paging: true,
+            paging: false,
             searching: true,
         });
 
@@ -558,18 +559,17 @@
         var obj = new Object();
         obj.roomNo = roomNo;
         obj.tmp = id;
-        console.log("roomNo : " + roomNo + "id : " + id);
-        getAjaxData(id, "/rest/broadcast/member/broadcastHistory_detail", obj, fn_success_detail, fn_fail);
+        getAjaxData(id, "/rest/broadcast/broadcast/broadcastHistory_detail", obj, fn_success_detail, fn_fail);
 
     }
 
     function fn_success_detail(dst_id, response) {
-        console.log("2");
         dalbitLog(response);
-        console.log("3");
         var template;
         if(dst_id == "listener"){
             template = $('#listener_detail').html();
+        }else if(dst_id == "contents"){
+            template = $('#contents_detail').html();
         }
         var templateScript = Handlebars.compile(template);
         var context = response;
@@ -577,12 +577,10 @@
         $("#tableBody_detail").append(html);
         $('#list_info_detail').DataTable({
             retrieve: true,
-            paging: true,
+            paging: false,
             searching: true,
         });
     }
-
-
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -592,7 +590,7 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{roomNo}}</td>
+        <%--<td>{{roomNo}}</td>--%>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{type}}</td>
@@ -628,7 +626,20 @@
         <td>{{listenStDate}}</td>
         <td>{{menagerStDate}}</td>
         <td>{{menagerEdDate}}</td>
-        <td>{{menager}}</td>
+        <td>
+            <button type="button" class="btn btn-indigo btn-sm m-0">{{menager}}</button>
+        </td>
+    </tr>
+    {{/data}}
+</script>
+<script id="contents_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{No}}</td>
+        <td>{{memNick}}</td>
+        <td>{{memNo}}</td>
+        <td>{{storyDate}}</td>
+        <td>{{contents}}</td>
     </tr>
     {{/data}}
 </script>

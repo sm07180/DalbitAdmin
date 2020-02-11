@@ -21,5 +21,7 @@ public class BroadcastHistroyVo {
     private String menagerStDate;
     private String menagerEdDate;
     private String menager;
-    
+    private String writeDate;
+    private String contents;
+
 }

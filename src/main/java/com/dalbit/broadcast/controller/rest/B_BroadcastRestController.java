@@ -2,9 +2,9 @@ package com.dalbit.broadcast.controller.rest;
 
 
 import com.dalbit.broadcast.service.B_BroadcastService;
-import com.dalbit.broadcast.vo.BroadcastInfoVo;
-import com.dalbit.broadcast.vo.BroadcastListVo;
-import com.dalbit.broadcast.vo.BroadcastTypeListVo;
+import com.dalbit.broadcast.service.B_MemberService;
+import com.dalbit.broadcast.service.B_StoryService;
+import com.dalbit.broadcast.vo.*;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.util.GsonUtil;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -26,6 +27,10 @@ public class B_BroadcastRestController {
 
     @Autowired
     B_BroadcastService bBroadcastService;
+    @Autowired
+    B_MemberService bMemberService;
+    @Autowired
+    B_StoryService bStoryService;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -66,5 +71,27 @@ public class B_BroadcastRestController {
         apiData.setRoomNo((String) request.getParameter("roomNo"));
         String result = bBroadcastService.callBroadcastInfo(apiData);
         return result;
+    }
+
+    /**
+     * 방송관리 청취자 정보
+     * //@param model
+     * @return
+     */
+
+    @PostMapping("broadcastHistory_detail")
+    public String broadcastHistory_detail(HttpServletRequest request){
+        BroadcastHistroyVo apiData = new BroadcastHistroyVo();
+        apiData.setRoomNo((String) request.getParameter("roomNo"));
+        apiData.setTmp((String) request.getParameter("tmp"));
+
+        List<BroadcastHistroyVo> list = null;
+        if(apiData.getTmp().equals("listener")){
+            list = bMemberService.getBroadcastHistory_detail(apiData);
+        }else if(apiData.getTmp().equals("contents")){
+            list = bStoryService.getStoryHistory_detail(apiData);
+        }
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
 }

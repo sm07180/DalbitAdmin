@@ -30,22 +30,4 @@ public class B_MemberRestController {
     @Autowired
     GsonUtil gsonUtil;
 
-    /**
-     * 방송관리 청취자 정보
-     * //@param model
-     * @return
-     */
-
-    @PostMapping("broadcastHistory_detail")
-    public String broadcastHistory_detail(HttpServletRequest request){
-        log.info("@@@ 1");
-        BroadcastHistroyVo apiData = new BroadcastHistroyVo();
-        apiData.setRoomNo((String) request.getParameter("roomNo"));
-        apiData.setTmp((String) request.getParameter("tmp"));
-        log.info("@@@ " + (String) request.getParameter("roomNo") + (String) request.getParameter("tmp"));
-
-        List<BroadcastHistroyVo> list = bMemberService.getBroadcastHistory_detail(apiData);
-        return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
-    }
-
 }

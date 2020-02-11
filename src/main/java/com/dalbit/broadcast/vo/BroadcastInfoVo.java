@@ -23,7 +23,7 @@ public class BroadcastInfoVo {
     private String state;                       //방송상태
     private String liveSt;                      //방송시작일
     private String liveEd;                      //방송종료일
-    private String typeEntry;                   //입장제한
+    private int typeEntry;                      //입장제한
     private String platform;                    //플랫폼
     private String freezing;                    //얼리기여부
     private String forceExit;                   //방송강제종료
