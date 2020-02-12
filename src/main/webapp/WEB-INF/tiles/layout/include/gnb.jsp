@@ -25,12 +25,12 @@
         <a href="/broadcast/broadcast/list" aria-expanded="false"><i class="fa fa-microphone"></i> 방송관리</a>
     </li>
 
-    <li class="${fn:startsWith(url, '/manage/') ? 'active' : ''}">
-        <a href="/manage/recommend/list" aria-expanded="false"><i class="fa fa-desktop"></i> 사이트관리</a>
+    <li class="${fn:startsWith(url, '/administrate/') ? 'active' : ''}">
+        <a href="/administrate/recommend/list" aria-expanded="false"><i class="fa fa-desktop"></i> 사이트관리</a>
     </li>
 
-    <li class="">
-        <a href="#following" aria-expanded="false"><i class="fa fa-phone"></i> 고객센터관리</a>
+    <li class="${fn:startsWith(url, '/customer/') ? 'active' : ''}">
+        <a href="/customer/notice/list" aria-expanded="false"><i class="fa fa-phone"></i> 고객센터관리</a>
     </li>
 
     <li class="">
