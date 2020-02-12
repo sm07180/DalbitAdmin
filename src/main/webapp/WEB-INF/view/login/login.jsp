@@ -14,7 +14,7 @@
                     <label for="memId" class="control-label sr-only">ID</label>
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="ID" name="memId" id="memId" value="010-1234-0006" autofocus>
+                            <input class="form-control" type="text" placeholder="ID" name="memId" id="memId" value="010-1234-1234" autofocus>
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         </div>
                     </div>
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control" type="password" placeholder="Password" name="memPwd" id="memPwd" value="1234">
+                            <input class="form-control" type="password" placeholder="Password" name="memPwd" id="memPwd" value="123qweasd">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         </div>
                     </div>
@@ -41,9 +41,10 @@
 </div>
 
 <script type="text/javascript">
-    //$('#loginBtn').on('click', function(e){
+    ajaxLogin();
+    $('#loginBtn').on('click', function(e){
         ajaxLogin();
-    //});
+    });
 
     function ajaxLogin(){
         getAjaxData("login", "/login/authenticate", $("#form").serialize(), loginSuccess, loginFail);
