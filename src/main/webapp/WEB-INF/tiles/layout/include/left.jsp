@@ -54,33 +54,30 @@
                     <li class="active"><a href="#" class="js-sub-menu-toggle"><i class="fa fa-navicon"></i><span class="text">방송정보</span>
                         <i class="toggle-icon fa fa-angle-down"></i></a>
                         <ul class="sub-menu open">
-                            <li class="active"><a href="/broadcast/member/list"><i class="fa fa-search"></i><span class="text">방송검색</span></a></li>
+                            <li class="active"><a href="/broadcast/broadcast/list"><i class="fa fa-search"></i><span class="text">방송검색</span></a></li>
                         </ul>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">청취자/매니저/강퇴자 관리</span></a>
+                        <a href="/broadcast/member/list"><i class="fa fa-briefcase"></i><span class="text">청취자/매니저/강퇴자 관리</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">팬랭킹관리</span></a>
+                        <a href="/broadcast/fan/list"><i class="fa fa-briefcase"></i><span class="text">팬랭킹관리</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">사연내역</span></a>
+                        <a href="/broadcast/story/list"><i class="fa fa-briefcase"></i><span class="text">사연내역</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">채팅내역</span></a>
+                        <a href="/broadcast/chat/list"><i class="fa fa-briefcase"></i><span class="text">채팅내역</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">받은 좋아요</span></a>
+                        <a href="/broadcast/like/list"><i class="fa fa-briefcase"></i><span class="text">받은 좋아요</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">금지어등록정보</span></a>
+                        <a href="/broadcast/ban/list"><i class="fa fa-briefcase"></i><span class="text">금지어등록정보</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">방송 접속 환경</span></a>
-                    </li>
-                    <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">청취자/매니저/강퇴자 관리</span></a>
+                        <a href="/broadcast/connect/list"><i class="fa fa-briefcase"></i><span class="text">방송 접속 환경</span></a>
                     </li>
                 </c:if>
 
@@ -90,32 +87,32 @@
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">DJ랭킹/Fan랭킹</span></a>
+                        <a href="/administrate/star/list"><i class="fa fa-briefcase"></i><span class="text">DJ랭킹/Fan랭킹</span></a>
                     </li>
 
                     <li><a href="#" class="js-sub-menu-toggle"><i class="fa fa-file"></i><span class="text">실시간 Live</span>
                         <i class="toggle-icon fa fa-angle-left"></i></a>
                         <ul class="sub-menu ">
-                            <li><a href="page-file-manager.html"><span class="text">추천DJ</span></a></li>
+                            <li><a href="/administrate/live/recommend/list"><span class="text">추천DJ</span></a></li>
                         </ul>
                         <ul class="sub-menu ">
-                            <li><a href="page-file-manager.html"><span class="text">인기DJ</span></a></li>
+                            <li><a href="/administrate/live/pop/list"><span class="text">인기DJ</span></a></li>
                         </ul>
                         <ul class="sub-menu ">
-                            <li><a href="page-file-manager.html"><span class="text">신입DJ</span></a></li>
+                            <li><a href="/administrate/live/new/list"><span class="text">신입DJ</span></a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">인기캐스트</span></a>
+                        <a href="/administrate/cast/list"><i class="fa fa-briefcase"></i><span class="text">인기캐스트</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">이벤트/배너</span></a>
+                        <a href="/administrate/banner/list"><i class="fa fa-briefcase"></i><span class="text">이벤트/배너</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">프로필/방송방 배경</span></a>
+                        <a href="/administrate/broadcast/list"><i class="fa fa-briefcase"></i><span class="text">프로필/방송방 배경</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">시스템 메시지</span></a>
+                        <a href="/administrate/broadcast/list"><i class="fa fa-briefcase"></i><span class="text">시스템 메시지</span></a>
                     </li>
                     <li>
                         <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">스플래시 메시지</span></a>
