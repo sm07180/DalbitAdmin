@@ -9,7 +9,7 @@ public class BroadListVo {
 
     /* member/broadcast/list 를 위한 Vo */
 
-    private int subjectType;
+    private String subjectType;
     private String title;
     private String startDate;
     private String endDate;

@@ -944,10 +944,10 @@
     {{#data}}
     <tr>
         <td>{{index @index}}</td>
-        <td>{{subject_type}}</td>
+        <td>{{subjectType}}</td>
         <td>{{title}}</td>
-        <td>{{start_date}}</td>
-        <td>{{end_date}}</td>
+        <td>{{startDate}}</td>
+        <td>{{endDate}}</td>
         <td>{{airtime}}</td>
         <td>{{listener}}</td>
         <td>{{good}}</td>
