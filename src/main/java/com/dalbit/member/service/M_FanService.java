@@ -18,8 +18,8 @@ public class M_FanService {
     @Autowired
     GsonUtil gsonUtil;
 
-    public List<FanListVo> getFanList() {
-        List<FanListVo> list = mFanDao.getFanList();
+    public List<FanListVo> getFanList(FanListVo fanListVo) {
+        List<FanListVo> list = mFanDao.callFanList(fanListVo);
         return list;
     }
 }

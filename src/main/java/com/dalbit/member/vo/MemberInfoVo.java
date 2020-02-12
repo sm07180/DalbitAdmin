@@ -3,11 +3,9 @@ package com.dalbit.member.vo;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 @Getter
 @Setter
-public class P_MemberInfoVo {
+public class MemberInfoVo {
     private int memLogin;
     private String memNo;
     private String memId;

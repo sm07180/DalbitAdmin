@@ -18,5 +18,14 @@ public class BroadListVo {
     private int good;
     private int gold;
 
+    /* member/member/list 를 위한 Vo */
+    private String tmp;                 // 상세보기 구분
+    private String memId;
+    private String memNo;
+    private String memNick;
+    private String memName;
+    private String memPhone;
+    private String memSlct;
+
 
 }

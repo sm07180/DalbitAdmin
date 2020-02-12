@@ -44,7 +44,7 @@
         </if>
     </select>
 
-    <select id="callMemberInfo" parameterType="com.dalbit.member.vo.P_MemberInfoVo" resultType="com.dalbit.member.vo.P_MemberInfoVo">
+    <select id="callMemberInfo" parameterType="com.dalbit.member.vo.MemberInfoVo" resultType="com.dalbit.member.vo.MemberInfoVo">
        SELECT
           a.mem_no						as memNo
           ,a.mem_id                     as memId
@@ -70,9 +70,7 @@
           ,(select count(*) as cnt FROM tb_broadcast_room b, tb_member_broadcast_broadcasting m WHERE b.room_no = m.room_no AND b.mem_no = a.mem_no) as broadcastingCnt
           ,(select count(*) as cnt from tb_member_broadcast_listening where mem_no = a.mem_no) as listeningCnt
           ,(select count(*) as cnt from tb_member_fanstar where mem_no_fan = a.mem_no) as starCnt   /*내가 등록한 start*/
-          ,(select count(*) as cnt from tb_member_fanstar where mem_no_star = a.mem_no) as fanCnt   /*내가 등록한 fan*/
-          /*나를 star 등록*/
-          /*나를 fan 등록*/
+          ,(select count(*) as cnt from tb_member_fanstar where mem_no_star = a.mem_no) as fanCnt   /*나를 등록한 fan*/
         FROM tb_member_basic a, tb_member_profile b, tb_member_level c
        WHERE a.mem_no = b.mem_no AND a.mem_no = c.mem_no
          AND a.mem_no = #{memNo}

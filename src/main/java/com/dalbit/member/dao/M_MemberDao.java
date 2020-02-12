@@ -18,7 +18,7 @@ public interface M_MemberDao {
 //    ProcedureVo callMemberInfoView(ProcedureVo procedureVo);
 
 //    ProcedureVo callMemberInfo(ProcedureVo procedureVo);
-    List<P_MemberInfoVo> callMemberInfo(P_MemberInfoVo pMemberInfo);
+    List<MemberInfoVo> callMemberInfo(MemberInfoVo memberInfoVo);
     List<MemberInfoLevelListVo> callMemberLevelList(MemberInfoLevelListVo memberInfoLevelListVo);
     List<MemberInfoLevelListVo> callMemberGradeList(MemberInfoLevelListVo memberInfoLevelListVo);
 

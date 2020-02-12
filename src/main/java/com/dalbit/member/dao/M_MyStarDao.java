@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface M_MyStarDao {
 
-    List<MyStarListVo> getMyStarList();
+    List<MyStarListVo> getMyStarList(MyStarListVo myStarListVo);
 
 }

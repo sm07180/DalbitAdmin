@@ -18,8 +18,8 @@ public class M_MyStarService {
     @Autowired
     GsonUtil gsonUtil;
 
-    public List<MyStarListVo> getMyStarList() {
-        List<MyStarListVo> list = mMyStarDao.getMyStarList();
+    public List<MyStarListVo> getMyStarList(MyStarListVo myStarListVo) {
+        List<MyStarListVo> list = mMyStarDao.getMyStarList(myStarListVo);
         return list;
     }
 
