@@ -146,11 +146,11 @@
                             </div>
                             <label class="col-md-3">DJ ID</label>
                             <div class="col-md-9">
-                                <div class="col-md-3"><label id="lb_djID">DaldalE</label></div>
+                                <label id="lb_djID">DaldalE</label>
                             </div>
                             <label class="col-md-3">DJ 닉네임</label>
                             <div class="col-md-9">
-                                <div class="col-md-3"><label id="lb_djNickname">다달이</label></div>
+                                <label id="lb_djNickname">다달이</label>
                             </div>
                             <label class="col-md-3">DJ 성별</label>
                             <div class="col-md-9">
@@ -183,11 +183,9 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">방송 플랫폼 정보</label>
-                            <div class="col-md-9"><label id="lb_platform">PC</label></div>
+                            <label class="col-md-3">방송진행시간</label>
+                            <div class="col-md-9"><label id="lb_time">2:30:40</label></div>
                         </div>
-                    </div>
-                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">얼리기</label>
                             <div class="col-md-9">
@@ -202,8 +200,6 @@
                                 <button type="button" id="bt_editDate" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">방송강제종료</label>
                             <div class="col-md-9">
@@ -215,8 +211,6 @@
                             <label class="col-md-3">최근 정보 수정 처리자</label>
                             <div class="col-md-9"><label id="lb_editUser">DaldalE</label></div>
                         </div>
-                    </div>
-                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">받은 좋아요</label>
                             <div class="col-md-9">
@@ -273,27 +267,43 @@
                                 <button type="button" id="bt_forceKickHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">방송 플랫폼</label>
+                            <div class="col-md-9">
+                                <label id="lb_platform">PC (Crome)</label>
+                                <button type="button" id="bt_platformHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">방송방 입장</label>
+                            <div class="col-md-9">
+                                <button type="button" id="bt_broadcastGo" class="btn-xs">방송방 입장하기</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- DATA TABLE -->
-            <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
-                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 세부내역 </label>
-                <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
-            </div>
-            <!-- DATA TABLE -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table">
-                    <div class="widget-content">
-                        <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                            <thead id="tableTop_detail">
-                            </thead>
-                            <tbody id="tableBody_detail">
-                            </tbody>
-                        </table>
-                        <span>
-                            <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                        </span>
+            <div class="row col-lg-12 form-inline" id="detail">
+                <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
+                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 세부내역 </label>
+                    <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px"></label>
+                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+                </div>
+                <!-- DATA TABLE -->
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table">
+                        <div class="widget-content">
+                            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                                <thead id="tableTop_detail">
+                                </thead>
+                                <tbody id="tableBody_detail">
+                                </tbody>
+                            </table>
+                            <span>
+                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -306,6 +316,7 @@
 <script>
     $(document).ready(function() {
         var roomNo;
+        $('#detail').hide();
         getSubject_type_Data();
 
         $('.input-group.date').datepicker({
@@ -374,31 +385,37 @@
         $('#bt_imgChg').click(function() {					//   사진변경
         });
         $('#bt_editDate').click(function() {				//   최근정보수정일시
-            getHistoryDetail("editDate","정보수정일시","회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.");
+            getHistoryDetail("editDate","정보수정일시","ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.");
         });
         $('#bt_likeHistory').click(function() {			//   받은 좋아요
-            getHistoryDetail("likeHistory","받은 좋아요 정보","방송 중인 방송방에서 좋아요를 보낸 회원과 보낸수, 부스터 사용 수 를 확인할 수 있습니다.");
+            getHistoryDetail("likeHistory","받은 좋아요 정보","ㆍ방송 중인 방송방에서 좋아요를 보낸 회원과 보낸수, 부스터 사용 수 를 확인할 수 있습니다.");
         });
         $('#bt_menagerHistory').click(function() {				//   매니저
-            getHistoryDetail("menagerHistory","","");
+            getHistoryDetail("menagerHistory","매니저 정보","ㆍ방송을 진행하는 DJ가 등록한 매니저를 확인하고, 관리할 수 있습니다.");
         });
         $('#bt_giftHistory').click(function() {				//   받은선물
-            getHistoryDetail("giftHistory","선물 정보","방송 중 방송방 내에서 보내고 받은 선물 내역을 확인할 수 있습니다.");
+            getHistoryDetail("giftHistory","선물 정보","ㆍ방송 중 방송방 내에서 보내고 받은 선물 내역을 확인할 수 있습니다.");
         });
         $('#bt_guestHistory').click(function() {				//   게스트
-            getHistoryDetail("guestHistory","","");
+            getHistoryDetail("guestHistory","게스트 정보","ㆍ방송 중 게스트 변동사항 및 관리를 할 수 있습니다.");
         });
         $('#bt_contentsHistory').click(function() {			//   받은사연
-            getHistoryDetail("contentsHistory","사연내역","방송 중 방송방 내에서 누적된 사연정보를 확인 관리 할 수 있습니다.");
+            getHistoryDetail("contentsHistory","사연내역","ㆍ방송 중 방송방 내에서 누적된 사연정보를 확인 관리 할 수 있습니다.");
         });
         $('#bt_banHistory').click(function() {					//   등록금지어
-            getHistoryDetail("banHistory","","");
+            getHistoryDetail("banHistory","금지어 등록 정보","ㆍ운영자와 회원이 직접 100개까지 등록 할 수 있고 관리자가 수정 삭제할 수 있습니다.");
         });
         $('#bt_listenerHistory').click(function() {			//   청취자
-            getHistoryDetail("listenerHistory","","");
+            getHistoryDetail("listenerHistory","청취기록","ㆍ회원이 방송을 청취한 기록을 확인할 수 있습니다.");
         });
         $('#bt_forceKickHistory').click(function() {			//   강제퇴장회원
-            getHistoryDetail("forceKickHistory","","");
+            getHistoryDetail("forceKickHistory","강제 퇴장 정보","ㆍ방송 중 DJ, 매니저로 인해 강제 퇴장된 회원정보를 확인하고, 관리를 할 수 있습니다.");
+        });
+        $('#bt_platformHistory').click(function() {			//   방송플랫폼
+            getHistoryDetail("platformHistory","방송 접속 기록","ㆍ방송 진행 중 접속 기록 및 변동사태를 확인할 수 있습니다.");
+        });
+        $('#bt_broadcastGo').click(function() {			    //   방송방 입장하기
+            // BroadcastGo();
         });
         <!-- 버튼 끝 -->
     });
@@ -498,34 +515,117 @@
         getAjaxData("info", "/rest/broadcast/broadcast/info", obj, info_sel_success, fn_fail);
     }
 
-    function getHistoryDetail(tmp){     // 상세보기
+    function getHistoryDetail(tmp,tmp2,tmp3){     // 상세보기
         $("#tableTop_detail").empty();
-        table_col_set(tmp);
+        table_col_set(tmp,tmp2,tmp3);
     }
-    function table_col_set(id){
-        if(id == "listener"){
-            var data = {
-                header: [
-                    { columnNm : "No"},
-                    { columnNm : "구분"},
-                    { columnNm : "User ID"},
-                    { columnNm : "User 닉네임"},
-                    { columnNm : "청취 시작 일시"},
-                    { columnNm : "임명 시작 일시"},
-                    { columnNm : "임명 취소 일시"},
-                    { columnNm : "매니저 임명상태"}
-                ]
-            };
-        }else if(id == "contents"){
-            var data = {
-                header: [
-                    { columnNm : "No"},
-                    { columnNm : "사연 보낸 청취자 닉네임"},
-                    { columnNm : "사연 보낸 청취자 ID"},
-                    { columnNm : "보낸 일시"},
-                    { columnNm : "사연 내용"}
-                ]
-            };
+    function table_col_set(id,title,comments) {
+        // if ($("#lb_userId").text() == null || $("#lb_userId").text() == "") {
+        //     alert("확인 대상 선택 해주십시오");
+        //     return;
+        // }
+        $('#detail').show();
+        $("#detail_label").html(title);
+        $("#detail_comments").html(comments);
+
+        if (id == "listenerHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "구분"},
+                    {columnNm: "User ID"},
+                    {columnNm: "User 닉네임"},
+                    {columnNm: "청취 시작 일시"},
+                    {columnNm: "임명 시작 일시"},
+                    {columnNm: "임명 취소 일시"},
+                    {columnNm: "매니저 임명상태"}
+                ]};
+        } else if (id == "contentsHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "사연 보낸 청취자 닉네임"},
+                    {columnNm: "사연 보낸 청취자 ID"},
+                    {columnNm: "보낸 일시"},
+                    {columnNm: "사연 내용"}
+                ]};
+        }else if (id == "editDate") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "정보 수정일시"},
+                    {columnNm: "수정 처리자"},
+                ]};
+        }else if (id == "likeHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "보낸 User ID"},
+                    {columnNm: "보낸 User 닉네임"},
+                    {columnNm: "보낸 일시"},
+                    {columnNm: "좋아요 보낸 수"},
+                    {columnNm: "부스터 보낸 수"},
+                    {columnNm: "적용완료 일시"},
+                ]};
+        }else if (id == "menagerHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "구분"},
+                    {columnNm: "User ID"},
+                    {columnNm: "User 닉네임"},
+                    {columnNm: "청취 시작 일시"},
+                    {columnNm: "임명 시작 일시"},
+                    {columnNm: "임명 취소 일시"},
+                    {columnNm: "매니저 임명 상태"},
+                ]};
+        }else if (id == "giftHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "구분"},
+                    {columnNm: "아이템명"},
+                    {columnNm: "보낸/받은 건 수"},
+                    {columnNm: "보낸/받은 선물 금액"},
+                    {columnNm: "선물 일시"},
+                    {columnNm: "User ID"},
+                    {columnNm: "User 닉네임"},
+                    {columnNm: "처리자ID"},
+                ]};
+        }else if (id == "guestHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "구분"},
+                    {columnNm: "User ID"},
+                    {columnNm: "User 닉네임"},
+                    {columnNm: "청취 시작 일시"},
+                    {columnNm: "게스트 방송 시작 일시"},
+                    {columnNm: "게스트 방송 종료 일시"},
+                    {columnNm: "게스트 방송 진행시간"},
+                    {columnNm: "게스트 방송 종료하기"},
+                ]};
+        }else if (id == "banHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "구분"},
+                    {columnNm: "User 닉네임"},
+                    {columnNm: "청취 시작 일시"},
+                    {columnNm: "방송 시작 일시"},
+                    {columnNm: "강제 퇴장 일시"},
+                    {columnNm: "청취 진행시간"},
+                ]};
+        }else if (id == "forceKickHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "적용여부"},
+                    {columnNm: "금지어"},
+                ]};
+        }else if (id == "platformHistory") {
+            var data = {header: [
+                    {columnNm: "No"},
+                    {columnNm: "접속 일시"},
+                    {columnNm: "OS 환경"},
+                    {columnNm: "App Ver"},
+                    {columnNm: "Browser"},
+                    {columnNm: "Device"},
+                    {columnNm: "Mobile Device ID"},
+                    {columnNm: "Mobile AD ID"},
+                    {columnNm: "IP 주소"},
+                ]};
         }
         var template = $('#tmp_list_top_column').html();
         var templateScript = Handlebars.compile(template);
@@ -541,8 +641,28 @@
         $("#tableBody_detail").empty();
         var obj = new Object();
         obj.roomNo = roomNo;
-        obj.tmp = id;
-        getAjaxData(id, "/rest/broadcast/broadcast/broadcastHistory_detail", obj, fn_success_detail, fn_fail);
+
+        if (id == "listenerHistory") {
+            getAjaxData(id, "/rest/broadcast/listen/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "contentsHistory") {
+            getAjaxData(id, "/rest/broadcast/contents/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "editDate") {
+            getAjaxData(id, "/rest/broadcast/edithistory/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "likeHistory") {
+            getAjaxData(id, "/rest/broadcast/like/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "menagerHistory") {
+            getAjaxData(id, "/rest/broadcast/menager/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "giftHistory") {
+            getAjaxData(id, "/rest/broadcast/gift/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "guestHistory") {
+            getAjaxData(id, "/rest/broadcast/guest/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "banHistory") {
+            getAjaxData(id, "/rest/broadcast/ban/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "forceKickHistory") {
+            getAjaxData(id, "/rest/broadcast/kick/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "platformHistory") {
+            getAjaxData(id, "/rest/broadcast/platform/list", obj, fn_success_detail, fn_fail);
+        }
 
     }
 
