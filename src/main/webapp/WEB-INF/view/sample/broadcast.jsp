@@ -669,9 +669,9 @@
     function fn_success_detail(dst_id, response) {
         dalbitLog(response);
         var template;
-        if(dst_id == "listener"){
+        if(dst_id == "listenerHistory"){
             template = $('#listener_detail').html();
-        }else if(dst_id == "contents"){
+        }else if(dst_id == "contentsHistory"){
             template = $('#contents_detail').html();
         }
         var templateScript = Handlebars.compile(template);
@@ -724,7 +724,7 @@
     <tr>
         <td>{{No}}</td>
         <td>{{auth}}</td>
-        <td>{{memNo}}</td>
+        <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{listenStDate}}</td>
         <td>{{menagerStDate}}</td>
