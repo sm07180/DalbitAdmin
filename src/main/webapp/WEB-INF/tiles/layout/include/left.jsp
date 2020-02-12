@@ -130,27 +130,27 @@
 
                 <c:if test="${fn:startsWith(url, '/customer/')}">
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-bell-o"></i><span class="text">사이트 공지</span></a>
+                        <a href="/customer/notice/list"><i class="fa fa-bell-o"></i><span class="text">사이트 공지</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-krw"></i><span class="text">결제 환불/환전 처리</span></a>
+                        <a href="/customer/pay/list"><i class="fa fa-krw"></i><span class="text">결제 환불/환전 처리</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-dot-circle-o"></i><span class="text">신고</span></a>
+                        <a href="/customer/declaration/list"><i class="fa fa-dot-circle-o"></i><span class="text">신고</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-phone"></i><span class="text">1:1문의/전화문의</span></a>
+                        <a href="/customer/question/list"><i class="fa fa-phone"></i><span class="text">1:1문의/전화문의</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-envelope-o"></i><span class="text">제휴 메일</span></a>
+                        <a href="/customer/email/list"><i class="fa fa-envelope-o"></i><span class="text">제휴 메일</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-question"></i><span class="text">FAQ</span></a>
+                        <a href="/customer/faq/list"><i class="fa fa-question"></i><span class="text">FAQ</span></a>
                     </li>
                 </c:if>
             </ul>
