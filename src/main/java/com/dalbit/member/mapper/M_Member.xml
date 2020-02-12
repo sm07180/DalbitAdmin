@@ -7,6 +7,7 @@
     </select>
 
     <select id="getMemberList" parameterType="com.dalbit.member.vo.MemberListVo" resultType="com.dalbit.member.vo.MemberListVo">
+
         select b.mem_id     as memId
             , b.mem_no       as memNo
             , b.mem_nick     as memNick
@@ -16,6 +17,9 @@
         from tb_member_basic b
             , tb_member_profile p
         where b.mem_no = p.mem_no
+        <if test='checkDate == "true"'>
+           and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}
+        </if>
         <if test='search != null'>
             <choose>
                 <when test='gubun == "9999"'>      <!-- 전체 -->
@@ -62,7 +66,8 @@
           ,c.level 						as level
           ,c.grade 						as grade
           ,c.exp 						as exp
-          ,(select count(*) as cnt from tb_member_broadcast_broadcasting where mem_no = a.mem_no) as broadcastingCnt
+
+          ,(select count(*) as cnt FROM tb_broadcast_room b, tb_member_broadcast_broadcasting m WHERE b.room_no = m.room_no AND b.mem_no = a.mem_no) as broadcastingCnt
           ,(select count(*) as cnt from tb_member_broadcast_listening where mem_no = a.mem_no) as listeningCnt
           ,(select count(*) as cnt from tb_member_fanstar where mem_no_fan = a.mem_no) as starCnt   /*내가 등록한 start*/
           ,(select count(*) as cnt from tb_member_fanstar where mem_no_star = a.mem_no) as fanCnt   /*내가 등록한 fan*/
