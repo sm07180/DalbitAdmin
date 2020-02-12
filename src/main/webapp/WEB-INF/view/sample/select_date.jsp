@@ -805,11 +805,14 @@
         $("#tableBody_detail").empty();
         var obj = new Object();
         obj.mem_no = memNo;
-        obj.tmp = id;
         if(id == "broadHistory") {
-            getAjaxData(id, "/rest/member/broadcast/broadHistory_detail", obj, fn_success_detail, fn_fail);
+            getAjaxData(id, "/rest/member/broadcast/list", obj, fn_success_detail, fn_fail);
         } else if(id == "listenHistory") {
-            getAjaxData(id, "/rest/member/listen/listenHistory_detail", obj, fn_success_detail, fn_fail);
+            getAjaxData(id, "/rest/member/listen/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "myStarHistory") {
+            getAjaxData(id, "/rest/member/myStar/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "myFanHistory") {
+            getAjaxData(id, "/rest/member/fan/list", obj, fn_success_detail, fn_fail);
         }
     }
 
@@ -817,9 +820,13 @@
         dalbitLog(response);
         var template;
         if(dst_id == "broadHistory"){
-            template = $('#broadhistory_detail').html();
+            template = $('#broadHistory_detail').html();
         } else if(dst_id == "listenHistory") {
-            template = $('#listenhistory_detail').html();
+            template = $('#listenHistory_detail').html();
+        } else if(dst_id == "myStarHistory") {
+            template = $('#myStarHistory_detail').html();
+        } else if(dst_id == "myFanHistory") {
+            template = $('#myFanHistory_detail').html();
         }
         var templateScript = Handlebars.compile(template);
         var context = response;
@@ -933,7 +940,7 @@
     </tr>
 </script>
 
-<script id="broadhistory_detail" type="text/x-handlebars-template">
+<script id="broadHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
         <td>{{index @index}}</td>
@@ -948,7 +955,7 @@
     </tr>
     {{/data}}
 </script>
-<script id="listenhistory_detail" type="text/x-handlebars-template">
+<script id="listenHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
         <td>{{index @index}}</td>
@@ -959,6 +966,32 @@
         <td>{{listenTime}}</td>
         <td>{{giftRuby}}</td>
         <td>{{memNick}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="myStarHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{index @index}}</td>
+        <td>{{memId}}</td>
+        <td>{{memNick}}</td>
+        <td>{{tmp1}}</td>
+        <td>{{tmp2}}</td>
+        <td>{{regDate}}</td>
+        <td>{{tmp3}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="myFanHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{index @index}}</td>
+        <td>{{memId}}</td>
+        <td>{{memNick}}</td>
+        <td>{{tmp1}}</td>
+        <td>{{tmp2}}</td>
+        <td>{{regDate}}</td>
+        <td>{{tmp3}}</td>
     </tr>
     {{/data}}
 </script>

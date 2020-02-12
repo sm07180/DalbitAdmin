@@ -67,10 +67,10 @@ public class M_MemberService {
     /**
      * 선택 회원 정보
      */
-    public String callMemberInfo(P_MemberInfoVo pMemberInfo) {
-        log.info("@@@@@@@@@@@@ " + pMemberInfo.getMemNo());
+    public String callMemberInfo(MemberInfoVo memberInfoVo) {
+        log.info("@@@@@@@@@@@@ " + memberInfoVo.getMemNo());
         ProcedureVo procedureVo = new ProcedureVo();
-        List<P_MemberInfoVo> list = mMemberDao.callMemberInfo(pMemberInfo);
+        List<MemberInfoVo> list = mMemberDao.callMemberInfo(memberInfoVo);
 
         List<MemberInfoOutVo> outVoList = new ArrayList<>();
         for (int i = 0; i< list.size(); i++){

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Slf4j
@@ -26,14 +27,11 @@ public class M_MyStarRestController {
     @Autowired
     GsonUtil gsonUtil;
 
-
     @PostMapping("list")
-    public String list() {
-        List<MyStarListVo> myStarListVo = mMyStarService.getMyStarList();
-        return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, myStarListVo));
+    public String list(HttpServletRequest request) {
+        MyStarListVo apiData = new MyStarListVo();
+        apiData.setMemNo((String) request.getParameter("mem_no"));
+        List<MyStarListVo> list = mMyStarService.getMyStarList(apiData);
+        return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, list));
     }
-
-
-
-
 }

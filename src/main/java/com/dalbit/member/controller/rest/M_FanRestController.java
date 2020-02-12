@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,12 +29,10 @@ public class M_FanRestController {
     GsonUtil gsonUtil;
 
     @PostMapping("list")
-    public String list() {
-        List<FanListVo> fanListVo = mFanService.getFanList();
-        return gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, fanListVo));
+    public String list(HttpServletRequest request) {
+        FanListVo apiData = new FanListVo();
+        apiData.setMemNo((String) request.getParameter("mem_no"));
+        List<FanListVo> list = mFanService.getFanList(apiData);
+        return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, list));
     }
-
-
-
-
 }

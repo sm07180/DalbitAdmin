@@ -36,11 +36,13 @@ public class M_ListenRestController {
     @Autowired
     GsonUtil gsonUtil;
 
-   @PostMapping("list")
-    public String list() {
-       List<ListenListVo> listenListVo = mListenService.getListenList();
-       return gsonUtil.toJson(new JsonOutputVo(Status.청취기록보기성공, listenListVo));
-   }
+    @PostMapping("list")
+    public String listenHistory_detail(HttpServletRequest request) {
+        ListenListVo apiData = new ListenListVo();
+        apiData.setMemNo((String)request.getParameter("mem_no"));
+        List<ListenListVo> list = mListenService.getListenHistory_detail(apiData);
+        return gsonUtil.toJson(new JsonOutputVo(Status.청취기록보기성공, list));
+    }
 
    @PostMapping("listExcel")
     public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model) throws GlobalException {
@@ -76,23 +78,4 @@ public class M_ListenRestController {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
    }
-
-   @PostMapping("listenHistory_detail")
-    public String listenHistory_detail(HttpServletRequest request) {
-       ListenListVo apiData = new ListenListVo();
-       apiData.setMemNo((String)request.getParameter("mem_no"));
-       apiData.setTmp((String)request.getParameter("tmp"));
-       log.info("@@@" + (String)request.getParameter("mem_no") + (String)request.getParameter("tmp"));
-
-       List<ListenListVo> list = mListenService.getListenHistory_detail(apiData);
-       return gsonUtil.toJson(new JsonOutputVo(Status.청취기록보기성공, list));
-   }
-
-
-
-
-
-
-
-
 }

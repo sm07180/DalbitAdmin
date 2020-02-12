@@ -6,17 +6,15 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.M_MemberService;
-import com.dalbit.member.vo.MemberBroadcastHistoryListVo;
 import com.dalbit.member.vo.MemberInfoLevelListVo;
+import com.dalbit.member.vo.MemberInfoVo;
 import com.dalbit.member.vo.MemberListVo;
-import com.dalbit.member.vo.P_MemberInfoVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -113,7 +111,7 @@ public class M_MemberRestController {
 
     @PostMapping("info")
     public String info(HttpServletRequest request){
-        P_MemberInfoVo apiData = new P_MemberInfoVo();
+        MemberInfoVo apiData = new MemberInfoVo();
         apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
         apiData.setMemNo((String) request.getParameter("mem_no"));
         String result = mMemberService.callMemberInfo(apiData);

@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface M_FanDao {
 
-    List<FanListVo> getFanList();
+    List<FanListVo> callFanList(FanListVo fanListVo);
 }

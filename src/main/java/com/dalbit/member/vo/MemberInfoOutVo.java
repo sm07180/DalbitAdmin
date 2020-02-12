@@ -36,7 +36,7 @@ public class MemberInfoOutVo {
     int starCnt;
     int fanCnt;
 
-    public MemberInfoOutVo(P_MemberInfoVo target) {
+    public MemberInfoOutVo(MemberInfoVo target) {
 
         this.memNo=target.getMemNo();
         this.memId=target.getMemId();
