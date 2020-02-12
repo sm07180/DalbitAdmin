@@ -1,13 +1,9 @@
 package com.dalbit.broadcast.controller.rest;
 
 
-import com.dalbit.broadcast.service.B_BroadcastService;
-import com.dalbit.broadcast.service.B_MemberService;
-import com.dalbit.broadcast.service.B_StoryService;
+import com.dalbit.broadcast.service.B_ListenerService;
 import com.dalbit.broadcast.vo.BroadcastHistroyVo;
-import com.dalbit.broadcast.vo.BroadcastInfoVo;
-import com.dalbit.broadcast.vo.BroadcastListVo;
-import com.dalbit.broadcast.vo.BroadcastTypeListVo;
+import com.dalbit.broadcast.vo.ListenerVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.util.GsonUtil;
@@ -26,12 +22,7 @@ import java.util.List;
 public class B_ListenerRestController {
 
     @Autowired
-    B_BroadcastService bBroadcastService;
-    @Autowired
-    B_MemberService bMemberService;
-    @Autowired
-    B_StoryService bStoryService;
-
+    B_ListenerService bListenerService;
     @Autowired
     GsonUtil gsonUtil;
 
@@ -43,9 +34,9 @@ public class B_ListenerRestController {
 
     @PostMapping("list")
     public String list(HttpServletRequest request){
-        BroadcastHistroyVo apiData = new BroadcastHistroyVo();
+        ListenerVo apiData = new ListenerVo();
         apiData.setRoomNo((String) request.getParameter("roomNo"));
-        List<BroadcastHistroyVo> list = bMemberService.getBroadcastHistory_detail(apiData);
+        List<ListenerVo> list = bListenerService.getListenerHistory_detail(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
 }

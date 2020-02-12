@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.broadcast.dao.B_StoryDao" >
 
-    <select id="callStory_detail" parameterType="com.dalbit.broadcast.vo.BroadcastHistroyVo" resultType="com.dalbit.broadcast.vo.BroadcastHistroyVo">
+    <select id="callStory_detail" parameterType="com.dalbit.broadcast.vo.StoryVo" resultType="com.dalbit.broadcast.vo.StoryVo">
         /* B_Story.xml - callStory_detail */
     select a.room_no  as roomNo
             ,a.writer_no as memNo

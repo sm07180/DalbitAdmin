@@ -2,7 +2,7 @@ package com.dalbit.broadcast.service;
 
 
 import com.dalbit.broadcast.dao.B_StoryDao;
-import com.dalbit.broadcast.vo.BroadcastHistroyVo;
+import com.dalbit.broadcast.vo.StoryVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,8 @@ public class B_StoryService {
     B_StoryDao bStoryDao;
 
 
-    public List<BroadcastHistroyVo> getStoryHistory_detail(BroadcastHistroyVo broadcastHistroyVo) {
-        List<BroadcastHistroyVo> list = bStoryDao.callStory_detail(broadcastHistroyVo);
+    public List<StoryVo> getStoryHistory_detail(StoryVo storyVo) {
+        List<StoryVo> list = bStoryDao.callStory_detail(storyVo);
         return list;
     }
 

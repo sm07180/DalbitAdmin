@@ -73,25 +73,25 @@ public class B_BroadcastRestController {
         return result;
     }
 
-    /**
-     * 방송관리 청취자 정보
-     * //@param model
-     * @return
-     */
-
-    @PostMapping("broadcastHistory_detail")
-    public String broadcastHistory_detail(HttpServletRequest request){
-        BroadcastHistroyVo apiData = new BroadcastHistroyVo();
-        apiData.setRoomNo((String) request.getParameter("roomNo"));
-        apiData.setTmp((String) request.getParameter("tmp"));
-
-        List<BroadcastHistroyVo> list = null;
-        if(apiData.getTmp().equals("listener")){
-            list = bMemberService.getBroadcastHistory_detail(apiData);
-        }else if(apiData.getTmp().equals("contents")){
-            list = bStoryService.getStoryHistory_detail(apiData);
-        }
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
-    }
+//    /**
+//     * 방송관리 청취자 정보
+//     * //@param model
+//     * @return
+//     */
+//
+//    @PostMapping("broadcastHistory_detail")
+//    public String broadcastHistory_detail(HttpServletRequest request){
+//        BroadcastHistroyVo apiData = new BroadcastHistroyVo();
+//        apiData.setRoomNo((String) request.getParameter("roomNo"));
+//        apiData.setTmp((String) request.getParameter("tmp"));
+//
+//        List<BroadcastHistroyVo> list = null;
+//        if(apiData.getTmp().equals("listener")){
+//            list = bMemberService.getBroadcastHistory_detail(apiData);
+//        }else if(apiData.getTmp().equals("contents")){
+//            list = bStoryService.getStoryHistory_detail(apiData);
+//        }
+//
+//        return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
+//    }
 }

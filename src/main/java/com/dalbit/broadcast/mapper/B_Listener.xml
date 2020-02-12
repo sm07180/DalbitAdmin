@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dalbit.broadcast.dao.B_ConnectDao" >
+<mapper namespace="com.dalbit.broadcast.dao.B_ListenerDao" >
 
-
+    <select id="callListener_detail" parameterType="com.dalbit.broadcast.vo.ListenerVo" resultType="com.dalbit.broadcast.vo.ListenerVo">
+        /* B_Listener.xml - callListener_detail */
+        select a.room_no  as roomNo
+                ,a.writer_no as memNo
+                ,b.mem_id as memId
+                ,b.mem_nick as memNick
+                ,a.contents
+                ,(CASE  a.status WHEN 0 THEN '정상' ELSE '삭제됨' end) AS status
+                ,DATE_FORMAT(a.write_date,'%Y-%m-%d %H:%i:%s')     as writeDate
+          from tb_broadcast_room_story a, tb_member_basic b
+         where a.writer_no = b.mem_no
+           and a.room_no=#{roomNo}
+    </select>
 
 </mapper>
