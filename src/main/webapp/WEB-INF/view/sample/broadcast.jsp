@@ -40,13 +40,13 @@
                     </div>
 
                     <div class="col-lg-12">
-                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel" checked>기간 선택</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel">기간 선택</label>
                         <div class="input-group date col-lg-4" id="date_startSel">
-                            <input type="text" class="form-control" id="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
+                            <input type="text" class="form-control" id="txt_startSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
                         </div>
                         <label>~</label>
                         <div class="input-group date col-lg-4" id="date_endSel">
-                            <input type="text" class="form-control" id="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
+                            <input type="text" class="form-control" id="txt_endSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
                         </div>
                     </div>
                 </div>
@@ -216,7 +216,7 @@
                             <div class="col-md-9"><label id="lb_editUser">DaldalE</label></div>
                         </div>
                     </div>
-                   <div class="col-md-12 no-padding">
+                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">받은 좋아요</label>
                             <div class="col-md-9">
@@ -224,55 +224,55 @@
                                 <button type="button" id="bt_likeHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
-                       <div class="col-md-6">
-                           <label class="col-md-3">매니저</label>
-                           <div class="col-md-9">
-                               <label id="lb_menagerCnt">총0건</label>
-                               <button type="button" id="bt_menagerHistory" class="btn-xs pull-right">세부내역</button>
-                           </div>
-                       </div>
-                       <div class="col-md-6">
-                           <label class="col-md-3">받은 선물</label>
-                           <div class="col-md-9">
-                               <label id="lb_giftCnt">총0건</label>
-                               <button type="button" id="bt_giftHistory" class="btn-xs pull-right">세부내역</button>
-                           </div>
-                       </div>
-                       <div class="col-md-6">
-                           <label class="col-md-3">게스트 / 게스트 ID</label>
-                           <div class="col-md-9">
-                               <label id="lb_guestCnt">총0건</label>
-                               <button type="button" id="bt_guestHistory" class="btn-xs pull-right">세부내역</button>
-                           </div>
-                       </div>
-                       <div class="col-md-6">
-                           <label class="col-md-3">받은 사연</label>
-                           <div class="col-md-9">
-                               <label id="lb_contentsCnt">총0건</label>
-                               <button type="button" id="bt_contentsHistory" class="btn-xs pull-right">세부내역</button>
-                           </div>
-                       </div>
-                       <div class="col-md-6">
-                           <label class="col-md-3">등록 금지어</label>
-                           <div class="col-md-9">
-                               <label id="lb_banCnt">총0건</label>
-                               <button type="button" id="bt_banHistory" class="btn-xs pull-right">세부내역</button>
-                           </div>
-                       </div>
-                       <div class="col-md-6">
-                           <label class="col-md-3">청취자</label>
-                           <div class="col-md-9">
-                               <label id="lb_listenerCnt">총0건</label>
-                               <button type="button" id="bt_listenerHistory" class="btn-xs pull-right">세부내역</button>
-                           </div>
-                       </div>
-                       <div class="col-md-6">
-                           <label class="col-md-3">강제퇴장회원</label>
-                           <div class="col-md-9">
-                               <label id="lb_forceKickCnt">총0건</label>
-                               <button type="button" id="bt_forceKickHistory" class="btn-xs pull-right">세부내역</button>
-                           </div>
-                       </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">매니저</label>
+                            <div class="col-md-9">
+                                <label id="lb_menagerCnt">총0건</label>
+                                <button type="button" id="bt_menagerHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">받은 선물</label>
+                            <div class="col-md-9">
+                                <label id="lb_giftCnt">총0건</label>
+                                <button type="button" id="bt_giftHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">게스트 / 게스트 ID</label>
+                            <div class="col-md-9">
+                                <label id="lb_guestCnt">총0건</label>
+                                <button type="button" id="bt_guestHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">받은 사연</label>
+                            <div class="col-md-9">
+                                <label id="lb_contentsCnt">총0건</label>
+                                <button type="button" id="bt_contentsHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">등록 금지어</label>
+                            <div class="col-md-9">
+                                <label id="lb_banCnt">총0건</label>
+                                <button type="button" id="bt_banHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">청취자</label>
+                            <div class="col-md-9">
+                                <label id="lb_listenerCnt">총0건</label>
+                                <button type="button" id="bt_listenerHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">강제퇴장회원</label>
+                            <div class="col-md-9">
+                                <label id="lb_forceKickCnt">총0건</label>
+                                <button type="button" id="bt_forceKickHistory" class="btn-xs pull-right">세부내역</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -303,31 +303,6 @@
 <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
-
-<!-- jQuery -->
-<script src="/template/js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/template/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/template/js/metisMenu.min.js"></script>
-
-<!-- DataTables JavaScript -->
-<script src="/template/js/dataTables/jquery.dataTables.min.js"></script>
-<script src="/template/js/dataTables/dataTables.bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/template/js/startmin.js"></script>
-<script src="/js/lib/handlebars-v4.7.2.js"></script>
-<script src="/js/common.js"></script>
-
-<!-- Datepicker -->
-<link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css">
-<script type='text/javascript' src="/js/lib/bootstrap-datepicker.min.js"></script>
-<script src="/js/lib/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-
 <script>
     $(document).ready(function() {
         var roomNo;
@@ -347,7 +322,7 @@
 
         $('#date_radio').change(function() {
             if($('input[name="radio_date"]:checked').val() == "all"){               // 전체
-                                                                                    //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
+                //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
             }else if($('input[name="radio_date"]:checked').val() == "week"){        //1주일
                 $('#txt_startSel').val(moment().add(-7,'d').format("YYYY-MM-DD"));
                 $('#txt_endSel').val(moment().format("YYYY-MM-DD"));
@@ -399,24 +374,31 @@
         $('#bt_imgChg').click(function() {					//   사진변경
         });
         $('#bt_editDate').click(function() {				//   최근정보수정일시
+            getHistoryDetail("editDate","정보수정일시","회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.");
         });
         $('#bt_likeHistory').click(function() {			//   받은 좋아요
+            getHistoryDetail("likeHistory","받은 좋아요 정보","방송 중인 방송방에서 좋아요를 보낸 회원과 보낸수, 부스터 사용 수 를 확인할 수 있습니다.");
         });
         $('#bt_menagerHistory').click(function() {				//   매니저
+            getHistoryDetail("menagerHistory","","");
         });
         $('#bt_giftHistory').click(function() {				//   받은선물
+            getHistoryDetail("giftHistory","선물 정보","방송 중 방송방 내에서 보내고 받은 선물 내역을 확인할 수 있습니다.");
         });
         $('#bt_guestHistory').click(function() {				//   게스트
+            getHistoryDetail("guestHistory","","");
         });
         $('#bt_contentsHistory').click(function() {			//   받은사연
-            getHistoryDetail("contents");
+            getHistoryDetail("contentsHistory","사연내역","방송 중 방송방 내에서 누적된 사연정보를 확인 관리 할 수 있습니다.");
         });
         $('#bt_banHistory').click(function() {					//   등록금지어
+            getHistoryDetail("banHistory","","");
         });
         $('#bt_listenerHistory').click(function() {			//   청취자
-            getHistoryDetail("listener");
+            getHistoryDetail("listenerHistory","","");
         });
         $('#bt_forceKickHistory').click(function() {			//   강제퇴장회원
+            getHistoryDetail("forceKickHistory","","");
         });
         <!-- 버튼 끝 -->
     });
@@ -439,6 +421,7 @@
         obj.type = "subject_type";
         obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
         obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
+        obj.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
 
         getAjaxData("broadcastList", "/rest/broadcast/broadcast/list", obj, fn_success, fn_fail);
 
@@ -606,7 +589,7 @@
 
 <script id="subject_type_Select" type="text/x-handlebars-template">
     {{#data}}
-        <option value="{{value}}">{{code}}</option>
+    <option value="{{value}}">{{code}}</option>
     {{/data}}
 </script>
 <script id="tmp_list_top_column" type="text/x-handlebars-template">
