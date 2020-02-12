@@ -49,7 +49,7 @@
 
         $('#list').DataTable({
             retrieve : true,
-            paging : false,
+            paging : true,
             searching : true,
         });
 

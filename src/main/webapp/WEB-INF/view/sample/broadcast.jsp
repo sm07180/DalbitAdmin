@@ -551,7 +551,7 @@
         $("#tableTop_detail").append(html);
         $('#list_info_detail').DataTable({
             retrieve: true,
-            paging: false,
+            paging: true,
             searching: true,
         });
 
@@ -577,7 +577,7 @@
         $("#tableBody_detail").append(html);
         $('#list_info_detail').DataTable({
             retrieve: true,
-            paging: false,
+            paging: true,
             searching: true,
         });
     }
