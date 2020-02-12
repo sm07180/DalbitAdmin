@@ -59,98 +59,98 @@
                     </li>
 
                     <li>
-                        <a href="/broadcast/member/list"><i class="fa fa-briefcase"></i><span class="text">청취자/매니저/강퇴자 관리</span></a>
+                        <a href="/broadcast/member/list"><i class="fa fa-users"></i><span class="text">청취자/매니저/강퇴자 관리</span></a>
                     </li>
                     <li>
                         <a href="/broadcast/fan/list"><i class="fa fa-briefcase"></i><span class="text">팬랭킹관리</span></a>
                     </li>
                     <li>
-                        <a href="/broadcast/story/list"><i class="fa fa-briefcase"></i><span class="text">사연내역</span></a>
+                        <a href="/broadcast/story/list"><i class="fa fa-envelope-o"></i><span class="text">사연내역</span></a>
                     </li>
                     <li>
-                        <a href="/broadcast/chat/list"><i class="fa fa-briefcase"></i><span class="text">채팅내역</span></a>
+                        <a href="/broadcast/chat/list"><i class="fa fa-comment-o"></i><span class="text">채팅내역</span></a>
                     </li>
                     <li>
-                        <a href="/broadcast/like/list"><i class="fa fa-briefcase"></i><span class="text">받은 좋아요</span></a>
+                        <a href="/broadcast/like/list"><i class="fa fa-thumbs-o-up"></i><span class="text">받은 좋아요</span></a>
                     </li>
                     <li>
-                        <a href="/broadcast/ban/list"><i class="fa fa-briefcase"></i><span class="text">금지어등록정보</span></a>
+                        <a href="/broadcast/ban/list"><i class="fa fa-ban"></i><span class="text">금지어등록정보</span></a>
                     </li>
                     <li>
-                        <a href="/broadcast/connect/list"><i class="fa fa-briefcase"></i><span class="text">방송 접속 환경</span></a>
+                        <a href="/broadcast/connect/list"><i class="fa fa-plug"></i><span class="text">방송 접속 환경</span></a>
                     </li>
                 </c:if>
 
                 <c:if test="${fn:startsWith(url, '/administrate/')}">
                     <li class="active">
-                        <a href="/administrate/recommend/list"><i class="fa fa-briefcase"></i><span class="text">추천 DJ/인기DJ</span></a>
+                        <a href="/administrate/recommend/list"><i class="fa fa-user"></i><span class="text">추천 DJ/인기DJ</span></a>
                     </li>
 
                     <li>
-                        <a href="/administrate/star/list"><i class="fa fa-briefcase"></i><span class="text">DJ랭킹/Fan랭킹</span></a>
+                        <a href="/administrate/star/list"><i class="fa fa-list-ol"></i><span class="text">DJ랭킹/Fan랭킹</span></a>
                     </li>
 
-                    <li><a href="#" class="js-sub-menu-toggle"><i class="fa fa-file"></i><span class="text">실시간 Live</span>
-                        <i class="toggle-icon fa fa-angle-left"></i></a>
-                        <ul class="sub-menu ">
-                            <li><a href="/administrate/live/recommend/list"><span class="text">추천DJ</span></a></li>
+                    <li class="active"><a href="#" class="js-sub-menu-toggle"><i class="fa fa-microphone"></i><span class="text">실시간 Live</span>
+                        <i class="toggle-icon fa fa-angle-down"></i></a>
+                        <ul class="sub-menu open">
+                            <li><a href="/administrate/live/recommend/list"><i class="fa fa-star"></i><span class="text">추천DJ</span></a></li>
                         </ul>
-                        <ul class="sub-menu ">
-                            <li><a href="/administrate/live/pop/list"><span class="text">인기DJ</span></a></li>
+                        <ul class="sub-menu open">
+                            <li><a href="/administrate/live/pop/list"><i class="fa fa-fire"></i><span class="text">인기DJ</span></a></li>
                         </ul>
-                        <ul class="sub-menu ">
-                            <li><a href="/administrate/live/new/list"><span class="text">신입DJ</span></a></li>
+                        <ul class="sub-menu open">
+                            <li><a href="/administrate/live/new/list"><i class="fa fa-plus-square-o"></i><span class="text">신입DJ</span></a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="/administrate/cast/list"><i class="fa fa-briefcase"></i><span class="text">인기캐스트</span></a>
+                        <a href="/administrate/cast/list"><i class="fa fa-fire"></i><span class="text">인기캐스트</span></a>
                     </li>
                     <li>
-                        <a href="/administrate/banner/list"><i class="fa fa-briefcase"></i><span class="text">이벤트/배너</span></a>
+                        <a href="/administrate/banner/list"><i class="fa fa-flag"></i><span class="text">이벤트/배너</span></a>
                     </li>
                     <li>
-                        <a href="/administrate/broadcast/list"><i class="fa fa-briefcase"></i><span class="text">프로필/방송방 배경</span></a>
+                        <a href="/administrate/broadcast/list"><i class="fa fa-picture-o"></i><span class="text">프로필/방송방 배경</span></a>
                     </li>
                     <li>
-                        <a href="/administrate/broadcast/list"><i class="fa fa-briefcase"></i><span class="text">시스템 메시지</span></a>
+                        <a href="/administrate/broadcast/list"><i class="fa fa-comment-o"></i><span class="text">시스템 메시지</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">스플래시 메시지</span></a>
+                        <a href="page-projects.html"><i class="fa fa-comment"></i><span class="text">스플래시 메시지</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">사이트 금지어 관리</span></a>
+                        <a href="page-projects.html"><i class="fa fa-ban"></i><span class="text">사이트 금지어 관리</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">방송주제 관리</span></a>
+                        <a href="page-projects.html"><i class="fa fa-headphones"></i><span class="text">방송주제 관리</span></a>
                     </li>
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">미션</span></a>
+                        <a href="page-projects.html"><i class="fa fa-maxcdn"></i><span class="text">미션</span></a>
                     </li>
                 </c:if>
 
                 <c:if test="${fn:startsWith(url, '/customer/')}">
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">사이트 공지</span></a>
+                        <a href="page-projects.html"><i class="fa fa-bell-o"></i><span class="text">사이트 공지</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">결제 환불/환전 처리</span></a>
+                        <a href="page-projects.html"><i class="fa fa-krw"></i><span class="text">결제 환불/환전 처리</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">신고</span></a>
+                        <a href="page-projects.html"><i class="fa fa-dot-circle-o"></i><span class="text">신고</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">1:1문의/전화문의</span></a>
+                        <a href="page-projects.html"><i class="fa fa-phone"></i><span class="text">1:1문의/전화문의</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">제휴 메일</span></a>
+                        <a href="page-projects.html"><i class="fa fa-envelope-o"></i><span class="text">제휴 메일</span></a>
                     </li>
 
                     <li>
-                        <a href="page-projects.html"><i class="fa fa-briefcase"></i><span class="text">FAQ</span></a>
+                        <a href="page-projects.html"><i class="fa fa-question"></i><span class="text">FAQ</span></a>
                     </li>
                 </c:if>
             </ul>
