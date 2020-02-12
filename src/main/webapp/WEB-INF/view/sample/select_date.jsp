@@ -26,7 +26,7 @@
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;" >
                 <div class="col-lg-6 p_10" style="background: #f8efc0">
                     <div class="col-lg-12" >
-                        <label style="font-weight: bold">공지등록 기간</label>
+                        <label style="font-weight: bold">회원가입/탈퇴기간</label>
                     </div>
                     <div class="col-lg-12">
                         <form id="date_radio">
@@ -38,13 +38,13 @@
                     </div>
 
                     <div class="col-lg-12">
-                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel" checked>기간 선택</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel">기간 선택</label>
                         <div class="input-group date col-lg-4" id="date_startSel">
-                            <input type="text" class="form-control" id="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
+                            <input type="text" class="form-control " id="txt_startSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
                         </div>
                         <label>~</label>
                         <div class="input-group date col-lg-4" id="date_endSel">
-                            <input type="text" class="form-control" id="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
+                            <input type="text" class="form-control" id="txt_endSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,6 @@
                                 <th>가입플랫폼</th>
                                 <th>접속상태</th>
                                 <th>생방상태</th>
-                                <th>자세히보기</th>
                             </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -178,21 +177,14 @@
                     </div>
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">UserID</label>
-                            <div class="col-md-3"><label id="lb_userId">DaldalE</label></div>
-                            <label class="col-md-2">닉네임</label>
-                            <div class="col-md-4"><input type="text" class="form-control" id="txt_nickName" value="다달이"></div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">이름</label>
-                            <div class="col-md-9"><input type="text" class="form-control" id="txt_name" value="양달님"></div>
-                            <label class="col-md-3">생년월일</label>
-                            <div class="col-md-9">
-                                <div class="col-md-12 input-group date" id="date_birth">
-                                    <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <div class="col-md-12 no-padding">
+                                <label class="col-md-3">UserID</label>
+                                <div class="col-md-9"><label id="lb_userId"></label></div>
+                            </div>
+                            <div class="col-md-12 no-padding">
+                                <label class="col-md-3">연락처</label>
+                                <div class="col-md-9">
+                                    <input type="text" class="form-control col-md-12" id="txt_phon" value="010-1111-2222">
                                 </div>
                             </div>
                         </div>
@@ -202,6 +194,42 @@
                             <div class="col-md-9">
                                 <div>달빛 : 2020.03.02 15:40:21</div>
                                 <div>페이스북 : 2020.03.12 09:40:40</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%--<label class="col-md-3">이름</label>--%>
+                    <%--<div class="col-md-9"><input type="text" class="form-control" id="txt_name"></div>--%>
+
+
+                    <div class="col-md-12 no-padding">
+                        <div class="col-md-6">
+                            <label class="col-md-3">닉네임</label>
+                            <div class="col-md-6"><input type="text" class="form-control" id="txt_nickName"></div>
+                            <div class="col-md-3">
+                                <button type="button" id="bt_resatNick" class="btn-xs pull-right">닉네임 초기화</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">회원가입일시</label>
+                            <div class="col-md-9">
+                                <label id="lb_joinDate">2020.02.03 09:27:30</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <div class="col-md-6">
+                            <label class="col-md-3">생년월일</label>
+                                <div class="col-md-9">
+                                <div class="col-md-12 input-group date" id="date_birth">
+                                    <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-3">회원탈퇴일시</label>
+                            <div class="col-md-9">
+                                <label id="lb_cancelMb">2020.02.03 09:27:30</label>
                             </div>
                         </div>
                     </div>
@@ -219,52 +247,18 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">회원가입일시</label>
-                            <div class="col-md-9">
-                                <label id="lb_joinDate">2020.02.03 09:27:30</label>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">연락처</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control col-md-12" id="txt_phon" value="010-1111-2222">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="col-md-3">회원탈퇴일시</label>
-                            <div class="col-md-9">
-                                <label id="lb_cancelMb">2020.02.03 09:27:30</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">이메일</label>
-                            <div class="col-md-9">
-                                <input type="text" class="form-control col-md-9" id="txt_eMail" value="dabit00@gmail.com">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
                             <label class="col-md-3">최근 정보 수정일시</label>
                             <div class="col-md-9">
                                 <label id="lb_editDate">2020.02.03 09:27:30</label>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">비밀번호</label>
-                            <div class="col-md-9">
-                                <div class="col-md-9">
-                                    <input type="password" class="form-control" id="txt_pass" value="1234">
-                                </div>
-                                <div class="col-md-3 no-padding">
-                                    <button type="button" id="bt_resatPass" class="btn-xs pull-right">비밀번호 초기화</button>
-                                </div>
-                            </div>
+                            <div class="col-md-6"><input type="password" class="form-control" id="txt_pass" value="1234"></div>
+                            <div class="col-md-3"><button type="button" id="bt_resatPass" class="btn-xs pull-right">비밀번호 초기화</button></div>
                         </div>
                         <div class="col-md-6">
                             <label class="col-md-3">최근 정보 수정 처리자</label>
@@ -279,13 +273,16 @@
                             <div class="col-md-9">
                                 <label id="lb_broadCnt">총0건</label>
                                 <button type="button" id="bt_broadHistory" class="btn-xs pull-right">세부내역</button>
+                                <%--<a class="btn btn-xs pull-right" id="bt_broadHistory" data-toggle="collapse" href="#detail" role="button" aria-expanded="false" aria-controls="detail">--%>
+                                    <%--세부내역--%>
+                                <%--</a>--%>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3 control-label">MyStar</label>
+                            <label class="col-md-3">MyStar</label>
                             <div class="col-md-9">
                                 <label id="lb_myStarCnt">총0건</label>
-                                <button type="button" id="bt_registmyStarList" class="btn-xs pull-right">세부내역</button>
+                                <button type="button" id="bt_registMyStarList" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                     </div>
@@ -298,7 +295,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3 control-label">Fan</label>
+                            <label class="col-md-3">Fan</label>
                             <div class="col-md-9">
                                 <label id="lb_myFanCnt">총0건</label>
                                 <button type="button" id="bt_registMyFanlist" class="btn-xs pull-right">세부내역</button>
@@ -387,34 +384,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
-                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 세부내역 </label>
-                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
-                </div>
-                <!-- DATA TABLE -->
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table">
-                        <div class="widget-content">
-                            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                                <thead id="tableTop_detail">
-                                <%--<tr>--%>
-                                    <%--<th>방송주제</th>--%>
-                                    <%--<th>방송제목</th>--%>
-                                    <%--<th>방송시작시간</th>--%>
-                                    <%--<th>방송종료시간</th>--%>
-                                    <%--<th>방송진행시간</th>--%>
-                                    <%--<th>종료시 평균 청취자 수</th>--%>
-                                    <%--<th>받은 좋아요 수</th>--%>
-                                    <%--<th>받은 아이템 수</th>--%>
-                                <%--</tr>--%>
-                                </thead>
-                                <tbody id="tableBody_detail">
-
-                                </tbody>
-                            </table>
-                            <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                            </span>
+                <div class="row col-lg-12 form-inline" id="detail">
+                    <div class="row col-lg-12 form-inline" style="padding-top: 2px;">
+                        <label class="text_center text_middle" id="detail_label" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 110px;height: 27px"> 세부내역 </label>
+                        <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px"></label>
+                        <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+                    </div>
+                    <!-- DATA TABLE -->
+                    <div class="row col-lg-12 form-inline">
+                        <div class="widget widget-table">
+                            <div class="widget-content">
+                                <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                                    <thead id="tableTop_detail">
+                                    </thead>
+                                    <tbody id="tableBody_detail">
+                                    </tbody>
+                                </table>
+                                <span>
+                                    <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -431,6 +420,7 @@
         // getUserInfo();
         getLevelData();
         getGradeData();
+        $('#detail').hide();
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -463,15 +453,15 @@
 
         $('#check_dateSel').click(function () {       //기간 선택
             if ($('input[id="check_dateSel"]:checked').val() == "on") {
-                $('#txt_startSel').attr('disabled', false);
-                $('#txt_endSel').attr('disabled', false);
-                $('#i_startSel').attr('disabled', false);
-                $('#i_endSel').attr('disabled', false);
+                $('#txt_startSel').attr("disabled", false);
+                $('#txt_endSel').attr("disabled", false);
+                $('#i_startSel').prop("disable", false);
+                $('#i_endSel').prop("disabled", false);
             } else {
-                $('#txt_startSel').attr('disabled', true);
-                $('#txt_endSel').attr('disabled', true);
-                $('#i_startSel').attr('disabled', true);
-                $('#i_endSel').attr('disabled', true);
+                $('#txt_startSel').attr("disabled", true);
+                $('#txt_endSel').attr("disabled", true);
+                $('#i_startSel').prop("disabled", true);
+                $('#i_endSel').prop("disabled", true);
             }
         });
 
@@ -502,28 +492,40 @@
         $('#bt_resatPass').click(function() {				//   비밀번호초기화
         });
         $('#bt_broadHistory').click(function() {		    //   방송기록세부내역
-            getHistoryDetail("broadHistory");
+            getHistoryDetail("broadHistory","방송기록","ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.");
         });
         $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
-            getHistoryDetail("listenHistory");
+            getHistoryDetail("listenHistory","청취기록","ㆍ회원이 방송을 청취한 과거기록을 확인할 수 있습니다.");
         });
         $('#bt_payHistory').click(function() {			    //   결제/환불정보
+            getHistoryDetail("payHistory","결제/환불정보","ㆍ회원의 결제정보를확인하고 결제 취소처리를 할 수 있습니다.");
         });
         $('#bt_giftHistory').click(function() {			//   교환/선물정보
+            getHistoryDetail("giftHistory","교환/선물정보","ㆍ회원이 달에서 별로 교환한 정보를 확인하고, 보내고 받은 선물 내역을 확인할 수 있습니다.ㆍ이벤트 당첨선물로 제공되어 처리된 사안일 경우 처리직원ID로 표기됩니다.");
         });
-        $('#bt_exchangeHistory').click(function() {	    //   개인환불정보
+        $('#bt_exchangeHistory').click(function() {	    //   환전정보
+            getHistoryDetail("exchangeHistory","개인환불정보","ㆍ회원의 과거에서 현재까지의 환전 내역을 모두 확인하고, 증빙서류를 확인한 후 즉시 처리할 수 있습니다.");
+        });
+        $('#bt_platform').click(function() {				//   접속플랫폼
+            getHistoryDetail("platformHistory","1:1 문의 정보","ㆍ회원의 가입일로부터의 접속 기록을 확인할 수 있습니다.");
         });
         $('#bt_registMyStarList').click(function() {	    //   mystart
+            getHistoryDetail("myStarHistory","MyStar 정보","ㆍMyStar 회원 리스트를 확인하고 등록/삭제 할 수 있습니다.");
         });
-        $('#bt_registFanMylist').click(function() {		//   fan
+        $('#bt_registMyFanlist').click(function() {		//   fan
+            getHistoryDetail("myFanHistory","Fan 정보","ㆍFan으로 등록한 회원들의 리스트를 확인하고 등록/삭제 할 수 있습니다.");
         });
         $('#bt_myNotice').click(function() {				//   개인공지
+            getHistoryDetail("myNoticeHistory","개인공지(팬보드)","ㆍ회원의 팬보드 내 연동된 공지정보를 확인하고, 관리할 수 있습니다.");
         });
         $('#bt_broadNotice').click(function() {			//   방송중공지
+            getHistoryDetail("broadNoticeHistory","방송 중 공지","ㆍ회원의 방송중 업로드 된 공지정보를 확인하고, 관리할 수 있습니다.");
         });
         $('#bt_registDeclar').click(function() {		    //   내가신고한정보
+            getHistoryDetail("declarHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
         });
         $('#bt_resPonse').click(function() {				//   1:1문의정보
+            getHistoryDetail("responseHistory","1:1 문의 정보","ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.");
         });
     });
 
@@ -538,11 +540,12 @@
         getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
     }
     function getUserInfo(){                 // 검색
-        $("#list_info tr:not(:first)").remove();
+        $("#tableBody").empty();
         var obj = new Object();
-        obj.search = $('#txt_search').val();                   // 검색명
+        obj.search = $('#txt_search').val();                        // 검색명
         obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
         obj.gubun = $("select[name='selectGubun']").val();          // 검색 조건
+        obj.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
         obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
         obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
 
@@ -599,11 +602,14 @@
         $("#lb_listenCnt").html("총" + response.data.listeningCnt + "건");
         $("#lb_joinDate").html(response.data.mem_join_date);
         $("#lb_editDate").html(response.data.last_upd_date);
-        $("#lb_meStarCnt").html("총" + response.data.starCnt + "건");
-        $("#lb_meFanCnt").html("총" + response.data.fanCnt + "건");
+        $("#lb_myStarCnt").html("총" + response.data.starCnt + "건");
+        $("#lb_myFanCnt").html("총" + response.data.fanCnt + "건");
         // console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         //$("txt_birth#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
+
+        $("#tableTop_detail").empty();
+        $("#tableBody_detail").empty();
     }
 
     function getMemNo_info(id){
@@ -611,12 +617,19 @@
         obj.mem_no = id;
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
-    function getHistoryDetail(tmp){     // 상세보기
+    function getHistoryDetail(tmp,tmp2,tmp3){     // 상세보기
         $("#tableTop_detail").empty();
-        table_col_set(tmp);
+        table_col_set(tmp,tmp2,tmp3);
     }
 
-    function table_col_set(id){
+    function table_col_set(id,title,comments){
+        if($("#lb_userId").text() == null || $("#lb_userId").text() == ""){
+            alert("확인 대상 선택 해주십시오");
+            return;
+        }
+        $('#detail').show();
+        $("#detail_label").html(title);
+        $("#detail_comments").html(comments);
         if(id == "broadHistory"){
             var data = {
                 header: [
@@ -644,6 +657,139 @@
                     { columnNm : "청취 DJ 닉네임"}
                 ]
             }
+        }else if(id == "payHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "구분"},
+                    {columnNm: "아이템사용유무"},
+                    {columnNm: "아이템명"},
+                    {columnNm: "환불건수"},
+                    {columnNm: "환불 수단"},
+                    {columnNm: "요청 금액"},
+                    {columnNm: "환불 일시"},
+                    {columnNm: "처리 일시"},
+                    {columnNm: "처리 상태"},
+                    {columnNm: "처리자ID"},
+                ]
+            }
+        }else if(id == "giftHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "구분"},
+                    {columnNm: "아이템명"},
+                    {columnNm: "보낸/받은/교환 건 수"},
+                    {columnNm: "교환/선물 금액"},
+                    {columnNm: "교환/선물 일시"},
+                    {columnNm: "User ID"},
+                    {columnNm: "User 닉네임"},
+                    {columnNm: "처리자 ID"},
+                ]
+            }
+        }else if(id == "bt_exchangeHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "보유 골드 수 "},
+                    {columnNm: "환전 요청 건 수"},
+                    {columnNm: "환전 요청금액"},
+                    {columnNm: "환전 신청일"},
+                    {columnNm: "환전 처리일"},
+                    {columnNm: "증빙서류 확인"},
+                    {columnNm: "본인 확인"},
+                    {columnNm: "환전상태"},
+                    {columnNm: "처리자ID"},
+                ]
+            }
+        }else if(id == "platformHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "접속 일시"},
+                    {columnNm: "OS환경"},
+                    {columnNm: "App Ver"},
+                    {columnNm: "Browser"},
+                    {columnNm: "Device"},
+                    {columnNm: "Mobile Device ID"},
+                    {columnNm: "Mobile AD ID"},
+                    {columnNm: "IP주소"},
+                ]
+            }
+        }else if(id == "myStarHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "MyStar ID"},
+                    {columnNm: "MyStar 닉네임"},
+                    {columnNm: "보낸 건 수"},
+                    {columnNm: "보낸 개 수"},
+                    {columnNm: "등록 일시"},
+                    {columnNm: "해제 일시"},
+                ]
+            }
+        }else if(id == "myFanHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "Fan ID"},
+                    {columnNm: "Fan 닉네임"},
+                    {columnNm: "보낸 건 수"},
+                    {columnNm: "보낸 개 수"},
+                    {columnNm: "등록 일시"},
+                    {columnNm: "해제 일시"},
+                ]
+            }
+        }else if(id == "myNoticeHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "구분"},
+                    {columnNm: "방송제목"},
+                    {columnNm: "공지내용"},
+                    {columnNm: "등록일시"},
+                ]
+            }
+        }else if(id == "broadNoticeHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "구분"},
+                    {columnNm: "방송제목"},
+                    {columnNm: "공지내용"},
+                    {columnNm: "등록일시"},
+                ]
+            }
+        }else if(id == "declarHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "플랫폼구분"},
+                    {columnNm: "문의구분"},
+                    {columnNm: "신고UserId"},
+                    {columnNm: "신고대상UserID"},
+                    {columnNm: "신고내용"},
+                    {columnNm: "접수일시"},
+                    {columnNm: "처리일시"},
+                    {columnNm: "처리상태"},
+                    {columnNm: "처리자"},
+                ]
+            }
+        }else if(id == "responseHistory") {
+            var data = {
+                header: [
+                    {columnNm: "NO"},
+                    {columnNm: "플랫폼구분"},
+                    {columnNm: "문의구분"},
+                    {columnNm: "신고UserID"},
+                    {columnNm: "신고대상UserID"},
+                    {columnNm: "신고 내용"},
+                    {columnNm: "접수일시/처리일시"},
+                    {columnNm: "첨부파일"},
+                    {columnNm: "처리상태"},
+                    {columnNm: "처리자"},
+                ]
+            }
         }
 
         var template = $('#tmp_list_top_column').html();
@@ -656,7 +802,6 @@
             paging: true,
             searching: true,
         });
-
         $("#tableBody_detail").empty();
         var obj = new Object();
         obj.mem_no = memNo;
@@ -758,7 +903,7 @@
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{NO}}</td>
+        <td>{{index @index}}</td>
         <td>{{memNo}}</td>
         <td><a href="javascript://" onclick="javascript:getMemNo_info(this.id);" id="{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
@@ -767,9 +912,6 @@
         <td>{{memSlct}}</td>
         <td>{{Login_out}}</td>
         <td>{{Live}}</td>
-        <%--<td>--%>
-            <%--<button type="button" class="btn btn-indigo btn-sm m-0">자세히보기</button>--%>
-        <%--</td>--%>
     </tr>
     {{/data}}
 </script>
@@ -794,7 +936,7 @@
 <script id="broadhistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>NO</td>
+        <td>{{index @index}}</td>
         <td>{{subject_type}}</td>
         <td>{{title}}</td>
         <td>{{start_date}}</td>
@@ -809,7 +951,7 @@
 <script id="listenhistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>NO</td>
+        <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
         <td>{{title}}</td>
         <td>{{startDate}}</td>

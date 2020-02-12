@@ -10,6 +10,15 @@ public class MemberListVo extends BaseVo {
 
     /* member/member/list 를 위한 Vo */
 
+    /* input */
+    private String search;
+    private String date;
+    private String gubun;
+    private String checkDate;
+    private String stDate;
+    private String edDate;
+
+    /* output */
     private String memId;
     private String memNo;
     private String memNick;
@@ -17,10 +26,5 @@ public class MemberListVo extends BaseVo {
     private String memPhone;
     private String memSlct;
 
-    private String search;
-    private String date;
-    private String gubun;
-    private String stDate;
-    private String edDate;
 
 }

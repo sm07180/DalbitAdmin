@@ -44,10 +44,12 @@ public class M_MemberRestController {
         apiData.setSearch(request.getParameter("search"));
         apiData.setDate(request.getParameter("date"));
         apiData.setGubun(request.getParameter("gubun"));
-        apiData.setStDate(request.getParameter("stDate"));
-        apiData.setEdDate(request.getParameter("edDate"));
-        List<MemberListVo> list = mMemberService.getMemberList(apiData);
+        apiData.setCheckDate(request.getParameter("checkDate"));
+        apiData.setStDate(request.getParameter("stDate").replace("-",""));
+        apiData.setEdDate(request.getParameter("edDate").replace("-",""));
 
+        log.info("checkDate @@@ > " + request.getParameter("checkDate"));
+        List<MemberListVo> list = mMemberService.getMemberList(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
 
