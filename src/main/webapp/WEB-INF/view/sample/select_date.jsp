@@ -15,9 +15,7 @@
         padding-left: 10px;
         padding-right: 10px;
     }
-
 </style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -192,8 +190,10 @@
                             <label class="col-md-3">이름</label>
                             <div class="col-md-9"><input type="text" class="form-control" id="txt_name" value="양달님"></div>
                             <label class="col-md-3">생년월일</label>
-                            <div class="col-md-9 input-group date " id="date_birth">
-                                <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <div class="col-md-9">
+                                <div class="col-md-12 input-group date" id="date_birth">
+                                    <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
                             </div>
                         </div>
 
@@ -261,7 +261,7 @@
                                 <div class="col-md-9">
                                     <input type="password" class="form-control" id="txt_pass" value="1234">
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 no-padding">
                                     <button type="button" id="bt_resatPass" class="btn-xs pull-right">비밀번호 초기화</button>
                                 </div>
                             </div>
@@ -281,19 +281,11 @@
                                 <button type="button" id="bt_broadHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-6">
                             <label class="col-md-3 control-label">MyStar</label>
-                        </div>
-                        <div class="col-md-5">
-                            <label class="col-md-6">내가 등록한 Mystar</label>
-                            <div class="col-md-6">
-                                <label class="col-md-6" id="lb_myStarCnt">총0건</label>
+                            <div class="col-md-9">
+                                <label id="lb_myStarCnt">총0건</label>
                                 <button type="button" id="bt_registmyStarList" class="btn-xs pull-right">세부내역</button>
-                            </div>
-                            <label class="col-md-6">나를 Mystar로 등록한 회원</label>
-                            <div class="col-md-6">
-                                <label class="col-md-6" id="lb_meStarCnt">총0건</label>
-                                <button type="button" id="bt_registMeStarList" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                     </div>
@@ -305,19 +297,11 @@
                                 <button type="button" id="bt_listenHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-6">
                             <label class="col-md-3 control-label">Fan</label>
-                        </div>
-                        <div class="col-md-5">
-                            <label class="col-md-6">내가 등록한 Fan</label>
-                            <div class="col-md-6">
-                                <label class="col-md-6" id="lb_myFanCnt">총0건</label>
+                            <div class="col-md-9">
+                                <label id="lb_myFanCnt">총0건</label>
                                 <button type="button" id="bt_registMyFanlist" class="btn-xs pull-right">세부내역</button>
-                            </div>
-                            <label class="col-md-6">나를 등록한 Fan</label>
-                            <div class="col-md-6">
-                                <label class="col-md-6" id="lb_meFanCnt">총0건</label>
-                                <button type="button" id="bt_registMeFanlist" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                     </div>
@@ -325,10 +309,10 @@
                         <div>
                             <div class="col-md-6">
                                 <div class="col-md-12 no-padding">
-                                    <div class="col-md-3">개인결제 정보</div>
-                                    <div class="col-md-9 no-padding">
+                                    <div class="col-md-2">개인결제 정보</div>
+                                    <div class="col-md-10 no-padding">
                                         <div class="col-md-12">
-                                            <div class="col-md-3">결제</div>
+                                            <div class="col-md-3">결제/환불</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
                                                     <label id="lb_payCnt">총0건</label>
@@ -336,19 +320,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-12">
-                                            <div class="col-md-3">환불</div>
-                                            <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_refundCnt">총0건</label>
-                                                    <button type="button" id="bt_refundHistory" class="btn-xs pull-right">세부내역</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">선물</div>
+                                            <div class="col-md-3">교환/선물</div>
                                             <div class="col-md-9 no-padding">
                                                 <div>
                                                     <label id="lb_giftCnt">총0건</label>
@@ -356,7 +329,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-12">
                                             <div class="col-md-3">환전</div>
                                             <div class="col-md-9 no-padding">
@@ -368,10 +340,9 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="col-md-6">접속 플랫폼</div>
-                                    <div class="col-md-6 no-padding">
+                                <div class="col-md-12no-padding">
+                                    <div class="col-md-3">최근 접속 플랫폼</div>
+                                    <div class="col-md-9">
                                         <label id="lb_platform">Mobile(Android)</label>
                                         <button type="button" id="bt_platform" class="btn-xs pull-right">세부내역</button>
                                     </div>
@@ -381,24 +352,20 @@
                             <div class="col-md-6">
                                 <div>
                                     <div class="col-md-2">공지</div>
-                                    <div class="col-md-10">
-                                        <div class="col-md-12">
+                                    <div class="col-md-10 no-padding">
+                                        <div class="col-md-12 no-padding">
                                             <div class="col-md-3">개인공지</div>
-                                            <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_noticeCnt">총0건</label>
-                                                    <button type="button" id="bt_myNotice" class="btn-xs pull-right">세부내역</button>
-                                                </div>
+                                            <div class="col-md-9">
+                                                <label id="lb_noticeCnt">총0건</label>
+                                                <button type="button" id="bt_myNotice" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 no-padding">
                                             <div class="col-md-3">방송중공지</div>
-                                            <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_broadNoticeCnt">총0건</label>
-                                                    <button type="button" id="bt_broadNotice" class="btn-xs pull-right">세부내역</button>
-                                                </div>
+                                            <div class="col-md-9">
+                                                <label id="lb_broadNoticeCnt">총0건</label>
+                                                <button type="button" id="bt_broadNotice" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
                                     </div>
@@ -406,34 +373,12 @@
 
                                 <div>
                                     <div class="col-md-2">신고/문의</div>
-                                    <div class="col-md-10">
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">내가 신고한 정보</div>
-                                            <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_myDeclarCnt">총0건</label>
-                                                    <button type="button" id="bt_registMyDeclar" class="btn-xs pull-right">세부내역</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">나를 신고한 정보</div>
-                                            <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_meDeclarCnt">총0건</label>
-                                                    <button type="button" id="bt_registMeDeclar" class="btn-xs pull-right">세부내역</button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="col-md-3">1:1 문의정보</div>
-                                            <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_resPonseCnt">총0건</label>
-                                                    <button type="button" id="bt_resPonse" class="btn-xs pull-right">세부내역</button>
-                                                </div>
+                                    <div class="col-md-10 no-padding">
+                                        <div class="col-md-12 no-padding">
+                                            <div class="col-md-3">내가/나를 신고한 정보</div>
+                                            <div class="col-md-9">
+                                                <label id="lb_myDeclarCnt">총0건</label>
+                                                <button type="button" id="bt_registDeclar" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
                                     </div>
@@ -480,105 +425,12 @@
 <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
-
-<!-- jQuery -->
-<script src="/template/js/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="/template/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="/template/js/metisMenu.min.js"></script>
-
-<!-- DataTables JavaScript -->
-<script src="/template/js/dataTables/jquery.dataTables.min.js"></script>
-<script src="/template/js/dataTables/dataTables.bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="/template/js/startmin.js"></script>
-<script src="/js/lib/handlebars-v4.7.2.js"></script>
-<script src="/js/common.js"></script>
-
-
-<!-- Datepicker -->
-<link rel="stylesheet" href="/css/bootstrap-datepicker3.min.css">
-<script type='text/javascript' src="/js/lib/bootstrap-datepicker.min.js"></script>
-<script src="/js/lib/bootstrap-datepicker.kr.js" charset="UTF-8"></script>
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-
-
-<%-- bt_edite                         // 수정하기--%>
-
-<%-- img_profileImg					// 프로필 이미지--%>
-<%-- lb_userId						// 사용자 ID--%>
-<%-- txt_nickName						// 닉네임--%>
-<%-- txt_name							// 이름--%>
-<%-- lb_age							// 나이--%>
-<%-- radio_male						// 남--%>
-<%-- radio_female						// 여--%>
-<%-- txt_phon							// 핸드폰번호--%>
-<%-- txt_eMail						// 이메일--%>
-<%-- txt_pass							// 비밀번호--%>
-<%-- lb_broadCnt						// 방송 기록 수--%>
-<%-- lb_listenCnt						// 청취자 기록 수--%>
-<%-- lb_payCnt						// 결재 건 수--%>
-<%-- lb_refundCnt						// 환불 정보 수--%>
-<%-- lb_giftCnt						// 선물 수--%>
-<%-- lb_exchangeCnt					// 환전 수--%>
-
-<%-- lb_platform						// 가입 플랫폼--%>
-<%-- lb_joinDate						// 회원 가입 일시--%>
-<%-- lb_cancelMb						// 회원 탈퇴 일시--%>
-<%-- lb_editDate						// 최근정보 수정 일--%>
-<%-- lb_editUser						// 최근정보 수정 처리자--%>
-<%-- lb_myStarCnt						// 내가 등록한 mystar 수--%>
-<%-- lb_meStarList					// 나를 mystart등록한 수--%>
-<%-- lb_myFan							// 내가 등록한 fan--%>
-<%-- lb_meFan							// 나를 등록한 fan 수--%>
-<%-- lb_noticeCnt						// 개인공지 수--%>
-<%-- lb_broadNoticeCnt				// 방송중 공지 수--%>
-<%-- lb_myDeclarCnt					// 내가 신고한 수--%>
-<%-- lb_meDeclarCnt					// 나를 신고한 수--%>
-<%-- lb_resPonseCnt					// 1:1 문의 정보--%>
-
-<%-- cob_userLevel					// 회원레벨--%>
-<%-- cob_djLevel						// DC등급--%>
-<%-- cob_lisLevel						// 청취자등급--%>
-<%-- radio_login						// 로그인--%>
-<%-- radio_lgout						// 로그아웃--%>
-<%-- radio_liveOn						// 생방중--%>
-<%-- radio_liveOff					// 생방아님--%>
-<%-- radio_lisOn						// 청취중--%>
-<%-- radio_lisOn						// 청취 아님--%>
-
-<%-- bt_imgChg						// 사진변경--%>
-<%-- bt_resatPass						// 비밀번호초기화--%>
-<%-- bt_broadHistory					// 방송 기록 세부내역--%>
-<%-- bt_listenHistory  			    // 청취 기록 세부내역--%>
-<%-- bt_payHistory					// 개인 결제 정보--%>
-<%-- bt_refundHistory				    // 개인 환불 정보--%>
-<%-- bt_giftHistory					// 개인 선물 정보--%>
-<%-- bt_exchangeHistory			    // 개인 환불 정보--%>
-<%-- bt_registMyStarList			    // 내가 등록한 mystart--%>
-<%-- bt_registMeStarList			    // 나를 mystart로 등록한 회원--%>
-<%-- bt_registFanMylist			    // 내가 등록한 fan--%>
-<%-- bt_registMeFanlist			    // 나를 fan 으로 등록한 회원--%>
-<%-- bt_myNotice						// 개인 공지--%>
-<%-- bt_broadNotice					// 방송 중 공지--%>
-<%-- bt_registMyDeclar				// 내가 신고한 정보--%>
-<%-- bt_registMeDeclar				// 나를 신고한 정보--%>
-<%-- bt_resPonse						// 1:1 문의 정보--%>
-
 <script>
     $(document).ready(function() {
-        //getAjaxData("memberList", "/rest/member/member/list", "", fn_success, fn_fail);
+        var memNo;
         // getUserInfo();
         getLevelData();
         getGradeData();
-
-        var memNo;
-
-
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -643,7 +495,6 @@
             getUserInfo();
         });
 
-
         $('#bt_edite').click( function() {                //    수정하기
         });
         $('#bt_imgChg').click(function() {					//   사진변경
@@ -656,49 +507,25 @@
         $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
             getHistoryDetail("listenHistory");
         });
-        $('#bt_payHistory').click(function() {			    //   개인결제정보
+        $('#bt_payHistory').click(function() {			    //   결제/환불정보
         });
-        $('#bt_refundHistory').click(function() {		    //   개인환불정보
-        });
-        $('#bt_giftHistory').click(function() {			//   개인선물정보
+        $('#bt_giftHistory').click(function() {			//   교환/선물정보
         });
         $('#bt_exchangeHistory').click(function() {	    //   개인환불정보
         });
-        $('#bt_registMyStarList').click(function() {	    //   내가등록한mystart
+        $('#bt_registMyStarList').click(function() {	    //   mystart
         });
-        $('#bt_registMeStarList').click(function() {	    //   나를mystart로등록한회원
-        });
-        $('#bt_registFanMylist').click(function() {		//   내가등록한fan
-        });
-        $('#bt_registMeFanlist').click(function() {		//   나를fan으로등록한회원
+        $('#bt_registFanMylist').click(function() {		//   fan
         });
         $('#bt_myNotice').click(function() {				//   개인공지
         });
         $('#bt_broadNotice').click(function() {			//   방송중공지
         });
-        $('#bt_registMyDeclar').click(function() {		    //   내가신고한정보
-        });
-        $('#bt_registMeDeclar').click(function() {		    //   나를신고한정보
+        $('#bt_registDeclar').click(function() {		    //   내가신고한정보
         });
         $('#bt_resPonse').click(function() {				//   1:1문의정보
         });
-    // $(document).on('click', '#list_info tbody tr', function(){
-    //     var tr = $(this); // 현재 클릭된 row
-    //     var td = tr.children();
-    //     // var tdArray = new Array(); // 배열선언
-    //     // td.each(function(i){
-    //     //     tdArray.push(td.eq(i).text());
-    //     // });
-    //     // console.log("배열에 담은 값 : " + tdArray);
-    //     // 특정 셀 값 알아내기
-    //     var mem_no = td.eq(1).text();
-    //     var obj = new Object();
-    //     obj.mem_no = mem_no;
-    //
-    //     getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
-    // });
     });
-
 
     function getLevelData(){
         var obj = new Object();
@@ -710,7 +537,6 @@
         obj.level = "grade";
         getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
     }
-
     function getUserInfo(){                 // 검색
         $("#list_info tr:not(:first)").remove();
         var obj = new Object();
@@ -721,7 +547,6 @@
         obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
 
         getAjaxData("memberList", "/rest/member/member/list", obj, fn_success, fn_fail);
-
     }
 
     function fn_success(dst_id, response){
@@ -742,7 +567,6 @@
     }
     function fn_code_list_success(dst_id, response){
         // dalbitLog(response);
-
         if(response.data[0].gubun == "level"){
             var template = $('#level_select').html();
             var templateScript = Handlebars.compile(template);
@@ -754,7 +578,6 @@
             var templateScript = Handlebars.compile(template);
             var context = response;
             var html = templateScript(context);
-
             $("#cob_djLevel").append(html);
         }
     }
@@ -764,7 +587,6 @@
 
         memNo = response.data.memNo;
         $("#lb_userId").html(response.data.memId);
-        // $("#lb_userId").html(response.data.memId);
         $("#txt_nickName").val(response.data.memNick);
         $("#txt_name").val(response.data.memName);
         $("#lb_age").html(response.data.age + "세");
@@ -782,23 +604,13 @@
         // console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         //$("txt_birth#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
-
-        // $("#").val(response.data.profileImage);
-
-        // if(response.data.gender == "m"){
-        //     $("#radio_male").prop("checked", true).change();
-        // }else{
-        //     $("#radio_female").prop("checked", true).change();
-        // }
     }
 
     function getMemNo_info(id){
         var obj = new Object();
         obj.mem_no = id;
-
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
-
     function getHistoryDetail(tmp){     // 상세보기
         $("#tableTop_detail").empty();
         table_col_set(tmp);
@@ -838,9 +650,7 @@
         var templateScript = Handlebars.compile(template);
         var context = data;
         var html = templateScript(context);
-
         $("#tableTop_detail").append(html);
-
         $('#list_info_detail').DataTable({
             retrieve: true,
             paging: true,
@@ -848,7 +658,6 @@
         });
 
         $("#tableBody_detail").empty();
-
         var obj = new Object();
         obj.mem_no = memNo;
         obj.tmp = id;
@@ -857,7 +666,6 @@
         } else if(id == "listenHistory") {
             getAjaxData(id, "/rest/member/listen/listenHistory_detail", obj, fn_success_detail, fn_fail);
         }
-
     }
 
     function fn_success_detail(dst_id, response) {
@@ -885,14 +693,12 @@
         console.log(data, textStatus, jqXHR);
     }
 
-
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         /*formData.append("search", "test001");
         formData.append("test003", "test003");*/
-
         excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 
@@ -961,9 +767,9 @@
         <td>{{memSlct}}</td>
         <td>{{Login_out}}</td>
         <td>{{Live}}</td>
-        <td>
-            <button type="button" class="btn btn-indigo btn-sm m-0">자세히보기</button>
-        </td>
+        <%--<td>--%>
+            <%--<button type="button" class="btn btn-indigo btn-sm m-0">자세히보기</button>--%>
+        <%--</td>--%>
     </tr>
     {{/data}}
 </script>
@@ -977,7 +783,6 @@
     <option value="{{grade}}">{{grade}}</option>
     {{/data}}
 </script>
-
 <script id="tmp_list_top_column" type="text/x-handlebars-template">
     <tr>
     {{#header}}
@@ -985,7 +790,6 @@
     {{/header}}
     </tr>
 </script>
-
 
 <script id="broadhistory_detail" type="text/x-handlebars-template">
     {{#data}}
@@ -1002,7 +806,6 @@
     </tr>
     {{/data}}
 </script>
-
 <script id="listenhistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
