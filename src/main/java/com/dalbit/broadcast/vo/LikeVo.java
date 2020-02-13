@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StoryVo {
+public class LikeVo {
 
     /*  intput  */
     private String roomNo;
@@ -14,8 +14,9 @@ public class StoryVo {
     private String memNo;
     private String memId;
     private String memNick;
-    private String status;
-    private String writeDate;
-    private String story;
+    private String lastUpdDate;
+    private int goodCnt;
+    private int boostCnt;
+    private int boostTime;
 
 }

@@ -35,6 +35,7 @@ public class MemberInfoOutVo {
     int listeningCnt;
     int starCnt;
     int fanCnt;
+    int noticeCnt;
 
     public MemberInfoOutVo(MemberInfoVo target) {
 
@@ -63,6 +64,7 @@ public class MemberInfoOutVo {
         this.listeningCnt=target.getListeningCnt();
         this.starCnt=target.getStarCnt();
         this.fanCnt=target.getFanCnt();
+        this.noticeCnt=target.getNoticeCnt();
 
     }
 }

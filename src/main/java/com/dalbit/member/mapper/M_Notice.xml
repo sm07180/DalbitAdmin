@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.member.dao.M_NoticeDao" >
+    <select id="callMyNoticeList" parameterType="com.dalbit.member.vo.NoticeListVo" resultType="com.dalbit.member.vo.NoticeListVo" >
+        select '개인 공지' as type
+                , title
+                , notice
+                , last_upd_date as lastUpdDate
+          from tb_broadcast_room
+         where CHAR_LENGTH(notice) > 1
+           and mem_no = #{memNo}
+    </select>
 
-
+    <select id="callBroadNoticeList" parameterType="com.dalbit.member.vo.NoticeListVo" resultType="com.dalbit.member.vo.NoticeListVo" >
+        select '방송중 공지' as type
+                , title
+                , notice
+                , last_upd_date as lastUpdDate
+          from tb_broadcast_room
+         where CHAR_LENGTH(notice) > 1
+           and mem_no = #{memNo}
+    </select>
 
 </mapper>

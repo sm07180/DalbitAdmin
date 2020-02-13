@@ -197,11 +197,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <%--<label class="col-md-3">이름</label>--%>
-                    <%--<div class="col-md-9"><input type="text" class="form-control" id="txt_name"></div>--%>
-
-
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">닉네임</label>
@@ -374,8 +369,8 @@
                                         <div class="col-md-12 no-padding">
                                             <div class="col-md-3">내가/나를 신고한 정보</div>
                                             <div class="col-md-9">
-                                                <label id="lb_myDeclarCnt">총0건</label>
-                                                <button type="button" id="bt_registDeclar" class="btn-xs pull-right">세부내역</button>
+                                                <label id="lb_myReportedCnt">총0건</label>
+                                                <button type="button" id="bt_registReported" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
                                     </div>
@@ -523,8 +518,8 @@
         $('#bt_broadNotice').click(function() {			//   방송중공지
             getHistoryDetail("broadNoticeHistory","방송 중 공지","ㆍ회원의 방송중 업로드 된 공지정보를 확인하고, 관리할 수 있습니다.");
         });
-        $('#bt_registDeclar').click(function() {		    //   내가신고한정보
-            getHistoryDetail("declarHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
+        $('#bt_registReported').click(function() {		    //   내가신고한정보
+            getHistoryDetail("reportedHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
         });
         $('#bt_resPonse').click(function() {				//   1:1문의정보
             getHistoryDetail("responseHistory","1:1 문의 정보","ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.");
@@ -603,6 +598,7 @@
         $("#lb_editDate").html(response.data.last_upd_date);
         $("#lb_myStarCnt").html("총" + response.data.starCnt + "건");
         $("#lb_myFanCnt").html("총" + response.data.fanCnt + "건");
+        $("#lb_broadNoticeCnt").html("총" + response.data.noticeCnt + "건");
         // console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         //$("txt_birth#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
@@ -630,8 +626,7 @@
         $("#detail_label").html(title);
         $("#detail_comments").html(comments);
         if(id == "broadHistory"){
-            var data = {
-                header: [
+            var data = {header: [
                     { columnNm : "NO"},
                     { columnNm : "방송주제"},
                     { columnNm : "방송제목"},
@@ -641,11 +636,9 @@
                     { columnNm : "종료시 평균 청취자 수"},
                     { columnNm : "받은 좋아요 수"},
                     { columnNm : "받은 아이템 수"}
-                ]
-            };
+                ]};
         }else if(id == "listenHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     { columnNm : "NO"},
                     { columnNm : "청취방주제"},
                     { columnNm : "청취 방송제목"},
@@ -654,11 +647,9 @@
                     { columnNm : "청취진행시간"},
                     { columnNm : "받은 루비 개수"},
                     { columnNm : "청취 DJ 닉네임"}
-                ]
-            }
+                ]};
         }else if(id == "payHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "구분"},
                     {columnNm: "아이템사용유무"},
@@ -670,11 +661,9 @@
                     {columnNm: "처리 일시"},
                     {columnNm: "처리 상태"},
                     {columnNm: "처리자ID"},
-                ]
-            }
+                ]};
         }else if(id == "giftHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "구분"},
                     {columnNm: "아이템명"},
@@ -684,11 +673,9 @@
                     {columnNm: "User ID"},
                     {columnNm: "User 닉네임"},
                     {columnNm: "처리자 ID"},
-                ]
-            }
+                ]};
         }else if(id == "bt_exchangeHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "보유 골드 수 "},
                     {columnNm: "환전 요청 건 수"},
@@ -699,11 +686,9 @@
                     {columnNm: "본인 확인"},
                     {columnNm: "환전상태"},
                     {columnNm: "처리자ID"},
-                ]
-            }
+                ]}
         }else if(id == "platformHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "접속 일시"},
                     {columnNm: "OS환경"},
@@ -713,11 +698,9 @@
                     {columnNm: "Mobile Device ID"},
                     {columnNm: "Mobile AD ID"},
                     {columnNm: "IP주소"},
-                ]
-            }
+                ]};
         }else if(id == "myStarHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "MyStar ID"},
                     {columnNm: "MyStar 닉네임"},
@@ -725,11 +708,9 @@
                     {columnNm: "보낸 개 수"},
                     {columnNm: "등록 일시"},
                     {columnNm: "해제 일시"},
-                ]
-            }
+                ]};
         }else if(id == "myFanHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "Fan ID"},
                     {columnNm: "Fan 닉네임"},
@@ -737,31 +718,25 @@
                     {columnNm: "보낸 개 수"},
                     {columnNm: "등록 일시"},
                     {columnNm: "해제 일시"},
-                ]
-            }
+                ]}
         }else if(id == "myNoticeHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "구분"},
                     {columnNm: "방송제목"},
                     {columnNm: "공지내용"},
                     {columnNm: "등록일시"},
-                ]
-            }
+                ]};
         }else if(id == "broadNoticeHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "구분"},
                     {columnNm: "방송제목"},
                     {columnNm: "공지내용"},
                     {columnNm: "등록일시"},
-                ]
-            }
-        }else if(id == "declarHistory") {
-            var data = {
-                header: [
+                ]};
+        }else if(id == "reportedHistory") {
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "플랫폼구분"},
                     {columnNm: "문의구분"},
@@ -772,11 +747,9 @@
                     {columnNm: "처리일시"},
                     {columnNm: "처리상태"},
                     {columnNm: "처리자"},
-                ]
-            }
+                ]};
         }else if(id == "responseHistory") {
-            var data = {
-                header: [
+            var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "플랫폼구분"},
                     {columnNm: "문의구분"},
@@ -787,8 +760,7 @@
                     {columnNm: "첨부파일"},
                     {columnNm: "처리상태"},
                     {columnNm: "처리자"},
-                ]
-            }
+                ]};
         }
 
         var template = $('#tmp_list_top_column').html();
@@ -810,6 +782,22 @@
             getAjaxData(id, "/rest/member/myStar/list", obj, fn_success_detail, fn_fail);
         } else if(id == "myFanHistory") {
             getAjaxData(id, "/rest/member/fan/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "payHistory") {
+            getAjaxData(id, "/rest/member/pay/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "giftHistory") {
+            getAjaxData(id, "/rest/member/gift/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "exchangeHistory") {
+            getAjaxData(id, "/rest/member/exchange/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "platformHistory") {            x
+            getAjaxData(id, "/rest/member/platform/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "myNoticeHistory") {
+            getAjaxData(id, "/rest/member/notice/mylist", obj, fn_success_detail, fn_fail);
+        } else if(id == "broadNoticeHistory") {
+            getAjaxData(id, "/rest/member/notice/broadelist", obj, fn_success_detail, fn_fail);
+        } else if(id == "reportedHistory") {
+            getAjaxData(id, "/rest/member/reported/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "responseHistory") {
+            getAjaxData(id, "/rest/member/response/list", obj, fn_success_detail, fn_fail);
         }
     }
 
@@ -824,6 +812,22 @@
             template = $('#myStarHistory_detail').html();
         } else if(dst_id == "myFanHistory") {
             template = $('#myFanHistory_detail').html();
+        } else if(dst_id == "payHistory") {
+            template = $('#payHistory_detail').html();
+        } else if(dst_id == "giftHistory") {
+            template = $('#giftHistory_detail').html();
+        } else if(dst_id == "exchangeHistory") {
+            template = $('#exchangeHistory_detail').html();
+        } else if(dst_id == "platformHistory") {
+            template = $('#platformHistory_detail').html();
+        } else if(dst_id == "myNoticeHistory") {
+            template = $('#myNoticeHistory_detail').html();
+        } else if(dst_id == "broadNoticeHistory") {
+            template = $('#broadNoticeHistory_detail').html();
+        } else if(dst_id == "reportedHistory") {
+            template = $('#reportedHistory_detail').html();
+        } else if(dst_id == "responseHistory") {
+            template = $('#responseHistory_detail').html();
         }
         var templateScript = Handlebars.compile(template);
         var context = response;
@@ -985,6 +989,17 @@
         <td>{{tmp2}}</td>
         <td>{{regDate}}</td>
         <td>{{tmp3}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="broadNoticeHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{index @index}}</td>
+        <td>{{type}}</td>
+        <td>{{title}}</td>
+        <td>{{notice}}</td>
+        <td>{{lastUpdDate}}</td>
     </tr>
     {{/data}}
 </script>

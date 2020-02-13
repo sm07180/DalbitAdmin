@@ -90,14 +90,13 @@
                             </span>
                             <thead>
                             <tr>
-                                <%--<th>방번호</th>--%>
+                                <th>방번호</th>
                                 <th>DJ ID</th>
                                 <th>DJ 닉네임</th>
                                 <th>방송주제</th>
                                 <th>방송제목</th>
                                 <th>방송시작 일시</th>
                                 <th>생방상태</th>
-                                <th>자세히보기</th>
                             </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -183,9 +182,11 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">방송진행시간</label>
+                            <label class="col-md-3">방송 진행시간</label>
                             <div class="col-md-9"><label id="lb_time">2:30:40</label></div>
                         </div>
+                    </div>
+                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">얼리기</label>
                             <div class="col-md-9">
@@ -200,6 +201,8 @@
                                 <button type="button" id="bt_editDate" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">방송강제종료</label>
                             <div class="col-md-9">
@@ -211,6 +214,8 @@
                             <label class="col-md-3">최근 정보 수정 처리자</label>
                             <div class="col-md-9"><label id="lb_editUser">DaldalE</label></div>
                         </div>
+                    </div>
+                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">받은 좋아요</label>
                             <div class="col-md-9">
@@ -225,6 +230,8 @@
                                 <button type="button" id="bt_menagerHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">받은 선물</label>
                             <div class="col-md-9">
@@ -239,11 +246,13 @@
                                 <button type="button" id="bt_guestHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">받은 사연</label>
                             <div class="col-md-9">
-                                <label id="lb_contentsCnt">총0건</label>
-                                <button type="button" id="bt_contentsHistory" class="btn-xs pull-right">세부내역</button>
+                                <label id="lb_storyCnt">총0건</label>
+                                <button type="button" id="bt_storyHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -253,6 +262,7 @@
                                 <button type="button" id="bt_banHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
+                    </div>
                         <div class="col-md-6">
                             <label class="col-md-3">청취자</label>
                             <div class="col-md-9">
@@ -267,6 +277,8 @@
                                 <button type="button" id="bt_forceKickHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
+                </div>
+                <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">방송 플랫폼</label>
                             <div class="col-md-9">
@@ -399,8 +411,8 @@
         $('#bt_guestHistory').click(function() {				//   게스트
             getHistoryDetail("guestHistory","게스트 정보","ㆍ방송 중 게스트 변동사항 및 관리를 할 수 있습니다.");
         });
-        $('#bt_contentsHistory').click(function() {			//   받은사연
-            getHistoryDetail("contentsHistory","사연내역","ㆍ방송 중 방송방 내에서 누적된 사연정보를 확인 관리 할 수 있습니다.");
+        $('#bt_storyHistory').click(function() {			//   받은사연
+            getHistoryDetail("storyHistory","사연내역","ㆍ방송 중 방송방 내에서 누적된 사연정보를 확인 관리 할 수 있습니다.");
         });
         $('#bt_banHistory').click(function() {					//   등록금지어
             getHistoryDetail("banHistory","금지어 등록 정보","ㆍ운영자와 회원이 직접 100개까지 등록 할 수 있고 관리자가 수정 삭제할 수 있습니다.");
@@ -419,18 +431,14 @@
         });
         <!-- 버튼 끝 -->
     });
-
-
     function getSubject_type_Data(){
         var obj = new Object();
         obj.type = "subject_type";
         getAjaxData("type", "/rest/broadcast/broadcast/type",obj, fn_code_list_success, fn_fail);
     }
-
     function getRoomInfo(){                 // 검색
         $("#list_info tr:not(:first)").remove();
         var obj = new Object();
-
         obj.search = $('#txt_search').val();                        // 검색명
         obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
         obj.gubun = $("select[name='selectGubun']").val();          // 검색 조건
@@ -439,22 +447,16 @@
         obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
         obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
         obj.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
-
         getAjaxData("broadcastList", "/rest/broadcast/broadcast/list", obj, fn_success, fn_fail);
-
     }
-
     function fn_success(dst_id, response){
         dalbitLog(response);
-
         var template = $('#tmp_list').html();
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
-
         $("#tableBody").append(html);
-
-        $('#list').DataTable({
+        $('#list_info').DataTable({
             retrieve: true,
             paging: true,
             searching: true,
@@ -477,7 +479,6 @@
             $("#selectSubject_type_detail").append(html);
         }
     }
-
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         roomNo = response.data.roomNo;
@@ -496,7 +497,7 @@
         $("#lb_menagerCnt").html("총"+response.data.menagerCnt+"건");
         $("#lb_giftCnt").html("총"+response.data.giftCnt+"건");
         $("#lb_guestCnt").html("총"+response.data.guestCnt+"건");
-        $("#lb_contentsCnt").html("총"+response.data.contentsCnt+"건");
+        $("#lb_storyCnt").html("총"+response.data.contentsCnt+"건");
         $("#lb_banCnt").html("총"+response.data.banCnt+"건");
         $("#lb_listenerCnt").html("총"+response.data.listenCnt+"건");
         $("#lb_forceKickCnt").html("총"+response.data.forceKickCnt+"건");
@@ -505,16 +506,13 @@
         $('input:radio[name=radio_freezing]:input[value=' + response.data.freezing + ']').prop("checked", true);
         //$("#backgroundImg").		backgroundImage
         //$("#radio_forcedExit").	forceExit
-
     }
-
     function getDetail(id){
         var obj = new Object();
         obj.roomNo = id;
         console.log("roomNo : " + id);
         getAjaxData("info", "/rest/broadcast/broadcast/info", obj, info_sel_success, fn_fail);
     }
-
     function getHistoryDetail(tmp,tmp2,tmp3){     // 상세보기
         $("#tableTop_detail").empty();
         table_col_set(tmp,tmp2,tmp3);
@@ -527,7 +525,6 @@
         $('#detail').show();
         $("#detail_label").html(title);
         $("#detail_comments").html(comments);
-
         if (id == "listenerHistory") {
             var data = {header: [
                     {columnNm: "No"},
@@ -539,7 +536,7 @@
                     {columnNm: "임명 취소 일시"},
                     {columnNm: "매니저 임명상태"}
                 ]};
-        } else if (id == "contentsHistory") {
+        } else if (id == "storyHistory") {
             var data = {header: [
                     {columnNm: "No"},
                     {columnNm: "사연 보낸 청취자 닉네임"},
@@ -637,15 +634,13 @@
             paging: true,
             searching: true,
         });
-
         $("#tableBody_detail").empty();
         var obj = new Object();
         obj.roomNo = roomNo;
-
         if (id == "listenerHistory") {
             getAjaxData(id, "/rest/broadcast/listen/list", obj, fn_success_detail, fn_fail);
-        }else if (id == "contentsHistory") {
-            getAjaxData(id, "/rest/broadcast/contents/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "storyHistory") {
+            getAjaxData(id, "/rest/broadcast/story/list", obj, fn_success_detail, fn_fail);
         }else if (id == "editDate") {
             getAjaxData(id, "/rest/broadcast/edithistory/list", obj, fn_success_detail, fn_fail);
         }else if (id == "likeHistory") {
@@ -663,16 +658,30 @@
         }else if (id == "platformHistory") {
             getAjaxData(id, "/rest/broadcast/platform/list", obj, fn_success_detail, fn_fail);
         }
-
     }
-
     function fn_success_detail(dst_id, response) {
         dalbitLog(response);
         var template;
         if(dst_id == "listenerHistory"){
-            template = $('#listener_detail').html();
-        }else if(dst_id == "contentsHistory"){
-            template = $('#contents_detail').html();
+            template = $('#listenerHistory_detail').html();
+        }else if(dst_id == "storyHistory"){
+            template = $('#storyHistory_detail').html();
+        }else if (dst_id == "editDate") {
+            template = $('#editDate_detail').html();
+        }else if (dst_id == "likeHistory") {
+            template = $('#likeHistory_detail').html();
+        }else if (dst_id == "menagerHistory") {
+            template = $('#menagerHistory_detail').html();
+        }else if (dst_id == "giftHistory") {
+            template = $('#giftHistory_detail').html();
+        }else if (dst_id == "guestHistory") {
+            template = $('#guestHistory_detail').html();
+        }else if (dst_id == "banHistory") {
+            template = $('#banHistory_detail').html();
+        }else if (dst_id == "forceKickHistory") {
+            template = $('#forceKickHistory_detail').html();
+        }else if (dst_id == "platformHistory") {
+            template = $('#platformHistory_detail').html();
         }
         var templateScript = Handlebars.compile(template);
         var context = response;
@@ -684,25 +693,20 @@
             searching: true,
         });
     }
-
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
 </script>
-
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <%--<td>{{roomNo}}</td>--%>
+        <td>{{roomNo}}</td>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{type}}</td>
         <td><a href="avascript://" onclick="javascript:getDetail(this.id);" id="{{roomNo}}">{{title}}</a></td>
         <td>{{start_date}}</td>
         <td>{{Live}}</td>
-        <td>
-            <button type="button" class="btn btn-indigo btn-sm m-0">자세히보기</button>
-        </td>
     </tr>
     {{/data}}
 </script>
@@ -719,30 +723,41 @@
         {{/header}}
     </tr>
 </script>
-<script id="listener_detail" type="text/x-handlebars-template">
+<script id="listenerHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{No}}</td>
+        <td>{{index @index}}</td>
         <td>{{auth}}</td>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{listenStDate}}</td>
         <td>{{menagerStDate}}</td>
         <td>{{menagerEdDate}}</td>
-        <td>
-            <button type="button" class="btn btn-indigo btn-sm m-0">{{menager}}</button>
-        </td>
+        <td><a a href="avascript://" class="btn btn-xs" id="bt_listenerHistory_detail" aria-expanded="false" >{{menager}}</a></td>
     </tr>
     {{/data}}
 </script>
-<script id="contents_detail" type="text/x-handlebars-template">
+<script id="storyHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{No}}</td>
+        <td>{{index @index}}</td>
         <td>{{memNick}}</td>
-        <td>{{memNo}}</td>
-        <td>{{storyDate}}</td>
-        <td>{{contents}}</td>
+        <td>{{memId}}</td>
+        <td>{{writeDate}}</td>
+        <td>{{story}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="likeHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{index @index}}</td>
+        <td>{{memId}}</td>
+        <td>{{memNick}}</td>
+        <td>{{lastUpdDate}}</td>
+        <td>{{goodCnt}}</td>
+        <td>{{boostCnt}}</td>
+        <td>{{boostTime}}</td>
     </tr>
     {{/data}}
 </script>

@@ -16,23 +16,19 @@ import java.util.HashMap;
 
 @Slf4j
 @RestController
-@RequestMapping("rest/member/pay")
-public class M_PayRestController {
+@RequestMapping("rest/member/platform")
+public class M_PlatformRestController {
 
     @Autowired
     M_PayService mPayService;
 
     @Autowired
     GsonUtil gsonUtil;
-
-
     /**
      * 회원리스트
      * //@param model
      * @return
      */
-
-
 
     @PostMapping("list")
     public String list(Model model){

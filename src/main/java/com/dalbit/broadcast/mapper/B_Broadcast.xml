@@ -26,9 +26,9 @@
                 ,b.mem_sex      AS memSex
                 ,b.mem_id       AS memId
           FROM tb_broadcast_room a, tb_member_basic b
-         WHERE state != 4
-           AND a.mem_no = b.mem_no
-          <if test='value != "9999"'>
+         WHERE a.mem_no = b.mem_no
+--            AND state != 4
+        <if test='value != "9999"'>
             AND a.subject_type = #{value}
           </if>
           <if test='search != null and search != ""'>

@@ -31,5 +31,6 @@ public class MemberInfoVo {
     private int listeningCnt;
     private int starCnt;
     private int fanCnt;
+    private int noticeCnt;
 
 }

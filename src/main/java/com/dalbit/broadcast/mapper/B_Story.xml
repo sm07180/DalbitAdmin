@@ -4,15 +4,15 @@
 
     <select id="callStory_detail" parameterType="com.dalbit.broadcast.vo.StoryVo" resultType="com.dalbit.broadcast.vo.StoryVo">
         /* B_Story.xml - callStory_detail */
-    select a.room_no  as roomNo
-            ,a.writer_no as memNo
-            ,b.mem_id as memId
-            ,b.mem_nick as memNick
-            ,a.contents
-            ,(CASE  a.status WHEN 0 THEN '정상' ELSE '삭제됨' end) AS status
-            ,DATE_FORMAT(a.write_date,'%Y-%m-%d %H:%i:%s')     as writeDate
-      from tb_broadcast_room_story a, tb_member_basic b
-     where a.writer_no = b.mem_no
-       and a.room_no=#{roomNo}
+        select a.room_no  as roomNo
+                ,a.writer_no as memNo
+                ,b.mem_id as memId
+                ,b.mem_nick as memNick
+                ,a.contents as story
+                ,(CASE  a.status WHEN 0 THEN '정상' ELSE '삭제됨' end) AS status
+                ,DATE_FORMAT(a.write_date,'%Y-%m-%d %H:%i:%s')     as writeDate
+          from tb_broadcast_room_story a, tb_member_basic b
+         where a.writer_no = b.mem_no
+           and a.room_no=#{roomNo}
     </select>
 </mapper>
