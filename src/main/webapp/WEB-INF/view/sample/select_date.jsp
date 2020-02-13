@@ -674,7 +674,7 @@
                     {columnNm: "User 닉네임"},
                     {columnNm: "처리자 ID"},
                 ]};
-        }else if(id == "bt_exchangeHistory") {
+        }else if(id == "exchangeHistory") {
             var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "보유 골드 수 "},
