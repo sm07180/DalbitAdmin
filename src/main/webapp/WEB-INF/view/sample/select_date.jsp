@@ -416,6 +416,8 @@
 <!-- /#wrapper -->
 <script>
     $(document).ready(function() {
+        $('#list_info').DataTable();
+
         var memNo;
         // getUserInfo();
         getLevelData();
@@ -540,6 +542,7 @@
         getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
     }
     function getUserInfo(){                 // 검색
+        $('#list_info').DataTable().destroy();
         $("#tableBody").empty();
         var obj = new Object();
         obj.search = $('#txt_search').val();                        // 검색명
@@ -562,11 +565,7 @@
 
         $("#tableBody").append(html);
 
-        $('#list_info').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
+        $('#list_info').DataTable().draw();
     }
     function fn_code_list_success(dst_id, response){
         // dalbitLog(response);
@@ -797,11 +796,9 @@
         var context = data;
         var html = templateScript(context);
         $("#tableTop_detail").append(html);
-        $('#list_info_detail').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
+
+
+        $('#list_info_detail').DataTable().destroy();
         $("#tableBody_detail").empty();
         var obj = new Object();
         obj.mem_no = memNo;
@@ -833,16 +830,12 @@
         var html = templateScript(context);
 
         $("#tableBody_detail").append(html);
-
-        $('#list_info_detail').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
+        $('#list_info_detail').DataTable().draw();
     }
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
+        $('#list_info_detail').DataTable().draw();
     }
 
     /*=============엑셀==================*/
