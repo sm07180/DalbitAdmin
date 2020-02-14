@@ -164,6 +164,9 @@
                                 <form id="live_radio">
                                     <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option1" checked="true">생방중</label>
                                     <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option2">방송OFF</label>
+                                <%--<div class="col-md-3">--%>
+                                    <button type="button" id="bt_liveSms" class="btn-sm pull-right">메시지발송</button>
+                                <%--</div>--%>
                                 </form>
                             </div>
                             <label class="col-md-4">청취상태</label>
@@ -171,6 +174,7 @@
                                 <form id="listen_radio">
                                     <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option1" checked="true">청취중</label>
                                     <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option2">청취OFF</label>
+                                    <button type="button" id="bt_listenSms" class="btn-sm pull-right">메시지발송</button>
                                 </form>
                             </div>
                         </div>
@@ -183,8 +187,9 @@
                             </div>
                             <div class="col-md-12 no-padding">
                                 <label class="col-md-4">연락처</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control col-md-12" id="txt_phon">
+                                <div class="col-md-5"><input type="text" class="form-control" id="txt_phon"></div>
+                                <div class="col-md-3">
+                                    <button type="button" id="bt_phon" class="btn-sm pull-right">인증번호전송</button>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +206,7 @@
                             <label class="col-md-4">닉네임</label>
                             <div class="col-md-5"><input type="text" class="form-control" id="txt_nickName"></div>
                             <div class="col-md-3">
-                                <button type="button" id="bt_resatNick" class="btn-xs pull-right">닉네임 초기화</button>
+                                <button type="button" id="bt_resatNick" class="btn-sm pull-right">닉네임 초기화</button>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -325,7 +330,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12no-padding">
+                                <div class="col-md-12 no-padding">
                                     <div class="col-md-4">최근 접속 플랫폼</div>
                                     <div class="col-md-8">
                                         <label id="lb_platform"></label>
@@ -359,9 +364,17 @@
                                     <div class="col-md-12 no-padding">
                                         <div class="col-md-3">내가/나를 신고한 정보</div>
                                         <div class="col-md-9">
-                                            <label id="lb_myReportCnt">총0건</label>
+                                            <label id="lb_myReportCnt">총0건/총0건</label>
                                             <button type="button" id="bt_registReport" class="btn-xs pull-right">세부내역</button>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 no-padding">
+                                    <div class="col-md-4">1:1 문의</div>
+                                    <div class="col-md-8">
+                                        <label id="lb_response"></label>
+                                        <button type="button" id="bt_response" class="btn-xs pull-right">세부내역</button>
                                     </div>
                                 </div>
                             </div>
@@ -510,7 +523,7 @@
         $('#bt_registReport').click(function() {		    //   내가신고한정보
             getHistoryDetail("reportHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
         });
-        $('#bt_resPonse').click(function() {				//   1:1문의정보
+        $('#bt_response').click(function() {				//   1:1문의정보
             getHistoryDetail("responseHistory","1:1 문의 정보","ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.");
         });
     });
@@ -591,6 +604,10 @@
         // console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         //$("txt_birth#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
         $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
+
+        $("#lb_myReportCnt").html("총" + response.data.reportCnt + "건" + "/" + "총" + response.data.reportMemCnt + "건");
+
+
 
         $("#tableTop_detail").empty();
         $("#tableBody_detail").empty();
@@ -998,13 +1015,13 @@
         <td>{{index @index}}</td>
         <td>{{platform}}</td>
         <td>{{type}}</td>
-        <td>{{memNo}}</td>
-        <td>{{reportMemNo}}</td>
+        <td>{{reportId}}</td>
+        <td>{{reportMemId}}</td>
         <td>{{etc}}</td>
         <td>{{lastUpdDate}}</td>
-        <td>{{etc}}</td>
+        <td>{{deployDate}}</td>
         <td>{{status}}</td>
-        <td>{{etc}}</td>
+        <td>{{deployUser}}</td>
     </tr>
     {{/data}}
 </script>

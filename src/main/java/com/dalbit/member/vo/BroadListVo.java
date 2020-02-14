@@ -13,7 +13,7 @@ public class BroadListVo {
     private String title;
     private String startDate;
     private String endDate;
-    private int airtime;
+    private String airtime;
     private int listener;
     private int good;
     private int gold;
