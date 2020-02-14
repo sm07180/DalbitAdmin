@@ -19,12 +19,12 @@ public class M_ListenService {
     GsonUtil gsonUtil;
 
     public List<ListenListVo> getListenList() {
-        List<ListenListVo> list = mListenDao.getListenList();
+        List<ListenListVo> list = mListenDao.callListenList();
         return list;
     }
 
     public List<ListenListVo> getListenHistory_detail(ListenListVo listenListVo) {
-        List<ListenListVo> resultList = mListenDao.getListenHistory_detail(listenListVo);
+        List<ListenListVo> resultList = mListenDao.callListenHistory_detail(listenListVo);
         return resultList;
     }
 

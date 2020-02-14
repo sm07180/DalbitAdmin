@@ -6,8 +6,8 @@
         call sp_member_login(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
-    <select id="getMemberList" parameterType="com.dalbit.member.vo.MemberListVo" resultType="com.dalbit.member.vo.MemberListVo">
-
+    <select id="callMemberList" parameterType="com.dalbit.member.vo.MemberListVo" resultType="com.dalbit.member.vo.MemberListVo">
+        /* M_Member.xml - callMemberList */
         select b.mem_id     as memId
             , b.mem_no       as memNo
             , b.mem_nick     as memNick
@@ -45,6 +45,7 @@
     </select>
 
     <select id="callMemberInfo" parameterType="com.dalbit.member.vo.MemberInfoVo" resultType="com.dalbit.member.vo.MemberInfoVo">
+      /* M_Member.xml - callMemberInfo */
        SELECT
           a.mem_no						as memNo
           ,a.mem_id                     as memId
@@ -78,6 +79,7 @@
     </select>
 
     <select id="callMemberLevelList" parameterType="com.dalbit.member.vo.MemberInfoLevelListVo" resultType="com.dalbit.member.vo.MemberInfoLevelListVo">
+      /* M_Member.xml - callMemberLevelList */
        SELECT 'level' as gubun
                ,level
                ,grade
@@ -87,6 +89,7 @@
     </select>
 
     <select id="callMemberGradeList" parameterType="com.dalbit.member.vo.MemberInfoLevelListVo" resultType="com.dalbit.member.vo.MemberInfoLevelListVo">
+      /* M_Member.xml - callMemberGradeList */
        SELECT DISTINCT
                'grade'  as gubun
                ,grade

@@ -19,11 +19,11 @@ public class M_BroadcastService {
     GsonUtil gsonUtil;
 
     public List<BroadListVo> getBroadList() {
-        List<BroadListVo> list = mBroadcastDao.getBroadList();
+        List<BroadListVo> list = mBroadcastDao.callBroadList();
         return list;
     }
     public List<BroadListVo> getBroadHistory_detail(BroadListVo broadListVo){
-        List<BroadListVo> resultList = mBroadcastDao.getBroadHistory_detail(broadListVo);
+        List<BroadListVo> resultList = mBroadcastDao.callBroadHistory_detail(broadListVo);
         return resultList;
     }
 }

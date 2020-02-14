@@ -19,7 +19,7 @@ public class M_MyStarService {
     GsonUtil gsonUtil;
 
     public List<MyStarListVo> getMyStarList(MyStarListVo myStarListVo) {
-        List<MyStarListVo> list = mMyStarDao.getMyStarList(myStarListVo);
+        List<MyStarListVo> list = mMyStarDao.callMyStarList(myStarListVo);
         return list;
     }
 

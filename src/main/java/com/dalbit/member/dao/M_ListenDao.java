@@ -8,8 +8,8 @@ import java.util.List;
 @Repository
 public interface M_ListenDao {
 
-    List<ListenListVo> getListenList();
+    List<ListenListVo> callListenList();
 
-    List<ListenListVo> getListenHistory_detail(ListenListVo listenListVo);
+    List<ListenListVo> callListenHistory_detail(ListenListVo listenListVo);
 
 }

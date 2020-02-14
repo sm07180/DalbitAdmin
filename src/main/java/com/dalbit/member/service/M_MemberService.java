@@ -41,7 +41,7 @@ public class M_MemberService {
      * 회원 리스트
      */
     public List<MemberListVo> getMemberList(MemberListVo memberListVo){
-        return mMemberDao.getMemberList(memberListVo);
+        return mMemberDao.callMemberList(memberListVo);
     }
 
 

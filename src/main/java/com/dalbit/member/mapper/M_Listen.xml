@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.member.dao.M_ListenDao" >
 
-
-    <select id="getListenList" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
-        /* M_Listen.xml - getListenList */
+    <select id="callListenList" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
+        /* M_Listen.xml - callListenList */
         SELECT
           basic.subject_type
           , basic.title
@@ -22,7 +21,8 @@
           AND listen.mem_no = member.mem_no
     </select>
 
-    <select id="getListenHistory_detail" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
+    <select id="callListenHistory_detail" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
+      /* M_Listen.xml - callListenHistory_detail */
         SELECT
           (SELECT c.code
             FROM tbl_code_define c
