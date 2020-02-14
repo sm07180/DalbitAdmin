@@ -73,6 +73,8 @@
           ,(select count(*) as cnt from tb_member_fanstar where mem_no_fan = a.mem_no) as starCnt   /*내가 등록한 start*/
           ,(select count(*) as cnt from tb_member_fanstar where mem_no_star = a.mem_no) as fanCnt   /*나를 등록한 fan*/
           ,(select count(*) as cnt from tb_broadcast_room where CHAR_LENGTH(notice) > 1 and mem_no = a.mem_no) noticeCnt /*방송중 공지사항*/
+          ,(select count(*) as cnt From tb_member_report where mem_no = a.mem_no) reportCnt /*내가 신고한사람*/
+          ,(select count(*) as cnt From tb_member_report where reported_mem_no = a.mem_no) reportMemCnt /*나를 신고한사람*/
         FROM tb_member_basic a, tb_member_profile b, tb_member_level c
        WHERE a.mem_no = b.mem_no AND a.mem_no = c.mem_no
          AND a.mem_no = #{memNo}

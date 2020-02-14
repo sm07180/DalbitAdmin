@@ -249,8 +249,7 @@
         table_col_set(tmp_memNo,"broadHistory");
     }
     function detail_broad_click(id){
-        console.log(tmp_memNo);
-        table_col_set(tmp_memNo,"broadHistory");
+        table_col_set(tmp_memNo,id);
     }
     function table_col_set(memNo,id){
         $("#tableTop_detail").empty();
@@ -300,7 +299,11 @@
     function fn_success_detail(dst_id, response) {
         dalbitLog(response);
         var template;
-        template = $('#broadHistory_detail').html();
+        if(dst_id == "broadHistory"){
+            template = $('#broadHistory_detail').html();
+        } else if(dst_id == "listenHistory") {
+            template = $('#listenHistory_detail').html();
+        }
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
@@ -373,6 +376,20 @@
         <td>{{listener}}</td>
         <td>{{good}}</td>
         <td>{{gold}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="listenHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{index @index}}</td>
+        <td>{{subjectType}}</td>
+        <td>{{title}}</td>
+        <td>{{startDate}}</td>
+        <td>{{endDate}}</td>
+        <td>{{listenTime}}</td>
+        <td>{{giftRuby}}</td>
+        <td>{{memNick}}</td>
     </tr>
     {{/data}}
 </script>

@@ -32,5 +32,7 @@ public class MemberInfoVo {
     private int starCnt;
     private int fanCnt;
     private int noticeCnt;
+    private int reportCnt;
+    private int reportMemCnt;
 
 }
