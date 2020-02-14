@@ -8,8 +8,7 @@ import java.util.List;
 @Repository
 public interface M_BroadcastDao {
 
-    List<BroadListVo> getBroadList();
-
-    List<BroadListVo> getBroadHistory_detail(BroadListVo broadListVo);
+    List<BroadListVo> callBroadList();
+    List<BroadListVo> callBroadHistory_detail(BroadListVo broadListVo);
 
 }

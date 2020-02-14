@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.member.dao.M_ReportDao" >
+
     <select id="callReportList" parameterType="com.dalbit.member.vo.ReportListVo" resultType="com.dalbit.member.vo.ReportListVo" >
+    /* M_Report.xml - callReportList */
         select 'p'      as platform /*플랫폼*/,
                 (select code from tbl_code_define where value = a.reason and type = 'report_reason') as type,
                 a.mem_no as memNo,

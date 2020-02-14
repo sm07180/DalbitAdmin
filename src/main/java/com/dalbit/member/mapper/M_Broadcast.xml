@@ -3,8 +3,8 @@
 <mapper namespace="com.dalbit.member.dao.M_BroadcastDao" >
 
 
-    <select id="getBroadList" resultType="com.dalbit.member.vo.BroadListVo">
-        /* M_Broadcast.xml - getBroadList */
+    <select id="callBroadList" resultType="com.dalbit.member.vo.BroadListVo">
+        /* M_Broadcast.xml - callBroadList */
         SELECT
           b.subject_type
           , b.title
@@ -19,14 +19,14 @@
         WHERE b.room_no = m.room_no
     </select>
 
-    <select id="getBroadHistory_detail" parameterType="com.dalbit.member.vo.BroadListVo" resultType="com.dalbit.member.vo.BroadListVo">
-        /* M_Broadcast.xml - getBroadList */
+    <select id="callBroadHistory_detail" parameterType="com.dalbit.member.vo.BroadListVo" resultType="com.dalbit.member.vo.BroadListVo">
+        /* M_Broadcast.xml - callBroadHistory_detail */
         SELECT
            (SELECT aa.code From tbl_code_define aa WHERE aa.type='subject_type' and aa.value = lpad(b.subject_type,2,'0')) as subjectType
             , b.title as title
             , DATE_FORMAT(b.start_date,'%Y-%m-%d %H:%i:%s') as startDate
             , DATE_FORMAT(b.end_date,'%Y-%m-%d %H:%i:%s') as endDate
-            , b.airtime as  airtime
+            , TIME_FORMAT(SEC_TO_TIME(m.airtime/1000), '%H시간 %i분 %s초') as  airtime
             , m.listener as listener
             , m.good
             , m.gold
