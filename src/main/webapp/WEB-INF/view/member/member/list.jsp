@@ -359,7 +359,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2">신고/문의</div>
+                                <div class="col-md-2">신고</div>
                                 <div class="col-md-10 no-padding">
                                     <div class="col-md-12 no-padding">
                                         <div class="col-md-3">내가/나를 신고한 정보</div>
@@ -381,26 +381,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="row col-lg-12 form-inline" id="detail">
-                    <div class="row col-lg-12 form-inline" style="padding-top: 2px;">
-                        <label class="text_center text_middle" id="detail_label" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 110px;height: 27px"> 세부내역 </label>
-                        <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px"></label>
-                        <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
-                    </div>
-                    <!-- DATA TABLE -->
-                    <div class="row col-lg-12 form-inline">
-                        <div class="widget widget-table">
-                            <div class="widget-content">
-                                <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                                    <thead id="tableTop_detail">
-                                    </thead>
-                                    <tbody id="tableBody_detail">
-                                    </tbody>
-                                </table>
-                                <span>
-                                    <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                                </span>
-                            </div>
+                <div class="row col-lg-12 form-inline" id="detail" style="padding-top: 2px;">
+                    <label class="text_center text_middle" id="detail_label" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 110px;height: 27px"> 세부내역 </label>
+                    <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px"></label>
+                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+                </div>
+                <!-- DATA TABLE -->
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table">
+                        <div class="widget-content">
+                            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                                <thead id="tableTop_detail">
+                                </thead>
+                                <tbody id="tableBody_detail">
+                                </tbody>
+                            </table>
+                            <span>
+                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -506,7 +504,7 @@
             getHistoryDetail("exchangeHistory","개인환불정보","ㆍ회원의 과거에서 현재까지의 환전 내역을 모두 확인하고, 증빙서류를 확인한 후 즉시 처리할 수 있습니다.");
         });
         $('#bt_platform').click(function() {				//   접속플랫폼
-            getHistoryDetail("platformHistory","1:1 문의 정보","ㆍ회원의 가입일로부터의 접속 기록을 확인할 수 있습니다.");
+            getHistoryDetail("platformHistory","회원 접속 기록","ㆍ회원의 가입일로부터의 접속 기록을 확인할 수 있습니다.");
         });
         $('#bt_registMyStarList').click(function() {	    //   mystart
             getHistoryDetail("myStarHistory","MyStar 정보","ㆍMyStar 회원 리스트를 확인하고 등록/삭제 할 수 있습니다.");
@@ -515,10 +513,10 @@
             getHistoryDetail("myFanHistory","Fan 정보","ㆍFan으로 등록한 회원들의 리스트를 확인하고 등록/삭제 할 수 있습니다.");
         });
         $('#bt_myNotice').click(function() {				//   개인공지
-            getHistoryDetail("myNoticeHistory","개인공지(팬보드)","ㆍ회원의 팬보드 내 연동된 공지정보를 확인하고, 관리할 수 있습니다.");
+            getHistoryDetail("noticeHistory","개인공지(팬보드)","ㆍ회원의 팬보드 내 연동된 공지정보를 확인하고, 관리할 수 있습니다.");
         });
         $('#bt_broadNotice').click(function() {			//   방송중공지
-            getHistoryDetail("broadNoticeHistory","방송 중 공지","ㆍ회원의 방송중 업로드 된 공지정보를 확인하고, 관리할 수 있습니다.");
+            getHistoryDetail("noticeHistory","방송 중 공지","ㆍ회원의 방송중 업로드 된 공지정보를 확인하고, 관리할 수 있습니다.");
         });
         $('#bt_registReport').click(function() {		    //   내가신고한정보
             getHistoryDetail("reportHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
@@ -725,15 +723,7 @@
                     {columnNm: "등록 일시"},
                     {columnNm: "해제 일시"},
                 ]}
-        }else if(id == "myNoticeHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "구분"},
-                    {columnNm: "방송제목"},
-                    {columnNm: "공지내용"},
-                    {columnNm: "등록일시"},
-                ]};
-        }else if(id == "broadNoticeHistory") {
+        }else if(id == "noticeHistory") {
             var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "구분"},
@@ -796,10 +786,8 @@
             getAjaxData(id, "/rest/member/exchange/list", obj, fn_success_detail, fn_fail);
         } else if(id == "platformHistory") {            x
             getAjaxData(id, "/rest/member/platform/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "myNoticeHistory") {
-            getAjaxData(id, "/rest/member/notice/mylist", obj, fn_success_detail, fn_fail);
-        } else if(id == "broadNoticeHistory") {
-            getAjaxData(id, "/rest/member/notice/broadelist", obj, fn_success_detail, fn_fail);
+        } else if(id == "noticeHistory") {
+            getAjaxData(id, "/rest/member/notice/list", obj, fn_success_detail, fn_fail);
         } else if(id == "reportHistory") {
             getAjaxData(id, "/rest/member/report/list", obj, fn_success_detail, fn_fail);
         } else if(id == "responseHistory") {
@@ -826,10 +814,8 @@
             template = $('#exchangeHistory_detail').html();
         } else if(dst_id == "platformHistory") {
             template = $('#platformHistory_detail').html();
-        } else if(dst_id == "myNoticeHistory") {
-            template = $('#myNoticeHistory_detail').html();
-        } else if(dst_id == "broadNoticeHistory") {
-            template = $('#broadNoticeHistory_detail').html();
+        } else if(dst_id == "noticeHistory") {
+            template = $('#noticeHistory_detail').html();
         } else if(dst_id == "reportHistory") {
             template = $('#reportHistory_detail').html();
         } else if(dst_id == "responseHistory") {
@@ -998,7 +984,7 @@
     </tr>
     {{/data}}
 </script>
-<script id="broadNoticeHistory_detail" type="text/x-handlebars-template">
+<script id="noticeHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
         <td>{{index @index}}</td>

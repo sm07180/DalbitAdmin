@@ -95,7 +95,7 @@
                                 <th>가입플랫폼</th>
                                 <th>접속상태</th>
                                 <th>생방상태</th>
-                                <th>방송기록 자세히보기</th>
+                                <th>방송기록 자세히 보기</th>
                             </tr>
                             </thead>
                             <tbody id="tableBody">
@@ -106,28 +106,26 @@
                 </div>
             </div>
             <!-- DATA TABLE END -->
-            <div class="row col-lg-12 form-inline" id="detail">
-                <div class="row col-lg-12 form-inline" style="padding-top: 2px;">
-                    <label class="text_center text_middle" id="detail_broad" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 70px;height: 27px"> 방송기록</label>
-                    <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 5px;height: 27px"> |</label>
-                    <label class="text_center text_middle" id="detail_listen" style="font-weight: bold;font-size: 13px;width: 70px;height: 27px"> 청취기록 </label>
-                    <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px">ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.</label>
-                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
-                </div>
-                <!-- DATA TABLE -->
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table">
-                        <div class="widget-content">
-                            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                                <thead id="tableTop_detail">
-                                </thead>
-                                <tbody id="tableBody_detail">
-                                </tbody>
-                            </table>
-                            <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                            </span>
-                        </div>
+            <div class="row col-lg-12 form-inline" style="padding-top: 2px;">
+                <label class="text_center text_middle" id="detail_broad" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 70px;height: 27px"> 방송기록</label>
+                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 5px;height: 27px"> |</label>
+                <label class="text_center text_middle" id="detail_listen" style="font-weight: bold;font-size: 13px;width: 70px;height: 27px"> 청취기록 </label>
+                <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px">ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.</label>
+                <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+            </div>
+            <!-- DATA TABLE -->
+            <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table">
+                    <div class="widget-content">
+                        <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                            <thead id="tableTop_detail">
+                            </thead>
+                            <tbody id="tableBody_detail">
+                            </tbody>
+                        </table>
+                        <span>
+                            <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -350,7 +348,7 @@
         <td>{{Login_out}}</td>
         <td>{{Live}}</td>
         <td>
-            <a href="javascript://" class="btn btn-xs" onclick="javascript:getMemNo_info(this.id);" id="{{memNo}}">[자세히보기]</a>
+            <a href="javascript://" class="btn btn-xs" onclick="javascript:getMemNo_info(this.id);" id="{{memNo}}">[자세히 보기]</a>
             <%--<a a href="javascript://" class="btn btn-xs" id="bt_listenerHistory_detail" aria-expanded="false" ></a>--%>
         </td>
     </tr>
