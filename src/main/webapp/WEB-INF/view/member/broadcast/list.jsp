@@ -255,27 +255,28 @@
         $("#tableTop_detail").empty();
         // $("#detail_comments").html(comments);
         if(id == "broadHistory"){
-            var data = {header: [
-                    { columnNm : "NO"},
-                    { columnNm : "방송주제"},
-                    { columnNm : "방송제목"},
-                    { columnNm : "방송시작시간"},
-                    { columnNm : "방송종료시간"},
-                    { columnNm : "방송진행시간"},
-                    { columnNm : "종료시 평균 청취자 수"},
-                    { columnNm : "받은 좋아요 수"},
-                    { columnNm : "받은 아이템 수"}
-                ]};
+            var data = {header:[
+                    "NO1"
+                    , "방송주제"
+                    , "방송제목"
+                    , "방송시작시간"
+                    , "방송종료시간"
+                    , "방송진행시간"
+                    , "종료시 평균 청취자 수"
+                    , "받은 좋아요 수"
+                    , "받은 아이템 수"
+                ]
+            };
         }else if(id == "listenHistory") {
             var data = {header: [
-                    { columnNm : "NO"},
-                    { columnNm : "청취방주제"},
-                    { columnNm : "청취 방송제목"},
-                    { columnNm : "청취시작시간"},
-                    { columnNm : "청취종료시간"},
-                    { columnNm : "청취진행시간"},
-                    { columnNm : "받은 루비 개수"},
-                    { columnNm : "청취 DJ 닉네임"}
+                    "NO2"
+                    ,"청취방주제"
+                    ,"청취 방송제목"
+                    ,"청취시작시간"
+                    ,"청취종료시간"
+                    ,"청취진행시간"
+                    ,"받은 루비 개수"
+                    ,"청취 DJ 닉네임"
                 ]};
         }
 
@@ -358,9 +359,9 @@
 </script>
 <script id="tmp_list_top_column" type="text/x-handlebars-template">
     <tr>
-        {{#header}}
-        <th>{{columnNm}}</th>
-        {{/header}}
+        {{#each header}}
+        <th>{{this}}</th>
+        {{/each}}
     </tr>
 </script>
 
