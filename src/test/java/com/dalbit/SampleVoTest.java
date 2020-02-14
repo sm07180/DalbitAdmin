@@ -19,7 +19,7 @@ import java.security.Security;
 @ActiveProfiles({"local"})
 public class SampleVoTest {
 
-    @Value("${active.profile.name}")
+    /*@Value("${active.profile.name}")
     private String profileName;
 
     @Autowired
@@ -86,5 +86,5 @@ public class SampleVoTest {
     @Test
     public void restApiPOST테스트(){
         RestApiUtil.sendPost("https://devm-leejaeho1144.wawatoc.com/sample", "");
-    }
+    }*/
 }
