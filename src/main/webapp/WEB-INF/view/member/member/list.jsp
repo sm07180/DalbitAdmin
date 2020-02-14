@@ -409,6 +409,8 @@
 <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+
+
 <script>
     $(document).ready(function() {
         $('#list_info').DataTable();
