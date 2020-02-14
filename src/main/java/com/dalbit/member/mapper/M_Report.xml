@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.M_ReportDao" >
+    <select id="callReportList" parameterType="com.dalbit.member.vo.ReportListVo" resultType="com.dalbit.member.vo.ReportListVo" >
+        select 'p'      as platform /*플랫폼*/,
+                (select code from tbl_code_define where value = a.reason and type = 'report_reason') as type,
+                a.mem_no as memNo,
+                a.reported_mem_no as reportMenNo,
+                b.mem_id as memId,
+                c.mem_id as reportMemId,
+                ,(CASE  a.status WHEN 0 THEN '신고중' ELSE '처리완료' end) AS status
+                DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s')   as lastUpdDate,
+                a.etc    as etc
+          From tb_member_report a, tb_member_basic b, tb_member_basic c
+         where a.mem_no = b.mem_no and a.mem_no = c.mem_no
+            and mem_no = #{memNo}
+    </select>
+
+</mapper>

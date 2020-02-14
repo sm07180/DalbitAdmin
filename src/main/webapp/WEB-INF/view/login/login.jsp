@@ -14,7 +14,7 @@
                     <label for="memId" class="control-label sr-only">ID</label>
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control" type="text" placeholder="ID" name="memId" id="memId" value="010-1234-1234" autofocus>
+                            <input class="form-control" type="text" placeholder="ID" name="memId" id="memId" value="010-1234-0003" autofocus>
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         </div>
                     </div>

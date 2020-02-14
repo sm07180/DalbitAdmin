@@ -369,8 +369,8 @@
                                         <div class="col-md-12 no-padding">
                                             <div class="col-md-3">내가/나를 신고한 정보</div>
                                             <div class="col-md-9">
-                                                <label id="lb_myReportedCnt">총0건</label>
-                                                <button type="button" id="bt_registReported" class="btn-xs pull-right">세부내역</button>
+                                                <label id="lb_myReportCnt">총0건</label>
+                                                <button type="button" id="bt_registReport" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
                                     </div>
@@ -518,8 +518,8 @@
         $('#bt_broadNotice').click(function() {			//   방송중공지
             getHistoryDetail("broadNoticeHistory","방송 중 공지","ㆍ회원의 방송중 업로드 된 공지정보를 확인하고, 관리할 수 있습니다.");
         });
-        $('#bt_registReported').click(function() {		    //   내가신고한정보
-            getHistoryDetail("reportedHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
+        $('#bt_registReport').click(function() {		    //   내가신고한정보
+            getHistoryDetail("reportHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
         });
         $('#bt_resPonse').click(function() {				//   1:1문의정보
             getHistoryDetail("responseHistory","1:1 문의 정보","ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.");
@@ -735,7 +735,7 @@
                     {columnNm: "공지내용"},
                     {columnNm: "등록일시"},
                 ]};
-        }else if(id == "reportedHistory") {
+        }else if(id == "reportHistory") {
             var data = {header: [
                     {columnNm: "NO"},
                     {columnNm: "플랫폼구분"},
@@ -794,8 +794,8 @@
             getAjaxData(id, "/rest/member/notice/mylist", obj, fn_success_detail, fn_fail);
         } else if(id == "broadNoticeHistory") {
             getAjaxData(id, "/rest/member/notice/broadelist", obj, fn_success_detail, fn_fail);
-        } else if(id == "reportedHistory") {
-            getAjaxData(id, "/rest/member/reported/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "reportHistory") {
+            getAjaxData(id, "/rest/member/report/list", obj, fn_success_detail, fn_fail);
         } else if(id == "responseHistory") {
             getAjaxData(id, "/rest/member/response/list", obj, fn_success_detail, fn_fail);
         }
@@ -824,8 +824,8 @@
             template = $('#myNoticeHistory_detail').html();
         } else if(dst_id == "broadNoticeHistory") {
             template = $('#broadNoticeHistory_detail').html();
-        } else if(dst_id == "reportedHistory") {
-            template = $('#reportedHistory_detail').html();
+        } else if(dst_id == "reportHistory") {
+            template = $('#reportHistory_detail').html();
         } else if(dst_id == "responseHistory") {
             template = $('#responseHistory_detail').html();
         }
@@ -1000,6 +1000,22 @@
         <td>{{title}}</td>
         <td>{{notice}}</td>
         <td>{{lastUpdDate}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="reportHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{index @index}}</td>
+        <td>{{platform}}</td>
+        <td>{{type}}</td>
+        <td>{{memNo}}</td>
+        <td>{{reportMemNo}}</td>
+        <td>{{etc}}</td>
+        <td>{{lastUpdDate}}</td>
+        <td>{{etc}}</td>
+        <td>{{status}}</td>
+        <td>{{etc}}</td>
     </tr>
     {{/data}}
 </script>

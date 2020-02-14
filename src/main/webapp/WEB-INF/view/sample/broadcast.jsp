@@ -437,7 +437,8 @@
         getAjaxData("type", "/rest/broadcast/broadcast/type",obj, fn_code_list_success, fn_fail);
     }
     function getRoomInfo(){                 // 검색
-        $("#list_info tr:not(:first)").remove();
+        $('#list_info').DataTable().destroy();
+        $("#tableBody").empty();
         var obj = new Object();
         obj.search = $('#txt_search').val();                        // 검색명
         obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
@@ -456,11 +457,7 @@
         var context = response;
         var html = templateScript(context);
         $("#tableBody").append(html);
-        $('#list_info').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
+        $('#list_info').DataTable().draw();
     }
     function fn_code_list_success(dst_id, response){
         dalbitLog(response);
@@ -629,11 +626,7 @@
         var context = data;
         var html = templateScript(context);
         $("#tableTop_detail").append(html);
-        $('#list_info_detail').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
+        $('#list_info_detail').DataTable().destroy();
         $("#tableBody_detail").empty();
         var obj = new Object();
         obj.roomNo = roomNo;
@@ -687,14 +680,11 @@
         var context = response;
         var html = templateScript(context);
         $("#tableBody_detail").append(html);
-        $('#list_info_detail').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-        });
+        $('#list_info_detail').DataTable().draw();
     }
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
+        $('#list_info_detail').DataTable().draw();
     }
 </script>
 <script id="tmp_list" type="text/x-handlebars-template">
