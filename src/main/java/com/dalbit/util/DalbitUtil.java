@@ -587,6 +587,8 @@ public class DalbitUtil {
         return isEmpty(principal) || "anonymousUser".equals(principal);
     }
 
-
+    public static String getActiveProfile(){
+        return environment.getActiveProfiles()[0];
+    }
 
 }
