@@ -61,9 +61,9 @@ public class M_MemberRestController {
         apiData.setSearch(request.getParameter("search"));
         apiData.setDate(request.getParameter("date"));
         apiData.setGubun(request.getParameter("gubun"));
-        apiData.setStDate(request.getParameter("stDate"));
-        apiData.setEdDate(request.getParameter("edDate"));
-
+        apiData.setCheckDate(request.getParameter("checkDate"));
+        apiData.setStDate(request.getParameter("stDate").replace("-",""));
+        apiData.setEdDate(request.getParameter("edDate").replace("-",""));
         /**/
         List<MemberListVo> list = mMemberService.getMemberList(apiData);
         /**/
