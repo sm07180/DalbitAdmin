@@ -16,6 +16,7 @@
         padding-right: 10px;
     }
 </style>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -82,7 +83,8 @@
                     <div class="widget-content">
                         <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
                             <span>
-                                <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                                <button class="btn btn-default" type="button" id="excelDownBtn"><i class="fa"></i>Excel Print</button>
+                                <button class="btn btn-default" type="button" id="excelBtn"><i class="fa"></i>Excel</button>
                             </span>
                             <thead>
                             <tr>
@@ -405,11 +407,11 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /#page-wrapper -->
+    <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
 
+<script src="../../../js/lib/jquery.table2excel.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -549,6 +551,14 @@
         obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
         obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
 
+        /* 엑셀저장을 위해 조회조건 임시저장 */
+        tmp_search = $('#txt_search').val();
+        tmp_date = $('input[name="radio_date"]:checked').val();
+        tmp_gubun = $("select[name='selectGubun']").val();
+        tmp_checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");
+        tmp_stDate = $('#txt_startSel').val();
+        tmp_edDate = $('#txt_endSel').val();
+
         getAjaxData("memberList", "/rest/member/member/list", obj, fn_success, fn_fail);
     }
 
@@ -606,8 +616,6 @@
         $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
 
         $("#lb_myReportCnt").html("총" + response.data.reportCnt + "건" + "/" + "총" + response.data.reportMemCnt + "건");
-
-
 
         $("#tableTop_detail").empty();
         $("#tableBody_detail").empty();
@@ -840,17 +848,35 @@
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
-        /*formData.append("search", "test001");
-        formData.append("test003", "test003");*/
+
+        formData.append("search", tmp_search);
+        formData.append("date", tmp_date);
+        formData.append("gubun", tmp_gubun);
+        formData.append("checkDate", tmp_checkDate);
+        formData.append("stDate", tmp_stDate);
+        formData.append("edDate", tmp_edDate);
+        /*formData.append("test003", "test003");*/
         excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 
+    $("#excelBtn").on("click", function () {
+        $("#list_info").table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
+    });
+
     function fn_success_excel(){
-        alert("fn_success_excel");
+        console.log("fn_success_excel");
     }
 
     function fn_fail_excel(){
-        alert("fn_fail_excel");
+        console.log("fn_fail_excel");
     }
     /*==================================*/
 
