@@ -74,7 +74,7 @@
 
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
                 <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 검색 결과 정보 </label>
-                <label class="text_middle" style="font-size: 11px;height: 27px"> ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다. </label>
+                <label class="text_middle" style="font-size: 11px;height: 27px;width: 300px"> ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다. </label>
                 <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
             <!-- DATA TABLE -->
@@ -85,6 +85,9 @@
                             <span>
                                 <button class="btn btn-default" type="button" id="excelDownBtn"><i class="fa"></i>Excel Print</button>
                                 <button class="btn btn-default" type="button" id="excelBtn"><i class="fa"></i>Excel</button>
+                            </span>
+                            <span style="float: right;">
+                                <label id="list_cnt" class="text_middle well-sm" style="font-size: 12px;height: 27px;background: #bfbfbf">검색 결과 총0건</label>
                             </span>
                             <thead>
                             <tr>
@@ -136,7 +139,6 @@
                                 <form id="cob_level">
                                     <select id="cob_userLevel" name="emailSelection" class="form-control">
                                         <option value="9999" selected="selected">직접입력</option>
-
                                     </select>
                                 </form>
                             </div>
@@ -387,20 +389,17 @@
                     <label class="text_center text_middle" id="detail_label" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 110px;height: 27px"> 세부내역 </label>
                     <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px"></label>
                     <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
-                </div>
-                <!-- DATA TABLE -->
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table">
-                        <div class="widget-content">
-                            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                                <thead id="tableTop_detail">
-                                </thead>
-                                <tbody id="tableBody_detail">
-                                </tbody>
-                            </table>
-                            <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                            </span>
+                    <!-- DATA TABLE -->
+                    <div class="row col-lg-12 form-inline">
+                        <div class="widget widget-table">
+                            <div class="widget-content">
+                                <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                                    <thead id="tableTop_detail">
+                                    </thead>
+                                    <tbody id="tableBody_detail">
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -415,13 +414,9 @@
 
 <script>
     $(document).ready(function() {
+        init("new");
         $('#list_info').DataTable();
-
         var memNo;
-        // getUserInfo();
-        getLevelData();
-        getGradeData();
-        $('#detail').hide();
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -487,6 +482,11 @@
         });
 
         $('#bt_edite').click( function() {                //    수정하기
+            if($('#bt_edite').text() == "수정하기"){
+                init("edit")
+            }else if($('#bt_edite').text() == "수정완료"){
+                init("edit_complet")
+            }
         });
         $('#bt_imgChg').click(function() {					//   사진변경
         });
@@ -529,6 +529,35 @@
             getHistoryDetail("responseHistory","1:1 문의 정보","ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.");
         });
     });
+
+    function init(tmp){
+        // getUserInfo();
+        getLevelData();
+        getGradeData();
+        $('#detail').hide();
+
+        if(tmp == "edit"){
+            $('#bt_edite').text('수정완료');
+            $("input[id='txt_phon'] ,input[id='txt_nickName'] ,input[id='txt_birth'] ,input[id='txt_pass']").removeAttr('readonly', false);
+            $("select[id='cob_userLevel'],select[id='cob_djLevel'],select[id='cob_lisLevel']").removeAttr("disabled", "");
+            $("[name='radio_login']:not(:checked),[name='radio_liveOn']:not(:checked),[name='radio_listenOn']:not(:checked),[name='radio_gender']:not(:checked)").removeAttr("disabled", "");
+            $('#bt_phon').show();
+            $('#bt_resatNick').show();
+            $('#bt_listenSms').show();
+            $('#bt_resatPass').show();
+            $('#bt_liveSms').show();
+        }else if(tmp == "new" || tmp == "edit_complet"){
+            $('#bt_edite').text('수정하기');
+            $("input[id='txt_phon'] ,input[id='txt_nickName'] ,input[id='txt_birth'] ,input[id='txt_pass']").attr('readonly', true);
+            $("select[id='cob_userLevel'],select[id='cob_djLevel'],select[id='cob_lisLevel']").attr("disabled", "disabled");
+            $("[name='radio_login']:not(:checked),[name='radio_liveOn']:not(:checked),[name='radio_listenOn']:not(:checked),[name='radio_gender']:not(:checked)").attr("disabled", "disabled");
+            $('#bt_phon').hide();
+            $('#bt_resatNick').hide();
+            $('#bt_listenSms').hide();
+            $('#bt_resatPass').hide();
+            $('#bt_liveSms').hide();
+        }
+    }
 
     function getLevelData(){
         var obj = new Object();
@@ -573,6 +602,9 @@
         $("#tableBody").append(html);
 
         $('#list_info').DataTable().draw();
+
+        $('#list_cnt').html("검색 결과 총" + response.data.length + "건");
+
     }
     function fn_code_list_success(dst_id, response){
         // dalbitLog(response);
@@ -606,8 +638,8 @@
         $("#cob_userLevel").val(response.data.level);
         $("#lb_broadCnt").html("총" + response.data.broadcastingCnt + "건");
         $("#lb_listenCnt").html("총" + response.data.listeningCnt + "건");
-        $("#lb_joinDate").html(response.data.mem_join_date);
-        $("#lb_editDate").html(response.data.last_upd_date);
+        $("#lb_joinDate").html(response.data.memJoinDate);
+        $("#lb_editDate").html(response.data.lastUpdDate);
         $("#lb_myStarCnt").html("총" + response.data.starCnt + "건");
         $("#lb_myFanCnt").html("총" + response.data.fanCnt + "건");
         $("#lb_broadNoticeCnt").html("총" + response.data.noticeCnt + "건");

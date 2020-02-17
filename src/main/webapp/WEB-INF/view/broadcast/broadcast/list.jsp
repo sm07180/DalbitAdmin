@@ -22,13 +22,13 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
-                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 80px;height: 27px"> 회원검색 </label>
+                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 80px;height: 27px"> 방송검색 </label>
                 <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;" >
                 <div class="col-lg-6 p_10" style="background: #f8efc0">
                     <div class="col-lg-12" >
-                        <label style="font-weight: bold">공지등록 기간</label>
+                        <label style="font-weight: bold">방송 진행/청취 기간</label>
                     </div>
                     <div class="col-lg-12">
                         <form id="date_radio">
@@ -88,6 +88,9 @@
                             <span>
                                 <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
                             </span>
+                            <span style="float: right;">
+                                <label id="list_cnt" class="text_middle well-sm" style="font-size: 12px;height: 27px;background: #bfbfbf">검색 결과 총0건</label>
+                            </span>
                             <thead>
                             <tr>
                                 <th>방번호</th>
@@ -135,13 +138,13 @@
                             <div class="col-md-9">
                                 <form id="cob_level">
                                     <select class="form-control" id="selectSubject_type_detail">
-                                        <option value="9999" selected="selected">방송주제</option>
+                                        <option value="9999" selected="selected">선택하세요</option>
                                     </select>
                                 </form>
                             </div>
                             <label class="col-md-3">방송 제목</label>
                             <div class="col-md-9">
-                                <input type="text" class="form-control col-md-12" id="txt_title" value="">
+                                <input type="text" class="form-control col-md-12" id="txt_title" style="width: 100%">
                             </div>
                             <label class="col-md-3">DJ ID</label>
                             <div class="col-md-9">
@@ -161,7 +164,7 @@
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <label class="col-md-3">환영 인사말</label>
-                            <div class="col-md-9"><textarea type="textarea" class="form-control" id="txt_msgWelcom"></textarea></div>
+                            <div class="col-md-9"><textarea type="textarea" class="form-control" id="txt_msgWelcom" style="width: 100%"></textarea></div>
                         </div>
                         <div class="col-md-6">
                             <label class="col-md-3">생방상태</label>
@@ -327,9 +330,10 @@
 <!-- /#wrapper -->
 <script>
     $(document).ready(function() {
+        init("new");
         var roomNo;
         $('#detail').hide();
-        getSubject_type_Data();
+
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -393,6 +397,11 @@
             getRoomInfo();
         });
         $('#bt_edite').click( function() {                 //   수정하기
+            if($('#bt_edite').text() == "수정하기"){
+                init("edit")
+            }else if($('#bt_edite').text() == "수정완료"){
+                init("edit_complet")
+            }
         });
         $('#bt_imgChg').click(function() {					//   사진변경
         });
@@ -431,6 +440,27 @@
         });
         <!-- 버튼 끝 -->
     });
+
+    function init(tmp){
+        // getUserInfo();
+        getSubject_type_Data();
+        $('#detail').hide();
+
+        if(tmp == "edit"){
+            $('#bt_edite').text('수정완료');
+            $("textarea[id='txt_msgWelcom']").removeAttr('readonly', true);
+            $("input[id='txt_title']").removeAttr('readonly', true);
+            $("select[id='selectSubject_type_detail']").removeAttr("disabled", "");
+            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked)").removeAttr("disabled", "");
+        }else if(tmp == "new" || tmp == "edit_complet"){
+            $('#bt_edite').text('수정하기');
+            $("textarea[id='txt_msgWelcom']").attr('readonly', true);
+            $("input[id='txt_title']").attr('readonly', true);
+            $("select[id='selectSubject_type_detail']").attr("disabled", "");
+            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked)").attr("disabled", "");
+        }
+    }
+
     function getSubject_type_Data(){
         var obj = new Object();
         obj.type = "subject_type";
@@ -448,6 +478,7 @@
         obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
         obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
         obj.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
+
         getAjaxData("broadcastList", "/rest/broadcast/broadcast/list", obj, fn_success, fn_fail);
     }
     function fn_success(dst_id, response){
@@ -458,6 +489,8 @@
         var html = templateScript(context);
         $("#tableBody").append(html);
         $('#list_info').DataTable().draw();
+
+        $('#list_cnt').html("검색 결과 총" + response.data.length + "건");
     }
     function fn_code_list_success(dst_id, response){
         dalbitLog(response);
@@ -479,6 +512,8 @@
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         roomNo = response.data.roomNo;
+
+        console.log("response.data.type : " + response.data.type);
         $("#selectSubject_type_detail").val(response.data.type);
         $("#txt_title").val(response.data.title);
         $("#lb_djID").html(response.data.memId);

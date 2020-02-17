@@ -27,7 +27,10 @@
                 ,b.mem_id       AS memId
           FROM tb_broadcast_room a, tb_member_basic b
          WHERE a.mem_no = b.mem_no
---            AND state != 4
+           AND state != 4
+        <if test='checkDate == "true"'>
+            and DATE_FORMAT(start_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(start_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}
+        </if>
         <if test='value != "9999"'>
             AND a.subject_type = #{value}
           </if>

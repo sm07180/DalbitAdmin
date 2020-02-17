@@ -15,6 +15,7 @@ public class BroadcastListVo {
     private String value;                   // 방송 주제 타입 값
     private String stDate;
     private String edDate;
+    private String CheckDate;            //기간 선택 여부
 
     /* return result */
     private String roomNo;                  //방번호

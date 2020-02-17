@@ -46,7 +46,6 @@ public class M_MemberRestController {
         apiData.setStDate(request.getParameter("stDate").replace("-",""));
         apiData.setEdDate(request.getParameter("edDate").replace("-",""));
 
-        log.info("checkDate @@@ > " + request.getParameter("checkDate"));
         List<MemberListVo> list = mMemberService.getMemberList(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
@@ -64,13 +63,8 @@ public class M_MemberRestController {
         apiData.setCheckDate(request.getParameter("checkDate"));
         apiData.setStDate(request.getParameter("stDate").replace("-",""));
         apiData.setEdDate(request.getParameter("edDate").replace("-",""));
-        /**/
         List<MemberListVo> list = mMemberService.getMemberList(apiData);
-        /**/
-
         List<Object[]> bodies = new ArrayList<>();
-
-
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
 
@@ -85,19 +79,12 @@ public class M_MemberRestController {
 
             bodies.add(hm.values().toArray());
         }
-
-
-
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
-
         SXSSFWorkbook workbook = excelService.excelDownload("회원정보",vo);
-
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
         model.addAttribute("workbookName", "회원목록");
-
         excelService.renderMergedOutputModel(model.asMap(), request, response);
-
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 

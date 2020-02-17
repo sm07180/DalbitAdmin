@@ -19,8 +19,8 @@ public class MemberInfoVo {
     private String memSlct;
     private String memAdid;
     private String state;
-    private String mem_join_date;
-    private String last_upd_date;
+    private String memJoinDate;
+    private String lastUpdDate;
     private String memName;
     private String memEmail;
     private String profileImage;

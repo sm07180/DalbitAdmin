@@ -54,11 +54,12 @@ public class B_BroadcastRestController {
         BroadcastListVo apiData = new BroadcastListVo();
         apiData.setSearch((String) request.getParameter("search"));
         apiData.setDate((String) request.getParameter("date"));
-        apiData.setGubun(request.getParameter("gubun"));
-        apiData.setType((String) request.getParameter("type"));
-        apiData.setValue(request.getParameter("value"));
-        apiData.setStDate((String) request.getParameter("stDate"));
-        apiData.setEdDate((String) request.getParameter("edDate"));
+        apiData.setGubun(request.getParameter("gubun"));                // 검색조건
+        apiData.setType((String) request.getParameter("type"));         // subject_type
+        apiData.setValue(request.getParameter("value"));                // 방송주제
+        apiData.setCheckDate(request.getParameter("checkDate"));        // 기간선택 여부
+        apiData.setStDate(request.getParameter("stDate").replace("-",""));
+        apiData.setEdDate(request.getParameter("edDate").replace("-",""));
 
         String result = bBroadcastService.callBroadcastList(apiData);
         return result;

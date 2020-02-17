@@ -22,8 +22,8 @@ public class MemberInfoOutVo {
     String memSlct;
     String memAdid;
     String state;
-    String mem_join_date;
-    String last_upd_date;
+    String memJoinDate;
+    String lastUpdDate;
     String memName;
     String memEmail;
     ImageVo profileImage;
@@ -53,8 +53,8 @@ public class MemberInfoOutVo {
         this.memSlct=target.getMemSlct();
         this.memAdid=target.getMemAdid();
         this.state=target.getState();
-        this.mem_join_date=target.getMem_join_date();
-        this.last_upd_date=target.getLast_upd_date();
+        this.memJoinDate=target.getMemJoinDate();
+        this.lastUpdDate=target.getLastUpdDate();
         this.memName=target.getMemName();
         this.memEmail=target.getMemEmail();
         this.profileImage=new ImageVo(target.getProfileImage(), DalbitUtil.getProperty("server.photo.url"));

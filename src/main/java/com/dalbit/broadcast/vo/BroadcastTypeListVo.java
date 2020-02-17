@@ -8,6 +8,6 @@ import lombok.Setter;
 public class BroadcastTypeListVo {
 
     private String type;
-    private int value;
+    private String value;
     private String code;
 }

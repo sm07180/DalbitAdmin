@@ -60,8 +60,8 @@
           ,a.mem_slct                   as memSlct
           ,a.mem_adid                   as memAdid
           ,a.mem_state                  as state
-          ,DATE_FORMAT(a.mem_join_date,'%Y-%m-%d %H:%i:%s')    as join_date
-          ,DATE_FORMAT(a.last_upd_date,'%Y-%m-%d %H:%i:%s')    as upd_date
+          ,DATE_FORMAT(a.mem_join_date,'%Y-%m-%d %H:%i:%s')    as memJoinDate
+          ,DATE_FORMAT(a.last_upd_date,'%Y-%m-%d %H:%i:%s')    as lastUpdDate
           ,b.mem_email                  as memEmail
           ,b.image_profile 		        as profileImage
           ,c.level 						as level
