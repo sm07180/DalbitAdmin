@@ -47,11 +47,7 @@
 
         $("#tableBody").append(html);
 
-        $('#list').DataTable({
-            retrieve : true,
-            paging : true,
-            searching : true,
-        });
+        $('#list').DataTable({});
 
     }
 
