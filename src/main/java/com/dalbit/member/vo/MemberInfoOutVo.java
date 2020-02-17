@@ -27,7 +27,6 @@ public class MemberInfoOutVo {
     String memName;
     String memEmail;
     ImageVo profileImage;
-    int age;
     int level;
     String grade;
     int exp;
@@ -58,7 +57,6 @@ public class MemberInfoOutVo {
         this.memName=target.getMemName();
         this.memEmail=target.getMemEmail();
         this.profileImage=new ImageVo(target.getProfileImage(), DalbitUtil.getProperty("server.photo.url"));
-        this.age=DalbitUtil.ageCalculation(Integer.parseInt(target.getBirthYear()));
         this.level=target.getLevel();
         this.grade=target.getGrade();
         this.exp=target.getExp();

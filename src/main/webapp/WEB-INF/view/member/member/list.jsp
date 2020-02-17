@@ -39,13 +39,13 @@
                     </div>
 
                     <div class="col-lg-12">
-                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel">기간 선택</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel" checked>기간 선택</label>
                         <div class="input-group date col-lg-4" id="date_startSel">
-                            <input type="text" class="form-control " id="txt_startSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
+                            <input type="text" class="form-control " id="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
                         </div>
                         <label>~</label>
                         <div class="input-group date col-lg-4" id="date_endSel">
-                            <input type="text" class="form-control" id="txt_endSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
+                            <input type="text" class="form-control" id="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
                         <div class="col-md-6">
                             <label class="col-md-4 control-label">프로필 이미지</label>
                             <div class="col-md-8">
-                                <img src="/template2/assets/img/profile-avatar.png" alt="Profile Picture" style="height:100px;">
+                                <img src="/template2/assets/img/profile-avatar.png" alt="Profile Picture" style="height:150px;width: 150px">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -414,9 +414,10 @@
 
 <script>
     $(document).ready(function() {
+        $('#detail').hide();
         init("new");
-        $('#list_info').DataTable();
         var memNo;
+        $('#list_info').DataTable();
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -476,6 +477,13 @@
             };
         });
 
+        $('#date_birth').change(function(){
+            if($('#bt_edite').text() == "수정완료"){
+                var age = Number(moment().format("YYYY")) + 1 - Number( moment($('#txt_birth').val()).format("YYYY"));
+                $("#lb_age").html(age + "세");
+            }
+        });
+
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getUserInfo();
@@ -483,14 +491,21 @@
 
         $('#bt_edite').click( function() {                //    수정하기
             if($('#bt_edite').text() == "수정하기"){
-                init("edit")
+                init("edit");
             }else if($('#bt_edite').text() == "수정완료"){
-                init("edit_complet")
+                init("edit_complet");
             }
         });
         $('#bt_imgChg').click(function() {					//   사진변경
         });
         $('#bt_resatPass').click(function() {				//   비밀번호초기화
+        });
+        $('#bt_phon').click(function() {				    //   인증번호전송
+            if($('#bt_phon').text() == "인증번호전송"){
+                authenNum("submit");
+            }else if($('#bt_phon').text() == "재발송"){
+                authenNum("re_submit");
+            }
         });
         $('#bt_broadHistory').click(function() {		    //   방송기록세부내역
             getHistoryDetail("broadHistory","방송기록","ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.");
@@ -534,7 +549,6 @@
         // getUserInfo();
         getLevelData();
         getGradeData();
-        $('#detail').hide();
 
         if(tmp == "edit"){
             $('#bt_edite').text('수정완료');
@@ -556,6 +570,13 @@
             $('#bt_listenSms').hide();
             $('#bt_resatPass').hide();
             $('#bt_liveSms').hide();
+        }
+    }
+    function authenNum(tmp){
+        if(tmp == "submit"){
+            $('#bt_phon').text('재발송');
+        }else if(tmp == "re_submit") {
+            $('#bt_phon').text('인증번호전송');
         }
     }
 
@@ -598,13 +619,9 @@
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
-
         $("#tableBody").append(html);
-
         $('#list_info').DataTable().draw();
-
         $('#list_cnt').html("검색 결과 총" + response.data.length + "건");
-
     }
     function fn_code_list_success(dst_id, response){
         // dalbitLog(response);
@@ -630,7 +647,6 @@
         $("#lb_userId").html(response.data.memId);
         $("#txt_nickName").val(response.data.memNick);
         $("#txt_name").val(response.data.memName);
-        $("#lb_age").html(response.data.age + "세");
         $("#txt_phon").val(response.data.memPhone);
         $("#txt_eMail").val(response.data.memEmail);
         // $("#txt_pass").val(response.data.memPasswd);
@@ -643,8 +659,9 @@
         $("#lb_myStarCnt").html("총" + response.data.starCnt + "건");
         $("#lb_myFanCnt").html("총" + response.data.fanCnt + "건");
         $("#lb_broadNoticeCnt").html("총" + response.data.noticeCnt + "건");
-        // console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
-        //$("txt_birth#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
+        $( "#txt_birth" ).datepicker( "setDate", response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
+        var age = Number(moment().format("YYYY")) + 1 - Number( response.data.birthYear);
+        $("#lb_age").html(age + "세");
         $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
 
         $("#lb_myReportCnt").html("총" + response.data.reportCnt + "건" + "/" + "총" + response.data.reportMemCnt + "건");

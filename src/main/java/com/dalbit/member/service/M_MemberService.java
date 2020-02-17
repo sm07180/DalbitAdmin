@@ -68,16 +68,13 @@ public class M_MemberService {
      * 선택 회원 정보
      */
     public String callMemberInfo(MemberInfoVo memberInfoVo) {
-        log.info("@@@@@@@@@@@@ " + memberInfoVo.getMemNo());
         ProcedureVo procedureVo = new ProcedureVo();
         List<MemberInfoVo> list = mMemberDao.callMemberInfo(memberInfoVo);
-
         List<MemberInfoOutVo> outVoList = new ArrayList<>();
         for (int i = 0; i< list.size(); i++){
             outVoList.add(new MemberInfoOutVo(list.get(i)));
         }
         procedureVo.setData(outVoList.get(0));
-
         String result;
         result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
         log.info(" ### 호출결과 ###" + result);

@@ -38,13 +38,13 @@
                     </div>
 
                     <div class="col-lg-12">
-                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel">기간 선택</label>
+                        <label class="checkbox-inline"><input type="checkbox" id="check_dateSel" checked>기간 선택</label>
                         <div class="input-group date col-lg-4" id="date_startSel">
-                            <input type="text" class="form-control " id="txt_startSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
+                            <input type="text" class="form-control " id="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
                         </div>
                         <label>~</label>
                         <div class="input-group date col-lg-4" id="date_endSel">
-                            <input type="text" class="form-control" id="txt_endSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
+                            <input type="text" class="form-control" id="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
                         </div>
                     </div>
                 </div>
@@ -83,6 +83,9 @@
                         <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
                             <span>
                                 <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                            </span>
+                            <span style="float: right;">
+                                <label id="list_cnt" class="text_middle well-sm" style="font-size: 12px;height: 27px;background: #bfbfbf">검색 결과 총0건</label>
                             </span>
                             <thead>
                             <tr>
@@ -234,10 +237,9 @@
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
-
         $("#tableBody").append(html);
-
         $('#list_info').DataTable().draw();
+        $('#list_cnt').html("검색 결과 총" + response.data.length + "건");
     }
 
     function getMemNo_info(id){
