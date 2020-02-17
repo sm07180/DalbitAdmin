@@ -256,6 +256,7 @@
         // $("#detail_comments").html(comments);
         if(id == "broadHistory"){
             var data = {header: [
+                    { columnNm : "key"},
                     { columnNm : "NO"},
                     { columnNm : "방송주제"},
                     { columnNm : "방송제목"},
@@ -268,6 +269,7 @@
                 ]};
         }else if(id == "listenHistory") {
             var data = {header: [
+                    { columnNm : "key"},
                     { columnNm : "NO"},
                     { columnNm : "청취방주제"},
                     { columnNm : "청취 방송제목"},
@@ -315,6 +317,17 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
+    }
+
+    function Broad(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('종료된 방송 상세정보 새창 오픈~ roomNo : ' + id);
+    }
+    function Listen(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + id);
     }
 
     /*=============엑셀==================*/
@@ -367,9 +380,10 @@
 <script id="broadHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td id="broadRoomNo">{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Broad(this.id);" id="B_{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{airtime}}</td>
@@ -382,14 +396,17 @@
 <script id="listenHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Listen(this.id);" id="L_{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{listenTime}}</td>
-        <td>{{giftRuby}}</td>
+        <td>{{memId}}</td>
         <td>{{memNick}}</td>
+        <td>{{like}}</td>
+        <td>{{ruby}}</td>
     </tr>
     {{/data}}
 </script>

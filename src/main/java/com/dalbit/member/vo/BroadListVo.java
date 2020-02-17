@@ -19,7 +19,7 @@ public class BroadListVo {
     private int gold;
 
     /* member/member/list 를 위한 Vo */
-    private String tmp;                 // 상세보기 구분
+    private String roomNo;
     private String memId;
     private String memNo;
     private String memNick;

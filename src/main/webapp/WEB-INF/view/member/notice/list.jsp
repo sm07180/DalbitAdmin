@@ -242,6 +242,7 @@
         $("#tableTop_detail").empty();
         // $("#detail_comments").html(comments);
         var data = {header: [
+                {columnNm: "key"},
                 {columnNm: "NO"},
                 {columnNm: "구분"},
                 {columnNm: "방송제목"},
@@ -264,7 +265,7 @@
     function fn_success_detail(dst_id, response) {
         dalbitLog(response);
         var template;
-        template = $('#NoticeHistory_detail').html();
+        template = $('#noticeHistory_detail').html();
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
@@ -277,7 +278,11 @@
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
     }
-
+    function Notice(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('공지사항 삭제~ roomNo : ' + id);
+    }
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
@@ -324,12 +329,13 @@
         {{/header}}
     </tr>
 </script>
-<script id="NoticeHistory_detail" type="text/x-handlebars-template">
+<script id="noticeHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{type}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Notice(this.id);" id="N_{{roomNo}}">{{title}}</a></td>
         <td>{{notice}}</td>
         <td>{{lastUpdDate}}</td>
     </tr>

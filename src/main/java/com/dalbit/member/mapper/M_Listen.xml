@@ -23,26 +23,18 @@
 
     <select id="callListenHistory_detail" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
       /* M_Listen.xml - callListenHistory_detail */
-        SELECT
-          (SELECT c.code
-            FROM tbl_code_define c
-            WHERE c.type='subject_type'
-              AND c.value=basic.subject_type
-          ) as subjectType
-          , basic.title                       /*읽힘*/
-          , DATE_FORMAT(listen.start_date, '%Y-%m-%d %H:%i:%s') as startDate
-          , DATE_FORMAT(listen.end_date, '%Y-%m-%d %H:%i:%s') as endDate
-          , TIME_FORMAT(SEC_TO_TIME(listen.listentime/1000), '%H시간 %i분 %s초') as  listenTime /*읽힘*/
-          , listen.gift_ruby as giftRuby
-          , member.mem_nick as memNick
-          FROM tb_member_broadcast_basic basic
-              , tb_member_broadcast_broadcasting broad
-              , tb_member_broadcast_listening listen
-              , tb_member_basic member
-          where basic.mem_no = broad.mem_no
-            and broad.room_no = listen.room_no
-            and listen.mem_no = member.mem_no
-            and listen.mem_no = #{memNo}
+        select b.room_no  as roomNo
+                ,(SELECT c.code FROM tbl_code_define c WHERE c.type = 'subject_type' AND c.value = b.subject_type)   as subjectType
+                ,b.title           as title
+                ,DATE_FORMAT(a.start_date, '%Y-%m-%d %H:%i:%s')                     as startDate
+                ,DATE_FORMAT(a.end_date, '%Y-%m-%d %H:%i:%s')                       as endDate
+                ,TIME_FORMAT(SEC_TO_TIME(a.listentime / 1000), '%H시간 %i분 %s초')  as listenTime /*읽힘*/
+                ,(select mem_id from tb_member_basic where mem_no = b.mem_no)    as memId
+                ,(select mem_nick from tb_member_basic where mem_no = b.mem_no)  as memNick
+                ,ruby   as ruby
+          from tb_member_broadcast_listening a left join (select room_no, title, mem_no, subject_type from tb_broadcast_room) b
+            on a.room_no = b.room_no
+         where a.mem_no = #{memNo}
     </select>
 
 </mapper>

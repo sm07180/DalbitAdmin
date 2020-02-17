@@ -61,8 +61,10 @@ public class M_ListenRestController {
             hm.put("startDate", DalbitUtil.isEmpty(list.get(i).getStartDate()) ? "" : list.get(i).getStartDate());
             hm.put("endDate", DalbitUtil.isEmpty(list.get(i).getEndDate()) ? "" : list.get(i).getEndDate());
             hm.put("listentime", DalbitUtil.isEmpty(list.get(i).getListenTime()) ? "" : list.get(i).getListenTime());
-            hm.put("giftRuby", DalbitUtil.isEmpty(list.get(i).getGiftRuby()) ? "" : list.get(i).getGiftRuby());
+            hm.put("memNick", DalbitUtil.isEmpty(list.get(i).getMemId()) ? "" : list.get(i).getMemId());
             hm.put("memNick", DalbitUtil.isEmpty(list.get(i).getMemNick()) ? "" : list.get(i).getMemNick());
+            hm.put("giftRuby", DalbitUtil.isEmpty(list.get(i).getRuby()) ? "" : list.get(i).getRuby());
+            hm.put("giftRuby", DalbitUtil.isEmpty(list.get(i).getLike()) ? "" : list.get(i).getLike());
 
 
             bodies.add(hm.values().toArray());

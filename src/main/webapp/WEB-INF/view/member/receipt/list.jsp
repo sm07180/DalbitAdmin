@@ -242,6 +242,7 @@
         $("#tableTop_detail").empty();
         // $("#detail_comments").html(comments);
         var data = {header: [
+                {columnNm: "key"},
                 {columnNm: "NO"},
                 {columnNm: "플랫폼구분"},
                 {columnNm: "문의구분"},
@@ -281,6 +282,14 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
+    }
+
+    function Report(id){
+        var tmp = id.split('_');
+        var idx = tmp[0];
+        var reportId = tmp[1];
+        var reportMemId = tmp[2];
+        alert("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
     }
 
     /*=============엑셀==================*/
@@ -332,12 +341,13 @@
 <script id="reportHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{idx}}</td>
         <td>{{index @index}}</td>
         <td>{{platform}}</td>
         <td>{{type}}</td>
         <td>{{reportId}}</td>
         <td>{{reportMemId}}</td>
-        <td>{{etc}}</td>
+        <td><a href="javascript://" onclick="javascript:Report(this.id);" id="{{idx}}_{{reportId}}_{{reportMemId}}">{{etc}}</a></td>
         <td>{{lastUpdDate}}</td>
         <td>{{deployDate}}</td>
         <td>{{status}}</td>

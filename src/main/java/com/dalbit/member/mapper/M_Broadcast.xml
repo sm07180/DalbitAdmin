@@ -21,8 +21,8 @@
 
     <select id="callBroadHistory_detail" parameterType="com.dalbit.member.vo.BroadListVo" resultType="com.dalbit.member.vo.BroadListVo">
         /* M_Broadcast.xml - callBroadHistory_detail */
-        SELECT
-           (SELECT aa.code From tbl_code_define aa WHERE aa.type='subject_type' and aa.value = lpad(b.subject_type,2,'0')) as subjectType
+        SELECT b.room_no as roomNo
+            ,(SELECT aa.code From tbl_code_define aa WHERE aa.type='subject_type' and aa.value = lpad(b.subject_type,2,'0')) as subjectType
             , b.title as title
             , DATE_FORMAT(b.start_date,'%Y-%m-%d %H:%i:%s') as startDate
             , DATE_FORMAT(b.end_date,'%Y-%m-%d %H:%i:%s') as endDate

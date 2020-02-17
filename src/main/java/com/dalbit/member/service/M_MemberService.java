@@ -44,7 +44,6 @@ public class M_MemberService {
         return mMemberDao.callMemberList(memberListVo);
     }
 
-
     /**
      * 회원 레벨 목록
      */

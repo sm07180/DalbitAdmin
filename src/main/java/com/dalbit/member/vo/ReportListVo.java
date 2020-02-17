@@ -12,6 +12,7 @@ public class ReportListVo {
     private String memNo;
 
     /*output*/
+    private String idx;
     private String platform;
     private String type;
     private String reportMemNo;

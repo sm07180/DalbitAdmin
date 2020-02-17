@@ -242,6 +242,11 @@
         $('#list_cnt').html("검색 결과 총" + response.data.length + "건");
     }
 
+    function fn_fail(data, textStatus, jqXHR){
+        console.log(data, textStatus, jqXHR);
+        $('#list_info_detail').DataTable().draw();
+    }
+
     function getMemNo_info(id){
         // var obj = new Object();
         // obj.mem_no = id;
@@ -256,7 +261,8 @@
         // $("#detail_comments").html(comments);
         if(id == "broadHistory"){
             var data = {header:[
-                    "NO1"
+                    "key"
+                    , "NO1"
                     , "방송주제"
                     , "방송제목"
                     , "방송시작시간"
@@ -270,13 +276,14 @@
         }else if(id == "listenHistory") {
             var data = {header: [
                     "NO2"
-                    ,"청취방주제"
-                    ,"청취 방송제목"
-                    ,"청취시작시간"
-                    ,"청취종료시간"
-                    ,"청취진행시간"
-                    ,"받은 루비 개수"
-                    ,"청취 DJ 닉네임"
+                    , "key"
+                    , "청취방주제"
+                    , "청취 방송제목"
+                    , "청취시작시간"
+                    , "청취종료시간"
+                    , "청취진행시간"
+                    , "받은 루비 개수"
+                    , "청취 DJ 닉네임"
                 ]};
         }
 
@@ -296,7 +303,6 @@
             getAjaxData(id, "/rest/member/listen/list", obj, fn_success_detail, fn_fail);
         }
     }
-
     function fn_success_detail(dst_id, response) {
         dalbitLog(response);
         var template;
@@ -318,12 +324,29 @@
         $('#list_info_detail').DataTable().draw();
     }
 
+    function Broad(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('종료된 방송 상세정보 새창 오픈~ roomNo : ' + id);
+    }
+    function Listen(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + id);
+    }
+
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
-        /*formData.append("search", "test001");
-        formData.append("test003", "test003");*/
+
+        formData.append("search", tmp_search);
+        formData.append("date", tmp_date);
+        formData.append("gubun", tmp_gubun);
+        formData.append("checkDate", tmp_checkDate);
+        formData.append("stDate", tmp_stDate);
+        formData.append("edDate", tmp_edDate);
+        /*formData.append("test003", "test003");*/
         excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 
@@ -342,7 +365,6 @@
     <tr>
         <td>{{index @index}}</td>
         <td>{{memNo}}</td>
-        <%--<td><a href="javascript://" onclick="javascript:getMemNo_info(this.id);" id="{{memNo}}">{{memId}}</a></td>--%>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{memName}}</td>
@@ -352,7 +374,6 @@
         <td>{{Live}}</td>
         <td>
             <a href="javascript://" class="btn btn-xs" onclick="javascript:getMemNo_info(this.id);" id="{{memNo}}">[자세히 보기]</a>
-            <%--<a a href="javascript://" class="btn btn-xs" id="bt_listenerHistory_detail" aria-expanded="false" ></a>--%>
         </td>
     </tr>
     {{/data}}
@@ -368,9 +389,10 @@
 <script id="broadHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td id="broadRoomNo">{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Broad(this.id);" id="B_{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{airtime}}</td>
@@ -383,14 +405,17 @@
 <script id="listenHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Listen(this.id);" id="L_{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{listenTime}}</td>
-        <td>{{giftRuby}}</td>
+        <td>{{memId}}</td>
         <td>{{memNick}}</td>
+        <td>{{like}}</td>
+        <td>{{ruby}}</td>
     </tr>
     {{/data}}
 </script>

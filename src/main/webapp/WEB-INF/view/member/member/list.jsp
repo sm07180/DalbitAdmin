@@ -253,6 +253,7 @@
                             <label class="col-md-4">최근 정보 수정일시</label>
                             <div class="col-md-8">
                                 <label id="lb_editDate"></label>
+                                <button type="button" id="bt_editDateHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                     </div>
@@ -543,6 +544,9 @@
         $('#bt_response').click(function() {				//   1:1문의정보
             getHistoryDetail("responseHistory","1:1 문의 정보","ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.");
         });
+        $('#bt_editDateHistory').click(function() {		//   최근정보 수정 일시
+            getHistoryDetail("editDateHistory","정보수정 내역","ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.");
+        });
     });
 
     function init(tmp){
@@ -675,6 +679,38 @@
         obj.mem_no = id;
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
+    function Broad(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('종료된 방송 상세정보 새창 오픈~ roomNo : ' + id);
+    }
+    function Listen(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + id);
+    }
+    function MyStar(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('MyStar 해제~ memNo : ' + id);
+    }
+    function Fan(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('Fan 해제~ memNo : ' + id);
+    }
+    function Notice(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('공지사항 삭제~ roomNo : ' + id);
+    }
+    function Report(id){
+        var tmp = id.split('_');
+        var idx = tmp[0];
+        var reportId = tmp[1];
+        var reportMemId = tmp[2];
+        alert("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
+    }
     function getHistoryDetail(tmp,tmp2,tmp3){     // 상세보기
         $("#tableTop_detail").empty();
         table_col_set(tmp,tmp2,tmp3);
@@ -690,6 +726,7 @@
         $("#detail_comments").html(comments);
         if(id == "broadHistory"){
             var data = {header: [
+                    { columnNm : "key"},
                     { columnNm : "NO"},
                     { columnNm : "방송주제"},
                     { columnNm : "방송제목"},
@@ -702,14 +739,17 @@
                 ]};
         }else if(id == "listenHistory") {
             var data = {header: [
+                    { columnNm : "key"},
                     { columnNm : "NO"},
                     { columnNm : "청취방주제"},
-                    { columnNm : "청취 방송제목"},
+                    { columnNm : "청취 방송 제목"},
                     { columnNm : "청취시작시간"},
                     { columnNm : "청취종료시간"},
                     { columnNm : "청취진행시간"},
-                    { columnNm : "받은 루비 개수"},
-                    { columnNm : "청취 DJ 닉네임"}
+                    { columnNm : "DJ ID"},
+                    { columnNm : "DJ 닉네임"},
+                    { columnNm : "보낸 좋아요 수"},
+                    { columnNm : "보낸 아이템 수"},
                 ]};
         }else if(id == "payHistory") {
             var data = {header: [
@@ -764,6 +804,7 @@
                 ]};
         }else if(id == "myStarHistory") {
             var data = {header: [
+                    {columnNm: "key"},
                     {columnNm: "NO"},
                     {columnNm: "MyStar ID"},
                     {columnNm: "MyStar 닉네임"},
@@ -774,6 +815,7 @@
                 ]};
         }else if(id == "myFanHistory") {
             var data = {header: [
+                    {columnNm: "key"},
                     {columnNm: "NO"},
                     {columnNm: "Fan ID"},
                     {columnNm: "Fan 닉네임"},
@@ -784,6 +826,7 @@
                 ]}
         }else if(id == "noticeHistory") {
             var data = {header: [
+                    {columnNm: "key"},
                     {columnNm: "NO"},
                     {columnNm: "구분"},
                     {columnNm: "방송제목"},
@@ -792,6 +835,7 @@
                 ]};
         }else if(id == "reportHistory") {
             var data = {header: [
+                    {columnNm: "key"},
                     {columnNm: "NO"},
                     {columnNm: "플랫폼구분"},
                     {columnNm: "문의구분"},
@@ -816,6 +860,13 @@
                     {columnNm: "처리상태"},
                     {columnNm: "처리자"},
                 ]};
+        }else if(id == "editDateHistory") {
+            var data = {header: [
+                    {columnNm: "NO"},
+                    {columnNm: "정보 수정 일시"},
+                    {columnNm: "수정 세부 내용"},
+                    {columnNm: "수정 처리자"},
+                ]};
         }
 
         var template = $('#tmp_list_top_column').html();
@@ -823,8 +874,6 @@
         var context = data;
         var html = templateScript(context);
         $("#tableTop_detail").append(html);
-
-
         $('#list_info_detail').DataTable().destroy();
         $("#tableBody_detail").empty();
         var obj = new Object();
@@ -850,6 +899,8 @@
         } else if(id == "reportHistory") {
             getAjaxData(id, "/rest/member/report/list", obj, fn_success_detail, fn_fail);
         } else if(id == "responseHistory") {
+            getAjaxData(id, "/rest/member/response/list", obj, fn_success_detail, fn_fail);
+        } else if(id == "editDateHistory") {
             getAjaxData(id, "/rest/member/response/list", obj, fn_success_detail, fn_fail);
         }
     }
@@ -879,6 +930,8 @@
             template = $('#reportHistory_detail').html();
         } else if(dst_id == "responseHistory") {
             template = $('#responseHistory_detail').html();
+        } else if(dst_id == "editDateHistory") {
+            template = $('#editDateHistory_detail').html();
         }
         var templateScript = Handlebars.compile(template);
         var context = response;
@@ -1009,9 +1062,10 @@
 <script id="broadHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td id="broadRoomNo">{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Broad(this.id);" id="B_{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{airtime}}</td>
@@ -1024,22 +1078,26 @@
 <script id="listenHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Listen(this.id);" id="L_{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{listenTime}}</td>
-        <td>{{giftRuby}}</td>
+        <td>{{memId}}</td>
         <td>{{memNick}}</td>
+        <td>{{like}}</td>
+        <td>{{ruby}}</td>
     </tr>
     {{/data}}
 </script>
 <script id="myStarHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td>{{memId}}</td>
+        <td><a href="javascript://" onclick="javascript:MyStar(this.id);" id="M_{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>
@@ -1051,8 +1109,9 @@
 <script id="myFanHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td>{{memId}}</td>
+        <td><a href="javascript://" onclick="javascript:Fan(this.id);" id="F_{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>
@@ -1064,9 +1123,10 @@
 <script id="noticeHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{type}}</td>
-        <td>{{title}}</td>
+        <td><a href="javascript://" onclick="javascript:Notice(this.id);" id="N_{{roomNo}}">{{title}}</a></td>
         <td>{{notice}}</td>
         <td>{{lastUpdDate}}</td>
     </tr>
@@ -1075,12 +1135,13 @@
 <script id="reportHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{idx}}</td>
         <td>{{index @index}}</td>
         <td>{{platform}}</td>
         <td>{{type}}</td>
         <td>{{reportId}}</td>
         <td>{{reportMemId}}</td>
-        <td>{{etc}}</td>
+        <td><a href="javascript://" onclick="javascript:Report(this.id);" id="{{idx}}_{{reportId}}_{{reportMemId}}">{{etc}}</a></td>
         <td>{{lastUpdDate}}</td>
         <td>{{deployDate}}</td>
         <td>{{status}}</td>

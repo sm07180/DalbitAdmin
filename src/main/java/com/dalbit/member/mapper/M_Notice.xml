@@ -15,7 +15,8 @@
 
     <select id="callBroadNoticeList" parameterType="com.dalbit.member.vo.NoticeListVo" resultType="com.dalbit.member.vo.NoticeListVo" >
       /* M_Notice.xml - callBroadNoticeList */
-        select '방송중 공지' as type
+        select room_no as roomNo
+                ,'방송중 공지' as type
                 , title
                 , notice
                 , last_upd_date as lastUpdDate

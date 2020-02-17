@@ -242,6 +242,7 @@
         $("#tableTop_detail").empty();
         // $("#detail_comments").html(comments);
         var data = {header: [
+                {columnNm: "key"},
                 {columnNm: "NO"},
                 {columnNm: "Fan ID"},
                 {columnNm: "Fan 닉네임"},
@@ -279,6 +280,12 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
+    }
+
+    function Fan(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('Fan 해제~ memNo : ' + id);
     }
 
     /*=============엑셀==================*/
@@ -331,8 +338,9 @@
 <script id="myFanHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td>{{memId}}</td>
+        <td><a href="javascript://" onclick="javascript:Fan(this.id);" id="F_{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>

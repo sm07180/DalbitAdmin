@@ -12,6 +12,7 @@ public class NoticeListVo {
     private String memNo;
 
     /*output*/
+    private String roomNo;
     private String type;
     private String title;
     private String notice;

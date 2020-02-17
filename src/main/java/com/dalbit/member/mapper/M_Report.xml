@@ -5,6 +5,7 @@
     <select id="callReportList" parameterType="com.dalbit.member.vo.ReportListVo" resultType="com.dalbit.member.vo.ReportListVo" >
       /* M_Report.xml - callReportList */
         select 'p'      as platform /*플랫폼*/
+               ,idx
                ,(select code from tbl_code_define where value = a.reason and type = 'report_reason') as type
                ,a.mem_no as memNo
                ,a.reported_mem_no as reportMemNo
@@ -15,9 +16,10 @@
                ,a.etc    as etc
            From tb_member_report a left join (select mem_no,mem_id,mem_nick from tb_member_basic) b on a.mem_no = b.mem_no
                                      left join (select mem_no,mem_id,mem_nick from tb_member_basic) c on a.reported_mem_no = c.mem_no
-          where a.mem_no = #{memNo}
+          where a.mem_no = #{memNo}             /*내가 신고한 사람*/
           union
           select 'p'      as platform /*플랫폼*/
+               ,idx
                ,(select code from tbl_code_define where value = a.reason and type = 'report_reason') as type
                ,a.mem_no as memNo
                ,a.reported_mem_no as reportMemNo
@@ -28,7 +30,7 @@
                ,a.etc    as etc
            From tb_member_report a left join (select mem_no,mem_id,mem_nick from tb_member_basic) b on a.mem_no = b.mem_no
                                      left join (select mem_no,mem_id,mem_nick from tb_member_basic) c on a.reported_mem_no = c.mem_no
-          where a.reported_mem_no = #{memNo}
+          where a.reported_mem_no = #{memNo}      /*나를 신고한사람*/
     </select>
 
 </mapper>

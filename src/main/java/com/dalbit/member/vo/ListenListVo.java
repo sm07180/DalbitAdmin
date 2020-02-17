@@ -13,12 +13,15 @@ public class ListenListVo {
 
     //output
     /* member/listen/list 를 위한 Vo */
+    private String roomNo;
     private String subjectType;
     private String title;
     private String startDate;
     private String endDate;
     private String listenTime;
-    private int giftRuby;
+    private String memId;
     private String memNick;
+    private int ruby;
+    private int like;
 
 }

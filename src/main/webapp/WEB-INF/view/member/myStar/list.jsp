@@ -243,6 +243,7 @@
         $("#tableTop_detail").empty();
         // $("#detail_comments").html(comments);
         var data = {header: [
+                {columnNm: "key"},
                 {columnNm: "NO"},
                 {columnNm: "MyStar ID"},
                 {columnNm: "MyStar 닉네임"},
@@ -280,6 +281,12 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
+    }
+
+    function MyStar(id){
+        var tmp = id.split('_');
+        var id = tmp[1];
+        alert('MyStar 해제~ memNo : ' + id);
     }
 
     /*=============엑셀==================*/
@@ -328,12 +335,12 @@
         {{/header}}
     </tr>
 </script>
-
 <script id="myStarHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td>{{memId}}</td>
+        <td><a href="javascript://" onclick="javascript:MyStar(this.id);" id="M_{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>
