@@ -18,7 +18,7 @@
 <script src="/template2/assets/js/plugins/stat/flot/jquery.flot.pie.min.js"></script>
 <script src="/template2/assets/js/plugins/stat/flot/jquery.flot.tooltip.min.js"></script>
 <script src="/template2/assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
-<script src="/template2/assets/js/plugins/datatable/jquery.dataTables.min.js"></script>
+<script src="/template2/assets/js/plugins/datatable/jquery.dataTables.js"></script>
 <script src="/template2/assets/js/plugins/datatable/dataTables.bootstrap.js"></script>
 <script src="/template2/assets/js/plugins/datatable/exts/dataTables.colVis.bootstrap.js"></script>
 <script src="/template2/assets/js/plugins/datatable/exts/dataTables.colReorder.min.js"></script>
