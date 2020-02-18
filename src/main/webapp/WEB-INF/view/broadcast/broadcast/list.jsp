@@ -245,7 +245,8 @@
                         <div class="col-md-6">
                             <label class="col-md-3">게스트 / 게스트 ID</label>
                             <div class="col-md-9">
-                                <label id="lb_guestCnt">총0건</label>
+                                <label class="radio-inline"><input type="radio" name="radio_guest" id="radio_guestOn" value="on" checked>게스트ON</label>
+                                <label class="radio-inline"><input type="radio" name="radio_guest" value="off">게스트OFF</label>
                                 <button type="button" id="bt_guestHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
@@ -451,13 +452,13 @@
             $("textarea[id='txt_msgWelcom']").removeAttr('readonly', true);
             $("input[id='txt_title']").removeAttr('readonly', true);
             $("select[id='selectSubject_type_detail']").removeAttr("disabled", "");
-            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked)").removeAttr("disabled", "");
+            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked),[name='radio_guest']:not(:checked)").removeAttr("disabled", "");
         }else if(tmp == "new" || tmp == "edit_complet"){
             $('#bt_edite').text('수정하기');
             $("textarea[id='txt_msgWelcom']").attr('readonly', true);
             $("input[id='txt_title']").attr('readonly', true);
             $("select[id='selectSubject_type_detail']").attr("disabled", "");
-            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked)").attr("disabled", "");
+            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked),[name='radio_guest']:not(:checked)").attr("disabled", "");
         }
     }
 
@@ -536,6 +537,8 @@
         $('input:radio[name=radio_entry]:input[value=' + response.data.typeEntry + ']').prop("checked", true);
         $('input:radio[name=radio_gender]:input[value=' + response.data.memSex + ']').prop("checked", true);
         $('input:radio[name=radio_freezing]:input[value=' + response.data.freezing + ']').prop("checked", true);
+        $('input:radio[name=radio_guest]:input[value=' + response.data.guestOn + ']').prop("checked", true);
+        $("#radio_guestOn").html("test");
         //$("#backgroundImg").		backgroundImage
         //$("#radio_forcedExit").	forceExit
 
@@ -597,6 +600,7 @@
                 ]};
         }else if (id == "manegerHistory") {
             var data = {header: [
+                    {columnNm: "key"},
                     {columnNm: "No"},
                     {columnNm: "구분"},
                     {columnNm: "User ID"},
@@ -721,6 +725,14 @@
         $('#list_info_detail').DataTable().draw();
 
     }
+
+    function Maneger(id){
+        var memNo = $("#" + id).data('memno');
+        var maneger = $("#" + id).data('maneger');
+
+        console.log('매니저 지정하기~ memNo : ' + memNo);
+    }
+
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
@@ -788,6 +800,21 @@
         <td>{{lastUpdDate}}</td>
         <td>{{goodCnt}}</td>
         <td>{{boostCnt}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="manegerHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{memNo}}</td>
+        <td>{{index @index}}</td>
+        <td>{{auth}}</td>
+        <td>{{memId}}</td>
+        <td>{{memNick}}</td>
+        <td>{{listenStDate}}</td>
+        <td>{{manegerAddDate}}</td>
+        <td>{{manegerDelDate}}</td>
+        <td><a href="javascript://"  onclick="javascript:Maneger(this.id);" id="datamaneger_{{memNo}}" data-memno="{{memNo}}" data-maneger="{{maneger}}">{{maneger}}</a></td>
     </tr>
     {{/data}}
 </script>

@@ -4,14 +4,16 @@
 
     <select id="callListener_detail" parameterType="com.dalbit.broadcast.vo.ListenerVo" resultType="com.dalbit.broadcast.vo.ListenerVo">
         /* B_Listener.xml - callListener_detail */
-        select (select code From tbl_code_define where value = a.auth and type ='broadcast_auth')   as auth
-               ,b.mem_id     as memId
-               ,b.mem_nick   as memNick
-               ,DATE_FORMAT(a.join_date, '%Y-%m-%d %H:%i:%s')                as listenStDate
-               ,(CASE  a.auth WHEN 1 THEN '매니저' ELSE '매니저 임명' end) AS menager
-         from tb_broadcast_room_member a, tb_member_basic b
-         where a.mem_no = b.mem_no
-           and a.room_no=#{roomNo}
+        select a.mem_no as memNo
+              , b.mem_id as memId
+              , b.mem_nick as memNick
+              , DATE_FORMAT(a.start_date, '%Y-%m-%d %H:%i:%s')                    as listenStDate
+              , DATE_FORMAT(a.end_date, '%Y-%m-%d %H:%i:%s')                      as listenEdDate
+              , TIME_FORMAT(SEC_TO_TIME(a.listentime), '%H시간 %i분 %s초')  as listenTime
+              , gift_ruby as giftRuby
+         From tb_member_broadcast_listening a left join ( select mem_no, mem_id, mem_nick from tb_member_basic) b
+           on a.mem_no = b.mem_no
+        where room_no=#{roomNo}
+        order by listenStDate desc;
     </select>
-
 </mapper>
