@@ -85,17 +85,7 @@
                                 <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
                             </span>
                             <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>회원번호</th>
-                                <th>UserID</th>
-                                <th>닉네임</th>
-                                <th>이름</th>
-                                <th>연락처</th>
-                                <th>가입플랫폼</th>
-                                <th>접속상태</th>
-                                <th>생방상태</th>
-                            </tr>
+
                             </thead>
                             <tbody id="tableBody">
 
@@ -267,7 +257,7 @@
                             <label class="col-md-3">방송기록</label>
                             <div class="col-md-9">
                                 <label id="lb_broadCnt">총0건</label>
-                                <button type="button" id="bt_broadHistory" class="btn-xs pull-right">세부내역</button>
+                                <button type="button" id="bt_broadHistory" class="btn-xs pull-right" onclick="initDataTableInfoDetail($(this))">세부내역</button>
                                 <%--<a class="btn btn-xs pull-right" id="bt_broadHistory" data-toggle="collapse" href="#detail" role="button" aria-expanded="false" aria-controls="detail">--%>
                                     <%--세부내역--%>
                                 <%--</a>--%>
@@ -286,7 +276,7 @@
                             <label class="col-md-3">청취기록</label>
                             <div class="col-md-9">
                                 <label id="lb_listenCnt">총0건</label>
-                                <button type="button" id="bt_listenHistory" class="btn-xs pull-right">세부내역</button>
+                                <button type="button" id="bt_listenHistory" class="btn-xs pull-right" onclick="initDataTableInfoDetail($(this))">세부내역</button>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -411,9 +401,8 @@
 <!-- /#wrapper -->
 <script>
     $(document).ready(function() {
-        $('#list_info').DataTable();
+        initDataTableInfo();
 
-        var memNo;
         // getUserInfo();
         getLevelData();
         getGradeData();
@@ -488,12 +477,12 @@
         });
         $('#bt_resatPass').click(function() {				//   비밀번호초기화
         });
-        $('#bt_broadHistory').click(function() {		    //   방송기록세부내역
-            getHistoryDetail("broadHistory","방송기록","ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.");
-        });
-        $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
-            getHistoryDetail("listenHistory","청취기록","ㆍ회원이 방송을 청취한 과거기록을 확인할 수 있습니다.");
-        });
+        // $('#bt_broadHistory').click(function() {		    //   방송기록세부내역
+        //     getHistoryDetail("broadHistory","방송기록","ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.");
+        // });
+        // $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
+        //     getHistoryDetail("listenHistory","청취기록","ㆍ회원이 방송을 청취한 과거기록을 확인할 수 있습니다.");
+        // });
         $('#bt_payHistory').click(function() {			    //   결제/환불정보
             getHistoryDetail("payHistory","결제/환불정보","ㆍ회원의 결제정보를확인하고 결제 취소처리를 할 수 있습니다.");
         });
@@ -526,6 +515,73 @@
         });
     });
 
+    var memNo;
+
+    /** infoList DataTable  */
+    var dtList_info;
+    function initDataTableInfo(){
+        var dtList_info_data = function ( data ) {
+            data.search = $('#txt_search').val()
+            data.date = $('input[name="radio_date"]:checked').val()
+            data.gubun = $("select[name='selectGubun']").val()
+            data.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked")
+            data.stDate = $('#txt_startSel').val()
+            data.edDate = $('#txt_endSel').val()
+        };
+
+        console.log(SampleDataTableSource);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, SampleDataTableSource.userInfo);
+        dtList_info.useCheckBox(false);
+        dtList_info.useIndex(true);
+        dtList_info.setEventClick(test01);
+        dtList_info.setEventClick(test02, [2,3]);
+
+        dtList_info.initDataTable();
+
+    }
+
+    function test01(t1, t2 ,t3) {
+        dalbitLog("=-----")
+        dalbitLog(t1)
+        dalbitLog(t2)
+        dalbitLog(t3)
+        dalbitLog(t3.memId);
+        dalbitLog("-----=");
+    }
+
+
+    function test02(t1, t2 ,t3) {
+        dalbitLog("=-----")
+        dalbitLog("Test002");
+        dalbitLog("-----=");
+    }
+
+
+    /** infoList_Detail DataTable  */
+    var dtList_info_detail;
+    function initDataTableInfoDetail(dom){
+        var key = dom.prop("id").replace("bt_","");
+        var source = SampleDataTableSource[key];
+
+        $('#detail').show();
+        $("#detail_label").html(source.title);
+        $("#detail_comments").html("ㆍ" + source.comments);
+
+        var dtList_info_detail_data = function (data) {
+            data.mem_no = memNo;
+        }
+
+        if(isEmpty(dtList_info_detail)){
+            dtList_info_detail = new DalbitDataTable($("#list_info_detail"), dtList_info_detail_data, source);
+            dtList_info_detail.useCheckBox(false);
+            dtList_info_detail.useIndex(true);
+            dtList_info_detail.initDataTable();
+        }else{
+            dtList_info_detail.changeReload(null, null, source);
+        }
+    }
+
+
     function getLevelData(){
         var obj = new Object();
         obj.level = "level";
@@ -537,17 +593,20 @@
         getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
     }
     function getUserInfo(){                 // 검색
-        $('#list_info').DataTable().destroy();
-        $("#tableBody").empty();
-        var obj = new Object();
-        obj.search = $('#txt_search').val();                        // 검색명
-        obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
-        obj.gubun = $("select[name='selectGubun']").val();          // 검색 조건
-        obj.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
-        obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
-        obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
+        // $('#list_info').DataTable().destroy();
+        // $("#tableBody").empty();
+        // var obj = new Object();
+        // obj.search = $('#txt_search').val();                        // 검색명
+        // obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
+        // obj.gubun = $("select[name='selectGubun']").val();          // 검색 조건
+        // obj.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
+        // obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
+        // obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
+        //
+        // getAjaxData("memberList", "/rest/member/member/list", obj, fn_success, fn_fail);
 
-        getAjaxData("memberList", "/rest/member/member/list", obj, fn_success, fn_fail);
+        dtList_info.reload();
+
     }
 
     function fn_success(dst_id, response){
@@ -612,6 +671,9 @@
         obj.mem_no = id;
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
+
+
+
     function getHistoryDetail(tmp,tmp2,tmp3){     // 상세보기
         $("#tableTop_detail").empty();
         table_col_set(tmp,tmp2,tmp3);
