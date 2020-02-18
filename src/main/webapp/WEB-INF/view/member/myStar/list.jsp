@@ -284,9 +284,8 @@
     }
 
     function MyStar(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('MyStar 해제~ memNo : ' + id);
+        var memNo = $("#" + id).data('memno');
+        console.log('MyStar 해제~ memNo : ' + memNo);
     }
 
     /*=============엑셀==================*/
@@ -340,7 +339,7 @@
     <tr>
         <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td><a href="javascript://" onclick="javascript:MyStar(this.id);" id="M_{{memNo}}">{{memId}}</a></td>
+        <td><a href="javascript://" onclick="javascript:MyStar(this.id);" id="dataMyStart_{{memNo}}" data-memno="{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>

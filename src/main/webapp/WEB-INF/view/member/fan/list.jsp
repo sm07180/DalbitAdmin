@@ -283,9 +283,8 @@
     }
 
     function Fan(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('Fan 해제~ memNo : ' + id);
+        var memNo = $("#" + id).data('memno');
+        console.log('Fan 해제~ memNo : ' + memNo);
     }
 
     /*=============엑셀==================*/
@@ -340,7 +339,7 @@
     <tr>
         <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td><a href="javascript://" onclick="javascript:Fan(this.id);" id="F_{{memNo}}">{{memId}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Fan(this.id);" id="dataFan_{{memNo}}" data-memno="{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>

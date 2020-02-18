@@ -398,9 +398,9 @@
         });
         $('#bt_edite').click( function() {                 //   수정하기
             if($('#bt_edite').text() == "수정하기"){
-                init("edit")
+                init("edit");
             }else if($('#bt_edite').text() == "수정완료"){
-                init("edit_complet")
+                init("edit_complet");
             }
         });
         $('#bt_imgChg').click(function() {					//   사진변경

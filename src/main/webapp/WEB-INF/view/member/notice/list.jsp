@@ -279,9 +279,8 @@
         $('#list_info_detail').DataTable().draw();
     }
     function Notice(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('공지사항 삭제~ roomNo : ' + id);
+        var roomNo = $("#" + id).data('roomno');
+        console.log('공지사항 삭제~ roomNo : ' + roomNo);
     }
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
@@ -335,7 +334,7 @@
         <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{type}}</td>
-        <td><a href="javascript://" onclick="javascript:Notice(this.id);" id="N_{{roomNo}}">{{title}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Notice(this.id);" id="dataNotice_{{roomNo}}" data-roomno="{{roomNo}}">{{title}}</a></td>
         <td>{{notice}}</td>
         <td>{{lastUpdDate}}</td>
     </tr>

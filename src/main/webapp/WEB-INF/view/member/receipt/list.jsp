@@ -283,15 +283,12 @@
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
     }
-
     function Report(id){
-        var tmp = id.split('_');
-        var idx = tmp[0];
-        var reportId = tmp[1];
-        var reportMemId = tmp[2];
-        alert("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
+        var idx = $("#" + id).data('index');
+        var reportId = $("#" + id).data('id');
+        var reportMemId = $("#" + id).data('report');
+        console.log("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
     }
-
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
@@ -347,7 +344,7 @@
         <td>{{type}}</td>
         <td>{{reportId}}</td>
         <td>{{reportMemId}}</td>
-        <td><a href="javascript://" onclick="javascript:Report(this.id);" id="{{idx}}_{{reportId}}_{{reportMemId}}">{{etc}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Report(this.id);" id="dataReport_{{index @index}}" data-index="{{idx}}" data-id="{{reportId}}" data-report="{{reportMemId}}">{{etc}}</a></td>
         <td>{{lastUpdDate}}</td>
         <td>{{deployDate}}</td>
         <td>{{status}}</td>

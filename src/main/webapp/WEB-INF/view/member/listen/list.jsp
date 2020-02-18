@@ -140,7 +140,6 @@
 <!-- /#wrapper -->
 <script>
     $(document).ready(function() {
-        var tmp_memNo;
         $('#list_info').DataTable();
 
         $('.input-group.date').datepicker({
@@ -216,6 +215,9 @@
             detail_broad_click("listenHistory");
         });
     });
+
+    var tmp_memNo = "false";
+
     function getUserInfo(){                 // 검색
         $('#list_info').DataTable().destroy();
         $("#tableBody").empty();
@@ -249,7 +251,9 @@
         table_col_set(tmp_memNo,"listenHistory");
     }
     function detail_broad_click(id){
-        table_col_set(tmp_memNo,id);
+        if(tmp_memNo != "false"){
+            table_col_set(tmp_memNo,id);
+        }
     }
     function table_col_set(memNo,id){
         $("#tableTop_detail").empty();
@@ -277,7 +281,9 @@
                     { columnNm : "청취종료시간"},
                     { columnNm : "청취진행시간"},
                     { columnNm : "받은 루비 개수"},
-                    { columnNm : "청취 DJ 닉네임"}
+                    { columnNm : "청취 DJ 닉네임"},
+                    { columnNm : "보낸 좋아요 수"},
+                    { columnNm : "보낸 아이템 수"}
                 ]};
         }
 
@@ -318,18 +324,14 @@
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
     }
-
     function Broad(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('종료된 방송 상세정보 새창 오픈~ roomNo : ' + id);
+        var roomNo = $("#" + id).data('roomno');
+        console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
     function Listen(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + id);
+        var roomNo = $("#" + id).data('roomno');
+        console.log('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
-
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
@@ -380,10 +382,10 @@
 <script id="broadHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td id="broadRoomNo">{{roomNo}}</td>
+        <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td><a href="javascript://" onclick="javascript:Broad(this.id);" id="B_{{roomNo}}">{{title}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Broad(this.id);" id="dataBroad_{{roomNo}}" data-roomno="{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{airtime}}</td>
@@ -399,7 +401,7 @@
         <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td><a href="javascript://" onclick="javascript:Listen(this.id);" id="L_{{roomNo}}">{{title}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Listen(this.id);" id="dataListen_{{roomNo}}" data-roomno="{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{listenTime}}</td>

@@ -680,36 +680,30 @@
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
     function Broad(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('종료된 방송 상세정보 새창 오픈~ roomNo : ' + id);
+        var roomNo = $("#" + id).data('roomno');
+        console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
     function Listen(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + id);
+        var roomNo = $("#" + id).data('roomno');
+        console.log('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
     function MyStar(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('MyStar 해제~ memNo : ' + id);
+        var memNo = $("#" + id).data('memno');
+        console.log('MyStar 해제~ memNo : ' + memNo);
     }
     function Fan(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('Fan 해제~ memNo : ' + id);
+        var memNo = $("#" + id).data('memno');
+        console.log('Fan 해제~ memNo : ' + memNo);
     }
     function Notice(id){
-        var tmp = id.split('_');
-        var id = tmp[1];
-        alert('공지사항 삭제~ roomNo : ' + id);
+        var roomNo = $("#" + id).data('roomno');
+        console.log('공지사항 삭제~ roomNo : ' + roomNo);
     }
     function Report(id){
-        var tmp = id.split('_');
-        var idx = tmp[0];
-        var reportId = tmp[1];
-        var reportMemId = tmp[2];
-        alert("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
+        var idx = $("#" + id).data('index');
+        var reportId = $("#" + id).data('id');
+        var reportMemId = $("#" + id).data('report');
+        console.log("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
     }
     function getHistoryDetail(tmp,tmp2,tmp3){     // 상세보기
         $("#tableTop_detail").empty();
@@ -1062,10 +1056,10 @@
 <script id="broadHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td id="broadRoomNo">{{roomNo}}</td>
+        <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td><a href="javascript://" onclick="javascript:Broad(this.id);" id="B_{{roomNo}}">{{title}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Broad(this.id);" id="dataBroad_{{roomNo}}" data-roomno="{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{airtime}}</td>
@@ -1081,7 +1075,7 @@
         <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{subjectType}}</td>
-        <td><a href="javascript://" onclick="javascript:Listen(this.id);" id="L_{{roomNo}}">{{title}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Listen(this.id);" id="dataListen_{{roomNo}}" data-roomno="{{roomNo}}">{{title}}</a></td>
         <td>{{startDate}}</td>
         <td>{{endDate}}</td>
         <td>{{listenTime}}</td>
@@ -1097,7 +1091,7 @@
     <tr>
         <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td><a href="javascript://" onclick="javascript:MyStar(this.id);" id="M_{{memNo}}">{{memId}}</a></td>
+        <td><a href="javascript://" onclick="javascript:MyStar(this.id);" id="dataMyStart_{{memNo}}" data-memno="{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>
@@ -1111,7 +1105,7 @@
     <tr>
         <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td><a href="javascript://" onclick="javascript:Fan(this.id);" id="F_{{memNo}}">{{memId}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Fan(this.id);" id="dataFan_{{memNo}}" data-memno="{{memNo}}">{{memId}}</a></td>
         <td>{{memNick}}</td>
         <td>{{tmp1}}</td>
         <td>{{tmp2}}</td>
@@ -1126,7 +1120,7 @@
         <td>{{roomNo}}</td>
         <td>{{index @index}}</td>
         <td>{{type}}</td>
-        <td><a href="javascript://" onclick="javascript:Notice(this.id);" id="N_{{roomNo}}">{{title}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Notice(this.id);" id="dataNotice_{{roomNo}}" data-roomno="{{roomNo}}">{{title}}</a></td>
         <td>{{notice}}</td>
         <td>{{lastUpdDate}}</td>
     </tr>
@@ -1141,7 +1135,7 @@
         <td>{{type}}</td>
         <td>{{reportId}}</td>
         <td>{{reportMemId}}</td>
-        <td><a href="javascript://" onclick="javascript:Report(this.id);" id="{{idx}}_{{reportId}}_{{reportMemId}}">{{etc}}</a></td>
+        <td><a href="javascript://" onclick="javascript:Report(this.id);" id="dataReport_{{index @index}}" data-index="{{idx}}" data-id="{{reportId}}" data-report="{{reportMemId}}">{{etc}}</a></td>
         <td>{{lastUpdDate}}</td>
         <td>{{deployDate}}</td>
         <td>{{status}}</td>
