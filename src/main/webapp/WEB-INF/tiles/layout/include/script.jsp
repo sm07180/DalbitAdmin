@@ -45,6 +45,13 @@
 <script src="/js/common.js"></script>
 <script src="/js/helper.js"></script>
 
+<!-- DataTable Util -->
+<script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
+<script src="/js/dataTablesSource/dataTableSource.js"></script>
+<script src="/js/dalbitDataTableUtil.js"></script>
+
+
+
 <script type="text/javascript">
     /*로그 찍기*/
     function dalbitLog(data){
