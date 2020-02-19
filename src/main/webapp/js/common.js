@@ -60,7 +60,7 @@ function excelDownload(btn, url, data, successFunc, errorFunc){
 
 /* Null 체크 */
 function isEmpty(value){
-    return !value ? true : false;
+    return (value == null || value.length === 0);
 }
 
 /* 문자열이 빈 문자열인지 체크하여 기본 문자열로 리턴한다. */
