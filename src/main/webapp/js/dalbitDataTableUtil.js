@@ -3,6 +3,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
     var url = columnsInfo.url;
 
     this.dataTableSource = {
+        // dom: '<"top"<"text-right"i>><rt>p',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
@@ -57,6 +58,8 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
     // ClickEvent
     this.arrayClickEvent = {};
+
+    this.g_DataTable = null;
 }
 
 
@@ -66,14 +69,14 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
 
 
-var g_DataTable;
 /* === Init =================================================================*/
 
     // Init DataTable
     DalbitDataTable.prototype.initDataTable = function (initFn) {
         this.dom.empty();
 
-        g_DataTable = this.dom.DataTable(this.dataTableSource);
+        var g_DataTable = this.dom.DataTable(this.dataTableSource);
+        this.g_DataTable = g_DataTable;
 
         g_DataTable.column(0).visible(this.isUseCheckbox);
         g_DataTable.column(1).visible(this.isUseIndex);
@@ -104,7 +107,7 @@ var g_DataTable;
         this.dom.children('tbody').on('click', 'td', function () {
             var idxColumn = $(this).index();
             var idxRow = $(this).parent("tr").index();
-            var data = g_DataTable.row($(this).parent("tr")).data();
+            var data = this.dom.DataTable().row($(this).parent("tr")).data();
 
 
             if(!isEmpty(arrayClickEvent[idxColumn])){
@@ -120,7 +123,7 @@ var g_DataTable;
 
         // 상단 CheckBox 전체 선택 Event
         allCheckBox.on('click', function () {
-            var rows = g_DataTable.rows({ 'search': 'applied' }).nodes();
+            var rows = this.dom.DataTable().rows({ 'search': 'applied' }).nodes();
             $('input[type="checkbox"]', rows).prop('checked', this.checked);
         });
 
@@ -141,12 +144,12 @@ var g_DataTable;
 
     // DataTable Reload / Ajax 재호출
     DalbitDataTable.prototype.reload = function () {
-        g_DataTable.ajax.reload();
+        this.dom.DataTable().ajax.reload();
     }
 
     // DataTable Reload / Url, Data, Columns 초기화 후 Reload (기존 테이블 변경  시 사용)
     DalbitDataTable.prototype.changeReload = function (url, data, columnsInfo, initFn){
-        if(!isEmpty(g_DataTable)){g_DataTable.destroy();}
+        if(!isEmpty(this.g_DataTable)){this.dom.DataTable().destroy();}
         this.dom.empty();
 
         if(!isEmpty(url)) {
@@ -193,8 +196,8 @@ var g_DataTable;
     }
 
     DalbitDataTable.prototype.destroy = function(){
-        if(!isEmpty(g_DataTable)){
-            g_DataTable.destroy();
+        if(!isEmpty(this.g_DataTable)){
+            this.dom.DataTable().destroy();
         }
     }
 /* === Getter =================================================================*/
@@ -210,7 +213,7 @@ var g_DataTable;
 
         this.dom.children('tbody').find('input[type="checkbox"]').each(function () {
             if (this.checked) {
-                var data = g_DataTable.row($(this).parent("td").parent("tr")).data();
+                var data = this.dom.DataTable().row($(this).parent("td").parent("tr")).data();
                 arrayData.push(data);
             }
         });
