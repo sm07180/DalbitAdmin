@@ -538,7 +538,7 @@
         $('input:radio[name=radio_gender]:input[value=' + response.data.memSex + ']').prop("checked", true);
         $('input:radio[name=radio_freezing]:input[value=' + response.data.freezing + ']').prop("checked", true);
         $('input:radio[name=radio_guest]:input[value=' + response.data.guestOn + ']').prop("checked", true);
-        $("#radio_guestOn").html("test");
+        // $("#radio_guestOn").html("test");
         //$("#backgroundImg").		backgroundImage
         //$("#radio_forcedExit").	forceExit
 

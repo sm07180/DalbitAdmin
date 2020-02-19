@@ -46,6 +46,7 @@
 <script src="/js/helper.js"></script>
 
 <!-- DataTable Util -->
+<script src="/js/dataTablesSource/memberDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
 <script src="/js/dataTablesSource/dataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
