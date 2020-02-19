@@ -38,6 +38,10 @@
 <%--<script src="/js/lib/bootstrap-datepicker.min.js"></script>--%>
 <script src="/js/lib/bootstrap-datepicker.kr.js"></script>
 
+<!-- dataTable -->
+<script src="/js/lib/dataTable/buttons.html5-1.5.2.min.js"></script>
+<script src="/js/lib/dataTable/dataTables.buttons-v1.5.2.min.js"></script>
+
 <!-- dalbit -->
 <script src="/js/lib/jquery.fileDownload-v1.4.5.js"></script>
 <script src="/js/lib/handlebars-v4.7.2.min.js"></script>

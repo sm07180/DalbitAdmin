@@ -4,6 +4,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
     this.dataTableSource = {
         // dom: '<"top"<"text-right"i>><rt>p',
+        dom: 'lirt',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
@@ -107,17 +108,18 @@ function DalbitDataTable(dom, param, columnsInfo) {
         var arrayClickEvent = this.arrayClickEvent;
         this.dom.children('tbody').on('click', 'td', function () {
             var idxColumn = $(this).index();
-            var idxRow = $(this).parent("tr").index();
+            var idxViewRow = $(this).parent("tr").index();
+            var idxRealRow = g_DataTable.row($(this).parent("tr")).index();
             var data = g_DataTable.row($(this).parent("tr")).data();
 
 
             if(!isEmpty(arrayClickEvent[idxColumn])){
-                arrayClickEvent[idxColumn](idxRow, idxColumn, data);
+                arrayClickEvent[idxColumn](data, idxViewRow, idxColumn, idxRealRow);
                 return;
             }
 
             if(!isEmpty(arrayClickEvent["-1"])){
-                arrayClickEvent["-1"](idxRow, idxColumn, data);
+                arrayClickEvent["-1"](data, idxViewRow, idxColumn, idxRealRow);
                 return;
             }
         });
