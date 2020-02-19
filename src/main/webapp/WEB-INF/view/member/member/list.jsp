@@ -79,7 +79,7 @@
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
                     <div class="widget-content">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
+                        <table id="list_info" class="table table-sorting table-hover table-bordered">
                             <span>
                                 <button class="btn btn-default" type="button" id="excelDownBtn"><i class="fa"></i>Excel Print</button>
                                 <button class="btn btn-default" type="button" id="excelBtn"><i class="fa"></i>Excel</button>
@@ -91,7 +91,15 @@
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
+
                         </table>
+                        <%--<body>--%>
+                            <%--<div id="paging"></div>--%>
+                        <%--</body>--%>
+                            <div class="row text-center" id="paging">
+                                <ul class="pagination">
+                                </ul>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -399,6 +407,7 @@
 
 <script>
     $(document).ready(function() {
+
         $('#detail').hide();
         init("new");
         // $('#list_info').DataTable();
@@ -595,6 +604,8 @@
             data.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
             data.stDate = $('#txt_startSel').val();                      // 검색일 시작
             data.edDate = $('#txt_endSel').val();                        // 검색일 끝
+            data.startCnt = 1;
+            data.endCnt = 10;
         };
         if(dtList_info != "false"){
             dtList_info.reload();
@@ -602,17 +613,26 @@
             dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
             dtList_info.useCheckBox(false);
             dtList_info.useIndex(true);
-            dtList_info.setEventClick(test01, [2,3]);
-            dtList_info.initDataTable();
+            dtList_info.setEventClick(test01,0);
+            dtList_info.initDataTable(pagingSet);
         }
+
+        // pagingSet();
+        // paging(dtList_info.getDataRow(0).totalCnt, 10, 5, 1);
+
         // $('#list_cnt').html("검색 결과 총" + dtList_info.data.length + "건");
+    }
+    function pagingSet(){
+        console.log(dtList_info.getDataRow(0).totalCnt);
     }
     function test01(t1, t2 ,t3) {
         dalbitLog("=-----")
-        dalbitLog(t1)
+        dalbitLog(t1)   //
         dalbitLog(t2)
         dalbitLog(t3)
         dalbitLog(t3.memId);
+        paging(dtList_info.getDataRow(0).totalCnt, 10, 5, 1);
+        // console.log(dtList_info.getDataRow(0).totalCnt);
         dalbitLog("-----=");
     }
 
@@ -663,14 +683,15 @@
         $("#tableBody_detail").empty();
     }
 
-    function getMemNo_info(id){
+    function getMemNo_info(index){
+        var data = dtList_info.getDataRow(index);
         var obj = new Object();
-        obj.mem_no = id;
+        obj.mem_no = data.memNo;
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
     var dtList_info_detail;
-    function getHistoryDetail(tmp) {     // 상세보기
+    function getHistoryDetail() {     // 상세보기
         if (memNo == "") {
             alert("회원ID를 선택하세요.");
         }else{
@@ -691,30 +712,36 @@
             }
         }
     }
-    function Broad(id){
-        var roomNo = id;
+    function Broad(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
         console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
-    function Listen(id){
-        var roomNo = id;
+    function Listen(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
         console.log('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
-    function MyStar(id){
-        var memNo = id;
+    function MyStar(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var memNo = data.memNo;
         console.log('MyStar 해제~ memNo : ' + memNo);
     }
-    function Fan(id){
-        var memNo = id;
+    function Fan(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var memNo = data.memNo;
         console.log('Fan 해제~ memNo : ' + memNo);
     }
-    function Notice(id){
-        var roomNo =id;
+    function Notice(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
         console.log('공지사항 삭제~ roomNo : ' + roomNo);
     }
-    function Report(id){
-        var idx = $("#" + id).data('idx');
-        var reportId = $("#" + id).data('id');
-        var reportMemId = $("#" + id).data('report');
+    function Report(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var idx = data.idx;
+        var reportId = data.reportId;
+        var reportMemId = data.reportMemId;
         console.log("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
     }
     function fn_fail(data, textStatus, jqXHR){
@@ -865,6 +892,69 @@
                 }
             }
         }
+    }
+
+    function paging(totalData, dataPerPage, pageCount, currentPage){
+
+        console.log("currentPage 단위 : " + currentPage);
+
+        var totalPage = Math.ceil(totalData/dataPerPage);    // 총 페이지 수
+        var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
+
+        console.log("pageGroup 페이지 그룹: " + pageGroup);
+
+        var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
+        if(last > totalPage)
+            last = totalPage;
+        var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
+        var next = last+1;
+        var prev = first-1;
+
+        console.log("last 마지막 페이지 번호 : " + last);
+        console.log("first 화면에 보여질 첫번쨰 페이지 번호: " + first);
+        console.log("next 다음 : " + next);
+        console.log("prev 이전 : " + prev);
+
+        var $pingingView = $("#paging");
+
+        var html = "";
+
+        if(prev > 0)
+            html += "<a href=# id='prev'><</a> ";
+
+        for(var i=first; i <= last; i++){
+            html += "<a href='#' id=" + i + ">" + i + "</a> ";
+        }
+
+        if(last < totalPage)
+            html += "<a href=# id='next'>></a>";
+
+        $("#paging").html(html);    // 페이지 목록 생성
+        $("#paging a").css("color", "black");
+        $("#paging a#" + currentPage).css({"text-decoration":"none",
+            "color":"red",
+            "font-weight":"bold"});    // 현재 페이지 표시
+
+        $("#paging a").click(function(){
+            console.log("!");
+            var $item = $(this);
+            var $id = $item.attr("id");
+            var selectedPage = $item.text();
+
+            if($id == "next")    selectedPage = next;
+            if($id == "prev")    selectedPage = prev;
+
+            paging(totalData, dataPerPage, pageCount, selectedPage);
+
+            // var obj = new Object();
+            // obj.total = totalData;
+            // obj.datapage = dataPerPage;
+            // obj.pagecount = pageCount;
+            // obj.selectedpage = selectedPage;
+
+            // getAjaxData("paging", "/rest/member/member/paging",obj, fn_code_success, fn_fail);
+        });
+
     }
 </script>
 

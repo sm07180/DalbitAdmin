@@ -1,11 +1,14 @@
 package com.dalbit.common.vo;
 
+import com.dalbit.common.code.Code;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ImageVo {
+public class ImageVo extends BaseVo {
+
+    private static final long serialVersionUID = 1L;
 
     public ImageVo(){}
 
@@ -16,15 +19,17 @@ public class ImageVo {
     }
 
     public ImageVo(Object path, String gender, String photoServerUrl){
-        if(path == null){
-            this.url = photoServerUrl + "/default/profile_" + gender + ".jpg";
-            setThumbs();
-        }else{
-            setPath(path.toString(), photoServerUrl);
+        if(gender != null){
+            if(path == null){
+                this.url = photoServerUrl + Code.포토_프로필_디폴트_PREFIX.getCode()+"/"+Code.프로필이미지_파일명_PREFIX.getCode()+gender+".jpg";
+                setThumbs();
+            }else{
+                setPath(path.toString(), photoServerUrl);
+            }
         }
+
     }
 
-    private String photoServer;
     private String url;
     private String path;
     private String thumb62x62;

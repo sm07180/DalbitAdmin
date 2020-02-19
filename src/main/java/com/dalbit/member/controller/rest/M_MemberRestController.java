@@ -45,6 +45,8 @@ public class M_MemberRestController {
         apiData.setCheckDate(request.getParameter("checkDate"));
         apiData.setStDate(request.getParameter("stDate").replace("-",""));
         apiData.setEdDate(request.getParameter("edDate").replace("-",""));
+        apiData.setStartCnt(Integer.parseInt(request.getParameter("startCnt")));
+        apiData.setEndCnt(Integer.parseInt(request.getParameter("endCnt")));
 
         List<MemberListVo> list = mMemberService.getMemberList(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));

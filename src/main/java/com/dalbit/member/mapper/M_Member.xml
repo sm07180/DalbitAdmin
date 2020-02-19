@@ -6,6 +6,38 @@
         call sp_member_login(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callMemberList_cnt" parameterType="com.dalbit.member.vo.MemberListVo" resultType="integer">
+        /* M_Member.xml - callMemberList_cnt */
+        select count(*) as totalCnt
+        from tb_member_basic b
+        , tb_member_profile p
+        where b.mem_no = p.mem_no
+        <if test='checkDate == "true"'>
+            and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}
+        </if>
+        <if test='search != null'>
+            <choose>
+                <when test='gubun == "9999"'>      <!-- 전체 -->
+                    AND (b.mem_no LIKE CONCAT('%',#{search},'%')
+                    OR b.mem_nick LIKE CONCAT('%',#{search},'%')
+                    OR b.mem_phone LIKE CONCAT('%',#{search},'%')
+                    OR p.mem_name LIKE CONCAT('%',#{search},'%'))
+                </when>
+                <when test='gubun == "1"'>      <!-- userid -->
+                    AND p.mem_no LIKE CONCAT('%',#{search},'%')
+                </when>
+                <when test='gubun == "2"'>      <!-- 닉네임 -->
+                    AND p.mem_nick LIKE CONCAT('%',#{search},'%')
+                </when>
+                <when test='gubun == "3"'>      <!-- 폰번호 -->
+                    AND p.mem_phone LIKE CONCAT('%',#{search},'%')
+                </when>
+                <otherwise>                      <!-- 이름 -->
+                    AND p.mem_name LIKE CONCAT('%',#{search},'%')
+                </otherwise>
+            </choose>
+        </if>
+    </select>
     <select id="callMemberList" parameterType="com.dalbit.member.vo.MemberListVo" resultType="com.dalbit.member.vo.MemberListVo">
         /* M_Member.xml - callMemberList */
         select b.mem_id     as memId
@@ -42,6 +74,7 @@
                 </otherwise>
             </choose>
         </if>
+        limit #{startCnt}, #{endCnt}
     </select>
 
     <select id="callMemberInfo" parameterType="com.dalbit.member.vo.MemberInfoVo" resultType="com.dalbit.member.vo.MemberInfoVo">

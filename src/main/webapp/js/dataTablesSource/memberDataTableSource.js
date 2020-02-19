@@ -4,7 +4,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': 'memNo', 'data': 'memNo', 'visible' : false}
             , {'title': 'UserID', 'data': 'memId', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:getMemNo_info(this.id);" id="' + row.memNo + '">' + data + '</a>'
+                    return '<a href="javascript://" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
                 }}
             , {'title': '닉네임', 'data': 'memNick'}
             , {'title': '이름', 'data': 'memName'}
@@ -21,9 +21,7 @@ var MemberDataTableSource = {
             {'title': 'roomNo', 'data': 'roomNo', 'visible' : false},
             {'title': '방송주제', 'data': 'subjectType'},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                console.log(row);
-                console.log('<a href="javascript://" onclick="javascript:Broad(this.id);" id="' + row.roomNo + '">' + data + '</a>');
-                    return '<a href="javascript://" onclick="javascript:Broad(this.id);" id="' + row.roomNo + '">' + data + '</a>'
+                    return '<a href="javascript://" onclick="javascript:Broad('+meta.row+');">' + data + '</a>'
                 }},
             {'title': '방송시작시간', 'data': 'startDate'},
             {'title': '방송종료시간', 'data': 'endDate'},
@@ -42,7 +40,7 @@ var MemberDataTableSource = {
             {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
             {'title': '청취방주제', 'data': 'subjectType'},
             {'title': '청취방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Listen(this.id);" id="' + row.roomNo + '">' + data + '</a>'
+                    return '<a href="javascript://" onclick="javascript:Listen('+meta.row+')">' + data + '</a>'
                 }},
             {'title': '청취시작시간', 'data': 'startDate'},
             {'title': '청취종료시간', 'data': 'endDate'},
@@ -128,7 +126,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': 'memNo', 'data': 'memNo', 'visible' : false},
             {'title': 'MyStarID', 'data': 'memId', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:MyStar(this.id);" id="' + row.memNo + '">' + data + '</a>'
+                    return '<a href="javascript://" onclick="javascript:MyStar('+meta.row+');">' + data + '</a>'
                 }},
             {'title': 'MyStar닉네임', 'data': 'memNick'},
             {'title': '보낸건수', 'data': 'tmp1'},
@@ -145,7 +143,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': 'memNo', 'data': 'memNo', 'visible' : false},
             {'title': 'FanID', 'data': 'memId', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Fan(this.id);" id="' + row.memNo + '">' + data + '</a>'
+                    return '<a href="javascript://" onclick="javascript:Fan('+meta.row+');">' + data + '</a>'
                 }},
             {'title': 'Fan닉네임', 'data': 'memNick'},
             {'title': '보낸건수', 'data': 'tmp1'},
@@ -163,7 +161,7 @@ var MemberDataTableSource = {
             {'title': 'roomNo', 'data': 'roomNo', 'visible' : false},
             {'title': '구분', 'data': 'type'},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Notice(this.id);" id="' + row.roomNo + '">' + data + '</a>'
+                    return '<a href="javascript://" onclick="javascript:Notice('+meta.row+');">' + data + '</a>'
                 }},
             {'title': '공지내용', 'data': 'notice'},
             {'title': '등록일시', 'data': 'lastUpdDate'}
@@ -181,7 +179,8 @@ var MemberDataTableSource = {
             {'title': '신고UserId', 'data': 'reportId'},
             {'title': '신고대상UserID', 'data': 'reportMemId'},
             {'title': '신고내용', 'data': 'etc', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Report(this.id);" id="'+row.idx+'" data-idx="'+row.idx+'" data-id="'+row.reportId+'" data-report="'+row.reportMemId+'">' + data + '</a>'
+
+                    return '<a href="javascript://" onclick="javascript:Report('+meta.row+');">' + data + '</a>'
                 }},
             {'title': '접수일시', 'data': 'lastUpdDate'},
             {'title': '처리일시', 'data': 'deployDate'},

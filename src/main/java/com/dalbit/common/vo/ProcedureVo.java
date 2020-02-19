@@ -19,9 +19,15 @@ public class ProcedureVo {
         setData(new Gson().toJson(paramVo));
     }
 
+    public ProcedureVo(String phoneNo, String password){
+        setPhoneNo(phoneNo);
+        setPassword(password);
+    }
+
     private Object data;
     private Object box;
     private String ret;
     private String ext;
-
+    private String phoneNo;
+    private String password;
 }

@@ -24,6 +24,7 @@ public interface M_MemberDao {
 
     /* 연습용 */
     List<MemberListVo> callMemberList(MemberListVo memberListVo);
+    int callMemberList_cnt(MemberListVo memberListVo);
 
 
 }
