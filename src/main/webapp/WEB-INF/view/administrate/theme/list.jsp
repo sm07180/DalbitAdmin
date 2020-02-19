@@ -28,8 +28,8 @@
 
         <div class="btn-toolbar">
             <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default"><i class="fa fa-trash-o"></i>선택삭제</button>
-                <button type="button" class="btn btn-primary"><i class="fa fa-pencil"></i>선택수정</button>
+                <button type="button" class="btn btn-default" id="deleteBtn"><i class="fa fa-trash-o"></i>선택삭제</button>
+                <button type="button" class="btn btn-primary" id="updateBtn"><i class="fa fa-pencil"></i>선택수정</button>
             </div>
 
             <div class="btn-group pull-right" role="group">
@@ -55,6 +55,8 @@
         var html = templateScript(response);
 
         $("#tableBody").append(html);
+
+        btnSet();
     }
 
     function fn_fail(data, textStatus, jqXHR) {
@@ -66,6 +68,7 @@
         var nextTr = targetTr.next();
         targetTr.insertAfter(nextTr);
         resetNo();
+        btnSet();
     });
 
     $(document).on('click', '._up', function(){
@@ -73,6 +76,7 @@
         var prevTr = targetTr.prev();
         targetTr.insertBefore(prevTr);
         resetNo();
+        btnSet();
     });
 
     function resetNo(){
@@ -81,11 +85,49 @@
         });
     }
 
+    function btnSet(){
+        $('.btn._down').prop('disabled', false);
+        $('.btn._down:last').prop('disabled', true);
+
+        $('.btn._up').prop('disabled', false);
+        $('.btn._up:first').prop('disabled', true);
+    }
+
+    $('#deleteBtn').on('click', function(){
+        var checked = $('#tableBody').find('._check:checked');
+
+        if(0 == checked.length){
+            alert("삭제할 방송 주제를 선택해주세요.");
+            return;
+        }
+        if(confirm('삭제하시겠습니까?')){
+            var checked = $('#tableBody').find('._check:checked');
+            checked.closest('tr').remove();
+        }
+    });
+
+    $("#updateBtn").on('click', function(){
+        var checked = $('#tableBody').find('._check:checked');
+        if(0 == checked.length){
+            alert("수정할 방송 주제를 선택해주세요.");
+            return;
+        }
+
+        checked.each(function(){
+            $(this).closest('tr').find('._cdNm').prop('readonly', false);
+            /*if(!isEmpty(input.val())){
+                $("#tableBody").find('._cdNm').prop('readonly', false);
+            }*/
+        });
+
+        $('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
+    });
+
     $("#addBtn").on('click', function(){
         var newData = {
             no : $('._noTd').length + 1,
             cdNm : '',
-            isOff : false,
+            isOn : true,
             readonly : false
         }
 
@@ -94,6 +136,8 @@
         var html = templateScript({data : newData});
 
         $("#tableBody").append(html);
+
+        btnSet();
     });
 
 </script>
@@ -102,16 +146,16 @@
     {{#data}}
     <tr>
         <td>
-            <input type="checkbox" />
+            <input type="checkbox" class="form-control _check" />
         </td>
         <td class="_noTd">{{index @index no}}</td>
         <td>
-            <button type="button" class="_down"><i class="toggle-icon fa fa-angle-down"></i></button>
-            <button type="button" class="_up"><i class="toggle-icon fa fa-angle-up"></i></button>
+            <button type="button" class="btn btn-info _down"><i class="toggle-icon fa fa-angle-down"></i></button>
+            <button type="button" class="btn btn-danger _up"><i class="toggle-icon fa fa-angle-up"></i></button>
         </td>
         <td>
             <div class="control-inline onoffswitch">
-                <input type="checkbox" name="useYn" class="onoffswitch-checkbox" id="useYn{{index @index no}}" {{#if isOn}}checked{{/if}}>
+                <input type="checkbox" name="useYn" class="onoffswitch-checkbox" id="useYn{{index @index no}}" {{#unless isOn}}checked{{/unless}}>
                 <label class="onoffswitch-label" for="useYn{{index @index no}}">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
@@ -119,7 +163,7 @@
             </div>
         </td>
         <td>
-            <input type="text" value="{{cdNm}}" class="form-control" readonly="true" />
+            <input type="text" value="{{cdNm}}" class="form-control _cdNm" {{#unless isOn}}readonly="true"{{/unless}} />
         </td>
     </tr>
     {{/data}}
