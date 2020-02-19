@@ -136,7 +136,7 @@
                             <i class="toggle-icon fa fa-angle-down"></i>
                         </a>
                         <ul class="sub-menu open">
-                            <li class="${fn:contains(url, '/administrate/live/list') and !fn:contains(param_menu, '/pop/new/') ? 'active': ''}">
+                            <li class="${fn:contains(url, '/administrate/live/list') and !fn:contains('/pop/new/', param_menu) ? 'active': ''}">
                                 <a href="/administrate/live/list?menu=recommend">
                                     <i class="fa fa-star"></i><span class="text">추천DJ</span>
                                 </a>

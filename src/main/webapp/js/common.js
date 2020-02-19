@@ -60,7 +60,7 @@ function excelDownload(btn, url, data, successFunc, errorFunc){
 
 /* Null 체크 */
 function isEmpty(value){
-    return !value ? true : false;
+    return (value == null || value.length === 0);
 }
 
 /* Date Type 체크 */

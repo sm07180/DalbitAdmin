@@ -90,7 +90,13 @@ Handlebars.registerHelper("dalbit_if", function(v1, operator, v2, options){
 /**
  *  테이블 목록 index
  */
-Handlebars.registerHelper("index", function(value, options)
+Handlebars.registerHelper("index", function(index, no)
 {
-    return parseInt(value) + 1;
+    console.log('value');
+    console.log(index);
+    console.log('value2');
+    console.log(no);
+
+
+    return isEmpty(index) ? no : parseInt(index) + 1;
 });
