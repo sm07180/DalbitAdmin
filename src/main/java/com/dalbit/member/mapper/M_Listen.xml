@@ -28,7 +28,7 @@
                 ,b.title           as title
                 ,DATE_FORMAT(a.start_date, '%Y-%m-%d %H:%i:%s')                     as startDate
                 ,DATE_FORMAT(a.end_date, '%Y-%m-%d %H:%i:%s')                       as endDate
-                ,TIME_FORMAT(SEC_TO_TIME(a.listentime / 1000), '%H시간 %i분 %s초')  as listenTime /*읽힘*/
+                ,TIME_FORMAT(SEC_TO_TIME(a.listentime), '%H시간 %i분 %s초')  as listenTime /*읽힘*/
                 ,(select mem_id from tb_member_basic where mem_no = b.mem_no)    as memId
                 ,(select mem_nick from tb_member_basic where mem_no = b.mem_no)  as memNick
                 ,ruby   as ruby

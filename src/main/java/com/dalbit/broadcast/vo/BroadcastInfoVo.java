@@ -32,7 +32,11 @@ public class BroadcastInfoVo {
     private int goodCnt;                        // 좋아요 수
     private int menagerCnt;                     // 메니저 수
     private int giftCnt;                        // 받은 선물 수
-    private int guestCnt;                       // 게스트/게스트ID 수
+    private int manegerCnt;                     // 메니저 수
+    private String guestNo;                     // 게스트 번호
+    private String guestId;                     // 게스트 ID
+    private String guestNick;                   // 게스트 닉네임
+    private String guestOn;                     // 게스트 여부
     private int contentsCnt;                    // 받은 사연 수
     private int banCnt;                         // 등록 금지어 수
     private int listenCnt;                      // 청취자 수
