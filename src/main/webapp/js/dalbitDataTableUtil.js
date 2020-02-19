@@ -101,13 +101,14 @@ function DalbitDataTable(dom, param, columnsInfo) {
     // Init Event
     DalbitDataTable.prototype.initEvent =  function (){
         var allCheckBox = $("#" + this.dom.prop("id") + "-select-all");
+        var g_DataTable = this.dom.DataTable(this.dataTableSource);
 
         // Row Click Event
         var arrayClickEvent = this.arrayClickEvent;
         this.dom.children('tbody').on('click', 'td', function () {
             var idxColumn = $(this).index();
             var idxRow = $(this).parent("tr").index();
-            var data = this.dom.DataTable().row($(this).parent("tr")).data();
+            var data = g_DataTable.row($(this).parent("tr")).data();
 
 
             if(!isEmpty(arrayClickEvent[idxColumn])){
@@ -138,6 +139,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
             }
         });
     }
+
+
+
 
 
 /* === Option =================================================================*/
@@ -200,6 +204,11 @@ function DalbitDataTable(dom, param, columnsInfo) {
             this.dom.DataTable().destroy();
         }
     }
+
+
+
+
+
 /* === Getter =================================================================*/
 
     /* DataTable Source  */
@@ -220,6 +229,21 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
         return arrayData;
     }
+
+    /* get Row Idx Data  */
+    DalbitDataTable.prototype.getDataRow = function (idxRow) {
+        dalbitLog(this.dom.DataTable().row(idxRow).data());
+        return this.dom.DataTable().row(idxRow).data();
+    }
+
+    /* get Rows Size  */
+    DalbitDataTable.prototype.getRowSize = function(){
+        dalbitLog(this.dom.DataTable().row()[0].length);
+        return this.dom.DataTable().row()[0].length;
+    }
+
+
+
 
 
 /* === Setter =================================================================*/
