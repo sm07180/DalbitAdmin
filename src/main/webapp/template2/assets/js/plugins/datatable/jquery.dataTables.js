@@ -11104,7 +11104,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "_START_ - _END_ / _TOTAL_",
+			// "sInfo": "_START_ - _END_ / _TOTAL_",
+			"sInfo": "검색 결과 총  _TOTAL_ 건",
 
 
 			/**
