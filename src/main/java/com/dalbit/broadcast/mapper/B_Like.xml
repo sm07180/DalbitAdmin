@@ -8,8 +8,8 @@
               , b.mem_id    as memId
               , b.mem_nick  as memNick
               ,DATE_FORMAT(a.last_upd_date,'%Y-%m-%d %H:%i:%s') as lastUpdDate
-              ,IFNULL((select (count_good + fn_get_point_used_item(room_no, 2001)) from tb_broadcast_room where room_no = a.room_no),0) as goodCnt
-              ,IFNULL((SELECT SUM(item_cnt) FROM tb_broadcast_room_used_item WHERE room_no = a.room_no AND item_no = 2001 and mem_no = a.mem_no),0) as boostCnt
+              ,CONCAT(IFNULL((select (count_good + fn_get_point_used_item(room_no, 2001)) from tb_broadcast_room where room_no = a.room_no),0),'건') as goodCnt
+              ,CONCAT(IFNULL((SELECT SUM(item_cnt) FROM tb_broadcast_room_used_item WHERE room_no = a.room_no AND item_no = 2001 and mem_no = a.mem_no),0),'건') as boostCnt
               ,IFNULL((select TIMESTAMPDIFF( second, NOW(), end_date ) from  tb_broadcast_room_used_item WHERE room_no = a.room_no and mem_no = a.mem_no and end_date >= NOW() order by last_upd_date desc limit 1),0) as boostTime
             from tb_broadcast_room_good AS a join (select mem_no, mem_id, mem_nick from tb_member_basic) AS b
                 on a.mem_no = b.mem_no

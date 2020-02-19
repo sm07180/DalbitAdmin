@@ -1,0 +1,14 @@
+.dataTables_length {
+    float: left;
+    margin-bottom: 5px;
+    margin-top: 5px; }
+
+.dataTables_info {
+    float: right;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    line-height: 2.7em; }
+
+.widget-table {
+    margin-bottom: 0px;
+}

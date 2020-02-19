@@ -5,18 +5,18 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LikeVo {
+public class ManegerVo {
 
     /*  intput  */
     private String roomNo;
 
     /* return result */
+    private String auth;
     private String memNo;
     private String memId;
     private String memNick;
-    private String lastUpdDate;
-    private String goodCnt;
-    private String boostCnt;
-    private int boostTime;
-
+    private String listenStDate;
+    private String maneger;
+    private String manegerAddDate;
+    private String manegerDelDate;
 }

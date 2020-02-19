@@ -229,8 +229,8 @@
                         <div class="col-md-6">
                             <label class="col-md-3">매니저</label>
                             <div class="col-md-9">
-                                <label id="lb_menagerCnt">총0건</label>
-                                <button type="button" id="bt_menagerHistory" class="btn-xs pull-right">세부내역</button>
+                                <label id="lb_manegerCnt">총0건</label>
+                                <button type="button" id="bt_manegerHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                     </div>
@@ -245,7 +245,8 @@
                         <div class="col-md-6">
                             <label class="col-md-3">게스트 / 게스트 ID</label>
                             <div class="col-md-9">
-                                <label id="lb_guestCnt">총0건</label>
+                                <label class="radio-inline"><input type="radio" name="radio_guest" id="radio_guestOn" value="on" checked>게스트ON</label>
+                                <label class="radio-inline"><input type="radio" name="radio_guest" value="off">게스트OFF</label>
                                 <button type="button" id="bt_guestHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
@@ -411,8 +412,8 @@
         $('#bt_likeHistory').click(function() {			//   받은 좋아요
             getHistoryDetail("likeHistory","받은 좋아요 정보","ㆍ방송 중인 방송방에서 좋아요를 보낸 회원과 보낸수, 부스터 사용 수 를 확인할 수 있습니다.");
         });
-        $('#bt_menagerHistory').click(function() {				//   매니저
-            getHistoryDetail("menagerHistory","매니저 정보","ㆍ방송을 진행하는 DJ가 등록한 매니저를 확인하고, 관리할 수 있습니다.");
+        $('#bt_manegerHistory').click(function() {				//   매니저
+            getHistoryDetail("manegerHistory","매니저 정보","ㆍ방송을 진행하는 DJ가 등록한 매니저를 확인하고, 관리할 수 있습니다.");
         });
         $('#bt_giftHistory').click(function() {				//   받은선물
             getHistoryDetail("giftHistory","선물 정보","ㆍ방송 중 방송방 내에서 보내고 받은 선물 내역을 확인할 수 있습니다.");
@@ -451,13 +452,13 @@
             $("textarea[id='txt_msgWelcom']").removeAttr('readonly', true);
             $("input[id='txt_title']").removeAttr('readonly', true);
             $("select[id='selectSubject_type_detail']").removeAttr("disabled", "");
-            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked)").removeAttr("disabled", "");
+            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked),[name='radio_guest']:not(:checked)").removeAttr("disabled", "");
         }else if(tmp == "new" || tmp == "edit_complet"){
             $('#bt_edite').text('수정하기');
             $("textarea[id='txt_msgWelcom']").attr('readonly', true);
             $("input[id='txt_title']").attr('readonly', true);
             $("select[id='selectSubject_type_detail']").attr("disabled", "");
-            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked)").attr("disabled", "");
+            $("[name='radio_gender']:not(:checked),[name='radio_entry']:not(:checked),[name='radio_freezing']:not(:checked),[name='radio_forcedExit']:not(:checked),[name='radio_guest']:not(:checked)").attr("disabled", "");
         }
     }
 
@@ -526,7 +527,7 @@
         $("#lb_editDate").html(response.data.infoEditDate);
         $("#lb_editUser").html(response.data.infoEditNm);
         $("#lb_likeCnt").html("총"+response.data.goodCnt+"건");
-        $("#lb_menagerCnt").html("총"+response.data.menagerCnt+"건");
+        $("#lb_manegerCnt").html("총"+response.data.manegerCnt+"건");
         $("#lb_giftCnt").html("총"+response.data.giftCnt+"건");
         $("#lb_guestCnt").html("총"+response.data.guestCnt+"건");
         $("#lb_storyCnt").html("총"+response.data.contentsCnt+"건");
@@ -536,8 +537,13 @@
         $('input:radio[name=radio_entry]:input[value=' + response.data.typeEntry + ']').prop("checked", true);
         $('input:radio[name=radio_gender]:input[value=' + response.data.memSex + ']').prop("checked", true);
         $('input:radio[name=radio_freezing]:input[value=' + response.data.freezing + ']').prop("checked", true);
+        $('input:radio[name=radio_guest]:input[value=' + response.data.guestOn + ']').prop("checked", true);
+        // $("#radio_guestOn").html("test");
         //$("#backgroundImg").		backgroundImage
         //$("#radio_forcedExit").	forceExit
+
+        $("#tableTop_detail").empty();
+        $("#tableBody_detail").empty();
     }
     function getDetail(id){
         var obj = new Object();
@@ -559,14 +565,15 @@
         $("#detail_comments").html(comments);
         if (id == "listenerHistory") {
             var data = {header: [
+                    {columnNm: "memNo"},
                     {columnNm: "No"},
-                    {columnNm: "구분"},
-                    {columnNm: "User ID"},
-                    {columnNm: "User 닉네임"},
-                    {columnNm: "청취 시작 일시"},
-                    {columnNm: "임명 시작 일시"},
-                    {columnNm: "임명 취소 일시"},
-                    {columnNm: "매니저 임명상태"}
+                    {columnNm: "청취자 ID"},
+                    {columnNm: "청취자 닉네임"},
+                    {columnNm: "청취 시작 시간"},
+                    {columnNm: "정취 종료 시간"},
+                    {columnNm: "청취진행시간"},
+                    {columnNm: "보낸 좋아요 수"},
+                    {columnNm: "보낸 아이템 수"},
                 ]};
         } else if (id == "storyHistory") {
             var data = {header: [
@@ -590,10 +597,10 @@
                     {columnNm: "보낸 일시"},
                     {columnNm: "좋아요 보낸 수"},
                     {columnNm: "부스터 보낸 수"},
-                    {columnNm: "적용완료 일시"},
                 ]};
-        }else if (id == "menagerHistory") {
+        }else if (id == "manegerHistory") {
             var data = {header: [
+                    {columnNm: "key"},
                     {columnNm: "No"},
                     {columnNm: "구분"},
                     {columnNm: "User ID"},
@@ -601,7 +608,7 @@
                     {columnNm: "청취 시작 일시"},
                     {columnNm: "임명 시작 일시"},
                     {columnNm: "임명 취소 일시"},
-                    {columnNm: "매니저 임명 상태"},
+                    {columnNm: "매니저 임명상태"}
                 ]};
         }else if (id == "giftHistory") {
             var data = {header: [
@@ -613,7 +620,6 @@
                     {columnNm: "선물 일시"},
                     {columnNm: "User ID"},
                     {columnNm: "User 닉네임"},
-                    {columnNm: "처리자ID"},
                 ]};
         }else if (id == "guestHistory") {
             var data = {header: [
@@ -673,8 +679,8 @@
             getAjaxData(id, "/rest/broadcast/edithistory/list", obj, fn_success_detail, fn_fail);
         }else if (id == "likeHistory") {
             getAjaxData(id, "/rest/broadcast/like/list", obj, fn_success_detail, fn_fail);
-        }else if (id == "menagerHistory") {
-            getAjaxData(id, "/rest/broadcast/menager/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "manegerHistory") {
+            getAjaxData(id, "/rest/broadcast/maneger/list", obj, fn_success_detail, fn_fail);
         }else if (id == "giftHistory") {
             getAjaxData(id, "/rest/broadcast/gift/list", obj, fn_success_detail, fn_fail);
         }else if (id == "guestHistory") {
@@ -698,8 +704,8 @@
             template = $('#editDate_detail').html();
         }else if (dst_id == "likeHistory") {
             template = $('#likeHistory_detail').html();
-        }else if (dst_id == "menagerHistory") {
-            template = $('#menagerHistory_detail').html();
+        }else if (dst_id == "manegerHistory") {
+            template = $('#manegerHistory_detail').html();
         }else if (dst_id == "giftHistory") {
             template = $('#giftHistory_detail').html();
         }else if (dst_id == "guestHistory") {
@@ -714,9 +720,19 @@
         var templateScript = Handlebars.compile(template);
         var context = response;
         var html = templateScript(context);
+
         $("#tableBody_detail").append(html);
         $('#list_info_detail').DataTable().draw();
+
     }
+
+    function Maneger(id){
+        var memNo = $("#" + id).data('memno');
+        var maneger = $("#" + id).data('maneger');
+
+        console.log('매니저 지정하기~ memNo : ' + memNo);
+    }
+
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
         $('#list_info_detail').DataTable().draw();
@@ -729,7 +745,7 @@
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{type}}</td>
-        <td><a href="avascript://" onclick="javascript:getDetail(this.id);" id="{{roomNo}}">{{title}}</a></td>
+        <td><a href="javascript://" onclick="javascript:getDetail(this.id);" id="{{roomNo}}">{{title}}</a></td>
         <td>{{start_date}}</td>
         <td>{{Live}}</td>
     </tr>
@@ -751,14 +767,16 @@
 <script id="listenerHistory_detail" type="text/x-handlebars-template">
     {{#data}}
     <tr>
+        <td>{{memNo}}</td>
         <td>{{index @index}}</td>
-        <td>{{auth}}</td>
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{listenStDate}}</td>
-        <td>{{menagerStDate}}</td>
-        <td>{{menagerEdDate}}</td>
-        <td><a a href="avascript://" class="btn btn-xs" id="bt_listenerHistory_detail" aria-expanded="false" >{{menager}}</a></td>
+        <td>{{listenEdDate}}</td>
+        <td>{{listenTime}}</td>
+        <td>{{likeCnt}}</td>
+        <td>{{itemCnt}}</td>
+        <%--<td><a href="javascript://" class="btn btn-xs" onclick="javascript:Broad(this.id);" id="datalistener_{{memNo}}" data-memNo="{{memNo}}">{{maneger}}</a></td>--%>
     </tr>
     {{/data}}
 </script>
@@ -782,7 +800,21 @@
         <td>{{lastUpdDate}}</td>
         <td>{{goodCnt}}</td>
         <td>{{boostCnt}}</td>
-        <td>{{boostTime}}</td>
+    </tr>
+    {{/data}}
+</script>
+<script id="manegerHistory_detail" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <td>{{memNo}}</td>
+        <td>{{index @index}}</td>
+        <td>{{auth}}</td>
+        <td>{{memId}}</td>
+        <td>{{memNick}}</td>
+        <td>{{listenStDate}}</td>
+        <td>{{manegerAddDate}}</td>
+        <td>{{manegerDelDate}}</td>
+        <td><a href="javascript://"  onclick="javascript:Maneger(this.id);" id="datamaneger_{{memNo}}" data-memno="{{memNo}}" data-maneger="{{maneger}}">{{maneger}}</a></td>
     </tr>
     {{/data}}
 </script>

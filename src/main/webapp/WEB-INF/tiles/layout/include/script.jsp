@@ -38,12 +38,24 @@
 <%--<script src="/js/lib/bootstrap-datepicker.min.js"></script>--%>
 <script src="/js/lib/bootstrap-datepicker.kr.js"></script>
 
+<!-- dataTable -->
+<script src="/js/lib/dataTable/buttons.html5-1.5.2.min.js"></script>
+<script src="/js/lib/dataTable/dataTables.buttons-v1.5.2.min.js"></script>
+
 <!-- dalbit -->
 <script src="/js/lib/jquery.fileDownload-v1.4.5.js"></script>
 <script src="/js/lib/handlebars-v4.7.2.min.js"></script>
 <script src="/js/lib/moment-v2.24.0.js"></script>
 <script src="/js/common.js"></script>
 <script src="/js/helper.js"></script>
+
+<!-- DataTable Util -->
+<script src="/js/dataTablesSource/memberDataTableSource.js"></script>
+<script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
+<script src="/js/dataTablesSource/dataTableSource.js"></script>
+<script src="/js/dalbitDataTableUtil.js"></script>
+
+
 
 <script type="text/javascript">
     /*로그 찍기*/
