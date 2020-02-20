@@ -60,6 +60,9 @@ function excelDownload(btn, url, data, successFunc, errorFunc){
 
 /* Null 체크 */
 function isEmpty(value){
+    if(typeof value === 'function'){
+        return false;
+    }
     return (value == null || value.length === 0);
 }
 
