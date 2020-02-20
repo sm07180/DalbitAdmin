@@ -614,7 +614,7 @@
             dtList_info.useCheckBox(false);
             dtList_info.useIndex(true);
             dtList_info.setEventClick(test01,0);
-            dtList_info.initDataTable(pagingSet);
+            dtList_info.createDataTable();
         }
 
         // pagingSet();
@@ -622,9 +622,7 @@
 
         // $('#list_cnt').html("검색 결과 총" + dtList_info.data.length + "건");
     }
-    function pagingSet(){
-        console.log(dtList_info.getDataRow(0).totalCnt);
-    }
+
     function test01(t1, t2 ,t3) {
         dalbitLog("=-----")
         dalbitLog(t1)   //
@@ -706,7 +704,7 @@
                 dtList_info_detail = new DalbitDataTable($("#list_info_detail"), dtList_info_detail_data, source);
                 dtList_info_detail.useCheckBox(false);
                 dtList_info_detail.useIndex(true);
-                dtList_info_detail.initDataTable();
+                dtList_info_detail.createDataTable();
             } else {
                 dtList_info_detail.changeReload(null, null, source);
             }
