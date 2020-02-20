@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -42,10 +41,11 @@ public class M_MemberService {
      * 회원 리스트
      */
     public List<MemberListVo> getMemberList(MemberListVo memberListVo){
-        log.info("@@@@@@@@@@@@ > " + memberListVo.getStartCnt() +" / "+ memberListVo.getEndCnt());
         List<MemberListVo> list = mMemberDao.callMemberList(memberListVo);
         int total = mMemberDao.callMemberList_cnt(memberListVo);
+
         log.info("total : " + total);
+
         if(list.size() > 0) {
             list.get(0).setTotalCnt(total);
         }

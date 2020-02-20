@@ -8,8 +8,11 @@ import lombok.Setter;
 public class PagingVo {
 
     /*input*/
-    private int startCnt;
-    private int endCnt;
+    private int pageStart;
+    private int pageCnt;
+    private String orderColumnName;
+    private int orderColumnIdx;
+    private String orderDir;
 
     /*output*/
     private int totalCnt;

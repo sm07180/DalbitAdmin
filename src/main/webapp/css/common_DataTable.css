@@ -12,3 +12,11 @@
 .widget-table {
     margin-bottom: 0px;
 }
+
+div.dataTables_paginate {
+    float: none;
+}
+
+.dataTables_paginate {
+    text-align: center;
+}

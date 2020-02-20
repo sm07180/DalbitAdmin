@@ -76,7 +76,8 @@
                 </otherwise>
             </choose>
         </if>
-        limit #{startCnt}, #{endCnt}
+        ORDER BY ${orderColumnName} ${orderDir}
+        limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="callMemberInfo" parameterType="com.dalbit.member.vo.MemberInfoVo" resultType="com.dalbit.member.vo.MemberInfoVo">

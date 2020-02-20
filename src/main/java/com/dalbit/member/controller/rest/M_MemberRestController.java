@@ -45,10 +45,26 @@ public class M_MemberRestController {
         apiData.setCheckDate(request.getParameter("checkDate"));
         apiData.setStDate(request.getParameter("stDate").replace("-",""));
         apiData.setEdDate(request.getParameter("edDate").replace("-",""));
-        apiData.setStartCnt(Integer.parseInt(request.getParameter("startCnt")));
-        apiData.setEndCnt(Integer.parseInt(request.getParameter("endCnt")));
+
+
+        // =-------- Page Select Data ----------------
+        int pageStart = Integer.parseInt(request.getParameter("start"));
+        int pageCnt = Integer.parseInt(request.getParameter("length"));
+
+        int orderColumnIdx = Integer.parseInt(request.getParameter("order[0][column]"));
+        String orderDir = request.getParameter("order[0][dir]");
+        String nmKey = "columns["+orderColumnIdx+"][data]";
+        String orderColumnName = request.getParameter(nmKey);
+
+        apiData.setPageStart(pageStart);
+        apiData.setPageCnt(pageCnt);
+        apiData.setOrderColumnName(orderColumnName);
+        apiData.setOrderColumnIdx(orderColumnIdx);
+        apiData.setOrderDir(orderDir);
+        // --------- Page Select Data ---------------=
 
         List<MemberListVo> list = mMemberService.getMemberList(apiData);
+
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
 
