@@ -2,9 +2,16 @@ function DalbitDataTable(dom, param, columnsInfo) {
     this.dom = dom;
     var url = columnsInfo.url;
 
+    //초기화
+    this.init();
+
+    // //Page처리를 위한 변수 추가
+    // param.startCnt = this.startCnt;
+    // param.endCnt = this.endCnt;
+
     this.dataTableSource = {
         // dom: '<"top"<"text-right"i>><rt>p',
-        dom: 'lirt',
+        dom: 'lirtp',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
@@ -13,12 +20,23 @@ function DalbitDataTable(dom, param, columnsInfo) {
         bAutoWidth: false,                                                            // 자동 Width 계산 여부
         processing: false,                                                              // Process 바 출력 여부
         ordering: true,                                                                 // 정렬 사용 여부
-        serverSide: false,                                                             // 서버에서 정렬한 데이터 그대로 사용할지 여부 (false : 서버에서 정렬한 데이터도 client에서 다시 재정렬)
+        serverSide: true,                                                             // 서버에서 정렬한 데이터 그대로 사용할지 여부 (false : 서버에서 정렬한 데이터도 client에서 다시 재정렬)
         searching: false,                                                               // 서칭 기능 사용 여부
         ajax : {
             'url':url,
             'type':"POST",
-            'data': param
+            'data': param,
+            // 'dataSrc': "data"
+            'dataFilter': function(data){
+                var json = jQuery.parseJSON( data );
+                // console.log("[dataFilter]")
+                // console.log(json)
+                json.recordsTotal = json.data.recordsTotal;
+                json.recordsFiltered = json.data.recordsFiltered;
+                json.data = json.data.data;
+
+                return JSON.stringify( json ); // return JSON string
+            }
         },
         columnDefs: [
             {
@@ -37,7 +55,16 @@ function DalbitDataTable(dom, param, columnsInfo) {
             {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null},
             {"title": "No.", "data": null, "width": "10px"},
         ],
-        order: [[ 2, 'asc' ]]
+        order: [[ 2, 'asc' ]],
+        infoCallback: function(settings, start, end, max, total, pre) {
+            // console.log("[infoCallback]")
+            // console.log(settings);
+            // console.log(start + ":" + end  + ":" + max + ":" + total);
+            // return (!isNaN(total))
+            //     ? "Showing " + start + " to " + end + " of " + total + " entries"
+            //     + ((total !== max) ? " (filtered from " + max + " total entries)" : "")
+            //     : "Showing " + start + " to " + (start + this.api().data().length - 1) + " entries";
+        }
     }
 
     var columnDefs = columnsInfo.columnDefs;
@@ -50,17 +77,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
     if(!isEmpty(columns)){
         this.dataTableSource.columns = this.dataTableSource.columns.concat(columns);
     }
-
-    // 체크박스 사용
-    this.isUseCheckbox = true;
-    // 넘버링 사용 여부
-    this.isUseIndex = true;
-
-
-    // ClickEvent
-    this.arrayClickEvent = {};
-
-    this.g_DataTable = null;
 }
 
 
@@ -72,9 +88,50 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
 /* === Init =================================================================*/
 
+    // 데이터 초기화
+    DalbitDataTable.prototype.init = function(){
+        // 체크박스 사용
+        this.isUseCheckbox = true;
+        // 넘버링 사용 여부
+        this.isUseIndex = true;
+
+        // ClickEvent Function
+        this.arrayClickEvent = {};
+        // DataTable 존재여부
+        this.g_DataTable = null;
+
+        // // 표시할 페이지 정보
+        // this.pageLength = 10;
+        // // 현재 선택 한 페이지
+        // this.selectPage = 1;
+        // // Page select 시작 범위
+        // this.startCnt = 1;
+        // // Page select 종료 범위
+        // this.endCnt = (this.startCnt * this.pageLength);
+
+    }
+
     // Init DataTable
-    DalbitDataTable.prototype.initDataTable = function (initFn) {
+    DalbitDataTable.prototype.createDataTable = function (initFn) {
         this.dom.empty();
+
+        // 완료 후 처리 함수
+        if(!isEmpty(initFn)){
+            var dalbitDataTable = this;
+            this.dataTableSource.ajax.complete = function (response) {
+                // console.log("[complete]")
+                // var totalData = response.responseJSON.data[0].totalCnt;
+                // alert(dalbitDataTable.selectPage);
+                // dalbitDataTable.createPage(totalData, dalbitDataTable.selectPage);
+
+                // console.log("=ajax")
+                // console.log(response);
+                // console.log(response.responseJSON.data);
+                // console.log("ajax=")
+
+                initFn();
+            };
+        }
 
         var g_DataTable = this.dom.DataTable(this.dataTableSource);
         this.g_DataTable = g_DataTable;
@@ -90,10 +147,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }).draw();
 
         this.initEvent();
-
-        if(!isEmpty(initFn)){
-            initFn();
-        }
 
         return g_DataTable;
     }
@@ -141,6 +194,86 @@ function DalbitDataTable(dom, param, columnsInfo) {
             }
         });
     }
+
+    //
+    // DalbitDataTable.prototype.createPage = function (totalData, currentPage){
+    //     this.dom.parent("#list_info_wrapper").find("#list_info_paginate").remove();
+    //
+    //     var dataPerPage = this.dataTableSource.pageLength;
+    //     var pageCount =  5;
+    //
+    //
+    //     console.log("currentPage 단위 : " + currentPage);
+    //     var totalPage = Math.ceil(totalData/dataPerPage);    // 총 페이지 수
+    //     var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
+    //     console.log("pageGroup 페이지 그룹: " + pageGroup);
+    //     var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
+    //     if(last > totalPage)
+    //         last = totalPage;
+    //     var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
+    //     var next = last+1;
+    //     var prev = first-1;
+    //     console.log("last 마지막 페이지 번호 : " + last);
+    //     console.log("first 화면에 보여질 첫번쨰 페이지 번호: " + first);
+    //     console.log("next 다음 : " + next);
+    //     console.log("prev 이전 : " + prev);
+    //     // var $pingingView = $("#paging");
+    //
+    //     var html = '<div class="dataTables_paginate paging_simple_numbers text-center" id="list_info_paginate">'
+    //                 + '     <ul class="pagination">';
+    //
+    //     if(prev > 0)
+    //         html += '           <li class="paginate_button previous " aria-controls="list_info" tabindex="0" id="list_info_previous">'
+    //                 + '                 <a href="#"  id="prev">이전</a>'
+    //                 + '            </li>';
+    //     for(var i=first; i <= last; i++){
+    //         if(i == currentPage){
+    //             html += '        <li class="paginate_button active" aria-controls="list_info" tabindex="0">'
+    //                 + '                 <a href="#"  id=' + i + '>' + i + '</a>'
+    //                 + '            </li>';
+    //         }else{
+    //             html += '        <li class="paginate_button " aria-controls="list_info" tabindex="0">'
+    //                 + '                 <a href="#"  id=' + i + '>' + i + '</a>'
+    //                 + '            </li>';
+    //         }
+    //     }
+    //     if(last < totalPage)
+    //         html += '           <li class="paginate_button next" aria-controls="list_info" tabindex="0" id="list_info_next">'
+    //                 + '                 <a href="#"  id="next">다음</a>'
+    //                 + '            </li>';
+    //
+    //     this.dom.parent("#list_info_wrapper").append(html);    // 페이지 목록 생성
+    //
+    //     var dalbitDataTable = this;
+    //     this.dom.parent("#list_info_wrapper").find("#list_info_paginate a").click(function(){
+    //         var $item = $(this);
+    //         var $id = $item.attr("id");
+    //         var selectedPage = $item.text();
+    //         if($id == "next")    selectedPage = next;
+    //         if($id == "prev")    selectedPage = prev;
+    //         // dalbitDataTable.createPage(totalData, selectedPage);
+    //
+    //
+    //         this.selectPage = selectedPage;
+    //         this.endCnt = selectedPage * dataPerPage;
+    //         this.startCnt = this.endCnt - (dataPerPage -1);
+    //
+    //         // dalbitDataTable.dataTableSource.ajax.data.endCnt = this.endCnt;
+    //         // dalbitDataTable.dataTableSource.ajax.data.startCnt = this.startCnt;
+    //         // dalbitDataTable.dataTableSource.ajax.data.selectPage = this.selectPage;
+    //
+    //         console.log("start : {}/ end : {}", this.startCnt, this.endCnt);
+    //
+    //         dalbitDataTable.reload();
+    //         // var obj = new Object();
+    //         // obj.total = totalData;
+    //         // obj.datapage = dataPerPage;
+    //         // obj.pagecount = pageCount;
+    //         // obj.selectedpage = selectedPage;
+    //
+    //         // getAjaxData("paging", "/rest/member/member/paging",obj, fn_code_success, fn_fail);
+    //     });
+    // }
 
 
 
@@ -198,7 +331,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
             }
         }
 
-        this.initDataTable(initFn);
+        this.createDataTable(initFn);
     }
 
     DalbitDataTable.prototype.destroy = function(){
