@@ -49,7 +49,7 @@
             , @RNUM := @RNUM + 1 as rowNum
         from tb_member_basic b
             , tb_member_profile p
-            , (SELECT @RNUM := #{startCnt}) r
+            , (SELECT @RNUM := #{pageStart}) r
         where b.mem_no = p.mem_no
         <if test='checkDate == "true"'>
            and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}
