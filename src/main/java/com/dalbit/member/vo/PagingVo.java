@@ -13,5 +13,6 @@ public class PagingVo {
 
     /*output*/
     private int totalCnt;
+    private int rowNum;
 
 }

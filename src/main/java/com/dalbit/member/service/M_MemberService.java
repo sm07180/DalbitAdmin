@@ -45,7 +45,10 @@ public class M_MemberService {
         log.info("@@@@@@@@@@@@ > " + memberListVo.getStartCnt() +" / "+ memberListVo.getEndCnt());
         List<MemberListVo> list = mMemberDao.callMemberList(memberListVo);
         int total = mMemberDao.callMemberList_cnt(memberListVo);
-        list.get(0).setTotalCnt(total);
+        log.info("total : " + total);
+        if(list.size() > 0) {
+            list.get(0).setTotalCnt(total);
+        }
         return list;
     }
 

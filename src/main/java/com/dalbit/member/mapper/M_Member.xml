@@ -46,8 +46,10 @@
             , p.mem_name     as memName
             , b.mem_phone    as memPhone
             , b.mem_slct     as memSlct
+            , @RNUM := @RNUM + 1 as rowNum
         from tb_member_basic b
             , tb_member_profile p
+            , (SELECT @RNUM := #{startCnt}) r
         where b.mem_no = p.mem_no
         <if test='checkDate == "true"'>
            and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}
