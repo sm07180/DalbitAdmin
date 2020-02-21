@@ -13,10 +13,38 @@
     margin-bottom: 0px;
 }
 
+/*DataTable Page Align*/
 div.dataTables_paginate {
     float: none;
 }
-
+/*DataTable Page Text Align*/
 .dataTables_paginate {
     text-align: center;
 }
+
+
+/*DataTable Header Align*/
+table th {
+    text-align: center;
+}
+
+/*DataTable Row Align*/
+table td {
+    text-align: center;
+}
+
+/*DataTable Column Align Right*/
+table td.text-right {
+    text-align: right;
+}
+
+/*DataTable Column Align Left*/
+table td.text-left {
+    text-align: left;
+}
+
+/*DataTable Column Align Center*/
+table td.text-center {
+    text-align: center;
+}
+

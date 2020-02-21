@@ -1,3 +1,14 @@
+/**
+ * ========= DataTable Source =============
+ * key:{
+ *      'url': ajax호출 URL (필수)
+ *      ','columns': [       (필수)
+ *          {'title': 필드헤더명, 'data': 출력데이터변수명, 'defaultContent': 값이 없을 경우 Default값}
+ *      ]
+ * }
+ *
+ **/
+
 var DataTableSource = {
     'userInfo': {
         'url': '/rest/member/member/list'

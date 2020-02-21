@@ -1,3 +1,32 @@
+/**
+ * ========= DataTale 작성 순서 ===========
+ * 1. DataTable을 사용할 <table> 작성
+ * 2. Ajax에서 사용할 Data를 작성 (function 으로 작성 하여야 데이터 갱신 됨)
+ *   ex.)
+ *      var dataTableAjaxData = function ( data ) {
+            data.search = $('#txt_search').val()
+            data.date = $('input[name="radio_date"]:checked').val()
+            data.gubun = $("select[name='selectGubun']").val()
+            data.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked")
+            data.stDate = $('#txt_startSel').val()
+            data.edDate = $('#txt_endSel').val()
+        };
+ * 3. DataTable를 사용하기 위한 DataTableSource 작성  (/js/dataTableSource/dataTableSource.js 참고)
+ * 4. DataTable 초기화
+ *  ex.) datTable_1 = new DalbitDataTable($("#적용할 테이블 ID"), Ajax에 사용할 Data 변수 (2번), DataTableSource (3번));
+ * 5. DataTable 옵션 적용 ( CheckBox(default False), Index(default False), rowClick Event 등등)
+ * 6. DataTable Create
+ *  ex.) datTable_1.createDataTable() -> 테이블 생성 or datTable_1.createDataTable(afterFn)  -> 테이블 생성 후 afterFn 함수 호출
+ *
+ *  ========= DataTale 옵션 ===========
+ *  1. DataTable 재호출
+ *  ex.) dataTable_1.reload()
+ *  2. 기존 DataTable의 DataSource 변경 - 기존 테이블에서 내용이 전체 바뀔 경우 사용
+ *  ex.) dataTable_1.changeReload(url, data, columnsInfo, initFn);
+ *
+ **/
+
+
 function DalbitDataTable(dom, param, columnsInfo) {
     this.dom = dom;
     var url = columnsInfo.url;
@@ -6,7 +35,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
     this.init();
 
     this.dataTableSource = {
-        // dom: '<"top"<"text-right"i>><rt>p',
         dom: 'lirtp',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
@@ -28,7 +56,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
             'dataFilter': function(data){
                 var json = jQuery.parseJSON( data );
                 console.log("[dataFilter]")
-                console.log(json)
                 json.recordsTotal = json.data[0].totalCnt;
                 json.recordsFiltered = json.data[0].totalCnt;
                 json.data = json.data;
