@@ -16,6 +16,7 @@
         padding-right: 10px;
     }
 </style>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -36,11 +37,10 @@
                             <label class="radio-inline"><input type="radio" name="radio_date" value="month">한달</label>
                         </form>
                     </div>
-
                     <div class="col-lg-12">
                         <label class="checkbox-inline"><input type="checkbox" id="check_dateSel">기간 선택</label>
                         <div class="input-group date col-lg-4" id="date_startSel">
-                            <input type="text" class="form-control " id="txt_startSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
+                            <input type="text" class="form-control" id="txt_startSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
                         </div>
                         <label>~</label>
                         <div class="input-group date col-lg-4" id="date_endSel">
@@ -70,39 +70,32 @@
                     </div>
                 </div>
             </div>
-
             <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
                 <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 100px;height: 27px"> 검색 결과 정보 </label>
-                <label class="text_middle" style="font-size: 11px;height: 27px"> ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다. </label>
+                <label class="text_middle" style="font-size: 11px;height: 27px;width: 300px"> ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다. </label>
                 <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
             </div>
-
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
                     <div class="widget-content">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
+                        <table id="list_info" class="table table-sorting table-hover table-bordered">
                             <span>
-                                <a download ="aaa.xlsx" onclick="return ExcellentExport.excel(this, 'list_info','aaa.xlsx');">Excel</a>
-                                <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                                <button class="btn btn-default" type="button" id="excelDownBtn"><i class="fa"></i>Excel Print</button>
+                                <button class="btn btn-default" type="button" id="excelBtn"><i class="fa"></i>Excel</button>
                             </span>
                             <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>회원번호</th>
-                                <th>UserID</th>
-                                <th>닉네임</th>
-                                <th>이름</th>
-                                <th>연락처</th>
-                                <th>가입플랫폼</th>
-                                <th>접속상태</th>
-                                <th>생방상태</th>
-                            </tr>
                             </thead>
                             <tbody id="tableBody">
-
                             </tbody>
                         </table>
+                        <%--<body>--%>
+                        <%--<div id="paging"></div>--%>
+                        <%--</body>--%>
+                        <%--<div class="row text-center" id="list_info_wrapper">--%>
+                        <%--<ul class="pagination">--%>
+                        <%--</ul>--%>
+                        <%--</div>--%>
                     </div>
                 </div>
             </div>
@@ -123,56 +116,65 @@
             </div>
             <div class="widget-content">
                 <div class="form-horizontal">
-                    <div class="col-md-12 no-padding">
+                    <div class="col-md-12 no-padding" >
                         <div class="col-md-6">
-                            <label class="col-md-3 control-label">프로필 이미지</label>
-                            <div class="col-md-9">
-                                <img src="/template2/assets/img/profile-avatar.png" alt="Profile Picture" style="height:100px;">
+                            <label class="col-md-4 control-label">프로필 이미지</label>
+                            <div class="col-md-8">
+                                <div class="input-file">
+                                    <input type='file' id="imgInput"/>
+                                    <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
+                                    <%--<img src="/template2/assets/img/profile-avatar.png" alt="Profile Picture" style="height:150px;width: 150px">--%>
+                                    <%--<div id='View_area' style='position:relative; width: 150px; height: 150px; color: black; border: 0px solid black; dispaly: inline; '></div>--%>
+                                    <%--<input type="file" name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')">--%>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">회원레벨</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">회원레벨</label>
+                            <div class="col-md-8">
                                 <form id="cob_level">
                                     <select id="cob_userLevel" name="emailSelection" class="form-control">
                                         <option value="9999" selected="selected">직접입력</option>
-
                                     </select>
                                 </form>
                             </div>
-                            <label class="col-md-3">DJ등급</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">DJ등급</label>
+                            <div class="col-md-8">
                                 <form id="cob_grade">
                                     <select id="cob_djLevel" name="emailSelection" class="form-control">
                                     </select>
                                 </form>
                             </div>
-                            <label class="col-md-3">청취자 등급</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">청취자 등급</label>
+                            <div class="col-md-8">
                                 <select id="cob_lisLevel" name="emailSelection" class="form-control">
                                     <option value="normal">일반청취자</option>
                                     <option value="best">베스트 청취자</option>
                                 </select>
                             </div>
-                            <label class="col-md-3">접속상태</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">접속상태</label>
+                            <div class="col-md-8">
                                 <form id="login_radio">
                                     <label class="radio-inline"><input type="radio" name="radio_login" value="option1" checked="true">Login</label>
                                     <label class="radio-inline"><input type="radio" name="radio_login" value="option2">Logout</label>
                                 </form>
                             </div>
-                            <label class="col-md-3">생방상태</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">생방상태</label>
+                            <div class="col-md-8">
                                 <form id="live_radio">
                                     <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option1" checked="true">생방중</label>
                                     <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option2">방송OFF</label>
+                                    <%--<div class="col-md-3">--%>
+                                    <button type="button" id="bt_liveSms" class="btn-sm pull-right">메시지발송</button>
+                                    <%--</div>--%>
                                 </form>
                             </div>
-                            <label class="col-md-3">청취상태</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">청취상태</label>
+                            <div class="col-md-8">
                                 <form id="listen_radio">
                                     <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option1" checked="true">청취중</label>
                                     <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option2">청취OFF</label>
+                                    <button type="button" id="bt_listenSms" class="btn-sm pull-right">메시지발송</button>
                                 </form>
                             </div>
                         </div>
@@ -180,62 +182,60 @@
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
                             <div class="col-md-12 no-padding">
-                                <label class="col-md-3">UserID</label>
-                                <div class="col-md-9"><label id="lb_userId"></label></div>
+                                <label class="col-md-4">UserID</label>
+                                <div class="col-md-8"><label id="lb_userId"></label></div>
                             </div>
                             <div class="col-md-12 no-padding">
-                                <label class="col-md-3">연락처</label>
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control col-md-12" id="txt_phon" value="010-1111-2222">
+                                <label class="col-md-4">연락처</label>
+                                <div class="col-md-5"><input type="text" class="form-control" id="txt_phon"></div>
+                                <div class="col-md-3">
+                                    <button type="button" id="bt_phon" class="btn-sm pull-right">인증번호전송</button>
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-6">
-                            <label class="col-md-3 control-label">가입플랫폼<br />(첫 연동일)</label>
-                            <div class="col-md-9">
-                                <div>달빛 : 2020.03.02 15:40:21</div>
-                                <div>페이스북 : 2020.03.12 09:40:40</div>
+                            <label class="col-md-4 control-label">가입플랫폼<br />(첫 연동일)</label>
+                            <div class="col-md-8">
+                                <div></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">닉네임</label>
-                            <div class="col-md-6"><input type="text" class="form-control" id="txt_nickName"></div>
+                            <label class="col-md-4">닉네임</label>
+                            <div class="col-md-5"><input type="text" class="form-control" id="txt_nickName"></div>
                             <div class="col-md-3">
-                                <button type="button" id="bt_resatNick" class="btn-xs pull-right">닉네임 초기화</button>
+                                <button type="button" id="bt_resatNick" class="btn-sm pull-right">닉네임 초기화</button>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">회원가입일시</label>
-                            <div class="col-md-9">
-                                <label id="lb_joinDate">2020.02.03 09:27:30</label>
+                            <label class="col-md-4">회원가입일시</label>
+                            <div class="col-md-8">
+                                <label id="lb_joinDate"></label>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">생년월일</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">생년월일</label>
+                            <div class="col-md-8">
                                 <div class="col-md-12 input-group date" id="date_birth">
                                     <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">회원탈퇴일시</label>
-                            <div class="col-md-9">
-                                <label id="lb_cancelMb">2020.02.03 09:27:30</label>
+                            <label class="col-md-4">회원탈퇴일시</label>
+                            <div class="col-md-8">
+                                <label id="lb_cancelMb"></label>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">나이</label>
-                            <div class="col-md-3">
-                                <label id="lb_age">33세</label>
+                            <label class="col-md-4">나이</label>
+                            <div class="col-md-2">
+                                <label id="lb_age"></label>
                             </div>
                             <label class="col-md-2">성별</label>
                             <div class="col-md-4">
@@ -244,30 +244,30 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">최근 정보 수정일시</label>
-                            <div class="col-md-9">
-                                <label id="lb_editDate">2020.02.03 09:27:30</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6">
-                            <label class="col-md-3">비밀번호</label>
-                            <div class="col-md-6"><input type="password" class="form-control" id="txt_pass" value="1234"></div>
-                            <div class="col-md-3"><button type="button" id="bt_resatPass" class="btn-xs pull-right">비밀번호 초기화</button></div>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="col-md-3">최근 정보 수정 처리자</label>
-                            <div class="col-md-9">
-                                <label id="lb_editUser">admin</label>
+                            <label class="col-md-4">최근 정보 수정일시</label>
+                            <div class="col-md-8">
+                                <label id="lb_editDate"></label>
+                                <button type="button" id="bt_editDateHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">방송기록</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">비밀번호</label>
+                            <div class="col-md-5"><input type="password" class="form-control" id="txt_pass" value="1234"></div>
+                            <div class="col-md-3"><button type="button" id="bt_resatPass" class="btn-sm pull-right">비밀번호 초기화</button></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="col-md-4">최근 정보 수정 처리자</label>
+                            <div class="col-md-8">
+                                <label id="lb_editUser"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                        <div class="col-md-6">
+                            <label class="col-md-4">방송기록</label>
+                            <div class="col-md-8">
                                 <label id="lb_broadCnt">총0건</label>
                                 <button type="button" id="bt_broadHistory" class="btn-xs pull-right">세부내역</button>
                                 <%--<a class="btn btn-xs pull-right" id="bt_broadHistory" data-toggle="collapse" href="#detail" role="button" aria-expanded="false" aria-controls="detail">--%>
@@ -276,8 +276,8 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">MyStar</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">MyStar</label>
+                            <div class="col-md-8">
                                 <label id="lb_myStarCnt">총0건</label>
                                 <button type="button" id="bt_registMyStarList" class="btn-xs pull-right">세부내역</button>
                             </div>
@@ -285,15 +285,15 @@
                     </div>
                     <div class="col-md-12 no-padding">
                         <div class="col-md-6">
-                            <label class="col-md-3">청취기록</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">청취기록</label>
+                            <div class="col-md-8">
                                 <label id="lb_listenCnt">총0건</label>
                                 <button type="button" id="bt_listenHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label class="col-md-3">Fan</label>
-                            <div class="col-md-9">
+                            <label class="col-md-4">Fan</label>
+                            <div class="col-md-8">
                                 <label id="lb_myFanCnt">총0건</label>
                                 <button type="button" id="bt_registMyFanlist" class="btn-xs pull-right">세부내역</button>
                             </div>
@@ -308,87 +308,80 @@
                                         <div class="col-md-12">
                                             <div class="col-md-3">결제/환불</div>
                                             <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_payCnt">총0건</label>
-                                                    <button type="button" id="bt_payHistory" class="btn-xs pull-right">세부내역</button>
-                                                </div>
+                                                <label id="lb_payCnt">총0건</label>
+                                                <button type="button" id="bt_payHistory" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-3">교환/선물</div>
                                             <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_giftCnt">총0건</label>
-                                                    <button type="button" id="bt_giftHistory" class="btn-xs pull-right">세부내역</button>
-                                                </div>
+                                                <label id="lb_giftCnt">총0건</label>
+                                                <button type="button" id="bt_giftHistory" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="col-md-3">환전</div>
                                             <div class="col-md-9 no-padding">
-                                                <div>
-                                                    <label id="lb_exchangeCnt">총0건</label>
-                                                    <button type="button" id="bt_exchangeHistory" class="btn-xs pull-right">세부내역</button>
-                                                </div>
+                                                <label id="lb_exchangeCnt">총0건</label>
+                                                <button type="button" id="bt_exchangeHistory" class="btn-xs pull-right">세부내역</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12no-padding">
-                                    <div class="col-md-3">최근 접속 플랫폼</div>
-                                    <div class="col-md-9">
-                                        <label id="lb_platform">Mobile(Android)</label>
+                                <div class="col-md-12 no-padding">
+                                    <div class="col-md-4">최근 접속 플랫폼</div>
+                                    <div class="col-md-8">
+                                        <label id="lb_platform"></label>
                                         <button type="button" id="bt_platform" class="btn-xs pull-right">세부내역</button>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-md-6">
-                                <div>
-                                    <div class="col-md-2">공지</div>
-                                    <div class="col-md-10 no-padding">
-                                        <div class="col-md-12 no-padding">
-                                            <div class="col-md-3">개인공지</div>
-                                            <div class="col-md-9">
-                                                <label id="lb_noticeCnt">총0건</label>
-                                                <button type="button" id="bt_myNotice" class="btn-xs pull-right">세부내역</button>
-                                            </div>
+                                <div class="col-md-2">공지</div>
+                                <div class="col-md-10 no-padding">
+                                    <div class="col-md-12 no-padding">
+                                        <div class="col-md-3">개인공지</div>
+                                        <div class="col-md-9">
+                                            <label id="lb_noticeCnt">총0건</label>
+                                            <button type="button" id="bt_myNotice" class="btn-xs pull-right">세부내역</button>
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-12 no-padding">
-                                            <div class="col-md-3">방송중공지</div>
-                                            <div class="col-md-9">
-                                                <label id="lb_broadNoticeCnt">총0건</label>
-                                                <button type="button" id="bt_broadNotice" class="btn-xs pull-right">세부내역</button>
-                                            </div>
+                                    <div class="col-md-12 no-padding">
+                                        <div class="col-md-3">방송중공지</div>
+                                        <div class="col-md-9">
+                                            <label id="lb_broadNoticeCnt">총0건</label>
+                                            <button type="button" id="bt_broadNotice" class="btn-xs pull-right">세부내역</button>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div>
-                                    <div class="col-md-2">신고/문의</div>
-                                    <div class="col-md-10 no-padding">
-                                        <div class="col-md-12 no-padding">
-                                            <div class="col-md-3">내가/나를 신고한 정보</div>
-                                            <div class="col-md-9">
-                                                <label id="lb_myReportCnt">총0건</label>
-                                                <button type="button" id="bt_registReport" class="btn-xs pull-right">세부내역</button>
-                                            </div>
+                                <div class="col-md-2">신고</div>
+                                <div class="col-md-10 no-padding">
+                                    <div class="col-md-12 no-padding">
+                                        <div class="col-md-3">내가/나를 신고한 정보</div>
+                                        <div class="col-md-9">
+                                            <label id="lb_myReportCnt">총0건/총0건</label>
+                                            <button type="button" id="bt_registReport" class="btn-xs pull-right">세부내역</button>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 no-padding">
+                                    <div class="col-md-4">1:1 문의</div>
+                                    <div class="col-md-8">
+                                        <label id="lb_response"></label>
+                                        <button type="button" id="bt_response" class="btn-xs pull-right">세부내역</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row col-lg-12 form-inline" id="detail">
-                    <div class="row col-lg-12 form-inline" style="padding-top: 2px;">
-                        <label class="text_center text_middle" id="detail_label" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 110px;height: 27px"> 세부내역 </label>
-                        <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px"></label>
-                        <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
-                    </div>
+                <div class="row col-lg-12 form-inline" id="detail" style="padding-top: 2px;">
+                    <label class="text_center text_middle" id="detail_label" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 110px;height: 27px"> 세부내역 </label>
+                    <label class="text_middle" id="detail_comments" style="font-size: 11px;height: 27px"></label>
+                    <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
                     <!-- DATA TABLE -->
-                    <div class="row col-lg-12 form-inline">
+                    <div class="col-lg-12 no-padding">
                         <div class="widget widget-table">
                             <div class="widget-content">
                                 <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
@@ -397,9 +390,6 @@
                                     <tbody id="tableBody_detail">
                                     </tbody>
                                 </table>
-                                <span>
-                                    <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-                                </span>
                             </div>
                         </div>
                     </div>
@@ -407,20 +397,19 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /#page-wrapper -->
+    <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
-<script src ="../../js/lib/excellentexport.js"></script>
+
+<script src="../../../js/lib/jquery.table2excel.js"></script>
+<%--<script src="../../../js/jquery-1.12.4.js"></script>--%>
+
 <script>
     $(document).ready(function() {
-        $('#list_info').DataTable();
 
-        var memNo;
-        // getUserInfo();
-        getLevelData();
-        getGradeData();
         $('#detail').hide();
+        init("new");
+        // $('#list_info').DataTable();
 
         $('.input-group.date').datepicker({
             todayBtn: "linked",
@@ -436,7 +425,7 @@
 
         $('#date_radio').change(function() {
             if($('input[name="radio_date"]:checked').val() == "all"){               // 전체
-                                                                                    //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
+                //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
             }else if($('input[name="radio_date"]:checked').val() == "week"){        //1주일
                 $('#txt_startSel').val(moment().add(-7,'d').format("YYYY-MM-DD"));
                 $('#txt_endSel').val(moment().format("YYYY-MM-DD"));
@@ -476,59 +465,145 @@
 
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getUserInfo();
+                getUserInfo(0,10);
             };
+        });
+
+        $('#date_birth').change(function(){
+            if($('#bt_edite').text() == "수정완료"){
+                var age = Number(moment().format("YYYY")) + 1 - Number( moment($('#txt_birth').val()).format("YYYY"));
+                $("#lb_age").html(age + "세");
+            }
         });
 
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
-            getUserInfo();
+            getUserInfo(0,10,1);
         });
-
         $('#bt_edite').click( function() {                //    수정하기
+            if($('#bt_edite').text() == "수정하기"){
+                edit("edit");
+            }else if($('#bt_edite').text() == "수정완료"){
+                edit("edit_complet");
+            }
         });
         $('#bt_imgChg').click(function() {					//   사진변경
         });
         $('#bt_resatPass').click(function() {				//   비밀번호초기화
         });
+        $('#bt_phon').click(function() {				    //   인증번호전송
+            if($('#bt_phon').text() == "인증번호전송"){
+                authenNum("submit");
+            }else if($('#bt_phon').text() == "재발송"){
+                authenNum("re_submit");
+            }
+        });
         $('#bt_broadHistory').click(function() {		    //   방송기록세부내역
-            getHistoryDetail("broadHistory","방송기록","ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.");
+            getHistoryDetail("broadHistory");
         });
         $('#bt_listenHistory').click(function() {		    //   청취기록세부내역
-            getHistoryDetail("listenHistory","청취기록","ㆍ회원이 방송을 청취한 과거기록을 확인할 수 있습니다.");
+            getHistoryDetail("listenHistory");
         });
         $('#bt_payHistory').click(function() {			    //   결제/환불정보
-            getHistoryDetail("payHistory","결제/환불정보","ㆍ회원의 결제정보를확인하고 결제 취소처리를 할 수 있습니다.");
+            getHistoryDetail("payHistory");
         });
         $('#bt_giftHistory').click(function() {			//   교환/선물정보
-            getHistoryDetail("giftHistory","교환/선물정보","ㆍ회원이 달에서 별로 교환한 정보를 확인하고, 보내고 받은 선물 내역을 확인할 수 있습니다.ㆍ이벤트 당첨선물로 제공되어 처리된 사안일 경우 처리직원ID로 표기됩니다.");
+            getHistoryDetail("giftHistory");
         });
         $('#bt_exchangeHistory').click(function() {	    //   환전정보
-            getHistoryDetail("exchangeHistory","개인환불정보","ㆍ회원의 과거에서 현재까지의 환전 내역을 모두 확인하고, 증빙서류를 확인한 후 즉시 처리할 수 있습니다.");
+            getHistoryDetail("exchangeHistory");
         });
         $('#bt_platform').click(function() {				//   접속플랫폼
-            getHistoryDetail("platformHistory","1:1 문의 정보","ㆍ회원의 가입일로부터의 접속 기록을 확인할 수 있습니다.");
+            getHistoryDetail("platformHistory");
         });
-        $('#bt_registMyStarList').click(function() {	    //   mystar
-            getHistoryDetail("myStarHistory","MyStar 정보","ㆍMyStar 회원 리스트를 확인하고 등록/삭제 할 수 있습니다.");
+        $('#bt_registMyStarList').click(function() {	    //   mystart
+            getHistoryDetail("myStarHistory");
         });
         $('#bt_registMyFanlist').click(function() {		//   fan
-            getHistoryDetail("myFanHistory","Fan 정보","ㆍFan으로 등록한 회원들의 리스트를 확인하고 등록/삭제 할 수 있습니다.");
+            getHistoryDetail("myFanHistory");
         });
         $('#bt_myNotice').click(function() {				//   개인공지
-            getHistoryDetail("noticeHistory","개인공지(팬보드)","ㆍ회원의 팬보드 내 연동된 공지정보를 확인하고, 관리할 수 있습니다.");
+            getHistoryDetail("noticeHistory");
         });
         $('#bt_broadNotice').click(function() {			//   방송중공지
-            getHistoryDetail("noticeHistory","방송 중 공지","ㆍ회원의 방송중 업로드 된 공지정보를 확인하고, 관리할 수 있습니다.");
+            getHistoryDetail("noticeHistory");
         });
         $('#bt_registReport').click(function() {		    //   내가신고한정보
-            getHistoryDetail("reportHistory","신고 처리 정보","ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.");
+            getHistoryDetail("reportHistory");
         });
-        $('#bt_resPonse').click(function() {				//   1:1문의정보
-            getHistoryDetail("responseHistory","1:1 문의 정보","ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.");
+        $('#bt_response').click(function() {				//   1:1문의정보
+            getHistoryDetail("responseHistory");
         });
+        $('#bt_editDateHistory').click(function() {		//   최근정보 수정 일시
+            getHistoryDetail("editDateHistory");
+        });
+        <!-- 버튼 끝 -->
     });
 
+    var memNo = "";
+    function init(tmp){
+        getUserInfo(0,10);
+        getLevelData();
+        getGradeData();
+
+        $('#bt_edite').text('수정하기');
+        $("input[id='txt_phon'] ,input[id='txt_nickName'] ,input[id='txt_birth'] ,input[id='txt_pass']").attr('readonly', true);
+        $("select[id='cob_userLevel'],select[id='cob_djLevel'],select[id='cob_lisLevel']").attr("disabled", "disabled");
+        $("[name='radio_login']:not(:checked),[name='radio_liveOn']:not(:checked),[name='radio_listenOn']:not(:checked),[name='radio_gender']:not(:checked)").attr("disabled", "disabled");
+        $('#bt_phon').hide();
+        $('#bt_resatNick').hide();
+        $('#bt_listenSms').hide();
+        $('#bt_resatPass').hide();
+        $('#bt_liveSms').hide();
+        $('#imgInput').hide();
+    }
+
+    function edit(tmp){
+
+        if (tmp == "edit_complet"){
+            alert("@")
+
+            //
+            // var form = jQuery("#ajaxFrom")[0];
+            // var formData = new FormData(form);
+            // formData.append("message", "ajax로 파일 전송하기");
+            // formData.append("file", jQuery("#imgInput")[0].files[0]);
+            //
+            // alert(formData);
+
+        }
+
+        if(tmp == "edit") {
+            $('#bt_edite').text('수정완료');
+            $("input[id='txt_phon'] ,input[id='txt_nickName'] ,input[id='txt_birth'] ,input[id='txt_pass']").removeAttr('readonly', false);
+            $("select[id='cob_userLevel'],select[id='cob_djLevel'],select[id='cob_lisLevel']").removeAttr("disabled", "");
+            $("[name='radio_login']:not(:checked),[name='radio_liveOn']:not(:checked),[name='radio_listenOn']:not(:checked),[name='radio_gender']:not(:checked)").removeAttr("disabled", "");
+            $('#bt_phon').show();
+            $('#bt_resatNick').show();
+            $('#bt_listenSms').show();
+            $('#bt_resatPass').show();
+            $('#bt_liveSms').show();
+            $('#imgInput').show();
+        }else if (tmp == "edit_complet") {
+            $('#bt_edite').text('수정하기');
+            $("input[id='txt_phon'] ,input[id='txt_nickName'] ,input[id='txt_birth'] ,input[id='txt_pass']").attr('readonly', true);
+            $("select[id='cob_userLevel'],select[id='cob_djLevel'],select[id='cob_lisLevel']").attr("disabled", "disabled");
+            $("[name='radio_login']:not(:checked),[name='radio_liveOn']:not(:checked),[name='radio_listenOn']:not(:checked),[name='radio_gender']:not(:checked)").attr("disabled", "disabled");
+            $('#bt_phon').hide();
+            $('#bt_resatNick').hide();
+            $('#bt_listenSms').hide();
+            $('#bt_resatPass').hide();
+            $('#bt_liveSms').hide();
+            $('#imgInput').hide();
+        }
+    }
+    function authenNum(tmp){
+        if(tmp == "submit"){
+            $('#bt_phon').text('재발송');
+        }else if(tmp == "re_submit") {
+            $('#bt_phon').text('인증번호전송');
+        }
+    }
     function getLevelData(){
         var obj = new Object();
         obj.level = "level";
@@ -539,32 +614,56 @@
         obj.level = "grade";
         getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
     }
-    function getUserInfo(){                 // 검색
-        $('#list_info').DataTable().destroy();
-        $("#tableBody").empty();
-        var obj = new Object();
-        obj.search = $('#txt_search').val();                        // 검색명
-        obj.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
-        obj.gubun = $("select[name='selectGubun']").val();          // 검색 조건
-        obj.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
-        obj.stDate = $('#txt_startSel').val();                      // 검색일 시작
-        obj.edDate = $('#txt_endSel').val();                        // 검색일 끝
+    var StCnt;
+    var EdCnt;
+    var dtList_info = "false";          /* 초기 조회인지 구분하기 위한 switch*/
+    var SelPage = 1;
+    function getUserInfo(StartCnt,EndCnt,selectedPage){                 // 검색
+        StCnt = StartCnt;
+        EdCnt = EndCnt;
+        SelPage = nvl(selectedPage,1);
+        tmp_search = $('#txt_search').val();
+        tmp_date = $('input[name="radio_date"]:checked').val();
+        tmp_gubun = $("select[name='selectGubun']").val();
+        tmp_checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");
+        tmp_stDate = $('#txt_startSel').val();
+        tmp_edDate = $('#txt_endSel').val();
 
-        getAjaxData("memberList", "/rest/member/member/list", obj, fn_success, fn_fail);
+        var dtList_info_data = function ( data ) {
+            data.search = $('#txt_search').val();                        // 검색명
+            data.date = $('input[name="radio_date"]:checked').val();     // 기간 radio
+            data.gubun = $("select[name='selectGubun']").val();          // 검색 조건
+            data.checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");                       // 기간선택 여부
+            data.stDate = $('#txt_startSel').val();                      // 검색일 시작
+            data.edDate = $('#txt_endSel').val();                        // 검색일 끝
+            data.startCnt = StCnt;          // 시작 단위 0,10,20,30~
+            data.endCnt = EndCnt;           // 보여질 개수 3,5,10
+        };
+        if(dtList_info != "false"){
+            dtList_info.reload();
+        }else{
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
+            dtList_info.useCheckBox(false);
+            dtList_info.useIndex(false);
+            // dtList_info.setEventClick(test01,0);
+            dtList_info.createDataTable();
+        }
     }
+    // function pagingSet(){
+    //     $('#list_cnt').html("검색 결과 총" + dtList_info.getDataRow(0).totalCnt + "건");
+    //     new dataTablePaging($("#list_info"),dtList_info.getDataRow(0).totalCnt, dtList_info.getSource().pageLength ,EdCnt,SelPage,getUserInfo);
+    // paging(dtList_info.getDataRow(0).totalCnt, dataPerPage, pageCount, selectedPage);
+    // }
+    // function test01(t1, t2 ,t3) {
+    //     dalbitLog("=-----");
+    //     dalbitLog(t1);
+    //     dalbitLog(t2);
+    //     dalbitLog(t3);
+    //     paging(dtList_info.getDataRow(0).totalCnt, 10, 5, 1);
+    //     dtList_info.createPage(dtList_info.getDataRow(0).totalCnt,EdCnt);
+    //     dalbitLog("-----=");
+    // }
 
-    function fn_success(dst_id, response){
-        dalbitLog(response);
-
-        var template = $('#tmp_list').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
-
-        $("#tableBody").append(html);
-
-        $('#list_info').DataTable().draw();
-    }
     function fn_code_list_success(dst_id, response){
         // dalbitLog(response);
         if(response.data[0].gubun == "level"){
@@ -589,7 +688,6 @@
         $("#lb_userId").html(response.data.memId);
         $("#txt_nickName").val(response.data.memNick);
         $("#txt_name").val(response.data.memName);
-        $("#lb_age").html(response.data.age + "세");
         $("#txt_phon").val(response.data.memPhone);
         $("#txt_eMail").val(response.data.memEmail);
         // $("#txt_pass").val(response.data.memPasswd);
@@ -597,260 +695,121 @@
         $("#cob_userLevel").val(response.data.level);
         $("#lb_broadCnt").html("총" + response.data.broadcastingCnt + "건");
         $("#lb_listenCnt").html("총" + response.data.listeningCnt + "건");
-        $("#lb_joinDate").html(response.data.mem_join_date);
-        $("#lb_editDate").html(response.data.last_upd_date);
+        $("#lb_joinDate").html(response.data.memJoinDate);
+        $("#lb_editDate").html(response.data.lastUpdDate);
         $("#lb_myStarCnt").html("총" + response.data.starCnt + "건");
         $("#lb_myFanCnt").html("총" + response.data.fanCnt + "건");
         $("#lb_broadNoticeCnt").html("총" + response.data.noticeCnt + "건");
-        // console.log("birth : " + response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
-        //$("txt_birth#").val(response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
+        $( "#txt_birth" ).datepicker( "setDate", response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
+        var age = Number(moment().format("YYYY")) + 1 - Number( response.data.birthYear);
+        $("#lb_age").html(age + "세");
         $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
 
+        $("#lb_myReportCnt").html("총" + response.data.reportCnt + "건" + "/" + "총" + response.data.reportMemCnt + "건");
+
         $("#tableTop_detail").empty();
         $("#tableBody_detail").empty();
     }
 
-    function getMemNo_info(id){
+    function getMemNo_info(index){
+        var data = dtList_info.getDataRow(index);
         var obj = new Object();
-        obj.mem_no = id;
+        obj.mem_no = data.memNo;
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
-    function getHistoryDetail(tmp,tmp2,tmp3){     // 상세보기
-        $("#tableTop_detail").empty();
-        table_col_set(tmp,tmp2,tmp3);
-    }
 
-    function table_col_set(id,title,comments){
-        if($("#lb_userId").text() == null || $("#lb_userId").text() == ""){
-            alert("확인 대상 선택 해주십시오");
-            return;
-        }
-        $('#detail').show();
-        $("#detail_label").html(title);
-        $("#detail_comments").html(comments);
-        if(id == "broadHistory"){
-            var data = {header: [
-                    { columnNm : "NO"},
-                    { columnNm : "방송주제"},
-                    { columnNm : "방송제목"},
-                    { columnNm : "방송시작시간"},
-                    { columnNm : "방송종료시간"},
-                    { columnNm : "방송진행시간"},
-                    { columnNm : "종료시 평균 청취자 수"},
-                    { columnNm : "받은 좋아요 수"},
-                    { columnNm : "받은 아이템 수"}
-                ]};
-        }else if(id == "listenHistory") {
-            var data = {header: [
-                    { columnNm : "NO"},
-                    { columnNm : "청취방주제"},
-                    { columnNm : "청취 방송제목"},
-                    { columnNm : "청취시작시간"},
-                    { columnNm : "청취종료시간"},
-                    { columnNm : "청취진행시간"},
-                    { columnNm : "받은 루비 개수"},
-                    { columnNm : "청취 DJ 닉네임"}
-                ]};
-        }else if(id == "payHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "구분"},
-                    {columnNm: "아이템사용유무"},
-                    {columnNm: "아이템명"},
-                    {columnNm: "환불건수"},
-                    {columnNm: "환불 수단"},
-                    {columnNm: "요청 금액"},
-                    {columnNm: "환불 일시"},
-                    {columnNm: "처리 일시"},
-                    {columnNm: "처리 상태"},
-                    {columnNm: "처리자ID"},
-                ]};
-        }else if(id == "giftHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "구분"},
-                    {columnNm: "아이템명"},
-                    {columnNm: "보낸/받은/교환 건 수"},
-                    {columnNm: "교환/선물 금액"},
-                    {columnNm: "교환/선물 일시"},
-                    {columnNm: "User ID"},
-                    {columnNm: "User 닉네임"},
-                    {columnNm: "처리자 ID"},
-                ]};
-        }else if(id == "exchangeHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "보유 골드 수 "},
-                    {columnNm: "환전 요청 건 수"},
-                    {columnNm: "환전 요청금액"},
-                    {columnNm: "환전 신청일"},
-                    {columnNm: "환전 처리일"},
-                    {columnNm: "증빙서류 확인"},
-                    {columnNm: "본인 확인"},
-                    {columnNm: "환전상태"},
-                    {columnNm: "처리자ID"},
-                ]}
-        }else if(id == "platformHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "접속 일시"},
-                    {columnNm: "OS환경"},
-                    {columnNm: "App Ver"},
-                    {columnNm: "Browser"},
-                    {columnNm: "Device"},
-                    {columnNm: "Mobile Device ID"},
-                    {columnNm: "Mobile AD ID"},
-                    {columnNm: "IP주소"},
-                ]};
-        }else if(id == "myStarHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "MyStar ID"},
-                    {columnNm: "MyStar 닉네임"},
-                    {columnNm: "보낸 건 수"},
-                    {columnNm: "보낸 개 수"},
-                    {columnNm: "등록 일시"},
-                    {columnNm: "해제 일시"},
-                ]};
-        }else if(id == "myFanHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "Fan ID"},
-                    {columnNm: "Fan 닉네임"},
-                    {columnNm: "보낸 건 수"},
-                    {columnNm: "보낸 개 수"},
-                    {columnNm: "등록 일시"},
-                    {columnNm: "해제 일시"},
-                ]}
-        }else if(id == "noticeHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "구분"},
-                    {columnNm: "방송제목"},
-                    {columnNm: "공지내용"},
-                    {columnNm: "등록일시"},
-                ]};
-        }else if(id == "reportHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "플랫폼구분"},
-                    {columnNm: "문의구분"},
-                    {columnNm: "신고UserId"},
-                    {columnNm: "신고대상UserID"},
-                    {columnNm: "신고내용"},
-                    {columnNm: "접수일시"},
-                    {columnNm: "처리일시"},
-                    {columnNm: "처리상태"},
-                    {columnNm: "처리자"},
-                ]};
-        }else if(id == "responseHistory") {
-            var data = {header: [
-                    {columnNm: "NO"},
-                    {columnNm: "플랫폼구분"},
-                    {columnNm: "문의구분"},
-                    {columnNm: "신고UserID"},
-                    {columnNm: "신고대상UserID"},
-                    {columnNm: "신고 내용"},
-                    {columnNm: "접수일시/처리일시"},
-                    {columnNm: "첨부파일"},
-                    {columnNm: "처리상태"},
-                    {columnNm: "처리자"},
-                ]};
-        }
-
-        var template = $('#tmp_list_top_column').html();
-        var templateScript = Handlebars.compile(template);
-        var context = data;
-        var html = templateScript(context);
-        $("#tableTop_detail").append(html);
-
-
-        $('#list_info_detail').DataTable().destroy();
-        $("#tableBody_detail").empty();
-        var obj = new Object();
-        obj.mem_no = memNo;
-        if(id == "broadHistory") {
-            getAjaxData(id, "/rest/member/broadcast/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "listenHistory") {
-            getAjaxData(id, "/rest/member/listen/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "myStarHistory") {
-            getAjaxData(id, "/rest/member/myStar/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "myFanHistory") {
-            getAjaxData(id, "/rest/member/fan/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "payHistory") {
-            getAjaxData(id, "/rest/member/pay/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "giftHistory") {
-            getAjaxData(id, "/rest/member/gift/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "exchangeHistory") {
-            getAjaxData(id, "/rest/member/exchange/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "platformHistory") {            x
-            getAjaxData(id, "/rest/member/platform/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "noticeHistory") {
-            getAjaxData(id, "/rest/member/notice/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "reportHistory") {
-            getAjaxData(id, "/rest/member/report/list", obj, fn_success_detail, fn_fail);
-        } else if(id == "responseHistory") {
-            getAjaxData(id, "/rest/member/response/list", obj, fn_success_detail, fn_fail);
+    var dtList_info_detail;
+    function getHistoryDetail() {     // 상세보기
+        if (memNo == "") {
+            alert("회원ID를 선택하세요.");
+        }else{
+            var source = MemberDataTableSource[tmp];
+            $('#detail').show();
+            $("#detail_label").html(source.title);
+            $("#detail_comments").html(source.comments);
+            var dtList_info_detail_data = function (data) {
+                data.mem_no = memNo;
+            }
+            if (isEmpty(dtList_info_detail)) {
+                dtList_info_detail = new DalbitDataTable($("#list_info_detail"), dtList_info_detail_data, source);
+                dtList_info_detail.useCheckBox(false);
+                dtList_info_detail.useIndex(true);
+                dtList_info_detail.createDataTable();
+            } else {
+                dtList_info_detail.changeReload(null, null, source);
+            }
         }
     }
-
-    function fn_success_detail(dst_id, response) {
-        dalbitLog(response);
-        var template;
-        if(dst_id == "broadHistory"){
-            template = $('#broadHistory_detail').html();
-        } else if(dst_id == "listenHistory") {
-            template = $('#listenHistory_detail').html();
-        } else if(dst_id == "myStarHistory") {
-            template = $('#myStarHistory_detail').html();
-        } else if(dst_id == "myFanHistory") {
-            template = $('#myFanHistory_detail').html();
-        } else if(dst_id == "payHistory") {
-            template = $('#payHistory_detail').html();
-        } else if(dst_id == "giftHistory") {
-            template = $('#giftHistory_detail').html();
-        } else if(dst_id == "exchangeHistory") {
-            template = $('#exchangeHistory_detail').html();
-        } else if(dst_id == "platformHistory") {
-            template = $('#platformHistory_detail').html();
-        } else if(dst_id == "noticeHistory") {
-            template = $('#noticeHistory_detail').html();
-        } else if(dst_id == "reportHistory") {
-            template = $('#reportHistory_detail').html();
-        } else if(dst_id == "responseHistory") {
-            template = $('#responseHistory_detail').html();
-        }
-        var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
-
-        $("#tableBody_detail").append(html);
-        $('#list_info_detail').DataTable().draw();
+    function Broad(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
+        console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
-
+    function Listen(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
+        console.log('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
+    }
+    function MyStar(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var memNo = data.memNo;
+        console.log('MyStar 해제~ memNo : ' + memNo);
+    }
+    function Fan(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var memNo = data.memNo;
+        console.log('Fan 해제~ memNo : ' + memNo);
+    }
+    function Notice(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
+        console.log('공지사항 삭제~ roomNo : ' + roomNo);
+    }
+    function Report(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var idx = data.idx;
+        var reportId = data.reportId;
+        var reportMemId = data.reportMemId;
+        console.log("신고대상 삭제~ idx: " + idx + " reportId: " + reportId + " reportMemId:" + reportMemId);
+    }
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
-        $('#list_info_detail').DataTable().draw();
+        // $('#list_info_detail').DataTable().draw();
     }
 
     /*=============엑셀==================*/
-    // $('#excelDownBtn').on('click', function(){
-    //     var formElement = document.querySelector("form");
-    //     var formData = new FormData(formElement);
-    //     /*formData.append("search", "test001");
-    //     formData.append("test003", "test003");*/
-    //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
-    // });
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
 
+        formData.append("search", tmp_search);
+        formData.append("date", tmp_date);
+        formData.append("gubun", tmp_gubun);
+        formData.append("checkDate", tmp_checkDate);
+        formData.append("stDate", tmp_stDate);
+        formData.append("edDate", tmp_edDate);
+        /*formData.append("test003", "test003");*/
+        excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
 
-
+    $("#excelBtn").on("click", function () {
+        $("#list_info").table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
+    });
 
     function fn_success_excel(){
-        alert("fn_success_excel");
+        console.log("fn_success_excel");
     }
 
     function fn_fail_excel(){
-        alert("fn_fail_excel");
+        console.log("fn_fail_excel");
     }
     /*==================================*/
 
@@ -896,23 +855,137 @@
     //     num--;
     // }
 
+    // <img src="/template2/assets/img/profile-avatar.png" alt="Profile Picture" style="height:150px;width: 150px">
+    // function previewImage(targetObj, View_area) {
+    //     console.log("targetObj: " + targetObj +"  /  View_area: "+ View_area);
+    //     var preview = document.getElementById(View_area); //div id
+    //     var ua = window.navigator.userAgent;
+    //
+    //     //ie일때(IE8 이하에서만 작동)
+    //     if (ua.indexOf("MSIE") > -1) {
+    //         targetObj.select();
+    //         try {
+    //             var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
+    //             var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
+    //             if (ie_preview_error) {
+    //                 preview.removeChild(ie_preview_error); //error가 있으면 delete
+    //             }
+    //
+    //             var img = document.getElementById(View_area); //이미지가 뿌려질 곳
+    //             //이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
+    //             img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
+    //         } catch (e) {
+    //             if (!document.getElementById("ie_preview_error_" + View_area)) {
+    //                 var info = document.createElement("<p>");
+    //                 info.id = "ie_preview_error_" + View_area;
+    //                 info.innerHTML = e.name;
+    //                 preview.insertBefore(info, null);
+    //             }
+    //         }
+    //         //ie가 아닐때(크롬, 사파리, FF)
+    //     } else {
+    //         var files = targetObj.files;
+    //         for ( var i = 0; i < files.length; i++) {
+    //             var file = files[i];
+    //             var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+    //             if (!file.type.match(imageType))
+    //                 continue;
+    //             var prevImg = document.getElementById("prev_" + View_area); //이전에 미리보기가 있다면 삭제
+    //             if (prevImg) {
+    //                 preview.removeChild(prevImg);
+    //             }
+    //             var img = document.createElement("img");
+    //             img.id = "prev_" + View_area;
+    //             img.classList.add("obj");
+    //             img.file = file;
+    //             img.style.width = '150px';
+    //             img.style.height = '150px';
+    //             preview.appendChild(img);
+    //             if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+    //                 var reader = new FileReader();
+    //                 reader.onloadend = (function(aImg) {
+    //                     return function(e) {
+    //                         aImg.src = e.target.result;
+    //                     };
+    //                 })(img);
+    //                 reader.readAsDataURL(file);
+    //             } else { // safari is not supported FileReader
+    //                 //alert('not supported FileReader');
+    //                 if (!document.getElementById("sfr_preview_error_"+ View_area)) {
+    //                     var info = document.createElement("p");
+    //                     info.id = "sfr_preview_error_" + View_area;
+    //                     info.innerHTML = "not supported FileReader";
+    //                     preview.insertBefore(info, null);
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#image_section').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInput").change(function(){
+
+        var file = this.files;
+        if(file[0].size > 1024 * 1024 * 2){
+            alert('2MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(file[0].size / 1024 / 1024 * 100) / 100) + 'MB');
+            return;
+        }
+        readURL(this);
+    });
+
+    function paging(totalData, dataPerPage, pageCount, currentPage){
+        console.log("currentPage 선택한 페이지 : " + currentPage);
+        var row_Cnt = ((currentPage-1) * dataPerPage);
+        console.log("limit startCnt: " + row_Cnt + " / endCnt:" + dataPerPage);
+        getUserInfo(row_Cnt,dataPerPage);
+        var totalPage = Math.ceil(totalData/dataPerPage);    // 총 페이지 수
+        var pageGroup = Math.ceil(currentPage/pageCount);    // 페이지 그룹
+        // console.log("pageGroup 페이지 그룹: " + pageGroup);
+        var last = pageGroup * pageCount;    // 화면에 보여질 마지막 페이지 번호
+        if(last > totalPage)
+            last = totalPage;
+        var first = last - (pageCount-1);    // 화면에 보여질 첫번째 페이지 번호
+        var next = last+1;
+        var prev = first-1;
+
+        // console.log("last 마지막 페이지 번호 : " + last);
+        // console.log("first 화면에 보여질 첫번쨰 페이지 번호: " + first);
+        // console.log("next 다음 : " + next);
+        // console.log("prev 이전 : " + prev);
+        // var $pingingView = $("#paging");
+        var html = "";
+        if(prev > 0)
+            html += "<a href=# id='prev'><</a> ";
+        for(var i=first; i <= last; i++){
+            html += "<a href='#' id=" + i + ">" + i + "</a> ";
+        }
+        if(last < totalPage)
+            html += "<a href=# id='next'>></a>";
+        $("#paging").html(html);    // 페이지 목록 생성
+        $("#paging a").css("color", "black");
+        $("#paging a#" + currentPage).css({"text-decoration":"none",
+            "color":"red",
+            "font-weight":"bold"});    // 현재 페이지 표시
+        $("#paging a").click(function(){
+            var $item = $(this);
+            var $id = $item.attr("id");
+            var selectedPage = $item.text();
+            if($id == "next")    selectedPage = next;
+            if($id == "prev")    selectedPage = prev;
+            paging(totalData, dataPerPage, pageCount, selectedPage);
+        });
+    }
 </script>
 
-<script id="tmp_list" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{memNo}}</td>
-        <td><a href="javascript://" onclick="javascript:getMemNo_info(this.id);" id="{{memNo}}">{{memId}}</a></td>
-        <td>{{memNick}}</td>
-        <td>{{memName}}</td>
-        <td>{{memPhone}}</td>
-        <td>{{memSlct}}</td>
-        <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
-    </tr>
-    {{/data}}
-</script>
 <script id="level_select" type="text/x-handlebars-template">
     {{#data}}
     <option value="{{level}}">{{level}}레벨</option>
@@ -921,95 +994,5 @@
 <script id="grade_select" type="text/x-handlebars-template">
     {{#data}}
     <option value="{{grade}}">{{grade}}</option>
-    {{/data}}
-</script>
-<script id="tmp_list_top_column" type="text/x-handlebars-template">
-    <tr>
-        {{#header}}
-        <th>{{columnNm}}</th>
-        {{/header}}
-    </tr>
-</script>
-
-<script id="broadHistory_detail" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{subjectType}}</td>
-        <td>{{title}}</td>
-        <td>{{startDate}}</td>
-        <td>{{endDate}}</td>
-        <td>{{airtime}}</td>
-        <td>{{listener}}</td>
-        <td>{{good}}</td>
-        <td>{{gold}}</td>
-    </tr>
-    {{/data}}
-</script>
-<script id="listenHistory_detail" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{subjectType}}</td>
-        <td>{{title}}</td>
-        <td>{{startDate}}</td>
-        <td>{{endDate}}</td>
-        <td>{{listenTime}}</td>
-        <td>{{giftRuby}}</td>
-        <td>{{memNick}}</td>
-    </tr>
-    {{/data}}
-</script>
-<script id="myStarHistory_detail" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{memId}}</td>
-        <td>{{memNick}}</td>
-        <td>{{tmp1}}</td>
-        <td>{{tmp2}}</td>
-        <td>{{regDate}}</td>
-        <td>{{tmp3}}</td>
-    </tr>
-    {{/data}}
-</script>
-<script id="myFanHistory_detail" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{memId}}</td>
-        <td>{{memNick}}</td>
-        <td>{{tmp1}}</td>
-        <td>{{tmp2}}</td>
-        <td>{{regDate}}</td>
-        <td>{{tmp3}}</td>
-    </tr>
-    {{/data}}
-</script>
-<script id="noticeHistory_detail" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{type}}</td>
-        <td>{{title}}</td>
-        <td>{{notice}}</td>
-        <td>{{lastUpdDate}}</td>
-    </tr>
-    {{/data}}
-</script>
-<script id="reportHistory_detail" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{platform}}</td>
-        <td>{{type}}</td>
-        <td>{{memNo}}</td>
-        <td>{{reportMemNo}}</td>
-        <td>{{etc}}</td>
-        <td>{{lastUpdDate}}</td>
-        <td>{{etc}}</td>
-        <td>{{status}}</td>
-        <td>{{etc}}</td>
-    </tr>
     {{/data}}
 </script>
