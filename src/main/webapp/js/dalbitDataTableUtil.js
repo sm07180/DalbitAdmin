@@ -47,18 +47,23 @@ function DalbitDataTable(dom, param, columnsInfo) {
         serverSide: true,                                                             // 서버에서 정렬한 데이터 그대로 사용할지 여부 (false : 서버에서 정렬한 데이터도 client에서 다시 재정렬)
         searching: false,                                                               // 서칭 기능 사용 여부
         pagingType: "full_numbers",
-
+        deferLoading: 0,
+        bStateSave: true,
         ajax : {
             'url':url,
             'type':"POST",
             'data': param,
             // 'dataSrc': "data"
             'dataFilter': function(data){
-                var json = jQuery.parseJSON( data );
-                console.log("[dataFilter]")
-                json.recordsTotal = json.data[0].totalCnt;
-                json.recordsFiltered = json.data[0].totalCnt;
-                json.data = json.data;
+                var json = jQuery.parseJSON(data);
+                console.log("[dataFilter]");
+                console.log(json.data);
+                var totalCnt = isEmpty(json.data)? 0 : json.data[0].totalCnt;
+                var data = json.data;
+
+                json.recordsTotal = totalCnt;
+                json.recordsFiltered = totalCnt;
+                json.data = data;
 
                 return JSON.stringify( json ); // return JSON string
             }
@@ -78,7 +83,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }],
         columns : [
             {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null},
-            {"title": "No.", "data": "rowNum", "width": "20px"},
+            {"title": "No.", "data": "rowNum", "width": "20px", "defaultContent": "-"},
         ],
         order: [[ 2, 'asc' ]]
     }
@@ -142,7 +147,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
     // Init Event
     DalbitDataTable.prototype.initEvent =  function (){
         var allCheckBox = $("#" + this.dom.prop("id") + "-select-all");
-        console.log("[initEvent]");
         // var g_DataTable = this.dom.DataTable();
         var g_DataTable = this.g_DataTable;
 

@@ -103,3 +103,13 @@ function getMaxDay(year, month){
 
     return date.getDate();
 }
+
+
+/* 이미지 팝업 */
+function imagePopup(obj){
+    var url = obj.src;
+    var title = obj.id;
+    var option = "width=" + (obj.width + 20) + ", height=" + (obj.height + 20) + ",fullscreen=yes";
+
+    window.open(url, title, option);
+}
