@@ -51,7 +51,7 @@
             </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table">
+                <div class="widget widget-table col-lg-12 no-padding">
                     <div class="widget-content" style="padding-top: 0px;">
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                             <thead>
@@ -664,8 +664,8 @@
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_search = $('#txt_search').val();
+        tmp_gubun = $("select[name='selectGubun']").val();
         // tmp_date = $('input[name="radio_date"]:checked').val();
-        // tmp_gubun = $("select[name='selectGubun']").val();
         // tmp_checkDate = $("input:checkbox[id='check_dateSel']").is(":checked");
         // tmp_stDate = $('#txt_startSel').val();
         // tmp_edDate = $('#txt_endSel').val();
