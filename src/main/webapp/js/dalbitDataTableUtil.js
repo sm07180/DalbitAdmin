@@ -72,11 +72,8 @@ function DalbitDataTable(dom, param, columnsInfo) {
         },
         fnInitComplete: function(){
             dalbitLog("[fnInitComplete]");
-            console.log(dataSource.comments);
-            var comments = isEmpty(dataSource.comments) ? "" : dataSource.comments;
-            console.log(isEmpty(dom.parent("comments")))
-            console.log(this.html())
-            dom.parent("div").find(".comments").html('ㆍ'  + comments);
+            var comments = isEmpty(dataSource.comments) ? "" : 'ㆍ'  + dataSource.comments;
+            dom.parent("div").find(".comments").html(comments);
         },
         columnDefs: [
             {
