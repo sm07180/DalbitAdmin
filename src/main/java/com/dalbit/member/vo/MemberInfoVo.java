@@ -24,6 +24,7 @@ public class MemberInfoVo {
     private String memName;
     private String memEmail;
     private String profileImage;
+    private int profileImageGrade;
     private int level;
     private String grade;
     private int exp;
@@ -34,5 +35,7 @@ public class MemberInfoVo {
     private int noticeCnt;
     private int reportCnt;
     private int reportMemCnt;
+
+    private String profImgDel;
 
 }

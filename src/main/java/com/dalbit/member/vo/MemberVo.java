@@ -10,7 +10,7 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class MemberVo extends BaseVo {
+public class MemberVo{
 
     private static final long serialVersionUID = 1L;
 

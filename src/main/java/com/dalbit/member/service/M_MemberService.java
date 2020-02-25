@@ -1,12 +1,15 @@
 package com.dalbit.member.service;
 
 
+import com.dalbit.common.code.Code;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.exception.GlobalException;
+//import com.dalbit.rest.service.RestService;
 import com.dalbit.member.dao.M_MemberDao;
 import com.dalbit.member.vo.*;
-
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +30,8 @@ public class M_MemberService {
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
-
+//    @Autowired
+//    RestService restService;
     @Value("${server.photo.url}")
     private String SERVER_PHOTO_URL;
 
@@ -43,9 +47,7 @@ public class M_MemberService {
     public List<MemberListVo> getMemberList(MemberListVo memberListVo){
         List<MemberListVo> list = mMemberDao.callMemberList(memberListVo);
         int total = mMemberDao.callMemberList_cnt(memberListVo);
-
         log.info("total : " + total);
-
         if(list.size() > 0) {
             list.get(0).setTotalCnt(total);
         }
@@ -88,4 +90,46 @@ public class M_MemberService {
         return result;
     }
 
+    /**
+     * 프로필 편집
+     */
+    public int callMemberEdit(MemberInfoVo memberInfoVo) {
+        Boolean isDone = false;
+        String profImg = memberInfoVo.getProfileImage();
+        log.info("profImg      > " + profImg);
+        if(DalbitUtil.isEmpty(profImg)){
+            profImg = Code.포토_프로필_디폴트_PREFIX.getCode()+"/"+Code.프로필이미지_파일명_PREFIX.getCode()+memberInfoVo.getMemSex()+".jpg";
+        }else{
+            if(profImg.startsWith(Code.포토_프로필_임시_PREFIX.getCode())){
+                isDone = true;
+            }
+            log.info("replacePath -----");
+            profImg = DalbitUtil.replacePath(profImg);
+        }
+        memberInfoVo.setProfileImage(profImg.replace(SERVER_PHOTO_URL,""));
+//        ProcedureVo procedureVo = new ProcedureVo(memberInfoVo);
+
+        log.info("-----------------------------------------------------------");
+        log.info("getProfileImage      > " + memberInfoVo.getProfileImage());
+        log.info("getProfileImageGrade > " + String.valueOf(memberInfoVo.getProfileImageGrade()));
+        log.info("getProfImgDel        > " + memberInfoVo.getProfImgDel());
+        int result = 0;
+//        result = mMemberDao.callMemberEdit(memberInfoVo);
+//        String result;
+//        if (procedureVo.getRet().equals(Status.회원정보보기_성공.getMessageCode())) {
+//            if(isDone){
+//                try{
+//                    restService.imgDone(DalbitUtil.replaceDonePath(memberInfoVo.getProfileImage()), memberInfoVo.getProfImgDel());
+//                }catch (GlobalException e){
+//                    TODO 이미지 서버 오류 시 처리
+//                    e.printStackTrace();
+//                }
+//            }
+//            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공)));
+//        } else{
+//            result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_실패)));
+//        }
+        log.info("update result : " + result);
+        return result;
+    }
 }

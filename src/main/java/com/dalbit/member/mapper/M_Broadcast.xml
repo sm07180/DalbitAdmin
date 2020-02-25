@@ -14,9 +14,13 @@
           , m.listener
           , m.good
           , m.gold
+          , @RNUM := @RNUM + 1 as rowNum
         FROM tb_broadcast_room b
           , tb_member_broadcast_broadcasting m
+          , (SELECT @RNUM := #{pageStart}) r
         WHERE b.room_no = m.room_no
+        ORDER BY ${orderColumnName} ${orderDir}
+         limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="callBroadHistory_detail" parameterType="com.dalbit.member.vo.BroadListVo" resultType="com.dalbit.member.vo.BroadListVo">
@@ -30,9 +34,14 @@
             , m.listener as listener
             , m.good
             , m.gold
+          , @RNUM := @RNUM + 1 as rowNum
         FROM tb_broadcast_room b, tb_member_broadcast_broadcasting m
+           , (SELECT @RNUM := #{pageStart}) r
        WHERE b.room_no = m.room_no
          AND b.mem_no = #{memNo}
+
+      ORDER BY ${orderColumnName} ${orderDir}
+        limit #{pageStart}, #{pageCnt}
     </select>
 
 

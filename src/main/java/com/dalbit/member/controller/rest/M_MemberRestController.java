@@ -15,10 +15,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 @Slf4j
@@ -40,11 +49,11 @@ public class M_MemberRestController {
     public String list(HttpServletRequest request){
         MemberListVo apiData = new MemberListVo();
         apiData.setSearch(request.getParameter("search"));
-        apiData.setDate(request.getParameter("date"));
-        apiData.setGubun(request.getParameter("gubun"));
-        apiData.setCheckDate(request.getParameter("checkDate"));
-        apiData.setStDate(request.getParameter("stDate").replace("-",""));
-        apiData.setEdDate(request.getParameter("edDate").replace("-",""));
+//        apiData.setDate(request.getParameter("date"));
+//        apiData.setGubun(request.getParameter("gubun"));
+//        apiData.setCheckDate(request.getParameter("checkDate"));
+//        apiData.setStDate(request.getParameter("stDate").replace("-",""));
+//        apiData.setEdDate(request.getParameter("edDate").replace("-",""));
 
 
         // =-------- Page Select Data ----------------
@@ -118,8 +127,20 @@ public class M_MemberRestController {
     public String info(HttpServletRequest request){
         MemberInfoVo apiData = new MemberInfoVo();
         apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
-        apiData.setMemNo((String) request.getParameter("mem_no"));
+        apiData.setMemNo((String) request.getParameter("memNo"));
         String result = mMemberService.callMemberInfo(apiData);
+        return result;
+    }
+
+    @PostMapping("edit")
+    public int edit(HttpServletRequest request){
+        MemberInfoVo apiData = new MemberInfoVo();
+        apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
+        apiData.setMemNo((String) request.getParameter("memNo"));
+        apiData.setProfileImage((String) request.getParameter("profileImage"));
+        apiData.setProfileImageGrade(Integer.parseInt(request.getParameter("profileImageGrade")));
+        apiData.setProfImgDel((String) (request.getParameter("profImgDel")));
+        int result = mMemberService.callMemberEdit(apiData);
         return result;
     }
 }

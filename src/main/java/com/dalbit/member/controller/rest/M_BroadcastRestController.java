@@ -39,7 +39,22 @@ public class M_BroadcastRestController {
     @PostMapping("list")
     public String list(HttpServletRequest request){
         BroadListVo apiData = new BroadListVo();
-        apiData.setMemNo((String) request.getParameter("mem_no"));
+        apiData.setMemNo((String) request.getParameter("memNo"));
+
+        int pageStart = Integer.parseInt(request.getParameter("start"));
+        int pageCnt = Integer.parseInt(request.getParameter("length"));
+
+        int orderColumnIdx = Integer.parseInt(request.getParameter("order[0][column]"));
+        String orderDir = request.getParameter("order[0][dir]");
+        String nmKey = "columns["+orderColumnIdx+"][data]";
+        String orderColumnName = request.getParameter(nmKey);
+
+        apiData.setPageStart(pageStart);
+        apiData.setPageCnt(pageCnt);
+        apiData.setOrderColumnName(orderColumnName);
+        apiData.setOrderColumnIdx(orderColumnIdx);
+        apiData.setOrderDir(orderDir);
+
         List<BroadListVo> list = mBroadcastService.getBroadHistory_detail(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list));
 

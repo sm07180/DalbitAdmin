@@ -12,9 +12,9 @@
         from tb_member_basic b
         , tb_member_profile p
         where b.mem_no = p.mem_no
-        <if test='checkDate == "true"'>
-            and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}
-        </if>
+        <!--<if test='checkDate == "true"'>-->
+            <!--and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}-->
+        <!--</if>-->
         <if test='search != null'>
             <choose>
                 <when test='gubun == "9999"'>      <!-- 전체 -->
@@ -51,9 +51,9 @@
             , tb_member_profile p
             , (SELECT @RNUM := #{pageStart}) r
         where b.mem_no = p.mem_no
-        <if test='checkDate == "true"'>
-           and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}
-        </if>
+        <!--<if test='checkDate == "true"'>-->
+           <!--and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}-->
+        <!--</if>-->
         <if test='search != null'>
             <choose>
                 <when test='gubun == "9999"'>      <!-- 전체 -->
@@ -133,6 +133,16 @@
                ,grade
          FROM tbl_level_exp
         ORDER BY LEVEL DESC
+
+    </select>
+
+    <select id="callMemberEdit" parameterType="com.dalbit.member.vo.MemberListVo">
+      /* M_Member.xml - callMemberGradeList */
+       UPDATE tb_member_profile
+          SET image_profile = #{profileImage}
+              ,grade_profile = #{profileImageGrade}
+              ,last_upd_date = now()
+        WHERE mem_no = #{memNo}
 
     </select>
 </mapper>
