@@ -2,16 +2,16 @@ var MemberDataTableSource = {
     'userInfo': {
         'url': '/rest/member/member/list'
         , 'columns': [
-            {'title': 'memNo', 'data': 'memNo', 'visible' : false}
-            , {'title': 'UserID', 'data': 'memId', 'render': function (data, type, row, meta) {
+            {'title': 'memNo', 'data': 'memNo', 'visible' : false},
+             {'title': 'UserID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
-                }}
-            , {'title': '닉네임', 'data': 'memNick'}
-            , {'title': '이름', 'data': 'memName'}
-            , {'title': '연락처', 'data': 'memPhone'}
-            , {'title': '가입플랫폼', 'data': 'memSlct'}
-            , {'title': '접속상태', 'data': 'Login_out', 'defaultContent': '로그아웃'}
-            , {'title': '생방상태', 'data': 'Live', 'defaultContent': '퇴근'}
+                }},
+             {'title': '닉네임', 'data': 'memNick', 'width':'200px'},
+             {'title': '이름', 'data': 'memName', 'width':'100px'},
+             {'title': '연락처', 'data': 'memPhone', 'width':'100px'},
+             {'title': '가입플랫폼', 'data': 'memSlct', 'width':'100px'},
+             {'title': '접속상태', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
+             {'title': '생방상태', 'data': 'Live', 'defaultContent': '퇴근', 'width':'100px'},
         ]
     },
 
@@ -19,19 +19,19 @@ var MemberDataTableSource = {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'roomNo', 'visible' : false},
-            {'title': '방송주제', 'data': 'subjectType'},
-            {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
+            {'title': '방송주제', 'data': 'subjectType', 'width':'100px'},
+            {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" onclick="javascript:Broad('+meta.row+');">' + data + '</a>'
                 }},
-            {'title': '방송시작시간', 'data': 'startDate'},
-            {'title': '방송종료시간', 'data': 'endDate'},
-            {'title': '방송진행시간', 'data': 'airtime'},
-            {'title': '종료시평균청취자수', 'data': 'listener'},
-            {'title': '받은좋아요수', 'data': 'good'},
-            {'title': '받은아이템수', 'data': 'gold'}
+            {'title': '방송시작시간', 'data': 'startDate', 'width':'100px'},
+            {'title': '방송종료시간', 'data': 'endDate', 'width':'100px'},
+            {'title': '방송진행시간', 'data': 'airtime', 'width':'100px'},
+            {'title': '종료시평균청취자수', 'data': 'listener', 'width':'100px'},
+            {'title': '받은좋아요수', 'data': 'good', 'width':'80px'},
+            {'title': '받은아이템수', 'data': 'gold', 'width':'80px'},
         ]
         , 'title': '방송기록'
-        , 'comments': 'ㆍ회원이 방송을 진행하고, 청취한 과거기록을 확인할 수 있습니다.'
+        , 'comments': '회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
     },
 
     'listenHistory': {
@@ -51,7 +51,7 @@ var MemberDataTableSource = {
             {'title': '보낸아이템수', 'data': 'ruby'}
         ]
         , 'title': '청취기록'
-        , 'comments': 'ㆍ회원이 방송을 청취한 과거기록을 확인할 수 있습니다.'
+        , 'comments': '회원이 방송을 청취한 과거기록을 확인할 수 있습니다.'
     },
 
     'payHistory': {
@@ -85,7 +85,7 @@ var MemberDataTableSource = {
             {'title': '처리자ID', 'data': '', 'defaultContent': ''},
         ]
         , 'title': '교환/선물정보'
-        , 'comments': 'ㆍ회원이 달에서 별로 교환한 정보를 확인하고, 보내고 받은 선물 내역을 확인할 수 있습니다.ㆍ이벤트 당첨선물로 제공되어 처리된 사안일 경우 처리직원ID로 표기됩니다.'
+        , 'comments': '회원이 달에서 별로 교환한 정보를 확인하고, 보내고 받은 선물 내역을 확인할 수 있습니다.이벤트 당첨선물로 제공되어 처리된 사안일 경우 처리직원ID로 표기됩니다.'
     },
 
     'exchangeHistory': {
@@ -102,7 +102,7 @@ var MemberDataTableSource = {
             {'title': '처리자ID', 'data': '', 'defaultContent': ''},
         ]
         , 'title': '개인환불정보'
-        , 'comments': 'ㆍ회원의 과거에서 현재까지의 환전 내역을 모두 확인하고, 증빙서류를 확인한 후 즉시 처리할 수 있습니다.'
+        , 'comments': '회원의 과거에서 현재까지의 환전 내역을 모두 확인하고, 증빙서류를 확인한 후 즉시 처리할 수 있습니다.'
     },
 
     'platformHistory': {
@@ -118,7 +118,7 @@ var MemberDataTableSource = {
             {'title': 'IP주소', 'data': '', 'defaultContent': ''},
         ]
         , 'title': '회원 접속 기록'
-        , 'comments': 'ㆍ회원의 가입일로부터의 접속 기록을 확인할 수 있습니다.'
+        , 'comments': '회원의 가입일로부터의 접속 기록을 확인할 수 있습니다.'
     },
 
     'myStarHistory': {
@@ -135,7 +135,7 @@ var MemberDataTableSource = {
             {'title': '해제일시', 'data': 'tmp3'}
         ]
         , 'title': 'MyStar 정보'
-        , 'comments': 'ㆍMyStar 회원 리스트를 확인하고 등록/삭제 할 수 있습니다.'
+        , 'comments': 'MyStar 회원 리스트를 확인하고 등록/삭제 할 수 있습니다.'
     },
 
     'myFanHistory': {
@@ -152,7 +152,7 @@ var MemberDataTableSource = {
             {'title': '해제일시', 'data': 'tmp3'}
         ]
         , 'title': 'Fan 정보'
-        , 'comments': 'ㆍFan으로 등록한 회원들의 리스트를 확인하고 등록/삭제 할 수 있습니다.'
+        , 'comments': 'Fan으로 등록한 회원들의 리스트를 확인하고 등록/삭제 할 수 있습니다.'
     },
 
     'noticeHistory': {
@@ -167,7 +167,7 @@ var MemberDataTableSource = {
             {'title': '등록일시', 'data': 'lastUpdDate'}
         ]
         , 'title': '개별/방송 중 공지'
-        , 'comments': 'ㆍ각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'
+        , 'comments': '각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'
     },
 
     'reportHistory': {
@@ -188,7 +188,7 @@ var MemberDataTableSource = {
             {'title': '처리자', 'data': 'deployUser'}
         ]
         , 'title': '신고 처리 정보'
-        , 'comments': 'ㆍ회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.'
+        , 'comments': '회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.'
     },
 
     'responseHistory': {
@@ -205,7 +205,7 @@ var MemberDataTableSource = {
             {'title': '처리자', 'data': '', 'defaultContent': ''},
         ]
         , 'title': '1:1 문의 정보'
-        , 'comments': 'ㆍ1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.'
+        , 'comments': '1:1문의 또는 전화로 문의한 내용의 세부 정보를 확인할 수 있도록 연동 되어있습니다.'
     },
 
     'editDateHistory': {
@@ -216,6 +216,6 @@ var MemberDataTableSource = {
             {'title': '수정처리자', 'data': '', 'defaultContent': ''},
         ]
         , 'title': '정보수정 내역'
-        , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+        , 'comments': '회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     }
 }
