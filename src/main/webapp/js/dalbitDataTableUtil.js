@@ -156,6 +156,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         var allCheckBox = $("#" + this.dom.prop("id") + "-select-all");
         // var g_DataTable = this.dom.DataTable();
         var g_DataTable = this.g_DataTable;
+        var dom = this.dom;
 
         // Row Click Event
         var arrayClickEvent = this.arrayClickEvent;
@@ -179,7 +180,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
         // 상단 CheckBox 전체 선택 Event
         allCheckBox.on('click', function () {
-            var rows = this.dom.DataTable().rows({ 'search': 'applied' }).nodes();
+            var rows = dom.DataTable().rows({ 'search': 'applied' }).nodes();
             $('input[type="checkbox"]', rows).prop('checked', this.checked);
         });
 
@@ -275,10 +276,11 @@ function DalbitDataTable(dom, param, columnsInfo) {
     /* getData(Array) from CheckBox  */
     DalbitDataTable.prototype.getCheckedData = function (){
         var arrayData = new Array;
+        var dom = this.dom;
 
         this.dom.children('tbody').find('input[type="checkbox"]').each(function () {
             if (this.checked) {
-                var data = this.dom.DataTable().row($(this).parent("td").parent("tr")).data();
+                var data = dom.DataTable().row($(this).parent("td").parent("tr")).data();
                 arrayData.push(data);
             }
         });
