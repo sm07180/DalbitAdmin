@@ -19,46 +19,55 @@
         border: 1px solid #DDDDDD;
         background-color: #DCE6F2;
     }
+
+    div.sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        z-index:1;
+    }
 </style>
 
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="row col-lg-12 form-inline">
-                <div class="col-md-12" style="background: #000000;padding-top: 5px;">
-                    <label style="font-weight: bold;color: #ffffff;">회원 검색&nbsp;&nbsp;</label>
-                    <select class="form-control" name="selectGubun">
-                        <option value="9999" selected="selected">전체</option>
-                        <option value="1">User ID</option>
-                        <option value="2">User 닉네임</option>
-                        <option value="3">연락처</option>
-                        <option value="4">이름</option>
-                    </select>
+            <div class="sticky">
+                <div class="row col-lg-12 form-inline">
+                    <div class="col-md-12" style="background: #000000;padding-top: 5px;">
+                        <label style="font-weight: bold;color: #ffffff;">회원 검색&nbsp;&nbsp;</label>
+                        <select class="form-control" name="selectGubun">
+                            <option value="9999" selected="selected">전체</option>
+                            <option value="1">User ID</option>
+                            <option value="2">User 닉네임</option>
+                            <option value="3">연락처</option>
+                            <option value="4">이름</option>
+                        </select>
 
-                    <label><input type="text" class="form-control" id="txt_search"></label>
-                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
-                </div>
-            </div>
-            <div class="row col-lg-12 form-inline">
-                <div class="col-md-12" style="background: #DCE6F2;height: 28px;">
-                    <div class="text_middle" style="height: 28px;">
-                        <label class="text_middle" style="font-weight: bold;color: #000000;">검색결과</label>
+                        <label><input type="text" class="form-control" id="txt_search"></label>
+                        <button type="submit" class="btn btn-default" id="bt_search">검색</button>
                     </div>
                 </div>
-            </div>
-            <div class="row col-md-12">
-                <label>ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다.</label>
-            </div>
-            <!-- DATA TABLE -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table col-lg-12 no-padding">
-                    <div class="widget-content" style="padding-top: 0px;">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <thead>
-                            </thead>
-                            <tbody id="tableBody">
-                            </tbody>
-                        </table>
+                <div class="row col-lg-12 form-inline">
+                    <div class="col-md-12" style="background: #DCE6F2;height: 28px;">
+                        <div class="text_middle" style="height: 28px;">
+                            <label class="text_middle" style="font-weight: bold;color: #000000;">검색결과</label>
+                        </div>
+                    </div>
+                </div>
+                <%--<div class="row col-md-12">
+                    <label>ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다.</label>
+                </div>--%>
+                <!-- DATA TABLE -->
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table col-lg-12 no-padding">
+                        <div class="widget-content" style="padding-top: 0px;">
+                            <table id="list_info" class="table table-sorting table-hover table-bordered">
+                                <thead>
+                                </thead>
+                                <tbody id="tableBody">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

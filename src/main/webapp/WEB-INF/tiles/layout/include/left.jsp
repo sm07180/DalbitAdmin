@@ -13,6 +13,7 @@
         <nav class="main-nav">
             <ul class="main-menu">
 
+                <!--
                 <c:if test="${fn:startsWith(url, '/member/')}">
                     <li class="${fn:contains(url, '/member/member/list') ? 'active': ''}">
                         <a href="#" class="js-sub-menu-toggle">
@@ -226,7 +227,164 @@
                         </a>
                     </li>
                 </c:if>
+                -->
+
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">메인</span>
+                        </a>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://" class="js-sub-menu-toggle">
+                            <i class="fa fa-question"></i><span class="text">현황분석</span>
+                            <i class="toggle-icon fa fa-angle-left"></i>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">앱다운로드</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">접속현황</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">회원현황</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">방송현황</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">캐스트현황</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">결제/환전</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">결제취소/환전</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">상품</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">1:1 문의</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">장애분석</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">이벤트</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript://">
+                                    <i class="fa fa-search"></i><span class="text">파트너 DJ</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">회원검색</span>
+                        </a>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">생방송관리</span>
+                        </a>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">환전관리</span>
+                        </a>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">고객센터관리</span>
+                        </a>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">메뉴별현황</span>
+                        </a>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">컨텐츠운영</span>
+                        </a>
+                    </li>
+                    <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                        <a href="javascript://">
+                            <i class="fa fa-question"></i><span class="text">어드민관리</span>
+                        </a>
+                    </li>
             </ul>
+
+            <div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >로그인 수</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >재가입 횟수</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >결제 수</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >선물 수</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >선물 금액</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >보유 아이템 수</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >환전 처리 수</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >환전 금액</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >현재 잔여금액</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >방송강제퇴장</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+                <div class="row" style="padding:5px 0 0px 10px; border: 1px solid gray;">
+                    <label class="col-md-6 control-label" >신고처리</label>
+                    <div class="col-md-6" >3건</div>
+                </div>
+            </div>
         </nav>
         <!-- /main-nav -->
     </div>

@@ -17,7 +17,7 @@
 
     <div id="main-content-wrapper" class="content-wrapper ">
 
-        <tiles:insertAttribute name="gnb"/>
+        <%--<tiles:insertAttribute name="gnb"/>--%>
 
         <tiles:insertAttribute name="body"/>
     </div>
