@@ -30,12 +30,14 @@
 function DalbitDataTable(dom, param, columnsInfo) {
     this.dom = dom;
     var url = columnsInfo.url;
+    var dataSource = columnsInfo;
 
     //초기화
     this.init();
 
     this.dataTableSource = {
-        dom: 'lirtp',
+        // dom: 'lirtp',
+        dom: '<"comments">irtp',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
@@ -67,6 +69,14 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
                 return JSON.stringify( json ); // return JSON string
             }
+        },
+        fnInitComplete: function(){
+            dalbitLog("[fnInitComplete]");
+            console.log(dataSource.comments);
+            var comments = isEmpty(dataSource.comments) ? "" : dataSource.comments;
+            console.log(isEmpty(dom.parent("comments")))
+            console.log(this.html())
+            dom.parent("div").find(".comments").html('ㆍ'  + comments);
         },
         columnDefs: [
             {

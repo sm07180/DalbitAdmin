@@ -13,6 +13,14 @@
     margin-bottom: 0px;
 }
 
+div.comments {
+    padding-top: 8px;
+    float: left;
+    /*margin-bottom: 5px;*/
+    margin-top: 5px;
+    line-height: 2.7em;
+}
+
 /*DataTable Page Align*/
 div.dataTables_paginate {
     float: none;
