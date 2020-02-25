@@ -37,7 +37,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
     this.dataTableSource = {
         // dom: 'lirtp',
-        dom: '<"comments">irt<"footer-left">p<"footer-right">',
+        dom: '<"comments">rt<"footer-left"i><"footer-right">p',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
@@ -70,8 +70,19 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 return JSON.stringify( json ); // return JSON string
             }
         },
+        fnDrawCallback: function(oSettings){
+            dalbitLog("[fnDrawCallback]");
+            // 데이터 없을 경우 Page 표시 X
+            if(isEmpty(oSettings.fnRecordsTotal()) || oSettings.fnRecordsTotal() <= 0){
+                dom.parent("div").find(".pagination").remove();
+                dom.parent("div").find(".dataTables_info").hide();
+            }else{
+                dom.parent("div").find(".dataTables_info").show();
+            }
+        },
         fnInitComplete: function(){
             dalbitLog("[fnInitComplete]");
+            // Comments 설정
             var comments = isEmpty(dataSource.comments) ? "" : 'ㆍ'  + dataSource.comments;
             dom.parent("div").find(".comments").html(comments);
         },
@@ -254,6 +265,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }
 
         this.createDataTable(initFn);
+        // this.dom.DataTable().ajax.reload();
     }
 
     DalbitDataTable.prototype.destroy = function(){
