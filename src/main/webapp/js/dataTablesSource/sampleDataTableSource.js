@@ -5,16 +5,18 @@ var SampleDataTableSource = {
         ,'columns': [
             {'title': '회원번호', 'data': 'memNo'}
             ,{'title': 'UserID', 'data': 'memId', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:getMemNo_info(this.id);" id="' + row.memNo + '">' + data + '</a>'
+                    // return '<a href="javascript://" onclick="javascript:getMemNo_info(this.id);" id="' + row.memNo + '">' + data + '</a>'
+                    return '<a href="javascript://" onclick="javascript:test03('+meta.row+');" id="' + row.memNo + '">' + data + '</a>'
                 }
             }
             ,{'title': '닉네임', 'data': 'memNick'}
-            ,{'title': '이름', 'data': 'memName'}
-            ,{'title': '연락처', 'data': 'memPhone'}
+            ,{'title': '이름', 'data': 'memName', 'className': 'text-right' }
+            ,{'title': '연락처', 'data': 'memPhone', 'className': 'text-left' }
             ,{'title': '가입플랫폼', 'data': 'memSlct'}
             ,{'title': '접속상태', 'data': 'Login_out', 'defaultContent': '로그아웃'}
             ,{'title': '생방상태', 'data': 'Live', 'defaultContent': '퇴근'}
         ]
+        ,'comments': '뾰로로롱.'
     },
 
     'broadHistory': {

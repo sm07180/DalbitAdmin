@@ -80,10 +80,10 @@
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
                     <div class="widget-content">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
                             <span>
                                 <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
                             </span>
+                        <table id="list_info" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
 
                             </thead>
@@ -536,17 +536,29 @@
         dtList_info.setEventClick(test01);
         dtList_info.setEventClick(test02, [2,3]);
 
-        dtList_info.initDataTable();
+        dtList_info.createDataTable();
 
     }
 
-    function test01(t1, t2 ,t3) {
+    function test01(t1,t2,t3,t4) {
         dalbitLog("=-----")
-        dalbitLog(t1)
-        dalbitLog(t2)
-        dalbitLog(t3)
-        dalbitLog(t3.memId);
+        dalbitLog("Test001");
+        // dalbitLog("t1:")
+        // dalbitLog(t1);
+        // // dalbitLog(t1.memId);
+        // dalbitLog("t2:")
+        // dalbitLog(t2)
+        // dalbitLog(dtList_info.getDataRow(t2));
+        // dalbitLog("t3:")
+        // dalbitLog(t3)
+        // dalbitLog("t4:")
+        // dalbitLog(t4)
+        // dalbitLog(dtList_info.getDataRow(t4));
         dalbitLog("-----=");
+
+
+        // alert(dtList_info.getDataRow(t1).memId);
+
     }
 
 
@@ -554,6 +566,16 @@
         dalbitLog("=-----")
         dalbitLog("Test002");
         dalbitLog("-----=");
+
+        dalbitLog(t3);
+
+        // dtList_info.getDataRow(t1);
+
+        // alert(dtList_info.getDataRow(t1));
+    }
+
+    function test03(idx){
+        dtList_info.getDataRow(idx);
     }
 
 
@@ -575,7 +597,8 @@
             dtList_info_detail = new DalbitDataTable($("#list_info_detail"), dtList_info_detail_data, source);
             dtList_info_detail.useCheckBox(false);
             dtList_info_detail.useIndex(true);
-            dtList_info_detail.initDataTable();
+            dtList_info_detail.setEventClick(test02);
+            dtList_info_detail.createDataTable();
         }else{
             dtList_info_detail.changeReload(null, null, source);
         }
@@ -669,6 +692,10 @@
     function getMemNo_info(id){
         var obj = new Object();
         obj.mem_no = id;
+
+        console.log($(this).parent("td").parent("tr").index())
+        alert($(this).parent("td").index());
+
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
