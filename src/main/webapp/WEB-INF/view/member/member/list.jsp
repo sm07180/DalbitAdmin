@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -5,265 +6,268 @@
     .text_center{
         text-align: center;
     }
-    .text_middle{
+    .middle{
         display:table-cell;
-        vertical-align:middle
+        vertical-align:middle;
     }
     .lb_style{
         border: 1px solid #DDDDDD;
         background-color: #DCE6F2;
+        height: 34px;
     }
-
 </style>
 
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="col-lg-12 form-inline">
-                <div class="col-md-12" style="background: #000000;padding-top: 5px;">
-                    <label style="font-weight: bold;color: #ffffff;">회원 검색&nbsp;&nbsp;</label>
-                    <select class="form-control" name="selectGubun">
-                        <option value="9999" selected="selected">전체</option>
-                        <option value="1">User ID</option>
-                        <option value="2">User 닉네임</option>
-                        <option value="3">연락처</option>
-                        <option value="4">이름</option>
-                    </select>
+                <div class="row col-lg-12 form-inline">
+                    <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
+                        <label style="font-weight: bold;color: #000000;">회원 검색&nbsp;&nbsp;</label>
+                        <select class="form-control" name="selectGubun">
+                            <option value="9999" selected="selected">전체</option>
+                            <option value="1">User ID</option>
+                            <option value="2">User 닉네임</option>
+                            <option value="3">연락처</option>
+                            <option value="4">이름</option>
+                        </select>
 
-                    <label><input type="text" class="form-control" id="txt_search"></label>
-                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
-                </div>
-            </div>
-            <div class="widget widget-table">
-                <div class="widget-header">
-                    <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-                    <div class="btn-group widget-header-toolbar">
-                        <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                        <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                            <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                        </a>
-                        <%--<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>--%>
+                        <label><input type="text" class="form-control" id="txt_search"></label>
+                        <button type="submit" class="btn btn-default" id="bt_search">검색</button>
                     </div>
-                    <%--<div class="btn-group widget-header-toolbar">
-                        <div class="control-inline toolbar-item-group">
-                            <span class="control-title">New Visits:</span>
-                            <div class="label label-success"><i class="fa fa-caret-up"></i> 3.5%</div>
-                        </div>
-                    </div>--%>
                 </div>
-                <div class="widget-content">
-                    <table id="list_info" class="table table-sorting table-hover table-bordered">
-                        <thead>
-                        </thead>
-                        <tbody id="tableBody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-<<<<<<< Updated upstream
-            <!-- DATA TABLE END -->
-            <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
-                <div class="widget-content">
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
-                        <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail">방송내역</a></li>
-                    </ul>
-                </div>
-=======
-            <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
->>>>>>> Stashed changes
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="infoDetail">
-                        <div class="col-lg-12 no-padding">
-                            <label class="text_middle" style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
-                        </div>
-                        <div class="col-md-12 no-padding">
-                            <div class="col-md-6 no-padding">
-                                <div class="col-md-3" style="border: 1px solid #DDDDDD;">
-                                    <label class="control-label" style="border: 1px solid #DDDDDD;background-color: #DCE6F2;">프로필 이미지</label>
-                                </div>
-                                <div class="col-md-9" style="border: 1px solid #DDDDDD;">
-                                    <div class="input-file">
-                                        <form id="profileImg" method="post" enctype="multipart/form-data">
-                                            <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
-                                            <%--<input type='file' id="imgInput"/>--%>
-                                            <button type="button" id="bt_img" class="btn-sm pull-right">이미지초기화</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 no-padding">
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>회원레벨</label></div>
-                                    <div class="col-md-9">
-                                        <form id="cob_level">
-                                            <select id="cob_userLevel" name="emailSelection" class="form-control">
-                                                <option value="9999" selected="selected">직접입력</option>
-                                            </select>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>DJ등급</label></div>
-                                    <div class="col-md-9">
-                                        <form id="cob_grade">
-                                            <select id="cob_djLevel" name="emailSelection" class="form-control">
-                                            </select>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>회원상태</label></div>
-                                    <div class="col-md-9">
-                                        <select id="cob_lisLevel" name="emailSelection" class="form-control">
-                                            <option value="normal">일반청취자</option>
-                                            <option value="best">베스트 청취자</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>접속상태</label></div>
-                                    <div class="col-md-9">
-                                        <form id="login_radio">
-                                            <label class="radio-inline"><input type="radio" name="radio_login" value="option1" checked="true">Login</label>
-                                            <label class="radio-inline"><input type="radio" name="radio_login" value="option2">Logout</label>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>방송상태</label></div>
-                                    <div class="col-md-6">
-                                        <form id="live_radio">
-                                            <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option1" checked="true">생방중</label>
-                                            <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option2">방송OFF</label>
-                                        </form>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <button type="button" id="bt_liveSms" class="btn-sm pull-right">메시지발송</button>
-                                    </div>
-                                </div>
+                <!-- DATA TABLE -->
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-desktop"></i> 검색결과</h3>
+                            <div class="btn-group widget-header-toolbar">
+                                <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                                <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
+                                    <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-12 no-padding">
-                            <div class="col-md-6 no-padding">
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>UserID</label></div>
-                                    <div class="col-md-9"><label id="lb_userId"></label></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>소셜아이디</label></div>
-                                    <div class="col-md-9"><label id="lb_Id"></label></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>연락처</label></div>
-                                    <div class="col-md-7"><input type="text" class="form-control" id="txt_phon" style="width: 100%"></div>
-                                    <div class="col-md-2"><button type="button" id="bt_phon" class="btn-sm pull-right">변경</button></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>닉네임</label></div>
-                                    <div class="col-md-7"><input type="text" class="form-control" id="txt_nickName" style="width: 100%"></div>
-                                    <div class="col-md-2"><button type="button" id="bt_resatNick" class="btn-sm pull-right">변경</button></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>생년월일</label></div>
-                                    <div class="col-md-7">
-                                        <div class="col-md-12 input-group date" id="date_birth">
-                                            <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <div class="widget-content">
+                            <table id="list_info" class="table table-sorting table-hover table-bordered">
+                                <thead>
+                                </thead>
+                                <tbody id="tableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- DATA TABLE END -->
+                <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
+                    <div class="widget-content">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_broadDetail">방송내역</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_listenDetail">청취내역</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_payDetail">결제/취소내역</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_exchangeDetail">환전내역</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_giftDetail">선물/교환내역</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_mystarDetail">마이스타/팬</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_noticeDetail">회원공지관리</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_fanbordDetail">팬보드관리</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_banDetail">금지어관리</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_receiptDetail">신고내역</a></li>
+                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_questionDetail">문의내역</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="infoDetail">
+                            <div class="col-lg-12 no-padding">
+                                <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
+                            </div>
+                            <div class="col-md-12 no-padding">
+                                <div class="col-md-6 no-padding">
+                                    <div class="col-md-3" style="border: 1px solid #DDDDDD;">
+                                        <label class="control-label" style="border: 1px solid #DDDDDD;background-color: #DCE6F2;">프로필 이미지</label>
+                                    </div>
+                                    <div class="col-md-9" style="border: 1px solid #DDDDDD;">
+                                        <div class="input-file">
+                                            <form id="profileImg" method="post" enctype="multipart/form-data">
+                                                <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
+                                                <%--<input type='file' id="imgInput"/>--%>
+                                                <button type="button" id="bt_img" class="btn-sm pull-right">이미지초기화</button>
+                                            </form>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
-                                        <button type="button" id="bt_birth" class="btn-sm pull-right">변경</button>
-                                    </div>
                                 </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>나이</label></div>
-                                    <div class="col-md-2"><label id="lb_age"></label></div>
-                                    <div class="col-md-2 lb_style"><label>성별</label></div>
-                                    <div class="col-md-5">
-                                        <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
-                                        <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
-                                        <button type="button" id="bt_gender" class="btn-sm pull-right">변경</button>
+                                <div class="col-md-6 no-padding">
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>회원레벨</label></div>
+                                        <div class="col-md-9">
+                                            <form id="cob_level">
+                                                <select id="cob_userLevel" name="emailSelection" class="form-control">
+                                                    <option value="9999" selected="selected">직접입력</option>
+                                                </select>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>비밀번호</label></div>
-                                    <div class="col-md-6"><input type="password" class="form-control" id="txt_pass"value="1234" style="width: 100%"></div>
-                                    <div class="col-md-3"><button type="button" id="bt_resatPass" class="btn-sm pull-right">초기화전송</button></div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>DJ등급</label></div>
+                                        <div class="col-md-9">
+                                            <form id="cob_grade">
+                                                <select id="cob_djLevel" name="emailSelection" class="form-control">
+                                                </select>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>회원상태</label></div>
+                                        <div class="col-md-9">
+                                            <select id="cob_lisLevel" name="emailSelection" class="form-control">
+                                                <option value="normal">일반청취자</option>
+                                                <option value="best">베스트 청취자</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>접속상태</label></div>
+                                        <div class="col-md-9">
+                                            <form id="login_radio">
+                                                <label class="radio-inline"><input type="radio" name="radio_login" value="option1" checked="true">Login</label>
+                                                <label class="radio-inline"><input type="radio" name="radio_login" value="option2">Logout</label>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>방송상태</label></div>
+                                        <div class="col-md-6">
+                                            <form id="live_radio">
+                                                <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option1" checked="true">생방중</label>
+                                                <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option2">방송OFF</label>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button type="button" id="bt_liveSms" class="btn-sm pull-right">메시지발송</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 no-padding">
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>청취상태</label></div>
-                                    <div class="col-md-6">
-                                        <form id="listen_radio">
-                                            <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option1" checked="true">청취중</label>
-                                            <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option2">청취OFF</label>
-                                        </form>
+                            <div class="col-md-12 no-padding">
+                                <div class="col-md-6 no-padding">
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>UserID</label></div>
+                                        <div class="col-md-9"><label id="lb_userId"></label></div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>소셜아이디</label></div>
+                                        <div class="col-md-9"><label id="lb_Id"></label></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>연락처</label></div>
+                                        <div class="col-md-7"><input type="text" class="form-control" id="txt_phon" style="width: 100%"></div>
+                                        <div class="col-md-2"><button type="button" id="bt_phon" class="btn-sm pull-right">변경</button></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>닉네임</label></div>
+                                        <div class="col-md-7"><input type="text" class="form-control" id="txt_nickName" style="width: 100%"></div>
+                                        <div class="col-md-2"><button type="button" id="bt_resatNick" class="btn-sm pull-right">변경</button></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>생년월일</label></div>
+                                        <div class="col-md-7">
+                                            <div class="col-md-12 input-group date" id="date_birth">
+                                                <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" id="bt_birth" class="btn-sm pull-right">변경</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>나이</label></div>
+                                        <div class="col-md-2"><label id="lb_age"></label></div>
+                                        <div class="col-md-2 lb_style"><label>성별</label></div>
+                                        <div class="col-md-5">
+                                            <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
+                                            <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
+                                            <button type="button" id="bt_gender" class="btn-sm pull-right">변경</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>비밀번호</label></div>
+                                        <div class="col-md-6"><input type="password" class="form-control" id="txt_pass"value="1234" style="width: 100%"></div>
+                                        <div class="col-md-3"><button type="button" id="bt_resatPass" class="btn-sm pull-right">초기화전송</button></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 no-padding">
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>청취상태</label></div>
+                                        <div class="col-md-6">
+                                            <form id="listen_radio">
+                                                <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option1" checked="true">청취중</label>
+                                                <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option2">청취OFF</label>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-3">
                                             <button type="button" id="bt_listenSms" class="btn-sm pull-right">메시지발송</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>매니저정보</label></div>
+                                        <div class="col-md-6"><label id="lb_menager"></label></div>
+                                        <div class="col-md-3"><button type="button" id="bt_menager" class="btn-sm pull-right">자세히보기</button></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>블랙리스트</label></div>
+                                        <div class="col-md-6"><label id="lb_black"></label></div>
+                                        <div class="col-md-3"><button type="button" id="bt_black" class="btn-sm pull-right">자세히보기</button></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>가입플랫폼</label></div>
+                                        <div class="col-md-8"><label id="lb_joinPlatform"></label></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>회원가입일시</label></div>
+                                        <div class="col-md-8"><label id="lb_joinDate"></label></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>회원탈퇴일시</label></div>
+                                        <div class="col-md-8"><label id="lb_cancelMb"></label></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>최초방송일시</label></div>
+                                        <div class="col-md-8"><label id="lb_date"></label></div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>매니저정보</label></div>
-                                    <div class="col-md-6"><label id="lb_menager"></label></div>
-                                    <div class="col-md-3"><button type="button" id="bt_menager" class="btn-sm pull-right">자세히보기</button></div>
+                            </div>
+                            <div class="col-md-12 no-padding">
+                                <div class="col-md-6 no-padding">
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>운영자 메모</label></div>
+                                        <div class="col-md-7"><textarea type="textarea" class="form-control" id="txt_msgWelcom" style="width: 100%"></textarea></div>
+                                        <div class="col-md-2"><button type="button" id="bt_editDateHistory" class="btn-sm pull-right">변경</button></div>
+                                    </div>
                                 </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>블랙리스트</label></div>
-                                    <div class="col-md-6"><label id="lb_black"></label></div>
-                                    <div class="col-md-3"><button type="button" id="bt_black" class="btn-sm pull-right">자세히보기</button></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>가입플랫폼</label></div>
-                                    <div class="col-md-8"><label id="lb_joinPlatform"></label></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>회원가입일시</label></div>
-                                    <div class="col-md-8"><label id="lb_joinDate"></label></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>회원탈퇴일시</label></div>
-                                    <div class="col-md-8"><label id="lb_cancelMb"></label></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>최초방송일시</label></div>
-                                    <div class="col-md-8"><label id="lb_date"></label></div>
+                                <div class="col-md-6 no-padding">
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
+                                        <div class="col-md-6"><label id="lb_editDate"></label></div>
+                                        <div class="col-md-3"><button type="button" id="bt_edit" class="btn-sm pull-right">자세히보기</button></div>
+                                    </div>
+                                    <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                                        <div class="col-md-3 lb_style"><label>최근 정보 수정 자</label></div>
+                                        <div class="col-md-8"><label id="lb_editUser"></label></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 no-padding">
-                            <div class="col-md-6 no-padding">
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>운영자 메모</label></div>
-                                    <div class="col-md-7"><textarea type="textarea" class="form-control" id="txt_msgWelcom" style="width: 100%"></textarea></div>
-                                    <div class="col-md-2"><button type="button" id="bt_editDateHistory" class="btn-sm pull-right">변경</button></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 no-padding">
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
-                                    <div class="col-md-6"><label id="lb_editDate"></label></div>
-                                    <div class="col-md-3 text_middle"><button type="button" id="bt_edit" class="btn-sm pull-right">자세히보기</button></div>
-                                </div>
-                                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                                    <div class="col-md-3 lb_style"><label>최근 정보 수정 자</label></div>
-                                    <div class="col-md-8"><label id="lb_editUser"></label></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="detail">
-                        <!-- DATA TABLE -->
-                        <div class="col-lg-12 no-padding">
-                            <div class="widget widget-table">
-                                <div class="widget-content">
-                                    <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                                        <thead id="tableTop_detail">
-                                        </thead>
-                                        <tbody id="tableBody_detail">
-                                        </tbody>
-                                    </table>
+                        <div class="tab-pane fade" id="detail">
+                            <!-- DATA TABLE -->
+                            <div class="col-lg-12 no-padding">
+                                <div class="widget widget-table">
+                                    <div class="widget-content">
+                                        <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                                            <thead id="tableTop_detail">
+                                            </thead>
+                                            <tbody id="tableBody_detail">
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -301,7 +305,7 @@
 
         $('#date_radio').change(function() {
             if($('input[name="radio_date"]:checked').val() == "all"){               // 전체
-                //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
+                                                                                    //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
             }else if($('input[name="radio_date"]:checked').val() == "week"){        //1주일
                 $('#txt_startSel').val(moment().add(-7,'d').format("YYYY-MM-DD"));
                 $('#txt_endSel').val(moment().format("YYYY-MM-DD"));
@@ -353,12 +357,6 @@
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getUserInfo();
-
-            /*검색결과 영역이 접혀 있을 시 열기*/
-            var toggleIcon = $('#_searchToggleIcon');
-            if(toggleIcon.hasClass('fa-chevron-down')){
-                toggleIcon.click();
-            }
         });
         $('#bt_imgChg').click(function() {					//   사진변경
         });
@@ -573,7 +571,7 @@
         $("#tableTop_detail").empty();
         $("#tableBody_detail").empty();
 
-        getHistoryDetail("broadHistory");
+        getHistoryDetail("broadDetail");
     }
 
     function getMemNo_info(index){
@@ -585,8 +583,10 @@
 
     var dtList_info_detail;
     function getHistoryDetail(tmp) {     // 상세보기
-        tmp = tmp.split("_");
-        tmp = tmp[1];
+        if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
+            tmp = tmp.split("_");
+            tmp = tmp[1];
+        }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.memNo = memNo;
@@ -595,11 +595,11 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
-        tableBody_detail_Set();
-    }
-    function tableBody_detail_Set(){
         dtList_info_detail.reload();
+        // tableBody_detail_Set();
     }
+    // function tableBody_detail_Set(){
+    // }
 
     function Broad(index){
         var data = dtList_info_detail.getDataRow(index);
