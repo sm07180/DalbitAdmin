@@ -36,10 +36,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
     this.init();
 
     this.dataTableSource = {
-        // dom: 'lirtp',
         dom: '<"comments">rt<"footer-left"i><"footer-right">p',
         destroy: true,                                                                   //테이블 파괴가능
-        pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
+        pageLength: 5,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
         bLengthChange: true,                                                        //  페이지 표시 건수 변동 기능 사용 여부
         lengthMenu : [ [ 5, 10, 20, 30, 40 ], [ 5, 10, 20, 30, 40 ] ],                  // "bLengthChange" 리스트 항목을 구성할 옵션
@@ -58,8 +57,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
             // 'dataSrc': "data"
             'dataFilter': function(data){
                 var json = jQuery.parseJSON(data);
-                console.log("[dataFilter]");
-                console.log(json.data);
+                dalbitLog("[dataFilter]");
                 var totalCnt = isEmpty(json.data)? 0 : json.data[0].totalCnt;
                 var data = json.data;
 
@@ -70,17 +68,46 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 return JSON.stringify( json ); // return JSON string
             }
         },
+        fnPreDrawCallback: function(oSettings){
+            dalbitLog("[fnPreDrawCallback]");
+
+            // 최초 Order 저장
+            $(oSettings.aoColumns).each(function () {
+                if(isEmpty(this.initSortable)){
+                    this.initSortable = this.bSortable;
+                }
+            });
+        },
         fnDrawCallback: function(oSettings){
             dalbitLog("[fnDrawCallback]");
-            // 데이터 없을 경우 Page 표시 X
+
+            // 조회 데이터 없을 경우
             if(isEmpty(oSettings.fnRecordsTotal()) || oSettings.fnRecordsTotal() <= 0){
+                // Header Ordering 이미지 제거
+                $(oSettings.aoHeader[0]).each(function(){
+                    var header = $(this.cell);
+                    header.prop("class", "");
+                });
+                // Header Ordering Event 제거
+                $(oSettings.aoColumns).each(function () {
+                    this.bSortable = false;
+                });
+
+                // Paging 비노출
                 dom.parent("div").find(".pagination").remove();
+                // Total Cnt 비노출
                 dom.parent("div").find(".dataTables_info").hide();
             }else{
+                // Header Ordering Event 재설정
+                $(oSettings.aoColumns).each(function () {
+                    this.bSortable = this.initSortable;
+                });
+
+                // Total Cnt 노출
                 dom.parent("div").find(".dataTables_info").show();
             }
         },
-        fnInitComplete: function(){
+        fnInitComplete: function(oSettings){
             dalbitLog("[fnInitComplete]");
             // Comments 설정
             var comments = isEmpty(dataSource.comments) ? "" : 'ㆍ'  + dataSource.comments;
