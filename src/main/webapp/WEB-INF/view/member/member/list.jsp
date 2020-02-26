@@ -6,20 +6,14 @@
     .text_center{
         text-align: center;
     }
-    .text_middle{
+    .middle{
         display:table-cell;
-        vertical-align:middle
+        vertical-align:middle;
     }
     .lb_style{
         border: 1px solid #DDDDDD;
         background-color: #DCE6F2;
         height: 34px;
-    }
-    div.sticky {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        z-index:1;
     }
 </style>
 
@@ -27,8 +21,8 @@
     <div id="page-wrapper">
         <div class="container-fluid">
                 <div class="row col-lg-12 form-inline">
-                    <div class="col-md-12" style="background: #000000;padding-top: 5px;">
-                        <label style="font-weight: bold;color: #ffffff;">회원 검색&nbsp;&nbsp;</label>
+                    <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
+                        <label style="font-weight: bold;color: #000000;">회원 검색&nbsp;&nbsp;</label>
                         <select class="form-control" name="selectGubun">
                             <option value="9999" selected="selected">전체</option>
                             <option value="1">User ID</option>
@@ -41,13 +35,6 @@
                         <button type="submit" class="btn btn-default" id="bt_search">검색</button>
                     </div>
                 </div>
-                <div class="row col-lg-12 form-inline">
-                    <div class="col-md-12" style="background: #DCE6F2;height: 28px;">
-                        <div class="text_middle" style="height: 28px;">
-                            <label class="text_middle" style="font-weight: bold;color: #000000;">검색결과</label>
-                        </div>
-                    </div>
-                </div>
                 <!-- DATA TABLE -->
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table">
@@ -58,14 +45,7 @@
                                 <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
                                     <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
                                 </a>
-                                <%--<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>--%>
                             </div>
-                            <%--<div class="btn-group widget-header-toolbar">
-                                <div class="control-inline toolbar-item-group">
-                                    <span class="control-title">New Visits:</span>
-                                    <div class="label label-success"><i class="fa fa-caret-up"></i> 3.5%</div>
-                                </div>
-                            </div>--%>
                         </div>
                         <div class="widget-content">
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
@@ -98,7 +78,7 @@
                     <div class="tab-content">
                         <div class="tab-pane fade in active" id="infoDetail">
                             <div class="col-lg-12 no-padding">
-                                <label class="text_middle" style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
+                                <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
                             </div>
                             <div class="col-md-12 no-padding">
                                 <div class="col-md-6 no-padding">
@@ -267,7 +247,7 @@
                                     <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                                         <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
                                         <div class="col-md-6"><label id="lb_editDate"></label></div>
-                                        <div class="col-md-3 text_middle"><button type="button" id="bt_edit" class="btn-sm pull-right">자세히보기</button></div>
+                                        <div class="col-md-3"><button type="button" id="bt_edit" class="btn-sm pull-right">자세히보기</button></div>
                                     </div>
                                     <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                                         <div class="col-md-3 lb_style"><label>최근 정보 수정 자</label></div>
@@ -603,8 +583,10 @@
 
     var dtList_info_detail;
     function getHistoryDetail(tmp) {     // 상세보기
-        tmp = tmp.split("_");
-        tmp = tmp[1];
+        if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
+            tmp = tmp.split("_");
+            tmp = tmp[1];
+        }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.memNo = memNo;

@@ -122,13 +122,13 @@ var MemberDataTableSource = {
     'noticeDetail': {
         'url': '/rest/member/notice/list'
         , 'columns': [
-            {'title': '프로필이미지', 'data': 'profile'},
-            {'title': '닉네임', 'data': 'type'},
-            {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
+            {'title': '프로필이미지', 'data': 'profile','width':'120px'},
+            {'title': '닉네임', 'data': 'type','width':'100px'},
+            {'title': '방송제목', 'data': 'title','width':'250px', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" onclick="javascript:Notice('+meta.row+');">' + data + '</a>'
                 }},
-            {'title': '공지내용', 'data': 'notice'},
-            {'title': '등록일시', 'data': 'lastUpdDate'}
+            {'title': '공지내용', 'data': 'notice','width':'200px'},
+            {'title': '등록일시', 'data': 'lastUpdDate','width':'100px'},
         ]
         , 'comments': '각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'
     },
