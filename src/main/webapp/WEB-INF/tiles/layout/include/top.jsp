@@ -8,7 +8,7 @@
             <a href="#" class="pull-left toggle-sidebar-collapse"><i class="fa fa-bars"></i></a>
             <!-- logo -->
             <div class="pull-left left logo">
-                <a href="index.html"><img src="/template2/assets/img/kingadmin-logo-white.png" alt="KingAdmin - Admin Dashboard"></a>
+                <a href="index.html"><img src="https://devimage.dalbitcast.com/images/api/ic_logo_normal.png" height="20" alt="달빛라디오 관리자"></a>
                 <h1 class="sr-only">KingAdmin Admin Dashboard</h1>
             </div>
             <!-- end logo -->

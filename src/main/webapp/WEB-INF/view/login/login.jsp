@@ -4,7 +4,7 @@
 <div class="wrapper full-page-wrapper page-auth page-login text-center">
     <div class="inner-page">
         <div class="logo">
-            <a href="index.html"><img src="/template2/assets/img/kingadmin-logo.png" alt="???" /></a>
+            <a href="index.html"><img src="https://devimage.dalbitcast.com/images/api/ic_logo_normal.png" alt="달빛라디오 관리자" /></a>
         </div>
 
         <div class="login-box center-block">
