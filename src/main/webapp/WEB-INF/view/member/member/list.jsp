@@ -12,76 +12,62 @@
     .lb_style{
         border: 1px solid #DDDDDD;
         background-color: #DCE6F2;
-        height: 34px;
     }
-    div.sticky {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        z-index:1;
-    }
+
 </style>
 
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="sticky">
-                <div class="row col-lg-12 form-inline">
-                    <div class="col-md-12" style="background: #000000;padding-top: 5px;">
-                        <label style="font-weight: bold;color: #ffffff;">회원 검색&nbsp;&nbsp;</label>
-                        <select class="form-control" name="selectGubun">
-                            <option value="9999" selected="selected">전체</option>
-                            <option value="1">User ID</option>
-                            <option value="2">User 닉네임</option>
-                            <option value="3">연락처</option>
-                            <option value="4">이름</option>
-                        </select>
+            <div class="col-lg-12 form-inline">
+                <div class="col-md-12" style="background: #000000;padding-top: 5px;">
+                    <label style="font-weight: bold;color: #ffffff;">회원 검색&nbsp;&nbsp;</label>
+                    <select class="form-control" name="selectGubun">
+                        <option value="9999" selected="selected">전체</option>
+                        <option value="1">User ID</option>
+                        <option value="2">User 닉네임</option>
+                        <option value="3">연락처</option>
+                        <option value="4">이름</option>
+                    </select>
 
-                        <label><input type="text" class="form-control" id="txt_search"></label>
-                        <button type="submit" class="btn btn-default" id="bt_search">검색</button>
-                    </div>
-                </div>
-                <div class="row col-lg-12 form-inline">
-                    <div class="col-md-12" style="background: #DCE6F2;height: 28px;">
-                        <div class="text_middle" style="height: 28px;">
-                            <label class="text_middle" style="font-weight: bold;color: #000000;">검색결과</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- DATA TABLE -->
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table col-lg-12 no-padding">
-                        <div class="widget-content" style="padding-top: 0px;">
-                            <table id="list_info" class="table table-sorting table-hover table-bordered">
-                                <thead>
-                                </thead>
-                                <tbody id="tableBody">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- DATA TABLE END -->
-                <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
-                    <div class="widget-content">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_broadDetail">방송내역</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_listenDetail">청취내역</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_payDetail">결제/취소내역</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_exchangeDetail">환전내역</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_giftDetail">선물/교환내역</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_mystarDetail">마이스타/팬</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_noticeDetail">회원공지관리</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_fanbordDetail">팬보드관리</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_banDetail">금지어관리</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_receiptDetail">신고내역</a></li>
-                            <li><a href="#detail" role="tab" data-toggle="tab" id="tab_questionDetail">문의내역</a></li>
-                        </ul>
-                    </div>
+                    <label><input type="text" class="form-control" id="txt_search"></label>
+                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
                 </div>
             </div>
-            <div>
+            <div class="widget widget-table">
+                <div class="widget-header">
+                    <h3><i class="fa fa-desktop"></i> 검색결과</h3>
+                    <div class="btn-group widget-header-toolbar">
+                        <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                        <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
+                            <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
+                        </a>
+                        <%--<a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>--%>
+                    </div>
+                    <%--<div class="btn-group widget-header-toolbar">
+                        <div class="control-inline toolbar-item-group">
+                            <span class="control-title">New Visits:</span>
+                            <div class="label label-success"><i class="fa fa-caret-up"></i> 3.5%</div>
+                        </div>
+                    </div>--%>
+                </div>
+                <div class="widget-content">
+                    <table id="list_info" class="table table-sorting table-hover table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- DATA TABLE END -->
+            <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
+                <div class="widget-content">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
+                        <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail">방송내역</a></li>
+                    </ul>
+                </div>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="infoDetail">
                         <div class="col-lg-12 no-padding">
@@ -363,6 +349,12 @@
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getUserInfo();
+
+            /*검색결과 영역이 접혀 있을 시 열기*/
+            var toggleIcon = $('#_searchToggleIcon');
+            if(toggleIcon.hasClass('fa-chevron-down')){
+                toggleIcon.click();
+            }
         });
         $('#bt_imgChg').click(function() {					//   사진변경
         });
