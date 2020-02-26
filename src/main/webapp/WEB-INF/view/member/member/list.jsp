@@ -60,6 +60,7 @@
                     </table>
                 </div>
             </div>
+<<<<<<< Updated upstream
             <!-- DATA TABLE END -->
             <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
                 <div class="widget-content">
@@ -68,6 +69,9 @@
                         <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail">방송내역</a></li>
                     </ul>
                 </div>
+=======
+            <div class="row col-lg-12 form-inline " style="padding-top: 2px; padding-bottom: 0px;">
+>>>>>>> Stashed changes
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="infoDetail">
                         <div class="col-lg-12 no-padding">

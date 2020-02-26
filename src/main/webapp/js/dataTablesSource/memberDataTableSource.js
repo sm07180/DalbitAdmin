@@ -28,7 +28,7 @@ var MemberDataTableSource = {
             {'title': '방송종료시간', 'data': 'endDate', 'width':'120px'},
             {'title': '방송진행시간', 'data': 'airtime', 'width':'100px'},
             {'title': '청취자', 'data': 'listener', 'width':'80px'},
-            {'title': '누적청취자', 'data': 'listenHistory', 'width':'80px'},
+            {'title': '누적청취자', 'data': 'listener', 'width':'80px'},
             {'title': '받은좋아요', 'data': 'good', 'width':'80px'},
         ]
         , 'comments': '회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
@@ -134,7 +134,7 @@ var MemberDataTableSource = {
     },
 
     'fanbordDetail': {
-        'url': '/rest/member/fanbord/list'
+        'url': '/rest/member/gift/list'
         , 'columns': [
             {'title': '프로필이미지', 'data': '', 'defaultContent': ''},
             {'title': '닉네임', 'data': '', 'defaultContent': ''},
@@ -147,7 +147,7 @@ var MemberDataTableSource = {
     },
 
     'banDetail': {
-        'url': '/rest/member/ban/list'
+        'url': '/rest/member/gift/list'
         , 'columns': [
             {'title': '금지어', 'data': '', 'defaultContent': ''},
         ]
@@ -173,5 +173,21 @@ var MemberDataTableSource = {
                 }},
         ]
         , 'comments': '회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.'
+    },
+
+    'questionDetail': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '문의 구분', 'data': '', 'defaultContent': ''},
+            {'title': '문의유형', 'data': '', 'defaultContent': ''},
+            {'title': '문의자ID', 'data': '', 'defaultContent': ''},
+            {'title': '문의자닉네임', 'data': '', 'defaultContent': ''},
+            {'title': '문의 내용', 'data': '', 'defaultContent': ''},
+            {'title': '접수일시/처리일시', 'data': '', 'defaultContent': ''},
+            {'title': '첨부파일', 'data': '', 'defaultContent': ''},
+            {'title': '처리상태', 'data': '', 'defaultContent': ''},
+            {'title': '처리자', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
     },
 }
