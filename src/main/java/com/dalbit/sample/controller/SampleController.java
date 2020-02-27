@@ -61,4 +61,9 @@ public class SampleController {
         return "sample/excel";
     }
 
+    @GetMapping("chart")
+    public String chart(){
+        return "sample/chart";
+    }
+
 }

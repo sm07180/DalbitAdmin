@@ -537,6 +537,27 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class="${fn:startsWith(url, '/sample/') ? 'active': ''}">
+                    <a href="javascript://" class="js-sub-menu-toggle">
+                        <i class="fa fa-question"></i><span class="text">샘플페이지</span>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/sample/') ? 'down': 'left'}"></i>
+                    </a>
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/sample/') ? 'display:block;': ''}">
+                        <li>
+                            <a href="javascript://">
+                                <i class="fa fa-search"></i><span class="text">에디터</span>
+                            </a>
+                            <a href="/sample/chart">
+                                <i class="fa fa-search"></i><span class="text">차트</span>
+                            </a>
+                            <a href="javascript://">
+                                <i class="fa fa-search"></i><span class="text">데이터테이블</span>
+                            </a>
+
+                        </li>
+                    </ul>
+                </li>
             </ul>
 
             <div class="text-center">통계현황</div>
