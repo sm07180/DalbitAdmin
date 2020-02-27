@@ -24,6 +24,11 @@ public class M_BroadcastService {
     }
     public List<BroadListVo> getBroadHistory_detail(BroadListVo broadListVo){
         List<BroadListVo> resultList = mBroadcastDao.callBroadHistory_detail(broadListVo);
+        int total = mBroadcastDao.callBroadHistory_detail_cnt(broadListVo);
+        log.info("total : " + total);
+        if(resultList.size() > 0) {
+            resultList.get(0).setTotalCnt(total);
+        }
         return resultList;
     }
 }

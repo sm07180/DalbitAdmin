@@ -10,5 +10,6 @@ public interface M_BroadcastDao {
 
     List<BroadListVo> callBroadList();
     List<BroadListVo> callBroadHistory_detail(BroadListVo broadListVo);
+    int callBroadHistory_detail_cnt(BroadListVo broadListVo);
 
 }

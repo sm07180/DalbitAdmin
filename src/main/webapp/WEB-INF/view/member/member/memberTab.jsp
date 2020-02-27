@@ -11,7 +11,7 @@
     <div id="page-wrapper">
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
-                <ul class="nav nav-tabs" role="tablist">
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
                     <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail">방송내역</a></li>
                     <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail">청취내역</a></li>

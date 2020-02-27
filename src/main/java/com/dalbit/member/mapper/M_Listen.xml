@@ -21,9 +21,6 @@
         WHERE basic.mem_no = broad.mem_no
           AND broad.room_no = listen.room_no
           AND listen.mem_no = member.mem_no
-
-      ORDER BY ${orderColumnName} ${orderDir}
-       limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="callListenHistory_detail" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">
@@ -37,8 +34,20 @@
                 ,(select mem_id from tb_member_basic where mem_no = b.mem_no)    as memId
                 ,(select mem_nick from tb_member_basic where mem_no = b.mem_no)  as memNick
                 ,ruby   as ruby
+                , @RNUM := @RNUM + 1 as rowNum
+          from tb_member_broadcast_listening a  ,tb_broadcast_room b, (SELECT @RNUM := #{pageStart}) r
+         where a.room_no = b.room_no
+            and a.mem_no = #{memNo}
+      ORDER BY ${orderColumnName} ${orderDir}
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="callListenHistory_detail_cnt" parameterType="com.dalbit.member.vo.ListenListVo" resultType="integer">
+      /* M_Listen.xml - callListenHistory_detail */
+        select count(*) cnt
           from tb_member_broadcast_listening a left join (select room_no, title, mem_no, subject_type from tb_broadcast_room) b
             on a.room_no = b.room_no
+            , (SELECT @RNUM := #{pageStart}) r
          where a.mem_no = #{memNo}
     </select>
 

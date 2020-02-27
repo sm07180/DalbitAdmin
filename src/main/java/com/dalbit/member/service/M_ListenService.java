@@ -25,6 +25,11 @@ public class M_ListenService {
 
     public List<ListenListVo> getListenHistory_detail(ListenListVo listenListVo) {
         List<ListenListVo> resultList = mListenDao.callListenHistory_detail(listenListVo);
+        int total = mListenDao.callListenHistory_detail_cnt(listenListVo);
+        log.info("total : " + total);
+        if(resultList.size() > 0) {
+            resultList.get(0).setTotalCnt(total);
+        }
         return resultList;
     }
 
