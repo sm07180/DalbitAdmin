@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NoticeListVo {
+public class NoticeListVo extends PagingVo{
 
     /* member/notice/list 를 위한 Vo */
     /*input*/

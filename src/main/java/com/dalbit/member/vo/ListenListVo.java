@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ListenListVo {
+public class ListenListVo extends PagingVo{
 
     //input
     private String tmp;                 // 상세보기 구분

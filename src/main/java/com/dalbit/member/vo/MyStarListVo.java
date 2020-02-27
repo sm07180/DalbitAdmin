@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MyStarListVo {
+public class MyStarListVo extends PagingVo{
 
     /* member/MyStar/list 를 위한 Vo */
     /*input*/

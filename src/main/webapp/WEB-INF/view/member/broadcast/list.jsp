@@ -25,7 +25,8 @@
     $(document).ready(function() {
     });
 
-    function getBroadDetail(tmp) {     // 상세보기
+    function getHistoryDetail(tmp) {     // 상세보기
+        console.log("tmp : " + tmp);
         if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
             tmp = tmp.split("_");
             tmp = tmp[1];
