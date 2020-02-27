@@ -38,7 +38,7 @@ public class M_NoticeRestController {
     @PostMapping("list")
     public String list(HttpServletRequest request) {
         NoticeListVo apiData = new NoticeListVo();
-        apiData.setMemNo((String) request.getParameter("mem_no"));
+        apiData.setMemNo((String) request.getParameter("memNo"));
         List<NoticeListVo> list = mNoticeService.getBroadNoticeList(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, list));
     }

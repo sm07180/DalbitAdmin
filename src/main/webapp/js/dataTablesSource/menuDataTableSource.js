@@ -1,6 +1,6 @@
 var MenuDataTableSource = {
     'recommend': {
-        'url': '/rest/member/member/list'
+        'url': '/rest/menu/recommend/list'
         , 'columns': [
             {'title': '순위', 'data': '' , 'defaultContent': ''},
             {'title': 'Main추천상태', '': '', 'defaultContent': ''},
