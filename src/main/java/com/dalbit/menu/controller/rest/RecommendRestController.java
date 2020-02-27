@@ -29,6 +29,14 @@ public class RecommendRestController {
         map.put("no", DalbitUtil.randomValue("number", 3));
         map.put("userId", DalbitUtil.randomValue("string", 10));
 
+        list.add(map);
+
+        HashMap map2 = new HashMap();
+        map2.put("no", DalbitUtil.randomValue("number", 3));
+        map2.put("userId", DalbitUtil.randomValue("string", 10));
+
+        list.add(map2);
+
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
