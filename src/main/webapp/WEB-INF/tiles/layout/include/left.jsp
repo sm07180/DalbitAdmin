@@ -308,7 +308,7 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/member/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/member/') ? 'display:block;': ''}">
-                        <li>
+                        <li class="${fn:contains(url, '/member/member/list') ? 'active': ''}">
                             <a href="/member/member/list">
                                 <i class="fa fa-search"></i><span class="text">회원검색</span>
                             </a>
@@ -321,12 +321,12 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/broadcast/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/broadcast/') ? 'display:block;': ''}">
-                        <li>
+                        <li class="${fn:contains(url, '/broadcast/live/list') ? 'active': ''}">
                             <a href="/broadcast/live/list">
                                 <i class="fa fa-microphone"></i><span class="text">생방송 리스트</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/broadcast/broadcast/list') ? 'active': ''}">
                             <a href="/broadcast/broadcast/list">
                                 <i class="fa fa-search"></i><span class="text">생방송 검색</span>
                             </a>
@@ -352,12 +352,12 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/exchange/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/exchange/') ? 'display:block;': ''}">
-                        <li>
+                        <li class="${fn:contains(url, '/exchange/exchange/list') ? 'active': ''}">
                             <a href="/exchange/exchange/list">
                                 <i class="fa fa-search"></i><span class="text">환전신청/처리</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/exchange/history/list') ? 'active': ''}">
                             <a href="/exchange/history/list">
                                 <i class="fa fa-search"></i><span class="text">환전상세정보</span>
                             </a>
@@ -370,27 +370,27 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/customer/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/customer/') ? 'display:block;': ''}">
-                        <li>
+                        <li class="${fn:contains(url, '/customer/declaration/list') ? 'active': ''}">
                             <a href="/customer/declaration/list">
                                 <i class="fa fa-dot-circle-o"></i><span class="text">신고센터</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/customer/question/list') ? 'active': ''}">
                             <a href="/customer/question/list">
                                 <i class="fa fa-search"></i><span class="text">1:1문의</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/customer/email/list') ? 'active': ''}">
                             <a href="/customer/email/list">
                                 <i class="fa fa-envelope-o"></i><span class="text">기타문의(전화/이메일)</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/customer/paycancel/list') ? 'active': ''}">
                             <a href="/customer/paycancel/list">
                                 <i class="fa fa-krw"></i><span class="text">결제취소</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/customer/exchange/list') ? 'active': ''}">
                             <a href="/customer/exchange/list">
                                 <i class="fa fa-krw"></i><span class="text">환불신청</span>
                             </a>
@@ -405,12 +405,12 @@
                     <ul class="sub-menu" style="${fn:startsWith(url, '/menu/') ? 'display:block;': ''}">
                         <li>
                             <a href="javascript://">
-                                <i class="fa fa-search"></i><span class="text">추천어</span>
+                                <i class="fa fa-search"></i><span class="text">추천DJ</span>
                             </a>
                         </li>
                         <li>
                             <a href="javascript://">
-                                <i class="fa fa-search"></i><span class="text">인기어</span>
+                                <i class="fa fa-search"></i><span class="text">인기DJ</span>
                             </a>
                         </li>
                         <li>
@@ -533,6 +533,25 @@
                         <li>
                             <a href="javascript://">
                                 <i class="fa fa-search"></i><span class="text">서비스약관</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="${fn:startsWith(url, '/sample/') ? 'active': ''}">
+                    <a href="javascript://" class="js-sub-menu-toggle">
+                        <i class="fa fa-question"></i><span class="text">샘플페이지</span>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/sample/') ? 'down': 'left'}"></i>
+                    </a>
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/sample/') ? 'display:block;': ''}">
+                        <li class="${fn:contains(url, '/sample/editor') ? 'active': ''}">
+                            <a href="/sample/editor">
+                                <i class="fa fa-search"></i><span class="text">에디터</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/chart') ? 'active': ''}">
+                            <a href="/sample/chart">
+                                <i class="fa fa-search"></i><span class="text">차트</span>
                             </a>
                         </li>
                     </ul>
