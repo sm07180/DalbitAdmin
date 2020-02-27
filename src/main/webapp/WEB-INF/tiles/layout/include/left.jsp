@@ -405,12 +405,12 @@
                     <ul class="sub-menu" style="${fn:startsWith(url, '/menu/') ? 'display:block;': ''}">
                         <li>
                             <a href="javascript://">
-                                <i class="fa fa-search"></i><span class="text">추천어</span>
+                                <i class="fa fa-search"></i><span class="text">추천DJ</span>
                             </a>
                         </li>
                         <li>
                             <a href="javascript://">
-                                <i class="fa fa-search"></i><span class="text">인기어</span>
+                                <i class="fa fa-search"></i><span class="text">인기DJ</span>
                             </a>
                         </li>
                         <li>
