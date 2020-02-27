@@ -1,6 +1,6 @@
 var MenuDataTableSource = {
     'recommend': {
-        'url': '/rest/menu/recommend/list'
+        'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
             {'title': '순위', 'data': '' , 'defaultContent': ''},
             {'title': 'Main추천상태', '': '', 'defaultContent': ''},
@@ -18,7 +18,7 @@ var MenuDataTableSource = {
         , 'comments': '1) 추천/인기 DJ Main 노출 수는 10명입니다. 2) 추천/인기DJ를 변경하시려면 DJ를 검색하여 결과리스트에서 [리스트추가하기]를 한 후 추천중 상태로 변경하세요.'
     },
 
-    'broadDetail': {
+    'best': {
         'url': '/rest/member/pay/list'
         , 'columns': [
             {'title': '순위', 'data': '', 'defaultContent': ''},
