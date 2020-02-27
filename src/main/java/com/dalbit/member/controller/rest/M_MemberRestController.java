@@ -50,7 +50,7 @@ public class M_MemberRestController {
         MemberListVo apiData = new MemberListVo();
         apiData.setSearch(request.getParameter("search"));
 //        apiData.setDate(request.getParameter("date"));
-//        apiData.setGubun(request.getParameter("gubun"));
+        apiData.setGubun(request.getParameter("gubun"));
 //        apiData.setCheckDate(request.getParameter("checkDate"));
 //        apiData.setStDate(request.getParameter("stDate").replace("-",""));
 //        apiData.setEdDate(request.getParameter("edDate").replace("-",""));

@@ -33,7 +33,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
     var dataSource = columnsInfo;
 
     //초기화
-    this.init();
+    this.initDataTableSource();
 
     this.dataTableSource = {
         dom: '<"comments">rt<"footer-left"i><"footer-right">p',
@@ -155,7 +155,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
 /* === Init =================================================================*/
 
     // 데이터 초기화
-    DalbitDataTable.prototype.init = function(){
+    DalbitDataTable.prototype.initDataTableSource = function(){
         // 체크박스 사용
         this.isUseCheckbox = false;
         // 넘버링 사용 여부
@@ -167,9 +167,19 @@ function DalbitDataTable(dom, param, columnsInfo) {
         this.g_DataTable = null;
     }
 
-    // Init DataTable
-    DalbitDataTable.prototype.createDataTable = function (initFn) {
+    DalbitDataTable.prototype.initDataTable = function(){
+        var parent = this.dom.parent("div");
         this.dom.empty();
+        if(this.dom.prop("id")+"_wrapper" == parent.prop("id")){
+            parent.empty();
+            parent.append(this.dom);
+        }
+    }
+
+    // Create DataTable
+    DalbitDataTable.prototype.createDataTable = function (initFn) {
+        //초기화
+        this.initDataTable();
 
         this.dataTableSource.ajax.complete = function (response) {
             dalbitLog("[complete]");
@@ -179,6 +189,12 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 initFn();
             }
         };
+
+
+        if(!isEmpty(this.g_DataTable)){
+            console.log("isEmpty not ")
+            this.g_DataTable.destroy();
+        }
 
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
