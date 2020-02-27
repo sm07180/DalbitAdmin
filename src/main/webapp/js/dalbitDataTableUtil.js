@@ -184,6 +184,10 @@ function DalbitDataTable(dom, param, columnsInfo) {
         this.dataTableSource.ajax.complete = function (response) {
             dalbitLog("[complete]");
 
+            if(!isEmpty(response.responseJSON)){
+                dalbitLog(response.responseJSON);
+            }
+
             // 완료 후 처리 함수
             if(!isEmpty(initFn)){
                 initFn();
