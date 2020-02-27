@@ -21,7 +21,7 @@ public class QuestionController {
      * @param model
      * @return
      */
-    @GetMapping("list")
+    @GetMapping("/list")
     public String list(Model model) {
         return "customer/question/list";
     }
