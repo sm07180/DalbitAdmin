@@ -544,19 +544,14 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/sample/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/sample/') ? 'display:block;': ''}">
-                        <li>
-                            <a href="javascript://">
+                        <li class="${fn:contains(url, '/sample/editor') ? 'active': ''}">
+                            <a href="/sample/editor">
                                 <i class="fa fa-search"></i><span class="text">에디터</span>
                             </a>
                         </li>
                         <li class="${fn:contains(url, '/sample/chart') ? 'active': ''}">
                             <a href="/sample/chart">
                                 <i class="fa fa-search"></i><span class="text">차트</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript://">
-                                <i class="fa fa-search"></i><span class="text">데이터테이블</span>
                             </a>
                         </li>
                     </ul>
