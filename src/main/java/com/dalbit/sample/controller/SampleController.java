@@ -53,7 +53,8 @@ public class SampleController {
         return "sample/detail2";
     }
 
-
+    @GetMapping("recommend")
+    public String recommend(){ return "sample/recommend";}
 
 
     @GetMapping("excel")
