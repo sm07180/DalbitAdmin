@@ -39,7 +39,7 @@ public class M_ListenRestController {
     @PostMapping("list")
     public String listenHistory_detail(HttpServletRequest request) {
         ListenListVo apiData = new ListenListVo();
-        apiData.setMemNo((String)request.getParameter("mem_no"));
+        apiData.setMemNo((String)request.getParameter("memNo"));
         List<ListenListVo> list = mListenService.getListenHistory_detail(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.청취기록보기성공, list));
     }
