@@ -351,6 +351,8 @@
 
         profImgDel = response.data.profileImage.url;    // 삭제 url 보내기 위함
         $("#image_section").prop("src", response.data.profileImage.url);
+
+        getHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
     }
 
     function edit(tmp){

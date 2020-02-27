@@ -1,87 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<!-- SHOW HIDE COLUMNS DATA TABLE -->
-<div class="widget widget-table">
-
-    <div class="widget-content">
-        <table id="list" class="table table-sorting table-hover table-bordered datatable">
-            <span>
-                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-            </span>
-            <thead>
-            <tr>
-                <th>NO</th>
-                <th>구분</th>
-                <th>아이템명</th>
-                <th>결제/환불 건 수</th>
-                <th>결제/환불 금액</th>
-                <th>결제/환불일시</th>
-                <th>결제 수단</th>
-                <th>결제/환불 상태</th>
-                <th>처리자ID</th>
-            </tr>
-            </thead>
-            <tbody id="tableBody">
-
-            </tbody>
-        </table>
+<style>
+</style>
+<div id="payDetail">
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <div class="col-lg-12 no-padding">
+                <div class="widget widget-table">
+                    <div class="widget-content">
+                        <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                            <thead id="tableTop_detail">
+                            </thead>
+                            <tbody id="tableBody_detail">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- END SHOW HIDE COLUMNS DATA TABLE -->
-
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/member/pay/list", "", fn_success, fn_fail);
     });
 
+    function getPayDetail(tmp) {     // 상세보기
+        console.log("tmp : " + tmp);
+        if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
+            tmp = tmp.split("_");
+            tmp = tmp[1];
+        }
+        var source = MemberDataTableSource[tmp];
+        var dtList_info_detail_data = function (data) {
+            data.memNo = memNo;
+        }
 
-    function fn_success(dst_id, response){
-        dalbitLog(response);
-
-        var template = $('#tmp_list').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
-
-
-
-        $("#tableBody").append(html);
-
-        $('#list').DataTable({
-            retrieve: true,
-            paging: true,
-            searching: true,
-            /*sDom: "RC"+
-            "t"+
-            "<'row'<'col-sm-6'i><'col-sm-6'p>>",
-            colVis: {
-                buttonText: 'Show / Hide Columns',
-                restore: "Restore",
-                showAll: "Show all"
-            },*/
-        });
-
+        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.createDataTable();
+        // dtList_info_detail.changeReload(null,dtList_info_detail_data,tmp,null);
+        dtList_info_detail.reload();
     }
 
-    function fn_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
+    function Pay(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
+        console.log('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
-</script>
 
-<script id="tmp_list" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{index @index}}</td>
-        <td>{{Sort}}</td>
-        <td>{{Item}}</td>
-        <td>{{PayRefundNum}}</td>
-        <td>{{PayRefundAmt}}</td>
-        <td>{{convertToDate PayRefundDate "YYYY.MM.DD"}}</td>
-        <td>{{PayBy}}</td>
-        <td>{{Status}}</td>
-        <td>{{Refund}}</td>
-    </tr>
-    {{/data}}
 </script>

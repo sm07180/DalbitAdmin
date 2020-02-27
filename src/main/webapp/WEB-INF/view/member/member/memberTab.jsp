@@ -26,16 +26,10 @@
                     <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail">문의내역</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="infoDetail">
-                        <jsp:include page="mamberInfo.jsp"></jsp:include>
-                    </div>
-                    <div class="tab-pane fade" id="broadDetail">
-                        <jsp:include page="../broadcast/list.jsp"></jsp:include>
-                    </div>
-                    <div class="tab-pane fade" id="listenDetail">
-                        <%--<jsp:include page="../listen/list.jsp"></jsp:include>--%>
-                    </div>
-                    <div class="tab-pane fade" id="payDetail"></div>
+                    <div class="tab-pane fade in active" id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>
+                    <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>
+                    <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>
+                    <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>
                     <div class="tab-pane fade" id="exchangeDetail"></div>
                     <div class="tab-pane fade" id="giftDetail"></div>
                     <div class="tab-pane fade" id="mystarDetail"></div>
@@ -53,27 +47,24 @@
 <!-- /#wrapper -->
 
 <script>
+    var tab_id;
+    var dtList_info_detail;
     $(document).ready(function() {
 
         <!-- 텝 시작 -->
         // $('#infoDetail').click(function() { getHistoryDetail(this.id); }); 		//   방송내역 텝
-        $('#tab_broadDetail').click(function() {
-            console.log(this.id);
-            getHistoryDetail(this.id);
-        }); 		//   방송내역 텝
-        $('#tab_listenDetail').click(function() { getHistoryDetail(this.id); });		//   청취내역 텝
-        $('#tab_payDetail').click(function() { getHistoryDetail(this.id); });		    //   결제/취소내역 텝
-        $('#tab_exchangeDetail').click(function() { getHistoryDetail(this.id); });	//   환전내역 텝
-        $('#tab_giftDetail').click(function() { getHistoryDetail(this.id); });		//   선물/교환내역 텝
-        $('#tab_mystarDetail').click(function() { getHistoryDetail(this.id); });		//   마이스타/팬 텝
-        $('#tab_noticeDetail').click(function() { getHistoryDetail(this.id); }); 		//   회원공지관리 텝
-        $('#tab_fanbordDetail').click(function() { getHistoryDetail(this.id); });     //   팬보드관리 텝
-        $('#tab_banDetail').click(function() { getHistoryDetail(this.id); });         //   금지어관리 텝
-        $('#tab_receiptDetail').click(function() { getHistoryDetail(this.id); });     //   신고내역 텝
-        $('#tab_questionDetail').click(function() { getHistoryDetail(this.id); });	//   문의내역 텝
+        $('#tab_broadDetail').click(function() { tab_id = this.id; getBroadDetail(this.id); }); 		//   방송내역 텝
+        $('#tab_listenDetail').click(function() { tab_id = this.id; getListenDetail(this.id); });		//   청취내역 텝
+        $('#tab_payDetail').click(function() { tab_id = this.id; getPayDetail(this.id); });		    //   결제/취소내역 텝
+        $('#tab_exchangeDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });	//   환전내역 텝
+        $('#tab_giftDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });		//   선물/교환내역 텝
+        $('#tab_mystarDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });		//   마이스타/팬 텝
+        $('#tab_noticeDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); }); 		//   회원공지관리 텝
+        $('#tab_fanbordDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });     //   팬보드관리 텝
+        $('#tab_banDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });         //   금지어관리 텝
+        $('#tab_receiptDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });     //   신고내역 텝
+        $('#tab_questionDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });	//   문의내역 텝
         <!-- 텝 끝 -->
     });
 
-    function edit(tmp){
-    }
 </script>
