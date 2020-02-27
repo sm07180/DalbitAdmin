@@ -33,7 +33,6 @@ var MemberDataTableSource = {
         ]
         , 'comments': '회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
     },
-
     'listenDetail': {
         'url': '/rest/member/listen/list'
         , 'columns': [
