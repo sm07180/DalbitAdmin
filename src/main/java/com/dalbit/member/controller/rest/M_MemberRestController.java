@@ -46,16 +46,7 @@ public class M_MemberRestController {
 
 
     @PostMapping("list")
-    public String list(HttpServletRequest request){
-        MemberListVo apiData = new MemberListVo();
-        apiData.setSearch(request.getParameter("search"));
-//        apiData.setDate(request.getParameter("date"));
-        apiData.setGubun(request.getParameter("gubun"));
-//        apiData.setCheckDate(request.getParameter("checkDate"));
-//        apiData.setStDate(request.getParameter("stDate").replace("-",""));
-//        apiData.setEdDate(request.getParameter("edDate").replace("-",""));
-
-
+    public String list(MemberListVo memberListVo, HttpServletRequest request){
         // =-------- Page Select Data ----------------
         int pageStart = Integer.parseInt(request.getParameter("start"));
         int pageCnt = Integer.parseInt(request.getParameter("length"));
@@ -65,16 +56,28 @@ public class M_MemberRestController {
         String nmKey = "columns["+orderColumnIdx+"][data]";
         String orderColumnName = request.getParameter(nmKey);
 
-        apiData.setPageStart(pageStart);
-        apiData.setPageCnt(pageCnt);
-        apiData.setOrderColumnName(orderColumnName);
-        apiData.setOrderColumnIdx(orderColumnIdx);
-        apiData.setOrderDir(orderDir);
+        memberListVo.setPageStart(pageStart);
+        memberListVo.setPageCnt(pageCnt);
+        memberListVo.setOrderColumnName(orderColumnName);
+        memberListVo.setOrderColumnIdx(orderColumnIdx);
+        memberListVo.setOrderDir(orderDir);
         // --------- Page Select Data ---------------=
 
-        List<MemberListVo> list = mMemberService.getMemberList(apiData);
+        List<MemberListVo> list = mMemberService.getMemberList(memberListVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
+    }
+
+    @PostMapping("level")
+    public String level(MemberInfoLevelListVo memberInfoLevelListVo){
+        String result = mMemberService.callMemberLevelList(memberInfoLevelListVo);
+        return result;
+    }
+
+    @PostMapping("info")
+    public String info(MemberInfoVo memberInfoVo){
+        String result = mMemberService.callMemberInfo(memberInfoVo);
+        return result;
     }
 
     @PostMapping("listExcel")
@@ -113,23 +116,6 @@ public class M_MemberRestController {
         model.addAttribute("workbookName", "회원목록");
         excelService.renderMergedOutputModel(model.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
-    }
-
-    @PostMapping("level")
-    public String level(HttpServletRequest request){
-        MemberInfoLevelListVo apiData = new MemberInfoLevelListVo();
-        apiData.setLevel((String) request.getParameter("level"));
-        String result = mMemberService.callMemberLevelList(apiData);
-        return result;
-    }
-
-    @PostMapping("info")
-    public String info(HttpServletRequest request){
-        MemberInfoVo apiData = new MemberInfoVo();
-        apiData.setMemLogin(DalbitUtil.isLogin() ? 1 : 0);
-        apiData.setMemNo((String) request.getParameter("memNo"));
-        String result = mMemberService.callMemberInfo(apiData);
-        return result;
     }
 
     @PostMapping("edit")

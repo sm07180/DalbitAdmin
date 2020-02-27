@@ -37,10 +37,7 @@ public class M_ListenRestController {
     GsonUtil gsonUtil;
 
     @PostMapping("list")
-    public String listenHistory_detail(HttpServletRequest request) {
-        ListenListVo apiData = new ListenListVo();
-        apiData.setMemNo((String)request.getParameter("memNo"));
-
+    public String listenHistory_detail(ListenListVo listenListVo, HttpServletRequest request) {
         // =-------- Page Select Data ----------------
         int pageStart = Integer.parseInt(request.getParameter("start"));
         int pageCnt = Integer.parseInt(request.getParameter("length"));
@@ -50,15 +47,14 @@ public class M_ListenRestController {
         String nmKey = "columns["+orderColumnIdx+"][data]";
         String orderColumnName = request.getParameter(nmKey);
 
-        apiData.setPageStart(pageStart);
-        apiData.setPageCnt(pageCnt);
-        apiData.setOrderColumnName(orderColumnName);
-        apiData.setOrderColumnIdx(orderColumnIdx);
-        apiData.setOrderDir(orderDir);
-
+        listenListVo.setPageStart(pageStart);
+        listenListVo.setPageCnt(pageCnt);
+        listenListVo.setOrderColumnName(orderColumnName);
+        listenListVo.setOrderColumnIdx(orderColumnIdx);
+        listenListVo.setOrderDir(orderDir);
         // --------- Page Select Data ---------------=
 
-        List<ListenListVo> list = mListenService.getListenHistory_detail(apiData);
+        List<ListenListVo> list = mListenService.getListenHistory_detail(listenListVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.청취기록보기성공, list));
     }
 
