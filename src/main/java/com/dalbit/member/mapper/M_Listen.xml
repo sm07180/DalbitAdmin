@@ -12,13 +12,18 @@
           , listen.listentime
           , listen.gift_ruby
           , member.mem_nick
+          , @RNUM := @RNUM + 1 as rowNum
         FROM tb_member_broadcast_basic basic
           , tb_member_broadcast_broadcasting broad
           , tb_member_broadcast_listening listen
           , tb_member_basic member
+          , (SELECT @RNUM := #{pageStart}) r
         WHERE basic.mem_no = broad.mem_no
           AND broad.room_no = listen.room_no
           AND listen.mem_no = member.mem_no
+
+      ORDER BY ${orderColumnName} ${orderDir}
+       limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="callListenHistory_detail" parameterType="com.dalbit.member.vo.ListenListVo" resultType="com.dalbit.member.vo.ListenListVo">

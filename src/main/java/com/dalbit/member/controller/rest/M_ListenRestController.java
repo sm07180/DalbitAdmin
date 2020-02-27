@@ -40,6 +40,23 @@ public class M_ListenRestController {
     public String listenHistory_detail(HttpServletRequest request) {
         ListenListVo apiData = new ListenListVo();
         apiData.setMemNo((String)request.getParameter("memNo"));
+
+        // =-------- Page Select Data ----------------
+        int pageStart = Integer.parseInt(request.getParameter("start"));
+        int pageCnt = Integer.parseInt(request.getParameter("length"));
+
+        int orderColumnIdx = Integer.parseInt(request.getParameter("order[0][column]"));
+        String orderDir = request.getParameter("order[0][dir]");
+        String nmKey = "columns["+orderColumnIdx+"][data]";
+        String orderColumnName = request.getParameter(nmKey);
+
+        apiData.setPageStart(pageStart);
+        apiData.setPageCnt(pageCnt);
+        apiData.setOrderColumnName(orderColumnName);
+        apiData.setOrderColumnIdx(orderColumnIdx);
+        apiData.setOrderDir(orderDir);
+        // --------- Page Select Data ---------------=
+
         List<ListenListVo> list = mListenService.getListenHistory_detail(apiData);
         return gsonUtil.toJson(new JsonOutputVo(Status.청취기록보기성공, list));
     }

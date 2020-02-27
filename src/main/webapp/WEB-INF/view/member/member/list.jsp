@@ -86,6 +86,7 @@
         <!-- 버튼 끝 -->
     });
 
+    var tab_id;
     init();
     function init(){
         var dtList_info_data = function ( data ) {

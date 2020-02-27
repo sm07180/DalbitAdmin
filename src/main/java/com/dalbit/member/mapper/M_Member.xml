@@ -27,7 +27,7 @@
                     AND p.mem_no LIKE CONCAT('%',#{search},'%')
                 </when>
                 <when test='gubun == "2"'>      <!-- 닉네임 -->
-                    AND p.mem_nick LIKE CONCAT('%',#{search},'%')
+                    AND b.mem_nick LIKE CONCAT('%',#{search},'%')
                 </when>
                 <when test='gubun == "3"'>      <!-- 폰번호 -->
                     AND p.mem_phone LIKE CONCAT('%',#{search},'%')
@@ -66,10 +66,10 @@
                     AND p.mem_no LIKE CONCAT('%',#{search},'%')
                 </when>
                 <when test='gubun == "2"'>      <!-- 닉네임 -->
-                    AND p.mem_nick LIKE CONCAT('%',#{search},'%')
+                    AND b.mem_nick LIKE CONCAT('%',#{search},'%')
                 </when>
                 <when test='gubun == "3"'>      <!-- 폰번호 -->
-                    AND p.mem_phone LIKE CONCAT('%',#{search},'%')
+                    AND b.mem_phone LIKE CONCAT('%',#{search},'%')
                 </when>
                 <otherwise>                      <!-- 이름 -->
                     AND p.mem_name LIKE CONCAT('%',#{search},'%')

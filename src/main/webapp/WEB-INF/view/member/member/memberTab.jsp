@@ -47,15 +47,13 @@
 <!-- /#wrapper -->
 
 <script>
-    var tab_id;
-    var dtList_info_detail;
     $(document).ready(function() {
 
         <!-- 텝 시작 -->
         // $('#infoDetail').click(function() { getHistoryDetail(this.id); }); 		//   방송내역 텝
-        $('#tab_broadDetail').click(function() { tab_id = this.id; getBroadDetail(this.id); }); 		//   방송내역 텝
-        $('#tab_listenDetail').click(function() { tab_id = this.id; getListenDetail(this.id); });		//   청취내역 텝
-        $('#tab_payDetail').click(function() { tab_id = this.id; getPayDetail(this.id); });		    //   결제/취소내역 텝
+        $('#tab_broadDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); }); 		//   방송내역 텝
+        $('#tab_listenDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });		//   청취내역 텝
+        $('#tab_payDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });		    //   결제/취소내역 텝
         $('#tab_exchangeDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });	//   환전내역 텝
         $('#tab_giftDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });		//   선물/교환내역 텝
         $('#tab_mystarDetail').click(function() { tab_id = this.id; getHistoryDetail(this.id); });		//   마이스타/팬 텝
