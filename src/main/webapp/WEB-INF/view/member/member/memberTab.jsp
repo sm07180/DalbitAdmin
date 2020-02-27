@@ -26,18 +26,18 @@
                     <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail">문의내역</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>
-                    <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>
-                    <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>
-                    <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>
-                    <div class="tab-pane fade" id="exchangeDetail"></div>
-                    <div class="tab-pane fade" id="giftDetail"></div>
-                    <div class="tab-pane fade" id="mystarDetail"></div>
-                    <div class="tab-pane fade" id="noticeDetail"></div>
-                    <div class="tab-pane fade" id="fanbordDetail"></div>
-                    <div class="tab-pane fade" id="banDetail"></div>
-                    <div class="tab-pane fade" id="receiptDetail"></div>
-                    <div class="tab-pane fade" id="questionDetail"></div>
+                    <div class="tab-pane fade in active" id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>     <!-- 상세 -->
+                    <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>       <!-- 방송 -->
+                    <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>         <!-- 청취 -->
+                    <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>               <!-- 결제 -->
+                    <div class="tab-pane fade" id="exchangeDetail"><jsp:include page="../exchange/list.jsp"/></div>     <!-- 환전 -->
+                    <div class="tab-pane fade" id="giftDetail"><jsp:include page="../gift/list.jsp"/></div>             <!-- 선물 -->
+                    <div class="tab-pane fade" id="mystarDetail"><jsp:include page="../myStar/list.jsp"/></div>         <!-- 마이스타 -->
+                    <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../notice/list.jsp"/></div>         <!-- 공지 -->
+                    <div class="tab-pane fade" id="fanbordDetail"><jsp:include page="../fanbord/list.jsp"/></div>       <!-- 팬보드 -->
+                    <div class="tab-pane fade" id="banDetail"><jsp:include page="../ban/list.jsp"/></div>               <!-- 금지어 -->
+                    <div class="tab-pane fade" id="receiptDetail"><jsp:include page="../receipt/list.jsp"/></div>       <!-- 신고 -->
+                    <div class="tab-pane fade" id="questionDetail"><jsp:include page="../question/list.jsp"/></div>     <!-- 문의 -->
                 </div>
             </div>
         </div>

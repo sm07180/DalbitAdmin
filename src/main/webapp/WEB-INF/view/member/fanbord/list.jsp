@@ -3,7 +3,7 @@
 
 <style>
 </style>
-<div id="giftDetail">
+<div id="fanbordDetail">
     <div id="wrapper">
         <div id="page-wrapper">
             <div class="col-lg-12 no-padding">
@@ -42,10 +42,10 @@
         dtList_info_detail.reload();
     }
 
-    function Gift(index){
+    function Fanbord(index){
         var data = dtList_info_detail.getDataRow(index);
         var roomNo = data.roomNo;
-        console.log('Gift~ roomNo : ' + roomNo);
+        console.log('Fanbord~ roomNo : ' + roomNo);
     }
 
 </script>
