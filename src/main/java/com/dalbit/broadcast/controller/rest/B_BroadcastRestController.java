@@ -42,35 +42,20 @@ public class B_BroadcastRestController {
      */
 
     @PostMapping("type")
-    public String level(HttpServletRequest request){
-        BroadcastTypeListVo apiData = new BroadcastTypeListVo();
-        apiData.setType((String) request.getParameter("type"));
-        String result = bBroadcastService.callBroadcastTypeList(apiData);
+    public String level(BroadcastTypeListVo broadcastTypeListVo){
+        String result = bBroadcastService.callBroadcastTypeList(broadcastTypeListVo);
         return result;
     }
 
     @PostMapping("list")
-    public String getBroadcastList(HttpServletRequest request){
-        BroadcastListVo apiData = new BroadcastListVo();
-        apiData.setSearch((String) request.getParameter("search"));
-        apiData.setDate((String) request.getParameter("date"));
-        apiData.setGubun(request.getParameter("gubun"));                // 검색조건
-        apiData.setType((String) request.getParameter("type"));         // subject_type
-        apiData.setValue(request.getParameter("value"));                // 방송주제
-        apiData.setCheckDate(request.getParameter("checkDate"));        // 기간선택 여부
-        apiData.setStDate(request.getParameter("stDate").replace("-",""));
-        apiData.setEdDate(request.getParameter("edDate").replace("-",""));
-
-        String result = bBroadcastService.callBroadcastList(apiData);
+    public String getBroadcastList(BroadcastListVo broadcastListVo){
+        String result = bBroadcastService.callBroadcastList(broadcastListVo);
         return result;
     }
 
     @PostMapping("info")
-    public String info(HttpServletRequest request){
-        BroadcastInfoVo apiData = new BroadcastInfoVo();
-        log.info("roomNo" + (String) request.getParameter("roomNo"));
-        apiData.setRoomNo((String) request.getParameter("roomNo"));
-        String result = bBroadcastService.callBroadcastInfo(apiData);
+    public String info(BroadcastInfoVo broadcastInfoVo){
+        String result = bBroadcastService.callBroadcastInfo(broadcastInfoVo);
         return result;
     }
 

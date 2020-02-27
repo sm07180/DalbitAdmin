@@ -32,4 +32,11 @@ public class BroadcastListVo {
     private int count_entry;                // 누적입장수
     private int count_good;                 // 좋아요 수
 
+    public void setStDate(String stDate){
+        this.stDate = stDate.replace("-","");
+    }
+
+    public void setEdDate(String edDate){
+        this.edDate = edDate.replace("-","");
+    }
 }
