@@ -302,12 +302,12 @@
                         </li>
                     </ul>
                 </li>
-                <li class="${fn:contains(url, '/member/member/list') ? 'active': ''}">
+                <li class="${fn:startsWith(url, '/member/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">회원검색</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/member/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/member/') ? 'display:block;': ''}">
                         <li>
                             <a href="/member/member/list">
                                 <i class="fa fa-search"></i><span class="text">회원검색</span>
@@ -318,9 +318,9 @@
                 <li class="${fn:startsWith(url, '/broadcast/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">생방송관리</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/broadcast/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/broadcast/') ? 'display:block;': ''}">
                         <li>
                             <a href="/broadcast/live/list">
                                 <i class="fa fa-microphone"></i><span class="text">생방송 리스트</span>
@@ -333,12 +333,12 @@
                         </li>
                     </ul>
                 </li>
-                <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                <li class="${fn:startsWith(url, '/cast/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">캐스트관리</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/cast/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/cast/') ? 'display:block;': ''}">
                         <li>
                             <a href="javascript://">
                                 <i class="fa fa-search"></i><span class="text">캐스트 검색</span>
@@ -346,20 +346,20 @@
                         </li>
                     </ul>
                 </li>
-                <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                <li class="${fn:startsWith(url, '/exchange/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">환전관리</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/exchange/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/exchange/') ? 'display:block;': ''}">
                         <li>
-                            <a href="javascript://">
-                                <i class="fa fa-search"></i><span class="text">환전 신청/처리</span>
+                            <a href="/exchange/exchange/list">
+                                <i class="fa fa-search"></i><span class="text">환전신청/처리</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://">
-                                <i class="fa fa-search"></i><span class="text">상세정보</span>
+                            <a href="/exchange/history/list">
+                                <i class="fa fa-search"></i><span class="text">환전상세정보</span>
                             </a>
                         </li>
                     </ul>
@@ -367,9 +367,9 @@
                 <li class="${fn:startsWith(url, '/customer/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">고객센터관리</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/customer/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/customer/') ? 'display:block;': ''}">
                         <li>
                             <a href="/customer/declaration/list">
                                 <i class="fa fa-dot-circle-o"></i><span class="text">신고센터</span>
@@ -400,9 +400,9 @@
                 <li class="${fn:startsWith(url, '/menu/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">메뉴별현황</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/menu/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/menu/') ? 'display:block;': ''}">
                         <li>
                             <a href="javascript://">
                                 <i class="fa fa-search"></i><span class="text">추천어</span>
@@ -433,9 +433,9 @@
                 <li class="${fn:startsWith(url, '/content/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">컨텐츠운영</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/content/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/content/') ? 'display:block;': ''}">
                         <li>
                             <a href="javascript://">
                                 <i class="fa fa-search"></i><span class="text">파트너 DJ 신청</span>
@@ -494,12 +494,12 @@
                     </ul>
                 </li>
 
-                <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
+                <li class="${fn:startsWith(url, '/administrate/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-question"></i><span class="text">어드민관리</span>
-                        <i class="toggle-icon fa fa-angle-left"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/administrate/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/administrate/') ? 'display:block;': ''}">
                         <li>
                             <a href="javascript://">
                                 <i class="fa fa-search"></i><span class="text">어드민 카테고리</span>
