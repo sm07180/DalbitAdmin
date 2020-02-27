@@ -103,6 +103,7 @@
         if(confirm('삭제하시겠습니까?')){
             var checked = $('#tableBody').find('._check:checked');
             checked.closest('tr').remove();
+            resetNo();
         }
     });
 
