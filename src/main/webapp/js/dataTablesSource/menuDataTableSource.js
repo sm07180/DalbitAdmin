@@ -2,7 +2,10 @@ var MenuDataTableSource = {
     'recommend': {
         'url': '/rest/menu/recommend/list'
         , 'columns': [
-            {'title': '순위', 'data': '' , 'defaultContent': ''},
+            {'title': '순위', 'data': '' , 'defaultContent': '', 'width' : '100px', 'render': function (data, type, row, meta) {
+                    return '<button type="button" class="btn btn-info _down"><i class="toggle-icon fa fa-angle-down"></i></button>' +
+                        '<button type="button" class="btn btn-danger _up" disabled=""><i class="toggle-icon fa fa-angle-up"></i></button>'
+                }},
             {'title': 'Main추천상태', 'data': '', 'defaultContent': ''},
             {'title': '레벨/등급', 'data': 'level', 'defaultContent': ''},
             {'title': '프로필이미지', 'data': 'image_profile', 'defaultContent': ''},
