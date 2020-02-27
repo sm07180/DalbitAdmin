@@ -47,7 +47,7 @@ var MemberDataTableSource = {
             {'title': '청취종료시간', 'data': 'endDate', 'width':'120px'},
             {'title': '청취진행시간', 'data': 'listenTime', 'width':'100px'},
             {'title': '좋아요', 'data': 'like', 'width':'80px'},
-            {'title': '보낸아이템수', 'data': 'item', 'width':'80px'},
+            {'title': '보낸아이템수', 'data': 'item', 'width':'80px', 'defaultContent': ''},
         ]
         , 'comments': '회원이 방송을 청취한 기록을 확인할 수 있습니다.'
     },
