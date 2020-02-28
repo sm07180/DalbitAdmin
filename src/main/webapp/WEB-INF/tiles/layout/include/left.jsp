@@ -15,7 +15,7 @@
 
                 <!--
                 <c:if test="${fn:startsWith(url, '/member/')}">
-                    <li class="${fn:contains(url, '/member/member/list') ? 'active': ''}">
+                    <li class="${fn:contains(url, '/member/main') ? 'active': ''}">
                         <a href="#" class="js-sub-menu-toggle">
                             <i class="fa fa-navicon"></i><span class="text">회원정보</span>
                             <i class="toggle-icon fa fa-angle-down"></i>

@@ -27,4 +27,7 @@ public class M_MemberController {
         return "member/member/list";
     }
 
+//    @GetMapping("memberPopup")
+//    public String memberPopup(Model model) { return "member/member/memberPopup"; }
+
 }

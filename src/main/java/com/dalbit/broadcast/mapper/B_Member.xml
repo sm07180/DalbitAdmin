@@ -9,9 +9,9 @@
                 ,a.mem_no as memNo
                 ,b.mem_nick as memNick
                 ,a.join_date as listenStDate
-                ,'' as menagerStDate
-                ,'' as menagerEdDate
-                ,(CASE  a.auth WHEN 1 THEN '매니저 임명 중' ELSE '임명하기' end) AS menager
+                ,'' as StDate
+                ,'' as EdDate
+                ,(CASE  a.auth WHEN 1 THEN '매니저 임명 중' ELSE '임명하기' end) AS manager
           from tb_broadcast_room_member a, tb_member_basic b
          where a.mem_no = b.mem_no
            and room_no=#{roomNo}

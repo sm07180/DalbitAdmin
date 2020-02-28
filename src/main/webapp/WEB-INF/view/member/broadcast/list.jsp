@@ -42,10 +42,34 @@
         dtList_info_detail.reload();
     }
 
-    function Broad(index){
+    function Broad(index) {
         var data = dtList_info_detail.getDataRow(index);
         var roomNo = data.roomNo;
         console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
+
+        var screenW = screen.availWidth;  // 스크린 가로사이즈
+        var screenH = screen.availHeight; // 스크린 세로사이즈
+        var popW = 1000; // 띄울창의 가로사이즈
+        var popH = 800; // 띄울창의 세로사이즈
+        var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
+        var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
+
+        // window.open('../member/list?roomNo=' + roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+
+        var myForm = document.frmData;
+        var url = "http://localhost:8081/member/member/memberPopup.jsp";
+        // var url = "http://localhost:8081/template2/index.html";
+        // var url = "https://www.naver.com";
+        // window.open('', '방송정보', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+        window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+        myForm.action = url;
+        myForm.method = "post";
+        myForm.target = "test";
+        myForm.submit();
     }
 
 </script>
+
+<form id="frmData" name="frmData" method="post">
+    <input name="roomNo" value="test" class="hidden">
+</form>

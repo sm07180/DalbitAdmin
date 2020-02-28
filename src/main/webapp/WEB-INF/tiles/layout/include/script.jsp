@@ -54,9 +54,9 @@
 <script src="/js/dataTablesSource/memberDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
 <script src="/js/dataTablesSource/dataTableSource.js"></script>
+<script src="/js/dataTablesSource/menuDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
-
-
+<script src="/js/dataTablePaging.js"></script>
 
 <script type="text/javascript">
     /*로그 찍기*/

@@ -189,4 +189,49 @@ var MemberDataTableSource = {
         ]
         , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
     },
+
+
+    'loginStatus': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '접속일시', 'data': '', 'defaultContent': ''},
+            {'title': 'OS환경', 'data': '', 'defaultContent': ''},
+            {'title': 'App Ver', 'data': '', 'defaultContent': ''},
+            {'title': 'Browser', 'data': '', 'defaultContent': ''},
+            {'title': 'Device', 'data': '', 'defaultContent': ''},
+            {'title': 'Mobile Device ID', 'data': '', 'defaultContent': ''},
+            {'title': 'Mobile AD ID', 'data': '', 'defaultContent': ''},
+            {'title': 'IP 주소', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+    },
+
+    'manager': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': '', 'defaultContent': ''},
+            {'title': 'User ID', 'data': '', 'defaultContent': ''},
+            {'title': 'User 닉네임', 'data': '', 'defaultContent': ''},
+            {'title': '청취 시작 일시', 'data': '', 'defaultContent': ''},
+            {'title': '청취 종료 일시', 'data': '', 'defaultContent': ''},
+            {'title': '임명 일시', 'data': '', 'defaultContent': ''},
+            {'title': '해제 일시', 'data': '', 'defaultContent': ''},
+            {'title': '임명상태', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+    },
+
+    'black': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': '', 'defaultContent': ''},
+            {'title': 'User ID', 'data': '', 'defaultContent': ''},
+            {'title': 'User 닉네임', 'data': '', 'defaultContent': ''},
+            {'title': '선물 건 수', 'data': '', 'defaultContent': ''},
+            {'title': '보유 결제금액', 'data': '', 'defaultContent': ''},
+            {'title': '등록 일시', 'data': '', 'defaultContent': ''},
+            {'title': '해제 일시', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+    },
 }
