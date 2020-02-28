@@ -36,7 +36,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
     this.initDataTableSource();
 
     this.dataTableSource = {
-        dom: '<"comments">rt<"footer-left"i><"footer-right">p',
+        dom: '<"top-left pull-left"<"comments">><"top-right pull-right">rt<"footer-left pull-left"i><"footer-right pull-right">p',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 5,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
