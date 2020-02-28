@@ -68,6 +68,10 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 return JSON.stringify( json ); // return JSON string
             }
         },
+        fnServerParams: function ( aoData ) {
+            dalbitLog("[fnServerParams]");
+            dalbitLog(aoData);
+        },
         fnPreDrawCallback: function(oSettings){
             dalbitLog("[fnPreDrawCallback]");
 
