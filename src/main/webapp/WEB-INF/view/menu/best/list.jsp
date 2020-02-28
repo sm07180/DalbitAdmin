@@ -27,10 +27,10 @@
                 <div class="row col-lg-12 form-inline">
 
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                        <li class="active">
+                        <li>
                             <a href="/menu/recommend/list"><i class="fa fa-home"></i> 추천DJ</a>
                         </li>
-                        <li>
+                        <li class="active" id="_bestTab">
                             <a href="/menu/best/list"><i class="fa fa-user"></i> 인기DJ</a>
                         </li>
                     </ul>
@@ -59,6 +59,12 @@
     $('#bt_search').on('click', function(){
         getSearch();
     });
+    $('#_recommendTab').on('click', function(){
+        getHistoryDetail(this.id);
+    });
+    $('#_bestTab').on('click',function(){
+        getHistoryDetail(this.id);
+    });
 
     var memNo = "";
     var dtList_info="";
@@ -70,7 +76,7 @@
             data.value = '01';
         };
 
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MenuDataTableSource.recommend);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MenuDataTableSource.best);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         // dtList_info.setEventClick(test01,0);
