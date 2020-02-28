@@ -14,8 +14,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("rest/menu/recommend")
-public class RecommendRestController {
+@RequestMapping("rest/menu/best")
+public class BestRestController {
 
     @Autowired
     GsonUtil gsonUtil;
@@ -27,7 +27,7 @@ public class RecommendRestController {
     public String list(){
 
         RecommendVo recommendVo = new RecommendVo();
-        recommendVo.setOrderColumnName("recommend");
+        recommendVo.setOrderColumnName("best");
         List<RecommendVo> recommendVoList = recommendService.getRecommendList(recommendVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, recommendVoList));
     }
