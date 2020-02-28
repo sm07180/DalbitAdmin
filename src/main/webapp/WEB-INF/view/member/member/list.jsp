@@ -1,6 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <style>
     .text_center{
         text-align: center;
@@ -19,54 +20,53 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-                <div class="row col-lg-12 form-inline">
-                    <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
-                        <label style="font-weight: bold;color: #000000;">회원 검색&nbsp;&nbsp;</label>
-                        <select class="form-control" name="selectGubun">
-                            <option value="9999" selected="selected">전체</option>
-                            <option value="1">User ID</option>
-                            <option value="2">User 닉네임</option>
-                            <option value="3">연락처</option>
-                            <option value="4">이름</option>
-                        </select>
+            <div class="row col-lg-12 form-inline">
+                <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
+                    <label style="font-weight: bold;color: #000000;">회원 검색&nbsp;&nbsp;</label>
+                    <select class="form-control" name="selectGubun">
+                        <option value="9999" selected="selected">전체</option>
+                        <option value="1">User ID</option>
+                        <option value="2">User 닉네임</option>
+                        <option value="3">연락처</option>
+                        <option value="4">이름</option>
+                    </select>
 
-                        <label><input type="text" class="form-control" id="txt_search"></label>
-                        <button type="submit" class="btn btn-default" id="bt_search">검색</button>
-                    </div>
+                    <label><input type="text" class="form-control" id="txt_search"></label>
+                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
                 </div>
-                <!-- DATA TABLE -->
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                                    <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="widget-content">
-                            <table id="list_info" class="table table-sorting table-hover table-bordered">
-                                <thead>
-                                </thead>
-                                <tbody id="tableBody">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- DATA TABLE END -->
-                <!-- TAB -->
-                <div class="no-padding">
-                    <jsp:include page="memberTab.jsp"></jsp:include>
-                </div>
-                <!-- TAB END -->
             </div>
+            <!-- DATA TABLE -->
+            <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-desktop"></i> 검색결과</h3>
+                        <div class="btn-group widget-header-toolbar">
+                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
+                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <table id="list_info" class="table table-sorting table-hover table-bordered">
+                            <thead>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- DATA TABLE END -->
+            <!-- TAB -->
+            <div class="no-padding">
+                <jsp:include page="memberTab.jsp"></jsp:include>
+            </div>
+            <!-- TAB END -->
         </div>
     </div>
 </div>
 
-<script src="../../../js/lib/jquery.table2excel.js"></script>
+<%--<script src="../../../js/lib/jquery.table2excel.js"></script>--%>
 
 <script>
     $(document).ready(function() {
@@ -86,7 +86,7 @@
         <!-- 버튼 끝 -->
     });
 
-    var tab_id;
+    var tab_id = "false";
     init();
     function init(){
         var dtList_info_data = function ( data ) {

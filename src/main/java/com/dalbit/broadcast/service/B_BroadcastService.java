@@ -65,7 +65,7 @@ public class B_BroadcastService {
 //        freezing;                    //얼리기여부
 //        forceExit;                   //방송강제종료
 //        infoEditNm;                  //최근정보수정처리자
-//        menagerCnt;                     // 메니저 수
+//        managerCnt;                     // 메니저 수
 //        guestCnt;                       // 게스트/게스트ID 수
 //        banCnt;                         // 등록 금지어 수
 

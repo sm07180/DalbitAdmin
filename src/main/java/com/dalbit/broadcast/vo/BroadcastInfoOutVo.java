@@ -62,7 +62,7 @@ public class BroadcastInfoOutVo {
         this.infoEditDate=target.getInfoEditDate();
         this.infoEditNm=target.getInfoEditNm();
         this.goodCnt=target.getGoodCnt();
-        this.manegerCnt=target.getMenagerCnt();
+        this.manegerCnt=target.getManagerCnt();
         this.giftCnt=target.getGiftCnt();
         this.guestNo=target.getGuestNo();
         this.guestId=target.getGuestId();

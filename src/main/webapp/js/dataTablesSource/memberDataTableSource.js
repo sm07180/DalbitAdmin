@@ -97,7 +97,7 @@ var MemberDataTableSource = {
             {'title': 'UserID', 'data': '', 'defaultContent': ''},
             {'title': 'User닉네임', 'data': '', 'defaultContent': ''},
         ]
-        , 'comments': '회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인 할 수 있습니다. 이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물'
+        , 'comments': '회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인 할 수 있습니다.<br>ㆍ이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물'
     },
 
     'mystarDetail': {
@@ -115,7 +115,7 @@ var MemberDataTableSource = {
             {'title': '선물 받은 건 수', 'data': 'regDate'},
             {'title': '선물 받은 금액', 'data': 'tmp3'}
         ]
-        , 'comments': 'MyStar : 내가 Fan으로 등록하거나, 방송 중 선물을 보낸 회원입니다. Fan: 타 회원이 Fan으로 등록하면 해당회원이 MyStar 가 됩니다.'
+        , 'comments': 'MyStar : 내가 Fan으로 등록하거나, 방송 중 선물을 보낸 회원입니다.<br>ㆍFan: 타 회원이 Fan으로 등록하면 해당회원이 MyStar 가 됩니다.'
     },
 
     'noticeDetail': {
@@ -188,5 +188,60 @@ var MemberDataTableSource = {
             {'title': '처리자', 'data': '', 'defaultContent': ''},
         ]
         , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+    },
+
+
+    'loginStatus': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '접속일시', 'data': '', 'defaultContent': ''},
+            {'title': 'OS환경', 'data': '', 'defaultContent': ''},
+            {'title': 'App Ver', 'data': '', 'defaultContent': ''},
+            {'title': 'Browser', 'data': '', 'defaultContent': ''},
+            {'title': 'Device', 'data': '', 'defaultContent': ''},
+            {'title': 'Mobile Device ID', 'data': '', 'defaultContent': ''},
+            {'title': 'Mobile AD ID', 'data': '', 'defaultContent': ''},
+            {'title': 'IP 주소', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+    },
+
+    'manager': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': '', 'defaultContent': ''},
+            {'title': 'User ID', 'data': '', 'defaultContent': ''},
+            {'title': 'User 닉네임', 'data': '', 'defaultContent': ''},
+            {'title': '청취 시작 일시', 'data': '', 'defaultContent': ''},
+            {'title': '청취 종료 일시', 'data': '', 'defaultContent': ''},
+            {'title': '임명 일시', 'data': '', 'defaultContent': ''},
+            {'title': '해제 일시', 'data': '', 'defaultContent': ''},
+            {'title': '임명상태', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '마이페이지 내 매니저 임명 변동사항을 확인 할 수 있습니다. <br>ㆍ매니저 권한은 최대 10명까지 가능합니다.'
+    },
+
+    'black': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': '', 'defaultContent': ''},
+            {'title': 'User ID', 'data': '', 'defaultContent': ''},
+            {'title': 'User 닉네임', 'data': '', 'defaultContent': ''},
+            {'title': '선물 건 수', 'data': '', 'defaultContent': ''},
+            {'title': '보유 결제금액', 'data': '', 'defaultContent': ''},
+            {'title': '등록 일시', 'data': '', 'defaultContent': ''},
+            {'title': '해제 일시', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '회원이 블랙리스트로 등록/해제한 내역을 확인 할 수 있습니다.'
+    },
+
+    'editHistory': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '정보 수정일시', 'data': '', 'defaultContent': ''},
+            {'title': '수정 처리 내역', 'data': '', 'defaultContent': ''},
+            {'title': '처리자명', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments': '회원 또는 운영자에 의해 정보가 수정된 일시를 확인 할 수 있습니다.'
     },
 }

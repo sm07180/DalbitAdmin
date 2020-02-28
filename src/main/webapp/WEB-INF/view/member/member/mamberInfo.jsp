@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -59,33 +58,18 @@
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>회원상태</label></div>
-                    <div class="col-md-9">
-                        <select id="cob_lisLevel" name="emailSelection" class="form-control">
-                            <option value="normal">일반청취자</option>
-                            <option value="best">베스트 청취자</option>
-                        </select>
-                    </div>
+                    <div class="col-md-3"><label id="lb_status"></label></div>
+                    <button type="button" id="bt_stop" class="btn-sm pull-right">사용정지</button>
+                    <button type="button" id="bt_ban" class="btn-sm pull-right">강제탈퇴</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>접속상태</label></div>
-                    <div class="col-md-9">
-                        <form id="login_radio">
-                            <label class="radio-inline"><input type="radio" name="radio_login" value="option1" checked="true">Login</label>
-                            <label class="radio-inline"><input type="radio" name="radio_login" value="option2">Logout</label>
-                        </form>
-                    </div>
+                    <div class="col-md-3"><label id="lb_loginStatus"></label></div>
+                    <button type="button" id="bt_loginStatus" class="btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>방송상태</label></div>
-                    <div class="col-md-6">
-                        <form id="live_radio">
-                            <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option1" checked="true">생방중</label>
-                            <label class="radio-inline"><input type="radio" name="radio_liveOn" value="option2">방송OFF</label>
-                        </form>
-                    </div>
-                    <div class="col-md-3">
-                        <button type="button" id="bt_liveSms" class="btn-sm pull-right">메시지발송</button>
-                    </div>
+                    <div class="col-md-3"><label id="lb_liveStatus"></label></div>
                 </div>
             </div>
         </div>
@@ -102,12 +86,12 @@
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>연락처</label></div>
                     <div class="col-md-7"><input type="text" class="form-control" id="txt_phon" style="width: 100%"></div>
-                    <div class="col-md-2"><button type="button" id="bt_phon" class="btn-sm pull-right">변경</button></div>
+                    <button type="button" id="bt_phon" class="btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>닉네임</label></div>
                     <div class="col-md-7"><input type="text" class="form-control" id="txt_nickName" style="width: 100%"></div>
-                    <div class="col-md-2"><button type="button" id="bt_resatNick" class="btn-sm pull-right">변경</button></div>
+                    <button type="button" id="bt_resatNick" class="btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>생년월일</label></div>
@@ -116,48 +100,38 @@
                             <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <button type="button" id="bt_birth" class="btn-sm pull-right">변경</button>
-                    </div>
+                    <button type="button" id="bt_birth" class="btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>나이</label></div>
                     <div class="col-md-2"><label id="lb_age"></label></div>
                     <div class="col-md-2 lb_style"><label>성별</label></div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
                         <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
-                        <button type="button" id="bt_gender" class="btn-sm pull-right">변경</button>
                     </div>
+                    <button type="button" id="bt_gender" class="btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>비밀번호</label></div>
                     <div class="col-md-6"><input type="password" class="form-control" id="txt_pass"value="1234" style="width: 100%"></div>
-                    <div class="col-md-3"><button type="button" id="bt_resatPass" class="btn-sm pull-right">초기화전송</button></div>
+                    <button type="button" id="bt_resatPass" class="btn-sm pull-right">비밀번호 초기화</button>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>청취상태</label></div>
-                    <div class="col-md-6">
-                        <form id="listen_radio">
-                            <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option1" checked="true">청취중</label>
-                            <label class="radio-inline"><input type="radio" name="radio_listenOn" value="option2">청취OFF</label>
-                        </form>
-                    </div>
-                    <div class="col-md-3">
-                        <button type="button" id="bt_listenSms" class="btn-sm pull-right">메시지발송</button>
-                    </div>
+                    <div class="col-md-9"><label id="lb_listenStatus"></label></div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>매니저정보</label></div>
-                    <div class="col-md-6"><label id="lb_menager"></label></div>
-                    <div class="col-md-3"><button type="button" id="bt_menager" class="btn-sm pull-right">자세히보기</button></div>
+                    <div class="col-md-6"><label id="lb_manager"></label></div>
+                    <button type="button" id="bt_manager" class="btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>블랙리스트</label></div>
                     <div class="col-md-6"><label id="lb_black"></label></div>
-                    <div class="col-md-3"><button type="button" id="bt_black" class="btn-sm pull-right">자세히보기</button></div>
+                    <button type="button" id="bt_black" class="btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>가입플랫폼</label></div>
@@ -181,15 +155,15 @@
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>운영자 메모</label></div>
-                    <div class="col-md-7"><textarea type="textarea" class="form-control" id="txt_msgWelcom" style="width: 100%"></textarea></div>
-                    <div class="col-md-2"><button type="button" id="bt_editDateHistory" class="btn-sm pull-right">변경</button></div>
+                    <div class="col-md-7"><textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 100%"></textarea></div>
+                    <button type="button" id="bt_adminMemo" class="btn-sm pull-right">변경</button>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
                     <div class="col-md-6"><label id="lb_editDate"></label></div>
-                    <div class="col-md-3"><button type="button" id="bt_edit" class="btn-sm pull-right">자세히보기</button></div>
+                    <button type="button" id="bt_editHistory" class="btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>최근 정보 수정 자</label></div>
@@ -197,19 +171,32 @@
                 </div>
             </div>
         </div>
+        <div class="widget-content" id="div_info_detail">
+            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
+            </ul>
+            <div class="tab-content" style="padding-top: 0px;">
+                <div class="tab-pane fade in active" id="detail_list">
+                    <div class="widget widget-table">
+                        <div class="widget-content">
+                            <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
+                                <thead id="tableTop_detail">
+                                </thead>
+                                <tbody id="tableBody_detail">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>     <!-- 자세히보기 -->
+            </div>
+        </div>
     </div>
 </div>
 <!-- /#page-wrapper -->
 
-<script src="../../../js/lib/jquery.table2excel.js"></script>
-
-<%--<!-- jQuery import -->--%>
-<%--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>--%>
-<%--<!-- jQuery Form Plugin 이용 -->--%>
-<%--<script src="js/jquery.form.min.js"></script>--%>
-
 <script>
     $(document).ready(function() {
+        $('#div_info_detail').hide();
         $('.input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -268,12 +255,38 @@
         });
 
         <!-- 버튼 -->
-        $('#bt_imgChg').click(function() {					//   사진변경
+        $('#bt_imgChg').click(function() {				 //사진변경
         });
-        $('#bt_resatPass').click(function() {				//   비밀번호초기화
+        $('#bt_stop').click(function() {                //사용정지
         });
-        $('#bt_phon').click(function() {				    //   인증번호전송
+        $('#bt_ban').click(function() {                 //강제탈퇴
         });
+        $('#bt_loginStatus').click(function() {         //접속상태
+            getInfoDetail(this.id);
+        });
+        $('#bt_phon').click(function() {                //휴대폰 번호 변경
+        });
+        $('#bt_resatNick').click(function() {           // 닉네임 변경
+        });
+        $('#bt_birth').click(function() {               //생일 변경
+        });
+        $('#bt_gender').click(function() {              //성별 변경
+        });
+        $('#bt_resatPass').click(function() {           //비밀번호 초기화
+        });
+        $('#bt_manager').click(function() {             //매니저 자세히
+            getInfoDetail(this.id);
+        });
+        $('#bt_black').click(function() {               //블랙리스트 자세히
+            getInfoDetail(this.id);
+        });
+        $('#bt_adminMemo').click(function() {           //운영자 메모 변경
+        });
+        $('#bt_editHistory').click(function() {           //운영자 메모 변경
+            getInfoDetail(this.id);
+        });
+
+
         <!-- 버튼 끝 -->
 
         $("#imgInput").change(function(){
@@ -298,6 +311,16 @@
     var obj = new Object();
     obj.level = "grade";
     getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
+
+
+    var source = MemberDataTableSource["loginStatus"];
+    var dtList_info_detail_data = function (data) {
+        data.memNo = memNo;
+    }
+    dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
+    dtList_info_detail.useCheckBox(false);
+    dtList_info_detail.useIndex(true);
+    dtList_info_detail.createDataTable();
 
     function fn_code_list_success(dst_id, response){
         // dalbitLog(response);
@@ -326,6 +349,7 @@
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
 
+        // profImgDel = "false";
         memNo = response.data.memNo;
         $("#lb_userId").html(response.data.memId);
         $("#txt_nickName").val(response.data.memNick);
@@ -352,7 +376,10 @@
         profImgDel = response.data.profileImage.url;    // 삭제 url 보내기 위함
         $("#image_section").prop("src", response.data.profileImage.url);
 
-        getHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
+        if(tab_id != "false"){
+            getHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
+        }
+        $('#div_info_detail').hide();
     }
 
     function edit(tmp){
@@ -364,19 +391,30 @@
         getAjaxData("edit", "/rest/member/member/edit",obj, fn_edit_success, fn_fail);
     }
 
-    function fn_file_upload(response){
-        var data = jQuery.parseJSON( response );
-        profileImage = data.data.url;         // 새로 선택된 파일의 url
-        $("#image_section").prop("src", data.data.url);
-    }
+    // function fn_file_upload(response){
+    //     var data = jQuery.parseJSON( response );
+    //     profileImage = data.data.url;         // 새로 선택된 파일의 url
+    //     $("#image_section").prop("src", data.data.url);
+    // }
+    //
+    // function imageUpdate(){
+    //     var formData = new FormData();
+    //     formData.append("tempFileURI",profileImage);
+    //     formData.append("deleteFileURI",profImgDel);
+    //     console.log("imageUpdate - profileImage : " + profileImage);
+    //     console.log("imageUpdate - profImgDel : " + profImgDel);
+    //     fileUpdate("https://devphoto2.dalbitcast.com/done",formData, fn_file_upload, fn_fail);
+    // }
 
-    function imageUpdate(){
-        var formData = new FormData();
-        formData.append("tempFileURI",profileImage);
-        formData.append("deleteFileURI",profImgDel);
-        console.log("imageUpdate - profileImage : " + profileImage);
-        console.log("imageUpdate - profImgDel : " + profImgDel);
-        fileUpdate("https://devphoto2.dalbitcast.com/done",formData, fn_file_upload, fn_fail);
+
+    function getInfoDetail(tmp) {     // 상세보기
+        $('#div_info_detail').show();
+        if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
+            tmp = tmp.split("_");
+            tmp = tmp[1];
+        }
+        var source = MemberDataTableSource[tmp];
+        dtList_info_detail.changeReload(null,null,source,null);
     }
 
     function fn_fail(data, textStatus, jqXHR){

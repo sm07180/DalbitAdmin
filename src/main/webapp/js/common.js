@@ -19,6 +19,30 @@ function getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc){
     });
 }
 
+/*파일 업로드 호출 모듈*/
+function fileUpdate(dst_url, dst_params, successFunc, errorFunc){
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: dst_url,
+        data: dst_params,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+    }).done(function(data) {
+        if (successFunc != null) successFunc(data);
+    }).fail(function(data, textStatus, jqXHR) {
+        try {
+            if (errorFunc != null) errorFunc(data, textStatus, jqXHR);
+        } catch (e) {
+            // function call fail skip
+            alert(e);
+            //showAlert('A', e);
+        }
+    });
+}
+
 /* Excell DownLoad 모듈*/
 function excelDownload(btn, url, data, successFunc, errorFunc){
     btn.button('loading');
@@ -112,4 +136,26 @@ function imagePopup(obj){
     var option = "width=" + (obj.width + 20) + ", height=" + (obj.height + 20) + ",fullscreen=yes";
 
     window.open(url, title, option);
+}
+
+function addComma(value){
+    var regExp = /\B(?=(\d{3})+(?!\d))/g
+
+    return value.toString().replace(regExp, ",");
+}
+
+function removeComma(value){
+    var regExp = /,/gi;
+
+    return value.toString().replace(regExp, "");
+}
+
+function convertToDate(date, format){
+    if(isEmpty(date)){
+        return "-";
+    }
+    if(isEmpty(format)){
+        format = "YYYY.MM.DD HH:MM:SS";
+    }
+    return moment(date).format(format);
 }

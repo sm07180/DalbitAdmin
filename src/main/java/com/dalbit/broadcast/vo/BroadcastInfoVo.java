@@ -30,7 +30,7 @@ public class BroadcastInfoVo {
     private String infoEditDate;                //최근정보수정일시
     private String infoEditNm;                  //최근정보수정처리자
     private int goodCnt;                        // 좋아요 수
-    private int menagerCnt;                     // 메니저 수
+    private int managerCnt;                     // 메니저 수
     private int giftCnt;                        // 받은 선물 수
     private int manegerCnt;                     // 메니저 수
     private String guestNo;                     // 게스트 번호

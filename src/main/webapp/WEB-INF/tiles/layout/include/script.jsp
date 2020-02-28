@@ -32,7 +32,14 @@
 <script src="/template2/assets/js/king-table.js"></script>
 <script src="/template2/assets/js/king-components.js"></script>
 <script src="/template2/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="/template2/assets/js/jquery-ui/jquery-ui-1.10.4.custom.js"></script>
 
+<!-- Editor -->
+<script src="/template2/assets/js/plugins/summernote/summernote.min.js"></script>
+<script src="/template2/assets/js/plugins/markdown/markdown.js"></script>
+<script src="/template2/assets/js/plugins/markdown/to-markdown.js"></script>
+<script src="/template2/assets/js/plugins/markdown/bootstrap-markdown.js"></script>
+<%--<script src="/template2/assets/js/king-elements.js"></script>--%>
 
 <!-- plugin -->
 <%--<script src="/js/lib/bootstrap-datepicker.min.js"></script>--%>
@@ -45,7 +52,8 @@
 <!-- dalbit -->
 <script src="/js/lib/jquery.fileDownload-v1.4.5.js"></script>
 <script src="/js/lib/handlebars-v4.7.2.min.js"></script>
-<script src="/js/lib/moment-v2.24.0.js"></script>
+<%--<script src="/js/lib/moment-v2.24.0.js"></script>--%>
+<script src="/template2/assets/js/plugins/moment/moment.js"></script>
 <script src="/js/common.js"></script>
 <script src="/js/helper.js"></script>
 
@@ -53,9 +61,10 @@
 <script src="/js/dataTablesSource/memberDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
 <script src="/js/dataTablesSource/dataTableSource.js"></script>
+<script src="/js/dataTablesSource/menuDataTableSource.js"></script>
+<script src="/js/dataTablesSource/content/pushDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
-
-
+<script src="/js/dataTablePaging.js"></script>
 
 <script type="text/javascript">
     /*로그 찍기*/
@@ -64,4 +73,6 @@
             console.log(data);
         }
     }
+
+    var IMAGE_SERVER_URL = '${cfn:getProperty("server.photo.url")}';
 </script>

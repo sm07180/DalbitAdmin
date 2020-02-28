@@ -68,6 +68,21 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 return JSON.stringify( json ); // return JSON string
             }
         },
+        fnServerParams: function ( aoData ) {
+            dalbitLog("[fnServerParams]");
+            dalbitLog(aoData);
+
+
+            aoData.pageStart = aoData.start;
+            aoData.pageCnt = aoData.length;
+
+            aoData.orderColumnIdx = aoData.order[0]["column"];
+            aoData.orderDir = aoData.order[0]["dir"];
+            aoData.orderColumnName = aoData.columns[aoData.orderColumnIdx]["data"];
+
+
+            dalbitLog(aoData);
+        },
         fnPreDrawCallback: function(oSettings){
             dalbitLog("[fnPreDrawCallback]");
 
@@ -127,7 +142,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 }
         }],
         columns : [
-            {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null},
+            {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null, "width": "20px"},
             {"title": "No.", "data": "rowNum", "width": "20px", "defaultContent": "-"},
         ],
         order: [[ 2, 'asc' ]]
@@ -174,6 +189,8 @@ function DalbitDataTable(dom, param, columnsInfo) {
             parent.empty();
             parent.append(this.dom);
         }
+
+        this.destroy();
     }
 
     // Create DataTable
@@ -193,12 +210,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 initFn();
             }
         };
-
-
-        if(!isEmpty(this.g_DataTable)){
-            console.log("isEmpty not ")
-            this.g_DataTable.destroy();
-        }
 
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
@@ -268,8 +279,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
     // DataTable Reload / Url, Data, Columns 초기화 후 Reload (기존 테이블 변경  시 사용)
     DalbitDataTable.prototype.changeReload = function (url, data, columnsInfo, initFn){
-        if(!isEmpty(this.g_DataTable)){this.dom.DataTable().destroy();}
-        this.dom.empty();
+        this.initDataTable();
 
         if(!isEmpty(url)) {
             this.dataTableSource.ajax.url = url;
@@ -316,8 +326,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
     }
 
     DalbitDataTable.prototype.destroy = function(){
-        if(!isEmpty(this.g_DataTable)){
+        if(this.g_DataTable != null){
             this.dom.DataTable().destroy();
+            this.g_DataTable = null
         }
     }
 

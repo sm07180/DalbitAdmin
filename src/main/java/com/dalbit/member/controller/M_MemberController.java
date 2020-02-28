@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -26,5 +27,8 @@ public class M_MemberController {
         log.info("회원정보입니다.");
         return "member/member/list";
     }
+
+    @GetMapping("memberPopup")
+    public String memberPopup(Model model) { return "member/member/popup/memberPopup"; }
 
 }

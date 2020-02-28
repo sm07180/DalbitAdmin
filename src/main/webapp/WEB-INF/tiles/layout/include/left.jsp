@@ -15,7 +15,7 @@
 
                 <!--
                 <c:if test="${fn:startsWith(url, '/member/')}">
-                    <li class="${fn:contains(url, '/member/member/list') ? 'active': ''}">
+                    <li class="${fn:contains(url, '/member/main') ? 'active': ''}">
                         <a href="#" class="js-sub-menu-toggle">
                             <i class="fa fa-navicon"></i><span class="text">회원정보</span>
                             <i class="toggle-icon fa fa-angle-down"></i>
@@ -472,7 +472,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://">
+                            <a href="/content/push/list">
                                 <i class="fa fa-search"></i><span class="text">푸시 메시지</span>
                             </a>
                         </li>
@@ -552,6 +552,11 @@
                         <li class="${fn:contains(url, '/sample/chart') ? 'active': ''}">
                             <a href="/sample/chart">
                                 <i class="fa fa-search"></i><span class="text">차트</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/layer') ? 'active': ''}">
+                            <a href="/sample/layer">
+                                <i class="fa fa-search"></i><span class="text">레이어</span>
                             </a>
                         </li>
                     </ul>

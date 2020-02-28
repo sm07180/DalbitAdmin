@@ -401,8 +401,6 @@
 </div>
 <!-- /#wrapper -->
 
-<script src="../../../js/lib/jquery.table2excel.js"></script>
-<%--<script src="../../../js/jquery-1.12.4.js"></script>--%>
 
 <script>
     $(document).ready(function() {

@@ -27,11 +27,11 @@
                 <div class="row col-lg-12 form-inline">
 
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                        <li class="active" id="_recommendTab">
-                            <a href="javascript://" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-home"></i> 추천DJ</a>
+                        <li class="active">
+                            <a href="/menu/recommend/list"><i class="fa fa-home"></i> 추천DJ</a>
                         </li>
-                        <li class="" id="_bestTab">
-                            <a href="javascript://" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-user"></i> 인기DJ</a>
+                        <li>
+                            <a href="/menu/best/list"><i class="fa fa-user"></i> 인기DJ</a>
                         </li>
                     </ul>
                     <div class="widget widget-table">
@@ -59,12 +59,6 @@
     $('#bt_search').on('click', function(){
         getSearch();
     });
-    $('#_recommendTab').on('click', function(){
-        getHistoryDetail(this.id);
-    });
-    $('#_bestTab').on('click',function(){
-        getHistoryDetail(this.id);
-    });
 
     var memNo = "";
     var dtList_info="";
@@ -91,5 +85,42 @@
         tmp_gubun = $("select[name='selectGubun']").val();
 
         dtList_info.reload();
+
+        $('tbody').sortable({
+            stop: function (e, ui) {
+                resetNo();
+                btnSet();
+            }
+        });
+    }
+
+    $(document).on('click', '._down', function(){
+        var targetTr = $(this).closest('tr');
+        var nextTr = targetTr.next();
+        targetTr.insertAfter(nextTr);
+        resetNo();
+        btnSet();
+    });
+
+    $(document).on('click', '._up', function(){
+        var targetTr = $(this).closest('tr');
+        var prevTr = targetTr.prev();
+        targetTr.insertBefore(prevTr);
+        resetNo();
+        btnSet();
+    });
+
+    function resetNo(){
+        $('tbody tr').each(function(index){
+            $(this).find('td:first').html(index + 1);
+        });
+    }
+
+    function btnSet(){
+        $('.btn._down').prop('disabled', false);
+        $('.btn._down:last').prop('disabled', true);
+
+        $('.btn._up').prop('disabled', false);
+        $('.btn._up:first').prop('disabled', true);
     }
 </script>

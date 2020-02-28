@@ -226,8 +226,8 @@
                         <div class="col-md-6">
                             <label class="col-md-3">매니저</label>
                             <div class="col-md-9">
-                                <label id="lb_menagerCnt">총0건</label>
-                                <button type="button" id="bt_menagerHistory" class="btn-xs pull-right">세부내역</button>
+                                <label id="lb_managerCnt">총0건</label>
+                                <button type="button" id="bt_managerHistory" class="btn-xs pull-right">세부내역</button>
                             </div>
                         </div>
                     </div>
@@ -402,8 +402,8 @@
         $('#bt_likeHistory').click(function() {			//   받은 좋아요
             getHistoryDetail("likeHistory","받은 좋아요 정보","ㆍ방송 중인 방송방에서 좋아요를 보낸 회원과 보낸수, 부스터 사용 수 를 확인할 수 있습니다.");
         });
-        $('#bt_menagerHistory').click(function() {				//   매니저
-            getHistoryDetail("menagerHistory","매니저 정보","ㆍ방송을 진행하는 DJ가 등록한 매니저를 확인하고, 관리할 수 있습니다.");
+        $('#bt_managerHistory').click(function() {				//   매니저
+            getHistoryDetail("managerHistory","매니저 정보","ㆍ방송을 진행하는 DJ가 등록한 매니저를 확인하고, 관리할 수 있습니다.");
         });
         $('#bt_giftHistory').click(function() {				//   받은선물
             getHistoryDetail("giftHistory","선물 정보","ㆍ방송 중 방송방 내에서 보내고 받은 선물 내역을 확인할 수 있습니다.");
@@ -491,7 +491,7 @@
         $("#lb_editDate").html(response.data.infoEditDate);
         $("#lb_editUser").html(response.data.infoEditNm);
         $("#lb_likeCnt").html("총"+response.data.goodCnt+"건");
-        $("#lb_menagerCnt").html("총"+response.data.menagerCnt+"건");
+        $("#lb_managerCnt").html("총"+response.data.managerCnt+"건");
         $("#lb_giftCnt").html("총"+response.data.giftCnt+"건");
         $("#lb_guestCnt").html("총"+response.data.guestCnt+"건");
         $("#lb_storyCnt").html("총"+response.data.contentsCnt+"건");
@@ -557,7 +557,7 @@
                     {columnNm: "부스터 보낸 수"},
                     {columnNm: "적용완료 일시"},
                 ]};
-        }else if (id == "menagerHistory") {
+        }else if (id == "managerHistory") {
             var data = {header: [
                     {columnNm: "No"},
                     {columnNm: "구분"},
@@ -638,8 +638,8 @@
             getAjaxData(id, "/rest/broadcast/edithistory/list", obj, fn_success_detail, fn_fail);
         }else if (id == "likeHistory") {
             getAjaxData(id, "/rest/broadcast/like/list", obj, fn_success_detail, fn_fail);
-        }else if (id == "menagerHistory") {
-            getAjaxData(id, "/rest/broadcast/menager/list", obj, fn_success_detail, fn_fail);
+        }else if (id == "managerHistory") {
+            getAjaxData(id, "/rest/broadcast/manager/list", obj, fn_success_detail, fn_fail);
         }else if (id == "giftHistory") {
             getAjaxData(id, "/rest/broadcast/gift/list", obj, fn_success_detail, fn_fail);
         }else if (id == "guestHistory") {
@@ -663,8 +663,8 @@
             template = $('#editDate_detail').html();
         }else if (dst_id == "likeHistory") {
             template = $('#likeHistory_detail').html();
-        }else if (dst_id == "menagerHistory") {
-            template = $('#menagerHistory_detail').html();
+        }else if (dst_id == "managerHistory") {
+            template = $('#managerHistory_detail').html();
         }else if (dst_id == "giftHistory") {
             template = $('#giftHistory_detail').html();
         }else if (dst_id == "guestHistory") {
@@ -721,9 +721,9 @@
         <td>{{memId}}</td>
         <td>{{memNick}}</td>
         <td>{{listenStDate}}</td>
-        <td>{{menagerStDate}}</td>
-        <td>{{menagerEdDate}}</td>
-        <td><a a href="avascript://" class="btn btn-xs" id="bt_listenerHistory_detail" aria-expanded="false" >{{menager}}</a></td>
+        <td>{{managerStDate}}</td>
+        <td>{{managerEdDate}}</td>
+        <td><a a href="avascript://" class="btn btn-xs" id="bt_listenerHistory_detail" aria-expanded="false" >{{manager}}</a></td>
     </tr>
     {{/data}}
 </script>

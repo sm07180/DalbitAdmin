@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dalbit.menu.dao.MenuDao" >
+<mapper namespace="com.dalbit.menu.dao.RecommendDao" >
 
     <select id="getRecommendList" parameterType="com.dalbit.menu.vo.RecommendVo" resultType="com.dalbit.menu.vo.RecommendVo">
         /* Menu.xml - getRecommendList */
@@ -15,9 +15,9 @@
                       , wallet.gold
                       , count(broad.idx)                                                   broad_cnt
                       , ifnull(sum(send_item.item_cnt), 0)                                 item_cnt
-                      , round(ifnull(sum(receive_item.item_cnt), 0) / count(broad.idx), 2) receive_cnt
-                      , min(start_date)                                                    first_broad_date
-                      , max(start_date)                                                    last_broad_date
+                      , round(ifnull(sum(receive_item.item_cnt), 0) / count(broad.idx), 2) receive_average_cnt
+                      , date_format(min(start_date), '%Y%m%d%H%i%s')                       first_broad_date
+                      , date_format(max(start_date), '%Y%m%d%H%i%s')                       last_broad_date
                  from tb_member_basic basic
                           inner join tb_member_profile profile on basic.mem_no = profile.mem_no
                           inner join tb_member_level level on basic.mem_no = level.mem_no
@@ -28,9 +28,14 @@
                           left outer join tb_member_broadcast_item receive_item on basic.mem_no = receive_item.mem_no
                  where first_broad.start_date is not null
                  group by basic.mem_no
-                 order by broad_cnt desc
-             ) a
-             , (SELECT @RNUM := 0) r
+                    <if test='orderColumnName == "recommend"'>
+                        order by broad_cnt desc, first_broad_date desc, receive_average_cnt desc
+                    </if>
+                    <if test='orderColumnName == "best"'>
+                        order by receive_average_cnt desc, broad_cnt desc, first_broad_date desc
+                    </if>
+            ) a
+            , (SELECT @RNUM := 0) r
     </select>
 
 </mapper>

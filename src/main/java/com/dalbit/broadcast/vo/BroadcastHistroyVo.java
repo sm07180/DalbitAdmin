@@ -18,9 +18,9 @@ public class BroadcastHistroyVo {
     private String memNo;
     private String memNick;
     private String listenStDate;
-    private String menagerStDate;
-    private String menagerEdDate;
-    private String menager;
+    private String managerStDate;
+    private String managerEdDate;
+    private String manager;
     private String writeDate;
     private String contents;
 
