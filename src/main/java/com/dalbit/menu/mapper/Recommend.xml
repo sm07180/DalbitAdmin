@@ -16,8 +16,8 @@
                       , count(broad.idx)                                                   broad_cnt
                       , ifnull(sum(send_item.item_cnt), 0)                                 item_cnt
                       , round(ifnull(sum(receive_item.item_cnt), 0) / count(broad.idx), 2) receive_average_cnt
-                      , min(start_date)                                                    first_broad_date
-                      , max(start_date)                                                    last_broad_date
+                      , date_format(min(start_date), '%Y%m%d%H%i%s')                       first_broad_date
+                      , date_format(max(start_date), '%Y%m%d%H%i%s')                       last_broad_date
                  from tb_member_basic basic
                           inner join tb_member_profile profile on basic.mem_no = profile.mem_no
                           inner join tb_member_level level on basic.mem_no = level.mem_no

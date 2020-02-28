@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -164,7 +163,7 @@
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
                     <div class="col-md-6"><label id="lb_editDate"></label></div>
-                    <button type="button" id="bt_edit" class="btn-sm pull-right">자세히</button>
+                    <button type="button" id="bt_editHistory" class="btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>최근 정보 수정 자</label></div>
@@ -194,13 +193,6 @@
     </div>
 </div>
 <!-- /#page-wrapper -->
-
-<script src="../../../js/lib/jquery.table2excel.js"></script>
-
-<%--<!-- jQuery import -->--%>
-<%--<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>--%>
-<%--<!-- jQuery Form Plugin 이용 -->--%>
-<%--<script src="js/jquery.form.min.js"></script>--%>
 
 <script>
     $(document).ready(function() {
@@ -290,6 +282,11 @@
         });
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
         });
+        $('#bt_editHistory').click(function() {           //운영자 메모 변경
+            getInfoDetail(this.id);
+        });
+
+
         <!-- 버튼 끝 -->
 
         $("#imgInput").change(function(){
@@ -416,14 +413,8 @@
             tmp = tmp.split("_");
             tmp = tmp[1];
         }
-
-        console.log("tmp : " + tmp);
         var source = MemberDataTableSource[tmp];
-        console.log(source);
-        console.log(dtList_info_detail.dom.html());
-
         dtList_info_detail.changeReload(null,null,source,null);
-        // dtList_info_detail.reload();
     }
 
     function fn_fail(data, textStatus, jqXHR){
