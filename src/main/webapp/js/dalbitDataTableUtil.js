@@ -178,6 +178,8 @@ function DalbitDataTable(dom, param, columnsInfo) {
             parent.empty();
             parent.append(this.dom);
         }
+
+        this.destroy();
     }
 
     // Create DataTable
@@ -197,12 +199,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 initFn();
             }
         };
-
-
-        if(!isEmpty(this.g_DataTable)){
-            console.log("isEmpty not ")
-            this.g_DataTable.destroy();
-        }
 
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
@@ -272,8 +268,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
     // DataTable Reload / Url, Data, Columns 초기화 후 Reload (기존 테이블 변경  시 사용)
     DalbitDataTable.prototype.changeReload = function (url, data, columnsInfo, initFn){
-        if(!isEmpty(this.g_DataTable)){this.dom.DataTable().destroy();}
-        this.dom.empty();
+        this.initDataTable();
 
         if(!isEmpty(url)) {
             this.dataTableSource.ajax.url = url;
@@ -320,8 +315,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
     }
 
     DalbitDataTable.prototype.destroy = function(){
-        if(!isEmpty(this.g_DataTable)){
+        if(this.g_DataTable != null){
             this.dom.DataTable().destroy();
+            this.g_DataTable = null
         }
     }
 
