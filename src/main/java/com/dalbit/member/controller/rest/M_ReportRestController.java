@@ -37,10 +37,8 @@ public class M_ReportRestController {
      */
 
     @PostMapping("list")
-    public String list(HttpServletRequest request) {
-        ReportListVo apiData = new ReportListVo();
-        apiData.setMemNo((String) request.getParameter("memNo"));
-        List<ReportListVo> list = mReportService.getReportList(apiData);
+    public String list(ReportListVo reportListVo) {
+        List<ReportListVo> list = mReportService.getReportList(reportListVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, list));
     }
 

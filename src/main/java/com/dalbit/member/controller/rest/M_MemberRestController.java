@@ -46,25 +46,8 @@ public class M_MemberRestController {
 
 
     @PostMapping("list")
-    public String list(MemberListVo memberListVo, HttpServletRequest request){
-        // =-------- Page Select Data ----------------
-        int pageStart = Integer.parseInt(request.getParameter("start"));
-        int pageCnt = Integer.parseInt(request.getParameter("length"));
-
-        int orderColumnIdx = Integer.parseInt(request.getParameter("order[0][column]"));
-        String orderDir = request.getParameter("order[0][dir]");
-        String nmKey = "columns["+orderColumnIdx+"][data]";
-        String orderColumnName = request.getParameter(nmKey);
-
-        memberListVo.setPageStart(pageStart);
-        memberListVo.setPageCnt(pageCnt);
-        memberListVo.setOrderColumnName(orderColumnName);
-        memberListVo.setOrderColumnIdx(orderColumnIdx);
-        memberListVo.setOrderDir(orderDir);
-        // --------- Page Select Data ---------------=
-
+    public String list(MemberListVo memberListVo){
         List<MemberListVo> list = mMemberService.getMemberList(memberListVo);
-
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
 

@@ -20,7 +20,7 @@
     $(document).ready(function() {
     });
 
-    function getHistoryDetail(tmp) {     // 상세보기
+    function getMemberHistoryDetail(tmp) {     // 상세보기
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.memNo = memNo;

@@ -350,34 +350,33 @@
         dalbitLog(response);
 
         // profImgDel = "false";
-        memNo = response.data.memNo;
-        $("#lb_userId").html(response.data.memId);
-        $("#txt_nickName").val(response.data.memNick);
-        $("#txt_name").val(response.data.memName);
-        $("#txt_phon").val(response.data.memPhone);
-        $("#txt_eMail").val(response.data.memEmail);
-        // $("#txt_pass").val(response.data.memPasswd);
-        $("#cob_djLevel").val(response.data.grade);
-        $("#cob_userLevel").val(response.data.level);
-        $("#lb_broadCnt").html("총" + response.data.broadcastingCnt + "건");
-        $("#lb_listenCnt").html("총" + response.data.listeningCnt + "건");
-        $("#lb_joinDate").html(response.data.memJoinDate);
-        $("#lb_editDate").html(response.data.lastUpdDate);
-        $("#lb_myStarCnt").html("총" + response.data.starCnt + "건");
-        $("#lb_myFanCnt").html("총" + response.data.fanCnt + "건");
-        $("#lb_broadNoticeCnt").html("총" + response.data.noticeCnt + "건");
-        $( "#txt_birth" ).datepicker( "setDate", response.data.birthYear + "-" + response.data.birthMonth + "-" + response.data.birthDay);
-        var age = Number(moment().format("YYYY")) + 1 - Number( response.data.birthYear);
+        memNo = response.data[0].memNo;
+        $("#lb_userId").html(response.data[0].memId);
+        $("#txt_nickName").val(response.data[0].memNick);
+        $("#txt_name").val(response.data[0].memName);
+        $("#txt_phon").val(response.data[0].memPhone);
+        $("#txt_pass").val(response.data[0].memPasswd);
+        $("#cob_djLevel").val(response.data[0].grade);
+        $("#cob_userLevel").val(response.data[0].level);
+        $("#lb_broadCnt").html("총" + response.data[0].broadcastingCnt + "건");
+        $("#lb_listenCnt").html("총" + response.data[0].listeningCnt + "건");
+        $("#lb_joinDate").html(response.data[0].memJoinDate);
+        $("#lb_editDate").html(response.data[0].lastUpdDate);
+        $("#lb_myStarCnt").html("총" + response.data[0].starCnt + "건");
+        $("#lb_myFanCnt").html("총" + response.data[0].fanCnt + "건");
+        $("#lb_broadNoticeCnt").html("총" + response.data[0].noticeCnt + "건");
+        $( "#txt_birth" ).datepicker( "setDate", response.data[0].birthYear + "-" + response.data[0].birthMonth + "-" + response.data[0].birthDay);
+        var age = Number(moment().format("YYYY")) + 1 - Number( response.data[0].birthYear);
         $("#lb_age").html(age + "세");
-        $("input[name=radio_gender][value=" + response.data.memSex + "]").prop("checked", true);
+        $("input[name=radio_gender][value=" + response.data[0].memSex + "]").prop("checked", true);
 
-        $("#lb_myReportCnt").html("총" + response.data.reportCnt + "건" + "/" + "총" + response.data.reportMemCnt + "건");
+        $("#lb_myReportCnt").html("총" + response.data[0].reportCnt + "건" + "/" + "총" + response.data[0].reportMemCnt + "건");
 
-        profImgDel = response.data.profileImage.url;    // 삭제 url 보내기 위함
-        $("#image_section").prop("src", response.data.profileImage.url);
+        profImgDel = IMAGE_SERVER_URL + response.data[0].profileImage;    // 삭제 url 보내기 위함
+        $("#image_section").prop("src", profImgDel);
 
         if(tab_id != "false"){
-            getHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
+            getMemberHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
         }
         $('#div_info_detail').hide();
     }

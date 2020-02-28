@@ -1,9 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    String memNo = request.getParameter("memNo");
-%>
 <style>
 </style>
 
@@ -57,6 +54,6 @@
             tmp = tmp[1];
         }
         tab_id = tmp;
-        getHistoryDetail(tmp);
+        getMemberHistoryDetail(tmp);
     }
 </script>

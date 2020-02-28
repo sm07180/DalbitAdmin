@@ -29,10 +29,8 @@ public class M_FanRestController {
     GsonUtil gsonUtil;
 
     @PostMapping("list")
-    public String list(HttpServletRequest request) {
-        FanListVo apiData = new FanListVo();
-        apiData.setMemNo((String) request.getParameter("memNo"));
-        List<FanListVo> list = mFanService.getFanList(apiData);
+    public String list(FanListVo fanListVo) {
+        List<FanListVo> list = mFanService.getFanList(fanListVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, list));
     }
 }

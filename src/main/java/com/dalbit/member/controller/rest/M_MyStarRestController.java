@@ -28,10 +28,8 @@ public class M_MyStarRestController {
     GsonUtil gsonUtil;
 
     @PostMapping("list")
-    public String list(HttpServletRequest request) {
-        MyStarListVo apiData = new MyStarListVo();
-        apiData.setMemNo((String) request.getParameter("memNo"));
-        List<MyStarListVo> list = mMyStarService.getMyStarList(apiData);
+    public String list(MyStarListVo myStarListVo) {
+        List<MyStarListVo> list = mMyStarService.getMyStarList(myStarListVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, list));
     }
 }
