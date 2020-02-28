@@ -32,7 +32,7 @@
 <script src="/template2/assets/js/king-table.js"></script>
 <script src="/template2/assets/js/king-components.js"></script>
 <script src="/template2/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-<script src="/template2/assets/js/jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>
+<%--<script src="/template2/assets/js/jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>--%>
 
 
 <!-- plugin -->

@@ -18,7 +18,6 @@
 <!--[if lte IE 9]>
 <link href="/template2/assets/css/main-ie.css" rel="stylesheet" type="text/css"/>
 <link href="/template2/assets/css/main-ie-part2.css" rel="stylesheet" type="text/css"/>
-<link href="/css/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <![endif]-->
 
 <!-- CSS for demo style switcher. you can remove this -->
