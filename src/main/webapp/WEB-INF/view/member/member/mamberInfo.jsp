@@ -411,15 +411,19 @@
 
 
     function getInfoDetail(tmp) {     // 상세보기
-        console.log("tmp : " + tmp);
         $('#div_info_detail').show();
         if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
             tmp = tmp.split("_");
             tmp = tmp[1];
         }
 
-        dtList_info_detail.changeReload(null,null,tmp,null);
-        dtList_info_detail.reload();
+        console.log("tmp : " + tmp);
+        var source = MemberDataTableSource[tmp];
+        console.log(source);
+        console.log(dtList_info_detail.dom.html());
+
+        dtList_info_detail.changeReload(null,null,source,null);
+        // dtList_info_detail.reload();
     }
 
     function fn_fail(data, textStatus, jqXHR){
