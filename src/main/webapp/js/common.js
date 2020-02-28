@@ -137,3 +137,25 @@ function imagePopup(obj){
 
     window.open(url, title, option);
 }
+
+function addComma(value){
+    var regExp = /\B(?=(\d{3})+(?!\d))/g
+
+    return value.toString().replace(regExp, ",");
+}
+
+function removeComma(value){
+    var regExp = /,/gi;
+
+    return value.toString().replace(regExp, "");
+}
+
+function convertToDate(date, format){
+    if(isEmpty(date)){
+        return "-";
+    }
+    if(isEmpty(format)){
+        format = "YYYY.MM.DD HH:MM:SS";
+    }
+    return moment(date).format(format);
+}

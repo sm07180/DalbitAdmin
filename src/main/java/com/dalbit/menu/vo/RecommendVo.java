@@ -19,6 +19,6 @@ public class RecommendVo extends PagingVo {
     private int broad_cnt;
     private int item_cnt;
     private double receive_average_cnt;
-    private Date first_broad_date;
-    private Date last_broad_date;
+    private long first_broad_date;
+    private long last_broad_date;
 }

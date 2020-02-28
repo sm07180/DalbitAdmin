@@ -4,9 +4,7 @@
  * 숫자 콤마 추가
  */
 Handlebars.registerHelper("addComma", function (value) {
-    var regExp = /\B(?=(\d{3})+(?!\d))/g
-
-    return value.toString().replace(regExp, ",");
+    return addComma(value);
 })
 
 
@@ -15,9 +13,7 @@ Handlebars.registerHelper("addComma", function (value) {
  * 숫자 콤마 제거
  */
 Handlebars.registerHelper("removeComma", function (value) {
-    var regExp = /,/gi;
-
-    return value.toString().replace(regExp, "");
+    return removeComma(value);
 })
 
 
