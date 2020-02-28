@@ -554,6 +554,11 @@
                                 <i class="fa fa-search"></i><span class="text">차트</span>
                             </a>
                         </li>
+                        <li class="${fn:contains(url, '/sample/layer') ? 'active': ''}">
+                            <a href="/sample/layer">
+                                <i class="fa fa-search"></i><span class="text">레이어</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

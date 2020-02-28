@@ -67,8 +67,13 @@ public class SampleController {
     }
 
     @GetMapping("editor")
-    public String editor(Model model){
+    public String editor(){
         return "sample/editor";
+    }
+
+    @GetMapping("layer")
+    public String layer(){
+        return "sample/layer";
     }
 
 }
