@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<script src="../../../js/lib/jquery.table2excel.js"></script>
+<%--<script src="../../../js/lib/jquery.table2excel.js"></script>--%>
 
 <script>
     $(document).ready(function() {
