@@ -56,7 +56,6 @@ public class SampleController {
     @GetMapping("recommend")
     public String recommend(){ return "sample/recommend";}
 
-
     @GetMapping("excel")
     public String init(){
         return "sample/excel";
@@ -65,6 +64,11 @@ public class SampleController {
     @GetMapping("chart")
     public String chart(){
         return "sample/chart";
+    }
+
+    @GetMapping("editor")
+    public String editor(Model model){
+        return "sample/editor";
     }
 
 }
