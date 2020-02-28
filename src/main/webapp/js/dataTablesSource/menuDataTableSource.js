@@ -30,7 +30,9 @@ var MenuDataTableSource = {
                 }},
             {'title': 'Main추천상태', 'data': '', 'defaultContent': ''},
             {'title': '레벨/등급', 'data': 'level', 'defaultContent': ''},
-            {'title': '프로필이미지', 'data': 'image_profile', 'defaultContent': ''},
+            {'title': '프로필이미지', 'data': 'image_profile', 'defaultContent': '', 'render' : function(data, type, row, meta){
+                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
+                }},
             {'title': 'UserID', 'data': 'mem_id', 'defaultContent': ''},
             {'title': 'User닉네임', 'data': 'mem_nick', 'defaultContent': ''},
             {'title': '보유결제금액', 'data': 'gold', 'defaultContent': ''},
