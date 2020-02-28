@@ -9,18 +9,22 @@
         display:table-cell;
         vertical-align:middle
     }
-
     .p_10 {
         padding-top: 10px;
         padding-bottom: 10px;
         padding-left: 10px;
         padding-right: 10px;
     }
-
-    #tableBody tr th {
+    #list_info tr th {
         display:table-cell;
         vertical-align:middle;
     }
+    .nav.nav-tabs-custom-colored > li.active > a, .nav.nav-tabs-custom-colored > li.active > a:hover, .nav.nav-tabs-custom-colored > li.active > a:focus {
+        background-color: #3e3e3e;
+        color: #fff;
+        cursor: pointer;
+    }
+
 </style>
 
 <div id="wrapper">
@@ -116,77 +120,15 @@
 
                         </div>
                     </div>
-
                 </div>
+                <%-- TAB --%>
 
+                    <jsp:include page="questionTab.jsp"></jsp:include>
 
-            </div>
+                <!-- TAB END -->
 
-            <div class="row col-lg-12 form-inline">
-
-                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                    <li class="active"><a href="#colored21" role="tab" data-toggle="tab" aria-expanded="true">1:1 문의</a></li>
-                    <li class=""><a href="#colored22" role="tab" data-toggle="tab" aria-expanded="false">전화 문의</a></li>
-                </ul>
-                <div class="widget widget-table">
-                    <%--<div class="widget-header">
-                        <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                            </a>
-                        </div>
-                    </div>--%>
-                    <div class="widget-content" style="border-top-width:0px;">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered" style="margin-top: 10px;">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" />
-                                </th>
-                                <th>No</th>
-                                <th>플랫폼구분▼</th>
-                                <th>문의구분1▼</th>
-                                <th>문의구분2▼</th>
-                                <th>문의UserID</th>
-                                <th>신고대상<br />UserID</th>
-                                <th>신고/문의 제목</th>
-                                <th>접수일시<br />/ 처리일시</th>
-                                <th>첨부파일</th>
-                                <th>처리상태</th>
-                                <th>처리자</th>
-                            </tr>
-                            </thead>
-                            <tbody id="tableBody">
-                                <tr>
-                                    <th>
-                                        <input type="checkbox" />
-                                    </th>
-                                    <th>1</th>
-                                    <th>PC</th>
-                                    <th>1:1문의</th>
-                                    <th>방송</th>
-                                    <th>id</th>
-                                    <th>신고대상id</th>
-                                    <th>제목</th>
-                                    <th>
-                                        <span>20.02.27 14:20:20</span><br/>
-                                        / <span>20.02.27 14:20:20</span>
-                                    </th>
-                                    <th>첨부파일00건</th>
-                                    <th>미처리</th>
-                                    <th>처리자 ID</th>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>선택삭제</button>
-                                <button class="btn btn-default print-btn pull-right" type="button"><i class="fa fa-print"></i>Excel 출력</button>
-                            </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+            </div> <%-- #style padding-top:2px; --%>
+        </div> <%-- #container-fluid --%>
     </div> <%-- #page-wrapper --%>
 </div> <%-- #wrapper --%>
 
@@ -214,8 +156,8 @@
             data.searchType=$("select[name='searchType']").val()
         };
 
-        console.log(SampleDataTableSource);
-        dtList_info = new DalbitDataTable($("#declareList"), dtList_info_data, AdminDataTableSource.recommend);
+        console.log(customerDataTableSource);
+        dtList_info = new DalbitDataTable($("#declareList"), dtList_info_data, customerDataTableSource.recommend);
         // 데이터 테이블 만드는, #어떤 테이블에 들어갈 지, ajax request data, 데이터테이블 소스
         // 데이터테이블 초기값 세팅
         dtList_info.useCheckBox(true);
