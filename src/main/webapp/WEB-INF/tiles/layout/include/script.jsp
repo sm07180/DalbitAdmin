@@ -34,6 +34,12 @@
 <script src="/template2/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="/template2/assets/js/jquery-ui/jquery-ui-1.10.4.custom.min.js"></script>
 
+<!-- Editor -->
+<script src="/template2/assets/js/plugins/summernote/summernote.min.js"></script>
+<script src="/template2/assets/js/plugins/markdown/markdown.js"></script>
+<script src="/template2/assets/js/plugins/markdown/to-markdown.js"></script>
+<script src="/template2/assets/js/plugins/markdown/bootstrap-markdown.js"></script>
+<%--<script src="/template2/assets/js/king-elements.js"></script>--%>
 
 <!-- plugin -->
 <%--<script src="/js/lib/bootstrap-datepicker.min.js"></script>--%>

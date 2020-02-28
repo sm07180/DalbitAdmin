@@ -12,8 +12,10 @@
 <link href="/template2/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="/template2/assets/css/main.css" rel="stylesheet" type="text/css">
 <link href="/template2/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
+<link href="/template2/assets/css/summernote/summernote.css" rel="stylesheet" type="text/css">
 <link href="/css/common_DataTable.css" rel="stylesheet" type="text/css">
 <link href="/css/dalbitAdmin.css" rel="stylesheet" type="text/css">
+
 
 <!--[if lte IE 9]>
 <link href="/template2/assets/css/main-ie.css" rel="stylesheet" type="text/css"/>
