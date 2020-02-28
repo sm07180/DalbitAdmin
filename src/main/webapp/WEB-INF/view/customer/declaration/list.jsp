@@ -78,7 +78,7 @@
                         <div class="row">
                             <%-- 셀렉트 박스 --%>
                             <div class="col-lg-2">
-                                <select class="form-control" name="searchType" id="searchType">
+                                <select class="form-control" name="declareType" id="declareType">
                                     <option value="9999" selected="selected">전체▼</option>
                                     <option value="1">방송</option>
                                     <option value="2">이벤트</option>
@@ -89,7 +89,7 @@
                             </div>
                             <%-- 셀렉트 박스 --%>
                             <div class="col-lg-2">
-                                <select class="form-control" name="declareType" id="declareType">
+                                <select class="form-control" name="searchType" id="searchType">
                                     <option value="9999" selected="selected">전체▼</option>
                                     <option value="1">질문</option>
                                     <option value="2">답변</option>
@@ -160,15 +160,16 @@
     $(document).ready(function() {
         initDataTableInfo();
 
-        $('input[id="txt_search"]').keydown(function() {    // textBox 처리
+       $('input[id="txt_search"]').keydown(function() {    // textBox 처리
             if(event.keyCode == 13) {
-                recommendInfo();
+                declareInfo();
             };
         });
 
         $("#bt_search").click(function() {  // 버튼의 클릭이벤트
-            recommendInfo();
+            declareInfo();
         });
+
     });
 
     /** Data Table **/
@@ -180,12 +181,12 @@
             data.searchType=$("select[name='searchType']").val()
         };
 
-        console.log(SampleDataTableSource);
-        dtList_info = new DalbitDataTable($("#declareList"), dtList_info_data, AdminDataTableSource.recommend);
+        console.log(customerDataTableSource);
+        dtList_info = new DalbitDataTable($("#declareList"), dtList_info_data, customerDataTableSource.DeclareList);
         // 데이터 테이블 만드는, #어떤 테이블에 들어갈 지, ajax request data, 데이터테이블 소스
         // 데이터테이블 초기값 세팅
         dtList_info.useCheckBox(true);
-        dtList_info.useIndex(false);
+        dtList_info.useIndex(true);
         // dtList_info.setEventClick(test01);
         // row click event, (function명)
         // dtList_info.setEventClick(test02, [2,3]);
@@ -199,7 +200,8 @@
          alert(type);
      }
  */
-    function recommendInfo() { // 검색
+
+    function declareInfo() {
         dtList_info.reload();
     }
 

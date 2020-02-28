@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.customer.dao.DeclarationDao" >
+    <select id="declareList" parameterType="com.dalbit.customer.vo.DeclareVo" resultType="com.dalbit.customer.vo.DeclareVo">
+          select
+          a.os_type as type
+          , a.reason as reason
+          , a.mem_no as memNo
+          , a.reported_mem_no as reportedMemNo
+          , a.last_upd_date as lastUpdDate
+          from(
+            select ms.os_type
+              , ifnull((select code from tbl_code_define where value=reason and type='report_reason'), '이상한코드가 들어옴') reason
+              , mr.mem_no
+              , mr.reported_mem_no
+              , mr.last_upd_date
+              , @RNUM := @RNUM + 1 as rowNum
+            from tb_member_session ms
+              , tb_member_report mr
+              , (SELECT @RNUM := #{pageStart}) r
+            where ms.mem_no = mr.mem_no)a
+         ORDER BY ${orderColumnName} ${orderDir}
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="declareList_cnt" parameterType="com.dalbit.customer.vo.DeclareVo" resultType="integer">
+        select
+          count(*)
+        from (
+            select ms.os_type
+              , ifnull((select code from tbl_code_define where value=reason and type='report_reason'), '이상한코드가 들어옴') reason
+              , mr.mem_no
+              , mr.reported_mem_no
+              , mr.last_upd_date
+            from tb_member_session ms
+              , tb_member_report mr
+            where ms.mem_no = mr.mem_no
+        ) a
+    </select>
+
 
 
 
