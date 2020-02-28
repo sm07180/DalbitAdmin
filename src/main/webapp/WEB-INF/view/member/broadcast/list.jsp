@@ -36,8 +36,6 @@
         var data = dtList_info_detail.getDataRow(index);
         var in_roomNo = data.roomNo;
 
-        $("#in_roomNo").val(in_roomNo);
-
         console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + in_roomNo);
 
         var screenW = screen.availWidth;  // 스크린 가로사이즈
@@ -47,19 +45,22 @@
         var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
         var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
 
-        window.open('../member/memberPopup?in_roomNo=' + in_roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+        // window.open('../member/popup/memberPopup?in_roomNo=' + in_roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
 
-        // var myForm = document.frmData;
-        // var url = "http://localhost:8081/member/member/memberPopup";
-        // window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
-        // myForm.action = url;
-        // myForm.method = "post";
-        // myForm.target = "test";
-        // myForm.submit();
+        $("#in_roomNo").val(in_roomNo);
+
+        var myForm = document.frmData;
+        var url = "http://localhost:8081/member/member/popup/memberPopup";
+        window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+        myForm.action = url;
+        myForm.method = "post";
+        myForm.in_roomNo = in_roomNo;
+        myForm.target = "test";
+        myForm.submit();
     }
 
 </script>
 
 <form id="frmData" name="frmData" method="post">
-    <input id="in_roomNo" value="">
+    <input name="in_roomNo" id="in_roomNo" value="" class ="hidden">
 </form>
