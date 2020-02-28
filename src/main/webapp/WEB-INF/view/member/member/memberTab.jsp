@@ -54,6 +54,6 @@
             tmp = tmp[1];
         }
         tab_id = tmp;
-        getHistoryDetail(tmp);
+        getMemberHistoryDetail(tmp);
     }
 </script>

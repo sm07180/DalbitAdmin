@@ -376,7 +376,7 @@
         $("#image_section").prop("src", profImgDel);
 
         if(tab_id != "false"){
-            getHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
+            getMemberHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
         }
         $('#div_info_detail').hide();
     }
