@@ -71,6 +71,17 @@ function DalbitDataTable(dom, param, columnsInfo) {
         fnServerParams: function ( aoData ) {
             dalbitLog("[fnServerParams]");
             dalbitLog(aoData);
+
+
+            aoData.pageStart = aoData.start;
+            aoData.pageCnt = aoData.length;
+
+            aoData.orderColumnIdx = aoData.order[0]["column"];
+            aoData.orderDir = aoData.order[0]["dir"];
+            aoData.orderColumnName = aoData.columns[aoData.orderColumnIdx]["data"];
+
+
+            dalbitLog(aoData);
         },
         fnPreDrawCallback: function(oSettings){
             dalbitLog("[fnPreDrawCallback]");
@@ -131,7 +142,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 }
         }],
         columns : [
-            {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null},
+            {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null, "width": "20px"},
             {"title": "No.", "data": "rowNum", "width": "20px", "defaultContent": "-"},
         ],
         order: [[ 2, 'asc' ]]

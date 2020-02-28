@@ -62,6 +62,7 @@
 <script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
 <script src="/js/dataTablesSource/dataTableSource.js"></script>
 <script src="/js/dataTablesSource/menuDataTableSource.js"></script>
+<script src="/js/dataTablesSource/content/pushDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
 <script src="/js/dataTablePaging.js"></script>
 

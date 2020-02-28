@@ -472,7 +472,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://">
+                            <a href="/content/push/list">
                                 <i class="fa fa-search"></i><span class="text">푸시 메시지</span>
                             </a>
                         </li>

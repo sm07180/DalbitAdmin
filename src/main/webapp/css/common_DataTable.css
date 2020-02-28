@@ -1,3 +1,8 @@
+table.dataTable thead > tr > th {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .dataTables_length {
     float: left;
     margin-bottom: 5px;
@@ -46,6 +51,10 @@ div.dataTables_paginate {
     text-align: center;
 }
 
+/* Page Disable 이벤트 비활성화 */
+div.dataTables_paginate li.disabled {
+    pointer-events: none;;
+}
 
 /*DataTable Header Align*/
 table th {
