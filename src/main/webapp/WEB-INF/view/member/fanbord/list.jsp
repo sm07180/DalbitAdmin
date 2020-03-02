@@ -20,7 +20,8 @@
     $(document).ready(function() {
     });
 
-    function getMemberHistoryDetail(tmp) {     // 상세보기
+    function getHistory_fanbroad(tmp) {     // 상세보기
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.memNo = memNo;

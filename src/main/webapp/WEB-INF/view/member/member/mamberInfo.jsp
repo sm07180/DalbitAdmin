@@ -372,9 +372,7 @@
         profImgDel = IMAGE_SERVER_URL + response.data[0].profileImage;    // 삭제 url 보내기 위함
         $("#image_section").prop("src", profImgDel);
 
-        if(tab_id != "false"){
-            getMemberHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
-        }
+        dtList_info_detail.reload();
         $('#div_info_detail').hide();
         $('#report_detail').hide();
     }

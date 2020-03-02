@@ -127,7 +127,7 @@
     var dtList_info_detail_data = function (data) {
         data.memNo = report_memNo;
         data.roomNo = report_roomNo;
-        data.search = "";
+        data.search = report_memNo;
         data.gubun = "9999";
     }
     dtList_list_report_user_detail = new DalbitDataTable($("#list_report_user_detail"), dtList_info_detail_data, source);
@@ -141,7 +141,7 @@
         var dtList_info_detail_data = function (data) {
             data.memNo = report_memNo;
             data.roomNo = report_roomNo;
-            data.search = "";
+            data.search = "kang";
             data.gubun = "9999";
         }
         dtList_list_report_detail = new DalbitDataTable($("#list_report_detail"), dtList_info_detail_data, source);
@@ -153,8 +153,7 @@
 
     function userChatting(index){
         var data = dtList_info_detail.getDataRow(index);
-        data.search = "12341234";
-        data.gubun = "1";
+        report_memNo = data.Name;
 
         dtList_list_report_user_detail.reload();
     }
