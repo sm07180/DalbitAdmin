@@ -24,11 +24,13 @@
             <div class="col-lg-12 no-padding">
                 <label style="height: 15px;"> ㆍ신중히 확인 한 후 조치바랍니다.</label>
             </div>
-            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
-            </ul>
-            <div class="tab-content no-padding">
-                <div class="tab-pane fade in active" id="reportDetail"><jsp:include page="../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
+            <div class="widget-content">
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
+                </ul>
+                <div class="tab-content no-padding">
+                    <div class="tab-pane fade in active" id="reportDetail"><jsp:include page="../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
+                </div>
             </div>
         </div>
     </div>
@@ -36,6 +38,7 @@
 <script>
     $(document).ready(function() {
     });
+
     $('#report_detail').hide();
     function getHistory_report(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
@@ -57,4 +60,5 @@
         var report_roomNo = data.roomNo;
         var report_memNo = data.memNo;
     }
+
 </script>
