@@ -8,7 +8,7 @@
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table" style="margin-bottom: 10px;">
                         <div class="widget-header" style="border-bottom-width:0px;">
-                            <h3><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
+                            <h3><i class="fa fa-search"></i> DJ 검색</h3>
                             <div>
                                 <select class="form-control" name="selectGubun" style="margin-left:10px;background:#ffffff;">
                                     <option value="9999" selected="selected">전체</option>
@@ -28,10 +28,10 @@
 
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                         <li class="active">
-                            <a href="/menu/recommend/list"><i class="fa fa-home"></i> 추천DJ</a>
+                            <a href="/menu/rank/list"><i class="fa fa-home"></i> DJ랭킹</a>
                         </li>
                         <li>
-                            <a href="/menu/best/list"><i class="fa fa-user"></i> 인기DJ</a>
+                            <a href="/menu/rank/fanRankList"><i class="fa fa-user"></i> Fan랭킹</a>
                         </li>
                     </ul>
                     <div class="widget widget-table">
@@ -41,7 +41,22 @@
                                 DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
                             </div>
 
-                            <table id="list_info" class="table table-sorting table-hover table-bordered" style="margin-top: 10px;">
+                            <div class="table-option">
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="inline-radio2">
+                                    <span><i></i>일간</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="inline-radio2">
+                                    <span><i></i>주간</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="inline-radio2">
+                                    <span><i></i>월간</span>
+                                </label>
+                            </div>
+
+                            <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <thead id="tableTop"></thead>
                                 <tbody id="tableBody"></tbody>
                             </table>
@@ -69,6 +84,12 @@
     $('#bt_search').on('click', function(){
         getSearch();
     });
+    $('#_recommendTab').on('click', function(){
+        getHistoryDetail(this.id);
+    });
+    $('#_bestTab').on('click',function(){
+        getHistoryDetail(this.id);
+    });
 
     var memNo = "";
     var dtList_info="";
@@ -80,7 +101,7 @@
             data.value = '01';
         };
 
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MenuDataTableSource.recommend);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MenuDataTableSource.rank_DJ);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         // dtList_info.setEventClick(test01,0);

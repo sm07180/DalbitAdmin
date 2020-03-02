@@ -36,6 +36,12 @@
                     </ul>
                     <div class="widget widget-table">
                         <div class="widget-content" style="border-top-width:0px;">
+
+                            <div class="table-comment">
+                                <div>1) 추천/인기 DJ Main 노출 수는 10명입니다.</div>
+                                <div>2) 추천/인기DJ를 변경하시려면 DJ를 검색하여 결과리스트에서 [리스트추가하기]를 한 후 추천중 상태로 변경하세요.</div>
+                            </div>
+
                             <table id="list_info" class="table table-sorting table-hover table-bordered" style="margin-top: 10px;">
                                 <thead id="tableTop"></thead>
                                 <tbody id="tableBody"></tbody>
@@ -56,9 +62,15 @@
 <script type="text/javascript" src="/js/dataTablesSource/menuDataTableSource.js"></script>
 <script type="text/javascript">
 
+    $(function(){
+        init();
+        getSearch();
+    });
+
     $('#bt_search').on('click', function(){
         getSearch();
     });
+
     $('#_recommendTab').on('click', function(){
         getHistoryDetail(this.id);
     });
@@ -82,8 +94,6 @@
         // dtList_info.setEventClick(test01,0);
         dtList_info.createDataTable();
     }
-
-    init();
 
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
