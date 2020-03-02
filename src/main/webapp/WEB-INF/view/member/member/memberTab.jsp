@@ -33,7 +33,7 @@
                     <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../notice/list.jsp"/></div>         <!-- 공지 -->
                     <div class="tab-pane fade" id="fanbordDetail"><jsp:include page="../fanbord/list.jsp"/></div>       <!-- 팬보드 -->
                     <div class="tab-pane fade" id="banDetail"><jsp:include page="../ban/list.jsp"/></div>               <!-- 금지어 -->
-                    <div class="tab-pane fade" id="receiptDetail"><jsp:include page="../report/list.jsp"/></div>       <!-- 신고 -->
+                    <div class="tab-pane fade" id="reportDetail"><jsp:include page="../report/list.jsp"/></div>       <!-- 신고 -->
                     <div class="tab-pane fade" id="questionDetail"><jsp:include page="../question/list.jsp"/></div>     <!-- 문의 -->
                 </div>
             </div>
