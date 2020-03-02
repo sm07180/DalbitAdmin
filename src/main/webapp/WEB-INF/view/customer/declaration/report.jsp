@@ -122,6 +122,7 @@
     var report_roomNo;
     var report_memNo;
 
+    var dtList_list_report_detail;
     var dtList_list_report_user_detail;
     var source = MemberDataTableSource["userChattingHistory"];
     var dtList_info_detail_data = function (data) {
@@ -136,12 +137,11 @@
     dtList_list_report_user_detail.createDataTable();
 
     function getChattingHistoryDetail() {     // 상세보기
-        var dtList_list_report_detail;
         var source = MemberDataTableSource["chattingHistory"];
         var dtList_info_detail_data = function (data) {
             data.memNo = report_memNo;
             data.roomNo = report_roomNo;
-            data.search = "kang";
+            data.search = "";
             data.gubun = "9999";
         }
         dtList_list_report_detail = new DalbitDataTable($("#list_report_detail"), dtList_info_detail_data, source);
@@ -152,8 +152,8 @@
     }
 
     function userChatting(index){
-        var data = dtList_info_detail.getDataRow(index);
-        report_memNo = data.Name;
+        var data = dtList_list_report_detail.getDataRow(index);
+        report_memNo = data.memNo;
 
         dtList_list_report_user_detail.reload();
     }
