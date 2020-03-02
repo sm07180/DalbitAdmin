@@ -59,8 +59,7 @@
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>회원상태</label></div>
                     <div class="col-md-3"><label id="lb_status"></label></div>
-                    <button type="button" id="bt_stop" class="btn-sm pull-right">사용정지</button>
-                    <button type="button" id="bt_ban" class="btn-sm pull-right">강제탈퇴</button>
+                    <button type="button" id="bt_report" class="btn-sm pull-right">신고조치</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>접속상태</label></div>
@@ -257,9 +256,7 @@
         <!-- 버튼 -->
         $('#bt_imgChg').click(function() {				 //사진변경
         });
-        $('#bt_stop').click(function() {                //사용정지
-        });
-        $('#bt_ban').click(function() {                 //강제탈퇴
+        $('#bt_report').click(function() {              //신고조치
         });
         $('#bt_loginStatus').click(function() {         //접속상태
             getInfoDetail(this.id);
@@ -379,6 +376,7 @@
             getMemberHistoryDetail(tab_id);   // 열려있는 텝 테이블 정보 가져오기 위함
         }
         $('#div_info_detail').hide();
+        $('#report_detail').hide();
     }
 
     function edit(tmp){

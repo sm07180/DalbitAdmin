@@ -29,6 +29,9 @@ public class M_MemberController {
     }
 
     @GetMapping("memberPopup")
-    public String memberPopup(Model model) { return "member/member/popup/memberPopup"; }
+    public String memberPopup(Model model) { return "member/member/memberPopup"; }
+
+    @PostMapping("memberPopup2")
+    public String memberPopup2(Model model) { return "member/member/popup/memberPopup"; }
 
 }

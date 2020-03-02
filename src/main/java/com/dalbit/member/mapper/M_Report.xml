@@ -32,5 +32,4 @@
                                      left join (select mem_no,mem_id,mem_nick from tb_member_basic) c on a.reported_mem_no = c.mem_no
           where a.reported_mem_no = #{memNo}      /*나를 신고한사람*/
     </select>
-
 </mapper>

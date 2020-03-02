@@ -19,7 +19,7 @@
                     <li><a href="#noticeDetail" role="tab" data-toggle="tab" id="tab_noticeDetail" onclick="getHistory_tmp(this.id);">회원공지관리</a></li>
                     <li><a href="#fanbordDetail" role="tab" data-toggle="tab" id="tab_fanbordDetail" onclick="getHistory_tmp(this.id);">팬보드관리</a></li>
                     <li><a href="#banDetail" role="tab" data-toggle="tab" id="tab_banDetail" onclick="getHistory_tmp(this.id);">금지어관리</a></li>
-                    <li><a href="#receiptDetail" role="tab" data-toggle="tab" id="tab_receiptDetail" onclick="getHistory_tmp(this.id);">신고내역</a></li>
+                    <li><a href="#reportDetail" role="tab" data-toggle="tab" id="tab_reportDetail" onclick="getHistory_tmp(this.id);">신고내역</a></li>
                     <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail" onclick="getHistory_tmp(this.id);">문의내역</a></li>
                 </ul>
                 <div class="tab-content">
@@ -33,7 +33,7 @@
                     <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../notice/list.jsp"/></div>         <!-- 공지 -->
                     <div class="tab-pane fade" id="fanbordDetail"><jsp:include page="../fanbord/list.jsp"/></div>       <!-- 팬보드 -->
                     <div class="tab-pane fade" id="banDetail"><jsp:include page="../ban/list.jsp"/></div>               <!-- 금지어 -->
-                    <div class="tab-pane fade" id="receiptDetail"><jsp:include page="../receipt/list.jsp"/></div>       <!-- 신고 -->
+                    <div class="tab-pane fade" id="reportDetail"><jsp:include page="../report/list.jsp"/></div>       <!-- 신고 -->
                     <div class="tab-pane fade" id="questionDetail"><jsp:include page="../question/list.jsp"/></div>     <!-- 문의 -->
                 </div>
             </div>

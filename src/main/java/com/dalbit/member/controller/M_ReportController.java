@@ -24,7 +24,7 @@ public class M_ReportController {
      */
     @GetMapping("list")
     public String list(Model model){
-        return "member/notice/list";
+        return "member/report/list";
     }
 
 

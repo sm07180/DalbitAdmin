@@ -36,7 +36,7 @@
         var data = dtList_info_detail.getDataRow(index);
         var in_roomNo = data.roomNo;
 
-        console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + in_roomNo);
+        console.log('방송 상세정보 새창 오픈~ roomNo : ' + in_roomNo);
 
         var screenW = screen.availWidth;  // 스크린 가로사이즈
         var screenH = screen.availHeight; // 스크린 세로사이즈
@@ -45,12 +45,14 @@
         var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
         var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
 
-        // window.open('../member/popup/memberPopup?in_roomNo=' + in_roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+        // window.open('../member/memberPopup?in_roomNo=' + in_roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+
 
         $("#in_roomNo").val(in_roomNo);
-
         var myForm = document.frmData;
-        var url = "http://localhost:8081/member/member/popup/memberPopup";
+        // var url = "http://localhost:8081/member/member/list";
+        var url = "http://localhost:8081/member/member/memberPopup";
+        // var url = "http://localhost:8081/member/member/popup/memberPopup";
         window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
         myForm.action = url;
         myForm.method = "post";
