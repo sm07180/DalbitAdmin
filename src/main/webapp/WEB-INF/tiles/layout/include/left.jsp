@@ -403,18 +403,18 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/menu/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/menu/') ? 'display:block;': ''}">
-                        <li>
+                        <li class="${fn:contains(url, '/menu/recommend/list') ? 'active': ''}">
                             <a href="/menu/recommend/list">
                                 <i class="fa fa-search"></i><span class="text">추천DJ</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/menu/recommend/best">
+                        <li class="${fn:contains(url, '/menu/best/list') ? 'active': ''}">
+                            <a href="/menu/best/list">
                                 <i class="fa fa-search"></i><span class="text">인기DJ</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://">
+                        <li class="${fn:contains(url, '/menu/rank/djRankList') ? 'active': ''}">
+                            <a href="/menu/rank/djRankList">
                                 <i class="fa fa-search"></i><span class="text">DJ랭킹/팬랭킹</span>
                             </a>
                         </li>
