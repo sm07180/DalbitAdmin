@@ -27,28 +27,16 @@ public class DeclarationRestController {
 
 
     @PostMapping("list")
-    public String list(HttpServletRequest request) {
-        DeclareVo declareVo = new DeclareVo();
-
-        //=---------- Page Select Data --------------
-        int pageStart = Integer.parseInt(request.getParameter("start"));
-        int pageCnt = Integer.parseInt(request.getParameter("length"));
-
-        int orderColumnIdx = Integer.parseInt(request.getParameter("order[0][column]"));
-        String orderDir = request.getParameter("order[0][dir]");
-        String nmKey = "columns[" + orderColumnIdx + "][data]";
-        String orderColumnName = request.getParameter(nmKey);
-
-        declareVo.setPageStart(pageStart);
-        declareVo.setPageCnt(pageCnt);
-        declareVo.setOrderColumnName(orderColumnName);
-        declareVo.setOrderColumnIdx(orderColumnIdx);
-        declareVo.setOrderDir(orderDir);
-    // ------------- page Select Data ---------------
-
+    public String list(DeclareVo declareVo, HttpServletRequest request) {
         List<DeclareVo> list = declarationService.getDeclareList(declareVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
 
+    }
+
+    @PostMapping("detail")
+    public String detail(DeclareVo declareVo) {
+        String result = declarationService.getDeclareDetail(declareVo);
+        return result;
     }
 
 }
