@@ -47,6 +47,8 @@ public class M_MemberRestController {
 
     @PostMapping("list")
     public String list(MemberListVo memberListVo){
+
+        log.info("MemberListVo.search : " + memberListVo.getSearch());
         List<MemberListVo> list = mMemberService.getMemberList(memberListVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
     }
@@ -59,6 +61,7 @@ public class M_MemberRestController {
 
     @PostMapping("info")
     public String info(MemberInfoVo memberInfoVo){
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@ 1");
         String result = mMemberService.callMemberInfo(memberInfoVo);
         return result;
     }

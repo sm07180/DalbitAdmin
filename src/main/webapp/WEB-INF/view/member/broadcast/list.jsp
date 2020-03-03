@@ -20,7 +20,8 @@
     $(document).ready(function() {
     });
 
-    function getMemberHistoryDetail(tmp) {     // 상세보기
+    function getHistory_broadcast(tmp) {     // 상세보기
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.memNo = memNo;
@@ -36,7 +37,11 @@
         var data = dtList_info_detail.getDataRow(index);
         var in_roomNo = data.roomNo;
 
-        console.log('종료된 방송 상세정보 새창 오픈~ roomNo : ' + in_roomNo);
+        if(data.state == "4" || data.state == "5"){
+            console.log('방송상태 (종료) ~ in_roomNo state : ' + data.state);
+        }else{
+            console.log('방송상태 (방송중) ~ in_roomNo state : ' + data.state);
+        }
 
         var screenW = screen.availWidth;  // 스크린 가로사이즈
         var screenH = screen.availHeight; // 스크린 세로사이즈
@@ -45,12 +50,14 @@
         var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
         var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
 
-        // window.open('../member/popup/memberPopup?in_roomNo=' + in_roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+        // window.open('../member/memberPopup?in_roomNo=' + in_roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+
 
         $("#in_roomNo").val(in_roomNo);
-
         var myForm = document.frmData;
-        var url = "http://localhost:8081/member/member/popup/memberPopup";
+        // var url = "http://localhost:8081/member/member/list";
+        var url = "http://localhost:8081/member/member/memberPopup";
+        // var url = "http://localhost:8081/member/member/popup/memberPopup";
         window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
         myForm.action = url;
         myForm.method = "post";

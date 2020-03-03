@@ -131,28 +131,28 @@
                         <a href="/administrate/star/list"><i class="fa fa-list-ol"></i><span class="text">DJ랭킹/Fan랭킹</span></a>
                     </li>
 
-                    <li class="${fn:contains(url, '/administrate/live/list') ? 'active': ''}">
+                    <li class="${fn:contains(url, '/administrate/liveRecommend/list') || fn:contains(url, '/administrate/livePop/list') || fn:contains(url, '/administrate/liveNew/list') ? 'active': ''}">
                         <a href="#" class="js-sub-menu-toggle">
                             <i class="fa fa-microphone"></i><span class="text">실시간 Live</span>
                             <i class="toggle-icon fa fa-angle-down"></i>
                         </a>
                         <ul class="sub-menu open">
-                            <li class="${fn:contains(url, '/administrate/live/list') and !fn:contains('/pop/new/', param_menu) ? 'active': ''}">
-                                <a href="/administrate/live/list?menu=recommend">
+                            <li class="${fn:contains(url, '/administrate/liveRecommend/list') ? 'active': ''}">
+                                <a href="/administrate/liveRecommend/list">
                                     <i class="fa fa-star"></i><span class="text">추천DJ</span>
                                 </a>
                             </li>
                         </ul>
                         <ul class="sub-menu open">
-                            <li class="${fn:contains(url, '/administrate/live/list') and param_menu eq 'pop' ? 'active': ''}">
-                                <a href="/administrate/live/list?menu=pop">
+                            <li class="${fn:contains(url, '/administrate/livePop/list') ? 'active': ''}">
+                                <a href="/administrate/livePop/list">
                                     <i class="fa fa-fire"></i><span class="text">인기DJ</span>
                                 </a>
                             </li>
                         </ul>
                         <ul class="sub-menu open">
-                            <li class="${fn:contains(url, '/administrate/live/list') and param_menu eq 'new' ? 'active': ''}">
-                                <a href="/administrate/live/list?menu=new">
+                            <li class="${fn:contains(url, '/administrate/liveNew/list') ? 'active': ''}">
+                                <a href="/administrate/liveNew/list">
                                     <i class="fa fa-plus-square-o"></i><span class="text">신입DJ</span>
                                 </a>
                             </li>
@@ -168,16 +168,30 @@
                             <i class="fa fa-flag"></i><span class="text">이벤트/배너</span>
                         </a>
                     </li>
-                    <li class="${fn:contains(url, '/administrate/broadcast/list') ? 'active': ''}">
-                        <a href="/administrate/broadcast/list">
+                    <li class="${fn:contains(url, '/administrate/profile/list') || fn:contains(url, '/administrate/broadcast/list')? 'active': ''}">
+                        <a href="#" class="js-sub-menu-toggle">
                             <i class="fa fa-picture-o"></i><span class="text">프로필/방송방 배경</span>
                         </a>
+                        <ul class="sub-menu open">
+                            <li class="${fn:contains(url, '/administrate/profile/list') ? 'active': ''}">
+                                <a href="/administrate/profile/list">
+                                    <i class="fa fa-picture-o"></i><span class="text">프로필</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="sub-menu open">
+                            <li class="${fn:contains(url, '/administrate/broadcast/list') ? 'active': ''}">
+                                <a href="/administrate/broadcast/list">
+                                    <i class="fa fa-picture-o"></i><span class="text">방송방</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="${fn:contains(url, '/administrate/message/list') and param_menu ne 'splash' ? 'active': ''}">
-                        <a href="/administrate/message/list?menu=system"><i class="fa fa-comment-o"></i><span class="text">시스템 메시지</span></a>
+                    <li class="${fn:contains(url, '/administrate/message/list') ? 'active': ''}">
+                        <a href="/administrate/message/list"><i class="fa fa-comment-o"></i><span class="text">시스템 메시지</span></a>
                     </li>
-                    <li class="${fn:contains(url, '/administrate/message/list') and param_menu eq 'splash' ? 'active': ''}">
-                        <a href="/administrate/message/list?menu=splash"><i class="fa fa-comment"></i><span class="text">스플래시 메시지</span></a>
+                    <li class="${fn:contains(url, '/administrate/splash/list') ? 'active': ''}">
+                        <a href="/administrate/message/list"><i class="fa fa-comment"></i><span class="text">스플래시 메시지</span></a>
                     </li>
                     <li class="${fn:contains(url, '/administrate/ban/list') ? 'active': ''}">
                         <a href="/administrate/ban/list"><i class="fa fa-ban"></i><span class="text">사이트 금지어 관리</span></a>

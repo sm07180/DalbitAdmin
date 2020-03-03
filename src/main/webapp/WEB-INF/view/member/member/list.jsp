@@ -91,7 +91,7 @@
     function init(){
         var dtList_info_data = function ( data ) {
             data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val()
+            data.gubun = $("select[name='selectGubun']").val();
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
         dtList_info.useCheckBox(false);

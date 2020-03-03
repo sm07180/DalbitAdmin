@@ -10,4 +10,6 @@ public interface DeclarationDao {
     List<DeclareVo> declareList(DeclareVo declareVo);
     int declareList_cnt(DeclareVo declareVo);
 
+    List<DeclareVo> getDeclareDetail(DeclareVo declareVo);
+
 }
