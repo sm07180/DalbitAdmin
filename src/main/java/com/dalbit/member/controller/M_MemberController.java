@@ -28,10 +28,10 @@ public class M_MemberController {
         return "member/member/list";
     }
 
-    @PostMapping("popup/memberPopup")
+    @RequestMapping("popup/memberPopup")
     public String memberPopup(Model model) { return "member/member/popup/memberPopup"; }
 
-    @PostMapping("popup/reportPopup")
+    @RequestMapping("popup/reportPopup")
     public String reportPopup(Model model) { return "member/member/popup/reportPopup"; }
 
 }
