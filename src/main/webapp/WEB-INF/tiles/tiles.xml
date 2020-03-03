@@ -14,6 +14,10 @@
         <put-attribute name="body" value="/WEB-INF/view/login/{1}.jsp" />
     </definition>
 
+    <definition name="*/*/popup/*" extends="onlyBody">
+        <put-attribute name="body" value="/WEB-INF/view/{1}/{2}/popup/{3}.jsp" />
+    </definition>
+
 
     <definition name="base" template="/WEB-INF/tiles/layout/default.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/layout/include/header.jsp" />
