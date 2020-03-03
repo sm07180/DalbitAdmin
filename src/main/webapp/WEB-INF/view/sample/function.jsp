@@ -19,7 +19,8 @@
                     data-height="700" 높이<br />
                     name="newPop" 팝업명<br />
                 </div>
-                <button class="btn btn-primary btn-lg _openPop" data-url="https://www.naver.com">팝업띄우기</button>
+                <button class="btn btn-primary btn-lg _openPop" data-url="https://www.naver.com">팝업띄우기(url만)</button>
+                <button class="btn btn-primary btn-lg _openPop" data-url="https://www.naver.com" data-width="1000" data-height="700" name="newPop">팝업띄우기</button>
             </div>
         </div>
     </div>
