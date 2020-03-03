@@ -52,22 +52,18 @@
 
         // window.open('../member/memberPopup?in_roomNo=' + in_roomNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
 
-
         $("#in_roomNo").val(in_roomNo);
-        var myForm = document.frmData;
-        // var url = "http://localhost:8081/member/member/list";
-        var url = "http://localhost:8081/member/member/memberPopup";
-        // var url = "http://localhost:8081/member/member/popup/memberPopup";
+        var myForm = document.frmBroad;
+        var url = "../member/popup/memberPopup";
         window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
         myForm.action = url;
         myForm.method = "post";
-        myForm.in_roomNo = in_roomNo;
         myForm.target = "test";
         myForm.submit();
     }
 
 </script>
 
-<form id="frmData" name="frmData" method="post">
+<form id="frmBroad" name="frmBroad" method="post">
     <input name="in_roomNo" id="in_roomNo" value="" class ="hidden">
 </form>

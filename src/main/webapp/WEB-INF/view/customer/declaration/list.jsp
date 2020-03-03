@@ -123,6 +123,7 @@
 
     /** Data Table **/
     var dtList_info;
+    getChattingHistoryDetail();
     function initDataTableInfo() {
         var dtList_info_data = function ( data ) {
             /* parameter */

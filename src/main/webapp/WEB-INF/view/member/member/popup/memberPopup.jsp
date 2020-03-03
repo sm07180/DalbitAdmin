@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String tmp_roomNo = request.getParameter("in_roomNo");
+    String in_roomNo = request.getParameter("in_roomNo");
 %>
 
 <html>
@@ -14,7 +14,7 @@
 
     init();
     function init(){
-        var roomNo =  <%=tmp_roomNo%>;
+        var roomNo =  <%=in_roomNo%>;
 
         alert("roomNo : " + roomNo );
         // $("#test").val(roomNo);

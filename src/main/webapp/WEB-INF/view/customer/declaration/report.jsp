@@ -13,18 +13,18 @@
                 </div>
                 <div class="col-md-7 no-padding">
                     <div class="col-md-5 lb_style"><label>신고</label></div>
-                    <div class="col-md-7">
+                    <div class="col-md-7" style="height: 34px;">
                         <form id="cob_report">
-                            <select id="cob_reportGubun" name="emailSelection" class="form-control">
-                                <option value="9999" selected="selected">직접입력</option>
+                            <select id="cob_reportGubun" class="form-control searchType">
+                                <option value="9999" selected="selected">직접입력 ▼</option>
                             </select>
                         </form>
                     </div>
                     <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                    <div class="col-md-7">
+                    <div class="col-md-7" style="height: 34px;">
                         <form id="cob_platform">
-                            <select id="cob_platformGubun" name="emailSelection" class="form-control">
-                                <option value="9999" selected="selected">직접입력</option>
+                            <select id="cob_platformGubun" class="form-control searchType">
+                                <option value="9999" selected="selected">직접입력 ▼</option>
                             </select>
                         </form>
                     </div>
