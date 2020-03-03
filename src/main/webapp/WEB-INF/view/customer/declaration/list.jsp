@@ -9,12 +9,6 @@
         display:table-cell;
         vertical-align:middle;
     }
-    .bar_style{
-        border: 1px solid #DDDDDD;
-        background-color: #0f122b;
-        height: 60px;
-        padding-top: 10px;
-    }
     .button_right{
         float: right;
         white-space:nowrap;
@@ -34,8 +28,8 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row col-lg-12 form-inline middle">
-                <div class="col-md-12 bar_style">
-                    <label style="font-weight: bold;color: #DDDDDD;">회원 검색&nbsp;&nbsp;</label>
+                <div class="col-md-12 lb_style">
+                    <label style="font-weight: bold; padding-bottom:10px;">회원 검색&nbsp;&nbsp;</label>
 
                     <%-- 셀렉트 박스 --%>
                     <select class="form-control text_white" name="stopType">
