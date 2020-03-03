@@ -103,4 +103,18 @@ var customerDataTableSource = {
         ]
         , 'comments': '회원 검색 시 신고자와 신고 대상자를 구분하여 검색하고, 상세정보를 확인할 수 있습니다.'
     },
+
+    'emailModalHistory': {
+        'url': '/rest/member/member/list'
+        , 'columns': [
+            {'title': 'memNo', 'data': 'memNo' , 'visible' : false},
+            {'title': 'UserID', 'data': 'memId','width':'40px'},
+            {'title': '닉네임', 'data': 'memNick','width':'100px'},
+            {'title': '연락처', 'data': 'memPhone','width':'40px'},
+            {'title': '수신대상등록하기', 'data': '','defaultContent': '', 'render': function (data, type, row, meta) {
+                    return '<a onclick="javascript:setModalData('+meta.row+')" data-dismiss="modal">' + "[등록하기]" + '</a>'
+                },'width':'40px'},
+        ]
+    },
+
 }

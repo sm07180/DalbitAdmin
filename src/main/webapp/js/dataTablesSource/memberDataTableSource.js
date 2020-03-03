@@ -19,7 +19,8 @@ var MemberDataTableSource = {
     'broadDetail': {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
-            {'title': 'roomNo', 'data': 'roomNo', 'visible' : false},
+            {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
+            {'title': 'state', 'data': 'state', 'visible' : false},
             {'title': '방송주제', 'data': 'subjectType', 'width':'100px'},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" onclick="javascript:Broad('+meta.row+');">' + data + '</a>'
@@ -250,26 +251,4 @@ var MemberDataTableSource = {
         , 'comments': '회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
 
-    'chattingHistory': {
-        'url': '/rest/member/member/list'
-        , 'columns': [
-            {'title': 'memNo', 'data': 'memNo','width':'100px'},
-            {'title': '채팅시작일', 'data': 'memNo','width':'100px'},
-            {'title': 'User닉네임', 'data': 'memId', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:userChatting('+meta.row+');">' + data + '</a>'
-                },'width':'80px'},
-            {'title': '채팅내용', 'data': 'memNick','width':'100px'},
-        ]
-        , 'comments': '전체 채팅 목록'
-    },
-    'userChattingHistory': {
-        'url': '/rest/member/member/list'
-        , 'columns': [
-            {'title': 'memNo', 'data': 'memNo','width':'100px'},
-            {'title': '채팅시작일', 'data': 'memNo'},
-            {'title': 'User닉네임', 'data': 'memId'},
-            {'title': '채팅내용', 'data': 'memNick'},
-        ]
-        , 'comments': '선택한 사람의 채팅 목록'
-    },
 }

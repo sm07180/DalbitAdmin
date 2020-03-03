@@ -25,14 +25,14 @@
                 <div class="col-md-4 lb_style"><label>문의UserID</label></div>
                 <div class="col-md-8">
                     <input type="text" class="form-control" id="txt_questMem" style="width: 60%">
-                    <button type="button" id="bt_questMem" class="btn-sm">회원검색</button>
+                    <button type="button" id="bt_questMem" class="btn-sm" data-toggle="modal" data-target="#myModal">회원검색</button>
                 </div>
             </div>
             <div class="col-md-3 no-padding">
                 <div class="col-md-4 lb_style"><label>신고대상UserID</label></div>
                 <div class="col-md-8">
                     <input type="text" class="form-control" id="txt_reportMem" style="width: 60%">
-                    <button type="button" id="bt_reportMem" class="btn-sm">회원검색</button>
+                    <button type="button" id="bt_reportMem" class="btn-sm" data-toggle="modal" data-target="#myModal">회원검색</button>
                 </div>
             </div>
             <div class="col-md-2 no-padding">
@@ -77,9 +77,58 @@
                 <div class="col-md-8" style="height: 34px;"><label>양달이</label></div>
             </div>
         </div>
-        <div class="row col-md-12 vertical-align">
+        <div class="row col-md-12">
             <div class="col-md-2 no-padding lb_style"> <label>문의 관련 메모</label> </div>
             <div class="col-md-10" style="height: 300px"><textarea id="question" style="width: 100%; height: 100%"></textarea></div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="bt_x();">&times;</button>
+                </div>
+                <div class="modal-body" style="height:320px">
+                    <!-- serachBox -->
+                    <div class="row col-lg-12 form-inline">
+                        <div class="col-md-12 no-padding">
+                            <div class="widget widget-table searchBoxArea">
+                                <div class="widget-header searchBoxRow">
+                                    <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
+                                    <div>
+                                        <select class="form-control searchType" name="selectGubun">
+                                            <option selected="selected">검색조건 ▼</option>
+                                            <option value="9999">전체</option>
+                                            <option value="1">회원 번호</option>
+                                            <option value="2">User ID</option>
+                                            <option value="3">User 닉네임</option>
+                                            <option value="4">연락처</option>
+                                        </select>
+
+                                        <label><input type="text" class="form-control" id="txt_modal_search" placeholder="검색할 정보를 입력하세요"></label>
+                                        <button type="submit" class="btn btn-success" id="bt_modal_search">검색</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 no-padding">
+                            <div class="widget-content">
+                                <table id="modal_list_info" class="table table-sorting table-hover table-bordered">
+                                    <thead>
+                                    </thead>
+                                    <tbody id="tableBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //serachBox -->
+                </div>
+                <div class="modal-footer">
+                    <%--<button type="button" class="btn" data-dismiss="modal">닫기</button>--%>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -124,7 +173,52 @@
             // $(".viewer").empty().append(targetEditor.summernote("code"))
             // $(".code").text(targetEditor.summernote("code"))
         });
-    })
+
+        $("#bt_questMem").click (function(){        // 문의 회원검색
+            modalView("quest");
+        });
+        $("#bt_reportMem").click (function(){        // 문의 회원검색
+            modalView("report");
+        });
+        $("#bt_modal_search").click (function(){     // 검색
+            getModalUserInfo();
+        });
+
+    });
+
+    var dtList_modal_info_detail;
+    var source = customerDataTableSource["emailModalHistory"];
+    var dtList_info_detail_data = function (data) {
+        data.search = $('#bt_modal_search').val();
+    }
+    dtList_modal_info_detail = new DalbitDataTable($("#modal_list_info"), dtList_info_detail_data, source);
+    dtList_modal_info_detail.useCheckBox(false);
+    dtList_modal_info_detail.useIndex(true);
+    dtList_modal_info_detail.createDataTable();
+
+    var viewGubun;
+    function modalView(tmp){
+        viewGubun = tmp;
+    }
+    function setModalData(index){
+        var data = dtList_modal_info_detail.getDataRow(index);
+        // var obj = new Object();
+        console.log(data);
+        console.log(data.memNo);
+        // obj.memNo = data.memNo;
+        if(viewGubun == "quest"){
+            $('#txt_questMem').val(data.memId);
+        }else{
+            $('#txt_reportMem').val(data.memId);
+        }
+    }
+    function getModalUserInfo() {                 // 검색
+        dtList_modal_info_detail.reload();
+    }
+    function bt_x(){
+
+    };
+
 
 
 </script>

@@ -341,7 +341,6 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.memNo = data.memNo;
-        console.log("@@@@@@@@@@@@@@@@@@@@@@");
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
@@ -422,8 +421,8 @@
 
         var screenW = screen.availWidth;  // 스크린 가로사이즈
         var screenH = screen.availHeight; // 스크린 세로사이즈
-        var popW = 1000; // 띄울창의 가로사이즈
-        var popH = 800; // 띄울창의 세로사이즈
+        var popW = 1200; // 띄울창의 가로사이즈
+        var popH = 690; // 띄울창의 세로사이즈
         var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
         var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
 
@@ -435,7 +434,6 @@
         window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
         myForm.action = url;
         myForm.method = "post";
-        myForm.memNo = memNo;
         myForm.target = "test";
         myForm.submit();
     }
@@ -457,7 +455,8 @@
     {{/data}}
 </script>
 
-
 <form id="frmData_report" name="frmData_report" method="post">
-    <input name="in_memNo" id="memNo" value="" class ="hidden">
+    <input name="in_memNo" id="in_memNo" value="" class ="hidden">
 </form>
+
+
