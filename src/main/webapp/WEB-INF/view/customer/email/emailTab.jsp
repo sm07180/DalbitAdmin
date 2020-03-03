@@ -16,7 +16,7 @@
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="call"><jsp:include page="call.jsp"/></div>  <%-- 전화 --%>
-                <div class="tab-pane fade" id="email"><jsp:include page="mail.jsp"/></div>            <%-- 메일 문의 --%>
+                <div class="tab-pane fade" id="email"><jsp:include page="email.jsp"/></div>            <%-- 메일 문의 --%>
             </div>
         </div>
     </div>
