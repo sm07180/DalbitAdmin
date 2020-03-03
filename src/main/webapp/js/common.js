@@ -1,3 +1,28 @@
+/*이벤트 바인딩*/
+$(document).on('click', '._openPop', function(){
+    windowOpen($(this).data());
+});
+
+/* 새창 띄우기 */
+function windowOpen(data, width, height, name){
+    console.log(data, width, height, name);
+    var url = '';
+    if(typeof(data) == 'object') {
+        url = data.url;
+        width = data.width;
+        height = data.height;
+        name = data.name;
+    } else {
+        url = data;
+    }
+    name = name || 'popup';
+
+    var left = (screen.width/2)-(width/2);
+    var top = (screen.height/2)-(height/2);
+
+    window.open(url, name, 'width=' + width + ' height=' + height + ' scrollbars=yes left=' + left + 'top=' + top );
+}
+
 /*ajax 호출 모듈*/
 function getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc){
     $.ajax({

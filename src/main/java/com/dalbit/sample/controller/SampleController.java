@@ -76,4 +76,9 @@ public class SampleController {
         return "sample/layer";
     }
 
+    @GetMapping("function")
+    public String function(){
+        return "sample/function";
+    }
+
 }
