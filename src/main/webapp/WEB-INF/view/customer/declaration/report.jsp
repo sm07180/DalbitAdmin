@@ -124,27 +124,25 @@
 
     var dtList_list_report_detail;
     var dtList_list_report_user_detail;
-    var source = MemberDataTableSource["userChattingHistory"];
     var dtList_info_detail_data = function (data) {
         data.memNo = report_memNo;
         data.roomNo = report_roomNo;
         data.search = report_memNo;
         data.gubun = "9999";
     }
-    dtList_list_report_user_detail = new DalbitDataTable($("#list_report_user_detail"), dtList_info_detail_data, source);
+    dtList_list_report_user_detail = new DalbitDataTable($("#list_report_user_detail"), dtList_info_detail_data, customerDataTableSource.userChattingHistory);
     dtList_list_report_user_detail.useCheckBox(false);
     dtList_list_report_user_detail.useIndex(false);
     dtList_list_report_user_detail.createDataTable();
 
     function getChattingHistoryDetail() {     // 상세보기
-        var source = MemberDataTableSource["chattingHistory"];
         var dtList_info_detail_data = function (data) {
             data.memNo = report_memNo;
             data.roomNo = report_roomNo;
             data.search = "";
             data.gubun = "9999";
         }
-        dtList_list_report_detail = new DalbitDataTable($("#list_report_detail"), dtList_info_detail_data, source);
+        dtList_list_report_detail = new DalbitDataTable($("#list_report_detail"), dtList_info_detail_data, customerDataTableSource.chattingHistory);
         dtList_list_report_detail.useCheckBox(false);
         dtList_list_report_detail.useIndex(false);
         dtList_list_report_detail.createDataTable();
