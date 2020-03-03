@@ -26,7 +26,7 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
-                            <select class="form-control" name="selectProStatus">
+                            <select class="form-control searchType" name="selectProStatus">
                                 <option value="9999" selected="selected">처리상태(전체)</option>
                                 <option value="1">미처리</option>
                                 <option value="2">유지</option>
@@ -39,7 +39,7 @@
                                 <option value="9">강제퇴장</option>
                             </select>
 
-                            <select class="form-control" name="selectGubun">
+                            <select class="form-control searchType" name="selectGubun">
                                 <option value="9999" selected="selected">전체</option>
                                 <option value="1">User ID</option>
                                 <option value="2">User 닉네임</option>

@@ -33,7 +33,7 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
-                            <select class="form-control text_white" name="stopType">
+                            <select class="form-control searchType" name="stopType">
                                 <option selected="selected">검색조건 ▼</option>
                                 <option value="9999">전체</option>
                                 <option value="1">미처리</option>
@@ -47,7 +47,7 @@
                                 <option value="9">강제 퇴장</option>
                             </select>
 
-                            <select class="form-control" name="selectType">
+                            <select class="form-control searchType" name="selectType">
                                 <option selected="selected">검색조건 ▼</option>
                                 <option value="9999">전체</option>
                                 <option value="1">회원 번호</option>

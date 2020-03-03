@@ -25,7 +25,8 @@ div.searchBoxArea .searchBoxRow h3.title{
 }
 
 div.searchBoxArea .searchBoxRow div select.searchType{
-    margin-left:10px;background:#ffffff;
+    /*margin-left:10px;*/
+    background:#ffffff;
 }
 
 .widget-table .widget-content .table-comment{
