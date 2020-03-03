@@ -190,6 +190,7 @@
     var source = customerDataTableSource["emailModalHistory"];
     var dtList_info_detail_data = function (data) {
         data.search = $('#bt_modal_search').val();
+        data.gubun = $("select[name='selectGubun']").val();
     }
     dtList_modal_info_detail = new DalbitDataTable($("#modal_list_info"), dtList_info_detail_data, source);
     dtList_modal_info_detail.useCheckBox(false);
@@ -211,6 +212,8 @@
         }else{
             $('#txt_reportMem').val(data.memId);
         }
+        // var table = $('#modal_list_info').DataTable();
+        // table.destroy();
     }
     function getModalUserInfo() {                 // 검색
         dtList_modal_info_detail.reload();
