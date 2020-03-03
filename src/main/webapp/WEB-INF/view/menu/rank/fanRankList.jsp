@@ -5,70 +5,71 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table" style="margin-bottom: 10px;">
-                        <div class="widget-header" style="border-bottom-width:0px;">
-                            <h3><i class="fa fa-search"></i> DJ 검색</h3>
-                            <div>
-                                <select class="form-control" name="selectGubun" style="margin-left:10px;background:#ffffff;">
-                                    <option value="9999" selected="selected">전체</option>
-                                    <option value="1">User ID</option>
-                                    <option value="2">User 닉네임</option>
-                                    <option value="3">연락처</option>
-                                    <option value="4">이름</option>
-                                </select>
-                                <label><input type="text" class="form-control" id="txt_search"></label>
-                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
+            <!-- serachBox -->
+            <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table searchBoxArea">
+                    <div class="widget-header searchBoxRow">
+                        <h3><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
+                        <div>
+                            <select class="form-control searchType" name="selectGubun">
+                                <option value="9999" selected="selected">전체</option>
+                                <option value="1">User ID</option>
+                                <option value="2">User 닉네임</option>
+                                <option value="3">연락처</option>
+                                <option value="4">이름</option>
+                            </select>
+                            <label><input type="text" class="form-control" id="txt_search"></label>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
-                <!-- DATA TABLE -->
-                <div class="row col-lg-12 form-inline">
-
-                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                        <li>
-                            <a href="/menu/rank/list"><i class="fa fa-home"></i> DJ랭킹</a>
-                        </li>
-                        <li  class="active">
-                            <a href="/menu/rank/fanRankList"><i class="fa fa-user"></i> Fan랭킹</a>
-                        </li>
-                    </ul>
-                    <div class="widget widget-table">
-                        <div class="widget-content" style="border-top-width:0px;">
-
-                            <div class="pull-left" style="padding:10px 10px 10px 10px">
-                                DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
-                            </div>
-
-                            <div class="pull-right" style="padding:10px 10px 10px 10px">
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="inline-radio2">
-                                    <span><i></i>일간</span>
-                                </label>
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="inline-radio2">
-                                    <span><i></i>주간</span>
-                                </label>
-                                <label class="control-inline fancy-radio custom-color-green">
-                                    <input type="radio" name="inline-radio2">
-                                    <span><i></i>월간</span>
-                                </label>
-                            </div>
-
-                            <table id="list_info" class="table table-sorting table-hover table-bordered">
-                                <thead id="tableTop"></thead>
-                                <tbody id="tableBody"></tbody>
-                            </table>
-                            <span>
-                                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>선택삭제</button>
-                                <button class="btn btn-default print-btn pull-right" type="button"><i class="fa fa-print"></i>Excel 출력</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <!-- DATA TABLE END -->
             </div>
+            <!-- //serachBox -->
+            <!-- DATA TABLE -->
+            <div class="row col-lg-12 form-inline">
+
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li>
+                        <a href="/menu/rank/list"><i class="fa fa-home"></i> DJ랭킹</a>
+                    </li>
+                    <li  class="active">
+                        <a href="/menu/rank/fanRankList"><i class="fa fa-user"></i> Fan랭킹</a>
+                    </li>
+                </ul>
+                <div class="widget widget-table">
+                    <div class="widget-content" style="border-top-width:0px;">
+
+                        <div class="pull-left" style="padding:10px 10px 10px 10px">
+                            DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
+                        </div>
+
+                        <div class="pull-right" style="padding:10px 10px 10px 10px">
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="inline-radio2">
+                                <span><i></i>일간</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="inline-radio2">
+                                <span><i></i>주간</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="inline-radio2">
+                                <span><i></i>월간</span>
+                            </label>
+                        </div>
+
+                        <table id="list_info" class="table table-sorting table-hover table-bordered">
+                            <thead id="tableTop"></thead>
+                            <tbody id="tableBody"></tbody>
+                        </table>
+                        <span>
+                            <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>선택삭제</button>
+                            <button class="btn btn-default print-btn pull-right" type="button"><i class="fa fa-print"></i>Excel 출력</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- DATA TABLE END -->
         </div>
     </div>
 </div>

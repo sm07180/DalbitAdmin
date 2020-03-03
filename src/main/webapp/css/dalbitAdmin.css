@@ -5,6 +5,24 @@
 /*left 통계현황*/
 #_statisticsArea div.rowData{padding:5px 0 0px 10px; margin-right: 0px;/*border: 1px solid gray;*/}
 
+.container .clearfix div.topLogo a img{
+    height : 30px;
+}
+
+div.searchBoxArea{
+    margin-bottom: 10px;
+    background-color: #eeeeee;
+}
+
+div.searchBoxArea .searchBoxRow{
+    border-bottom-width:0px;
+    margin:5px;
+}
+
+div.searchBoxArea .searchBoxRow div select.searchType{
+    margin-left:10px;background:#ffffff;
+}
+
 .widget-table .widget-content .table-comment{
     float: left !important;
     padding: 10px 10px 10px 10px;

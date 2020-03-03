@@ -48,7 +48,7 @@ jQuery(document).ready(function($) {
 
     // check if skin has already applied before
     var skinLogo = localStorage.getItem('skinLogo');
-    var skinLogoDefault = '/template2/assets/img/kingadmin-logo-white.png';
+    var skinLogoDefault = 'https://image.dalbitcast.com/images/api/ic_logo_normal.png';
 
     if(skinLogo != null) {
         $('.logo img').attr('src', skinLogo);
@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
         $('head').append('<link rel="stylesheet" href="' + $(this).attr('data-skin') + '" type="text/css" />');
 
         if($(this).hasClass('fullbright')) {
-            skinLogo = '/template2/assets/img/kingadmin-logo.png';
+            skinLogo = 'https://image.dalbitcast.com/images/api/ic_logo_normal.png';
         }else {
             skinLogo = skinLogoDefault;
         }
@@ -72,7 +72,7 @@ jQuery(document).ready(function($) {
 
         // change logo at invoice page if necessary
         if( ($(this).attr('data-skin') == '/template2/assets/css/skins/transparent.css') && $('.invoice-header img').length > 0 ) {
-            $('.invoice-header img').attr('src', '/template2/assets/img/kingadmin-logo-white.png');
+            $('.invoice-header img').attr('src', 'https://image.dalbitcast.com/images/api/ic_logo_normal.png');
         }
     });
 
@@ -95,7 +95,7 @@ jQuery(document).ready(function($) {
                 $(this).remove();
         });
 
-        $('.logo img').attr('src', '/template2/assets/img/kingadmin-logo-white.png');
+        $('.logo img').attr('src', 'https://image.dalbitcast.com/images/api/ic_logo_normal.png');
 
         localStorage.removeItem('skin');
         localStorage.setItem('skinLogo', skinLogoDefault);
