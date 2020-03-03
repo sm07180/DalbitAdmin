@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.customer.dao.QuestionDao" >
+    <select id="questionList" parameterType="com.dalbit.customer.vo.QuestionVo" resultType="com.dalbit.customer.vo.QuestionVo">
+        select mem_no as memNo
+        , mem_birth_year as memBirth
+        , mem_id as memId
+        , mem_join_date as memJoin
+        , mem_state as memState
+        , mem_phone as memPhone
+        from
+        tb_member_basic
+        ORDER BY ${orderColumnName} ${orderDir}
+        limit #{pageStart}, #{pageCnt}
+</select>
+
+    <select id="questionList_cnt" parameterType="com.dalbit.customer.vo.QuestionVo" resultType="integer">
+        select
+          count(*)
+        from (
+            select mem_no
+            , mem_birth_year
+            , mem_id
+            , mem_join_date
+            , mem_state
+            , mem_phone
+             from
+            tb_member_basic
+        )a
+    </select>
 
 
 
