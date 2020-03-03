@@ -19,6 +19,11 @@ div.searchBoxArea .searchBoxRow{
     margin:5px;
 }
 
+div.searchBoxArea .searchBoxRow h3.title{
+    margin-right: 10px;
+    font-weight: bold;
+}
+
 div.searchBoxArea .searchBoxRow div select.searchType{
     margin-left:10px;background:#ffffff;
 }

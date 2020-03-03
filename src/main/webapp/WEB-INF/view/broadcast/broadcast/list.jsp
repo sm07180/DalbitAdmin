@@ -2,39 +2,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .text_center{
-        text-align: center;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
+            <!-- serachBox -->
             <div class="row col-lg-12 form-inline">
-                <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
-                    <label style="font-weight: bold;color: #000000;">회원 검색&nbsp;&nbsp;</label>
-                    <select class="form-control" name="selectGubun">
-                        <option value="9999" selected="selected">전체</option>
-                        <option value="1">User ID</option>
-                        <option value="2">User 닉네임</option>
-                        <option value="3">연락처</option>
-                        <option value="4">이름</option>
-                    </select>
-
-                    <label><input type="text" class="form-control" id="txt_search"></label>
-                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
+                <div class="widget widget-table searchBoxArea">
+                    <div class="widget-header searchBoxRow">
+                        <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
+                        <div>
+                            <select class="form-control searchType" name="selectGubun">
+                                <option value="9999" selected="selected">전체</option>
+                                <option value="1">User ID</option>
+                                <option value="2">User 닉네임</option>
+                                <option value="3">연락처</option>
+                                <option value="4">이름</option>
+                            </select>
+                            <label><input type="text" class="form-control" id="txt_search"></label>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- //serachBox -->
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">

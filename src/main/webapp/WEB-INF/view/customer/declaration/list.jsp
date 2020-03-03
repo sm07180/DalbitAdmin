@@ -27,37 +27,42 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="row col-lg-12 form-inline middle">
-                <div class="col-md-12 lb_style">
-                    <label style="font-weight: bold; padding-bottom:10px;">회원 검색&nbsp;&nbsp;</label>
+            <!-- serachBox -->
+            <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table searchBoxArea">
+                    <div class="widget-header searchBoxRow">
+                        <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
+                        <div>
+                            <select class="form-control text_white" name="stopType">
+                                <option selected="selected">검색조건 ▼</option>
+                                <option value="9999">전체</option>
+                                <option value="1">미처리</option>
+                                <option value="2">유지</option>
+                                <option value="3">1일 정지</option>
+                                <option value="4">3일 정지</option>
+                                <option value="5">5일 정지</option>
+                                <option value="6">7일 정지</option>
+                                <option value="7">15일 정지</option>
+                                <option value="8">30일 정지</option>
+                                <option value="9">강제 퇴장</option>
+                            </select>
 
-                    <%-- 셀렉트 박스 --%>
-                    <select class="form-control text_white" name="stopType">
-                        <option selected="selected">검색조건 ▼</option>
-                        <option value="9999">전체</option>
-                        <option value="1">미처리</option>
-                        <option value="2">유지</option>
-                        <option value="3">1일 정지</option>
-                        <option value="4">3일 정지</option>
-                        <option value="5">5일 정지</option>
-                        <option value="6">7일 정지</option>
-                        <option value="7">15일 정지</option>
-                        <option value="8">30일 정지</option>
-                        <option value="9">강제 퇴장</option>
-                    </select>
-                    <select class="form-control" name="selectType">
-                        <option selected="selected">검색조건 ▼</option>
-                        <option value="9999">전체</option>
-                        <option value="1">회원 번호</option>
-                        <option value="2">User ID</option>
-                        <option value="3">User 닉네임</option>
-                        <option value="4">연락처</option>
-                    </select>
+                            <select class="form-control" name="selectType">
+                                <option selected="selected">검색조건 ▼</option>
+                                <option value="9999">전체</option>
+                                <option value="1">회원 번호</option>
+                                <option value="2">User ID</option>
+                                <option value="3">User 닉네임</option>
+                                <option value="4">연락처</option>
+                            </select>
 
-                    <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"/></label>
-                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
+                            <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                        </div>
+                    </div>
                 </div>
-            </div> <%-- #검색 창 --%>
+            </div>
+            <!-- //serachBox -->
 
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">

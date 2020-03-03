@@ -9,7 +9,7 @@
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <h3><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
+                        <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
                         <div>
                             <select class="form-control searchType" name="selectGubun">
                                 <option value="9999" selected="selected">전체</option>
