@@ -5,21 +5,18 @@ $(document).on('click', '._openPop', function(){
 
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
-    console.log($(this).data());
     var url = "https://www.naver.com?memNo="+$(this).data('memno');
     windowOpen(url, 1000, 800, 'memberInfo');
 });
 
 /*방송정보보기 팝업*/
 $(document).on('click', '._openBroadcastPop', function(){
-    console.log($(this).data());
     var url = "https://www.naver.com?memNo="+$(this).data('roomno');
     windowOpen(url, 1000, 800, 'broadcastInfo');
 });
 
 /* 새창 띄우기 */
 function windowOpen(data, width, height, name){
-    console.log(data, width, height, name);
     var url = '';
     if(typeof(data) == 'object') {
         url = data.url;
