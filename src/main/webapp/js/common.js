@@ -5,13 +5,13 @@ $(document).on('click', '._openPop', function(){
 
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
-    var url = "https://www.naver.com?memNo="+$(this).data('memno');
+    var url = "/member/member/popup/reportPopup?memNo="+$(this).data('memno');
     windowOpen(url, 1000, 800, 'memberInfo');
 });
 
 /*방송정보보기 팝업*/
 $(document).on('click', '._openBroadcastPop', function(){
-    var url = "https://www.naver.com?memNo="+$(this).data('roomno');
+    var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+$(this).data('roomno');
     windowOpen(url, 1000, 800, 'broadcastInfo');
 });
 
