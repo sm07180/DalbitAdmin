@@ -481,7 +481,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://">
+                            <a href="/content/notice/list">
                                 <i class="fa fa-search"></i><span class="text">사이트공지</span>
                             </a>
                         </li>
