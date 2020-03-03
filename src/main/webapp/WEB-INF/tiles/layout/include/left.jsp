@@ -573,6 +573,11 @@
                                 <i class="fa fa-search"></i><span class="text">레이어</span>
                             </a>
                         </li>
+                        <li class="${fn:contains(url, '/sample/function') ? 'active': ''}">
+                            <a href="/sample/function">
+                                <i class="fa fa-search"></i><span class="text">공통함수</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

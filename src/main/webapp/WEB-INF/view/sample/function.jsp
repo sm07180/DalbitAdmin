@@ -22,6 +22,22 @@
                 <button class="btn btn-primary btn-lg _openPop" data-url="https://www.naver.com">팝업띄우기(url만)</button>
                 <button class="btn btn-primary btn-lg _openPop" data-url="https://www.naver.com" data-width="1000" data-height="700" name="newPop">팝업띄우기</button>
             </div>
+
+            <div class="widget-content">
+                <div>
+                    class에 _openMemberPop 추가. <br />
+                    [필수] data-memNo="11583121967853"; <br /><br />
+                </div>
+                <button class="btn btn-primary btn-lg _openMemberPop" data-memNo="11583121967853">회원팝업 띄우기</button>
+            </div>
+
+            <div class="widget-content">
+                <div>
+                    class에 _openBroadcastPop 추가. <br />
+                    [필수] data-roomNo="91583121793753"; <br /><br />
+                </div>
+                <button class="btn btn-primary btn-lg _openBroadcastPop" data-roomNo="91583121793753">회원팝업 띄우기</button>
+            </div>
         </div>
     </div>
 </div>
