@@ -93,9 +93,6 @@
             </div> <%-- #data table --%>
 
             <div class="row col-lg-12 form-inline" id="declareDetail">
-                <div class="col-lg-12 no-padding">
-                    <label style="height: 15px;"> ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다. </label>
-                </div>
                 <div class="widget-content">
                     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                         <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
@@ -134,6 +131,8 @@
             data.searchType=$("select[name='searchType']").val()
             data.stopType=$("select[name='stopType']").val()
         };
+
+        $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
 
         console.log(customerDataTableSource);
         dtList_info = new DalbitDataTable($("#declareList"), dtList_info_data, customerDataTableSource.DeclareList);

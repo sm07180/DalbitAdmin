@@ -3,9 +3,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-lg-12 no-padding">
-            <label style="height: 15px;"> ㆍ신고 시 캡쳐 내용은 라이브 방송방 신고시점을 기준으로 5분 이내의 채팅 내역 정보입니다.</label><br/>
-            <label style="height: 15px;"> ㆍ캡쳐화면 내 닞네임을 클릭하면 클릭한 닉네임의 채팅글만 우측에서 보여집니다.</label><br/>
-            <label style="height: 15px;"> ㆍ신중히 확인 한 후 조치바랍니다.</label>
+            <label id="report_title"></label>
         </div>
         <div class="col-lg-12 no-padding">
             <div class="col-md-4 no-padding">

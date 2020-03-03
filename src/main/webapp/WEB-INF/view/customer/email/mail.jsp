@@ -14,7 +14,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-md-12 no-padding">
-            <label id="one_title"></label>
+            <label id="mail_title"></label><br>
         </div>
         <div class="row col-md-12">
             <div class="col-md-8 no-padding">
@@ -215,7 +215,10 @@
             console.log(targetEditor.summernote("code"))
             // $(".viewer").empty().append(targetEditor.summernote("code"))
             // $(".code").text(targetEditor.summernote("code"))
-        })
+        });
+
     })
+
+
 
 </script>
