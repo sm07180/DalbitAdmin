@@ -31,7 +31,7 @@
                         <form id="profileImg" method="post" enctype="multipart/form-data">
                             <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
                             <%--<input type='file' id="imgInput"/>--%>
-                            <button type="button" id="bt_img" class="btn-sm pull-right">이미지초기화</button>
+                            <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
                         </form>
                     </div>
                 </div>
@@ -59,12 +59,12 @@
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>회원상태</label></div>
                     <div class="col-md-3"><label id="lb_status"></label></div>
-                    <button type="button" id="bt_report" class="btn-sm pull-right">신고조치</button>
+                    <button type="button" id="bt_report" class="btn btn-default btn-sm pull-right">신고조치</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>접속상태</label></div>
                     <div class="col-md-3"><label id="lb_loginStatus"></label></div>
-                    <button type="button" id="bt_loginStatus" class="btn-sm pull-right">자세히</button>
+                    <button type="button" id="bt_loginStatus" class="btn btn-default btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>방송상태</label></div>
@@ -85,12 +85,12 @@
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>연락처</label></div>
                     <div class="col-md-7"><input type="text" class="form-control" id="txt_phon" style="width: 100%"></div>
-                    <button type="button" id="bt_phon" class="btn-sm pull-right">변경</button>
+                    <button type="button" id="bt_phon" class="btn btn-default btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>닉네임</label></div>
                     <div class="col-md-7"><input type="text" class="form-control" id="txt_nickName" style="width: 100%"></div>
-                    <button type="button" id="bt_resatNick" class="btn-sm pull-right">변경</button>
+                    <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>생년월일</label></div>
@@ -99,7 +99,7 @@
                             <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
                     </div>
-                    <button type="button" id="bt_birth" class="btn-sm pull-right">변경</button>
+                    <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>나이</label></div>
@@ -109,12 +109,12 @@
                         <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
                         <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
                     </div>
-                    <button type="button" id="bt_gender" class="btn-sm pull-right">변경</button>
+                    <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>비밀번호</label></div>
                     <div class="col-md-6"><input type="password" class="form-control" id="txt_pass"value="1234" style="width: 100%"></div>
-                    <button type="button" id="bt_resatPass" class="btn-sm pull-right">비밀번호 초기화</button>
+                    <button type="button" id="bt_resatPass" class="btn btn-default btn-sm pull-right">비밀번호 초기화</button>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
@@ -125,12 +125,12 @@
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>매니저정보</label></div>
                     <div class="col-md-6"><label id="lb_manager"></label></div>
-                    <button type="button" id="bt_manager" class="btn-sm pull-right">자세히</button>
+                    <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>블랙리스트</label></div>
                     <div class="col-md-6"><label id="lb_black"></label></div>
-                    <button type="button" id="bt_black" class="btn-sm pull-right">자세히</button>
+                    <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>가입플랫폼</label></div>
@@ -155,14 +155,14 @@
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>운영자 메모</label></div>
                     <div class="col-md-7"><textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 100%"></textarea></div>
-                    <button type="button" id="bt_adminMemo" class="btn-sm pull-right">변경</button>
+                    <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
                     <div class="col-md-6"><label id="lb_editDate"></label></div>
-                    <button type="button" id="bt_editHistory" class="btn-sm pull-right">자세히</button>
+                    <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>최근 정보 수정 자</label></div>
