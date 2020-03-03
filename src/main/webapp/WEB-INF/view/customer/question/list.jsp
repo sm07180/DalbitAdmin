@@ -1,190 +1,167 @@
+
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-    .text_center {
+    .text_center{
         text-align: center;
     }
-    .text_middle {
-        display:table-cell;
-        vertical-align:middle
-    }
-    .p_10 {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    #list_info tr th {
+    .middle{
         display:table-cell;
         vertical-align:middle;
     }
-    .nav.nav-tabs-custom-colored > li.active > a, .nav.nav-tabs-custom-colored > li.active > a:hover, .nav.nav-tabs-custom-colored > li.active > a:focus {
-        background-color: #3e3e3e;
-        color: #fff;
-        cursor: pointer;
+    .lb_style{
+        border: 1px solid #DDDDDD;
+        background-color: #DCE6F2;
+        height: 34px;
     }
-
 </style>
 
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="row col-lg-12 form-inline " style="padding-top: 2px;">
-                <label class="text_center text_middle" style="font-weight: bold;font-size: 13px;color: #ffffff;background: #3e3e3e;width: 160px;height: 27px"> 1:1문의/전화문의 검색 </label>
-                <label class="text_middle" style="font-size: 11px;height: 27px"> ㆍ회원이 신고한 정보를 검색하여 확인 후 처리하는 공간입니다. </label>
-                <hr style="border:solid 1px ;margin-top: 0px;margin-bottom: 3px;color: #0d6aad">
+            <div class="row col-lg-12 form-inline">
+                <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
+                    <label style="font-weight: bold;color: #000000;">회원 검색&nbsp;&nbsp;</label>
+                    <select class="form-control" name="selectProStatus">
+                        <option value="9999" selected="selected">처리상태(전체)</option>
+                        <option value="1">미처리</option>
+                        <option value="2">유지</option>
+                        <option value="3">1일정지</option>
+                        <option value="4">3일정지</option>
+                        <option value="5">5일정지</option>
+                        <option value="6">7일정지</option>
+                        <option value="7">15일정지</option>
+                        <option value="8">30일정지</option>
+                        <option value="9">강제퇴장</option>
+                    </select>
+                    <select class="form-control" name="selectGubun">
+                        <option value="9999" selected="selected">전체</option>
+                        <option value="1">User ID</option>
+                        <option value="2">User 닉네임</option>
+                        <option value="3">연락처</option>
+                        <option value="4">이름</option>
+                    </select>
 
-                <div class="row col-lg-12 form-inline" style="padding-top: 2px;">
-
-                    <%-- 기간 선택 --%>
-                    <div class="col-lg-6 p_10" style="background: #f8efc0">
-                        <div class="col-lg-12">
-                            <label class="control-inline fancy-radio">
-                                <input type="radio" name="all" value="all" checked>
-                                <span><i></i>전체</span>
-                            </label>
-                            <label class="control-inline fancy-radio">
-                                <input type="radio" name="oneday" value="oneday">
-                                <span><i></i>1일</span>
-                            </label>
-                            <label class="control-inline fancy-radio">
-                                <input type="radio" name="week" value="week">
-                                <span><i></i>일주일</span>
-                            </label>
-                            <label class="control-inline fancy-radio">
-                                <input type="radio" name="month" value="month">
-                                <span><i></i>한 달</span>
-                            </label>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <label class="control-inline fancy-radio">
-                                <input type="radio" name="date" value="date">
-                                <span><i></i>기간 선택</span>
-                            </label>
-                            <div class="input-group date col-lg-4" id="date_startSel">
-                                <input type="text" class="form-control " id="txt_startSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
-                            </div>
-                            <label>~</label>
-                            <div class="input-group date col-lg-4" id="date_endSel">
-                                <input type="text" class="form-control" id="txt_endSel" disabled><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                            </div>
+                    <label><input type="text" class="form-control" id="txt_search"></label>
+                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
+                </div>
+            </div>
+            <!-- DATA TABLE -->
+            <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-desktop"></i> 1:1 문의</h3>
+                        <div class="btn-group widget-header-toolbar">
+                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
+                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
+                            </a>
                         </div>
                     </div>
-
-
-                    <%-- 셀렉박스, 검색 --%>
-                    <div class="col-lg-6 p_10">
-                        <div id="searchArea">
-                            <%-- 셀렉트 박스 --%>
-                            <select class="form-control" name="searchType" id="searchType">
-                                <option value="9999" selected="selected">전체 ▼</option>
-                                <option value="1">1:1문의</option>
-                                <option value="2">전화문의</option>
-                            </select>
-
-                            <%-- 셀렉트 박스 --%>
-                            <select class="form-control" name="contentsType" id="contentsType">
-                                <option value="9999" selected="selected">전체 ▼</option>
-                                <option value="1">방송</option>
-                                <option value="2">이벤트</option>
-                                <option value="3">결제</option>
-                                <option value="4">이용제한</option>
-                                <option value="5">기타</option>
-                            </select>
-
-                            <%-- 셀렉트 박스 --%>
-                            <select class="form-control" name="declareType" id="declareType">
-                                <option value="9999" selected="selected">전체 ▼</option>
-                                <option value="1">질문</option>
-                                <option value="2">답변</option>
-                                <option value="3">처리자명</option>
-                                <option value="4">UserID</option>
-                                <option value="5">닉네임</option>
-                            </select>
-
-                            <%-- 셀렉트 박스 --%>
-                            <select class="form-control" name="stopType" id="stopType">
-                                <option value="9999" selected="selected">전체 ▼</option>
-                                <option value="1">1일 정지</option>
-                                <option value="2">3일 정지</option>
-                                <option value="3">7일 정지</option>
-                                <option value="4">15일 정지</option>
-                                <option value="5">한 달</option>
-                            </select>
-
-                            <%-- 검색 --%>
-                            <input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요">
-                            <button type="submit" class="btn btn-default" id="bt_search">검색</button>
-
-                        </div>
+                    <div class="widget-content">
+                        <table id="list_info" class="table table-sorting table-hover table-bordered">
+                            <thead>
+                            </thead>
+                            <tbody id="tableBody">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <%-- TAB --%>
+            </div>
+            <!-- DATA TABLE END -->
+            <!-- TAB -->
+            <div class="no-padding">
+                <jsp:include page="questionTab.jsp"></jsp:include>
+            </div>
+            <!-- TAB END -->
+        </div>
+    </div>
+</div>
 
-                    <jsp:include page="questionTab.jsp"></jsp:include>
-
-                <!-- TAB END -->
-
-            </div> <%-- #style padding-top:2px; --%>
-        </div> <%-- #container-fluid --%>
-    </div> <%-- #page-wrapper --%>
-</div> <%-- #wrapper --%>
+<%--<script src="../../../js/lib/jquery.table2excel.js"></script>--%>
 
 <script>
     $(document).ready(function() {
-        initDataTableInfo();
 
-        $('input[id="txt_search"]').keydown(function() {    // textBox 처리
-            if(event.keyCode == 13) {
-                recommendInfo();
+        // $("#detail").load("infoDetail.jsp");
+
+        $('input[id="txt_search"]').keydown(function() {
+            if (event.keyCode === 13) {
+                getUserInfo();
             };
         });
 
-        $("#bt_search").click(function() {  // 버튼의 클릭이벤트
-            recommendInfo();
+        <!-- 버튼 -->
+        $('#bt_search').click( function() {       //검색
+            getUserInfo();
         });
+        <!-- 버튼 끝 -->
     });
 
-    /** Data Table **/
-    var dtList_info;
-    function initDataTableInfo() {
+    var tab_id = "false";
+    init();
+    function init(){
         var dtList_info_data = function ( data ) {
-            /* parameter */
-            data.search = $('#txt_search').val()
-            data.searchType=$("select[name='searchType']").val()
+            data.search = $('#txt_search').val();                        // 검색명
+            data.gubun = $("select[name='selectGubun']").val();
         };
-
-        console.log(customerDataTableSource);
-        dtList_info = new DalbitDataTable($("#declareList"), dtList_info_data, customerDataTableSource.recommend);
-        // 데이터 테이블 만드는, #어떤 테이블에 들어갈 지, ajax request data, 데이터테이블 소스
-        // 데이터테이블 초기값 세팅
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.processingStatusHistory);
         dtList_info.useCheckBox(true);
-        dtList_info.useIndex(false);
-        // dtList_info.setEventClick(test01);
-        // row click event, (function명)
-        // dtList_info.setEventClick(test02, [2,3]);
-        // 2,3 번째 열만 해당되고 다른 열들은 무시함
+        dtList_info.useIndex(true);
+        // dtList_info.setEventClick(test01,0);
         dtList_info.createDataTable();
-        // 테이블이 화면에 만들어져서 찍히는 순간
     }
+    // function test01(t1, t2 ,t3) {
+    //     dalbitLog(t1)   //
+    // }
 
-    /* function onChange(obj) {
-         var type=obj.value;
-         alert(type);
-     }
- */
-    function recommendInfo() { // 검색
+    function getUserInfo(){                 // 검색
+        /* 엑셀저장을 위해 조회조건 임시저장 */
+        tmp_search = $('#txt_search').val();
+        tmp_gubun = $("select[name='selectGubun']").val();
+
         dtList_info.reload();
+
+        /*검색결과 영역이 접혀 있을 시 열기*/
+        var toggleIcon = $('#_searchToggleIcon');
+        if(toggleIcon.hasClass('fa-chevron-down')){
+            toggleIcon.click();
+        }
     }
 
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
 
-    $(function() {
-        $(".av nav-tabs nav-tabs-custom-colored active").click(function() {
-            $("#" + $(this).data('id')).addClass('on');
+        formData.append("search", tmp_search);
+        formData.append("date", tmp_date);
+        formData.append("gubun", tmp_gubun);
+        formData.append("checkDate", tmp_checkDate);
+        formData.append("stDate", tmp_stDate);
+        formData.append("edDate", tmp_edDate);
+        /*formData.append("test003", "test003");*/
+        excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    $("#excelBtn").on("click", function () {
+        $("#list_info").table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
         });
     });
 
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
 
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+    /*==================================*/
 </script>
