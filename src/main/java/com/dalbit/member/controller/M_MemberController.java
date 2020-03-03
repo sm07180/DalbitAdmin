@@ -34,4 +34,7 @@ public class M_MemberController {
     @PostMapping("memberPopup2")
     public String memberPopup2(Model model) { return "member/member/popup/memberPopup"; }
 
+    @PostMapping("reportPopup")
+    public String reportPopup(Model model) { return "member/member/popup/reportPopup"; }
+
 }

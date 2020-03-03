@@ -14,12 +14,16 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-12 no-padding" id="question_detail">
+            <jsp:include page="../../customer/question/questionTab.jsp"></jsp:include>
+        </div>
     </div>
 </div>
 <script>
     $(document).ready(function() {
     });
 
+    $('#question_detail').hide();
     function getHistory_question(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
@@ -34,9 +38,11 @@
     }
 
     function Question(index){
+
+        $('#question_detail').show();
         var data = dtList_info_detail.getDataRow(index);
         var roomNo = data.roomNo;
-        console.log('Notice~ roomNo : ' + roomNo);
+        console.log('Question~ roomNo : ' + roomNo);
     }
 
 </script>

@@ -37,7 +37,11 @@
         var data = dtList_info_detail.getDataRow(index);
         var in_roomNo = data.roomNo;
 
-        console.log('방송 상세정보 새창 오픈~ roomNo : ' + in_roomNo);
+        if(data.state == "4" || data.state == "5"){
+            console.log('방송상태 (종료) ~ in_roomNo state : ' + data.state);
+        }else{
+            console.log('방송상태 (방송중) ~ in_roomNo state : ' + data.state);
+        }
 
         var screenW = screen.availWidth;  // 스크린 가로사이즈
         var screenH = screen.availHeight; // 스크린 세로사이즈

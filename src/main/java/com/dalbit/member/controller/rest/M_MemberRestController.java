@@ -61,6 +61,7 @@ public class M_MemberRestController {
 
     @PostMapping("info")
     public String info(MemberInfoVo memberInfoVo){
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@ 1");
         String result = mMemberService.callMemberInfo(memberInfoVo);
         return result;
     }

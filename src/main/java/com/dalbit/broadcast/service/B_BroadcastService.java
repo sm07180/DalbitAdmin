@@ -69,7 +69,6 @@ public class B_BroadcastService {
 //        guestCnt;                       // 게스트/게스트ID 수
 //        banCnt;                         // 등록 금지어 수
 
-        log.info("@@@@@@@@@@@@ " + broadcastInfoVo.getRoomNo());
         ProcedureVo procedureVo = new ProcedureVo();
         List<BroadcastInfoVo> list = bBroadcastDao.callBroadcastInfo(broadcastInfoVo);
 

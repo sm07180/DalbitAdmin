@@ -257,6 +257,7 @@
         $('#bt_imgChg').click(function() {				 //사진변경
         });
         $('#bt_report').click(function() {              //신고조치
+            getReport();
         });
         $('#bt_loginStatus').click(function() {         //접속상태
             getInfoDetail(this.id);
@@ -340,6 +341,7 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.memNo = data.memNo;
+        console.log("@@@@@@@@@@@@@@@@@@@@@@");
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
@@ -377,14 +379,14 @@
         $('#report_detail').hide();
     }
 
-    function edit(tmp){
-        var obj = new Object();
-        obj.memNo = memNo;
-        obj.profileImage = profileImage;
-        obj.profImgDel = profImgDel;
-        obj.profileImageGrade = "5";
-        getAjaxData("edit", "/rest/member/member/edit",obj, fn_edit_success, fn_fail);
-    }
+    // function edit(tmp){
+    //     var obj = new Object();
+    //     obj.memNo = memNo;
+    //     obj.profileImage = profileImage;
+    //     obj.profImgDel = profImgDel;
+    //     obj.profileImageGrade = "5";
+    //     getAjaxData("edit", "/rest/member/member/edit",obj, fn_edit_success, fn_fail);
+    // }
 
     // function fn_file_upload(response){
     //     var data = jQuery.parseJSON( response );
@@ -411,6 +413,32 @@
         var source = MemberDataTableSource[tmp];
         dtList_info_detail.changeReload(null,null,source,null);
     }
+    function getReport() {     // 상세보기
+        if(memNo == null || memNo == ""){
+            alert("회원을 선택하십시오.");
+            return;
+        }
+        console.log('신고대상 memNo : ' + memNo);
+
+        var screenW = screen.availWidth;  // 스크린 가로사이즈
+        var screenH = screen.availHeight; // 스크린 세로사이즈
+        var popW = 1000; // 띄울창의 가로사이즈
+        var popH = 800; // 띄울창의 세로사이즈
+        var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
+        var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
+
+        // window.open('../member/popup/reportPopup?memNo=' + memNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+
+        $("#in_memNo").val(memNo);
+        var myForm = document.frmData_report;
+        var url = "http://localhost:8081/member/member/popup/reportPopup";
+        window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
+        myForm.action = url;
+        myForm.method = "post";
+        myForm.memNo = memNo;
+        myForm.target = "test";
+        myForm.submit();
+    }
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -428,3 +456,8 @@
     <option value="{{grade}}">{{grade}}</option>
     {{/data}}
 </script>
+
+
+<form id="frmData_report" name="frmData_report" method="post">
+    <input name="in_memNo" id="memNo" value="" class ="hidden">
+</form>
