@@ -71,7 +71,7 @@
             <!-- DATA TABLE END -->
             <!-- TAB -->
             <div class="no-padding">
-                <jsp:include page="questionTab.jsp"></jsp:include>
+                <jsp:include page="emailTab.jsp"></jsp:include>
             </div>
             <!-- TAB END -->
         </div>
