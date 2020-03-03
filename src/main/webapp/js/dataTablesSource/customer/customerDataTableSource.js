@@ -37,4 +37,26 @@ var customerDataTableSource = {
         ]
         , 'comments' : '최신 신고자를 기준으로 상위 구성하고, 확인하고자 하는 회원 정보 내 선택을 클릭하면 상세정보 및 회원 신고조치를 처리할 수 있습니다.'
     },
+
+    'QuestionList': {
+        'url': '/rest/customer/question/list'
+
+        , 'columns': [
+            {'title': '선택', 'data': 'memState',
+                'render': function(data, type, row, meta) {return '<a href="javascript://" onclick="javascript:getQuestion_detail('+meta.row+');">' + data + '</a>'}}
+            ,{'title': '문의 내용', 'data': 'memId'}
+            ,{'title': '플랫폼 구분', 'data': 'memNo'}
+            ,{'title': 'Browser', 'data': 'memId'}
+            ,{'title': '회원번호', 'data':'memNo'}
+            ,{'title': '문의자 UserID', 'data': 'memId',
+                'render': function(data, type, row, meta) {return '<a href="javascript://" onclick="javascript:getQUser_detail('+meta.row+');">' + data + '</a>'}}
+            ,{'title': '문의자 닉네임', 'data': 'memId'}
+            ,{'title': '문의제목', 'data': 'memNo'}
+            ,{'title': '접수일시/처리일시', 'data': 'memJoin'}
+            ,{'title': '첨부파일', 'data': 'memId'}
+            ,{'title': '처리상태', 'data': 'memId'}
+            ,{'title': '처리자', 'data': 'memNo'}
+        ]
+        , 'comments' : '최근 1:1문의 정보입니다. 문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+    }
 }
