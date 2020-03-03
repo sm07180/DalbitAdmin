@@ -432,13 +432,13 @@
                                 <i class="fa fa-search"></i><span class="text">DJ랭킹/팬랭킹</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://">
+                        <li class="${fn:contains(url, '/menu/live/list') ? 'active': ''}">
+                            <a href="/menu/live/list">
                                 <i class="fa fa-search"></i><span class="text">실시간 Live</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://">
+                        <li class="${fn:contains(url, '/menu/cast/list') ? 'active': ''}">
+                            <a href="/menu/cast/list">
                                 <i class="fa fa-search"></i><span class="text">캐스트</span>
                             </a>
                         </li>

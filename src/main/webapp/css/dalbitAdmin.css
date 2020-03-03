@@ -38,3 +38,8 @@ div.searchBoxArea .searchBoxRow div select.searchType{
     float: right !important;
     padding: 10px 10px 10px 10px;
 }
+
+.nav-tabs li.tab_select{
+    background-color: white;
+    margin-right: 15px;
+}

@@ -26,8 +26,8 @@
 <link href="/template2/assets/css/style-switcher.css" rel="stylesheet" type="text/css">
 
 <!-- Fav and touch icons -->
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/template2/assets/ico/kingadmin-favicon144x144.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/template2/assets/ico/kingadmin-favicon114x114.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/template2/assets/ico/kingadmin-favicon72x72.png">
-<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/template2/assets/ico/kingadmin-favicon57x57.png">
-<link rel="shortcut icon" href="/template2/assets/ico/favicon.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
