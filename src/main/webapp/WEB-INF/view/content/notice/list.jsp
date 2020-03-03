@@ -22,13 +22,13 @@
             <div class="row col-lg-12 form-inline">
                 <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
                     <label style="font-weight: bold;color: #000000;">공지검색&nbsp;&nbsp;</label>
-                    <select class="form-control" name="selectGubun">
+                    <select class="form-control" name="selectType">
                         <option value="9999" selected="selected">전체▼</option>
                         <option value="1">공지제목</option>
                         <option value="2">내용</option>
                         <option value="3">작성자</option>
                     </select>
-                    <select class="form-control" name="noticeGubun">
+                    <select class="form-control" name="noticeType">
                         <option value="9999" selected="selected">전체▼</option>
                         <option value="1">서비스공지</option>
                         <option value="2">긴급공지</option>
@@ -60,12 +60,22 @@
                     </div>
                 </div>
             </div>
-            <!-- DATA TABLE END -->
-            <!-- TAB -->
-            <div class="no-padding">
-                <%--<jsp:include page="memberTab.jsp"></jsp:include>--%>
+            <!-- #DataTable -->
+
+            <!-- ###################################################################### -->
+            <div class="row col-lg-12 form-inline">
+                <div class="col-md-12 no-padding">
+                    <label id="notice_title"></label>
+                </div>
+
+
             </div>
-            <!-- TAB END -->
+            <!-- ################################################################# -->
+                <div class="row">
+                    <div class="col-md-12" style="height: 170px; padding-top:10px;"><textarea id="notice" style="width: 100%; height: 100%"></textarea></div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -85,6 +95,8 @@
             getPushInfo();
         });
     });
+
+    $('#notice_title').html("ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.");
 
     init();
     function init(){
