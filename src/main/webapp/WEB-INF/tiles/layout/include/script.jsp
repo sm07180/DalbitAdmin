@@ -33,6 +33,8 @@
 <script src="/template2/assets/js/king-components.js"></script>
 <script src="/template2/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="/template2/assets/js/jquery-ui/jquery-ui-1.10.4.custom.js"></script>
+<script src="/template2/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+<%--<script src="/template2/assets/js/king-form-layouts.js"></script>--%>
 
 <!-- Editor -->
 <script src="/template2/assets/js/plugins/summernote/summernote.min.js"></script>
@@ -66,8 +68,8 @@
 <script src="/js/dataTablesSource/menuDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/pushDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/noticeDataTableSource.js"></script>
+<script src="/js/dataTablesSource/utilDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
-<script src="/js/dataTablePaging.js"></script>
 
 <script type="text/javascript">
     /*로그 찍기*/

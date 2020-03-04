@@ -1,21 +1,35 @@
+
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="wrapper">
+<style>
+    .text_center{
+        text-align: center;
+    }
+    .middle{
+        display:table-cell;
+        vertical-align:middle;
+    }
+    .lb_style{
+        border: 1px solid #DDDDDD;
+        background-color: #DCE6F2;
+        height: 34px;
+    }
+</style>
+
+<div id="main-header">
     <div id="page-wrapper">
-        <div class="container-fluid">
+        <%--<div class="container-fluid">--%>
             <!-- serachBox -->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 회원검색</h3>
+                        <h3 class="title"><i class="fa fa-search"></i>메세지 검색</h3>
                         <div>
                             <select class="form-control" name="selectGubun">
                                 <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
+                                <option value="1">메세지 제목</option>
+                                <option value="2">메세지 내용</option>
                             </select>
 
                             <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
@@ -28,7 +42,7 @@
 
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table">
+                <div class="widget widget-table" id="pushDataTable">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                         <div class="btn-group widget-header-toolbar">
@@ -48,20 +62,27 @@
                 </div>
             </div>
             <!-- DATA TABLE END -->
-            <!-- TAB -->
-            <div class="no-padding">
-                <%--<jsp:include page="memberTab.jsp"></jsp:include>--%>
-            </div>
-            <!-- TAB END -->
-        </div>
+        <%--</div>--%>
+
     </div>
+</div>
+<div class="main-content">
+    <!-- TAB -->
+    <jsp:include page="pushTab.jsp"></jsp:include>
+    <jsp:include page="util/select_memeberList.jsp"></jsp:include>
+    <!-- TAB END -->
 </div>
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 
 <script>
     $(document).ready(function() {
+        initDataTable();
+        initEvent();
+    });
 
+
+    function initEvent(){
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getPushInfo();
@@ -71,24 +92,59 @@
         $('#bt_search').click( function() {       //검색
             getPushInfo();
         });
-    });
 
-    init();
-    function init(){
+        $("#btn_add").on("click", function () {
+            initData_pushMsg();
+        })
+    }
+
+
+    var dtList_info;
+    function initDataTable(){
+        //=---------- 푸시메시지 DataTable ----------
         var dtList_info_data = function ( data ) {
             data.search = $('#txt_search').val();                        // 검색명
             data.gubun = $("select[name='selectGubun']").val()
         };
-
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, PushDataTableSource.pushInfo);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, PushDataTableSource.pushMsgList);
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.setEventClick(updataPushInfo,4);
         dtList_info.createDataTable();
+        initDataTableButton();
+        //---------- 푸시메시지 DataTable ----------=
     }
 
-    function updataPushInfo() {
-        alert("test");
+    function initDataTableButton() {
+        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_add" />'
+        var delBtn = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_del" />'
+        var excellBtn = '<button class="btn btn-default print-btn btn-sm" type="button"><i class="fa fa-print"></i>Excel Print</button>'
+
+        $("#pushDataTable").find(".top-right").append(delBtn);
+        $("#pushDataTable").find(".top-right").append(addBtn);
+
+        $("#pushDataTable").find(".footer-right").append(excellBtn);
+    }
+
+    function updataPushInfo(data) {
+        setData_pushMsg({
+            column01: data.rowNum
+            ,column02: data.push_col5
+            ,column03: data.push_col1
+            ,column04: "제목"
+            ,column05: "내용"
+            ,column06: data.push_col2
+            ,column07: ""
+            ,column08: "option5"
+            ,column09: "#ffffff"
+            ,column10: ""
+            ,column11: "0"
+            ,column12: "2020-03-04"
+            ,column13: "00"
+            ,column14: "00"
+            ,column15: ""
+            ,column16: data.push_col6
+        })
     }
 
     // 검색

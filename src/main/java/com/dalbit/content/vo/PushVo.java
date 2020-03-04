@@ -4,6 +4,8 @@ import com.dalbit.member.vo.PagingVo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 public class PushVo extends PagingVo {
@@ -16,9 +18,9 @@ public class PushVo extends PagingVo {
     private String push_col1;
     private String push_col2;
     private String push_col3;
-    private String push_col4;
+    private Date push_col4;
     private String push_col5;
-    private String push_col6;
+    private Date push_col6;
     private String push_col7;
 
 }
