@@ -72,7 +72,6 @@
     var callbackFn;
     function showPopMemberList(fn) {
         callbackFn = fn;
-        alert("test")
         $("#modal_select_memebet").modal("show");
     }
 

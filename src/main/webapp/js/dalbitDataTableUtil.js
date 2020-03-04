@@ -212,9 +212,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
             }
         };
 
-        console.log("-----")
-        console.log(this.dataTableSource)
-
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
         this.g_DataTable.column(0).visible(this.isUseCheckbox);
