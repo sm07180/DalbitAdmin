@@ -98,13 +98,13 @@
         </div>
         <div class="row col-md-12">
             <div class="col-md-8 no-padding">
-                <div class="col-md-2 no-padding lb_style" style="height: 96px"><label>문의내용</label></div>
-                <div class="col-md-10" style="height: 96px"><textarea id="question" style="width: 100%; height: 100%"></textarea></div>
+                <div class="col-md-2 no-padding lb_style"  style="height: 160px"><label>문의내용</label></div>
+                <div class="col-md-10"  style="height: 160px"><textarea id="question" style="width: 100%; height: 100%"></textarea></div>
             </div>
             <div class="col-md-4 no-padding">
-                <div class="col-md-3 no-padding lb_style" style="height: 96px"> <label>첨부파일</label>
+                <div class="col-md-3 no-padding lb_style" style="height: 160px"> <label>첨부파일</label>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8"  style="height: 160px">
                     <form id="profileImg" method="post" enctype="multipart/form-data">
                         <img id="image_section" src="#" alt="your image" style="width: 100%;height: 100%"/>
                     </form>
