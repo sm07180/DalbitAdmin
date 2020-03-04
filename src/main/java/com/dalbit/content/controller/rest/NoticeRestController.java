@@ -44,9 +44,9 @@ public class NoticeRestController {
             data.setPush_col1(DalbitUtil.randomValue("number", 1));
             data.setPush_col2(DalbitUtil.randomValue("number", 1));
             data.setPush_col3("메시지 제목 이란다 ㅋㅋㅋㅋㅋ _" + data.getPush_col1());
-            data.setPush_col4((new Date()).toString());
+            data.setPush_col4(new Date());
             data.setPush_col5(DalbitUtil.randomValue("number", 1));
-            data.setPush_col6((new Date()).toString());
+            data.setPush_col6(new Date());
             data.setPush_col7("YOOSIN");
 
             list.add(data);
