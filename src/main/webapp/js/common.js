@@ -191,7 +191,7 @@ function convertToDate(date, format){
         return "-";
     }
     if(isEmpty(format)){
-        format = "YYYY.MM.DD HH:MM:SS";
+        format = "YYYY.MM.DD HH:MM";
     }
     return moment(date).format(format);
 }
