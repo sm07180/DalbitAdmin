@@ -36,7 +36,10 @@ var BroadcastDataTableSource = {
                     }
                 }},
             {'title': '회원No', 'data': 'memNo', 'defaultContent': ''},
-            {'title': 'User ID', 'data': 'memId', 'defaultContent': ''},
+            {'title': 'User ID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
+                    // return '<a class="_openMemberPop" data-memNo=' + row.memNo + '>' + data +'</a>'
+                    return memNoLink(data, row.memNo);
+                }},
             {'title': 'User 닉네임', 'data': 'memNick', 'defaultContent': ''},
             {'title': '방송제목', 'data': 'title', 'defaultContent': ''},
             {'title': '보유 결제금액', 'data': '', 'defaultContent': ''},

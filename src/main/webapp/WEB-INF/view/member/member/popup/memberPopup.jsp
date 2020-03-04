@@ -1,43 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    String in_roomNo = request.getParameter("in_roomNo");
+    String in_memNo = request.getParameter("memNo");
 %>
 
-<html>
-<title>test</title>
+<style>
+    .lb_style{
+        border: 1px solid #DDDDDD;
+        background-color: #DCE6F2;
+        height: 34px;
+    }
+</style>
 
-<body>
+<div class="col-md-12 no-padding">
+    <div class="widget-content">
+        <div class="tab-pane fade in active" id="memberDetail"><jsp:include page="../memberTab.jsp"/></div>     <!-- 상세 -->
+    </div>
+</div>
 <script>
-    // $(document).ready(function() {
-    // });
+    $(document).ready(function() {
+    });
 
     init();
     function init(){
-        var roomNo =  <%=in_roomNo%>;
-
-        alert("roomNo : " + roomNo );
-        // $("#test").val(roomNo);
-
-        memNo = "11577690655946";
-        var obj = new Object();
-        obj.memNo = memNo;
-        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+        var tmp =  <%=in_memNo%>;
+        getMemNo_info_popup(tmp);
     }
-
 </script>
-
-<%--<div id="wrapper">--%>
-    <%--<div id="page-wrapper">--%>
-        <%--<div class="container-fluid">--%>
-            <%--<div class="row col-lg-12 form-inline">--%>
-                <%--<label style="font-weight: bold;color: #000000;">회원 검색</label>--%>
-                <%--<input type="text" class="form-control" id="test">--%>
-                <%--<jsp:include page="../memberTab.jsp"></jsp:include>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-<%--</div>--%>
-
-</body>
-</html>

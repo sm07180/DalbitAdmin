@@ -65,19 +65,19 @@
                 <div class="col-md-6" style="height: 34px;"><label>1건/10,000,000원</label></div>
             </div>
             <div class="col-md-4 no-padding">
-                <div class="col-md-5 no-padding">
-                    <div class="col-md-5 lb_style" style="height: 68px"><label>처리일시</label></div>
-                    <div class="col-md-7" style="height: 68px"><label>2020-03-02 12:01:22</label></div>
+                <div class="col-md-6 no-padding">
+                    <div class="col-md-6 lb_style" style="height: 68px"><label>처리일시</label></div>
+                    <div class="col-md-6" style="height: 68px"><label>2020-03-02 12:01:22</label></div>
                 </div>
-                <div class="col-md-7 no-padding">
-                    <div class="col-md-5 lb_style"><label>처리상태</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>미처리</label></div>
-                    <div class="col-md-5 lb_style"><label>처리자명</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>-</label></div>
+                <div class="col-md-6 no-padding">
+                    <div class="col-md-6 lb_style"><label>처리상태</label></div>
+                    <div class="col-md-6" style="height: 34px;"><label>미처리</label></div>
+                    <div class="col-md-6 lb_style"><label>처리자명</label></div>
+                    <div class="col-md-6" style="height: 34px;"><label>-</label></div>
                 </div>
                 <div class="col-md-12 no-padding">
-                    <div class="col-md-5 no-padding">
-                        <div class="col-md-5 lb_style" style="height: 136px"><label>조치내역</label></div>
+                    <div class="col-md-3 no-padding">
+                        <div class="col-md-12 lb_style" style="height: 136px"><label>조치내역</label></div>
                     </div>
                     <div class="col-md-7 no-padding">
                         <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
