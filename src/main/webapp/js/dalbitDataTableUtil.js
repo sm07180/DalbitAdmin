@@ -441,5 +441,6 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
     DalbitDataTable.prototype.setOrder = function (columnIdx, orderDir) {
         dalbitLog("[Order] columnidx:" + columnIdx + " / orderDir :" + orderDir)
+        if(isEmpty(orderDir)){orderDir = "desc"}
         this.dataTableSource.order = [[ columnIdx, orderDir ]] ;
     }
