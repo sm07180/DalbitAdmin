@@ -23,23 +23,25 @@
         </div>
         <div class="col-md-12 no-padding">
             <div class="col-md-6 no-padding">
-                <div class="col-md-3" style="border: 1px solid #DDDDDD;">
+                <div class="col-md-3 no-padding" style="border: 1px solid #DDDDDD;">
                     <label class="control-label" style="border: 1px solid #DDDDDD;background-color: #DCE6F2;">프로필 이미지</label>
                 </div>
-                <div class="col-md-9" style="border: 1px solid #DDDDDD;">
-                    <div class="input-file">
+                <div class="col-md-9 no-padding" style="border: 1px solid #DDDDDD;">
+                    <div class="col-md-10 no-padding">
                         <form id="profileImg" method="post" enctype="multipart/form-data">
                             <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
                             <%--<input type='file' id="imgInput"/>--%>
-                            <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
                         </form>
+                    </div>
+                    <div class="col-md-2 no-padding">
+                        <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>회원레벨</label></div>
-                    <div class="col-md-9">
+                    <div class="col-md-9" style="height: 34px">
                         <form id="cob_level">
                             <select id="cob_userLevel" name="emailSelection" class="form-control">
                                 <option value="9999" selected="selected">직접입력</option>
@@ -49,7 +51,7 @@
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>DJ등급</label></div>
-                    <div class="col-md-9">
+                    <div class="col-md-9" style="height: 34px">
                         <form id="cob_grade">
                             <select id="cob_djLevel" name="emailSelection" class="form-control">
                             </select>

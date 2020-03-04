@@ -19,12 +19,14 @@
                 <div class="col-md-12 no-padding">
                     <div class="col-md-6 no-padding">
                         <div class="col-md-3 no-padding"><label class="control-label">배경 이미지</label></div>
-                        <div class="col-md-9">
-                            <div class="input-file">
+                        <div class="col-md-9 no-padding">
+                            <div class="col-md-10 no-padding">
                                 <form id="profileImg" method="post" enctype="multipart/form-data">
-                                    <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
-                                    <button type="button" id="bt_img" class="btn pull-right btn-info">이미지초기화</button>
+                                    <img id="image_section" src="#" alt="your image" style="width: 134px;height: 134px"/>
                                 </form>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" id="bt_img" class="btn pull-right btn-info">이미지초기화</button>
                             </div>
                         </div>
                     </div>
@@ -224,7 +226,7 @@
         console.log("response.data.type : " + response.data[0].type);
         $("#selectSubject_type").val(response.data[0].type);
         $("#txt_title").val(response.data[0].title);
-        $("#lb_djID").html(response.data[0].memId + "/" + response.data[0].memId);
+        $("#lb_djID").html(response.data[0].memNo + "/" + response.data[0].memId);
         $("#lb_djNickname").html(response.data[0].memNick);
         $("#txt_msgWelcom").val(response.data[0].msgWelcom);
         $("#lb_live").html(response.data[0].state);
