@@ -25,7 +25,7 @@
                             </select>
 
                             <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                            <button type="submit" class="btn btn-default" id="bt_search">검색</button>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>

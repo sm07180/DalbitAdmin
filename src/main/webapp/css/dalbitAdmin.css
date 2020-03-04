@@ -47,3 +47,13 @@ div.searchBoxArea .searchBoxRow div select.searchType{
 div.block{
     margin-top: 10px;
 }
+
+.lb_style{
+    border: 1px solid #DDDDDD;
+    background-color: #DCE6F2;
+    height: 34px;
+}
+.area_style{
+    height: 170px;
+    padding-bottom: 5px;
+}
