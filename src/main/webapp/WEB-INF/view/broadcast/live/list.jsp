@@ -9,7 +9,7 @@
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
+                        <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
                         <div>
                             <select class="form-control searchType" name="selectGubun">
                                 <option value="9999" selected="selected">전체</option>
@@ -90,6 +90,7 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
+        dtList_info.setOrder(14,"desc");
         dtList_info.createDataTable();
     }
     function getSearch(){

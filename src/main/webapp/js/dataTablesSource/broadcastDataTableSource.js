@@ -37,7 +37,6 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '회원No', 'data': 'memNo', 'defaultContent': ''},
             {'title': 'User ID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
-                    // return '<a class="_openMemberPop" data-memNo=' + row.memNo + '>' + data +'</a>'
                     return memNoLink(data, row.memNo);
                 }},
             {'title': 'User 닉네임', 'data': 'memNick', 'defaultContent': ''},
@@ -46,9 +45,32 @@ var BroadcastDataTableSource = {
             {'title': '누적 받은 선물 수', 'data': '', 'defaultContent': ''},
             {'title': '누적 팬 수', 'data': '', 'defaultContent': ''},
             {'title': '누적 방송 횟수', 'data': '', 'defaultContent': ''},
-            {'title': '최초방송 시작일', 'data': 'start_date', 'defaultContent': ''},
+            {'title': '최초방송 시작일', 'data': 'startDate', 'defaultContent': ''},
         ]
         , 'comments': '실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.'
+    },
+
+    'broadcastList': {
+        'url': '/rest/broadcast/broadcast/list'
+        , 'columns': [
+            {'title': 'roomNo', 'data': 'roomNo', 'visible': false},
+            {'title': '회원번호', 'data': 'memNo', 'defaultContent': ''},
+            {'title': 'DJ ID', 'data': 'memId','render': function (data, type, row, meta) {
+                    return memNoLink(data, row.memNo);
+                }},
+            {'title': 'DJ 닉네임', 'data': 'memNick', 'defaultContent': ''},
+            {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
+            {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
+                }},
+            {'title': '방송시작일시', 'data': 'startDate', 'defaultContent': ''},
+            {'title': '청취자', 'data': 'entryCnt', 'defaultContent': ''},
+            {'title': '좋아요', 'data': 'goodCnt', 'defaultContent': ''},
+            {'title': '선물', 'data': 'giftCnt', 'defaultContent': ''},
+            {'title': '사연수', 'data': 'storyCnt', 'defaultContent': ''},
+            {'title': '방송상태', 'data': 'status', 'defaultContent': ''},
+        ]
+        , 'comments': '방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
     },
     
     'listenDetail': {
