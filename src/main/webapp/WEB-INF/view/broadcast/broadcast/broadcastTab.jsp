@@ -10,19 +10,19 @@
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
-                    <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="getBroadHistory_tmp(this.id);">청취자관리</a></li>
-                    <li><a href="#chattingDetail" role="tab" data-toggle="tab" id="tab_chattingDetail" onclick="getBroadHistory_tmp(this.id);">채팅내역</a></li>
-                    <li><a href="#likeDetail" role="tab" data-toggle="tab" id="tab_likeDetail" onclick="getBroadHistory_tmp(this.id);">좋아요 내역</a></li>
-                    <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="getBroadHistory_tmp(this.id);">선물내역</a></li>
-                    <li><a href="#storyDetail" role="tab" data-toggle="tab" id="tab_storyDetail" onclick="getBroadHistory_tmp(this.id);">사연내역</a></li>
+                    <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="getBroadHistory_listen(this.id);">청취자관리</a></li>
+                    <li><a href="#chattingDetail" role="tab" data-toggle="tab" id="tab_chattingDetail" onclick="getBroadHistory_chatting(this.id);">채팅내역</a></li>
+                    <li><a href="#likeDetail" role="tab" data-toggle="tab" id="tab_likeDetail" onclick="getBroadHistory_like(this.id);">좋아요 내역</a></li>
+                    <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="getBroadHistory_gift(this.id);">선물내역</a></li>
+                    <li><a href="#storyDetail" role="tab" data-toggle="tab" id="tab_storyDetail" onclick="getBroadHistory_story(this.id);">사연내역</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="infoDetail"><jsp:include page="broadcastInfo.jsp"/></div>      <!-- 상세 -->
                     <%--<div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>             <!-- 청취자 -->--%>
                     <%--<div class="tab-pane fade" id="chattingDetail"><jsp:include page="../chatting/list.jsp"/></div>         <!-- 채팅 -->--%>
-                    <%--<div class="tab-pane fade" id="likeDetail"><jsp:include page="../like/list.jsp"/></div>                 <!-- 좋아요 -->--%>
+                    <div class="tab-pane fade" id="likeDetail"><jsp:include page="../like/list.jsp"/></div>                 <!-- 좋아요 -->
                     <%--<div class="tab-pane fade" id="giftDetail"><jsp:include page="../gift/list.jsp"/></div>                 <!-- 선물 -->--%>
-                    <%--<div class="tab-pane fade" id="storyDetail"><jsp:include page="../story/list.jsp"/></div>               <!-- 사연 -->--%>
+                    <div class="tab-pane fade" id="storyDetail"><jsp:include page="../story/list.jsp"/></div>               <!-- 사연 -->
                 </div>
             </div>
         </div>
@@ -35,13 +35,5 @@
     $(document).ready(function() {
     });
 
-    // function getBroadHistory_tmp(tmp){
-    //     console.log("tmp : " + tmp);
-    //     if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
-    //         tmp = tmp.split("_");
-    //         tmp = tmp[1];
-    //     }
-    //     tab_id = tmp;
-    //     getBroadcastHistoryDetail(tmp);
-    // }
+    var dtList_info_detail;
 </script>
