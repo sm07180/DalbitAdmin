@@ -32,7 +32,7 @@ public class B_LiveRestController {
 
     @PostMapping("list")
     public String getBroadcastList(LiveListVo liveListVo){
-        liveListVo.setPageCnt(20);
+        liveListVo.setPageCnt(15);
         List<LiveListVo> list = bLiveService.callLiveList(liveListVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list));
     }

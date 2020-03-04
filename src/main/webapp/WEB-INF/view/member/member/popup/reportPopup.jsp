@@ -11,23 +11,17 @@
         height: 34px;
     }
 </style>
-<html>
-<title>test</title>
 
-<body>
-    <div class="col-md-12 no-padding" id="report_detail">
-        <div class="widget-content">
-            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
-            </ul>
-            <div class="tab-content no-padding">
-                <div class="tab-pane fade in active" id="reportDetail"><jsp:include page="../../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
-            </div>
+<div class="col-md-12 no-padding" id="report_detail">
+    <div class="widget-content">
+        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+            <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
+        </ul>
+        <div class="tab-content no-padding">
+            <div class="tab-pane fade in active" id="reportDetail"><jsp:include page="../../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
         </div>
     </div>
-
-</body>
-</html>
+</div>
 
 <script>
     $(document).ready(function() {

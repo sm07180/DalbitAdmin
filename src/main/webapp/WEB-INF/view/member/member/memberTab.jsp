@@ -46,5 +46,5 @@
 <script>
     $(document).ready(function() {
     });
-
+    var dtList_info_detail;
 </script>
