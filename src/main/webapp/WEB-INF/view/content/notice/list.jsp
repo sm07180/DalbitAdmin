@@ -1,48 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .text_center{
-        text-align: center;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-    .area_style{
-        height: 170px;
-        padding-bottom: 5px;"
-    }
-</style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
+            <!-- serachBox -->
             <div class="row col-lg-12 form-inline">
-                <div class="col-md-12" style="background: #DCE6F2;height: 40px;">
-                    <label style="font-weight: bold;color: #000000;">공지검색&nbsp;&nbsp;</label>
-                    <select class="form-control" name="selectType">
-                        <option value="9999" selected="selected">전체▼</option>
-                        <option value="1">공지제목</option>
-                        <option value="2">내용</option>
-                        <option value="3">작성자</option>
-                    </select>
-                    <select class="form-control" name="noticeType">
-                        <option value="9999" selected="selected">전체▼</option>
-                        <option value="1">서비스공지</option>
-                        <option value="2">긴급공지</option>
-                        <option value="3">이벤트</option>
-                    </select>
+                <div class="widget widget-table searchBoxArea">
+                    <div class="widget-header searchBoxRow">
+                        <h3 class="title"><i class="fa fa-search"></i> 공지검색</h3>
+                        <div>
+                            <select class="form-control" name="selectType">
+                                <option value="9999" selected="selected">전체▼</option>
+                                <option value="1">공지제목</option>
+                                <option value="2">내용</option>
+                                <option value="3">작성자</option>
+                            </select>
 
-                    <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                    <button type="submit" class="btn btn-default" id="bt_search">검색</button>
+                            <select class="form-control" name="noticeType">
+                                <option value="9999" selected="selected">전체▼</option>
+                                <option value="1">서비스공지</option>
+                                <option value="2">긴급공지</option>
+                                <option value="3">이벤트</option>
+                            </select>
+
+                            <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                            <button type="submit" class="btn btn-default" id="bt_search">검색</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- //serachBox -->
+
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
