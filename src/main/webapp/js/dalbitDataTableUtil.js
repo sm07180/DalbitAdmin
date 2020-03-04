@@ -95,6 +95,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         },
         fnDrawCallback: function(oSettings){
             dalbitLog("[fnDrawCallback]");
+            $('.dataTables_paginate > .pagination').addClass('borderless');
 
             // 조회 데이터 없을 경우
             if(isEmpty(oSettings.fnRecordsTotal()) || oSettings.fnRecordsTotal() <= 0){
@@ -210,6 +211,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 initFn();
             }
         };
+
+        console.log("-----")
+        console.log(this.dataTableSource)
 
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
@@ -332,6 +336,14 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }
     }
 
+    DalbitDataTable.prototype.useInitReload = function(isUse){
+        if(isUse){
+            delete this.dataTableSource.deferLoading;
+        }else{
+            this.dataTableSource.deferLoading = 0;
+        }
+    }
+
 
 
 
@@ -425,4 +437,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }
 
         this.arrayClickEvent = inputEvent;
+    }
+
+    DalbitDataTable.prototype.setOrder = function (columnIdx, orderDir) {
+        dalbitLog("[Order] columnidx:" + columnIdx + " / orderDir :" + orderDir)
+        this.dataTableSource.order = [[ columnIdx, orderDir ]] ;
     }
