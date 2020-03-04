@@ -1,4 +1,53 @@
 var BroadcastDataTableSource = {
+    'liveList': {
+        'url': '/rest/broadcast/live/list'
+        , 'columns': [
+            {'title': 'Main추천상태', 'data': 'badgeRecomm', 'render': function (data) {
+                    if(data == 1){
+                        return '<i class="fa fa-circle"></i><br/>' + "추천중";
+                    }else{
+                        return '<i class="fa fa-circle-o"></i><br/>' + "비추천";
+                    }
+                }},
+            {'title': '레벨/등급', 'data': 'live', 'defaultContent': ''},
+            {'title': '프로필이미지', 'data': 'imageProfile', 'defaultContent': '', 'render' : function(data, type, row, meta){
+                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
+                }},
+            {'title': '테그부분', 'data': 'tag', 'render': function (data) {
+                    if(data == "ALL"){
+                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>' +
+                                '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>' +
+                                '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }else if(data == "repo"){
+                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>' +
+                                '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span>';
+                    }else if(data == "rene"){
+                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>' +
+                                '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }else if(data == "pone"){
+                        return '<span class ="label"  style="background-color:#3761d9">' + "인기" + '</span><br/>' +
+                                '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }else if(data == "re"){
+                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span>';
+                    }else if(data == "po"){
+                        return '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span>';
+                    }else{
+                        return '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }
+                }},
+            {'title': '회원No', 'data': 'memNo', 'defaultContent': ''},
+            {'title': 'User ID', 'data': 'memId', 'defaultContent': ''},
+            {'title': 'User 닉네임', 'data': 'memNick', 'defaultContent': ''},
+            {'title': '방송제목', 'data': 'title', 'defaultContent': ''},
+            {'title': '보유 결제금액', 'data': '', 'defaultContent': ''},
+            {'title': '누적 받은 선물 수', 'data': '', 'defaultContent': ''},
+            {'title': '누적 팬 수', 'data': '', 'defaultContent': ''},
+            {'title': '누적 방송 횟수', 'data': '', 'defaultContent': ''},
+            {'title': '최초방송 시작일', 'data': 'start_date', 'defaultContent': ''},
+        ]
+        , 'comments': '실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.'
+    },
+    
     'listenDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [

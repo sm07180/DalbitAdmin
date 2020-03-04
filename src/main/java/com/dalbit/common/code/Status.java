@@ -57,8 +57,8 @@ public enum Status {
     공지보기실패("C006", "notice.list.view.fail", "공지보기 실패 시"),
 
     //신고/1:1문의
-    신고문의보기성공("0", "receipt.list.view.success", "신고문의보기 성공 시"),
-    신고문의보기실패("C006", "receipt.list.view.fail", "신고문의보기 실패 시"),
+    신고문의보기성공("0", "report.list.view.success", "신고문의보기 성공 시"),
+    신고문의보기실패("C006", "report.list.view.fail", "신고문의보기 실패 시"),
 
     //회원접속기록
     회원접속기록보기성공("0", "connect.list.view.success", "회원접속기록보기 성공 시"),

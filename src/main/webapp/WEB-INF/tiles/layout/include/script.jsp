@@ -59,6 +59,7 @@
 
 <!-- DataTable Util -->
 <script src="/js/dataTablesSource/memberDataTableSource.js"></script>
+<script src="/js/dataTablesSource/broadcastDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
 <script src="/js/dataTablesSource/customer/customerDataTableSource.js"></script>
 <script src="/js/dataTablesSource/dataTableSource.js"></script>

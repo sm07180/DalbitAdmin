@@ -3,13 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-    .text_center{
-        text-align: center;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
     .lb_style{
         border: 1px solid #DDDDDD;
         background-color: #DCE6F2;
