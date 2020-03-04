@@ -30,7 +30,7 @@ public class NoticeRestController {
     GsonUtil gsonUtil;
 
     /**
-     * Push Rest List
+     * Notice Rest List
      */
     @PostMapping("list")
     public String list(HttpServletRequest request, NoticeVo noticeVo) {

@@ -148,9 +148,12 @@
         // 테이블이 화면에 만들어져서 찍히는 순간
     }
 
+    var dec_memNo;
     function getUser_detail(index){
         console.log("@@@@@    사용자 ID 클릭");
-
+        /* 팝업 function */
+        var data = dtList_info.getDataRow(index);
+        dec_memNo = data.memNo;
     }
     function getDeclare_detail(index){
         console.log("@@@@@    처리상태 클릭");
@@ -160,11 +163,6 @@
         getChattingHistoryDetail();
     }
 
-    /* function onChange(obj) {
-         var type=obj.value;
-         alert(type);
-     }
- */
 
     function declareInfo() {
         dtList_info.reload();
