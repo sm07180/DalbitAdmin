@@ -18,7 +18,7 @@
     $(document).ready(function() {
     });
 
-    function getBroadHistory_chat(tmp) {     // 상세보기
+    function getBroadHistory_listen(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
@@ -31,7 +31,7 @@
         dtList_info_detail.reload();
     }
 
-    function Chat(index){
+    function Listen(index){
         var data = dtList_info_detail.getDataRow(index);
         var roomNo = data.roomNo;
         console.log('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);

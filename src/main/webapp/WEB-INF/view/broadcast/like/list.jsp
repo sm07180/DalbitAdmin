@@ -1,76 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
-<!-- SHOW HIDE COLUMNS DATA TABLE -->
-<div class="widget widget-table">
-
-    <div class="widget-content">
-        <table id="list" class="table table-sorting table-hover table-bordered datatable">
-            <span>
-                <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
-            </span>
-            <thead>
-            <tr>
-                <th>NO</th>
-                <th>UserID</th>
-                <th>NickName</th>
-                <th>Name</th>
-                <th>PhoneNum</th>
-                <th>JoinPlatform</th>
-                <th>Login_out</th>
-                <th>Live</th>
-            </tr>
-            </thead>
-            <tbody id="tableBody">
-
-            </tbody>
-        </table>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="col-lg-12 no-padding">
+            <div class="widget widget-table">
+                <div class="widget-content">
+                    <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                        <thead id="tableTop_detail">
+                        </thead>
+                        <tbody id="tableBody_detail">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<!-- END SHOW HIDE COLUMNS DATA TABLE -->
-
-
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/broadcast/like/list", "", fn_success, fn_fail);
     });
 
-
-    function fn_success(dst_id, response){
-        dalbitLog(response);
-
-        var template = $('#tmp_list').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
-
-        $("#tableBody").append(html);
-
-        $('#list').DataTable({
-            retrieve : true,
-            paging : true,
-            searching : true,
-        });
-
+    function getBroadHistory_like(tmp) {     // 상세보기
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+        var source = BroadcastDataTableSource[tmp];
+        var dtList_info_detail_data = function (data) {
+            data.memNo = memNo;
+        }
+        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.createDataTable();
+        dtList_info_detail.reload();
     }
 
-    function fn_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
+    function Like(index){
+        var data = dtList_info_detail.getDataRow(index);
+        var roomNo = data.roomNo;
+        console.log('종료된 청취 방송 상세정보 새창 오픈~ roomNo : ' + roomNo);
     }
-</script>
 
-<script id="tmp_list" type="text/x-handlebars-template">
-    {{#data}}
-    <tr>
-        <td>{{NO}}</td>
-        <td>{{UserID}}</td>
-        <td>{{NickName}}</td>
-        <td>{{Name}}</td>
-        <td>{{PhoneNum}}</td>
-        <td>{{JoinPlatform}}</td>
-        <td>{{Login_out}}</td>
-        <td>{{Live}}</td>
-    </tr>
-    {{/data}}
 </script>
