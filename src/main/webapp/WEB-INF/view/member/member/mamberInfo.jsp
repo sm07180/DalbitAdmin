@@ -344,9 +344,14 @@
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
+    function getMemNo_info_popup(tmp){
+        var obj = new Object();
+        obj.memNo = tmp;
+        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+    }
+
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
-
         // profImgDel = "false";
         memNo = response.data[0].memNo;
         $("#lb_userId").html(response.data[0].memId);

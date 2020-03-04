@@ -40,6 +40,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-6">
+            <div class="main-content">
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-truck"></i> 막대차트</h3> <em>- Visits based on source of traffic</em>
+                        <div class="btn-group widget-header-toolbar">
+                            <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
+                            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                            <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <div id='barArea'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -135,4 +153,44 @@
 
     Plotly.newPlot('lineArea', data, layout);
     /* 라인차트 [end] */
+
+    /*막대차트 [start]*/
+    var android = {
+        name: '안드로이드',
+        type: 'bar',
+        x: ['월(2/16)', '화(2/17)', '수(2/18)', '목(2/19)', '금(2/20)', '토(2/21)', '일(2/22)'],
+        y: [551, 1320, 4122, 823, 399, 120, 500],
+        marker: {
+            color: '#2029c8',
+            line: {
+                width: 2.5
+            }
+        }
+    };
+
+    var ios = {
+        name: '아이폰',
+        type: 'bar',
+        x: ['월(2/16)', '화(2/17)', '수(2/18)', '목(2/19)', '금(2/20)', '토(2/21)', '일(2/22)'],
+        y: [365, 641, 7455, 412, 412, 1122, 569],
+        marker: {
+            color: '#c83f47',
+            line: {
+                width: 2.5
+            }
+        }
+    };
+
+    var data = [ android, ios ];
+
+    var layout = {
+        title: '방문자 수 (2020년 2월 3주)',
+        font: {size: 18}
+    };
+
+    var config = {responsive: true}
+
+    Plotly.newPlot('barArea', data, layout, config );
+
+    /*막대차트 [end]*/
 </script>
