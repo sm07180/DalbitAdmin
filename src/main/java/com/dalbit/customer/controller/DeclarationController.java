@@ -25,4 +25,9 @@ public class DeclarationController {
     public String list(Model model) {
         return "customer/declaration/list";
     }
+
+    @RequestMapping("/popup/declarationPopup")
+    public String declarationPopup(Model model) {
+        return "customer/declaration/popup/declarationPopup";
+    }
 }

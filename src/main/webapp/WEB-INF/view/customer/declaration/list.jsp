@@ -1,29 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .text_white {
-        border: 1px solid #DDDDDD;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .button_right{
-        float: right;
-        white-space:nowrap;
-    }
-    .text_middle {
-        display:table-cell;
-        vertical-align:middle
-    }
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -67,7 +44,7 @@
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
-                    <div class="widget-header" style="background: #DCE6F2;height: 40px;">
+                    <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                         <div class="btn-group widget-header-toolbar">
                             <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
@@ -150,7 +127,6 @@
 
     function getUser_detail(index){
         console.log("@@@@@    사용자 ID 클릭");
-
     }
     function getDeclare_detail(index){
         console.log("@@@@@    처리상태 클릭");
@@ -160,11 +136,6 @@
         getChattingHistoryDetail();
     }
 
-    /* function onChange(obj) {
-         var type=obj.value;
-         alert(type);
-     }
- */
 
     function declareInfo() {
         dtList_info.reload();
