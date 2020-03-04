@@ -49,14 +49,14 @@ public class B_BroadcastRestController {
 
     @PostMapping("list")
     public String getBroadcastList(BroadcastListVo broadcastListVo){
-        String result = bBroadcastService.callBroadcastList(broadcastListVo);
-        return result;
+        List<BroadcastListVo> list = bBroadcastService.callBroadcastList(broadcastListVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list));
     }
 
     @PostMapping("info")
     public String info(BroadcastInfoVo broadcastInfoVo){
-        String result = bBroadcastService.callBroadcastInfo(broadcastInfoVo);
-        return result;
+        List<BroadcastInfoVo> list = bBroadcastService.callBroadcastInfo(broadcastInfoVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list));
     }
 
 //    /**

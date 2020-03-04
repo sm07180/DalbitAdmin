@@ -47,40 +47,22 @@ public class B_BroadcastService {
     /**
      * 방송 list 목록
      */
-    public String callBroadcastList(BroadcastListVo broadcastListVo){
+
+    public List<BroadcastListVo> callBroadcastList(BroadcastListVo broadcastListVo){
         List<BroadcastListVo> list = bBroadcastDao.callBroadcastList(broadcastListVo);
-        ProcedureVo procedureVo = new ProcedureVo();
-        procedureVo.setData(list);
-        String result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
-        log.info(" ### 호출결과 ###" + result);
-        return result;
+        int total = bBroadcastDao.callBroadcastList_cnt(broadcastListVo);
+        log.info("total : " + total);
+        if(list.size() > 0) {
+            list.get(0).setTotalCnt(total);
+        }
+        return list;
     }
 
     /**
      * 선택한 방 정보
      */
-    public String callBroadcastInfo(BroadcastInfoVo broadcastInfoVo) {
-
-//        platform;                    //플랫폼
-//        freezing;                    //얼리기여부
-//        forceExit;                   //방송강제종료
-//        infoEditNm;                  //최근정보수정처리자
-//        managerCnt;                     // 메니저 수
-//        guestCnt;                       // 게스트/게스트ID 수
-//        banCnt;                         // 등록 금지어 수
-
-        ProcedureVo procedureVo = new ProcedureVo();
+    public List<BroadcastInfoVo> callBroadcastInfo(BroadcastInfoVo broadcastInfoVo) {
         List<BroadcastInfoVo> list = bBroadcastDao.callBroadcastInfo(broadcastInfoVo);
-
-        List<BroadcastInfoOutVo> outVoList = new ArrayList<>();
-        for (int i = 0; i< list.size(); i++){
-            outVoList.add(new BroadcastInfoOutVo(list.get(i)));
-        }
-        procedureVo.setData(outVoList.get(0));
-
-        String result;
-        result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
-        log.info(" ### 호출결과 ###" + result);
-        return result;
+        return list;
     }
 }

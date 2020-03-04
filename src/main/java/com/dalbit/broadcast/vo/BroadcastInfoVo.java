@@ -12,7 +12,7 @@ public class BroadcastInfoVo {
     private String roomNo;
 
     /* return result */
-    private ImageVo backgroundImage;            //배경이미지
+    private String backgroundImage;            //배경이미지
     private String type;                        //방송주제
     private String title;                       //방송제목
     private String memNo;                       //DJ 회원번호

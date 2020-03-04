@@ -27,7 +27,7 @@ public class LiveListVo extends PagingVo {
     private String typeEntry;              //입장제한
     private String notice;                  //공지사항
     private String state;                   //방상태
-    private String start_date;              //시작일시
+    private String startDate;              //시작일시
     private String memNo;                   //DJ 회원번호
     private String memNick;                //DJ 닉네임
     private String memId;                   //DJ ID
@@ -47,7 +47,6 @@ public class LiveListVo extends PagingVo {
     public void setStDate(String stDate){
         this.stDate = stDate.replace("-","");
     }
-
     public void setEdDate(String edDate){
         this.edDate = edDate.replace("-","");
     }

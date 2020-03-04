@@ -12,5 +12,6 @@ public interface B_BroadcastDao {
 
     List<BroadcastTypeListVo> callBroadcastTypeList(BroadcastTypeListVo broadcastTypeListVo);
     List<BroadcastListVo> callBroadcastList(BroadcastListVo broadcastListVo);
+    int callBroadcastList_cnt(BroadcastListVo broadcastListVo);
     List<BroadcastInfoVo> callBroadcastInfo(BroadcastInfoVo broadcastInfoVo);
 }

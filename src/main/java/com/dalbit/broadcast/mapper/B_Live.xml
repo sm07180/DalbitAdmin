@@ -4,6 +4,7 @@
 
     <select id="callLiveList" parameterType="com.dalbit.broadcast.vo.LiveListVo" resultType="com.dalbit.broadcast.vo.LiveListVo">
         /* B_Live.xml - callLiveList */
+        select a.*, @RNUM := @RNUM + 1 as rowNum from (
         SELECT a.room_no       AS roomNo
                 ,a.title        AS title
                 ,a.msg_welcom   AS msgWelcom
@@ -13,7 +14,7 @@
                 ,(SELECT code FROM tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') state
                 ,a.count_entry  AS count_entry
                 ,a.count_good   AS count_good
-                ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')   AS start_date
+                ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')   AS startDate
                 ,a.mem_no       AS memNo
                 ,b.mem_nick     AS memNick
                 ,b.mem_sex      AS memSex
@@ -32,7 +33,6 @@
                         WHEN a.badge_popular = 1 THEN 'po'
                         WHEN a.badge_newdj = 1 THEN 'ne'
                         end) AS tag
-
           FROM tb_broadcast_room a, tb_member_basic b, tb_member_profile c
          WHERE a.mem_no = b.mem_no
            and a.mem_no = c.mem_no
@@ -79,6 +79,7 @@
         </if>
         ORDER BY ${orderColumnName} ${orderDir}
         limit #{pageStart}, #{pageCnt}
+        ) a, (SELECT @RNUM := #{pageStart}) r
     </select>
 
     <select id="callLiveList_cnt" parameterType="com.dalbit.broadcast.vo.LiveListVo" resultType="integer">
