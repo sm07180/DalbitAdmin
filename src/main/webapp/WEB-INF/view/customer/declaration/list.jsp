@@ -1,29 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .text_white {
-        border: 1px solid #DDDDDD;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .button_right{
-        float: right;
-        white-space:nowrap;
-    }
-    .text_middle {
-        display:table-cell;
-        vertical-align:middle
-    }
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -148,12 +125,8 @@
         // 테이블이 화면에 만들어져서 찍히는 순간
     }
 
-    var dec_memNo;
     function getUser_detail(index){
         console.log("@@@@@    사용자 ID 클릭");
-        /* 팝업 function */
-        var data = dtList_info.getDataRow(index);
-        dec_memNo = data.memNo;
     }
     function getDeclare_detail(index){
         console.log("@@@@@    처리상태 클릭");
