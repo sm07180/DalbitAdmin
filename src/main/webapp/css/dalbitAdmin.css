@@ -43,3 +43,7 @@ div.searchBoxArea .searchBoxRow div select.searchType{
     background-color: white;
     margin-right: 15px;
 }
+
+div.block{
+    margin-top: 10px;
+}

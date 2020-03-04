@@ -195,3 +195,13 @@ function convertToDate(date, format){
     }
     return moment(date).format(format);
 }
+
+function memNoLink(display, memNo){
+    var template = '<a href="javascript://" class="_openMemberPop" data-memNo="' + memNo + '">'+ display +'</a>';
+    return template;
+}
+
+function roomNoLink(display, roomNo){
+    var template = '<a href="javascript://" class="_openBroadcastPop" data-roomNo="' + roomNo + '">'+ display +'</a>';
+    return template;
+}

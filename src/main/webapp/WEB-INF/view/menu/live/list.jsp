@@ -25,8 +25,59 @@
                 </div>
             </div>
             <!-- //serachBox -->
-            <!-- DATA TABLE -->
+
             <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-desktop"></i> 검색결과</h3>
+                        <div class="btn-group widget-header-toolbar">
+                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
+                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        <table id="search_info" class="table table-sorting table-hover table-bordered dataTable no-footer"
+                               role="grid" aria-describedby="list_info_info">
+                            <thead>
+                            <tr role="row">
+                                <th class="" rowspan="1" colspan="1" aria-label="No." style="width: 20px;">No.</th>
+                                <th class="" tabindex="0" aria-controls="list_info" rowspan="1" colspan="1"
+                                    aria-label="UserID: 오름차순 정렬" style="width: 100px;">UserID
+                                </th>
+                                <th class="" tabindex="0" aria-controls="list_info" rowspan="1" colspan="1"
+                                    aria-label="닉네임: 오름차순 정렬" style="width: 200px;">닉네임
+                                </th>
+                                <th class="" tabindex="0" aria-controls="list_info" rowspan="1" colspan="1"
+                                    aria-label="이름: 오름차순 정렬" style="width: 100px;">이름
+                                </th>
+                                <th class="" tabindex="0" aria-controls="list_info" rowspan="1" colspan="1"
+                                    aria-label="연락처: 오름차순 정렬" style="width: 100px;">연락처
+                                </th>
+                                <th class="" tabindex="0" aria-controls="list_info" rowspan="1" colspan="1"
+                                    aria-label="가입플랫폼: 오름차순 정렬" style="width: 100px;">가입플랫폼
+                                </th>
+                                <th class="" tabindex="0" aria-controls="list_info" rowspan="1" colspan="1"
+                                    aria-label="접속상태: 오름차순 정렬" style="width: 100px;">접속상태
+                                </th>
+                                <th class="" tabindex="0" aria-controls="list_info" rowspan="1" colspan="1"
+                                    aria-label="생방상태: 오름차순 정렬" style="width: 100px;">생방상태
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="odd">
+                                <td valign="top" colspan="8" class="dataTables_empty">검색 결과가 없습니다</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- DATA TABLE -->
+            <div class="row col-lg-12 form-inline block">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="tab_select">
                         <select class="form-control">

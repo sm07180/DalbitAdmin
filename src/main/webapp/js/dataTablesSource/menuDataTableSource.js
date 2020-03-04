@@ -47,7 +47,9 @@ var MenuDataTableSource = {
             {'title': '프로필이미지', 'data': 'image_profile', 'defaultContent': '', 'render' : function(data, type, row, meta){
                     return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
                 }},
-            {'title': 'UserID', 'data': 'mem_id', 'defaultContent': ''},
+            {'title': 'UserID', 'data': 'mem_id', 'defaultContent': '', 'render' : function(data, type, row, meta){
+                    return memNoLink(data, row.mem_no);
+                }},
             {'title': 'User닉네임', 'data': 'mem_nick', 'defaultContent': ''},
             {'title': '보유결제금액', 'data': 'gold', 'defaultContent': '', 'render' : function(data){
                     return addComma(data);
