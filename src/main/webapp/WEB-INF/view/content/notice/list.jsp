@@ -14,6 +14,10 @@
         background-color: #DCE6F2;
         height: 34px;
     }
+    .area_style{
+        height: 170px;
+        padding-bottom: 5px;"
+    }
 </style>
 
 <div id="wrapper">
@@ -62,20 +66,71 @@
             </div>
             <!-- #DataTable -->
 
-            <!-- ###################################################################### -->
             <div class="row col-lg-12 form-inline">
                 <div class="col-md-12 no-padding">
                     <label id="notice_title"></label>
                 </div>
+                <div class="row col-md-12">
+                    <div class="col-md-2 no-padding">
+                        <div class="col-md-5 lb_style"><label>No</label></div>
+                        <div class="col-md-7" style="height: 34px;"><label>41</label></div>
+                        <div class="col-md-5 lb_style"><label>플랫폼</label></div>
+                        <div class="col-md-7" style="height: 34px;"><label>
+                            <select class="form-control" name="platformType">
+                                <option value="1">Android</option>
+                                <option value="2">IOS</option>
+                                <option value="3">PC</option>
+                            </select>
+                        </label></div>
+                    </div>
 
+                    <div class="col-md-2 no-padding">
+                        <div class="col-md-4 lb_style"><label>구분</label></div>
+                        <div class="col-md-8" style="height: 34px;"><label>
+                            <select class="form-control" name="noticeType">
+                                <option value="1">서비스공지</option>
+                                <option value="2">긴급공지</option>
+                                <option value="3">이벤트</option>
+                            </select>
+                        </label></div>
+                        <div class="col-md-4 lb_style"><label>성별</label></div>
+                        <div class="col-md-8" style="height: 34px;"><label>
+                            <select class="form-control" name="genderType">
+                                <option value="1">여자</option>
+                                <option value="2">남자</option>
+                            </select>
+                        </label></div>
+                    </div>
 
-            </div>
-            <!-- ################################################################# -->
-                <div class="row">
-                    <div class="col-md-12" style="height: 170px; padding-top:10px;"><textarea id="notice" style="width: 100%; height: 100%"></textarea></div>
+                    <div class="col-md-2 no-padding">
+                            <div class="col-md-6 lb_style" style="width:64px; height: 68px;"><label>제목</label></div>
+                            <div class="col-md-6" style="height: 68px;"><label>
+                               달빛라디오 돈 대박 벌었다
+                            </label></div>
+                    </div>
+                    <div class="col-md-2 no-padding">
+                        <div class="col-md-5 lb_style"><label>등록일시</label></div>
+                        <div class="col-md-7" style="height: 34px;"><label>YY.MM.DD</label></div>
+                        <div class="col-md-5 lb_style"><label>게시 중지일시</label></div>
+                        <div class="col-md-7" style="height: 34px;"><label>YY.MM.DD</label></div>
+                    </div>
+                    <div class="col-md-2 no-padding">
+                        <div class="col-md-5 lb_style"><label>조회수</label></div>
+                        <div class="col-md-7" style="height: 34px;"><label>OO</label></div>
+                        <div class="col-md-5 lb_style"><label>등록/수정처리자</label></div>
+                        <div class="col-md-7" style="height: 34px;"><label>처리자ID</label></div>
+                    </div>
+                    <div class="col-md-2 no-padding">
+                            <div class="col-md-6 lb_style" style="width:64px; height:68px"><label>게시상태</label></div>
+                            <div class="col-md-6" style="height: 68px;"><label>OFF</label></div>
+                    </div>
                 </div>
             </div>
 
+            <div class="row col-lg-12 form-inline area_style">
+                <textarea id="notice" style="width: 100%; height: 100%"
+                 placeholder="달빛라디오가 오픈한지 한달여만에 대박을 쳤습니다."></textarea></div>
+            </div>
         </div>
     </div>
 </div>
@@ -87,13 +142,14 @@
 
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getPushInfo();
+                getNoticeInfo();
             };
         });
 
         $('#bt_search').click( function() {       //검색
-            getPushInfo();
+            getNoticeInfo();
         });
+
     });
 
     $('#notice_title').html("ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.");
@@ -105,7 +161,7 @@
             data.gubun = $("select[name='selectGubun']").val()
         };
 
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, PushDataTableSource.pushInfo);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, NoticeDataTableSource.noticeInfo);
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.setEventClick(updataPushInfo,4);
@@ -117,7 +173,7 @@
     }
 
     // 검색
-    function getPushInfo(){
+    function getNoticeInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
@@ -130,6 +186,7 @@
             toggleIcon.click();
         }
     }
+
 
     // /*=---------- 엑셀 ----------*/
     // $('#excelDownBtn').on('click', function(){
