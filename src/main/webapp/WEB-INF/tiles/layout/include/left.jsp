@@ -568,6 +568,11 @@
                                 <i class="fa fa-search"></i><span class="text">차트</span>
                             </a>
                         </li>
+                        <li class="${fn:contains(url, '/sample/datepicker') ? 'active': ''}">
+                            <a href="/sample/datepicker">
+                                <i class="fa fa-search"></i><span class="text">DatePicker</span>
+                            </a>
+                        </li>
                         <li class="${fn:contains(url, '/sample/layer') ? 'active': ''}">
                             <a href="/sample/layer">
                                 <i class="fa fa-search"></i><span class="text">레이어</span>

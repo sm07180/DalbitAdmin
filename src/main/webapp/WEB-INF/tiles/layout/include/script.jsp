@@ -31,7 +31,10 @@
 <script src="/template2/assets/js/king-chart-stat.js"></script>
 <script src="/template2/assets/js/king-table.js"></script>
 <script src="/template2/assets/js/king-components.js"></script>
+<script src="/template2/assets/js/plugins/moment/moment.js"></script>
+<script src="/template2/assets/js/plugins/moment/moment-locale-ko.js"></script>
 <script src="/template2/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="/template2/assets/js/plugins/daterangepicker/daterangepicker.js"></script>
 <script src="/template2/assets/js/jquery-ui/jquery-ui-1.10.4.custom.js"></script>
 <script src="/template2/assets/js/plugins/bootstrap-multiselect/bootstrap-multiselect.js"></script>
 <%--<script src="/template2/assets/js/king-form-layouts.js"></script>--%>
@@ -45,6 +48,8 @@
 
 <!-- plugin -->
 <script src="/js/lib/bootstrap-datepicker.kr.js"></script>
+<script src="/js/lib/bootstrap-datetimepicker.js"></script>
+m
 
 <!-- dataTable -->
 <script src="/js/lib/dataTable/buttons.html5-1.5.2.min.js"></script>
@@ -54,7 +59,6 @@
 <script src="/js/lib/jquery.fileDownload-v1.4.5.js"></script>
 <script src="/js/lib/handlebars-v4.7.2.min.js"></script>
 <%--<script src="/js/lib/moment-v2.24.0.js"></script>--%>
-<script src="/template2/assets/js/plugins/moment/moment.js"></script>
 <script src="/js/common.js"></script>
 <script src="/js/helper.js"></script>
 

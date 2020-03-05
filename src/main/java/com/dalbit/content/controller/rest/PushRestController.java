@@ -58,35 +58,4 @@ public class PushRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
     }
 
-
-    /**
-     * 마감된 이벤트
-     */
-    @PostMapping("closed-event")
-    public String closedEventList(HttpServletRequest request, PushVo pushVo) {
-        int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
-
-        ArrayList<PushVo> list = new ArrayList<PushVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
-            PushVo data = new PushVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setPush_col1(DalbitUtil.randomValue("number", 1));
-            data.setPush_col2(DalbitUtil.randomValue("number", 1));
-            data.setPush_col3("메시지 마감 제목 이란다 ㅋㅋㅋㅋㅋ _" + data.getPush_col1());
-            data.setPush_col4(new Date());
-            data.setPush_col5(DalbitUtil.randomValue("number", 1));
-            data.setPush_col6(new Date());
-            data.setPush_col7("YOOSIN");
-
-            list.add(data);
-            startIdx++;
-        }
-
-        list.get(0).setTotalCnt(totalCnt);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
-    }
-
-
 }

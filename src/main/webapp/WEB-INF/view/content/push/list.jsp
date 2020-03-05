@@ -93,9 +93,23 @@
             getPushInfo();
         });
 
-        $("#btn_add").on("click", function () {
+        $("#btn_add").on("click", function () { //등록
             initData_pushMsg();
         })
+
+        $("#btn_del").on("click", function () { //삭제
+            delPushMsgData();
+        })
+    }
+
+    function delPushMsgData() {
+        var checkDatas = dtList_info.getCheckedData();
+
+        if(checkDatas.length <= 0){
+            alert("삭제할 정보를 선택해주세요.");
+            return false;
+        }
+        dalbitLog(checkDatas);
     }
 
 
@@ -145,6 +159,8 @@
             ,column15: ""
             ,column16: data.push_col6
         })
+
+        $("#tab_pushMsgList").click();
     }
 
     // 검색

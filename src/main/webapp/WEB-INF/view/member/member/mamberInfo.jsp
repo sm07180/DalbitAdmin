@@ -115,8 +115,8 @@
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>비밀번호</label></div>
-                    <div class="col-md-6"><input type="password" class="form-control" id="txt_pass"value="1234" style="width: 100%"></div>
-                    <button type="button" id="bt_resatPass" class="btn btn-default btn-sm pull-right">비밀번호 초기화</button>
+                    <%--<div class="col-md-6"><input type="password" class="form-control" id="txt_pass"value="1234" style="width: 100%"></div>--%>
+                    <button type="button" id="bt_resatPass" class="btn btn-default btn-sm">비밀번호 초기화</button>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
@@ -256,7 +256,8 @@
         });
 
         <!-- 버튼 -->
-        $('#bt_imgChg').click(function() {				 //사진변경
+        $('#bt_img').click(function() {				 //사진변경
+            bt_click(this.id);
         });
         $('#bt_report').click(function() {              //신고조치
             getReport();
@@ -265,14 +266,19 @@
             getInfoDetail(this.id);
         });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
+            bt_click(this.id);
         });
         $('#bt_resatNick').click(function() {           // 닉네임 변경
+            bt_click(this.id);
         });
         $('#bt_birth').click(function() {               //생일 변경
+            bt_click(this.id);
         });
         $('#bt_gender').click(function() {              //성별 변경
+            bt_click(this.id);
         });
         $('#bt_resatPass').click(function() {           //비밀번호 초기화
+            bt_click(this.id);
         });
         $('#bt_manager').click(function() {             //매니저 자세히
             getInfoDetail(this.id);
@@ -281,9 +287,10 @@
             getInfoDetail(this.id);
         });
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
+            bt_click(this.id);
         });
         $('#bt_editHistory').click(function() {           //운영자 메모 변경
-            getInfoDetail(this.id);
+            bt_click(this.id);
         });
 
 
@@ -384,32 +391,6 @@
         $('#div_info_detail').hide();
         $('#report_detail').hide();
     }
-
-    // function edit(tmp){
-    //     var obj = new Object();
-    //     obj.memNo = memNo;
-    //     obj.profileImage = profileImage;
-    //     obj.profImgDel = profImgDel;
-    //     obj.profileImageGrade = "5";
-    //     getAjaxData("edit", "/rest/member/member/edit",obj, fn_edit_success, fn_fail);
-    // }
-
-    // function fn_file_upload(response){
-    //     var data = jQuery.parseJSON( response );
-    //     profileImage = data.data.url;         // 새로 선택된 파일의 url
-    //     $("#image_section").prop("src", data.data.url);
-    // }
-    //
-    // function imageUpdate(){
-    //     var formData = new FormData();
-    //     formData.append("tempFileURI",profileImage);
-    //     formData.append("deleteFileURI",profImgDel);
-    //     console.log("imageUpdate - profileImage : " + profileImage);
-    //     console.log("imageUpdate - profImgDel : " + profImgDel);
-    //     fileUpdate("https://devphoto2.dalbitcast.com/done",formData, fn_file_upload, fn_fail);
-    // }
-
-
     function getInfoDetail(tmp) {     // 상세보기
         $('#div_info_detail').show();
         if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
@@ -418,6 +399,27 @@
         }
         var source = MemberDataTableSource[tmp];
         dtList_info_detail.changeReload(null,null,source,null);
+    }
+    function bt_click(tmp) {
+        if(tmp == "bt_img"){                        //사진변경
+            alert($("#lb_userId").html() + "님의 프로필 이미지가 초기화 되었습니다.");
+        }else if(tmp == "bt_phon"){                 //휴대폰 번호 변경
+            alert($("#lb_userId").html() + "님의 연락처가 변경되었습니다.");
+        }else if(tmp == "bt_resatNick"){            // 닉네임 변경
+            alert($("#lb_userId").html() + "님의 닉네임이 변경되었습니다.");
+        }else if(tmp == "bt_birth"){                //생일 변경
+            alert($("#lb_userId").html() + "님의 생년월일이 변경되었습니다.");
+        }else if(tmp == "bt_gender"){               //성별 변경
+            alert($("#lb_userId").html() + "님의 성별이 변경되었습니다.");
+        }else if(tmp == "bt_resatPass"){            //비밀번호 초기화
+            if(confirm($("#lb_userId").html() + "님의 비밀번호를 초기화 하여 휴대폰 연락처로 임의 비밀번호를 전송합니다. 지금 바로 전송하시겠습니까?")){
+                alert("전송");
+            }else{
+                alert("취소");
+            }
+        }else if(tmp == "bt_adminMemo"){            //운영자 메모 변경
+            alert("운영자 메모 등록")
+        }
     }
     function getReport() {     // 상세보기
         if(memNo == null || memNo == ""){
@@ -444,6 +446,31 @@
         myForm.target = "test";
         myForm.submit();
     }
+
+
+    // function edit(tmp){
+    //     var obj = new Object();
+    //     obj.memNo = memNo;
+    //     obj.profileImage = profileImage;
+    //     obj.profImgDel = profImgDel;
+    //     obj.profileImageGrade = "5";
+    //     getAjaxData("edit", "/rest/member/member/edit",obj, fn_edit_success, fn_fail);
+    // }
+
+    // function fn_file_upload(response){
+    //     var data = jQuery.parseJSON( response );
+    //     profileImage = data.data.url;         // 새로 선택된 파일의 url
+    //     $("#image_section").prop("src", data.data.url);
+    // }
+    //
+    // function imageUpdate(){
+    //     var formData = new FormData();
+    //     formData.append("tempFileURI",profileImage);
+    //     formData.append("deleteFileURI",profImgDel);
+    //     console.log("imageUpdate - profileImage : " + profileImage);
+    //     console.log("imageUpdate - profImgDel : " + profImgDel);
+    //     fileUpdate("https://devphoto2.dalbitcast.com/done",formData, fn_file_upload, fn_fail);
+    // }
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
