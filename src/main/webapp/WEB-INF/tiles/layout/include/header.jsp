@@ -13,6 +13,8 @@
 <link href="/template2/assets/css/main.css" rel="stylesheet" type="text/css">
 <link href="/template2/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
 <link href="/template2/assets/css/summernote/summernote.css" rel="stylesheet" type="text/css">
+<link href="/css/daterangepicker.css" rel="stylesheet" type="text/css">
+<link href="/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
 <link href="/css/common_DataTable.css" rel="stylesheet" type="text/css">
 <link href="/css/dalbitAdmin.css" rel="stylesheet" type="text/css">
 
