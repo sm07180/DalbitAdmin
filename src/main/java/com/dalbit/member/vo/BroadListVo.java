@@ -26,8 +26,8 @@ public class BroadListVo extends PagingVo{
     private String memName;
     private String memPhone;
     private String memSlct;
-    private String state;
     private String status;
+    private String statusNm;
 
 
 }

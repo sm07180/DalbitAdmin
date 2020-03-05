@@ -3,6 +3,21 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-lg-12 no-padding">
+            <div class="col-md-6 no-padding">
+                <label>ㆍ회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.</label>
+            </div>
+            <div class="col-md-6 no-padding pull-right">
+                <div class="widget widget-table">
+                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">
+                        <table id="top_info" class="table table-sorting table-hover table-bordered">
+                            <thead id="table_Top"></thead>
+                            <tbody id="table_Body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 no-padding">
             <div class="widget widget-table">
                 <div class="widget-content">
                     <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
@@ -31,6 +46,17 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
+
+        var top = tmp.replace("Detail","_top");
+        var source = MemberDataTableSource[top];
+        var dtList_info_detail_data = function (data) {
+            data.memNo = memNo;
+        }
+        dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
+        dtList_top_info.useCheckBox(false);
+        dtList_top_info.useIndex(false);
+        dtList_top_info.createDataTable();
+        dtList_top_info.reload();
     }
 
 
