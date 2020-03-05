@@ -36,7 +36,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
     this.initDataTableSource();
 
     this.dataTableSource = {
-        dom: '<"top-left pull-left"<"comments">><"top-right pull-right">rt<"footer-left pull-left"i><"footer-right pull-right">p',
+        dom: '<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">rt<"footer-left pull-left dataTable-div"i><"footer-right pull-right dataTable-div">p',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 5,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
@@ -126,7 +126,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         fnInitComplete: function(oSettings){
             dalbitLog("[fnInitComplete]");
             // Comments 설정
-            var comments = isEmpty(dataSource.comments) ? "" : 'ㆍ'  + dataSource.comments;
+            var comments = isEmpty(dataSource.comments) ? "" : dataSource.comments;
             dom.parent("div").find(".comments").html(comments);
         },
         columnDefs: [
