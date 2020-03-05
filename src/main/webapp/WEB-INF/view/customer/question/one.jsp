@@ -112,9 +112,9 @@
             </div>
         </div>
         <div class="row col-md-12">
-            <div class="col-md-8 no-padding">
-                <div class="col-md-2 no-padding lb_style"><label>메크로 답변하기</label></div>
-                <div class="col-md-3">
+            <div class="col-md-4 no-padding">
+                <div class="col-md-4 no-padding lb_style"><label>메크로 답변하기</label></div>
+                <div class="col-md-4">
                     <select class="form-control" name="searchType" id="searchType">
                         <option value="9999">문의구분</option>
                         <option value="1">회원정보</option>
@@ -126,40 +126,45 @@
                         <option value="7">선물/아이템</option>
                         <option value="8">기타</option>
                     </select>
+                </div>
+                <div class="col-md-4 no-padding">
                     <select class="form-control" name="sortType" id="sortType">
                         <option value="1">음란성</option>
                         <option value="2">방송</option>
                         <option value="3">욕설</option>
                     </select>
                 </div>
-                <div class="col-md-4 no-padding">
-                </div>
-                <div class="col-md-3 no-padding">
-                    <div class="col-md-12 lb_style"><label>바로가기 버튼</label></div>
-                </div>
             </div>
-            <div class="col-md-4 no-padding">
-                <button type="button" id="bt_moon" class="btn-sm">달결제</button>
-                <button type="button" id="bt_star" class="btn-sm">별전환</button>
-                <button type="button" id="bt_wallet" class="btn-sm">내지갑</button>
-                <button type="button" id="bt_photo" class="btn-sm">사진등록</button>
-                <button type="button" id="bt_broad" class="btn-sm">방송방법</button>
+            <div class="col-md-8 no-padding">
+                <div class="col-md-2 lb_style"><label>바로가기 버튼</label></div>
+                <div class="col-md-10 no-padding">
+                    <button type="button" id="bt_moon" class="btn-sm">달결제</button>
+                    <button type="button" id="bt_star" class="btn-sm">별전환</button>
+                    <button type="button" id="item" class="btn-sm">아이템</button>
+                    <button type="button" id="bt_boost" class="btn-sm">부스트</button>
+                    <button type="button" id="bt_wallet" class="btn-sm">내지갑</button>
+                    <button type="button" id="bt_profile" class="btn-sm">프로필</button>
+                    <button type="button" id="bt_backimg" class="btn-sm">배경이미지</button>
+                    <button type="button" id="bt_cast" class="btn-sm">캐스트</button>
+                </div>
             </div>
         </div>
         <div class="row col-md-12">
-            <div class="col-md-8 no-padding">
-                <div class="col-md-2 no-padding lb_style"><label>신고처리</label></div>
-                <div class="col-md-10">
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
-                    <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
-                    <button type="button" id="bt_ban" class="btn-sm">완료</button>
-                </div>
+            <div class="col-md-2 no-padding">
+                <div class="col-md-8 no-padding lb_style"><label>신고처리</label></div>
+            </div>
+            <div class="col-md-7 no-padding">
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
+                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
+            </div>
+            <div class="col-md-2 no-paddingng">
+                <button type="button" id="bt_ban" class="btn-sm pull-right">완료</button>
             </div>
         </div>
         <div class="row col-md-12" style="margin-top: 5px;">

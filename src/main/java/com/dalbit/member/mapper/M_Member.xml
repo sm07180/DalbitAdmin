@@ -104,7 +104,7 @@
           ,c.grade 						as grade
           ,c.exp 						as exp
 
-          ,(select count(*) as cnt FROM rd_data.tb_broadcast_room b, tb_member_broadcast_broadcasting m WHERE b.room_no = m.room_no AND b.mem_no = a.mem_no) as broadcastingCnt
+          ,(select count(*) as cnt FROM rd_data.tb_broadcast_room b, rd_data.tb_member_broadcast_broadcasting m WHERE b.room_no = m.room_no AND b.mem_no = a.mem_no) as broadcastingCnt
           ,(select count(*) as cnt from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) as listeningCnt
           ,(select count(*) as cnt from rd_data.tb_member_fanstar where mem_no_fan = a.mem_no) as starCnt   /*내가 등록한 start*/
           ,(select count(*) as cnt from rd_data.tb_member_fanstar where mem_no_star = a.mem_no) as fanCnt   /*나를 등록한 fan*/

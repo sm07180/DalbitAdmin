@@ -23,10 +23,12 @@
     });
 
     init();
-    function init(){
+    function init() {
         var roomNo =  <%=in_roomNo%>;
         var state =  <%=in_state%>;
-        alert(roomNo + " / " + state);
-        // getMemNo_info_popup(tmp);
+
+        getBroadCast_info_popup(roomNo,state);
+
+
     }
 </script>

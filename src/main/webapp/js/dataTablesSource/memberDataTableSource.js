@@ -179,7 +179,6 @@ var MemberDataTableSource = {
                     return '<a href="javascript://" onclick="javascript:Report('+meta.row+');">' + data + '</a>'
                 }},
         ]
-        , 'comments': '회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.'
     },
 
     'questionDetail': {
@@ -195,7 +194,6 @@ var MemberDataTableSource = {
             {'title': '처리상태', 'data': 'type'},
             {'title': '처리자', 'data': 'type'},
         ]
-        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
     },
 
 
@@ -264,7 +262,6 @@ var MemberDataTableSource = {
             {'title': '총 받은 부스터', 'data': 'type'},
         ]
     },
-
     'listen_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
@@ -272,6 +269,31 @@ var MemberDataTableSource = {
             {'title': '총 보낸 별', 'data': 'type'},
             {'title': '총 좋아요', 'data': 'type'},
             {'title': '총 부스터', 'data': 'type'},
+        ]
+    },
+    'report_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '미처리', 'data': 'type'},
+            {'title': '누적 처리 건', 'data': 'type'},
+            {'title': '조치내역', 'data': 'type','width':'250px'},
+            {'title': '전화문의/처리', 'data': 'type'},
+        ]
+    },
+    'question_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '총 1:1문의', 'data': 'type'},
+            {'title': '회원정보', 'data': 'type'},
+            {'title': '방송정보', 'data': 'type'},
+            {'title': '청취하기', 'data': 'type'},
+            {'title': '결제', 'data': 'type'},
+            {'title': '건의하기', 'data': 'type'},
+            {'title': '장애/버그', 'data': 'type'},
+            {'title': '선물/아이템', 'data': 'type'},
+            {'title': '기타', 'data': 'type'},
+            {'title': '전화문의', 'data': 'type'},
+            {'title': '메일문의', 'data': 'type'},
         ]
     },
 
