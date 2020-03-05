@@ -208,17 +208,19 @@
     // 초기 설정
     function init() {
         // 캘린더 기능추가
-        $('.input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            todayHighlight: true,
-            calendarWeeks: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'kr',
-            maxDate:0
-        }).datepicker("setDate", new Date());
+        // $('.input-group.date').datepicker({
+        //     todayBtn: "linked",
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     todayHighlight: true,
+        //     calendarWeeks: false,
+        //     autoclose: true,
+        //     format: "yyyy-mm-dd",
+        //     language: 'kr',
+        //     maxDate:0
+        // }).datepicker("setDate", new Date());
+
+        $('.input-group.date').datetimepicker();
 
         var htmlHour = "";
         for(var i=0; i<24; i++){
@@ -299,6 +301,7 @@
 
 
     //=------------------ 상세 Data Handler ----------------------------------
+    // 데이터 초기화
     function initData_pushMsg() {
         //No.
         $("#pushMsg-no").text("");
@@ -340,7 +343,7 @@
         $("#pushMsg-workDate").text("");
     }
 
-
+    // 데이터 셋팅 (Json)
     function setData_pushMsg(json){
         // No.
         var pushMsg_no = json.column01;
@@ -385,7 +388,14 @@
         $('input:radio[name="pushMsg-receiveType"][value='+ pushMsg_receiveType +']').prop('checked', true);
         //수신대상 지정회원일 경우
         if(pushMsg_receiveType=="4"){
+            $("#div_selectTarget").show();
+            $("#btn_selectMember").prop("disabled",false);
             //TODO 수신대상 그려야 함.
+
+        }else{
+            $("#btn_selectMember").prop("disabled",true);
+            $("#div_selectTarget").hide();
+            $("#div_selectTarget").empty();
         }
 
         //발송여부
@@ -421,7 +431,7 @@
     }
 
 
-
+    // 데이터 가져오기
     function getPushMsgData(){
         //지정회원 parsing
         var selectTarget = [];

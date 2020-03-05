@@ -4,10 +4,10 @@ var PushDataTableSource = {
 
         , 'columns': [
              {'title': 'OS구분', 'data': 'push_col1'},
-             {'title': '수신상태', 'data': 'push_col2', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
-                }},
-             {'title': '메세지 제목', 'data': 'push_col3', 'width':'200px'},
+             {'title': '수신상태', 'data': 'push_col2', 'width':'100px'},
+             {'title': '메세지 제목', 'data': 'push_col3', 'width':'200px', 'render': function (data, type, row, meta) {
+                     return '<a href="javascript:;">' + data + '</a>'
+                 }},
              {'title': '발송시간', 'data': 'push_col4', 'width':'100px', 'render': function (data, type, row, meta) {
                      return convertToDate(data);
                  }},

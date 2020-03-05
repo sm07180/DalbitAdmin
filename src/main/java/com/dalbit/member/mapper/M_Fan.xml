@@ -4,11 +4,11 @@
 
     <select id="callFanList" parameterType="com.dalbit.member.vo.FanListVo" resultType="com.dalbit.member.vo.FanListVo" >
       /* M_Fan.xml - callFanList */
-        select (select mem_no from tb_member_basic where mem_no = mem_no_star) memNo
-                ,(select mem_id from tb_member_basic where mem_no = mem_no_star) memId
-                ,(select mem_nick from tb_member_basic where mem_no = mem_no_star) memNick
+        select (select mem_no from rd_data.tb_member_basic where mem_no = mem_no_star) memNo
+                ,(select mem_id from rd_data.tb_member_basic where mem_no = mem_no_star) memId
+                ,(select mem_nick from rd_data.tb_member_basic where mem_no = mem_no_star) memNick
                 ,DATE_FORMAT(reg_date,'%Y-%m-%d %H:%i:%s')    as regDate
-          from tb_member_fanstar
+          from rd_data.tb_member_fanstar
          where mem_no_star = #{memNo}
     </select>
 </mapper>

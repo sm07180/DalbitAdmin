@@ -8,10 +8,10 @@
         SELECT a.room_no       AS roomNo
                 ,a.title        AS title
                 ,a.msg_welcom   AS msgWelcom
-                ,a.subject_type,(select code from tbl_code_define aa where aa.value = a.subject_type and aa.type ='subject_type') type
+                ,a.subject_type,(select code from rd_data.tbl_code_define aa where aa.value = a.subject_type and aa.type ='subject_type') type
                 ,(CASE  a.type_entry WHEN 0 THEN '제한없음' WHEN 1 THEN '펜만' WHEN 2 THEN '20세이상' end) AS typeEntry
                 ,a.notice       AS notice
-                ,(SELECT code FROM tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') state
+                ,(SELECT code FROM rd_data.tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') state
                 ,a.count_entry  AS count_entry
                 ,a.count_good   AS count_good
                 ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')   AS startDate
@@ -33,7 +33,7 @@
                         WHEN a.badge_popular = 1 THEN 'po'
                         WHEN a.badge_newdj = 1 THEN 'ne'
                         end) AS tag
-          FROM tb_broadcast_room a, tb_member_basic b, tb_member_profile c
+          FROM rd_data.tb_broadcast_room a, rd_data.tb_member_basic b, rd_data.tb_member_profile c
          WHERE a.mem_no = b.mem_no
            and a.mem_no = c.mem_no
 --            AND state != 4
@@ -85,7 +85,7 @@
     <select id="callLiveList_cnt" parameterType="com.dalbit.broadcast.vo.LiveListVo" resultType="integer">
         /* B_Live.xml - callLiveList */
         SELECT count(*) totalCnt
-        FROM tb_broadcast_room a, tb_member_basic b, tb_member_profile c
+        FROM rd_data.tb_broadcast_room a, rd_data.tb_member_basic b, rd_data.tb_member_profile c
         WHERE a.mem_no = b.mem_no
         and a.mem_no = c.mem_no
         --            AND state != 4

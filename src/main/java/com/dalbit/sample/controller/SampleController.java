@@ -81,4 +81,11 @@ public class SampleController {
         return "sample/function";
     }
 
+    @GetMapping("datepicker")
+    public String datepicker(){
+        return "sample/datepicker";
+    }
+
+
+
 }

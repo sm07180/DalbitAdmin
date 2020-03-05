@@ -25,7 +25,7 @@
             , mem_state
             , mem_phone
              from
-            tb_member_basic
+            rd_data.tb_member_basic
         )a
     </select>
 
@@ -37,7 +37,7 @@
         , mem_state as memState
         , mem_phone as memPhone
         from
-        tb_member_basic
+        rd_data.tb_member_basic
         where mem_no = #{memNo}
     </select>
 
