@@ -164,7 +164,7 @@
             //     alert('You have pasted something to the editor');
             // },
             callbacks: { // 콜백을 사용
-                // 이미지를 업로드할 경우 이벤트를 발생
+                // 이미지를 업로드할 경우 이벤트를 발생.
                 onImageUpload: function (files, editor, welEditable) {
                     console.log("[onImageUpload]")
 
