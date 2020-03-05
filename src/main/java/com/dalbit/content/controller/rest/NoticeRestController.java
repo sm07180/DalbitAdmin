@@ -1,22 +1,16 @@
 package com.dalbit.content.controller.rest;
 
-import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.service.NoticeService;
-import com.dalbit.content.service.PushService;
-import com.dalbit.content.vo.NoticeVo;
-import com.dalbit.content.vo.PushVo;
-import com.dalbit.util.DalbitUtil;
+import com.dalbit.content.vo.procedure.P_noticeListInputVo;
 import com.dalbit.util.GsonUtil;
+import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
 
 @Slf4j
 @RestController
@@ -29,34 +23,23 @@ public class NoticeRestController {
     @Autowired
     GsonUtil gsonUtil;
 
+    @Autowired
+    MessageUtil messageUtil;
+
     /**
-     * Notice Rest List
+     * 사이트 공지 보기
      */
-    @PostMapping("list")
-    public String list(HttpServletRequest request, NoticeVo noticeVo) {
-        int totalCnt = 100;
-        int startIdx = noticeVo.getPageStart();
+    @GetMapping("list")
+    public String list(HttpServletRequest request, P_noticeListInputVo pNoticeListInputVo) {
 
-        ArrayList<PushVo> list = new ArrayList<PushVo>();
-        for(int i = 0; i < noticeVo.getPageCnt(); i++){
-            PushVo data = new PushVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setPush_col1(DalbitUtil.randomValue("number", 1));
-            data.setPush_col2(DalbitUtil.randomValue("number", 1));
-            data.setPush_col3("메시지 제목 이란다 ㅋㅋㅋㅋㅋ _" + data.getPush_col1());
-            data.setPush_col4(new Date());
-            data.setPush_col5(DalbitUtil.randomValue("number", 1));
-            data.setPush_col6(new Date());
-            data.setPush_col7("YOOSIN");
+        pNoticeListInputVo.setPageNo(1);
+        pNoticeListInputVo.setPageCnt(10);
 
-            list.add(data);
-            startIdx++;
-        }
+        noticeService.callServiceCenterNoticeList(pNoticeListInputVo);
 
-        list.get(0).setTotalCnt(totalCnt);
+        String result ="";
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
-
+        return result;
     }
 
 }

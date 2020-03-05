@@ -14,4 +14,6 @@ public class NoticeController {
     public String list() {
         return "content/notice/list";
     }
+
+
 }
