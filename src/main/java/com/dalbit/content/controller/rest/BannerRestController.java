@@ -2,13 +2,13 @@ package com.dalbit.content.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.content.service.BannerService;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.PushVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 @Slf4j
 @RestController
-@RequestMapping("rest/content/push")
-public class PushRestController {
+@RequestMapping("rest/content/banner")
+public class BannerRestController {
 
     @Autowired
-    PushService service;
+    BannerService service;
 
     @Autowired
     GsonUtil gsonUtil;

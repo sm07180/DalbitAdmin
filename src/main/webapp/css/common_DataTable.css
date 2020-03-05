@@ -26,9 +26,10 @@ div.dataTables_info {
     margin-bottom: 0px;
 }
 
-div.comments {
-    line-height: 2.7em;
+.dataTable-div{
+    padding: 10px 10px 10px 10px;
 }
+
 
 /*DataTable Page Align*/
 div.dataTables_paginate {

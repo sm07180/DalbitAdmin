@@ -207,7 +207,7 @@
 
     // 초기 설정
     function init() {
-        //캘린더 기능추가
+        // 캘린더 기능추가
         $('.input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -219,8 +219,6 @@
             language: 'kr',
             maxDate:0
         }).datepicker("setDate", new Date());
-
-        // $('.input-group.date').datetimepicker();
 
         var htmlHour = "";
         for(var i=0; i<24; i++){

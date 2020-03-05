@@ -70,6 +70,7 @@ m
 <script src="/js/dataTablesSource/dataTableSource.js"></script>
 <script src="/js/dataTablesSource/menuDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/pushDataTableSource.js"></script>
+<script src="/js/dataTablesSource/content/bannerDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/noticeDataTableSource.js"></script>
 <script src="/js/dataTablesSource/utilDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>

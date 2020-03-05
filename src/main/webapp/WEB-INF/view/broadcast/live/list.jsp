@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-6 no-padding pull-right">
                     <div class="widget widget-table">
-                        <div class="widget-content" style="border-top-width:0px;">
+                        <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">
                             <table id="top_info" class="table table-sorting table-hover table-bordered">
                                 <thead id="table_Top"></thead>
                                 <tbody id="table_Body"></tbody>

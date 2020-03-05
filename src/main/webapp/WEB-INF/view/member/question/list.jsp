@@ -3,6 +3,21 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-lg-12 no-padding">
+            <div class="col-md-3 no-padding">
+                <label>ㆍ해당 회원의 1:1문의, 전화문의, 메일 문의 전체 <br/> 내역을 리스트로 확인할 수 있습니다.</label>
+            </div>
+            <div class="col-md-9 no-padding pull-right">
+                <div class="widget widget-table">
+                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">
+                        <table id="top_info" class="table table-sorting table-hover table-bordered">
+                            <thead id="table_Top"></thead>
+                            <tbody id="table_Body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 no-padding">
             <div class="widget widget-table">
                 <div class="widget-content">
                     <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
@@ -14,9 +29,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 no-padding" id="question_detail">
-            <jsp:include page="../../customer/question/questionTab.jsp"></jsp:include>
-        </div>
         <div class="col-md-12 no-padding" id="question_tab">
             <jsp:include page="questionTab.jsp"></jsp:include>
         </div>
@@ -26,7 +38,7 @@
     $(document).ready(function() {
     });
 
-    $('#question_detail').hide();
+    // $('#question_tab').hide();
     function getHistory_question(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
@@ -38,11 +50,22 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
+
+        var top = tmp.replace("Detail","_top");
+        var source = MemberDataTableSource[top];
+        var dtList_info_detail_data = function (data) {
+            data.memNo = memNo;
+        }
+        dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
+        dtList_top_info.useCheckBox(false);
+        dtList_top_info.useIndex(false);
+        dtList_top_info.createDataTable();
+        dtList_top_info.reload();
     }
 
     function Question(index){
 
-        $('#question_detail').show();
+        $('#question_tab').show();
         var data = dtList_info_detail.getDataRow(index);
         var roomNo = data.roomNo;
         console.log('Question~ roomNo : ' + roomNo);
