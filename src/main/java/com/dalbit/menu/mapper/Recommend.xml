@@ -18,14 +18,14 @@
                       , round(ifnull(sum(receive_item.item_cnt), 0) / count(broad.idx), 2) receive_average_cnt
                       , date_format(min(start_date), '%Y%m%d%H%i%s')                       first_broad_date
                       , date_format(max(start_date), '%Y%m%d%H%i%s')                       last_broad_date
-                 from tb_member_basic basic
-                          inner join tb_member_profile profile on basic.mem_no = profile.mem_no
-                          inner join tb_member_level level on basic.mem_no = level.mem_no
-                          inner join tb_member_wallet wallet on basic.mem_no = wallet.mem_no
-                          left outer join tb_member_broadcast_broadcasting first_broad on basic.mem_no = first_broad.mem_no
-                          left outer join tb_member_broadcast_basic broad on basic.mem_no = broad.mem_no
-                          left outer join tb_member_broadcast_item send_item on basic.mem_no = send_item.gifted_mem_no
-                          left outer join tb_member_broadcast_item receive_item on basic.mem_no = receive_item.mem_no
+                 from rd_data.tb_member_basic basic
+                          inner join rd_data.tb_member_profile profile on basic.mem_no = profile.mem_no
+                          inner join rd_data.tb_member_level level on basic.mem_no = level.mem_no
+                          inner join rd_data.tb_member_wallet wallet on basic.mem_no = wallet.mem_no
+                          left outer join rd_data.tb_member_broadcast_broadcasting first_broad on basic.mem_no = first_broad.mem_no
+                          left outer join rd_data.tb_member_broadcast_basic broad on basic.mem_no = broad.mem_no
+                          left outer join rd_data.tb_member_broadcast_item send_item on basic.mem_no = send_item.gifted_mem_no
+                          left outer join rd_data.tb_member_broadcast_item receive_item on basic.mem_no = receive_item.mem_no
                  where first_broad.start_date is not null
                  group by basic.mem_no
                     <if test='orderColumnName == "recommend"'>

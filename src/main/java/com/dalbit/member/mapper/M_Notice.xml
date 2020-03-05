@@ -8,7 +8,7 @@
                 , title
                 , notice
                 , last_upd_date as lastUpdDate
-          from tb_broadcast_room
+          from rd_data.tb_broadcast_room
          where CHAR_LENGTH(notice) > 1
            and mem_no = #{memNo}
     </select>
@@ -20,7 +20,7 @@
                 , title
                 , notice
                 , last_upd_date as lastUpdDate
-          from tb_broadcast_room
+          from rd_data.tb_broadcast_room
          where CHAR_LENGTH(notice) > 1
            and mem_no = #{memNo}
     </select>

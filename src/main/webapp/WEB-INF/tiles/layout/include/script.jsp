@@ -44,7 +44,6 @@
 <%--<script src="/template2/assets/js/king-elements.js"></script>--%>
 
 <!-- plugin -->
-<%--<script src="/js/lib/bootstrap-datepicker.min.js"></script>--%>
 <script src="/js/lib/bootstrap-datepicker.kr.js"></script>
 
 <!-- dataTable -->

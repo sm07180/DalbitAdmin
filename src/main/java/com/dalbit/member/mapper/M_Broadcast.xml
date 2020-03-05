@@ -15,8 +15,8 @@
           , m.good
           , m.gold
           , @RNUM := @RNUM + 1 as rowNum
-        FROM tb_broadcast_room b
-          , tb_member_broadcast_broadcasting m
+        FROM rd_data.tb_broadcast_room b
+          , rd_data.tb_member_broadcast_broadcasting m
           , (SELECT @RNUM := #{pageStart}) r
         WHERE b.room_no = m.room_no
         ORDER BY ${orderColumnName} ${orderDir}
@@ -26,7 +26,7 @@
     <select id="callBroadHistory_detail" parameterType="com.dalbit.member.vo.BroadListVo" resultType="com.dalbit.member.vo.BroadListVo">
         /* M_Broadcast.xml - callBroadHistory_detail */
         SELECT b.room_no as roomNo
-            ,(SELECT aa.code From tbl_code_define aa WHERE aa.type='subject_type' and aa.value = lpad(b.subject_type,2,'0')) as subjectType
+            ,(SELECT aa.code From rd_data.tbl_code_define aa WHERE aa.type='subject_type' and aa.value = lpad(b.subject_type,2,'0')) as subjectType
             , b.title as title
             , DATE_FORMAT(b.start_date,'%Y-%m-%d %H:%i:%s') as startDate
             , DATE_FORMAT(b.end_date,'%Y-%m-%d %H:%i:%s') as endDate
@@ -38,7 +38,7 @@
             , (CASE  b.state WHEN 1 THEN '방송중(Mic On)' WHEN 2 THEN '방송준비중(Mic Off)' WHEN 3 THEN '통화중'
                                WHEN 4 THEN '방송종료' ELSE '비정상(DJ종료된 상태' end) AS status
           , @RNUM := @RNUM + 1 as rowNum
-        FROM tb_broadcast_room b, tb_member_broadcast_broadcasting m
+        FROM rd_data.tb_broadcast_room b, rd_data.tb_member_broadcast_broadcasting m
            , (SELECT @RNUM := #{pageStart}) r
        WHERE b.room_no = m.room_no
          AND b.mem_no = #{memNo}
@@ -50,7 +50,7 @@
     <select id="callBroadHistory_detail_cnt" parameterType="com.dalbit.member.vo.BroadListVo" resultType="integer">
         /* M_Broadcast.xml - callBroadHistory_detail_cnt */
         SELECT count(*) cnt
-        FROM tb_broadcast_room b, tb_member_broadcast_broadcasting m
+        FROM rd_data.tb_broadcast_room b, rd_data.tb_member_broadcast_broadcasting m
            , (SELECT @RNUM := #{pageStart}) r
        WHERE b.room_no = m.room_no
          AND b.mem_no = #{memNo}

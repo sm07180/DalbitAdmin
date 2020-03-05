@@ -6,7 +6,7 @@
       /* M_Report.xml - callReportList */
         select 'p'      as platform /*플랫폼*/
                ,idx
-               ,(select code from tbl_code_define where value = a.reason and type = 'report_reason') as type
+               ,(select code from rd_data.tbl_code_define where value = a.reason and type = 'report_reason') as type
                ,a.mem_no as memNo
                ,a.reported_mem_no as reportMemNo
                ,b.mem_id as reportId
@@ -14,13 +14,13 @@
                ,(CASE  a.status WHEN 0 THEN '신고중' ELSE '처리완료' end) AS status
                ,DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s')   as lastUpdDate
                ,a.etc    as etc
-           From tb_member_report a left join (select mem_no,mem_id,mem_nick from tb_member_basic) b on a.mem_no = b.mem_no
-                                     left join (select mem_no,mem_id,mem_nick from tb_member_basic) c on a.reported_mem_no = c.mem_no
+           From rd_data.tb_member_report a left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) b on a.mem_no = b.mem_no
+                                     left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) c on a.reported_mem_no = c.mem_no
           where a.mem_no = #{memNo}             /*내가 신고한 사람*/
           union
           select 'p'      as platform /*플랫폼*/
                ,idx
-               ,(select code from tbl_code_define where value = a.reason and type = 'report_reason') as type
+               ,(select code from rd_data.tbl_code_define where value = a.reason and type = 'report_reason') as type
                ,a.mem_no as memNo
                ,a.reported_mem_no as reportMemNo
                ,b.mem_id as reportId
@@ -28,8 +28,8 @@
                ,(CASE  a.status WHEN 0 THEN '신고중' ELSE '처리완료' end) AS status
                ,DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s')   as lastUpdDate
                ,a.etc    as etc
-           From tb_member_report a left join (select mem_no,mem_id,mem_nick from tb_member_basic) b on a.mem_no = b.mem_no
-                                     left join (select mem_no,mem_id,mem_nick from tb_member_basic) c on a.reported_mem_no = c.mem_no
+           From rd_data.tb_member_report a left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) b on a.mem_no = b.mem_no
+                                     left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) c on a.reported_mem_no = c.mem_no
           where a.reported_mem_no = #{memNo}      /*나를 신고한사람*/
     </select>
 </mapper>

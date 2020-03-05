@@ -4,7 +4,7 @@
     <select id="callBroadcastTypeList" parameterType="com.dalbit.broadcast.vo.BroadcastTypeListVo" resultType="com.dalbit.broadcast.vo.BroadcastTypeListVo">
         /* B_Broadcast.xml - callBroadcastTypeList */
         SELECT *
-          FROM tbl_code_define
+          FROM rd_data.tbl_code_define
          WHERE type=#{type}
          ORDER BY VALUE
     </select>
@@ -15,10 +15,10 @@
         SELECT a.room_no       AS roomNo
         ,a.title                AS title
         ,a.msg_welcom           AS msgWelcom
-        ,a.subject_type,(select code from tbl_code_define aa where aa.value = a.subject_type and aa.type ='subject_type') type
+        ,a.subject_type,(select code from rd_data.tbl_code_define aa where aa.value = a.subject_type and aa.type ='subject_type') type
         ,(CASE  a.type_entry WHEN 0 THEN '제한없음' WHEN 1 THEN '펜만' WHEN 2 THEN '20세이상' end) AS typeEntry
         ,a.notice               AS notice
-        ,(SELECT code FROM tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') state
+        ,(SELECT code FROM rd_data.tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') state
         ,CONCAT(a.count_entry,'건')  AS entryCnt
         ,CONCAT(a.count_good,'건')   AS goodCnt
         ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')   AS startDate
@@ -40,9 +40,9 @@
                 WHEN a.badge_popular = 1 THEN 'po'
                 WHEN a.badge_newdj = 1 THEN 'ne'
                 end) AS tag
-        ,concat((SELECT count(*) cnt from tb_broadcast_room_story where room_no = a.room_no),'건') as storyCnt
-        ,concat((select sum(gift_cnt) from tb_broadcast_room_member where room_no=a.room_no),'건') as giftCnt
-        FROM tb_broadcast_room a, tb_member_basic b, tb_member_profile c
+        ,concat((SELECT count(*) cnt from rd_data.tb_broadcast_room_story where room_no = a.room_no),'건') as storyCnt
+        ,concat((select sum(gift_cnt) from rd_data.tb_broadcast_room_member where room_no=a.room_no),'건') as giftCnt
+        FROM rd_data.tb_broadcast_room a, tb_member_basic b, tb_member_profile c
         WHERE a.mem_no = b.mem_no
         and a.mem_no = c.mem_no
         --            AND state != 4
@@ -94,7 +94,7 @@
     <select id="callBroadcastList_cnt" parameterType="com.dalbit.broadcast.vo.BroadcastListVo" resultType="integer">
         /* B_Broadcast.xml - callBroadcastList_cnt */
         SELECT count(*) totalCnt
-        FROM tb_broadcast_room a, tb_member_basic b, tb_member_profile c
+        FROM rd_data.tb_broadcast_room a, rd_data.tb_member_basic b, rd_data.tb_member_profile c
         WHERE a.mem_no = b.mem_no
         and a.mem_no = c.mem_no
         --            AND state != 4
@@ -144,7 +144,7 @@
                 ,a.image_background as backgroundImage
                 ,a.msg_welcom       as msgWelcom
                 ,a.type_entry       as typeEntry
-                ,(select code FROM tbl_code_define aa WHERE value = a.state and type = 'broadcast_state') as state
+                ,(select code FROM rd_data.tbl_code_define aa WHERE value = a.state and type = 'broadcast_state') as state
                 ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')     as liveSt
                 ,DATE_FORMAT(a.end_date,'%Y-%m-%d %H:%i:%s')       as liveEd
                 ,DATE_FORMAT(a.last_upd_date,'%Y-%m-%d %H:%i:%s')  as infoEditDate
@@ -152,16 +152,16 @@
                 ,b.mem_id           as memId
                 ,b.mem_nick         as memNick
                 ,b.mem_sex          as memSex
-                ,(SELECT count(*) cnt from tb_broadcast_room_story where room_no = a.room_no) as contentsCnt
-                ,(select count(*) cnt from tb_member_broadcast_listening aa, tb_member_basic bb where aa.mem_no = bb.mem_no and aa.room_no=a.room_no) as listenCnt
-                ,(select count(*) cnt from tb_broadcast_room_block where mem_no = a.mem_no) as forceKickCnt
-                ,(select count(*) cnt From tb_broadcast_room_member where auth = 1 and room_no = a.room_no) as manegerCnt   /*방에 해당하는 매니저CNT 이력 X*/
-                ,(select aa.mem_no   From tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestNo    /*게스트번호*/
-                ,(select bb.mem_id   From tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestId    /*게스트ID*/
-                ,(select bb.mem_nick From tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestNick  /*게스트닉네임*/
-                ,(select if(count(*),'on','off') From tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestOn  /*게스트여부*/
-          from tb_broadcast_room a, tb_member_basic b,
-                tb_member_basic c, tb_broadcast_room_member d
+                ,(SELECT count(*) cnt from rd_data.tb_broadcast_room_story where room_no = a.room_no) as contentsCnt
+                ,(select count(*) cnt from rd_data.tb_member_broadcast_listening aa, rd_data.tb_member_basic bb where aa.mem_no = bb.mem_no and aa.room_no=a.room_no) as listenCnt
+                ,(select count(*) cnt from rd_data.tb_broadcast_room_block where mem_no = a.mem_no) as forceKickCnt
+                ,(select count(*) cnt From rd_data.tb_broadcast_room_member where auth = 1 and room_no = a.room_no) as manegerCnt   /*방에 해당하는 매니저CNT 이력 X*/
+                ,(select aa.mem_no   From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestNo    /*게스트번호*/
+                ,(select bb.mem_id   From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestId    /*게스트ID*/
+                ,(select bb.mem_nick From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestNick  /*게스트닉네임*/
+                ,(select if(count(*),'on','off') From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestOn  /*게스트여부*/
+          from rd_data.tb_broadcast_room a, rd_data.tb_member_basic b,
+                rd_data.tb_member_basic c, rd_data.tb_broadcast_room_member d
          where a.mem_no = b.mem_no
            and a.mem_no = c.mem_no
            and a.room_no = d.room_no
