@@ -26,8 +26,12 @@ div.dataTables_info {
     margin-bottom: 0px;
 }
 
-.dataTable-div{
+.dataTable-top > div{
     padding: 10px 10px 10px 10px;
+}
+
+.dataTable-footer > div{
+    padding: 0px 10px 10px 10px;
 }
 
 

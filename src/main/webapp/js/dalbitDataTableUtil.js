@@ -36,7 +36,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
     this.initDataTableSource();
 
     this.dataTableSource = {
-        dom: '<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">rt<"footer-left pull-left dataTable-div"i><"footer-right pull-right dataTable-div">p',
+        dom: '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">>rt<"dataTable-footer"<"footer-left pull-left dataTable-div"i><"footer-right pull-right dataTable-div">p>',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 5,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.

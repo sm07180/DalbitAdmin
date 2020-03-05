@@ -586,54 +586,6 @@
                     </ul>
                 </li>
             </ul>
-
-            <div class="text-center">통계현황</div>
-            <div id="_statisticsArea">
-                <div class="rowData row ">
-                    <label class="col-md-6 control-label">로그인 수</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">재가입 횟수</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">결제 수</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">선물 수</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">선물 금액</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">보유 아이템 수</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">환전 처리 수</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">환전 금액</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">현재 잔여금액</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">방송강제퇴장</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-                <div class="row rowData">
-                    <label class="col-md-6 control-label">신고처리</label>
-                    <div class="col-md-6 text-center">3건</div>
-                </div>
-            </div>
         </nav>
         <!-- /main-nav -->
     </div>

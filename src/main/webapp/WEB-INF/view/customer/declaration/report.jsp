@@ -88,7 +88,7 @@
                         <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
                         <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
                         <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
-                        <button type="button" id="bt_ban" class="btn-sm pull-right">완료</button>
+                        <button type="button" id="bt_ban" class="btn btn-default btn-sm pull-right">완료</button>
                     </div>
                 </div>
             </div>
