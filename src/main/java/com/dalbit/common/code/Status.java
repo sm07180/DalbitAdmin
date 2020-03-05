@@ -5,14 +5,19 @@ import lombok.Getter;
 @Getter
 public enum Status {
 
+    //공통
+    조회("C001", "read.success", "조회"),
+    수정("C002", "update.success", "수정"),
+    생성("C003", "create.success", "생성"),
+    삭제("C004", "delete.success", "삭제"),
+    파라미터오류("C005", "param.error", "파라미터 오류 시"),
+    비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),
+
     //로그인
     로그인성공("0", "login.success", "로그인 성공 시"),
     로그인실패_회원가입필요("1", "login.join.need", "회원가입 필요 시"),
     로그인실패_패스워드틀림("-1", "login.fail", "로그인 실패 시 - 아이디/비밀번호가 틀릴 시"),
     로그인실패_파라메터이상("-2", "login.param.error", "로그인 실패 시 - 파라메터이상"),
-
-    //CRUD
-    조회("1001", "read.success", "조회"),
 
     //엑셀 다운로드
     엑셀다운로드성공("1", "excel.download.success", "엑셀 다운로드 성공 시"),
@@ -63,6 +68,13 @@ public enum Status {
     //회원접속기록
     회원접속기록보기성공("0", "connect.list.view.success", "회원접속기록보기 성공 시"),
     회원접속기록보기실패("C006", "connect.list.view.fail", "회원접속기록보기 실패 시"),
+
+
+    //프로시저 연동 부분
+    공지사항조회_데이터없음("0", "select.success.no.data", "공지사항 조회 데이터가 없을 시"),
+    공지사항조회_성공("C001", "select.success", "공지사항 조회 시"),
+    공지사항조회_에러("C006", "server.error", "공지사항 조회에서 에러 발생 시"),
+
 
     ;
 
