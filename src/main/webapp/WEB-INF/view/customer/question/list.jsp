@@ -1,21 +1,5 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<style>
-    .text_center{
-        text-align: center;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
 
 <div id="wrapper">
     <div id="page-wrapper">

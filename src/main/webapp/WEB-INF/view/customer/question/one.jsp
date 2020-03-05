@@ -138,14 +138,14 @@
             <div class="col-md-8 no-padding">
                 <div class="col-md-2 lb_style"><label>바로가기 버튼</label></div>
                 <div class="col-md-10 no-padding">
-                    <button type="button" id="bt_moon" class="btn-sm">달결제</button>
-                    <button type="button" id="bt_star" class="btn-sm">별전환</button>
-                    <button type="button" id="item" class="btn-sm">아이템</button>
-                    <button type="button" id="bt_boost" class="btn-sm">부스트</button>
-                    <button type="button" id="bt_wallet" class="btn-sm">내지갑</button>
-                    <button type="button" id="bt_profile" class="btn-sm">프로필</button>
-                    <button type="button" id="bt_backimg" class="btn-sm">배경이미지</button>
-                    <button type="button" id="bt_cast" class="btn-sm">캐스트</button>
+                    <button type="button" id="bt_moon" class="btn-sm btn btn-default">달결제</button>
+                    <button type="button" id="bt_star" class="btn-sm btn btn-default">별전환</button>
+                    <button type="button" id="item" class="btn-sm btn btn-default">아이템</button>
+                    <button type="button" id="bt_boost" class="btn-sm btn btn-default">부스트</button>
+                    <button type="button" id="bt_wallet" class="btn-sm btn btn-default">내지갑</button>
+                    <button type="button" id="bt_profile" class="btn-sm btn btn-default">프로필</button>
+                    <button type="button" id="bt_backimg" class="btn-sm btn btn-default">배경이미지</button>
+                    <button type="button" id="bt_cast" class="btn-sm btn btn-default">캐스트</button>
                 </div>
             </div>
         </div>
@@ -164,7 +164,7 @@
                 <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
             </div>
             <div class="col-md-2 no-paddingng">
-                <button type="button" id="bt_ban" class="btn-sm pull-right">완료</button>
+                <button type="button" id="bt_ban" class="btn btn-default btn-sm pull-right">완료</button>
             </div>
         </div>
         <div class="row col-md-12" style="margin-top: 5px;">
