@@ -217,6 +217,21 @@
         getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
 
+    function getBroadCast_info_popup(tmp,state){
+        if(state == "4" || state == "5"){
+            $('#bt_broadcastGo').hide();
+            $('#bt_img').hide();
+            $('#bt_entry').hide();
+            $('#bt_freezing').hide();
+            $('#bt_forcedExit').hide();
+            $('#bt_msgWelcom').hide();
+            $('#bt_title').hide();
+        }
+        var obj = new Object();
+        obj.roomNo = tmp;
+        getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
+    }
+
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         roomNo = response.data[0].roomNo;

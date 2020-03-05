@@ -11,8 +11,8 @@ $(document).on('click', '._openMemberPop', function(){
 
 /*방송정보보기 팝업*/
 $(document).on('click', '._openBroadcastPop', function(){
-    var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+$(this).data('roomno');
-    windowOpen(url, 1000, 800, 'broadcastInfo');
+    var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+$(this).data('roomno')+"&status="+$(this).data('status');
+    windowOpen(url, 1500, 800, 'broadcastInfo');
 });
 
 /* 새창 띄우기 */
@@ -201,7 +201,7 @@ function memNoLink(display, memNo){
     return template;
 }
 
-function roomNoLink(display, roomNo){
-    var template = '<a href="javascript://" class="_openBroadcastPop" data-roomNo="' + roomNo + '">'+ display +'</a>';
+function roomNoLink(display, roomNo, status){
+    var template = '<a href="javascript://" class="_openBroadcastPop" data-roomNo="' + roomNo + '" data-status="' + status + '">'+ display +'</a>';
     return template;
 }

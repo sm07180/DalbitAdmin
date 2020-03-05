@@ -3,14 +3,14 @@
 <mapper namespace="com.dalbit.member.dao.M_MemberDao" >
 
     <select id="callMemberLogin" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
-        call sp_member_login(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        call rd_data.sp_member_login(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callMemberList_cnt" parameterType="com.dalbit.member.vo.MemberListVo" resultType="integer">
         /* M_Member.xml - callMemberList_cnt */
         select count(*) as totalCnt
-        from tb_member_basic b
-        , tb_member_profile p
+        from rd_data.tb_member_basic b
+            , rd_data.tb_member_profile p
         where b.mem_no = p.mem_no
         <!--<if test='checkDate == "true"'>-->
             <!--and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ >= ]]> #{stDate} and DATE_FORMAT(mem_join_date, '%Y%m%d') <![CDATA[ <= ]]> #{edDate}-->
@@ -47,8 +47,8 @@
             , b.mem_phone    as memPhone
             , b.mem_slct     as memSlct
             , @RNUM := @RNUM + 1 as rowNum
-        from tb_member_basic b
-            , tb_member_profile p
+        from rd_data.tb_member_basic b
+            , rd_data.tb_member_profile p
             , (SELECT @RNUM := #{pageStart}) r
         where b.mem_no = p.mem_no
         <!--<if test='checkDate == "true"'>-->
@@ -104,14 +104,14 @@
           ,c.grade 						as grade
           ,c.exp 						as exp
 
-          ,(select count(*) as cnt FROM tb_broadcast_room b, tb_member_broadcast_broadcasting m WHERE b.room_no = m.room_no AND b.mem_no = a.mem_no) as broadcastingCnt
-          ,(select count(*) as cnt from tb_member_broadcast_listening where mem_no = a.mem_no) as listeningCnt
-          ,(select count(*) as cnt from tb_member_fanstar where mem_no_fan = a.mem_no) as starCnt   /*내가 등록한 start*/
-          ,(select count(*) as cnt from tb_member_fanstar where mem_no_star = a.mem_no) as fanCnt   /*나를 등록한 fan*/
-          ,(select count(*) as cnt from tb_broadcast_room where CHAR_LENGTH(notice) > 1 and mem_no = a.mem_no) noticeCnt /*방송중 공지사항*/
-          ,(select count(*) as cnt From tb_member_report where mem_no = a.mem_no) reportCnt /*내가 신고한사람*/
-          ,(select count(*) as cnt From tb_member_report where reported_mem_no = a.mem_no) reportMemCnt /*나를 신고한사람*/
-        FROM tb_member_basic a, tb_member_profile b, tb_member_level c
+          ,(select count(*) as cnt FROM rd_data.tb_broadcast_room b, rd_data.tb_member_broadcast_broadcasting m WHERE b.room_no = m.room_no AND b.mem_no = a.mem_no) as broadcastingCnt
+          ,(select count(*) as cnt from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) as listeningCnt
+          ,(select count(*) as cnt from rd_data.tb_member_fanstar where mem_no_fan = a.mem_no) as starCnt   /*내가 등록한 start*/
+          ,(select count(*) as cnt from rd_data.tb_member_fanstar where mem_no_star = a.mem_no) as fanCnt   /*나를 등록한 fan*/
+          ,(select count(*) as cnt from rd_data.tb_broadcast_room where CHAR_LENGTH(notice) > 1 and mem_no = a.mem_no) noticeCnt /*방송중 공지사항*/
+          ,(select count(*) as cnt From rd_data.tb_member_report where mem_no = a.mem_no) reportCnt /*내가 신고한사람*/
+          ,(select count(*) as cnt From rd_data.tb_member_report where reported_mem_no = a.mem_no) reportMemCnt /*나를 신고한사람*/
+        FROM rd_data.tb_member_basic a, rd_data.tb_member_profile b, rd_data.tb_member_level c
        WHERE a.mem_no = b.mem_no AND a.mem_no = c.mem_no
          AND a.mem_no = #{memNo}
     </select>
@@ -122,7 +122,7 @@
                ,level
                ,grade
                ,exp
-         FROM tbl_level_exp
+         FROM rd_data.tbl_level_exp
         ORDER BY LEVEL DESC
     </select>
 
@@ -131,14 +131,14 @@
        SELECT DISTINCT
                'grade'  as gubun
                ,grade
-         FROM tbl_level_exp
+         FROM rd_data.tbl_level_exp
         ORDER BY LEVEL DESC
 
     </select>
 
     <select id="callMemberEdit" parameterType="com.dalbit.member.vo.MemberListVo">
       /* M_Member.xml - callMemberGradeList */
-       UPDATE tb_member_profile
+       UPDATE rd_data.tb_member_profile
           SET image_profile = #{profileImage}
               ,grade_profile = #{profileImageGrade}
               ,last_upd_date = now()

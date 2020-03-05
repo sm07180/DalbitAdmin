@@ -3,7 +3,7 @@
 <mapper namespace="com.dalbit.common.dao.CommonDao" >
 
     <select id="callCodeDefineSelect" resultType="Map">
-      	call sp_code_define_select
+      	call rd_data.sp_code_define_select
     </select>
 
 </mapper>

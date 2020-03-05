@@ -9,7 +9,7 @@
         , mem_state as memState
         , mem_phone as memPhone
         from
-        tb_member_basic
+        rd_data.tb_member_basic
         ORDER BY ${orderColumnName} ${orderDir}
         limit #{pageStart}, #{pageCnt}
 </select>
@@ -25,7 +25,7 @@
             , mem_state
             , mem_phone
              from
-            tb_member_basic
+            rd_data.tb_member_basic
         )a
     </select>
 

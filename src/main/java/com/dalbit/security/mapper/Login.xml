@@ -20,7 +20,7 @@
             , mem_state memState
             , mem_join_date memJoinDate
             , last_upd_date lastUpdDate
-        FROM tb_member_basic
+        FROM rd_data.tb_member_basic
         WHERE mem_id = #{memId}
             AND mem_slct = #{memSlct}
     </select>
@@ -43,7 +43,7 @@
             , mem_state memState
             , mem_join_date memJoinDate
             , last_upd_date lastUpdDate
-        FROM tb_member_basic
+        FROM rd_data.tb_member_basic
         WHERE mem_no = #{memNo}
     </select>
 
