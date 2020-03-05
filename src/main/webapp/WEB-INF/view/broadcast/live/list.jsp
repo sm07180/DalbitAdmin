@@ -34,18 +34,32 @@
             <!-- //serachBox -->
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
-
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="active">
                         <a href="/broadcast/live/list"><i class="fa fa-home"></i> 실시간 최신 생방송</a>
                     </li>
                 </ul>
-                <div class="widget widget-table">
-                    <div class="widget-content" style="border-top-width:0px;">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <thead id="tableTop"></thead>
-                            <tbody id="tableBody"></tbody>
-                        </table>
+                <div class="col-md-6 no-padding">
+                    <label>ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.</label>
+                </div>
+                <div class="col-md-6 no-padding pull-right">
+                    <div class="widget widget-table">
+                        <div class="widget-content" style="border-top-width:0px;">
+                            <table id="top_info" class="table table-sorting table-hover table-bordered">
+                                <thead id="table_Top"></thead>
+                                <tbody id="table_Body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 no-padding">
+                    <div class="widget widget-table">
+                        <div class="widget-content" style="border-top-width:0px;">
+                            <table id="list_info" class="table table-sorting table-hover table-bordered">
+                                <thead id="tableTop"></thead>
+                                <tbody id="tableBody"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,6 +94,7 @@
 
     var memNo = "";
     var dtList_info="";
+    var dtList_top_info="";
     function init(){
         var dtList_info_data = function ( data ) {
             data.search = $('#txt_search').val();                            // 검색명
@@ -90,8 +105,21 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
-        dtList_info.setOrder(14,"desc");
+        // dtList_info.setOrder(1,"desc");
         dtList_info.createDataTable();
+
+
+        var dtList_info_data = function ( data ) {
+            data.search = $('#txt_search').val();                            // 검색명
+            data.gubun = $("select[name='selectGubun']").val();
+            data.searchBroad = $('#txt_broad').val();                        // 방송색명
+            data.gubunBroad = $("select[name='selectGubun_broad']").val();
+        };
+        dtList_top_info = new DalbitDataTable($("#top_info"), dtList_info_data, BroadcastDataTableSource.live_top_list);
+        dtList_top_info.useCheckBox(false);
+        dtList_top_info.useIndex(false);
+        // dtList_info.setOrder(14,"desc");
+        dtList_top_info.createDataTable();
     }
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
@@ -101,5 +129,6 @@
         var tmp_gubunBroad = $("select[name='selectGubun_broad']").val();
 
         dtList_info.reload();
+        dtList_top_info.reload();
     }
 </script>

@@ -2,14 +2,15 @@ var BroadcastDataTableSource = {
     'liveList': {
         'url': '/rest/broadcast/live/list'
         , 'columns': [
-            {'title': 'Main추천상태', 'data': 'badgeRecomm', 'render': function (data) {
-                    if(data == 1){
-                        return '<i class="fa fa-circle"></i><br/>' + "추천중";
-                    }else{
-                        return '<i class="fa fa-circle-o"></i><br/>' + "비추천";
-                    }
-                }},
-            {'title': '레벨/등급', 'data': 'live', 'defaultContent': ''},
+            // {'title': 'Main추천상태', 'data': 'badgeRecomm', 'render': function (data) {
+            //         if(data == 1){
+            //             return '<i class="fa fa-circle"></i><br/>' + "추천중";
+            //         }else{
+            //             return '<i class="fa fa-circle-o"></i><br/>' + "비추천";
+            //         }
+            //     }},
+            {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
+            {'title': '방송제목', 'data': 'title', 'defaultContent': ''},
             {'title': '프로필이미지', 'data': 'imageProfile', 'defaultContent': '', 'render' : function(data, type, row, meta){
                     return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
                 }},
@@ -35,19 +36,16 @@ var BroadcastDataTableSource = {
                         return '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
                     }
                 }},
-            {'title': '회원No', 'data': 'memNo', 'defaultContent': ''},
             {'title': 'User ID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
                     return memNoLink(data, row.memNo);
                 }},
             {'title': 'User 닉네임', 'data': 'memNick', 'defaultContent': ''},
-            {'title': '방송제목', 'data': 'title', 'defaultContent': ''},
-            {'title': '보유 결제금액', 'data': '', 'defaultContent': ''},
-            {'title': '누적 받은 선물 수', 'data': '', 'defaultContent': ''},
-            {'title': '누적 팬 수', 'data': '', 'defaultContent': ''},
-            {'title': '누적 방송 횟수', 'data': '', 'defaultContent': ''},
-            {'title': '최초방송 시작일', 'data': 'startDate', 'defaultContent': ''},
+            {'title': '청취자', 'data': '', 'defaultContent': ''},
+            {'title': '선물', 'data': '', 'defaultContent': ''},
+            {'title': '좋아요', 'data': '', 'defaultContent': ''},
+            {'title': '부스터', 'data': '', 'defaultContent': ''},
+            {'title': '팬 수', 'data': '', 'defaultContent': ''},
         ]
-        , 'comments': '실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.'
     },
 
     'broadcastList': {
@@ -78,7 +76,9 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '구분', 'data': '', 'defaultContent': ''},
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
-            {'title': 'User ID', 'data': '', 'defaultContent': ''},
+            {'title': 'User ID', 'data': '', 'render': function (data, type, row, meta) {
+                    return memNoLink(data, row.memNo);
+                }},
             {'title': 'User 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '청취 시작 일시', 'data': '', 'defaultContent': ''},
             {'title': '청취 종료시간', 'data': '', 'defaultContent': ''},
@@ -96,7 +96,9 @@ var BroadcastDataTableSource = {
         'url': '/rest/member/report/list'
         , 'columns': [
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 User Id', 'data': '', 'defaultContent': ''},
+            {'title': '보낸 User Id', 'data': '', 'render': function (data, type, row, meta) {
+                    return memNoLink(data, row.memNo);
+                }},
             {'title': '보낸 User 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
             {'title': '보낸 좋아요', 'data': '', 'defaultContent': ''},
@@ -110,7 +112,9 @@ var BroadcastDataTableSource = {
         'url': '/rest/member/report/list'
         , 'columns': [
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 User ID', 'data': '', 'defaultContent': ''},
+            {'title': '보낸 User ID', 'data': '', 'render': function (data, type, row, meta) {
+                    return memNoLink(data, row.memNo);
+                }},
             {'title': '보낸 User 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
             {'title': '이미지', 'data': '', 'defaultContent': ''},
@@ -124,11 +128,26 @@ var BroadcastDataTableSource = {
         'url': '/rest/member/report/list'
         , 'columns': [
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
-            {'title': '사연 보낸 청취자 ID', 'data': '', 'defaultContent': ''},
+            {'title': '사연 보낸 청취자 ID', 'render': function (data, type, row, meta) {
+                    return memNoLink(data, row.memNo);
+                }},
             {'title': '사연 보낸 청취자 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
             {'title': '사연 내용', 'data': '', 'defaultContent': ''},
         ]
         , 'comments': '방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
+
+    'live_top_list': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '누적청취자', 'data': '', 'defaultContent': '0건'},
+            {'title': '누적선물', 'data': '', 'defaultContent': '0건'},
+            {'title': '누적좋아요', 'data': '', 'defaultContent': '0건'},
+            {'title': '누적DJ부스터', 'data': '', 'defaultContent': '0건'},
+            {'title': '누적청취자 부스터', 'data': '', 'defaultContent': '0건'},
+            {'title': '강제퇴장', 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+
 }
