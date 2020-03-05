@@ -47,4 +47,5 @@
     $(document).ready(function() {
     });
     var dtList_info_detail;
+    var dtList_top_info;
 </script>

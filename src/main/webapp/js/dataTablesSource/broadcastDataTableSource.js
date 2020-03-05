@@ -89,7 +89,7 @@ var BroadcastDataTableSource = {
             {'title': '부스터', 'data': '', 'defaultContent': ''},
             {'title': '보낸아이템', 'data': '', 'defaultContent': ''},
         ]
-        , 'comments': '방송 중 (게스트와 매니저를 포함한)청취자 변동사항을 확인할 수 있습니다.<br> 청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
+        // , 'comments': '방송 중 (게스트와 매니저를 포함한)청취자 변동사항을 확인할 수 있습니다.<br> 청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
     },
 
     'likeDetail': {
@@ -147,6 +147,19 @@ var BroadcastDataTableSource = {
             {'title': '누적DJ부스터', 'data': '', 'defaultContent': '0건'},
             {'title': '누적청취자 부스터', 'data': '', 'defaultContent': '0건'},
             {'title': '강제퇴장', 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+
+    'listen_top_list': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '청취자', 'data': '', 'defaultContent': '0건'},
+            {'title': '게스트ID', 'data': '', 'defaultContent': '0건'},
+            {'title': '매니저', 'data': '', 'defaultContent': '0건'},
+            {'title': '강제퇴장자', 'data': '', 'defaultContent': '0건'},
+            {'title': '좋아요', 'data': '', 'defaultContent': '0건'},
+            {'title': '부스터', 'data': '', 'defaultContent': '0건'},
+            {'title': '아이템', 'data': '', 'defaultContent': '0건'},
         ]
     },
 

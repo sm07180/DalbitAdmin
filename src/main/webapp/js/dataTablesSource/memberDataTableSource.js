@@ -20,10 +20,12 @@ var MemberDataTableSource = {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
-            {'title': 'state', 'data': 'state', 'visible' : false},
+            {'title': 'status', 'data': 'status', 'visible' : false},
+            {'title': 'statusNm', 'data': 'statusNm'},
             {'title': '방송주제', 'data': 'subjectType', 'width':'100px'},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Broad('+meta.row+');">' + data + '</a>'
+                    // return '<a href="javascript://" onclick="javascript:Broad('+meta.row+');">' + data + '</a>'
+                    return roomNoLink(data, row.roomNo, row.status);
                 }},
             {'title': '방송시작시간', 'data': 'startDate', 'width':'120px'},
             {'title': '방송종료시간', 'data': 'endDate', 'width':'120px'},
@@ -33,7 +35,7 @@ var MemberDataTableSource = {
             {'title': '받은좋아요', 'data': 'good', 'width':'80px'},
             {'title': '받은선물', 'data': 'like', 'width':'80px'},
         ]
-        , 'comments': '회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
+        // , 'comments': '회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
     },
     'listenDetail': {
         'url': '/rest/member/listen/list'
@@ -177,7 +179,6 @@ var MemberDataTableSource = {
                     return '<a href="javascript://" onclick="javascript:Report('+meta.row+');">' + data + '</a>'
                 }},
         ]
-        , 'comments': '회원이 신고하고, 신고당한 정보를 한눈에 확인할 수 있습니다.'
     },
 
     'questionDetail': {
@@ -193,7 +194,6 @@ var MemberDataTableSource = {
             {'title': '처리상태', 'data': 'type'},
             {'title': '처리자', 'data': 'type'},
         ]
-        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
     },
 
 
@@ -249,6 +249,52 @@ var MemberDataTableSource = {
             {'title': '처리자명', 'data': 'type'},
         ]
         , 'comments': '회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+    },
+
+
+    'broad_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '총 청취자', 'data': 'type'},
+            {'title': '총 선물 주고/받음', 'data': 'type'},
+            {'title': '총 받은 별', 'data': 'type'},
+            {'title': '총 받은 좋아요', 'data': 'type'},
+            {'title': '총 받은 부스터', 'data': 'type'},
+        ]
+    },
+    'listen_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '총 강제퇴장', 'data': 'type'},
+            {'title': '총 보낸 별', 'data': 'type'},
+            {'title': '총 좋아요', 'data': 'type'},
+            {'title': '총 부스터', 'data': 'type'},
+        ]
+    },
+    'report_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '미처리', 'data': 'type'},
+            {'title': '누적 처리 건', 'data': 'type'},
+            {'title': '조치내역', 'data': 'type','width':'250px'},
+            {'title': '전화문의/처리', 'data': 'type'},
+        ]
+    },
+    'question_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '총 1:1문의', 'data': 'type'},
+            {'title': '회원정보', 'data': 'type'},
+            {'title': '방송정보', 'data': 'type'},
+            {'title': '청취하기', 'data': 'type'},
+            {'title': '결제', 'data': 'type'},
+            {'title': '건의하기', 'data': 'type'},
+            {'title': '장애/버그', 'data': 'type'},
+            {'title': '선물/아이템', 'data': 'type'},
+            {'title': '기타', 'data': 'type'},
+            {'title': '전화문의', 'data': 'type'},
+            {'title': '메일문의', 'data': 'type'},
+        ]
     },
 
 }

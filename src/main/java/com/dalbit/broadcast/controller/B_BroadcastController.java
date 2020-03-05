@@ -26,4 +26,7 @@ public class B_BroadcastController {
     public String list(Model model) {
         return "broadcast/broadcast/list";
     }
+
+    @RequestMapping("popup/broadcastPopup")
+    public String memberPopup(Model model) { return "broadcast/broadcast/popup/broadcastPopup"; }
 }

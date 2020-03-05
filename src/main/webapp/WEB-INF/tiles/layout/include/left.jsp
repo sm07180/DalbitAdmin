@@ -476,7 +476,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://">
+                            <a href="/content/banner/list">
                                 <i class="fa fa-server"></i><span class="text">배너관리</span>
                             </a>
                         </li>

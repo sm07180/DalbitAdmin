@@ -35,9 +35,6 @@
                 <div class='input-group date' id='datetimepicker1'>
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <input type='text' class="form-control" />
-                    <%--<span class="input-group-addon">--%>
-                            <%--<span class="glyphicon glyphicon-calendar"></span>--%>
-                    <%--</span>--%>
                 </div>
             </div>
         </div>
