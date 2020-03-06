@@ -124,6 +124,211 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "공지사항 등록",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "slctType",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "공지사항 test 1",
+											"type": "text"
+										},
+										{
+											"key": "contents",
+											"value": "공지내용 1111",
+											"type": "text"
+										},
+										{
+											"key": "topFix",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "viewOn",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "writerName",
+											"value": "운영자",
+											"type": "text"
+										},
+										{
+											"key": "writerNo",
+											"value": "10001",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/content/notice/insert",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"content",
+										"notice",
+										"insert"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "공지사항 수정",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "pageNo",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "pageCnt",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/content/notice/update?noticeIdx=1&slctType=1&title=공지사항 test 1&contents=공지내용 1111&topFix=1&viewOn=1&writerName=운영자&writerNo=10001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"content",
+										"notice",
+										"update"
+									],
+									"query": [
+										{
+											"key": "noticeIdx",
+											"value": "1"
+										},
+										{
+											"key": "slctType",
+											"value": "1"
+										},
+										{
+											"key": "title",
+											"value": "공지사항 test 1"
+										},
+										{
+											"key": "contents",
+											"value": "공지내용 1111"
+										},
+										{
+											"key": "topFix",
+											"value": "1"
+										},
+										{
+											"key": "viewOn",
+											"value": "1"
+										},
+										{
+											"key": "writerName",
+											"value": "운영자"
+										},
+										{
+											"key": "writerNo",
+											"value": "10001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "공지사항 삭제",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "pageNo",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "pageCnt",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/content/notice/delete?noticeIdx=1&writerName=운영자&writerNo=10001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"content",
+										"notice",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "noticeIdx",
+											"value": "1"
+										},
+										{
+											"key": "writerName",
+											"value": "운영자"
+										},
+										{
+											"key": "writerNo",
+											"value": "10001"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
