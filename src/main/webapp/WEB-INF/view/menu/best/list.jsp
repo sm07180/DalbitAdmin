@@ -94,6 +94,13 @@
         dtList_info.useIndex(true);
         // dtList_info.setEventClick(test01,0);
         dtList_info.createDataTable();
+
+        initSort();
+    }
+
+    function initSort(){
+        resetNo();
+        btnSet();
     }
 
     function getSearch(){
@@ -105,26 +112,25 @@
 
         $('tbody').sortable({
             stop: function (e, ui) {
-                resetNo();
-                btnSet();
+                initSort();
             }
         });
+
+        initSort();
     }
 
     $(document).on('click', '._down', function(){
         var targetTr = $(this).closest('tr');
         var nextTr = targetTr.next();
         targetTr.insertAfter(nextTr);
-        resetNo();
-        btnSet();
+        initSort();
     });
 
     $(document).on('click', '._up', function(){
         var targetTr = $(this).closest('tr');
         var prevTr = targetTr.prev();
         targetTr.insertBefore(prevTr);
-        resetNo();
-        btnSet();
+        initSort();
     });
 
     function resetNo(){
