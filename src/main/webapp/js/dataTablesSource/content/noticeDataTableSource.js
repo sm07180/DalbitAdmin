@@ -10,7 +10,7 @@ var NoticeDataTableSource = {
             , {'title': '노출설정', 'data' : 'viewOn'}
             , {'title': '작성자 이름', 'data' : 'writerName'}
             , {'title': '작성자번호', 'data' : 'writerNo'}
-            , {'title': '작성일자', 'data' : 'writeDate'}
+            , {'title': '작성일자', 'data' : 'writeDateFormat'}
         ]
         , 'comments': ' 달빛라디오 사이트 내 공지를 등록/수정/삭제할 수 있습니다.'
     }

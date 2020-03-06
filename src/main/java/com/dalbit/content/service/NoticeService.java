@@ -47,21 +47,6 @@ public class NoticeService {
         return result;
     }
 
-    /**
-     * 사이트 공지 등록
-     */
-    public String callServiceCenterNoticeAdd(P_noticeListInputVo pNoticeListInputVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pNoticeListInputVo);
-        noticeDao.callServiceCenterNoticeList(procedureVo);
 
-        String result="";
-        if(Status.공지등록성공.getMessageCode().equals(procedureVo.getRet())) {
-            result=gsonUtil.toJson(new JsonOutputVo(Status.공지등록성공));
-        } else {
-            result=gsonUtil.toJson(new JsonOutputVo(Status.공지등록실패));
-        }
-
-        return result;
-    }
 
 }
