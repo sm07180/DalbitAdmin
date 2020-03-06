@@ -6,7 +6,7 @@ import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +29,7 @@ public class NoticeRestController {
     /**
      * 사이트 공지 보기
      */
-    @GetMapping("list")
+    @PostMapping("list")
     public String list(HttpServletRequest request, P_noticeListInputVo pNoticeListInputVo) {
 
         pNoticeListInputVo.setPageNo(1);
