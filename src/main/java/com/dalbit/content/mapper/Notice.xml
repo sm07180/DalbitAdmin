@@ -10,9 +10,4 @@
         call rd_admin.sp_admin_service_center_notice_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
- <!--   &lt;!&ndash; 등록 &ndash;&gt;
-    <insert id="register" parameterType="com.dalbit.practice">
-        insert into rd_data.tb_service_center_notice(slct_type, title, contents, top_fix, view_on, view_count, platform, gender, op_name, off_date)
-        values(#{}, #{}, #{}, #{}, );
-    </insert>-->
 </mapper>
