@@ -70,8 +70,8 @@ public enum Status {
     회원접속기록보기실패("C006", "connect.list.view.fail", "회원접속기록보기 실패 시"),
 
     //공지등록
-    공지등록성공("0","notice.list.add.success", "공지등록 성공 시"),
-    공지등록실패("C006", "notice.list.add.fail", "공지등록 실패 시"),
+    공지등록성공("0","insert.success", "공지등록 성공 시"),
+    공지등록실패("C006", "server.error", "공지등록 실패 시"),
 
 
     //프로시저 연동 부분

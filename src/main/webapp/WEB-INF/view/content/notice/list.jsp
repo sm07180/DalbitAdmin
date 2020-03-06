@@ -51,8 +51,8 @@
                 </div>
             </div>
             <!-- //serachBox -->
-            <div class="row col-lg-12 form-inline">
-                <button type="submit" class="btn btn-default button_right" id="bt_register">등록</button>
+            <div class="row col-lg-12 form-inline" id="insertBtnDiv">
+                <button type="button" class="btn btn-default button_right" id="bt_insert">등록</button>
             </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
@@ -83,73 +83,12 @@
             </div>
             <!-- #DataTable -->
 
-
-            <div class="row col-lg-12 form-inline">
-                <div class="col-md-12 no-padding">
-                    <label id="notice_title"></label>
-                    <span class="button_right">
-                        <button class="btn btn-default" type="button">수정하기</button>
-                    </span>
-                </div>
-                <div class="row col-md-12">
-                    <div class="col-md-2 no-padding">
-                        <div class="col-md-5 lb_style"><label>No</label></div>
-                        <div class="col-md-7" style="height: 34px;"><label>41</label></div>
-                        <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                        <div class="col-md-7" style="height: 34px;"><label>IOS-Mobile</label></div>
-                    </div>
-
-                    <div class="col-md-2 no-padding">
-                        <div class="col-md-4 lb_style"><label>구분</label></div>
-                        <div class="col-md-8" style="height: 34px;"><label>긴급공지</label></div>
-                        <div class="col-md-4 lb_style"><label>성별</label></div>
-                        <div class="col-md-8" style="height: 34px;"><label>
-                            <select class="form-control" name="genderType">
-                                <option value="1">여자</option>
-                                <option value="2">남자</option>
-                            </select>
-                        </label></div>
-                    </div>
-
-                    <div class="col-md-2 no-padding">
-                            <div class="col-md-6 lb_style" style="width:64px; height: 68px;"><label>제목</label></div>
-                            <div class="col-md-6" style="height: 68px;"><label>
-                               달빛라디오 돈 대박 벌었다
-                            </label></div>
-                    </div>
-                    <div class="col-md-2 no-padding">
-                        <div class="col-md-5 lb_style"><label>등록일시</label></div>
-                        <div class="col-md-7" style="height: 34px;"><label>YY.MM.DD</label></div>
-                        <div class="col-md-5 lb_style"><label>게시 중지일시</label></div>
-                        <div class="col-md-7" style="height: 34px;"><label>YY.MM.DD</label></div>
-                    </div>
-                    <div class="col-md-2 no-padding">
-                        <div class="col-md-5 lb_style"><label>조회수</label></div>
-                        <div class="col-md-7" style="height: 34px;"><label>OO</label></div>
-                        <div class="col-md-5 lb_style"><label>등록/수정처리자</label></div>
-                        <div class="col-md-7" style="height: 34px;"><label>처리자ID</label></div>
-                    </div>
-                    <div class="col-md-2 no-padding">
-                            <div class="col-md-6 lb_style" style="width:64px; height:68px"><label>게시상태</label></div>
-                            <div class="col-md-6" style="height: 68px;"><label>OFF</label></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row col-lg-12 form-inline area_style">
-                <div class="widget">
-                    <div class="widget-header">
-                        <h3><i class="fa fa-user"></i> Text Editor Code</h3>
-                    </div>
-                    <textarea class="code" style="width: 100%; height: 300px" >
-                    </textarea>
-                </div>
-            </div>
+            <form id="noticeForm"></form>
         </div>
     </div>
 </div>
 
-<script src="../../../js/lib/jquery.table2excel.js"></script>
+<script src="/js/lib/jquery.table2excel.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -217,9 +156,59 @@
         dtList_info.createDataTable();
     }
 
-    function updataPushInfo() {
-        alert("test");
+    $("#bt_insert").on("click", function(){
+        insert();
+    });
+
+    function insert() {
+       var template = $('#tmp_noticeFrm').html();
+       var templateScript = Handlebars.compile(template);
+        $("#noticeForm").html(templateScript);
     }
+
+    function isValid(){
+
+        var slctType = $("#slctType");
+        if(isEmpty(slctType.val())){
+            alert("구분을 선택해주세요.");
+            slctType.focus();
+            return false;
+        }
+
+        var title = $("#title");
+        if(isEmpty(title.val())){
+            alert("제목을 입력해주세요.");
+            title.focus();
+            return false;
+        }
+
+        var contents = $("#contents");
+        if(isEmpty(contents.val())){
+            alert("내용을 입력해주세요.");
+            contents.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    $(document).on('click', '#insertBtn', function(){
+
+        if(isValid()){
+            getAjaxData("insert", "/rest/content/notice/insert", $("#noticeForm").serialize(), fn_insert_success, fn_insert_fail);
+        }
+    });
+
+
+    function fn_insert_success(dst_id, response) {
+        dalbitLog(response);
+        alert(response.message);
+        insert();
+    }
+    function fn_insert_fail(data, textStatus, jqXHR) {
+        console.log(data, textStatus, jqXHR);
+    }
+
 
     // 검색
     function getNoticeInfo(){
@@ -271,4 +260,73 @@
     //     console.log("fn_fail_excel");
     // }
     /*----------- 엑셀 ---------=*/
+</script>
+
+<script id="tmp_noticeFrm" type="text/x-handlebars-template">
+    <div class="row col-lg-12 form-inline">
+        <div class="col-md-12 no-padding">
+            <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
+            <span class="button_right">
+                <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
+                <button class="btn btn-default" type="button" id="updateBtn" style="display:none;">수정하기</button>
+            </span>
+        </div>
+        <div class="row col-md-12">
+            <div class="col-md-2 no-padding">
+                <div class="col-md-5 lb_style"><label>No</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="no">-</label></div>
+                <div class="col-md-5 lb_style"><label>플랫폼</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="platform">-</label></div>
+            </div>
+
+            <div class="col-md-2 no-padding">
+                <div class="col-md-4 lb_style"><label>구분</label></div>
+                <div class="col-md-8" style="height: 34px;"><label id="sort"><input type="text" name="slctType" id="slctType" value="1"></label></div>
+                <div class="col-md-4 lb_style"><label>성별</label></div>
+                <div class="col-md-8" style="height: 34px;">
+                    <label>
+                        <select class="form-control" name="genderType">
+                            <option value="1">여자</option>
+                            <option value="2">남자</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-md-2 no-padding">
+                <div class="col-md-6 lb_style" style="width:64px; height: 68px;"><label>제목</label></div>
+                <div class="col-md-6" style="height: 68px;">
+                    <label id="title_label"><input type="text" name="title" id="title"></label>
+                </div>
+            </div>
+
+            <div class="col-md-2 no-padding">
+                <div class="col-md-5 lb_style"><label>등록일시</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="regDate">-</label></div>
+                <div class="col-md-5 lb_style"><label>게시 중지일시</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="stopDate">-</label></div>
+            </div>
+
+            <div class="col-md-2 no-padding">
+                <div class="col-md-5 lb_style"><label>조회수</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="cnt">-</label></div>
+                <div class="col-md-5 lb_style"><label>등록/수정처리자</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="processor">-</label></div>
+            </div>
+
+            <div class="col-md-2 no-padding">
+                <div class="col-md-6 lb_style" style="width:64px; height:68px"><label>게시상태</label></div>
+                <div class="col-md-6" style="height: 68px;"><label id="status">-</label></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-lg-12 form-inline area_style">
+        <div class="widget">
+            <div class="widget-header">
+                <h3><i class="fa fa-user"></i> Text Editor Code</h3>
+            </div>
+            <textarea class="code" style="width: 100%; height: 300px" name="contents" id="contents"></textarea>
+        </div>
+    </div>
 </script>

@@ -7,6 +7,7 @@ import com.dalbit.content.vo.procedure.P_noticeInsertVo;
 import com.dalbit.content.vo.procedure.P_noticeListInputVo;
 import com.dalbit.common.code.*;
 import com.dalbit.content.vo.procedure.P_noticeListOutputVo;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,7 @@ public class NoticeService {
      * 사이트 공지 등록
      */
     public String callServiceCenterNoticeAdd(P_noticeInsertVo pNoticeInsertVo){
+        pNoticeInsertVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pNoticeInsertVo);
 
         noticeDao.callServiceCenterNoticeAdd(procedureVo);
