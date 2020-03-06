@@ -152,7 +152,7 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, NoticeDataTableSource.noticeInfo);
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
-        dtList_info.setEventClick(updataPushInfo,4);
+        //dtList_info.setEventClick(updataPushInfo,4);
         dtList_info.createDataTable();
     }
 

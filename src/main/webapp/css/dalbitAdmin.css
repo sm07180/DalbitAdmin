@@ -52,6 +52,8 @@ div.block{
     border: 1px solid #DDDDDD;
     background-color: #DCE6F2;
     height: 34px;
+    padding-top: 5px;
+    padding-left: 5px;
 }
 .area_style{
     height: 170px;

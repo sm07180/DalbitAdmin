@@ -1,11 +1,12 @@
 package com.dalbit.member.vo;
 
+import com.dalbit.common.vo.PagingVo;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FanListVo extends PagingVo{
+public class FanListVo extends PagingVo {
 
     /* member/Fan/list 를 위한 Vo */
     /*input*/

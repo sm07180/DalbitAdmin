@@ -1,6 +1,5 @@
 package com.dalbit.common.vo;
 
-import com.dalbit.member.vo.MemberVo;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -15,6 +14,13 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class BaseVo implements Serializable {
+
+    private int rowNum;
+    private String orderColumnName;
+    private int orderColumnIdx;
+    private String orderDir;
+    private int pageStart;
+    private int pageCnt;
 
     private String opName;
 

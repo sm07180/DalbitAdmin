@@ -8,5 +8,4 @@ import lombok.Setter;
 @Setter
 public class P_noticeListInputVo extends BaseVo {
     private int pageNo;
-    private int pageCnt;
 }

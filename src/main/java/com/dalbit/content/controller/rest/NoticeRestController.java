@@ -34,7 +34,7 @@ public class NoticeRestController {
      */
     @PostMapping("list")
     public String list(P_noticeListInputVo pNoticeListInputVo) {
-        String result =noticeService.callServiceCenterNoticeList(pNoticeListInputVo);
+        String result = noticeService.callServiceCenterNoticeList(pNoticeListInputVo);
         return result;
     }
 

@@ -2,6 +2,7 @@ package com.dalbit.member.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
@@ -12,6 +13,7 @@ import com.dalbit.member.vo.MemberListVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -50,7 +52,9 @@ public class M_MemberRestController {
 
         log.info("MemberListVo.search : " + memberListVo.getSearch());
         List<MemberListVo> list = mMemberService.getMemberList(memberListVo);
-        return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list));
+        var pagingVo = new PagingVo();
+        pagingVo.setTotalCnt(57);
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list, pagingVo));
     }
 
     @PostMapping("level")

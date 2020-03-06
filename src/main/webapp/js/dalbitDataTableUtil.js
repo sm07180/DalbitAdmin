@@ -58,7 +58,8 @@ function DalbitDataTable(dom, param, columnsInfo) {
             'dataFilter': function(data){
                 var json = jQuery.parseJSON(data);
                 dalbitLog("[dataFilter]");
-                var totalCnt = isEmpty(json.data)? 0 : json.data[0].totalCnt;
+                //dalbitLog(json);
+                var totalCnt = isEmpty(json.pagingVo.totalCnt) ? 0 : json.pagingVo.totalCnt;
                 var data = json.data;
 
                 json.recordsTotal = totalCnt;
@@ -70,9 +71,8 @@ function DalbitDataTable(dom, param, columnsInfo) {
         },
         fnServerParams: function ( aoData ) {
             dalbitLog("[fnServerParams]");
-            dalbitLog(aoData);
 
-
+            aoData.pageNo = aoData.start / aoData.length + 1;
             aoData.pageStart = aoData.start;
             aoData.pageCnt = aoData.length;
 
@@ -85,6 +85,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         },
         fnPreDrawCallback: function(oSettings){
             dalbitLog("[fnPreDrawCallback]");
+            //dalbitLog(oSettings);
 
             // 최초 Order 저장
             $(oSettings.aoColumns).each(function () {

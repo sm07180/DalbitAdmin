@@ -1,10 +1,8 @@
 package com.dalbit.menu.vo;
 
-import com.dalbit.member.vo.PagingVo;
+import com.dalbit.common.vo.PagingVo;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.sql.Date;
 
 @Getter
 @Setter

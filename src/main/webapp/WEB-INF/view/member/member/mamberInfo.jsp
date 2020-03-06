@@ -1,21 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .text_center{
-        text-align: center;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-lg-12 no-padding">
@@ -23,18 +8,20 @@
         </div>
         <div class="col-md-12 no-padding">
             <div class="col-md-6 no-padding">
-                <div class="col-md-3 no-padding" style="border: 1px solid #DDDDDD; background-color: #DCE6F2;">
-                    <label class="control-label" style="">프로필 이미지</label>
-                </div>
-                <div class="col-md-9 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-10 no-padding">
-                        <form id="profileImg" method="post" enctype="multipart/form-data">
-                            <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
-                            <%--<input type='file' id="imgInput"/>--%>
-                        </form>
+                <div class="col-md-12 no-padding">
+                    <div class="col-md-3 lb_style">
+                        <label>프로필 이미지</label>
                     </div>
-                    <div class="col-md-2 no-padding">
-                        <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
+                    <div class="col-md-9 lc_style">
+                        <div class="col-md-10 no-padding">
+                            <form id="profileImg" method="post" enctype="multipart/form-data">
+                                <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
+                                <%--<input type='file' id="imgInput"/>--%>
+                            </form>
+                        </div>
+                        <div class="col-md-2 no-padding">
+                            <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
+                        </div>
                     </div>
                 </div>
             </div>

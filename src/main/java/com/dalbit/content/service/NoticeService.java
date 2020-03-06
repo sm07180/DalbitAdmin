@@ -1,6 +1,7 @@
 package com.dalbit.content.service;
 
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.NoticeDao;
 import com.dalbit.content.vo.procedure.P_noticeInsertVo;
@@ -11,6 +12,7 @@ import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +40,11 @@ public class NoticeService {
         ArrayList<P_noticeListOutputVo> noticeList = noticeDao.callServiceCenterNoticeList(procedureVo);
 
         String result;
+
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, noticeList));
+
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, noticeList, new PagingVo(procedureVo.getRet())));
+
         }else if(Status.공지사항조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.공지사항조회_데이터없음));
         }else{

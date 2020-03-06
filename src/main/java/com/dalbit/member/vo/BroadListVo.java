@@ -1,11 +1,12 @@
 package com.dalbit.member.vo;
 
+import com.dalbit.common.vo.PagingVo;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BroadListVo extends PagingVo{
+public class BroadListVo extends PagingVo {
 
     /* member/broadcast/list 를 위한 Vo */
 
