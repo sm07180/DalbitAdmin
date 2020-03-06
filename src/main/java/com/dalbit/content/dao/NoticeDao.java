@@ -9,5 +9,5 @@ import java.util.ArrayList;
 @Repository
 public interface NoticeDao {
     ArrayList<P_noticeListOutputVo> callServiceCenterNoticeList(ProcedureVo procedureVo);
-    //ProcedureVo callServiceCenterNoticeAdd(ProcedureVo procedureVo);
+    ProcedureVo callServiceCenterNoticeAdd(ProcedureVo procedureVo);
 }

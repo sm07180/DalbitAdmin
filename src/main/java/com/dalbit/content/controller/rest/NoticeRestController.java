@@ -1,6 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.NoticeService;
+import com.dalbit.content.vo.procedure.P_noticeInsertVo;
 import com.dalbit.content.vo.procedure.P_noticeListInputVo;
 import com.dalbit.content.vo.procedure.P_noticeListOutputVo;
 import com.dalbit.util.DalbitUtil;
@@ -33,9 +34,16 @@ public class NoticeRestController {
      */
     @PostMapping("list")
     public String list(P_noticeListInputVo pNoticeListInputVo) {
-
         String result =noticeService.callServiceCenterNoticeList(pNoticeListInputVo);
+        return result;
+    }
 
+    /**
+     * 사이트 공지 등록
+     */
+    @PostMapping("insert")
+    public String insert(P_noticeInsertVo pNoticeInsertVo) {
+        String result = noticeService.callServiceCenterNoticeAdd(pNoticeInsertVo);
         return result;
     }
 
