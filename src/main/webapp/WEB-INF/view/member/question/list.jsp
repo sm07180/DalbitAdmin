@@ -3,22 +3,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-lg-12 no-padding">
-            <div class="col-md-3 no-padding">
-                <label>ㆍ해당 회원의 1:1문의, 전화문의, 메일 문의 전체 <br/> 내역을 리스트로 확인할 수 있습니다.</label>
-            </div>
-            <div class="col-md-9 no-padding pull-right">
-                <div class="widget widget-table">
-                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">
-                        <table id="top_info" class="table table-sorting table-hover table-bordered">
-                            <thead id="table_Top"></thead>
-                            <tbody id="table_Body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12 no-padding">
-            <div class="widget widget-table">
+            <div class="widget widget-table" id="questDetail">
                 <div class="widget-content">
                     <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
                         <thead id="tableTop_detail">
@@ -51,12 +36,28 @@
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
 
+        initDataTableTop(tmp);
+    }
+    function initDataTableTop(tmp){
+        var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
+            '                <div class="widget widget-table">\n' +
+            '                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">\n' +
+            '                        <table id="top_listen" class="table table-sorting table-hover table-bordered">\n' +
+            '                            <thead id="table_Top"></thead>\n' +
+            '                            <tbody id="table_Body"></tbody>\n' +
+            '                        </table>\n' +
+            '                    </div>\n' +
+            '                </div>\n' +
+            '            </div>';
+
+        $("#"+tmp).find(".top-right").addClass("no-padding").append(topTable);
+
         var top = tmp.replace("Detail","_top");
         var source = MemberDataTableSource[top];
         var dtList_info_detail_data = function (data) {
             data.memNo = memNo;
         }
-        dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
+        dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_listen"), dtList_info_detail_data, source);
         dtList_top_info.useCheckBox(false);
         dtList_top_info.useIndex(false);
         dtList_top_info.createDataTable();

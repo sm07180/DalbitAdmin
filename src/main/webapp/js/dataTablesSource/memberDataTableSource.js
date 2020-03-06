@@ -13,7 +13,7 @@ var MemberDataTableSource = {
              {'title': '접속상태', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
              {'title': '생방상태', 'data': 'Live', 'defaultContent': '퇴근', 'width':'100px'},
         ]
-        , 'comments': '회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다.'
+        , 'comments': 'ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다.'
     },
 
     'broadDetail': {
@@ -35,7 +35,7 @@ var MemberDataTableSource = {
             {'title': '받은좋아요', 'data': 'good', 'width':'80px'},
             {'title': '받은선물', 'data': 'like', 'width':'80px'},
         ]
-        // , 'comments': '회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
+        ,'comments': 'ㆍ회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
     },
     'listenDetail': {
         'url': '/rest/member/listen/list'
@@ -52,7 +52,7 @@ var MemberDataTableSource = {
             {'title': '청취종료시간', 'data': 'endDate', 'width':'120px'},
             {'title': '청취진행시간', 'data': 'listenTime', 'width':'100px'},
         ]
-        , 'comments': '회원이 방송을 청취한 기록을 확인할 수 있습니다.'
+        ,'comments': 'ㆍ회원이 청취한 방송기록을 확인할 수 있습니다.'
     },
 
     'payDetail': {
@@ -69,7 +69,7 @@ var MemberDataTableSource = {
             {'title': '처리 상태', 'data': 'type'},
             {'title': '처리자명', 'data': 'type'},
         ]
-        , 'comments': '회원의 결제/환불 정보를 확인하고, 결제 건에 한해 구분>결제를 클릭 시 취소처리를 할 수 있습니다.'
+        , 'comments': 'ㆍ회원의 결제/환불 정보를 확인하고, 결제 건에 한해 구분>결제를 클릭 시 취소처리를 할 수 있습니다.'
     },
 
     'exchangeDetail': {
@@ -89,7 +89,7 @@ var MemberDataTableSource = {
                 }},
             {'title': '처리자명', 'data': 'type'},
         ]
-        , 'comments': '회원의 과거에서 현재까지의 환전 내역을 모두 확인하고, 증빙서류를 통한 본인확인 여부를 확인할 수 있습니다.'
+        , 'comments': 'ㆍ회원의 과거에서 현재까지의 환전 내역을 모두 확인하고, 증빙서류를 통한 본인확인 여부를 확인 하여 처리할 수 있습니다.<br/>ㆍ해당 처리는 CS가 아닌 별도 담당자에 의해 처리됩니다.'
     },
 
     'giftDetail': {
@@ -105,7 +105,7 @@ var MemberDataTableSource = {
             {'title': '선물/교환 금액', 'data': 'type'},
             {'title': '선물/교환 일시', 'data': 'type'},
         ]
-        , 'comments': '회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인할 수 있습니다.<br>ㆍ이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물'
+        , 'comments': 'ㆍ회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인할 수 있습니다.<br>ㆍ이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물'
     },
 
     'mystarDetail': {
@@ -123,7 +123,7 @@ var MemberDataTableSource = {
             {'title': '받은 선물 건 수', 'data': 'regDate'},
             {'title': '받은 선물 금액', 'data': 'tmp3'}
         ]
-        , 'comments': 'MyStar : 내가 Fan으로 등록하거나, 방송 중 선물을 보낸 회원입니다.<br>ㆍFan: 타 회원이 Fan으로 등록하면 해당회원이 MyStar 가 됩니다.'
+        , 'comments': 'ㆍMyStar : 내가 Fan으로 등록하거나, 방송 중 선물을 보낸 회원입니다.<br>ㆍFan: 타 회원이 Fan으로 등록하면 해당회원이 MyStar 가 됩니다.'
     },
 
     'noticeDetail': {
@@ -136,7 +136,7 @@ var MemberDataTableSource = {
             {'title': '공지내용', 'data': 'notice','width':'200px'},
             {'title': '등록일시', 'data': 'lastUpdDate','width':'100px'},
         ]
-        , 'comments': '각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'
+        , 'comments': 'ㆍ각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'
     },
 
     'fanbordDetail': {
@@ -150,7 +150,7 @@ var MemberDataTableSource = {
             {'title': '작성내용', 'data': 'memNo'},
             {'title': '총 댓글 수', 'data': 'memNo'},
         ]
-        , 'comments': '회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'
+        , 'comments': 'ㆍ회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'
     },
 
     'banDetail': {
@@ -158,7 +158,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '금지어', 'data': 'type'},
         ]
-        , 'comments': '회원이 직접 100개까지 관리를 할 수 있고, 관리자에 의해 등록/수정/삭제도 할 수 없습니다.'
+        , 'comments': 'ㆍ회원이 직접 100개까지 관리를 할 수 있고, 관리자에 의해 등록/수정/삭제도 할 수 없습니다.'
     },
 
     'reportDetail': {
@@ -179,8 +179,8 @@ var MemberDataTableSource = {
                     return '<a href="javascript://" onclick="javascript:Report('+meta.row+');">' + data + '</a>'
                 }},
         ]
+        , 'comments': 'ㆍ회원이 신고하고, 신고 당한 정보를 한눈에 확인할 수 있습니다.'
     },
-
     'questionDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
@@ -194,6 +194,7 @@ var MemberDataTableSource = {
             {'title': '처리상태', 'data': 'type'},
             {'title': '처리자', 'data': 'type'},
         ]
+        , 'comments': 'ㆍ해당 회원의 1:1문의, 전화문의, 메일문의 전체내역을 리스트로 확인할 수 있습니다.'
     },
 
 
@@ -209,7 +210,7 @@ var MemberDataTableSource = {
             {'title': 'Mobile AD ID', 'data': 'type'},
             {'title': 'IP 주소', 'data': 'type'},
         ]
-        , 'comments': '문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+        // , 'comments': 'ㆍ문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
     },
 
     'manager': {
@@ -224,7 +225,7 @@ var MemberDataTableSource = {
             {'title': '해제 일시', 'data': 'type'},
             {'title': '임명상태', 'data': 'type'},
         ]
-        , 'comments': '마이페이지 내 매니저 임명 변동사항을 확인할 수 있습니다. <br>ㆍ매니저 권한은 최대 10명까지 가능합니다.'
+        , 'comments': 'ㆍ마이페이지 내 매니저 임명 변동사항을 확인할 수 있습니다. <br>ㆍ매니저 권한은 최대 10명까지 가능합니다.'
     },
 
     'black': {
@@ -238,7 +239,7 @@ var MemberDataTableSource = {
             {'title': '등록 일시', 'data': 'type'},
             {'title': '해제 일시', 'data': 'type'},
         ]
-        , 'comments': '회원이 블랙리스트로 등록/해제한 내역을 확인할 수 있습니다.'
+        , 'comments': 'ㆍ회원이 블랙리스트로 등록/해제한 내역을 확인할 수 있습니다.'
     },
 
     'editHistory': {
@@ -248,7 +249,7 @@ var MemberDataTableSource = {
             {'title': '수정 처리 내역', 'data': 'type'},
             {'title': '처리자명', 'data': 'type'},
         ]
-        , 'comments': '회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+        , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
 
 
@@ -271,12 +272,19 @@ var MemberDataTableSource = {
             {'title': '총 부스터', 'data': 'type'},
         ]
     },
+    'exchange_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '환전 총 건 수', 'data': 'type'},
+            {'title': '환전 골드 총 금액', 'data': 'type'},
+        ]
+    },
     'report_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
             {'title': '미처리', 'data': 'type'},
             {'title': '누적 처리 건', 'data': 'type'},
-            {'title': '조치내역', 'data': 'type','width':'250px'},
+            {'title': '조치내역', 'data': 'type','width':'400px'},
             {'title': '전화문의/처리', 'data': 'type'},
         ]
     },
@@ -296,5 +304,4 @@ var MemberDataTableSource = {
             {'title': '메일문의', 'data': 'type'},
         ]
     },
-
 }
