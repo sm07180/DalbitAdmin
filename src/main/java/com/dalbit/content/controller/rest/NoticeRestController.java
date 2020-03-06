@@ -32,19 +32,7 @@ public class NoticeRestController {
      * 사이트 공지 보기
      */
     @PostMapping("list")
-    public String list(HttpServletRequest request, P_noticeListInputVo pNoticeListInputVo) {
-
-        /*pNoticeListInputVo.setPageNo(1);
-        pNoticeListInputVo.setPageCnt(10);*/
-
-        /*pNoticeListOutputVo.setNoticeIdx(DalbitUtil.convertRequestParamToInteger(request,"noticeIdx"));
-        pNoticeListOutputVo.setSlctType(DalbitUtil.convertRequestParamToInteger(request,"slctType"));
-        pNoticeListOutputVo.setTitle(DalbitUtil.convertRequestParamToString(request,"title"));
-        pNoticeListOutputVo.setTopFix(DalbitUtil.convertRequestParamToInteger(request,"topFix"));
-        pNoticeListOutputVo.setViewOn(DalbitUtil.convertRequestParamToInteger(request,"viewOn"));
-        pNoticeListOutputVo.setWriterName(DalbitUtil.convertRequestParamToString(request,"writerName"));
-        pNoticeListOutputVo.setWriterNo(DalbitUtil.convertRequestParamToInteger(request,"writerNo"));
-        pNoticeListOutputVo.setWriterDate(DalbitUtil.convertRequestParamToString(request,"writerDate"));*/
+    public String list(P_noticeListInputVo pNoticeListInputVo) {
 
         String result =noticeService.callServiceCenterNoticeList(pNoticeListInputVo);
 

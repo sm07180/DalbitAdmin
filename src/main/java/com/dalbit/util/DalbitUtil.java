@@ -553,6 +553,13 @@ public class DalbitUtil {
         return getUTC(dt).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
     }
 
+    public static String convertDateFormat(Date date, String format){
+        format = isEmpty(format) ? "yyyyMMddHHmmss" : format;
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(date);
+    }
+
     /**
      * UTC기준 타임스탬프 변환
      *

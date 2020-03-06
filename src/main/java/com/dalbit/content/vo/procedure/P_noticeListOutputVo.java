@@ -1,6 +1,7 @@
 package com.dalbit.content.vo.procedure;
 
 import com.dalbit.common.vo.BaseVo;
+import com.dalbit.util.DalbitUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +18,10 @@ public class P_noticeListOutputVo extends BaseVo {
     private String writerName;
     private int writerNo;
     private Date writeDate;
+    private String writeDateFormat;
+
+    public void setWriteDate(Date writeDate){
+        this.writeDate = writeDate;
+        this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy.MM.dd HH.mm.ss");
+    }
 }

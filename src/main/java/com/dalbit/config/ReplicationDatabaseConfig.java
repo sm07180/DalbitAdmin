@@ -90,7 +90,7 @@ public class ReplicationDatabaseConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 
-        RefreshableSqlSessionFactoryBean refreshableSqlSessionFactoryBean = new RefreshableSqlSessionFactoryBean();
+        var refreshableSqlSessionFactoryBean = new RefreshableSqlSessionFactoryBean();
         refreshableSqlSessionFactoryBean.setDataSource(dataSource);
         refreshableSqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:com/dalbit/**/mapper/**/*.xml"));
         refreshableSqlSessionFactoryBean.setConfigLocation(new DefaultResourceLoader().getResource("classpath:mybatis/mybatis-config.xml"));
