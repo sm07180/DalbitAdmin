@@ -174,11 +174,11 @@
         </div>
         <div class="widget-content" id="div_info_detail">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
+                <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab" id="detail_tab_name"></a></li>
             </ul>
             <div class="tab-content" style="padding-top: 0px;">
-                <div class="tab-pane fade in active" id="detail_list">
-                    <div class="widget widget-table">
+                <div class="tab-pane fade in active">
+                    <div class="widget widget-table" id="detail_list">
                         <div class="widget-content">
                             <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
                                 <thead id="tableTop_detail">
@@ -262,9 +262,6 @@
         $('#bt_report').click(function() {              //신고조치
             getReport();
         });
-        $('#bt_loginStatus').click(function() {         //접속상태
-            getInfoDetail(this.id);
-        });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
             bt_click(this.id);
         });
@@ -280,17 +277,21 @@
         $('#bt_resatPass').click(function() {           //비밀번호 초기화
             bt_click(this.id);
         });
-        $('#bt_manager').click(function() {             //매니저 자세히
-            getInfoDetail(this.id);
-        });
-        $('#bt_black').click(function() {               //블랙리스트 자세히
-            getInfoDetail(this.id);
-        });
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
             bt_click(this.id);
         });
-        $('#bt_editHistory').click(function() {           //운영자 메모 변경
-            bt_click(this.id);
+        $('#bt_loginStatus').click(function() {         //접속상태
+            getInfoDetail(this.id,"접속상태","ㆍ회원의 가입일부터 현재까지의 접속 기록을 확인할 수 있습니다.");
+        });
+        $('#bt_manager').click(function() {             //매니저 자세히
+            getInfoDetail(this.id,"(내가 등록한) 매니저","ㆍ마이페이지 내 매니저 등록한 정보를 확인할 수 있습니다.<br/>" +
+                                   "ㆍ리스트는 현재 권한을 갖은 매니저 리스트이고, 매니저권한은 최대 10명까지 등록됩니다.");
+        });
+        $('#bt_black').click(function() {               //블랙리스트 자세히
+            getInfoDetail(this.id,"블랙리스트","ㆍ마이페이지 내 블랙리스트로 등록한 회원 정보를 확인할 수 있습니다.");
+        });
+        $('#bt_editHistory').click(function() {           //최근정보 수정일
+            getInfoDetail(this.id,"정보수정내역","ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.");
         });
 
 
@@ -391,12 +392,16 @@
         $('#div_info_detail').hide();
         $('#report_detail').hide();
     }
-    function getInfoDetail(tmp) {     // 상세보기
+    function getInfoDetail(tmp,tmp1,tmp2) {     // 상세보기
         $('#div_info_detail').show();
         if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
             tmp = tmp.split("_");
             tmp = tmp[1];
         }
+        $('#detail_tab_name').text(tmp1);           //텝 이름 변경
+        tmp2 = '<label>' + "tmp2" + '</label>';
+        $('#detail_list').find(".top-left").append(tmp2);
+
         var source = MemberDataTableSource[tmp];
         dtList_info_detail.changeReload(null,null,source,null);
     }
