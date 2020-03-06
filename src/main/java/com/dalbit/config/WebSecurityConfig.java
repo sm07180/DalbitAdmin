@@ -52,8 +52,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     , "/favicon.ico"
                     , "/robots.txt"
                     , "/js/**"
-                    , "/template/**"
                     , "/template2/**"
+                    , "/postman/**"
             );
     }
 
