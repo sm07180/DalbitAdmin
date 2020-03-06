@@ -42,7 +42,7 @@
                 end) AS tag
         ,concat((SELECT count(*) cnt from rd_data.tb_broadcast_room_story where room_no = a.room_no),'건') as storyCnt
         ,concat((select sum(gift_cnt) from rd_data.tb_broadcast_room_member where room_no=a.room_no),'건') as giftCnt
-        FROM rd_data.tb_broadcast_room a, tb_member_basic b, tb_member_profile c
+        FROM rd_data.tb_broadcast_room a, rd_data.tb_member_basic b, rd_data.tb_member_profile c
         WHERE a.mem_no = b.mem_no
         and a.mem_no = c.mem_no
         --            AND state != 4
