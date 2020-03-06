@@ -172,7 +172,7 @@
                 </div>
             </div>
         </div>
-        <div class="widget-content" id="div_info_detail">
+        <div class="widget-content hide" id="div_info_detail">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                 <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab" id="detail_tab_name"></a></li>
             </ul>
@@ -197,7 +197,6 @@
 
 <script>
     $(document).ready(function() {
-        $('#div_info_detail').hide();
         $('.input-group.date').datepicker({
             todayBtn: "linked",
             keyboardNavigation: false,
@@ -389,11 +388,12 @@
         $("#image_section").prop("src", profImgDel);
 
         dtList_info_detail.reload();
-        $('#div_info_detail').hide();
-        $('#report_detail').hide();
+        $('#div_info_detail').removeClass("show");
+        $('#report_detail').removeClass("show");
+        $('#question_tab').removeClass("show");
     }
     function getInfoDetail(tmp,tmp1,tmp2) {     // 상세보기
-        $('#div_info_detail').show();
+        $('#div_info_detail').addClass("show");
         if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
             tmp = tmp.split("_");
             tmp = tmp[1];
