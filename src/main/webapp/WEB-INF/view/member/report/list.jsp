@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 no-padding" id="report_detail">
+        <div class="col-md-12 no-padding hide" id="report_detail">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="active"><a href="#report_tab" role="tab" data-toggle="tab">상세정보</a></li>
@@ -32,7 +32,6 @@
 
     $('#report_title').html("ㆍ신고 시 캡쳐내용은 라이브 방송방 신고시점을 기준으로 5분 이내의 채팅 내역 정보입니다.<br/>ㆍ캡쳐화면 내 닉네임을 클릭하면 클릭한 닉네임의 채팅글만 우측에서 보여집니다.<br/> ㆍ신중히 확인 한 후 조치바랍니다.");
 
-    $('#report_detail').hide();
     function getHistory_report(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
@@ -74,7 +73,7 @@
     }
 
     function Report(index){
-        $('#report_detail').show();
+        $('#report_detail').addClass("show");
         getChattingHistoryDetail();
         var data = dtList_info_detail.getDataRow(index);
         var report_roomNo = data.roomNo;

@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 no-padding" id="question_tab">
+        <div class="col-md-12 no-padding hide" id="question_tab">
             <jsp:include page="questionTab.jsp"></jsp:include>
         </div>
     </div>
@@ -23,7 +23,6 @@
     $(document).ready(function() {
     });
 
-    // $('#question_tab').hide();
     function getHistory_question(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
@@ -66,7 +65,7 @@
 
     function Question(index){
 
-        $('#question_tab').show();
+        $('#question_tab').addClass("show");
         var data = dtList_info_detail.getDataRow(index);
         var roomNo = data.roomNo;
         console.log('Question~ roomNo : ' + roomNo);
