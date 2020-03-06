@@ -23,8 +23,8 @@
         </div>
         <div class="col-md-12 no-padding">
             <div class="col-md-6 no-padding">
-                <div class="col-md-3 no-padding" style="border: 1px solid #DDDDDD;">
-                    <label class="control-label" style="border: 1px solid #DDDDDD;background-color: #DCE6F2;">프로필 이미지</label>
+                <div class="col-md-3 no-padding" style="border: 1px solid #DDDDDD; background-color: #DCE6F2;">
+                    <label class="control-label" style="">프로필 이미지</label>
                 </div>
                 <div class="col-md-9 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-10 no-padding">
