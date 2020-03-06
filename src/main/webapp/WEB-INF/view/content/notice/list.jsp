@@ -206,7 +206,7 @@
     init();
     function init(){
         var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
+            data.search = $('#txt_search').val();                       // 검색명
             data.gubun = $("select[name='selectGubun']").val()
         };
 

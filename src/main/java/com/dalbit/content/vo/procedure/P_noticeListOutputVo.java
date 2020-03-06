@@ -16,5 +16,5 @@ public class P_noticeListOutputVo extends BaseVo {
     private int viewOn;
     private String writerName;
     private int writerNo;
-    private Date writerDate;
+    private Date writeDate;
 }
