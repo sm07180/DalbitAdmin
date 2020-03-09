@@ -38,7 +38,7 @@
           from rd_data.tb_member_broadcast_listening a  ,rd_data.tb_broadcast_room b, (SELECT @RNUM := #{pageStart}) r
          where a.room_no = b.room_no
             and a.mem_no = #{memNo}
-      ORDER BY ${orderColumnName} ${orderDir}
+      ORDER BY ${tableColumnName} ${orderDir}
         limit #{pageStart}, #{pageCnt}
     </select>
 

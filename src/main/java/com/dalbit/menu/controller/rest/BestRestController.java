@@ -27,7 +27,7 @@ public class BestRestController {
     public String list(){
 
         RecommendVo recommendVo = new RecommendVo();
-        recommendVo.setOrderColumnName("best");
+//        recommendVo.setOrderColumnName("best");
         List<RecommendVo> recommendVoList = recommendService.getRecommendList(recommendVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, recommendVoList));
     }

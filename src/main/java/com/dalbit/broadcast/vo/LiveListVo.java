@@ -26,7 +26,8 @@ public class LiveListVo extends PagingVo {
     private String msgWelcom;              //환영 인사말
     private String typeEntry;              //입장제한
     private String notice;                  //공지사항
-    private String state;                   //방상태
+    private String state;                   //방상태(코드)
+    private String status;                  //방상태(명)
     private String startDate;              //시작일시
     private String memNo;                   //DJ 회원번호
     private String memNick;                //DJ 닉네임

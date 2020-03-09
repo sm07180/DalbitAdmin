@@ -28,14 +28,9 @@ public class B_LiveService {
      * 방송 list 목록
      */
     public List<LiveListVo> callLiveList(LiveListVo liveListVo){
-        List<LiveListVo> list = bLiveDao.callLiveList(liveListVo);
-
-        int total = bLiveDao.callLiveList_cnt(liveListVo);
-        log.info("total : " + total);
-        if(list.size() > 0) {
-            list.get(0).setTotalCnt(total);
-        }
-
-        return list;
+        return bLiveDao.callLiveList(liveListVo);
+    }
+    public int callLiveList_cnt(LiveListVo liveListVo){
+        return bLiveDao.callLiveList_cnt(liveListVo);
     }
 }

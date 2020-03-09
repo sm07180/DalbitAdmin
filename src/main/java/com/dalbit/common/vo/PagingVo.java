@@ -19,7 +19,7 @@ public class PagingVo extends BaseVo {
 
     /*output*/
     private int totalCnt;
-    private String orderColumnName;
+    private String tableColumnName;
     private int orderColumnIdx;
     private String orderDir;
     private int pageStart;

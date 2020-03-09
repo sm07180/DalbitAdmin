@@ -10,7 +10,7 @@
         , mem_phone as memPhone
         from
         rd_data.tb_member_basic
-        ORDER BY ${orderColumnName} ${orderDir}
+        ORDER BY ${tableColumnName} ${orderDir}
         limit #{pageStart}, #{pageCnt}
 </select>
 

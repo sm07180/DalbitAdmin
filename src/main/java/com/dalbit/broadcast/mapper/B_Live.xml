@@ -6,12 +6,13 @@
         /* B_Live.xml - callLiveList */
         select a.*, @RNUM := @RNUM + 1 as rowNum from (
         SELECT a.room_no       AS roomNo
+                ,a.state        AS state,
                 ,a.title        AS title
                 ,a.msg_welcom   AS msgWelcom
                 ,a.subject_type,(select code from rd_data.tbl_code_define aa where aa.value = a.subject_type and aa.type ='subject_type') type
                 ,(CASE  a.type_entry WHEN 0 THEN '제한없음' WHEN 1 THEN '펜만' WHEN 2 THEN '20세이상' end) AS typeEntry
                 ,a.notice       AS notice
-                ,(SELECT code FROM rd_data.tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') state
+                ,(SELECT code FROM rd_data.tbl_code_define aa WHERE aa.value = a.state and aa.type = 'broadcast_state') status
                 ,a.count_entry  AS count_entry
                 ,a.count_good   AS count_good
                 ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')   AS startDate
@@ -36,7 +37,6 @@
           FROM rd_data.tb_broadcast_room a, rd_data.tb_member_basic b, rd_data.tb_member_profile c
          WHERE a.mem_no = b.mem_no
            and a.mem_no = c.mem_no
---            AND state != 4
         <if test='search != null and search != ""'>
           <choose>
               <when test='gubun == "9999"'>      <!-- 전체 -->
@@ -77,7 +77,7 @@
                 </otherwise>
             </choose>
         </if>
-        ORDER BY ${orderColumnName} ${orderDir}
+        ORDER BY ${tableColumnName} ${orderDir}
         limit #{pageStart}, #{pageCnt}
         ) a, (SELECT @RNUM := #{pageStart}) r
     </select>

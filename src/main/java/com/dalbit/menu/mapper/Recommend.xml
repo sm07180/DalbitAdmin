@@ -28,10 +28,10 @@
                           left outer join rd_data.tb_member_broadcast_item receive_item on basic.mem_no = receive_item.mem_no
                  where first_broad.start_date is not null
                  group by basic.mem_no
-                    <if test='orderColumnName == "recommend"'>
+                    <if test='tableColumnName == "recommend"'>
                         order by broad_cnt desc, first_broad_date desc, receive_average_cnt desc
                     </if>
-                    <if test='orderColumnName == "best"'>
+                    <if test='tableColumnName == "best"'>
                         order by receive_average_cnt desc, broad_cnt desc, first_broad_date desc
                     </if>
             ) a

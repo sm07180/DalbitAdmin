@@ -38,7 +38,7 @@
     function initDataTableTop(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
             '                <div class="widget widget-table">\n' +
-            '                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">\n' +
+            '                    <div class="widget-content no-padding">\n' +
             '                        <table id="top_info" class="table table-sorting table-hover table-bordered">\n' +
             '                            <thead id="table_Top"></thead>\n' +
             '                            <tbody id="table_Body"></tbody>\n' +

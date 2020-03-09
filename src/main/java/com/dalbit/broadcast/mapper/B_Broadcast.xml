@@ -86,7 +86,7 @@
                 </otherwise>
             </choose>
         </if>
-        ORDER BY ${orderColumnName} ${orderDir}
+        ORDER BY ${tableColumnName} ${orderDir}
         limit #{pageStart}, #{pageCnt}
         ) a, (SELECT @RNUM := #{pageStart}) r
     </select>
