@@ -81,7 +81,6 @@
         <!-- 버튼 끝 -->
     });
 
-    var  = "false";
     init();
     function init(){
 
@@ -101,46 +100,10 @@
     function getSearch(){                 // 검색
         dtList_info.reload();
 
-        /*검색결과 영역이 접혀 있을 시 열기*/
         var toggleIcon = $('#_searchToggleIcon');
         if(toggleIcon.hasClass('fa-chevron-down')){
             toggleIcon.click();
         }
     }
 
-    // /*=============엑셀==================*/
-    // $('#excelDownBtn').on('click', function(){
-    //     var formElement = document.querySelector("form");
-    //     var formData = new FormData(formElement);
-    //
-    //     formData.append("search", tmp_search);
-    //     formData.append("date", tmp_date);
-    //     formData.append("gubun", tmp_gubun);
-    //     formData.append("checkDate", tmp_checkDate);
-    //     formData.append("stDate", tmp_stDate);
-    //     formData.append("edDate", tmp_edDate);
-    //     /*formData.append("test003", "test003");*/
-    //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
-    // });
-    //
-    // $("#excelBtn").on("click", function () {
-    //     $("#list_info").table2excel({
-    //         exclude: ".noExl",
-    //         name: "Excel Document Name",
-    //         filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
-    //         fileext: ".xls",
-    //         exclude_img: true,
-    //         exclude_links: true,
-    //         exclude_inputs: true
-    //     });
-    // });
-    //
-    // function fn_success_excel(){
-    //     console.log("fn_success_excel");
-    // }
-    //
-    // function fn_fail_excel(){
-    //     console.log("fn_fail_excel");
-    // }
-    /*==================================*/
 </script>

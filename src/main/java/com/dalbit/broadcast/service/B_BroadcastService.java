@@ -52,7 +52,6 @@ public class B_BroadcastService {
         List<BroadcastListVo> list = bBroadcastDao.callBroadcastList(broadcastListVo);
         return list;
     }
-
     public int callBroadcastList_cnt(BroadcastListVo broadcastListVo){
         return bBroadcastDao.callBroadcastList_cnt(broadcastListVo);
     }

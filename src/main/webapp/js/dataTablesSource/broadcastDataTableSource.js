@@ -3,10 +3,10 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/live/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
-            {'title': 'status', 'data': 'status', 'visible' : false},
+            {'title': 'state', 'data': 'state', 'visible' : false},
             {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return roomNoLink(data, row.roomNo, row.status);
+                    return roomNoLink(data, row.roomNo, row.state);
                 }},
             {'title': '프로필이미지', 'data': 'imageProfile', 'defaultContent': '', 'render' : function(data, type, row, meta){
                     return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
@@ -49,6 +49,7 @@ var BroadcastDataTableSource = {
     'broadcastList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
+            {'title': 'memNo', 'data': 'memNo', 'visible': false},
             {'title': 'roomNo', 'data': 'roomNo', 'visible': false},
             {'title': '회원번호', 'data': 'memNo', 'defaultContent': ''},
             {'title': 'DJ ID', 'data': 'memId','render': function (data, type, row, meta) {
@@ -66,7 +67,7 @@ var BroadcastDataTableSource = {
             {'title': '사연수', 'data': 'storyCnt', 'defaultContent': ''},
             {'title': '방송상태', 'data': 'status', 'defaultContent': ''},
         ]
-        , 'comments': '방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
+        , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
     },
     
     'listenDetail': {
@@ -87,7 +88,7 @@ var BroadcastDataTableSource = {
             {'title': '부스터', 'data': '', 'defaultContent': ''},
             {'title': '보낸아이템', 'data': '', 'defaultContent': ''},
         ]
-        // , 'comments': '방송 중 (게스트와 매니저를 포함한)청취자 변동사항을 확인할 수 있습니다.<br> 청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
+        // , 'comments': 'ㆍ방송 중 (게스트와 매니저를 포함한)청취자 변동사항을 확인할 수 있습니다.<br> 청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
     },
 
     'likeDetail': {
@@ -103,7 +104,7 @@ var BroadcastDataTableSource = {
             {'title': '보낸 부스터', 'data': '', 'defaultContent': ''},
             {'title': '적용완료 일시', 'data': '', 'defaultContent': ''},
         ]
-        , 'comments': '방송 중 좋아요와 부스터 적용상태를 확인할 수 있습니다.'
+        , 'comments': 'ㆍ방송 중 좋아요와 부스터 적용상태를 확인할 수 있습니다.'
     },
 
     'giftDetail': {
@@ -120,7 +121,7 @@ var BroadcastDataTableSource = {
             {'title': '보낸 선물 수', 'data': '', 'defaultContent': ''},
             {'title': '적용완료 일시', 'data': '', 'defaultContent': ''},
         ]
-        , 'comments': '방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
+        , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
     },
     'storyDetail': {
         'url': '/rest/member/report/list'
@@ -133,7 +134,7 @@ var BroadcastDataTableSource = {
             {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
             {'title': '사연 내용', 'data': '', 'defaultContent': ''},
         ]
-        , 'comments': '방송 중 받은 사연 내역을 확인할 수 있습니다.'
+        , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
 
     'live_top_list': {
@@ -159,6 +160,29 @@ var BroadcastDataTableSource = {
             {'title': '부스터', 'data': '', 'defaultContent': '0건'},
             {'title': '아이템', 'data': '', 'defaultContent': '0건'},
         ]
+    },
+    
+    'adminMemoList': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '방송제목', 'data': '', 'defaultContent': ''},
+            {'title': 'DJ ID', 'data': '', 'defaultContent': ''},
+            {'title': 'DJ 닉네임', 'data': '', 'defaultContent': ''},
+            {'title': '등록 일시', 'data': '', 'defaultContent': ''},
+            {'title': '등록관리자', 'data': '', 'defaultContent': ''},
+            {'title': '운영자 조치', 'data': '', 'defaultContent': ''},
+            {'title': '운영자 메모내용', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments' : 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+    },
+    'editDate': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '정보 수정 일시', 'data': '', 'defaultContent': ''},
+            {'title': '처리 전 정보 및 수정 처리 내역', 'data': '', 'defaultContent': ''},
+            {'title': '처리자명', 'data': '', 'defaultContent': ''},
+        ]
+        , 'comments' : 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
 
 }

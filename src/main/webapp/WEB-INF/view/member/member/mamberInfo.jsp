@@ -187,7 +187,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <img id="image_full_size" src="#" alt="your image"/>
+                        <img id="image_full_size" src="#" alt="your image" style="max-width: 1000px;max-height: 1000px;">
                     </div>
                     <div class="modal-footer">
                     </div>
@@ -195,7 +195,7 @@
             </div>
         </div>
         <!-- detail -->
-        <form id="detailForm"></form>
+        <form id="detailForm" class="hide"></form>
     </div>
 </div>
 <!-- /#page-wrapper -->
@@ -326,6 +326,9 @@
         $("#detailForm").html("");
     }
     function getInfoDetail(tmp,tmp1) {     // 상세보기
+        $('#detailForm').addClass("show");
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#detailForm").html(templateScript);
@@ -337,12 +340,8 @@
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
-        dtList_info_detail.createDataTable();
-        $('#div_info_detail').addClass("show");
-        if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
-            tmp = tmp.split("_");
-            tmp = tmp[1];
-        }
+        dtList_info_detail.createDataTable()
+
         $('#tab_infoDetail1').text(tmp1);           //텝 이름 변경
         var source = MemberDataTableSource[tmp];
         dtList_info_detail.changeReload(null,null,source,null);
@@ -366,10 +365,13 @@
     function bt_click(tmp) {
         if(tmp == "bt_img"){                        //사진변경
             alert($("#lb_userId").html() + "님의 프로필 이미지가 초기화 되었습니다.");
+
         }else if(tmp == "bt_phon"){                 //휴대폰 번호 변경
             alert($("#lb_userId").html() + "님의 연락처가 변경되었습니다.");
+
         }else if(tmp == "bt_resatNick"){            // 닉네임 변경
             alert($("#lb_userId").html() + "님의 닉네임이 변경되었습니다.");
+
         }else if(tmp == "bt_birth"){                //생일 변경
             alert($("#lb_userId").html() + "님의 생년월일이 변경되었습니다.");
         }else if(tmp == "bt_gender"){               //성별 변경
@@ -384,7 +386,7 @@
             alert("운영자 메모 등록")
         }
     }
-    function fullSize(url) {     // 이미지 원래 크기
+    function fullSize(url) {     // 이미지 full size
         $("#image_full_size").prop("src", url);
     }
     function fn_fail(data, textStatus, jqXHR){
@@ -406,7 +408,7 @@
 
 <!-- info detail -->
 <script id="tmp_detailFrm" type="text/x-handlebars-template">
-    <div class="widget-content hide" id="div_info_detail">
+    <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
             <li class="active" id="detail1"><a href="#infoDetail" role="tab" data-toggle="tab" id="tab_infoDetail1"></a></li>
             <li class="hide" id="detail2"><a href="#infoDetail" role="tab" data-toggle="tab" id="tab_infoDetail2"></a></li>
