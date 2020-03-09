@@ -78,8 +78,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
 
             aoData.orderColumnIdx = aoData.order[0]["column"];
             aoData.orderDir = aoData.order[0]["dir"];
-            aoData.orderColumnName = aoData.columns[aoData.orderColumnIdx]["data"];
+            aoData.tableColumnName = aoData.columns[aoData.orderColumnIdx]["data"];
 
+            aoData[aoData.columns[aoData.orderColumnIdx]["name"]] = convertSort(aoData.order[0]["dir"]);
 
             dalbitLog(aoData);
         },

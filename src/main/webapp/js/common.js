@@ -209,3 +209,7 @@ function roomNoLink(display, roomNo, status){
 function getAge(birthYear){
     return Number(moment().format("YYYY")) + 1 - Number(birthYear);
 }
+
+function convertSort(value){
+    return isEmpty(value) ? null : (value === 'asc') ? 0 : 1;
+}
