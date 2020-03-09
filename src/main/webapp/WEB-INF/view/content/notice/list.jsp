@@ -178,21 +178,21 @@
 
     function isValid(){
 
-        var slctType = $("#slctType");
+        var slctType = $("#noticeForm #slctType");
         if(isEmpty(slctType.val())){
             alert("구분을 선택해주세요.");
             slctType.focus();
             return false;
         }
 
-        var title = $("#title");
+        var title = $("#noticeForm #title");
         if(isEmpty(title.val())){
             alert("제목을 입력해주세요.");
             title.focus();
             return false;
         }
 
-        var contents = $("#contents");
+        var contents = $("#noticeForm #contents");
         if(isEmpty(contents.val())){
             alert("내용을 입력해주세요.");
             contents.focus();

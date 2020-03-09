@@ -8,7 +8,7 @@ var notice_searchType = [
 
 var notice_slctType = [
     new COMMON_CODE(null, 'slctType', '공지구분')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '', '전체')
     , new COMMON_CODE('notice', '1', '공지')
     , new COMMON_CODE('event', '2', '이벤트')
     , new COMMON_CODE('check', '3', '정기점검')
@@ -17,7 +17,7 @@ var notice_slctType = [
 
 var notice_platform = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '1', '전체')
     , new COMMON_CODE('pc', '2', 'PC')
     , new COMMON_CODE('android', '3', 'Android')
     , new COMMON_CODE('ios', '4', 'IOS')
