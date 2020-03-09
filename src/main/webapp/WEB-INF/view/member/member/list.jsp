@@ -64,19 +64,13 @@
     </div>
 </div>
 
-<%--<script src="../../../js/lib/jquery.table2excel.js"></script>--%>
-
 <script>
     $(document).ready(function() {
-
-        // $("#detail").load("infoDetail.jsp");
-
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getUserInfo();
             };
         });
-
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getUserInfo();
@@ -91,15 +85,10 @@
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
-    // dtList_info.setEventClick(test01,0);
     dtList_info.createDataTable();
 
     function init(){
     }
-
-    // function test01(t1, t2 ,t3) {
-    //     dalbitLog(t1)   //
-    // }
 
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
@@ -127,18 +116,6 @@
         formData.append("edDate", tmp_edDate);
         /*formData.append("test003", "test003");*/
         excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
-    });
-
-    $("#excelBtn").on("click", function () {
-        $("#list_info").table2excel({
-            exclude: ".noExl",
-            name: "Excel Document Name",
-            filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
-            fileext: ".xls",
-            exclude_img: true,
-            exclude_links: true,
-            exclude_inputs: true
-        });
     });
 
     function fn_success_excel(){

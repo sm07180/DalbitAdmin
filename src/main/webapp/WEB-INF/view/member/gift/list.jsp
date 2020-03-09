@@ -36,7 +36,7 @@
     function initDataTableTop_select_gift(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
             '                 <form id="cob_gift_gubun">\n' +
-            '                    <select id="cob_gift_gubun" name="gift_gubun" class="" onchange="sel_change(this.value);">\n' +
+            '                    <select id="cob_gift_gubun" name="gift_gubun" class="" onchange="sel_change(this.value);" tyle="width: 120px;">\n' +
             '                        <option value="9999" selected="selected">구분</option>\n' +
             '                        <option value="1">보낸선물</option>\n' +
             '                        <option value="2">받은선물</option>\n' +

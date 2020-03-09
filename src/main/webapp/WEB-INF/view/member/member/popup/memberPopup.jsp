@@ -4,14 +4,6 @@
     String in_memNo = request.getParameter("memNo");
 %>
 
-<style>
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
-
 <div class="col-md-12 no-padding">
     <div class="widget-content">
         <div class="tab-pane fade in active" id="memberDetail"><jsp:include page="../memberTab.jsp"/></div>     <!-- 상세 -->

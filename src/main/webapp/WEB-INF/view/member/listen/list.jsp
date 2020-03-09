@@ -31,8 +31,7 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
-
-        initDataTableTop(tmp);
+        initDataTableTop(tmp);      // 상단 정보 테이블
     }
     function initDataTableTop(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
@@ -56,10 +55,11 @@
         dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
         dtList_top_info.useCheckBox(false);
         dtList_top_info.useIndex(false);
+        dtList_top_info.useOrdering(false);
+        dtList_top_info.onlyTableView();
         dtList_top_info.createDataTable();
         dtList_top_info.reload();
     }
-
 
     function Listen(index){
         var data = dtList_info_detail.getDataRow(index);

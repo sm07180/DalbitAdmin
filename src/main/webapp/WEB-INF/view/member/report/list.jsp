@@ -30,10 +30,9 @@
     $(document).ready(function() {
     });
 
-    $('#report_title').html("ㆍ신고 시 캡쳐내용은 라이브 방송방 신고시점을 기준으로 5분 이내의 채팅 내역 정보입니다.<br/>ㆍ캡쳐화면 내 닉네임을 클릭하면 클릭한 닉네임의 채팅글만 우측에서 보여집니다.<br/> ㆍ신중히 확인 한 후 조치바랍니다.");
+    // $('#report_title').html("ㆍ신고 시 캡쳐내용은 라이브 방송방 신고시점을 기준으로 5분 이내의 채팅 내역 정보입니다.<br/>ㆍ캡쳐화면 내 닉네임을 클릭하면 클릭한 닉네임의 채팅글만 우측에서 보여집니다.<br/> ㆍ신중히 확인 한 후 조치바랍니다.");
 
     function getHistory_report(tmp) {     // 상세보기
-        // tmp = bt_reportDaetail
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
@@ -44,12 +43,12 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
-        initDataTableTop(tmp);
-        initDataTableTop_select_report(tmp);
+        initDataTableTop(tmp);                  // 상단 정보 테이블
+        initDataTableTop_select_report(tmp);    // 상단 selectBox
     }
     function initDataTableTop(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
-            '                <div class="widget widget-table" id="main_table_top">\n' +
+            '                <div class="widget-table" id="main_table_top">\n' +
             '                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">\n' +
             '                        <table id="top_info" class="table table-sorting table-hover table-bordered">\n' +
             '                            <thead id="table_Top"></thead>\n' +
@@ -68,15 +67,14 @@
         dtList_top_info.useCheckBox(false);
         dtList_top_info.useIndex(false);
         dtList_top_info.useOrdering(false);
-        dtList_top_info.onlyTableView();
+        dtList_top_info.onlyTableView();            //테이블만
         dtList_top_info.createDataTable();
         dtList_top_info.reload();
     }
-
     function initDataTableTop_select_report(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
             '                 <form id="cob_report_gubun">\n' +
-            '                    <select id="cob_report_gubun" name="report_gubun" class="" onchange="sel_change(this.value);">\n' +
+            '                    <select id="cob_report_gubun" name="report_gubun" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
             '                        <option value="9999" selected="selected">신고구분</option>\n' +
             '                        <option value="1">사진 및 이미지</option>\n' +
             '                        <option value="2">음란성</option>\n' +
@@ -86,7 +84,6 @@
             '                    </select>\n' +
             '                </form>\n' +
             '            </div>';
-
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
     }
     function sel_change(value){

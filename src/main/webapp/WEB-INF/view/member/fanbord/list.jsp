@@ -27,7 +27,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <%--<button type="button" class="btn" data-dismiss="modal">닫기</button>--%>
                     </div>
                 </div>
             </div>
@@ -36,7 +35,6 @@
 </div>
 <script>
     $(document).ready(function() {
-
     });
 
     function getHistory_fanbroad(tmp) {     // 상세보기
@@ -51,7 +49,6 @@
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
     }
-
     function Fanbord(index){
         modalView(data.roomNo);
     }

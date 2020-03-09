@@ -2,16 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="wrapper">
     <div id="page-wrapper">
-        <%--<div class="col-md-6 no-padding pull-right">--%>
-            <%--<div class="widget widget-table" id="main_table_top">--%>
-                <%--<div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">--%>
-                    <%--<table id="top_info" class="table table-sorting table-hover table-bordered">--%>
-                        <%--<thead id="table_Top"></thead>--%>
-                        <%--<tbody id="table_Body"></tbody>--%>
-                    <%--</table>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
         <div class="col-lg-12 no-padding">
             <div class="widget widget-table" id="main_table">
                 <div class="widget-content">
@@ -43,8 +33,8 @@
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
 
-        initDataTableTop(tmp);
-        initDataTableTop_select_quest(tmp);
+        initDataTableTop(tmp);                      // 상단 정보 테이블
+        initDataTableTop_select_quest(tmp);         // 상탄 selectBox
     }
     function initDataTableTop(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
@@ -72,26 +62,12 @@
         dtList_top_info.onlyTableView();
         dtList_top_info.createDataTable();
         dtList_top_info.reload();
-
-
-        // var top = tmp.replace("Detail","_top");
-        //
-        // var source = MemberDataTableSource[top];
-        // var dtList_info_detail_data = function (data) {
-        //     data.memNo = memNo;
-        // }
-        // dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
-        // dtList_top_info.useCheckBox(false);
-        // dtList_top_info.useIndex(false);
-        // dtList_top_info.createDataTable();
-        // dtList_top_info.reload();
-
     }
 
     function initDataTableTop_select_quest(tmp){
-        var topTable = '<div class="col-md-3">\n' +
+        var topTable = '<div class="col-md-3 no-padding">\n' +
             '                 <form id="cob_quest_gubun">\n' +
-            '                    <select id="cob_quest_gubun" name="quest_gubun" class="" onchange="sel_change(this.value);">\n' +
+            '                    <select id="cob_quest_gubun" name="quest_gubun" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
             '                        <option value="9999" selected="selected">문의구분</option>\n' +
             '                        <option value="1">1:1문의</option>\n' +
             '                        <option value="2">전화</option>\n' +
@@ -101,7 +77,7 @@
             '            </div>\n' +
             '            <div class="col-md-3 no-padding">\n' +
             '                 <form id="cob_quest_type">\n' +
-            '                    <select id="cob_quest_type" name="quest_type" class="" onchange="sel_change(this.value);">\n' +
+            '                    <select id="cob_quest_type" name="quest_type" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
             '                        <option value="9999" selected="selected">문의유형</option>\n' +
             '                        <option value="1">회원정보</option>\n' +
             '                        <option value="2">방송하기</option>\n' +
@@ -116,7 +92,7 @@
             '            </div>\n' +
             '            <div class="col-md-3 no-padding">\n' +
             '                 <form id="cob_quest_platform">\n' +
-            '                    <select id="cob_quest_platform" name="quest_platform" class="" onchange="sel_change(this.value);">\n' +
+            '                    <select id="cob_quest_platform" name="quest_platform" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
             '                        <option value="9999" selected="selected">플랫폼</option>\n' +
             '                        <option value="1">PC</option>\n' +
             '                        <option value="2">Android-Mobile</option>\n' +
@@ -125,9 +101,9 @@
             '                    </select>\n' +
             '                </form>\n' +
             '            </div>\n' +
-            '            <div class="col-md-3">\n' +
+            '            <div class="col-md-3 no-padding">\n' +
             '                 <form id="cob_quest_browser">\n' +
-            '                    <select id="cob_quest_browser" name="quest_browser" class="" onchange="sel_change(this.value);">\n' +
+            '                    <select id="cob_quest_browser" name="quest_browser" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
             '                        <option value="9999" selected="selected">Browser</option>\n' +
             '                        <option value="1">Chrome</option>\n' +
             '                        <option value="2">Internet Explorer</option>\n' +
@@ -135,13 +111,11 @@
             '                    </select>\n' +
             '                </form>\n' +
             '            </div>';
-
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
     }
     function sel_change(value){
         console.log("value : " + value);
     }
-
     function Question(index){
 
         $('#question_tab').addClass("show");

@@ -14,7 +14,6 @@
                 <div class="col-md-9 no-padding" style="border: 1px solid #DDDDDD;">
                     <form id="profileImg" method="post" enctype="multipart/form-data">
                         <img id="image_section" src="#" alt="your image" style="width: 142px;height: 142px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
-                        <%--<input type='file' id="imgInput"/>--%>
                         <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">이미지초기화</button>
                     </form>
                 </div>
@@ -43,7 +42,6 @@
                     <div class="col-md-3 lb_style"><label>회원상태</label></div>
                     <div class="col-md-9">
                         <label id="lb_status"></label>
-                        <%--<button type="button" id="bt_report" class="btn btn-default btn-sm pull-right">경고/정지</button>--%>
                         <button class="btn btn-default btn-sm pull-right _openPop" id="bt_report" data-url="" data-width="1000" data-height="520" name="reportPop">경고/정지</button>
                     </div>
                 </div>
@@ -105,7 +103,6 @@
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>비밀번호</label></div>
-                    <%--<div class="col-md-6"><input type="password" class="form-control" id="txt_pass"value="1234" style="width: 100%"></div>--%>
                     <button type="button" id="bt_resatPass" class="btn btn-default btn-sm">비밀번호 초기화</button>
                 </div>
             </div>
@@ -130,14 +127,14 @@
                     <div class="col-md-3 lb_style"><label>(내가/나를 등록한)<br/>매니저정보</label></div>
                     <div class="col-md-9">
                         <label id="lb_manager"></label>
-                        <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
+                        <button type="button" id="bt_myManager" class="btn btn-default btn-sm pull-right">자세히</button>
                     </div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>(내가/나를 등록한)<br/>블랙리스트</label></div>
                     <div class="col-md-9">
                         <label id="lb_black"></label>
-                        <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
+                        <button type="button" id="bt_myBlack" class="btn btn-default btn-sm pull-right">자세히</button>
                     </div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
@@ -159,7 +156,6 @@
                         <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
                     </div>
                     <div class="col-md-9" style="border: 1px solid #DDDDDD;">
-                        <%--<label id="lb_adminMemoCnt">0건</label>--%>
                         <textarea type="textarea" class="form-control" id="txt_adminMemo" style="height: 110px"></textarea>
                         <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
                     </div>
@@ -183,25 +179,6 @@
                 </div>
             </div>
         </div>
-        <div class="widget-content hide" id="div_info_detail">
-            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab" id="detail_tab_name"></a></li>
-            </ul>
-            <div class="tab-content" style="padding-top: 0px;">
-                <div class="tab-pane fade in active">
-                    <div class="widget widget-table" id="detail_list">
-                        <div class="widget-content">
-                            <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
-                                <thead id="tableTop_detail">
-                                </thead>
-                                <tbody id="tableBody_detail">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>     <!-- 자세히보기 -->
-            </div>
-        </div>
         <!-- 이미지 원본 보기 -->
         <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
@@ -217,24 +194,14 @@
                 </div>
             </div>
         </div>
+        <!-- detail -->
+        <form id="detailForm"></form>
     </div>
 </div>
 <!-- /#page-wrapper -->
 
 <script>
     $(document).ready(function() {
-        // $('.input-group.date').datepicker({
-        //     todayBtn: "linked",
-        //     keyboardNavigation: false,
-        //     forceParse: false,
-        //     todayHighlight: true,
-        //     calendarWeeks: false,
-        //     autoclose: true,
-        //     format: "yyyy-mm-dd",
-        //     language: 'kr',
-        //     maxDate:0
-        // }).datepicker("setDate", new Date());
-
         $('#date_birth').datetimepicker({
             format: 'L',
             maxDate:new Date(),
@@ -249,10 +216,6 @@
         // 버튼
         $('#bt_img').click(function() {				 //사진변경
             bt_click(this.id);
-        });
-        $('#bt_report').click(function() {              //경고/정지
-
-            // getReport();
         });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
             bt_click(this.id);
@@ -278,29 +241,16 @@
         $('#bt_loginStatus').click(function() {         //접속상태
             getInfoDetail(this.id,"접속상태","");
         });
-        $('#bt_manager').click(function() {             //매니저 자세히
+        $('#bt_myManager').click(function() {             //매니저 자세히
             getInfoDetail(this.id,"(내가 등록한) 매니저");
         });
-        $('#bt_black').click(function() {               //블랙리스트 자세히
-            getInfoDetail(this.id,"블랙리스트");
+        $('#bt_myBlack').click(function() {               //블랙리스트 자세히
+            getInfoDetail(this.id,"(내가 등록학) 블랙리스트");
         });
         $('#bt_editHistory').click(function() {           //최근정보 수정일
             getInfoDetail(this.id,"정보수정내역");
         });
         // 버튼 끝
-
-        // $("#imgInput").change(function(){
-        //     var file = this.files;
-        //     if(file[0].size > 1024 * 1024 * 2){
-        //         alert('2MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(file[0].size / 1024 / 1024 * 100) / 100) + 'MB');
-        //         return;
-        //     }
-        //
-        //     var formData = new FormData();
-        //     formData.append("file",$('#imgInput')[0].files[0]);
-        //     formData.append("uploadType","profile");
-        //     fileUpdate("https://devphoto2.dalbitcast.com/upload",formData, fn_file_upload, fn_fail);
-        // });
     });
 
     var memNo = "";
@@ -311,16 +261,6 @@
     var obj = new Object();
     obj.level = "grade";
     getAjaxData("level", "/rest/member/member/level",obj, fn_code_list_success, fn_fail);
-
-
-    var source = MemberDataTableSource["loginStatus"];
-    var dtList_info_detail_data = function (data) {
-        data.memNo = memNo;
-    }
-    dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
-    dtList_info_detail.useCheckBox(false);
-    dtList_info_detail.useIndex(true);
-    dtList_info_detail.createDataTable();
 
     function fn_code_list_success(dst_id, response){
         // dalbitLog(response);
@@ -338,7 +278,6 @@
             $("#cob_djLevel").append(html);
         }
     }
-
     function getMemNo_info(index){
         $('#tabList').removeClass("hide");
         var data = dtList_info.getDataRow(index);
@@ -346,7 +285,6 @@
         obj.memNo = data.memNo;
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
-
     function getMemNo_info_popup(tmp){
         var obj = new Object();
         obj.memNo = tmp;
@@ -376,31 +314,54 @@
         var age = Number(moment().format("YYYY")) + 1 - Number( response.data[0].birthYear);
         $("#lb_age").html(age + "세");
         $("input[name=radio_gender][value=" + response.data[0].memSex + "]").prop("checked", true);
-
         $("#lb_myReportCnt").html("총" + response.data[0].reportCnt + "건" + "/" + "총" + response.data[0].reportMemCnt + "건");
-
-        profImgDel = IMAGE_SERVER_URL + response.data[0].profileImage;    // 삭제 url 보내기 위함
-        $("#image_section").prop("src", profImgDel);
-
-        dtList_info_detail.reload();
-
+        $("#image_section").prop("src", IMAGE_SERVER_URL + response.data[0].profileImage);
         $('#bt_report').data('url',"http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" +memNo + "'" + "&memNick=" + "'" + response.data[0].memNick + "'" + "&memSex=" + "'" + response.data[0].memSex+ "'");
 
+        dtList_info_detail.reload();
 
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
+        $("#detailForm").html("");
     }
     function getInfoDetail(tmp,tmp1) {     // 상세보기
+        var template = $('#tmp_detailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        $("#detailForm").html(templateScript);
+
+        var source = MemberDataTableSource["loginStatus"];
+        var dtList_info_detail_data = function (data) {
+            data.memNo = memNo;
+        }
+        dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.createDataTable();
         $('#div_info_detail').addClass("show");
         if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
             tmp = tmp.split("_");
             tmp = tmp[1];
         }
-        $('#detail_tab_name').text(tmp1);           //텝 이름 변경
-
+        $('#tab_infoDetail1').text(tmp1);           //텝 이름 변경
         var source = MemberDataTableSource[tmp];
         dtList_info_detail.changeReload(null,null,source,null);
+
+        if(tmp == "myManager" || tmp == "myBlack"){
+            getInfoDetail2(tmp);
+        }
+    }
+    function getInfoDetail2(tmp){
+        $('#detail2').addClass("show");
+        if(tmp == "myManager") {
+            $('#tab_infoDetail2').text("(나를 등록한) 매니저");           //텝 이름 변경
+            var source = MemberDataTableSource["meManager"];
+            dtList_info_detail.changeReload(null,null,source,null);
+        }else if(tmp == "myBlack") {
+            $('#tab_infoDetail2').text("(나를 등록한) 블랙리스트");           //텝 이름 변경
+            var source = MemberDataTableSource["meBlack"];
+            dtList_info_detail.changeReload(null,null,source,null);
+        }
     }
     function bt_click(tmp) {
         if(tmp == "bt_img"){                        //사진변경
@@ -423,61 +384,9 @@
             alert("운영자 메모 등록")
         }
     }
-    function getReport() {     // 상세보기
-        if(memNo == null || memNo == ""){
-            alert("회원을 선택하십시오.");
-            return;
-        }
-        console.log('신고대상 memNo : ' + memNo);
-
-        var screenW = screen.availWidth;  // 스크린 가로사이즈
-        var screenH = screen.availHeight; // 스크린 세로사이즈
-        var popW = 1000; // 띄울창의 가로사이즈
-        var popH = 520; // 띄울창의 세로사이즈
-        var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
-        var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
-
-        // window.open('../member/popup/reportPopup?memNo=' + memNo, 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
-
-        $("#in_memNo").val(memNo);
-        var myForm = document.frmData_report;
-        var url = "http://localhost:8081/member/member/popup/reportPopup";
-        window.open('', 'test', 'width=' + popW + ',height=' + popH + ',top=' + posT + ',left=' + posL + ',resizable=no,scrollbars=no');
-        myForm.action = url;
-        myForm.method = "post";
-        myForm.target = "test";
-        myForm.submit();
-    }
     function fullSize(url) {     // 이미지 원래 크기
-
         $("#image_full_size").prop("src", url);
     }
-
-
-    // function edit(tmp){
-    //     var obj = new Object();
-    //     obj.memNo = memNo;
-    //     obj.profileImage = profileImage;
-    //     obj.profImgDel = profImgDel;
-    //     obj.profileImageGrade = "5";
-    //     getAjaxData("edit", "/rest/member/member/edit",obj, fn_edit_success, fn_fail);
-    // }
-
-    // function fn_file_upload(response){
-    //     var data = jQuery.parseJSON( response );
-    //     profileImage = data.data.url;         // 새로 선택된 파일의 url
-    //     $("#image_section").prop("src", data.data.url);
-    // }
-    //
-    // function imageUpdate(){
-    //     var formData = new FormData();
-    //     formData.append("tempFileURI",profileImage);
-    //     formData.append("deleteFileURI",profImgDel);
-    //     console.log("imageUpdate - profileImage : " + profileImage);
-    //     console.log("imageUpdate - profImgDel : " + profImgDel);
-    //     fileUpdate("https://devphoto2.dalbitcast.com/done",formData, fn_file_upload, fn_fail);
-    // }
-
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
@@ -495,8 +404,26 @@
     {{/data}}
 </script>
 
-<%--<form id="frmData_report" name="frmData_report" method="post">--%>
-    <%--<input name="in_memNo" id="in_memNo" value="" class ="hidden">--%>
-<%--</form>--%>
-
-
+<!-- info detail -->
+<script id="tmp_detailFrm" type="text/x-handlebars-template">
+    <div class="widget-content hide" id="div_info_detail">
+        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+            <li class="active" id="detail1"><a href="#infoDetail" role="tab" data-toggle="tab" id="tab_infoDetail1"></a></li>
+            <li class="hide" id="detail2"><a href="#infoDetail" role="tab" data-toggle="tab" id="tab_infoDetail2"></a></li>
+        </ul>
+        <div class="tab-content" style="padding-top: 0px;">
+            <div class="tab-pane fade in active" id="infoDetail">
+                <div class="widget widget-table">
+                    <div class="widget-content">
+                        <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
+                            <thead id="tableTop_detail">
+                            </thead>
+                            <tbody id="tableBody_detail">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
