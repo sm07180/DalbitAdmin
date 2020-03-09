@@ -6,7 +6,7 @@
         /* B_Live.xml - callLiveList */
         select a.*, @RNUM := @RNUM + 1 as rowNum from (
         SELECT a.room_no       AS roomNo
-                ,a.state        AS state,
+                ,a.state        AS state
                 ,a.title        AS title
                 ,a.msg_welcom   AS msgWelcom
                 ,a.subject_type,(select code from rd_data.tbl_code_define aa where aa.value = a.subject_type and aa.type ='subject_type') type
