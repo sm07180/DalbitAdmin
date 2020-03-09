@@ -242,7 +242,6 @@
         })
 
         $('#date_birth').datetimepicker().on('dp.change',function(e){
-            console.log("@@@@@@@@@@  2");
             var age = Number(moment().format("YYYY")) + 1 - Number( moment($('#txt_birth').val()).format("YYYY"));
             $("#lb_age").html(age + "세");
         })
@@ -280,14 +279,13 @@
             getInfoDetail(this.id,"접속상태","");
         });
         $('#bt_manager').click(function() {             //매니저 자세히
-            getInfoDetail(this.id,"(내가 등록한) 매니저","ㆍ마이페이지 내 매니저 등록한 정보를 확인할 수 있습니다.<br/>" +
-                "ㆍ리스트는 현재 권한을 갖은 매니저 리스트이고, 매니저권한은 최대 10명까지 등록됩니다.");
+            getInfoDetail(this.id,"(내가 등록한) 매니저");
         });
         $('#bt_black').click(function() {               //블랙리스트 자세히
-            getInfoDetail(this.id,"블랙리스트","ㆍ마이페이지 내 블랙리스트로 등록한 회원 정보를 확인할 수 있습니다.");
+            getInfoDetail(this.id,"블랙리스트");
         });
         $('#bt_editHistory').click(function() {           //최근정보 수정일
-            getInfoDetail(this.id,"정보수정내역","ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.");
+            getInfoDetail(this.id,"정보수정내역");
         });
         // 버튼 끝
 
@@ -393,7 +391,7 @@
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
     }
-    function getInfoDetail(tmp,tmp1,tmp2) {     // 상세보기
+    function getInfoDetail(tmp,tmp1) {     // 상세보기
         $('#div_info_detail').addClass("show");
         if(tmp.indexOf("_") > 0){       // userid 클릭시 _ 없이 호출
             tmp = tmp.split("_");

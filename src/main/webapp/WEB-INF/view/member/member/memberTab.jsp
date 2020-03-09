@@ -7,7 +7,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
-            <div class="widget-content hide" id="tabList">
+            <div class="widget-content" id="tabList">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
                     <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail" onclick="getHistory_broadcast(this.id);">방송내역</a></li>

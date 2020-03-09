@@ -200,7 +200,7 @@ var MemberDataTableSource = {
             {'title': '처리상태', 'data': 'type'},
             {'title': '처리자', 'data': 'type'},
         ]
-        , 'comments': 'ㆍ해당 회원의 1:1문의, 전화문의, 메일문의 전체내역을 리스트로 확인할 수 있습니다.'
+        // , 'comments': 'ㆍ해당 회원의 1:1문의, 전화문의, 메일문의 전체내역을 리스트로 확인할 수 있습니다.'
     },
 
 

@@ -32,9 +32,9 @@
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
 
-        initDataTableTop2(tmp);
+        initDataTableTop(tmp);
     }
-    function initDataTableTop2(tmp){
+    function initDataTableTop(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
             '                <div class="widget widget-table">\n' +
             '                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">\n' +
