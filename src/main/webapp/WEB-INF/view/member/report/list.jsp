@@ -44,11 +44,12 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
-        initDataTableTop4(tmp);
+        initDataTableTop(tmp);
+        initDataTableTop_select_report(tmp);
     }
-    function initDataTableTop4(tmp){
+    function initDataTableTop(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
-            '                <div class="widget widget-table">\n' +
+            '                <div class="widget widget-table" id="main_table_top">\n' +
             '                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">\n' +
             '                        <table id="top_info" class="table table-sorting table-hover table-bordered">\n' +
             '                            <thead id="table_Top"></thead>\n' +
@@ -66,8 +67,30 @@
         dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
         dtList_top_info.useCheckBox(false);
         dtList_top_info.useIndex(false);
+        dtList_top_info.useOrdering(false);
+        dtList_top_info.onlyTableView();
         dtList_top_info.createDataTable();
         dtList_top_info.reload();
+    }
+
+    function initDataTableTop_select_report(tmp){
+        var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
+            '                 <form id="cob_report_gubun">\n' +
+            '                    <select id="cob_report_gubun" name="report_gubun" class="" onchange="sel_change(this.value);">\n' +
+            '                        <option value="9999" selected="selected">신고구분</option>\n' +
+            '                        <option value="1">사진 및 이미지</option>\n' +
+            '                        <option value="2">음란성</option>\n' +
+            '                        <option value="3">광고 및 상업성</option>\n' +
+            '                        <option value="4">욕설 및 비방성</option>\n' +
+            '                        <option value="5">기타</option>\n' +
+            '                    </select>\n' +
+            '                </form>\n' +
+            '            </div>';
+
+        $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+    }
+    function sel_change(value){
+        console.log("value : " + value);
     }
 
     function Report(index){

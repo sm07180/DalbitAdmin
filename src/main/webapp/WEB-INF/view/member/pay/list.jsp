@@ -1,7 +1,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-lg-12 no-padding">
-            <div class="widget widget-table">
+            <div class="widget widget-table" id="main_table">
                 <div class="widget-content">
                     <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
                         <thead id="tableTop_detail">

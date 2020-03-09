@@ -19,7 +19,7 @@
           , rd_data.tb_member_broadcast_broadcasting m
           , (SELECT @RNUM := #{pageStart}) r
         WHERE b.room_no = m.room_no
-        ORDER BY ${orderColumnName} ${orderDir}
+        ORDER BY ${tableColumnName} ${orderDir}
          limit #{pageStart}, #{pageCnt}
     </select>
 
@@ -43,7 +43,7 @@
        WHERE b.room_no = m.room_no
          AND b.mem_no = #{memNo}
 
-      ORDER BY ${orderColumnName} ${orderDir}
+      ORDER BY ${tableColumnName} ${orderDir}
         limit #{pageStart}, #{pageCnt}
     </select>
 

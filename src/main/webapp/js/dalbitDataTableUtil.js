@@ -316,6 +316,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         var infoUrl = columnsInfo.url;
         var columnDefs = columnsInfo.columnDefs;
         var columns = columnsInfo.columns;
+        this.columnsInfo = columnsInfo;
 
         if(!isEmpty(infoUrl)){
             this.dataTableSource.ajax.url = infoUrl;
