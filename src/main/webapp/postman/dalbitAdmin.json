@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "00568894-b322-4a35-bc22-2beb630bdb75",
-		"name": "달빛라디오 ADMIN API 정의서 ",
+		"name": "달빛라디오 ADMIN API 정의서",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -99,11 +99,13 @@
 										{
 											"key": "pageNo",
 											"value": "1",
+											"description": "페이지 번호",
 											"type": "text"
 										},
 										{
 											"key": "pageCnt",
 											"value": "10",
+											"description": "게시물 수",
 											"type": "text"
 										}
 									]
@@ -126,6 +128,35 @@
 							"response": []
 						},
 						{
+							"name": "공지사항 상세",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/rest/content/notice/detail?noticeIdx=3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"content",
+										"notice",
+										"detail"
+									],
+									"query": [
+										{
+											"key": "noticeIdx",
+											"value": "3",
+											"description": "공지 번호"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "공지사항 등록",
 							"request": {
 								"method": "POST",
@@ -142,37 +173,50 @@
 									"urlencoded": [
 										{
 											"key": "slctType",
+											"value": "4",
+											"description": "공지구분( 1:공지,2: 이벤트,3:정기점검,4:업데이트)",
+											"type": "text"
+										},
+										{
+											"key": "platform",
 											"value": "1",
+											"description": "플랫폼( 1:전체,2:PC,3:Android,4:IOS,5:Web-Mobile)",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "1",
+											"description": "성별(1:전체,2:남자,3:여자)",
 											"type": "text"
 										},
 										{
 											"key": "title",
-											"value": "공지사항 test 1",
+											"value": "업데이트 test5",
+											"description": "공지 제목",
 											"type": "text"
 										},
 										{
 											"key": "contents",
-											"value": "공지내용 1111",
+											"value": "업데이트 5",
+											"description": "공지 내용",
 											"type": "text"
 										},
 										{
 											"key": "topFix",
-											"value": "1",
+											"value": "0",
+											"description": "상단 고정 여부 ( 1: 상단고정: 0: 일반)",
 											"type": "text"
 										},
 										{
 											"key": "viewOn",
 											"value": "1",
+											"description": "게시상태(1: ON, 0:OFF: )",
 											"type": "text"
 										},
 										{
-											"key": "writerName",
+											"key": "opName",
 											"value": "운영자",
-											"type": "text"
-										},
-										{
-											"key": "writerNo",
-											"value": "10001",
+											"description": "처리자 이름",
 											"type": "text"
 										}
 									]
@@ -222,7 +266,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8081/rest/content/notice/update?noticeIdx=1&slctType=1&title=공지사항 test 1&contents=공지내용 1111&topFix=1&viewOn=1&writerName=운영자&writerNo=10001",
+									"raw": "http://localhost:8081/rest/content/notice/update?noticeIdx=16&slctType=4&platform=1&gender=1&title=업데이트 테스트&contents=업데이트 내용&topFix=0&viewOn=1&opName=운영자",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -237,35 +281,48 @@
 									"query": [
 										{
 											"key": "noticeIdx",
-											"value": "1"
+											"value": "16",
+											"description": "공지 번호"
 										},
 										{
 											"key": "slctType",
-											"value": "1"
+											"value": "4",
+											"description": "공지구분( 1:공지,2: 이벤트,3:정기점검,4:업데이트)"
+										},
+										{
+											"key": "platform",
+											"value": "1",
+											"description": "플랫폼( 1:전체,2:PC,3:Android,4:IOS,5:Web-Mobile)"
+										},
+										{
+											"key": "gender",
+											"value": "1",
+											"description": "성별(1:전체,2:남자,3:여자)"
 										},
 										{
 											"key": "title",
-											"value": "공지사항 test 1"
+											"value": "업데이트 테스트",
+											"description": "공지 제목"
 										},
 										{
 											"key": "contents",
-											"value": "공지내용 1111"
+											"value": "업데이트 내용",
+											"description": "공지 내용"
 										},
 										{
 											"key": "topFix",
-											"value": "1"
+											"value": "0",
+											"description": "상단 고정 여부 ( 1: 상단고정: 0: 일반)"
 										},
 										{
 											"key": "viewOn",
-											"value": "1"
+											"value": "1",
+											"description": "게시상태(1: ON, 0:OFF: )"
 										},
 										{
-											"key": "writerName",
-											"value": "운영자"
-										},
-										{
-											"key": "writerNo",
-											"value": "10001"
+											"key": "opName",
+											"value": "운영자",
+											"description": "처리자 이름"
 										}
 									]
 								}
@@ -300,7 +357,7 @@
 									]
 								},
 								"url": {
-									"raw": "http://localhost:8081/rest/content/notice/delete?noticeIdx=1&writerName=운영자&writerNo=10001",
+									"raw": "http://localhost:8081/rest/content/notice/delete?noticeIdx=1&opName=운영자",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -315,15 +372,13 @@
 									"query": [
 										{
 											"key": "noticeIdx",
-											"value": "1"
+											"value": "1",
+											"description": "공지 번호"
 										},
 										{
-											"key": "writerName",
-											"value": "운영자"
-										},
-										{
-											"key": "writerNo",
-											"value": "10001"
+											"key": "opName",
+											"value": "운영자",
+											"description": "처리자 이름"
 										}
 									]
 								}
