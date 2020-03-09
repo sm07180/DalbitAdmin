@@ -24,12 +24,11 @@ var MemberDataTableSource = {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
-            {'title': 'status', 'data': 'status', 'visible' : false},
-            {'title': 'statusNm', 'data': 'statusNm'},
+            {'title': 'state', 'data': 'state', 'visible' : false},
+            {'title': 'status', 'data': 'status'},
             {'title': '방송주제', 'data': 'subjectType', 'width':'100px'},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
-                    // return '<a href="javascript://" onclick="javascript:Broad('+meta.row+');">' + data + '</a>'
-                    return roomNoLink(data, row.roomNo, row.status);
+                    return roomNoLink(data, row.roomNo, row.state);
                 }},
             {'title': '방송시작시간', 'data': 'startDate', 'width':'120px'},
             {'title': '방송종료시간', 'data': 'endDate', 'width':'120px'},
@@ -153,7 +152,7 @@ var MemberDataTableSource = {
             {'title': '등록일시', 'data': 'memNo'},
             {'title': '작성내용', 'data': 'memNo'},
             {'title': '총 댓글 수', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Fanbord(' + meta.row + ');" data-toggle="modal" data-target="#myModal">' + data + '</a>'
+                    return data + '<br/><a href="javascript://" onclick="javascript:Fanbord(' + meta.row + ');" data-toggle="modal" data-target="#myModal">' + "[댓글]" + '</a>'
                 }},
         ]
         , 'comments': 'ㆍ회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'

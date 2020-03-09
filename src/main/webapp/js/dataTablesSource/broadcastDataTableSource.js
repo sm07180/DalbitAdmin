@@ -2,15 +2,12 @@ var BroadcastDataTableSource = {
     'liveList': {
         'url': '/rest/broadcast/live/list'
         , 'columns': [
-            // {'title': 'Main추천상태', 'data': 'badgeRecomm', 'render': function (data) {
-            //         if(data == 1){
-            //             return '<i class="fa fa-circle"></i><br/>' + "추천중";
-            //         }else{
-            //             return '<i class="fa fa-circle-o"></i><br/>' + "비추천";
-            //         }
-            //     }},
+            {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
+            {'title': 'status', 'data': 'status', 'visible' : false},
             {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
-            {'title': '방송제목', 'data': 'title', 'defaultContent': ''},
+            {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return roomNoLink(data, row.roomNo, row.status);
+                }},
             {'title': '프로필이미지', 'data': 'imageProfile', 'defaultContent': '', 'render' : function(data, type, row, meta){
                     return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
                 }},
@@ -46,6 +43,7 @@ var BroadcastDataTableSource = {
             {'title': '부스터', 'data': '', 'defaultContent': ''},
             {'title': '팬 수', 'data': '', 'defaultContent': ''},
         ]
+        , 'comments' : 'ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.'
     },
 
     'broadcastList': {
