@@ -56,7 +56,7 @@
             </div>
             <div class="col-md-12 no-padding" style="text-align: center">
                 <button type="button" id="bt_complet" class="btn btn-default btn-sm">처리완료</button>
-                <button type="button" id="bt_close" class="btn btn-default btn-sm" >취소</button>
+                <button type="button" id="bt_close" class="btn btn-default btn-sm" onclick="window.close();" >취소</button>
             </div>
         </div>
     </div>
