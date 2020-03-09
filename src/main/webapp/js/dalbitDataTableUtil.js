@@ -27,13 +27,14 @@
  **/
 
 
-function DalbitDataTable(dom, param, columnsInfo) {
+function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     this.dom = dom;
     this.columnsInfo = columnsInfo;
     var url = this.columnsInfo.url;
     var dataSource = this.columnsInfo;
     var dom = this.dom;
     var columnsInfo = this.columnsInfo;
+    var _searchForm = searchForm;
 
     //초기화
     this.initDataTableSource();
@@ -62,7 +63,8 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 var json = jQuery.parseJSON(data);
                 dalbitLog("[dataFilter]");
                 //dalbitLog(json);
-                var totalCnt = isEmpty(json.pagingVo.totalCnt) ? 0 : json.pagingVo.totalCnt;
+
+                var totalCnt = isEmpty(json.pagingVo) ? 0 : json.pagingVo.totalCnt;
                 var data = json.data;
 
                 json.recordsTotal = totalCnt;
@@ -87,10 +89,13 @@ function DalbitDataTable(dom, param, columnsInfo) {
             }
 
             //검색조건 data에 추가.
-            var formArray = $("#searchForm").serializeArray();
-            for (var i = 0; i < formArray.length; i++){
-                aoData[formArray[i]['name']] = formArray[i]['value'];
+            if(!isEmpty(_searchForm)){
+                var formArray = _searchForm.serializeArray();
+                for (var i = 0; i < formArray.length; i++){
+                    aoData[formArray[i]['name']] = formArray[i]['value'];
+                }
             }
+
 
             dalbitLog(aoData);
         },

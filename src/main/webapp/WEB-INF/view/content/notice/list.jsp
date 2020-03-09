@@ -32,17 +32,18 @@
                                     <option value="3">작성자</option>
                                 </select>
 
-                                <select class="form-control" name="noticeType">
-                                    <option value="9999" selected="selected">전체▼</option>
+                                <select class="form-control" name="slctType">
+                                    <option value="-1" selected="selected">전체▼</option>
                                     <option value="1">서비스공지</option>
-                                    <option value="2">긴급공지</option>
-                                    <option value="3">이벤트</option>
+                                    <option value="2">이벤트</option>
+                                    <option value="3">정기점검</option>
+                                    <option value="4">업데이트</option>
                                 </select>
 
-                                <select class="form-control" name="OnOffType">
-                                    <option value="9999" selected="selected">전체▼</option>
+                                <select class="form-control" name="viewOn">
+                                    <option value="-1" selected="selected">전체▼</option>
                                     <option value="1">ON</option>
-                                    <option value="2">OFF</option>
+                                    <option value="0">OFF</option>
                                 </select>
 
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
@@ -51,6 +52,7 @@
                         </div>
                     </div>
                 </div>
+                <input type="text" id="dummy" style="display:none;">
             </form>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
@@ -129,8 +131,8 @@
             }
         });
 
-        $('input[id="searchText"]').keydown(function() {
-            if (event.keyCode === 13) {
+        $('input[id="searchText"]').keydown(function(e) {
+            if (e.keyCode === 13) {
                 getNoticeInfo();
             };
         });
@@ -151,7 +153,7 @@
             data.gubun = $("select[name='selectGubun']").val()
         };
 
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, NoticeDataTableSource.noticeInfo);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, NoticeDataTableSource.noticeInfo, $("#searchForm"));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         //dtList_info.setEventClick(updataPushInfo,4);

@@ -7,7 +7,7 @@ var NoticeDataTableSource = {
             , {'title': '공지구분', 'data' : 'slctType', 'name' : 'sortSlct'}
             , {'title': '공지 제목', 'data' : 'title'}
             , {'title': '상단 고정 여부', 'data' : 'topFix', 'name' : 'sortView'}
-            , {'title': '노출설정', 'data' : 'viewOn', 'name' : 'viewOn'}
+            , {'title': '노출설정', 'data' : 'viewOn', 'name' : ''}
             , {'title': '작성자 이름', 'data' : 'writerName'}
             , {'title': '작성자번호', 'data' : 'writerNo'}
             , {'title': '작성일자', 'data' : 'writeDateFormat'}
