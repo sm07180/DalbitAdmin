@@ -109,7 +109,7 @@
     $('#call_title').html("ㆍ전화문의 시 정보를 등록하고 처리 한 정보입니다.<br>ㆍ전화문의 시 회원이 문의 한 내용을 최대한 자세히 작성해 주세요.");
     $('#mail_title').html("ㆍ회원의 메일 문의 내용을 확인하고, 답변 및 처리할 수 있습니다.");
 
-    var tab_id = "false";
+    var  = "false";
     init();
     function init(){
         var dtList_info_data = function ( data ) {

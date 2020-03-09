@@ -3,7 +3,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-lg-12 no-padding">
-            <div class="widget widget-table" id="questDetail">
+            <div class="widget widget-table" id="main_table">
                 <div class="widget-content">
                     <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
                         <thead id="tableTop_detail">
@@ -35,13 +35,13 @@
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
 
-        initDataTableTop(tmp);
+        initDataTableTop3(tmp);
     }
-    function initDataTableTop(tmp){
+    function initDataTableTop3(tmp){
         var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
             '                <div class="widget widget-table">\n' +
             '                    <div class="widget-content" style="border-top-width:0px;padding-bottom: 0px;">\n' +
-            '                        <table id="top_listen" class="table table-sorting table-hover table-bordered">\n' +
+            '                        <table id="top_info" class="table table-sorting table-hover table-bordered">\n' +
             '                            <thead id="table_Top"></thead>\n' +
             '                            <tbody id="table_Body"></tbody>\n' +
             '                        </table>\n' +
@@ -49,14 +49,14 @@
             '                </div>\n' +
             '            </div>';
 
-        $("#"+tmp).find(".top-right").addClass("no-padding").append(topTable);
+        $("#"+tmp).find("#main_table").find(".top-right").addClass("no-padding").append(topTable);
 
         var top = tmp.replace("Detail","_top");
         var source = MemberDataTableSource[top];
         var dtList_info_detail_data = function (data) {
             data.memNo = memNo;
         }
-        dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_listen"), dtList_info_detail_data, source);
+        dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
         dtList_top_info.useCheckBox(false);
         dtList_top_info.useIndex(false);
         dtList_top_info.createDataTable();

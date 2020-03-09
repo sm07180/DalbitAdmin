@@ -94,7 +94,7 @@
             </div>
         </div>
         <div class="col-md-6 no-padding">
-            <div class="widget widget-table">
+            <div class="widget widget-table" id="report_detail3">
                 <div class="widget-content">
                     <table id="list_report_detail" class="table table-sorting table-hover table-bordered datatable">
                         <thead id="tableTop_detail">
@@ -106,7 +106,7 @@
             </div>
         </div>
         <div class="col-md-6 no-padding">
-            <div class="widget widget-table">
+            <div class="widget widget-table" id="report_detail4">
                 <div class="widget-content">
                     <table id="list_report_user_detail" class="table table-sorting table-hover table-bordered datatable">
                         <thead id="tableTop_detail2">

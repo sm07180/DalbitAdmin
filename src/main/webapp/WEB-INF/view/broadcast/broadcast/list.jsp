@@ -81,7 +81,7 @@
         <!-- 버튼 끝 -->
     });
 
-    var tab_id = "false";
+    var  = "false";
     init();
     function init(){
 

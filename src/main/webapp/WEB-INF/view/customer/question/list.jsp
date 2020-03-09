@@ -90,7 +90,7 @@
     });
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 
-    var tab_id = "false";
+    var  = "false";
     init();
     function init(){
         var dtList_info_data = function ( data ) {

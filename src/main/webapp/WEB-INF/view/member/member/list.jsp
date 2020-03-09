@@ -84,19 +84,19 @@
         <!-- 버튼 끝 -->
     });
 
-    var tab_id = "false";
-    init();
+    var dtList_info_data = function ( data ) {
+        data.search = $('#txt_search').val();                        // 검색명
+        data.gubun = $("select[name='selectGubun']").val();
+    };
+    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
+    dtList_info.useCheckBox(false);
+    dtList_info.useIndex(true);
+    // dtList_info.setEventClick(test01,0);
+    dtList_info.createDataTable();
+
     function init(){
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val();
-        };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
-        dtList_info.useCheckBox(false);
-        dtList_info.useIndex(true);
-        // dtList_info.setEventClick(test01,0);
-        dtList_info.createDataTable();
     }
+
     // function test01(t1, t2 ,t3) {
     //     dalbitLog(t1)   //
     // }
@@ -105,14 +105,13 @@
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_search = $('#txt_search').val();
         tmp_gubun = $("select[name='selectGubun']").val();
-
         dtList_info.reload();
-
         /*검색결과 영역이 접혀 있을 시 열기*/
         var toggleIcon = $('#_searchToggleIcon');
         if(toggleIcon.hasClass('fa-chevron-down')){
             toggleIcon.click();
         }
+        $('#tabList').addClass("hide");
     }
 
     /*=============엑셀==================*/

@@ -7,13 +7,12 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
-            <div class="widget-content">
+            <div class="widget-content hide" id="tabList">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
                     <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail" onclick="getHistory_broadcast(this.id);">방송내역</a></li>
                     <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="getHistory_listen(this.id);">청취내역</a></li>
                     <li><a href="#payDetail" role="tab" data-toggle="tab" id="tab_payDetail" onclick="getHistory_pay(this.id);">결제/취소내역</a></li>
-                    <li><a href="#exchangeDetail" role="tab" data-toggle="tab" id="tab_exchangeDetail" onclick="getHistory_exchange(this.id);">환전내역</a></li>
                     <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="getHistory_gift(this.id);">선물/교환내역</a></li>
                     <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="getHistory_mystar(this.id);">마이스타/팬</a></li>
                     <li><a href="#noticeDetail" role="tab" data-toggle="tab" id="tab_noticeDetail" onclick="getHistory_notice(this.id);">회원공지관리</a></li>
@@ -27,7 +26,6 @@
                     <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>       <!-- 방송 -->
                     <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>         <!-- 청취 -->
                     <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>               <!-- 결제 -->
-                    <div class="tab-pane fade" id="exchangeDetail"><jsp:include page="../exchange/list.jsp"/></div>     <!-- 환전 -->
                     <div class="tab-pane fade" id="giftDetail"><jsp:include page="../gift/list.jsp"/></div>             <!-- 선물 -->
                     <div class="tab-pane fade" id="mystarDetail"><jsp:include page="../myStar/list.jsp"/></div>         <!-- 마이스타 -->
                     <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../notice/list.jsp"/></div>         <!-- 공지 -->

@@ -8,22 +8,15 @@
         </div>
         <div class="col-md-12 no-padding">
             <div class="col-md-6 no-padding">
-                <div class="col-md-12 no-padding">
-                    <div class="col-md-3 lb_style">
-                        <label>프로필 이미지</label>
-                    </div>
-                    <div class="row col-md-9 lc_style">
-                        <div class="col-md-10 no-padding">
-                            <form id="profileImg" method="post" enctype="multipart/form-data">
-                                <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px" />
-                                <%--<input type='file' id="imgInput"/>--%>
-                            </form>
-                            <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
-                        </div>
-                        <div class="col-md-2 no-padding">
-
-                        </div>
-                    </div>
+                <div class="col-md-3 no-padding" style="border: 1px solid #DDDDDD; background-color: #DCE6F2;">
+                    <label class="control-label" style="">프로필 이미지</label>
+                </div>
+                <div class="col-md-9 no-padding" style="border: 1px solid #DDDDDD;">
+                    <form id="profileImg" method="post" enctype="multipart/form-data">
+                        <img id="image_section" src="#" alt="your image" style="width: 142px;height: 142px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <%--<input type='file' id="imgInput"/>--%>
+                        <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">이미지초기화</button>
+                    </form>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
@@ -48,25 +41,30 @@
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>회원상태</label></div>
-                    <div class="col-md-3"><label id="lb_status"></label></div>
-                    <button type="button" id="bt_report" class="btn btn-default btn-sm pull-right">신고조치</button>
+                    <div class="col-md-9">
+                        <label id="lb_status"></label>
+                        <%--<button type="button" id="bt_report" class="btn btn-default btn-sm pull-right">경고/정지</button>--%>
+                        <button class="btn btn-default btn-sm pull-right _openPop" id="bt_report" data-url="" data-width="1000" data-height="520" name="reportPop">경고/정지</button>
+                    </div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>접속상태</label></div>
-                    <div class="col-md-3"><label id="lb_loginStatus"></label></div>
-                    <button type="button" id="bt_loginStatus" class="btn btn-default btn-sm pull-right">자세히</button>
-                </div>
-                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-3 lb_style"><label>방송상태</label></div>
-                    <div class="col-md-3"><label id="lb_liveStatus"></label></div>
+                    <div class="col-md-9">
+                        <label id="lb_loginStatus"></label>
+                        <button type="button" id="bt_loginStatus" class="btn btn-default btn-sm pull-right">자세히</button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-12 no-padding">
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                    <div class="col-md-3 lb_style"><label>회원번호</label></div>
+                    <div class="col-md-9"><label id="lb_memNo"></label></div>
+                </div>
+                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>UserID</label></div>
-                    <div class="col-md-9"><label id="lb_userId"></label></div>
+                    <div class="col-md-9"><label id="lb_memId"></label></div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>소셜아이디</label></div>
@@ -74,32 +72,36 @@
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>연락처</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" id="txt_phon" style="width: 100%"></div>
-                    <button type="button" id="bt_phon" class="btn btn-default btn-sm pull-right">변경</button>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="txt_phon">
+                        <button type="button" id="bt_phon" class="btn btn-default btn-sm pull-right">변경</button>
+                    </div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>닉네임</label></div>
-                    <div class="col-md-7"><input type="text" class="form-control" id="txt_nickName" style="width: 100%"></div>
-                    <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right">변경</button>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="txt_memNick">
+                        <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right">변경</button>
+                    </div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>생년월일</label></div>
-                    <div class="col-md-7">
-                        <div class="col-md-12 input-group date" id="date_birth">
+                    <div class="col-md-9">
+                        <div class="input-group date" id="date_birth">
                             <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         </div>
+                        <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right">변경</button>
                     </div>
-                    <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>나이</label></div>
                     <div class="col-md-2"><label id="lb_age"></label></div>
                     <div class="col-md-2 lb_style"><label>성별</label></div>
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
                         <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
+                        <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right">변경</button>
                     </div>
-                    <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right">변경</button>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>비밀번호</label></div>
@@ -109,54 +111,75 @@
             </div>
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                    <div class="col-md-3 lb_style"><label>방송상태</label></div>
+                    <div class="col-md-3"><label id="lb_liveStatus"></label></div>
+                </div>
+                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>청취상태</label></div>
                     <div class="col-md-9"><label id="lb_listenStatus"></label></div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-3 lb_style"><label>매니저정보</label></div>
-                    <div class="col-md-6"><label id="lb_manager"></label></div>
-                    <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
+                    <div class="col-md-3 lb_style"><label>보유달</label></div>
+                    <div class="col-md-9"><label id="lb_moonCnt"></label></div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-3 lb_style"><label>블랙리스트</label></div>
-                    <div class="col-md-6"><label id="lb_black"></label></div>
-                    <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
+                    <div class="col-md-3 lb_style"><label>보유별</label></div>
+                    <div class="col-md-9"><label id="lb_startCnt"></label></div>
+                </div>
+                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                    <div class="col-md-3 lb_style"><label>(내가/나를 등록한)<br/>매니저정보</label></div>
+                    <div class="col-md-9">
+                        <label id="lb_manager"></label>
+                        <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
+                    </div>
+                </div>
+                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                    <div class="col-md-3 lb_style"><label>(내가/나를 등록한)<br/>블랙리스트</label></div>
+                    <div class="col-md-9">
+                        <label id="lb_black"></label>
+                        <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
+                    </div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>가입플랫폼</label></div>
-                    <div class="col-md-8"><label id="lb_joinPlatform"></label></div>
+                    <div class="col-md-9"><label id="lb_joinPlatform"></label></div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
                     <div class="col-md-3 lb_style"><label>회원가입일시</label></div>
-                    <div class="col-md-8"><label id="lb_joinDate"></label></div>
-                </div>
-                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-3 lb_style"><label>회원탈퇴일시</label></div>
-                    <div class="col-md-8"><label id="lb_cancelMb"></label></div>
-                </div>
-                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-3 lb_style"><label>최초방송일시</label></div>
-                    <div class="col-md-8"><label id="lb_date"></label></div>
+                    <div class="col-md-9"><label id="lb_joinDate"></label></div>
                 </div>
             </div>
         </div>
         <div class="col-md-12 no-padding">
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-3 lb_style"><label>운영자 메모</label></div>
-                    <div class="col-md-7"><textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 100%"></textarea></div>
-                    <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
+                    <div class="col-md-3 lb_style" style="height: 142px;"><label>운영자 메모</label></div>
+                    <div class="col-md-9" style="border: 1px solid #DDDDDD;">
+                        <label id="lb_adminMemoCnt">등록 : 0건</label>
+                        <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
+                    </div>
+                    <div class="col-md-9" style="border: 1px solid #DDDDDD;">
+                        <%--<label id="lb_adminMemoCnt">0건</label>--%>
+                        <textarea type="textarea" class="form-control" id="txt_adminMemo" style="height: 110px"></textarea>
+                        <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 no-padding">
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
-                    <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
-                    <div class="col-md-6"><label id="lb_editDate"></label></div>
-                    <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
+                    <div class="col-md-3 lb_style"><label>회원탈퇴일시</label></div>
+                    <div class="col-md-9"><label id="lb_cancelMb"></label></div>
                 </div>
                 <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                    <div class="col-md-3 lb_style"><label>최초방송일시</label></div>
+                    <div class="col-md-9"><label id="lb_date"></label></div>
+                </div>
+                <div class="col-md-12 no-padding" style="border: 1px solid #DDDDDD;">
+                    <div class="col-md-3 lb_style"><label>최근 정보 수정 처리일시</label></div>
+                    <div class="col-md-7" style="height: 34px;border: 1px solid #DDDDDD;"><label id="lb_editDate"></label></div>
                     <div class="col-md-3 lb_style"><label>최근 정보 수정 자</label></div>
-                    <div class="col-md-8"><label id="lb_editUser"></label></div>
+                    <div class="col-md-7" style="height: 34px;border: 1px solid #DDDDDD;"><label id="lb_editUser"></label></div>
+                    <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
                 </div>
             </div>
         </div>
@@ -179,75 +202,58 @@
                 </div>     <!-- 자세히보기 -->
             </div>
         </div>
+        <!-- 이미지 원본 보기 -->
+        <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="image_full_size" src="#" alt="your image"/>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /#page-wrapper -->
 
 <script>
     $(document).ready(function() {
-        $('.input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            todayHighlight: true,
-            calendarWeeks: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'kr',
-            maxDate:0
-        }).datepicker("setDate", new Date());
+        // $('.input-group.date').datepicker({
+        //     todayBtn: "linked",
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     todayHighlight: true,
+        //     calendarWeeks: false,
+        //     autoclose: true,
+        //     format: "yyyy-mm-dd",
+        //     language: 'kr',
+        //     maxDate:0
+        // }).datepicker("setDate", new Date());
 
-        $('#date_radio').change(function() {
-            if($('input[name="radio_date"]:checked').val() == "all"){               // 전체
-                //$('input:checkbox[id="check_dateSel"]').prop("checked", true);
-            }else if($('input[name="radio_date"]:checked').val() == "week"){        //1주일
-                $('#txt_startSel').val(moment().add(-7,'d').format("YYYY-MM-DD"));
-                $('#txt_endSel').val(moment().format("YYYY-MM-DD"));
-            }else if($('input[name="radio_date"]:checked').val() == "month"){       // 한달
-                // console.log(moment().add(-1,'M').format("YYYY-MM-DD"));
-                // $('#txt_startSel').val("123123");
-                $('#txt_startSel').val(moment().add(-1,'M').format("YYYY-MM-DD"));
-                $('#txt_endSel').val(moment().add('M').format("YYYY-MM-DD"));
-            }else{
-                $('#txt_startSel').val(moment().format("YYYY-MM-DD"));
-                $('#txt_endSel').val(moment().format("YYYY-MM-DD"));
-            }
-        });
+        $('#date_birth').datetimepicker({
+            format: 'L',
+            maxDate:new Date(),
+            format: "YYYY-MM-DD",
+        })
 
-        $('#check_dateSel').click(function () {       //기간 선택
-            if ($('input[id="check_dateSel"]:checked').val() == "on") {
-                $('#txt_startSel').attr("disabled", false);
-                $('#txt_endSel').attr("disabled", false);
-                $('#i_startSel').prop("disable", false);
-                $('#i_endSel').prop("disabled", false);
-            } else {
-                $('#txt_startSel').attr("disabled", true);
-                $('#txt_endSel').attr("disabled", true);
-                $('#i_startSel').prop("disabled", true);
-                $('#i_endSel').prop("disabled", true);
-            }
-        });
-
-        $('#date_startSel').change(function(){
-            if(Number(moment($('#txt_startSel').val()).format("YYYYMMDD")) > Number(moment($('#txt_endSel').val()).format("YYYYMMDD"))){
-                $('#txt_startSel').val($('#txt_endSel').val());
-            }
-            if(Number(moment($('#txt_startSel').val()).format("YYYYMMDD")) > Number(moment().format('YYYYMMDD'))){
-                $('#txt_startSel').val(moment().format("YYYY-MM-DD"));
-            }
-        });
-
-        $('#date_birth').change(function(){
-            var age = getAge(moment($('#txt_birth').val()).format("YYYY"));
+        $('#date_birth').datetimepicker().on('dp.change',function(e){
+            console.log("@@@@@@@@@@  2");
+            var age = Number(moment().format("YYYY")) + 1 - Number( moment($('#txt_birth').val()).format("YYYY"));
             $("#lb_age").html(age + "세");
-        });
+        })
 
-        <!-- 버튼 -->
+        // 버튼
         $('#bt_img').click(function() {				 //사진변경
             bt_click(this.id);
         });
-        $('#bt_report').click(function() {              //신고조치
-            getReport();
+        $('#bt_report').click(function() {              //경고/정지
+
+            // getReport();
         });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
             bt_click(this.id);
@@ -267,12 +273,15 @@
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
             bt_click(this.id);
         });
+        $('#bt_adminMemoList').click(function() {           //최근정보 수정일
+            getInfoDetail(this.id,"운영자메모","");
+        });
         $('#bt_loginStatus').click(function() {         //접속상태
-            getInfoDetail(this.id,"접속상태","ㆍ회원의 가입일부터 현재까지의 접속 기록을 확인할 수 있습니다.");
+            getInfoDetail(this.id,"접속상태","");
         });
         $('#bt_manager').click(function() {             //매니저 자세히
             getInfoDetail(this.id,"(내가 등록한) 매니저","ㆍ마이페이지 내 매니저 등록한 정보를 확인할 수 있습니다.<br/>" +
-                                   "ㆍ리스트는 현재 권한을 갖은 매니저 리스트이고, 매니저권한은 최대 10명까지 등록됩니다.");
+                "ㆍ리스트는 현재 권한을 갖은 매니저 리스트이고, 매니저권한은 최대 10명까지 등록됩니다.");
         });
         $('#bt_black').click(function() {               //블랙리스트 자세히
             getInfoDetail(this.id,"블랙리스트","ㆍ마이페이지 내 블랙리스트로 등록한 회원 정보를 확인할 수 있습니다.");
@@ -280,22 +289,20 @@
         $('#bt_editHistory').click(function() {           //최근정보 수정일
             getInfoDetail(this.id,"정보수정내역","ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.");
         });
+        // 버튼 끝
 
-
-        <!-- 버튼 끝 -->
-
-        $("#imgInput").change(function(){
-            var file = this.files;
-            if(file[0].size > 1024 * 1024 * 2){
-                alert('2MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(file[0].size / 1024 / 1024 * 100) / 100) + 'MB');
-                return;
-            }
-
-            var formData = new FormData();
-            formData.append("file",$('#imgInput')[0].files[0]);
-            formData.append("uploadType","profile");
-            fileUpdate("https://devphoto2.dalbitcast.com/upload",formData, fn_file_upload, fn_fail);
-        });
+        // $("#imgInput").change(function(){
+        //     var file = this.files;
+        //     if(file[0].size > 1024 * 1024 * 2){
+        //         alert('2MB 이하 파일만 등록할 수 있습니다.\n\n' + '현재파일 용량 : ' + (Math.round(file[0].size / 1024 / 1024 * 100) / 100) + 'MB');
+        //         return;
+        //     }
+        //
+        //     var formData = new FormData();
+        //     formData.append("file",$('#imgInput')[0].files[0]);
+        //     formData.append("uploadType","profile");
+        //     fileUpdate("https://devphoto2.dalbitcast.com/upload",formData, fn_file_upload, fn_fail);
+        // });
     });
 
     var memNo = "";
@@ -335,6 +342,7 @@
     }
 
     function getMemNo_info(index){
+        $('#tabList').removeClass("hide");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.memNo = data.memNo;
@@ -351,8 +359,9 @@
         dalbitLog(response);
         // profImgDel = "false";
         memNo = response.data[0].memNo;
-        $("#lb_userId").html(response.data[0].memId);
-        $("#txt_nickName").val(response.data[0].memNick);
+        $("#lb_memNo").html(response.data[0].memNo);
+        $("#lb_memId").html(response.data[0].memId);
+        $("#txt_memNick").val(response.data[0].memNick);
         $("#txt_name").val(response.data[0].memName);
         $("#txt_phon").val(response.data[0].memPhone);
         $("#txt_pass").val(response.data[0].memPasswd);
@@ -366,7 +375,7 @@
         $("#lb_myFanCnt").html("총" + response.data[0].fanCnt + "건");
         $("#lb_broadNoticeCnt").html("총" + response.data[0].noticeCnt + "건");
         $( "#txt_birth" ).datepicker( "setDate", response.data[0].birthYear + "-" + response.data[0].birthMonth + "-" + response.data[0].birthDay);
-        var age = getAge( response.data[0].birthYear);
+        var age = Number(moment().format("YYYY")) + 1 - Number( response.data[0].birthYear);
         $("#lb_age").html(age + "세");
         $("input[name=radio_gender][value=" + response.data[0].memSex + "]").prop("checked", true);
 
@@ -376,6 +385,10 @@
         $("#image_section").prop("src", profImgDel);
 
         dtList_info_detail.reload();
+
+        $('#bt_report').data('url',"http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" +memNo + "'" + "&memNick=" + "'" + response.data[0].memNick + "'" + "&memSex=" + "'" + response.data[0].memSex+ "'");
+
+
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
@@ -387,8 +400,6 @@
             tmp = tmp[1];
         }
         $('#detail_tab_name').text(tmp1);           //텝 이름 변경
-        tmp2 = '<label>' + "tmp2" + '</label>';
-        $('#detail_list').find(".top-left").append(tmp2);
 
         var source = MemberDataTableSource[tmp];
         dtList_info_detail.changeReload(null,null,source,null);
@@ -423,8 +434,8 @@
 
         var screenW = screen.availWidth;  // 스크린 가로사이즈
         var screenH = screen.availHeight; // 스크린 세로사이즈
-        var popW = 1200; // 띄울창의 가로사이즈
-        var popH = 690; // 띄울창의 세로사이즈
+        var popW = 1000; // 띄울창의 가로사이즈
+        var popH = 520; // 띄울창의 세로사이즈
         var posL = (screenW - popW) / 2;   // 띄울창의 가로 포지션
         var posT = (screenH - popH) / 2;   // 띄울창의 세로 포지션
 
@@ -438,6 +449,10 @@
         myForm.method = "post";
         myForm.target = "test";
         myForm.submit();
+    }
+    function fullSize(url) {     // 이미지 원래 크기
+
+        $("#image_full_size").prop("src", url);
     }
 
 
@@ -482,8 +497,8 @@
     {{/data}}
 </script>
 
-<form id="frmData_report" name="frmData_report" method="post">
-    <input name="in_memNo" id="in_memNo" value="" class ="hidden">
-</form>
+<%--<form id="frmData_report" name="frmData_report" method="post">--%>
+    <%--<input name="in_memNo" id="in_memNo" value="" class ="hidden">--%>
+<%--</form>--%>
 
 

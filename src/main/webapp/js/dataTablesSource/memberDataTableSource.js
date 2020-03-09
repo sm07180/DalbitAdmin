@@ -2,16 +2,20 @@ var MemberDataTableSource = {
     'userInfo': {
         'url': '/rest/member/member/list'
         , 'columns': [
-            {'title': 'memNo', 'data': 'memNo', 'visible' : false},
+            {'title': '회원번호', 'data': 'memNo', 'width':'100px'},
              {'title': 'UserID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
                 }},
              {'title': '닉네임', 'data': 'memNick', 'width':'200px'},
-             {'title': '이름', 'data': 'memName', 'width':'100px'},
              {'title': '연락처', 'data': 'memPhone', 'width':'100px'},
              {'title': '가입플랫폼', 'data': 'memSlct', 'width':'100px'},
+             {'title': '회원가입일시', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
+             {'title': '최근 접속 일시', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
+             {'title': '누적 접속 수', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
+             {'title': '결제 건 수/금액', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
+             {'title': '훠운상태', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
              {'title': '접속상태', 'data': 'Login_out', 'defaultContent': '로그아웃', 'width':'100px'},
-             {'title': '생방상태', 'data': 'Live', 'defaultContent': '퇴근', 'width':'100px'},
+             {'title': '방송상태', 'data': 'Live', 'defaultContent': '퇴근', 'width':'100px'},
         ]
         , 'comments': 'ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다.'
     },
@@ -148,7 +152,9 @@ var MemberDataTableSource = {
             {'title': '팬닉네임', 'data': 'memNo'},
             {'title': '등록일시', 'data': 'memNo'},
             {'title': '작성내용', 'data': 'memNo'},
-            {'title': '총 댓글 수', 'data': 'memNo'},
+            {'title': '총 댓글 수', 'data': 'memNo', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" onclick="javascript:Fanbord(' + meta.row + ');" data-toggle="modal" data-target="#myModal">' + data + '</a>'
+                }},
         ]
         , 'comments': 'ㆍ회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'
     },
@@ -210,7 +216,19 @@ var MemberDataTableSource = {
             {'title': 'Mobile AD ID', 'data': 'type'},
             {'title': 'IP 주소', 'data': 'type'},
         ]
-        // , 'comments': 'ㆍ문의 제목을 클릭하시면 세부 정보를 확인 및 답변, 수정할 수 있습니다.'
+        , 'comments': 'ㆍ회원의 가입일부터 현재까지의 접속 기록을 확인할 수 있습니다.'
+    },
+
+
+    'adminMemoList': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': 'User ID', 'data': 'type'},
+            {'title': 'User 닉네임', 'data': 'type'},
+            {'title': '등록 일시', 'data': 'type'},
+            {'title': '등록 관리자', 'data': 'type'},
+            {'title': '운영자 메모 내용', 'data': 'type'},
+        ]
     },
 
     'manager': {
@@ -282,26 +300,26 @@ var MemberDataTableSource = {
     'report_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '미처리', 'data': 'type'},
-            {'title': '누적 처리 건', 'data': 'type'},
-            {'title': '조치내역', 'data': 'type','width':'400px'},
-            {'title': '전화문의/처리', 'data': 'type'},
+            {'title': '미처리', 'data': 'type','defaultContent': ''},
+            {'title': '누적 처리 건', 'data': 'type','defaultContent': ''},
+            {'title': '조치내역', 'data': 'type','width':'400px','defaultContent': ''},
+            {'title': '전화문의/처리', 'data': 'type','defaultContent': ''},
         ]
     },
     'question_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '총 1:1문의', 'data': 'type'},
-            {'title': '회원정보', 'data': 'type'},
-            {'title': '방송정보', 'data': 'type'},
-            {'title': '청취하기', 'data': 'type'},
-            {'title': '결제', 'data': 'type'},
-            {'title': '건의하기', 'data': 'type'},
-            {'title': '장애/버그', 'data': 'type'},
-            {'title': '선물/아이템', 'data': 'type'},
-            {'title': '기타', 'data': 'type'},
-            {'title': '전화문의', 'data': 'type'},
-            {'title': '메일문의', 'data': 'type'},
+            {'title': '총 1:1문의', 'data': 'type','defaultContent': ''},
+            {'title': '회원정보', 'data': 'type','defaultContent': ''},
+            {'title': '방송정보', 'data': 'type','defaultContent': ''},
+            {'title': '청취하기', 'data': 'type','defaultContent': ''},
+            {'title': '결제', 'data': 'type','defaultContent': ''},
+            {'title': '건의하기', 'data': 'type','defaultContent': ''},
+            {'title': '장애/버그', 'data': 'type','defaultContent': ''},
+            {'title': '선물/아이템', 'data': 'type','defaultContent': ''},
+            {'title': '기타', 'data': 'type','defaultContent': ''},
+            {'title': '전화문의', 'data': 'type','defaultContent': ''},
+            {'title': '메일문의', 'data': 'type','defaultContent': ''},
         ]
     },
 }
