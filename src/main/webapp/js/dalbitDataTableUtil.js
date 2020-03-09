@@ -29,8 +29,11 @@
 
 function DalbitDataTable(dom, param, columnsInfo) {
     this.dom = dom;
-    var url = columnsInfo.url;
-    var dataSource = columnsInfo;
+    this.columnsInfo = columnsInfo;
+    var url = this.columnsInfo.url;
+    var dataSource = this.columnsInfo;
+    var dom = this.dom;
+    var columnsInfo = this.columnsInfo;
 
     //초기화
     this.initDataTableSource();
@@ -76,17 +79,17 @@ function DalbitDataTable(dom, param, columnsInfo) {
             aoData.pageStart = aoData.start;
             aoData.pageCnt = aoData.length;
 
-            aoData.orderColumnIdx = aoData.order[0]["column"];
-            aoData.orderDir = aoData.order[0]["dir"];
-            aoData.tableColumnName = aoData.columns[aoData.orderColumnIdx]["data"];
-
-            aoData[aoData.columns[aoData.orderColumnIdx]["name"]] = convertSort(aoData.order[0]["dir"]);
+            if(aoData.order.length > 0){
+                aoData.orderColumnIdx = aoData.order[0]["column"];
+                aoData.orderDir = aoData.order[0]["dir"];
+                aoData.tableColumnName = aoData.columns[aoData.orderColumnIdx]["data"];
+                aoData[aoData.columns[aoData.orderColumnIdx]["name"]] = convertSort(aoData.order[0]["dir"]);
+            }
 
             dalbitLog(aoData);
         },
         fnPreDrawCallback: function(oSettings){
             dalbitLog("[fnPreDrawCallback]");
-            //dalbitLog(oSettings);
 
             // 최초 Order 저장
             $(oSettings.aoColumns).each(function () {
@@ -128,7 +131,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         fnInitComplete: function(oSettings){
             dalbitLog("[fnInitComplete]");
             // Comments 설정
-            var comments = isEmpty(dataSource.comments) ? "" : dataSource.comments;
+            var comments = isEmpty(columnsInfo.comments) ? "" : columnsInfo.comments;
             dom.parent("div").find(".comments").html(comments);
         },
         columnDefs: [
@@ -269,6 +272,9 @@ function DalbitDataTable(dom, param, columnsInfo) {
                     el.indeterminate = true;
                 }
             }
+
+            //하나만 선택
+            // $('input[type="checkbox"]').not(this).prop("checked", false);
         });
     }
 
@@ -332,6 +338,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         // this.dom.DataTable().ajax.reload();
     }
 
+    // DataTable 제거
     DalbitDataTable.prototype.destroy = function(){
         if(this.g_DataTable != null){
             this.dom.DataTable().destroy();
@@ -339,6 +346,7 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }
     }
 
+    // DataTable 최초 생성시 데이터 로드 여부
     DalbitDataTable.prototype.useInitReload = function(isUse){
         if(isUse){
             delete this.dataTableSource.deferLoading;
@@ -347,6 +355,16 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }
     }
 
+    // Table만 보여짐
+    DalbitDataTable.prototype.onlyTableView = function(){
+        this.dataTableSource.dom = "t";
+    }
+
+    // 정렬사용여부
+    DalbitDataTable.prototype.useOrdering = function(isUse){
+        if(isEmpty(isUse)){return false;}
+        this.dataTableSource.ordering = isUse;
+    }
 
 
 

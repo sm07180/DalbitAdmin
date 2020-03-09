@@ -27,11 +27,11 @@ div.dataTables_info {
 }
 
 .dataTable-top > div{
-    padding: 10px 10px 10px 10px;
+    padding-top: 7px;
 }
 
 .dataTable-footer > div{
-    padding: 0px 10px 10px 10px;
+    padding-bottom: 7px;
 }
 
 
