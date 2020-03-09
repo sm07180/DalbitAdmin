@@ -98,61 +98,61 @@
 									"urlencoded": [
 										{
 											"key": "searchType",
-											"value": "-1",
+											"value": "",
 											"description": "검색구분( -1(or null): all, 1: 제목,2:내용,3:작성자)",
 											"type": "text"
 										},
 										{
 											"key": "searchText",
-											"value": "공지",
+											"value": "",
 											"description": "검색어",
 											"type": "text"
 										},
 										{
 											"key": "slctType",
-											"value": "-1",
+											"value": "",
 											"description": "공지구분(-1(or null): all, 1:공지,2: 이벤트,3:정기점검,4:업데이트)",
 											"type": "text"
 										},
 										{
 											"key": "platform",
-											"value": "-1",
+											"value": "",
 											"description": "플랫폼구분(-1(or null): all, 1:전체,2:PC,3:Android,4:IOS,5:Web-Mobile)",
 											"type": "text"
 										},
 										{
 											"key": "gender",
-											"value": "-1",
+											"value": "",
 											"description": "성별구분(-1(or null): all, 1:전체,2:남자,3:여자)",
 											"type": "text"
 										},
 										{
 											"key": "viewOn",
-											"value": "0",
+											"value": "",
 											"description": "게시구분(-1(or null): all, 1: ON, 0:OFF: )",
 											"type": "text"
 										},
 										{
 											"key": "sortSlct",
-											"value": "0",
+											"value": "",
 											"description": "공지구분정렬( 0: asc, 1: desc, null: X)",
 											"type": "text"
 										},
 										{
 											"key": "sortPlat",
-											"value": "0",
+											"value": "",
 											"description": "플랫폼구분정렬( 0: asc, 1: desc, null: X)",
 											"type": "text"
 										},
 										{
 											"key": "sortGender",
-											"value": "0",
+											"value": "",
 											"description": "성별구분정렬( 0: asc, 1: desc, null: X)",
 											"type": "text"
 										},
 										{
 											"key": "sortView",
-											"value": "0",
+											"value": "",
 											"description": "게시구분정렬( 0: asc, 1: desc, null: X)",
 											"type": "text"
 										},
@@ -167,6 +167,12 @@
 											"value": "10",
 											"description": "게시물 수",
 											"type": "text"
+										},
+										{
+											"key": "topFix",
+											"value": "2",
+											"type": "text",
+											"disabled": true
 										}
 									]
 								},
@@ -190,7 +196,7 @@
 						{
 							"name": "공지사항 상세",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"url": {
 									"raw": "http://localhost:8081/rest/content/notice/detail?noticeIdx=3",
