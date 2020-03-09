@@ -17,7 +17,7 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 공지검색</h3>
                             <div>
-                                <select class="form-control" name="platformType">
+                                <select class="form-control" name="platform">
                                     <option value="9999">전체 ▼</option>
                                     <option value="1">PC</option>
                                     <option value="2">Android-Mobile</option>
@@ -156,7 +156,6 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, NoticeDataTableSource.noticeInfo, $("#searchForm"));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
-        //dtList_info.setEventClick(updataPushInfo,4);
         dtList_info.createDataTable();
     }
 
@@ -165,9 +164,37 @@
     });
 
     function insert() {
-       var template = $('#tmp_noticeFrm').html();
-       var templateScript = Handlebars.compile(template);
+        var template = $('#tmp_noticeFrm').html();
+        var templateScript = Handlebars.compile(template);
         $("#noticeForm").html(templateScript);
+    }
+
+    var noticeIdx="";
+
+    // 상세조회
+    function getNotice_detail(index) {
+        var data = dtList_info.getDataRow(index);
+        var obj = new Object();
+        obj.noticeIdx = data.noticeIdx;
+
+        getAjaxData("detail", "/rest/content/notice/detail", obj, fn_detail_success, fn_detail_fail);
+
+    }
+
+    function fn_detail_success(dst_id, response) {
+        dalbitLog('fn_detail_success');
+        dalbitLog(response);
+        // form 띄우기
+        var template = $('#tmp_noticeFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#noticeForm").html(html);
+
+    }
+
+    function fn_detail_fail(data, textStatus, jqXHR){
+        console.log(data, textStatus, jqXHR);
     }
 
     function isValid(){
@@ -272,20 +299,20 @@
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
             <span class="button_right">
                 <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
-                <button class="btn btn-default" type="button" id="updateBtn" style="display:none;">수정하기</button>
+                <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
             </span>
         </div>
         <div class="row col-md-12">
             <div class="col-md-2 no-padding">
                 <div class="col-md-5 lb_style"><label>No</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="no">-</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="no">{{noticeIdx}}</label></div>
                 <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="platform">-</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="platform">{{platform}}</label></div>
             </div>
 
             <div class="col-md-2 no-padding">
                 <div class="col-md-4 lb_style"><label>구분</label></div>
-                <div class="col-md-8" style="height: 34px;"><label id="sort"><input type="text" name="slctType" id="slctType" value="1"></label></div>
+                <div class="col-md-8" style="height: 34px;"><label id="sort"><input type="text" name="slctType" id="slctType" value="{{slctType}}"></label></div>
                 <div class="col-md-4 lb_style"><label>성별</label></div>
                 <div class="col-md-8" style="height: 34px;">
                     <label>
@@ -300,20 +327,20 @@
             <div class="col-md-2 no-padding">
                 <div class="col-md-6 lb_style" style="width:64px; height: 68px;"><label>제목</label></div>
                 <div class="col-md-6" style="height: 68px;">
-                    <label id="title_label"><input type="text" name="title" id="title"></label>
+                    <label id="title_label"><input type="text" name="title" id="title" value="{{title}}"></label>
                 </div>
             </div>
 
             <div class="col-md-2 no-padding">
                 <div class="col-md-5 lb_style"><label>등록일시</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="regDate">-</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="regDate">{{writeDate}}</label></div>
                 <div class="col-md-5 lb_style"><label>게시 중지일시</label></div>
                 <div class="col-md-7" style="height: 34px;"><label id="stopDate">-</label></div>
             </div>
 
             <div class="col-md-2 no-padding">
                 <div class="col-md-5 lb_style"><label>조회수</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="cnt">-</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="cnt">{{viewCnt}}</label></div>
                 <div class="col-md-5 lb_style"><label>등록/수정처리자</label></div>
                 <div class="col-md-7" style="height: 34px;"><label id="processor">-</label></div>
             </div>
@@ -328,9 +355,10 @@
     <div class="row col-lg-12 form-inline area_style">
         <div class="widget">
             <div class="widget-header">
-                <h3><i class="fa fa-user"></i> Text Editor Code</h3>
+                <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
-            <textarea class="code" style="width: 100%; height: 300px" name="contents" id="contents"></textarea>
+            <textarea class="code" style="width: 100%; height: 300px" name="contents" id="contents">{{contents}}</textarea>
         </div>
     </div>
+
 </script>

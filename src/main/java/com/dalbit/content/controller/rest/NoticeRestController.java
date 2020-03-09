@@ -35,7 +35,7 @@ public class NoticeRestController {
     /**
      * 사이트 공지 상세 조회
      */
-    @GetMapping("detail")
+    @PostMapping("detail")
     public String detail(P_noticeListDetailInputVo pNoticeListDetailInputVo) {
         String result = noticeService.callServiceCenterNoticeListDetail(pNoticeListDetailInputVo);
         return result;

@@ -59,7 +59,6 @@ public class NoticeService {
 
         noticeDao.callServiceCenterNoticeListDetail(procedureVo);
         P_noticeListDetailOutputVo noticeDetail = new Gson().fromJson(procedureVo.getExt(), P_noticeListDetailOutputVo.class);
-        //P_noticeListDetailOutputVo noticeDetail =
 
         String result;
 
