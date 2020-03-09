@@ -213,3 +213,20 @@ function getAge(birthYear){
 function convertSort(value){
     return isEmpty(value) ? null : (value === 'asc') ? 0 : 1;
 }
+
+function getCommonCodeSelect(code, targetCode){
+    targetCode = eval(targetCode);
+    if(!isEmpty(targetCode)){
+
+        var header = targetCode[0];
+        var html = '<select id="' + header.value + '" name="' + header.value + '" class="form-control">';
+        targetCode.forEach(function(value){
+            if(!isEmpty(value.type)){
+                html += '<option value="'+ value.value +'" '+ (value.value == code ? 'selected="selected"' : '')+'>'+ value.code +'</option>';
+            }
+        });
+        html += '</select>'
+        return html;
+    }
+}
+

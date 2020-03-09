@@ -7,7 +7,9 @@ var NoticeDataTableSource = {
             , {'title': '공지구분', 'data': 'slctType', 'name': 'sortSlct'}
             , {
                 'title': '공지 제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:getNotice_detail(' + meta.row + ');">' + data + '</a>'
+                    //return '<a href="javascript://" onclick="javascript:getNotice_detail(' + meta.row + ');">' + data + '</a>'
+                    console.log(row);
+                    return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+row.noticeIdx+'">' + data + '</a>'
                 }
             }
             , {'title': '상단 고정 여부', 'data': 'topFix', 'name': 'sortView'}
