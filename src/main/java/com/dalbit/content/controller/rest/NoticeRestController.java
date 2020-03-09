@@ -23,7 +23,7 @@ public class NoticeRestController {
     MessageUtil messageUtil;
 
     /**
-     * 사이트 공지 보기 (O)
+     * 사이트 공지 보기
      */
     @PostMapping("list")
     public String list(P_noticeListInputVo pNoticeListInputVo) {
@@ -31,8 +31,9 @@ public class NoticeRestController {
         return result;
     }
 
+
     /**
-     * 사이트 공지 상세 조회 (O)
+     * 사이트 공지 상세 조회
      */
     @GetMapping("detail")
     public String detail(P_noticeListDetailInputVo pNoticeListDetailInputVo) {
@@ -41,7 +42,7 @@ public class NoticeRestController {
     }
 
     /**
-     * 사이트 공지 등록 (O)
+     * 사이트 공지 등록
      */
     @PostMapping("insert")
     public String insert(P_noticeInsertVo pNoticeInsertVo) {
@@ -59,7 +60,7 @@ public class NoticeRestController {
     }
 
     /**
-     * 사이트 공지 삭제 (O)
+     * 사이트 공지 삭제
      */
     @DeleteMapping("delete")
     public String delete(P_noticeDeleteVo pNoticeDeleteVo) {

@@ -1,5 +1,6 @@
 package com.dalbit.content.vo.procedure;
 
+import com.dalbit.common.vo.BaseVo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class P_noticeListDetailOutputVo {
+public class P_noticeListDetailOutputVo extends BaseVo {
     private int noticeIdx;
     private String slctType;
     private int platform;
@@ -17,8 +18,7 @@ public class P_noticeListDetailOutputVo {
     private int topFix;
     private int viewOn;
     private int viewCnt;
-    private String opName;
-    private Date offDate;
-    private Date writeDate;
+    private String offDate;
+    private String writeDate;
 
 }
