@@ -16,12 +16,6 @@ import java.io.Serializable;
 public class BaseVo implements Serializable {
 
     private int rowNum;
-    private String orderColumnName;
-    private int orderColumnIdx;
-    private String orderDir;
-    private int pageStart;
-    private int pageCnt;
-
     private String opName;
 
     @Override

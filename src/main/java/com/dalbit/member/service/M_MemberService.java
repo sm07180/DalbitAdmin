@@ -54,6 +54,10 @@ public class M_MemberService {
         return list;
     }
 
+    public int getMemberList_cnt(MemberListVo memberListVo){
+        return mMemberDao.callMemberList_cnt(memberListVo);
+    }
+
     /**
      * 회원 레벨 목록
      */

@@ -7,8 +7,10 @@ import com.dalbit.broadcast.service.B_StoryService;
 import com.dalbit.broadcast.vo.*;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,7 +52,10 @@ public class B_BroadcastRestController {
     @PostMapping("list")
     public String getBroadcastList(BroadcastListVo broadcastListVo){
         List<BroadcastListVo> list = bBroadcastService.callBroadcastList(broadcastListVo);
-        return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list));
+        int total = bBroadcastService.callBroadcastList_cnt(broadcastListVo);
+        var pagingVo = new PagingVo(total);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list, pagingVo));
     }
 
     @PostMapping("info")

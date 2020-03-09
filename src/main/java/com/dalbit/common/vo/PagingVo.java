@@ -13,11 +13,16 @@ public class PagingVo extends BaseVo {
         this.totalCnt = Integer.parseInt(totalCnt);
     }
 
-    /*output*/
-    private int totalCnt;
-
-    public void setTotalCnt(int totalCnt){
+    public PagingVo(int totalCnt){
         this.totalCnt = totalCnt;
     }
+
+    /*output*/
+    private int totalCnt;
+    private String orderColumnName;
+    private int orderColumnIdx;
+    private String orderDir;
+    private int pageStart;
+    private int pageCnt;
 
 }

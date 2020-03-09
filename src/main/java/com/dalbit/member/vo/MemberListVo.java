@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberListVo extends BaseVo {
+public class MemberListVo extends PagingVo {
 
     /* member/member/list 를 위한 Vo */
 

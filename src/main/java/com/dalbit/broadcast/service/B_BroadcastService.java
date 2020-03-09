@@ -50,12 +50,11 @@ public class B_BroadcastService {
 
     public List<BroadcastListVo> callBroadcastList(BroadcastListVo broadcastListVo){
         List<BroadcastListVo> list = bBroadcastDao.callBroadcastList(broadcastListVo);
-        int total = bBroadcastDao.callBroadcastList_cnt(broadcastListVo);
-        log.info("total : " + total);
-        if(list.size() > 0) {
-            list.get(0).setTotalCnt(total);
-        }
         return list;
+    }
+
+    public int callBroadcastList_cnt(BroadcastListVo broadcastListVo){
+        return bBroadcastDao.callBroadcastList_cnt(broadcastListVo);
     }
 
     /**

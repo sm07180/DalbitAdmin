@@ -52,8 +52,7 @@ public class M_MemberRestController {
 
         log.info("MemberListVo.search : " + memberListVo.getSearch());
         List<MemberListVo> list = mMemberService.getMemberList(memberListVo);
-        var pagingVo = new PagingVo();
-        pagingVo.setTotalCnt(57);
+        var pagingVo = new PagingVo(mMemberService.getMemberList_cnt(memberListVo));
         return gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, list, pagingVo));
     }
 

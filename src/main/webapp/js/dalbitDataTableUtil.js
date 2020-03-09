@@ -145,7 +145,11 @@ function DalbitDataTable(dom, param, columnsInfo) {
         }],
         columns : [
             {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null, "width": "20px"},
-            {"title": "No.", "data": "rowNum", "width": "20px", "defaultContent": "-"},
+            {"title": "No.", "data": "rowNum", "width": "20px", "defaultContent": "-", 'render' : function(data, type, row, meta, a, b){
+                    var totalCnt = isEmpty(meta.settings.json.pagingVo.totalCnt) ? 0 : meta.settings.json.pagingVo.totalCnt;
+                    return totalCnt - data + 1;
+                }
+            },
         ],
         order: [[ 2, 'asc' ]]
     }
