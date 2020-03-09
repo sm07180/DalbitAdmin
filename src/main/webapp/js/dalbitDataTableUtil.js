@@ -86,6 +86,12 @@ function DalbitDataTable(dom, param, columnsInfo) {
                 aoData[aoData.columns[aoData.orderColumnIdx]["name"]] = convertSort(aoData.order[0]["dir"]);
             }
 
+            //검색조건 data에 추가.
+            var formArray = $("#searchForm").serializeArray();
+            for (var i = 0; i < formArray.length; i++){
+                aoData[formArray[i]['name']] = formArray[i]['value'];
+            }
+
             dalbitLog(aoData);
         },
         fnPreDrawCallback: function(oSettings){

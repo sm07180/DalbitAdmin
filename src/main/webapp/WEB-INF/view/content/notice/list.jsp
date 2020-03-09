@@ -11,45 +11,47 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 공지검색</h3>
-                        <div>
-                            <select class="form-control" name="platformType">
-                                <option value="9999">전체 ▼</option>
-                                <option value="1">PC</option>
-                                <option value="2">Android-Mobile</option>
-                                <option value="3">IOS-Mobile</option>
-                                <option value="4">Web-Mobile</option>
-                            </select>
+            <form id="searchForm">
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i> 공지검색</h3>
+                            <div>
+                                <select class="form-control" name="platformType">
+                                    <option value="9999">전체 ▼</option>
+                                    <option value="1">PC</option>
+                                    <option value="2">Android-Mobile</option>
+                                    <option value="3">IOS-Mobile</option>
+                                    <option value="4">Web-Mobile</option>
+                                </select>
 
-                            <select class="form-control" name="selectType">
-                                <option value="9999" selected="selected">전체▼</option>
-                                <option value="1">공지제목</option>
-                                <option value="2">내용</option>
-                                <option value="3">작성자</option>
-                            </select>
+                                <select class="form-control" name="selectType">
+                                    <option value="-1" selected="selected">전체▼</option>
+                                    <option value="1">공지제목</option>
+                                    <option value="2">내용</option>
+                                    <option value="3">작성자</option>
+                                </select>
 
-                            <select class="form-control" name="noticeType">
-                                <option value="9999" selected="selected">전체▼</option>
-                                <option value="1">서비스공지</option>
-                                <option value="2">긴급공지</option>
-                                <option value="3">이벤트</option>
-                            </select>
+                                <select class="form-control" name="noticeType">
+                                    <option value="9999" selected="selected">전체▼</option>
+                                    <option value="1">서비스공지</option>
+                                    <option value="2">긴급공지</option>
+                                    <option value="3">이벤트</option>
+                                </select>
 
-                            <select class="form-control" name="OnOffType">
-                                <option value="9999" selected="selected">전체▼</option>
-                                <option value="1">ON</option>
-                                <option value="2">OFF</option>
-                            </select>
+                                <select class="form-control" name="OnOffType">
+                                    <option value="9999" selected="selected">전체▼</option>
+                                    <option value="1">ON</option>
+                                    <option value="2">OFF</option>
+                                </select>
 
-                            <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
                 <button type="button" class="btn btn-default button_right" id="bt_insert">등록</button>
@@ -127,7 +129,7 @@
             }
         });
 
-        $('input[id="txt_search"]').keydown(function() {
+        $('input[id="searchText"]').keydown(function() {
             if (event.keyCode === 13) {
                 getNoticeInfo();
             };
@@ -145,7 +147,7 @@
     init();
     function init(){
         var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                       // 검색명
+            data.search = $('#searchText').val();                       // 검색명
             data.gubun = $("select[name='selectGubun']").val()
         };
 
@@ -213,7 +215,7 @@
     // 검색
     function getNoticeInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        // tmp_search = $('#txt_search').val();
+        // tmp_search = $('#searchText').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
         dtList_info.reload();
