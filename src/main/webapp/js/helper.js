@@ -96,3 +96,10 @@ Handlebars.registerHelper("index", function(index, no)
 
     return isEmpty(index) ? no : parseInt(index) + 1;
 });
+
+Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode)
+{
+    console.log(value);
+    console.log(targetCode);
+    return getCommonCodeSelect(value, targetCode);
+});

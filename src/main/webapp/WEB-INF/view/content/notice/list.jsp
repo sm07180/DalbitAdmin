@@ -17,34 +17,10 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 공지검색</h3>
                             <div>
-                                <select class="form-control" name="platform">
-                                    <option value="9999">전체 ▼</option>
-                                    <option value="1">PC</option>
-                                    <option value="2">Android-Mobile</option>
-                                    <option value="3">IOS-Mobile</option>
-                                    <option value="4">Web-Mobile</option>
-                                </select>
-
-                                <select class="form-control" name="selectType">
-                                    <option value="-1" selected="selected">전체▼</option>
-                                    <option value="1">공지제목</option>
-                                    <option value="2">내용</option>
-                                    <option value="3">작성자</option>
-                                </select>
-
-                                <select class="form-control" name="slctType">
-                                    <option value="-1" selected="selected">전체▼</option>
-                                    <option value="1">서비스공지</option>
-                                    <option value="2">이벤트</option>
-                                    <option value="3">정기점검</option>
-                                    <option value="4">업데이트</option>
-                                </select>
-
-                                <select class="form-control" name="viewOn">
-                                    <option value="-1" selected="selected">전체▼</option>
-                                    <option value="1">ON</option>
-                                    <option value="0">OFF</option>
-                                </select>
+                                <span id="search_platform_aria"></span>
+                                <span id="search_searchType_aria"></span>
+                                <span id="search_slctType_aria"></span>
+                                <span id="search_viewOn_aria"></span>
 
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -92,8 +68,8 @@
     </div>
 </div>
 
-<script src="/js/lib/jquery.table2excel.js"></script>
-
+<script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
+<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -115,7 +91,7 @@
                     formData.append("file", files[0]);
                     // TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
                     formData.append("uploadType", "bg");
-                    fileUpdate("https://devphoto2.dalbitcast.com/upload", formData, function (data) {
+                    fileUpdate(IMAGE_SERVER_URL + "/upload", formData, function (data) {
                         var json = jQuery.parseJSON(data);
                         console.log(json);
                         if (json.code != "0") {
@@ -141,7 +117,6 @@
             getNoticeInfo();
         });
 
-
     });
 
     $('#notice_title').html("ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.");
@@ -157,6 +132,12 @@
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
+
+        //검색조건 불러오기
+        $("#search_platform_aria").html(getCommonCodeSelect(-1, notice_platform));
+        $("#search_searchType_aria").html(getCommonCodeSelect(-1, notice_searchType));
+        $("#search_slctType_aria").html(getCommonCodeSelect(-1, notice_slctType));
+        $("#search_viewOn_aria").html(getCommonCodeSelect(-1, notice_viewOn));
     }
 
     $("#bt_insert").on("click", function(){
@@ -320,19 +301,20 @@
                 <div class="col-md-5 lb_style"><label>No</label></div>
                 <div class="col-md-7" style="height: 34px;"><label id="no">{{noticeIdx}}</label></div>
                 <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="platform">{{platform}}</label></div>
+                <div class="col-md-7" style="height: 34px;"><label id="platform">{{{getCommonCodeSelect platform 'notice_platform'}}}</label></div>
             </div>
 
             <div class="col-md-2 no-padding">
                 <div class="col-md-4 lb_style"><label>구분</label></div>
-                <div class="col-md-8" style="height: 34px;"><label id="sort"><input type="text" name="slctType" id="slctType" value="{{slctType}}"></label></div>
+                <div class="col-md-8" style="height: 34px;">
+                    <label id="sort">
+                        <input type="text" name="slctType" id="slctType" value="{{slctType}}">
+                    </label>
+                </div>
                 <div class="col-md-4 lb_style"><label>성별</label></div>
                 <div class="col-md-8" style="height: 34px;">
                     <label>
-                        <select class="form-control" name="genderType">
-                            <option value="1">여자</option>
-                            <option value="2">남자</option>
-                        </select>
+                        {{{getCommonCodeSelect gender 'notice_gender'}}}
                     </label>
                 </div>
             </div>

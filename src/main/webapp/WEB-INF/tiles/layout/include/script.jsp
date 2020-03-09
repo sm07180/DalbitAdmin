@@ -73,6 +73,7 @@
 <script src="/js/dataTablesSource/content/noticeDataTableSource.js"></script>
 <script src="/js/dataTablesSource/utilDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
+<script src="/js/code/commonCode.js"></script>
 
 <script type="text/javascript">
     /*로그 찍기*/
