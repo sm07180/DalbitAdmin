@@ -151,14 +151,26 @@
     }
 
     // 상세조회
-    function getNotice_detail(index) {
+    /*function getNotice_detail(index) {
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.noticeIdx = data.noticeIdx;
 
         getAjaxData("detail", "/rest/content/notice/detail", obj, fn_detail_success, fn_detail_fail);
 
-    }
+    }*/
+    $(document).on('click', '._getNoticeDetail', function(){
+        var data = {
+            'noticeIdx' : $(this).data('idx')
+        };
+        getAjaxData("detail", "/rest/content/notice/detail", data, fn_detail_success, fn_detail_fail);
+    });
+
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+        if($(this).prop('checked')){
+            $(this).parent().parent().find('._getNoticeDetail').click();
+        }
+    });
 
     function fn_detail_success(dst_id, response) {
         dalbitLog('fn_detail_success');
@@ -232,7 +244,6 @@
     function fn_update_fail(data, textStatus, jqXHR) {
         console.log(data, textStatus, jqXHR);
     }
-
 
     // 검색
     function getNoticeInfo(){
