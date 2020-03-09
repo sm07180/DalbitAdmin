@@ -169,8 +169,6 @@
         $("#noticeForm").html(templateScript);
     }
 
-    var noticeIdx="";
-
     // 상세조회
     function getNotice_detail(index) {
         var data = dtList_info.getDataRow(index);
@@ -224,12 +222,10 @@
     }
 
     $(document).on('click', '#insertBtn', function(){
-
         if(isValid()){
             getAjaxData("insert", "/rest/content/notice/insert", $("#noticeForm").serialize(), fn_insert_success, fn_insert_fail);
         }
     });
-
 
     function fn_insert_success(dst_id, response) {
         dalbitLog(response);
@@ -237,6 +233,22 @@
         insert();
     }
     function fn_insert_fail(data, textStatus, jqXHR) {
+        console.log(data, textStatus, jqXHR);
+    }
+
+    $(document).on('click', '#updateBtn', function(){
+
+        if(isValid()){
+            getAjaxData("update", "/rest/content/notice/update", $("#noticeForm").serialize(), fn_update_success, fn_update_fail);
+        }
+    });
+
+    function fn_update_success(dst_id, response) {
+        dalbitLog(response);
+        alert(response.message);
+        insert();
+    }
+    function fn_update_fail(data, textStatus, jqXHR) {
         console.log(data, textStatus, jqXHR);
     }
 
@@ -294,6 +306,7 @@
 </script>
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">
+    <input type="hidden" name="noticeIdx" value="{{noticeIdx}}" />
     <div class="row col-lg-12 form-inline">
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
