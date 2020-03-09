@@ -205,3 +205,7 @@ function roomNoLink(display, roomNo, status){
     var template = '<a href="javascript://" class="_openBroadcastPop" data-roomNo="' + roomNo + '" data-status="' + status + '">'+ display +'</a>';
     return template;
 }
+
+function getAge(birthYear){
+    return Number(moment().format("YYYY")) + 1 - Number(birthYear);
+}

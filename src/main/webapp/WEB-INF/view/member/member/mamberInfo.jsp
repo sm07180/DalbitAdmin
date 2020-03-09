@@ -12,15 +12,16 @@
                     <div class="col-md-3 lb_style">
                         <label>프로필 이미지</label>
                     </div>
-                    <div class="col-md-9 lc_style">
+                    <div class="row col-md-9 lc_style">
                         <div class="col-md-10 no-padding">
                             <form id="profileImg" method="post" enctype="multipart/form-data">
-                                <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px"/>
+                                <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px" />
                                 <%--<input type='file' id="imgInput"/>--%>
                             </form>
+                            <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
                         </div>
                         <div class="col-md-2 no-padding">
-                            <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
+
                         </div>
                     </div>
                 </div>
@@ -237,7 +238,7 @@
         });
 
         $('#date_birth').change(function(){
-            var age = Number(moment().format("YYYY")) + 1 - Number( moment($('#txt_birth').val()).format("YYYY"));
+            var age = getAge(moment($('#txt_birth').val()).format("YYYY"));
             $("#lb_age").html(age + "세");
         });
 
@@ -365,7 +366,7 @@
         $("#lb_myFanCnt").html("총" + response.data[0].fanCnt + "건");
         $("#lb_broadNoticeCnt").html("총" + response.data[0].noticeCnt + "건");
         $( "#txt_birth" ).datepicker( "setDate", response.data[0].birthYear + "-" + response.data[0].birthMonth + "-" + response.data[0].birthDay);
-        var age = Number(moment().format("YYYY")) + 1 - Number( response.data[0].birthYear);
+        var age = getAge( response.data[0].birthYear);
         $("#lb_age").html(age + "세");
         $("input[name=radio_gender][value=" + response.data[0].memSex + "]").prop("checked", true);
 
