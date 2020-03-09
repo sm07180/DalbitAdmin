@@ -12,11 +12,13 @@ import java.sql.Date;
 public class P_noticeListOutputVo extends BaseVo {
     private int noticeIdx;
     private int slctType;
+    private int platform;
+    private int gender;
     private String title;
     private int topFix;
     private int viewOn;
-    private String writerName;
-    private int writerNo;
+    private int viewCnt;
+    private Date offDate;
     private Date writeDate;
     private String writeDateFormat;
 

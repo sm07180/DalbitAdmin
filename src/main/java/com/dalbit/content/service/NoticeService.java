@@ -9,6 +9,7 @@ import com.dalbit.common.code.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,11 +58,12 @@ public class NoticeService {
         ProcedureVo procedureVo = new ProcedureVo(pNoticeListDetailInputVo);
 
         noticeDao.callServiceCenterNoticeListDetail(procedureVo);
+        P_noticeListDetailOutputVo noticeDetail = new Gson().fromJson(procedureVo.getExt(), P_noticeListDetailOutputVo.class);
 
         String result;
 
         if(Status.공지상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지상세조회_성공));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지상세조회_성공, noticeDetail));
         } else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.공지상세조회_공지번호없음));
         }

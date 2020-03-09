@@ -8,6 +8,8 @@ import lombok.Setter;
 @Setter
 public class P_noticeInsertVo extends BaseVo {
     private String slctType;
+    private String platform;
+    private String gender;
     private String title;
     private String contents;
     private int topFix;
