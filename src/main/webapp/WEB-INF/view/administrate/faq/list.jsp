@@ -146,7 +146,7 @@
         var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#faqForm").html(templateScript);
-        $("#viewOn").html(getCommonCodeRadio('1', onlyOnOff));
+        $("#viewOn").html(getCommonCodeRadio('1', viewOn,"Y"));
         getFaqInfo();
     }
 
@@ -181,7 +181,7 @@
         var context = response.data;
         var html = templateScript(context);
         $("#faqForm").html(html);
-        $("#viewOn").html(getCommonCodeRadio(response.data.viewOn, onlyOnOff));
+        $("#viewOn").html(getCommonCodeRadio(response.data.viewOn, viewOn,"Y"));
     }
 
     function fn_detail_fail(data, textStatus, jqXHR){
