@@ -27,7 +27,7 @@ var viewOn = [
     new COMMON_CODE(null, 'viewOn', '게시구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('on', '1', 'ON')
-    , new COMMON_CODE('off', '2', 'OFF')
+    , new COMMON_CODE('off', '0', 'OFF')
 ];
 
 var onlyOnOff = [

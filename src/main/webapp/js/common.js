@@ -214,7 +214,7 @@ function convertSort(value){
     return isEmpty(value) ? null : (value === 'asc') ? 0 : 1;
 }
 
-function getCommonCodeSelect(code, targetCode){
+function getCommonCodeSelect(code, targetCode, isExcludeAllYn){
     targetCode = eval(targetCode);
     if(!isEmpty(targetCode)){
 
@@ -222,6 +222,11 @@ function getCommonCodeSelect(code, targetCode){
         var html = '<select id="' + header.value + '" name="' + header.value + '" class="form-control">';
         targetCode.forEach(function(value){
             if(!isEmpty(value.type)){
+
+                if(isExcludeAllYn == 'Y' && value.type == 'all'){
+                    return;
+                }
+
                 html += '<option value="'+ value.value +'" '+ (value.value == code ? 'selected="selected"' : '')+'>'+ value.code +'</option>';
             }
         });
@@ -230,7 +235,7 @@ function getCommonCodeSelect(code, targetCode){
     }
 }
 
-function getCommonCodeRadio(code, targetCode){
+function getCommonCodeRadio(code, targetCode, isExcludeAllYn){
     targetCode = eval(targetCode);
     if(!isEmpty(targetCode)){
 
@@ -239,6 +244,10 @@ function getCommonCodeRadio(code, targetCode){
         var radioId = header.value;
         targetCode.forEach(function(value){
             if(!isEmpty(value.type)){
+
+                if(isExcludeAllYn == 'Y' && value.type == 'all'){
+                    return;
+                }
                 html += '<label class="control-inline fancy-radio">';
                 html += '<input type="radio" value="'+ value.value +'" id="'+radioId + value.value +'" name="'+radioId+'" class="form-control" '+ (value.value == code ? 'checked="checked"' : '')+'/>';
                 html += '<span><i></i>'+ value.code +'</span>'
@@ -270,17 +279,24 @@ function getValue(value){
 
 
 function replace(value, from, to){
-    var string = util.getValue(value);
-    var from = util.getValue(from);
-    var to = util.getValue(to);
+    var string = getValue(value);
+    var from = getValue(from);
+    var to = getValue(to);
 
     return string.replace(new RegExp(from, 'gi'), to);
 }
 
 function formatDate(date, stringFormat){
-    var format = util.getValue(stringFormat);
+    var format = getValue(stringFormat);
     format = (format.length) ? format : 'YYYY.MM.DD';
-    return moment(util.getValue(date)).format(format);
+    return moment(getValue(date)).format(format);
 }
 
-
+function replaceHtml(text){
+    if(!isEmpty(text)){
+        console.log(text);
+        text = replace(text, "&lt;", "<");
+        text = replace(text, "&gt;", ">");
+        return text;
+    }
+}

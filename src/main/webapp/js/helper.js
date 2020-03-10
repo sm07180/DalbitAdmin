@@ -88,18 +88,15 @@ Handlebars.registerHelper("dalbit_if", function(v1, operator, v2, options){
  */
 Handlebars.registerHelper("index", function(index, no)
 {
-    console.log('value');
-    console.log(index);
-    console.log('value2');
-    console.log(no);
-
-
     return isEmpty(index) ? no : parseInt(index) + 1;
 });
 
 Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode)
 {
-    console.log(value);
-    console.log(targetCode);
     return getCommonCodeSelect(value, targetCode);
+});
+
+Handlebars.registerHelper("replaceHtml", function(value)
+{
+    return replaceHtml(value);
 });

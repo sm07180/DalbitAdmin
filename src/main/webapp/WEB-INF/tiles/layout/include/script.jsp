@@ -41,6 +41,8 @@
 
 <!-- Editor -->
 <script src="/template2/assets/js/plugins/summernote/summernote.min.js"></script>
+<script src="/template2/assets/js/plugins/summernote/lang/summernote-ko-KR.js"></script>
+
 <script src="/template2/assets/js/plugins/markdown/markdown.js"></script>
 <script src="/template2/assets/js/plugins/markdown/to-markdown.js"></script>
 <script src="/template2/assets/js/plugins/markdown/bootstrap-markdown.js"></script>

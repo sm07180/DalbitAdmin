@@ -54,8 +54,18 @@
                 <div id="selectArea"></div>
 
 
+                <div>
+                    <h4>select 사용하기</h4>
+                    common.js => getCommonCodeSelect 함수 사용<br />
+                    getCommonCodeSelect(디폴트 값, 공통코드, <b>전체 안나오게</b>)<br />
+                    ex) getCommonCodeSelect('', platform, <b>'Y'</b>)<br /><br />
+                </div>
+                <div id="selectArea2"></div>
+
+
                 <script type="text/javascript">
                     $("#selectArea").html(getCommonCodeSelect('', platform));
+                    $("#selectArea2").html(getCommonCodeSelect('', platform, 'Y'));
                 </script>
             </div>
 
@@ -70,8 +80,17 @@
                 </div>
                 <div id="radioArea"></div>
 
+                <div>
+                    <h4>radio 사용하기</h4>
+                    common.js => getCommonCodeRadio 함수 사용<br />
+                    getCommonCodeRadio(디폴트 값, 공통코드, <b>전체 안나오게</b>)<br />
+                    ex) getCommonCodeRadio('', platform, <b>'Y'</b>)<br /><br />
+                </div>
+                <div id="radioArea2"></div>
+
                 <script type="text/javascript">
                     $("#radioArea").html(getCommonCodeRadio('', platform));
+                    $("#radioArea2").html(getCommonCodeRadio('', platform, 'Y'));
                 </script>
             </div>
 

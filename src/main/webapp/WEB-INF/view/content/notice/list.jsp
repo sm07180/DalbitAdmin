@@ -209,10 +209,10 @@
             return false;
         }
 
-        var contents = $("#noticeForm #contents");
-        if(isEmpty(contents.val())){
+        var editor = $("#editor");
+        if(isEmpty(editor.summernote('code'))){
             alert("내용을 입력해주세요.");
-            contents.focus();
+            editor.focus();
             return false;
         }
 
@@ -221,7 +221,11 @@
 
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
-            getAjaxData("insert", "/rest/content/notice/insert", $("#noticeForm").serialize(), fn_insert_success, fn_insert_fail);
+            var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
+
+            console.log(data);
+
+            getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success, fn_insert_fail);
         }
     });
 
@@ -238,7 +242,10 @@
     $(document).on('click', '#updateBtn', function(){
 
         if(isValid()){
-            getAjaxData("update", "/rest/content/notice/update", $("#noticeForm").serialize(), fn_update_success, fn_update_fail);
+            var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
+
+            console.log(data);
+            getAjaxData("update", "/rest/content/notice/update", data, fn_update_success, fn_update_fail);
         }
     });
 
@@ -371,65 +378,7 @@
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">
     <input type="hidden" name="noticeIdx" value="{{noticeIdx}}" />
-    <!--<div class="row col-lg-12 form-inline">
-        <div class="col-md-12 no-padding">
-            <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
-            <span class="button_right">
-                <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
-                <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
-            </span>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-2 no-padding">
-                <div class="col-md-5 lb_style"><label>No</label></div>
-                <div class="col-md-7"><label id="no">{{noticeIdx}}</label></div>
-                <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                <div class="col-md-7"><label id="platform">{{{getCommonCodeSelect platform 'platform'}}}</label></div>
-            </div>
-
-            <div class="col-md-2 no-padding">
-                <div class="col-md-4 lb_style"><label>구분</label></div>
-                <div class="col-md-8" style="height: 34px;">
-                    {{{getCommonCodeSelect platform 'notice_slctType'}}}
-                </div>
-                <div class="col-md-4 lb_style"><label>성별</label></div>
-                <div class="col-md-8" style="height: 34px;">
-                    <label>
-                        {{{getCommonCodeSelect gender 'gender'}}}
-                    </label>
-                </div>
-            </div>
-
-            <div class="col-md-2 no-padding">
-                <div class="col-md-6 lb_style"><label>제목</label></div>
-                <div class="col-md-6">
-                    <input type="text" name="title" id="title" class="form-control" value="{{title}}">
-                </div>
-            </div>
-
-            <div class="col-md-2 no-padding">
-                <div class="col-md-5 lb_style"><label>등록일시</label></div>
-                <div class="col-md-7"><label id="regDate">{{writeDate}}</label></div>
-                <div class="col-md-5 lb_style"><label>게시 중지일시</label></div>
-                <div class="col-md-7"><label id="stopDate">-</label></div>
-            </div>
-
-            <div class="col-md-2 no-padding">
-                <div class="col-md-5 lb_style"><label>조회수</label></div>
-                <div class="col-md-7"><label id="cnt">{{viewCnt}}</label></div>
-                <div class="col-md-5 lb_style"><label>등록/수정처리자</label></div>
-                <div class="col-md-7"><label id="processor">-</label></div>
-            </div>
-
-            <div class="col-md-2 no-padding">
-                <div class="col-md-6 lb_style"><label>게시상태</label></div>
-                <div class="col-md-6"><label id="status">-</label></div>
-            </div>
-        </div>
-    </div>-->
-
     <div class="row col-lg-12">
-
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
             <span class="button_right">
@@ -437,7 +386,6 @@
                 <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
             </span>
         </div>
-
         <table class="table table-bordered table-dalbit">
             <colgroup>
                 <col width="5%" />
@@ -493,8 +441,7 @@
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
-            <!--<textarea class="code" style="width: 100%; height: 300px" name="contents" id="contents">{{contents}}</textarea>-->
-            <textarea class="summernote" id="contents" name="contents">{{contents}}</textarea>
+            <div class="summernote" id="editor" name="editor">{{{replaceHtml contents}}}</div>
         </div>
     </div>
 
