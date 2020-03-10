@@ -31,13 +31,12 @@ public class NoticeRestController {
         return result;
     }
 
-
     /**
      * 사이트 공지 상세 조회
      */
     @PostMapping("detail")
-    public String detail(P_noticeListDetailInputVo pNoticeListDetailInputVo) {
-        String result = noticeService.callServiceCenterNoticeListDetail(pNoticeListDetailInputVo);
+    public String detail(P_noticeDetailInputVo p_noticeDetailInputVo) {
+        String result = noticeService.callServiceCenterNoticeListDetail(p_noticeDetailInputVo);
         return result;
     }
 
