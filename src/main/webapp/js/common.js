@@ -245,7 +245,6 @@ function getCommonCodeRadio(code, targetCode){
                 html += '</label>';
             }
         });
-        html += '</select>'
         return html;
     }
 }

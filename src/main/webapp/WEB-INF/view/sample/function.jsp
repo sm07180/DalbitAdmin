@@ -49,7 +49,7 @@
                     <h4>select 사용하기</h4>
                     common.js => getCommonCodeSelect 함수 사용<br />
                     getCommonCodeSelect(디폴트 값, 공통코드)<br />
-                    ex) getCommonCodeSelect('', platform)<br />
+                    ex) getCommonCodeSelect('', platform)<br /><br />
                 </div>
                 <div id="selectArea"></div>
 
@@ -59,12 +59,14 @@
                 </script>
             </div>
 
+            <hr />
+
             <div class="widget-content">
                 <div>
                     <h4>radio 사용하기</h4>
                     common.js => getCommonCodeRadio 함수 사용<br />
                     getCommonCodeRadio(디폴트 값, 공통코드)<br />
-                    ex) getCommonCodeRadio('', platform)<br />
+                    ex) getCommonCodeRadio('', platform)<br /><br />
                 </div>
                 <div id="radioArea"></div>
 
