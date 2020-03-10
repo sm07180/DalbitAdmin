@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,10 +29,6 @@ public class NoticeService {
     @Autowired
     GsonUtil gsonUtil;
 
-
-    /**
-     * 사이트 공지 조회
-     */
     public String callServiceCenterNoticeList(P_noticeListInputVo pNoticeListInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pNoticeListInputVo);
 
@@ -55,11 +50,11 @@ public class NoticeService {
     /**
      * 사이트 공지 상세 조회
      */
-    public String callServiceCenterNoticeListDetail(P_noticeListDetailInputVo pNoticeListDetailInputVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pNoticeListDetailInputVo);
+    public String callServiceCenterNoticeListDetail(P_noticeDetailInputVo p_noticeDetailInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(p_noticeDetailInputVo);
 
         noticeDao.callServiceCenterNoticeListDetail(procedureVo);
-        P_noticeListDetailOutputVo noticeDetail = new Gson().fromJson(procedureVo.getExt(), P_noticeListDetailOutputVo.class);
+        P_noticeDetailOutputVo noticeDetail = new Gson().fromJson(procedureVo.getExt(), P_noticeDetailOutputVo.class);
 
         String result;
 

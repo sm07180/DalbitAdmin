@@ -8,7 +8,7 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class P_noticeListDetailOutputVo extends BaseVo {
+public class P_noticeDetailOutputVo extends BaseVo {
     private int noticeIdx;
     private String slctType;
     private int platform;
