@@ -90,6 +90,23 @@ public enum Status {
     공지삭제성공("0", "delete.success", "공지삭제 성공 시"),
     공지삭제실패("-1", "server.error", "공지삭제 실패 시"),
 
+    //FAQ
+    FAQ조회_데이터없음("0", "faq.select.success.no.data", "FAQ 조회 데이터가 없을 시"),
+    FAQ조회_성공("C001", "faq.select.success", "FAQ 조회 시"),
+    FAQ조회_에러("C006", "faq.server.error", "FAQ 조회에서 에러 발생 시"),
+
+    FAQ상세조회_성공("0", "faq.select.success", "FAQ 상세조회 시"),
+    FAQ상세조회_FAQ번호없음("-1", "faq.select.success.no.data", "FAQ 조회 데이터가 없을 시"),
+
+    FAQ등록성공("0","faq.insert.success", "FAQ등록 성공 시"),
+    FAQ등록실패("C006", "faq.server.error", "FAQ등록 실패 시"),
+
+    FAQ수정성공("0", "faq.update.success", "FAQ수정 성공 시"),
+    FAQ수정실패("-1", "faq.server.error", "FAQ수정 실패 시"),
+
+    FAQ삭제성공("0", "faq.delete.success", "FAQ삭제 성공 시"),
+    FAQ삭제실패("-1", "faq.server.error", "FAQ삭제 실패 시"),
+
     ;
 
     final private String SUCCESS_RESULT = "success";
