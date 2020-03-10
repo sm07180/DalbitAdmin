@@ -249,7 +249,7 @@ function getCommonCodeRadio(code, targetCode){
     }
 }
 
-function getCommonCodeLable(code, targetCode){
+function getCommonCodeLabel(code, targetCode){
     targetCode = eval(targetCode);
     if(!isEmpty(targetCode)){
         var html = "";
