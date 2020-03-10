@@ -74,6 +74,24 @@
                     $("#radioArea").html(getCommonCodeRadio('', platform));
                 </script>
             </div>
+
+
+            <div class="widget-content">
+                <div>
+                    <h4>label 사용하기</h4>
+                    common.js => getCommonCodeLabel 함수 사용<br />
+                    getCommonCodeLabel(보낼 코드 값, 공통코드)<br />
+                    ex) getCommonCodeLabel('1', platform), getCommonCodeLabel('2', platform), getCommonCodeLabel('3', platform)<br /><br />
+                </div>
+                <div id="labelArea1"></div>
+                <div id="labelArea2"></div>
+                <div id="labelArea3"></div>
+                <script type="text/javascript">
+                    $("#labelArea1").html(getCommonCodeLabel('1', platform));
+                    $("#labelArea2").html(getCommonCodeLabel('2', platform));
+                    $("#labelArea3").html(getCommonCodeLabel('3', platform));
+                </script>
+            </div>
         </div>
     </div>
 

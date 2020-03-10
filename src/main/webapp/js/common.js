@@ -249,6 +249,22 @@ function getCommonCodeRadio(code, targetCode){
     }
 }
 
+function getCommonCodeLabel(code, targetCode){
+    targetCode = eval(targetCode);
+    if(!isEmpty(targetCode)){
+        var html = "";
+        targetCode.forEach(function(value){
+            if(!isEmpty(value.type)) {
+                if (code == value.value) {
+                    html = '<lable>' + value.code + '</lable>';
+                }
+            }
+        });
+
+        return html;
+    }
+}
+
 function getValue(value){
     return typeof(value) == 'function' ? value() : value;
 }
