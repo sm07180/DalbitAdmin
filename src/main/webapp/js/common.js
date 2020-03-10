@@ -230,3 +230,23 @@ function getCommonCodeSelect(code, targetCode){
     }
 }
 
+function getCommonCodeRadio(code, targetCode){
+    targetCode = eval(targetCode);
+    if(!isEmpty(targetCode)){
+
+        var header = targetCode[0];
+        var html = '';
+        var radioId = header.value;
+        targetCode.forEach(function(value){
+            if(!isEmpty(value.type)){
+                html += '<label class="control-inline fancy-radio">';
+                html += '<input type="radio" value="'+ value.value +'" id="'+radioId + value.value +'" name="'+radioId+'" class="form-control" '+ (value.value == code ? 'checked="checked"' : '')+'/>';
+                html += '<span><i></i>'+ value.code +'</span>'
+                html += '</label>';
+            }
+        });
+        html += '</select>'
+        return html;
+    }
+}
+

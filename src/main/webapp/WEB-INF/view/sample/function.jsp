@@ -39,5 +39,39 @@
                 <button class="btn btn-primary btn-lg _openBroadcastPop" data-roomNo="91583121793753">회원팝업 띄우기</button>
             </div>
         </div>
+
+        <div class="widget">
+            <div class="widget-header">
+                <h3>공통코드</h3>
+            </div>
+            <div class="widget-content">
+                <div>
+                    <h4>select 사용하기</h4>
+                    common.js => getCommonCodeSelect 함수 사용<br />
+                    getCommonCodeSelect(디폴트 값, 공통코드)<br />
+                    ex) getCommonCodeSelect('', platform)<br />
+                </div>
+                <div id="selectArea"></div>
+
+
+                <script type="text/javascript">
+                    $("#selectArea").html(getCommonCodeSelect('', platform));
+                </script>
+            </div>
+
+            <div class="widget-content">
+                <div>
+                    <h4>radio 사용하기</h4>
+                    common.js => getCommonCodeRadio 함수 사용<br />
+                    getCommonCodeRadio(디폴트 값, 공통코드)<br />
+                    ex) getCommonCodeRadio('', platform)<br />
+                </div>
+                <div id="radioArea"></div>
+
+                <script type="text/javascript">
+                    $("#radioArea").html(getCommonCodeRadio('', platform));
+                </script>
+            </div>
+        </div>
     </div>
 </div>
