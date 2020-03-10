@@ -1,14 +1,16 @@
 var FaqDataTableSource = {
     'faqInfo': {
         'url': '/rest/administrate/faq/list'
-
         , 'columns': [
-            {'title': 'FAQ구분', 'data': 'slctType', 'name': 'sortSlct'}
+            {'title': 'FAQ구분', 'data': 'slctType', 'name': 'sortSlct', 'render': function (data) {
+                    return getCommonCodeLable(data, faq_slctType) ;
+                }}
             , {
                 'title': 'FAQ 질문', 'data': 'question', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_getFaqDetail" data-idx="'+row.faqIdx+'">' + data + '</a>'
                 }
             }
+            , {'title': 'FAQ구분', 'data': 'slctType', 'name': 'sortSlct'}
             , {'title': '등록일시', 'data': 'writeDateFormat'}
             , {'title': '조회수', 'data': 'viewCnt', 'name': ''}
             , {'title': '사이트 적용', 'data': 'viewOn', 'render': function (data) {
