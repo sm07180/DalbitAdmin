@@ -134,10 +134,10 @@
         dtList_info.createDataTable();
 
         //검색조건 불러오기
-        $("#search_platform_aria").html(getCommonCodeSelect(-1, notice_platform));
+        $("#search_platform_aria").html(getCommonCodeSelect(-1, platform));
         $("#search_searchType_aria").html(getCommonCodeSelect(-1, notice_searchType));
         $("#search_slctType_aria").html(getCommonCodeSelect(-1, notice_slctType));
-        $("#search_viewOn_aria").html(getCommonCodeSelect(-1, notice_viewOn));
+        $("#search_viewOn_aria").html(getCommonCodeSelect(-1, viewOn));
     }
 
     $("#bt_insert").on("click", function(){
@@ -331,7 +331,7 @@
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">
     <input type="hidden" name="noticeIdx" value="{{noticeIdx}}" />
-    <div class="row col-lg-12 form-inline">
+    <!--<div class="row col-lg-12 form-inline">
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
             <span class="button_right">
@@ -342,54 +342,103 @@
         <div class="row col-md-12">
             <div class="col-md-2 no-padding">
                 <div class="col-md-5 lb_style"><label>No</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="no">{{noticeIdx}}</label></div>
+                <div class="col-md-7"><label id="no">{{noticeIdx}}</label></div>
                 <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="platform">{{{getCommonCodeSelect platform 'notice_platform'}}}</label></div>
+                <div class="col-md-7"><label id="platform">{{{getCommonCodeSelect platform 'platform'}}}</label></div>
             </div>
 
             <div class="col-md-2 no-padding">
                 <div class="col-md-4 lb_style"><label>구분</label></div>
                 <div class="col-md-8" style="height: 34px;">
-                    <label id="sort">
-                        <input type="text" name="slctType" id="slctType" value="{{slctType}}">
-                    </label>
+                    {{{getCommonCodeSelect platform 'notice_slctType'}}}
                 </div>
                 <div class="col-md-4 lb_style"><label>성별</label></div>
                 <div class="col-md-8" style="height: 34px;">
                     <label>
-                        {{{getCommonCodeSelect gender 'notice_gender'}}}
+                        {{{getCommonCodeSelect gender 'gender'}}}
                     </label>
                 </div>
             </div>
 
             <div class="col-md-2 no-padding">
-                <div class="col-md-6 lb_style" style="width:64px; height: 68px;"><label>제목</label></div>
-                <div class="col-md-6" style="height: 68px;">
-                    <label id="title_label"><input type="text" name="title" id="title" value="{{title}}"></label>
+                <div class="col-md-6 lb_style"><label>제목</label></div>
+                <div class="col-md-6">
+                    <input type="text" name="title" id="title" class="form-control" value="{{title}}">
                 </div>
             </div>
 
             <div class="col-md-2 no-padding">
                 <div class="col-md-5 lb_style"><label>등록일시</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="regDate">{{writeDate}}</label></div>
+                <div class="col-md-7"><label id="regDate">{{writeDate}}</label></div>
                 <div class="col-md-5 lb_style"><label>게시 중지일시</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="stopDate">-</label></div>
+                <div class="col-md-7"><label id="stopDate">-</label></div>
             </div>
 
             <div class="col-md-2 no-padding">
                 <div class="col-md-5 lb_style"><label>조회수</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="cnt">{{viewCnt}}</label></div>
+                <div class="col-md-7"><label id="cnt">{{viewCnt}}</label></div>
                 <div class="col-md-5 lb_style"><label>등록/수정처리자</label></div>
-                <div class="col-md-7" style="height: 34px;"><label id="processor">-</label></div>
+                <div class="col-md-7"><label id="processor">-</label></div>
             </div>
 
             <div class="col-md-2 no-padding">
-                <div class="col-md-6 lb_style" style="width:64px; height:68px"><label>게시상태</label></div>
-                <div class="col-md-6" style="height: 68px;"><label id="status">-</label></div>
+                <div class="col-md-6 lb_style"><label>게시상태</label></div>
+                <div class="col-md-6"><label id="status">-</label></div>
             </div>
         </div>
-    </div>
+    </div>-->
 
+    <div class="row col-lg-12">
+        <table class="table table-bordered table-dalbit">
+            <colgroup>
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+            </colgroup>
+            <tbody>
+                <tr class="align-middle">
+                    <th>No</th>
+                    <td>{{noticeIdx}}</td>
+
+                    <th>구분</th>
+                    <td>{{{getCommonCodeSelect platform 'notice_slctType'}}}</td>
+
+                    <th>제목</th>
+                    <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
+
+                    <th>조회수</th>
+                    <td>{{viewCnt}}</td>
+                </tr>
+                <tr>
+                    <th>플랫폼</th>
+                    <td>{{{getCommonCodeSelect platform 'platform'}}}</td>
+
+                    <th>성별</th>
+                    <td>{{{getCommonCodeSelect gender 'gender'}}}</td>
+
+                    <th>등록일시</th>
+                    <td>{{writeDate}}</td>
+
+                    <th>게시중지일시</th>
+                    <td>-</td>
+
+                    <th>처리자</th>
+                    <td>{{opName}}</td>
+                    <th>게시상태</th>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="row col-lg-12 form-inline area_style">
         <div class="widget">
             <div class="widget-header">

@@ -76,4 +76,47 @@
             </div>
         </div>
     </div>
+
+    <style>
+        /*table.table-dalbit tbody tr {align-middle}*/
+        table.table-dalbit tbody tr th {background-color: #DCE6F2}
+        table.table-dalbit tbody tr td {background-color: #FFFFFF}
+    </style>
+    <table class="table table-bordered table-dalbit">
+        <tbody>
+            <tr class="align-middle">
+                <th>No</th>
+                <td>Steve</td>
+
+                <th>구분</th>
+                <td>Steve</td>
+
+                <th rowspan="2">제목</th>
+                <td rowspan="2">Steve</td>
+
+                <th>등록일시</th>
+                <td>Steve</td>
+
+                <th>조회수</th>
+                <td>Steve</td>
+
+                <th rowspan="2">게시상태</th>
+                <td rowspan="2">Steve</td>
+            </tr>
+            <tr>
+                <th>플랫폼</th>
+                <td>Steve</td>
+
+                <th>성별</th>
+                <td>Steve</td>
+
+                <th>게시중지일시</th>
+                <td>Steve</td>
+
+                <th>처리자</th>
+                <td>Steve</td>
+
+            </tr>
+        </tbody>
+    </table>
 </div>

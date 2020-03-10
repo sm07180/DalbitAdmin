@@ -249,3 +249,23 @@ function getCommonCodeRadio(code, targetCode){
     }
 }
 
+function getValue(value){
+    return typeof(value) == 'function' ? value() : value;
+}
+
+
+function replace(value, from, to){
+    var string = util.getValue(value);
+    var from = util.getValue(from);
+    var to = util.getValue(to);
+
+    return string.replace(new RegExp(from, 'gi'), to);
+}
+
+function formatDate(date, stringFormat){
+    var format = util.getValue(stringFormat);
+    format = (format.length) ? format : 'YYYY.MM.DD';
+    return moment(util.getValue(date)).format(format);
+}
+
+
