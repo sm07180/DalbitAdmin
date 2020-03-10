@@ -73,7 +73,7 @@ public class NoticeService {
     public String callServiceCenterNoticeAdd(P_noticeInsertVo pNoticeInsertVo){
         pNoticeInsertVo.setOpName(MemberVo.getMyMemNo());
 
-        ProcedureVo procedureVo = new ProcedureVo(pNoticeInsertVo);
+        ProcedureVo procedureVo = new ProcedureVo(pNoticeInsertVo, true);
 
         noticeDao.callServiceCenterNoticeAdd(procedureVo);
 
@@ -91,7 +91,7 @@ public class NoticeService {
      * 사이트 공지 수정
      */
     public String callServiceCenterNoticeUpdate(P_noticeUpdateVo pNoticeUpdateVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pNoticeUpdateVo);
+        ProcedureVo procedureVo = new ProcedureVo(pNoticeUpdateVo, true);
 
         noticeDao.callServiceCenterNoticeUpdate(procedureVo);
         String result;

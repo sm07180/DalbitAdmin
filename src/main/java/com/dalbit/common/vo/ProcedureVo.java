@@ -1,6 +1,7 @@
 package com.dalbit.common.vo;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -17,6 +18,15 @@ public class ProcedureVo {
 
     public ProcedureVo(Object paramVo){
         setData(new Gson().toJson(paramVo));
+    }
+
+    public ProcedureVo(Object paramVo, boolean isHtmlEscape){
+        if(isHtmlEscape){
+            setData(new GsonBuilder().disableHtmlEscaping().create().toJson(paramVo));
+        }else{
+            setData(new Gson().toJson(paramVo));
+        }
+
     }
 
     public ProcedureVo(String phoneNo, String password){
