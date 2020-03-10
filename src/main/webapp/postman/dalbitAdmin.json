@@ -76,7 +76,7 @@
 			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "고객센터",
+			"name": "컨텐츠운영",
 			"item": [
 				{
 					"name": "공지사항",
@@ -398,7 +398,7 @@
 						{
 							"name": "공지사항 삭제",
 							"request": {
-								"method": "DELETE",
+								"method": "POST",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -446,6 +446,337 @@
 											"value": "운영자",
 											"description": "처리자 이름"
 										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "853762ba-e1c3-42a4-a93c-ba0d74671fd4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5df731c5-c79d-4d94-8d4b-26d99b3de5aa",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "어드민관리",
+			"item": [
+				{
+					"name": "FAQ",
+					"item": [
+						{
+							"name": "FAQ 목록",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "searchType",
+											"value": "-1",
+											"description": "검색구분( -1(or null): all, 1: 질문,2:답변,3:작성자)",
+											"type": "text"
+										},
+										{
+											"key": "searchText",
+											"value": "test",
+											"description": "검색어",
+											"type": "text"
+										},
+										{
+											"key": "slctType",
+											"value": "-1",
+											"description": "faq구분(-1(or null): all, 1: 일반,2:방송,3:결제,4:기타)",
+											"type": "text"
+										},
+										{
+											"key": "viewOn",
+											"value": "-1",
+											"description": "게시구분(-1(or null): all, 1: ON, 0:OFF: )",
+											"type": "text"
+										},
+										{
+											"key": "sortSlct",
+											"value": "0",
+											"description": "FAQ구분정렬( 0: asc, 1: desc, null: X) ",
+											"type": "text"
+										},
+										{
+											"key": "sortPlat",
+											"value": "0",
+											"description": "플랫폼구분정렬( 0: asc, 1: desc, null: X)",
+											"type": "text"
+										},
+										{
+											"key": "sortGender",
+											"value": "0",
+											"description": "성별구분정렬( 0: asc, 1: desc, null: X)",
+											"type": "text"
+										},
+										{
+											"key": "sortView",
+											"value": "0",
+											"description": "게시구분정렬( 0: asc, 1: desc, null: X)",
+											"type": "text"
+										},
+										{
+											"key": "pageNo",
+											"value": "1",
+											"description": "페이지 번호",
+											"type": "text"
+										},
+										{
+											"key": "pageCnt",
+											"value": "10",
+											"description": "게시물 수",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/administrate/faq/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"administrate",
+										"faq",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FAQ 상세",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "faqIdx",
+											"value": "5",
+											"description": "FAQ번호",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/administrate/faq/detail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"administrate",
+										"faq",
+										"detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FAQ 등록",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "slctType",
+											"value": "6",
+											"description": "faq구분(1: 일반,2:방송,3:결제,4:기타)",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "FAQ 질문",
+											"description": "질문",
+											"type": "text"
+										},
+										{
+											"key": "answer",
+											"value": "FAQ 답변",
+											"description": "답변",
+											"type": "text"
+										},
+										{
+											"key": "viewOn",
+											"value": "1",
+											"description": "게시상태(1:ON, 0:OFF)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/administrate/faq/insert",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"administrate",
+										"faq",
+										"insert"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FAQ 수정",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "faqIdx",
+											"value": "5",
+											"description": "FAQ 번호",
+											"type": "text"
+										},
+										{
+											"key": "slctType",
+											"value": "6",
+											"description": "faq구분(1: 일반,2:방송,3:결제,4:기타)",
+											"type": "text"
+										},
+										{
+											"key": "question",
+											"value": "FAQ 질문",
+											"description": "질문",
+											"type": "text"
+										},
+										{
+											"key": "answer",
+											"value": "FAQ 답변",
+											"description": "답변",
+											"type": "text"
+										},
+										{
+											"key": "viewOn",
+											"value": "1",
+											"description": "게시상태(1:ON, 0:OFF)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/administrate/faq/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"administrate",
+										"faq",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FAQ 삭제",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "faqIdx",
+											"value": "5",
+											"description": "FAQ 번호",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/administrate/faq/delete",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"administrate",
+										"faq",
+										"delete"
 									]
 								}
 							},
