@@ -77,6 +77,7 @@
         var targetEditor = $('.summernote');
 
         targetEditor.summernote({
+            lang: 'ko-KR',
             height: 300,
             focus: true,
             // onpaste: function() {
@@ -148,6 +149,8 @@
         var template = $('#tmp_noticeFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#noticeForm").html(templateScript);
+
+        editorInit();
     }
 
     // 상세조회
@@ -181,6 +184,8 @@
         var context = response.data;
         var html = templateScript(context);
         $("#noticeForm").html(html);
+
+        editorInit();
 
     }
 
@@ -292,6 +297,41 @@
         }
     }
 
+    function editorInit(){
+        var targetEditor = $('.summernote');
+
+        targetEditor.summernote({
+            height: 300,
+            focus: true,
+            // onpaste: function() {
+            //     alert('You have pasted something to the editor');
+            // },
+            callbacks: { // 콜백을 사용
+                // 이미지를 업로드할 경우 이벤트를 발생
+                onImageUpload: function(files, editor, welEditable) {
+                    console.log("[onImageUpload]")
+
+                    var formData = new FormData();
+                    formData.append("file",files[0]);
+                    //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
+                    formData.append("uploadType","bg");
+                    fileUpdate(IMAGE_SERVER_URL + "/upload",formData, function (data) {
+                        var json = jQuery.parseJSON(data);
+                        console.log(json);
+                        if(json.code != "0"){
+                            alert(json.message);
+                            return;
+                        }
+
+                        // UPLOAD IMAGE URL 적용
+                        var imgURL = json.data.url;
+                        targetEditor.summernote('editor.insertImage', imgURL);
+                    });
+                }
+            }
+        });
+    }
+
     // /*=---------- 엑셀 ----------*/
     // $('#excelDownBtn').on('click', function(){
     //     var formElement = document.querySelector("form");
@@ -389,6 +429,15 @@
     </div>-->
 
     <div class="row col-lg-12">
+
+        <div class="col-md-12 no-padding">
+            <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
+            <span class="button_right">
+                <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
+                <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
+            </span>
+        </div>
+
         <table class="table table-bordered table-dalbit">
             <colgroup>
                 <col width="5%" />
@@ -444,7 +493,8 @@
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
-            <textarea class="code" style="width: 100%; height: 300px" name="contents" id="contents">{{contents}}</textarea>
+            <!--<textarea class="code" style="width: 100%; height: 300px" name="contents" id="contents">{{contents}}</textarea>-->
+            <textarea class="summernote" id="contents" name="contents">{{contents}}</textarea>
         </div>
     </div>
 
