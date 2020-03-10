@@ -11,7 +11,13 @@ var FaqDataTableSource = {
             }
             , {'title': '등록일시', 'data': 'writeDateFormat'}
             , {'title': '조회수', 'data': 'viewCnt', 'name': ''}
-            , {'title': '사이트 적용', 'data': 'viewOn'}
+            , {'title': '사이트 적용', 'data': 'viewOn', 'render': function (data) {
+                    if(data == 1){
+                        return ' <i class="fa fa-circle"></i>' + " ON" ;
+                    }else{
+                        return ' <i class="fa fa-circle-o"></i>' + " OFF" ;
+                    }
+                }}
             , {'title': '처리자명', 'data': 'opName'}
         ]
         // , 'comments': '검색결과 내 질문을 클릭하면 해당 상세정보를 확인할 수 있습니다.'
