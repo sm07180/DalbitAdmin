@@ -146,6 +146,7 @@
         var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#faqForm").html(templateScript);
+        $("#viewOn").html(getCommonCodeRadio('1', onlyOnOff));
         getFaqInfo();
     }
 
@@ -180,6 +181,7 @@
         var context = response.data;
         var html = templateScript(context);
         $("#faqForm").html(html);
+        $("#viewOn").html(getCommonCodeRadio(response.data.viewOn, onlyOnOff));
     }
 
     function fn_detail_fail(data, textStatus, jqXHR){
@@ -187,10 +189,10 @@
     }
 
     function isValid(){
-        var slctType = $("#faqForm #slctType");
-        if(isEmpty(slctType.val())){
+        var slctType_detail = $("#faqForm #slctType_detail");
+        if(isEmpty(slctType_detail.val())){
             alert("구분을 선택해주세요.");
-            slctType.focus();
+            slctType_detail.focus();
             return false;
         }
 
@@ -211,6 +213,8 @@
     }
 
     $(document).on('click', '#insertBtn', function(){
+        var str = $("#faqForm").serialize();
+        console.log("str : " + str);
         if(isValid()){
             getAjaxData("insert", "/rest/administrate/faq/insert", $("#faqForm").serialize(), fn_insert_success, fn_insert_fail);
         }
@@ -226,7 +230,6 @@
     }
 
     $(document).on('click', '#updateBtn', function(){
-
         if(isValid()){
             getAjaxData("update", "/rest/administrate/faq/update", $("#faqForm").serialize(), fn_update_success, fn_update_fail);
         }
@@ -327,44 +330,10 @@
     <div class="row col-lg-12 form-inline">
         <div class="col-md-12 no-padding">
             <label id="faq_detatil_title">ㆍ선택한 FAQ 정보를 확인/수정/삭제를 할 수 있습니다.</label>
-            <span class="button_right">
-                <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
-                <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
-            </span>
         </div>
-
-
-        <%--<div class="row col-md-12">--%>
-            <%--<div class="col-md-1 no-padding">--%>
-                <%--<div class="col-md-5 lb_style"><label>No</label></div>--%>
-                <%--<div class="col-md-7" style="height: 34px;"><label id="no">{{faqIdx}}</label></div>--%>
-            <%--</div>--%>
-            <%--<div class="col-md-1 no-padding">--%>
-                <%--<div class="col-md-5 lb_style"><label>구분</label></div>--%>
-                <%--<div class="col-md-7 no-padding" style="height: 34px;"><label id="slctType">{{{getCommonCodeSelect slctType 'faq_slctType_detail'}}}</label></div>--%>
-            <%--</div>--%>
-            <%--<div class="col-md-3 no-padding">--%>
-                <%--<div class="col-md-3 lb_style"><label>질문</label></div>--%>
-                <%--<div class="col-md-9">--%>
-                    <%--<input type="text" name="question" id="question" value="{{question}}">--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-            <%--<div class="col-md-2 no-padding">--%>
-                <%--<div class="col-md-5 lb_style"><label>등록일시</label></div>--%>
-                <%--<div class="col-md-7" style="height: 34px;"><label id="regDate">{{writeDate}}</label></div>--%>
-            <%--</div>--%>
-
-            <%--<div class="col-md-3 no-padding">--%>
-                <%--<div class="col-md-5 lb_style"><label>조회수</label></div>--%>
-                <%--<div class="col-md-7" style="height: 34px;"><label id="cnt">{{viewCnt}}</label></div>--%>
-                <%--<div class="col-md-5 lb_style"><label>등록/수정처리자</label></div>--%>
-                <%--<div class="col-md-7" style="height: 34px;"><label id="processor">{{opName}}</label></div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
     </div>
     <div class="row col-lg-12">
-        <table class="table table-bordered table-dalbit">
+        <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
             <colgroup>
                 <col width="5%" />
                 <col width="5%" />
@@ -388,7 +357,7 @@
                 <td rowspan="2" id="slctType">{{{getCommonCodeSelect slctType 'faq_slctType_detail'}}}</td>
 
                 <th rowspan="2">질문</th>
-                <td rowspan="2" colspan="10"><input type="text" name="title" id="title" class="form-control" value="{{question}}" maxlen></td>
+                <td rowspan="2" colspan="10"><input type="text" name="question" id="question" class="form-control" value="{{question}}" maxlen></td>
 
                 <th rowspan="2">등록일시</th>
                 <td rowspan="2" id="regDate">{{writeDate}}</td>
@@ -409,7 +378,20 @@
                 <h3><i class="fa fa-user"></i> 답변 </h3>
             </div>
             <textarea class="code" style="width: 100%; height: 300px" name="answer" id="answer">{{answer}}</textarea>
+            <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
+                <tbody>
+                <tr class="align-middle">
+                    <th>사이트적용</th>
+                    <td id="viewOn"></td>
+                    <td>
+                        <span class="button_right">
+                            <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
+                            <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-
 </script>

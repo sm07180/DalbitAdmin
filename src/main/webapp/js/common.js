@@ -260,7 +260,6 @@ function getCommonCodeLabel(code, targetCode){
                 }
             }
         });
-
         return html;
     }
 }
