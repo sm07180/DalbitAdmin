@@ -540,7 +540,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://">
+                            <a href="/administrate/faq/list">
                                 <i class="fa fa-question-circle"></i><span class="text">FAQ</span>
                             </a>
                         </li>

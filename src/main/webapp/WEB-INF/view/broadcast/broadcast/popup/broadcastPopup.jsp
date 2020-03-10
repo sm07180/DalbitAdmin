@@ -19,10 +19,6 @@
         var roomNo =  <%=in_roomNo%>;
         var state =  <%=in_state%>;
 
-        console.log(roomNo + " / " + state);
-
         getBroadCast_info_popup(roomNo,state);
-
-
     }
 </script>
