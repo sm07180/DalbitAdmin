@@ -62,7 +62,7 @@ public class NoticeRestController {
     /**
      * 사이트 공지 삭제
      */
-    @DeleteMapping("delete")
+    @PostMapping("delete")
     public String delete(P_noticeDeleteVo pNoticeDeleteVo) {
         String result = noticeService.callServiceCenterNoticeDelete(pNoticeDeleteVo);
         return result;

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Member;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Slf4j
 @Service
@@ -112,16 +113,35 @@ public class NoticeService {
      * 사이트 공지 삭제
      */
     public String callServiceCenterNoticeDelete(P_noticeDeleteVo pNoticeDeleteVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pNoticeDeleteVo);
 
-        noticeDao.callServiceCenterNoticeDelete(procedureVo);
+        int sucCnt=0;
+        int failCnt=0;
 
-        String result;
-        if(Status.공지삭제성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제성공));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제실패));
+        String result="";
+
+        String[] idxs = pNoticeDeleteVo.getNoticeIdxs().split(",");
+        for(int i=0; i < idxs.length; i++) {
+            ProcedureVo procedureVo = new ProcedureVo(new P_noticeDeleteVo(idxs[i]));
+
+            noticeDao.callServiceCenterNoticeDelete(procedureVo);
+
+            if (Status.공지삭제성공.getMessageCode().equals(procedureVo.getRet())) {
+                sucCnt++;
+            } else {
+                failCnt++;
+            }
         }
+
+        HashMap resultMap = new HashMap();
+        resultMap.put("sucCnt", sucCnt);
+        resultMap.put("failCnt", failCnt);
+
+        if(0 < sucCnt){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제성공, resultMap));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제실패, resultMap));
+        }
+
         return result;
     }
 

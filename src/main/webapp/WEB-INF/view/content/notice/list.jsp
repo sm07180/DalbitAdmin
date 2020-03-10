@@ -53,7 +53,7 @@
                             </tbody>
                         </table>
                         <span>
-                            <button class="btn btn-default" type="button">선택삭제</button>
+                            <button type="button" class="btn btn-default" id="bt_delete">선택삭제</button>
                         </span>
                         <span class="button_right">
                             <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
@@ -224,6 +224,7 @@
         dalbitLog(response);
         alert(response.message);
         insert();
+        dtList_info.reload();
     }
     function fn_insert_fail(data, textStatus, jqXHR) {
         console.log(data, textStatus, jqXHR);
@@ -240,8 +241,39 @@
         dalbitLog(response);
         alert(response.message);
         insert();
+        dtList_info.reload();
     }
     function fn_update_fail(data, textStatus, jqXHR) {
+        console.log(data, textStatus, jqXHR);
+    }
+
+    $(document).on('click', '#bt_delete', function() {
+
+        var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
+        if(checked.length == 0){
+            alert('삭제할 공지사항을 선택해주세요.');
+            return;
+        }
+
+        var noticeIdxs = '';
+        checked.each(function(){
+            noticeIdxs += $(this).parent().parent().find('._getNoticeDetail').data('idx') + ",";
+        });
+        var data = {
+            noticeIdxs : noticeIdxs
+        }
+        dalbitLog(data);
+
+        getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success, fn_delete_fail);
+    });
+
+    function fn_delete_success(dst_id, response) {
+        dalbitLog(response);
+
+        alert(response.message +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건');
+        dtList_info.reload();
+    }
+    function fn_delete_fail(data, textStatus, jqXHR) {
         console.log(data, textStatus, jqXHR);
     }
 
