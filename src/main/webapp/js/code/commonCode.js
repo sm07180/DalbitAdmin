@@ -6,6 +6,14 @@ class COMMON_CODE{
     }
 };
 
+var search_platform = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('pc', '2', 'PC')
+    , new COMMON_CODE('android', '3', 'Android')
+    , new COMMON_CODE('ios', '4', 'IOS')
+    , new COMMON_CODE('mobile', '5', 'Web-Mobile')
+];
 
 var platform = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')

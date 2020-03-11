@@ -95,7 +95,7 @@
         dtList_info.createDataTable();
 
         //검색조건 불러오기
-        $("#search_platform_aria").html(getCommonCodeSelect(-1, platform));
+        $("#search_platform_aria").html(getCommonCodeSelect(-1, search_platform));
         $("#search_searchType_aria").html(getCommonCodeSelect(-1, notice_searchType));
         $("#search_slctType_aria").html(getCommonCodeSelect(-1, notice_slctType));
         $("#search_viewOn_aria").html(getCommonCodeSelect(-1, viewOn));
@@ -181,6 +181,8 @@
         alert(response.message);
         generateForm();
         dtList_info.reload();
+
+        $("#noticeForm").empty();
     }
     function fn_insert_fail(data, textStatus, jqXHR) {
         console.log(data, textStatus, jqXHR);
@@ -201,6 +203,8 @@
         alert(response.message);
         generateForm();
         dtList_info.reload();
+
+        $("#noticeForm").empty();
     }
 
     $(document).on('click', '#bt_delete', function() {
@@ -308,7 +312,7 @@
                     <td>{{noticeIdx}}</td>
 
                     <th>구분</th>
-                    <td>{{{getCommonCodeSelect platform 'notice_slctType'}}}</td>
+                    <td>{{{getCommonCodeSelect platform 'notice_slctType' 'Y'}}}</td>
 
                     <th>제목</th>
                     <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
