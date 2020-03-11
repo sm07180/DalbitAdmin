@@ -1,7 +1,7 @@
 package com.dalbit.customer.controller.rest;
 
 import com.dalbit.customer.service.DeclarationService;
-import com.dalbit.customer.vo.procedure.P_DeclarationInputListVo;
+import com.dalbit.customer.vo.procedure.P_DeclarationListInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class DeclarationRestController {
      * 신고 목록 조회
      */
     @PostMapping("list")
-    public String list(P_DeclarationInputListVo pDeclarationInputListVo) {
+    public String list(P_DeclarationListInputVo pDeclarationListInputVo) {
 
-        String result = declarationService.callServiceCenterReportList(pDeclarationInputListVo);
+        String result = declarationService.callServiceCenterReportList(pDeclarationListInputVo);
 
         return result;
     }
