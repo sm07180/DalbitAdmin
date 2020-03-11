@@ -210,7 +210,7 @@
         }
 
         var editor = $("#editor");
-        if(isEmpty(editor.summernote('code'))){
+        if(editor.summernote('isEmpty')){
             alert("내용을 입력해주세요.");
             editor.focus();
             return false;
@@ -222,7 +222,6 @@
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
             var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
-
             console.log(data);
 
             getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
@@ -376,8 +375,8 @@
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
             <span class="button_right">
-                <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
-                <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
+                {{^noticeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
+                {{#noticeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
             </span>
         </div>
         <table class="table table-bordered table-dalbit">

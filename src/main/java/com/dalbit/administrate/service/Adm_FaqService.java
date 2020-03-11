@@ -71,7 +71,7 @@ public class Adm_FaqService {
      */
     public String callFaqAdd(P_FaqInsertVo pFaqInsertVo){
         pFaqInsertVo.setOpName(MemberVo.getMyMemNo());
-        ProcedureVo procedureVo = new ProcedureVo(pFaqInsertVo);
+        ProcedureVo procedureVo = new ProcedureVo(pFaqInsertVo, true);
         adm_FaqDao.callFaqAdd(procedureVo);
         String result;
         if(Status.FAQ등록성공.getMessageCode().equals(procedureVo.getRet())){
@@ -87,7 +87,7 @@ public class Adm_FaqService {
      * Faq 수정
      */
     public String callFaqUpdate(P_FaqUpdateVo pFaqUpdateVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pFaqUpdateVo);
+        ProcedureVo procedureVo = new ProcedureVo(pFaqUpdateVo, true);
         adm_FaqDao.callFaqUpdate(procedureVo);
         String result;
         if(Status.FAQ수정성공.getMessageCode().equals(procedureVo.getRet())){
