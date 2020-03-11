@@ -10,9 +10,9 @@ import java.sql.Date;
 @Setter
 public class P_noticeDetailOutputVo extends BaseVo {
     private int noticeIdx;
-    private String slctType;
+    private int slctType;
     private int platform;
-    private String gender;
+    private int gender;
     private String title;
     private String contents;
     private int topFix;

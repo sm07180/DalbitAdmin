@@ -81,7 +81,7 @@ function fileUpdate(dst_url, dst_params, successFunc, errorFunc){
 
 /* Excell DownLoad 모듈*/
 function excelDownload(btn, url, data, successFunc, errorFunc){
-    btn.button('loading');
+    //btn.button('loading');
 
     var sendData = data;
     if(data instanceof FormData){
@@ -97,14 +97,14 @@ function excelDownload(btn, url, data, successFunc, errorFunc){
         successCallback: function (url) {
             dalbitLog(url);
             setTimeout(function () {
-                btn.button('reset');
+                // btn.button('reset');
             }, 500)
         },
         failCallback: function (responseHtml, url) {
             dalbitLog(responseHtml)
             dalbitLog(url)
             setTimeout(function () {
-                btn.button('reset');
+                // btn.button('reset');
             }, 500)
         }
     })

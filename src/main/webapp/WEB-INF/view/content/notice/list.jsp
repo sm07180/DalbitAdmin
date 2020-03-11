@@ -56,7 +56,7 @@
                             <button type="button" class="btn btn-default" id="bt_delete">선택삭제</button>
                         </span>
                         <span class="button_right">
-                            <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                            <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
                         </span>
                     </div>
                 </div>
@@ -292,8 +292,8 @@
     // 검색
     function getNoticeInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        // tmp_search = $('#searchText').val();
-        // tmp_gubun = $("select[name='selectGubun']").val();
+        /*tmp_search = $('#searchText').val();
+        tmp_gubun = $("select[name='selectGubun']").val();*/
 
         dtList_info.reload();
 
@@ -340,39 +340,33 @@
     }
 
     // /*=---------- 엑셀 ----------*/
-    // $('#excelDownBtn').on('click', function(){
-    //     var formElement = document.querySelector("form");
-    //     var formData = new FormData(formElement);
-    //
-    //     formData.append("search", tmp_search);
-    //     formData.append("date", tmp_date);
-    //     formData.append("gubun", tmp_gubun);
-    //     formData.append("checkDate", tmp_checkDate);
-    //     formData.append("stDate", tmp_stDate);
-    //     formData.append("edDate", tmp_edDate);
-    //     /*formData.append("test003", "test003");*/
-    //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
-    // });
+    $('#excelDownBtn').on('click', function(){
 
-    // $("#excelBtn").on("click", function () {
-    //     $("#list_info").table2excel({
-    //         exclude: ".noExl",
-    //         name: "Excel Document Name",
-    //         filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
-    //         fileext: ".xls",
-    //         exclude_img: true,
-    //         exclude_links: true,
-    //         exclude_inputs: true
-    //     });
-    // });
-    //
-    // function fn_success_excel(){
-    //     console.log("fn_success_excel");
-    // }
-    //
-    // function fn_fail_excel(){
-    //     console.log("fn_fail_excel");
-    // }
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+
+        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    $("#excelBtn").on("click", function () {
+        $("#list_info").table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
+    });
+
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
     /*----------- 엑셀 ---------=*/
 </script>
 

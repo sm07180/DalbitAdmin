@@ -6,20 +6,27 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.NoticeDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.common.code.*;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 @Slf4j
 @Service
 public class NoticeService {
+
+    @Autowired
+    ExcelService excelService;
 
     @Autowired
     NoticeDao noticeDao;
@@ -29,6 +36,10 @@ public class NoticeService {
     @Autowired
     GsonUtil gsonUtil;
 
+
+    /**
+     * 사이트 공지 보기
+     */
     public String callServiceCenterNoticeList(P_noticeListInputVo pNoticeListInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pNoticeListInputVo);
 
@@ -46,6 +57,42 @@ public class NoticeService {
 
         return result;
     }
+
+    /**
+     * 사이트 공지 엑셀
+     */
+    public Model getListExcel(P_noticeListInputVo pNoticeListInputVo, Model model) {
+        ProcedureVo procedureVo = new ProcedureVo(pNoticeListInputVo);
+
+        List<P_noticeListOutputVo> list = noticeDao.callServiceCenterNoticeList(procedureVo);
+
+        String[] headers = {"공지번호", "공지구분", "공지제목", "상단고정여부", "노출설정", "작성자 이름", "작성자 번호", "작성일자"};
+        int[] headerWidths = {2000, 1000, 5000, 1000, 1000, 3000, 3000, 3000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("noticeIdx", DalbitUtil.isEmpty(list.get(i).getNoticeIdx()) ? "" : list.get(i).getNoticeIdx());
+            hm.put("slctType", DalbitUtil.isEmpty(list.get(i).getSlctType()) ? "" : list.get(i).getSlctType());
+            hm.put("title", DalbitUtil.isEmpty(list.get(i).getTitle()) ? "" : list.get(i).getTitle());
+            hm.put("topFix", DalbitUtil.isEmpty(list.get(i).getTopFix()) ? "" : list.get(i).getTopFix());
+            hm.put("viewOn", DalbitUtil.isEmpty(list.get(i).getViewOn()) ? "" : list.get(i).getViewOn());
+            hm.put("opName1", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
+            hm.put("opName2", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
+            hm.put("opName3", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("회원정보",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "회원목록");
+
+        return model;
+    }
+
 
     /**
      * 사이트 공지 상세 조회
