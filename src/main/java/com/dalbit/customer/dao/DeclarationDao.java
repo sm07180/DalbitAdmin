@@ -1,15 +1,13 @@
 package com.dalbit.customer.dao;
 
-import com.dalbit.customer.vo.DeclareVo;
+import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.customer.vo.procedure.P_DeclarationOutputListVo;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Repository
 public interface DeclarationDao {
-    List<DeclareVo> declareList(DeclareVo declareVo);
-    int declareList_cnt(DeclareVo declareVo);
-
-    List<DeclareVo> getDeclareDetail(DeclareVo declareVo);
+    ArrayList<P_DeclarationOutputListVo> callServiceCenterReportList(ProcedureVo procedureVo);
 
 }
