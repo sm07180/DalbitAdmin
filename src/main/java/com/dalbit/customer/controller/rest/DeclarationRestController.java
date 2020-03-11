@@ -1,6 +1,7 @@
 package com.dalbit.customer.controller.rest;
 
 import com.dalbit.customer.service.DeclarationService;
+import com.dalbit.customer.vo.procedure.P_DeclarationDetailInputVo;
 import com.dalbit.customer.vo.procedure.P_DeclarationListInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,12 @@ public class DeclarationRestController {
     /**
      * 신고 목록 상세 조회
      */
+    @PostMapping("detail")
+    public String detail(P_DeclarationDetailInputVo pDeclarationDetailInputVo) {
 
+        String result = declarationService.callServiceCenterReportDetail(pDeclarationDetailInputVo);
+
+        return result;
+    }
 
 }

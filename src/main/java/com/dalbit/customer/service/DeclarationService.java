@@ -5,10 +5,13 @@ import com.dalbit.common.code.*;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.customer.dao.DeclarationDao;
+import com.dalbit.customer.vo.procedure.P_DeclarationDetailInputVo;
+import com.dalbit.customer.vo.procedure.P_DeclarationDetailOutputVo;
 import com.dalbit.customer.vo.procedure.P_DeclarationListInputVo;
 import com.dalbit.customer.vo.procedure.P_DeclarationListOutputVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +54,23 @@ public class DeclarationService {
 
     /**
      * 선택 회원 정보
-     * */
+     */
+    public String callServiceCenterReportDetail(P_DeclarationDetailInputVo pDeclarationDetailInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pDeclarationDetailInputVo);
+
+        declarationDao.callServiceCenterReportDetail(procedureVo);
+
+        P_DeclarationDetailOutputVo declarationDetail = new Gson().fromJson(procedureVo.getExt(), P_DeclarationDetailOutputVo.class);
+
+        String result;
+
+        if(Status.신고상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고상세조회_성공, declarationDetail));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고상세조회_공지번호없음));
+        }
+
+        return result;
+    }
 
 }

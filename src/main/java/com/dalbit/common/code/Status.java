@@ -76,19 +76,15 @@ public enum Status {
     공지사항조회_성공("C001", "select.success", "공지사항 조회 시"),
     공지사항조회_에러("C006", "server.error", "공지사항 조회에서 에러 발생 시"),
 
-    //공지 상세조회
     공지상세조회_성공("0", "select.success", "공지사항 상세조회 시"),
     공지상세조회_공지번호없음("-1", "no.data", "공지사항 조회 데이터가 없을 시"),
 
-    //공지등록
     공지등록성공("0","insert.success", "공지등록 성공 시"),
     공지등록실패("C006", "server.error", "공지등록 실패 시"),
 
-    //공지수정
     공지수정성공("0", "update.success", "공지수정 성공 시"),
     공지수정실패("-1", "server.error", "공지수정 실패 시"),
 
-    //공지삭제
     공지삭제성공("0", "delete.success", "공지삭제 성공 시"),
     공지삭제실패("-1", "server.error", "공지삭제 실패 시"),
 
@@ -113,6 +109,9 @@ public enum Status {
     신고목록조회_데이터없음("0", "no.data", "신고목록 조회 데이터가 없을 시"),
     신고목록조회_성공("C001", "select.success", "신고목록 조회 시"),
     신고목록조회_에러("C006", "server.error", "신고목록 조회에서 에러 발생 시"),
+
+    신고상세조회_성공("0", "select.success", "신고목록 상세조회 시"),
+    신고상세조회_공지번호없음("-1", "no.data", "신고목록 조회 데이터가 없을 시"),
     ;
 
     final private String SUCCESS_RESULT = "success";
