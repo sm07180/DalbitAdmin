@@ -80,15 +80,15 @@ public class NoticeService {
             hm.put("viewOn", DalbitUtil.isEmpty(list.get(i).getViewOn()) ? "" : list.get(i).getViewOn());
             hm.put("opName1", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
             hm.put("opName2", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
-            hm.put("opName3", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
+            hm.put("opName3", DalbitUtil.isEmpty(list.get(i).getWriteDate()) ? "" : list.get(i).getWriteDate());
 
             bodies.add(hm.values().toArray());
         }
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
-        SXSSFWorkbook workbook = excelService.excelDownload("회원정보",vo);
+        SXSSFWorkbook workbook = excelService.excelDownload("공지사항",vo);
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "회원목록");
+        model.addAttribute("workbookName", "공지사항 목록");
 
         return model;
     }
