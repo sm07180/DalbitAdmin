@@ -153,15 +153,6 @@
         editorInit();
     }
 
-    // 상세조회
-    /*function getNotice_detail(index) {
-        var data = dtList_info.getDataRow(index);
-        var obj = new Object();
-        obj.noticeIdx = data.noticeIdx;
-
-        getAjaxData("detail", "/rest/content/notice/detail", obj, fn_detail_success, fn_detail_fail);
-
-    }*/
     $(document).on('click', '._getNoticeDetail', function(){
         var data = {
             'noticeIdx' : $(this).data('idx')
@@ -176,9 +167,6 @@
     });
 
     function fn_detail_success(dst_id, response) {
-        dalbitLog('fn_detail_success');
-        dalbitLog(response);
-        // form 띄우기
         var template = $('#tmp_noticeFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -210,7 +198,7 @@
         }
 
         var editor = $("#editor");
-        if(isEmpty(editor.summernote('code'))){
+        if(editor.summernote('isEmpty')){
             alert("내용을 입력해주세요.");
             editor.focus();
             return false;
@@ -222,7 +210,6 @@
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
             var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
-
             console.log(data);
 
             getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
@@ -298,48 +285,13 @@
         }
     }
 
-    function editorInit(){
-        var targetEditor = $('.summernote');
-
-        targetEditor.summernote({
-            height: 300,
-            focus: true,
-            // onpaste: function() {
-            //     alert('You have pasted something to the editor');
-            // },
-            callbacks: { // 콜백을 사용
-                // 이미지를 업로드할 경우 이벤트를 발생
-                onImageUpload: function(files, editor, welEditable) {
-                    console.log("[onImageUpload]")
-
-                    var formData = new FormData();
-                    formData.append("file",files[0]);
-                    //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
-                    formData.append("uploadType","bg");
-                    fileUpdate(IMAGE_SERVER_URL + "/upload",formData, function (data) {
-                        var json = jQuery.parseJSON(data);
-                        console.log(json);
-                        if(json.code != "0"){
-                            alert(json.message);
-                            return;
-                        }
-
-                        // UPLOAD IMAGE URL 적용
-                        var imgURL = json.data.url;
-                        targetEditor.summernote('editor.insertImage', imgURL);
-                    });
-                }
-            }
-        });
-    }
-
     // /*=---------- 엑셀 ----------*/
     $('#excelDownBtn').on('click', function(){
 
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel, fn_fail_excel)
+        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel)
     });
 
     $("#excelBtn").on("click", function () {
@@ -357,10 +309,6 @@
     function fn_success_excel(){
         console.log("fn_success_excel");
     }
-
-    function fn_fail_excel(){
-        console.log("fn_fail_excel");
-    }
     /*----------- 엑셀 ---------=*/
 </script>
 
@@ -370,8 +318,8 @@
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
             <span class="button_right">
-                <button class="btn btn-default" type="button" id="insertBtn">등록하기</button>
-                <button class="btn btn-default" type="button" id="updateBtn">수정하기</button>
+                {{^noticeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
+                {{#noticeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
             </span>
         </div>
         <table class="table table-bordered table-dalbit">
