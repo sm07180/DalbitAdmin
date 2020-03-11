@@ -10,8 +10,8 @@ public class DeclareVo extends PagingVo {
 
     /* input */
     private String search;
-    private String searchType;
     private String stopType;
+    private String searchType;
 
     /* output */
 /*    private int type;

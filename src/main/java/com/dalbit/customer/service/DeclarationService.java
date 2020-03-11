@@ -25,6 +25,9 @@ public class DeclarationService {
     @Autowired
     MessageUtil messageUtil;
 
+    /**
+     * DataTable 회원 정보 조회
+     */
     public List<DeclareVo> getDeclareList(DeclareVo declareVo) {
         List<DeclareVo> list = declarationDao.declareList(declareVo);
         int declareList_cnt = declarationDao.declareList_cnt(declareVo);
