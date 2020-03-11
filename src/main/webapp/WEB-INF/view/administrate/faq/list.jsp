@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style>
-    .button_right{
+    .button_right11{
         float: right;
         white-space:nowrap;
     }
@@ -31,7 +31,7 @@
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
                 <label id="faq_title">ㆍ검색결과 내 질문을 클릭하면 해당 상세정보를 확인할 수 있습니다.</label>
-                <button type="button" class="btn btn-default button_right" id="bt_insert">등록</button>
+                <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
             </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
@@ -54,8 +54,8 @@
                         <span>
                             <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
                         </span>
-                        <span class="button_right">
-                            <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                        <span>
+                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
                         </span>
                     </div>
                 </div>
@@ -82,6 +82,8 @@
             getFaqInfo();
         });
 
+        getFaqInfo();
+
     });
 
     var dtList_info;
@@ -98,11 +100,6 @@
     //검색조건 불러오기
     $("#search_searchType_aria").html(getCommonCodeSelect(-1, faq_searchType));
     $("#search_slctType_aria").html(getCommonCodeSelect(-1, faq_slctType));
-
-    init();
-
-    function init(){
-    }
 
     $("#bt_insert").on("click", function(){
         insert();
@@ -208,16 +205,20 @@
             alert('삭제할 FAQ를 선택해주세요.');
             return;
         }
-        var faqIdxs = '';
-        checked.each(function(){
-            faqIdxs += $(this).parent().parent().find('._getFaqDetail').data('idx') + ",";
-        });
-        var data = {
-            faqIdxs : faqIdxs
-        }
-        dalbitLog(data);
 
-        getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
+        if(confirm(checked.length + "개의 FAQ를 삭제하시겠습니까?")){
+            var faqIdxs = '';
+            checked.each(function(){
+                faqIdxs += $(this).parent().parent().find('._getFaqDetail').data('idx') + ",";
+            });
+            var data = {
+                faqIdxs : faqIdxs
+            }
+            dalbitLog(data);
+
+            getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
+        }
+
     });
 
     function fn_update_success(dst_id, response) {
@@ -231,6 +232,8 @@
 
         alert(response.message +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건');
         dtList_info.reload();
+
+        $("#faqForm").empty();
     }
 
 
@@ -336,9 +339,9 @@
                     <th>사이트적용</th>
                     <td id="viewOn"></td>
                     <td>
-                        <span class="button_right">
-                            {{^faqIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
-                            {{#faqIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
+                        <span>
+                            {{^faqIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
+                            {{#faqIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
                         </span>
                     </td>
                 </tr>
