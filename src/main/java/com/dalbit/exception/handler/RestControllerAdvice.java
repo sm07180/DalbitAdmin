@@ -27,9 +27,23 @@ public class RestControllerAdvice {
     @Autowired
     GsonUtil gsonUtil;
 
-    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    /*@ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public String exceptionAdvice(HttpServletRequest httpServletRequest, Exception exception, HandlerMethod handlerMethod){
+    public String exceptionAdviceForbidden(HttpServletRequest httpServletRequest, Exception exception, HandlerMethod handlerMethod){
+
+        Object errorStatus = httpServletRequest.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        Object errorRequestUrl = httpServletRequest.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);
+        Object errorMessage = httpServletRequest.getAttribute(RequestDispatcher.ERROR_MESSAGE);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(ErrorStatus.권한없음));
+        log.error(result);
+
+        return result;
+    }*/
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FOUND)
+    public String exceptionAdviceFound(HttpServletRequest httpServletRequest, Exception exception, HandlerMethod handlerMethod){
 
         Object errorStatus = httpServletRequest.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         Object errorRequestUrl = httpServletRequest.getAttribute(RequestDispatcher.ERROR_REQUEST_URI);

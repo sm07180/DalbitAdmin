@@ -12,6 +12,7 @@ public enum Status {
     삭제("C004", "delete.success", "삭제"),
     파라미터오류("C005", "param.error", "파라미터 오류 시"),
     비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),
+    로그인필요("C007", "login.need", "로그인 세션이 없어 로그인 해야 할 때"),
 
     //로그인
     로그인성공("0", "login.success", "로그인 성공 시"),

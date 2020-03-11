@@ -166,7 +166,7 @@
         var data = {
             'noticeIdx' : $(this).data('idx')
         };
-        getAjaxData("detail", "/rest/content/notice/detail", data, fn_detail_success, fn_detail_fail);
+        getAjaxData("detail", "/rest/content/notice/detail", data, fn_detail_success);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
@@ -225,7 +225,7 @@
 
             console.log(data);
 
-            getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success, fn_insert_fail);
+            getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
         }
     });
 
@@ -245,7 +245,7 @@
             var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
 
             console.log(data);
-            getAjaxData("update", "/rest/content/notice/update", data, fn_update_success, fn_update_fail);
+            getAjaxData("update", "/rest/content/notice/update", data, fn_update_success);
         }
     });
 
@@ -254,9 +254,6 @@
         alert(response.message);
         insert();
         dtList_info.reload();
-    }
-    function fn_update_fail(data, textStatus, jqXHR) {
-        console.log(data, textStatus, jqXHR);
     }
 
     $(document).on('click', '#bt_delete', function() {
@@ -276,7 +273,7 @@
         }
         dalbitLog(data);
 
-        getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success, fn_delete_fail);
+        getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success);
     });
 
     function fn_delete_success(dst_id, response) {
@@ -284,9 +281,6 @@
 
         alert(response.message +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건');
         dtList_info.reload();
-    }
-    function fn_delete_fail(data, textStatus, jqXHR) {
-        console.log(data, textStatus, jqXHR);
     }
 
     // 검색
