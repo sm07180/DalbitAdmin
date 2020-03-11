@@ -1,43 +1,27 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<style>
-    .text_center{
-        text-align: center;
-    }
-    .middle{
-        display:table-cell;
-        vertical-align:middle;
-    }
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
 
 <div id="main-header">
     <div id="page-wrapper">
         <%--<div class="container-fluid">--%>
             <!-- serachBox -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i>메세지 검색</h3>
-                        <div>
-                            <select class="form-control" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">메세지 제목</option>
-                                <option value="2">메세지 내용</option>
-                            </select>
+            <form id="searchForm">
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i>푸시검색</h3>
+                            <div>
+                                <span id="search_platform_aria"></span>
+                                <span id="search_gender_aria"></span>
+                                <span id="search_searchType_aria"></span>
 
-                            <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                                <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <!-- //serachBox -->
 
             <!-- DATA TABLE -->
@@ -74,12 +58,48 @@
 </div>
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
-
+<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
 <script>
     $(document).ready(function() {
+        init();
         initDataTable();
         initEvent();
     });
+
+
+
+    function init() {
+        //검색조건 불러오기
+        $("#search_platform_aria").html(getCommonCodeSelect(-1, platform));
+        $("#search_gender_aria").html(getCommonCodeSelect(-1, gender));
+        $("#search_searchType_aria").html(getCommonCodeSelect(-1, push_searchType));
+    }
+
+
+    var dtList_info;
+    function initDataTable(){
+        //=---------- 푸시메시지 DataTable ----------
+        var dtList_info_data = function ( data ) {
+            data.search = $('#txt_search').val();                        // 검색명
+            data.gubun = $("select[name='selectGubun']").val()
+        };
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, PushDataTableSource.pushMsgList, $("#searchForm"));
+        dtList_info.useCheckBox(true);
+        dtList_info.useIndex(true);
+        dtList_info.setEventClick(updataPushInfo,4);
+        dtList_info.createDataTable();
+
+        // Button 추가
+        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_add" />'
+        var delBtn = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_del" />'
+        var excellBtn = '<button class="btn btn-default print-btn btn-sm" type="button"><i class="fa fa-print"></i>Excel Print</button>'
+
+        $("#pushDataTable").find(".top-right").append(delBtn);
+        $("#pushDataTable").find(".top-right").append(addBtn);
+
+        $("#pushDataTable").find(".footer-right").append(excellBtn);
+        //---------- 푸시메시지 DataTable ----------=
+    }
 
 
     function initEvent(){
@@ -95,6 +115,7 @@
 
         $("#btn_add").on("click", function () { //등록
             initData_pushMsg();
+            $("#tab_pushMsgList").click();
         })
 
         $("#btn_del").on("click", function () { //삭제
@@ -102,44 +123,8 @@
         })
     }
 
-    function delPushMsgData() {
-        var checkDatas = dtList_info.getCheckedData();
 
-        if(checkDatas.length <= 0){
-            alert("삭제할 정보를 선택해주세요.");
-            return false;
-        }
-        dalbitLog(checkDatas);
-    }
-
-
-    var dtList_info;
-    function initDataTable(){
-        //=---------- 푸시메시지 DataTable ----------
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val()
-        };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, PushDataTableSource.pushMsgList);
-        dtList_info.useCheckBox(true);
-        dtList_info.useIndex(true);
-        dtList_info.setEventClick(updataPushInfo,4);
-        dtList_info.createDataTable();
-        initDataTableButton();
-        //---------- 푸시메시지 DataTable ----------=
-    }
-
-    function initDataTableButton() {
-        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_add" />'
-        var delBtn = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_del" />'
-        var excellBtn = '<button class="btn btn-default print-btn btn-sm" type="button"><i class="fa fa-print"></i>Excel Print</button>'
-
-        $("#pushDataTable").find(".top-right").append(delBtn);
-        $("#pushDataTable").find(".top-right").append(addBtn);
-
-        $("#pushDataTable").find(".footer-right").append(excellBtn);
-    }
-
+    // 수정
     function updataPushInfo(data) {
         setData_pushMsg({
             column01: data.rowNum
@@ -163,6 +148,8 @@
         $("#tab_pushMsgList").click();
     }
 
+
+
     // 검색
     function getPushInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
@@ -178,6 +165,17 @@
         }
     }
 
+
+
+    function delPushMsgData() {
+        var checkDatas = dtList_info.getCheckedData();
+
+        if(checkDatas.length <= 0){
+            alert("삭제할 정보를 선택해주세요.");
+            return false;
+        }
+        dalbitLog(checkDatas);
+    }
     // /*=---------- 엑셀 ----------*/
     // $('#excelDownBtn').on('click', function(){
     //     var formElement = document.querySelector("form");

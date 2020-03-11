@@ -3,12 +3,12 @@ var PushDataTableSource = {
         'url': '/rest/content/push/list'
 
         , 'columns': [
-             {'title': 'OS구분', 'data': 'push_col1'},
-             {'title': '수신상태', 'data': 'push_col2', 'width':'100px'},
+             {'title': '플랫폼', 'data': 'push_col1'},
+             {'title': '수신대상', 'data': 'push_col2', 'width':'100px'},
              {'title': '메세지 제목', 'data': 'push_col3', 'width':'200px', 'render': function (data, type, row, meta) {
                      return '<a href="javascript:;">' + data + '</a>'
                  }},
-             {'title': '발송시간', 'data': 'push_col4', 'width':'100px', 'render': function (data, type, row, meta) {
+             {'title': '발송 일시', 'data': 'push_col4', 'width':'100px', 'render': function (data, type, row, meta) {
                      return convertToDate(data);
                  }},
              {'title': '발송상태', 'data': 'push_col5', 'width':'100px'},

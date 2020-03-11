@@ -94,8 +94,25 @@ function fileUpdate(dst_url, dst_params, successFunc, errorFunc){
     });
 }
 
+function changeLoadingBtn(btn, status, text){
+    var text = isEmpty(text) ? "Loading..." : text;
+
+    if(status == 'loading' || status == 'start' ){
+        btn.data('afterText', btn.html());
+        btn.empty().append('<i class="fa fa-refresh fa-spin"></i> ' + text);
+        btn.prop('disabled',true);
+    }
+
+    if(status == 'reset' || status == 'stop' ){
+        btn.empty().append(btn.data('afterText'));
+        btn.prop('disabled',false);
+    }
+}
+
 /* Excell DownLoad 모듈*/
 function excelDownload(btn, url, data, successFunc, errorFunc){
+    // btn.button('loading');
+    changeLoadingBtn(btn, 'loading', 'DownLoading...');
     //btn.button('loading');
 
     var sendData = data;
@@ -113,6 +130,7 @@ function excelDownload(btn, url, data, successFunc, errorFunc){
             dalbitLog(url);
             setTimeout(function () {
                 // btn.button('reset');
+                changeLoadingBtn(btn, 'reset');
             }, 500)
         },
         failCallback: function (responseHtml, url) {
@@ -120,6 +138,7 @@ function excelDownload(btn, url, data, successFunc, errorFunc){
             dalbitLog(url)
             setTimeout(function () {
                 // btn.button('reset');
+                changeLoadingBtn(btn, 'reset');
             }, 500)
         }
     })
@@ -130,6 +149,7 @@ function excelDownload(btn, url, data, successFunc, errorFunc){
         if (errorFunc != null) errorFunc();
     });
 }
+
 
 /* 이미지 팝업 */
 function imagePopup(obj){

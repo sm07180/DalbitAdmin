@@ -21,179 +21,9 @@
 </style>
 
 <div id="wrapper">
-    <div class="row col-lg-12">
-        <div class="row col-md-12" style="padding-bottom: 15px">
-            <div class="pull-left">
-                ㆍ <b>*</b> 는 필수 입력사항 입니다. <br>
-                ㆍ 발송 상태를 확인하시고 미발송 또는 발송오류 시 해당 정보가 맞는지 확인한 후 수정완료를 하시면 재발송이 가능합니다.
-            </div>
-            <div class="pull-right">
-                <input type="button" value="발송완료" class="btn btn-success btn-sm" id="btn_send" />
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-6 no-padding" style="border: 1px solid #DDDDDD;">
-                <div class="col-md-2 no-padding lb_style"><label>No.</label></div>
-                <div class="col-md-2 text_center"><span id="pushMsg-no">-</span></div>
-                <div class="col-md-2 no-padding lb_style"><label>발송상태</label></div>
-                <div class="col-md-6">
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-snedStatus" value="0" checked="true">미발송
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-snedStatus" value="1">발송오류
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-snedStatus" value="2">발송완료
-                    </label>
-                </div>
-            </div>
-            <div class="col-md-6 no-padding">
-                <div class="col-md-2 no-padding lb_style"><label>노출 OS구분</label></div>
-                <div class="col-md-10">
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-OSType" value="0" checked="true">전체
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-OSType" value="1">모바일 전체
-                    </label>
-                    <br>
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-OSType" value="2">PC
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-OSType" value="3">Android
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-OSType" value="4">IOS
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row col-md-12">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-2 no-padding lb_style"><label>메세지 제목</label></div>
-                    <div class="col-md-10">
-                        <input type="text" class="form-control" id="pushMsg-msgTitle" placeholder="title">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2 no-padding lb_style"><label>메세지 내용</label></div>
-                    <div class="col-md-10">
-                        <textarea class="form-control" name="pushMsg-msg" id="pushMsg-msg" rows="5" cols="30" placeholder="Message" style="resize: none"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-2 no-padding lb_style"><label>수신대상 선택</label></div>
-                    <div class="col-md-10">
-                        <div class="row col-md-12">
-                            <label class="radio-inline">
-                                <input type="radio" name="pushMsg-receiveType" value="0" checked="true">전체
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="pushMsg-receiveType" value="1">남자 회원
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="pushMsg-receiveType" value="2">여자 회원
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="pushMsg-receiveType" value="3">생방송 방
-                            </label>
-                            <br>
-                            <label class="radio-inline">
-                                <input type="radio" name="pushMsg-receiveType" value="4">지정 회원
-                                <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember" disabled="disabled"/>
-                            </label>
-                        </div>
-                        <div class="row col-md-12" id="div_selectTarget" style="padding-left: 30px; display: none">
-                            <p>1. user ID [X]</p>
-                            <p>2. user ID [X]</p>
-                            <p>3. user ID [X]</p>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-2 no-padding lb_style"><label>메세지 구분</label></div>
-                    <div class="col-md-10">
-                        <label class="radio-inline">
-                            <input type="radio" name="pushMsg-msgType" value="0" checked="true">일반 안내
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="pushMsg-msgType" value="1">경고 안내
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="pushMsg-msgType" value="2">탈퇴처리 안내
-                        </label>
-                        <br>
-                        <label class="radio-inline">
-                            <input type="radio" name="pushMsg-msgType" value="3">긴급 공지
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="pushMsg-msgType" value="4">일반 공지
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="pushMsg-msgType" value="5">이벤트 공지
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="pushMsg-msgType" value="6">기타
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row col-md-12">
-            <div class="col-md-1 no-padding lb_style"><label>배경 색</label></div>
-            <div class="col-md-5">
-                <span>배경색상 : </span>
-                <input type="color" id="pushMsg-backColor">
-                <span> [<label id="pushMsg-backColor-RGB"></label>] 또는 </span>
-                <input type="file" id="pushMsg-backImg">
-            </div>
-            <div class="col-md-1 no-padding lb_style"><label>발송여부</label></div>
-            <div class="col-md-5">
-                <div class="row col-md-12">
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-sendType" value="0" checked="true">즉시발송
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="pushMsg-sendType" value="1">예약발송
-                    </label>
-                </div>
-                <div class="row col-md-12" id="pushMsg-div-sendDate" style="display: none">
-                    <div class="col-md-8 no-padding">
-                        <div class="col-md-12 input-group date" id="date_birth">
-                            <input type="text" class="form-control" id="pushMsg-sendDate"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-md-4 no-padding" style="display: flex; align-items: stretch;">
-                        <select id="pushMsg-sendHour" class="select-ticket-type" style="width: 45px; height: 34px; margin-left: 3px;">
-                        </select>
-                        <select id="pushMsg-sendMinute" class="select-ticket-type" style="width: 45px; height: 34px; margin-left: 3px;">
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row col-md-12">
-            <div class="col-md-1 no-padding lb_style"><label>메세지 포함 이미지</label></div>
-            <div class="col-md-5">
-                <input type="file" id="pushMsg-inputImg">
-                <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
-            </div>
-            <div class="col-md-1 no-padding lb_style"><label>등록/수정일</label></div>
-            <div class="col-md-5"><label id="pushMsg-workDate">-</label></div>
-        </div>
-        <!-- support ticket form -->
-
-    </div>
+    <form id="bannerForm"></form>
 </div>
+
 
 
 
@@ -201,24 +31,49 @@
 
 <script>
     $(document).ready(function () {
-        init();
-        initEvent_pushMsg();
+        init_Detail();
+        initEvent_Detail();
     });
 
     // 초기 설정
-    function init() {
+    function init_Detail() {
         // 캘린더 기능추가
-        $('.input-group.date').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            todayHighlight: true,
-            calendarWeeks: false,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'kr',
-            maxDate:0
-        }).datepicker("setDate", new Date());
+        $('.input-group-addon').daterangepicker({
+            startDate: moment().subtract('days', 29),
+            endDate: moment(),
+            dateLimit: { days: 60 },
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: true,
+            timePickerIncrement: 1,
+            timePicker12Hour: false,
+            ranges: {
+                '1일': [moment(), moment()],
+                // '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                '7일': [moment().subtract('days', 6), moment()],
+                '30일': [moment().subtract('days', 29), moment()],
+                '이번달': [moment().startOf('month'), moment().endOf('month')],
+                '지난달': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+            },
+            opens: 'left',
+            buttonClasses: ['btn btn-default'],
+            applyClass: 'btn-small btn-primary',
+            cancelClass: 'btn-small',
+            format: 'L',
+            separator: ' to ',
+            locale: {
+                customRangeLabel: '직접선택',
+            }
+        },
+            function(start, end, t1, t2) {
+                console.log("Callback has been called!");
+                console.log(start)
+                console.log(end)
+                console.log(t1)
+                console.log(t2)
+                $('#banner-exposurePeriod').html(start.format('YYYY.MM.DD') + ' - ' + end.format('YYYY.MM.DD'));
+            }
+        );
 
         var htmlHour = "";
         for(var i=0; i<24; i++){
@@ -228,7 +83,8 @@
                 htmlHour += '<option value="'+ i +'">'+ i +'</option>\n'
             }
         }
-        $("#pushMsg-sendHour").append(htmlHour);
+        $("#banner-startHour").append(htmlHour);
+        $("#banner-endHour").append(htmlHour);
 
         var htmlMinute = "";
         for(var i=0; i<60; i++){
@@ -238,38 +94,44 @@
                 htmlMinute += '<option value="'+ i +'">'+ i +'</option>\n'
             }
         }
-        $("#pushMsg-sendMinute").append(htmlMinute);
+        $("#banner-startMinute").append(htmlMinute);
+        $("#banner-endMinute").append(htmlMinute);
 
-        $("#pushMsg-backColor-RGB").text($("#pushMsg-backColor").val());
+        // Radio 버튼 추가
+        $("#radio_loginType_aria").html(getCommonCodeRadio(-1, banner_loginType));
+        $("#radio_gender_aria").html(getCommonCodeRadio(1, gender));
+        $("#radio_frequency_aria").html(getCommonCodeRadio(10, banner_frequency));
+        $("#radio_viewOn_aria").html(getCommonCodeRadio(1, banner_viewOn));
+        $("#radio_bannerType_aria").html(getCommonCodeRadio(1, banner_bannerType_noAll));
     }
 
     // 이벤트 적용
-    function initEvent_pushMsg(tab_id){
+    function initEvent_Detail(tab_id){
 
         //수신대상 선택
-        $("input[name='pushMsg-receiveType']:radio").change(function () {
+        $("input[name='banner-publishStatus']:radio").change(function () {
             var type = this.value;
 
             //지정 일 경우 button 활성화
-            if(type == "4"){
-                $("#btn_selectMember").prop("disabled",false);
-                $("#div_selectTarget").show();
+            if(type == "0"){
+                $("input[name='banner-selectExposureType']").prop("disabled",false);
+                $("input[name='banner-selectExposureType']:input[value='0']").prop("checked", true);
             }else{
-                $("#btn_selectMember").prop("disabled",true);
-                $("#div_selectTarget").hide();
-                $("#div_selectTarget").empty();
+                $("input[name='banner-selectExposureType']").prop("disabled",true);
+                $("input[name='banner-selectExposureType']").removeAttr("checked");
+                $("#banner-div-exposure").hide();
             }
         });
 
         //발송여부 선택
-        $("input[name='pushMsg-sendType']:radio").change(function () {
+        $("input[name='banner-selectExposureType']:radio").change(function () {
             var type = this.value;
 
             //예약 발송 일 경우 날짜 추가
             if(type == "1"){
-                $("#pushMsg-div-sendDate").show();
+                $("#banner-div-exposure").show();
             }else{
-                $("#pushMsg-div-sendDate").hide();
+                $("#banner-div-exposure").hide();
             }
         });
 
@@ -280,7 +142,7 @@
         })
 
         // 등록 수정 완료 버튼
-        $("#btn_send").on("click", function () {
+        $("#btn_done").on("click", function () {
             //TODO 완료처리 필요
             getPushMsgData();
         })
@@ -300,132 +162,162 @@
 
     //=------------------ 상세 Data Handler ----------------------------------
     // 데이터 초기화
-    function initData_pushMsg() {
-        //No.
-        $("#pushMsg-no").text("");
-        //발송상태
-        $('input:radio[name="pushMsg-snedStatus"][value="0"]').prop('checked', true);
-        //OS구분
-        $('input:radio[name="pushMsg-OSType"][value="0"]').prop('checked', true);
-        //수신대상
-        $('input:radio[name="pushMsg-receiveType"][value="0"]').prop('checked', true);
-        //수신대상 지정회원일 경우
-        $("#div_selectTarget").empty();
-        $("#div_selectTarget").hide();
+    function initData_banner() {
+        var template = $('#tmp_bannerDetailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        $("#bannerForm").html(templateScript);
 
-        //발송여부
-        $('input:radio[name="pushMsg-msgType"][value="0"]').prop('checked', true);
-        $('.input-group.date').datepicker("setDate", new Date());
-        $("#pushMsg-sendHour").val("00");
-        $("#pushMsg-sendMinute").val("00");
-        $("#pushMsg-div-sendDate").hide();
+        init_Detail();
+        initEvent_Detail();
 
-        //메세지 구분
-        $('input:radio[name="pushMsg-sendType"][value="0"]').prop('checked', true);
 
-        //메세지 제목
-        $("#pushMsg-msgTitle").val("");
-        //메세지 내용
-        $("#pushMsg-msg").text("");
-
-        //배경 색
-        $("#pushMsg-backColor").val("#000000");
-        $("#pushMsg-backColor-RGB").text("#000000");
-        //배경 이미지
-        //??
-
-        //메세지 포함 이미지
-        //??
-
-        //등록/수정일
-        $("#pushMsg-workDate").text("");
+        //
+        // //No.
+        // $("#pushMsg-no").text("");
+        // //발송상태
+        // $('input:radio[name="pushMsg-snedStatus"][value="0"]').prop('checked', true);
+        // //OS구분
+        // $('input:radio[name="pushMsg-OSType"][value="0"]').prop('checked', true);
+        // //수신대상
+        // $('input:radio[name="pushMsg-receiveType"][value="0"]').prop('checked', true);
+        // //수신대상 지정회원일 경우
+        // $("#div_selectTarget").empty();
+        // $("#div_selectTarget").hide();
+        //
+        // //발송여부
+        // $('input:radio[name="pushMsg-msgType"][value="0"]').prop('checked', true);
+        // $('.input-group.date').datepicker("setDate", new Date());
+        // $("#pushMsg-sendHour").val("00");
+        // $("#pushMsg-sendMinute").val("00");
+        // $("#pushMsg-div-sendDate").hide();
+        //
+        // //메세지 구분
+        // $('input:radio[name="pushMsg-sendType"][value="0"]').prop('checked', true);
+        //
+        // //메세지 제목
+        // $("#pushMsg-msgTitle").val("");
+        // //메세지 내용
+        // $("#pushMsg-msg").text("");
+        //
+        // //배경 색
+        // $("#pushMsg-backColor").val("#000000");
+        // $("#pushMsg-backColor-RGB").text("#000000");
+        // //배경 이미지
+        // //??
+        //
+        // //메세지 포함 이미지
+        // //??
+        //
+        // //등록/수정일
+        // $("#pushMsg-workDate").text("");
     }
 
     // 데이터 셋팅 (Json)
-    function setData_pushMsg(json){
-        // No.
-        var pushMsg_no = json.column01;
-        // 발송상태
-        var pushMsg_snedStatus = json.column02;
-        // OS구분
-        var pushMsg_OSType = json.column03;
-        // 메세지 제목
-        var pushMsg_msgTitle = json.column04;
-        // 메세지 내용
-        var pushMsg_msg = json.column05;
-        // 수신대상
-        var pushMsg_receiveType = json.column06;
-        // 지정회원 리스트
-        var selectTarget = json.column07;
-        // 메세지 구분
-        var pushMsg_msgType = json.column08;
-        // 배경 색(RGB)
-        var pushMsg_backColor = json.column09;
-        // 배경 이미지(image File Name)
-        var pushMsg_backImg = json.column10;
-        // 발송구분
-        var pushMsg_sendType = json.column11;
-        // 예약발송 일자
-        var pushMsg_sendDate = json.column12;
-        // 예약발송 시간
-        var pushMsg_sendHour = json.column13;
-        // 예약발송 분
-        var pushMsg_sendMinute = json.column14;
-        // 메세지 포함 이미지
-        var pushMsg_inputImg = json.column15;
-        // 등록/수정일
-        var pushMsg_workDate = json.column16;
+    function setData_banner(json){
+        //No.
+        var banner_no = json.column01;
+        //배너제목
+        var banner_title = json.column02;
+        //등록/수정 처리자
+        var banner_manager = json.column03;
+        //등록/수정일
+        var banner_registDate = json.column04;
+        //구분
+        var banner_loginType = json.column05;
+        //성별
+        var banner_genderType = json.column06;
+        //노출빈도
+        var banner_frequency = json.column07;
+        //게시여부
+        var banner_publishStatus = json.column08;
+        //노출기간
+        var banner_selectExposureType = json.column09;
+        //배너구분
+        var banner_bannerType = json.column10;
+        //배너이미지
+        var banner_bannerImg = json.column11;
+        //썸네일
+        var banner_thumbImg = json.column12;
+
+        // var banner_startDate = json.column13;
+        // var banner_startHour = json.column14;
+        // var banner_startMinute = json.column15;
+        // var banner_endDate = json.column16;
+        // var banner_endHour = json.column17;
+        // var banner_endMinute = json.column18;
 
         //No.
-        $("#pushMsg-no").text(pushMsg_no);
-        //발송상태
-        $('input:radio[name="pushMsg-snedStatus"][value='+ pushMsg_snedStatus +']').prop('checked', true);
-        //OS구분
-        $('input:radio[name="pushMsg-OSType"][value='+ pushMsg_OSType +']').prop('checked', true);
-        //수신대상
-        $('input:radio[name="pushMsg-receiveType"][value='+ pushMsg_receiveType +']').prop('checked', true);
-        //수신대상 지정회원일 경우
-        if(pushMsg_receiveType=="4"){
-            $("#div_selectTarget").show();
-            $("#btn_selectMember").prop("disabled",false);
-            //TODO 수신대상 그려야 함.
-
-        }else{
-            $("#btn_selectMember").prop("disabled",true);
-            $("#div_selectTarget").hide();
-            $("#div_selectTarget").empty();
-        }
-
-        //발송여부
-        $('input:radio[name="pushMsg-msgType"][value='+ pushMsg_msgType +']').prop('checked', true);
-        //발송여부 예약발송일 경우 일시 적용
-        if(pushMsg_sendType=="1"){
-            $("#pushMsg-sendDate").val(pushMsg_sendDate);
-            $("#pushMsg-sendHour").val(pushMsg_sendHour);
-            $("#pushMsg-sendMinute").val(pushMsg_sendMinute);
-
-            $("#pushMsg-div-sendDate").show();
-        }
-
-        //메세지 구분
-        $('input:radio[name="pushMsg-sendType"][value='+ pushMsg_sendType +']').prop('checked', true);
-
-        //메세지 제목
-        $("#pushMsg-msgTitle").val(pushMsg_msgTitle);  //No.
-        //메세지 내용
-        $("#pushMsg-msg").text(pushMsg_msg);  //No.
-
-        //배경 색
-        $("#pushMsg-backColor").val(pushMsg_backColor);
-        $("#pushMsg-backColor-RGB").text(pushMsg_backColor);
-        //배경 이미지
-        //??
-
-        //메세지 포함 이미지
-        //??
-
+        $("#banner-no").text(banner_no);
+        //배너제목
+        $("#banner-title").val(banner_title);
+        //등록/수정 처리자
+        $("#banner-manager").text(banner_manager);
         //등록/수정일
-        $("#pushMsg-workDate").text(pushMsg_workDate);
+        $("#banner-registDate").text(banner_registDate);
+
+        //구분
+        $('input:radio[name="banner-loginType"][value='+ banner_loginType +']').prop('checked', true);
+        //성별
+        $('input:radio[name="banner-genderType"][value='+ banner_genderType +']').prop('checked', true);
+        //노출빈도
+        $('input:radio[name="banner-frequency"][value='+ banner_frequency +']').prop('checked', true);
+        //게시여부
+        $('input:radio[name="banner-publishStatus"][value='+ banner_publishStatus +']').prop('checked', true);
+        //노출기간
+        $('input:radio[name="banner-selectExposureType"][value='+ banner_selectExposureType +']').prop('checked', true);
+
+
+
+        //배너구분
+        $('input:radio[name="banner-bannerType"][value='+ banner_bannerType +']').prop('checked', true);
+
+        //배너이미지
+        // $("#banner-bannerImg").val(banner_bannerImg);
+        //썸네일
+        // $("#banner-thumbImg").val(banner_thumbImg);
+
+        // //수신대상 지정회원일 경우
+        // if(pushMsg_receiveType=="4"){
+        //     $("#div_selectTarget").show();
+        //     $("#btn_selectMember").prop("disabled",false);
+        //     //TODO 수신대상 그려야 함.
+        //
+        // }else{
+        //     $("#btn_selectMember").prop("disabled",true);
+        //     $("#div_selectTarget").hide();
+        //     $("#div_selectTarget").empty();
+        // }
+        //
+        // //발송여부
+        // $('input:radio[name="pushMsg-msgType"][value='+ pushMsg_msgType +']').prop('checked', true);
+        // //발송여부 예약발송일 경우 일시 적용
+        // if(pushMsg_sendType=="1"){
+        //     $("#pushMsg-sendDate").val(pushMsg_sendDate);
+        //     $("#pushMsg-sendHour").val(pushMsg_sendHour);
+        //     $("#pushMsg-sendMinute").val(pushMsg_sendMinute);
+        //
+        //     $("#pushMsg-div-sendDate").show();
+        // }
+        //
+        // //메세지 구분
+        // $('input:radio[name="pushMsg-sendType"][value='+ pushMsg_sendType +']').prop('checked', true);
+        //
+        // //메세지 제목
+        // $("#pushMsg-msgTitle").val(pushMsg_msgTitle);  //No.
+        // //메세지 내용
+        // $("#pushMsg-msg").text(pushMsg_msg);  //No.
+        //
+        // //배경 색
+        // $("#pushMsg-backColor").val(pushMsg_backColor);
+        // $("#pushMsg-backColor-RGB").text(pushMsg_backColor);
+        // //배경 이미지
+        // //??
+        //
+        // //메세지 포함 이미지
+        // //??
+        //
+        // //등록/수정일
+        // $("#pushMsg-workDate").text(pushMsg_workDate);
     }
 
 
@@ -547,4 +439,161 @@
     //     console.log("fn_fail_excel");
     // }
     /*----------- 엑셀 ---------=*/
+</script>
+
+
+
+
+
+<!-- =------------------ Handlebars ---------------------------------- -->
+<script id="tmp_bannerDetailFrm" type="text/x-handlebars-template">
+    <input type="hidden" name="pushIdx" value="{{pushIdx}}" />
+    <div class="row col-lg-12">
+        <div class="row col-md-12" style="padding-bottom: 15px">
+            <div class="pull-left">
+                • 배너를 등록 /수정 관리하는 페이지 입니다.
+                <br>
+                • 모든 정보 완료 후 꼭!! 게시 여부와 게시 페이지를 지정한 후 [등록완료 ]버튼을 클릭해야 적용이 완료됩니다.
+            </div>
+            <div class="pull-right">
+                <input type="button" value="등록완료" class="btn btn-success btn-sm" id="btn_done" />
+            </div>
+        </div>
+        <table class="table table-bordered table-dalbit">
+            <colgroup>
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+            </colgroup>
+            <tbody>
+            <tr class="align-middle">
+                <th rowspan="2">No</th>
+                <td rowspan="2">{{bannerIdx}}</td>
+
+                <th rowspan="2">배너 제목</th>
+                <td colspan="6"  rowspan="2"><input type="text" class="form-control" id="banner-title" placeholder="title"></td>
+
+                <th>등록/수정자</th>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <th>등록/수정일시</th>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <th>구분</th>
+                <td colspan="2">{{{getCommonCodeRadio -1 'banner_loginType'}}}</td>
+
+                <th>성별</th>
+                <td colspan="2">{{{getCommonCodeRadio -1 'gender'}}}</td>
+
+                <th>노출 빈도</th>
+                <td colspan="5">{{{getCommonCodeRadio 10 'banner_frequency'}}}</td>
+            </tr>
+            <tr>
+                <th>배너위치</th>
+                <td colspan="6">{{{getCommonCodeRadio 1 'banner_bannerType_noAll'}}}</td>
+
+                <th>페이지 전환</th>
+                <td colspan="4">{{{getCommonCodeRadio 1 'viewType'}}}</td>
+            </tr>
+            <tr>
+                <th>게시여부</th>
+                <td colspan="2">{{{getCommonCodeRadio 1 'banner_viewOn'}}}</td>
+
+                <th>노출 기간</th>
+                <td colspan="8">
+                    <div class="row col-md-12">
+                        <label class="control-inline fancy-radio">
+                            <input type="radio" class="form-control" name="banner-selectExposureType" value="0" checked="true"><span><i></i>상시</span>
+                        </label>
+                        <label class="control-inline fancy-radio">
+                            <input type="radio" class="form-control" name="banner-selectExposureType" value="1"><span><i></i>직접선택</span>
+                        </label>
+                    </div>
+                    <div class="row col-md-12" id="banner-div-exposure" style="display: none;">
+                        <div class="col-md-5 no-padding">
+                            <div class="col-md-6 no-padding">
+                                <div class="col-md-12 input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control" id="banner-startDate" width="100px">
+                                </div>
+                            </div>
+                            <div class="col-md-6 no-padding" style="display: flex; align-items: stretch;">
+                                <select id="banner-startHour" class="select-ticket-type" style="width: 45px; height: 34px; margin-left: 3px;">
+                                </select>
+                                <select id="banner-startMinute" class="selesetData_pushMsgct-ticket-type" style="width: 45px; height: 34px; margin-left: 3px;">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 no-padding">
+                            <div class="col-md-6 no-padding">
+                                <div class="col-md-12 input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" class="form-control" id="banner-endDate" width="100px">
+                                </div>
+                            </div>
+                            <div class="col-md-6 no-padding" style="display: flex; align-items: stretch;">
+                                <select id="banner-endHour" class="select-ticket-type" style="width: 45px; height: 34px; margin-left: 3px;">
+                                </select>
+                                <select id="banner-endMinute" class="select-ticket-type" style="width: 45px; height: 34px; margin-left: 3px;">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="12">배너 이미지</th>
+            </tr>
+            <tr>
+                <th>PC (1618px x 000px)</th>
+                <td colspan="5">
+                    <input type="file" id="banner-bannerPCImg">
+                    <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
+                </td>
+
+                <th>Mobile (1618px x 000px)</th>
+                <td colspan="5">
+                    <input type="file" id="banner-bannerMobileImg">
+                    <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6">미리보기</td>
+
+                <td colspan="6">미리보기</td>
+            </tr>
+            <tr>
+                <th>PC 링크</th>
+                <td colspan="5"><input type="text" class="form-control" id="banner-bannerPCLink" placeholder="배너 클릭 시 이동할 링크"></td>
+
+                <th>Mobile 링크</th>
+                <td colspan="5"><input type="text" class="form-control" id="banner-bannerMobileLink" placeholder="배너 클릭 시 이동할 링크"></td>
+            </tr>
+            <tr>
+                <th>썸네일 (공통)</th>
+                <td colspan="4">
+                    <input type="file" id="banner-thumbImg">
+                    <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
+                </td>
+                <td colspan="1">미리보기</td>
+
+                <th>비고</th>
+                <td colspan="5">
+                    <textarea class="form-control" name="banner-note" id="banner-note" rows="5" cols="30" placeholder="설명 및 메모를 입력해주세요." style="resize: none" maxlength="200"></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </script>

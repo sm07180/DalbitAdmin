@@ -2,6 +2,7 @@ package com.dalbit.content.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.PushVo;
 import com.dalbit.util.DalbitUtil;
@@ -53,9 +54,7 @@ public class PushRestController {
             startIdx++;
         }
 
-        list.get(0).setTotalCnt(totalCnt);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
     }
 
 }

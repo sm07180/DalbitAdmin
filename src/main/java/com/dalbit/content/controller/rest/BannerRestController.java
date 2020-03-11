@@ -2,8 +2,9 @@ package com.dalbit.content.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.BannerService;
-import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.BannerVo;
 import com.dalbit.content.vo.PushVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -29,32 +30,49 @@ public class BannerRestController {
     GsonUtil gsonUtil;
 
     /**
-     * 푸시 메시지
+     * 배너관리
      */
     @PostMapping("list")
     public String list(HttpServletRequest request, PushVo pushVo) {
         int totalCnt = 100;
         int startIdx = pushVo.getPageStart();
 
-        ArrayList<PushVo> list = new ArrayList<PushVo>();
+        ArrayList<BannerVo> list = new ArrayList<BannerVo>();
         for(int i = 0; i < pushVo.getPageCnt(); i++){
-            PushVo data = new PushVo();
+            BannerVo data = new BannerVo();
             data.setRowNum((totalCnt - startIdx));
-            data.setPush_col1(DalbitUtil.randomValue("number", 1));
-            data.setPush_col2(DalbitUtil.randomValue("number", 1));
-            data.setPush_col3("메시지 제목 이란다 ㅋㅋㅋㅋㅋ _" + data.getPush_col1());
-            data.setPush_col4(new Date());
-            data.setPush_col5(DalbitUtil.randomValue("number", 1));
-            data.setPush_col6(new Date());
-            data.setPush_col7("YOOSIN");
+            data.setBanner_col1(DalbitUtil.randomValue("number", 1));
+            data.setBanner_col2(DalbitUtil.randomValue("number", 1));
+            data.setBanner_col3("메시지 제목 이란다 ㅋㅋㅋㅋㅋ _" + data.getBanner_col1());
+            data.setBanner_col4(new Date());
+            data.setBanner_col5(DalbitUtil.randomValue("number", 1));
+            data.setBanner_col6(new Date());
+            data.setBanner_col7("YOOSIN");
 
             list.add(data);
             startIdx++;
         }
 
-        list.get(0).setTotalCnt(totalCnt);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list));
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
     }
 
+
+    @PostMapping("statistics")
+    public String statisticsList(HttpServletRequest request, PushVo pushVo) {
+        int totalCnt = 100;
+        int startIdx = pushVo.getPageStart();
+
+        ArrayList<BannerVo> list = new ArrayList<BannerVo>();
+
+        BannerVo data = new BannerVo();
+        data.setRowNum((totalCnt - startIdx));
+        data.setBanner_col1(DalbitUtil.randomValue("number", 1));
+        data.setBanner_col2(DalbitUtil.randomValue("number", 1));
+        data.setBanner_col3(DalbitUtil.randomValue("number", 1));
+        data.setBanner_col5(DalbitUtil.randomValue("number", 1));
+
+        list.add(data);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
+    }
 }

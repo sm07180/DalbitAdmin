@@ -14,16 +14,17 @@
             <a href="/excel/download"><button type="button" data-loading-text="DownLoading..." class="btn btn-primary"> GET 엑셀다운 TEST</button></a>
     </div>
 
-
     <script>
         $(document).ready(function() {
             $('#loading-example-btn').click( function() {
                 var btn = $(this);
 
-                btn.button('loading');
+                // btn.button('loading');
+                changeLoadingBtn(btn, 'loading');
 
                 setTimeout( function() {
-                    btn.button('reset');
+                    // btn.button('reset');
+                    changeLoadingBtn(btn, 'reset');
                 }, 1000 );
             });
 

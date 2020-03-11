@@ -2,10 +2,10 @@
 
 <div id="wrapper">
     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-        <li><a href="#pushMsgList" role="tab" data-toggle="tab" id="tab_pushMsgList">푸시 메세지</a></li>
+        <li><a href="#pushMsgList" role="tab" data-toggle="tab" id="tab_pushMsgList">배너 상세정보</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane fade" id="pushMsgList"><jsp:include page="/WEB-INF/view/content/push/pushMsgDetail.jsp"/></div>     <!-- 상세 -->
+        <div class="tab-pane fade" id="pushMsgList"><jsp:include page="/WEB-INF/view/content/banner/bannerDetail.jsp"/></div>     <!-- 상세 -->
     </div>
 </div>
 

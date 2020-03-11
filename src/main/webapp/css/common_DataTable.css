@@ -79,3 +79,11 @@ table td.text-center {
     display: flex;
     align-items: stretch;
 }
+
+
+
+.select-time {
+    width: 45px;
+    height: 34px;
+    margin-left: 3px;
+}

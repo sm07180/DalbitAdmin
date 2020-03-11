@@ -155,7 +155,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                 'targets': 0,
                 'className': 'dt-body-center',
                 'render': function (data, type, full, meta) {
-                    return '<input type="checkbox" name="id[]" value="' + $('<div/>').text(data).html() + '">';
+                    return '<input type="checkbox">';
                 }
         }],
         columns : [
