@@ -153,15 +153,6 @@
         editorInit();
     }
 
-    // 상세조회
-    /*function getNotice_detail(index) {
-        var data = dtList_info.getDataRow(index);
-        var obj = new Object();
-        obj.noticeIdx = data.noticeIdx;
-
-        getAjaxData("detail", "/rest/content/notice/detail", obj, fn_detail_success, fn_detail_fail);
-
-    }*/
     $(document).on('click', '._getNoticeDetail', function(){
         var data = {
             'noticeIdx' : $(this).data('idx')
@@ -176,9 +167,6 @@
     });
 
     function fn_detail_success(dst_id, response) {
-        dalbitLog('fn_detail_success');
-        dalbitLog(response);
-        // form 띄우기
         var template = $('#tmp_noticeFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -297,48 +285,13 @@
         }
     }
 
-    function editorInit(){
-        var targetEditor = $('.summernote');
-
-        targetEditor.summernote({
-            height: 300,
-            focus: true,
-            // onpaste: function() {
-            //     alert('You have pasted something to the editor');
-            // },
-            callbacks: { // 콜백을 사용
-                // 이미지를 업로드할 경우 이벤트를 발생
-                onImageUpload: function(files, editor, welEditable) {
-                    console.log("[onImageUpload]")
-
-                    var formData = new FormData();
-                    formData.append("file",files[0]);
-                    //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
-                    formData.append("uploadType","bg");
-                    fileUpdate(IMAGE_SERVER_URL + "/upload",formData, function (data) {
-                        var json = jQuery.parseJSON(data);
-                        console.log(json);
-                        if(json.code != "0"){
-                            alert(json.message);
-                            return;
-                        }
-
-                        // UPLOAD IMAGE URL 적용
-                        var imgURL = json.data.url;
-                        targetEditor.summernote('editor.insertImage', imgURL);
-                    });
-                }
-            }
-        });
-    }
-
     // /*=---------- 엑셀 ----------*/
     $('#excelDownBtn').on('click', function(){
 
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel, fn_fail_excel)
+        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel)
     });
 
     $("#excelBtn").on("click", function () {
@@ -355,10 +308,6 @@
 
     function fn_success_excel(){
         console.log("fn_success_excel");
-    }
-
-    function fn_fail_excel(){
-        console.log("fn_fail_excel");
     }
     /*----------- 엑셀 ---------=*/
 </script>

@@ -84,41 +84,6 @@
 
     });
 
-    function editorInit(){
-        var targetEditor = $('.summernote');
-
-        targetEditor.summernote({
-            height: 300,
-            focus: true,
-            // onpaste: function() {
-            //     alert('You have pasted something to the editor');
-            // },
-            callbacks: { // 콜백을 사용
-                // 이미지를 업로드할 경우 이벤트를 발생
-                onImageUpload: function(files, editor, welEditable) {
-                    console.log("[onImageUpload]")
-
-                    var formData = new FormData();
-                    formData.append("file",files[0]);
-                    //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
-                    formData.append("uploadType","bg");
-                    fileUpdate(IMAGE_SERVER_URL + "/upload",formData, function (data) {
-                        var json = jQuery.parseJSON(data);
-                        console.log(json);
-                        if(json.code != "0"){
-                            alert(json.message);
-                            return;
-                        }
-
-                        // UPLOAD IMAGE URL 적용
-                        var imgURL = json.data.url;
-                        targetEditor.summernote('editor.insertImage', imgURL);
-                    });
-                }
-            }
-        });
-    }
-
     var dtList_info;
     var dtList_info_data = function ( data ) {
         data.search = $('#searchText').val();                       // 검색명
