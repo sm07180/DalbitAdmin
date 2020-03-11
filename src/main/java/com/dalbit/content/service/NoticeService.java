@@ -48,7 +48,7 @@ public class NoticeService {
         String result;
 
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, noticeList, new PagingVo(procedureVo.getRet())));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지사항조회_성공, noticeList, new PagingVo(procedureVo.getRet())));
         }else if(Status.공지사항조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.공지사항조회_데이터없음));
         }else{
