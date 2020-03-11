@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .button_right11{
-        float: right;
-        white-space:nowrap;
-    }
-</style>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -115,15 +109,6 @@
         editorInit();
     }
 
-    // 상세조회
-    // function getFaq_detail(index) {
-    //     var data = dtList_info.getDataRow(index);
-    //     var obj = new Object();
-    //     obj.faqIdx = data.faqIdx;
-    //
-    //     getAjaxData("detail", "/rest/administrate/faq/detail", obj, fn_detail_success, fn_detail_fail);
-    //
-    // }
     $(document).on('click', '._getFaqDetail', function(){
         var data = {
             'faqIdx' : $(this).data('idx')
