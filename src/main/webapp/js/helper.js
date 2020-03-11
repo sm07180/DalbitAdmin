@@ -93,12 +93,12 @@ Handlebars.registerHelper("index", function(index, no)
 
 Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn)
 {
-    return getCommonCodeSelect(value, targetCode);
+    return getCommonCodeSelect(value, targetCode, isExcludeAllYn);
 });
 
 Handlebars.registerHelper("getCommonCodeRadio", function(value, targetCode, isExcludeAllYn)
 {
-    return getCommonCodeRadio(value, targetCode);
+    return getCommonCodeRadio(value, targetCode, isExcludeAllYn);
 });
 
 Handlebars.registerHelper("replaceHtml", function(value)

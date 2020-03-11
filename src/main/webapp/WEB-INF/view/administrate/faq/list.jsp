@@ -96,15 +96,15 @@
     $("#search_slctType_aria").html(getCommonCodeSelect(-1, faq_slctType));
 
     $("#bt_insert").on("click", function(){
-        insert();
+        generateForm();
     });
 
-    function insert() {
+    function generateForm() {
         var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#faqForm").html(templateScript);
         $("#viewOn").html(getCommonCodeRadio('1', viewOn,"Y"));
-        getFaqInfo();
+        //getFaqInfo();
 
         editorInit();
     }
@@ -133,7 +133,7 @@
         $("#faqForm").html(html);
         $("#viewOn").html(getCommonCodeRadio(response.data.viewOn, viewOn,"Y"));
 
-        editorInit()
+        editorInit();
     }
 
     function isValid(){
@@ -161,26 +161,28 @@
     }
 
     $(document).on('click', '#insertBtn', function(){
-        console.log('등록하기');
         if(isValid()){
-            var data = $("#faqForm").serialize() +  '&answer=' + $("#editor").summernote('code');
-            console.log(data);
-            getAjaxData("insert", "/rest/administrate/faq/insert", data, fn_insert_success);
+            if(confirm("등록하시겠습니까?")){
+                var data = $("#faqForm").serialize() +  '&answer=' + $("#editor").summernote('code');
+                getAjaxData("insert", "/rest/administrate/faq/insert", data, fn_insert_success);
+            }
         }
     });
 
     function fn_insert_success(dst_id, response) {
         dalbitLog(response);
-        // alert(response.message);
-        insert();
+        alert(response.message);
+        dtList_info.reload();
+
+        $("#faqForm").empty();
     }
 
     $(document).on('click', '#updateBtn', function(){
-        console.log('수정하기');
         if(isValid()){
-            var data = $("#faqForm").serialize() +  '&answer=' + $("#editor").summernote('code');
-            console.log(data);
-            getAjaxData("update", "/rest/administrate/faq/update", data, fn_update_success);
+            if(confirm("수정하시겠습니까?")) {
+                var data = $("#faqForm").serialize() + '&answer=' + $("#editor").summernote('code');
+                getAjaxData("update", "/rest/administrate/faq/update", data, fn_update_success);
+            }
         }
     });
 
@@ -209,7 +211,9 @@
     function fn_update_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
-        insert();
+        dtList_info.reload();
+
+        $("#faqForm").empty();
     }
 
     function fn_delete_success(dst_id, response) {
