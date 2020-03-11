@@ -6,16 +6,22 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.vo.procedure.P_noticeListInputVo;
+import com.dalbit.content.vo.procedure.P_noticeListOutputVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -28,7 +34,8 @@ public class Adm_FaqService {
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
-
+    @Autowired
+    ExcelService excelService;
 
     /**
      * Faq 조회
@@ -46,6 +53,40 @@ public class Adm_FaqService {
         }
 
         return result;
+    }
+
+    /**
+     * Faq 엑셀
+     */
+    public Model getListExcel(P_FaqListInputVo pFaqListInputVo, Model model) {
+        ProcedureVo procedureVo = new ProcedureVo(pFaqListInputVo);
+
+        List<P_FaqListOutputVo> list = adm_FaqDao.callFaqList(procedureVo);
+
+        String[] headers = {"FAQ구분", "FAQ질문", "FAQ구분", "등록일시", "조회수", "사이트 적용", "처리자명"};
+        int[] headerWidths = {2000, 5000, 2000, 5000, 2000, 3000, 3000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("faq1", DalbitUtil.isEmpty(list.get(i).getSlctType()) ? "" : list.get(i).getSlctType());
+            hm.put("faq2", DalbitUtil.isEmpty(list.get(i).getQuestion()) ? "" : list.get(i).getQuestion());
+            hm.put("faq3", DalbitUtil.isEmpty(list.get(i).getSlctType()) ? "" : list.get(i).getSlctType());
+            hm.put("faq4", DalbitUtil.isEmpty(list.get(i).getWriteDate()) ? "" : list.get(i).getWriteDate());
+            hm.put("faq5", DalbitUtil.isEmpty(list.get(i).getViewCnt()) ? "" : list.get(i).getViewCnt());
+            hm.put("faq6", DalbitUtil.isEmpty(list.get(i).getViewOn()) ? "" : list.get(i).getViewOn());
+            hm.put("faq7", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("FAQ",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "FAQ 목록");
+
+        return model;
     }
 
     /**
