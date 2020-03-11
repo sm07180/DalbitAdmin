@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<style>
-    .button_right{
-        float: right;
-        white-space:nowrap;
-    }
-</style>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -32,7 +25,7 @@
             </form>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
-                <button type="button" class="btn btn-default button_right" id="bt_insert">등록</button>
+                <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
             </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
@@ -55,8 +48,8 @@
                         <span>
                             <button type="button" class="btn btn-default" id="bt_delete">선택삭제</button>
                         </span>
-                        <span class="button_right">
-                            <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                        <span>
+                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
                         </span>
                     </div>
                 </div>
@@ -73,41 +66,6 @@
 <script>
     $(document).ready(function() {
 
-        /* summernote */
-        var targetEditor = $('.summernote');
-
-        targetEditor.summernote({
-            lang: 'ko-KR',
-            height: 300,
-            focus: true,
-            // onpaste: function() {
-            //     alert('You have pasted something to the editor');
-            // },
-            callbacks: { // 콜백을 사용
-                // 이미지를 업로드할 경우 이벤트를 발생.
-                onImageUpload: function (files, editor, welEditable) {
-                    console.log("[onImageUpload]")
-
-                    var formData = new FormData();
-                    formData.append("file", files[0]);
-                    // TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
-                    formData.append("uploadType", "bg");
-                    fileUpdate(IMAGE_SERVER_URL + "/upload", formData, function (data) {
-                        var json = jQuery.parseJSON(data);
-                        console.log(json);
-                        if (json.code != "0") {
-                            alert(json.message);
-                            return;
-                        }
-
-                        // UPLOAD IMAGE URL 적용
-                        var imgURL = json.data.url;
-                        targetEditor.summernote('editor.insertImage', imgURL);
-                    });
-                }
-            }
-        });
-
         $('input[id="searchText"]').keydown(function(e) {
             if (e.keyCode === 13) {
                 getNoticeInfo();
@@ -117,6 +75,8 @@
         $('#bt_search').click( function() {       //검색
             getNoticeInfo();
         });
+
+        getNoticeInfo();
 
     });
 
@@ -142,10 +102,10 @@
     }
 
     $("#bt_insert").on("click", function(){
-        insert();
+        generateForm();
     });
 
-    function insert() {
+    function generateForm() {
         var template = $('#tmp_noticeFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#noticeForm").html(templateScript);
@@ -219,7 +179,7 @@
     function fn_insert_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
-        insert();
+        generateForm();
         dtList_info.reload();
     }
     function fn_insert_fail(data, textStatus, jqXHR) {
@@ -239,7 +199,7 @@
     function fn_update_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
-        insert();
+        generateForm();
         dtList_info.reload();
     }
 
@@ -251,16 +211,19 @@
             return;
         }
 
-        var noticeIdxs = '';
-        checked.each(function(){
-            noticeIdxs += $(this).parent().parent().find('._getNoticeDetail').data('idx') + ",";
-        });
-        var data = {
-            noticeIdxs : noticeIdxs
-        }
-        dalbitLog(data);
+        if(confirm(checked.length + "건의 공지사항을 삭제하시겠습니까?")){
+            var noticeIdxs = '';
+            checked.each(function(){
+                noticeIdxs += $(this).parent().parent().find('._getNoticeDetail').data('idx') + ",";
+            });
+            var data = {
+                noticeIdxs : noticeIdxs
+            }
+            dalbitLog(data);
 
-        getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success);
+            getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success);
+        }
+
     });
 
     function fn_delete_success(dst_id, response) {
@@ -268,6 +231,8 @@
 
         alert(response.message +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건');
         dtList_info.reload();
+
+        $("#noticeForm").empty();
     }
 
     // 검색
@@ -317,9 +282,9 @@
     <div class="row col-lg-12">
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
-            <span class="button_right">
-                {{^noticeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
-                {{#noticeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
+            <span>
+                {{^noticeIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
+                {{#noticeIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
             </span>
         </div>
         <table class="table table-bordered table-dalbit">
