@@ -6,13 +6,14 @@ import lombok.Getter;
 public enum Status {
 
     //공통
-    조회("C001", "read.success", "조회"),
+    조회("C001", "select.success", "조회"),
     수정("C002", "update.success", "수정"),
     생성("C003", "create.success", "생성"),
     삭제("C004", "delete.success", "삭제"),
     파라미터오류("C005", "param.error", "파라미터 오류 시"),
     비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),
     로그인필요("C007", "login.need", "로그인 세션이 없어 로그인 해야 할 때"),
+    데이터없음("C008", "no.data", "데이터가 없을 시"),
 
     //로그인
     로그인성공("0", "login.success", "로그인 성공 시"),
@@ -71,13 +72,13 @@ public enum Status {
     회원접속기록보기실패("C006", "connect.list.view.fail", "회원접속기록보기 실패 시"),
 
     //프로시저 연동 부분
-    공지사항조회_데이터없음("0", "select.success.no.data", "공지사항 조회 데이터가 없을 시"),
+    공지사항조회_데이터없음("0", "no.data", "공지사항 조회 데이터가 없을 시"),
     공지사항조회_성공("C001", "select.success", "공지사항 조회 시"),
     공지사항조회_에러("C006", "server.error", "공지사항 조회에서 에러 발생 시"),
 
     //공지 상세조회
     공지상세조회_성공("0", "select.success", "공지사항 상세조회 시"),
-    공지상세조회_공지번호없음("-1", "select.success.no.data", "공지사항 조회 데이터가 없을 시"),
+    공지상세조회_공지번호없음("-1", "no.data", "공지사항 조회 데이터가 없을 시"),
 
     //공지등록
     공지등록성공("0","insert.success", "공지등록 성공 시"),
@@ -92,21 +93,21 @@ public enum Status {
     공지삭제실패("-1", "server.error", "공지삭제 실패 시"),
 
     //FAQ
-    FAQ조회_데이터없음("0", "faq.select.success.no.data", "FAQ 조회 데이터가 없을 시"),
-    FAQ조회_성공("C001", "faq.select.success", "FAQ 조회 시"),
-    FAQ조회_에러("C006", "faq.server.error", "FAQ 조회에서 에러 발생 시"),
+    FAQ조회_데이터없음("0", "no.data", "FAQ 조회 데이터가 없을 시"),
+    FAQ조회_성공("C001", "select.success", "FAQ 조회 시"),
+    FAQ조회_에러("C006", "server.error", "FAQ 조회에서 에러 발생 시"),
 
-    FAQ상세조회_성공("0", "faq.select.success", "FAQ 상세조회 시"),
-    FAQ상세조회_FAQ번호없음("-1", "faq.select.success.no.data", "FAQ 조회 데이터가 없을 시"),
+    FAQ상세조회_성공("0", "select.success", "FAQ 상세조회 시"),
+    FAQ상세조회_FAQ번호없음("-1", "no.data", "FAQ 조회 데이터가 없을 시"),
 
-    FAQ등록성공("0","faq.insert.success", "FAQ등록 성공 시"),
-    FAQ등록실패("C006", "faq.server.error", "FAQ등록 실패 시"),
+    FAQ등록성공("0","insert.success", "FAQ등록 성공 시"),
+    FAQ등록실패("C006", "server.error", "FAQ등록 실패 시"),
 
-    FAQ수정성공("0", "faq.update.success", "FAQ수정 성공 시"),
-    FAQ수정실패("-1", "faq.server.error", "FAQ수정 실패 시"),
+    FAQ수정성공("0", "update.success", "FAQ수정 성공 시"),
+    FAQ수정실패("C006", "server.error", "FAQ수정 실패 시"),
 
-    FAQ삭제성공("0", "faq.delete.success", "FAQ삭제 성공 시"),
-    FAQ삭제실패("-1", "faq.server.error", "FAQ삭제 실패 시"),
+    FAQ삭제성공("0", "delete.success", "FAQ삭제 성공 시"),
+    FAQ삭제실패("C006", "server.error", "FAQ삭제 실패 시"),
 
     ;
 
