@@ -5,6 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class P_DeclarationInputListVo {
+public class P_DeclarationListInputVo {
     private int pageNo;
 }

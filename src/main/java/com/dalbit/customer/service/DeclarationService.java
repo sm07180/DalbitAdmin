@@ -5,8 +5,8 @@ import com.dalbit.common.code.*;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.customer.dao.DeclarationDao;
-import com.dalbit.customer.vo.procedure.P_DeclarationInputListVo;
-import com.dalbit.customer.vo.procedure.P_DeclarationOutputListVo;
+import com.dalbit.customer.vo.procedure.P_DeclarationListInputVo;
+import com.dalbit.customer.vo.procedure.P_DeclarationListOutputVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +31,10 @@ public class DeclarationService {
     /**
      * 신고 목록 조회
      */
-    public String callServiceCenterReportList(P_DeclarationInputListVo pDeclarationInputListVo) {
-        ProcedureVo procedureVo = new ProcedureVo(pDeclarationInputListVo);
+    public String callServiceCenterReportList(P_DeclarationListInputVo pDeclarationListInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pDeclarationListInputVo);
 
-        ArrayList<P_DeclarationOutputListVo> declareList = declarationDao.callServiceCenterReportList(procedureVo);
+        ArrayList<P_DeclarationListOutputVo> declareList = declarationDao.callServiceCenterReportList(procedureVo);
 
         String result;
 

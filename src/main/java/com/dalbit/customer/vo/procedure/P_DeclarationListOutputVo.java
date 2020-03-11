@@ -8,7 +8,7 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class P_DeclarationOutputListVo extends BaseVo {
+public class P_DeclarationListOutputVo extends BaseVo {
     private int reportIdx;
     private String mem_no;
     private String mem_id;
