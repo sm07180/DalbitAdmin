@@ -91,9 +91,14 @@ Handlebars.registerHelper("index", function(index, no)
     return isEmpty(index) ? no : parseInt(index) + 1;
 });
 
-Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode)
+Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn)
 {
     return getCommonCodeSelect(value, targetCode);
+});
+
+Handlebars.registerHelper("getCommonCodeRadio", function(value, targetCode, isExcludeAllYn)
+{
+    return getCommonCodeRadio(value, targetCode);
 });
 
 Handlebars.registerHelper("replaceHtml", function(value)

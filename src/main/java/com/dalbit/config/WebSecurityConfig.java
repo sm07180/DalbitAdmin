@@ -73,8 +73,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .successHandler(authSuccessHandler) //로그인 성공 시 처리
             .failureHandler(authFailureHandler) //로그인 실패 시 처리
 
-            .and()
-            .exceptionHandling().accessDeniedPage("/login")
+            /*.and()
+            .exceptionHandling().accessDeniedPage("/login")*/
 
             .and()
                 .userDetailsService(userDetailsService)

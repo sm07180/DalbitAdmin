@@ -46,13 +46,28 @@ function getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc){
         if (successFunc != null) successFunc(dst_id, data);
     }).fail(function(data, textStatus, jqXHR) {
         try {
-            if (errorFunc != null) errorFunc(data, textStatus, jqXHR);
+            if (errorFunc != null){
+                errorFunc(data, textStatus, jqXHR);
+            }else{
+                commonAjaxError(data, textStatus, jqXHR);
+            }
         } catch (e) {
             // function call fail skip
             alert(e);
             //showAlert('A', e);
         }
     });
+}
+
+function commonAjaxError(data, textStatus, jqXHR){
+    try{
+        if(0 < data.responseText.indexOf('로그인')){
+            alert('세션이 만료되어 로그인 페이지로 이동합니다.');
+            location.href = '/login';
+        }
+    }catch (e) {
+
+    }
 }
 
 /*파일 업로드 호출 모듈*/
