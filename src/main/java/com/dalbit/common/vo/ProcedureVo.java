@@ -22,7 +22,7 @@ public class ProcedureVo {
 
     public ProcedureVo(Object paramVo, boolean isHtmlEscape){
         if(isHtmlEscape){
-            setData(new GsonBuilder().disableHtmlEscaping().create().toJson(paramVo));
+            setData(new GsonBuilder().disableHtmlEscaping().create().toJson(paramVo).replace("\\\"", "'"));
         }else{
             setData(new Gson().toJson(paramVo));
         }

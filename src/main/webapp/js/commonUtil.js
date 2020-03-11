@@ -155,7 +155,7 @@ function getCommonCodeSelect(code, targetCode, isExcludeAllYn){
     if(!isEmpty(targetCode)){
 
         var header = targetCode[0];
-        var html = '<select id="' + header.value + '" name="' + header.value + '" class="form-control">';
+        var html = '<select id="' + header.value + '" name="' + header.value + '" class="form-control searchType">';
         targetCode.forEach(function(value){
             if(!isEmpty(value.type)){
 
@@ -184,7 +184,7 @@ function getCommonCodeRadio(code, targetCode, isExcludeAllYn){
                 if(isExcludeAllYn == 'Y' && value.type == 'all'){
                     return;
                 }
-                html += '<label class="control-inline fancy-radio">';
+                html += '<label class="control-inline fancy-radio custom-color-green">';
                 html += '<input type="radio" value="'+ value.value +'" id="'+radioId + value.value +'" name="'+radioId+'" class="form-control" '+ (value.value == code ? 'checked="checked"' : '')+'/>';
                 html += '<span><i></i>'+ value.code +'</span>'
                 html += '</label>';

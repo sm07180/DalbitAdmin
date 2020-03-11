@@ -96,6 +96,7 @@ function formatDate(date, stringFormat){
 function replaceHtml(text){
     if(!isEmpty(text)){
         console.log(text);
+        text = text.replace('\\', "'");
         text = replace(text, "&lt;", "<");
         text = replace(text, "&gt;", ">");
         return text;
