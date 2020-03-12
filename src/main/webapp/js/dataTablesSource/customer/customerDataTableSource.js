@@ -16,14 +16,19 @@ var customerDataTableSource = {
         ,'columns': [
             {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat'}
             ,{'title': '신고 구분', 'data' : 'reason'}
-            ,{'title': '신고자 UserID', 'data': 'mem_id'}
+            ,{'title': '신고자 UserID', 'data': 'mem_id', 'render': function (data, type, row, meta) {
+                    //return '<a href="javascript://" onclick="javascript:getDeclare_detail('+meta.row+');">' + data + '</a>'}
+                    return '<a href="javascript://" class="_getDeclarationDetail" data-mem_no="' + row.mem_no + '">' + data + '</a>'}
+            }
             ,{'title': '신고자 User닉네임', 'data': 'mem_nick'}
-            ,{'title': '신고 대상 UserID', 'data': 'reported_mem_id'}
+            ,{'title': '신고 대상 UserID', 'data': 'reported_mem_id', 'render': function (data, type, row, meta) {
+                    //return '<a href="javascript://" onclick="javascript:getDeclare_detail('+meta.row+');">' + data + '</a>'}
+                    return '<a href="javascript://" class="_getDeclarationDetail" data-mem_no="' + row.mem_no + '">' + data + '</a>'}
+            }
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_mem_nick'}
             ,{'title': '접수 일시', 'data': 'regDate'}
             ,{'title': '처리 일시', 'data': 'opDate', 'defaultContent':'2020-03-10 10:35:56'}
-            ,{'title': '처리 상태', 'data': 'status',
-                'render': function(data, type, row, meta) {return '<a href="javascript://" onclick="javascript:getDeclare_detail('+meta.row+');">' + data + '</a>'}}
+            ,{'title': '처리 상태', 'data': 'status'}
             ,{'title': '처리자', 'data': 'opName'}
         ]
         , 'comments' : '최신 신고자를 기준으로 상위 구성하고, 확인하고자 하는 회원 정보 내 선택을 클릭하면 상세정보 및 회원 신고조치를 처리할 수 있습니다.'

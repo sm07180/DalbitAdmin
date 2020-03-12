@@ -6,50 +6,50 @@
         <div class="container-fluid">
             <!-- serachBox -->
 
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i>신고검색</h3>
-                            <div>
-                                <select class="form-control searchType" name="searchType">
-                                    <option selected="selected">검색조건</option>
-                                    <option value="9999">전체</option>
-                                    <option value="1">회원 번호</option>
-                                    <option value="2">User ID</option>
-                                    <option value="3">User 닉네임</option>
-                                </select>
+            <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table searchBoxArea">
+                    <div class="widget-header searchBoxRow">
+                        <h3 class="title"><i class="fa fa-search"></i>신고검색</h3>
+                        <div>
+                            <select class="form-control searchType" name="searchType">
+                                <option selected="selected">검색조건</option>
+                                <option value="9999">전체</option>
+                                <option value="1">회원 번호</option>
+                                <option value="2">User ID</option>
+                                <option value="3">User 닉네임</option>
+                            </select>
 
-                                <select class="form-control searchType" name="slctType">
-                                    <option selected="selected">검색조건</option>
-                                    <option value="9999">전체</option>
-                                    <option value="0">미처리</option>
-                                    <option value="1">경고</option>
-                                    <option value="2">유지</option>
-                                    <option value="3">1일 정지</option>
-                                    <option value="4">3일 정지</option>
-                                    <option value="5">5일 정지</option>
-                                    <option value="6">7일 정지</option>
-                                    <option value="7">15일 정지</option>
-                                    <option value="8">30일 정지</option>
-                                    <option value="9">강제 퇴장</option>
-                                </select>
+                            <select class="form-control searchType" name="slctType">
+                                <option selected="selected">검색조건</option>
+                                <option value="9999">전체</option>
+                                <option value="0">미처리</option>
+                                <option value="1">경고</option>
+                                <option value="2">유지</option>
+                                <option value="3">1일 정지</option>
+                                <option value="4">3일 정지</option>
+                                <option value="5">5일 정지</option>
+                                <option value="6">7일 정지</option>
+                                <option value="7">15일 정지</option>
+                                <option value="8">30일 정지</option>
+                                <option value="9">강제 퇴장</option>
+                            </select>
 
-                                <select class="form-control searchType" name="sortReport">
-                                    <option selected="selected">신고구분</option>
-                                    <option value="9999">전체</option>
-                                    <option value="0">사진 및 이미지</option>
-                                    <option value="1">음란성</option>
-                                    <option value="2">광고 및 상업성</option>
-                                    <option value="3">욕설 및 비방성</option>
-                                    <option value="4">기타</option>
-                                </select>
+                            <select class="form-control searchType" name="sortReport">
+                                <option selected="selected">신고구분</option>
+                                <option value="9999">전체</option>
+                                <option value="0">사진 및 이미지</option>
+                                <option value="1">음란성</option>
+                                <option value="2">광고 및 상업성</option>
+                                <option value="3">욕설 및 비방성</option>
+                                <option value="4">기타</option>
+                            </select>
 
-                                <label><input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
+                            <label><input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
             <!-- //serachBox -->
 
@@ -79,17 +79,7 @@
                     </div>
                 </div>
             </div> <%-- #data table --%>
-
-            <div class="row col-lg-12 form-inline" id="declareDetail">
-                <div class="widget-content">
-                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                        <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
-                    </ul>
-                    <div class="tab-content no-padding">
-                        <div class="tab-pane fade in active" id="reportDetail"><jsp:include page="report.jsp"/></div>     <!-- 상세 -->
-                    </div>
-                </div>
-            </div>
+            <form id="declarationForm"></form>
         </div> <%-- #container fluid--%>
     </div> <%-- #page-wrapper --%>
 </div> <%-- #wapper --%>
@@ -97,7 +87,7 @@
 <script>
     $(document).ready(function() {
 
-       $('input[id="txt_search"]').keydown(function(e) {    // textBox 처리
+        $('input[id="txt_search"]').keydown(function(e) {    // textBox 처리
             if(e.keyCode == 13) {
                 getDeclareInfo();
             };
@@ -133,18 +123,6 @@
         dtList_info.createDataTable();
     }
 
-    function getUser_detail(index){
-        console.log("@@@@@    사용자 ID 클릭");
-    }
-    function getDeclare_detail(index){
-        console.log("@@@@@    처리상태 클릭");
-        var data = dtList_info.getDataRow(index);
-        report_roomNo = data.roomNo;
-        report_memNo = data.memNo;
-        getChattingHistoryDetail();
-    }
-
-
     function getDeclareInfo() {
         dtList_info.reload();
 
@@ -155,6 +133,18 @@
         }
     }
 
+    $(document).on('click', '._getDeclarationDetail', function() {
+        console.log("@@@@@    사용자 ID 클릭");
+        var template = $('#tmp_declarationFrm').html();
+        var templateScript = Handlebars.compile(template);
+        $("#declarationForm").html(templateScript);
+    });
+
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
+       if($(this).prop('checked')){
+           $(this).parent().parent().find('._getDeclarationDetail').click();
+       }
+    });
 
     $(function() {
         $(".av nav-tabs nav-tabs-custom-colored active").click(function() {
@@ -163,4 +153,43 @@
     });
 
 
+    // /*=---------- 엑셀 ----------*/
+    $('#excelDownBtn').on('click', function(){
+
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+
+        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel)
+    });
+
+    $("#excelBtn").on("click", function () {
+        $("#list_info").table2excel({
+            exclude: ".noExl",
+            name: "Excel Document Name",
+            filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
+            fileext: ".xls",
+            exclude_img: true,
+            exclude_links: true,
+            exclude_inputs: true
+        });
+    });
+
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+    /*----------- 엑셀 ---------=*/
+
+</script>
+
+<script id="tmp_declarationFrm" type="text/x-handlebars-template">
+    <div class="row col-lg-12 form-inline" id="declareDetail">
+        <div class="widget-content">
+            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
+            </ul>
+            <div class="tab-content no-padding">
+                <div class="tab-pane fade in active" id="reportDetail"><jsp:include page="report.jsp"/></div>     <!-- 상세 -->
+            </div>
+        </div>
+    </div>
 </script>
