@@ -76,6 +76,70 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "회원관리",
+			"item": [
+				{
+					"name": "회원목록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "searchType",
+									"value": "-1",
+									"description": "검색구분( -1(or null): all, 1:회원번호,2:User ID,3:닉네임,4:연락처)",
+									"type": "text"
+								},
+								{
+									"key": "searchText",
+									"value": "test",
+									"description": "검색어",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"list"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "컨텐츠운영",
 			"item": [
 				{
@@ -777,6 +841,95 @@
 										"administrate",
 										"faq",
 										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "고객센터",
+			"item": [
+				{
+					"name": "신고",
+					"item": [
+						{
+							"name": "신고 목록",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "slctType",
+											"value": "-1",
+											"description": "처리구분(-1(or null): all, 0:미처리,1:유지,2:경고,3:1일정지,4:3일정지,5:5일정지,6:7일정지,7:15일정지,8:30일정지,9:강제퇴장)",
+											"type": "text"
+										},
+										{
+											"key": "searchType",
+											"value": "-1",
+											"description": "검색구분( -1(or null): all, 1:회원번호,2:UserId,3:닉네임)",
+											"type": "text"
+										},
+										{
+											"key": "searchText",
+											"value": "",
+											"description": "검색어",
+											"type": "text"
+										},
+										{
+											"key": "sortPlatform",
+											"value": "0",
+											"description": "플랫폼정렬( 0: asc, 1: desc, null: X)",
+											"type": "text"
+										},
+										{
+											"key": "sortReport",
+											"value": "0",
+											"description": "신고구분정렬( 0: asc, 1: desc, null: X)",
+											"type": "text"
+										},
+										{
+											"key": "pageNo",
+											"value": "1",
+											"description": "페이지 번호",
+											"type": "text"
+										},
+										{
+											"key": "pageCnt",
+											"value": "10",
+											"description": "게시물 수",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/declaration/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"declaration",
+										"list"
 									]
 								}
 							},
