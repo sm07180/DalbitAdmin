@@ -6,6 +6,15 @@ class COMMON_CODE{
     }
 };
 
+var meminfo = [
+    new COMMON_CODE(null, 'meminfo', '사용자정보구분')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('memid', '2', 'UserID')
+    , new COMMON_CODE('memnick', '3', 'User닉네임')
+    , new COMMON_CODE('memphone', '4', '연락처')
+    , new COMMON_CODE('memname', '5', '이름')
+];
+
 var search_platform = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
     , new COMMON_CODE('all', '', '전체')
@@ -34,12 +43,6 @@ var gender = [
 var viewOn = [
     new COMMON_CODE(null, 'viewOn', '게시구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('on', '1', 'ON')
-    , new COMMON_CODE('off', '0', 'OFF')
-];
-
-var onlyOnOff = [
-    new COMMON_CODE(null, 'onlyOnOff', '게시구분')
     , new COMMON_CODE('on', '1', 'ON')
     , new COMMON_CODE('off', '0', 'OFF')
 ];
