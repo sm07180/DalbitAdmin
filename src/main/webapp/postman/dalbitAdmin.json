@@ -934,6 +934,125 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "신고 상세",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "reportIdx",
+											"value": "4",
+											"description": "신고 번호",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/declaration/detail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"declaration",
+										"detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "신고 처리",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "reportIdx",
+											"value": "5",
+											"description": "신고 번호",
+											"type": "text"
+										},
+										{
+											"key": "opCode",
+											"value": "5",
+											"description": "처리내용(0:미처리,1:유지,2:경고,3:1일정지,4:3일정지,5:5일정지,6:7일정지,7:15일정지,8:30일정지,9:강제탈퇴)",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/declaration/operate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"declaration",
+										"operate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "신고 처리내역 카운트",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/declaration/opCount",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"declaration",
+										"opCount"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
