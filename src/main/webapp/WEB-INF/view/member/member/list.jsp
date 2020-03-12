@@ -19,13 +19,7 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
-                            <select class="form-control searchType" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
-                            </select>
+                            <span id="meminfo"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -78,6 +72,8 @@
         <!-- 버튼 끝 -->
     });
 
+    $("#meminfo").html(getCommonCodeSelect(-1, meminfo));
+
     var dtList_info_data = function ( data ) {
         data.search = $('#txt_search').val();                        // 검색명
         data.gubun = $("select[name='selectGubun']").val();
@@ -86,6 +82,7 @@
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
+    getUserInfo();
 
     function init(){
     }
@@ -100,8 +97,18 @@
         if(toggleIcon.hasClass('fa-chevron-down')){
             toggleIcon.click();
         }
-        $('#tabList').addClass("hide");
+        $('#tabList').removeClass("show");
     }
+
+    function getMemNo_info(index){
+        console.log("@@@@@@@@@@@@ 1");
+        $('#tabList').addClass("show");
+        var data = dtList_info.getDataRow(index);
+        var obj = new Object();
+        obj.memNo = data.memNo;
+        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+    }
+
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){

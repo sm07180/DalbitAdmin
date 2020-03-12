@@ -229,7 +229,8 @@ function getCommonCodeLabel(code, targetCode){
     }
 }
 
-function editorInit(){
+/*에디터 type:이미지 타입*/
+function editorInit(type){
     var targetEditor = $('.summernote');
 
     targetEditor.summernote({
@@ -246,7 +247,7 @@ function editorInit(){
                 var formData = new FormData();
                 formData.append("file",files[0]);
                 //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
-                formData.append("uploadType","bg");
+                formData.append("uploadType",type);
                 fileUpdate(IMAGE_SERVER_URL + "/upload",formData, function (data) {
                     var json = jQuery.parseJSON(data);
                     console.log(json);

@@ -106,7 +106,8 @@
         $("#viewOn").html(getCommonCodeRadio('1', viewOn,"Y"));
         //getFaqInfo();
 
-        editorInit();
+        // uploadType 추가
+        editorInit("administrate-faq");
     }
 
     $(document).on('click', '._getFaqDetail', function(){
@@ -133,7 +134,8 @@
         $("#faqForm").html(html);
         $("#viewOn").html(getCommonCodeRadio(response.data.viewOn, viewOn,"Y"));
 
-        editorInit();
+        // uploadType 추가
+        editorInit("administrate-faq");
     }
 
     function isValid(){
