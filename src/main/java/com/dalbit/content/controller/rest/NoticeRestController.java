@@ -50,14 +50,6 @@ public class NoticeRestController {
      */
     @PostMapping("listExcel")
     public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_noticeListInputVo pNoticeListInputVo) throws GlobalException {
-//        P_noticeListOutputVo pNoticeListOutputVo = new P_noticeListOutputVo();
-//
-//        pNoticeListOutputVo.setNoticeIdx(Integer.parseInt(request.getParameter("noticeIdx")));
-//        pNoticeListOutputVo.setSlctType(Integer.parseInt(request.getParameter("slctType")));
-//        pNoticeListOutputVo.setTitle(request.getParameter("title"));
-//        pNoticeListOutputVo.setTopFix(Integer.parseInt(request.getParameter("topFix")));
-//        pNoticeListOutputVo.setViewOn(Integer.parseInt(request.getParameter("viewOn")));
-//        pNoticeListOutputVo.setOpName(request.getParameter("opName"));
 
         Model resultModel = noticeService.getListExcel(pNoticeListInputVo, model);
 
