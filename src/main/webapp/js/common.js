@@ -112,3 +112,15 @@ function equals(val1, val2, opt) {
 
     return (v1 != v2) ? opt.inverse(this) : opt.fn(this);
 }
+
+
+function fillzero(obj, len) {
+    var objLen = obj.toString().length;
+
+    while (objLen < len){
+        obj = "0" + obj;
+        objLen++;
+    }
+
+    return obj;
+}
