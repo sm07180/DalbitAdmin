@@ -106,7 +106,8 @@
         $("#viewOn").html(getCommonCodeRadio('1', viewOn,"Y"));
         //getFaqInfo();
 
-        editorInit();
+        // uploadType 추가
+        editorInit("administrate-faq");
     }
 
     $(document).on('click', '._getFaqDetail', function(){

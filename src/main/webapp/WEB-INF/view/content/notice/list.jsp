@@ -133,7 +133,7 @@
         var html = templateScript(context);
         $("#noticeForm").html(html);
 
-        editorInit();
+        editorInit("content-notice");
 
     }
 
