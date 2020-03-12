@@ -60,18 +60,27 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             'data': param,
             // 'dataSrc': "data"
             'dataFilter': function(data){
-                var json = jQuery.parseJSON(data);
-                dalbitLog("[dataFilter]");
-                //dalbitLog(json);
+                try{
+                    var json = jQuery.parseJSON(data);
+                    dalbitLog("[dataFilter]");
+                    //dalbitLog(json);
 
-                var totalCnt = isEmpty(json.pagingVo) ? 0 : json.pagingVo.totalCnt;
-                var data = json.data;
+                    var totalCnt = isEmpty(json.pagingVo) ? 0 : json.pagingVo.totalCnt;
+                    var data = json.data;
 
-                json.recordsTotal = totalCnt;
-                json.recordsFiltered = totalCnt;
-                json.data = data;
+                    json.recordsTotal = totalCnt;
+                    json.recordsFiltered = totalCnt;
+                    json.data = data;
 
-                return JSON.stringify( json ); // return JSON string
+                    return JSON.stringify( json ); // return JSON string
+                }catch (e) {
+                    dalbitLog(data);
+                    //todo - 세션 만료 체크 로직 필요.
+                    if(0 < data.indexOf('로그인')){
+                        alert('세션이 만료되어 로그인 페이지로 이동합니다.');
+                        location.href = '/login';
+                    }
+                }
             }
         },
         fnServerParams: function ( aoData ) {
