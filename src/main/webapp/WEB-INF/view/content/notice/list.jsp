@@ -133,8 +133,8 @@
         var html = templateScript(context);
         $("#noticeForm").html(html);
 
+        // uploadType 추가
         editorInit("content-notice");
-
     }
 
     function fn_detail_fail(data, textStatus, jqXHR){
