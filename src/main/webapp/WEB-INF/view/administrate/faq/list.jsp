@@ -134,7 +134,7 @@
         $("#faqForm").html(html);
         $("#viewOn").html(getCommonCodeRadio(response.data.viewOn, viewOn,"Y"));
 
-        // uploadType 추가zz
+        // uploadType 추가
         editorInit("administrate-faq");
     }
 
