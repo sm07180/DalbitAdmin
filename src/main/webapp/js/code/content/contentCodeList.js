@@ -86,7 +86,7 @@ var banner_loginType = [
     new COMMON_CODE(null, 'loginType', '로그인구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('login', '1', '로그인')
-    , new COMMON_CODE('logout', '2', '로그아웃')
+    , new COMMON_CODE('nonlogin', '2', '비로그인')
 ];
 
 var banner_frequency = [
@@ -107,4 +107,10 @@ var banner_viewOn = [
     new COMMON_CODE(null, 'viewOn', '게시구분')
     , new COMMON_CODE('on', '1', '적용')
     , new COMMON_CODE('off', '2', '비적용')
+];
+
+var banner_exposureType = [
+    new COMMON_CODE(null, 'exposureType', '노출 기간')
+    , new COMMON_CODE('always', '0', '상시')
+    , new COMMON_CODE('choice', '1', '직접선택')
 ];

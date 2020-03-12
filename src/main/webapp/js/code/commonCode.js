@@ -54,7 +54,9 @@ var viewType = [
 ];
 
 
-var timeHour = function() {
+var timeHour = getTimeHour();
+
+function getTimeHour() {
 
     var timeHour = [new COMMON_CODE(null, 'timeHour', '시')];
 
@@ -66,7 +68,9 @@ var timeHour = function() {
     return timeHour;
 }
 
-var timeMinute = function() {
+var timeMinute = getTimeMinute();
+
+function getTimeMinute() {
 
     var timeMinute = [new COMMON_CODE(null, 'timeMinute', '분')];
 
