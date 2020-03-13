@@ -218,7 +218,7 @@
     function getMemNo_info_popup(tmp){
         var obj = new Object();
         obj.mem_no = tmp;
-        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
     function info_sel_success(dst_id, response) {

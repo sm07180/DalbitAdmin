@@ -233,6 +233,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
             if(!common.isEmpty(response.responseJSON)){
                 dalbitLog(response.responseJSON);
+                ui.toogleSearchListFooter(response.responseJSON.recordsTotal);
             }
 
             // 완료 후 처리 함수

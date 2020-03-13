@@ -118,7 +118,7 @@
         var data = {
             'noticeIdx' : $(this).data('idx')
         };
-        getAjaxData("detail", "/rest/content/notice/detail", data, fn_detail_success);
+        util.getAjaxData("detail", "/rest/content/notice/detail", data, fn_detail_success);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
@@ -180,7 +180,7 @@
             // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
             console.log(data);
 
-            getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
+            util.getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
         }
     });
 
@@ -206,7 +206,7 @@
             // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
 
             console.log(data);
-            getAjaxData("update", "/rest/content/notice/update", data, fn_update_success);
+            util.getAjaxData("update", "/rest/content/notice/update", data, fn_update_success);
         }
     });
 
@@ -237,7 +237,7 @@
             }
             dalbitLog(data);
 
-            getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success);
+            util.getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success);
         }
 
     });
@@ -268,7 +268,7 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel)
+        util.excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel)
     });
 
     $("#excelBtn").on("click", function () {

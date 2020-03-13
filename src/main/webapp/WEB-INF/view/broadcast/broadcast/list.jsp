@@ -100,10 +100,7 @@
     function getSearch(){                 // 검색
         dtList_info.reload();
 
-        var toggleIcon = $('#_searchToggleIcon');
-        if(toggleIcon.hasClass('fa-chevron-down')){
-            toggleIcon.click();
-        }
+        ui.toggleSearchList();
     }
 
     function getBroadCast_info(index){
@@ -111,7 +108,7 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.roomNo = data.roomNo;
-        getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
+        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
 
 </script>

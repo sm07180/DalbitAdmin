@@ -181,7 +181,7 @@
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
     $(document).ready(function() {
-        getAjaxData("list", "/rest/sample/list", "", fn_success, fn_fail);
+        util.getAjaxData("list", "/rest/sample/list", "", fn_success, fn_fail);
         setDateBox();
 
         $('#cob_birthMonth').change(function () {

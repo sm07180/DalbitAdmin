@@ -89,10 +89,7 @@
         tmp_searchText = $('#txt_search').val();
 
         /*검색결과 영역이 접혀 있을 시 열기*/
-        var toggleIcon = $('#_searchToggleIcon');
-        if(toggleIcon.hasClass('fa-chevron-down')){
-            toggleIcon.click();
-        }
+        ui.toggleSearchList()
         $('#tabList').removeClass("show");
     }
 
@@ -101,7 +98,7 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.mem_no = data.mem_no;
-        getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
     /*=============엑셀==================*/

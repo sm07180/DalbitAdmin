@@ -197,6 +197,7 @@ $(document).ready(function(){
             }
 
             $(this).parents('.widget').find(affectedElement).slideUp(300);
+            $(this).parents('.widget').find('.widget-footer').hide();
             $(this).find('i.fa-chevron-up').toggleClass('fa-chevron-down');
         },
         function(e) {
@@ -208,6 +209,10 @@ $(document).ready(function(){
             }
 
             $(this).parents('.widget').find(affectedElement).slideDown(300);
+            if($(affectedElement).find('.dataTables_empty').length == 0 ){
+                $(this).parents('.widget').find('.widget-footer').show();
+            }
+
             $(this).find('i.fa-chevron-up').toggleClass('fa-chevron-down');
         }
     );
