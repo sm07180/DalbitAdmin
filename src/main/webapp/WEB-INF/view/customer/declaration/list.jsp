@@ -86,7 +86,7 @@
 </div> <%-- #wapper --%>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<%--<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>--%>
+<script type="text/javascript" src="/js/code/content/customerCodeList.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -217,8 +217,8 @@
                         <th rowspan="2">No</th>
                         <td rowspan="2">{{reportIdx}}</td>
 
-                        <th>문의유형</th>
-                        <td>{{report_reason}}</td>
+                        <th>신고사유</th>
+                        <td>{{{getCommonCodeSelect report_reason 'declaration_reason'}}}</td>
 
                         <th>Browser</th>
                         <td>{{browser}}</td>
@@ -227,13 +227,11 @@
                         <td>{{reg_date}}</td>
 
                         <th>처리상태</th>
-                        <td>{{op_code}}</td>
+                        <td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>
                     </tr>
                     <tr>
                         <th>플랫폼</th>
-                        <td><%--{{{getCommonCodeSelect platform 'platform'}}}--%>
-                            {{platform}}
-                        </td>
+                        <td>{{platform}}</td>
 
                         <th>IP Address</th>
                         <td>{{ipAddress}}</td>
@@ -250,15 +248,7 @@
 
                         <th rowspan="5">조치내역</th>
                         <td rowspan="5">
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre">유지</label>
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
-                            <button type="button" id="bt_ban2" class="btn btn-default btn-sm pull-right">완료</button>
+                            {{{getCommonCodeRadio op_code 'report_radio'}}}
                         </td>
                     </tr>
                     <tr>
