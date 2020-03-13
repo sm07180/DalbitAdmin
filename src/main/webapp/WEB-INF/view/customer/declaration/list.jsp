@@ -5,52 +5,52 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
+            <form id="searchForm">
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i>신고검색</h3>
+                            <div>
+                                <select class="form-control searchType" name="searchType">
+                                    <option selected="selected">검색조건</option>
+                                    <option value="9999">전체</option>
+                                    <option value="1">회원 번호</option>
+                                    <option value="2">User ID</option>
+                                    <option value="3">User 닉네임</option>
+                                </select>
 
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i>신고검색</h3>
-                        <div>
-                            <select class="form-control searchType" name="searchType">
-                                <option selected="selected">검색조건</option>
-                                <option value="9999">전체</option>
-                                <option value="1">회원 번호</option>
-                                <option value="2">User ID</option>
-                                <option value="3">User 닉네임</option>
-                            </select>
+                                <select class="form-control searchType" name="slctType">
+                                    <option selected="selected">검색조건</option>
+                                    <option value="9999">전체</option>
+                                    <option value="0">미처리</option>
+                                    <option value="1">경고</option>
+                                    <option value="2">유지</option>
+                                    <option value="3">1일 정지</option>
+                                    <option value="4">3일 정지</option>
+                                    <option value="5">5일 정지</option>
+                                    <option value="6">7일 정지</option>
+                                    <option value="7">15일 정지</option>
+                                    <option value="8">30일 정지</option>
+                                    <option value="9">강제 퇴장</option>
+                                </select>
 
-                            <select class="form-control searchType" name="slctType">
-                                <option selected="selected">검색조건</option>
-                                <option value="9999">전체</option>
-                                <option value="0">미처리</option>
-                                <option value="1">경고</option>
-                                <option value="2">유지</option>
-                                <option value="3">1일 정지</option>
-                                <option value="4">3일 정지</option>
-                                <option value="5">5일 정지</option>
-                                <option value="6">7일 정지</option>
-                                <option value="7">15일 정지</option>
-                                <option value="8">30일 정지</option>
-                                <option value="9">강제 퇴장</option>
-                            </select>
+                                <select class="form-control searchType" name="sortReport">
+                                    <option selected="selected">신고구분</option>
+                                    <option value="9999">전체</option>
+                                    <option value="0">사진 및 이미지</option>
+                                    <option value="1">음란성</option>
+                                    <option value="2">광고 및 상업성</option>
+                                    <option value="3">욕설 및 비방성</option>
+                                    <option value="4">기타</option>
+                                </select>
 
-                            <select class="form-control searchType" name="sortReport">
-                                <option selected="selected">신고구분</option>
-                                <option value="9999">전체</option>
-                                <option value="0">사진 및 이미지</option>
-                                <option value="1">음란성</option>
-                                <option value="2">광고 및 상업성</option>
-                                <option value="3">욕설 및 비방성</option>
-                                <option value="4">기타</option>
-                            </select>
-
-                            <label><input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                                <label><input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </form>
             <!-- //serachBox -->
 
             <!-- DATA TABLE -->

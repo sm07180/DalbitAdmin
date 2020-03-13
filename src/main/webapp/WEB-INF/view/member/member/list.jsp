@@ -64,7 +64,7 @@
         <!-- 버튼 끝 -->
     });
 
-    $("#searchType").html(getCommonCodeSelect(-1, searchType));
+    $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
 
     var dtList_info_data = function ( data ) {
         data.searchType = $("select[name='searchType']").val();          // 검색구분

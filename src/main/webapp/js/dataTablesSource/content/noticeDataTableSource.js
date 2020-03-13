@@ -4,13 +4,13 @@ var NoticeDataTableSource = {
 
         , 'columns': [
             {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat', 'render': function (data) {
-                    return getCommonCodeLabel(data, platform) ;
+                    return util.getCommonCodeLabel(data, platform) ;
                 }}
             , {'title': '공지구분', 'data': 'slctType', 'name': 'sortSlct', 'render': function (data) {
-                    return getCommonCodeLabel(data, notice_slctType) ;
+                    return util.getCommonCodeLabel(data, notice_slctType) ;
                 }}
             , {'title': '성별', 'data' : 'gender', 'name': 'sortGender', 'render': function (data) {
-                    return getCommonCodeLabel(data, gender) ;
+                    return util.getCommonCodeLabel(data, gender) ;
                 }}
             , {
                 'title': '공지 제목', 'data': 'title', 'render': function (data, type, row, meta) {

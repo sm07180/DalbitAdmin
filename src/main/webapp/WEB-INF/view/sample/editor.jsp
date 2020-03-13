@@ -62,7 +62,7 @@
                     formData.append("file",files[0]);
                     //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
                     formData.append("uploadType","bg");
-                    fileUpdate("https://devphoto2.dalbitcast.com/upload",formData, function (data) {
+                    util.fileUpdate("https://devphoto2.dalbitcast.com/upload",formData, function (data) {
                         var json = jQuery.parseJSON(data);
                         console.log(json);
                         if(json.code != "0"){

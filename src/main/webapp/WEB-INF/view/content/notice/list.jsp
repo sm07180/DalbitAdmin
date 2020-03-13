@@ -44,6 +44,8 @@
                             <tbody id="tableBody">
                             </tbody>
                         </table>
+                    </div>
+                    <div class="widget-footer">
                         <span>
                             <button type="button" class="btn btn-default" id="bt_delete">선택삭제</button>
                         </span>
@@ -94,10 +96,10 @@
         dtList_info.createDataTable();
 
         //검색조건 불러오기
-        $("#search_platform_aria").html(getCommonCodeSelect(-1, search_platform));
-        $("#search_searchType_aria").html(getCommonCodeSelect(-1, notice_searchType));
-        $("#search_slctType_aria").html(getCommonCodeSelect(-1, notice_slctType));
-        $("#search_viewOn_aria").html(getCommonCodeSelect(-1, viewOn));
+        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, search_platform));
+        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, notice_searchType));
+        $("#search_slctType_aria").html(util.getCommonCodeSelect(-1, notice_slctType));
+        $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn));
     }
 
     $("#bt_insert").on("click", function(){
@@ -109,7 +111,7 @@
         var templateScript = Handlebars.compile(template);
         $("#noticeForm").html(templateScript);
 
-        editorInit("content-notice");
+        util.editorInit("content-notice");
     }
 
     $(document).on('click', '._getNoticeDetail', function(){
@@ -133,7 +135,7 @@
         $("#noticeForm").html(html);
 
         // uploadType 추가
-        editorInit("content-notice");
+        util.editorInit("content-notice");
     }
 
     function fn_detail_fail(data, textStatus, jqXHR){
@@ -143,14 +145,14 @@
     function isValid(){
 
         var slctType = $("#noticeForm #slctType");
-        if(isEmpty(slctType.val())){
+        if(common.isEmpty(slctType.val())){
             alert("구분을 선택해주세요.");
             slctType.focus();
             return false;
         }
 
         var title = $("#noticeForm #title");
-        if(isEmpty(title.val())){
+        if(common.isEmpty(title.val())){
             alert("제목을 입력해주세요.");
             title.focus();
             return false;
@@ -189,9 +191,6 @@
         dtList_info.reload();
 
         $("#noticeForm").empty();
-    }
-    function fn_insert_fail(data, textStatus, jqXHR) {
-        console.log(data, textStatus, jqXHR);
     }
 
     $(document).on('click', '#updateBtn', function(){
@@ -260,11 +259,7 @@
 
         dtList_info.reload();
 
-        /*검색결과 영역이 접혀 있을 시 열기*/
-        var toggleIcon = $('#_searchToggleIcon');
-        if(toggleIcon.hasClass('fa-chevron-down')){
-            toggleIcon.click();
-        }
+        ui.toggleSearchList();
     }
 
     // /*=---------- 엑셀 ----------*/

@@ -91,8 +91,8 @@
     dtList_info.createDataTable();
 
     //검색조건 불러오기
-    $("#search_searchType_aria").html(getCommonCodeSelect(-1, faq_searchType));
-    $("#search_slctType_aria").html(getCommonCodeSelect(-1, faq_slctType));
+    $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, faq_searchType));
+    $("#search_slctType_aria").html(util.getCommonCodeSelect(-1, faq_slctType));
 
     $("#bt_insert").on("click", function(){
         generateForm();
@@ -102,18 +102,18 @@
         var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#faqForm").html(templateScript);
-        $("#viewOn").html(getCommonCodeRadio('1', viewOn,"Y"));
+        $("#viewOn").html(util.getCommonCodeRadio('1', viewOn,"Y"));
         //getFaqInfo();
 
         // uploadType 추가
-        editorInit("administrate-faq");
+        util.editorInit("administrate-faq");
     }
 
     $(document).on('click', '._getFaqDetail', function(){
         var data = {
             'faqIdx' : $(this).data('idx')
         };
-        getAjaxData("detail", "/rest/administrate/faq/detail", data, fn_detail_success);
+        util.getAjaxData("detail", "/rest/administrate/faq/detail", data, fn_detail_success);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
@@ -131,22 +131,22 @@
         var context = response.data;
         var html = templateScript(context);
         $("#faqForm").html(html);
-        $("#viewOn").html(getCommonCodeRadio(response.data.viewOn, viewOn,"Y"));
+        $("#viewOn").html(util.getCommonCodeRadio(response.data.viewOn, viewOn,"Y"));
 
         // uploadType 추가
-        editorInit("administrate-faq");
+        util.editorInit("administrate-faq");
     }
 
     function isValid(){
         var slctType = $("#faqForm #slctType");
-        if(isEmpty(slctType.val())){
+        if(common.isEmpty(slctType.val())){
             alert("구분을 선택해주세요.");
             slctType.focus();
             return false;
         }
 
         var question = $("#faqForm #question");
-        if(isEmpty(question.val())){
+        if(common.isEmpty(question.val())){
             alert("질문을 입력해주세요.");
             question.focus();
             return false;
@@ -165,7 +165,7 @@
         if(isValid()){
             if(confirm("등록하시겠습니까?")){
                 var data = $("#faqForm").serialize() +  '&answer=' + $("#editor").summernote('code');
-                getAjaxData("insert", "/rest/administrate/faq/insert", data, fn_insert_success);
+                util.getAjaxData("insert", "/rest/administrate/faq/insert", data, fn_insert_success);
             }
         }
     });
@@ -182,7 +182,7 @@
         if(isValid()){
             if(confirm("수정하시겠습니까?")) {
                 var data = $("#faqForm").serialize() + '&answer=' + $("#editor").summernote('code');
-                getAjaxData("update", "/rest/administrate/faq/update", data, fn_update_success);
+                util.getAjaxData("update", "/rest/administrate/faq/update", data, fn_update_success);
             }
         }
     });
@@ -204,7 +204,7 @@
             }
             dalbitLog(data);
 
-            getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
+            util.getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
         }
 
     });
@@ -236,10 +236,7 @@
         dtList_info.reload();
 
         /*검색결과 영역이 접혀 있을 시 열기*/
-        var toggleIcon = $('#_searchToggleIcon');
-        if(toggleIcon.hasClass('fa-chevron-down')){
-            toggleIcon.click();
-        }
+        ui.toggleSearchList();
     }
 
     // /*=---------- 엑셀 ----------*/
@@ -247,7 +244,7 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        excelDownload($(this), "/rest/administrate/faq/listExcel", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/rest/administrate/faq/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 
     $("#excelBtn").on("click", function () {

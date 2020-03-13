@@ -4,7 +4,7 @@
  * 숫자 콤마 추가
  */
 Handlebars.registerHelper("addComma", function (value) {
-    return addComma(value);
+    return common.addComma(value);
 })
 
 
@@ -13,7 +13,7 @@ Handlebars.registerHelper("addComma", function (value) {
  * 숫자 콤마 제거
  */
 Handlebars.registerHelper("removeComma", function (value) {
-    return removeComma(value);
+    return common.removeComma(value);
 })
 
 
@@ -26,11 +26,11 @@ Handlebars.registerHelper("removeComma", function (value) {
  *
  */
 Handlebars.registerHelper("convertToDate", function (date, format) {
-    if(isEmpty(date)){
+    if(common.isEmpty(date)){
         //ToDo 날짜 Default 설정 필요
         return "-";
     }
-    if(isEmpty(format)){
+    if(common.isEmpty(format)){
         format = "YYYY.MM.DD";
     }
     return moment(date).format(format);
@@ -88,20 +88,20 @@ Handlebars.registerHelper("dalbit_if", function(v1, operator, v2, options){
  */
 Handlebars.registerHelper("index", function(index, no)
 {
-    return isEmpty(index) ? no : parseInt(index) + 1;
+    return common.isEmpty(index) ? no : parseInt(index) + 1;
 });
 
 Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn)
 {
-    return getCommonCodeSelect(value, targetCode, isExcludeAllYn);
+    return util.getCommonCodeSelect(value, targetCode, isExcludeAllYn);
 });
 
 Handlebars.registerHelper("getCommonCodeRadio", function(value, targetCode, isExcludeAllYn)
 {
-    return getCommonCodeRadio(value, targetCode, isExcludeAllYn);
+    return util.getCommonCodeRadio(value, targetCode, isExcludeAllYn);
 });
 
 Handlebars.registerHelper("replaceHtml", function(value)
 {
-    return replaceHtml(value);
+    return common.replaceHtml(value);
 });

@@ -1,8 +1,12 @@
-//스크롤 할 때마다 left menu 크기를 변경시킨다.
-/*
-window.addEventListener("scroll", function(){
-    $("#left-sidebar").height(document.body.scrollHeight);
-});
- */
+/*검색결과 영역이 접혀 있을 시 열기*/
+var ui = {
+    toggleSearchList : function(){
+        var toggleIcon = $('#_searchToggleIcon');
+        if (toggleIcon.hasClass('fa-chevron-down')) {
+            toggleIcon.click();
+        }
+    }
+}
+
 
 

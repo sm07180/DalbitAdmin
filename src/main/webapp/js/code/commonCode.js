@@ -80,7 +80,7 @@ function getTimeHour() {
     var timeHour = [new COMMON_CODE(null, 'timeHour', '시')];
 
     for (var i = 0; i < 24; i++) {
-        var value = fillzero(i, 2);
+        var value = common.fillzero(i, 2);
         timeHour.push(new COMMON_CODE(value, value, value));
     }
 
@@ -94,7 +94,7 @@ function getTimeMinute() {
     var timeMinute = [new COMMON_CODE(null, 'timeMinute', '분')];
 
     for(var i=0; i<60; i++){
-        var value = fillzero(i, 2);
+        var value = common.fillzero(i, 2);
         timeMinute.push(new COMMON_CODE(value, value, value));
     }
 

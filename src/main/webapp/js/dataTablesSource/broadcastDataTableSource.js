@@ -6,7 +6,7 @@ var BroadcastDataTableSource = {
             {'title': 'state', 'data': 'state', 'visible' : false},
             {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return roomNoLink(data, row.roomNo, row.state);
+                    return util.roomNoLink(data, row.roomNo, row.state);
                 }},
             {'title': '프로필이미지', 'data': 'imageProfile', 'defaultContent': '', 'render' : function(data, type, row, meta){
                     return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
@@ -34,7 +34,7 @@ var BroadcastDataTableSource = {
                     }
                 }},
             {'title': 'User ID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return memNoLink(data, row.memNo);
+                    return util.memNoLink(data, row.memNo);
                 }},
             {'title': 'User 닉네임', 'data': 'memNick', 'defaultContent': ''},
             {'title': '청취자', 'data': '', 'defaultContent': ''},
@@ -53,7 +53,7 @@ var BroadcastDataTableSource = {
             {'title': 'roomNo', 'data': 'roomNo', 'visible': false},
             {'title': '회원번호', 'data': 'memNo', 'defaultContent': ''},
             {'title': 'DJ ID', 'data': 'memId','render': function (data, type, row, meta) {
-                    return memNoLink(data, row.memNo);
+                    return util.memNoLink(data, row.memNo);
                 }},
             {'title': 'DJ 닉네임', 'data': 'memNick', 'defaultContent': ''},
             {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
@@ -76,7 +76,7 @@ var BroadcastDataTableSource = {
             {'title': '구분', 'data': '', 'defaultContent': ''},
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
             {'title': 'User ID', 'data': '', 'render': function (data, type, row, meta) {
-                    return memNoLink(data, row.memNo);
+                    return util.memNoLink(data, row.memNo);
                 }},
             {'title': 'User 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '청취 시작 일시', 'data': '', 'defaultContent': ''},
@@ -96,7 +96,7 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
             {'title': '보낸 User Id', 'data': '', 'render': function (data, type, row, meta) {
-                    return memNoLink(data, row.memNo);
+                    return util.memNoLink(data, row.memNo);
                 }},
             {'title': '보낸 User 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
@@ -112,7 +112,7 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
             {'title': '보낸 User ID', 'data': '', 'render': function (data, type, row, meta) {
-                    return memNoLink(data, row.memNo);
+                    return util.memNoLink(data, row.memNo);
                 }},
             {'title': '보낸 User 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
@@ -128,7 +128,7 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '회원번호', 'data': '', 'defaultContent': ''},
             {'title': '사연 보낸 청취자 ID', 'render': function (data, type, row, meta) {
-                    return memNoLink(data, row.memNo);
+                    return util.memNoLink(data, row.memNo);
                 }},
             {'title': '사연 보낸 청취자 닉네임', 'data': '', 'defaultContent': ''},
             {'title': '보낸 일시', 'data': '', 'defaultContent': ''},

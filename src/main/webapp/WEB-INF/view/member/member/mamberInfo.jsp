@@ -211,9 +211,9 @@
         // 버튼 끝
     });
 
-    $("#level").html(getCommonCodeSelect(-1, level));
-    $("#grade").html(getCommonCodeSelect(-1, grade));
-    $("#gender").html(getCommonCodeRadio(2, gender, "Y"));
+    $("#level").html(util.getCommonCodeSelect(-1, level));
+    $("#grade").html(util.getCommonCodeSelect(-1, grade));
+    $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
 
     function getMemNo_info_popup(tmp){
         var obj = new Object();

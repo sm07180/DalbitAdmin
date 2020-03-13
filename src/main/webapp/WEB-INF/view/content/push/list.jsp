@@ -70,9 +70,9 @@
 
     function init() {
         //검색조건 불러오기
-        $("#search_platform_aria").html(getCommonCodeSelect(-1, platform));
-        $("#search_gender_aria").html(getCommonCodeSelect(-1, gender));
-        $("#search_searchType_aria").html(getCommonCodeSelect(-1, push_searchType));
+        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, platform));
+        $("#search_gender_aria").html(util.getCommonCodeSelect(-1, gender));
+        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, push_searchType));
     }
 
 

@@ -189,11 +189,11 @@
         // 버튼 끝
     })
 
-    $("#subject_type").html(getCommonCodeSelect(1, subject_type, "Y"));
-    $("#gender").html(getCommonCodeRadio(2, gender, "Y"));
-    $("#entry").html(getCommonCodeRadio(-1, entry));
-    $("#freezing").html(getCommonCodeRadio(1, freezing));
-    $("#forcedExit").html(getCommonCodeRadio(1, forcedExit));
+    $("#subject_type").html(util.getCommonCodeSelect(1, subject_type, "Y"));
+    $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
+    $("#entry").html(util.getCommonCodeRadio(-1, entry));
+    $("#freezing").html(util.getCommonCodeRadio(1, freezing));
+    $("#forcedExit").html(util.getCommonCodeRadio(1, forcedExit));
 
     function getBroadCast_info_popup(tmp,state){
         if(state == "4" || state == "5"){
@@ -207,7 +207,7 @@
         }
         var obj = new Object();
         obj.roomNo = tmp;
-        getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
+        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
 
     function info_sel_success(dst_id, response) {

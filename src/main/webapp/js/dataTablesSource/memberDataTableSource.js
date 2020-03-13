@@ -28,7 +28,7 @@ var MemberDataTableSource = {
             {'title': 'status', 'data': 'status'},
             {'title': '방송주제', 'data': 'subjectType', 'width':'100px'},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
-                    return roomNoLink(data, row.roomNo, row.state);
+                    return util.roomNoLink(data, row.roomNo, row.state);
                 }},
             {'title': '방송시작시간', 'data': 'startDate', 'width':'120px'},
             {'title': '방송종료시간', 'data': 'endDate', 'width':'120px'},

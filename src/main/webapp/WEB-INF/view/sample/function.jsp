@@ -47,25 +47,25 @@
             <div class="widget-content">
                 <div>
                     <h4>select 사용하기</h4>
-                    common.js => getCommonCodeSelect 함수 사용<br />
-                    getCommonCodeSelect(디폴트 값, 공통코드)<br />
-                    ex) getCommonCodeSelect('', platform)<br /><br />
+                    common.js => util.getCommonCodeSelect 함수 사용<br />
+                    util.getCommonCodeSelect(디폴트 값, 공통코드)<br />
+                    ex) util.getCommonCodeSelect('', platform)<br /><br />
                 </div>
                 <div id="selectArea"></div>
 
 
                 <div>
                     <h4>select 사용하기</h4>
-                    common.js => getCommonCodeSelect 함수 사용<br />
-                    getCommonCodeSelect(디폴트 값, 공통코드, <b>전체 안나오게</b>)<br />
-                    ex) getCommonCodeSelect('', platform, <b>'Y'</b>)<br /><br />
+                    common.js => util.getCommonCodeSelect 함수 사용<br />
+                    util.getCommonCodeSelect(디폴트 값, 공통코드, <b>전체 안나오게</b>)<br />
+                    ex) util.getCommonCodeSelect('', platform, <b>'Y'</b>)<br /><br />
                 </div>
                 <div id="selectArea2"></div>
 
 
                 <script type="text/javascript">
-                    $("#selectArea").html(getCommonCodeSelect('', platform));
-                    $("#selectArea2").html(getCommonCodeSelect('', platform, 'Y'));
+                    $("#selectArea").html(util.getCommonCodeSelect('', platform));
+                    $("#selectArea2").html(util.getCommonCodeSelect('', platform, 'Y'));
                 </script>
             </div>
 
@@ -98,17 +98,17 @@
             <div class="widget-content">
                 <div>
                     <h4>label 사용하기</h4>
-                    common.js => getCommonCodeLabel 함수 사용<br />
-                    getCommonCodeLabel(보낼 코드 값, 공통코드)<br />
-                    ex) getCommonCodeLabel('1', platform), getCommonCodeLabel('2', platform), getCommonCodeLabel('3', platform)<br /><br />
+                    common.js => util.getCommonCodeLabel 함수 사용<br />
+                    util.getCommonCodeLabel(보낼 코드 값, 공통코드)<br />
+                    ex) util.getCommonCodeLabel('1', platform), util.getCommonCodeLabel('2', platform), util.getCommonCodeLabel('3', platform)<br /><br />
                 </div>
                 <div id="labelArea1"></div>
                 <div id="labelArea2"></div>
                 <div id="labelArea3"></div>
                 <script type="text/javascript">
-                    $("#labelArea1").html(getCommonCodeLabel('1', platform));
-                    $("#labelArea2").html(getCommonCodeLabel('2', platform));
-                    $("#labelArea3").html(getCommonCodeLabel('3', platform));
+                    $("#labelArea1").html(util.getCommonCodeLabel('1', platform));
+                    $("#labelArea2").html(util.getCommonCodeLabel('2', platform));
+                    $("#labelArea3").html(util.getCommonCodeLabel('3', platform));
                 </script>
             </div>
         </div>

@@ -3,7 +3,7 @@ var FaqDataTableSource = {
         'url': '/rest/administrate/faq/list'
         , 'columns': [
             {'title': 'FAQ구분', 'data': 'slctType', 'name': 'sortSlct', 'render': function (data) {
-                    return getCommonCodeLabel(data, faq_slctType) ;
+                    return util.getCommonCodeLabel(data, faq_slctType) ;
                 }}
             , {
                 'title': 'FAQ 질문', 'data': 'question', 'render': function (data, type, row, meta) {

@@ -65,7 +65,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                     dalbitLog("[dataFilter]");
                     //dalbitLog(json);
 
-                    var totalCnt = isEmpty(json.pagingVo) ? 0 : json.pagingVo.totalCnt;
+                    var totalCnt = common.isEmpty(json.pagingVo) ? 0 : json.pagingVo.totalCnt;
                     var data = json.data;
 
                     json.recordsTotal = totalCnt;
@@ -94,11 +94,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                 aoData.orderColumnIdx = aoData.order[0]["column"];
                 aoData.orderDir = aoData.order[0]["dir"];
                 aoData.tableColumnName = aoData.columns[aoData.orderColumnIdx]["data"];
-                aoData[aoData.columns[aoData.orderColumnIdx]["name"]] = convertSort(aoData.order[0]["dir"]);
+                aoData[aoData.columns[aoData.orderColumnIdx]["name"]] = common.convertSort(aoData.order[0]["dir"]);
             }
 
             //검색조건 data에 추가.
-            if(!isEmpty(_searchForm)){
+            if(!common.isEmpty(_searchForm)){
                 var formArray = _searchForm.serializeArray();
                 for (var i = 0; i < formArray.length; i++){
                     aoData[formArray[i]['name']] = formArray[i]['value'];
@@ -113,7 +113,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
             // 최초 Order 저장
             $(oSettings.aoColumns).each(function () {
-                if(isEmpty(this.initSortable)){
+                if(common.isEmpty(this.initSortable)){
                     this.initSortable = this.bSortable;
                 }
             });
@@ -123,7 +123,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             $('.dataTables_paginate > .pagination').addClass('borderless');
 
             // 조회 데이터 없을 경우
-            if(isEmpty(oSettings.fnRecordsTotal()) || oSettings.fnRecordsTotal() <= 0){
+            if(common.isEmpty(oSettings.fnRecordsTotal()) || oSettings.fnRecordsTotal() <= 0){
                 // Header Ordering 이미지 제거
                 $(oSettings.aoHeader[0]).each(function(){
                     var header = $(this.cell);
@@ -151,7 +151,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         fnInitComplete: function(oSettings){
             dalbitLog("[fnInitComplete]");
             // Comments 설정
-            var comments = isEmpty(columnsInfo.comments) ? "" : columnsInfo.comments;
+            var comments = common.isEmpty(columnsInfo.comments) ? "" : columnsInfo.comments;
             dom.parent("div").find(".comments").html(comments);
         },
         columnDefs: [
@@ -170,7 +170,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         columns : [
             {"title": "<input type=\"checkbox\" name=\"select_all\" value=\"1\" id=\""+ this.dom.prop("id") +"-select-all\" />" ,"data": null, "width": "20px"},
             {"title": "No.", "data": "rowNum", "width": "20px", "defaultContent": "-", 'render' : function(data, type, row, meta, a, b){
-                    var totalCnt = isEmpty(meta.settings.json.pagingVo.totalCnt) ? 0 : meta.settings.json.pagingVo.totalCnt;
+                    var totalCnt = common.isEmpty(meta.settings.json.pagingVo.totalCnt) ? 0 : meta.settings.json.pagingVo.totalCnt;
                     return totalCnt - data + 1;
                 }
             },
@@ -181,11 +181,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     var columnDefs = columnsInfo.columnDefs;
     var columns = columnsInfo.columns;
 
-    if(!isEmpty(columnDefs)){
+    if(!common.isEmpty(columnDefs)){
         this.dataTableSource.columnDefs = this.dataTableSource.columnDefs.concat(columnDefs);
     }
 
-    if(!isEmpty(columns)){
+    if(!common.isEmpty(columns)){
         this.dataTableSource.columns = this.dataTableSource.columns.concat(columns);
     }
 }
@@ -231,12 +231,12 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         this.dataTableSource.ajax.complete = function (response) {
             dalbitLog("[complete]");
 
-            if(!isEmpty(response.responseJSON)){
+            if(!common.isEmpty(response.responseJSON)){
                 dalbitLog(response.responseJSON);
             }
 
             // 완료 후 처리 함수
-            if(!isEmpty(initFn)){
+            if(!common.isEmpty(initFn)){
                 initFn();
             }
         };
@@ -266,12 +266,12 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             var data = g_DataTable.row($(this).parent("tr")).data();
 
 
-            if(!isEmpty(arrayClickEvent[idxColumn])){
+            if(!common.isEmpty(arrayClickEvent[idxColumn])){
                 arrayClickEvent[idxColumn](data, idxViewRow, idxColumn, idxRealRow);
                 return;
             }
 
-            if(!isEmpty(arrayClickEvent["-1"])){
+            if(!common.isEmpty(arrayClickEvent["-1"])){
                 arrayClickEvent["-1"](data, idxViewRow, idxColumn, idxRealRow);
                 return;
             }
@@ -314,11 +314,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     DalbitDataTable.prototype.changeReload = function (url, data, columnsInfo, initFn){
         this.initDataTable();
 
-        if(!isEmpty(url)) {
+        if(!common.isEmpty(url)) {
             this.dataTableSource.ajax.url = url;
         }
 
-        if(!isEmpty(data)) {
+        if(!common.isEmpty(data)) {
             this.dataTableSource.ajax.data = data;
         }
 
@@ -327,29 +327,29 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         var columns = columnsInfo.columns;
         this.columnsInfo = columnsInfo;
 
-        if(!isEmpty(infoUrl)){
+        if(!common.isEmpty(infoUrl)){
             this.dataTableSource.ajax.url = infoUrl;
         }
 
-        if(!isEmpty(columnDefs)) {
-            if(!isEmpty(this.dataTableSource.columnDefs)){
+        if(!common.isEmpty(columnDefs)) {
+            if(!common.isEmpty(this.dataTableSource.columnDefs)){
                 this.dataTableSource.columnDefs = this.dataTableSource.columnDefs.slice(0,2);
                 this.dataTableSource.columnDefs = this.dataTableSource.columnDefs.concat(columnDefs);
             }
 
-            if(!isEmpty(this.dataTableSource.aoColumnDefs)){
+            if(!common.isEmpty(this.dataTableSource.aoColumnDefs)){
                 this.dataTableSource.aoColumnDefs = this.dataTableSource.aoColumnDefs.slice(0,2);
                 this.dataTableSource.aoColumnDefs = this.dataTableSource.aoColumnDefs.concat(columnDefs);
             }
         }
 
-        if(!isEmpty(columns)) {
+        if(!common.isEmpty(columns)) {
             if(!isEmpty(this.dataTableSource.columns)){
                 this.dataTableSource.columns = this.dataTableSource.columns.slice(0,2);
                 this.dataTableSource.columns = this.dataTableSource.columns.concat(columns);
             }
 
-            if(!isEmpty(this.dataTableSource.aoColumns)){
+            if(!common.isEmpty(this.dataTableSource.aoColumns)){
                 this.dataTableSource.aoColumns = this.dataTableSource.aoColumns.slice(0,2);
                 this.dataTableSource.aoColumns = this.dataTableSource.aoColumns.concat(columns);
             }
@@ -383,7 +383,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
     // 정렬사용여부
     DalbitDataTable.prototype.useOrdering = function(isUse){
-        if(isEmpty(isUse)){return false;}
+        if(common.isEmpty(isUse)){return false;}
         this.dataTableSource.ordering = isUse;
     }
 
@@ -461,14 +461,14 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
     /* set Row Click Event 함수 지정, 이벤트 column 지정 */
     DalbitDataTable.prototype.setEventClick = function (eventFnc, column) {
-        if(isEmpty(eventFnc)){
+        if(common.isEmpty(eventFnc)){
             dalbitLog("[DalbitDataTable.prototype.setEventClick] eventFnc is Null!!");
             return;
         }
 
         var inputEvent = this.arrayClickEvent;
 
-        if(!isEmpty(column)){
+        if(!common.isEmpty(column)){
             var arrayColumn = column.toString().split(",");
 
             for(var idx=0; idx < arrayColumn.length; idx++){
@@ -483,6 +483,6 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
     DalbitDataTable.prototype.setOrder = function (columnIdx, orderDir) {
         dalbitLog("[Order] columnidx:" + columnIdx + " / orderDir :" + orderDir)
-        if(isEmpty(orderDir)){orderDir = "desc"}
+        if(common.isEmpty(orderDir)){orderDir = "desc"}
         this.dataTableSource.order = [[ columnIdx, orderDir ]] ;
     }

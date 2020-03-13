@@ -90,9 +90,9 @@
     var endDate;
     function init() {
         //검색조건 불러오기
-        $("#search_platform_aria").html(getCommonCodeSelect(-1, platform));
-        $("#search_bannerType_aria").html(getCommonCodeSelect(-1, banner_bannerType));
-        $("#search_searchType_aria").html(getCommonCodeSelect(-1, banner_searchType));
+        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, platform));
+        $("#search_bannerType_aria").html(util.getCommonCodeSelect(-1, banner_bannerType));
+        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, banner_searchType));
 
         // init DatePicker
         $('#banner-reportrange').daterangepicker({
