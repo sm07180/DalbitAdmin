@@ -47,7 +47,7 @@
     });
 
     function ajaxLogin(){
-        getAjaxData("login", "/login/authenticate", $("#form").serialize(), loginSuccess, loginFail);
+        util.getAjaxData("login", "/login/authenticate", $("#form").serialize(), loginSuccess, loginFail);
     }
 
     function loginSuccess(dst_id, data){

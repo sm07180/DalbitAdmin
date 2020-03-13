@@ -11,45 +11,16 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i>신고검색</h3>
                             <div>
-                                <select class="form-control searchType" name="searchType">
-                                    <option selected="selected">검색조건</option>
-                                    <option value="9999">전체</option>
-                                    <option value="1">회원 번호</option>
-                                    <option value="2">User ID</option>
-                                    <option value="3">User 닉네임</option>
-                                </select>
-
-                                <select class="form-control searchType" name="slctType">
-                                    <option selected="selected">검색조건</option>
-                                    <option value="9999">전체</option>
-                                    <option value="0">미처리</option>
-                                    <option value="1">경고</option>
-                                    <option value="2">유지</option>
-                                    <option value="3">1일 정지</option>
-                                    <option value="4">3일 정지</option>
-                                    <option value="5">5일 정지</option>
-                                    <option value="6">7일 정지</option>
-                                    <option value="7">15일 정지</option>
-                                    <option value="8">30일 정지</option>
-                                    <option value="9">강제 퇴장</option>
-                                </select>
-
-                                <select class="form-control searchType" name="sortReport">
-                                    <option selected="selected">신고구분</option>
-                                    <option value="9999">전체</option>
-                                    <option value="0">사진 및 이미지</option>
-                                    <option value="1">음란성</option>
-                                    <option value="2">광고 및 상업성</option>
-                                    <option value="3">욕설 및 비방성</option>
-                                    <option value="4">기타</option>
-                                </select>
-
+                                <span id="search_search_type_aria"></span>
+                                <span id="search_slct_type_aria"></span>
+                                <span id="search_reason_aria"></span>
                                 <label><input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <input type="text" id="dummy" style="display:none;">
             </form>
             <!-- //serachBox -->
 
@@ -86,7 +57,7 @@
 </div> <%-- #wapper --%>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/content/customerCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -104,25 +75,28 @@
 
     });
 
+    $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
+
     init();
     /** Data Table **/
     var dtList_info;
     function init() {
         var dtList_info_data = function ( data ) {
-            /* parameter */
-            data.search = $('#txt_search').val()
-            /*data.searchType=$("select[name='searchType']").val()
-            data.slctType=$("select[name='slctType']").val()
-            data.sortReport=$("select[name='sortReport']").val()*/
+            data.search = $('#txt_search').val();
+            data.searchType = $("#search_search_type_aria option:selected").val();
+            data.slctType = $("#search_slct_type_aria option:selected").val();
+            data.reason = $("#search_reason_aria option:selected").val();
         };
 
-        $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
-
-        // console.log(customerDataTableSource);
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList, $("#searchForm"));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
+
+        // 검색조건 불러오기
+        $("#search_search_type_aria").html(util.getCommonCodeSelect(-1, declaration_searchType));
+        $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_opCode));
+        $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
     }
 
     function getDeclareInfo() {
@@ -139,7 +113,7 @@
         var data = {
             'reportIdx' : $(this).data('idx')
         };
-        getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
+        util.getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
@@ -170,7 +144,7 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        excelDownload($(this), "/rest/customer/declaration/listExcel", formData, fn_success_excel)
+        util.excelDownload($(this), "/rest/customer/declaration/listExcel", formData, fn_success_excel)
     });
 
     $("#excelBtn").on("click", function () {
