@@ -20,7 +20,6 @@
                         </div>
                     </div>
                 </div>
-                <input type="text" id="dummy" style="display:none;">
             </form>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
