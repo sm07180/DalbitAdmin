@@ -34,6 +34,9 @@
         // initEvent_Detail();
     });
 
+
+//=------------------------------ Init / Event--------------------------------------------
+
     // 초기 설정
     function init_Detail() {
         // 캘린더
@@ -116,15 +119,12 @@
 
 
 
-    //=------------------ Option --------------------------------------------
 
 
+//=------------------------------ Option --------------------------------------------
 
-
-
-    //=------------------ 상세 Data Handler ----------------------------------
-    // 데이터 초기화
-    function initData_pushMsg() {
+    // 등록 화면
+    function insertPushMsg() {
         var template = $('#tmp_pushDetailFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#pushForm").html(templateScript);
@@ -135,9 +135,8 @@
         initEvent_Detail();
     }
 
-    // 데이터 셋팅 (Json)
-    function setData_pushMsg(json){
-        dalbitLog('수정화면 호출');
+    // 수정 화면
+    function updatePushMsg(json){
         dalbitLog(json);
         // form 띄우기
         var template = $('#tmp_pushDetailFrm').html();
@@ -153,44 +152,49 @@
     }
 
 
+
+
+
+//=------------------------------ Data Handler ----------------------------------
+
     // 데이터 가져오기
     function getPushMsgData(){
+        var resultJson ={};
+
+        var formArray = $("#pushForm").serializeArray();
+        for (var i = 0; i < formArray.length; i++){
+            resultJson[formArray[i]['name']] = formArray[i]['value'];
+        }
+
+        //Date 처리이이이~~~
+        var sendDateDiv = $("#pushMsg-div-sendDate");
+        resultJson['sendDate'] = sendDateDiv.find("#pushMsg-sendDate").val().replace(/[^0-9]/gi, '') + sendDateDiv.find("#timeHour").val() + sendDateDiv.find("#timeMinute").val();
+
         //지정회원 parsing
         var selectTarget = [];
-        $("input[name='receiveType']:checked").each(function () {
-            if(this.value == "target"){
-                $("#div_selectTarget").find("p").each(function () {
-                    var id = $(this).prop("id");
-                    alert(id);
-                    selectTarget.push(id);
-                })
-            }
-        });
+        if($("input:radio[name=pushMsg-receiveType]:checked").val() == "4"){
+            $("#div_selectTarget").find("p").each(function () {
+                var id = $(this).prop("id");
+                alert(id);
 
-        var data = {
-            "column01": $("#pushMsg-no").text()
-            ,"column02": $("input:radio[name=pushMsg-snedStatus]:checked").val()
-            ,"column03": $("input:radio[name=pushMsg-OSType]:checked").val()
-            ,"column04": $("#pushMsg-msgTitle").val()
-            ,"column05": $("#pushMsg-msg").val()
-            ,"column06": $("input[name=receiveType]:checked").val()
-            ,"column07": selectTarget
-            ,"column08": $("input:radio[name=pushMsg-msgType]:checked").val()
-            ,"column11": $("input:radio[name=pushMsg-sendType]:checked").val()
-            ,"column12": $("#pushMsg-sendDate").val()
-            ,"column13": $("#pushMsg-sendHour").val()
-            ,"column14": $("#pushMsg-sendMinute").val()
-            ,"column15": $("#pushMsg-inputImg").val()
-            ,"column16": $("#pushMsg-workDate").text()
+                selectTarget.push(id);
+            })
+            resultJson['selectTarget'] = selectTarget;
         }
-        dalbitLog(data);
+
+        dalbitLog(resultJson)
+        return resultJson;
     }
 
 
 
+    function isValid(){
+        return true;
+    }
 
 
-    //=------------------ Modal -회원검색 ----------------------------------
+//=------------------------------ Modal ----------------------------------
+
     // [수신대상 선택 - 지정회원] 회원 추가
     function choiceMember(data){
         var html = '<p id="'+ data.memNo +'">' + data.memNo + ' <a onclick="delMember($(this))">[X]</a></p>'
@@ -208,68 +212,7 @@
         dom.parent("p").remove();
     }
 
-    function updataPushInfo() {
-        alert("test");
-    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // 검색
-    function getPushInfo(){
-        /* 엑셀저장을 위해 조회조건 임시저장 */
-        // tmp_search = $('#txt_search').val();
-        // tmp_gubun = $("select[name='selectGubun']").val();
-    }
-
-    // /*=---------- 엑셀 ----------*/
-    // $('#excelDownBtn').on('click', function(){
-    //     var formElement = document.querySelector("form");
-    //     var formData = new FormData(formElement);
-    //
-    //     formData.append("search", tmp_search);
-    //     formData.append("date", tmp_date);
-    //     formData.append("gubun", tmp_gubun);
-    //     formData.append("checkDate", tmp_checkDate);
-    //     formData.append("stDate", tmp_stDate);
-    //     formData.append("edDate", tmp_edDate);
-    //     /*formData.append("test003", "test003");*/
-    //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
-    // });
-
-    // $("#excelBtn").on("click", function () {
-    //     $("#list_info").table2excel({
-    //         exclude: ".noExl",
-    //         name: "Excel Document Name",
-    //         filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
-    //         fileext: ".xls",
-    //         exclude_img: true,
-    //         exclude_links: true,
-    //         exclude_inputs: true
-    //     });
-    // });
-    //
-    // function fn_success_excel(){
-    //     console.log("fn_success_excel");
-    // }
-    //
-    // function fn_fail_excel(){
-    //     console.log("fn_fail_excel");
-    // }
-    /*----------- 엑셀 ---------=*/
 </script>
 
 
@@ -294,18 +237,18 @@
         </div>
         <table class="table table-bordered table-dalbit">
             <colgroup>
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
             </colgroup>
             <tbody>
             <tr class="align-middle">

@@ -69,7 +69,7 @@
 
     </div>
 </div>
-<div class="main-content">
+<div class="main-content" style="margin-top: 3px;">
     <!-- TAB -->
     <jsp:include page="bannerTab.jsp"></jsp:include>
     <!-- TAB END -->
@@ -85,6 +85,7 @@
         initEvent();
     });
 
+//=------------------------------ Init / Event--------------------------------------------
 
     var startDate;
     var endDate;
@@ -148,10 +149,10 @@
             data.startDate = $('#banner-inputReportrange').attr("startDated");
             data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BannerDataTableSource.list, $("#searchForm"));
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BannerDataTableSource.list);
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
-        dtList_info.setEventClick(updataInfo,4);
+        dtList_info.setEventClick(updateBanner,4);
         dtList_info.createDataTable();
         initDataTableButton();
         //---------- Main DataTable ----------=
@@ -177,11 +178,11 @@
     }
 
 
-
+    // DataTable Button
     function initDataTableButton() {
-        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_add" />'
-        var delBtn = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_del" />'
-        var excellBtn = '<button class="btn btn-default print-btn btn-sm" type="button"><i class="fa fa-print"></i>Excel Print</button>'
+        var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
+        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
+        var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Print</button>'
 
         var subTable = '        <table id="list_statistics_info" class="table table-sorting table-hover table-bordered">\n' +
             '                               <thead>\n' +
@@ -192,9 +193,9 @@
 
         $("#bannerDataTable").find(".top-right").append(subTable);
 
-        $("#bannerDataTable").find(".footer-right").append(delBtn);
+        $("#bannerDataTable").find(".footer-left").append(delBtn);
         $("#bannerDataTable").find(".footer-right").append(addBtn);
-        $("#bannerDataTable").find(".footer-right").append(excellBtn);
+        $("#bannerDataTable").find(".footer-right").append(excelBtn);
     }
 
 
@@ -202,20 +203,20 @@
     function initEvent(){
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getPushInfo();
+                getBannerInfo();
             };
         });
 
         $('#bt_search').click( function() {       //검색
-            getPushInfo();
+            getBannerInfo();
         });
 
-        $("#btn_add").on("click", function () { //등록
-            initData_banner();
+        $("#btn_insert").on("click", function () { //등록
+            insertBanner();
         })
 
-        $("#btn_del").on("click", function () { //삭제
-            delPushMsgData();
+        $("#btn_delete").on("click", function () { //삭제
+            deleteBanner();
         })
 
         $("input[name='banner-selectDateType']:radio").change(function () {
@@ -235,8 +236,17 @@
     }
 
 
+//=------------------------------ Option --------------------------------------------
+
+    // 등록
+    function insertBanner() {
+        insertBannerDetail();
+
+        $("#tab_pushMsgList").click();
+    }
+
     // 삭제
-    function delPushMsgData() {
+    function deleteBanner() {
         var checkDatas = dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -249,11 +259,10 @@
         dalbitLog(checkDatas);
     }
 
-
     // 수정
-    function updataInfo(data) {
-        setData_banner({
-            column01: data.rowNum
+    function updateBanner(data) {
+        updateBannerDetail({
+            bannerIdx: data.rowNum
             ,column02: data.banner_col3
             ,column03: data.banner_col14
             ,column04: "제목"
@@ -276,7 +285,7 @@
 
 
     // 검색
-    function getPushInfo(){
+    function getBannerInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();

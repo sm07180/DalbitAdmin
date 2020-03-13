@@ -66,7 +66,7 @@
         initEvent();
     });
 
-
+//=------------------------------ Init / Event--------------------------------------------
 
     function init() {
         //검색조건 불러오기
@@ -86,18 +86,18 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, PushDataTableSource.pushMsgList, $("#searchForm"));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
-        dtList_info.setEventClick(updataPushInfo,4);
+        dtList_info.setEventClick(updatePushInfo,4);
         dtList_info.createDataTable();
 
         // Button 추가
-        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_add" />'
-        var delBtn = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_del" />'
-        var excellBtn = '<button class="btn btn-default print-btn btn-sm" type="button"><i class="fa fa-print"></i>Excel Print</button>'
+        var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
+        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
+        var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Print</button>'
 
-        $("#pushDataTable").find(".top-right").append(delBtn);
+        $("#pushDataTable").find(".footer-left").append(delBtn);
         $("#pushDataTable").find(".top-right").append(addBtn);
 
-        $("#pushDataTable").find(".footer-right").append(excellBtn);
+        $("#pushDataTable").find(".footer-right").append(excelBtn);
         //---------- 푸시메시지 DataTable ----------=
     }
 
@@ -113,21 +113,41 @@
             getPushInfo();
         });
 
-        $("#btn_add").on("click", function () { //등록
-            initData_pushMsg();
-            $("#tab_pushMsgList").click();
-        })
+        $("#btn_insert").on("click", function () { //등록
+            insertPushInfo();
+        });
 
-        $("#btn_del").on("click", function () { //삭제
+        $("#btn_delete").on("click", function () { //삭제
             delPushMsgData();
-        })
+        });
     }
 
 
+
+
+//=------------------------------ Option --------------------------------------------
+
+    // 등록
+    function insertPushInfo() {
+        insertPushMsg();
+        $("#tab_pushMsgList").click();
+    }
+
+    // 삭제
+    function delPushMsgData() {
+        var checkDatas = dtList_info.getCheckedData();
+
+        if(checkDatas.length <= 0){
+            alert("삭제할 정보를 선택해주세요.");
+            return false;
+        }
+        dalbitLog(checkDatas);
+    }
+
     // 수정
-    function updataPushInfo(data) {
-        setData_pushMsg({
-            column01: data.rowNum
+    function updatePushInfo(data) {
+        updatePushMsg({
+            pushIdx: data.rowNum
             ,column02: data.push_col5
             ,column03: data.push_col1
             ,column04: "제목"
@@ -148,8 +168,6 @@
         $("#tab_pushMsgList").click();
     }
 
-
-
     // 검색
     function getPushInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
@@ -166,16 +184,6 @@
     }
 
 
-
-    function delPushMsgData() {
-        var checkDatas = dtList_info.getCheckedData();
-
-        if(checkDatas.length <= 0){
-            alert("삭제할 정보를 선택해주세요.");
-            return false;
-        }
-        dalbitLog(checkDatas);
-    }
     // /*=---------- 엑셀 ----------*/
     // $('#excelDownBtn').on('click', function(){
     //     var formElement = document.querySelector("form");

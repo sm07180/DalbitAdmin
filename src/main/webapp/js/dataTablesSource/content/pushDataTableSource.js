@@ -9,11 +9,11 @@ var PushDataTableSource = {
                      return '<a href="javascript:;">' + data + '</a>'
                  }},
              {'title': '발송 일시', 'data': 'push_col4', 'width':'100px', 'render': function (data, type, row, meta) {
-                     return convertToDate(data);
+                     return common.convertToDate(data);
                  }},
              {'title': '발송상태', 'data': 'push_col5', 'width':'100px'},
              {'title': '등록/수정기간', 'data': 'push_col6', 'width':'100px', 'render': function (data, type, row, meta) {
-                     return convertToDate(data);
+                     return common.convertToDate(data);
                  }},
              {'title': '처리자명', 'data': 'push_col7', 'defaultContent': '로그아웃', 'width':'100px'},
         ]
@@ -30,11 +30,11 @@ var PushDataTableSource = {
                 }},
             {'title': '메세지 제목', 'data': 'push_col3', 'width':'200px'},
             {'title': '발송시간', 'data': 'push_col4', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return convertToDate(data);
+                    return common.convertToDate(data);
                 }},
             {'title': '발송상태', 'data': 'push_col5', 'width':'100px'},
             {'title': '등록/수정기간', 'data': 'push_col6', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return convertToDate(data);
+                    return common.convertToDate(data);
                 }},
             {'title': '처리자명', 'data': 'push_col7', 'defaultContent': '로그아웃', 'width':'100px'},
         ]

@@ -11,12 +11,12 @@ var BannerDataTableSource = {
 
             }},
             {'title': '배너 제목', 'data': 'banner_col4', 'render': function (data, type, row, meta) {
-                return convertToDate(data);
+                return common.convertToDate(data);
 
             }},
             {'title': '노출기간', 'data': 'banner_col5'},
             {'title': '이미지등록여부', 'data': 'banner_col6', 'render': function (data, type, row, meta) {
-                return convertToDate(data);
+                return common.convertToDate(data);
 
             }},
             {'title': '성별', 'data': 'banner_col7', 'defaultContent': '로그아웃'},
