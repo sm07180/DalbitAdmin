@@ -139,7 +139,7 @@
         var data = {
             'reportIdx' : $(this).data('idx')
         };
-        getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
+        util.getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
