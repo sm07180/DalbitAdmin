@@ -264,7 +264,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8081/rest/member/member/adminMemoList",
+							"raw": "http://localhost:8081/rest/member/member/adminMemolist",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -274,7 +274,89 @@
 								"rest",
 								"member",
 								"member",
-								"adminMemoList"
+								"adminMemolist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원정보수정",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583121500351",
+									"description": "회원번",
+									"type": "text"
+								},
+								{
+									"key": "profileImage",
+									"value": "a",
+									"description": "메모내",
+									"type": "text"
+								},
+								{
+									"key": "phoneNum",
+									"value": "0100001",
+									"description": "운영자",
+									"type": "text"
+								},
+								{
+									"key": "nickName",
+									"value": "test",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "test01",
+									"type": "text"
+								},
+								{
+									"key": "birthDate",
+									"value": "1989-12-25",
+									"type": "text"
+								},
+								{
+									"key": "memSex",
+									"value": "f",
+									"type": "text"
+								},
+								{
+									"key": "passwdReset",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "opName",
+									"value": "운영자",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/editor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"editor"
 							]
 						}
 					},
