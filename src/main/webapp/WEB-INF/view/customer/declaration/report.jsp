@@ -5,7 +5,7 @@
         <div class="col-lg-12 no-padding">
             <label id="report_title"></label>
         </div>
-        <div class="col-lg-12 no-padding">
+        <%--<div class="col-lg-12 no-padding">
             <div class="col-md-4 no-padding">
                 <div class="col-md-5 no-padding">
                     <div class="col-md-5 lb_style" style="height: 68px"><label>No</label></div>
@@ -92,8 +92,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 no-padding">
+        </div>--%>
+        <%--<div class="col-md-6 no-padding">
             <div class="widget widget-table" id="report_detail3">
                 <div class="widget-content">
                     <table id="list_report_detail" class="table table-sorting table-hover table-bordered datatable">
@@ -116,7 +116,103 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div>--%>
+
+        <table class="table table-bordered table-dalbit">
+            <colgroup>
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+            </colgroup>
+            <tbody>
+                <tr class="align-middle">
+                    <th rowspan="2">No</th>
+                    <td rowspan="2"></td>
+
+                    <th>문의유형</th>
+                    <td></td>
+
+                    <th>Browser</th>
+                    <td></td>
+
+                    <th>접수일시</th>
+                    <td></td>
+
+                    <th>처리상태</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>플랫폼</th>
+                    <td>{{{getCommonCodeSelect platform 'platform'}}}</td>
+
+                    <th>IP Address</th>
+                    <td></td>
+
+                    <th>처리일시</th>
+                    <td>{{writeDate}}</td>
+
+                    <th>처리자명</th>
+                    <td></td>
+                </tr>
+                <tr class="align-middle">
+                    <th colspan="4">신고자</th>
+                    <th colspan="4">대상자</th>
+
+                    <th rowspan="5">조치내역</th>
+                    <td rowspan="5">
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
+                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
+                        <button type="button" id="bt_ban2" class="btn btn-default btn-sm pull-right">완료</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>DaldalE</td>
+                    <td>(레벨/등급)</td>
+                    <td>신고자</td>
+                    <td>남</td>
+
+                    <td>DaldalE2222</td>
+                    <td>(레벨/등급)</td>
+                    <td>대상자</td>
+                    <td>여</td>
+                </tr>
+                <tr>
+                    <th colspan="2">누적 결제 수<br />/금액</th>
+                    <td colspan="2">75건 <br />1,000원</td>
+
+                    <th colspan="2">누적 결제 수<br />/금액</th>
+                    <td colspan="2">75건 <br />1,000원</td>
+                </tr>
+                <tr>
+                    <th colspan="2">누적 선물 수<br />/금액</th>
+                    <td colspan="2">75건 <br />1,000원</td>
+
+                    <th colspan="2">누적 선물 수<br />/금액</th>
+                    <td colspan="2">75건 <br />1,000원</td>
+                </tr>
+                <tr>
+                    <th colspan="2">총 신고</th>
+                    <td colspan="2">1건</td>
+
+                    <th colspan="2">총 신고/조치</th>
+                    <td colspan="2">5건 <br />3건</td>
+                </tr>
+
+            </tbody>
+        </table>
     </div>
 </div>
 <script>
