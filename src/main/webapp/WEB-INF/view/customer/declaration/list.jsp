@@ -45,6 +45,9 @@
                         <span>
                             <button class="hidden">111</button>
                         </span>
+
+                    </div>
+                    <div class="widget-footer">
                         <span>
                             <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
                         </span>
@@ -103,10 +106,7 @@
         dtList_info.reload();
 
         /*검색결과 영역이 접혀 있을 시 열기*/
-        var toggleIcon = $('#_searchToggleIcon');
-        if(toggleIcon.hasClass('fa-chevron-down')){
-            toggleIcon.click();
-        }
+        ui.toggleSearchList();
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {

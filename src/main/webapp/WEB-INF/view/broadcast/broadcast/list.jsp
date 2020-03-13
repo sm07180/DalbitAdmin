@@ -100,10 +100,7 @@
     function getSearch(){                 // 검색
         dtList_info.reload();
 
-        var toggleIcon = $('#_searchToggleIcon');
-        if(toggleIcon.hasClass('fa-chevron-down')){
-            toggleIcon.click();
-        }
+        ui.toggleSearchList();
     }
 
     function getBroadCast_info(index){

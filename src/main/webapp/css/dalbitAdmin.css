@@ -9,6 +9,7 @@
     height : 30px;
 }
 
+/*검색영역*/
 div.searchBoxArea{
     margin-bottom: 10px;
     background-color: #eeeeee;
@@ -37,6 +38,10 @@ div.searchBoxArea .searchBoxRow div select.searchType{
 .widget-table .widget-content .table-option{
     float: right !important;
     padding: 10px 10px 10px 10px;
+}
+
+#excelDownBtn{
+    margin-bottom: 10px;
 }
 
 .nav-tabs li.tab_select{

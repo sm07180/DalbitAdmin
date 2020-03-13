@@ -89,10 +89,7 @@
         tmp_searchText = $('#txt_search').val();
 
         /*검색결과 영역이 접혀 있을 시 열기*/
-        var toggleIcon = $('#_searchToggleIcon');
-        if(toggleIcon.hasClass('fa-chevron-down')){
-            toggleIcon.click();
-        }
+        ui.toggleSearchList()
         $('#tabList').removeClass("show");
     }
 
