@@ -2,14 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-    }
-</style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -19,7 +11,7 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
-                            <span id="meminfo"></span>
+                            <span id="searchType"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -72,26 +64,30 @@
         <!-- 버튼 끝 -->
     });
 
-    $("#meminfo").html(getCommonCodeSelect(-1, meminfo));
+    $("#searchType").html(getCommonCodeSelect(-1, searchType));
 
     var dtList_info_data = function ( data ) {
-        data.search = $('#txt_search').val();                        // 검색명
-        data.gubun = $("select[name='selectGubun']").val();
+        data.searchType = $("select[name='searchType']").val();          // 검색구분
+        data.searchText = $('#txt_search').val();                        // 검색명
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
-    getUserInfo();
 
-    function init(){
-    }
-
+    var tmp_searchType;
+    var tmp_searchText;
     function getUserInfo(){                 // 검색
-        /* 엑셀저장을 위해 조회조건 임시저장 */
-        tmp_search = $('#txt_search').val();
-        tmp_gubun = $("select[name='selectGubun']").val();
+        if( $('#txt_search').val() == ""){
+            alert("검색대상을 입력해 주세요.");
+            return;
+        }
         dtList_info.reload();
+
+        /* 엑셀저장을 위해 조회조건 임시저장 */
+        tmp_searchType = $("select[name='searchType']").val();
+        tmp_searchText = $('#txt_search').val();
+
         /*검색결과 영역이 접혀 있을 시 열기*/
         var toggleIcon = $('#_searchToggleIcon');
         if(toggleIcon.hasClass('fa-chevron-down')){
@@ -101,27 +97,20 @@
     }
 
     function getMemNo_info(index){
-        console.log("@@@@@@@@@@@@ 1");
         $('#tabList').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
-        obj.memNo = data.memNo;
+        obj.mem_no = data.mem_no;
         getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
-
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        formData.append("search", tmp_search);
-        formData.append("date", tmp_date);
-        formData.append("gubun", tmp_gubun);
-        formData.append("checkDate", tmp_checkDate);
-        formData.append("stDate", tmp_stDate);
-        formData.append("edDate", tmp_edDate);
-        /*formData.append("test003", "test003");*/
+        formData.append("searchType", tmp_searchType);
+        formData.append("searchText", tmp_searchText);
         excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 

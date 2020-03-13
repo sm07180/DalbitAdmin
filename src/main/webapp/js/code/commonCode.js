@@ -6,13 +6,14 @@ class COMMON_CODE{
     }
 };
 
-var meminfo = [
-    new COMMON_CODE(null, 'meminfo', '사용자정보구분')
-    , new COMMON_CODE('all', '', '전체')
-    , new COMMON_CODE('memid', '2', 'UserID')
-    , new COMMON_CODE('memnick', '3', 'User닉네임')
-    , new COMMON_CODE('memphone', '4', '연락처')
-    , new COMMON_CODE('memname', '5', '이름')
+var searchType = [
+    new COMMON_CODE(null, 'searchType', '사용자정보구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('memno', '1', '회원번호')
+    , new COMMON_CODE('memname', '2', '이름')      //휴대폰 인증 적용후
+    , new COMMON_CODE('memid', '3', 'UserID')
+    , new COMMON_CODE('memnick', '4', '닉네임')
+    , new COMMON_CODE('memphone', '5', '연락처')
 ];
 
 var search_platform = [
@@ -51,6 +52,24 @@ var viewType = [
     new COMMON_CODE(null, 'viewType', '링크표시구분')
     , new COMMON_CODE('new', '1', '새 창 열기')
     , new COMMON_CODE('link', '2', '링크이동')
+];
+var level = [
+    new COMMON_CODE('0', '0', '0레벨')
+    ,new COMMON_CODE('1', '1', '1레벨')
+    ,new COMMON_CODE('2', '2', '2레벨')
+    ,new COMMON_CODE('3', '3', '3레벨')
+    ,new COMMON_CODE('4', '4', '4레벨')
+    ,new COMMON_CODE('5', '5', '5레벨')
+    ,new COMMON_CODE('6', '6', '6레벨')
+    ,new COMMON_CODE('7', '7', '7레벨')
+    ,new COMMON_CODE('8', '8', '8레벨')
+    ,new COMMON_CODE('9', '9', '9레벨')
+];
+var grade = [
+    new COMMON_CODE('0',  '0',        '0 단계')
+    ,new COMMON_CODE('6',  '51',      '1 단계')
+    ,new COMMON_CODE('11', '1298',    '2 단계')
+    ,new COMMON_CODE('15', '2869',    '3 단계')
 ];
 
 

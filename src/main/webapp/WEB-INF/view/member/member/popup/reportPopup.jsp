@@ -15,45 +15,45 @@
             <div class="col-lg-12 no-padding">
                 <label id="report_title"></label>
             </div>
-            <div class="col-lg-12 no-padding">
-                <div class="col-md-12 no-padding lb_style">
-                    <label>대상자</label>
-                </div>
-                <div class="col-md-12 no-padding">
-                    <div class="col-md-4 no-padding">
-                        <div class="col-md-6 lb_style"><label>아이디</label></div>
-                        <div class="col-md-6" style="height: 34px;"><label id="lb_memNo"></label></div>
-                    </div>
-                    <div class="col-md-4 no-padding">
-                        <div class="col-md-6 lb_style"><label>닉네임</label></div>
-                        <div class="col-md-6" style="height: 34px;"><label id="lb_memNick"></label></div>
-                    </div>
-                    <div class="col-md-4 no-padding">
-                        <div class="col-md-6 lb_style"><label>성별</label></div>
-                        <div class="col-md-6" style="height: 34px;"><label id="lb_memSex"></label></div>
-                    </div>
-                </div>
-                <div class="col-md-12 no-padding">
-                    <div class="col-md-4 lb_style"><label>조치사유</label></div>
-                    <div class="col-md-8" style="height: 34px;"><label>조치사유 선택</label></div>
-                    <div class="col-md-4 lb_style" style="height: 68px;"><label>조치내역</label></div>
-                    <div class="col-md-8" style="height: 68px;">
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
-                    </div>
-                    <div class="col-md-4 lb_style" style="height: 142px;"<label>운영자메모</label></div>
-                <div class="col-md-8" style="height: 142px;"><label>asdasd</label></div>
-                <div class="col-md-4 lb_style"><label>등록/처리일시</label></div>
-                <div class="col-md-8" style="height: 34px;">2020-02-02 11:00</div>
-                <div class="col-md-4 lb_style"><label>운영자명</label></div>
-                <div class="col-md-8" style="height: 34px;"><label>양운영</label></div>
-            </div>
+
+            <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
+                <colgroup>
+                    <col width="15%"/><col width="22%"/><col width="15%"/><col width="22%"/><col width="15%"/><col width="21%"/>
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th colspan="6">대상자</th>
+                    <tr>
+                        <th>아이디</th>
+                        <td style="text-align: left" id="td_memNo"></td>
+                        <th>닉네임</th>
+                        <td style="text-align: left" id="td_memNick"></td>
+                        <th>성별</th>
+                        <td style="text-align: left" id="td_memSex"></td>
+                    </tr>
+                    <tr>
+                        <th>조치사유</th>
+                        <td colspan="5" style="text-align: left"><span id="report_sel"></span></td>
+                    </tr>
+                    <tr>
+                        <th>조치내역</th>
+                        <td colspan="5" style="text-align: left"><span id="report_radio"></span></td>
+                    </tr>
+                    <tr>
+                        <th>운영자 메모</th>
+                        <td colspan="5" style="text-align: left;height: 142px;" id="td_adminMemo"></td>
+                    </tr>
+                    <tr>
+                        <th>등록/처리일시</th>
+                        <td colspan="5" style="text-align: left" id="td_date"></td>
+                    </tr>
+                    <tr>
+                        <th>운영자명</th>
+                        <td colspan="5" style="text-align: left" id="td_adminName"></td>
+                    </tr>
+                </tbody>
+            </table>
+
             <div class="col-md-12 no-padding" style="text-align: center">
                 <button type="button" id="bt_complet" class="btn btn-default btn-sm">처리완료</button>
                 <button type="button" id="bt_close" class="btn btn-default btn-sm" onclick="window.close();" >취소</button>
@@ -61,6 +61,8 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -70,14 +72,17 @@
     var memNick =  <%=in_memNick%>;
     var memSex =  <%=in_memSex%>;
 
+    $("#report_sel").html(getCommonCodeSelect(-1, report_sel));
+    $("#report_radio").html(getCommonCodeRadio("co", report_radio));
+
     init();
     function init() {
-        $('#lb_memNo').html(memNo);
-        $('#lb_memNick').html(memNick);
+        $('#td_memNo').html(memNo);
+        $('#td_memNick').html(memNick);
         if(memSex == "m"){
-            $('#lb_memSex').html("남");
+            $('#td_memSex').html("남");
         }else{
-            $('#lb_memSex').html("여");
+            $('#td_memSex').html("여");
         }
     }
 </script>
