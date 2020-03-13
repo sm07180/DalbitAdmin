@@ -323,7 +323,7 @@
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 답변 </h3>
             </div>
-            <div class="summernote" id="editor" name="editor">{{{replaceHtml answer}}}</div>
+            <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
             <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
                 <tbody>
                 <tr class="align-middle">
