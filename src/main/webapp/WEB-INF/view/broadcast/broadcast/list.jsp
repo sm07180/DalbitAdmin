@@ -111,7 +111,7 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.roomNo = data.roomNo;
-        getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
+        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
 
 </script>
