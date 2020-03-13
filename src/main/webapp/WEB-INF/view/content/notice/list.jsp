@@ -110,7 +110,7 @@
         var templateScript = Handlebars.compile(template);
         $("#noticeForm").html(templateScript);
 
-        editorInit();
+        editorInit("content-notice");
     }
 
     $(document).on('click', '._getNoticeDetail', function(){
@@ -326,7 +326,7 @@
                     <td>{{noticeIdx}}</td>
 
                     <th>구분</th>
-                    <td>{{{getCommonCodeSelect platform 'notice_slctType' 'Y'}}}</td>
+                    <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y'}}}</td>
 
                     <th>제목</th>
                     <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
@@ -360,7 +360,9 @@
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
-            <div class="summernote" id="editor" name="editor">{{{replaceHtml contents}}}</div>
+            <div class="widget-content no-padding">
+                <div class="_editor" id="editor" name="editor">{{{replaceHtml contents}}}</div>
+            </div>
         </div>
     </div>
 

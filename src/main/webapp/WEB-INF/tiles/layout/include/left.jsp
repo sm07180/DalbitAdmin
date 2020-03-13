@@ -9,7 +9,7 @@
 <!-- left sidebar -->
 <div id="left-sidebar" class="left-sidebar ">
     <!-- main-nav -->
-    <div class="sidebar-scroll">
+    <div class="sidebar-scroll" style="overflow:auto; height: 100%">
         <nav class="main-nav">
             <ul class="main-menu">
 
