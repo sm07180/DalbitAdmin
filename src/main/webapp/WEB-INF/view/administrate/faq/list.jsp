@@ -44,6 +44,8 @@
                             <tbody id="tableBody">
                             </tbody>
                         </table>
+                    </div>
+                    <div class="widget-footer">
                         <span>
                             <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
                         </span>
