@@ -1,3 +1,8 @@
+/* 화면 로딩 시 검색박스 안에 dummy를 넣어서 검색어에 엔터 누를 시 submit을 방지한다. */
+$(function(){
+    $("#searchForm").append('<input type="text" id="dummy" style="display:none;" />');
+});
+
 /*이벤트 바인딩*/
 $(document).on('click', '._openPop', function(){
     windowOpen($(this).data());
@@ -231,14 +236,12 @@ function getCommonCodeLabel(code, targetCode){
 
 /*에디터 type:이미지 타입*/
 function editorInit(type){
-    var targetEditor = $('.summernote');
+    var targetEditor = $('._editor');
 
     targetEditor.summernote({
-        height: 300,
-        focus: true,
-        // onpaste: function() {
-        //     alert('You have pasted something to the editor');
-        // },
+        lang: 'ko-KR',
+        height: '300px',
+        focus: false,
         callbacks: { // 콜백을 사용
             // 이미지를 업로드할 경우 이벤트를 발생
             onImageUpload: function(files, editor, welEditable) {

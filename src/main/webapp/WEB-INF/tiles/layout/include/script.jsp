@@ -63,6 +63,7 @@
 <script src="/js/common.js"></script>
 <script src="/js/commonUtil.js"></script>
 <script src="/js/helper.js"></script>
+<script src="/js/uiControl.js"></script>
 
 <!-- DataTable Util -->
 <script src="/js/dataTablesSource/memberDataTableSource.js"></script>
