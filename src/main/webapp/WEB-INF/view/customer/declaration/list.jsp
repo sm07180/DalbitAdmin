@@ -71,11 +71,12 @@
                             <tbody id="tableBody">
                             </tbody>
                         </table>
-
-                        <span class="button_right">
-                            <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>
+                        <span>
+                            <button class="hidden">111</button>
                         </span>
-
+                        <span>
+                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                        </span>
                     </div>
                 </div>
             </div> <%-- #data table --%>
@@ -84,6 +85,8 @@
     </div> <%-- #page-wrapper --%>
 </div> <%-- #wapper --%>
 
+<script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
+<%--<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>--%>
 <script>
     $(document).ready(function() {
 
@@ -104,7 +107,6 @@
     init();
     /** Data Table **/
     var dtList_info;
-    //getChattingHistoryDetail();
     function init() {
         var dtList_info_data = function ( data ) {
             /* parameter */
@@ -134,17 +136,26 @@
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {
-        console.log("@@@@@    사용자 ID 클릭");
-        var template = $('#tmp_declarationFrm').html();
-        var templateScript = Handlebars.compile(template);
-        $("#declarationForm").html(templateScript);
+        var data = {
+            'reportIdx' : $(this).data('idx')
+        };
+        getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
-       if($(this).prop('checked')){
-           $(this).parent().parent().find('._getDeclarationDetail').click();
-       }
+        if($(this).prop('checked')){
+            $(this).parent().parent().find('._getDeclarationDetail').click();
+        }
     });
+
+    function fn_detail_success(dst_id, response) {
+        var template = $('#tmp_declarationFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+        $("#declarationForm").html(html);
+        //getChattingHistoryDetail();
+    }
 
     $(function() {
         $(".av nav-tabs nav-tabs-custom-colored active").click(function() {
@@ -159,7 +170,7 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel)
+        excelDownload($(this), "/rest/customer/declaration/listExcel", formData, fn_success_excel)
     });
 
     $("#excelBtn").on("click", function () {
@@ -188,7 +199,103 @@
                 <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
             </ul>
             <div class="tab-content no-padding">
-                <div class="tab-pane fade in active" id="reportDetail"><jsp:include page="report.jsp"/></div>     <!-- 상세 -->
+                <table class="table table-bordered table-dalbit">
+                    <colgroup>
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                    </colgroup>
+                    <tbody>
+                    <tr class="align-middle">
+                        <th rowspan="2">No</th>
+                        <td rowspan="2">{{reportIdx}}</td>
+
+                        <th>문의유형</th>
+                        <td>{{report_reason}}</td>
+
+                        <th>Browser</th>
+                        <td>{{browser}}</td>
+
+                        <th>접수일시</th>
+                        <td>{{reg_date}}</td>
+
+                        <th>처리상태</th>
+                        <td>{{op_code}}</td>
+                    </tr>
+                    <tr>
+                        <th>플랫폼</th>
+                        <td><%--{{{getCommonCodeSelect platform 'platform'}}}--%>
+                            {{platform}}
+                        </td>
+
+                        <th>IP Address</th>
+                        <td>{{ipAddress}}</td>
+
+                        <th>처리일시</th>
+                        <td>{{op_date}}</td>
+
+                        <th>처리자명</th>
+                        <td>{{opName}}</td>
+                    </tr>
+                    <tr class="align-middle">
+                        <th colspan="4">신고자</th>
+                        <th colspan="4">대상자</th>
+
+                        <th rowspan="5">조치내역</th>
+                        <td rowspan="5">
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre">유지</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
+                            <button type="button" id="bt_ban2" class="btn btn-default btn-sm pull-right">완료</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>{{mem_id}}</td>
+                        <td>{{level}}/{{grade}}</td>
+                        <td>{{mem_nick}}</td>
+                        <td>{{memSex}}</td>
+
+                        <td>{{reported_mem_id}}</td>
+                        <td>{{reported_level}}/{{reported_grade}}</td>
+                        <td>{{reported_mem_nick}}</td>
+                        <td>{{reported_memSex}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">누적 결제 수<br />/금액</th>
+                        <td colspan="2">{{payCount}} <br />{{payAmount}}</td>
+
+                        <th colspan="2">누적 결제 수<br />/금액</th>
+                        <td colspan="2">{{reported_payCount}} <br />{{reported_payAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">누적 선물 수<br />/금액</th>
+                        <td colspan="2">{{giftCount}} <br />{{giftAmount}}</td>
+
+                        <th colspan="2">누적 선물 수<br />/금액</th>
+                        <td colspan="2">{{reported_giftCount}} <br />{{reported_giftAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">총 신고</th>
+                        <td colspan="2"></td>
+
+                        <th colspan="2">총 신고/조치</th>
+                        <td colspan="2"> <br /></td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>
