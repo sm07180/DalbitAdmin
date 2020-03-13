@@ -86,7 +86,7 @@
 </div> <%-- #wapper --%>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
+<%--<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>--%>
 <script>
     $(document).ready(function() {
 
@@ -231,7 +231,9 @@
                     </tr>
                     <tr>
                         <th>플랫폼</th>
-                        <td>{{{getCommonCodeSelect platform 'platform'}}}</td>
+                        <td><%--{{{getCommonCodeSelect platform 'platform'}}}--%>
+                            {{platform}}
+                        </td>
 
                         <th>IP Address</th>
                         <td>{{ipAddress}}</td>
@@ -248,7 +250,7 @@
 
                         <th rowspan="5">조치내역</th>
                         <td rowspan="5">
-                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
+                            <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre">유지</label>
                             <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
                             <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
                             <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
