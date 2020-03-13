@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "00568894-b322-4a35-bc22-2beb630bdb75",
+		"_postman_id": "758026a5-470f-44ee-8483-46a0cdd63ca0",
 		"name": "달빛라디오 ADMIN API 정의서",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -131,6 +131,150 @@
 								"member",
 								"member",
 								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원정보",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583121468981",
+									"description": "회원번호",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원운영자메모등록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583121500351",
+									"description": "회원번",
+									"type": "text"
+								},
+								{
+									"key": "memo",
+									"value": "testtest",
+									"description": "메모내",
+									"type": "text"
+								},
+								{
+									"key": "opName",
+									"value": "op",
+									"description": "운영자",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/adminMemoAdd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"adminMemoAdd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원운영자메모목록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583121500351",
+									"description": "검색구분( -1(or null): all, 1:회원번호,2:User ID,3:닉네임,4:연락처)",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "검색어",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "페이지 번호",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/adminMemoList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"adminMemoList"
 							]
 						}
 					},
@@ -930,125 +1074,6 @@
 										"customer",
 										"declaration",
 										"list"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "신고 상세",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "reportIdx",
-											"value": "4",
-											"description": "신고 번호",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8081/rest/customer/declaration/detail",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"rest",
-										"customer",
-										"declaration",
-										"detail"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "신고 처리",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": [
-										{
-											"key": "reportIdx",
-											"value": "5",
-											"description": "신고 번호",
-											"type": "text"
-										},
-										{
-											"key": "opCode",
-											"value": "5",
-											"description": "처리내용(0:미처리,1:유지,2:경고,3:1일정지,4:3일정지,5:5일정지,6:7일정지,7:15일정지,8:30일정지,9:강제탈퇴)",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "http://localhost:8081/rest/customer/declaration/operate",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"rest",
-										"customer",
-										"declaration",
-										"operate"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "신고 처리내역 카운트",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
-									}
-								],
-								"body": {
-									"mode": "urlencoded",
-									"urlencoded": []
-								},
-								"url": {
-									"raw": "http://localhost:8081/rest/customer/declaration/opCount",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "8081",
-									"path": [
-										"rest",
-										"customer",
-										"declaration",
-										"opCount"
 									]
 								}
 							},
