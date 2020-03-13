@@ -79,6 +79,7 @@
 <script src="/js/dataTablesSource/administrate/faqDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
 <script src="/js/code/commonCode.js"></script>
+<script src="/js/code/customer/customerCodeList.js"></script>
 
 <script type="text/javascript">
     /*로그 찍기*/
