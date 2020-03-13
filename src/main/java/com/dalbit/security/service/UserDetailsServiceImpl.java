@@ -3,7 +3,7 @@ package com.dalbit.security.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.exception.CustomUsernameNotFoundException;
-import com.dalbit.member.service.M_MemberService;
+import com.dalbit.member.service.Mem_MemberService;
 import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.security.dao.LoginDao;
 import com.dalbit.security.vo.SecurityUserVo;
@@ -30,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private LoginDao loginDao;
 
     @Autowired
-    private M_MemberService mMemberService;
+    private Mem_MemberService mMemberService;
 
     @Autowired
     HttpServletRequest request;
