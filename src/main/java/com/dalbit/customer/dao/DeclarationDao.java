@@ -11,4 +11,6 @@ import java.util.ArrayList;
 public interface DeclarationDao {
     ArrayList<P_DeclarationListOutputVo> callServiceCenterReportList(ProcedureVo procedureVo);
     P_DeclarationDetailOutputVo callServiceCenterReportDetail(ProcedureVo procedureVo);
+    ProcedureVo callServiceCenterReportOperate(ProcedureVo procedureVo);
+    ProcedureVo callServiceCenterReportOpCount(ProcedureVo procedureVo);
 }

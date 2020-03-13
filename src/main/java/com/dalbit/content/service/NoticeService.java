@@ -66,21 +66,21 @@ public class NoticeService {
 
         List<P_noticeListOutputVo> list = noticeDao.callServiceCenterNoticeList(procedureVo);
 
-        String[] headers = {"공지번호", "공지구분", "공지제목", "상단고정여부", "노출설정", "작성자 이름", "작성자 번호", "작성일자"};
-        int[] headerWidths = {2000, 1000, 5000, 1000, 1000, 3000, 3000, 3000};
+        String[] headers = {"플랫폼", "공지구분", "성별", "제목", "등록일시", "조회수", "게시상태", "처리자명"};
+        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
 
-            hm.put("noticeIdx", DalbitUtil.isEmpty(list.get(i).getNoticeIdx()) ? "" : list.get(i).getNoticeIdx());
+            hm.put("platform", DalbitUtil.isEmpty(list.get(i).getPlatform()) ? "" : list.get(i).getPlatform());
             hm.put("slctType", DalbitUtil.isEmpty(list.get(i).getSlctType()) ? "" : list.get(i).getSlctType());
+            hm.put("gender", DalbitUtil.isEmpty(list.get(i).getGender()) ? "" : list.get(i).getGender());
             hm.put("title", DalbitUtil.isEmpty(list.get(i).getTitle()) ? "" : list.get(i).getTitle());
-            hm.put("topFix", DalbitUtil.isEmpty(list.get(i).getTopFix()) ? "" : list.get(i).getTopFix());
+            hm.put("writeDate", DalbitUtil.isEmpty(list.get(i).getWriteDate()) ? "" : list.get(i).getWriteDate());
+            hm.put("viewCnt", DalbitUtil.isEmpty(list.get(i).getViewCnt()) ? "" : list.get(i).getViewCnt());
             hm.put("viewOn", DalbitUtil.isEmpty(list.get(i).getViewOn()) ? "" : list.get(i).getViewOn());
-            hm.put("opName1", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
-            hm.put("opName2", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
-            hm.put("opName3", DalbitUtil.isEmpty(list.get(i).getWriteDate()) ? "" : list.get(i).getWriteDate());
+            hm.put("opName", DalbitUtil.isEmpty(list.get(i).getOpName()) ? "" : list.get(i).getOpName());
 
             bodies.add(hm.values().toArray());
         }
@@ -138,6 +138,7 @@ public class NoticeService {
      * 사이트 공지 수정
      */
     public String callServiceCenterNoticeUpdate(P_noticeUpdateVo pNoticeUpdateVo) {
+        pNoticeUpdateVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pNoticeUpdateVo, true);
 
         noticeDao.callServiceCenterNoticeUpdate(procedureVo);
@@ -155,6 +156,7 @@ public class NoticeService {
      * 사이트 공지 삭제
      */
     public String callServiceCenterNoticeDelete(P_noticeDeleteVo pNoticeDeleteVo) {
+        pNoticeDeleteVo.setOpName(MemberVo.getMyMemNo());
 
         int sucCnt=0;
         int failCnt=0;

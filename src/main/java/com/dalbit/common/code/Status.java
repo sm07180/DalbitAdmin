@@ -112,6 +112,13 @@ public enum Status {
 
     신고상세조회_성공("0", "select.success", "신고목록 상세조회 시"),
     신고상세조회_공지번호없음("-1", "no.data", "신고목록 조회 데이터가 없을 시"),
+
+    신고처리_성공("0", "update.success", "신고처리 성공 시"),
+    신고처리_신고번호없음("-1", "no.data", "신고번호가 없을 시"),
+    신고처리_이미처리되었음("-2", "server.error", "신고처리가 이미 되었을 시"),
+
+    신고처리내역수조회_성공("0", "select.success", "신고처리 내역 건수 조회 성공 시"),
+
     ;
 
     final private String SUCCESS_RESULT = "success";
