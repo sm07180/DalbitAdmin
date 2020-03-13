@@ -169,7 +169,14 @@
 
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
-            var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
+            var data = {};
+            var formArray = $("#noticeForm").serializeArray();
+            for (var i = 0; i < formArray.length; i++){
+                data[formArray[i]['name']] = formArray[i]['value'];
+            }
+            data["contents"] = $("#editor").summernote('code');
+
+            // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
             console.log(data);
 
             getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
@@ -191,7 +198,14 @@
     $(document).on('click', '#updateBtn', function(){
 
         if(isValid()){
-            var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
+            var data = {};
+            var formArray = $("#noticeForm").serializeArray();
+            for (var i = 0; i < formArray.length; i++){
+                data[formArray[i]['name']] = formArray[i]['value'];
+            }
+            data["contents"] = $("#editor").summernote('code');
+
+            // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
 
             console.log(data);
             getAjaxData("update", "/rest/content/notice/update", data, fn_update_success);

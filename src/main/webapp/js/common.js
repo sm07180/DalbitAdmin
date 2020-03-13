@@ -99,6 +99,7 @@ function replaceHtml(text){
         text = text.replace('\\', "'");
         text = replace(text, "&lt;", "<");
         text = replace(text, "&gt;", ">");
+        text = replace(text, "&amp;", "&");
         return text;
     }
 }
