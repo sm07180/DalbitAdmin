@@ -14,13 +14,12 @@
                                 <span id="search_search_type_aria"></span>
                                 <span id="search_slct_type_aria"></span>
                                 <span id="search_reason_aria"></span>
-                                <label><input type="text" class="form-control" name="txt_search" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <input type="text" id="dummy" style="display:none;">
             </form>
             <!-- //serachBox -->
 
@@ -64,7 +63,7 @@
 <script>
     $(document).ready(function() {
 
-        $('input[id="txt_search"]').keydown(function(e) {    // textBox 처리
+        $('input[id="searchText"]').keydown(function(e) {    // textBox 처리
             if(e.keyCode == 13) {
                 getDeclareInfo();
             };
