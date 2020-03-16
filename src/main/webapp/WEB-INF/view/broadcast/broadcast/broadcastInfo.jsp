@@ -209,7 +209,7 @@
         obj.roomNo = tmp;
         util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
-
+    var roomNo;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         roomNo = response.data[0].roomNo;
