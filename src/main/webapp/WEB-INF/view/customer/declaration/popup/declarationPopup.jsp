@@ -42,5 +42,5 @@
 </div> <!-- #div -->
 
 <script>
-    getMemNo_info_popup(<%=in_memNo%>);
+    getMemNo_info_reload(<%=in_memNo%>);
 </script>

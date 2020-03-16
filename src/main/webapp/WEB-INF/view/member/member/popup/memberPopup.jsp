@@ -16,6 +16,6 @@
     init();
     function init(){
         var tmp =  <%=in_memNo%>;
-        getMemNo_info_popup(tmp);
+        getMemNo_info_reload(tmp);
     }
 </script>
