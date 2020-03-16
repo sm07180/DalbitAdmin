@@ -58,7 +58,7 @@ var BroadcastDataTableSource = {
             {'title': 'DJ 닉네임', 'data': 'memNick', 'defaultContent': ''},
             {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
+                    return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
             {'title': '방송시작일시', 'data': 'startDate', 'defaultContent': ''},
             {'title': '청취자', 'data': 'entryCnt', 'defaultContent': ''},
@@ -88,8 +88,25 @@ var BroadcastDataTableSource = {
             {'title': '부스터', 'data': '', 'defaultContent': ''},
             {'title': '보낸아이템', 'data': '', 'defaultContent': ''},
         ]
-        // , 'comments': 'ㆍ방송 중 (게스트와 매니저를 포함한)청취자 변동사항을 확인할 수 있습니다.<br> 청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
+        , 'comments' : 'ㆍ방송 중 (게스트와 매니저를 포함한) 청취자 변동사항을 확인할 수 있습니다.<br/>' +
+                       'ㆍ청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
     },
+
+    'chatList': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '채팅 장성 시간', 'data': '', 'defaultContent': '0건'},
+            {'title': '채팅 내용', 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+    'chatUserList': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '채팅 장성 시간', 'data': '', 'defaultContent': '0건'},
+            {'title': '채팅 내용', 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+
 
     'likeDetail': {
         'url': '/rest/member/report/list'
@@ -123,6 +140,7 @@ var BroadcastDataTableSource = {
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
     },
+
     'storyDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
@@ -137,7 +155,7 @@ var BroadcastDataTableSource = {
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
 
-    'live_top_list': {
+    'live_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
             {'title': '누적청취자', 'data': '', 'defaultContent': '0건'},
@@ -149,7 +167,7 @@ var BroadcastDataTableSource = {
         ]
     },
 
-    'listen_top_list': {
+    'listen_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
             {'title': '청취자', 'data': '', 'defaultContent': '0건'},
@@ -159,6 +177,42 @@ var BroadcastDataTableSource = {
             {'title': '좋아요', 'data': '', 'defaultContent': '0건'},
             {'title': '부스터', 'data': '', 'defaultContent': '0건'},
             {'title': '아이템', 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+
+    'chat_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '채팅참여자', 'data': '', 'defaultContent': '0건'},
+            {'title': '<i class="fa fa-moon-o" style="color: #009bff"></i>' + ": 달D", 'data': '', 'defaultContent': '0건'},
+            {'title': '<i class="fa fa-volume-up" style="color: #080004"></i>' + ": 청취자", 'data': '', 'defaultContent': '0건'},
+            {'title': '<i class="fa fa-star" style="color: #ff1600"></i>' + ": 게스트", 'data': '', 'defaultContent': '0건'},
+            {'title': '<i class="fa fa-street-view" style="color: #00ff32"></i>' + ": 매니저", 'data': '', 'defaultContent': '0건'},
+            {'title': '<i class="fa fa-bomb" style="color: #7400ff"></i>' + ": 강제퇴장자", 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+    'like_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '좋아요', 'data': '', 'defaultContent': '0건'},
+            {'title': '청취자 부스터', 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+    'gift_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '방송 중 선물', 'data': '', 'defaultContent': '0건'},
+            {'title': 'DJ>청취자', 'data': '', 'defaultContent': '0건'},
+            {'title': '남자', 'data': '', 'defaultContent': '0건'},
+            {'title': '여자', 'data': '', 'defaultContent': '0건'},
+        ]
+    },
+    'story_top': {
+        'url': '/rest/member/report/list'
+        , 'columns': [
+            {'title': '방송 중 사연', 'data': '', 'defaultContent': '0건'},
+            {'title': '남자', 'data': '', 'defaultContent': '0건'},
+            {'title': '여자', 'data': '', 'defaultContent': '0건'},
         ]
     },
     

@@ -38,6 +38,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="widget-footer">
+                        <span>
+                            <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <!-- DATA TABLE END -->
@@ -115,7 +120,7 @@
 
         formData.append("searchType", tmp_searchType);
         formData.append("searchText", tmp_searchText);
-        excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 
     function fn_success_excel(){
