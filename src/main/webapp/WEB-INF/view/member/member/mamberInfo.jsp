@@ -12,8 +12,8 @@
             <td rowspan="5" colspan="3">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
-                    <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">이미지초기화</button>
                 </form>
+                <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">이미지초기화</button>
             </td>
             <tr>
                 <th>회원레벨</th>
