@@ -167,25 +167,28 @@ var MemberDataTableSource = {
     },
 
     'reportDetail': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/customer/declaration/list'
         , 'columns': [
-            {'title': 'idx', 'data': 'idx', 'visible' : false},
-            {'title': '문의구분', 'data': 'type'},
-            {'title': '신고구분', 'data': 'type'},
-            {'title': '신고Id', 'data': 'reportId'},
-            {'title': '신고자닉네임', 'data': 'reportMemId'},
-            {'title': '신고대상Id', 'data': 'reportId'},
-            {'title': '신고대상닉네임', 'data': 'reportMemId'},
-            {'title': '접수일시', 'data': 'lastUpdDate'},
-            {'title': '처리일시', 'data': 'deployDate'},
-            {'title': '처리상태', 'data': 'status'},
-            {'title': '처리자', 'data': 'deployUser'},
-            {'title': '처리상태', 'data': 'etc', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Report('+meta.row+');">' + data + '</a>'
-                }},
+            {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat'}
+            ,{'title': '신고 구분', 'data' : 'reason', 'name' : 'sortReport', 'render': function(data) {
+                    return util.getCommonCodeLabel(data, declaration_reason);
+                }}
+            ,{'title': '신고자 UserID', 'data': 'mem_id', 'render': function (data, type, row) {
+                    return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
+            ,{'title': '신고 대상 UserID', 'data': 'reported_mem_id', 'render': function (data, type, row) {
+                    return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'}
+            }
+            ,{'title': '신고 대상 User닉네임', 'data': 'reported_mem_nick'}
+            ,{'title': '접수 일시', 'data': 'regDate'}
+            ,{'title': '처리 일시', 'data': 'opDate', 'defaultContent':'-'}
+            ,{'title': '처리 상태', 'data': 'status', 'name': 'slctType', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, declaration_slctType)
+                }}
+            ,{'title': '처리자', 'data': 'opName', 'defaultContent':'-'}
         ]
         , 'comments': 'ㆍ회원이 신고하고, 신고 당한 정보를 한눈에 확인할 수 있습니다.'
     },
+
     'questionDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
