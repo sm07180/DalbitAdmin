@@ -4,7 +4,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '회원번호', 'data': 'mem_no', 'width':'100px'},
              {'title': 'UserID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
+                    return '<a href="javascript://" class="getMemberDetail" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
                 }},
              {'title': '닉네임', 'data': 'mem_nick', 'width':'200px'},
              {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
@@ -220,13 +220,11 @@ var MemberDataTableSource = {
 
 
     'adminMemoList': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/member/member/adminMemolist'
         , 'columns': [
-            {'title': 'User ID', 'data': 'type'},
-            {'title': 'User 닉네임', 'data': 'type'},
-            {'title': '등록 일시', 'data': 'type'},
-            {'title': '등록 관리자', 'data': 'type'},
-            {'title': '운영자 메모 내용', 'data': 'type'},
+            {'title': '등록 일시', 'data': 'regDate','width':'180px'},
+            {'title': '등록 관리자', 'data': 'opName','width':'100px'},
+            {'title': '운영자 메모 내용', 'data': 'memo', 'textAlign': 'left'},
         ]
     },
 

@@ -71,12 +71,13 @@
         data.searchText = $('#txt_search').val();                        // 검색명
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
-    dtList_info.useCheckBox(false);
+    dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
 
     var tmp_searchType;
     var tmp_searchText;
+    var memNo = "unknown";
     function getUserInfo(){                 // 검색
         if( $('#txt_search').val() == ""){
             alert("검색대상을 입력해 주세요.");
@@ -92,6 +93,12 @@
         ui.toggleSearchList()
         $('#tabList').removeClass("show");
     }
+
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+        if($(this).prop('checked')){
+            $(this).parent().parent().find('.getMemberDetail').click();
+        }
+    });
 
     function getMemNo_info(index){
         $('#tabList').addClass("show");

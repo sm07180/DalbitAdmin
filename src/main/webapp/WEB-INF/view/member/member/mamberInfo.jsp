@@ -12,8 +12,8 @@
             <td rowspan="5" colspan="3">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
-                    <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">이미지초기화</button>
                 </form>
+                <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">이미지초기화</button>
             </td>
             <tr>
                 <th>회원레벨</th>
@@ -95,7 +95,10 @@
             <th>나이</th>
             <td style="text-align: left"><label id="lb_age"></label></td>
             <th>성별</th>
-            <td style="text-align: left"><span id="gender"></span></td>
+            <td style="text-align: left">
+                <span id="gender"></span>
+                <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right">변경</button>
+            </td>
             <th>가입플랫폼</th>
             <td style="text-align: left"><label id="lb_memSlct"></label></td>
         </tr>
@@ -193,11 +196,11 @@
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
             bt_click(this.id);
         });
-        $('#bt_adminMemoList').click(function() {           //최근정보 수정일
-            getInfoDetail(this.id,"운영자메모","");
+        $('#bt_adminMemoList').click(function() {       //운영자 메모 정보
+            getInfoDetail(this.id,"운영자메모");
         });
         $('#bt_loginStatus').click(function() {         //접속상태
-            getInfoDetail(this.id,"접속상태","");
+            getInfoDetail(this.id,"접속상태");
         });
         $('#bt_myManager').click(function() {             //매니저 자세히
             getInfoDetail(this.id,"(내가 등록한) 매니저");
@@ -237,7 +240,7 @@
         $("#lb_editDate").html(response.data.lastOpDate);
         $("#lb_editUser").html(response.data.lastOpName);
         $("#txt_birth" ).val(response.data.birthDate.substr(0,10));
-        $("#lb_age").html(response.data.age + "세");
+        $("#lb_age").html(response.data.age+1 + "세");
         if(response.data.memSex == "m"){
             $("input[name=gender][value=" + 2 + "]").prop("checked", true);
         }else{
@@ -246,19 +249,22 @@
         $('#bt_report').data('url',"http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" +memNo + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex+ "'");
         $("#lb_socialId").html(response.data.socialId);
         $("#lb_adminMemoCnt").html("등록 : " + response.data.opMemoCnt + "건");
-        // $("#txt_adminMemo").val(response.data.opMemo);
+        $("#txt_adminMemo").val(response.data.opMemo);
 
         var tmp;
         if(response.data.memState == "1") tmp = "정상";
         else if(response.data.memState == "3") tmp = "블럭";
         else if(response.data.memState == "4") tmp = "탈퇴";
         $("#lb_memState").html(tmp);
+
         if(response.data.connectState == "Logout") tmp = '<i class="fa fa-comment-o"> ' + response.data.connectState;
         else tmp = '<i class="fa fa-comment"> ' + response.data.connectState;
         $("#lb_connectState").html(tmp);
+
         if(response.data.broadcastState == "OFF") tmp = '<i class="fa fa-comment-o"> ' + response.data.broadcastState;
         else tmp = '<i class="fa fa-comment"> ' + response.data.broadcastState;
         $("#lb_broadcastState").html(tmp);
+
         if(response.data.listeningState == "OFF") tmp = '<i class="fa fa-comment-o"> ' + response.data.listeningState;
         else tmp = '<i class="fa fa-comment"> ' + response.data.listeningState;
         $("#lb_listeningState").html(tmp);
@@ -278,26 +284,30 @@
         $("#detailForm").html("");
     }
 
-    function getInfoDetail(tmp,tmp1) {     // 상세보기
-        $('#detailForm').addClass("show");
-        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+    function fullSize(url) {     // 이미지 full size
+        $("#image_full_size").prop("src", url);
+    }
 
+    function getInfoDetail(tmp,tmp1) {     // 상세보기
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#detailForm").html(templateScript);
 
-        var source = MemberDataTableSource["loginStatus"];
+        $('#tab_infoDetail1').text(tmp1);           //텝 이름 변경
+        $('#detailForm').addClass("show");
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+        console.log("tmp : " + tmp);
+
+        var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
-            data.memNo = memNo;
+            data.mem_no = memNo;
         }
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable()
-
-        $('#tab_infoDetail1').text(tmp1);           //텝 이름 변경
-        var source = MemberDataTableSource[tmp];
-        dtList_info_detail.changeReload(null,null,source,null);
+        // dtList_info_detail.changeReload(null,null,source,null);
+        dtList_info_detail.reload();
 
         if(tmp == "myManager" || tmp == "myBlack"){
             getInfoDetail2(tmp);
@@ -315,36 +325,96 @@
             dtList_info_detail.changeReload(null,null,source,null);
         }
     }
+    var tmp_bt;
     function bt_click(tmp) {
-        if(tmp == "bt_img"){                        //사진변경
-            alert($("#lb_userId").html() + "님의 프로필 이미지가 초기화 되었습니다.");
-
-        }else if(tmp == "bt_phon"){                 //휴대폰 번호 변경
-            alert($("#lb_userId").html() + "님의 연락처가 변경되었습니다.");
-
-        }else if(tmp == "bt_resatNick"){            // 닉네임 변경
-            alert($("#lb_userId").html() + "님의 닉네임이 변경되었습니다.");
-
-        }else if(tmp == "bt_birth"){                //생일 변경
-            alert($("#lb_userId").html() + "님의 생년월일이 변경되었습니다.");
-        }else if(tmp == "bt_gender"){               //성별 변경
-            alert($("#lb_userId").html() + "님의 성별이 변경되었습니다.");
-        }else if(tmp == "bt_resatPass"){            //비밀번호 초기화
-            if(confirm($("#lb_userId").html() + "님의 비밀번호를 초기화 하여 휴대폰 연락처로 임의 비밀번호를 전송합니다. 지금 바로 전송하시겠습니까?")){
-                alert("전송");
-            }else{
-                alert("취소");
+        tmp_bt = tmp;
+        if(memNo == "unknown"){
+            alert("변경대상 회원을 선택해 주십시오.");
+            return;
+        }
+        if(tmp == "bt_adminMemo") {            //운영자 메모 변경
+            getInfoDetail("bt_adminMemoList", "운영자메모");
+            if ($("#txt_adminMemo").val() == "" || $("#txt_adminMemo").val() == null) {
+                alert("등록할 운영자 메모를 입력해 주십시오.");
+                return;
             }
-        }else if(tmp == "bt_adminMemo"){            //운영자 메모 변경
-            alert("운영자 메모 등록")
+            var obj = new Object();
+            obj.mem_no = memNo;
+            obj.memo = $("#txt_adminMemo").val();
+            util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
+        }else{
+            var obj = new Object();
+            obj.mem_no = memNo;
+            if(tmp == "bt_img"){                        //사진초기화
+                // obj.profileImage = "reset";
+                if($('input[name="gender"]:checked').val() == "2"){
+                    obj.memSex = "m";
+                }else if($('input[name="gender"]:checked').val() == "3"){
+                    obj.memSex = "f";
+                }
+                obj.photoUrl = IMAGE_SERVER_URL;
+            }else if(tmp == "bt_resatPass"){            //비밀번호 초기화
+                if (confirm($("#lb_memId").html() + "님의 비밀번호를 초기화 하여 휴대폰 연락처로 임의 비밀번호를 전송합니다. 지금 바로 전송하시겠습니까?")) {
+                    obj.passwdReset = $("#lb_memId").html();
+                } else {
+                    return;
+                }
+            }else if(tmp == "bt_resatNick"){
+                obj.nickName = $("#txt_memNick").val();     //0
+            }else if(tmp == "bt_phon"  || tmp == "bt_birth" || tmp == "bt_gender"){                 //휴대폰 번호 변경
+                var tmp_phone = $("#txt_phon").val().replace(/-/gi,"");
+                if(tmp_phone.length > 11 || tmp_phone.length < 10){
+                    alert("전화번호를 정확히 입력해 주십시오.");
+                    return;
+                }
+                obj.phoneNum = tmp_phone;                   //0
+                obj.birthDate = $("#txt_birth" ).val();
+                if($('input[name="gender"]:checked').val() == "2"){         //0
+                    obj.memSex = "m";
+                }else if($('input[name="gender"]:checked').val() == "3"){
+                    obj.memSex = "f";
+                }
+            }
+            util.getAjaxData("editor", "/rest/member/member/editor", obj, update_success, fn_fail);
         }
     }
-    function fullSize(url) {     // 이미지 full size
-        $("#image_full_size").prop("src", url);
+
+    function update_success(dst_id, response) {
+        dalbitLog(response);
+        if (tmp_bt == "bt_img") {                        //사진변경
+            alert($("#lb_memId").html() + "님의 프로필 이미지가 초기화 되었습니다.");
+        } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
+            alert($("#lb_memId").html() + "님의 연락처가 변경되었습니다.");
+        } else if (tmp_bt == "bt_resatNick") {            // 닉네임 변경
+            if(response == "0"){
+                alert("닉네임 중복");
+            }else{
+                alert($("#lb_memId").html() + "님의 닉네임이 변경되었습니다.");
+            }
+        } else if (tmp_bt == "bt_birth") {                //생일 변경
+            alert($("#lb_memId").html() + "님의 생년월일이 변경되었습니다.");
+        } else if (tmp_bt == "bt_gender") {               //성별 변경
+            alert($("#lb_memId").html() + "님의 성별이 변경되었습니다.");
+        } else if (tmp_bt == "bt_resatPass") {            //비밀번호 초기화
+            alert($("#lb_memId").html() + "님의 비밀번호가 초기화 되었습니다.");
+        }
+
+        if (dst_id == "adminMemoAdd") {
+            dtList_info_detail.reload();
+        } else {
+            getMemNo_info_reload(memNo);
+        }
     }
+    function getMemNo_info_reload(memNo){
+        var obj = new Object();
+        obj.mem_no =  memNo;
+        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+    }
+
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
+
 
 </script>
 

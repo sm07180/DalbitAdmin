@@ -25,8 +25,8 @@ var declaration_status = [
     , new COMMON_CODE('on', '1', '처리완료')
 ];
 
-var declaration_opCode = [
-    new COMMON_CODE(null, 'op_code', '조치내역')
+var declaration_slctType = [
+    new COMMON_CODE(null, 'slctType', '조치내역')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('not', '0', '미처리')
     , new COMMON_CODE('continue', '1', '유지')
