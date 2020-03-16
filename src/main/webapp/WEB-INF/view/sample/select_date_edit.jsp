@@ -538,7 +538,7 @@
         <%--<!-- 버튼 끝 -->--%>
     <%--});--%>
 
-    <%--var memNo = "";--%>
+    <%--var memNo--%>
     <%--function init(tmp){--%>
         <%--getUserInfo(0,10);--%>
         <%--getLevelData();--%>

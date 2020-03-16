@@ -220,13 +220,11 @@ var MemberDataTableSource = {
 
 
     'adminMemoList': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/member/member/adminMemolist'
         , 'columns': [
-            {'title': 'User ID', 'data': 'type'},
-            {'title': 'User 닉네임', 'data': 'type'},
-            {'title': '등록 일시', 'data': 'type'},
-            {'title': '등록 관리자', 'data': 'type'},
-            {'title': '운영자 메모 내용', 'data': 'type'},
+            {'title': '등록 일시', 'data': 'regDate','width':'180px'},
+            {'title': '등록 관리자', 'data': 'opName','width':'100px'},
+            {'title': '운영자 메모 내용', 'data': 'memo', 'textAlign': 'left'},
         ]
     },
 
