@@ -328,19 +328,16 @@
                     <td>{{writeDate}}</td>
 
                     <th>게시중지일시</th>
-                    <td>-</td>
+                    <td>
+                        {{offDate}}
+                        {{#equal offDate ''}}-{{/equal}}
+                    </td>
 
                     <th>처리자</th>
                     <td>{{opName}}</td>
                     <th>게시상태</th>
                     <td>
-                        <div class="onoffswitch">
-                            <input type="checkbox" name="viewOn" id="detail_viewOn" class="onoffswitch-checkbox" {{#equal viewOn '1'}}checked=""{{/equal}}>
-                            <label class="onoffswitch-label" for="detail_viewOn">
-                                <span class="onoffswitch-inner"></span>
-                                <span class="onoffswitch-switch"></span>
-                            </label>
-                        </div>
+                        {{{getOnOffSwitch viewOn}}}
                     </td>
                 </tr>
             </tbody>

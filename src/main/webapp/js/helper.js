@@ -109,3 +109,7 @@ Handlebars.registerHelper("replaceHtml", function(value)
 Handlebars.registerHelper("equal", function (value, value2, opt){
     return common.equal(value, value2, opt);
 });
+
+Handlebars.registerHelper("getOnOffSwitch", function(value){
+   return util.getOnOffSwitch(value);
+});
