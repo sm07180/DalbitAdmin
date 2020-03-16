@@ -105,3 +105,7 @@ Handlebars.registerHelper("replaceHtml", function(value)
 {
     return common.replaceHtml(value);
 });
+
+Handlebars.registerHelper("equal", function (value, value2, opt){
+    return common.equal(value, value2, opt);
+});

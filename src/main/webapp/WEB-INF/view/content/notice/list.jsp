@@ -168,49 +168,38 @@
         return true;
     }
 
+    function generateFormData(){
+        var data = {};
+        var formArray = $("#noticeForm").serializeArray();
+        for (var i = 0; i < formArray.length; i++){
+            data[formArray[i]['name']] = formArray[i]['value'];
+        }
+        data["contents"] = $("#editor").summernote('code');
+        data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
+
+        dalbitLog(data);
+
+        return data;
+    }
+
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
-            var data = {};
-            var formArray = $("#noticeForm").serializeArray();
-            for (var i = 0; i < formArray.length; i++){
-                data[formArray[i]['name']] = formArray[i]['value'];
+            if(confirm('등록하시겠습니까?')){
+                util.getAjaxData("insert", "/rest/content/notice/insert", generateFormData(), fn_insert_success);
             }
-            data["contents"] = $("#editor").summernote('code');
-
-            // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
-            console.log(data);
-
-            util.getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
         }
     });
-
-    function fn_insert_success(dst_id, response) {
-        dalbitLog(response);
-        alert(response.message);
-        generateForm();
-        dtList_info.reload();
-
-        $("#noticeForm").empty();
-    }
 
     $(document).on('click', '#updateBtn', function(){
 
         if(isValid()){
-            var data = {};
-            var formArray = $("#noticeForm").serializeArray();
-            for (var i = 0; i < formArray.length; i++){
-                data[formArray[i]['name']] = formArray[i]['value'];
+            if(confirm('수정하시겠습니까?')) {
+                util.getAjaxData("update", "/rest/content/notice/update", generateFormData(), fn_insert_success);
             }
-            data["contents"] = $("#editor").summernote('code');
-
-            // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
-
-            console.log(data);
-            util.getAjaxData("update", "/rest/content/notice/update", data, fn_update_success);
         }
     });
 
-    function fn_update_success(dst_id, response) {
+    function fn_insert_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
         generateForm();
@@ -344,7 +333,15 @@
                     <th>처리자</th>
                     <td>{{opName}}</td>
                     <th>게시상태</th>
-                    <td>-</td>
+                    <td>
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="viewOn" id="detail_viewOn" class="onoffswitch-checkbox" {{#equal viewOn '1'}}checked=""{{/equal}}>
+                            <label class="onoffswitch-label" for="detail_viewOn">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>

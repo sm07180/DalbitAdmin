@@ -10,7 +10,6 @@ var FaqDataTableSource = {
                     return '<a href="javascript://" class="_getFaqDetail" data-idx="'+row.faqIdx+'">' + data + '</a>'
                 }
             }
-            , {'title': 'FAQ구분', 'data': 'slctType', 'name': 'sortSlct'}
             , {'title': '등록일시', 'data': 'writeDateFormat'}
             , {'title': '조회수', 'data': 'viewCnt', 'name': ''}
             , {'title': '사이트 적용', 'data': 'viewOn', 'render': function (data) {

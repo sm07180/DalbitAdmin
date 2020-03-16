@@ -86,5 +86,12 @@ div.block{
     padding-bottom: 5px;
 }
 
-table.table-dalbit tbody tr th {background-color: #DCE6F2}
-table.table-dalbit tbody tr td {background-color: #FFFFFF}
+table.table-dalbit tbody tr th {
+    background-color: #DCE6F2;
+    text-align: center;
+}
+
+table.table-dalbit tbody tr td {
+    background-color: #FFFFFF;
+    text-align: left;
+}

@@ -102,12 +102,12 @@ var common = {
         }
     },
 
-    equals(val1, val2, opt) {
+    equal(val1, val2, opt) {
         if (arguments.length < 3)
             throw new Error("equal은 2개의 인자가 필요합니다.");
 
-        var v1 = util.getValue(val1);
-        var v2 = util.getValue(val2);
+        var v1 = this.getValue(val1);
+        var v2 = this.getValue(val2);
 
         return (v1 != v2) ? opt.inverse(this) : opt.fn(this);
     },
