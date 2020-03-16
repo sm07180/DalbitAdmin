@@ -349,7 +349,7 @@
             </tbody>
         </table>
     </div>
-    <div class="row col-lg-12 form-inline area_style">
+    <div class="row col-lg-12 form-inline">
         <div class="widget">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 내용 </h3>
