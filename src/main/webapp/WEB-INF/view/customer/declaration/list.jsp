@@ -81,13 +81,10 @@
 
     init();
     /** Data Table **/
-    var dtList_info;
     function init() {
+
         var dtList_info_data = function ( data ) {
             data.search = $('#txt_search').val();
-            data.searchType = $("#search_search_type_aria option:selected").val();
-            data.slctType = $("#search_slct_type_aria option:selected").val();
-            data.reason = $("#search_reason_aria option:selected").val();
         };
 
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList, $("#searchForm"));
@@ -97,8 +94,9 @@
 
         // 검색조건 불러오기
         $("#search_search_type_aria").html(util.getCommonCodeSelect(-1, declaration_searchType));
-        $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_opCode));
+        $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
         $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
+
     }
 
     function getDeclareInfo() {
@@ -169,8 +167,9 @@
     <div class="row col-lg-12 form-inline" id="declareDetail">
         <div class="widget-content">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
+                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">신고처리</a></li>
             </ul>
+            <label id="report_title"></label>
             <div class="tab-content no-padding">
                 <table class="table table-bordered table-dalbit">
                     <colgroup>
