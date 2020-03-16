@@ -319,7 +319,7 @@
                 <td id="regDate">{{writeDate}}</td>
 
                 <th>조회수</th>
-                <td id="cnt">{{viewCnt}}</td>
+                <td id="cnt">{{addComma viewCnt}}</td>
 
                 <th>처리자</th>
                 <td id="processor">{{opName}}</td>

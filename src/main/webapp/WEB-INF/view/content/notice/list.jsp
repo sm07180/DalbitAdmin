@@ -315,7 +315,7 @@
                     <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
 
                     <th>조회수</th>
-                    <td>{{viewCnt}}</td>
+                    <td>{{addComma viewCnt}}</td>
                 </tr>
                 <tr>
                     <th>플랫폼</th>

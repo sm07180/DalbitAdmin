@@ -11,7 +11,9 @@ var FaqDataTableSource = {
                 }
             }
             , {'title': '등록일시', 'data': 'writeDateFormat'}
-            , {'title': '조회수', 'data': 'viewCnt', 'name': ''}
+            , {'title': '조회수', 'data': 'viewCnt', 'name': '', 'render' : function(data){
+                    return common.addComma(data)
+                }}
             , {'title': '사이트 적용', 'data': 'viewOn', 'render': function (data) {
                     return util.renderOnOff(data);
                 }}

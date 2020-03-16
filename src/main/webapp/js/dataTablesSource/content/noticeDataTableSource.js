@@ -15,12 +15,13 @@ var NoticeDataTableSource = {
             , {
                 'title': '제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     //return '<a href="javascript://" onclick="javascript:getNotice_detail(' + meta.row + ');">' + data + '</a>'
-                    console.log(row);
                     return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+row.noticeIdx+'">' + data + '</a>'
                 }
             }
             , {'title': '등록일시', 'data': 'writeDateFormat'}
-            , {'title': '조회수', 'data': 'viewCnt'}
+            , {'title': '조회수', 'data': 'viewCnt', 'render' : function(data){
+                    return common.addComma(data);
+                }}
             , {'title': '게시상태', 'data': 'viewOn', 'render': function (data) {
                     return util.renderOnOff(data);
                 }}
