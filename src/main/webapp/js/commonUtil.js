@@ -21,6 +21,7 @@ var util = {
 
     /*ajax 호출 모듈*/
     getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc) {
+        var common = this;
         $.ajax({
             type: 'POST',
             url: dst_url,
@@ -34,7 +35,7 @@ var util = {
                 if (errorFunc != null) {
                     errorFunc(data, textStatus, jqXHR);
                 } else {
-                    this.commonAjaxError(data, textStatus, jqXHR);
+                    common.commonAjaxError(data, textStatus, jqXHR);
                 }
             } catch (e) {
                 // function call fail skip
