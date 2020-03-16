@@ -368,7 +368,7 @@
                     return;
                 }
                 obj.phoneNum = tmp_phone;                   //0
-                obj.birthdate = $("#txt_birth" ).val();
+                obj.birthDate = $("#txt_birth" ).val();
                 if($('input[name="gender"]:checked').val() == "2"){         //0
                     obj.memSex = "m";
                 }else if($('input[name="gender"]:checked').val() == "3"){

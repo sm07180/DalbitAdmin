@@ -14,7 +14,7 @@ public class P_MemberEditorVo extends BaseVo {
     private String	phoneNum;
     private String	nickName;
     private String	name;
-    private String  birthdate;
+    private String  birthDate;
     private String	memSex;
     private String	passwdReset;
     private String	photoUrl;
