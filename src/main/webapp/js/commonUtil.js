@@ -155,7 +155,7 @@ var util = {
         return template;
     },
 
-    getCommonCodeSelect(code, targetCode, isExcludeAllYn) {
+    getCommonCodeSelect(code, targetCode, isExcludeAllYn, name) {
         targetCode = eval(targetCode);
         if (!common.isEmpty(targetCode)) {
 
@@ -176,13 +176,13 @@ var util = {
         }
     },
 
-    getCommonCodeRadio(code, targetCode, isExcludeAllYn) {
+    getCommonCodeRadio(code, targetCode, isExcludeAllYn, name) {
         targetCode = eval(targetCode);
         if (!common.isEmpty(targetCode)) {
 
             var header = targetCode[0];
             var html = '';
-            var radioId = header.value;
+            var radioId = common.isEmpty(name) ? header.value : name;
             targetCode.forEach(function (value) {
                 if (!common.isEmpty(value.type)) {
 

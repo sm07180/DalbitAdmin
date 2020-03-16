@@ -220,7 +220,7 @@
 
                         <th rowspan="5">조치내역</th>
                         <td rowspan="5">
-                            {{{getCommonCodeRadio op_code 'report_radio'}}}
+                            {{{getCommonCodeRadio op_code 'declaration_slctType' 'N' 'opCode'}}}
                         </td>
                     </tr>
                     <tr>

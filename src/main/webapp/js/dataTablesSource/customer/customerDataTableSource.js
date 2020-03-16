@@ -27,8 +27,8 @@ var customerDataTableSource = {
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_mem_nick'}
             ,{'title': '접수 일시', 'data': 'regDate'}
             ,{'title': '처리 일시', 'data': 'opDate', 'defaultContent':'-'}
-            ,{'title': '처리 상태', 'data': 'status', 'name': 'slctType', 'render' : function(data) {
-                return util.getCommonCodeLabel(data, declaration_slctType)
+            ,{'title': '처리 상태', 'data': 'op_code', 'name': 'slctType', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, declaration_slctType);
                 }}
             ,{'title': '처리자', 'data': 'opName', 'defaultContent':'-'}
         ]
