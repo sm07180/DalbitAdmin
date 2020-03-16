@@ -132,85 +132,76 @@
                 <col width="5%" />
             </colgroup>
             <tbody>
-                <tr class="align-middle">
-                    <th rowspan="2">No</th>
-                    <td rowspan="2"></td>
+            <tr class="align-middle">
+                <th rowspan="2">No</th>
+                <td rowspan="2">{{reportIdx}}</td>
 
-                    <th>문의유형</th>
-                    <td></td>
+                <th>신고사유</th>
+                <td>{{{getCommonCodeSelect report_reason 'declaration_reason'}}}</td>
 
-                    <th>Browser</th>
-                    <td></td>
+                <th>Browser</th>
+                <td>{{browser}}</td>
 
-                    <th>접수일시</th>
-                    <td></td>
+                <th>접수일시</th>
+                <td>{{reg_date}}</td>
 
-                    <th>처리상태</th>
-                    <td></td>
-                </tr>
-                <tr>
-                    <th>플랫폼</th>
-                    <td>{{{getCommonCodeSelect platform 'platform'}}}</td>
+                <th>처리상태</th>
+                <td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>
+            </tr>
+            <tr>
+                <th>플랫폼</th>
+                <td>{{platform}}</td>
 
-                    <th>IP Address</th>
-                    <td></td>
+                <th>IP Address</th>
+                <td>{{ipAddress}}</td>
 
-                    <th>처리일시</th>
-                    <td>{{writeDate}}</td>
+                <th>처리일시</th>
+                <td>{{op_date}}</td>
 
-                    <th>처리자명</th>
-                    <td></td>
-                </tr>
-                <tr class="align-middle">
-                    <th colspan="4">신고자</th>
-                    <th colspan="4">대상자</th>
+                <th>처리자명</th>
+                <td>{{opName}}</td>
+            </tr>
+            <tr class="align-middle">
+                <th colspan="4">신고자</th>
+                <th colspan="4">대상자</th>
 
-                    <th rowspan="5">조치내역</th>
-                    <td rowspan="5">
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
-                        <button type="button" id="bt_ban2" class="btn btn-default btn-sm pull-right">완료</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>DaldalE</td>
-                    <td>(레벨/등급)</td>
-                    <td>신고자</td>
-                    <td>남</td>
+                <th rowspan="5">조치내역</th>
+                <td rowspan="5">
+                    {{{getCommonCodeRadio op_code 'declaration_slctType' 'N' 'opCode'}}}
+                </td>
+            </tr>
+            <tr>
+                <td>{{mem_id}}</td>
+                <td>{{level}}/{{grade}}</td>
+                <td>{{mem_nick}}</td>
+                <td>{{memSex}}</td>
 
-                    <td>DaldalE2222</td>
-                    <td>(레벨/등급)</td>
-                    <td>대상자</td>
-                    <td>여</td>
-                </tr>
-                <tr>
-                    <th colspan="2">누적 결제 수<br />/금액</th>
-                    <td colspan="2">75건 <br />1,000원</td>
+                <td>{{reported_mem_id}}</td>
+                <td>{{reported_level}}/{{reported_grade}}</td>
+                <td>{{reported_mem_nick}}</td>
+                <td>{{reported_memSex}}</td>
+            </tr>
+            <tr>
+                <th colspan="2">누적 결제 수<br />/금액</th>
+                <td colspan="2">{{payCount}} <br />{{payAmount}}</td>
 
-                    <th colspan="2">누적 결제 수<br />/금액</th>
-                    <td colspan="2">75건 <br />1,000원</td>
-                </tr>
-                <tr>
-                    <th colspan="2">누적 선물 수<br />/금액</th>
-                    <td colspan="2">75건 <br />1,000원</td>
+                <th colspan="2">누적 결제 수<br />/금액</th>
+                <td colspan="2">{{reported_payCount}} <br />{{reported_payAmount}}</td>
+            </tr>
+            <tr>
+                <th colspan="2">누적 선물 수<br />/금액</th>
+                <td colspan="2">{{giftCount}} <br />{{giftAmount}}</td>
 
-                    <th colspan="2">누적 선물 수<br />/금액</th>
-                    <td colspan="2">75건 <br />1,000원</td>
-                </tr>
-                <tr>
-                    <th colspan="2">총 신고</th>
-                    <td colspan="2">1건</td>
+                <th colspan="2">누적 선물 수<br />/금액</th>
+                <td colspan="2">{{reported_giftCount}} <br />{{reported_giftAmount}}</td>
+            </tr>
+            <tr>
+                <th colspan="2">총 신고</th>
+                <td colspan="2"></td>
 
-                    <th colspan="2">총 신고/조치</th>
-                    <td colspan="2">5건 <br />3건</td>
-                </tr>
-
+                <th colspan="2">총 신고/조치</th>
+                <td colspan="2"> <br /></td>
+            </tr>
             </tbody>
         </table>
     </div>
