@@ -199,6 +199,18 @@ var util = {
         }
     },
 
+    getOnOffSwitch(data) {
+        var html = '<div class="onoffswitch">';
+        html += '<input type="checkbox" name="viewOn" id="detail_viewOn" class="onoffswitch-checkbox" ' + (data == 1 ? 'checked="checked"': '') +'>';
+        html += '<label class="onoffswitch-label" for="detail_viewOn">';
+        html += '<span class="onoffswitch-inner"></span>';
+        html += '<span class="onoffswitch-switch"></span>';
+        html += '</label>';
+        html += '</div>';
+
+        return html;
+    },
+
     getCommonCodeLabel(code, targetCode) {
         targetCode = eval(targetCode);
         if (!common.isEmpty(targetCode)) {
