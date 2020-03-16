@@ -77,14 +77,12 @@
 
     });
 
-    $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
-
     init();
     /** Data Table **/
     function init() {
 
         var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();
+            data.search = $('#searchText').val();
         };
 
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList, $("#searchForm"));
@@ -125,7 +123,7 @@
         var context = response.data;
         var html=templateScript(context);
         $("#declarationForm").html(html);
-        //getChattingHistoryDetail();
+        $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
     }
 
     $(function() {
@@ -164,5 +162,7 @@
 </script>
 
 <script id="tmp_declarationFrm" type="text/x-handlebars-template">
-    <div class="tab-pane fade in active" id="report_tab"><jsp:include page="../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
+    <div class="row col-lg-12 mt15">
+        <div class="tab-pane fade in active" id="report_tab"><jsp:include page="../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
+    </div>
 </script>
