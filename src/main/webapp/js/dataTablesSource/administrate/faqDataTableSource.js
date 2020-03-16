@@ -13,11 +13,7 @@ var FaqDataTableSource = {
             , {'title': '등록일시', 'data': 'writeDateFormat'}
             , {'title': '조회수', 'data': 'viewCnt', 'name': ''}
             , {'title': '사이트 적용', 'data': 'viewOn', 'render': function (data) {
-                    if(data == 1){
-                        return ' <i class="fa fa-circle"></i>' + " ON" ;
-                    }else{
-                        return ' <i class="fa fa-circle-o"></i>' + " OFF" ;
-                    }
+                    return util.renderOnOff(data);
                 }}
             , {'title': '처리자명', 'data': 'opName'}
         ]

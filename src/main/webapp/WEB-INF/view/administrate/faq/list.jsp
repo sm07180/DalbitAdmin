@@ -297,13 +297,17 @@
                 <th rowspan="2">No</th>
                 <td rowspan="2" id="no">{{faqIdx}}</td>
 
-                <th rowspan="2">구분</th>
-                <td rowspan="2">{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
+                <th>구분</th>
+                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
 
                 <th>질문</th>
                 <td colspan="5"><input type="text" name="question" id="question" class="form-control" value="{{question}}" maxlen></td>
             </tr>
             <tr>
+
+                <th>구분</th>
+                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
+
                 <th>등록일시</th>
                 <td id="regDate">{{writeDate}}</td>
 

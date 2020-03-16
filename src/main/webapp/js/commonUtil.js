@@ -213,6 +213,14 @@ var util = {
             return html;
         }
     },
+    
+    renderOnOff(value){
+        if(value == 1){
+            return ' <i class="fa fa-circle"></i>' + " ON" ;
+        }else{
+            return ' <i class="fa fa-circle-o"></i>' + " OFF" ;
+        }
+    },
 
     /*에디터 type:이미지 타입*/
     editorInit(type) {
