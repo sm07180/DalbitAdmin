@@ -1,226 +1,119 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<style>
-    .lb_style{
-        border: 1px solid #DDDDDD;
-        background-color: #DCE6F2;
-        height: 34px;
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-</style>
-
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="col-md-12 no-padding">
             <label id="one_title"></label>
         </div>
-        <div class="row col-md-12">
-            <div class="col-md-8 no-padding">
-                <div class="col-md-2 no-padding">
-                    <div class="col-md-6 lb_style" style="height:68px"><label>No</label></div>
-                    <div class="col-md-6"><label>41</label></div>
-                </div>
-                <div class="col-md-3 no-padding">
-                    <div class="col-md-5 lb_style"><label>문의유형</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>방송하기</label></div>
-                    <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                    <div class="col-md-7" style="height: 34px;">
-                        <select class="form-control" name="sortType" id="platformType">
-                            <option value="9999">플랫폼</option>
-                            <option value="1">PC</option>
-                            <option value="2">Android-Mobile</option>
-                            <option value="3">IOS-Mobile</option>
-                            <option value="4">Web-Mobile</option>
+
+        <table class="table table-bordered table-dalbit">
+            <colgroup>
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+                <col width="5%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th rowspan="2">No</th>
+                    <td rowspan="2">32</td>
+
+                    <th>문의유형</th>
+                    <td>방송하기</td>
+
+                    <th>Browser</th>
+                    <td>Chrome</td>
+
+                    <th>회원번호</th>
+                    <td>123134534321</td>
+
+                    <th rowspan="2">접수일시</th>
+                    <td rowspan="2">2020.02.21 11:20:43</td>
+
+                    <th>첨부파일</th>
+                    <td>0 건</td>
+                </tr>
+                <tr>
+                    <th>플랫폼</th>
+                    <td>web-mobile</td>
+
+                    <th>ip Address</th>
+                    <td>127.0.0.1</td>
+
+                    <th>문의자<br />User id</th>
+                    <td>달나라토끼<br />(레벨/등급)</td>
+
+                    <th>처리상태</th>
+                    <td>미처리</td>
+                </tr>
+                <tr>
+                    <th colspan="2">문의제목</th>
+                    <td colspan="4"><input type="text" class="form-control fit-table" /></td>
+
+                    <th>문의자<br />닉네임</th>
+                    <td>달나라토끼</td>
+
+                    <th>처리일시</th>
+                    <td>-</td>
+
+                    <th>처리자명</th>
+                    <td>-</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">문의내용</th>
+                    <td colspan="6">
+                        <textarea class="form-control fit-table" rows="5"></textarea>
+                    </td>
+
+                    <th>첨부파일</th>
+                    <td colspan="3">첨부파일이미지</td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">매크로 답변하기</th>
+                    <td colspan="4">
+                        <select class="form-control">
+                            <option>문의구분</option>
                         </select>
-                    </div>
-                </div>
-                <div class="col-md-4 no-padding">
-                    <div class="col-md-5 lb_style"><label>Browser</label></div>
-                    <div class="col-md-7" style="height: 34px;">
-                        <select class="form-control" name="sortType" id="browserType">
-                            <option value="9999">Browser</option>
-                            <option value="1">Chrome</option>
-                            <option value="2">Internet Explorer</option>
-                            <option value="3">Firefox</option>
+
+                        <select class="form-control">
+                            <option>구분</option>
                         </select>
-                    </div>
-                    <div class="col-md-5 lb_style"><label>IP Address</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>789.123.123</label></div>
-                </div>
-                <div class="col-md-3 no-padding">
-                    <div class="col-md-5 lb_style"><label>회원번호</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>123123123</label></div>
-                    <div class="col-md-5 lb_style"><label>문의자UserID</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>DalDalDal</label></div>
-                </div>
+                    </td>
+
+                    <th colspan="2">바로가기버튼</th>
+                    <td colspan="4">
+                        <button type="button" id="bt_moon" class="btn-sm btn btn-default">달결제</button>
+                        <button type="button" id="bt_star" class="btn-sm btn btn-default">별환전</button>
+                        <button type="button" id="bt_wallet" class="btn-sm btn btn-default">내지갑</button>
+                        <button type="button" id="bt_profile" class="btn-sm btn btn-default">사진등록</button>
+                        <button type="button" id="bt_backimg" class="btn-sm btn btn-default">배송방법</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="widget">
+            <div class="widget-header">
+                <h3><i class="fa fa-user"></i> 답변 </h3>
             </div>
-            <div class="col-md-4 no-padding">
-                <div class="col-md-6 no-padding">
-                    <div class="col-md-6 lb_style" style="height:68px"><label>접수일시</label></div>
-                    <div class="col-md-6"><label>2020.02.02 09:10</label></div>
-                </div>
-                <div class="col-md-6 no-padding">
-                    <div class="col-md-5 lb_style"><label>첨부파일</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>00건</label></div>
-                    <div class="col-md-5 lb_style"><label>처리상태</label></div>
-                    <div class="col-md-7" style="height: 34px;">
-                        <select class="form-control" name="sortType" id="procesType">
-                            <option value="9999">처리상태(전체)</option>
-                            <option value="1">Chrome</option>
-                            <option value="2">Internet Explorer</option>
-                            <option value="3">Firefox</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-8 no-padding">
-                <div class="col-md-2 no-padding lb_style"><label>문의제목</label></div>
-                <div class="col-md-7"><input type="text" class="form-control" id="txt_phon" style="width: 100%"></div>
-                <div class="col-md-3 no-padding">
-                    <div class="col-md-5 lb_style"><label>문의자닉네임</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>달달이</label></div>
-                </div>
-            </div>
-            <div class="col-md-4 no-padding">
-                <div class="col-md-6 no-padding">
-                    <div class="col-md-6 lb_style"><label>처리일시</label></div>
-                    <div class="col-md-6" style="height: 34px;"><label>-</label></div>
-                </div>
-                <div class="col-md-6 no-padding">
-                    <div class="col-md-5 lb_style"><label>처리자명</label></div>
-                    <div class="col-md-7" style="height: 34px;"><label>-</label></div>
-                </div>
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-8 no-padding">
-                <div class="col-md-2 no-padding lb_style"  style="height: 160px"><label>문의내용</label></div>
-                <div class="col-md-10"  style="height: 160px"><textarea id="question" style="width: 100%; height: 100%"></textarea></div>
-            </div>
-            <div class="col-md-4 no-padding">
-                <div class="col-md-3 no-padding lb_style" style="height: 160px"> <label>첨부파일</label>
-                </div>
-                <div class="col-md-8"  style="height: 160px">
-                    <form id="profileImg" method="post" enctype="multipart/form-data">
-                        <img id="image_section" src="#" alt="your image" style="width: 100%;height: 100%"/>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-4 no-padding">
-                <div class="col-md-4 no-padding lb_style"><label>메크로 답변하기</label></div>
-                <div class="col-md-4">
-                    <select class="form-control" name="searchType" id="searchType">
-                        <option value="9999">문의구분</option>
-                        <option value="1">회원정보</option>
-                        <option value="2">방송하기</option>
-                        <option value="3">청취하기</option>
-                        <option value="4">결제</option>
-                        <option value="5">건의하기</option>
-                        <option value="6">장애/버그</option>
-                        <option value="7">선물/아이템</option>
-                        <option value="8">기타</option>
-                    </select>
-                </div>
-                <div class="col-md-4 no-padding">
-                    <select class="form-control" name="sortType" id="sortType">
-                        <option value="1">음란성</option>
-                        <option value="2">방송</option>
-                        <option value="3">욕설</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-8 no-padding">
-                <div class="col-md-2 lb_style"><label>바로가기 버튼</label></div>
-                <div class="col-md-10 no-padding">
-                    <button type="button" id="bt_moon" class="btn-sm btn btn-default">달결제</button>
-                    <button type="button" id="bt_star" class="btn-sm btn btn-default">별전환</button>
-                    <button type="button" id="item" class="btn-sm btn btn-default">아이템</button>
-                    <button type="button" id="bt_boost" class="btn-sm btn btn-default">부스트</button>
-                    <button type="button" id="bt_wallet" class="btn-sm btn btn-default">내지갑</button>
-                    <button type="button" id="bt_profile" class="btn-sm btn btn-default">프로필</button>
-                    <button type="button" id="bt_backimg" class="btn-sm btn btn-default">배경이미지</button>
-                    <button type="button" id="bt_cast" class="btn-sm btn btn-default">캐스트</button>
-                </div>
-            </div>
-        </div>
-        <div class="row col-md-12">
-            <div class="col-md-2 no-padding">
-                <div class="col-md-8 no-padding lb_style"><label>신고처리</label></div>
-            </div>
-            <div class="col-md-7 no-padding">
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
-                <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
-            </div>
-            <div class="col-md-2 no-paddingng">
-                <button type="button" id="bt_ban" class="btn btn-default btn-sm pull-right">완료</button>
-            </div>
-        </div>
-        <div class="row col-md-12" style="margin-top: 5px;">
-            <div class="main-content">
-                <!-- WYSIWYG EDITOR -->
-                <div class="widget">
-                    <div class="widget-content no-padding">
-                        <div class="summernote">
-                        </div>
-                    </div>
-                </div>
+            <div class="widget-content no-padding">
+                <div class="_editor"></div>
             </div>
         </div>
     </div>
+
 </div>
 
-<script>
-    $(document).ready(function () {
-        /* summernote */
-        var targetEditor = $('.summernote');
-
-        targetEditor.summernote({
-            height: 300,
-            focus: true,
-            // onpaste: function() {
-            //     alert('You have pasted something to the editor');
-            // },
-            callbacks: { // 콜백을 사용
-                // 이미지를 업로드할 경우 이벤트를 발생
-                onImageUpload: function(files, editor, welEditable) {
-                    console.log("[onImageUpload]")
-
-                    var formData = new FormData();
-                    formData.append("file",files[0]);
-                    //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
-                    formData.append("uploadType","bg");
-                    util.fileUpdate("https://devphoto2.dalbitcast.com/upload",formData, function (data) {
-                        var json = jQuery.parseJSON(data);
-                        console.log(json);
-                        if(json.code != "0"){
-                            alert(json.message);
-                            return;
-                        }
-                        // UPLOAD IMAGE URL 적용
-                        var imgURL = json.data.url;
-                        targetEditor.summernote('editor.insertImage', imgURL);
-                    });
-                }
-            }
-        });
-
-        $("#bt_ban").on("click", function () {
-            console.log(targetEditor.summernote("code"))
-            // $(".viewer").empty().append(targetEditor.summernote("code"))
-            // $(".code").text(targetEditor.summernote("code"))
-        })
-    })
-
+<script type="text/javascript">
+    util.editorInit("customer-question");
 </script>

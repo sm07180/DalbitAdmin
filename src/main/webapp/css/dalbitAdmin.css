@@ -95,3 +95,8 @@ table.table-dalbit tbody tr td {
     background-color: #FFFFFF;
     text-align: left;
 }
+
+table.table-dalbit tbody tr td .fit-table {
+    width: 100%;
+}
+
