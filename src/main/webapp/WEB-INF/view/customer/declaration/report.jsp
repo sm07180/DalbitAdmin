@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="wrapper">
     <div id="page-wrapper">
+        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+            <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">신고처리</a></li>
+        </ul>
         <div class="col-lg-12 no-padding">
             <label id="report_title"></label>
         </div>

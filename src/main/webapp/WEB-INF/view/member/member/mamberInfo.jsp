@@ -175,13 +175,13 @@
         })
 
         // 버튼
-        $('#bt_img').click(function() {				 //사진변경
+        $('#bt_img').click(function() {				 //이미지초기화
             bt_click(this.id);
         });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
             bt_click(this.id);
         });
-        $('#bt_resatNick').click(function() {           // 닉네임 변경
+        $('#bt_resatNick').click(function() {           //닉네임 변경
             bt_click(this.id);
         });
         $('#bt_birth').click(function() {               //생일 변경
@@ -217,12 +217,6 @@
     $("#level").html(util.getCommonCodeSelect(-1, level));
     $("#grade").html(util.getCommonCodeSelect(-1, grade));
     $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
-
-    function getMemNo_info_popup(tmp){
-        var obj = new Object();
-        obj.mem_no = tmp;
-        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
-    }
 
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
@@ -277,7 +271,7 @@
         $("#lb_withdrawalDate").html(response.data.withdrawalDate);
         $("#lb_firstBroadcastDate").html(response.data.firstBroadcastDate);
 
-
+        $('#memberTab').addClass("show");
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
@@ -346,7 +340,6 @@
             var obj = new Object();
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
-                // obj.profileImage = "reset";
                 if($('input[name="gender"]:checked').val() == "2"){
                     obj.memSex = "m";
                 }else if($('input[name="gender"]:checked').val() == "3"){
@@ -356,12 +349,10 @@
             }else if(tmp == "bt_resatPass"){            //비밀번호 초기화
                 if (confirm($("#lb_memId").html() + "님의 비밀번호를 초기화 하여 휴대폰 연락처로 임의 비밀번호를 전송합니다. 지금 바로 전송하시겠습니까?")) {
                     obj.passwdReset = $("#lb_memId").html();
-                } else {
-                    return;
                 }
             }else if(tmp == "bt_resatNick"){
                 obj.nickName = $("#txt_memNick").val();     //0
-            }else if(tmp == "bt_phon"  || tmp == "bt_birth" || tmp == "bt_gender"){                 //휴대폰 번호 변경
+            }else if(tmp == "bt_phon"  || tmp == "bt_birth" || tmp == "bt_gender"){
                 var tmp_phone = $("#txt_phon").val().replace(/-/gi,"");
                 if(tmp_phone.length > 11 || tmp_phone.length < 10){
                     alert("전화번호를 정확히 입력해 주십시오.");
@@ -401,6 +392,7 @@
 
         if (dst_id == "adminMemoAdd") {
             dtList_info_detail.reload();
+            // getMemNo_info_reload(memNo);
         } else {
             getMemNo_info_reload(memNo);
         }
@@ -410,12 +402,9 @@
         obj.mem_no =  memNo;
         util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
-
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
-
-
 </script>
 
 <!-- info detail -->
