@@ -1,6 +1,7 @@
 package com.dalbit.customer.vo.procedure;
 
 import com.dalbit.common.vo.BaseVo;
+import com.dalbit.util.DalbitUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,4 +27,15 @@ public class P_DeclarationListOutputVo extends BaseVo {
     private String ip;
     private Date opDate;
     private Date regDate;
+    private String opDateFormat;
+    private String regDateFormat;
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+        this.regDateFormat = DalbitUtil.convertDateFormat(regDate, "yyyy.MM.dd HH.mm.ss");
+    }
+    public void setOpDate(Date opDate) {
+        this.opDate = opDate;
+        this.opDateFormat = DalbitUtil.convertDateFormat(opDate, "yyyy.MM.dd HH.mm.ss");
+    }
 }
