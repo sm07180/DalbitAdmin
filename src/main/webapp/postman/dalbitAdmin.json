@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "758026a5-470f-44ee-8483-46a0cdd63ca0",
+		"_postman_id": "d32c49bc-5dd8-4ab4-a956-17ceb70724dd",
 		"name": "달빛라디오 ADMIN API 정의서",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -357,6 +357,64 @@
 								"member",
 								"member",
 								"editor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원접속 목록",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583201358847",
+									"description": "회원 번호",
+									"type": "text"
+								},
+								{
+									"key": "sortDate",
+									"value": "1",
+									"description": "날자정렬( 0: asc, 1: desc )",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/connect",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"connect"
 							]
 						}
 					},
