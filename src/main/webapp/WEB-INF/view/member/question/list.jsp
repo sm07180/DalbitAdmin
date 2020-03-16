@@ -1,21 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div id="wrapper">
-    <div id="page-wrapper">
-        <div class="col-lg-12 no-padding">
-            <div class="widget widget-table" id="main_table">
-                <div class="widget-content">
-                    <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
-                        <thead id="tableTop_detail"></thead>
-                        <tbody id="tableBody_detail"></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12 no-padding hide" id="question_tab">
-            <jsp:include page="questionTab.jsp"></jsp:include>
+<div class="col-lg-12 no-padding">
+    <div class="widget widget-table" id="main_table">
+        <div class="widget-content">
+            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+                <thead id="tableTop_detail"></thead>
+                <tbody id="tableBody_detail"></tbody>
+            </table>
         </div>
     </div>
+</div>
+<div class="col-md-12 no-padding hide" id="question_tab">
+    <jsp:include page="questionTab.jsp"></jsp:include>
 </div>
 <script>
     $(document).ready(function() {

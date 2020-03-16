@@ -271,7 +271,7 @@
         $("#lb_withdrawalDate").html(response.data.withdrawalDate);
         $("#lb_firstBroadcastDate").html(response.data.firstBroadcastDate);
 
-        $('#memberTab').addClass("show");
+        // $('#memberTab').addClass("show");
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
