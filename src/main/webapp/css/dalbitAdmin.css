@@ -2,6 +2,27 @@
  * 달빛라디오 관리자 CSS
  */
 
+/* margin 정리 */
+.mt0{margin-top:0px;}
+.mt5{margin-top:5px;}
+.mt10{margin-top:10px;}
+.mt15{margin-top:15px;}
+
+.mb0{margin-bottom:0px;}
+.mb5{margin-bottom:5px;}
+.mb10{margin-bottom:10px;}
+.mb15{margin-bottom:15px;}
+
+.ml0{margin-left:0px;}
+.ml5{margin-left:5px;}
+.ml10{margin-left:10px;}
+.ml15{margin-left:15px;}
+
+.mr0{margin-left:0px;}
+.mr5{margin-left:5px;}
+.mr10{margin-left:10px;}
+.mr15{margin-left:15px;}
+
 /*left 통계현황*/
 #_statisticsArea div.rowData{padding:5px 0 0px 10px; margin-right: 0px;/*border: 1px solid gray;*/}
 
