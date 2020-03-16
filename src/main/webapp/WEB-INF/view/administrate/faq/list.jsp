@@ -273,7 +273,7 @@
 
 <script id="tmp_faqFrm" type="text/x-handlebars-template">
     <input type="hidden" name="faqIdx" value="{{faqIdx}}" />
-    <div class="row col-lg-12 form-inline">
+    <div class="row col-lg-12 form-inline mt15">
         <div class="col-md-12 no-padding">
             <label id="faq_detatil_title">ㆍ선택한 FAQ 정보를 확인/수정/삭제를 할 수 있습니다.</label>
         </div>
@@ -316,7 +316,7 @@
             </tbody>
         </table>
     </div>
-    <div class="row col-lg-12 form-inline area_style">
+    <div class="row col-lg-12 form-inline">
         <div class="widget">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 답변 </h3>
