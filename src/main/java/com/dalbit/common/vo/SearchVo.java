@@ -20,7 +20,7 @@ public class SearchVo extends PagingVo {
     private Integer sortPlat;
     private Integer sortGender;
     private Integer sortView;
-    private Integer reason;
+    private Integer slctReason;
 
 
 }

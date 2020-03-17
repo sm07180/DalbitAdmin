@@ -9,7 +9,7 @@ var declaration_searchType = [
 ];
 
 var declaration_reason = [
-    new COMMON_CODE(null, 'reason', '신고구분')
+    new COMMON_CODE(null, 'slctReason', '신고구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('profile', '1', '프로필사진')
     , new COMMON_CODE('obs', '2', '음란성')
