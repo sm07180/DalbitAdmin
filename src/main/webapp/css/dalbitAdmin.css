@@ -51,6 +51,12 @@ div.searchBoxArea .searchBoxRow div select.searchType{
     background:#ffffff;
 }
 
+table.table.table-summary{
+    width: auto;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
 .widget-table .widget-content .table-comment{
     float: left !important;
     padding: 10px 10px 10px 10px;
