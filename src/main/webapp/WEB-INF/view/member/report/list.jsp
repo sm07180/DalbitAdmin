@@ -26,12 +26,14 @@
     $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
     $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
 
+    var tmp_slctReason="-1";        // 최초 selectbox가 없기때문에 전체로 초기 세팅
     function getHistory_reportDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         console.log("tmp : " + memNo);
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.searchText = memNo;
+            data.slctReason = tmp_slctReason;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
@@ -67,16 +69,16 @@
         dtList_top_info.reload();
     }
     function initDataTableTop_select_report(tmp){
-        var topTable = '<span id="search_reason_aria_top"></span>';
+        var topTable = '<span name="search_reason_aria_top" id="search_reason_aria_top" onchange="sel_change()"></span>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#search_reason_aria_top").html(util.getCommonCodeSelect(-1, declaration_reason));
     }
-    function sel_change(value){
-        console.log("value : " + value);
+    function sel_change(){
+        tmp_slctReason = $("select[name='slctReason']").val();
+        dtList_info_detail.reload();
     }
 
     $(document).on('click', '.Report', function() {
-        console.log("@@@@@@@@@@@@@@@@@ > memNo : " + memNo);
         var data = {
             'reportIdx' : $(this).data('idx'),
         };

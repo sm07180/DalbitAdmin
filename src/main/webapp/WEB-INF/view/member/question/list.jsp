@@ -109,9 +109,9 @@
             '            </div>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
     }
-    function sel_change(value){
-        console.log("value : " + value);
-    }
+    // function sel_change(value){
+    //     console.log("value : " + value);
+    // }
     function Question(index){
 
         $('#question_tab').addClass("show");

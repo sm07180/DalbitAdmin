@@ -44,9 +44,9 @@
 
         $("#"+tmp).find("#main_table").find(".top-left").append(topTable);
     }
-    function sel_change(value){
-        console.log("value : " + value);
-    }
+    // function sel_change(value){
+    //     console.log("value : " + value);
+    // }
 
     function Gift(index){
         var data = dtList_info_detail.getDataRow(index);

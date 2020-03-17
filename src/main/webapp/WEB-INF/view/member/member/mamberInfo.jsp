@@ -4,7 +4,7 @@
 <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
 <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
     <colgroup>
-        <col width="10%"/><col width="15%"/><col width="10%"/><col width="15%"/><col width="10%"/><col width="40%"/>
+        <col width="10%"/><col width="10%"/><col width="10%"/><col width="20%"/><col width="10%"/><col width="40%"/>
     </colgroup>
     <tbody>
         <tr>
@@ -45,16 +45,24 @@
             <td style="text-align: left"><label id="lb_broadcastState"></label></td>
         </tr>
         <tr>
-            <th>UserId</th>
-            <td colspan="3" style="text-align: left"><label id="lb_memId"></label></td>
+            <th>회원이름</th>
+            <td style="text-align: left"><label id="lb_name"></label></td>
+            <th>내/외국인 구분</th>
+            <td style="text-align: left"><label id="lb_local"></label></td>\
             <th>청취상태</th>
             <td style="text-align: left"><label id="lb_listeningState"></label></td>
         </tr>
         <tr>
-            <th>소셜아이디</th>
-            <td colspan="3" style="text-align: left"><label id="lb_socialId"></label></td>
+            <th>UserId</th>
+            <td colspan="3" style="text-align: left"><label id="lb_memId"></label></td>
             <th>보유달</th>
             <td style="text-align: left"><label id="lb_moonCnt"></label></td>
+        </tr>
+        <tr>
+            <th>소셜아이디</th>
+            <td colspan="3" style="text-align: left"><label id="lb_socialId"></label></td>
+            <th>보유별</th>
+            <td style="text-align: left"><label id="lb_starCnt"></label></td>
         </tr>
         <tr>
             <th>연락처</th>
@@ -62,8 +70,11 @@
                 <input type="text" class="form-control" id="txt_phon" style="width: 90%;">
                 <button type="button" id="bt_phon" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
-            <th>보유별</th>
-            <td style="text-align: left"><label id="lb_starCnt"></label></td>
+            <th>(내가/나를등록한)<br/>매니저정보</th>
+            <td style="text-align: left">
+                <label id="lb_manager"></label>
+                <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
+            </td>
         </tr>
         <tr>
             <th>닉네임</th>
@@ -71,10 +82,10 @@
                 <input type="text" class="form-control" id="txt_memNick" style="width: 90%;">
                 <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
-            <th>(내가/나를등록한)<br/>매니저정보</th>
+            <th>(내가/나를 등록한)<br/>블랙리스트</th>
             <td style="text-align: left">
-                <label id="lb_manager"></label>
-                <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
+                <label id="lb_black"></label>
+                <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         <tr>
@@ -85,11 +96,8 @@
                 </div>
                 <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
-            <th>(내가/나를 등록한)<br/>블랙리스트</th>
-            <td style="text-align: left">
-                <label id="lb_black"></label>
-                <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
-            </td>
+            <th>소셜가입</th>
+            <td style="text-align: left"><label id="lb_platform"></label></td>
         </tr>
         <tr>
             <th>나이</th>
@@ -99,33 +107,29 @@
                 <span id="gender"></span>
                 <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
-            <th>가입플랫폼</th>
-            <td style="text-align: left"><label id="lb_memSlct"></label></td>
-        </tr>
-        <tr>
-            <th>비밀번호</th>
-            <td colspan="3" style="text-align: left"><button type="button" id="bt_resatPass" class="btn btn-default btn-sm">비밀번호 초기화</button></td>
             <th>회원가입일시</th>
             <td style="text-align: left"><label id="lb_joinDate"></label></td>
         </tr>
         <tr>
-            <th rowspan="5">운영자메모</th>
-            <td rowspan="1" colspan="3" style="text-align: left">
-                <label id="lb_adminMemoCnt"></label>
-                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
-            </td>
+            <th>비밀번호</th>
+            <td colspan="3" style="text-align: left"><button type="button" id="bt_resatPass" class="btn btn-default btn-sm">비밀번호 초기화</button></td>
             <th>회원탈퇴일시</th>
             <td style="text-align: left"><label id="lb_withdrawalDate"></label></td>
         </tr>
         <tr>
-            <td rowspan="4" colspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 110px"></textarea>
+            <th rowspan="4">운영자메모</th>
+            <td rowspan="1" colspan="3" style="text-align: left">
+                <label id="lb_adminMemoCnt"></label>
+                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
+            </td>
+            <th>최초방송일시</th>
+            <td style="text-align: left"><label id="lb_firstBroadcastDate"></label></td>
+        </tr>
+        <tr>
+            <td rowspan="3" colspan="3" style="text-align: left">
+                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 83px"></textarea>
                 <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
-            <tr>
-                <th>최초방송일시</th>
-                <td style="text-align: left"><label id="lb_firstBroadcastDate"></label></td>
-            </tr>
             <tr>
                 <th>최근 정보 수정<br/> 처리일시</th>
                 <td style="text-align: left"><label id="lb_editDate"></label></td>
@@ -237,8 +241,11 @@
         $("#lb_age").html(response.data.age + 1 + "세");
         if (response.data.memSex == "m") {
             $("input[name=gender][value=" + 2 + "]").prop("checked", true);
-        } else {
+        } else if(response.data.memSex == "f") {
             $("input[name=gender][value=" + 3 + "]").prop("checked", true);
+        }else{
+            $("input[name=gender][value=" + 3 + "]").prop("checked", true);
+
         }
         $('#bt_report').data('url', "http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" + memNo + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'");
         $("#lb_socialId").html(response.data.socialId);
