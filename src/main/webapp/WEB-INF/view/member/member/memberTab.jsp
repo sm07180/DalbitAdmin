@@ -17,8 +17,8 @@
             <li><a href="#reportDetail" role="tab" data-toggle="tab" id="tab_reportDetail" onclick="getHistory_report(this.id);">신고내역</a></li>
             <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail" onclick="getHistory_question(this.id);">문의내역</a></li>
         </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade in active" id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>     <!-- 상세 -->
+        <div class="tab-content" id="tablist_con">
+            <div class="tab-pane fade in active " id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>     <!-- 상세 -->
             <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>       <!-- 방송 -->
             <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>         <!-- 청취 -->
             <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>               <!-- 결제 -->

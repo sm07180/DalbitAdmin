@@ -28,10 +28,10 @@
 
     function getHistory_report(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        console.log("tmp : " + tmp);
+        console.log("tmp : " + memNo);
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
-            data.memNo = memNo;
+            data.searchText = memNo;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
@@ -76,8 +76,9 @@
     }
 
     $(document).on('click', '.Report', function() {
+        console.log("@@@@@@@@@@@@@@@@@ > memNo : " + memNo);
         var data = {
-            'reportIdx' : $(this).data('idx')
+            'reportIdx' : $(this).data('idx'),
         };
         util.getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
     });

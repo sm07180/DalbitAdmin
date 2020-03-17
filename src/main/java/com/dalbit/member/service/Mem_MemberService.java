@@ -113,6 +113,33 @@ public class Mem_MemberService {
     }
 
     /**
+     * 닉네임 중복체크
+     */
+    public String callNickNameCheck(ProcedureVo procedureVo) {
+        mem_MemberDao.callNickNameCheck(procedureVo);
+        log.debug("닉네임중복체크 결과 : {}", procedureVo.toString());
+        return procedureVo.getRet();
+    }
+
+    /**
+     * 회원 정보 수정
+     */
+    public String getMemberEditor(P_MemberEditorVo pMemberEditorVo){
+        ProcedureVo procedureVo = new ProcedureVo(pMemberEditorVo);
+        mem_MemberDao.callMemberEditor(procedureVo);
+        String result;
+        if(Status.회원정보수정성공.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정성공));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정실패));
+        }
+        return result;
+    }
+
+    //-------------------------------------------------------------------
+    /*자세히보기*/
+
+    /**
      * 회원 운영자 메모 등록
      */
     public String getMemberAdminMemoAdd(P_MemberAdminMemoAddVo pMemberAdminMemoAddVo){
@@ -144,26 +171,47 @@ public class Mem_MemberService {
     }
 
     /**
-     * 닉네임 중복체크
+     * 회원 접속 정보
      */
-    public String callNickNameCheck(ProcedureVo procedureVo) {
-        mem_MemberDao.callNickNameCheck(procedureVo);
-        log.debug("닉네임중복체크 결과 : {}", procedureVo.toString());
-        return procedureVo.getRet();
-    }
-
-    /**
-     * 회원 정보 수정
-     */
-    public String getMemberEditor(P_MemberEditorVo pMemberEditorVo){
-        ProcedureVo procedureVo = new ProcedureVo(pMemberEditorVo);
-        mem_MemberDao.callMemberEditor(procedureVo);
+    public String getMemberConnect(P_MemberConnectInputVo pMemberConnectInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pMemberConnectInputVo);
+        ArrayList<P_MemberConnectOutputVo> memberConnect = mem_MemberDao.callMemConnect(procedureVo);
         String result;
-        if(Status.회원정보수정성공.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정성공));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정실패));
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_성공, memberConnect, new PagingVo(procedureVo.getRet())));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_실패));
         }
         return result;
     }
+    /**
+     * 회원 매니저 목록
+     */
+    public String getMemberManagerList(P_MemberManagerListInputVo pMemberManagerListInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pMemberManagerListInputVo);
+        ArrayList<P_MemberManagerListOutputVo> memManagerList = mem_MemberDao.callMemManagerList(procedureVo);
+        String result;
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_매니저정보보기_성공, memManagerList, new PagingVo(procedureVo.getRet())));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_매니저정보보기_실패));
+        }
+        return result;
+    }
+    /**
+     * 회원 블랙리스트 목록
+     */
+    public String getMemberBlackList(P_MemberBlackListInputVo pMemberBlackListInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pMemberBlackListInputVo);
+        ArrayList<P_MemberBlackListOutputVo> memBlackList = mem_MemberDao.callMemBlackList(procedureVo);
+        String result;
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_블랙리스트정보보기_성공, memBlackList, new PagingVo(procedureVo.getRet())));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_블랙리스트정보보기_실패));
+        }
+        return result;
+    }
+
+    //-------------------------------------------------------------------
 }

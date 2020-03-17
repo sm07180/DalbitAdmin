@@ -34,12 +34,12 @@
                 <th>접속상태</th>
                 <td style="text-align: left">
                     <label id="lb_connectState"></label>
-                    <button type="button" id="bt_loginStatus" class="btn btn-default btn-sm pull-right">자세히</button>
+                    <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
                 </td>
             </tr>
         </tr>
         <tr>
-            <th>회원번호</th>
+            <th>회원NO</th>
             <td colspan="3" style="text-align: left"><label id="lb_memNo"></label></td>
             <th>방송상태</th>
             <td style="text-align: left"><label id="lb_broadcastState"></label></td>
@@ -74,7 +74,7 @@
             <th>(내가/나를등록한)<br/>매니저정보</th>
             <td style="text-align: left">
                 <label id="lb_manager"></label>
-                <button type="button" id="bt_myManager" class="btn btn-default btn-sm pull-right">자세히</button>
+                <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         <tr>
@@ -88,7 +88,7 @@
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
             <td style="text-align: left">
                 <label id="lb_black"></label>
-                <button type="button" id="bt_myBlack" class="btn btn-default btn-sm pull-right">자세히</button>
+                <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         <tr>
@@ -199,13 +199,13 @@
         $('#bt_adminMemoList').click(function() {       //운영자 메모 정보
             getInfoDetail(this.id,"운영자메모");
         });
-        $('#bt_loginStatus').click(function() {         //접속상태
+        $('#bt_connectState').click(function() {         //접속상태
             getInfoDetail(this.id,"접속상태");
         });
-        $('#bt_myManager').click(function() {             //매니저 자세히
+        $('#bt_manager').click(function() {             //매니저 자세히
             getInfoDetail(this.id,"(내가 등록한) 매니저");
         });
-        $('#bt_myBlack').click(function() {               //블랙리스트 자세히
+        $('#bt_black').click(function() {               //블랙리스트 자세히
             getInfoDetail(this.id,"(내가 등록학) 블랙리스트");
         });
         $('#bt_editHistory').click(function() {           //최근정보 수정일
@@ -233,33 +233,33 @@
         $("#lb_joinDate").html(response.data.joinDate);
         $("#lb_editDate").html(response.data.lastOpDate);
         $("#lb_editUser").html(response.data.lastOpName);
-        $("#txt_birth" ).val(response.data.birthDate.substr(0,10));
-        $("#lb_age").html(response.data.age+1 + "세");
-        if(response.data.memSex == "m"){
+        $("#txt_birth").val(response.data.birthDate.substr(0, 10));
+        $("#lb_age").html(response.data.age + 1 + "세");
+        if (response.data.memSex == "m") {
             $("input[name=gender][value=" + 2 + "]").prop("checked", true);
-        }else{
+        } else {
             $("input[name=gender][value=" + 3 + "]").prop("checked", true);
         }
-        $('#bt_report').data('url',"http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" +memNo + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex+ "'");
+        $('#bt_report').data('url', "http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" + memNo + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'");
         $("#lb_socialId").html(response.data.socialId);
         $("#lb_adminMemoCnt").html("등록 : " + response.data.opMemoCnt + "건");
         $("#txt_adminMemo").val(response.data.opMemo);
 
         var tmp;
-        if(response.data.memState == "1") tmp = "정상";
-        else if(response.data.memState == "3") tmp = "블럭";
-        else if(response.data.memState == "4") tmp = "탈퇴";
+        if (response.data.memState == "1") tmp = "정상";
+        else if (response.data.memState == "3") tmp = "블럭";
+        else if (response.data.memState == "4") tmp = "탈퇴";
         $("#lb_memState").html(tmp);
 
-        if(response.data.connectState == "Logout") tmp = '<i class="fa fa-comment-o"> ' + response.data.connectState;
+        if (response.data.connectState == "Logout") tmp = '<i class="fa fa-comment-o"> ' + response.data.connectState;
         else tmp = '<i class="fa fa-comment"> ' + response.data.connectState;
         $("#lb_connectState").html(tmp);
 
-        if(response.data.broadcastState == "OFF") tmp = '<i class="fa fa-comment-o"> ' + response.data.broadcastState;
+        if (response.data.broadcastState == "OFF") tmp = '<i class="fa fa-comment-o"> ' + response.data.broadcastState;
         else tmp = '<i class="fa fa-comment"> ' + response.data.broadcastState;
         $("#lb_broadcastState").html(tmp);
 
-        if(response.data.listeningState == "OFF") tmp = '<i class="fa fa-comment-o"> ' + response.data.listeningState;
+        if (response.data.listeningState == "OFF") tmp = '<i class="fa fa-comment-o"> ' + response.data.listeningState;
         else tmp = '<i class="fa fa-comment"> ' + response.data.listeningState;
         $("#lb_listeningState").html(tmp);
 
@@ -271,54 +271,22 @@
         $("#lb_withdrawalDate").html(response.data.withdrawalDate);
         $("#lb_firstBroadcastDate").html(response.data.firstBroadcastDate);
 
-        // $('#memberTab').addClass("show");
+
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
         $("#detailForm").html("");
+
+        for(var i=0 ; i<$("#tablist_con").children().length; i++){
+            var tmp_children = $("#tablist_con").children()[i];
+            console.log(tmp_children);
+        }
     }
 
     function fullSize(url) {     // 이미지 full size
         $("#image_full_size").prop("src", url);
     }
 
-    function getInfoDetail(tmp,tmp1) {     // 상세보기
-        var template = $('#tmp_detailFrm').html();
-        var templateScript = Handlebars.compile(template);
-        $("#detailForm").html(templateScript);
-
-        $('#tab_infoDetail1').text(tmp1);           //텝 이름 변경
-        $('#detailForm').addClass("show");
-        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        console.log("tmp : " + tmp);
-
-        var source = MemberDataTableSource[tmp];
-        var dtList_info_detail_data = function (data) {
-            data.mem_no = memNo;
-        }
-        dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
-        dtList_info_detail.useCheckBox(false);
-        dtList_info_detail.useIndex(true);
-        dtList_info_detail.createDataTable()
-        // dtList_info_detail.changeReload(null,null,source,null);
-        dtList_info_detail.reload();
-
-        if(tmp == "myManager" || tmp == "myBlack"){
-            getInfoDetail2(tmp);
-        }
-    }
-    function getInfoDetail2(tmp){
-        $('#detail2').addClass("show");
-        if(tmp == "myManager") {
-            $('#tab_infoDetail2').text("(나를 등록한) 매니저");           //텝 이름 변경
-            var source = MemberDataTableSource["meManager"];
-            dtList_info_detail.changeReload(null,null,source,null);
-        }else if(tmp == "myBlack") {
-            $('#tab_infoDetail2').text("(나를 등록한) 블랙리스트");           //텝 이름 변경
-            var source = MemberDataTableSource["meBlack"];
-            dtList_info_detail.changeReload(null,null,source,null);
-        }
-    }
     var tmp_bt;
     function bt_click(tmp) {
         tmp_bt = tmp;
@@ -397,11 +365,64 @@
             getMemNo_info_reload(memNo);
         }
     }
+
     function getMemNo_info_reload(memNo){
         var obj = new Object();
         obj.mem_no =  memNo;
         util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
+
+    function getInfoDetail(tmp,tmp1) {     // 상세보기
+        var template = $('#tmp_detailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        $("#detailForm").html(templateScript);
+
+        $('#tab_memberInfoDetail').text(tmp1);           //텝 이름 변경
+        $('#detailForm').addClass("show");
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+        console.log("tmp : " + tmp);
+
+        var source = MemberDataTableSource[tmp];
+        var dtList_info_detail_data = function (data) {
+            data.mem_no = memNo;
+            if(tmp == "connectState"){
+                data.sortDate = "1";
+            }else if(tmp == "manager" || tmp == "black" ){
+                data.slctType = "1";
+            }
+        }
+        dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.createDataTable()
+        dtList_info_detail.reload();
+
+        if(tmp == "manager" || tmp == "black"){
+            $('#detail2').addClass("show");
+            getInfoDetail2(tmp);
+        }
+    }
+    function getInfoDetail2(tmp){
+        var dtList_info_detail_data = function (data) {
+            data.mem_no = memNo;
+            data.slctType = "2";
+        }
+        if(tmp == "manager") {
+            $('#tab_memberInfoDetail2').text("(나를 등록한) 매니저");           //텝 이름 변경
+            var source = MemberDataTableSource["meManager"];
+        }else if(tmp == "black") {
+            $('#tab_memberInfoDetail2').text("(나를 등록한) 블랙리스트");           //텝 이름 변경
+            var source = MemberDataTableSource["meBlack"];
+        }
+
+        dtList_info_detail = new DalbitDataTable($("#info_detail2"), dtList_info_detail_data, source);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.createDataTable()
+        dtList_info_detail.reload();
+    }
+
+
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
@@ -411,17 +432,29 @@
 <script id="tmp_detailFrm" type="text/x-handlebars-template">
     <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-            <li class="active" id="detail1"><a href="#infoDetail" role="tab" data-toggle="tab" id="tab_infoDetail1"></a></li>
-            <li class="hide" id="detail2"><a href="#infoDetail" role="tab" data-toggle="tab" id="tab_infoDetail2"></a></li>
+            <li class="active" id="detail1"><a href="#memberInfoDetail" role="tab" data-toggle="tab" id="tab_memberInfoDetail"></a></li>
+            <li class="hide" id="detail2"><a href="#memberInfoDetail2" role="tab" data-toggle="tab" id="tab_memberInfoDetail2"></a></li>
         </ul>
         <div class="tab-content" style="padding-top: 0px;">
-            <div class="tab-pane fade in active" id="infoDetail">
+            <div class="tab-pane fade in active" id="memberInfoDetail">
                 <div class="widget widget-table">
                     <div class="widget-content">
                         <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
                             <thead id="tableTop_detail">
                             </thead>
                             <tbody id="tableBody_detail">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="memberInfoDetail2">
+                <div class="widget widget-table">
+                    <div class="widget-content">
+                        <table id="info_detail2" class="table table-sorting table-hover table-bordered datatable">
+                            <thead id="tableTop_detail2">
+                            </thead>
+                            <tbody id="tableBody_detail2">
                             </tbody>
                         </table>
                     </div>

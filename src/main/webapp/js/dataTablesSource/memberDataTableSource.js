@@ -41,7 +41,7 @@ var MemberDataTableSource = {
         ,'comments': 'ㆍ회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
     },
     'listenDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
             {'title': '회원번호', 'data': 'memId', 'width':'100px'},
@@ -59,7 +59,7 @@ var MemberDataTableSource = {
     },
 
     'payDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '구분', 'data': 'type'},
             {'title': '환불가능여부', '': 'type'},
@@ -76,7 +76,7 @@ var MemberDataTableSource = {
     },
 
     'exchangeDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '회원번호', 'data': 'type'},
             {'title': 'UserID', 'data': 'type'},
@@ -96,7 +96,7 @@ var MemberDataTableSource = {
     },
 
     'giftDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '회원번호', 'data': 'type'},
             {'title': 'UserID', 'data': 'type'},
@@ -112,7 +112,7 @@ var MemberDataTableSource = {
     },
 
     'mystarDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '회원번호', 'data': 'memNo'},
             {'title': '마이스타ID', 'data': 'memId', 'render': function (data, type, row, meta) {
@@ -130,7 +130,7 @@ var MemberDataTableSource = {
     },
 
     'noticeDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '구분', 'data': 'type','width':'100px'},
             {'title': '방송제목', 'data': 'title','width':'250px', 'render': function (data, type, row, meta) {
@@ -143,7 +143,7 @@ var MemberDataTableSource = {
     },
 
     'fanbordDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '프로필이미지', 'data': 'memNo'},
             {'title': '회원번호', 'data': 'memNo'},
@@ -159,7 +159,7 @@ var MemberDataTableSource = {
     },
 
     'banDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '금지어', 'data': 'type'},
         ]
@@ -190,7 +190,7 @@ var MemberDataTableSource = {
     },
 
     'questionDetail': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '문의 구분', 'data': 'type'},
             {'title': '문의유형', 'data': 'type'},
@@ -205,23 +205,6 @@ var MemberDataTableSource = {
         , 'comments': 'ㆍ해당 회원의 1:1문의, 전화문의, 메일문의 전체내역을 리스트로 확인할 수 있습니다.'
     },
 
-
-    'loginStatus': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '접속일시', 'data': 'type'},
-            {'title': 'OS환경', 'data': 'type'},
-            {'title': 'App Ver', 'data': 'type'},
-            {'title': 'Browser', 'data': 'type'},
-            {'title': 'Device', 'data': 'type'},
-            {'title': 'Mobile Device ID', 'data': 'type'},
-            {'title': 'Mobile AD ID', 'data': 'type'},
-            {'title': 'IP 주소', 'data': 'type'},
-        ]
-        , 'comments': 'ㆍ회원의 가입일부터 현재까지의 접속 기록을 확인할 수 있습니다.'
-    },
-
-
     'adminMemoList': {
         'url': '/rest/member/member/adminMemolist'
         , 'columns': [
@@ -231,64 +214,68 @@ var MemberDataTableSource = {
         ]
     },
 
-    'myManager': {
-        'url': '/rest/member/report/list'
+    'connectState': {
+        'url': '/rest/member/member/connect'
         , 'columns': [
-            {'title': '회원번호', 'data': 'type'},
-            {'title': 'User ID', 'data': 'type'},
-            {'title': 'User 닉네임', 'data': 'type'},
-            {'title': '청취 시작 일시', 'data': 'type'},
-            {'title': '청취 종료 일시', 'data': 'type'},
-            {'title': '임명 일시', 'data': 'type'},
-            {'title': '해제 일시', 'data': 'type'},
-            {'title': '임명상태', 'data': 'type'},
+            {'title': '접속일시', 'data': 'connectDate'},
+            {'title': 'App Ver', 'data': 'appVersion'},
+            {'title': 'Browser', 'data': 'Browser'},
+            {'title': 'Device', 'data': 'Device'},
+            {'title': 'Mobile Device ID', 'data': 'deviceUUID'},
+            {'title': 'Mobile AD ID', 'data': 'adID'},
+            {'title': 'IP 주소', 'data': 'ip'},
+        ]
+        , 'comments': 'ㆍ회원의 가입일부터 현재까지의 접속 기록을 확인할 수 있습니다.'
+    },
+
+    'manager': {
+        'url': '/rest/member/member/managerList'
+        , 'columns': [
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': 'User ID', 'data': 'mem_userid'},
+            {'title': 'User 닉네임', 'data': 'mem_nick'},
+            {'title': '권한부여 일시', 'data': 'regDate'},
+            {'title': '선물', 'data': 'gift'},
         ]
         , 'comments': 'ㆍ마이페이지 내 매니저 임명 변동사항을 확인할 수 있습니다. <br>ㆍ아래 정보는 현재 권한을 갖은 매니저 리스트이고, 매니저 권한은 최대 10명까지 가능합니다.'
     },
     'meManager': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/member/member/managerList'
         , 'columns': [
-            {'title': '회원번호', 'data': 'type'},
-            {'title': 'User ID', 'data': 'type'},
-            {'title': 'User 닉네임', 'data': 'type'},
-            {'title': '청취 시작 일시', 'data': 'type'},
-            {'title': '청취 종료 일시', 'data': 'type'},
-            {'title': '임명 일시', 'data': 'type'},
-            {'title': '해제 일시', 'data': 'type'},
-            {'title': '임명상태', 'data': 'type'},
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': 'User ID', 'data': 'mem_userid'},
+            {'title': 'User 닉네임', 'data': 'mem_nick'},
+            {'title': '권한부여 일시', 'data': 'regDate'},
+            {'title': '선물', 'data': 'gift'},
         ]
         , 'comments': 'ㆍ나를 매니저로 등록한 DJ정보 입니다.'
     },
 
-    'myBlack': {
-        'url': '/rest/member/report/list'
+    'black': {
+        'url': '/rest/member/member/blackList'
         , 'columns': [
-            {'title': '회원번호', 'data': 'type'},
-            {'title': 'User ID', 'data': 'type'},
-            {'title': 'User 닉네임', 'data': 'type'},
-            {'title': '선물 건 수', 'data': 'type'},
-            {'title': '보유 결제금액', 'data': 'type'},
-            {'title': '등록 일시', 'data': 'type'},
-            {'title': '해제 일시', 'data': 'type'},
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': 'User ID', 'data': 'mem_userid'},
+            {'title': 'User 닉네임', 'data': 'mem_nick'},
+            {'title': '권한부여 일시', 'data': 'regDate'},
+            {'title': '선물', 'data': 'gift'},
         ]
         , 'comments': 'ㆍ마이페이지 내 블랙리스트로 등록한 회원 정보를 확인할 수 있습니다.'
     },
     'meBlack': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/member/member/blackList'
         , 'columns': [
-            {'title': '회원번호', 'data': 'type'},
-            {'title': 'User ID', 'data': 'type'},
-            {'title': 'User 닉네임', 'data': 'type'},
-            {'title': '선물 건 수', 'data': 'type'},
-            {'title': '보유 결제금액', 'data': 'type'},
-            {'title': '등록 일시', 'data': 'type'},
-            {'title': '해제 일시', 'data': 'type'},
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': 'User ID', 'data': 'mem_userid'},
+            {'title': 'User 닉네임', 'data': 'mem_nick'},
+            {'title': '권한부여 일시', 'data': 'regDate'},
+            {'title': '선물', 'data': 'gift'},
         ]
         , 'comments': 'ㆍ나를 블랙리스트로 등록한 DJ정보 입니다. <br/>ㆍ해당 정보는 운영관리를 위한 정보입니다. 따라서, 회원에게 보이거나 알려주어서는 안됩니다.'
     },
 
     'editHistory': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '정보 수정일시', 'data': 'type'},
             {'title': '수정 처리 내역', 'data': 'type'},
@@ -299,7 +286,7 @@ var MemberDataTableSource = {
 
 
     'broad_top': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '총 청취자', 'data': 'type'},
             {'title': '총 선물 주고/받음', 'data': 'type'},
@@ -309,7 +296,7 @@ var MemberDataTableSource = {
         ]
     },
     'listen_top': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '총 강제퇴장', 'data': 'type'},
             {'title': '총 보낸 별', 'data': 'type'},
@@ -318,14 +305,14 @@ var MemberDataTableSource = {
         ]
     },
     'exchange_top': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '환전 총 건 수', 'data': 'type'},
             {'title': '환전 골드 총 금액', 'data': 'type'},
         ]
     },
     'report_top': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '미처리', 'data': 'type','defaultContent': ''},
             {'title': '누적 처리 건', 'data': 'type','defaultContent': ''},
@@ -334,7 +321,7 @@ var MemberDataTableSource = {
         ]
     },
     'question_top': {
-        'url': '/rest/member/report/list'
+        'url': ''
         , 'columns': [
             {'title': '총 1:1문의', 'data': 'type','defaultContent': ''},
             {'title': '회원정보', 'data': 'type','defaultContent': ''},

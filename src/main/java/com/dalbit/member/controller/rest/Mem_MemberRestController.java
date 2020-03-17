@@ -63,24 +63,6 @@ public class Mem_MemberRestController {
     }
 
     /**
-     * 회원 관리자 메모 추가
-     */
-    @PostMapping("adminMemoAdd")
-    public String adminMemoAdd(P_MemberAdminMemoAddVo pMemberAdminMemoAddVo){
-        String result = mMemberService.getMemberAdminMemoAdd(pMemberAdminMemoAddVo);
-        return result;
-    }
-
-    /**
-     * 회원 관리자 메모 목록
-     */
-    @PostMapping("adminMemolist")
-    public String adminMemolist(P_MemberAdminMemoListInputVo pMemberAdminMemoListInputVo){
-        String result = mMemberService.getMemberAdminMemolist(pMemberAdminMemoListInputVo);
-        return result;
-    }
-
-    /**
      * 회원 정보 수정
      */
     @PostMapping("editor")
@@ -100,4 +82,52 @@ public class Mem_MemberRestController {
         }
         return result;
     }
+
+
+    //------------------------------------------------------------------------
+    /* 자세히 보기 */
+
+    /**
+     * 회원 관리자 메모 추가
+     */
+    @PostMapping("adminMemoAdd")
+    public String adminMemoAdd(P_MemberAdminMemoAddVo pMemberAdminMemoAddVo){
+        String result = mMemberService.getMemberAdminMemoAdd(pMemberAdminMemoAddVo);
+        return result;
+    }
+    /**
+     * 회원 관리자 메모 목록
+     */
+    @PostMapping("adminMemolist")
+    public String adminMemolist(P_MemberAdminMemoListInputVo pMemberAdminMemoListInputVo){
+        String result = mMemberService.getMemberAdminMemolist(pMemberAdminMemoListInputVo);
+        return result;
+    }
+    /**
+     * 회원 접속 정보 보기
+     */
+    @PostMapping("connect")
+    public String connect(P_MemberConnectInputVo pMemberConnectInputVo){
+        String result = mMemberService.getMemberConnect(pMemberConnectInputVo);
+        return result;
+    }
+    /**
+     * 회원 매니저 정보
+     */
+    @PostMapping("managerList")
+    public String managerList(P_MemberManagerListInputVo pMemberManagerListInputVo){
+        String result = mMemberService.getMemberManagerList(pMemberManagerListInputVo);
+        return result;
+    }
+    /**
+     * 회원 블랙리스트 정보
+     */
+    @PostMapping("blackList")
+    public String blackList(P_MemberBlackListInputVo pMemberblackListInputVo){
+        String result = mMemberService.getMemberBlackList(pMemberblackListInputVo);
+        return result;
+    }
+
+
+    //-------------------------------------------------------------------------
 }
