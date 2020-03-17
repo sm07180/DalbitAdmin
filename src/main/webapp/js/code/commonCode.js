@@ -55,6 +55,7 @@ var gender = [
     , new COMMON_CODE('all', '1', '전체')
     , new COMMON_CODE('man', '2', '남자')
     , new COMMON_CODE('female', '3', '여자')
+    , new COMMON_CODE('unknown', '4', '알수없음')
 ];
 
 var viewOn = [

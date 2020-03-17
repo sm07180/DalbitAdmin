@@ -31,6 +31,27 @@ public enum Status {
     회원정보보기_대상아님("-2", "member.this.no", "대상 회원이 아닐 시 "),
     회원정보보기_실패("C006", "member.info.view.fail", "회원정보보기 실패 시"),
 
+    //회원운영자 메모 등록
+    회원운영자메모등록성공("0", "member.admin.memo.add.success", "회원 운영자 메모 등록 성공"),
+    회원운영자메모등록실패("-1", "member.admin.memo.add.fail", "회원 운영자 메모 등록 실패"),
+
+    //회원운영자 메모 보기
+    회원정보_메모정보보기_성공("0", "member.admin.memo.view.success", "회원 운영자 메모정보 보기 성공"),
+    회원정보_메모정보보기_실패("-1", "member.admin.memo.view.fail", "회원 운영자 메모정보 정보 보기 실패"),
+    //회원운영자 접속정보 보기
+    회원정보_접속정보보기_성공("0", "member.admin.connect.view.success", "회원 운영자 접속정보 보기 성공"),
+    회원정보_접속정보보기_실패("-1", "member.admin.connect.view.fail", "회원 운영자 접속 정보 보기 실패"),
+    //회원운영자 매니저 보기
+    회원정보_매니저정보보기_성공("0", "member.admin.manager.view.success", "회원 운영자 매니저 정보 보기 성공"),
+    회원정보_매니저정보보기_실패("-1", "member.admin.manager.view.fail", "회원 운영자 매니저 정보 보기 실패"),
+    //회원운영자 블랙리스트 보기
+    회원정보_블랙리스트정보보기_성공("0", "member.admin.blacklist.view.success", "회원 운영자 블랙리스트 정보 보기 성공"),
+    회원정보_블랙리스트정보보기_실패("-1", "member.admin.blacklist.view.fail", "회원 운영자 블랙리스트 정보 보기 실패"),
+
+    //회원정보수정
+    회원정보수정성공("0", "member.editor.success", "회원 정보 수정 성공"),
+    회원정보수정실패("-1", "member.editor.fail", "회원 정소 수정 실패"),
+
     //방송기록보기
     방송기록보기성공("0", "broadcast.list.view.success", "방송기록 보기 성공 시"),
     방송기록보기실패("C006", "broadcast.list.view.fail", "방송기록 보기 실패 시"),

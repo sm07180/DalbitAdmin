@@ -15,4 +15,36 @@
         /* M_Member.xml - callMemberInfo */
         call rd_admin.sp_admin_member_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="callNickNameCheck" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        /* M_Member.xml - callNickNameCheck */
+      call rd_data.sp_checkDuplicateNickName(#{nickName, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callMemberEditor" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        /* M_Member.xml - callMemberEditor */
+        call rd_admin.sp_admin_member_info_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <!-- 자세히보기 -->
+    <select id="callMemAdminMemoAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        /* M_Member.xml - callMemberAdminMemoAdd */
+        call rd_admin.sp_admin_op_memo_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+    <select id="callMemAdminMemoList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberAdminMemoListOutputVo">
+        /* M_Member.xml - callMemAdminMemoList */
+        call rd_admin.sp_admin_op_memo_select(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+    <select id="callMemConnect" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberConnectOutputVo">
+        /* M_Member.xml - callMemConnect */
+        call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+    <select id="callMemManagerList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberManagerListOutputVo">
+        /* M_Member.xml - callMemManagerList */
+        call rd_admin.sp_admin_member_info_manager(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+    <select id="callMemBlackList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberBlackListOutputVo">
+        /* M_Member.xml - callMemBlackList */
+        call rd_admin.sp_admin_member_info_black(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

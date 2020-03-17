@@ -6,33 +6,30 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
-                        <div>
-                            <select class="form-control searchType" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
-                            </select>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+            <form id="searchForm">
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
+                            <div>
+                                <span id="searchTypeArea"></span>
+                                <label><input type="text" class="form-control" id="txt_search"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <!-- //serachBox -->
+
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
 
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                    <li>
+                    <li class="active">
                         <a href="/menu/recommend/list"><i class="fa fa-home"></i> 추천DJ</a>
                     </li>
-                    <li class="active" id="_bestTab">
+                    <li>
                         <a href="/menu/best/list"><i class="fa fa-user"></i> 인기DJ</a>
                     </li>
                 </ul>
@@ -40,8 +37,7 @@
                     <div class="widget-content" style="border-top-width:0px;">
 
                         <div class="table-comment">
-                            <div>1) 추천/인기 DJ Main 노출 수는 10명입니다.</div>
-                            <div>2) 추천/인기DJ를 변경하시려면 DJ를 검색하여 결과리스트에서 [리스트추가하기]를 한 후 추천중 상태로 변경하세요.</div>
+                            DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
                         </div>
 
                         <table id="list_info" class="table table-sorting table-hover table-bordered" style="margin-top: 10px;">
@@ -61,6 +57,7 @@
 </div>
 
 <script type="text/javascript" src="/js/dataTablesSource/menuDataTableSource.js"></script>
+<script type="text/javascript" src="/js/code/menu/menuCodeList.js"></script>
 <script type="text/javascript">
 
     $(function(){
@@ -70,13 +67,6 @@
 
     $('#bt_search').on('click', function(){
         getSearch();
-    });
-
-    $('#_recommendTab').on('click', function(){
-        getHistoryDetail(this.id);
-    });
-    $('#_bestTab').on('click',function(){
-        getHistoryDetail(this.id);
     });
 
     var memNo = "";
@@ -89,18 +79,13 @@
             data.value = '01';
         };
 
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MenuDataTableSource.best);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MenuDataTableSource.recommend);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         // dtList_info.setEventClick(test01,0);
         dtList_info.createDataTable();
 
-        initSort();
-    }
-
-    function initSort(){
-        resetNo();
-        btnSet();
+        $("#searchTypeArea").html(util.getCommonCodeSelect(null, special_searchType))
     }
 
     function getSearch(){
@@ -112,25 +97,26 @@
 
         $('tbody').sortable({
             stop: function (e, ui) {
-                initSort();
+                resetNo();
+                btnSet();
             }
         });
-
-        initSort();
     }
 
     $(document).on('click', '._down', function(){
         var targetTr = $(this).closest('tr');
         var nextTr = targetTr.next();
         targetTr.insertAfter(nextTr);
-        initSort();
+        resetNo();
+        btnSet();
     });
 
     $(document).on('click', '._up', function(){
         var targetTr = $(this).closest('tr');
         var prevTr = targetTr.prev();
         targetTr.insertBefore(prevTr);
-        initSort();
+        resetNo();
+        btnSet();
     });
 
     function resetNo(){

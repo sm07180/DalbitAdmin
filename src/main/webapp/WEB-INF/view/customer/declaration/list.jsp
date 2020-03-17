@@ -35,6 +35,40 @@
                         </div>
                     </div>
                     <div class="widget-content">
+                        <table class="table table-bordered table-summary pull-right">
+                            <thead>
+                                <tr>
+                                    <th>누적 처리 건</th>
+                                    <th>미처리 건</th>
+                                    <th>정상 건</th>
+                                    <th>경고 건</th>
+                                    <th>1일 건</th>
+                                    <th>3일 건</th>
+                                    <th>5일 건</th>
+                                    <th>15일 건</th>
+                                    <th>30일 건</th>
+                                    <th>강제탈퇴 건</th>
+                                    <th>전화문의 건</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                             <thead>
                             </thead>
@@ -77,17 +111,12 @@
 
     });
 
-    $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
-
     init();
     /** Data Table **/
-    var dtList_info;
     function init() {
+
         var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();
-            data.searchType = $("#search_search_type_aria option:selected").val();
-            data.slctType = $("#search_slct_type_aria option:selected").val();
-            data.reason = $("#search_reason_aria option:selected").val();
+            data.search = $('#searchText').val();
         };
 
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList, $("#searchForm"));
@@ -97,8 +126,9 @@
 
         // 검색조건 불러오기
         $("#search_search_type_aria").html(util.getCommonCodeSelect(-1, declaration_searchType));
-        $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_opCode));
+        $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
         $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
+
     }
 
     function getDeclareInfo() {
@@ -127,7 +157,7 @@
         var context = response.data;
         var html=templateScript(context);
         $("#declarationForm").html(html);
-        //getChattingHistoryDetail();
+        $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
     }
 
     $(function() {
@@ -166,100 +196,7 @@
 </script>
 
 <script id="tmp_declarationFrm" type="text/x-handlebars-template">
-    <div class="row col-lg-12 form-inline" id="declareDetail">
-        <div class="widget-content">
-            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">상세정보</a></li>
-            </ul>
-            <div class="tab-content no-padding">
-                <table class="table table-bordered table-dalbit">
-                    <colgroup>
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                    </colgroup>
-                    <tbody>
-                    <tr class="align-middle">
-                        <th rowspan="2">No</th>
-                        <td rowspan="2">{{reportIdx}}</td>
-
-                        <th>신고사유</th>
-                        <td>{{{getCommonCodeSelect report_reason 'declaration_reason'}}}</td>
-
-                        <th>Browser</th>
-                        <td>{{browser}}</td>
-
-                        <th>접수일시</th>
-                        <td>{{reg_date}}</td>
-
-                        <th>처리상태</th>
-                        <td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>
-                    </tr>
-                    <tr>
-                        <th>플랫폼</th>
-                        <td>{{platform}}</td>
-
-                        <th>IP Address</th>
-                        <td>{{ipAddress}}</td>
-
-                        <th>처리일시</th>
-                        <td>{{op_date}}</td>
-
-                        <th>처리자명</th>
-                        <td>{{opName}}</td>
-                    </tr>
-                    <tr class="align-middle">
-                        <th colspan="4">신고자</th>
-                        <th colspan="4">대상자</th>
-
-                        <th rowspan="5">조치내역</th>
-                        <td rowspan="5">
-                            {{{getCommonCodeRadio op_code 'report_radio'}}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{mem_id}}</td>
-                        <td>{{level}}/{{grade}}</td>
-                        <td>{{mem_nick}}</td>
-                        <td>{{memSex}}</td>
-
-                        <td>{{reported_mem_id}}</td>
-                        <td>{{reported_level}}/{{reported_grade}}</td>
-                        <td>{{reported_mem_nick}}</td>
-                        <td>{{reported_memSex}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">누적 결제 수<br />/금액</th>
-                        <td colspan="2">{{payCount}} <br />{{payAmount}}</td>
-
-                        <th colspan="2">누적 결제 수<br />/금액</th>
-                        <td colspan="2">{{reported_payCount}} <br />{{reported_payAmount}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">누적 선물 수<br />/금액</th>
-                        <td colspan="2">{{giftCount}} <br />{{giftAmount}}</td>
-
-                        <th colspan="2">누적 선물 수<br />/금액</th>
-                        <td colspan="2">{{reported_giftCount}} <br />{{reported_giftAmount}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">총 신고</th>
-                        <td colspan="2"></td>
-
-                        <th colspan="2">총 신고/조치</th>
-                        <td colspan="2"> <br /></td>
-                    </tr>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
+    <div class="row col-lg-12 mt15">
+        <div class="tab-pane fade in active" id="report_tab"><jsp:include page="../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
     </div>
 </script>

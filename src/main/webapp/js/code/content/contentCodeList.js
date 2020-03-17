@@ -8,7 +8,7 @@ var notice_searchType = [
 
 var notice_slctType = [
     new COMMON_CODE(null, 'slctType', '공지구분')
-    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('notice', '1', '공지')
     , new COMMON_CODE('event', '2', '이벤트')
     , new COMMON_CODE('check', '3', '정기점검')

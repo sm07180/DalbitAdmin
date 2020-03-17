@@ -168,49 +168,38 @@
         return true;
     }
 
+    function generateFormData(){
+        var data = {};
+        var formArray = $("#noticeForm").serializeArray();
+        for (var i = 0; i < formArray.length; i++){
+            data[formArray[i]['name']] = formArray[i]['value'];
+        }
+        data["contents"] = $("#editor").summernote('code');
+        data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
+
+        dalbitLog(data);
+
+        return data;
+    }
+
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
-            var data = {};
-            var formArray = $("#noticeForm").serializeArray();
-            for (var i = 0; i < formArray.length; i++){
-                data[formArray[i]['name']] = formArray[i]['value'];
+            if(confirm('등록하시겠습니까?')){
+                util.getAjaxData("insert", "/rest/content/notice/insert", generateFormData(), fn_insert_success);
             }
-            data["contents"] = $("#editor").summernote('code');
-
-            // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
-            console.log(data);
-
-            util.getAjaxData("insert", "/rest/content/notice/insert", data, fn_insert_success);
         }
     });
-
-    function fn_insert_success(dst_id, response) {
-        dalbitLog(response);
-        alert(response.message);
-        generateForm();
-        dtList_info.reload();
-
-        $("#noticeForm").empty();
-    }
 
     $(document).on('click', '#updateBtn', function(){
 
         if(isValid()){
-            var data = {};
-            var formArray = $("#noticeForm").serializeArray();
-            for (var i = 0; i < formArray.length; i++){
-                data[formArray[i]['name']] = formArray[i]['value'];
+            if(confirm('수정하시겠습니까?')) {
+                util.getAjaxData("update", "/rest/content/notice/update", generateFormData(), fn_insert_success);
             }
-            data["contents"] = $("#editor").summernote('code');
-
-            // var data = $("#noticeForm").serialize() +  '&contents=' + $("#editor").summernote('code');
-
-            console.log(data);
-            util.getAjaxData("update", "/rest/content/notice/update", data, fn_update_success);
         }
     });
 
-    function fn_update_success(dst_id, response) {
+    function fn_insert_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
         generateForm();
@@ -291,7 +280,7 @@
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">
     <input type="hidden" name="noticeIdx" value="{{noticeIdx}}" />
-    <div class="row col-lg-12">
+    <div class="row col-lg-12 mt15">
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
             <span>
@@ -326,7 +315,7 @@
                     <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
 
                     <th>조회수</th>
-                    <td>{{viewCnt}}</td>
+                    <td>{{addComma viewCnt}}</td>
                 </tr>
                 <tr>
                     <th>플랫폼</th>
@@ -339,17 +328,22 @@
                     <td>{{writeDate}}</td>
 
                     <th>게시중지일시</th>
-                    <td>-</td>
+                    <td>
+                        {{offDate}}
+                        {{#equal offDate ''}}-{{/equal}}
+                    </td>
 
                     <th>처리자</th>
                     <td>{{opName}}</td>
                     <th>게시상태</th>
-                    <td>-</td>
+                    <td>
+                        {{{getOnOffSwitch viewOn}}}
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="row col-lg-12 form-inline area_style">
+    <div class="row col-lg-12 form-inline">
         <div class="widget">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 내용 </h3>

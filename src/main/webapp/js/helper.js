@@ -96,12 +96,20 @@ Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isE
     return util.getCommonCodeSelect(value, targetCode, isExcludeAllYn);
 });
 
-Handlebars.registerHelper("getCommonCodeRadio", function(value, targetCode, isExcludeAllYn)
+Handlebars.registerHelper("getCommonCodeRadio", function(value, targetCode, isExcludeAllYn, name)
 {
-    return util.getCommonCodeRadio(value, targetCode, isExcludeAllYn);
+    return util.getCommonCodeRadio(value, targetCode, isExcludeAllYn, name);
 });
 
 Handlebars.registerHelper("replaceHtml", function(value)
 {
     return common.replaceHtml(value);
+});
+
+Handlebars.registerHelper("equal", function (value, value2, opt){
+    return common.equal(value, value2, opt);
+});
+
+Handlebars.registerHelper("getOnOffSwitch", function(value){
+   return util.getOnOffSwitch(value);
 });

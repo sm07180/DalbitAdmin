@@ -38,6 +38,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="widget-footer">
+                        <span>
+                            <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                        </span>
+                    </div>
                 </div>
             </div>
             <!-- DATA TABLE END -->
@@ -71,12 +76,13 @@
         data.searchText = $('#txt_search').val();                        // 검색명
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
-    dtList_info.useCheckBox(false);
+    dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
 
     var tmp_searchType;
     var tmp_searchText;
+    var memNo = "unknown";
     function getUserInfo(){                 // 검색
         if( $('#txt_search').val() == ""){
             alert("검색대상을 입력해 주세요.");
@@ -93,8 +99,14 @@
         $('#tabList').removeClass("show");
     }
 
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+        if($(this).prop('checked')){
+            $(this).parent().parent().find('.getMemberDetail').click();
+        }
+    });
+
     function getMemNo_info(index){
-        $('#tabList').addClass("show");
+        $('#tabList_top').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.mem_no = data.mem_no;
@@ -108,7 +120,7 @@
 
         formData.append("searchType", tmp_searchType);
         formData.append("searchText", tmp_searchText);
-        excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 
     function fn_success_excel(){

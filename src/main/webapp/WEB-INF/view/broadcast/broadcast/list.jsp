@@ -91,7 +91,7 @@
             data.gubunBroad = $("select[name='selectGubun_broad']").val();
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
-        dtList_info.useCheckBox(false);
+        dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
         getSearch();
@@ -99,7 +99,6 @@
 
     function getSearch(){                 // 검색
         dtList_info.reload();
-
         ui.toggleSearchList();
     }
 
@@ -110,5 +109,11 @@
         obj.roomNo = data.roomNo;
         util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
+
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+        if($(this).prop('checked')){
+            $(this).parent().parent().find('.getBroadCast_info').click();
+        }
+    });
 
 </script>

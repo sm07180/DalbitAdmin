@@ -155,7 +155,7 @@ var util = {
         return template;
     },
 
-    getCommonCodeSelect(code, targetCode, isExcludeAllYn) {
+    getCommonCodeSelect(code, targetCode, isExcludeAllYn, name) {
         targetCode = eval(targetCode);
         if (!common.isEmpty(targetCode)) {
 
@@ -176,13 +176,13 @@ var util = {
         }
     },
 
-    getCommonCodeRadio(code, targetCode, isExcludeAllYn) {
+    getCommonCodeRadio(code, targetCode, isExcludeAllYn, name) {
         targetCode = eval(targetCode);
         if (!common.isEmpty(targetCode)) {
 
             var header = targetCode[0];
             var html = '';
-            var radioId = header.value;
+            var radioId = common.isEmpty(name) ? header.value : name;
             targetCode.forEach(function (value) {
                 if (!common.isEmpty(value.type)) {
 
@@ -199,6 +199,18 @@ var util = {
         }
     },
 
+    getOnOffSwitch(data) {
+        var html = '<div class="onoffswitch">';
+        html += '<input type="checkbox" name="viewOn" id="detail_viewOn" class="onoffswitch-checkbox" ' + (data == 1 ? 'checked="checked"': '') +'>';
+        html += '<label class="onoffswitch-label" for="detail_viewOn">';
+        html += '<span class="onoffswitch-inner"></span>';
+        html += '<span class="onoffswitch-switch"></span>';
+        html += '</label>';
+        html += '</div>';
+
+        return html;
+    },
+
     getCommonCodeLabel(code, targetCode) {
         targetCode = eval(targetCode);
         if (!common.isEmpty(targetCode)) {
@@ -211,6 +223,14 @@ var util = {
                 }
             });
             return html;
+        }
+    },
+    
+    renderOnOff(value){
+        if(value == 1){
+            return ' <i class="fa fa-circle"></i>' + " ON" ;
+        }else{
+            return ' <i class="fa fa-circle-o"></i>' + " OFF" ;
         }
     },
 

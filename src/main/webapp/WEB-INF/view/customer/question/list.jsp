@@ -69,15 +69,13 @@
     </div>
 </div>
 
-<%--<script src="../../../js/lib/jquery.table2excel.js"></script>--%>
-
-<script>
+<script type="text/javascript">
     $(document).ready(function() {
 
         // $("#detail").load("infoDetail.jsp");
 
-        $('input[id="txt_search"]').keydown(function() {
-            if (event.keyCode === 13) {
+        $('input[id="txt_search"]').keydown(function(e) {
+            if (e.keyCode === 13) {
                 getUserInfo();
             };
         });
@@ -90,7 +88,7 @@
     });
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 
-    var  = "false";
+    var tab_id = "false";
     init();
     function init(){
         var dtList_info_data = function ( data ) {
@@ -130,7 +128,7 @@
         formData.append("stDate", tmp_stDate);
         formData.append("edDate", tmp_edDate);
         /*formData.append("test003", "test003");*/
-        excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel)
     });
 
     $("#excelBtn").on("click", function () {
@@ -149,8 +147,5 @@
         console.log("fn_success_excel");
     }
 
-    function fn_fail_excel(){
-        console.log("fn_fail_excel");
-    }
     /*==================================*/
 </script>

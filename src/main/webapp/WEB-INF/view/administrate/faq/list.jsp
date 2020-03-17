@@ -104,7 +104,6 @@
         var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
         $("#faqForm").html(templateScript);
-        $("#viewOn").html(util.getCommonCodeRadio('1', viewOn,"Y"));
         //getFaqInfo();
 
         // uploadType 추가
@@ -133,7 +132,6 @@
         var context = response.data;
         var html = templateScript(context);
         $("#faqForm").html(html);
-        $("#viewOn").html(util.getCommonCodeRadio(response.data.viewOn, viewOn,"Y"));
 
         // uploadType 추가
         util.editorInit("administrate-faq");
@@ -163,11 +161,32 @@
         return true;
     }
 
+    function generateData(){
+        var data = {};
+        var formArray = $("#faqForm").serializeArray();
+        for (var i = 0; i < formArray.length; i++){
+            data[formArray[i]['name']] = formArray[i]['value'];
+        }
+        data["contents"] = $("#editor").summernote('code');
+        data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
+
+        dalbitLog(data);
+
+        return data;
+    }
+
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
             if(confirm("등록하시겠습니까?")){
-                var data = $("#faqForm").serialize() +  '&answer=' + $("#editor").summernote('code');
-                util.getAjaxData("insert", "/rest/administrate/faq/insert", data, fn_insert_success);
+                util.getAjaxData("insert", "/rest/administrate/faq/insert", generateData(), fn_insert_success);
+            }
+        }
+    });
+
+    $(document).on('click', '#updateBtn', function(){
+        if(isValid()){
+            if(confirm("수정하시겠습니까?")) {
+                util.getAjaxData("update", "/rest/administrate/faq/update", generateData(), fn_insert_success);
             }
         }
     });
@@ -179,15 +198,6 @@
 
         $("#faqForm").empty();
     }
-
-    $(document).on('click', '#updateBtn', function(){
-        if(isValid()){
-            if(confirm("수정하시겠습니까?")) {
-                var data = $("#faqForm").serialize() + '&answer=' + $("#editor").summernote('code');
-                util.getAjaxData("update", "/rest/administrate/faq/update", data, fn_update_success);
-            }
-        }
-    });
 
     $(document).on('click', '#bt_delete', function() {
         var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
@@ -210,14 +220,6 @@
         }
 
     });
-
-    function fn_update_success(dst_id, response) {
-        dalbitLog(response);
-        alert(response.message);
-        dtList_info.reload();
-
-        $("#faqForm").empty();
-    }
 
     function fn_delete_success(dst_id, response) {
         dalbitLog(response);
@@ -273,9 +275,13 @@
 
 <script id="tmp_faqFrm" type="text/x-handlebars-template">
     <input type="hidden" name="faqIdx" value="{{faqIdx}}" />
-    <div class="row col-lg-12 form-inline">
+    <div class="row col-lg-12 form-inline mt15">
         <div class="col-md-12 no-padding">
             <label id="faq_detatil_title">ㆍ선택한 FAQ 정보를 확인/수정/삭제를 할 수 있습니다.</label>
+            <span>
+                {{^faqIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
+                {{#faqIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
+            </span>
         </div>
     </div>
     <div class="row col-lg-12">
@@ -297,18 +303,23 @@
                 <th rowspan="2">No</th>
                 <td rowspan="2" id="no">{{faqIdx}}</td>
 
-                <th rowspan="2">구분</th>
-                <td rowspan="2">{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
+                <th>구분</th>
+                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
 
                 <th>질문</th>
-                <td colspan="5"><input type="text" name="question" id="question" class="form-control" value="{{question}}" maxlen></td>
+                <td colspan="5"><input type="text" name="question" id="question" class="form-control" value="{{question}}"></td>
             </tr>
             <tr>
+
+                <th>사이트 적용</th>
+                <!--<td id="viewOn"></td>-->
+                <td>{{{getOnOffSwitch viewOn}}}</td>
+
                 <th>등록일시</th>
                 <td id="regDate">{{writeDate}}</td>
 
                 <th>조회수</th>
-                <td id="cnt">{{viewCnt}}</td>
+                <td id="cnt">{{addComma viewCnt}}</td>
 
                 <th>처리자</th>
                 <td id="processor">{{opName}}</td>
@@ -316,26 +327,12 @@
             </tbody>
         </table>
     </div>
-    <div class="row col-lg-12 form-inline area_style">
+    <div class="row col-lg-12 form-inline">
         <div class="widget">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 답변 </h3>
             </div>
             <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
-            <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
-                <tbody>
-                <tr class="align-middle">
-                    <th>사이트적용</th>
-                    <td id="viewOn"></td>
-                    <td>
-                        <span>
-                            {{^faqIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
-                            {{#faqIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
-                        </span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </script>

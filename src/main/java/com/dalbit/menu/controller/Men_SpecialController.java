@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("menu/recommend")
-public class RecommendController {
+@RequestMapping("menu/special")
+public class Men_SpecialController {
 
     @RequestMapping("list")
     public String list(){
-        return "menu/recommend/list";
+        return "menu/special/list";
     }
 }
