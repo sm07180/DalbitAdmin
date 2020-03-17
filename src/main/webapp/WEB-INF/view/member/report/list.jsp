@@ -26,7 +26,7 @@
     $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
     $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
 
-    function getHistory_report(tmp) {     // 상세보기
+    function getHistory_reportDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         console.log("tmp : " + memNo);
         var source = MemberDataTableSource[tmp];

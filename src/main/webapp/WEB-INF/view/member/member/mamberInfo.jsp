@@ -276,11 +276,8 @@
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
         $("#detailForm").html("");
-
-        for(var i=0 ; i<$("#tablist_con").children().length; i++){
-            var tmp_children = $("#tablist_con").children()[i];
-            console.log(tmp_children);
-        }
+        // 상단 목록 클릭시 detail 재 조회
+        $("#tablist_con").find('.active').find('a').click();
     }
 
     function fullSize(url) {     // 이미지 full size
