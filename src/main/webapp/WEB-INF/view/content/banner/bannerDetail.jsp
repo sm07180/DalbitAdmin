@@ -227,9 +227,11 @@
     <div class="row col-lg-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
-                • 배너를 등록 /수정 관리하는 페이지 입니다.
+                • 배너를 등록/수정 관리하는 페이지 입니다.
                 <br>
-                • 모든 정보 완료 후 꼭!! 게시 여부와 게시 페이지를 지정한 후 [등록완료 ]버튼을 클릭해야 적용이 완료됩니다.
+                • 모든 정보 완료 후 꼭!! 게시 여부와 게시 페이지를 지정한 후 [등록완료]버튼을 클릭해야 사이트 내 적용이 완료됩니다.
+                <br>
+                • 게시여부>비적용시에도 [등록 완료]가 된 경우 비적용 상태로 리스트에 추가됩니다.
             </div>
             <div class="pull-right">
                 {{^bannerIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/bannerIdx}}
@@ -257,7 +259,7 @@
                 <td rowspan="2">{{bannerIdx}}</td>
 
                 <th rowspan="2">배너 제목</th>
-                <td colspan="6"  rowspan="2"><input type="text" class="form-control" id="banner-title" name="bannerTitle" placeholder="title"></td>
+                <td colspan="6"  rowspan="2"><input type="text" class="form-control" id="banner-title" name="bannerTitle" placeholder="프로모션 제목을 입력하세요."></td>
 
                 <th>등록/수정자</th>
                 <td colspan="2"></td>
@@ -273,22 +275,22 @@
                 <th>성별</th>
                 <td colspan="2">{{{getCommonCodeRadio 1 'gender'}}}</td>
 
-                <th>노출 빈도</th>
-                <td colspan="5">{{{getCommonCodeRadio 10 'banner_frequency'}}}</td>
-            </tr>
-            <tr>
-                <th>배너위치</th>
-                <td colspan="6">{{{getCommonCodeRadio 1 'banner_bannerType_noAll'}}}</td>
-
                 <th>페이지 전환</th>
-                <td colspan="4">{{{getCommonCodeRadio 1 'viewType'}}}</td>
-            </tr>
-            <tr>
+                <td colspan="2">{{{getCommonCodeRadio 1 'viewType'}}}</td>
+
                 <th>게시여부</th>
                 <td colspan="2">{{{getCommonCodeRadio 1 'banner_viewOn'}}}</td>
+            </tr>
+            <tr>
+                <th>노출 빈도</th>
+                <td colspan="5">{{{getCommonCodeRadio 10 'banner_frequency'}}}</td>
 
+                <th>배너위치</th>
+                <td colspan="5">{{{getCommonCodeRadio 1 'banner_bannerType_noAll'}}}</td>
+            </tr>
+            <tr>
                 <th>노출 기간</th>
-                <td colspan="8">
+                <td colspan="11">
                     <div>
                         {{{getCommonCodeRadio 0 'banner_exposureType'}}}
                     </div>

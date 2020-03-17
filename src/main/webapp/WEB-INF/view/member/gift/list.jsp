@@ -16,7 +16,7 @@
     $(document).ready(function() {
     });
 
-    function getHistory_gift(tmp) {     // 상세보기
+    function getHistory_giftDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
@@ -44,9 +44,9 @@
 
         $("#"+tmp).find("#main_table").find(".top-left").append(topTable);
     }
-    function sel_change(value){
-        console.log("value : " + value);
-    }
+    // function sel_change(value){
+    //     console.log("value : " + value);
+    // }
 
     function Gift(index){
         var data = dtList_info_detail.getDataRow(index);

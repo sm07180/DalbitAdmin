@@ -106,7 +106,7 @@
     });
 
     function getMemNo_info(index){
-        $('#tabList').addClass("show");
+        $('#tabList_top').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.mem_no = data.mem_no;

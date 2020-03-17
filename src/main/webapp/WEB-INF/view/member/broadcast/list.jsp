@@ -16,7 +16,7 @@
     $(document).ready(function() {
     });
 
-    function getHistory_broadcast(tmp) {     // 상세보기
+    function getHistory_broadDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {

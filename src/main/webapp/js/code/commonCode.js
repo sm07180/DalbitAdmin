@@ -34,11 +34,28 @@ var platform = [
     , new COMMON_CODE('mobile', '5', 'Web-Mobile')
 ];
 
+var platformGroup = [
+    new COMMON_CODE(null, 'platformGroup', '플랫폼그룹구분')
+    , new COMMON_CODE('all', '1', '전체')
+    , new COMMON_CODE('pc', '2', 'PC')
+    , new COMMON_CODE('mobile', '3', 'Mobile')
+    , new COMMON_CODE('pc-mobile', '4', 'PC/Mobile')
+];
+
+var progressStatus = [
+    new COMMON_CODE(null, 'progressStatus', '진행여부')
+    , new COMMON_CODE('all', '1', '전체')
+    , new COMMON_CODE('wait', '2', '대기중')
+    , new COMMON_CODE('proceeding', '3', '진행중')
+    , new COMMON_CODE('end', '4', '마감')
+];
+
 var gender = [
     new COMMON_CODE(null, 'gender', '성별구분')
     , new COMMON_CODE('all', '1', '전체')
     , new COMMON_CODE('man', '2', '남자')
     , new COMMON_CODE('female', '3', '여자')
+    , new COMMON_CODE('unknown', '4', '알수없음')
 ];
 
 var viewOn = [

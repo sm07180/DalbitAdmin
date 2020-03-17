@@ -82,7 +82,7 @@
                 if($(this).is(":checked")){
                     var cntTotal = $("input[name='receiveType']").length;
                     var cntChecked = $("input[name='receiveType']:checked").length;
-                    if((cntTotal - 1) == (cntChecked + 1)){
+                    if((cntTotal - 1) == (cntChecked + 1)){     //지정회원 제외
                         $("input[name='receiveType'][value='-1']").prop("checked", true);
                     }
                 }else{
@@ -90,6 +90,33 @@
                 }
             }
         });
+
+
+        //OS 구분
+        $("input[name='osType']").change(function(){
+            if($(this).val() == "-1"){
+                if($(this).is(":checked")){
+                    $("input[name='osType']").each( function(){
+                        this.checked = true;
+                    });
+                }else{
+                    $("input[name='osType']").each( function(){
+                        this.checked = false;
+                    });
+                }
+            }else{
+                if($(this).is(":checked")){
+                    var cntTotal = $("input[name='osType']").length;
+                    var cntChecked = $("input[name='osType']:checked").length;
+                    if((cntTotal) == (cntChecked + 1)){
+                        $("input[name='osType'][value='-1']").prop("checked", true);
+                    }
+                }else{
+                    $("input[name='osType'][value='-1']").prop("checked", false);
+                }
+            }
+        });
+
 
 
         //발송여부 선택
@@ -259,7 +286,13 @@
                 <td colspan="3">{{{getCommonCodeRadio 0 'push_snedStatus'}}}</td>
 
                 <th>노출 OS구분</th>
-                <td colspan="5">{{{getCommonCodeRadio -1 'push_osType'}}}</td>
+                <%--<td colspan="5">{{{getCommonCodeRadio -1 'push_osType'}}}</td>--%>
+                <td colspan="5">
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="-1" checked="true"><span>전체</span> </label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="1" checked="true"><span>PC</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="2" checked="true"><span>Android</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="3" checked="true"><span>IOS</span></label>
+                </td>
             </tr>
             <tr>
                 <th>메세지 제목</th>
@@ -269,11 +302,11 @@
                 <td colspan="5" rowspan="2">
                     <div>
                         <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="-1" checked="true"><span>전체</span> </label>
-                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="1" checked="true"><span>생방송</span></label>
-                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="2" checked="true"><span>여자</span></label>
-                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="3" checked="true"><span>남자</span></label>
-                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="4" checked="true"><span>로그인</span></label>
-                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="5" checked="true"><span>비로그인</span></label>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="1" checked="true"><span>생방송</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="2" checked="true"><span>여자</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="3" checked="true"><span>남자</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="4" checked="true"><span>로그인</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="5" checked="true"><span>비로그인</span></label>--%>
                         <div>
                             <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="target"><span>지정 회원 </span></label>
                             <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember" disabled="disabled"/>

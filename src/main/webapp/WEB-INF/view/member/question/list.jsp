@@ -17,7 +17,7 @@
     $(document).ready(function() {
     });
 
-    function getHistory_question(tmp) {     // 상세보기
+    function getHistory_questionDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
@@ -109,9 +109,9 @@
             '            </div>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
     }
-    function sel_change(value){
-        console.log("value : " + value);
-    }
+    // function sel_change(value){
+    //     console.log("value : " + value);
+    // }
     function Question(index){
 
         $('#question_tab').addClass("show");
