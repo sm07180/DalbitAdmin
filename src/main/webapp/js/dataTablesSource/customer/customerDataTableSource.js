@@ -14,7 +14,7 @@ var customerDataTableSource = {
         'url': '/rest/customer/declaration/list'
 
         ,'columns': [
-            {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat'}
+            {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlatform'}
             ,{'title': '신고 구분', 'data' : 'reason', 'name' : 'sortReport', 'render': function(data) {
                 return util.getCommonCodeLabel(data, declaration_reason);
                 }}
