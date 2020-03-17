@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
@@ -8,119 +9,8 @@
         <div class="col-lg-12 no-padding">
             <label id="report_title"></label>
         </div>
-        <%--<div class="col-lg-12 no-padding">
-            <div class="col-md-4 no-padding">
-                <div class="col-md-5 no-padding">
-                    <div class="col-md-5 lb_style" style="height: 68px"><label>No</label></div>
-                    <div class="col-md-7" style="height: 68px"><label>41</label></div>
-                </div>
-                <div class="col-md-7 no-padding">
-                    <div class="col-md-5 lb_style"><label>신고</label></div>
-                    <div class="col-md-7" style="height: 34px;">
-                        <form id="cob_report">
-                            <select id="cob_reportGubun" class="form-control searchType">
-                                <option value="9999" selected="selected">직접입력 ▼</option>
-                            </select>
-                        </form>
-                    </div>
-                    <div class="col-md-5 lb_style"><label>플랫폼</label></div>
-                    <div class="col-md-7" style="height: 34px;">
-                        <form id="cob_platform">
-                            <select id="cob_platformGubun" class="form-control searchType">
-                                <option value="9999" selected="selected">직접입력 ▼</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-12 no-padding">
-                    <div class="col-md-12 lb_style"><label>신고자</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>123456</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>DalDal</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>달달이</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>남</label></div>
-                </div>
-                <div class="col-md-6 lb_style"><label>누적 결제 수/금액</label></div>
-                <div class="col-md-6" style="height: 34px;"><label>75건/10,000,000원</label></div>
-                <div class="col-md-6 lb_style"><label>누적 선물 수/금액</label></div>
-                <div class="col-md-6" style="height: 34px;"><label>75건/10,000,000원</label></div>
-            </div>
-            <div class="col-md-4 no-padding">
-                <div class="col-md-7 no-padding">
-                    <div class="col-md-5 lb_style"></div>
-                    <div class="col-md-7" style="height: 34px;"></div>
-                    <div class="col-md-5 lb_style"></div>
-                    <div class="col-md-7" style="height: 34px;"></div>
-                </div>
-                <div class="col-md-5 no-padding">
-                    <div class="col-md-5 lb_style" style="height: 68px"><label>접수일시</label></div>
-                    <div class="col-md-7" style="height: 68px"><label>2020-03-02 12:01:22</label></div>
-                </div>
-                <div class="col-md-12 no-padding">
-                    <div class="col-md-12 lb_style"><label>신고대상자</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>123456</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>DalDal</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>달달이</label></div>
-                    <div class="col-md-3" style="height: 34px;"><label>남</label></div>
-                </div>
-                <div class="col-md-6 lb_style"><label>누적 결제 수/금액</label></div>
-                <div class="col-md-6" style="height: 34px;"><label>1건/10,000,000원</label></div>
-                <div class="col-md-6 lb_style"><label>누적 선물 수/금액</label></div>
-                <div class="col-md-6" style="height: 34px;"><label>1건/10,000,000원</label></div>
-            </div>
-            <div class="col-md-4 no-padding">
-                <div class="col-md-6 no-padding">
-                    <div class="col-md-6 lb_style" style="height: 68px"><label>처리일시</label></div>
-                    <div class="col-md-6" style="height: 68px"><label>2020-03-02 12:01:22</label></div>
-                </div>
-                <div class="col-md-6 no-padding">
-                    <div class="col-md-6 lb_style"><label>처리상태</label></div>
-                    <div class="col-md-6" style="height: 34px;"><label>미처리</label></div>
-                    <div class="col-md-6 lb_style"><label>처리자명</label></div>
-                    <div class="col-md-6" style="height: 34px;"><label>-</label></div>
-                </div>
-                <div class="col-md-12 no-padding">
-                    <div class="col-md-3 no-padding">
-                        <div class="col-md-12 lb_style" style="height: 136px"><label>조치내역</label></div>
-                    </div>
-                    <div class="col-md-7 no-padding">
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_pre" checked>유지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_war">경고</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_1">1일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_3">3일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_7">7일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_15">15일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_30">30일 정지</label>
-                        <label class="radio-inline"><input type="radio" name="radio_ban" value="ban_ban">강제탈퇴</label>
-                        <button type="button" id="bt_ban" class="btn btn-default btn-sm pull-right">완료</button>
-                    </div>
-                </div>
-            </div>
-        </div>--%>
-        <%--<div class="col-md-6 no-padding">
-            <div class="widget widget-table" id="report_detail3">
-                <div class="widget-content">
-                    <table id="list_report_detail" class="table table-sorting table-hover table-bordered datatable">
-                        <thead id="tableTop_detail">
-                        </thead>
-                        <tbody id="tableBody_detail">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 no-padding">
-            <div class="widget widget-table" id="report_detail4">
-                <div class="widget-content">
-                    <table id="list_report_user_detail" class="table table-sorting table-hover table-bordered datatable">
-                        <thead id="tableTop_detail2">
-                        </thead>
-                        <tbody id="tableBody_detail2">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>--%>
 
+        <input type="hidden" name="reportIdx" value="{{reportIdx}}" />
         <table class="table table-bordered table-dalbit">
             <colgroup>
                 <col width="5%" />
@@ -137,7 +27,7 @@
             <tbody>
             <tr class="align-middle">
                 <th rowspan="2">No</th>
-                <td rowspan="2">{{reportIdx}}</td>
+                <td rowspan="2" id="reportIdx">{{reportIdx}}</td>
 
                 <th>신고사유</th>
                 <td>{{{getCommonCodeSelect report_reason 'declaration_reason'}}}</td>
@@ -169,7 +59,7 @@
                 <th colspan="4">대상자</th>
 
                 <th rowspan="5">조치내역</th>
-                <td rowspan="5">
+                <td rowspan="5" id="opCode">
                     {{{getCommonCodeRadio op_code 'declaration_slctType' 'N' 'opCode'}}}
                 </td>
             </tr>
@@ -186,17 +76,17 @@
             </tr>
             <tr>
                 <th colspan="2">누적 결제 수<br />/금액</th>
-                <td colspan="2">{{payCount}} <br />{{payAmount}}</td>
+                <td colspan="2">{{addComma payCount}}개 <br />{{addComma payAmount}}원</td>
 
                 <th colspan="2">누적 결제 수<br />/금액</th>
-                <td colspan="2">{{reported_payCount}} <br />{{reported_payAmount}}</td>
+                <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
             </tr>
             <tr>
                 <th colspan="2">누적 선물 수<br />/금액</th>
-                <td colspan="2">{{giftCount}} <br />{{giftAmount}}</td>
+                <td colspan="2">{{addComma giftCount}}개 <br />{{addComma giftAmount}}원</td>
 
                 <th colspan="2">누적 선물 수<br />/금액</th>
-                <td colspan="2">{{reported_giftCount}} <br />{{reported_giftAmount}}</td>
+                <td colspan="2">{{addComma reported_giftCount}}개 <br />{{addComma reported_giftAmount}}원</td>
             </tr>
             <tr>
                 <th colspan="2">총 신고</th>
@@ -247,5 +137,33 @@
         report_memNo = data.memNo;
 
         dtList_list_report_user_detail.reload();
+    }
+
+    /* 처리완료 버튼 */
+
+    function isValid() {
+        var opCode = $('#declarationForm #status');
+        if(opCode == 1) {
+            alert("이미 처리완료된 사항입니다.");
+        }
+        return false;
+    }
+    $(document).on('click', '#bt_declaration', function() {
+
+       /* if(isValid()){
+           if(confirm('처리하시겠습니까?')) {*/
+               util.getAjaxData("declaration", "/rest/customer/declaration/operate", $("#declarationForm").serialize(), fn_declaration_success);
+       /*    } else {
+               dtList_info.reload();
+               $("#declarationForm").empty();
+           }
+        }*/
+    });
+
+    function fn_declaration_success(dst_id, response) {
+        alert(response.message);
+        dtList_info.reload();
+
+        $("#declarationForm").empty();
     }
 </script>

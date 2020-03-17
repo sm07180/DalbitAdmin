@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="widget-content">
-                        <table class="table table-bordered table-summary pull-right">
+                        <table class="table table-bordered table-summary pull-right" id="declarationSummary">
                             <thead>
                                 <tr>
                                     <th>누적 처리 건</th>
@@ -44,27 +44,13 @@
                                     <th>경고 건</th>
                                     <th>1일 건</th>
                                     <th>3일 건</th>
-                                    <th>5일 건</th>
-                                    <th>15일 건</th>
-                                    <th>30일 건</th>
+                                    <th>7일 건</th>
+                                    <th>영구정지 건</th>
                                     <th>강제탈퇴 건</th>
-                                    <th>전화문의 건</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                    <td>2건</td>
-                                </tr>
+                            <tbody id="summaryDataTable">
+
                             </tbody>
                         </table>
 
@@ -197,6 +183,45 @@
 
 <script id="tmp_declarationFrm" type="text/x-handlebars-template">
     <div class="row col-lg-12 mt15">
-        <div class="tab-pane fade in active" id="report_tab"><jsp:include page="../../customer/declaration/report.jsp"/></div>     <!-- 상세 -->
+        <div class="tab-pane fade in active" id="report_tab">
+            <button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>
+            <!-- 상세 -->
+            <jsp:include page="../../customer/declaration/report.jsp"/>
+        </div>
     </div>
+</script>
+
+<script>
+    $(document).ready(function() {
+        util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success, fn_fail);
+    });
+
+    function fn_success(dst_id, response) {
+        dalbitLog(response);
+        var template = $('#tmp_declarationSummary').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response;
+        var html = templateScript(context);
+
+        $("#summaryDataTable").append(html);
+    }
+    function fn_fail(data, textStatus, jqXHR){
+        console.log(data, textStatus, jqXHR);
+    }
+</script>
+<script id="tmp_declarationSummary" type="text/x-handlebars-template">
+    {{#data}}
+    <tr>
+        <%-- 전체/미처리/정상/경고/1일 정지/3일 정지/7일 정지/영구정지/강제퇴장--%>
+        <td>{{addComma allOpCnt}}건</td>
+        <td>{{addComma notOpCnt}}건</td>
+        <td>{{addComma code_1_Cnt}}건</td>
+        <td>{{addComma code_2_Cnt}}건</td>
+        <td>{{addComma code_3_Cnt}}건</td>
+        <td>{{addComma code_4_Cnt}}건</td>
+        <td>{{addComma code_5_Cnt}}건</td>
+        <td>{{addComma code_9_Cnt}}건</td>
+        <td>{{addComma telCnt}}건</td>
+    </tr>
+    {{/data}}
 </script>

@@ -122,6 +122,7 @@ public class DeclarationService {
     public String callServiceCenterReportOperate(P_DeclarationOperateVo pDeclarationOperateVo) {
         pDeclarationOperateVo.setOpName(MemberVo.getMyMemNo());
 
+
         ProcedureVo procedureVo = new ProcedureVo(pDeclarationOperateVo);
 
         declarationDao.callServiceCenterReportOperate(procedureVo);
@@ -146,9 +147,11 @@ public class DeclarationService {
 
         declarationDao.callServiceCenterReportOpCount(procedureVo);
 
+        P_DeclarationOpCountVo opCount = new Gson().fromJson(procedureVo.getExt(), P_DeclarationOpCountVo.class);
+
         String result;
         if(Status.신고처리내역수조회_성공.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리내역수조회_성공));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리내역수조회_성공, opCount));
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
