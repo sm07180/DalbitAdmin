@@ -471,7 +471,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://">
+                            <a href="/content/event/list">
                                 <i class="fa fa-gift"></i><span class="text">이벤트관리</span>
                             </a>
                         </li>

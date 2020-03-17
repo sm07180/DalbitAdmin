@@ -29,7 +29,7 @@ var BannerDataTableSource = {
             {'title': '등록자명', 'data': 'banner_col14', 'defaultContent': '로그아웃'},
 
         ]
-        , 'comments': '<div>• 배너를 등록하고 관리하는 페이지 입니다.</div><div>• 모든 정보 완료 후 꼭!! 게시 여부와 게시 페이지를 지정한 후 [등록완료]버튼을 클릭해야 적용이 완료됩니다.</div>'
+        , 'comments': '<div>• 배너를 등록하고 관리하는 페이지 입니다.</div><div>• 배너를 검색하시려면 ,배너제목을 입력하세요.</div><div>• 모든 정보 완료 후 꼭!! 게시 여부와 게시 페이지를 지정한 후 [등록완료 ]버튼을 클릭해야 적용이 완료됩니다.</div>'
     },
     'statisticsList': {
         'url': '/rest/content/banner/statistics'

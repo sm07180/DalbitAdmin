@@ -10,6 +10,7 @@
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
+                            <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
                             <div class="row col-md-12">
                                 <h3 class="title"><i class="fa fa-search"></i>진행기간</h3>
                                 <div>
@@ -26,12 +27,15 @@
                                     </label>
                                 </div>
                             </div>
+                            -->
                             <div class="row col-md-12">
                                 <h3 class="title"><i class="fa fa-search"></i>배너검색</h3>
                                 <div>
+                                    <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
                                     <span id="search_platform_aria"></span>
                                     <span id="search_bannerType_aria"></span>
                                     <span id="search_searchType_aria"></span>
+                                    -->
 
                                     <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>

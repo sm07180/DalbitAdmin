@@ -35,9 +35,8 @@ var push_osType = [
     new COMMON_CODE(null, 'osType', '노출 OS구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('pc', '1', 'PC')
-    , new COMMON_CODE('app', '2', '모바일 전체')
-    , new COMMON_CODE('android', '3', 'Android')
-    , new COMMON_CODE('ios', '4', 'IOS')
+    , new COMMON_CODE('android', '2', 'Android')
+    , new COMMON_CODE('ios', '3', 'IOS')
 ];
 
 var push_messageType = [
@@ -71,7 +70,8 @@ var banner_bannerType = [
     , new COMMON_CODE('gnb', '1', 'GNB')
     , new COMMON_CODE('expand', '2', '펼침')
     , new COMMON_CODE('popup', '3', '팝업')
-    , new COMMON_CODE('mypage', '3', 'MyPage')
+    , new COMMON_CODE('notice', '4', '공지사항')
+    , new COMMON_CODE('etc', '5', '???(추후추가)')
 ];
 
 var banner_bannerType_noAll = [
@@ -113,4 +113,11 @@ var banner_exposureType = [
     new COMMON_CODE(null, 'exposureType', '노출 기간')
     , new COMMON_CODE('always', '0', '상시')
     , new COMMON_CODE('choice', '1', '직접선택')
+];
+
+/** =------ Event ---------- */
+var event_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('title', '1', '제목')
 ];
