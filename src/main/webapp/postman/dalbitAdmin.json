@@ -419,6 +419,122 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "매니저 이력",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583201358847",
+									"description": "회원 번호",
+									"type": "text"
+								},
+								{
+									"key": "slctType",
+									"value": "1",
+									"description": "구분( 1: 내가 등록한 매니저, 2: 나를 등록한 매니저 )",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/managerHist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"managerHist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "블랙리스트 이력",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583201358847",
+									"description": "회원 번호",
+									"type": "text"
+								},
+								{
+									"key": "slctType",
+									"value": "1",
+									"description": "구분( 1: 내가 등록한 블랙리스트, 2: 나를 등록한 블랙리스트 )",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/blackList",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"blackList"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
