@@ -6,9 +6,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class P_MemberBlackListInputVo extends SearchVo {
+public class P_MemberBlackListOutputVo extends SearchVo {
 
-    private int pageNo;
     private String mem_no;
+    private String mem_userid;
+    private String mem_nick;
+    private String regDate;
 
 }
