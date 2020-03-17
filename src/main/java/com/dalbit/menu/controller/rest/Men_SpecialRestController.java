@@ -14,8 +14,8 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("rest/menu/recommend")
-public class RecommendRestController {
+@RequestMapping("rest/menu/special")
+public class Men_SpecialRestController {
 
     @Autowired
     GsonUtil gsonUtil;

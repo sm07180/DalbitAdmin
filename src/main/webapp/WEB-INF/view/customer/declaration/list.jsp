@@ -35,6 +35,40 @@
                         </div>
                     </div>
                     <div class="widget-content">
+                        <table class="table table-bordered table-summary pull-right">
+                            <thead>
+                                <tr>
+                                    <th>누적 처리 건</th>
+                                    <th>미처리 건</th>
+                                    <th>정상 건</th>
+                                    <th>경고 건</th>
+                                    <th>1일 건</th>
+                                    <th>3일 건</th>
+                                    <th>5일 건</th>
+                                    <th>15일 건</th>
+                                    <th>30일 건</th>
+                                    <th>강제탈퇴 건</th>
+                                    <th>전화문의 건</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                    <td>2건</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                             <thead>
                             </thead>
