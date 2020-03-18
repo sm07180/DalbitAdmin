@@ -274,10 +274,9 @@
         $("#lb_starCnt").html(response.data.byeol + "개");
         $("#lb_manager").html(response.data.managerICnt + "명 / " + response.data.managerMeCnt + "명");
         $("#lb_black").html(response.data.blackICnt + "명 / " + response.data.blackMeCnt + "명");
-        $("#lb_memSlct").html(response.data.memSlct);
         $("#lb_withdrawalDate").html(response.data.withdrawalDate);
         $("#lb_firstBroadcastDate").html(response.data.firstBroadcastDate);
-
+        $("#lb_platform").html(util.renderSlct(response.data.memSlct,"20"));
 
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");

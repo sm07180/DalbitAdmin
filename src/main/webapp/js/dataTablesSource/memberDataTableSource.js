@@ -8,7 +8,9 @@ var MemberDataTableSource = {
                 }},
              {'title': '닉네임', 'data': 'mem_nick', 'width':'200px'},
              {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
-             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px'},
+             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
+                    return util.renderSlct(data,"15");
+                 }},
              {'title': '회원가입일시', 'data': 'joinDate', 'width':'100px'},
              {'title': '최근 접속 일시', 'data': 'last_connect_date', 'width':'100px'},
              {'title': '누적 접속 수', 'data': 'connectCnt', 'width':'100px'},
