@@ -535,6 +535,96 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "회원 방송 내역",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583201358847",
+									"description": "회원번호",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/broadHist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"broadHist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "회원 청취 내역",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "mem_no",
+									"value": "11583201358847",
+									"description": "회원번호",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/member/member/listenHist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"member",
+								"member",
+								"listenHist"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
