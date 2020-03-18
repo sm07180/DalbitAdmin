@@ -33,15 +33,17 @@
                     </tr>
                     <tr>
                         <th>조치사유</th>
-                        <td colspan="5" style="text-align: left"><span id="report_sel"></span></td>
+                        <td colspan="5" style="text-align: left"><span id="declaration_reason"></span></td>
                     </tr>
                     <tr>
                         <th>조치내역</th>
-                        <td colspan="5" style="text-align: left"><span id="report_radio"></span></td>
+                        <td colspan="5" style="text-align: left"><span id="declaration_slctType"></span></td>
                     </tr>
                     <tr>
                         <th>운영자 메모</th>
-                        <td colspan="5" style="text-align: left;height: 142px;" id="td_adminMemo"></td>
+                        <td colspan="5" style="text-align: left;height: 142px;">
+                            <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 100%;height: 100%"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <th>등록/처리일시</th>
@@ -62,7 +64,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -72,8 +74,8 @@
     var memNick =  <%=in_memNick%>;
     var memSex =  <%=in_memSex%>;
 
-    $("#report_sel").html(getCommonCodeSelect(-1, report_sel));
-    $("#report_radio").html(getCommonCodeRadio("co", report_radio));
+    $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
+    $("#declaration_slctType").html(util.getCommonCodeRadio(1, declaration_slctType,"Y"));
 
     init();
     function init() {

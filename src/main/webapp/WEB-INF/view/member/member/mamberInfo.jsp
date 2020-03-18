@@ -17,11 +17,11 @@
             </td>
             <tr>
                 <th>회원레벨</th>
-                <td style="text-align: left"><span id="level"></span></td>
+                <td style="text-align: left"><span id="select_level"></span></td>
             </tr>
             <tr>
                 <th>DJ등급</th>
-                <td style="text-align: left"><span id="grade"></span></td>
+                <td style="text-align: left"><span id="select_grade"></span></td>
             </tr>
             <tr>
                 <th>회원상태</th>
@@ -218,8 +218,8 @@
         // 버튼 끝
     });
 
-    $("#level").html(util.getCommonCodeSelect(-1, level));
-    $("#grade").html(util.getCommonCodeSelect(-1, grade));
+    $("#select_level").html(util.getCommonCodeSelect(-1, level));
+    $("#select_grade").html(util.getCommonCodeSelect(-1, grade));
     $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
 
     function info_sel_success(dst_id, response) {
@@ -247,7 +247,7 @@
             $("input[name=gender][value=" + 3 + "]").prop("checked", true);
 
         }
-        $('#bt_report').data('url', "http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" + memNo + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'");
+        $('#bt_report').data('url', "http://localhost:8081/member/member/popup/reportPopup?memNo=" + "'" + response.data.mem_no + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'");
         $("#lb_socialId").html(response.data.socialId);
         $("#lb_adminMemoCnt").html("등록 : " + response.data.opMemoCnt + "건");
         $("#txt_adminMemo").val(response.data.opMemo);

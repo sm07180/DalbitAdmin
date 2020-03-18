@@ -71,7 +71,8 @@ var viewType = [
     , new COMMON_CODE('link', '2', '링크이동')
 ];
 var level = [
-    new COMMON_CODE('0', '0', '0레벨')
+    new COMMON_CODE(null, 'level', '레벨')
+    ,new COMMON_CODE('0', '0', '0레벨')
     ,new COMMON_CODE('1', '1', '1레벨')
     ,new COMMON_CODE('2', '2', '2레벨')
     ,new COMMON_CODE('3', '3', '3레벨')
@@ -83,10 +84,11 @@ var level = [
     ,new COMMON_CODE('9', '9', '9레벨')
 ];
 var grade = [
-    new COMMON_CODE('0',  '0',        '0 단계')
-    ,new COMMON_CODE('6',  '51',      '1 단계')
-    ,new COMMON_CODE('11', '1298',    '2 단계')
-    ,new COMMON_CODE('15', '2869',    '3 단계')
+    new COMMON_CODE(null, 'grade', '단계')
+    ,new COMMON_CODE('0',  '0 단계','0 단계')
+    ,new COMMON_CODE('6',  '1 단계','1 단계')
+    ,new COMMON_CODE('11', '2 단계','2 단계')
+    ,new COMMON_CODE('15', '3 단계','3 단계')
 ];
 
 
