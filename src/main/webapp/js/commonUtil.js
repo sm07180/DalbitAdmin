@@ -234,6 +234,20 @@ var util = {
         }
     },
 
+    renderSlct(value){
+        if(value == "p"){
+            return '<i class="fa fa-phone" style="color: #d30dff"></i>'
+        }else if (value == "f"){
+            return '<i class="fa fa-facebook-square" style="color: #0064ff"></i>'
+        }else if (value == "g"){
+            return '<i class="fa fa-google" style="color: #ff0004"></i>'
+        }else if (value == "k"){        // 아이콘 추가 해야됨
+            return '<i class="fa fa-facebook-square" style="color: #fdff00"></i>'
+        }else if (value == "n"){        // 아이콘 추가 해야됨
+            return '<i class="fa fa-facebook-square" style="color: #00ff37"></i>'
+        }
+    },
+
     /*에디터 type:이미지 타입*/
     editorInit(type) {
         var targetEditor = $('._editor');
