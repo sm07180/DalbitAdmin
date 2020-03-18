@@ -1,7 +1,7 @@
 
 /** =------ Declaration ---------- */
 var declaration_searchType = [
-    new COMMON_CODE(null, 'searchType', '사용자정보구분')
+    new COMMON_CODE(null, 'searchType', '검색 조건')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('memno', '1', '회원번호')
     , new COMMON_CODE('memid', '2', 'UserID')
@@ -9,7 +9,7 @@ var declaration_searchType = [
 ];
 
 var declaration_reason = [
-    new COMMON_CODE(null, 'slctReason', '신고구분')
+    new COMMON_CODE(null, 'slctReason', '신고 구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('profile', '1', '프로필사진')
     , new COMMON_CODE('obs', '2', '음란성')
@@ -26,7 +26,7 @@ var declaration_status = [
 ];
 
 var declaration_slctType = [
-    new COMMON_CODE(null, 'slctType', '조치내역')
+    new COMMON_CODE(null, 'slctType', '제재 조치')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('not', '0', '미처리')
     , new COMMON_CODE('continue', '1', '정상')
@@ -34,6 +34,6 @@ var declaration_slctType = [
     , new COMMON_CODE('stop1', '3', '1일정지')
     , new COMMON_CODE('stop3', '4', '3일정지')
     , new COMMON_CODE('stop7', '5', '7일정지')
-    , new COMMON_CODE('stop15', '6', '영구정지')
-    , new COMMON_CODE('withdrawal', '7', '강제탈퇴')
+    , new COMMON_CODE('stop15', '6', '강제탈퇴')
+    , new COMMON_CODE('withdrawal', '7', '영구정지')
 ];

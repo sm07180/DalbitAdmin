@@ -18,7 +18,6 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import springfox.documentation.spring.web.json.Json;
 
 import java.util.*;
 
@@ -121,7 +120,6 @@ public class DeclarationService {
      */
     public String callServiceCenterReportOperate(P_DeclarationOperateVo pDeclarationOperateVo) {
         pDeclarationOperateVo.setOpName(MemberVo.getMyMemNo());
-
 
         ProcedureVo procedureVo = new ProcedureVo(pDeclarationOperateVo);
 

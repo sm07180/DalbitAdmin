@@ -38,15 +38,15 @@
                         <table class="table table-bordered table-summary pull-right" id="declarationSummary">
                             <thead>
                                 <tr>
-                                    <th>누적 처리 건</th>
                                     <th>미처리 건</th>
+                                    <th>누적 처리 건</th>
                                     <th>정상 건</th>
                                     <th>경고 건</th>
                                     <th>1일 건</th>
                                     <th>3일 건</th>
                                     <th>7일 건</th>
-                                    <th>영구정지 건</th>
                                     <th>강제탈퇴 건</th>
+                                    <th>영구정지 건</th>
                                 </tr>
                             </thead>
                             <tbody id="summaryDataTable">
@@ -80,26 +80,17 @@
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
-<script>
+<script type="text/javascript">
+    var dtList_info;
+
     $(document).ready(function() {
-
-        $('input[id="searchText"]').keydown(function(e) {    // textBox 처리
-            if(e.keyCode == 13) {
-                getDeclareInfo();
-            };
-        });
-
-        $("#bt_search").click(function() {  // 버튼의 클릭이벤트
-            getDeclareInfo();
-        });
-
-        getDeclareInfo();
-
+        init();
     });
 
-    init();
     /** Data Table **/
     function init() {
+
+        util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success, fn_fail);
 
         var dtList_info_data = function ( data ) {
             data.search = $('#searchText').val();
@@ -115,7 +106,23 @@
         $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
         $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
 
+        getDeclareInfo();
+
     }
+
+    $(".av nav-tabs nav-tabs-custom-colored active").on('click', function() {
+        $("#" + $(this).data('id')).addClass('on');
+    });
+
+    $('input[id="searchText"]').on('keydown', function(e) {    // textBox 처리
+        if(e.keyCode == 13) {
+            getDeclareInfo();
+        };
+    });
+
+    $("#bt_search").on('click', function() {  // 버튼의 클릭이벤트
+        getDeclareInfo();
+    });
 
     function getDeclareInfo() {
         dtList_info.reload();
@@ -144,13 +151,9 @@
         var html=templateScript(context);
         $("#declarationForm").html(html);
         $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
+        util.editorInit("customer-declaration");
+        getChattingHistoryDetail();
     }
-
-    $(function() {
-        $(".av nav-tabs nav-tabs-custom-colored active").click(function() {
-            $("#" + $(this).data('id')).addClass('on');
-        });
-    });
 
 
     // /*=---------- 엑셀 ----------*/
@@ -179,22 +182,7 @@
     }
     /*----------- 엑셀 ---------=*/
 
-</script>
 
-<script id="tmp_declarationFrm" type="text/x-handlebars-template">
-    <div class="row col-lg-12 mt15">
-        <div class="tab-pane fade in active" id="report_tab">
-            <button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>
-            <!-- 상세 -->
-            <jsp:include page="../../customer/declaration/report.jsp"/>
-        </div>
-    </div>
-</script>
-
-<script>
-    $(document).ready(function() {
-        util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success, fn_fail);
-    });
 
     function fn_success(dst_id, response) {
         dalbitLog(response);
@@ -209,19 +197,29 @@
         console.log(data, textStatus, jqXHR);
     }
 </script>
+
+<script id="tmp_declarationFrm" type="text/x-handlebars-template">
+    <div class="row col-lg-12 mt15">
+        <div class="tab-pane fade in active" id="report_tab">
+            <button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>
+            <!-- 상세 -->
+            <jsp:include page="../../customer/declaration/report.jsp"/>
+        </div>
+    </div>
+</script>
+
 <script id="tmp_declarationSummary" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <%-- 전체/미처리/정상/경고/1일 정지/3일 정지/7일 정지/영구정지/강제퇴장--%>
+        <td>{{addComma notOpCnt}}건</td> <%--미처리--%>
         <td>{{addComma allOpCnt}}건</td>
-        <td>{{addComma notOpCnt}}건</td>
-        <td>{{addComma code_1_Cnt}}건</td>
-        <td>{{addComma code_2_Cnt}}건</td>
-        <td>{{addComma code_3_Cnt}}건</td>
-        <td>{{addComma code_4_Cnt}}건</td>
-        <td>{{addComma code_5_Cnt}}건</td>
-        <td>{{addComma code_9_Cnt}}건</td>
-        <td>{{addComma telCnt}}건</td>
+        <td>{{addComma code_1_Cnt}}건</td> <%--정상--%>
+        <td>{{addComma code_2_Cnt}}건</td> <%--경고--%>
+        <td>{{addComma code_3_Cnt}}건</td> <%--1일 정지--%>
+        <td>{{addComma code_4_Cnt}}건</td> <%--3일 정지--%>
+        <td>{{addComma code_5_Cnt}}건</td> <%--7일 정지--%>
+        <td>{{addComma telCnt}}건</td> <%--강제 탈퇴 --%>
+        <td>{{addComma code_9_Cnt}}건</td> <%--영구 정지--%>
     </tr>
     {{/data}}
 </script>
