@@ -49,10 +49,16 @@
                 <td>{{ipAddress}}</td>
 
                 <th>처리일시</th>
-                <td>{{op_date}}</td>
+                <td>
+                    {{op_date}}
+                    {{#equal op_date ''}}-{{/equal}}
+                </td>
 
                 <th>처리자명</th>
-                <td>{{opName}}</td>
+                <td>
+                    {{op_name}}
+                    {{#equal op_name ''}}-{{/equal}}
+                </td>
             </tr>
             <tr class="align-middle">
                 <th colspan="4">신고자</th>
@@ -90,10 +96,10 @@
             </tr>
             <tr>
                 <th colspan="2">총 신고</th>
-                <td colspan="2"></td>
+                <td colspan="2">프로시저에 없음</td>
 
                 <th colspan="2">총 신고/조치</th>
-                <td colspan="2"> <br /></td>
+                <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
             </tr>
             </tbody>
         </table>
