@@ -27,7 +27,7 @@
             <tbody>
             <tr class="align-middle">
                 <th rowspan="2">No</th>
-                <td rowspan="2" id="reportIdx">{{reportIdx}}</td>
+                <td rowspan="2">{{reportIdx}}</td>
 
                 <th>신고사유</th>
                 <td>{{{getCommonCodeSelect report_reason 'declaration_reason'}}}</td>
@@ -64,8 +64,8 @@
                 <th colspan="4">신고자</th>
                 <th colspan="4">대상자</th>
 
-                <th rowspan="5">조치내역</th>
-                <td rowspan="5" id="opCode">
+                <th rowspan="2">조치내역</th>
+                <td rowspan="2" >
                     {{{getCommonCodeRadio op_code 'declaration_slctType' 'N' 'opCode'}}}
                 </td>
             </tr>
@@ -86,6 +86,11 @@
 
                 <th colspan="2">누적 결제 수<br />/금액</th>
                 <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
+
+                <th rowspan="3">메세지</th>
+                <td rowspan="3" >
+                    {{{getCommonCodeRadio message 'declaration_Message'}}}
+                </td>
             </tr>
             <tr>
                 <th colspan="2">누적 선물 수<br />/금액</th>
@@ -110,7 +115,7 @@
                 <h3><i class="fa fa-user"></i> 신고 시 캡쳐내용(5분) </h3>
             </div>
             <div class="widget-content no-padding">
-                <div class="_editor" id="chatEditor" name="charEditor">{{{replaceHtml contents}}}</div>
+                <div class="_editor" id="chatEditor" name="charEditor">{{{replaceHtml declaration_Message}}}</div>
             </div>
         </div>
 
@@ -178,8 +183,6 @@
         dtList_list_report_user_detail.reload();
     }
 
-    /* 처리완료 버튼 */
-
     $('#bt_declaration').on('click', function(){
         var status = $('#declarationForm #status');
         if(status.val() == 1) {
@@ -202,4 +205,8 @@
 
         $("#declarationForm").empty();
     }
+
+   $('input:radio[name="opCode"]').on('click', function() {
+           alert("클릭이벤트!!");
+   });
 </script>
