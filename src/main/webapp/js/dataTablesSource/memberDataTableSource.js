@@ -25,37 +25,58 @@ var MemberDataTableSource = {
     'broadDetail': {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
-            {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
-            {'title': 'state', 'data': 'state', 'visible' : false},
-            {'title': 'status', 'data': 'status'},
-            {'title': '방송주제', 'data': 'subjectType', 'width':'100px'},
+            {'title': 'roomNo', 'data': 'room_no', 'visible' : false},
+            {'title': '방송주제', 'data': 'subject_type', 'width':'100px'},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
-                    return util.roomNoLink(data, row.roomNo, row.state);
+                    return util.roomNoLink(data, row.room_no, row.end_date);
                 }},
-            {'title': '방송시작시간', 'data': 'startDate', 'width':'120px'},
-            {'title': '방송종료시간', 'data': 'endDate', 'width':'120px'},
+            {'title': '방송시작시간', 'data': 'start_date', 'width':'120px'},
+            {'title': '방송종료시간', 'data': 'end_date', 'width':'120px'},
             {'title': '방송진행시간', 'data': 'airtime', 'width':'100px'},
-            {'title': '청취자', 'data': 'listener', 'width':'80px'},
-            {'title': '누적청취자', 'data': 'listener', 'width':'80px'},
-            {'title': '받은좋아요', 'data': 'good', 'width':'80px'},
-            {'title': '받은선물', 'data': 'like', 'width':'80px'},
+            {'title': '청취자', 'data': 'listenerCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "명";
+                }},
+            {'title': '방송 중 매니저', 'data': 'managerCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "명";
+                }},
+            {'title': '선물 주고/받음', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': '받은 별', 'data': 'byeolCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': '받은 좋아요', 'data': 'goodCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': '받은 부스터', 'data': 'boosterCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
         ]
         ,'comments': 'ㆍ회원이 방송을 진행하고, 청취한 기록을 확인할 수 있습니다.'
     },
     'listenDetail': {
-        'url': ''
+        'url': '/rest/member/listen/list'
         , 'columns': [
-            {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
-            {'title': '회원번호', 'data': 'memId', 'width':'100px'},
-            {'title': 'DJID', 'data': 'memId', 'width':'100px'},
-            {'title': 'DJ닉네임', 'data': 'memNick', 'width':'100px'},
-            {'title': '청취방주제', 'data': 'subjectType', 'width':'100px'},
+            {'title': 'roomNo', 'data': 'room_no' , 'visible' : false},
+            {'title': 'DJID', 'data': 'dj_userId', 'width':'100px'},
+            {'title': 'DJ닉네임', 'data': 'dj_nickName', 'width':'100px'},
+            {'title': '청취방주제', 'data': 'subject_type', 'width':'100px'},
             {'title': '청취방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Listen('+meta.row+')">' + data + '</a>'
+                    return util.roomNoLink(data, row.room_no, row.end_date);
                 }},
-            {'title': '최초 청취시작시간', 'data': 'startDate', 'width':'120px'},
-            {'title': '청취종료시간', 'data': 'endDate', 'width':'120px'},
-            {'title': '청취진행시간', 'data': 'listenTime', 'width':'100px'},
+            {'title': '청취시작시간', 'data': 'start_date', 'width':'120px'},
+            {'title': '청취종료시간', 'data': 'end_date', 'width':'120px'},
+            {'title': '청취진행시간', 'data': 'listentime', 'width':'120px'},
+            {'title': '강제퇴장', 'data': 'forcedLeave', 'width':'80px'},
+            {'title': '보낸 별', 'data': 'giftByeol', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': '보낸 좋아요', 'data': 'goodCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': '보낸 부스터', 'data': 'boosterCnt', 'width':'80px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
         ]
         ,'comments': 'ㆍ회원이 청취한 방송기록을 확인할 수 있습니다.'
     },
@@ -287,23 +308,23 @@ var MemberDataTableSource = {
     },
 
 
-    'broad_top': {
-        'url': ''
-        , 'columns': [
-            {'title': '총 청취자', 'data': 'type'},
-            {'title': '총 선물 주고/받음', 'data': 'type'},
-            {'title': '총 받은 별', 'data': 'type'},
-            {'title': '총 받은 좋아요', 'data': 'type'},
-            {'title': '총 받은 부스터', 'data': 'type'},
-        ]
-    },
+    // 'broad_top': {
+    //     'url': ''
+    //     , 'columns': [
+    //         {'title': '총 청취자', 'data': 'totalListenerCnt'},
+    //         {'title': '총 선물 주고/받음', 'data': 'totalGiftCnt'},
+    //         {'title': '총 받은 별', 'data': 'totalByeol'},
+    //         {'title': '총 받은 좋아요', 'data': 'totalGood'},
+    //         {'title': '총 받은 부스터', 'data': 'totalBooster'},
+    //     ]
+    // },
     'listen_top': {
         'url': ''
         , 'columns': [
-            {'title': '총 강제퇴장', 'data': 'type'},
-            {'title': '총 보낸 별', 'data': 'type'},
-            {'title': '총 좋아요', 'data': 'type'},
-            {'title': '총 부스터', 'data': 'type'},
+            {'title': '총 강제퇴장', 'data': 'totalforcedCnt'},
+            {'title': '총 보낸 별', 'data': 'totalByeol'},
+            {'title': '총 좋아요', 'data': 'totalGood'},
+            {'title': '총 부스터', 'data': 'totalBooster'},
         ]
     },
     'exchange_top': {

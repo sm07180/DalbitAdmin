@@ -256,7 +256,7 @@
         $('#tab_infoDetail').text(tmp1);           //텝 이름 변경
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
-            data.memNo = memNo;
+            data.mem_no = memNo;
         }
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);

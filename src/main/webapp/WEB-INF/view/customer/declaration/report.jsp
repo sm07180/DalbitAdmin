@@ -147,7 +147,7 @@
     var dtList_list_report_detail;
     var dtList_list_report_user_detail;
     var dtList_info_detail_data = function (data) {
-        data.memNo = report_memNo;
+        data.mem_no = report_memNo;
         data.roomNo = report_roomNo;
         data.search = report_memNo;
         data.gubun = "9999";
@@ -159,7 +159,7 @@
 
     function getChattingHistoryDetail() {     // 상세보기
         var dtList_info_detail_data = function (data) {
-            data.memNo = report_memNo;
+            data.mem_no = report_memNo;
             data.roomNo = report_roomNo;
             data.search = "";
             data.gubun = "9999";
@@ -173,7 +173,7 @@
 
     function userChatting(index){
         var data = dtList_list_report_detail.getDataRow(index);
-        report_memNo = data.memNo;
+        report_memNo = data.mem_no;
 
         dtList_list_report_user_detail.reload();
     }
