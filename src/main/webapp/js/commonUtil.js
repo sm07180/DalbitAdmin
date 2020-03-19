@@ -160,7 +160,8 @@ var util = {
         if (!common.isEmpty(targetCode)) {
 
             var header = targetCode[0];
-            var html = '<select id="' + header.value + '" name="' + header.value + '" class="form-control searchType">';
+            var selectName = common.isEmpty(name) ? header.value : name;
+            var html = '<select id="' + selectName + '" name="' + selectName + '" class="form-control searchType">';
             targetCode.forEach(function (value) {
                 if (!common.isEmpty(value.type)) {
 
@@ -182,7 +183,7 @@ var util = {
 
             var header = targetCode[0];
             var html = '';
-            var radioId = common.isEmpty(name) ? header.value : name;
+            var radioName = common.isEmpty(name) ? header.value : name;
             targetCode.forEach(function (value) {
                 if (!common.isEmpty(value.type)) {
 
@@ -190,7 +191,7 @@ var util = {
                         return;
                     }
                     html += '<label class="control-inline fancy-radio custom-color-green">';
-                    html += '<input type="radio" value="' + value.value + '" id="' + radioId + value.value + '" name="' + radioId + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
+                    html += '<input type="radio" value="' + value.value + '" id="' + radioName + value.value + '" name="' + radioName + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
                     html += '<span><i></i>' + value.code + '</span>'
                     html += '</label>';
                 }
@@ -205,7 +206,7 @@ var util = {
 
             var header = targetCode[0];
             var html = '';
-            var checkId = common.isEmpty(name) ? header.value : name;
+            var checkName = common.isEmpty(name) ? header.value : name;
             targetCode.forEach(function (value) {
                 if (!common.isEmpty(value.type)) {
 
@@ -213,7 +214,7 @@ var util = {
                         return;
                     }
                     html += '<label class="control-inline fancy-checkbox custom-color-green">';
-                    html += '<input type="checkbox" value="' + value.value + '" id="' + checkId + value.value + '" name="' + checkId + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
+                    html += '<input type="checkbox" value="' + value.value + '" id="' + checkName + value.value + '" name="' + checkName + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
                     html += '<span><i></i>' + value.code + '</span>'
                     html += '</label>';
                 }
@@ -301,8 +302,7 @@ var util = {
 
                     var formData = new FormData();
                     formData.append("file", files[0]);
-                    //TODO  업로드 타입은 상황에 맞게 수정 부탁드립니다.
-                    formData.append("uploadType", type);
+                    formData.append("uploadType", type);    //ex) type : notice-detail
                     util.fileUpdate(IMAGE_SERVER_URL + "/upload", formData, function (data) {
                         var json = jQuery.parseJSON(data);
                         console.log(json);
