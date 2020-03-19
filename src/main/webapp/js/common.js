@@ -92,14 +92,14 @@ var common = {
     },
 
     replaceHtml(text){
-        if(!common.isEmpty(text)){
-            console.log(text);
-            text = text.replace('\\', "'");
-            text = this.replace(text, "&lt;", "<");
-            text = this.replace(text, "&gt;", ">");
-            text = this.replace(text, "&amp;", "&");
-            return text;
-        }
+            if(!common.isEmpty(text)){
+                console.log(text);
+                text = text.replace('\\', "'");
+                text = this.replace(text, "&lt;", "<");
+                text = this.replace(text, "&gt;", ">");
+                text = this.replace(text, "&amp;", "&");
+                return text;
+            }
     },
 
     equal(val1, val2, opt) {
