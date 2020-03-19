@@ -238,7 +238,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
             // 완료 후 처리 함수
             if(!common.isEmpty(initFn)){
-                initFn();
+                initFn(response.responseJSON);
             }
         };
 
