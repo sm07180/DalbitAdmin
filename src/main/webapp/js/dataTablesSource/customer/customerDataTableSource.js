@@ -22,7 +22,8 @@ var customerDataTableSource = {
                     return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
             ,{'title': '신고자 User닉네임', 'data': 'mem_nick'}
             ,{'title': '신고 대상 UserID', 'data': 'reported_mem_id', 'render': function (data, type, row) {
-                    return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
+                    return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}
+                    , 'defaultContent': '-'}
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_mem_nick'}
             ,{'title': '접수 일시', 'data': 'regDateFormat'}
             ,{'title': '처리 일시', 'data': 'opDateFormat', 'defaultContent':'-'}
