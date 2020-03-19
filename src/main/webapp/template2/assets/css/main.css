@@ -12634,7 +12634,7 @@ ul.main-menu > li a {
     padding: 13px 0 13px 15px;
     font-size: 14px;
     color: #555;
-    background-color: #ececec;
+    background-color: #FFFFFF;
     border-top: 1px solid #dfdfdf;
     text-decoration: none; }
 ul.main-menu > li a:hover {
@@ -12667,7 +12667,9 @@ ul.main-menu .sub-menu.open {
 ul.main-menu .sub-menu li a {
     padding-left: 33px; }
 ul.main-menu .sub-menu li.active > a {
-    font-weight: 700; }
+    font-weight: 700;
+    background-color: #f2c2ff
+}
 ul.main-menu .sub-menu .sub-menu li a {
     padding-left: 50px; }
 
