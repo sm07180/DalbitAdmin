@@ -342,6 +342,11 @@
                                 <i class="fa fa-search"></i><span class="text">공통함수</span>
                             </a>
                         </li>
+                        <li class="${fn:contains(url, '/sample/adminlogin') ? 'active': ''}">
+                            <a href="/sample/adminlogin">
+                                <i class="fa fa-search"></i><span class="text">관리자로그인</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

@@ -55,6 +55,7 @@ table.table.table-summary{
     width: auto;
     margin-bottom: 5px;
     margin-top: 10px;
+    margin-right: 10px;
 }
 
 .widget-table .widget-content .table-comment{

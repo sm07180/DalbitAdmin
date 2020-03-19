@@ -44,6 +44,15 @@ public class JsonOutputVo {
         setPagingVo(pagingVo);
     }
 
+    public JsonOutputVo(Status status, Object data, PagingVo pagingVo, Object summary){
+        setStatus(status);
+        setData(data);
+        setTimestamp(DalbitUtil.getTimeStamp());
+
+        setPagingVo(pagingVo);
+        setSummary(summary);
+    }
+
     public JsonOutputVo(ErrorStatus errorStatus){
         setErrorStatus(errorStatus);
         setTimestamp(DalbitUtil.getTimeStamp());
@@ -64,6 +73,7 @@ public class JsonOutputVo {
     private Object data = "";
 
     private PagingVo pagingVo;
+    private Object summary;
 
     private String timestamp;
 
