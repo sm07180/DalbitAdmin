@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Mem_MemberRestController {
 
     @Autowired
-    Mem_MemberService mMemberService;
+    Mem_MemberService mem_MemberService;
     @Autowired
     ExcelService excelService;
 
@@ -37,7 +37,7 @@ public class Mem_MemberRestController {
      */
     @PostMapping("list")
     public String list(P_MemberListInputVo pMemberListInputVo){
-        String result = mMemberService.getMemberList(pMemberListInputVo);
+        String result = mem_MemberService.getMemberList(pMemberListInputVo);
         return result;
     }
 
@@ -47,7 +47,7 @@ public class Mem_MemberRestController {
     @PostMapping("listExcel")
     public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_MemberListInputVo pMemberListInputVo) throws GlobalException {
 
-        Model resultModel = mMemberService.getListExcel(pMemberListInputVo, model);
+        Model resultModel = mem_MemberService.getListExcel(pMemberListInputVo, model);
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
@@ -58,7 +58,7 @@ public class Mem_MemberRestController {
      */
     @PostMapping("info")
     public String info(P_MemberInfoInputVo pMemberInfoInputVo){
-        String result = mMemberService.getMemberInfo(pMemberInfoInputVo);
+        String result = mem_MemberService.getMemberInfo(pMemberInfoInputVo);
         return result;
     }
 
@@ -73,10 +73,10 @@ public class Mem_MemberRestController {
             pMemberEditorVo.setProfileImage(pMemberEditorVo.getReset_profileImage().getUrl().replace(pMemberEditorVo.getPhotoUrl(),""));
         }
         if(pMemberEditorVo.getNickName() != null){
-            result = mMemberService.callNickNameCheck(new ProcedureVo(pMemberEditorVo.getNickName()));
+            result = mem_MemberService.callNickNameCheck(new ProcedureVo(pMemberEditorVo.getNickName()));
         }
         if(result.equals("1")){
-             result = mMemberService.getMemberEditor(pMemberEditorVo);
+             result = mem_MemberService.getMemberEditor(pMemberEditorVo);
         }else{
             result = "0";
         }
@@ -92,7 +92,7 @@ public class Mem_MemberRestController {
      */
     @PostMapping("adminMemoAdd")
     public String adminMemoAdd(P_MemberAdminMemoAddVo pMemberAdminMemoAddVo){
-        String result = mMemberService.getMemberAdminMemoAdd(pMemberAdminMemoAddVo);
+        String result = mem_MemberService.getMemberAdminMemoAdd(pMemberAdminMemoAddVo);
         return result;
     }
     /**
@@ -100,7 +100,7 @@ public class Mem_MemberRestController {
      */
     @PostMapping("adminMemolist")
     public String adminMemolist(P_MemberAdminMemoListInputVo pMemberAdminMemoListInputVo){
-        String result = mMemberService.getMemberAdminMemolist(pMemberAdminMemoListInputVo);
+        String result = mem_MemberService.getMemberAdminMemolist(pMemberAdminMemoListInputVo);
         return result;
     }
     /**
@@ -108,7 +108,7 @@ public class Mem_MemberRestController {
      */
     @PostMapping("connect")
     public String connect(P_MemberConnectInputVo pMemberConnectInputVo){
-        String result = mMemberService.getMemberConnect(pMemberConnectInputVo);
+        String result = mem_MemberService.getMemberConnect(pMemberConnectInputVo);
         return result;
     }
     /**
@@ -116,7 +116,7 @@ public class Mem_MemberRestController {
      */
     @PostMapping("managerList")
     public String managerList(P_MemberManagerListInputVo pMemberManagerListInputVo){
-        String result = mMemberService.getMemberManagerList(pMemberManagerListInputVo);
+        String result = mem_MemberService.getMemberManagerList(pMemberManagerListInputVo);
         return result;
     }
     /**
@@ -124,7 +124,7 @@ public class Mem_MemberRestController {
      */
     @PostMapping("blackList")
     public String blackList(P_MemberBlackListInputVo pMemberblackListInputVo){
-        String result = mMemberService.getMemberBlackList(pMemberblackListInputVo);
+        String result = mem_MemberService.getMemberBlackList(pMemberblackListInputVo);
         return result;
     }
 

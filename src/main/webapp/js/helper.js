@@ -101,6 +101,11 @@ Handlebars.registerHelper("getCommonCodeRadio", function(value, targetCode, isEx
     return util.getCommonCodeRadio(value, targetCode, isExcludeAllYn, name);
 });
 
+Handlebars.registerHelper("getCommonCodeCheck", function(value, targetCode, isExcludeAllYn, name)
+{
+    return util.getCommonCodeCheck(value, targetCode, isExcludeAllYn, name);
+});
+
 Handlebars.registerHelper("replaceHtml", function(value)
 {
     return common.replaceHtml(value);

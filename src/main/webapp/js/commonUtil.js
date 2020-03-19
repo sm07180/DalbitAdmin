@@ -199,6 +199,29 @@ var util = {
         }
     },
 
+    getCommonCodeCheck(code, targetCode, isExcludeAllYn, name) {
+        targetCode = eval(targetCode);
+        if (!common.isEmpty(targetCode)) {
+
+            var header = targetCode[0];
+            var html = '';
+            var checkId = common.isEmpty(name) ? header.value : name;
+            targetCode.forEach(function (value) {
+                if (!common.isEmpty(value.type)) {
+
+                    if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                        return;
+                    }
+                    html += '<label class="control-inline fancy-checkbox custom-color-green">';
+                    html += '<input type="checkbox" value="' + value.value + '" id="' + checkId + value.value + '" name="' + checkId + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
+                    html += '<span><i></i>' + value.code + '</span>'
+                    html += '</label>';
+                }
+            });
+            return html;
+        }
+    },
+
     getOnOffSwitch(data) {
         var html = '<div class="onoffswitch">';
         html += '<input type="checkbox" name="viewOn" id="detail_viewOn" class="onoffswitch-checkbox" ' + (data == 1 ? 'checked="checked"': '') +'>';

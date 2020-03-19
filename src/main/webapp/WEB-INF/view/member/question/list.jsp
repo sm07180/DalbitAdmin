@@ -21,7 +21,7 @@
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
-            data.memNo = memNo;
+            data.mem_no = memNo;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
@@ -49,7 +49,7 @@
         var top = tmp.replace("Detail","_top");
         var source = MemberDataTableSource[top];
         var dtList_info_detail_data = function (data) {
-            data.memNo = memNo;
+            data.mem_no = memNo;
         }
         dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
         dtList_top_info.useCheckBox(false);

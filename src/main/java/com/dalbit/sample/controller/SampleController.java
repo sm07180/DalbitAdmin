@@ -85,7 +85,6 @@ public class SampleController {
     public String datepicker(){
         return "sample/datepicker";
     }
-
-
-
+    @GetMapping("adminlogin")
+    public String adminlogin(){ return "sample/adminlogin";}
 }

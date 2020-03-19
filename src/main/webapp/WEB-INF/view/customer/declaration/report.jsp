@@ -27,7 +27,7 @@
             <tbody>
             <tr class="align-middle">
                 <th rowspan="2">No</th>
-                <td rowspan="2" id="reportIdx">{{reportIdx}}</td>
+                <td rowspan="2">{{reportIdx}}</td>
 
                 <th>신고사유</th>
                 <td>{{{getCommonCodeSelect report_reason 'declaration_reason'}}}</td>
@@ -49,17 +49,23 @@
                 <td>{{ipAddress}}</td>
 
                 <th>처리일시</th>
-                <td>{{op_date}}</td>
+                <td>
+                    {{op_date}}
+                    {{#equal op_date ''}}-{{/equal}}
+                </td>
 
                 <th>처리자명</th>
-                <td>{{opName}}</td>
+                <td>
+                    {{op_name}}
+                    {{#equal op_name ''}}-{{/equal}}
+                </td>
             </tr>
             <tr class="align-middle">
                 <th colspan="4">신고자</th>
                 <th colspan="4">대상자</th>
 
-                <th rowspan="5">조치내역</th>
-                <td rowspan="5" id="opCode">
+                <th rowspan="2">조치내역</th>
+                <td rowspan="2" >
                     {{{getCommonCodeRadio op_code 'declaration_slctType' 'N' 'opCode'}}}
                 </td>
             </tr>
@@ -80,6 +86,11 @@
 
                 <th colspan="2">누적 결제 수<br />/금액</th>
                 <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
+
+                <th rowspan="3">메세지</th>
+                <td rowspan="3" >
+                    {{{getCommonCodeRadio message 'declaration_Message'}}}
+                </td>
             </tr>
             <tr>
                 <th colspan="2">누적 선물 수<br />/금액</th>
@@ -90,10 +101,10 @@
             </tr>
             <tr>
                 <th colspan="2">총 신고</th>
-                <td colspan="2"></td>
+                <td colspan="2">프로시저에 없음</td>
 
                 <th colspan="2">총 신고/조치</th>
-                <td colspan="2"> <br /></td>
+                <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
             </tr>
             </tbody>
         </table>
@@ -104,7 +115,7 @@
                 <h3><i class="fa fa-user"></i> 신고 시 캡쳐내용(5분) </h3>
             </div>
             <div class="widget-content no-padding">
-                <div class="_editor" id="chatEditor" name="charEditor">{{{replaceHtml contents}}}</div>
+                <div class="_editor" id="chatEditor" name="charEditor">{{{replaceHtml declaration_Message}}}</div>
             </div>
         </div>
 
@@ -141,7 +152,7 @@
     var dtList_list_report_detail;
     var dtList_list_report_user_detail;
     var dtList_info_detail_data = function (data) {
-        data.memNo = report_memNo;
+        data.mem_no = report_memNo;
         data.roomNo = report_roomNo;
         data.search = report_memNo;
         data.gubun = "9999";
@@ -153,7 +164,7 @@
 
     function getChattingHistoryDetail() {     // 상세보기
         var dtList_info_detail_data = function (data) {
-            data.memNo = report_memNo;
+            data.mem_no = report_memNo;
             data.roomNo = report_roomNo;
             data.search = "";
             data.gubun = "9999";
@@ -167,12 +178,10 @@
 
     function userChatting(index){
         var data = dtList_list_report_detail.getDataRow(index);
-        report_memNo = data.memNo;
+        report_memNo = data.mem_no;
 
         dtList_list_report_user_detail.reload();
     }
-
-    /* 처리완료 버튼 */
 
     $('#bt_declaration').on('click', function(){
         var status = $('#declarationForm #status');
@@ -196,4 +205,8 @@
 
         $("#declarationForm").empty();
     }
+
+   $('input:radio[name="opCode"]').on('click', function() {
+           alert("클릭이벤트!!");
+   });
 </script>

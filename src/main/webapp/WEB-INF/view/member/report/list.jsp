@@ -58,7 +58,7 @@
         var top = tmp.replace("Detail","_top");
         var source = MemberDataTableSource[top];
         var dtList_info_detail_data = function (data) {
-            data.memNo = memNo;
+            data.mem_no = memNo;
         }
         dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
         dtList_top_info.useCheckBox(false);

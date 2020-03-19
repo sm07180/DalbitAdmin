@@ -15,7 +15,6 @@ public interface Mem_MemberDao {
     ProcedureVo callNickNameCheck(ProcedureVo procedureVo);
     ProcedureVo callMemberEditor(ProcedureVo procedureVo);
 
-
     ProcedureVo callMemAdminMemoAdd(ProcedureVo procedureVo);
     ArrayList<P_MemberAdminMemoListOutputVo> callMemAdminMemoList(ProcedureVo procedureVo);
     ArrayList<P_MemberConnectOutputVo> callMemConnect(ProcedureVo procedureVo);
