@@ -36,8 +36,14 @@
                         <td colspan="5" style="text-align: left"><span id="declaration_reason"></span></td>
                     </tr>
                     <tr>
-                        <th>조치내역</th>
+                        <th>제재조치</th>
                         <td colspan="5" style="text-align: left"><span id="declaration_slctType"></span></td>
+                    </tr>
+                    <tr>
+                        <th>조치사항 선택</th>
+                        <td colspan="5" style="text-align: left;height: 142px;">
+                            <span id="declaration_Message"></span></td>
+                        </td>
                     </tr>
                     <tr>
                         <th>운영자 메모</th>
@@ -76,6 +82,7 @@
 
     $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
     $("#declaration_slctType").html(util.getCommonCodeRadio(1, declaration_slctType,"Y"));
+    $("#declaration_Message").html(util.getCommonCodeCheck(1, declaration_Message,"Y"));
 
     init();
     function init() {

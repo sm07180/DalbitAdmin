@@ -74,6 +74,7 @@
     var dtList_info_data = function ( data ) {
         data.searchType = $("select[name='searchType']").val();          // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명
+        // data.pageCnt = 10;
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
     dtList_info.useCheckBox(true);

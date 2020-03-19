@@ -103,7 +103,6 @@
     }
 
     function getBroadCast_info(index){
-        console.log("@@");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.roomNo = data.roomNo;

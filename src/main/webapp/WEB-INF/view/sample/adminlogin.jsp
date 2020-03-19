@@ -24,8 +24,7 @@
         </a>
         <ul class="sub-menu" style="display:block;">
             <li>
-                <iframe width="100%" height="300" src="http://admin.inforex.co.kr/menu.php">
-                </iframe>
+                <iframe width="100%" height="300" src="http://admin.inforex.co.kr/menu.php"></iframe>
             </li>
         </ul>
     </li>

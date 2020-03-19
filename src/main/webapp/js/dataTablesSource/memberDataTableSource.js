@@ -6,18 +6,20 @@ var MemberDataTableSource = {
              {'title': 'UserID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getMemberDetail" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
                 }},
-             {'title': '닉네임', 'data': 'mem_nick', 'width':'200px'},
-             {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
-             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
+             {'title': '닉네임', 'data': 'mem_nick', 'width':'80px'},
+             {'title': '연락처', 'data': 'mem_phone', 'width':'80px'},
+             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
                     return util.renderSlct(data,"15");
                  }},
-             {'title': '회원가입일시', 'data': 'joinDate', 'width':'100px'},
-             {'title': '최근 접속 일시', 'data': 'last_connect_date', 'width':'100px'},
-             {'title': '누적 접속 수', 'data': 'connectCnt', 'width':'100px'},
-             {'title': '결제 건 수/금액', 'data': 'payCntAmount', 'width':'100px'},
-             {'title': '회원상태', 'data': 'mem_state',  'width':'100px'},
-             {'title': '접속상태', 'data': 'connectState', 'width':'100px'},
-             {'title': '방송상태', 'data': 'liveBroad', 'width':'100px'},
+             {'title': '회원가입일시', 'data': 'joinDateFormat', 'width':'120px'},
+             {'title': '최근 접속 일시', 'data': 'last_connect_DateFormat', 'width':'120px'},
+             {'title': '누적 접속 수', 'data': 'connectCnt', 'width':'80px', 'render': function (data) {
+                     return common.addComma(data);
+                 }},
+             {'title': '결제 건 수/금액', 'data': 'payCntAmount', 'width':'90px'},
+             {'title': '회원상태', 'data': 'mem_state',  'width':'60px'},
+             {'title': '접속상태', 'data': 'connectState', 'width':'80px'},
+             {'title': '방송상태', 'data': 'liveBroad', 'width':'80px'},
         ]
         , 'comments': 'ㆍ회원 아이디를 클릭하시면 상세정보를 확인할 수 있습니다.'
     },
