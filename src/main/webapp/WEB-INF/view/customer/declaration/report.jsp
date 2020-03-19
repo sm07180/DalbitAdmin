@@ -23,6 +23,8 @@
                 <col width="5%" />
                 <col width="5%" />
                 <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
             </colgroup>
             <tbody>
             <tr class="align-middle">
@@ -35,8 +37,14 @@
                 <th>Browser</th>
                 <td>{{browser}}</td>
 
-                <th>접수일시</th>
-                <td>{{reg_date}}</td>
+                <th rowspan="2">접수일시</th>
+                <td rowspan="2">{{reg_date}}</td>
+
+                <th rowspan="2">처리일시</th>
+                <td rowspan="2">
+                    {{op_date}}
+                    {{#equal op_date ''}}-{{/equal}}
+                </td>
 
                 <th>처리상태</th>
                 <td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>
@@ -48,12 +56,6 @@
                 <th>IP Address</th>
                 <td>{{ipAddress}}</td>
 
-                <th>처리일시</th>
-                <td>
-                    {{op_date}}
-                    {{#equal op_date ''}}-{{/equal}}
-                </td>
-
                 <th>처리자명</th>
                 <td>
                     {{op_name}}
@@ -61,22 +63,22 @@
                 </td>
             </tr>
             <tr class="align-middle">
-                <th colspan="4">신고자</th>
-                <th colspan="4">대상자</th>
+                <th rowspan="1" colspan="4">신고자</th>
+                <th rowspan="1" colspan="4">대상자</th>
 
-                <th rowspan="2">조치내역</th>
-                <td rowspan="2" >
+                <th rowspan="2">제재 조치</th>
+                <td rowspan="2" colspan="3">
                     {{{getCommonCodeRadio op_code 'declaration_slctType' 'N' 'opCode'}}}
                 </td>
             </tr>
             <tr>
                 <td>{{mem_id}}</td>
-                <td>{{level}}/{{grade}}</td>
+                <td>레벨 : {{level}} / 등급 : {{grade}}</td>
                 <td>{{mem_nick}}</td>
                 <td>{{memSex}}</td>
 
                 <td>{{reported_mem_id}}</td>
-                <td>{{reported_level}}/{{reported_grade}}</td>
+                <td>레벨 : {{reported_level}} / 등급 : {{reported_grade}}</td>
                 <td>{{reported_mem_nick}}</td>
                 <td>{{reported_memSex}}</td>
             </tr>
@@ -87,9 +89,9 @@
                 <th colspan="2">누적 결제 수<br />/금액</th>
                 <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
 
-                <th rowspan="3">메세지</th>
-                <td rowspan="3" >
-                    {{{getCommonCodeRadio message 'declaration_Message'}}}
+                <th rowspan="3">조치 선택</th>
+                <td rowspan="3" colspan="3" id="message"> <%-- style="display:none;"--%>
+                    {{{getCommonCodeCheck message 'declaration_Message'}}}
                 </td>
             </tr>
             <tr>
@@ -112,10 +114,10 @@
         <%-- 에디터 --%>
         <div class="widget">
             <div class="widget-header">
-                <h3><i class="fa fa-user"></i> 신고 시 캡쳐내용(5분) </h3>
+                <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
             </div>
             <div class="widget-content no-padding">
-                <div class="_editor" id="chatEditor" name="charEditor">{{{replaceHtml declaration_Message}}}</div>
+                <div class="_editor" id="chatEditor" name="charEditor">{{{replaceHtml message}}}</div>
             </div>
         </div>
 
@@ -207,6 +209,11 @@
     }
 
    $('input:radio[name="opCode"]').on('click', function() {
-           alert("클릭이벤트!!");
+
+           if($("#message").css("display") == "none") {
+               $('#message').css("display", "");
+           } else {
+               $("#hidden").css("display", "none");
+           }
    });
 </script>

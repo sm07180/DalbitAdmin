@@ -21,7 +21,6 @@ var declaration_slctType = [
     , new COMMON_CODE('withdrawal', '7', '영구정지')
 ];
 
-
 var declaration_reason = [
     new COMMON_CODE(null, 'slctReason', '신고 구분')
     , new COMMON_CODE('all', '-1', '전체')
