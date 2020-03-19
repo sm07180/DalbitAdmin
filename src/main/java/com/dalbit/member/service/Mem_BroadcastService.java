@@ -29,12 +29,7 @@ public class Mem_BroadcastService {
 
         ProcedureVo procedureVo = new ProcedureVo(pMemberBroadcastInputVo);
         ArrayList<P_MemberBroadcastOutputVo> memberList = mem_BroadcastDao.callBroadHistory(procedureVo);
-
-
         P_MemberBroadcastOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_MemberBroadcastOutputVo.class);
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        log.info(procedureVo.getExt());
-        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {

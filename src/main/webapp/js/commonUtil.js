@@ -258,7 +258,6 @@ var util = {
     },
 
     renderSlct(value,size){
-        console.log(size);
         if(size != "undefined"){
             if(value == "p"){
                 return '<i class="fa fa-phone" style="color: #d30dff;' + "font-size: " + size + 'px"></i>'
