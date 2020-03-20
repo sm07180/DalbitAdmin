@@ -27,6 +27,18 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
+        initDataTableTop_select_pay(tmp);    // 상단 selectBox
+    }
+
+    function initDataTableTop_select_pay(tmp){
+        var topTable = '<span name="search_pay_top" id="search_pay_top" onchange="sel_change()"></span>';
+        $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+        $("#search_pay_top").html(util.getCommonCodeSelect(-1, pay));
+    }
+
+    function sel_change(){
+        // tmp_slctReason = $("select[name='slctReason']").val();
+        // dtList_info_detail.reload();
     }
 
     function Pay(index){

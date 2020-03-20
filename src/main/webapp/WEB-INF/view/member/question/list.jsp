@@ -61,53 +61,17 @@
     }
 
     function initDataTableTop_select_quest(tmp){
-        var topTable = '<div class="col-md-3 no-padding">\n' +
-            '                 <form id="cob_quest_gubun">\n' +
-            '                    <select id="cob_quest_gubun" name="quest_gubun" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
-            '                        <option value="9999" selected="selected">문의구분</option>\n' +
-            '                        <option value="1">1:1문의</option>\n' +
-            '                        <option value="2">전화</option>\n' +
-            '                        <option value="3">메일</option>\n' +
-            '                    </select>\n' +
-            '                </form>\n' +
-            '            </div>\n' +
-            '            <div class="col-md-3 no-padding">\n' +
-            '                 <form id="cob_quest_type">\n' +
-            '                    <select id="cob_quest_type" name="quest_type" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
-            '                        <option value="9999" selected="selected">문의유형</option>\n' +
-            '                        <option value="1">회원정보</option>\n' +
-            '                        <option value="2">방송하기</option>\n' +
-            '                        <option value="3">청취하기</option>\n' +
-            '                        <option value="4">결제</option>\n' +
-            '                        <option value="5">건의하기</option>\n' +
-            '                        <option value="6">장애/버그</option>\n' +
-            '                        <option value="7">선물/아이템</option>\n' +
-            '                        <option value="8">기타</option>\n' +
-            '                    </select>\n' +
-            '                </form>\n' +
-            '            </div>\n' +
-            '            <div class="col-md-3 no-padding">\n' +
-            '                 <form id="cob_quest_platform">\n' +
-            '                    <select id="cob_quest_platform" name="quest_platform" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
-            '                        <option value="9999" selected="selected">플랫폼</option>\n' +
-            '                        <option value="1">PC</option>\n' +
-            '                        <option value="2">Android-Mobile</option>\n' +
-            '                        <option value="3">IOS-Mobile</option>\n' +
-            '                        <option value="4">Web-Mobile</option>\n' +
-            '                    </select>\n' +
-            '                </form>\n' +
-            '            </div>\n' +
-            '            <div class="col-md-3 no-padding">\n' +
-            '                 <form id="cob_quest_browser">\n' +
-            '                    <select id="cob_quest_browser" name="quest_browser" class="" onchange="sel_change(this.value);" style="width: 120px;">\n' +
-            '                        <option value="9999" selected="selected">Browser</option>\n' +
-            '                        <option value="1">Chrome</option>\n' +
-            '                        <option value="2">Internet Explorer</option>\n' +
-            '                        <option value="3">Firefox</option>\n' +
-            '                    </select>\n' +
-            '                </form>\n' +
-            '            </div>';
+        var topTable = '<span name="search_question_top" id="search_question_top" onchange="sel_change()"></span>' +
+            '<span name="search_question_type_top" id="search_question_type_top" onchange="sel_change()"></span>' +
+            '<span name="search_platform_top" id="search_platform_top" onchange="sel_change()"></span>' +
+            '<span name="search_browser_top" id="search_browser_top" onchange="sel_change()"></span>'
+        ;
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+        $("#search_question_top").html(util.getCommonCodeSelect(-1, question));
+        $("#search_question_type_top").html(util.getCommonCodeSelect(-1, question_type));
+        $("#search_platform_top").html(util.getCommonCodeSelect(-1, platform));
+        $("#search_browser_top").html(util.getCommonCodeSelect(-1, browser));
+
     }
     // function sel_change(value){
     //     console.log("value : " + value);
