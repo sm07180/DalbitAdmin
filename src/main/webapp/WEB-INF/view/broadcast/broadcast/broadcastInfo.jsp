@@ -21,96 +21,96 @@
             <tr>
                 <th>입장제한</th>
                 <td style="text-align: left">
-                    <span id="entry"></span>
+                    <span id="entryType"></span>
                     <button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>
                 </td>
             </tr>
             <tr>
                 <th>얼리기</th>
                 <td style="text-align: left">
-                    <span id="freezing"></span>
+                    <span id="freezeMsg"></span>
                     <button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button>
                 </td>
             </tr>
             <tr>
                 <th>방송강제종료</th>
                 <td style="text-align: left">
-                    <span id="forcedExit"></span>
+                    <span id="forcedQuit"></span>
                     <button type="button" id="bt_forcedExit" class="btn btn-default btn-sm pull-right">변경</button>
                 </td>
             </tr>
             <tr>
                 <th>방송상태</th>
                 <td style="text-align: left">
-                    <i class="fa fa-comment"></i><label id="lb_status">방송ON-통화중</label>
+                    <i class="fa fa-comment"></i><label id="broadcastState">방송ON-통화중</label>
                 </td>
             </tr>
         </tr>
         <tr>
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="txt_msgWelcom" style="width: 90%;height: 60px"></textarea>
+                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 60px"></textarea>
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">삭제</button>
             </td>
             <tr>
                 <th>마이크</th>
-                <td style="text-align: left"><i class="fa fa-comment"></i><label id="lb_mic">ON</label></td>
+                <td style="text-align: left"><i class="fa fa-comment"></i><label id="micState"></label></td>
             </tr>
             <tr>
                 <th>게스트 / 게스트 ID</th>
-                <td style="text-align: left"><i class="fa fa-comment"></i><label>yes - </label> <label id="lb_guest">dalbit00</label></td>
+                <td style="text-align: left"><i class="fa fa-comment"></i><label id="guestState">yes - </label> <label id="guest_userId"></label></td>
             </tr>
         </tr>
         <tr>
             <th>방송 주제</th>
-            <td style="text-align: left"><span id="subject_type"></span></td>
+            <td style="text-align: left"><span id="subjectType"></span></td>
             <th>매니저</th>
-            <td style="text-align: left"><label id="lb_manegerCnt"></label></td>
+            <td style="text-align: left"><label id="managerCnt"></label></td>
         </tr>
         <tr>
             <th>방송 제목</th>
             <td style="text-align: left">
-                <input type="text" class="form-control col-md-12" id="txt_title" style="width: 90%;">
+                <input type="text" class="form-control col-md-12" id="title" style="width: 90%;">
                 <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
             <th>방송 중 강제퇴장</th>
-            <td style="text-align: left"><label id="lb_forceKickCnt"></label></td>
+            <td style="text-align: left"><label id="forcedLeaveCnt"></label></td>
         </tr>
         <tr>
             <th>DJ 회원번호</th>
-            <td style="text-align: left"><label id="lb_memNo">123123123123</label></td>
+            <td style="text-align: left"><label id="dj_mem_no"></label></td>
             <th>방송 플랫폼</th>
-            <td style="text-align: left"><label id="lb_platform">PC (Crome)</label></td>
+            <td style="text-align: left"><label id="osType"></label></td>
         </tr>
         <tr>
             <th>DJ ID</th>
-            <td style="text-align: left"><label id="lb_memId">다달이</label></td>
+            <td style="text-align: left"><label id="dj_userId"></label></td>
             <th>방송 시작일</th>
-            <td style="text-align: left"><label id="lb_live_stDate">2020-02-10 13:43:10</label></td>
+            <td style="text-align: left"><label id="startDate"></label></td>
         </tr>
         <tr>
             <th>DJ 닉네임</th>
-            <td style="text-align: left"><label id="lb_memNick">다달이</label></td>
+            <td style="text-align: left"><label id="dj_nickName"></label></td>
             <th>방송 종료일시</th>
-            <td style="text-align: left"><label id="lb_live_edDate">2020-02-10 13:43:10</label></td>
+            <td style="text-align: left"><label id="endDate"></label></td>
         </tr>
         <tr>
             <th>성별</th>
-            <td style="text-align: left"><span id="gender"></span></td>
+            <td style="text-align: left"><span id="dj_memSex"></span></td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
-                <label id="lb_broadcastTime"></label>
+                <label id="airTime"></label>
                 <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         <tr>
             <th rowspan="2">운영자메모</th>
             <td rowspan="1" style="text-align: left">
-                <label id="lb_adminMemoCnt"></label>
+                <label id="opMemoCnt"></label>
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
             <th>방송 정보 수정일시</th>
-            <td style="text-align: left"><label id="lb_editDate"></label></td>
+            <td style="text-align: left"><label id="lastOpDate"></label></td>
         </tr>
         <tr>
             <td style="text-align: left">
@@ -119,7 +119,7 @@
             </td>
             <th>방송 정보 수정 처리자</th>
             <td style="text-align: left">
-                <label id="lb_editUser"></label>
+                <label id="lastOpName"></label>
                 <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
@@ -206,38 +206,33 @@
             $('#bt_title').hide();
         }
         var obj = new Object();
-        obj.roomNo = tmp;
+        obj.room_no = tmp;
         util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
-    var roomNo;
+
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
-        roomNo = response.data[0].roomNo;
 
-        console.log("response.data.type : " + response.data[0].type);
-        $("#selectSubject_type").val(response.data[0].type);
-        $("#txt_title").val(response.data[0].title);
-        $("#lb_djID").html(response.data[0].memNo + "/" + response.data[0].memId);
-        $("#lb_djNickname").html(response.data[0].memNick);
-        $("#txt_msgWelcom").val(response.data[0].msgWelcom);
-        $("#lb_live").html(response.data[0].state);
-        $("#lb_live_stDate").html(response.data[0].liveSt);
-        $("#lb_live_edDate").html(response.data[0].liveEd);
-        $("#lb_platform").html(response.data[0].platform);
-        $("#lb_editDate").html(response.data[0].infoEditDate);
-        $("#lb_editUser").html(response.data[0].infoEditNm);
-        $("#lb_likeCnt").html("총"+response.data[0].goodCnt+"건");
-        $("#lb_manegerCnt").html("총"+response.data[0].manegerCnt+"건");
-        $("#lb_giftCnt").html("총"+response.data[0].giftCnt+"건");
-        $("#lb_guestCnt").html("총"+response.data[0].guestCnt+"건");
-        $("#lb_storyCnt").html("총"+response.data[0].contentsCnt+"건");
-        $("#lb_banCnt").html("총"+response.data[0].banCnt+"건");
-        $("#lb_listenerCnt").html("총"+response.data[0].listenCnt+"건");
-        $("#lb_forceKickCnt").html("총"+response.data[0].forceKickCnt+"건");
-        $('input:radio[name=entry]:input[value=' + response.data[0].typeEntry + ']').prop("checked", true);
-        $('input:radio[name=gender]:input[value=' + response.data[0].memSex + ']').prop("checked", true);
-        $('input:radio[name=freezing]:input[value=' + response.data[0].freezing + ']').prop("checked", true);
-        $("#image_section").prop("src", IMAGE_SERVER_URL + response.data[0].backgroundImage);
+        $("#entryType").html(response.data.entryType);
+        $("#freezeMsg").html(response.data.freezeMsg);
+        $("#forcedQuit").html(response.data.forcedQuit);
+        $("#broadcastState").html(response.data.broadcastState);
+        $("#welcomeMsg").html(response.data.welcomeMsg);
+        $("#micState").html(response.data.micState);
+        $("#guestState").html(response.data.guestState);
+        $("#subjectType").html(response.data.subjectType);
+        $("#managerCnt").html(response.data.managerCnt);
+        $("#title").html(response.data.title);
+        $("#forcedLeaveCnt").html(response.data.forcedLeaveCnt);
+        $("#dj_mem_no").html(response.data.dj_mem_no);
+        $("#dj_userId").html(response.data.dj_userId);
+        $("#dj_nickName").html(response.data.dj_nickName);
+        $("#endDate").html(response.data.endDate);
+        $("#dj_memSex").html(response.data.dj_memSex);
+        $("#opMemoCnt").html(response.data.opMemoCnt);
+        $("#lastOpDate").html(response.data.lastOpDate);
+        $("#lastOpName").html(response.data.lastOpName);
+
 
     }
     function fullSize(url) {     // 이미지 full size
