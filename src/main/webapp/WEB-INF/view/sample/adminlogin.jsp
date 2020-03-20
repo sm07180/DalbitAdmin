@@ -28,7 +28,8 @@
     </div>
 </div>
 
-
+<script type="text/javascript" src="/js/cookie.js"></script>
+<%--<script type="text/javascript" src="/js/jquery.ajax-cross-origin.min.js"></script>--%>
 <script type="text/javascript">
     $('#loginBtn').on('click', function(e){
         ajaxLogin();
@@ -76,12 +77,24 @@
 
     function menu(){
         var data = new Object();
-        data.url = "http://admin.inforex.co.kr/getCommonMenu.php";
+        //data.url = "http://admin.inforex.co.kr/getCommonMenu.php";
 
-        util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess);
+        var option = {
+            type : 'GET'
+            , dataType : 'html'
+        };
+        util.getAjaxData("menu", "http://admin.inforex.co.kr/getCommonMenu.php", null, menuSuccess, menuFail, option);
     }
     function menuSuccess(dst_id, data){
+        dalbitLog('menuSuccess');
         dalbitLog(data);
+        alert(data);
+    }
+
+    function menuFail(a, b, c){
+        dalbitLog('menuFail');
+        dalbitLog(a);
+        dalbitLog(a.responseText);
     }
 
     function menu2(){
@@ -111,6 +124,10 @@
             }
             $('#adminmenu').append(tmp_append);
         }
+    }
+
+    function generateAdminCookie(){
+
     }
 
 

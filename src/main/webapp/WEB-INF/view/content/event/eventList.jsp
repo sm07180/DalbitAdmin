@@ -6,7 +6,7 @@
     <div id="page-wrapper">
         <!-- DATA TABLE -->
         <div class="row col-lg-12 form-inline">
-            <div class="widget widget-table" id="eventDataTable">
+            <div class="widget widget-table">
                 <div class="widget-header">
                     <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                     <div class="btn-group widget-header-toolbar">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="widget-content">
-                    <table id="list_info_eventList" class="table table-sorting table-hover table-bordered">
+                    <table id="list_info" class="table table-sorting table-hover table-bordered">
                         <thead>
                         </thead>
                         <tbody>
@@ -45,6 +45,10 @@ var fnc_eventList = {
     init() {
         this.target = $("#"+this.targetId);
         this.targetDataTableId = "list_info_"+this.targetId;
+        this.target.find("#list_info").attr("id", this.targetDataTableId);
+        this.targetDataTable = this.target.find("#"+this.targetDataTableId);
+        this.divDataTable = this.targetDataTable.parent("div");
+
 
         this.initDataTable();
         this.initEvent();
@@ -53,11 +57,6 @@ var fnc_eventList = {
 
     "dtList_info":"",
     initDataTable(){
-        console.log("EVENT")
-        console.log(this.targetId)
-        console.log(this.target)
-        console.log(this.targetDataTableId)
-        console.log(this.target.find("#" + this.targetDataTableId))
         //=---------- Main DataTable ----------
         var dtList_info_data = function ( data ) {
             data.search = $('#txt_search').val();                        // 검색명
@@ -67,10 +66,11 @@ var fnc_eventList = {
             data.startDate = $('#banner-inputReportrange').attr("startDated");
             data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
-        this.dtList_info = new DalbitDataTable(this.target.find("#" + this.targetDataTableId), dtList_info_data, EventDataTableSource.event);
+        console.log(this.targetDataTable);
+        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.event);
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
-        this.dtList_info.setEventClick(this.updateBanner,4);
+        this.dtList_info.setEventClick(this.updateData,4);
         this.dtList_info.createDataTable();
         this.initDataTableButton();
         //---------- Main DataTable ----------=
@@ -83,9 +83,9 @@ var fnc_eventList = {
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Print</button>'
 
-        this.target.find("#eventDataTable").find(".footer-left").append(delBtn);
-        this.target.find("#eventDataTable").find(".top-right").append(addBtn);
-        this.target.find("#eventDataTable").find(".footer-right").append(excelBtn);
+        this.divDataTable.find(".footer-left").append(delBtn);
+        this.divDataTable.find(".top-right").append(addBtn);
+        this.divDataTable.find(".footer-right").append(excelBtn);
     },
 
 
@@ -105,7 +105,7 @@ var fnc_eventList = {
 
     // 등록
     insertEvent() {
-        insertEventDetail();
+        fnc_eventDetail.insertEventDetail();
 
         $("#tab_eventDetail").click();
     },
@@ -127,25 +127,30 @@ var fnc_eventList = {
     },
 
     // 수정
-    updateBanner(data) {
-        updateEventDetail({
-            bannerIdx: data.rowNum
-            ,column02: data.banner_col3
-            ,column03: data.banner_col14
+    updateData(data) {
+        var dataInfo = {
+            eventIdx: data.rowNum
+            ,column02: data.event_col3
+            ,column03: data.event_col14
             ,column04: "제목"
-            ,column05: data.banner_col1
-            ,column06: data.banner_col1
-            ,column07: data.banner_col1
-            ,column08: data.banner_col1
-            ,column09: data.banner_col1
-            ,column10: data.banner_col2
+            ,column05: data.event_col1
+            ,column06: data.event_col1
+            ,column07: data.event_col1
+            ,column08: data.event_col1
+            ,column09: data.event_col1
+            ,column10: data.event_col2
             ,column11: "0"
             ,column12: "2020-03-04"
             ,column13: "00"
             ,column14: "00"
             ,column15: ""
-            ,column16: data.push_col6
-        })
+            ,column16: data.event_col6
+        }
+
+        // 정보전달을 위한 값 셋팅
+        setSelectDataInfo(data.rowNum, dataInfo);
+
+        fnc_eventDetail.updateEventDetail()
 
         $("#tab_eventDetail").click();
     },
@@ -156,6 +161,7 @@ var fnc_eventList = {
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
+
 
         this.dtList_info.reload();
     },

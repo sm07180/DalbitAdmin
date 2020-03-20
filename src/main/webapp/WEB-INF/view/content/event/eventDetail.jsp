@@ -31,166 +31,199 @@
 
 <script>
     $(document).ready(function () {
+        fnc_eventDetail.init();
+
+        if(common.isEmpty(getSelectDataInfo())){
+            fnc_eventDetail.insertEventDetail();
+        }else{
+            fnc_eventDetail.updateEventDetail();
+        }
     });
 
+
+    var fnc_eventDetail = {
 //=------------------------------ Init / Event--------------------------------------------
-    // Datapicker
-    var dataPickerSrc = {
-        startDate: moment(),
-        endDate: moment(),
-        // dateLimit: { days: 60 },
-        showDropdowns: true,
-        showWeekNumbers: true,
-        timePicker: false,
-        timePickerIncrement: 1,
-        timePicker12Hour: false,
-        ranges: {
-            '1일': [moment(), moment()],
-            // '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
-            '7일': [moment(), moment().add('days', 6)],
-            '30일': [moment(), moment().add('days', 29)]
+        "targetId": "eventDetail",
+
+        init() {
+            this.target = $("#"+this.targetId);
+
+            // this.initDetail();
+            // this.initEventDetail();
         },
-        opens: 'left',
-        // buttonClasses: ['btn btn-default'],
-        // applyClass: 'btn-small btn-primary',
-        // cancelClass: 'btn-small',
-        format: 'L',
-        separator: ' to ',
-        locale: {
-            customRangeLabel: '직접선택',
-        }
-    }
 
-    // 초기 설정
-    function initDetail() {
-        // 캘린더 기능추가
-        $("#event-div-period").find("#iconStartDate, #iconEndDate").daterangepicker( dataPickerSrc,
-            function(start, end, t1) {
-                console.log(t1);
-                $("#event-div-period").find("#startDate").val(start.format('YYYY.MM.DD'));
-                $("#event-div-period").find("#endDate").val(end.format('YYYY.MM.DD'));
+
+
+        // Datapicker
+        "dataPickerSrc" : {
+            startDate: moment(),
+            endDate: moment(),
+            // dateLimit: { days: 60 },
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: false,
+            ranges: {
+                '1일': [moment(), moment()],
+                // '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                '7일': [moment(), moment().add('days', 6)],
+                '30일': [moment(), moment().add('days', 29)]
+            },
+            opens: 'left',
+            // buttonClasses: ['btn btn-default'],
+            // applyClass: 'btn-small btn-primary',
+            // cancelClass: 'btn-small',
+            format: 'L',
+            separator: ' to ',
+            locale: {
+                customRangeLabel: '직접선택',
             }
-        );
-        $("#event-div-exposure").find("#iconStartDate, #iconEndDate").daterangepicker( dataPickerSrc,
-            function(start, end, t1) {
-                console.log(t1);
-                $("#event-div-exposure").find("#startDate").val(start.format('YYYY.MM.DD'));
-                $("#event-div-exposure").find("#endDate").val(end.format('YYYY.MM.DD'));
-            }
-        );
+        },
 
-        // 캘린더 초기값
-        $("[name=startDate]").val(moment().format('YYYY.MM.DD'));
-        $("[name=endDate]").val(moment().format('YYYY.MM.DD'));
+        // 초기 설정
+        initDetail() {
+            // 캘린더 기능추가
+            this.target.find("#event-div-period").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
+                function(start, end, t1) {
+                    console.log(t1);
+                    this.target.find("#event-div-period").find("#startDate").val(start.format('YYYY.MM.DD'));
+                    this.target.find("#event-div-period").find("#endDate").val(end.format('YYYY.MM.DD'));
+                }
+            );
+            this.target.find("#event-div-exposure").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
+                function(start, end, t1) {
+                    console.log(t1);
+                    this.target.find("#event-div-exposure").find("#startDate").val(start.format('YYYY.MM.DD'));
+                    this.target.find("#event-div-exposure").find("#endDate").val(end.format('YYYY.MM.DD'));
+                }
+            );
 
-        // 시간 Select CSS 적용
-        $("[name=timeHour]").attr("class", "select-time");
-        $("[name=timeMinute]").attr("class", "select-time");
-    }
+            // 캘린더 초기값
+            this.target.find("[name=startDate]").val(moment().format('YYYY.MM.DD'));
+            this.target.find("[name=endDate]").val(moment().format('YYYY.MM.DD'));
 
-    // 이벤트 적용
-    function initEventDetail(tab_id){
+            // 시간 Select CSS 적용
+            this.target.find("[name=timeHour]").attr("class", "select-time");
+            this.target.find("[name=timeMinute]").attr("class", "select-time");
+        },
 
-        //로그인 타입 선택
-        $("input[name='loginType']:radio").change(function () {
-            var type = this.value;
+        // 이벤트 적용
+        initEventDetail(){
 
-            //로그인 사용자일 경우 성별 선택 가능
-            if(type == "1"){
-                $("input[name='gender']").prop("disabled",false);
-            }else{
-                $("input[name='gender']").prop("disabled",true);
-                $("input[name='gender']:input[value='1']").prop("checked", true);
-            }
+            //로그인 타입 선택
+            this.target.find("input[name='loginType']:radio").change(function () {
+                var type = this.value;
 
-        });
+                //로그인 사용자일 경우 성별 선택 가능
+                if(type == "1"){
+                    this.target.find("input[name='gender']").prop("disabled",false);
+                }else{
+                    this.target.find("input[name='gender']").prop("disabled",true);
+                    this.target.find("input[name='gender']:input[value='1']").prop("checked", true);
+                }
 
-
-        // 등록 버튼
-        $("#insertBtn").on("click", function () {
-            if(isValid()){
-                //TODO 완료처리 필요
-                getEventDetailData();
-            }
-        })
+            });
 
 
-        // 수정 버튼
-        $("#insertBtn").on("click", function () {
-            if(isValid()){
-                //TODO 완료처리 필요
-                getEventDetailData();
-            }
-        })
-    }
+            // 등록 버튼
+            this.target.find("#insertBtn").on("click", function () {
+                if(this.isValid()){
+                    //TODO 완료처리 필요
+                    this.getEventDetailData();
+                }
+            })
+
+
+            // 수정 버튼
+            this.target.find("#insertBtn").on("click", function () {
+                if(this.isValid()){
+                    //TODO 완료처리 필요
+                    this.getEventDetailData();
+                }
+            })
+        },
 
 
 
 //=------------------------------ Option --------------------------------------------
 
-    // 등록 화면
-    function insertEventDetail() {
-        var template = $('#tmp_eventDetailFrm').html();
-        var templateScript = Handlebars.compile(template);
-        $("#eventForm").html(templateScript);
+        // 등록 화면
+        insertEventDetail() {
+            console.log(this)
+            var template = $('#tmp_eventDetailFrm').html();
+            var templateScript = Handlebars.compile(template);
+            this.target.find("#eventForm").html(templateScript);
 
-        initDetail();
-        initEventDetail();
-    }
+            this.initDetail();
+            this.initEventDetail();
+        },
 
 
-    // 수정 화면
-    function updateEventDetail(json){
-        dalbitLog(json);
-        // form 띄우기
-        var template = $('#tmp_eventDetailFrm').html();
-        var templateScript = Handlebars.compile(template);
-        var context = json;
-        var html = templateScript(context);
-        $("#eventForm").html(html);
+        // 수정 화면
+        updateEventDetail(json){
+            if(common.isEmpty(getSelectDataInfo())){
+                alert("[ERROR] SelectDataInfo 전달 실패!")
+                console.log("[ERROR] SelectDataInfo 전달 실패! =-----")
+                console.log(getSelectDataInfo());
+                console.log("[ERROR] SelectDataInfo 전달 실패! -----=")
+                return false;
+            }
 
-        initDetail();
-        initEventDetail();
+            var dataKey = getSelectDataInfo().dataKey;
+            var data = getSelectDataInfo().data;
 
-        //TODO 데이터 셋팅 후 이벤트 처리 필요
-        //TODO 수신대상 그려야 함.
-    }
+
+            dalbitLog(data);
+            // form 띄우기
+            var template = $('#tmp_eventDetailFrm').html();
+            var templateScript = Handlebars.compile(template);
+            var context = data;
+            var html = templateScript(context);
+            this.target.find("#eventForm").html(html);
+
+            this.initDetail();
+            this.initEventDetail();
+
+            //TODO 데이터 셋팅 후 이벤트 처리 필요
+            //TODO 수신대상 그려야 함.
+        },
 
 
 
 
 //=------------------------------ Data Handler ----------------------------------
 
-    // 데이터 가져오기
-    function getEventDetailData(){
-        var resultJson ={};
+        // 데이터 가져오기
+        getEventDetailData(){
+            var resultJson ={};
 
-        var formArray = $("#eventForm").serializeArray();
-        for (var i = 0; i < formArray.length; i++){
-            resultJson[formArray[i]['name']] = formArray[i]['value'];
+            var formArray = this.target.find("#eventForm").serializeArray();
+            for (var i = 0; i < formArray.length; i++){
+                resultJson[formArray[i]['name']] = formArray[i]['value'];
+            }
+
+            //Date 처리이이이~~~
+            var periodStartDiv = this.target.find("#event-div-period").find("#event-div-startDate");
+            resultJson['periodStartDate'] = periodStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
+            var periodEndDiv = this.target.find("#event-div-period").find("#event-div-endDate");
+            resultJson['periodEndDate'] = periodEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
+
+            var exposureStartDiv = this.target.find("#event-div-exposure").find("#event-div-startDate");
+            resultJson['exposureStartDate'] = exposureStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
+            var exposureEndDiv = this.target.find("#event-div-exposure").find("#event-div-endDate");
+            resultJson['exposureEndDate'] = exposureEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
+
+            dalbitLog(resultJson)
+            return resultJson
+        },
+
+
+        isValid(){
+            return true;
         }
 
-        //Date 처리이이이~~~
-        var periodStartDiv = $("#event-div-period").find("#event-div-startDate");
-        resultJson['periodStartDate'] = periodStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
-        var periodEndDiv = $("#event-div-period").find("#event-div-endDate");
-        resultJson['periodEndDate'] = periodEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
-
-        var exposureStartDiv = $("#event-div-exposure").find("#event-div-startDate");
-        resultJson['exposureStartDate'] = exposureStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
-        var exposureEndDiv = $("#event-div-exposure").find("#event-div-endDate");
-        resultJson['exposureEndDate'] = exposureEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
-
-        dalbitLog(resultJson)
-        return resultJson
     }
-
-
-    function isValid(){
-        return true;
-    }
-
-
 //=------------------------------ Modal ----------------------------------
 
 
@@ -235,7 +268,7 @@
                 <td>{{eventIdx}}</td>
 
                 <th>이벤트 제목</th>
-                <td colspan="6"><input type="text" class="form-control" id="event-title" name="eventTitle" placeholder="프로모션 제목을 입력하세요."></td>
+                <td colspan="6"><input type="text" class="form-control" id="event-title" name="eventTitle" placeholder="프로모션 제목을 입력하세요." value="{{column02}}"></td>
 
                 <th>등록/수정자</th>
                 <td colspan="2"></td>

@@ -20,14 +20,18 @@ var util = {
     },
 
     /*ajax 호출 모듈*/
-    getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc) {
-        var common = this;
+    getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc, option) {
+        var commonUtil = this;
+        var isEmptyOption = common.isEmpty(option)
+
         $.ajax({
-            type: 'POST',
+            type: isEmptyOption ? 'POST' : common.isEmpty(option.type) ? 'POST' : option.type,
             url: dst_url,
-            dataType: 'json',
+            dataType: isEmptyOption ? 'json' : common.isEmpty(option.dataType) ? 'json' : option.dataType,
             data: dst_params,
             async: true,
+            crossOrigin: true,
+            crossDomain: true,
         }).done(function (data) {
             if (successFunc != null) successFunc(dst_id, data);
         }).fail(function (data, textStatus, jqXHR) {
@@ -35,7 +39,7 @@ var util = {
                 if (errorFunc != null) {
                     errorFunc(data, textStatus, jqXHR);
                 } else {
-                    common.commonAjaxError(data, textStatus, jqXHR);
+                    commonUtil.commonAjaxError(data, textStatus, jqXHR);
                 }
             } catch (e) {
                 // function call fail skip

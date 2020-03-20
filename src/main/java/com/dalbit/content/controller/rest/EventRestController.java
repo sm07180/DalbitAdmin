@@ -34,7 +34,7 @@ public class EventRestController {
      * 이벤트
      */
     @PostMapping("event")
-    public String list(HttpServletRequest request, PushVo pushVo) {
+    public String eventList(HttpServletRequest request, PushVo pushVo) {
         int totalCnt = 100;
         int startIdx = pushVo.getPageStart();
 
@@ -59,7 +59,7 @@ public class EventRestController {
 
 
     @PostMapping("pastevent")
-    public String statisticsList(HttpServletRequest request, PushVo pushVo) {
+    public String pastEventsList(HttpServletRequest request, PushVo pushVo) {
         int totalCnt = 100;
         int startIdx = pushVo.getPageStart();
 
@@ -81,4 +81,66 @@ public class EventRestController {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
     }
+
+
+    @PostMapping("reportstatistics")
+    public String statisticsList(HttpServletRequest request, PushVo pushVo) {
+        int totalCnt = 100;
+        int startIdx = pushVo.getPageStart();
+
+        ArrayList<EventVo> list = new ArrayList<EventVo>();
+
+        EventVo data = new EventVo();
+        data.setRowNum((totalCnt - startIdx));
+        data.setEvent_col1(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col2(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col3(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col5(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col7(DalbitUtil.randomValue("number", 1));
+
+        list.add(data);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
+    }
+
+
+
+    @PostMapping("report")
+    public String reportList(HttpServletRequest request, PushVo pushVo) {
+        int totalCnt = 100;
+        int startIdx = pushVo.getPageStart();
+
+        ArrayList<EventVo> list = new ArrayList<EventVo>();
+        for(int i = 0; i < pushVo.getPageCnt(); i++){
+            EventVo data = new EventVo();
+            data.setRowNum((totalCnt - startIdx));
+            data.setEvent_col1(DalbitUtil.randomValue("number", 1));
+            data.setEvent_col2(DalbitUtil.randomValue("number", 1));
+            data.setEvent_col3("응모자/담청자 이란다 ㅋㅋㅋㅋㅋ _" + data.getEvent_col1());
+            data.setEvent_col4(new Date());
+            data.setEvent_col5(DalbitUtil.randomValue("number", 1));
+            data.setEvent_col6(new Date());
+            data.setEvent_col7("YOOSIN");
+
+            list.add(data);
+            startIdx++;
+        }
+
+        ArrayList<EventVo> summaryList = new ArrayList<EventVo>();
+
+        EventVo data = new EventVo();
+        data.setRowNum((totalCnt - startIdx));
+        data.setEvent_col1(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col2(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col3(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col5(DalbitUtil.randomValue("number", 1));
+        data.setEvent_col7(DalbitUtil.randomValue("number", 1));
+
+        summaryList.add(data);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt), summaryList));
+
+    }
+
+
 }
