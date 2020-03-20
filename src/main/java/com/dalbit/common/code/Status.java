@@ -147,6 +147,11 @@ public enum Status {
 
     신고처리내역수조회_성공("0", "select.success", "신고처리 내역 건수 조회 성공 시"),
 
+    //방송방 상세 정보
+    방송방상세조회_성공("0", "select.success", "방송방 상세 조회 성공 시"),
+    방송방상세조회_공지번호없음("-1", "no.data", "방번호가 없을 시"),
+    방송방상세조회_에러("C006", "server.error", "방송방 상세 조회에서 에러 발생 시"),
+
     ;
 
     final private String SUCCESS_RESULT = "success";

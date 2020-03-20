@@ -136,37 +136,8 @@
         </if>
     </select>
 
-    <select id="callBroadcastInfo" parameterType="com.dalbit.broadcast.vo.BroadcastInfoVo" resultType="com.dalbit.broadcast.vo.BroadcastInfoVo">
-      /* B_Broadcast.xml - callBroadcastInfo */
-        SELECT  a.room_no          as roomNo
-                ,a.subject_type     as type
-                ,a.title            as title
-                ,a.image_background as backgroundImage
-                ,a.msg_welcom       as msgWelcom
-                ,a.type_entry       as typeEntry
-                ,(select code FROM rd_data.tbl_code_define aa WHERE value = a.state and type = 'broadcast_state') as state
-                ,DATE_FORMAT(a.start_date,'%Y-%m-%d %H:%i:%s')     as liveSt
-                ,DATE_FORMAT(a.end_date,'%Y-%m-%d %H:%i:%s')       as liveEd
-                ,DATE_FORMAT(a.last_upd_date,'%Y-%m-%d %H:%i:%s')  as infoEditDate
-                ,b.mem_no           as memNo
-                ,b.mem_id           as memId
-                ,b.mem_nick         as memNick
-                ,b.mem_sex          as memSex
-                ,(SELECT count(*) cnt from rd_data.tb_broadcast_room_story where room_no = a.room_no) as contentsCnt
-                ,(select count(*) cnt from rd_data.tb_member_broadcast_listening aa, rd_data.tb_member_basic bb where aa.mem_no = bb.mem_no and aa.room_no=a.room_no) as listenCnt
-                ,(select count(*) cnt from rd_data.tb_broadcast_room_block where mem_no = a.mem_no) as forceKickCnt
-                ,(select count(*) cnt From rd_data.tb_broadcast_room_member where auth = 1 and room_no = a.room_no) as manegerCnt   /*방에 해당하는 매니저CNT 이력 X*/
-                ,(select aa.mem_no   From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestNo    /*게스트번호*/
-                ,(select bb.mem_id   From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestId    /*게스트ID*/
-                ,(select bb.mem_nick From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestNick  /*게스트닉네임*/
-                ,(select if(count(*),'on','off') From rd_data.tb_broadcast_room_member aa left join (select mem_no, mem_id, mem_nick From rd_data.tb_member_basic) bb on aa.mem_no = bb.mem_no where auth = 2 and aa.room_no = a.room_no) as guestOn  /*게스트여부*/
-          from rd_data.tb_broadcast_room a, rd_data.tb_member_basic b,
-                rd_data.tb_member_basic c, rd_data.tb_broadcast_room_member d
-         where a.mem_no = b.mem_no
-           and a.mem_no = c.mem_no
-           and a.room_no = d.room_no
-           and a.mem_no = d.mem_no
-           and a.room_no =#{roomNo}
+    <select id="callBroadcastInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastDetailOutputVo">
+        call rd_admin.sp_admin_broadcast_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
 </mapper>

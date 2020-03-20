@@ -5,6 +5,7 @@ import com.dalbit.broadcast.service.B_BroadcastService;
 import com.dalbit.broadcast.service.B_MemberService;
 import com.dalbit.broadcast.service.B_StoryService;
 import com.dalbit.broadcast.vo.*;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailInputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
@@ -58,10 +59,15 @@ public class B_BroadcastRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list, pagingVo));
     }
 
+    /**
+     * 방송방 상세보기
+     */
     @PostMapping("info")
-    public String info(BroadcastInfoVo broadcastInfoVo){
-        List<BroadcastInfoVo> list = bBroadcastService.callBroadcastInfo(broadcastInfoVo);
-        return gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, list));
+    public String info(P_BroadcastDetailInputVo pBroadcastDetailInputVo){
+
+        String result = bBroadcastService.callBroadcastInfo(pBroadcastDetailInputVo);
+
+        return result;
     }
 
 //    /**
