@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
+
 <script>
     $(document).ready(function() {
     });

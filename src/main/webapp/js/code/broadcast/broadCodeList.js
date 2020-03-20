@@ -14,10 +14,6 @@ var subject_type = [
     ,new COMMON_CODE('99', '99', '기타')
 ];
 
-
-
-
-
 var entry = [
     new COMMON_CODE(null, 'entry', '입장제한')
     , new COMMON_CODE('all', '-1', '전체')
@@ -35,4 +31,12 @@ var forcedExit = [
     new COMMON_CODE(null, 'forcedExit', '방강제종료')
     , new COMMON_CODE('maintain', '1', '유지')
     , new COMMON_CODE('forcedExit', '2', '강제종료')
+];
+
+var live_summary = [
+    new COMMON_CODE('', 'totalListen', '총 청취자')
+    , new COMMON_CODE('', 'totalgift', '총 선물')
+    , new COMMON_CODE('', 'totalGood', '총 좋아요')
+    , new COMMON_CODE('', 'totalBooster', '총 청취자 부스터')
+    , new COMMON_CODE('', 'totalBan', '총 강제퇴장')
 ];
