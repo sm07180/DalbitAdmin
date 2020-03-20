@@ -49,6 +49,52 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "인포렉스 어드민 로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -71,6 +117,45 @@
 							""
 						]
 					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "방송",
+			"item": [
+				{
+					"name": "방송상세",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "room_no",
+									"value": "91584435461328",
+									"description": "방번호",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/live/detail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"live",
+								"detail"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
