@@ -81,7 +81,7 @@
 
         var option = {
             type : 'GET'
-            , dataType : 'html'
+            , dataType : 'json'
         };
         util.getAjaxData("menu", "http://admin.inforex.co.kr/getCommonMenu.php", null, menuSuccess, menuFail, option);
     }
@@ -93,8 +93,9 @@
 
     function menuFail(a, b, c){
         dalbitLog('menuFail');
-        dalbitLog(a);
-        dalbitLog(a.responseText);
+        console.log(a);
+        console.log(b);
+        console.log(c);
     }
 
     function menu2(){

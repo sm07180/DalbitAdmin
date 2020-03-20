@@ -50,7 +50,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
             {'title': 'memNo', 'data': 'memNo', 'visible': false},
-            {'title': 'roomNo', 'data': 'roomNo', 'visible': false},
+            {'title': 'room_no', 'data': 'roomNo'},
             {'title': '회원번호', 'data': 'memNo', 'defaultContent': ''},
             {'title': 'DJ ID', 'data': 'memId','render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
@@ -69,7 +69,7 @@ var BroadcastDataTableSource = {
         ]
         , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
     },
-    
+
     'listenDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [

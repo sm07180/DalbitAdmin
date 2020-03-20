@@ -25,13 +25,18 @@ var util = {
         var isEmptyOption = common.isEmpty(option)
 
         $.ajax({
+            beforeSend : function(xhr){
+                xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
+            },
             type: isEmptyOption ? 'POST' : common.isEmpty(option.type) ? 'POST' : option.type,
             url: dst_url,
             dataType: isEmptyOption ? 'json' : common.isEmpty(option.dataType) ? 'json' : option.dataType,
             data: dst_params,
             async: true,
-            crossOrigin: true,
-            crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true
         }).done(function (data) {
             if (successFunc != null) successFunc(dst_id, data);
         }).fail(function (data, textStatus, jqXHR) {
