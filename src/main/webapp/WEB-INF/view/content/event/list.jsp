@@ -33,7 +33,7 @@
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="eventList"><jsp:include page="/WEB-INF/view/content/event/eventList.jsp"/></div>     <!-- 진행 이벤트 -->
-                <div class="tab-pane fade" id="pastEventList"><jsp:include page="/WEB-INF/view/content/event/pastEventList.jsp"/></div>     <!-- 지난 이벤트 -->
+                <div class="tab-pane fade" id="pastEventList"><jsp:include page="/WEB-INF/view/content/event/eventPastList.jsp"/></div>     <!-- 지난 이벤트 -->
             </div>
         </div>
     </div>
@@ -142,4 +142,23 @@
         //     console.log("fn_fail_excel");
         // }
         /*----------- 엑셀 ---------=*/
+
+    var dataKey = "";
+    var dataInfo = "";
+    function setSelectDataInfo(key, data){
+        dataKey = key;
+        dataInfo = data;
+    }
+
+    function getSelectDataInfo() {
+        if(common.isEmpty(dataKey) && common.isEmpty(dataInfo)){
+            return null;
+        }
+
+        return {
+            "dataKey" : dataKey
+            ,"data" : dataInfo
+        }
+    }
+
 </script>
