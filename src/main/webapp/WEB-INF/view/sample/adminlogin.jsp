@@ -90,13 +90,12 @@
         content = JSON.parse(content);
         content = JSON.stringify(content);
         content = content.replace(/\\/gi,"").replace(/","/gi,"\n").replace(/:{/gi,"\n").replace(/},/gi,"\n").replace(/{/gi,"").replace(/}/gi,"").replace(/"/gi,"");    // decode
+        console.log(content);
         $('#txt_Menu').html(content);
-        content=$('#txt_Menu').val();
         var tmp = content.split("\n");
         var tmp_append = "";
         var tmp2;
         for(var i=0;i<tmp.length; i++){
-            console.log(tmp[i]);
             if(tmp[i].indexOf(":") < 1){
                 if(tmp[i]!="인포렉스"){
                     tmp_append = '<a href="#" class="js-sub-menu-toggle"><i class="fa fa-bars"></i>' +
@@ -106,10 +105,8 @@
             }else{
                 tmp[i] = tmp[i].replace(":h"," : h");
                 tmp2 = tmp[i].split(" : ");
-                console.log(tmp2[0]);
-                console.log(tmp2[1]);
                 tmp_append = '<ul class="sub-menu"><li>'
-                tmp_append = tmp_append + '<a href="#"' + tmp2[1] + '"><span class="text"> ' + tmp2[0]  + ' </span></a>'
+                tmp_append = tmp_append + '<a href=' +"#"+ tmp2[1] + '"><span class="text"> ' + tmp2[0]  + ' </span></a>'
                 tmp_append = tmp_append + '</li></ul>';
             }
             $('#adminmenu').append(tmp_append);
