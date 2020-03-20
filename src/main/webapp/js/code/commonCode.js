@@ -91,6 +91,26 @@ var grade = [
     ,new COMMON_CODE('15', '3 단계','3 단계')
 ];
 
+var browser = [
+    new COMMON_CODE(null, 'browser', 'Browser ')
+    ,new COMMON_CODE('all',  '-1','전체')
+    ,new COMMON_CODE('c',  '0','chrome')
+    ,new COMMON_CODE('i', '1','Internet Explorer')
+    ,new COMMON_CODE('f', '2','Firefox')
+];
+
+var question_type = [
+    new COMMON_CODE(null, 'question_type', '문의유형')
+    ,new COMMON_CODE('all','-1','전체')
+    ,new COMMON_CODE('meminfo','0','회원정보')
+    ,new COMMON_CODE('broad','1','방송하기')
+    ,new COMMON_CODE('listen','2','청취하기')
+    ,new COMMON_CODE('pay','3','결제')
+    ,new COMMON_CODE('suggestion','4','건의하기')
+    ,new COMMON_CODE('error','5','장애/버그')
+    ,new COMMON_CODE('gift','6','선물/아이템')
+    ,new COMMON_CODE('etc','7','기타')
+];
 
 var timeHour = getTimeHour();
 

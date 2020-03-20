@@ -13,7 +13,27 @@ var listen_summary = [
     , new COMMON_CODE('', 'totalBooster', '총 부스터')
 ];
 
+var pay = [
+    new COMMON_CODE(null, 'pay', '단계')
+    ,new COMMON_CODE('all',  '-1','전체')
+    ,new COMMON_CODE('pay',  '0','결제')
+    ,new COMMON_CODE('cancel', '1','취소')
+    ,new COMMON_CODE('Impossible', '2','불가')
+];
 
+var gift = [
+    new COMMON_CODE(null, 'gift', '선물구분')
+    ,new COMMON_CODE('all',  '-1','전체')
+    ,new COMMON_CODE('present',  '0','보낸선물')
+    ,new COMMON_CODE('gift', '1','받은선물')
+    ,new COMMON_CODE('event', '2','이벤트-받은선물')
+    ,new COMMON_CODE('change', '3','교환')
+];
 
-
-
+var question = [
+    new COMMON_CODE(null, 'question', '문의구분')
+    ,new COMMON_CODE('all',  '-1','전체')
+    ,new COMMON_CODE('one',  '0','1:1문의')
+    ,new COMMON_CODE('call', '1','전화')
+    ,new COMMON_CODE('email', '2','메일')
+];

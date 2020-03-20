@@ -30,19 +30,9 @@
         initDataTableTop_select_gift(tmp);
     }
     function initDataTableTop_select_gift(tmp){
-        var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
-            '                 <form id="cob_gift_gubun">\n' +
-            '                    <select id="cob_gift_gubun" name="gift_gubun" class="" onchange="sel_change(this.value);" tyle="width: 120px;">\n' +
-            '                        <option value="9999" selected="selected">구분</option>\n' +
-            '                        <option value="1">보낸선물</option>\n' +
-            '                        <option value="2">받은선물</option>\n' +
-            '                        <option value="3">이벤트-받은선물</option>\n' +
-            '                        <option value="4">교환</option>\n' +
-            '                    </select>\n' +
-            '                </form>\n' +
-            '            </div>';
-
-        $("#"+tmp).find("#main_table").find(".top-left").append(topTable);
+        var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="sel_change()"></span>';
+        $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+        $("#search_gift_top").html(util.getCommonCodeSelect(-1, gift));
     }
     // function sel_change(value){
     //     console.log("value : " + value);
