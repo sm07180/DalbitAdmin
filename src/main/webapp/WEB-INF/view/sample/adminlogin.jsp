@@ -18,16 +18,7 @@
         <button type="button" class="btn" id="logoutBtn">로그아웃</button>
     </div>
 
-    <li class=active>
-        <a href="javascript://" class="js-sub-menu-toggle">
-            <i class="toggle-icon fa fa-angle-down"/>
-        </a>
-        <ul class="sub-menu" style="display:block;">
-            <li>
-                <iframe width="100%" height="300" src="http://admin.inforex.co.kr/menu.php"></iframe>
-            </li>
-        </ul>
-    </li>
+    <iframe id="inforexMenu" width="100%" height="300" src="http://admin.inforex.co.kr/getCommonMenu.php"></iframe>
 </div>
 
 
@@ -70,4 +61,17 @@
     function loginFail(dst_id, data, textStatus, jqXHR){
         dalbitLog(data);
     }
+
+    menu();
+    function menu(){
+        var data = new Object();
+        data.url = "http://admin.inforex.co.kr/getCommonMenu.php";
+
+        util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess);
+    }
+
+    function menuSuccess(dst_id, data){
+        dalbitLog(data);
+    }
+
 </script>
