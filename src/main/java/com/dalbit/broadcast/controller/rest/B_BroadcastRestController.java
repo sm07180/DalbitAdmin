@@ -6,6 +6,7 @@ import com.dalbit.broadcast.service.B_MemberService;
 import com.dalbit.broadcast.service.B_StoryService;
 import com.dalbit.broadcast.vo.*;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailInputVo;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistInputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
@@ -66,6 +67,16 @@ public class B_BroadcastRestController {
     public String info(P_BroadcastDetailInputVo pBroadcastDetailInputVo){
 
         String result = bBroadcastService.callBroadcastInfo(pBroadcastDetailInputVo);
+
+        return result;
+    }
+
+    /**
+     * 방송방 정보수정 내역 보기
+     */
+    @PostMapping("editHist")
+    public String editHist(P_BroadcastEditHistInputVo pBroadcastEditHistInputVo) {
+        String result = bBroadcastService.callBroadcastEditHistory(pBroadcastEditHistInputVo);
 
         return result;
     }

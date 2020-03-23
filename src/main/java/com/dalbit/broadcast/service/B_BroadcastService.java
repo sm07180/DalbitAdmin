@@ -5,7 +5,10 @@ import com.dalbit.broadcast.vo.BroadcastInfoVo;
 import com.dalbit.broadcast.vo.BroadcastListVo;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailInputVo;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailOutputVo;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistInputVo;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistOutputVo;
 import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.broadcast.dao.B_BroadcastDao;
 import com.dalbit.broadcast.vo.BroadcastTypeListVo;
@@ -81,4 +84,26 @@ public class B_BroadcastService {
 
         return result;
     }
+
+    /**
+     * 방송방 정보수정 내역 보기
+     */
+    public String callBroadcastEditHistory(P_BroadcastEditHistInputVo pBroadcastEditHistInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pBroadcastEditHistInputVo);
+
+        ArrayList<P_BroadcastEditHistOutputVo> editList = bBroadcastDao.callBroadcastEditHistory(procedureVo);
+
+        String result;
+
+        if (Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방수정내역조회_성공, editList, new PagingVo(procedureVo.getRet())));
+        } else if(Status.방송방수정내역조회_방번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방수정내역조회_방번호없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방수정내역조회_에러));
+        }
+        return result;
+
+    }
+
 }
