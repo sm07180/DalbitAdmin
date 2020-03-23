@@ -54,6 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     , "/js/**"
                     , "/template2/**"
                     , "/postman/**"
+                    , "/sample/**"
             );
     }
 
@@ -79,11 +80,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .userDetailsService(userDetailsService)
                 .authorizeRequests()
-                    .antMatchers(
-                            "/login"
-                    ).permitAll()
-                    .antMatchers("/**").hasRole("ADMIN")
-                    .anyRequest().authenticated()
+                .antMatchers(
+                        "/login",
+                        "/sample"
+                ).permitAll()
+                .antMatchers("/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+
             .and()
                 .logout()
                     .logoutUrl("/logout")
