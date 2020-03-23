@@ -3,11 +3,13 @@ package com.dalbit.security.handler;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.security.vo.InforexLoginLayoutVo;
 import com.dalbit.util.CookieUtil;
 import com.dalbit.util.GsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +37,8 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
         HashMap map = new HashMap();
         map.put("returnUrl", "index.html");
 
-        gsonUtil.responseJsonOutputVoToJson(response, new JsonOutputVo(Status.로그인성공, map));
+        InforexLoginLayoutVo inforexLoginLayoutVo = (InforexLoginLayoutVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        gsonUtil.responseJsonOutputVoToJson(response, new JsonOutputVo(Status.로그인성공, inforexLoginLayoutVo));
     }
 
 }

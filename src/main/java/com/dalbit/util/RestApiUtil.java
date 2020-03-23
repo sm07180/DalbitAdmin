@@ -73,7 +73,7 @@ public class RestApiUtil {
             URL url = new URL(strUrl);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json");
+            //con.setRequestProperty("Content-Type", "application/json");
             con.setDoInput(true);
             con.setDoOutput(true);
             con.setUseCaches(false);
