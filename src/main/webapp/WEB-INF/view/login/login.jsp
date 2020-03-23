@@ -40,6 +40,8 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/js/cookie.js"></script>
+
 <script type="text/javascript">
     // ajaxLogin();
     $('#loginBtn').on('click', function(e){
@@ -52,8 +54,17 @@
 
     function loginSuccess(dst_id, data){
         dalbitLog(dst_id, data);
-
         if(data.result == 'success'){
+            for(var i=0;i<data.data.loginCookieVo.length;i++){
+                var cookie = data.data.loginCookieVo[i];
+                var option = {
+                    path : cookie.path
+                    , domain : cookie.domain
+                }
+                var value = new String(cookie.value.getBytes("UTF-8"),"euc-kr");
+
+                config(cookie.key, value, option);
+            }
             alert(data.message);
             if(data.data.returnUrl != undefined){
                 location.href = data.data.returnUrl;
