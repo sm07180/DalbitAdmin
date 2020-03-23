@@ -44,7 +44,7 @@ var config = function cookie(key, value, options) {
         }
 
         return (document.cookie = [
-            encode(key), '=', stringifyCookieValue(value),
+            key, '=', value,
             options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
             options.path    ? '; path=' + options.path : '',
             options.domain  ? '; domain=' + options.domain : '',
