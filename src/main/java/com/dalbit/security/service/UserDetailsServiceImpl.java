@@ -1,20 +1,10 @@
 package com.dalbit.security.service;
 
-import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.exception.CustomUsernameNotFoundException;
-import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.Mem_MemberService;
-import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.security.dao.LoginDao;
 import com.dalbit.security.vo.SecurityUserVo;
 import com.dalbit.util.DalbitUtil;
-import com.dalbit.util.OkHttpClientUtil;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,20 +14,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 @Slf4j
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
-
-    @Autowired
-    private LoginDao loginDao;
-
-    @Autowired
-    private Mem_MemberService mMemberService;
 
     @Autowired
     HttpServletRequest request;

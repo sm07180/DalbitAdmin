@@ -5,7 +5,6 @@ import com.dalbit.common.vo.LocationVo;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.Environment;
@@ -604,7 +603,7 @@ public class DalbitUtil {
 
     public static CookieVo parseCookie(String cookieString){
 
-        var cookieVo = new CookieVo();
+        CookieVo cookieVo = new CookieVo();
         try {
 
             String[] cookieGubun = cookieString.split(";");
@@ -631,7 +630,7 @@ public class DalbitUtil {
     }
 
     public static List<CookieVo> parseCookieList(ArrayList<String> cookieStringList){
-        var cookieList = new ArrayList<CookieVo>();
+        ArrayList cookieList = new ArrayList<CookieVo>();
         cookieStringList.forEach(cookieString -> {
             cookieList.add(parseCookie(cookieString));
         });

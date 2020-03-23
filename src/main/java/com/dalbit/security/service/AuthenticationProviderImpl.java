@@ -2,12 +2,10 @@ package com.dalbit.security.service;
 
 import com.dalbit.exception.GlobalException;
 import com.dalbit.security.vo.InforexLoginLayoutVo;
-import com.dalbit.security.vo.SecurityUserVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.OkHttpClientUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -22,7 +20,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,7 +42,7 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 
         try {
 
-            var map = new HashMap();
+            HashMap map = new HashMap();
             map.put("userid", DalbitUtil.convertRequestParamToString(request,"memId"));
             map.put("password", DalbitUtil.convertRequestParamToString(request,"memPwd"));
             map.put("mode", "login");
