@@ -405,6 +405,11 @@
                                 <i class="fa fa-search"></i><span class="text">관리자로그인</span>
                             </a>
                         </li>
+                        <li class="${fn:contains(url, '/sample/adminlogin2') ? 'active': ''}">
+                            <a href="/sample/adminlogin2">
+                                <i class="fa fa-search"></i><span class="text">관리자로그인2</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

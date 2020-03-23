@@ -41,7 +41,7 @@
 </div>
 
 <script type="text/javascript">
-    ajaxLogin();
+    // ajaxLogin();
     $('#loginBtn').on('click', function(e){
         ajaxLogin();
     });

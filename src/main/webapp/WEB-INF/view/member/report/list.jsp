@@ -81,12 +81,12 @@
         dtList_info_detail.reload();
     }
 
-    $(document).on('click', '.Report', function() {
-        var data = {
-            'reportIdx' : $(this).data('idx'),
-        };
-        util.getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
-    });
+    function Report(index){
+        var obj = new Object();
+        obj.reportIdx = index;
+        util.getAjaxData("detail", "/rest/customer/declaration/detail", obj, fn_detail_success);
+    }
+
     function fn_detail_success(dst_id, response) {
         var template = $('#tmp_declarationFrm').html();
         var templateScript = Handlebars.compile(template);

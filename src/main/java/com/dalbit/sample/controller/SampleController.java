@@ -88,4 +88,7 @@ public class SampleController {
 
     @GetMapping("adminlogin")
     public String adminlogin(){ return "sample/adminlogin";}
+
+    @GetMapping("adminlogin2")
+    public String adminlogin2(){ return "sample/adminlogin2";}
 }

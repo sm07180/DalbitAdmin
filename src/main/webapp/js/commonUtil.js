@@ -18,6 +18,31 @@ var util = {
 
         window.open(url, name, 'width=' + width + ' height=' + height + ' scrollbars=yes left=' + left + 'top=' + top);
     },
+    // /*ajax 호출 모듈*/
+    // getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc) {
+    //     var common = this;
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: dst_url,
+    //         dataType: 'json',
+    //         data: dst_params,
+    //         async: true,
+    //     }).done(function (data) {
+    //         if (successFunc != null) successFunc(dst_id, data);
+    //     }).fail(function (data, textStatus, jqXHR) {
+    //         try {
+    //             if (errorFunc != null) {
+    //                 errorFunc(data, textStatus, jqXHR);
+    //             } else {
+    //                 common.commonAjaxError(data, textStatus, jqXHR);
+    //             }
+    //         } catch (e) {
+    //             // function call fail skip
+    //             alert(e);
+    //             //showAlert('A', e);
+    //         }
+    //     });
+    // },
 
     /*ajax 호출 모듈*/
     getAjaxData(dst_id, dst_url, dst_params, successFunc, errorFunc, option) {
