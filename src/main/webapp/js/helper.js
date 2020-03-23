@@ -118,3 +118,7 @@ Handlebars.registerHelper("equal", function (value, value2, opt){
 Handlebars.registerHelper("getOnOffSwitch", function(value){
    return util.getOnOffSwitch(value);
 });
+
+Handlebars.registerHelper("renderImage", function(value){
+    return IMAGE_SERVER_URL + value;
+});
