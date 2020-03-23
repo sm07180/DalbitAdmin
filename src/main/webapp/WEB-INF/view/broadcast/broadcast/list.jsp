@@ -56,14 +56,14 @@
             <!-- DATA TABLE END -->
             <!-- TAB -->
             <div class="no-padding">
-                <jsp:include page="broadcastTab.jsp"></jsp:include>
+                <jsp:include page="broadcastTab.jsp"/>
             </div>
             <!-- TAB END -->
         </div>
     </div>
 </div>
 
-<script>
+<script type="text/javascript">
     $(document).ready(function() {
 
         // $("#detail").load("infoDetail.jsp");
@@ -106,7 +106,7 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.room_no = data.roomNo;
-        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
+        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success);
     }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){

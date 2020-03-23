@@ -16,7 +16,7 @@ var subject_type = [
 
 var entry = [
     new COMMON_CODE(null, 'entry', '입장제한')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '0', '전체')
     , new COMMON_CODE('fan', '1', '팬만입장')
     , new COMMON_CODE('entry', '2', '20세이상')
 ];
@@ -24,13 +24,13 @@ var entry = [
 var freezing = [
     new COMMON_CODE(null, 'freezing', '얼리기')
     , new COMMON_CODE('freezing', '1', '얼리기')
-    , new COMMON_CODE('release', '2', '해제')
+    , new COMMON_CODE('release', '0', '해제')
 ];
 
 var forcedExit = [
     new COMMON_CODE(null, 'forcedExit', '방강제종료')
-    , new COMMON_CODE('maintain', '1', '유지')
-    , new COMMON_CODE('forcedExit', '2', '강제종료')
+    , new COMMON_CODE('maintain', '0', '유지')
+    , new COMMON_CODE('forcedExit', '1', '강제종료')
 ];
 
 var live_summary = [

@@ -1,130 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<div class="col-lg-12 no-padding">
-    <label style="height: 30px;"> ㆍ라이브 중인 방송 정보를 확인하고, 부득이한 상황시 방송 컨트롤 할 수 있습니다.</label>
-    <button type="button" id="bt_broadcastGo" class="btn btn-default btn-sm pull-right">방송방 입장하기</button>
+<div>
+    <form id="detailFrm"></form>
 </div>
-<table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
-    <colgroup>
-        <col width="10%"/><col width="40%"/><col width="10%"/><col width="40%"/>
-    </colgroup>
-    <tbody>
-        <tr>
-            <th rowspan="5">배경 이미지</th>
-            <td rowspan="5">
-                <form id="profileImg" method="post" enctype="multipart/form-data">
-                    <img id="image_section" src="#" alt="your image" style="width: 134px;height: 134px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
-                    <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
-                </form>
-            </td>
-            <tr>
-                <th>입장제한</th>
-                <td style="text-align: left">
-                    <span id="entryType"></span>
-                    <button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>
-                </td>
-            </tr>
-            <tr>
-                <th>얼리기</th>
-                <td style="text-align: left">
-                    <span id="freezeMsg"></span>
-                    <button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button>
-                </td>
-            </tr>
-            <tr>
-                <th>방송강제종료</th>
-                <td style="text-align: left">
-                    <span id="forcedQuit"></span>
-                    <button type="button" id="bt_forcedExit" class="btn btn-default btn-sm pull-right">변경</button>
-                </td>
-            </tr>
-            <tr>
-                <th>방송상태</th>
-                <td style="text-align: left">
-                    <i class="fa fa-comment"></i><label id="broadcastState">방송ON-통화중</label>
-                </td>
-            </tr>
-        </tr>
-        <tr>
-            <th rowspan="3">환영 인사말</th>
-            <td rowspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 60px"></textarea>
-                <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">삭제</button>
-            </td>
-            <tr>
-                <th>마이크</th>
-                <td style="text-align: left"><i class="fa fa-comment"></i><label id="micState"></label></td>
-            </tr>
-            <tr>
-                <th>게스트 / 게스트 ID</th>
-                <td style="text-align: left"><i class="fa fa-comment"></i><label id="guestState">yes - </label> <label id="guest_userId"></label></td>
-            </tr>
-        </tr>
-        <tr>
-            <th>방송 주제</th>
-            <td style="text-align: left"><span id="subjectType"></span></td>
-            <th>매니저</th>
-            <td style="text-align: left"><label id="managerCnt"></label></td>
-        </tr>
-        <tr>
-            <th>방송 제목</th>
-            <td style="text-align: left">
-                <input type="text" class="form-control col-md-12" id="title" style="width: 90%;">
-                <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">변경</button>
-            </td>
-            <th>방송 중 강제퇴장</th>
-            <td style="text-align: left"><label id="forcedLeaveCnt"></label></td>
-        </tr>
-        <tr>
-            <th>DJ 회원번호</th>
-            <td style="text-align: left"><label id="dj_mem_no"></label></td>
-            <th>방송 플랫폼</th>
-            <td style="text-align: left"><label id="osType"></label></td>
-        </tr>
-        <tr>
-            <th>DJ ID</th>
-            <td style="text-align: left"><label id="dj_userId"></label></td>
-            <th>방송 시작일</th>
-            <td style="text-align: left"><label id="startDate"></label></td>
-        </tr>
-        <tr>
-            <th>DJ 닉네임</th>
-            <td style="text-align: left"><label id="dj_nickName"></label></td>
-            <th>방송 종료일시</th>
-            <td style="text-align: left"><label id="endDate"></label></td>
-        </tr>
-        <tr>
-            <th>성별</th>
-            <td style="text-align: left"><span id="dj_memSex"></span></td>
-            <th>방송 진행시간</th>
-            <td style="text-align: left">
-                <label id="airTime"></label>
-                <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
-            </td>
-        </tr>
-        <tr>
-            <th rowspan="2">운영자메모</th>
-            <td rowspan="1" style="text-align: left">
-                <label id="opMemoCnt"></label>
-                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
-            </td>
-            <th>방송 정보 수정일시</th>
-            <td style="text-align: left"><label id="lastOpDate"></label></td>
-        </tr>
-        <tr>
-            <td style="text-align: left">
-                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 90px"></textarea>
-                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
-            </td>
-            <th>방송 정보 수정 처리자</th>
-            <td style="text-align: left">
-                <label id="lastOpName"></label>
-                <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
 
 <!-- 이미지 원본 보기 -->
 <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -141,7 +19,6 @@
         </div>
     </div>
 </div>
-<form id="detailForm" class="hide"></form>
 
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
@@ -189,12 +66,13 @@
         // 버튼 끝
     })
 
-    $("#subject_type").html(util.getCommonCodeSelect(1, subject_type, "Y"));
-    $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
-    $("#entry").html(util.getCommonCodeRadio(-1, entry));
-    $("#freezing").html(util.getCommonCodeRadio(1, freezing));
-    $("#forcedExit").html(util.getCommonCodeRadio(1, forcedExit));
+    $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
+    $("#dj_memSex").html(util.getCommonCodeRadio(2, gender, "Y"));
+    $("#entryType").html(util.getCommonCodeRadio(-1, entry));
+    $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
+    $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
 
+    var roomNo;
     function getBroadCast_info_popup(tmp,state){
         if(state == "4" || state == "5"){
             $('#bt_broadcastGo').hide();
@@ -211,29 +89,12 @@
     }
 
     function info_sel_success(dst_id, response) {
-        dalbitLog(response);
-
-        $("#entryType").html(response.data.entryType);
-        $("#freezeMsg").html(response.data.freezeMsg);
-        $("#forcedQuit").html(response.data.forcedQuit);
-        $("#broadcastState").html(response.data.broadcastState);
-        $("#welcomeMsg").html(response.data.welcomeMsg);
-        $("#micState").html(response.data.micState);
-        $("#guestState").html(response.data.guestState);
-        $("#subjectType").html(response.data.subjectType);
-        $("#managerCnt").html(response.data.managerCnt);
-        $("#title").html(response.data.title);
-        $("#forcedLeaveCnt").html(response.data.forcedLeaveCnt);
-        $("#dj_mem_no").html(response.data.dj_mem_no);
-        $("#dj_userId").html(response.data.dj_userId);
-        $("#dj_nickName").html(response.data.dj_nickName);
-        $("#endDate").html(response.data.endDate);
-        $("#dj_memSex").html(response.data.dj_memSex);
-        $("#opMemoCnt").html(response.data.opMemoCnt);
-        $("#lastOpDate").html(response.data.lastOpDate);
-        $("#lastOpName").html(response.data.lastOpName);
-
-
+        roomNo = response.data.room_no;
+        var template = $('#tmp_detailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+        $("#detailFrm").html(html);
     }
     function fullSize(url) {     // 이미지 full size
         console.log("url : " + url);
@@ -267,25 +128,132 @@
         console.log(data, textStatus, jqXHR);
     }
 </script>
-<!-- info detail -->
+
 <script id="tmp_detailFrm" type="text/x-handlebars-template">
-    <div class="widget-content">
-        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-            <li class="active" id="detail"><a href="#infoDetail" role="tab" data-toggle="tab" id="tab_infoDetail"></a></li>
-        </ul>
-        <div class="tab-content" style="padding-top: 0px;">
-            <div class="tab-pane fade in active" id="infoDetail">
-                <div class="widget widget-table">
-                    <div class="widget-content">
-                        <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
-                            <thead id="tableTop_detail">
-                            </thead>
-                            <tbody id="tableBody_detail">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-12 no-padding">
+        <label style="height: 30px;"> ㆍ라이브 중인 방송 정보를 확인하고, 부득이한 상황시 방송 컨트롤 할 수 있습니다.</label>
+        {{#equal broadcastState 'ON'}}<button type="button" id="bt_broadcastGo" class="btn btn-default btn-sm pull-right">방송방 입장하기</button>{{/equal}}
     </div>
+    <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
+        <colgroup>
+            <col width="10%"/><col width="40%"/><col width="10%"/><col width="40%"/>
+        </colgroup>
+        <tbody>
+        <tr>
+            <th rowspan="5">배경 이미지</th>
+            <td rowspan="5">
+                <form id="profileImg" method="post" enctype="multipart/form-data">
+                    <img id="image_section" src="#" alt="your image" style="width: 134px;height: 134px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
+                </form>
+            </td>
+        <tr>
+            <th>입장제한</th>
+            <td style="text-align: left">
+                {{{getCommonCodeRadio entryType 'entry'}}}
+                <button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>
+            </td>
+        </tr>
+        <tr>
+            <th>얼리기</th>
+            <td style="text-align: left">
+                {{{getCommonCodeRadio freezeMsg 'freezing'}}}
+                <button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button>
+            </td>
+        </tr>
+        <tr>
+            <th>방송강제종료</th>
+            <td style="text-align: left">
+                {{{getCommonCodeRadio forcedQuit 'forcedExit'}}}
+                <button type="button" id="bt_forcedExit" class="btn btn-default btn-sm pull-right">변경</button>
+            </td>
+        </tr>
+        <tr>
+            <th>방송상태</th>
+            <td style="text-align: left">
+                <i class="fa fa-comment"></i>{{broadcastState}}
+            </td>
+        </tr>
+        </tr>
+        <tr>
+            <th rowspan="3">환영 인사말</th>
+            <td rowspan="3" style="text-align: left">
+                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 60px">{{welcomeMsg}}</textarea>
+                <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">삭제</button>
+            </td>
+        <tr>
+            <th>마이크</th>
+            <td style="text-align: left"><i class="fa fa-comment"></i>{{micState}}</td>
+        </tr>
+        <tr>
+            <th>게스트 / 게스트 ID</th>
+            <td style="text-align: left"><i class="fa fa-comment"></i>
+                {{guestState}} / {{guest_userId}}
+            </td>
+        </tr>
+        </tr>
+        <tr>
+            <th>방송 주제</th>
+            <td style="text-align: left">{{{getCommonCodeSelect subjectType 'subject_type'}}}</td>
+            <th>매니저</th>
+            <td style="text-align: left">{{managerCnt}}</td>
+        </tr>
+        <tr>
+            <th>방송 제목</th>
+            <td style="text-align: left">
+                <input type="text" class="form-control col-md-12" id="title" style="width: 90%;" value="{{title}}">
+                <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">변경</button>
+            </td>
+            <th>방송 중 강제퇴장</th>
+            <td style="text-align: left">{{forcedLeaveCnt}}</td>
+        </tr>
+        <tr>
+            <th>DJ 회원번호</th>
+            <td style="text-align: left">{{dj_mem_no}}</td>
+            <th>방송 플랫폼</th>
+            <td style="text-align: left">{{osType}}</td>
+        </tr>
+        <tr>
+            <th>DJ ID</th>
+            <td style="text-align: left">{{dj_userId}}</td>
+            <th>방송 시작일</th>
+            <td style="text-align: left">{{startDate}}</td>
+        </tr>
+        <tr>
+            <th>DJ 닉네임</th>
+            <td style="text-align: left">{{dj_nickName}}</td>
+            <th>방송 종료일시</th>
+            <td style="text-align: left">{{endDate}}</td>
+        </tr>
+        <tr>
+            <th>성별</th>
+            <td style="text-align: left">{{dj_memSex}}</td>
+            <th>방송 진행시간</th>
+            <td style="text-align: left">
+                {{airTime}}
+                <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="2">운영자메모</th>
+            <td rowspan="1" style="text-align: left">
+                {{opMemoCnt}}
+                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
+            </td>
+            <th>방송 정보 수정일시</th>
+            <td style="text-align: left">{{lastOpDate}}</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">
+                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 90px"></textarea>
+                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
+            </td>
+            <th>방송 정보 수정 처리자</th>
+            <td style="text-align: left">
+                {{lastOpName}}
+                <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </script>
