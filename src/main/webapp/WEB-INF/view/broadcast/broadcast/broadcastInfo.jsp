@@ -132,7 +132,7 @@
 <script id="tmp_detailFrm" type="text/x-handlebars-template">
     <div class="col-lg-12 no-padding">
         <label style="height: 30px;"> ㆍ라이브 중인 방송 정보를 확인하고, 부득이한 상황시 방송 컨트롤 할 수 있습니다.</label>
-        <button type="button" id="bt_broadcastGo" class="btn btn-default btn-sm pull-right">방송방 입장하기</button>
+        {{#equal broadcastState 'ON'}}<button type="button" id="bt_broadcastGo" class="btn btn-default btn-sm pull-right">방송방 입장하기</button>{{/equal}}
     </div>
     <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
         <colgroup>
