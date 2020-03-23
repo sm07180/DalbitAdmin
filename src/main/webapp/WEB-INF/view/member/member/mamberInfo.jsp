@@ -163,8 +163,6 @@
 <!-- detail -->
 <form id="detailForm" class="hide"></form>
 
-<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
-
 <script>
     $(document).ready(function() {
         $('#date_birth').datetimepicker({

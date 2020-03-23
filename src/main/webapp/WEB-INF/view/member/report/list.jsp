@@ -16,8 +16,6 @@
     <form id="declarationForm"></form>
 </div>
 
-<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
-
 <script>
     $(document).ready(function() {
     });

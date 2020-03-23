@@ -54,7 +54,8 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script>
     $(document).ready(function() {
         $('input[id="txt_search"]').keydown(function() {
