@@ -61,14 +61,12 @@
                     path : cookie.path
                     , domain : cookie.domain
                 }
-                var value = new String(cookie.value.getBytes("UTF-8"),"euc-kr");
+                var value = cookie.value;//new String(cookie.value.getBytes("UTF-8"),"euc-kr");
 
                 config(cookie.key, value, option);
             }
             alert(data.message);
-            if(data.data.returnUrl != undefined){
-                location.href = data.data.returnUrl;
-            }
+            location.href = '/index.html';
         }else if(data.result == 'fail'){
             alert(data.message);
         }
