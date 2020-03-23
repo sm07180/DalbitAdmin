@@ -12,7 +12,7 @@
                ,b.mem_id as reportId
                ,c.mem_id as reportMemId
                ,(CASE  a.status WHEN 0 THEN '신고중' ELSE '처리완료' end) AS status
-               ,DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s')   as lastUpdDate
+               ,DATE_FORMAT(a.op_date, '%Y-%m-%d %H:%i:%s')   as lastUpdDate
                ,a.etc    as etc
            From rd_data.tb_member_report a left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) b on a.mem_no = b.mem_no
                                      left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) c on a.reported_mem_no = c.mem_no
@@ -26,7 +26,7 @@
                ,b.mem_id as reportId
                ,c.mem_id as reportMemId
                ,(CASE  a.status WHEN 0 THEN '신고중' ELSE '처리완료' end) AS status
-               ,DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s')   as lastUpdDate
+               ,DATE_FORMAT(a.op_date, '%Y-%m-%d %H:%i:%s')   as lastUpdDate
                ,a.etc    as etc
            From rd_data.tb_member_report a left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) b on a.mem_no = b.mem_no
                                      left join (select mem_no,mem_id,mem_nick from rd_data.tb_member_basic) c on a.reported_mem_no = c.mem_no
