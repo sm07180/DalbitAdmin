@@ -90,6 +90,5 @@
             console.log(data);
         }
     }
-
     var IMAGE_SERVER_URL = '${cfn:getProperty("server.photo.url")}';
 </script>
