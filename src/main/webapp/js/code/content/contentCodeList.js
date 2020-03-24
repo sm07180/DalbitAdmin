@@ -41,11 +41,12 @@ var push_osType = [
 
 var push_messageType = [
     new COMMON_CODE(null, 'messageType', '메세지 구분')
-    , new COMMON_CODE('notice', '1', '공지')
-    , new COMMON_CODE('event', '2', '이벤트')
-    , new COMMON_CODE('check', '3', '정기점검')
-    , new COMMON_CODE('update', '4', '업데이트')
-    , new COMMON_CODE('etc', '5', '기타')
+    , new COMMON_CODE('notice', '1', '일반공지')
+    , new COMMON_CODE('notice', '2', '긴급공지')
+    , new COMMON_CODE('event', '3', '이벤트')
+    , new COMMON_CODE('check', '4', '정기점검')
+    , new COMMON_CODE('update', '5', '업데이트')
+    , new COMMON_CODE('etc', '6', '기타')
 ];
 
 var push_sendType = [
@@ -103,12 +104,6 @@ var banner_frequency = [
     , new COMMON_CODE('100', '100', '100%')
 ];
 
-var banner_viewOn = [
-    new COMMON_CODE(null, 'viewOn', '게시구분')
-    , new COMMON_CODE('on', '1', '적용')
-    , new COMMON_CODE('off', '2', '비적용')
-];
-
 var banner_exposureType = [
     new COMMON_CODE(null, 'exposureType', '노출 기간')
     , new COMMON_CODE('always', '0', '상시')
@@ -120,4 +115,69 @@ var event_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('title', '1', '제목')
+];
+
+
+/** =------ Item ---------- */
+var item_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('itemName', '1', '상품명')
+    , new COMMON_CODE('code', '2', '코드')
+];
+
+var item_discount = [
+    new COMMON_CODE(null, 'discount', '할인율')
+    , new COMMON_CODE('0', '0', 'OFF')
+    , new COMMON_CODE('10', '10', '10%')
+    , new COMMON_CODE('20', '20', '20%')
+    , new COMMON_CODE('30', '30', '30%')
+    , new COMMON_CODE('40', '40', '40%')
+    , new COMMON_CODE('50', '50', '50%')
+    , new COMMON_CODE('60', '60', '60%')
+    , new COMMON_CODE('70', '70', '70%')
+    , new COMMON_CODE('80', '80', '80%')
+    , new COMMON_CODE('90', '90', '90%')
+    , new COMMON_CODE('100', '100', '100%(무료)')
+    , new COMMON_CODE('etc', '-1', '기타 <input id="inputDiscountEtc" style="width:40px;"/>%')
+];
+
+var item_itemType = [
+    new COMMON_CODE(null, 'itemType', '아이템 타입')
+    , new COMMON_CODE('new', '1', '신규')
+    , new COMMON_CODE('best', '2', '인기')
+    , new COMMON_CODE('limit', '3', '한정')
+];
+
+
+/** =------ Util ---------- */
+
+var content_viewOn = [
+    new COMMON_CODE(null, 'viewOn', '게시구분')
+    , new COMMON_CODE('on', '1', 'ON')
+    , new COMMON_CODE('off', '2', 'OFF')
+];
+
+var content_platform1 = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('pc', '2', 'PC')
+    , new COMMON_CODE('android', '3', 'Android')
+    , new COMMON_CODE('ios', '4', 'IOS')
+    , new COMMON_CODE('mobile', '5', 'Web-Mobile')
+];
+
+var content_platform2 = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('pc', '1', 'PC')
+    , new COMMON_CODE('android', '2', 'Android')
+    , new COMMON_CODE('ios', '3', 'IOS')
+];
+
+var content_platform3 = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('pc', '1', 'PC/Android')
+    , new COMMON_CODE('ios', '2', 'IOS')
 ];

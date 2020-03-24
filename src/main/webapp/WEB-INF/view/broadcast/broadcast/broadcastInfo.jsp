@@ -44,7 +44,7 @@
     $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
     $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
 
-    var roomNo;
+    var room_no;
     function getBroadCast_info_popup(tmp ,state){
         if(state == "4" || state == "5"){
             $('#bt_broadcastGo').hide();
@@ -61,6 +61,7 @@
     }
 
     function info_sel_success(dst_id, response, param) {
+        room_no = param.room_no;
         response.data.room_no = param.room_no;
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
@@ -69,6 +70,7 @@
         var html=templateScript(context);
         $("#detailFrm").html(html);
         btn_init();
+        $("#tablist_con").find('.active').find('a').click();
     }
 
     function btn_init(){

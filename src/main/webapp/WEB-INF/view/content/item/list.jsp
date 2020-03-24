@@ -10,10 +10,10 @@
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
                         <div class="row col-md-12">
-                            <h3 class="title"><i class="fa fa-search"></i>이벤트검색</h3>
+                            <h3 class="title"><i class="fa fa-search"></i>아이템검색</h3>
                             <div>
-                                <span id="search_platform_aria"></span>
-                                <span id="search_progressStatus_aria"></span>
+                                <span id="search_viewOn_aria"></span>
+                                <span id="search_osType_aria"></span>
                                 <span id="search_searchType_aria"></span>
 
                                 <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
@@ -28,19 +28,25 @@
 
         <div id="headerTab">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#eventList" role="tab" data-toggle="tab" id="tab_eventList" onclick="onClickHeaderTab(this.id)">진행 이벤트</a></li>
-                <li><a href="#pastEventList" role="tab" data-toggle="tab" id="tab_pastEventList" onclick="onClickHeaderTab(this.id)">마감 이벤트</a></li>
+                <li class="active"><a href="#chargeList" role="tab" data-toggle="tab" id="tab_chargeList" onclick="onClickHeaderTab(this.id)">충전 아이템</a></li>
+                <li><a href="#exchangeList" role="tab" data-toggle="tab" id="tab_exchangeList" onclick="onClickHeaderTab(this.id)">교환 아이템</a></li>
+                <li><a href="#giftList" role="tab" data-toggle="tab" id="tab_giftList" onclick="onClickHeaderTab(this.id)">선물 아이템</a></li>
+                <li><a href="#subscribeList" role="tab" data-toggle="tab" id="tab_subscribeList" onclick="onClickHeaderTab(this.id)">구독 아이템</a></li>
+                <li><a href="#broadcastList" role="tab" data-toggle="tab" id="tab_broadcastList" onclick="onClickHeaderTab(this.id)">방송 아이템</a></li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane fade active in" id="eventList"><jsp:include page="/WEB-INF/view/content/event/eventList.jsp"/></div>     <!-- 진행 이벤트 -->
-                <div class="tab-pane fade" id="pastEventList"><jsp:include page="/WEB-INF/view/content/event/eventPastList.jsp"/></div>     <!-- 지난 이벤트 -->
+                <div class="tab-pane fade active in" id="chargeList"><jsp:include page="/WEB-INF/view/content/item/chargeList.jsp"/></div>     <!-- 충전 아이템 -->
+                <%--<div class="tab-pane fade" id="exchangeList"><jsp:include page="/WEB-INF/view/content/item/exchangeList.jsp"/></div>     <!-- 교환 아이템 -->--%>
+                <%--<div class="tab-pane fade" id="giftList"><jsp:include page="/WEB-INF/view/content/item/giftList.jsp"/></div>     <!-- 선물 아이템 -->--%>
+                <%--<div class="tab-pane fade" id="subscribeList"><jsp:include page="/WEB-INF/view/content/item/subscribeList.jsp"/></div>     <!-- 구독 아이템 -->--%>
+                <%--<div class="tab-pane fade" id="broadcastList"><jsp:include page="/WEB-INF/view/content/item/broadcastList.jsp"/></div>     <!-- 방송 아이템 -->--%>
             </div>
         </div>
     </div>
 </div>
 <div class="main-content" style="margin-top: 3px;">
     <!-- TAB -->
-    <jsp:include page="detail/eventTab.jsp"></jsp:include>
+    <jsp:include page="detail/chargeTab.jsp"></jsp:include>
     <!-- TAB END -->
 </div>
 <jsp:include page="../util/imageModal.jsp"></jsp:include>
@@ -58,20 +64,20 @@
 
     function init() {
         //검색조건 불러오기
-        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, platformGroup));
-        $("#search_progressStatus_aria").html(util.getCommonCodeSelect(-1, progressStatus));
-        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, event_searchType));
+        $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn));
+        $("#search_osType_aria").html(util.getCommonCodeSelect(-1, push_osType));
+        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, item_searchType));
     }
 
     function initEvent(){
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getBannerInfo();
+                getItemInfo();
             };
         });
 
         $('#bt_search').click( function() {       //검색
-            getBannerInfo();
+            getItemInfo();
         });
     }
 
@@ -87,7 +93,7 @@
     }
 
     // 검색
-    function getBannerInfo(){
+    function getItemInfo(){
         var selectTabId = $("#headerTab").find(".active").find("a").prop("id").split("_")[1];
         console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);

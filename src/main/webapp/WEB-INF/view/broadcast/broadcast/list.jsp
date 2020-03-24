@@ -103,7 +103,6 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.room_no = data.room_no;
-        room_no = data.room_no;
         $('#broadcastTab').addClass("show");
         util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success);
     }

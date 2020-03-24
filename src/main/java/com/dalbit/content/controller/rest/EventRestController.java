@@ -111,7 +111,7 @@ public class EventRestController {
         int startIdx = pushVo.getPageStart();
 
         ArrayList<EventVo> list = new ArrayList<EventVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < totalCnt; i++){
             EventVo data = new EventVo();
             data.setRowNum((totalCnt - startIdx));
             data.setEvent_col1(DalbitUtil.randomValue("number", 1));
