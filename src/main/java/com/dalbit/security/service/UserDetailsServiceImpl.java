@@ -1,7 +1,5 @@
 package com.dalbit.security.service;
 
-import com.dalbit.member.service.Mem_MemberService;
-import com.dalbit.security.dao.LoginDao;
 import com.dalbit.security.vo.SecurityUserVo;
 import com.dalbit.util.DalbitUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -70,14 +68,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }*/
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_TEMP"));
 
         SecurityUserVo securityUserVo = new SecurityUserVo(
                 DalbitUtil.convertRequestParamToString(request,"memId")
                 , DalbitUtil.convertRequestParamToString(request, "memType")
                 , authorities);
-        //securityUserVo.setMemberVo(memberVo);
 
         return securityUserVo;
     }
+
+    public UserDetails callInforexAdmin(){
+        return null;
+    }
+
 }

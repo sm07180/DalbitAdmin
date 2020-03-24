@@ -4,7 +4,7 @@
 <div class="wrapper full-page-wrapper page-auth page-login text-center">
     <div class="inner-page">
         <div class="logo">
-            <a href="index.html"><img src="https://image.dalbitcast.com/images/api/ic_logo_normal.png" alt="달빛라디오 관리자" /></a>
+            <img src="https://image.dalbitcast.com/images/api/ic_logo_normal.png" alt="달빛라디오 관리자" />
         </div>
 
         <div class="login-box center-block">
@@ -16,7 +16,7 @@
                     <label for="memId" class="control-label sr-only">ID</label>
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control _loginInput" type="text" placeholder="ID" name="memId" id="memId" value="" autofocus>
+                            <input class="form-control _loginInput" type="text" placeholder="아이디를 입력해주세요." name="memId" id="memId" value="" autofocus>
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control _loginInput" type="password" placeholder="Password" name="memPwd" id="memPwd" value="">
+                            <input class="form-control _loginInput" type="password" placeholder="비밀번호를 입력해주세요." name="memPwd" id="memPwd" value="">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         </div>
                     </div>
@@ -44,9 +44,7 @@
 </div>
 
 <script type="text/javascript" src="/js/cookie.js"></script>
-
 <script type="text/javascript">
-    // ajaxLogin();
     $('#loginBtn').on('click', function(e){
         ajaxLogin();
     });
@@ -84,12 +82,12 @@
                     path : cookie.path
                     , domain : cookie.domain
                 }
-                var value = cookie.value;//new String(cookie.value.getBytes("UTF-8"),"euc-kr");
+                var value = cookie.value;
 
                 config(cookie.key, value, option);
             }
             alert(data.message);
-            location.href = '/index.html';
+            //location.href = '/index.html';
         }else if(data.result == 'fail'){
             alert(data.message);
         }
