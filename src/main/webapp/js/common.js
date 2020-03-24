@@ -44,14 +44,18 @@ var common = {
     },
 
     addComma(value){
+        if(common.isEmpty(value)){
+            return 0;
+        }
         var regExp = /\B(?=(\d{3})+(?!\d))/g
-
         return value.toString().replace(regExp, ",");
     },
 
     removeComma(value){
+        if(common.isEmpty(value)){
+            return 0;
+        }
         var regExp = /,/gi;
-
         return value.toString().replace(regExp, "");
     },
 
