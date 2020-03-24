@@ -19,7 +19,8 @@ public enum Status {
     로그인성공("0", "login.success", "로그인 성공 시"),
     로그인실패_회원가입필요("1", "login.join.need", "회원가입 필요 시"),
     로그인실패_패스워드틀림("-1", "login.fail", "로그인 실패 시 - 아이디/비밀번호가 틀릴 시"),
-    로그인실패_파라메터이상("-2", "login.param.error", "로그인 실패 시 - 파라메터이상"),
+    로그인실패_파라메터이상("-2", "param.error", "로그인 실패 시 - 파라메터이상"),
+    로그인실패_API통신이상("-3", "login.api.error", "API 통신 오류"),
 
     //엑셀 다운로드
     엑셀다운로드성공("1", "excel.download.success", "엑셀 다운로드 성공 시"),
@@ -160,7 +161,8 @@ public enum Status {
 
     ;
 
-    final private String SUCCESS_RESULT = "success";
+    final private String RESULT_SUCCESS = "success";
+    final private String RESULT_FAIL = "fail";
 
     final private String result;
     final private String messageCode;
@@ -168,7 +170,7 @@ public enum Status {
     final private String desc;
 
     Status(String messageCode, String messageKey, String desc){
-        this.result = SUCCESS_RESULT;
+        this.result = messageKey.contains("success") ? RESULT_SUCCESS : RESULT_FAIL;;
         this.messageCode = messageCode;
         this.messageKey = messageKey;
         this.desc = desc;

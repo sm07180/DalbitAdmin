@@ -1,7 +1,9 @@
 package com.dalbit.security.service;
 
+import com.dalbit.exception.CustomUsernameNotFoundException;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.security.vo.InforexLoginLayoutVo;
+import com.dalbit.security.vo.SecurityUserVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.OkHttpClientUtil;
 import com.google.gson.Gson;
@@ -31,6 +33,8 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
 
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private InforexAdminLoginService inforexAdminLoginService;
 
     @Autowired
     HttpServletRequest request;
@@ -40,52 +44,16 @@ public class AuthenticationProviderImpl implements AuthenticationProvider {
         //String userName = authentication.getName();
         //String password = (String)authentication.getCredentials();
 
-        try {
-
-            HashMap map = new HashMap();
-            map.put("userid", DalbitUtil.convertRequestParamToString(request,"memId"));
-            map.put("password", DalbitUtil.convertRequestParamToString(request,"memPwd"));
-            map.put("mode", "login");
-            map.put("where", "dalbit");
-
-            RequestBody formBody = new FormBody.Builder()
-                .add("userid", DalbitUtil.convertRequestParamToString(request,"memId"))
-                .add("password", DalbitUtil.convertRequestParamToString(request,"memPwd"))
-                .add("mode", "login")
-                .add("where", "dalbit")
-                .build();
-
-            OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
-
-            Response response = okHttpClientUtil.sendPost("http://admin.inforex.co.kr/loginout.html", formBody);
-            //log.info("로그인결과 : {}", response.body().string());
-            String inforexLoginResult = response.body().string();
-            InforexLoginLayoutVo inforexLoginLayoutVo = new Gson().fromJson(inforexLoginResult, InforexLoginLayoutVo.class);
-
-
-            log.info("로그인 파싱 : {}", inforexLoginLayoutVo);
-            log.info("로그인 여부 : {}", inforexLoginLayoutVo.getSuccess());
-            log.info("회원정보 : {}", inforexLoginLayoutVo.getUserInfo());
-
-            if(!DalbitUtil.isEmpty(inforexLoginLayoutVo)){
-                ArrayList cookieList = (ArrayList)response.headers().toMultimap().get("set-cookie");
-                inforexLoginLayoutVo.setLoginCookieVo(DalbitUtil.parseCookieList(cookieList));
-            }
-
-        //SecurityUserVo securityUserVo = (SecurityUserVo)userDetailsService.loadUserByUsername("");
+        InforexLoginLayoutVo inforexLoginLayoutVo = inforexAdminLoginService.login();
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         return new UsernamePasswordAuthenticationToken(
-                inforexLoginLayoutVo
-                , DalbitUtil.convertRequestParamToString(request,"memPwd")
-                , authorities);
+            inforexLoginLayoutVo
+            , inforexLoginLayoutVo.getUserInfo().getUserid()
+            , authorities);
 
-        }catch (GlobalException | IOException e){
-            log.debug(e.getMessage());
-            return null;
-        }
     }
 
     @Override
