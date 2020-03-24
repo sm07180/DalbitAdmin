@@ -103,40 +103,13 @@
 
     function menu(){
         var data = new Object();
-        //data.url = "http://admin.inforex.co.kr/getCommonMenu.php";
+        data.url = "http://admin.inforex.co.kr/getCommonMenu.php";
 
         // var option = {
         //     type : 'GET'
         //     , dataType : 'html'
         // };
-        // util.getAjaxData("menu", "http://admin.inforex.co.kr/getCommonMenu.php", null, menuSuccess, menuFail, option);
-
-        $.ajax({
-            url: 'http://admin.inforex.co.kr/getCommonMenu.php',
-            dataType: 'html',
-            type : 'GET',
-            jsonp: "prefix",
-            jsonpCallback: "jquery_"+(new Date).getTime(),
-            success: function(res){
-                console.log("Success");
-                console.log(res)
-                var count = res[0].total;
-
-                if(requestdata['per_page'] == 1){
-                    request(req, count);
-                }
-                else{
-                    var grid = formatResponse(res);
-                }
-            },
-            error: function(xhr, status, error){
-                console.log("Error");
-                console.log(xhr.statusText);
-                console.log(xhr.responseText);
-                console.log(xhr.status);
-                console.log(error);
-            }
-        })
+        util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess, menuFail);
     }
     function menuSuccess(dst_id, data){
         dalbitLog('menuSuccess');
