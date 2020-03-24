@@ -1,19 +1,12 @@
 package com.dalbit.broadcast.service;
 
-import com.dalbit.broadcast.vo.BroadcastInfoOutVo;
-import com.dalbit.broadcast.vo.BroadcastInfoVo;
-import com.dalbit.broadcast.vo.BroadcastListVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailInputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailOutputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistInputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistOutputVo;
+import com.dalbit.broadcast.dao.Bro_BroadcastDao;
+import com.dalbit.broadcast.vo.procedure.*;
 import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.PagingVo;
-import com.dalbit.util.GsonUtil;
-import com.dalbit.broadcast.dao.B_BroadcastDao;
-import com.dalbit.broadcast.vo.BroadcastTypeListVo;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -21,46 +14,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Service
-public class B_BroadcastService {
+public class Bro_BroadcastService {
 
     @Autowired
-    B_BroadcastDao bBroadcastDao;
+    Bro_BroadcastDao bro_BroadcastDao;
     @Autowired
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
 
-
     /**
-     * 방송관리 Type 목록
+     * 생방송 list 목록
      */
-    public String callBroadcastTypeList(BroadcastTypeListVo broadcastTypeListVo) {
-        List<BroadcastTypeListVo> codeList = new ArrayList<>();
-        if(broadcastTypeListVo.getType().equals("subject_type")){
-            codeList = bBroadcastDao.callBroadcastTypeList(broadcastTypeListVo);
+    public String callBroadcastList(P_BroadcastListInputVo pBroadcastListInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pBroadcastListInputVo);
+        ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(procedureVo);
+
+        String result;
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, broadList, new PagingVo(procedureVo.getRet())));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기실패));
         }
-        ProcedureVo procedureVo = new ProcedureVo();
-        procedureVo.setData(codeList);
-        String result = gsonUtil.toJson(messageUtil.setJsonOutputVo(new JsonOutputVo(Status.회원정보보기_성공, procedureVo.getData())));
-        log.info(" ### 호출결과 ###" + result);
         return result;
     }
 
-    /**
-     * 방송 list 목록
-     */
-
-    public List<BroadcastListVo> callBroadcastList(BroadcastListVo broadcastListVo){
-        List<BroadcastListVo> list = bBroadcastDao.callBroadcastList(broadcastListVo);
-        return list;
-    }
-    public int callBroadcastList_cnt(BroadcastListVo broadcastListVo){
-        return bBroadcastDao.callBroadcastList_cnt(broadcastListVo);
-    }
 
     /**
      * 선택한 방 정보
@@ -68,7 +49,7 @@ public class B_BroadcastService {
     public String callBroadcastInfo(P_BroadcastDetailInputVo pBroadcastDetailInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastDetailInputVo);
 
-        bBroadcastDao.callBroadcastInfo(procedureVo);
+        bro_BroadcastDao.callBroadcastInfo(procedureVo);
 
         P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
 
@@ -91,7 +72,7 @@ public class B_BroadcastService {
     public String callBroadcastEditHistory(P_BroadcastEditHistInputVo pBroadcastEditHistInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastEditHistInputVo);
 
-        ArrayList<P_BroadcastEditHistOutputVo> editList = bBroadcastDao.callBroadcastEditHistory(procedureVo);
+        ArrayList<P_BroadcastEditHistOutputVo> editList = bro_BroadcastDao.callBroadcastEditHistory(procedureVo);
 
         String result;
 
