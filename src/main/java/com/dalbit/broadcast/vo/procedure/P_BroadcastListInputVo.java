@@ -9,10 +9,10 @@ import lombok.Setter;
 public class P_BroadcastListInputVo extends PagingVo {
 
     /*  intput  */
-    private String slctType;
-    private String dj_slctType;
+    private int slctType;
+    private int dj_slctType;
     private String dj_searchText;
-    private String room_slctType;
+    private int room_slctType;
     private String room_searchText;
     private int sortTitle;
     private int sortStartDate;

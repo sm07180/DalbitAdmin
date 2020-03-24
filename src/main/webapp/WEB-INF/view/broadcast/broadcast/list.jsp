@@ -11,13 +11,10 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
                         <div>
-                            <form id="search_radio">
-                                <label class="radio-inline"><input type="radio" name="radio_search" value="member" checked>회원</label>
-                                <label class="radio-inline"><input type="radio" name="radio_search" value="broad">방송</label>
-                                <span id="searchType"></span>
-                                <label><input type="text" class="form-control" id="txt_search"></label>
-                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                            </form>
+                            <span id="searchRadio"></span>
+                            <span id="searchType_broad"></span>
+                            <label><input type="text" class="form-control" id="txt_search"></label>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
@@ -57,14 +54,16 @@
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script>
-    $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
+    $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+    $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
 
     $(document).ready(function() {
-        $('#search_radio').change(function() {
-            if($('input[name="radio_search"]:checked').val() == "member"){
-                $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
+        $('#searchRadio').change(function() {
+            console.log($('input[name="searchRadio"]:checked').val());
+            if($('input[name="searchRadio"]:checked').val() == "1"){
+                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
             }else{
-                $("#searchType").html(util.getCommonCodeSelect(-1, searchBroad));
+                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
             }
         });
         $('input[id="txt_search"]').keydown(function() {
@@ -79,21 +78,21 @@
         <!-- 버튼 끝 -->
     });
 
-    init();
-    function init(){
-
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                            // 검색명
-            data.gubun = $("select[name='selectGubun']").val();
-            data.searchBroad = $('#txt_broad').val();                        // 방송색명
-            data.gubunBroad = $("select[name='selectGubun_broad']").val();
-        };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
-        dtList_info.useCheckBox(true);
-        dtList_info.useIndex(true);
-        dtList_info.createDataTable();
-        getSearch();
-    }
+    var dtList_info_data = function ( data ) {
+        var slctType = $('input[name="searchRadio"]:checked').val()
+        data.slctType = $('input[name="searchRadio"]:checked').val();
+        if(slctType == "1"){      // DJ정보
+            data.dj_slctType = $("select[name='searchType_broad']").val();
+            data.dj_searchText = $('#txt_search').val();
+        }else{                                                              // 방송정보
+            data.room_slctType = $("select[name='searchBroad_broad']").val();
+            data.room_searchText = $('#txt_search').val();
+        }
+    };
+    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
+    dtList_info.useCheckBox(true);
+    dtList_info.useIndex(true);
+    dtList_info.createDataTable();
 
     function getSearch(){                 // 검색
         dtList_info.reload();
