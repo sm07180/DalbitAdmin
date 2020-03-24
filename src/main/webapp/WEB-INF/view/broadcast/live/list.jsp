@@ -11,12 +11,13 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
                         <div>
-                            <span id="searchType"></span>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                            <span id="searchBroad"></span>
-                            <label><input type="text" class="form-control" id="txt_broad"></label>
-                            <button type="submit" class="btn btn-success" id="bt_broad">검색</button>
+                            <form id="search_radio">
+                                <label class="radio-inline"><input type="radio" name="radio_search" value="member" checked>회원</label>
+                                <label class="radio-inline"><input type="radio" name="radio_search" value="broad">방송</label>
+                                <span id="searchType"></span>
+                                <label><input type="text" class="form-control" id="txt_search"></label>
+                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -50,7 +51,6 @@
 
 <script>
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
-    $("#searchBroad").html(util.getCommonCodeSelect(-1, searchBroad));
 
     $(document).ready(function() {
         $('input[id="txt_search"]').keydown(function() {
@@ -75,6 +75,14 @@
                 getSearch();
             };
         });
+    });
+
+    $('#search_radio').change(function() {
+        if($('input[name="radio_search"]:checked').val() == "member"){
+            $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
+        }else{
+            $("#searchType").html(util.getCommonCodeSelect(-1, searchBroad));
+        }
     });
 
     $(function(){
