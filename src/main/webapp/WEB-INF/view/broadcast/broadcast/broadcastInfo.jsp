@@ -70,6 +70,7 @@
         var html=templateScript(context);
         $("#detailFrm").html(html);
         btn_init();
+        $("#tablist_con").find('.active').find('a').click();
     }
 
     function btn_init(){
