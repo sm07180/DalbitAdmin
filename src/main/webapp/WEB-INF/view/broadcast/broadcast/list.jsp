@@ -43,7 +43,7 @@
             </div>
             <!-- DATA TABLE END -->
             <!-- TAB -->
-            <div class="no-padding">
+            <div class="no-padding hide" id="broadcastTab">
                 <jsp:include page="broadcastTab.jsp"/>
             </div>
             <!-- TAB END -->
@@ -103,6 +103,8 @@
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.room_no = data.room_no;
+        room_no = data.room_no;
+        $('#broadcastTab').addClass("show");
         util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success);
     }
 

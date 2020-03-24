@@ -165,8 +165,12 @@ public enum Status {
     방송방수정내역조회_에러("C006", "server.error", "방송방 수정내역 조회에서 에러 발생 시"),
 
     //생방송 목록 보기
-    생방송목록조회_성공("0", "live.list.view.success", "생방송 목록 조회 성공 시"),
-    생방송목록조회_에러("-1", "live.list.view.fail", "생방송 목록 조회 데이터 없을 시"),
+    생방송목록조회_성공("0", "broadcast.list.view.success", "생방송 목록 조회 성공 시"),
+    생방송목록조회_에러("-1", "broadcast.list.view.fail", "생방송 목록 조회 데이터 없을 시"),
+
+    //생방송 목록 보기
+    생방송_청취자목록조회_성공("0", "broadcast.listen.list.view.success", "생방송 청취자 목록 조회 성공 시"),
+    생방송_청취자목록조회_실패("-1", "broadcast.listen.list.view.fail", "생방송 청취자 목록 조회 데이터 없을 시"),
 
     ;
 
