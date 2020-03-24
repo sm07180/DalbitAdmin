@@ -9,6 +9,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class OkHttpClientUtil {
 
@@ -32,13 +34,13 @@ public class OkHttpClientUtil {
             String cValue = c.getValue();
 
             if ("ADMIN_COOKIE".equals(cName)){
-                ADMIN_COOKIE = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+                ADMIN_COOKIE = cName + "=" + cValue + ";expires=Mon, 25-Mar-2020 01:41:53 GMT; Path=" + path + "; Domain=" + domain;
             }else if("gSTAFF".equals(cName)){
-                gSTAFF = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+                gSTAFF = cName + "=" + cValue + ";expires=Mon, 25-Mar-2020 01:41:53 GMT; Path=" + path + "; Domain=" + domain;
             }else if("NAME".equals(cName)){
-                NAME = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+                NAME = cName + "=" + cValue + ";expires=Mon, 25-Mar-2020 01:41:53 GMT; Path=" + path + "; Domain=" + domain;
             }else if("USER_ID".equals(cName)){
-                USER_ID = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+                USER_ID = cName + "=" + cValue + ";expires=Mon, 25-Mar-2020 01:41:53 GMT; Path=" + path + "; Domain=" + domain;
             }
         }
 

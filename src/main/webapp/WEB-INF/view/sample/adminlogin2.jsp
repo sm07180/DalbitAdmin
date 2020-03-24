@@ -3,32 +3,57 @@
 <% request.setCharacterEncoding("utf-8"); %>
 
 <div class="main-header">
-    <h2>관리자 로그인 테스트</h2>
+    <h2>Inforx 메뉴 불러오기</h2>
 </div>
 
-<div>
-    <form class="form-horizontal" id="form">
-        <label for="memId" class="control-label sr-only">ID</label>
-        <input type="text" placeholder="ID" name="memId" id="memId" value="bgko">
-        <label for="memPwd" class="control-label sr-only">Password</label>
-        <input type="password" placeholder="Password" name="memPwd" id="memPwd" value="kbg5702!">
-        <button type="button" class="btn" id="loginBtn">로그인</button>
-    </form>
-</div>
-<div>
-    <button type="button" class="btn" id="logoutBtn">로그아웃</button>
-</div>
+<%--<div>--%>
+    <%--<form class="form-horizontal" id="form">--%>
+        <%--<label for="memId" class="control-label sr-only">ID</label>--%>
+        <%--<input type="text" placeholder="ID" name="memId" id="memId" value="bgko">--%>
+        <%--<label for="memPwd" class="control-label sr-only">Password</label>--%>
+        <%--<input type="password" placeholder="Password" name="memPwd" id="memPwd" value="kbg5702!">--%>
+        <%--<button type="button" class="btn" id="loginBtn">로그인</button>--%>
+    <%--</form>--%>
+<%--</div>--%>
+<%--<div>--%>
+    <%--<button type="button" class="btn" id="logoutBtn">로그아웃</button>--%>
+<%--</div>--%>
 
-<button type="button" class="btn" id="callManuBtn">iframe 메뉴 불러오기</button>
+<%--<button type="button" class="btn" id="callManuBtn">iframe 메뉴 불러오기</button>--%>
 <button type="button" class="btn" id="ajaxManuBtn">ajax 메뉴 불러오기</button>
-<iframe id="inforexMenu" width="100%" height="300"></iframe>
+<%--<iframe id="inforexMenu" width="100%" height="300"></iframe>--%>
 <textarea type="textarea" class="form-control" id="txt_Menu" style="width: 100%;height: 300px"></textarea>
 
-<div>
-    <li id="adminmenu">
+<%--<div>--%>
+    <%--<li id="adminmenu">--%>
 
-    </li>
-</div>
+    <%--</li>--%>
+<%--</div>--%>
+<xmp>
+    Date: Tue, 24 Mar 2020 02:11:51 GMT
+    Server: Apache
+    Access-Control-Allow-Origin: *
+    X-UA-Compatible: IE=EmulateIE9; requiresActiveX=true
+    Set-Cookie: S_FASTCALL_END=y; path=/; domain=club5678.com
+    Set-Cookie: ADMIN_COOKIE=deleted; expires=Mon, 25-Mar-2019 02:11:50 GMT; path=/; domain=.inforex.co.kr
+    Set-Cookie: USER_ID=deleted; expires=Mon, 25-Mar-2019 02:11:50 GMT; path=/; domain=.inforex.co.kr
+    Set-Cookie: NAME=deleted; expires=Mon, 25-Mar-2019 02:11:50 GMT; path=/; domain=.inforex.co.kr
+    Set-Cookie: gSTAFF=deleted; expires=Mon, 25-Mar-2019 02:11:50 GMT; path=/; domain=.inforex.co.kr
+    Content-Length: 136
+    Keep-Alive: timeout=5, max=100
+    Connection: Keep-Alive
+    Content-Type: text/html
+
+
+
+    <script>
+
+        alert('�α��� ��å�� ����Ǿ����Ƿ� �ٽ� �α��� ���ּ���.')
+
+        top.location.replace('/')
+    </script>
+</xmp>
+
 
 <script type="text/javascript" src="/js/cookie.js"></script>
 <script type="text/javascript">
@@ -107,9 +132,9 @@
 
         var option = {
             type : 'GET'
-            , dataType : 'json'
+            , dataType : 'html'
         };
-        util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess, menuFail);
+        // util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess, menuFail,option);
 
         util.getAjaxData("menu", url, null, menuSuccess, menuFail,option);
     }

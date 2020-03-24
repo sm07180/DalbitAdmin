@@ -392,7 +392,7 @@
                         </li>
                         <li class="${url.equals('/sample/adminlogin2') ? 'active': ''}">
                             <a href="/sample/adminlogin2">
-                                <i class="fa fa-search"></i><span class="text">관리자로그인2</span>
+                                <i class="fa fa-search"></i><span class="text">Inforex메뉴불러오기</span>
                             </a>
                         </li>
                     </ul>
