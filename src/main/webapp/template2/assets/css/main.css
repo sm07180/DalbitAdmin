@@ -13978,12 +13978,12 @@ fieldset[disabled] .btn-default.active {
 
 /* custom buttons */
 .btn-custom-primary {
-    background-color: #E24715;
-    border-color: #cb4013;
+    background-color: #8556f6;
+    border-color: #5b41b1;
     color: #fff; }
 .btn-custom-primary:hover, .btn-custom-primary:focus, .btn-custom-primary:active, .btn-custom-primary.active,
 .btn-custom-primary .open .dropdown-toggle.btn-warning {
-    background-color: #d94414;
+    background-color: #6f49d1;
     color: #fff; }
 
 .btn-custom-secondary {

@@ -152,6 +152,12 @@ public enum Status {
     방송방상세조회_공지번호없음("-1", "no.data", "방번호가 없을 시"),
     방송방상세조회_에러("C006", "server.error", "방송방 상세 조회에서 에러 발생 시"),
 
+    //방송방 정보수정 내역 조회
+    방송방수정내역조회_성공("C001", "select.success", "방송방 수정내역 조회 성공 시"),
+    방송방수정내역조회_방번호없음("-1", "no.data", "방번호가 없을 시"),
+    방송방수정내역조회_에러("C006", "server.error", "방송방 수정내역 조회에서 에러 발생 시"),
+
+
     ;
 
     final private String SUCCESS_RESULT = "success";

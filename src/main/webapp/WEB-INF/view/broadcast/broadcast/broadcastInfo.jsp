@@ -63,6 +63,10 @@
         $('#bt_editDate').click(function() {               // 정보수정내역
             getInfoDetail(this.id,"정보수정내역");
         });
+
+        $('#bt_editHistory').click(function() {
+        });
+
         // 버튼 끝
     })
 
@@ -127,6 +131,8 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
+
+
 </script>
 
 <script id="tmp_detailFrm" type="text/x-handlebars-template">
@@ -143,9 +149,9 @@
             <th rowspan="5">배경 이미지</th>
             <td rowspan="5">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
-                    <img id="image_section" src="#" alt="your image" style="width: 134px;height: 134px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
-                    <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
+                    <img id="image_section" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                 </form>
+                <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
             </td>
         <tr>
             <th>입장제한</th>

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -617,7 +617,7 @@ public class DalbitUtil {
                     cookieVo.setDomain(temp[1]);
                 }else{
                     cookieVo.setKey(temp[0]);
-                    cookieVo.setValue(URLDecoder.decode(temp[1], "EUC-KR"));
+                    cookieVo.setValue(URLEncoder.encode(new String(temp[1].getBytes("EUC-KR"))).replaceAll("%25", "%"));
                 }
             }
 
