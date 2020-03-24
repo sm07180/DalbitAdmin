@@ -3,19 +3,20 @@ package com.dalbit.util;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.security.vo.InforexLoginLayoutVo;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -631,5 +632,4 @@ public class DalbitUtil {
         });
         return cookieList;
     }
-
 }
