@@ -34,13 +34,13 @@
 
 <script>
     $(document).ready(function() {
-        fnc_eventList.init();
+        fnc_chargeList.init();
     });
 
-var fnc_eventList = {
+var fnc_chargeList = {
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "eventList",
+    "targetId": "chargeList",
 
     init() {
         this.target = $("#"+this.targetId);
@@ -66,8 +66,8 @@ var fnc_eventList = {
             data.startDate = $('#banner-inputReportrange').attr("startDated");
             data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
-        console.log(this.targetDataTable);
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.event);
+
+        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge);
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
         this.dtList_info.setEventClick(this.updateData,5);
@@ -92,11 +92,11 @@ var fnc_eventList = {
 
     initEvent(){
         this.target.find("#btn_insert").on("click", function () { //등록
-            fnc_eventList.insertEvent();
+            fnc_chargeList.insertEvent();
         })
 
         this.target.find("#btn_delete").on("click", function () { //삭제
-            fnc_eventList.deleteEvent();
+            fnc_chargeList.deleteEvent();
         })
     },
 
@@ -105,14 +105,14 @@ var fnc_eventList = {
 
     // 등록
     insertEvent() {
-        fnc_eventDetail.insertEventDetail();
+        fnc_chargeDetail.insertEventDetail();
 
-        $("#tab_eventDetail").click();
+        $("#tab_chargeDetail").click();
     },
 
     // 삭제
     deleteEvent() {
-        var checkDatas = dtList_info.getCheckedData();
+        var checkDatas = fnc_chargeList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
             alert("삭제할 정보를 선택해주세요.");
@@ -129,28 +129,28 @@ var fnc_eventList = {
     // 수정
     updateData(data) {
         var dataInfo = {
-            eventIdx: data.rowNum
-            ,column02: data.event_col3
-            ,column03: data.event_col14
+            chargeIdx: data.rowNum
+            ,column02: data.item_col3
+            ,column03: data.item_col14
             ,column04: "제목"
-            ,column05: data.event_col1
-            ,column06: data.event_col1
-            ,column07: data.event_col1
-            ,column08: data.event_col1
-            ,column09: data.event_col1
-            ,column10: data.event_col2
+            ,column05: data.item_col1
+            ,column06: data.item_col1
+            ,column07: data.item_col1
+            ,column08: data.item_col1
+            ,column09: data.item_col1
+            ,column10: data.item_col2
             ,column11: "0"
             ,column12: "2020-03-04"
             ,column13: "00"
             ,column14: "00"
             ,column15: ""
-            ,column16: data.event_col6
+            ,column16: data.item_col6
         }
 
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo(data.rowNum, dataInfo);
 
-        var selectTabId = "eventDetail";
+        var selectTabId = "chargeDetail";
         if($("#contentTap").find(".active").length != 0){
             selectTabId = $("#contentTap").find(".active").find("a").prop("id").split("_")[1];
         }

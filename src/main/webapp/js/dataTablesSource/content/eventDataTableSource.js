@@ -15,10 +15,10 @@ var EventDataTableSource = {
             }},
             {'title': '이미지', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
                 //TODO 썸네일 표시
-                return '<a href="javascript:;">' + data + '</a>'
+                return '<img src="https://devphoto2.dalbitcast.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
 
             }},
-            {'title': '이벤트 제목', 'data': 'event_col4', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
                 return '<a href="javascript:;">' + data + '</a>'
 
             }},
@@ -58,10 +58,10 @@ var EventDataTableSource = {
                 }},
             {'title': '이미지', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
                     //TODO 썸네일 표시
-                    return '<a href="javascript:;">' + data + '</a>'
+                    return '<img src="https://devphoto2.dalbitcast.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
 
                 }},
-            {'title': '이벤트 제목', 'data': 'event_col4', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
                     return '<a href="javascript:;">' + data + '</a>'
 
                 }},
@@ -95,7 +95,7 @@ var EventDataTableSource = {
                     return data;
 
                 }},
-            {'title': '선정번호', 'data': 'event_col2', 'defaultContent': ''},
+            {'title': '선정번호', 'data': 'event_col8', 'defaultContent': ''},
             {'title': '참여자 User ID', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
                     //TODO 썸네일 표시
                     return '<a href="javascript:;">' + data + '</a>'
@@ -104,8 +104,8 @@ var EventDataTableSource = {
             {'title': '참여자 닉네임', 'data': 'event_col4', 'defaultContent': 'null.....'},
             {'title': '성별', 'data': 'event_col5', 'defaultContent': 'null.....'},
             {'title': '연락처', 'data': 'event_col6', 'defaultContent': 'null.....'},
-            {'title': '응모횟수', 'data': 'event_col10', 'defaultContent': '0', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript:;">' + data + '</a>'
+            {'title': '응모횟수', 'data': 'event_col2', 'defaultContent': '0', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript:;" data-toggle="modal" data-target="#eventReportModal" onclick="fnc_eventReport.setModalData('+meta.row+')">' + data + '</a>'
 
                 }},
             {'title': '당첨경험', 'data': 'event_col11', 'defaultContent': '0', 'render': function (data, type, row, meta) {

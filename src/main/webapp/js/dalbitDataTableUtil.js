@@ -40,7 +40,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     this.initDataTableSource();
 
     this.dataTableSource = {
-        dom: '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">>rt<"dataTable-footer"<"footer-left pull-left dataTable-div"i><"footer-right pull-right dataTable-div">p>',
+        dom: '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">>rt<"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">p>',
         destroy: true,                                                                   //테이블 파괴가능
         pageLength: 5,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
@@ -54,6 +54,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         pagingType: "full_numbers",
         deferLoading: 0,
         bStateSave: true,
+        cache: false,
         ajax : {
             'url':url,
             'type':"POST",
@@ -239,6 +240,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
             // 완료 후 처리 함수
             if(!common.isEmpty(initFn)){
                 initFn(response.responseJSON);
+                initFn = "";    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
             }
         };
 
@@ -452,7 +454,12 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     }
 
     DalbitDataTable.prototype.setPageLength = function(pageLength){
-        this.dataTableSource.pageLength = pageLength;
+        if(pageLength == "-1"){
+            this.dataTableSource.paging = false;
+        }else{
+            this.dataTableSource.paging = true;
+            this.dataTableSource.pageLength = pageLength;
+        }
     }
 
     /* set Search Visible */
