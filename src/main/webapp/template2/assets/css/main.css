@@ -12562,13 +12562,14 @@ body.topnav-fixed #wrapper {
     .top-bar .notifications {
         display: none; } }
 .top-bar .logged-user .btn {
-    padding: 0;
+    /*padding: 0;*/
     border: none;
     font-size: 0.9em;
     font-weight: 700;
     text-decoration: none;
     color: #fff; }
 .top-bar .logged-user .btn .name {
+    font-size: initial;
     font-weight: 400; }
 .top-bar .logged-user .btn .caret {
     border-top-color: #fff; }
@@ -13356,6 +13357,7 @@ body.sidebar-float .content-wrapper {
 
 /* chart navigation */
 .chart-nav {
+    padding-top: 15px;
     margin-bottom: 40px; }
 @media screen and (max-width: 480px) {
     .chart-nav strong {
@@ -13978,12 +13980,12 @@ fieldset[disabled] .btn-default.active {
 
 /* custom buttons */
 .btn-custom-primary {
-    background-color: #E24715;
-    border-color: #cb4013;
+    background-color: #8556f6;
+    border-color: #5b41b1;
     color: #fff; }
 .btn-custom-primary:hover, .btn-custom-primary:focus, .btn-custom-primary:active, .btn-custom-primary.active,
 .btn-custom-primary .open .dropdown-toggle.btn-warning {
-    background-color: #d94414;
+    background-color: #6f49d1;
     color: #fff; }
 
 .btn-custom-secondary {

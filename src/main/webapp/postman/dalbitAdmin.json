@@ -95,6 +95,98 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "인포렉스 어드민 로그아웃",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 공통 메뉴가져오기",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"event": [
@@ -152,6 +244,385 @@
 								"broadcast",
 								"live",
 								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "방송수정 내역",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "room_no",
+									"value": "91584435461328",
+									"description": "방번호",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/broadcast/editHist",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"broadcast",
+								"editHist"
+							],
+							"query": [
+								{
+									"key": "room_no",
+									"value": "91584435461328",
+									"disabled": true
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "생방송검색",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "slctType",
+									"value": "0",
+									"description": "검색구분(-1 or null: 전체, 1:dj정보로 검색, 2: 방정보로 검색)",
+									"type": "text"
+								},
+								{
+									"key": "dj_slctType",
+									"value": "0",
+									"description": "dj정보검색구분(-1 or null: all, 0: 전체,1:회원번호,2:userID,3:닉네임,4:연락처,5:이름)",
+									"type": "text"
+								},
+								{
+									"key": "dj_searchText",
+									"value": "",
+									"description": "dj정보검색 단어",
+									"type": "text"
+								},
+								{
+									"key": "room_slctType",
+									"value": "0",
+									"description": "방정보검색부군( -1 or null: all, 1:방제목, 2: 인사말, 3: 공지 )",
+									"type": "text"
+								},
+								{
+									"key": "room_searchText",
+									"value": "",
+									"description": "방정보검색 단어",
+									"type": "text"
+								},
+								{
+									"key": "sortTitle",
+									"value": "-1",
+									"description": "방제목정렬( -1: Not, 0: 오름차순, 1: 내림차순)",
+									"type": "text"
+								},
+								{
+									"key": "sortStartDate",
+									"value": "-1",
+									"description": "방시작시간정렬( -1: Not, 0: 오름차순, 1: 내림차순)",
+									"type": "text"
+								},
+								{
+									"key": "sortAirTime",
+									"value": "-1",
+									"description": "방송시간정렬( -1: Not, 0: 오름차순, 1: 내림차순)",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/live/search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"live",
+								"search"
+							],
+							"query": [
+								{
+									"key": "room_no",
+									"value": "91584435461328",
+									"disabled": true
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "방송방 정보수정",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "room_no",
+									"value": "91584941841772",
+									"description": "방번호",
+									"type": "text"
+								},
+								{
+									"key": "backgroundImage",
+									"value": "c",
+									"description": "배경이미지",
+									"type": "text"
+								},
+								{
+									"key": "welcomMsg",
+									"value": "",
+									"description": "환영인사말",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "test",
+									"description": "제목",
+									"type": "text"
+								},
+								{
+									"key": "entryType",
+									"value": "0",
+									"description": "입장제한(0: 전체,1:팬만,2:20세이상)",
+									"type": "text"
+								},
+								{
+									"key": "freezeMsg",
+									"value": "0",
+									"description": "챗 얼리기(0:정상,1:얼리기)",
+									"type": "text"
+								},
+								{
+									"key": "forceExit",
+									"value": "0",
+									"description": "방강제종료",
+									"type": "text"
+								},
+								{
+									"key": "sendNoti",
+									"value": "1",
+									"description": "알림 보내기(0: 안보냄,1:보냄)",
+									"type": "text"
+								},
+								{
+									"key": "notiContents",
+									"value": "이미지초기화 조치 안내",
+									"description": "알림 제목내용",
+									"type": "text"
+								},
+								{
+									"key": "notiMeno",
+									"value": "안내 내용 ~~~",
+									"description": "알림 상세 내용",
+									"type": "text"
+								},
+								{
+									"key": "opName",
+									"value": "운영자",
+									"description": "처리자",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/broadcast/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"broadcast",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "방송방 청취자 관리",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "room_no",
+									"value": "91584941841772",
+									"description": "방번호",
+									"type": "text"
+								},
+								{
+									"key": "sortAuth",
+									"value": "1",
+									"description": "권한(0:일반,1:매니저,2:게스트)정렬( -1: no, 0: asc, 1: desc)",
+									"type": "text"
+								},
+								{
+									"key": "sortState",
+									"value": "0",
+									"description": "접속상태(0:청취중,1:나감,2:강퇴)정렬(-1:no, 0: asc, 1: desc)",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "페이지 번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "게시물 수",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/broadcast/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"broadcast",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "방송방 강제퇴장",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "room_no",
+									"value": "91584941841772",
+									"description": "방번호",
+									"type": "text"
+								},
+								{
+									"key": "mem_no",
+									"value": "11583121521393",
+									"description": "강제퇴장할 회원번호",
+									"type": "text"
+								},
+								{
+									"key": "sendNoti",
+									"value": "1",
+									"description": "알림보내기(0: 없음, 1: 알림보내기)",
+									"type": "text"
+								},
+								{
+									"key": "notiContents",
+									"value": "청취자 강제퇴장 조치 안내",
+									"description": "알림 제목 내용",
+									"type": "text"
+								},
+								{
+									"key": "notiMeno",
+									"value": "세부 내용~~~",
+									"description": "알림 세부 내용",
+									"type": "text"
+								},
+								{
+									"key": "opName",
+									"value": "운영자",
+									"description": "처리자",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/listene/forceLeave",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"listene",
+								"forceLeave"
 							]
 						}
 					},

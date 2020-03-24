@@ -1,14 +1,18 @@
 package com.dalbit.util;
 
+import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.security.vo.InforexLoginLayoutVo;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -598,4 +602,34 @@ public class DalbitUtil {
         return environment.getActiveProfiles()[0];
     }
 
+    public static CookieVo parseCookie(String cookieString){
+
+        CookieVo cookieVo = new CookieVo();
+
+        String[] cookieGubun = cookieString.split(";");
+
+
+        for (String cookieSlice : cookieGubun) {
+            String[] temp = cookieSlice.split("=");
+            if(temp[0].trim().equals("path")){
+                cookieVo.setPath(temp[1]);
+            }else if(temp[0].trim().equals("domain")){
+                cookieVo.setDomain(temp[1]);
+            }else{
+                cookieVo.setKey(temp[0]);
+                cookieVo.setValue(temp[1]);
+            }
+        }
+
+        log.info(cookieVo.toString());
+        return cookieVo;
+    }
+
+    public static List<CookieVo> parseCookieList(ArrayList<String> cookieStringList){
+        ArrayList cookieList = new ArrayList<CookieVo>();
+        cookieStringList.forEach(cookieString -> {
+            cookieList.add(parseCookie(cookieString));
+        });
+        return cookieList;
+    }
 }

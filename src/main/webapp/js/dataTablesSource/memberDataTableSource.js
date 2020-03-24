@@ -194,15 +194,18 @@ var MemberDataTableSource = {
     'reportDetail': {
         'url': '/rest/customer/declaration/list'
         , 'columns': [
-            {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat'}
+            {'title': 'reportIdx', 'data': 'reportIdx'}
+            ,{'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat'}
             ,{'title': '신고 구분', 'data' : 'reason', 'name' : 'sortReport', 'render': function(data) {
                     return util.getCommonCodeLabel(data, declaration_reason);
                 }}
-            ,{'title': '신고자 UserID', 'data': 'mem_id', 'render': function (data, type, row) {
-                    return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
+            ,{'title': '신고자 UserID', 'data': 'mem_id', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" onclick="javascript:Report('+row.reportIdx+');">' + data + '</a>'
+                    // return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'
+                }}
             ,{'title': '신고 대상 UserID', 'data': 'reported_mem_id', 'render': function (data, type, row) {
-                    return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'}
-            }
+                    return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'
+                }}
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_mem_nick'}
             ,{'title': '접수 일시', 'data': 'regDate'}
             ,{'title': '처리 일시', 'data': 'opDate', 'defaultContent':'-'}

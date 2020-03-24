@@ -11,22 +11,13 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
                         <div>
-                            <select class="form-control searchType" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
-                            </select>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <select class="form-control searchType" name="selectGubun_broad">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">방송제목</option>
-                                <option value="2">인사말</option>
-                                <option value="3">방송중공지</option>
-                            </select>
-                            <label><input type="text" class="form-control" id="txt_broad"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            <form id="search_radio">
+                                <label class="radio-inline"><input type="radio" name="radio_search" value="member" checked>회원</label>
+                                <label class="radio-inline"><input type="radio" name="radio_search" value="broad">방송</label>
+                                <span id="searchType"></span>
+                                <label><input type="text" class="form-control" id="txt_search"></label>
+                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -41,6 +32,7 @@
                 </ul>
                 <div class="col-md-12 no-padding">
                     <div class="widget widget-table" id="main_table">
+                        <span id="live_summaryArea"></span>
                         <div class="widget-content" style="border-top-width:0px;">
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <thead id="tableTop"></thead>
@@ -55,8 +47,10 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/dataTablesSource/menuDataTableSource.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
+
+<script>
+    $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
 
     $(document).ready(function() {
         $('input[id="txt_search"]').keydown(function() {
@@ -70,6 +64,26 @@
             };
         });
     });
+    $(document).ready(function() {
+        $('input[id="txt_broad"]').keydown(function() {
+            if (event.keyCode === 13) {
+                getSearch();
+            };
+        });
+        $('input[id="txt_broad"]').keydown(function() {
+            if (event.keyCode === 13) {
+                getSearch();
+            };
+        });
+    });
+
+    $('#search_radio').change(function() {
+        if($('input[name="radio_search"]:checked').val() == "member"){
+            $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
+        }else{
+            $("#searchType").html(util.getCommonCodeSelect(-1, searchBroad));
+        }
+    });
 
     $(function(){
         init();
@@ -78,10 +92,11 @@
     $('#bt_search').on('click', function(){
         getSearch();
     });
+    $('#bt_broad').on('click', function(){
+        getSearch();
+    });
 
-    var memNo = "";
     var dtList_info="";
-    var dtList_top_info="";
     function init() {
         var dtList_info_data = function (data) {
             data.search = $('#txt_search').val();                            // 검색명
@@ -92,37 +107,21 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
-        dtList_info.createDataTable();
-        initDataTableTop();                  // 상단 정보 테이블
+        dtList_info.createDataTable(live_summary_table);
     }
-    function initDataTableTop(){
 
-        var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
-            '                <div class="widget-table" id="main_table_top">\n' +
-            '                    <div class="widget-content no-padding">\n' +
-            '                        <table id="top_info" class="table table-sorting table-hover table-bordered">\n' +
-            '                            <thead id="table_Top"></thead>\n' +
-            '                            <tbody id="table_Body"></tbody>\n' +
-            '                        </table>\n' +
-            '                    </div>\n' +
-            '                </div>\n' +
-            '            </div>';
-        $("#main_table").find(".top-right").addClass("no-padding").append(topTable);
-
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                            // 검색명
-            data.gubun = $("select[name='selectGubun']").val();
-            data.searchBroad = $('#txt_broad').val();                        // 방송색명
-            data.gubunBroad = $("select[name='selectGubun_broad']").val();
-        };
-        dtList_top_info = new DalbitDataTable($("#top_info"), dtList_info_data, BroadcastDataTableSource.live_top_list);
-        dtList_top_info.useCheckBox(false);
-        dtList_top_info.useIndex(false);
-        dtList_top_info.useOrdering(false);
-        dtList_top_info.onlyTableView();            //테이블만
-        dtList_top_info.createDataTable();
-        dtList_top_info.reload();
+    function live_summary_table(json){
+        // dalbitLog(json);
+        var template = $("#live_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            header : live_summary
+            , content : json.summary
+        }
+        var html = templateScript(data);
+        $("#live_summaryArea").html(html);
     }
+
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         var tmp_search = $('#txt_search').val();
@@ -131,6 +130,24 @@
         var tmp_gubunBroad = $("select[name='selectGubun_broad']").val();
 
         dtList_info.reload();
-        dtList_top_info.reload();
     }
+</script>
+
+<script id="live_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" id="declarationSummary">
+        <thead>
+        <tr>
+            {{#each this.header}}
+                <th>{{this.code}}</th>
+            {{/each}}
+        </tr>
+        </thead>
+        <tbody id="summaryDataTable">
+            <td>{{content.totalListen}}건</td>
+            <td>{{content.totalgift}}건</td>
+            <td>{{content.totalGood}}건</td>
+            <td>{{content.totalBooster}}건</td>
+            <td>{{content.totalBan}}건</td>
+        </tbody>
+    </table>
 </script>

@@ -19,7 +19,8 @@ public enum Status {
     로그인성공("0", "login.success", "로그인 성공 시"),
     로그인실패_회원가입필요("1", "login.join.need", "회원가입 필요 시"),
     로그인실패_패스워드틀림("-1", "login.fail", "로그인 실패 시 - 아이디/비밀번호가 틀릴 시"),
-    로그인실패_파라메터이상("-2", "login.param.error", "로그인 실패 시 - 파라메터이상"),
+    로그인실패_파라메터이상("-2", "param.error", "로그인 실패 시 - 파라메터이상"),
+    로그인실패_API통신이상("-3", "login.api.error", "API 통신 오류"),
 
     //엑셀 다운로드
     엑셀다운로드성공("1", "excel.download.success", "엑셀 다운로드 성공 시"),
@@ -101,20 +102,22 @@ public enum Status {
 
     //프로시저 연동 부분
     공지사항조회_데이터없음("0", "no.data", "공지사항 조회 데이터가 없을 시"),
-    공지사항조회_성공("C001", "select.success", "공지사항 조회 시"),
+    공지사항조회_성공("C001", "select.success", "공지사항 조회 성공 시"),
     공지사항조회_에러("C006", "server.error", "공지사항 조회에서 에러 발생 시"),
 
-    공지상세조회_성공("0", "select.success", "공지사항 상세조회 시"),
-    공지상세조회_공지번호없음("-1", "no.data", "공지사항 조회 데이터가 없을 시"),
+    공지상세조회_성공("0", "select.success", "공지사항 상세조회 성공 시"),
+    공지상세조회_공지번호없음("-1", "no.data", "공지사항 상세조회에서 공지번호가 없을 시"),
+    공지상세조회_에러("C006", "server.error", "공지사항 상세조회에서 에러 발생 시"),
 
-    공지등록성공("0","insert.success", "공지등록 성공 시"),
-    공지등록실패("C006", "server.error", "공지등록 실패 시"),
+    공지등록_성공("0","insert.success", "공지등록 성공 시"),
+    공지등록_실패("C006", "server.error", "공지등록 실패 시"),
 
-    공지수정성공("0", "update.success", "공지수정 성공 시"),
-    공지수정실패("-1", "server.error", "공지수정 실패 시"),
+    공지수정_성공("0", "update.success", "공지수정 성공 시"),
+    공지수정_실패("-1", "no.data", "공지수정에서 공지번호가 없을 시"),
+    공지수정_에러("C006", "server.error", "공지수정에서 에러 발생 시"),
 
-    공지삭제성공("0", "delete.success", "공지삭제 성공 시"),
-    공지삭제실패("-1", "server.error", "공지삭제 실패 시"),
+    공지삭제_성공("0", "delete.success", "공지삭제 성공 시"),
+    공지삭제_실패("-1", "no.data", "공지삭제에서 공지번호가 없을 시"),
 
     //FAQ
     FAQ조회_데이터없음("0", "no.data", "FAQ 조회 데이터가 없을 시"),
@@ -140,21 +143,39 @@ public enum Status {
 
     신고상세조회_성공("0", "select.success", "신고목록 상세조회 시"),
     신고상세조회_공지번호없음("-1", "no.data", "신고목록 조회 데이터가 없을 시"),
+    신고상세조회_에러("C006", "server.error", "신고상세 조회에서 에러 발생 시"),
 
     신고처리_성공("0", "update.success", "신고처리 성공 시"),
     신고처리_신고번호없음("-1", "no.data", "신고번호가 없을 시"),
     신고처리_이미처리되었음("-2", "server.error", "신고처리가 이미 되었을 시"),
+    신고처리_에러("C006", "server.error", "신고처리에서 에러 발생 시"),
 
-    신고처리내역수조회_성공("0", "select.success", "신고처리 내역 건수 조회 성공 시"),
+    신고처리내역수조회_성공("0", "select.success", "신고처리 내역 건수 조회에서 성공 시"),
+    신고처리내역수조회_에러("C006", "server.error", "신고처리 내역 건수 조회에서 에러 발생 시"),
 
     //방송방 상세 정보
     방송방상세조회_성공("0", "select.success", "방송방 상세 조회 성공 시"),
     방송방상세조회_공지번호없음("-1", "no.data", "방번호가 없을 시"),
     방송방상세조회_에러("C006", "server.error", "방송방 상세 조회에서 에러 발생 시"),
 
+    //방송방 정보수정 내역 조회
+    방송방수정내역조회_성공("C001", "select.success", "방송방 수정내역 조회 성공 시"),
+    방송방수정내역조회_데이터없음("0", "no.data", "방송방 수정내역 조회 데이터 없을 시"),
+    방송방수정내역조회_방번호없음("-1", "server.error", "방번호가 없을 시"),
+    방송방수정내역조회_에러("C006", "server.error", "방송방 수정내역 조회에서 에러 발생 시"),
+
+    //생방송 목록 보기
+    생방송목록조회_성공("0", "broadcast.list.view.success", "생방송 목록 조회 성공 시"),
+    생방송목록조회_에러("-1", "broadcast.list.view.fail", "생방송 목록 조회 데이터 없을 시"),
+
+    //생방송 목록 보기
+    생방송_청취자목록조회_성공("0", "broadcast.listen.list.view.success", "생방송 청취자 목록 조회 성공 시"),
+    생방송_청취자목록조회_실패("-1", "broadcast.listen.list.view.fail", "생방송 청취자 목록 조회 데이터 없을 시"),
+
     ;
 
-    final private String SUCCESS_RESULT = "success";
+    final private String RESULT_SUCCESS = "success";
+    final private String RESULT_FAIL = "fail";
 
     final private String result;
     final private String messageCode;
@@ -162,7 +183,7 @@ public enum Status {
     final private String desc;
 
     Status(String messageCode, String messageKey, String desc){
-        this.result = SUCCESS_RESULT;
+        this.result = messageKey.contains("success") ? RESULT_SUCCESS : RESULT_FAIL;;
         this.messageCode = messageCode;
         this.messageKey = messageKey;
         this.desc = desc;

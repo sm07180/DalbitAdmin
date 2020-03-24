@@ -109,9 +109,7 @@
     function getMemNo_info(index){
         $('#tabList_top').addClass("show");
         var data = dtList_info.getDataRow(index);
-        var obj = new Object();
-        obj.mem_no = data.mem_no;
-        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+        util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
     }
 
     /*=============엑셀==================*/

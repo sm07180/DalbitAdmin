@@ -266,21 +266,6 @@
                     <ul class="sub-menu" style="${fn:startsWith(url, '/content/') ? 'display:block;': ''}">
                         <li>
                             <a href="javascript://" class="_commingSoon">
-                                <i class="fa fa-users"></i><span class="text">파트너 DJ 신청</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
-                                <i class="fa fa-users"></i><span class="text">베스트 파트너 DJ</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
-                                <i class="fa fa-picture-o"></i><span class="text">프로필/방송방 배경</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
                                 <i class="fa fa-moon-o"></i><span class="text">아이템관리</span>
                             </a>
                         </li>
@@ -400,9 +385,14 @@
                                 <i class="fa fa-search"></i><span class="text">공통함수</span>
                             </a>
                         </li>
-                        <li class="${fn:contains(url, '/sample/adminlogin') ? 'active': ''}">
+                        <li class="${url.equals('/sample/adminlogin') ? 'active': ''}">
                             <a href="/sample/adminlogin">
                                 <i class="fa fa-search"></i><span class="text">관리자로그인</span>
+                            </a>
+                        </li>
+                        <li class="${url.equals('/sample/adminlogin2') ? 'active': ''}">
+                            <a href="/sample/adminlogin2">
+                                <i class="fa fa-search"></i><span class="text">Inforex메뉴불러오기</span>
                             </a>
                         </li>
                     </ul>
@@ -418,4 +408,9 @@
     $('._commingSoon').on('click', function(){
        alert('준비중입니다.');
     });
+
+    $('._commingSoon').find('span').css({
+        'color' : 'gray',
+        'font-weight' : 'bold'
+    }).append(' - 준비중');
 </script>

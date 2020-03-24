@@ -11,21 +11,9 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
                         <div>
-                            <select class="form-control searchType" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
-                            </select>
+                            <span id="searchRadio"></span>
+                            <span id="searchType_broad"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
-                            <select class="form-control searchType" name="selectGubun_broad">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">방송제목</option>
-                                <option value="2">인사말</option>
-                                <option value="3">방송중공지</option>
-                            </select>
-                            <label><input type="text" class="form-control" id="txt_broad"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
@@ -55,25 +43,34 @@
             </div>
             <!-- DATA TABLE END -->
             <!-- TAB -->
-            <div class="no-padding">
-                <jsp:include page="broadcastTab.jsp"></jsp:include>
+            <div class="no-padding hide" id="broadcastTab">
+                <jsp:include page="broadcastTab.jsp"/>
             </div>
             <!-- TAB END -->
         </div>
     </div>
 </div>
 
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
+
 <script>
+    $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+    $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
+
     $(document).ready(function() {
-
-        // $("#detail").load("infoDetail.jsp");
-
+        $('#searchRadio').change(function() {
+            console.log($('input[name="searchRadio"]:checked').val());
+            if($('input[name="searchRadio"]:checked').val() == "1"){
+                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+            }else{
+                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
+            }
+        });
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getSearch();
             };
         });
-
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getSearch();
@@ -81,21 +78,21 @@
         <!-- 버튼 끝 -->
     });
 
-    init();
-    function init(){
-
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                            // 검색명
-            data.gubun = $("select[name='selectGubun']").val();
-            data.searchBroad = $('#txt_broad').val();                        // 방송색명
-            data.gubunBroad = $("select[name='selectGubun_broad']").val();
-        };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
-        dtList_info.useCheckBox(true);
-        dtList_info.useIndex(true);
-        dtList_info.createDataTable();
-        getSearch();
-    }
+    var dtList_info_data = function ( data ) {
+        var slctType = $('input[name="searchRadio"]:checked').val()
+        data.slctType = $('input[name="searchRadio"]:checked').val();
+        if(slctType == "1"){      // DJ정보
+            data.dj_slctType = $("select[name='searchType_broad']").val();
+            data.dj_searchText = $('#txt_search').val();
+        }else{                                                              // 방송정보
+            data.room_slctType = $("select[name='searchBroad_broad']").val();
+            data.room_searchText = $('#txt_search').val();
+        }
+    };
+    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
+    dtList_info.useCheckBox(true);
+    dtList_info.useIndex(true);
+    dtList_info.createDataTable();
 
     function getSearch(){                 // 검색
         dtList_info.reload();
@@ -105,8 +102,9 @@
     function getBroadCast_info(index){
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
-        obj.roomNo = data.roomNo;
-        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
+        obj.room_no = data.room_no;
+        $('#broadcastTab').addClass("show");
+        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success);
     }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){

@@ -2,8 +2,10 @@ package com.dalbit.member.vo;
 
 import com.dalbit.common.vo.BaseVo;
 import com.dalbit.common.vo.ImageVo;
+import com.dalbit.security.vo.InforexLoginLayoutVo;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.var;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.sql.Date;
@@ -15,7 +17,8 @@ public class MemberVo{
     private static final long serialVersionUID = 1L;
 
     public static String getMyMemNo() {
-        return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var inforexLoginLayoutVo = (InforexLoginLayoutVo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return inforexLoginLayoutVo.getUserInfo().getName();
     }
 
     private String memNo;

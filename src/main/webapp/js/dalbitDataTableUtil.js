@@ -347,7 +347,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         }
 
         if(!common.isEmpty(columns)) {
-            if(!isEmpty(this.dataTableSource.columns)){
+            if(!common.isEmpty(this.dataTableSource.columns)){
                 this.dataTableSource.columns = this.dataTableSource.columns.slice(0,2);
                 this.dataTableSource.columns = this.dataTableSource.columns.concat(columns);
             }

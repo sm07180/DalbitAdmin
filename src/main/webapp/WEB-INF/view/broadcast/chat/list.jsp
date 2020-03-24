@@ -44,7 +44,6 @@
     </table>
 </div>
 
-<script type="text/javascript" src="/js/code/commonCode.js"></script>
 
 <script>
     $(document).ready(function() {
