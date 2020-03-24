@@ -102,13 +102,13 @@
             getInfoDetail(this.id,"정보수정내역");
         });
 
+        $('#bt_editHistory').click(function() {
+            getInfoDetail(this.id,"정보수정내역");
+        });
         // 버튼 끝
     }
 
 
-    $(document).on('click', '#bt_editHistory', function(){
-        getInfoDetail(this.id,"정보수정내역");
-    });
 
     function fullSize(url) {     // 이미지 full size
         console.log("url : " + url);
@@ -144,9 +144,6 @@
     function bt_click(tmp) {
     }
 
-    function fn_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
-    }
 
 </script>
 
@@ -245,14 +242,17 @@
             <th>DJ 닉네임</th>
             <td style="text-align: left">{{dj_nickName}}</td>
             <th>방송 종료일시</th>
-            <td style="text-align: left">{{endDate}}</td>
+            <td style="text-align: left">
+                {{endDate}}
+                {{#equal endDate ''}}-{{/equal}}
+            </td>
         </tr>
         <tr>
             <th>성별</th>
             <td style="text-align: left">{{dj_memSex}}</td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
-                {{airTimeFormat}}
+                {{airTime}}
                 <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
@@ -260,10 +260,13 @@
             <th rowspan="2">운영자메모</th>
             <td rowspan="1" style="text-align: left">
                 {{opMemoCnt}}
-                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
+                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">자세히</button>
             </td>
             <th>방송 정보 수정일시</th>
-            <td style="text-align: left">{{lastOpDate}}</td>
+            <td style="text-align: left">
+                {{lastOpDate}}
+                {{#equal lastOpDate ''}}-{{/equal}}
+            </td>
         </tr>
         <tr>
             <td style="text-align: left">
@@ -273,6 +276,7 @@
             <th>방송 정보 수정 처리자</th>
             <td style="text-align: left">
                 {{lastOpName}}
+                {{#equal lastOpName ''}}-{{/equal}}
                 <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right" data-roomno="{{room_no}}">자세히</button>
             </td>
         </tr>
