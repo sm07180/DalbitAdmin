@@ -65,8 +65,8 @@ var util = {
                 withCredentials: true
             },
             crossDomain: true
-        }).done(function (data, status, xhr) {
-            if (successFunc != null) successFunc(dst_id, data, status, xhr);
+        }).done(function (data) {
+            if (successFunc != null) successFunc(dst_id, data, dst_params);
         }).fail(function (data, textStatus, jqXHR) {
             try {
                 if (errorFunc != null) {

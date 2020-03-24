@@ -243,8 +243,8 @@
     // 검색
     function getNoticeInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        /*tmp_search = $('#searchText').val();
-        tmp_gubun = $("select[name='selectGubun']").val();*/
+        tmp_search = $('#searchText').val();
+        tmp_gubun = $("select[name='selectGubun']").val();
 
         dtList_info.reload();
 

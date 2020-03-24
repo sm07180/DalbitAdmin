@@ -102,7 +102,7 @@
     function getBroadCast_info(index){
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
-        obj.room_no = data.roomNo;
+        obj.room_no = data.room_no;
         util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success);
     }
 

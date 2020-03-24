@@ -63,6 +63,7 @@ var BroadcastDataTableSource = {
             {'title': '좋아요', 'data': 'goodCnt', 'defaultContent': ''},
             {'title': '부스터', 'data': 'boosterCnt', 'defaultContent': ''},
             {'title': '팬 수', 'data': 'fanCnt', 'defaultContent': ''},
+            {'title': 'room_no', 'data': 'room_no', 'visible': false},
         ]
         , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
     },
@@ -234,6 +235,15 @@ var BroadcastDataTableSource = {
             {'title': '처리자명', 'data': '', 'defaultContent': ''},
         ]
         , 'comments' : 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
+    },
+
+    'editHistory': {
+        'url': '/rest/broadcast/broadcast/editHist'
+        , 'columns': [
+            {'title': '수정일자', 'data': 'editDate', 'defaultContent': ''},
+            {'title': '수정 내용', 'data': 'editContents', 'defaultContent': ''},
+            {'title': '처리자명', 'data': 'opName', 'defaultContent': ''},
+        ]
     },
 
 }
