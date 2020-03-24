@@ -44,7 +44,7 @@
     $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
     $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
 
-    var roomNo;
+    var room_no;
     function getBroadCast_info_popup(tmp ,state){
         if(state == "4" || state == "5"){
             $('#bt_broadcastGo').hide();
