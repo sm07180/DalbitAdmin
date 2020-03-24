@@ -5,7 +5,10 @@ import com.dalbit.exception.GlobalException;
 import lombok.var;
 import okhttp3.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.lang.reflect.Array;
 
 public class OkHttpClientUtil {
 
@@ -14,15 +17,41 @@ public class OkHttpClientUtil {
     // one instance, reuse
     OkHttpClient client = new OkHttpClient();
 
-    public String sendGet(String url) throws Exception {
+    public String sendGet(String url,HttpServletRequest httpRequest, String path, String domain) throws Exception {
+
+        Cookie[] cookies = httpRequest.getCookies();
+
+        String ADMIN_COOKIE= "";
+        String gSTAFF = "";
+        String NAME = "";
+        String USER_ID = "";
+
+        for(var i=0;i<cookies.length;i++){
+            Cookie c = cookies[i];
+            String cName = c.getName();
+            String cValue = c.getValue();
+
+            if ("ADMIN_COOKIE".equals(cName)){
+                ADMIN_COOKIE = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+            }else if("gSTAFF".equals(cName)){
+                gSTAFF = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+            }else if("NAME".equals(cName)){
+                NAME = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+            }else if("USER_ID".equals(cName)){
+                USER_ID = cName + "=" + cValue + "; Path=" + path + "; Domain=" + domain;
+            }
+        }
 
         Request request = new Request.Builder()
                 .url(url)
-                /*.addHeader("custom-key", "mkyong")  // add request headers
-                .addHeader("User-Agent", "OkHttp Bot")*/
+                .addHeader("Set-Cookie", ADMIN_COOKIE)
+                .addHeader("Set-Cookie", gSTAFF)
+                .addHeader("Set-Cookie", NAME)
+                .addHeader("Set-Cookie", USER_ID)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
+            System.out.println(response.headers().toString());
             return response.body().string();
         }
 

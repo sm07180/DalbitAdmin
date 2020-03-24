@@ -5,15 +5,19 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.sample.service.SampleService;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.dalbit.util.OkHttpClientUtil;
 import com.dalbit.util.RestApiUtil;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -46,11 +50,12 @@ public class SampleRestController {
     }
 
     @PostMapping("menu")
-    public String menu(HttpServletRequest request){
+    public String menu(HttpServletRequest request) throws Exception {
         String url = (String)request.getParameter("url");
-        log.info(url);
-        String result = RestApiUtil.sendGet(url);
-        log.info(result);
+
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        String result = okHttpClientUtil.sendGet(url, request, "/", ".inforex.co.kr");
+
         return result;
     }
 }
