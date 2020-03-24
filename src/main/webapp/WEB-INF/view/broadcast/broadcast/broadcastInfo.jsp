@@ -252,7 +252,7 @@
             <td style="text-align: left">{{dj_memSex}}</td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
-                {{airTime}}
+                {{airTimeFormat}}
                 <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
