@@ -127,7 +127,7 @@
         </tr>
         <tr>
             <td rowspan="3" colspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 83px"></textarea>
+                <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
                 <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
             <tr>

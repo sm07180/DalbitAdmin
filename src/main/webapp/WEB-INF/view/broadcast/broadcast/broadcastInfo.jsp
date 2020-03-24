@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div>
     <form id="detailFrm"></form>
-    <form id="editHistFrm" class="hide"></form>
 </div>
 
 <!-- 이미지 원본 보기 -->
@@ -23,7 +22,7 @@
 
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
-<script type="text/javascript">
+<script>
     $(document).ready(function() {
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
@@ -35,43 +34,6 @@
                 getSearch();
             };
         });
-
-    });
-
-    $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
-    $("#dj_memSex").html(util.getCommonCodeRadio(2, gender, "Y"));
-    $("#entryType").html(util.getCommonCodeRadio(-1, entry));
-    $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
-    $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
-
-    var roomNo;
-    function getBroadCast_info_popup(tmp ,state){
-        if(state == "4" || state == "5"){
-            $('#bt_broadcastGo').hide();
-            $('#bt_img').hide();
-            $('#bt_entry').hide();
-            $('#bt_freezing').hide();
-            $('#bt_forcedExit').hide();
-            $('#bt_msgWelcom').hide();
-            $('#bt_title').hide();
-        }
-        var obj = new Object();
-        obj.room_no = tmp;
-        util.getAjaxData("type", "/rest/broadcast/broadcast/info", obj, info_sel_success);
-    }
-
-    function info_sel_success(dst_id, response, param) {
-        response.data.room_no = param.room_no;
-        dalbitLog(response);
-        var template = $('#tmp_detailFrm').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html=templateScript(context);
-        $("#detailFrm").html(html);
-        btn_init();
-    }
-
-    function btn_init(){
         // 버튼 시작
         $('#bt_img').click(function() {                     // 배경이미지 초기화
             bt_click(this.id);
@@ -102,43 +64,66 @@
             getInfoDetail(this.id,"정보수정내역");
         });
 
+        $('#bt_editHistory').click(function() {
+        });
+
         // 버튼 끝
+    })
+
+    $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
+    $("#dj_memSex").html(util.getCommonCodeRadio(2, gender, "Y"));
+    $("#entryType").html(util.getCommonCodeRadio(-1, entry));
+    $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
+    $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
+
+    function getBroadCast_info_popup(tmp,state){
+        if(state == "4" || state == "5"){
+            $('#bt_broadcastGo').hide();
+            $('#bt_img').hide();
+            $('#bt_entry').hide();
+            $('#bt_freezing').hide();
+            $('#bt_forcedExit').hide();
+            $('#bt_msgWelcom').hide();
+            $('#bt_title').hide();
+        }
+        var obj = new Object();
+        obj.room_no = tmp;
+        util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success, fn_fail);
     }
+    var room_no;            // 팝업에서 사용하기 위해 여기에 선언
+    function info_sel_success(dst_id, response) {
+        var template = $('#tmp_detailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+        $("#detailFrm").html(html);
 
-
-    $(document).on('click', '#bt_editHistory', function(){
-        getInfoDetail(this.id,"정보수정내역");
-    });
-
+        // 상단 목록 클릭시 detail 재 조회
+        $("#tablist_con").find('.active').find('a').click();
+    }
     function fullSize(url) {     // 이미지 full size
         console.log("url : " + url);
         $("#image_full_size").prop("src", url);
     }
 
-    function getInfoDetail(tmp, tmp1) {
-
-        var buttonId = tmp;
-        var template = $('#tmp_editHistFrm').html();
+    function getInfoDetail(tmp,tmp1) {
+        console.log("tmp : "  + tmp + " / tmp1 : " + tmp1);
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+        $("#detailForm").addClass("show");
+        var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
-        $("#editHistFrm").html(templateScript);
-        $('#tab_memberInfoDetail').text(tmp1);           //텝 이름 변경
-        $("#editHistFrm").addClass("show");
+        $("#detailForm").html(templateScript);
 
-        if(tmp.indexOf("_") > 0){
-            tmp = tmp.split("_");
-            tmp = tmp[1];
-        }
-
+        $('#tab_infoDetail').text(tmp1);           //텝 이름 변경
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
-            data.room_no = $("#"+buttonId).data('roomno');
+            data.mem_no = memNo;
         }
-
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
+        dtList_info_detail.changeReload(null,null,source,null);
     }
 
     function bt_click(tmp) {
@@ -147,6 +132,7 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
+
 
 </script>
 
@@ -199,7 +185,7 @@
         <tr>
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 60px">{{welcomeMsg}}</textarea>
+                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 40px">{{welcomeMsg}}</textarea>
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">삭제</button>
             </td>
         <tr>
@@ -209,8 +195,7 @@
         <tr>
             <th>게스트 / 게스트 ID</th>
             <td style="text-align: left"><i class="fa fa-comment"></i>
-                {{guestState}}
-                {{#equal guestState 'YES'}}<div>/{{guest_userId}}</div>{{/equal}}
+                {{guestState}} / {{guest_userId}}
             </td>
         </tr>
         </tr>
@@ -273,44 +258,9 @@
             <th>방송 정보 수정 처리자</th>
             <td style="text-align: left">
                 {{lastOpName}}
-                <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right" data-roomno="{{room_no}}">자세히</button>
+                <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         </tbody>
     </table>
-</script>
-
-<script id="tmp_editHistFrm" type="text/x-handlebars-template">
-    <div class="widget-content">
-        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-            <li class="active" id="detail1"><a href="#memberInfoDetail" role="tab" data-toggle="tab" id="tab_memberInfoDetail"></a></li>
-            <li class="hide" id="detail2"><a href="#memberInfoDetail2" role="tab" data-toggle="tab" id="tab_memberInfoDetail2"></a></li>
-        </ul>
-        <div class="tab-content" style="padding-top: 0px;">
-            <div class="tab-pane fade in active" id="memberInfoDetail">
-                <div class="widget widget-table">
-                    <div class="widget-content">
-                        <table id="info_detail" class="table table-sorting table-hover table-bordered datatable">
-                            <thead id="tableTop_detail">
-                            </thead>
-                            <tbody id="tableBody_detail">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="memberInfoDetail2">
-                <div class="widget widget-table">
-                    <div class="widget-content">
-                        <table id="info_detail2" class="table table-sorting table-hover table-bordered datatable">
-                            <thead id="tableTop_detail2">
-                            </thead>
-                            <tbody id="tableBody_detail2">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </script>

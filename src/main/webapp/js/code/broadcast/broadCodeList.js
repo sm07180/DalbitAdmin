@@ -47,7 +47,6 @@ var live_summary = [
     , new COMMON_CODE('', 'totalBan', '총 강제퇴장')
 ];
 
-
 var searchType_broad = [
     new COMMON_CODE(null, 'searchType_broad', '사용자정보구분')
     , new COMMON_CODE('all', '0', '전체')
@@ -60,8 +59,18 @@ var searchType_broad = [
 
 var searchBroad_broad = [
     new COMMON_CODE(null, 'searchBroad_broad', '방송정보검색')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '0', '전체')
     , new COMMON_CODE('broadTitle', '1', '방송제목')
     , new COMMON_CODE('welcomMsg', '2', '인사말')
     , new COMMON_CODE('broadNotie', '3', '방송중공지')
+];
+
+var Listen_summary = [
+    new COMMON_CODE('','listenerCnt','청취자 수')
+    ,new COMMON_CODE('','guest','게스트ID')
+    ,new COMMON_CODE('','managerCnt','매니저 수')
+    ,new COMMON_CODE('','forcedCnt','강제퇴장 수')
+    ,new COMMON_CODE('','totalGoodCnt','좋아요 수')
+    ,new COMMON_CODE('','totalBoosterCnt','부스터 수')
+    ,new COMMON_CODE('','totalGiftCnt','선물 수')
 ];

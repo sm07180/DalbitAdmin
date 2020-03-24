@@ -4,11 +4,11 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
             {'title': 'state', 'data': 'state', 'visible' : false},
-            {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
+            {'title': '방송주제', 'data': 'type'},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.roomNo, row.state);
                 }},
-            {'title': '프로필이미지', 'data': 'imageProfile', 'defaultContent': '', 'render' : function(data, type, row, meta){
+            {'title': '프로필이미지', 'data': 'imageProfile', 'render' : function(data, type, row, meta){
                     return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
                 }},
             {'title': '테그부분', 'data': 'tag', 'render': function (data) {
@@ -36,12 +36,12 @@ var BroadcastDataTableSource = {
             {'title': 'User ID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
                 }},
-            {'title': 'User 닉네임', 'data': 'memNick', 'defaultContent': ''},
-            {'title': '청취자', 'data': '', 'defaultContent': ''},
-            {'title': '선물', 'data': '', 'defaultContent': ''},
-            {'title': '좋아요', 'data': '', 'defaultContent': ''},
-            {'title': '부스터', 'data': '', 'defaultContent': ''},
-            {'title': '팬 수', 'data': '', 'defaultContent': ''},
+            {'title': 'User 닉네임', 'data': 'memNick'},
+            {'title': '청취자', 'data': ''},
+            {'title': '선물', 'data': ''},
+            {'title': '좋아요', 'data': ''},
+            {'title': '부스터', 'data': ''},
+            {'title': '팬 수', 'data': ''},
         ]
         , 'comments' : 'ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.'
     },
@@ -49,42 +49,56 @@ var BroadcastDataTableSource = {
     'broadcastList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송주제', 'data': 'subjectType', 'defaultContent': ''},
+            {'title': '방송주제', 'data': 'subjectType'},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
             {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
                 }},
-            {'title': 'DJ 닉네임', 'data': 'dj_nickname', 'defaultContent': ''},
-            {'title': '방송시작일시', 'data': 'start_date', 'defaultContent': ''},
-            {'title': '청취자', 'data': 'liveListener', 'defaultContent': ''},
-            {'title': '선물', 'data': 'giftCnt', 'defaultContent': ''},
-            {'title': '좋아요', 'data': 'goodCnt', 'defaultContent': ''},
-            {'title': '부스터', 'data': 'boosterCnt', 'defaultContent': ''},
-            {'title': '팬 수', 'data': 'fanCnt', 'defaultContent': ''},
-            {'title': 'room_no', 'data': 'room_no', 'visible': false},
+            {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
+            {'title': '방송시작일시', 'data': 'start_date'},
+            {'title': '청취자', 'data': 'liveListener'},
+            {'title': '선물', 'data': 'giftCnt'},
+            {'title': '좋아요', 'data': 'goodCnt'},
+            {'title': '부스터', 'data': 'boosterCnt'},
+            {'title': '팬 수', 'data': 'fanCnt'},
         ]
         , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
     },
 
     'listenDetail': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/broadcast/listener/list'
         , 'columns': [
-            {'title': '구분', 'data': '', 'defaultContent': ''},
-            {'title': '회원번호', 'data': '', 'defaultContent': ''},
-            {'title': 'User ID', 'data': '', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.memNo);
+            {'title': '구분', 'data': 'state', 'width':'80px', 'render': function (data, type, row, meta) {
+                    if(data == "1") {
+                        return '<lable style="color:#004dd9">퇴장</lable>';
+                    }else if(data == "2"){
+                        return '<lable style="color:#a037d9">강제퇴장자</lable>';
+                    }else if(data == "0"){
+                        if(row.auth == "0"){
+                        return '<lable style="color:rgba(0,0,0,0.99)">청취자</lable>';
+                        }else if(row.auth == "1"){
+                            return '<lable style="color:#00d917">매니저</lable>';
+                        }else if(row.auth == "2"){
+                            return '<lable style="color:#d9222b">게스트</lable>';
+                        }
+                    }
                 }},
-            {'title': 'User 닉네임', 'data': '', 'defaultContent': ''},
-            {'title': '청취 시작 일시', 'data': '', 'defaultContent': ''},
-            {'title': '청취 종료시간', 'data': '', 'defaultContent': ''},
-            {'title': '권한 시작 일시', 'data': '', 'defaultContent': ''},
-            {'title': '권한 종료 일시', 'data': '', 'defaultContent': ''},
-            {'title': '청취진행시간', 'data': '', 'defaultContent': ''},
-            {'title': '좋아요', 'data': '', 'defaultContent': ''},
-            {'title': '부스터', 'data': '', 'defaultContent': ''},
-            {'title': '보낸아이템', 'data': '', 'defaultContent': ''},
+            {'title': 'User ID', 'data': 'userID', 'width':'100px', 'render': function (data, type, row, meta) {
+                    var tmp = '<a href="javascript://" class="getBroadCast_info" onclick="javascript:memNoLink('+row.mem_no+');">'+data+'</a>';
+                    tmp = tmp + '<br/>' +  row.level +"/"+ row.grade;
+                    return tmp;
+                }},
+            {'title': 'User 닉네임', 'data': 'nickName', 'width':'140px'},
+            {'title': '청취 시작 일시', 'data': 'startDateFormat', 'width':'120px'},
+            {'title': '청취 종료시간', 'data': 'endDateFormat', 'width':'120px'},
+            {'title': '권한 시작 일시', 'data': 'authStartDateFormat', 'width':'120px'},
+            {'title': '권한 종료 일시', 'data': 'authEndDateFormat', 'width':'120px'},
+            {'title': '청취진행시간', 'data': 'listenTime', 'width':'120px'},
+            {'title': '좋아요', 'data': 'goodCnt', 'width':'60px'},
+            {'title': '부스터', 'data': 'boosterCnt', 'width':'60px'},
+            {'title': '보낸아이템', 'data': 'giftCnt', 'width':'80px'},
         ]
         , 'comments' : 'ㆍ방송 중 (게스트와 매니저를 포함한) 청취자 변동사항을 확인할 수 있습니다.<br/>' +
                        'ㆍ청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
@@ -109,15 +123,15 @@ var BroadcastDataTableSource = {
     'likeDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '회원번호', 'data': '', 'defaultContent': ''},
+            {'title': '회원번호', 'data': ''},
             {'title': '보낸 User Id', 'data': '', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
                 }},
-            {'title': '보낸 User 닉네임', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 좋아요', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 부스터', 'data': '', 'defaultContent': ''},
-            {'title': '적용완료 일시', 'data': '', 'defaultContent': ''},
+            {'title': '보낸 User 닉네임', 'data': ''},
+            {'title': '보낸 일시', 'data': ''},
+            {'title': '보낸 좋아요', 'data': ''},
+            {'title': '보낸 부스터', 'data': ''},
+            {'title': '적용완료 일시', 'data': ''},
         ]
         , 'comments': 'ㆍ방송 중 좋아요와 부스터 적용상태를 확인할 수 있습니다.'
     },
@@ -125,16 +139,16 @@ var BroadcastDataTableSource = {
     'giftDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '회원번호', 'data': '', 'defaultContent': ''},
+            {'title': '회원번호', 'data': ''},
             {'title': '보낸 User ID', 'data': '', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
                 }},
-            {'title': '보낸 User 닉네임', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
-            {'title': '이미지', 'data': '', 'defaultContent': ''},
-            {'title': '선물 명', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 선물 수', 'data': '', 'defaultContent': ''},
-            {'title': '적용완료 일시', 'data': '', 'defaultContent': ''},
+            {'title': '보낸 User 닉네임', 'data': ''},
+            {'title': '보낸 일시', 'data': ''},
+            {'title': '이미지', 'data': ''},
+            {'title': '선물 명', 'data': ''},
+            {'title': '보낸 선물 수', 'data': ''},
+            {'title': '적용완료 일시', 'data': ''},
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
     },
@@ -142,13 +156,13 @@ var BroadcastDataTableSource = {
     'storyDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '회원번호', 'data': '', 'defaultContent': ''},
+            {'title': '회원번호', 'data': ''},
             {'title': '사연 보낸 청취자 ID', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
                 }},
-            {'title': '사연 보낸 청취자 닉네임', 'data': '', 'defaultContent': ''},
-            {'title': '보낸 일시', 'data': '', 'defaultContent': ''},
-            {'title': '사연 내용', 'data': '', 'defaultContent': ''},
+            {'title': '사연 보낸 청취자 닉네임', 'data': ''},
+            {'title': '보낸 일시', 'data': ''},
+            {'title': '사연 내용', 'data': ''},
         ]
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
@@ -217,22 +231,22 @@ var BroadcastDataTableSource = {
     'adminMemoList': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '방송제목', 'data': '', 'defaultContent': ''},
-            {'title': 'DJ ID', 'data': '', 'defaultContent': ''},
-            {'title': 'DJ 닉네임', 'data': '', 'defaultContent': ''},
-            {'title': '등록 일시', 'data': '', 'defaultContent': ''},
-            {'title': '등록관리자', 'data': '', 'defaultContent': ''},
-            {'title': '운영자 조치', 'data': '', 'defaultContent': ''},
-            {'title': '운영자 메모내용', 'data': '', 'defaultContent': ''},
+            {'title': '방송제목', 'data': ''},
+            {'title': 'DJ ID', 'data': ''},
+            {'title': 'DJ 닉네임', 'data': ''},
+            {'title': '등록 일시', 'data': ''},
+            {'title': '등록관리자', 'data': ''},
+            {'title': '운영자 조치', 'data': ''},
+            {'title': '운영자 메모내용', 'data': ''},
         ]
         , 'comments' : 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
     'editDate': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '정보 수정 일시', 'data': '', 'defaultContent': ''},
-            {'title': '처리 전 정보 및 수정 처리 내역', 'data': '', 'defaultContent': ''},
-            {'title': '처리자명', 'data': '', 'defaultContent': ''},
+            {'title': '정보 수정 일시', 'data': ''},
+            {'title': '처리 전 정보 및 수정 처리 내역', 'data': ''},
+            {'title': '처리자명', 'data': ''},
         ]
         , 'comments' : 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
