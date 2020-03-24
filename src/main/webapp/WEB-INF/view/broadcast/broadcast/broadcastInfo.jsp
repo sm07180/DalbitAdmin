@@ -101,7 +101,7 @@
             getInfoDetail(this.id,"운영자 메모");
         });
         $('#bt_editDate').click(function() {               // 정보수정내역
-            getInfoDetail(this.id,"정보수정내역");
+            getInfoDetail(this.id);
         });
 
         $('#bt_editHistory').click(function() {
@@ -134,6 +134,7 @@
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = $("#"+buttonId).data('roomno');
+            data.mem_no = $("#"+buttonId).data('memno');
         }
 
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
