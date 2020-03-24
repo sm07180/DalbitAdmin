@@ -201,7 +201,7 @@
         <tr>
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 60px">{{welcomeMsg}}</textarea>
+                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 40px">{{welcomeMsg}}</textarea>
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">삭제</button>
             </td>
         <tr>
