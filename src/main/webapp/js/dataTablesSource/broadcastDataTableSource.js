@@ -49,23 +49,20 @@ var BroadcastDataTableSource = {
     'broadcastList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': 'memNo', 'data': 'memNo', 'visible': false},
-            {'title': 'room_no', 'data': 'roomNo'},
-            {'title': '회원번호', 'data': 'memNo', 'defaultContent': ''},
-            {'title': 'DJ ID', 'data': 'memId','render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.memNo);
-                }},
-            {'title': 'DJ 닉네임', 'data': 'memNick', 'defaultContent': ''},
-            {'title': '방송주제', 'data': 'type', 'defaultContent': ''},
+            {'title': '방송주제', 'data': 'subjectType', 'defaultContent': ''},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
-            {'title': '방송시작일시', 'data': 'startDate', 'defaultContent': ''},
-            {'title': '청취자', 'data': 'entryCnt', 'defaultContent': ''},
-            {'title': '좋아요', 'data': 'goodCnt', 'defaultContent': ''},
+            {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.memNo);
+                }},
+            {'title': 'DJ 닉네임', 'data': 'dj_nickname', 'defaultContent': ''},
+            {'title': '방송시작일시', 'data': 'start_date', 'defaultContent': ''},
+            {'title': '청취자', 'data': 'liveListener', 'defaultContent': ''},
             {'title': '선물', 'data': 'giftCnt', 'defaultContent': ''},
-            {'title': '사연수', 'data': 'storyCnt', 'defaultContent': ''},
-            {'title': '방송상태', 'data': 'status', 'defaultContent': ''},
+            {'title': '좋아요', 'data': 'goodCnt', 'defaultContent': ''},
+            {'title': '부스터', 'data': 'boosterCnt', 'defaultContent': ''},
+            {'title': '팬 수', 'data': 'fanCnt', 'defaultContent': ''},
         ]
         , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
     },

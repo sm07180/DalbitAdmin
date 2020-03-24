@@ -11,22 +11,13 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
                         <div>
-                            <select class="form-control searchType" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
-                            </select>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <select class="form-control searchType" name="selectGubun_broad">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">방송제목</option>
-                                <option value="2">인사말</option>
-                                <option value="3">방송중공지</option>
-                            </select>
-                            <label><input type="text" class="form-control" id="txt_broad"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            <form id="search_radio">
+                                <label class="radio-inline"><input type="radio" name="radio_search" value="member" checked>회원</label>
+                                <label class="radio-inline"><input type="radio" name="radio_search" value="broad">방송</label>
+                                <span id="searchType"></span>
+                                <label><input type="text" class="form-control" id="txt_search"></label>
+                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -63,17 +54,24 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
+
+<script>
+    $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
+
     $(document).ready(function() {
-
-        // $("#detail").load("infoDetail.jsp");
-
+        $('#search_radio').change(function() {
+            if($('input[name="radio_search"]:checked').val() == "member"){
+                $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
+            }else{
+                $("#searchType").html(util.getCommonCodeSelect(-1, searchBroad));
+            }
+        });
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getSearch();
             };
         });
-
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getSearch();
