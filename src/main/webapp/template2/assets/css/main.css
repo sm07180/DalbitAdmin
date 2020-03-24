@@ -12569,6 +12569,7 @@ body.topnav-fixed #wrapper {
     text-decoration: none;
     color: #fff; }
 .top-bar .logged-user .btn .name {
+    font-size: initial;
     font-weight: 400; }
 .top-bar .logged-user .btn .caret {
     border-top-color: #fff; }
@@ -13356,6 +13357,7 @@ body.sidebar-float .content-wrapper {
 
 /* chart navigation */
 .chart-nav {
+    padding-top: 15px;
     margin-bottom: 40px; }
 @media screen and (max-width: 480px) {
     .chart-nav strong {
