@@ -107,8 +107,10 @@ public class NoticeService {
 
         if(Status.공지상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.공지상세조회_성공, noticeDetail));
-        } else{
+        } else if(Status.공지상세조회_공지번호없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.공지상세조회_공지번호없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지상세조회_에러));
         }
 
         return result;
@@ -125,10 +127,10 @@ public class NoticeService {
         noticeDao.callServiceCenterNoticeAdd(procedureVo);
 
         String result;
-        if(Status.공지등록성공.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지등록성공));
+        if(Status.공지등록_성공.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지등록_성공));
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지등록실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지등록_실패));
         }
 
         return result;
@@ -143,10 +145,12 @@ public class NoticeService {
 
         noticeDao.callServiceCenterNoticeUpdate(procedureVo);
         String result;
-        if(Status.공지수정성공.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지수정성공));
+        if(Status.공지수정_성공.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지수정_성공));
+        } else if(Status.공지수정_실패.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지수정_실패));
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지수정실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지수정_에러));
         }
 
         return result;
@@ -169,7 +173,7 @@ public class NoticeService {
 
             noticeDao.callServiceCenterNoticeDelete(procedureVo);
 
-            if (Status.공지삭제성공.getMessageCode().equals(procedureVo.getRet())) {
+            if (Status.공지삭제_성공.getMessageCode().equals(procedureVo.getRet())) {
                 sucCnt++;
             } else {
                 failCnt++;
@@ -181,9 +185,9 @@ public class NoticeService {
         resultMap.put("failCnt", failCnt);
 
         if(0 < sucCnt){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제성공, resultMap));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제_성공, resultMap));
         }else{
-            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제실패, resultMap));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제_실패, resultMap));
         }
 
         return result;
