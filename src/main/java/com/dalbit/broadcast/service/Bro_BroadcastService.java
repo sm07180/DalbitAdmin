@@ -78,6 +78,8 @@ public class Bro_BroadcastService {
 
         if (Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송방수정내역조회_성공, editList, new PagingVo(procedureVo.getRet())));
+        } else if(Status.방송방수정내역조회_데이터없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방수정내역조회_데이터없음));
         } else if(Status.방송방수정내역조회_방번호없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송방수정내역조회_방번호없음));
         } else {
@@ -86,5 +88,4 @@ public class Bro_BroadcastService {
         return result;
 
     }
-
 }

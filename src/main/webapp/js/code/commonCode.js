@@ -112,14 +112,6 @@ var question_type = [
     ,new COMMON_CODE('etc','7','기타')
 ];
 
-var searchBroad = [
-    new COMMON_CODE(null, 'searchBroad', '방송정보검색')
-    , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('broadTitle', '1', '방송제목')
-    , new COMMON_CODE('welcomMsg', '2', '인사말')      //휴대폰 인증 적용후
-    , new COMMON_CODE('broadNotie', '3', '방송중공지')
-];
-
 var timeHour = getTimeHour();
 
 function getTimeHour() {

@@ -148,6 +148,7 @@
     </div>
 </div>
 <script type="text/javascript">
+
     var report_roomNo;
     var report_memNo;
 

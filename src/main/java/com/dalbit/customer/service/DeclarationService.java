@@ -108,8 +108,10 @@ public class DeclarationService {
 
         if(Status.신고상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고상세조회_성공, declarationDetail));
-        } else {
+        } else if(Status.신고상세조회_공지번호없음.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고상세조회_공지번호없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고상세조회_에러));
         }
 
         return result;
@@ -131,8 +133,10 @@ public class DeclarationService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_성공));
         } else if(Status.신고처리_신고번호없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_신고번호없음));
-        } else {
+        } else if(Status.신고처리_이미처리되었음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_이미처리되었음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리_에러));
         }
 
         return result;
@@ -151,7 +155,7 @@ public class DeclarationService {
         if(Status.신고처리내역수조회_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리내역수조회_성공, opCount));
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.신고처리내역수조회_에러));
         }
 
         return result;
