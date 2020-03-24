@@ -87,7 +87,7 @@
                 config(cookie.key, value, option);
             }
             alert(data.message);
-            //location.href = '/index.html';
+            location.href = '/index.html';
         }else if(data.result == 'fail'){
             alert(data.message);
         }
