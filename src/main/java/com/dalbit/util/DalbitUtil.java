@@ -604,25 +604,20 @@ public class DalbitUtil {
     public static CookieVo parseCookie(String cookieString){
 
         CookieVo cookieVo = new CookieVo();
-        try {
 
-            String[] cookieGubun = cookieString.split(";");
+        String[] cookieGubun = cookieString.split(";");
 
 
-            for (String cookieSlice : cookieGubun) {
-                String[] temp = cookieSlice.split("=");
-                if(temp[0].trim().equals("path")){
-                    cookieVo.setPath(temp[1]);
-                }else if(temp[0].trim().equals("domain")){
-                    cookieVo.setDomain(temp[1]);
-                }else{
-                    cookieVo.setKey(temp[0]);
-                    cookieVo.setValue(URLEncoder.encode(new String(temp[1].getBytes("EUC-KR"))).replaceAll("%25", "%"));
-                }
+        for (String cookieSlice : cookieGubun) {
+            String[] temp = cookieSlice.split("=");
+            if(temp[0].trim().equals("path")){
+                cookieVo.setPath(temp[1]);
+            }else if(temp[0].trim().equals("domain")){
+                cookieVo.setDomain(temp[1]);
+            }else{
+                cookieVo.setKey(temp[0]);
+                cookieVo.setValue(temp[1]);
             }
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
 
         log.info(cookieVo.toString());

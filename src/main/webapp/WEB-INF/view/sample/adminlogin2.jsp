@@ -23,7 +23,6 @@
 <button type="button" class="btn" id="ajaxManuBtn">ajax 메뉴 불러오기</button>
 <iframe id="inforexMenu" width="100%" height="300"></iframe>
 <textarea type="textarea" class="form-control" id="txt_Menu" style="width: 100%;height: 300px"></textarea>
-<textarea type="textarea2" class="form-control" id="txt_Menu" style="width: 100%;height: 300px"></textarea>
 
 <div>
     <li id="adminmenu">
@@ -102,14 +101,17 @@
     }
 
     function menu(){
+        var url = "http://admin.inforex.co.kr/getCommonMenu.php";
         var data = new Object();
-        data.url = "http://admin.inforex.co.kr/getCommonMenu.php";
+        data.url = url;
 
-        // var option = {
-        //     type : 'GET'
-        //     , dataType : 'html'
-        // };
+        var option = {
+            type : 'GET'
+            , dataType : 'json'
+        };
         util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess, menuFail);
+
+        util.getAjaxData("menu", url, null, menuSuccess, menuFail,option);
     }
     function menuSuccess(dst_id, data){
         dalbitLog('menuSuccess');
