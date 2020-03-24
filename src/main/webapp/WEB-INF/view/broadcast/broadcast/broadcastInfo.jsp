@@ -61,6 +61,7 @@
     }
 
     function info_sel_success(dst_id, response, param) {
+        room_no = param.room_no;
         response.data.room_no = param.room_no;
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
