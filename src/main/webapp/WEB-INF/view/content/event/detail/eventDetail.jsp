@@ -32,12 +32,6 @@
 <script>
     $(document).ready(function () {
         fnc_eventDetail.init();
-
-        if(common.isEmpty(getSelectDataInfo())){
-            fnc_eventDetail.insertEventDetail();
-        }else{
-            fnc_eventDetail.updateEventDetail();
-        }
     });
 
 
@@ -47,6 +41,16 @@
 
         init() {
             this.target = $("#"+this.targetId);
+
+            if(common.isEmpty(getSelectDataInfo())){
+                fnc_eventDetail.insertEventDetail();
+            }else{
+                console.log(getSelectDataInfo());
+                this.dataKey = getSelectDataInfo().dataKey;
+                this.data = getSelectDataInfo().data;
+
+                fnc_eventDetail.updateEventDetail();
+            }
 
             // this.initDetail();
             // this.initEventDetail();
@@ -334,7 +338,7 @@
                 <td colspan="2">{{{getCommonCodeRadio 1 'viewType'}}}</td>
 
                 <th>게시여부</th>
-                <td colspan="2">{{{getCommonCodeRadio 1 'banner_viewOn'}}}</td>
+                <td colspan="2">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
             </tr>
             <tr>
                 <th colspan="12">배너 이미지</th>

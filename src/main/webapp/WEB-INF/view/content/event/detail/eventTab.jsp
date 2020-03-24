@@ -6,8 +6,8 @@
         <li><a href="#eventReport" role="tab" data-toggle="tab" id="tab_eventReport" onclick="onClickContentTab(this.id)">응모자/당첨자</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane fade" id="eventDetail"><jsp:include page="/WEB-INF/view/content/event/eventDetail.jsp"/></div>     <!-- 상세 -->
-        <div class="tab-pane fade" id="eventReport"><jsp:include page="/WEB-INF/view/content/event/eventReport.jsp"/></div>     <!-- 응모자/당첨자 -->
+        <div class="tab-pane fade" id="eventDetail"><jsp:include page="/WEB-INF/view/content/event/detail/eventDetail.jsp"/></div>     <!-- 상세 -->
+        <div class="tab-pane fade" id="eventReport"><jsp:include page="/WEB-INF/view/content/event/detail/eventReport.jsp"/></div>     <!-- 응모자/당첨자 -->
     </div>
 </div>
 

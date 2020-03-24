@@ -65,10 +65,10 @@
                 data.startDate = $('#banner-inputReportrange').attr("startDated");
                 data.endDate = $('#banner-inputReportrange').attr("endDate");
             };
-            this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.pastEvent);
+            this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge);
             this.dtList_info.useCheckBox(true);
             this.dtList_info.useIndex(true);
-            this.dtList_info.setEventClick(this.updateData,4);
+            this.dtList_info.setEventClick(this.updateData,5);
             this.dtList_info.createDataTable();
             this.initDataTableButton();
             //---------- Main DataTable ----------=
