@@ -28,8 +28,8 @@
                 <span id="declaration_Message"></span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="bt_modalForced" <%--data-dismiss="modal"--%>><i class="fa fa-times-circle"></i> 확인</button>
-                <button type="button" class="btn btn-custom-primary" id="bt_modalForcedNotice" data-dismiss="modal"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
+                <button type="button" class="btn btn-default" id="bt_modalForced"><i class="fa fa-times-circle"></i> 확인</button>
+                <button type="button" class="btn btn-custom-primary" id="bt_modalForcedNotice"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
             </div>
         </div>
     </div>
@@ -111,45 +111,55 @@
     function forcedData(){
         if(dtList_info_detail.getCheckedData().length <= 0){
             alert("강제퇴장자를 선택해 주십시오");
-            return false;
+            return;
         }
         $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
         $('#forcedModal').modal('show');
     }
     function forced(tmp){
-        var checkDatas = dtList_info_detail.getCheckedData();
-        dalbitLog(checkDatas);
+        var sendNoti;
+        if(tmp == "bt_modalForced") {    // 강제퇴장 알림X
+            sendNoti = 0;
+        }else if(tmp == "bt_modalForcedNotice"){      // 강제퇴장 알림O
+            sendNoti = 1;
+        }
 
-        var message="";
+        var forceMessage="";
         $('input:checkbox[name="message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
-                message = message + " - " + this.value + "\n";
+                forceMessage = forceMessage + " - " + this.value + "\n";
             }
         });
+        if(forceMessage == ""){
+            alert("강제 퇴장 사유를 선택해 주십시오");
+            return;
+        }
         var strName = '${principal.getUserInfo().getName()}';
         var date = new Date();
-        var forcedDate = date.getFullYear() + "." + common.lpad(date.getMonth(),2,"0") + "." + common.lpad(date.getDay(),2,"0") + " " +
+        var timestamp = date.getFullYear() + "." + common.lpad(date.getMonth(),2,"0") + "." + common.lpad(date.getDay(),2,"0") + " " +
                         common.lpad(date.getHours(),2,"0") + "." + common.lpad(date.getMinutes(),2,"0") + "." + common.lpad(date.getSeconds(),2,"0");
 
+        var checkDatas = dtList_info_detail.getCheckedData();
         for(var i=0;i<checkDatas.length;i++){
-            var meno = common.replace(message.forceLeave.toString(), '{{name}}', strName);
-            // var meno = "달빛라디오 Clean 운영자 " + strName +  "입니다.\n" +
-            //     "\n" +
-            //     checkDatas[i].nickName + "님께서 달빛라디오 서비스 이용 중 운영정책 위반사항이 접수되었습니다.\n" +
-            //     "이에 발생된 문제점이 확인되어, 즉시 강제퇴장 조치가 시행되었습니다.\n" +
-            //     "\n" +
-            //     "◈ 운영정책 위반사항\n"+
-            //     message +
-            //     "중단조치 일시 : " + forcedDate + "\n\n"+
-            //     "자세한 사유를 알고 싶으시면 1:1문의를 이용해주세요.";
-            console.log(meno);
+            var meno = message.forceLeave.replace("{{name}}",strName)
+                                          .replace("{{nickName}}",checkDatas[i].nickName)
+                                          .replace("{{message}}",forceMessage)
+                                          .replace("{{timestamp}}",timestamp);
+            var data = new Object();
+            data.room_no = room_no;
+            data.mem_no = checkDatas[i].mem_no;
+            data.sendNoti = sendNoti;
+            data.notiContents = message.forceLeaveTitle;
+            data.notiMeno = meno;
+
+            util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
         }
-
-        if(tmp == "bt_modalForcedNotice"){      // 강제퇴장 알림O
-
-        }else if(tmp == "bt_modalForced"){    // 강제퇴장 알림X
-
-        }
+    }
+    function forceLeave_success(dst_id, response){
+        dalbitLog(response);
+        $('#forcedModal').modal('hide');
+        dtList_info_detail.reload();
+        alert(response.message);
     }
 </script>
 
