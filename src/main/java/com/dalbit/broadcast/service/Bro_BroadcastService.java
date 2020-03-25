@@ -88,4 +88,26 @@ public class Bro_BroadcastService {
         return result;
 
     }
+
+    /**
+     * 방송방 정보수정
+     */
+    public String callBroadcastEdit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pBroadcastEditInputVo);
+        bro_BroadcastDao.callBroadcastEdit(procedureVo);
+        String result;
+
+        if(Status.방송방정보수정_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_성공));
+        } else if(Status.방송방정보수정_방번호없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_방번호없음));
+        } else if(Status.방송방정보수정_종료된방.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_종료된방));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_에러));
+        }
+
+        return result;
+
+    }
 }

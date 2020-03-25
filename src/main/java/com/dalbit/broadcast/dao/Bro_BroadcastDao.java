@@ -6,7 +6,6 @@ import com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @Repository
@@ -16,4 +15,5 @@ public interface Bro_BroadcastDao {
 
     P_BroadcastDetailOutputVo callBroadcastInfo(ProcedureVo procedureVo);
     ArrayList<P_BroadcastEditHistOutputVo> callBroadcastEditHistory(ProcedureVo procedureVo);
+    ProcedureVo callBroadcastEdit(ProcedureVo procedureVo);
 }
