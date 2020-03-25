@@ -279,7 +279,7 @@
                 <td colspan="2">{{{getCommonCodeRadio 1 'viewType'}}}</td>
 
                 <th>게시여부</th>
-                <td colspan="2">{{{getCommonCodeRadio 1 'banner_viewOn'}}}</td>
+                <td colspan="2">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
             </tr>
             <tr>
                 <th>노출 빈도</th>

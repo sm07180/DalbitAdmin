@@ -39,14 +39,6 @@ var forcedExit = [
     , new COMMON_CODE('forcedExit', '1', '강제종료')
 ];
 
-var live_summary = [
-    new COMMON_CODE('', 'totalListen', '총 청취자')
-    , new COMMON_CODE('', 'totalgift', '총 선물')
-    , new COMMON_CODE('', 'totalGood', '총 좋아요')
-    , new COMMON_CODE('', 'totalBooster', '총 청취자 부스터')
-    , new COMMON_CODE('', 'totalBan', '총 강제퇴장')
-];
-
 var searchType_broad = [
     new COMMON_CODE(null, 'searchType_broad', '사용자정보구분')
     , new COMMON_CODE('all', '0', '전체')
@@ -64,6 +56,29 @@ var searchBroad_broad = [
     , new COMMON_CODE('welcomMsg', '2', '인사말')
     , new COMMON_CODE('broadNotie', '3', '방송중공지')
 ];
+
+var state = [
+    new COMMON_CODE(null, 'state', '상태')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('0', '0', '청취중')
+    , new COMMON_CODE('1', '1', '퇴장')
+    , new COMMON_CODE('2', '2', '강제퇴장')
+    , new COMMON_CODE('3', '3', '매니저')
+    , new COMMON_CODE('4', '4', '게스트')
+];
+
+
+
+
+// ------------------------- table -----------------------------
+var live_summary = [
+    new COMMON_CODE('', 'totalListen', '총 청취자')
+    , new COMMON_CODE('', 'totalgift', '총 선물')
+    , new COMMON_CODE('', 'totalGood', '총 좋아요')
+    , new COMMON_CODE('', 'totalBooster', '총 청취자 부스터')
+    , new COMMON_CODE('', 'totalBan', '총 강제퇴장')
+];
+
 
 var Listen_summary = [
     new COMMON_CODE('','listenerCnt','청취자 수')

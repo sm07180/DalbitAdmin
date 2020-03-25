@@ -70,6 +70,7 @@
         var html=templateScript(context);
         $("#detailFrm").html(html);
         btn_init();
+        $("#tablist_con").find('.active').find('a').click();
     }
 
     function btn_init(){
@@ -100,16 +101,16 @@
             getInfoDetail(this.id,"운영자 메모");
         });
         $('#bt_editDate').click(function() {               // 정보수정내역
-            getInfoDetail(this.id,"정보수정내역");
+            getInfoDetail(this.id);
         });
 
+        $('#bt_editHistory').click(function() {
+            getInfoDetail(this.id,"정보수정내역");
+        });
         // 버튼 끝
     }
 
 
-    $(document).on('click', '#bt_editHistory', function(){
-        getInfoDetail(this.id,"정보수정내역");
-    });
 
     function fullSize(url) {     // 이미지 full size
         console.log("url : " + url);
@@ -133,6 +134,7 @@
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = $("#"+buttonId).data('roomno');
+            data.mem_no = $("#"+buttonId).data('memno');
         }
 
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
@@ -145,9 +147,6 @@
     function bt_click(tmp) {
     }
 
-    function fn_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
-    }
 
 </script>
 
@@ -200,7 +199,7 @@
         <tr>
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 60px">{{welcomeMsg}}</textarea>
+                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 40px">{{welcomeMsg}}</textarea>
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">삭제</button>
             </td>
         <tr>
@@ -246,14 +245,17 @@
             <th>DJ 닉네임</th>
             <td style="text-align: left">{{dj_nickName}}</td>
             <th>방송 종료일시</th>
-            <td style="text-align: left">{{endDate}}</td>
+            <td style="text-align: left">
+                {{endDate}}
+                {{#equal endDate ''}}-{{/equal}}
+            </td>
         </tr>
         <tr>
             <th>성별</th>
             <td style="text-align: left">{{dj_memSex}}</td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
-                {{airTimeFormat}}
+                {{airTime}}
                 <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
@@ -261,10 +263,13 @@
             <th rowspan="2">운영자메모</th>
             <td rowspan="1" style="text-align: left">
                 {{opMemoCnt}}
-                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
+                <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">자세히</button>
             </td>
             <th>방송 정보 수정일시</th>
-            <td style="text-align: left">{{lastOpDate}}</td>
+            <td style="text-align: left">
+                {{lastOpDate}}
+                {{#equal lastOpDate ''}}-{{/equal}}
+            </td>
         </tr>
         <tr>
             <td style="text-align: left">
@@ -274,6 +279,7 @@
             <th>방송 정보 수정 처리자</th>
             <td style="text-align: left">
                 {{lastOpName}}
+                {{#equal lastOpName ''}}-{{/equal}}
                 <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right" data-roomno="{{room_no}}">자세히</button>
             </td>
         </tr>

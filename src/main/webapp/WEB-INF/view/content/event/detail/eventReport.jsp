@@ -21,6 +21,27 @@
     </div>
 </div>
 
+
+<!-- modal -->
+<div class="modal fade" id="eventReportModal" tabindex="-1" role="dialog" aria-labelledby="eventReportModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="_layerTitle">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p id="_layerBody">Modal dialog content...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
 
@@ -40,6 +61,14 @@
             this.target.find("#list_info").attr("id", this.targetDataTableId);
             this.targetDataTable = this.target.find("#"+this.targetDataTableId);
             this.divDataTable = this.targetDataTable.parent("div");
+
+            /** 선택된 데이터 정보 조회  */
+            if(!common.isEmpty(getSelectDataInfo())){
+                alert("[ERROR] SelectDataInfo 전달 실패!")
+                console.log(getSelectDataInfo());
+                this.dataKey = getSelectDataInfo().dataKey;
+                this.data = getSelectDataInfo().data;
+            }
 
             this.initDataTable();
             this.initEvent();
@@ -64,6 +93,7 @@
             this.dtList_info.useIndex(true);
             this.dtList_info.setEventClick(this.updateBanner,4);
             this.dtList_info.useInitReload(true);
+            this.dtList_info.setPageLength(-1);
             this.dtList_info.createDataTable(this.initSummary);
 
             this.initDataTableButton();
@@ -72,13 +102,15 @@
 
 
         initSummary(json) {
+            //전체 선택 체크박스 비활성화
+            $("#list_info_" + fnc_eventReport.targetId +"-select-all").hide();
+
             var template = $('#tmp_eventReportStatisticsFrm').html();
             var templateScript = Handlebars.compile(template);
             var context = json.summary;
             var html=templateScript(context);
 
             fnc_eventReport.divDataTable = fnc_eventReport.targetDataTable.parent("div");
-
             fnc_eventReport.divDataTable.find(".top-right").append(html);
         },
 
@@ -99,6 +131,7 @@
 
 
 
+        "choiceIdx" : 1,
         initEvent(){
             this.target.find("#btn_insert").on("click", function () { //등록
                 fnc_eventReport.insertEvent();
@@ -107,6 +140,37 @@
             this.target.find("#btn_delete").on("click", function () { //삭제
                 fnc_eventReport.deleteEvent();
             })
+
+            this.target.find("#btn_winner").on("click", function () { //선택당첨
+                fnc_eventReport.winnerEvent();
+            })
+
+
+
+            this.targetDataTable.children('tbody').on('change', 'input[type="checkbox"]', function () {
+                var idx = fnc_eventReport.targetDataTable.children('tbody').find('input[type="checkbox"]').index(this);
+                if (this.checked) {
+                    $(this).parent("td").parent("tr").find("td:eq(2)").text("선정");
+                    $(this).parent("td").parent("tr").find("td:eq(3)").text(fnc_eventReport.choiceIdx);
+                    fnc_eventReport.targetDataTable.DataTable().row(idx).data().choiceNum = fnc_eventReport.choiceIdx;
+                    fnc_eventReport.choiceIdx++;
+                }else{
+                    var oriNum = $(this).parent("td").parent("tr").find("td:eq(3)").text();
+                    $(this).parent("td").parent("tr").find("td:eq(2)").text("");
+                    $(this).parent("td").parent("tr").find("td:eq(3)").text("");
+                    delete fnc_eventReport.targetDataTable.DataTable().row(idx).data().choiceNum;
+                    fnc_eventReport.choiceIdx--;
+
+                    fnc_eventReport.targetDataTable.children('tbody').find('input[type="checkbox"]').each(function(){
+                        if(this.checked){
+                            var num = $(this).parent("td").parent("tr").find("td:eq(3)").text();
+                            if(num > oriNum){
+                                $(this).parent("td").parent("tr").find("td:eq(3)").text(num - 1);
+                            }
+                        }
+                    });
+                }
+            })
         },
 
 
@@ -114,9 +178,9 @@
 
         // 등록
         insertEvent() {
-            fnc_eventDetail.insertEventDetail();
+            fnc_eventReport.insertEventDetail();
 
-            $("#tab_eventDetail").click();
+            $("#tab_eventReport").click();
         },
 
         // 삭제
@@ -134,6 +198,29 @@
 
             dalbitLog(checkDatas);
         },
+
+
+        // 수정 화면
+        updateEventDetail(json){
+            if(common.isEmpty(getSelectDataInfo())){
+                alert("[ERROR] SelectDataInfo 전달 실패!")
+                console.log("[ERROR] SelectDataInfo 전달 실패! =-----")
+                console.log(getSelectDataInfo());
+                console.log("[ERROR] SelectDataInfo 전달 실패! -----=")
+                return false;
+            }
+
+            var dataKey = getSelectDataInfo().dataKey;
+            var data = getSelectDataInfo().data;
+
+            this.initDataTable();
+            this.initEvent();
+
+            //TODO 데이터 셋팅 후 이벤트 처리 필요
+            //TODO 수신대상 그려야 함.
+        },
+
+
 
         // 수정
         updateBanner(data) {
@@ -157,6 +244,27 @@
             })
 
             $("#tab_eventDetail").click();
+        },
+
+        //당첨자 지정선택
+        winnerEvent() {
+            var checkDatas = fnc_eventReport.dtList_info.getCheckedData();
+
+            if(checkDatas.length <= 0){
+                alert("삭제할 정보를 선택해주세요.");
+                return false;
+            }
+
+            console.log(checkDatas);
+        },
+
+        //응모횟수 모달 데이터 셋팅
+        setModalData(idx){
+            var data = fnc_eventReport.dtList_info.getDataRow(idx)
+
+            console.log(data);
+            fnc_eventReport.target.find("#_layerTitle").html('제목이에요');
+            fnc_eventReport.target.find("#_layerBody").html(JSON.stringify(data));
         },
 
 
