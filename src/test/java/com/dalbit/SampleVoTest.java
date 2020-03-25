@@ -1,9 +1,9 @@
-/*
 package com.dalbit;
 
 import com.dalbit.common.service.CommonService;
 import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.CookieVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.util.OkHttpClientUtil;
 import com.dalbit.util.RestApiUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,18 +36,6 @@ public class SampleVoTest {
         //commonService.getCodeList("subject_type");
     }
 
-    */
-/**
-     * url : http://admin.inforex.co.kr/loginout.html
-     *   method : POST
-     *   post data : {
-     *     userid: xxxx,         // 아이디
-     *     password: xxxx,       // 패스워드
-     *     mode: 'login',        // 로그인인경우 해당값으로 고정.
-     *     where: 'dalbit'       // 요값도 고정.
-     *   }
-     *//*
-
     @Test
     public void 인포렉스로그인()throws Exception{
 
@@ -57,12 +45,6 @@ public class SampleVoTest {
             .add("mode", "login")
             .add("where", "dalbit")
         .build();
-
-        HashMap map = new HashMap();
-        map.put("userid", "leejaeho1144");
-        map.put("password", "20706wogh!");
-        map.put("mode", "login");
-        map.put("where", "dalbit");
 
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
         Response response = okHttpClientUtil.sendPost("http://admin.inforex.co.kr/loginout.html", null);
@@ -77,7 +59,7 @@ public class SampleVoTest {
     public void 인포렉스메뉴가져오기()throws Exception{
 
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
-        String result = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/getCommonMenu.php");
+        String result = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/getCommonMenu.php", null,"", "");
         log.info(result);
     }
 
@@ -103,5 +85,16 @@ public class SampleVoTest {
 
     }
 
+    @Test
+    public void API서버콜테스트() throws GlobalException {
+        RequestBody formBody = new FormBody.Builder()
+                .add("userid", "leejaeho1144")
+                .add("mode", "login")
+                .add("where", "dalbit")
+                .build();
+
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        Response response = okHttpClientUtil.sendPost("https://devm-hwlee.dalbitcast.com:4431/self/auth/res", formBody);
+    }
+
 }
-*/
