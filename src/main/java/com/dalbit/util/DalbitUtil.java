@@ -632,4 +632,9 @@ public class DalbitUtil {
         });
         return cookieList;
     }
+
+    public static void saveInforexMenu(String json){
+        log.info(json);
+
+    }
 }

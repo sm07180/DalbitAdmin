@@ -11,11 +11,8 @@
 </div>
 <script>
     $(document).ready(function() {
+        $('#tabList_top').addClass("show");
+        getMemNo_info_reload(<%=in_memNo%>);
     });
 
-    init();
-    function init(){
-        var tmp =  <%=in_memNo%>;
-        getMemNo_info_reload(tmp);
-    }
 </script>

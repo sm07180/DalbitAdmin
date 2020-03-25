@@ -63,8 +63,6 @@ var state = [
     , new COMMON_CODE('0', '0', '청취중')
     , new COMMON_CODE('1', '1', '퇴장')
     , new COMMON_CODE('2', '2', '강제퇴장')
-    , new COMMON_CODE('3', '3', '매니저')
-    , new COMMON_CODE('4', '4', '게스트')
 ];
 
 

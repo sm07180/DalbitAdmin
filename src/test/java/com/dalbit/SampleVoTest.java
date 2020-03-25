@@ -98,5 +98,17 @@ public class SampleVoTest {
         Response response = okHttpClientUtil.sendPost("https://devm-hwlee.dalbitcast.com:4431/self/auth/res", formBody);
     }
 
+    @Test
+    public void 메뉴테스트()throws Exception{
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        Response response = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/getCommonMenu.php");
+        log.info("sdlfkjalsf");
+        log.info("sdlfkjalsf");
+        log.info("sdlfkjalsf");
+        log.info("sdlfkjalsf");
+        log.info("sdlfkjalsf");
+    }
+
+
 }
 */

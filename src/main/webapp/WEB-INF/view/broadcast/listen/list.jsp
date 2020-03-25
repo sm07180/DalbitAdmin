@@ -17,6 +17,7 @@
     </div>
 </div>
 
+<!-- 강제퇴장 Modal -->
 <div class="modal fade" id="forcedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 600px;display: table;">
         <div class="modal-content">
@@ -28,12 +29,13 @@
                 <span id="declaration_Message"></span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="bt_modalForced" <%--data-dismiss="modal"--%>><i class="fa fa-times-circle"></i> 확인</button>
-                <button type="button" class="btn btn-custom-primary" id="bt_modalForcedNotice" data-dismiss="modal"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
+                <button type="button" class="btn btn-default" id="bt_modalForced"><i class="fa fa-times-circle"></i> 확인</button>
+                <button type="button" class="btn btn-custom-primary" id="bt_modalForcedNotice"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
             </div>
         </div>
     </div>
 </div>
+<!-- Modal 끝 -->
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript" src="/js/message/broadcast/broadCastMessage.js"></script>
@@ -47,24 +49,13 @@
             forced(this.id);
         });
     });
-
     var tmp_sortState = -1;
     function getBroadHistory_listen(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
-            if(tmp_sortState != -1){
-                if(tmp_sortState == 0 || tmp_sortState == 3 || tmp_sortState == 4 || tmp_sortState == 5) {
-                    data.sortState = 0;          // 접속상태가 접속중이면
-                    if (tmp_sortState == 3) {          data.sortAuth = 1;   // 접속중이면서 매니저
-                    } else if (tmp_sortState == 4) {  data.sortAuth = 2;   // 접속중이면서 게스트
-                    } else if (tmp_sortState == 5) {  data.sortAuth = 0;   // 접속중이면서 청취자
-                    }
-                }else if(tmp_sortState == 1 || tmp_sortState == 2) {
-                    data.sortState = tmp_sortState;       // 접속중이 아니면서 퇴장인지, 강퇴인지
-                }
-            }
+            data.sortState = tmp_sortState;       // 청취자인지, 퇴장인지, 강퇴인지
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(true);
@@ -76,8 +67,7 @@
     }
 
     function initDataTableTop_select_report(tmp){
-
-        var topTable = '<span name="state" id="state" onchange="sel_change()"></span>';
+        var topTable = '<span name="state" id="state" onchange="force_sel_change()"></span>';
         var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
 
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
@@ -87,7 +77,7 @@
         eventInit();
     }
 
-    function sel_change(){
+    function force_sel_change(){
         tmp_sortState = $("select[name='state']").val();
         dtList_info_detail.reload();
     }
@@ -101,55 +91,66 @@
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
     }
-
     function eventInit(){
         $("#btn_forced").on("click", function () { //강제퇴장
             forcedData();
         });
     }
-
     function forcedData(){
         if(dtList_info_detail.getCheckedData().length <= 0){
             alert("강제퇴장자를 선택해 주십시오");
-            return false;
+            return;
         }
         $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
         $('#forcedModal').modal('show');
     }
     function forced(tmp){
-        var checkDatas = dtList_info_detail.getCheckedData();
-        dalbitLog(checkDatas);
+        var sendNoti;
+        if(tmp == "bt_modalForced") {    // 강제퇴장 알림X
+            sendNoti = 0;
+        }else if(tmp == "bt_modalForcedNotice"){      // 강제퇴장 알림O
+            sendNoti = 1;
+        }
 
-        var message="";
+        var forceMessage="";
         $('input:checkbox[name="message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
-                message = message + " - " + this.value + "\n";
+                forceMessage = forceMessage + " - " + this.value + "\n";
             }
         });
+        if(forceMessage == ""){
+            alert("강제 퇴장 사유를 선택해 주십시오");
+            return;
+        }
         var strName = '${principal.getUserInfo().getName()}';
         var date = new Date();
-        var forcedDate = date.getFullYear() + "." + common.lpad(date.getMonth(),2,"0") + "." + common.lpad(date.getDay(),2,"0") + " " +
-                        common.lpad(date.getHours(),2,"0") + "." + common.lpad(date.getMinutes(),2,"0") + "." + common.lpad(date.getSeconds(),2,"0");
+        var timestamp = date.getFullYear() + "." +
+                        common.lpad(date.getMonth(),2,"0") + "." +
+                        common.lpad(date.getDay(),2,"0") + " " +
+                        common.lpad(date.getHours(),2,"0") + "." +
+                        common.lpad(date.getMinutes(),2,"0") + "." +
+                        common.lpad(date.getSeconds(),2,"0");
 
+        var checkDatas = dtList_info_detail.getCheckedData();
         for(var i=0;i<checkDatas.length;i++){
-            var meno = common.replace(message.forceLeave.toString(), '{{name}}', strName);
-            // var meno = "달빛라디오 Clean 운영자 " + strName +  "입니다.\n" +
-            //     "\n" +
-            //     checkDatas[i].nickName + "님께서 달빛라디오 서비스 이용 중 운영정책 위반사항이 접수되었습니다.\n" +
-            //     "이에 발생된 문제점이 확인되어, 즉시 강제퇴장 조치가 시행되었습니다.\n" +
-            //     "\n" +
-            //     "◈ 운영정책 위반사항\n"+
-            //     message +
-            //     "중단조치 일시 : " + forcedDate + "\n\n"+
-            //     "자세한 사유를 알고 싶으시면 1:1문의를 이용해주세요.";
-            console.log(meno);
+            var meno = message.forceLeave.replace("{{name}}",strName)
+                                          .replace("{{nickName}}",checkDatas[i].nickName)
+                                          .replace("{{message}}",forceMessage)
+                                          .replace("{{timestamp}}",timestamp);
+            var data = new Object();
+            data.room_no = room_no;
+            data.mem_no = checkDatas[i].mem_no;
+            data.sendNoti = sendNoti;
+            data.notiContents = message.forceLeaveTitle;
+            data.notiMeno = meno;
+
+            util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
         }
-
-        if(tmp == "bt_modalForcedNotice"){      // 강제퇴장 알림O
-
-        }else if(tmp == "bt_modalForced"){    // 강제퇴장 알림X
-
-        }
+    }
+    function forceLeave_success(dst_id, response){
+        dalbitLog(response);
+        $('#forcedModal').modal('hide');
+        dtList_info_detail.reload();
     }
 </script>
 

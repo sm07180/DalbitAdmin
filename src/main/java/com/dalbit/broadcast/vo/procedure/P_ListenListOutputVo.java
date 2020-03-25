@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class P_BroadcastListenListOutputVo extends PagingVo {
+public class P_ListenListOutputVo extends PagingVo {
 
     /* return result */
     private int auth;

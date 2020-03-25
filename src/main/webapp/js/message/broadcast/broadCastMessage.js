@@ -1,4 +1,5 @@
 var message = {
+    forceLeaveTitle : '청취자 강제퇴장 조치 안내',
     forceLeave : '달빛라디오 Clean 운영자 {{name}}입니다.\n' +
     '\n' +
     '{{nickName}}님께서 달빛라디오 서비스 이용 중 운영정책 위반사항이 접수되었습니다.\n' +
@@ -8,5 +9,5 @@ var message = {
     '{{message}}\n'+
     '중단조치 일시 : {{timestamp}}\n' +
     '\n' +
-    '자세한 사유를 알고 싶으시면 1:1문의를 이용해주세요.'
+    '자세한 사유를 알고 싶으시면 1:1문의를 이용해주세요.',
 }

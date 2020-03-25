@@ -286,7 +286,7 @@
                 <td colspan="5">{{{getCommonCodeRadio 10 'banner_frequency'}}}</td>
 
                 <th>배너위치</th>
-                <td colspan="5">{{{getCommonCodeRadio 1 'banner_bannerType_noAll'}}}</td>
+                <td colspan="5">{{{getCommonCodeRadio 1 'banner_bannerType' 'Y'}}}</td>
             </tr>
             <tr>
                 <th>노출 기간</th>

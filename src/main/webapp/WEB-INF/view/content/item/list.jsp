@@ -31,22 +31,32 @@
                 <li class="active"><a href="#chargeList" role="tab" data-toggle="tab" id="tab_chargeList" onclick="onClickHeaderTab(this.id)">충전 아이템</a></li>
                 <li><a href="#exchangeList" role="tab" data-toggle="tab" id="tab_exchangeList" onclick="onClickHeaderTab(this.id)">교환 아이템</a></li>
                 <li><a href="#giftList" role="tab" data-toggle="tab" id="tab_giftList" onclick="onClickHeaderTab(this.id)">선물 아이템</a></li>
+                <%--    TODO 추후 추가
                 <li><a href="#subscribeList" role="tab" data-toggle="tab" id="tab_subscribeList" onclick="onClickHeaderTab(this.id)">구독 아이템</a></li>
                 <li><a href="#broadcastList" role="tab" data-toggle="tab" id="tab_broadcastList" onclick="onClickHeaderTab(this.id)">방송 아이템</a></li>
+                --%>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="chargeList"><jsp:include page="/WEB-INF/view/content/item/chargeList.jsp"/></div>     <!-- 충전 아이템 -->
-                <%--<div class="tab-pane fade" id="exchangeList"><jsp:include page="/WEB-INF/view/content/item/exchangeList.jsp"/></div>     <!-- 교환 아이템 -->--%>
-                <%--<div class="tab-pane fade" id="giftList"><jsp:include page="/WEB-INF/view/content/item/giftList.jsp"/></div>     <!-- 선물 아이템 -->--%>
-                <%--<div class="tab-pane fade" id="subscribeList"><jsp:include page="/WEB-INF/view/content/item/subscribeList.jsp"/></div>     <!-- 구독 아이템 -->--%>
-                <%--<div class="tab-pane fade" id="broadcastList"><jsp:include page="/WEB-INF/view/content/item/broadcastList.jsp"/></div>     <!-- 방송 아이템 -->--%>
+                <div class="tab-pane fade" id="exchangeList"><jsp:include page="/WEB-INF/view/content/item/exchangeList.jsp"/></div>          <!-- 교환 아이템 -->
+                <div class="tab-pane fade" id="giftList"><jsp:include page="/WEB-INF/view/content/item/giftList.jsp"/></div>                       <!-- 선물 아이템 -->
+                <%--    TODO 추후 추가
+                <div class="tab-pane fade" id="subscribeList"><jsp:include page="/WEB-INF/view/content/item/subscribeList.jsp"/></div>     <!-- 구독 아이템 -->-
+                <div class="tab-pane fade" id="broadcastList"><jsp:include page="/WEB-INF/view/content/item/broadcastList.jsp"/></div>     <!-- 방송 아이템 -->
+                --%>
             </div>
         </div>
     </div>
 </div>
 <div class="main-content" style="margin-top: 3px;">
     <!-- TAB -->
-    <jsp:include page="detail/chargeTab.jsp"></jsp:include>
+        <div name="main-content-div" id="chargeListContent"><jsp:include page="detail/chargeTab.jsp"></jsp:include></div>  <!-- 충전 아이템 -->
+        <div name="main-content-div" id="exchangeListContent" style="display: none;"><jsp:include page="detail/exchangeTab.jsp"></jsp:include></div>        <!-- 교환 아이템 -->
+        <div name="main-content-div" id="giftListContent" style="display: none;"><jsp:include page="detail/giftTab.jsp"></jsp:include></div>                      <!-- 선물 아이템 -->
+        <%--    TODO 추후 추가
+        <div name="main-content-div" id="subscribeListTab" style="display: none;"><jsp:include page="detail/chargeTab.jsp"></jsp:include></div>         <!-- 구독 아이템 -->
+        <div name="main-content-div" id="broadcastListTab" style="display: none;"><jsp:include page="detail/chargeTab.jsp"></jsp:include></div>         <!-- 방송 아이템 -->
+        --%>
     <!-- TAB END -->
 </div>
 <jsp:include page="../util/imageModal.jsp"></jsp:include>
@@ -89,7 +99,23 @@
         var targetName = id.split("_")[1];
         var targetFnc = eval("fnc_"+targetName);
 
-        // targetFnc.init();
+        // 검색조건
+        if(targetName == "exchangeList"){
+            $("#search_osType_aria").hide();
+        }else{
+            $("#search_osType_aria").show();
+        }
+
+
+        // 하위 탭 노출여부
+        var targetContent = eval($("#"+targetName+"Content"))
+        $("[name=main-content-div]").each(function(){
+            if($(this).attr("id") == targetContent.attr("id")){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+        });
     }
 
     // 검색
@@ -165,6 +191,25 @@
         return {
             "dataKey" : dataKey
             ,"data" : dataInfo
+        }
+    }
+
+    function getImg(targetName) {
+        var target = $("input[name="+targetName+"]");
+
+        if(target.length <= 0 || target.val().length <= 0){
+            alert("이미지 URL을 확인하여 주시기 바랍니다.");
+            return false;
+        }
+
+        var imgUrl = target.val();
+        $("#"+targetName+"Viewer").attr("src", imgUrl);
+        $("#"+targetName+"Viewer").attr("onerror", "imgError(this.src)");
+    }
+
+    function imgError(imgURL) {
+        if(imgURL.length > 0){
+            alert("이미지 URL이 정상적이지 않습니다.\n입력 URL :" + imgURL);
         }
     }
 

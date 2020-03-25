@@ -6,6 +6,8 @@
 <c:set var="param" value="${requestScope['javax.servlet.forward.query_string']}" />
 <c:set var="param_menu" value="${param.menu}" />
 
+<%--${session.setAttribute("InforexMenuInfo", InforexMenuInfo)}--%>
+
 <!-- left sidebar -->
 <div id="left-sidebar" class="left-sidebar ">
     <!-- main-nav -->
@@ -17,6 +19,28 @@
                         <i class="fa fa-home"></i><span class="text">메인</span>
                     </a>
                 </li>
+
+                <c:forEach var="menu" items='${sessionScope.InforexMenuInfo}'>
+                    <c:if test="${menu.depth eq 1}">
+                        <li>
+                            <a href="javascript://" class="js-sub-menu-toggle">
+                                <span class="text">${menu.name}</span>
+                                <i class="toggle-icon fa fa-angle-left"></i>
+                            </a>
+                            <c:forEach var="menu2" items='${sessionScope.InforexMenuInfo}'>
+                                <c:if test="${menu2.depth eq 2 && menu.id eq menu2.id}">
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="${menu2.url}" target="_blank" class="_inforex">
+                                                <span class="text">${menu2.name}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </c:if>
+                            </c:forEach>
+                        </li>
+                    </c:if>
+                </c:forEach>
 
                 <li class="${fn:startsWith(url, '/미정/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
@@ -413,4 +437,9 @@
         'color' : 'gray',
         'font-weight' : 'bold'
     }).append(' - 준비중');
+
+    $('._inforex').find('span').css({
+        'color' : 'gray',
+        /*'font-weight' : 'bold'*/
+    }).append(' - 새창열기');
 </script>
