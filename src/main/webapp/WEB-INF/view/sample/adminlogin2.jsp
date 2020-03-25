@@ -132,7 +132,7 @@
 
         var option = {
             type : 'GET'
-            , dataType : 'html'
+            , dataType : 'json'
         };
         // util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess, menuFail,option);
 
