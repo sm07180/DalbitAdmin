@@ -4,128 +4,66 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-
-            <h3>2020년 03월 20일 종합현황 <span style="font-size:small;">- 숫자를 클릭하면 자세한 사항을 확인 할 수 있습니다.</span></h3>
-            <div class="widget widget-table">
+            <!--종합현황-->
+            <h3>2020년 03월 20일 종합현황</h3>
+            <div class="widget widget-table mb10">
                 <div class="widget-header">
-                    <h3><i class="fa fa-group"></i> Support Tickets</h3> <em>- List of Support Tickets</em>
-                    <div class="btn-group widget-header-toolbar">
-                        <a href="#" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
-                        <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i
-                                class="fa fa-chevron-up"></i></a>
-                        <a href="#" title="Remove" class="btn-borderless btn-remove"><i class="fa fa-times"></i></a>
-                    </div>
-                    <div class="widget-header-toolbar">
-                        <div class="label label-danger"><i class="fa fa-warning"></i> 2 Critical Messages</div>
-                    </div>
+                    <h3><i class="fa fa-bar-chart-o"></i> 숫자를 클릭하면 자세한 사항을 확인 할 수 있습니다.</h3>
                 </div>
-                <div class="widget-content">
-                    <div id="ticket-table_wrapper" class="dataTables_wrapper form-inline no-footer">
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <div id="ticket-table_filter" class="dataTables_filter"><label>Search:<input
-                                        type="search" class="form-control input-sm" placeholder=""
-                                        aria-controls="ticket-table"></label></div>
-                            </div>
-                        </div>
-                        <table id="ticket-table" class="table table-sorting dataTable no-footer" role="grid">
-                            <thead>
-                            <tr role="row">
-                                <th class="sorting_asc" tabindex="0" aria-controls="ticket-table" rowspan="1"
-                                    colspan="1" aria-sort="ascending"
-                                    aria-label="Number: activate to sort column descending" style="width: 140px;">Number
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="ticket-table" rowspan="1" colspan="1"
-                                    aria-label="Date: activate to sort column ascending" style="width: 265px;">Date
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="ticket-table" rowspan="1" colspan="1"
-                                    aria-label="Category: activate to sort column ascending" style="width: 242px;">
-                                    Category
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="ticket-table" rowspan="1" colspan="1"
-                                    aria-label="Name: activate to sort column ascending" style="width: 136px;">Name
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="ticket-table" rowspan="1" colspan="1"
-                                    aria-label="Title: activate to sort column ascending" style="width: 439px;">Title
-                                </th>
-                                <th class="sorting" tabindex="0" aria-controls="ticket-table" rowspan="1" colspan="1"
-                                    aria-label="Priority: activate to sort column ascending" style="width: 197px;">
-                                    Priority
-                                </th>
+                <div class="widget-content mt10">
+                    <table class="table table-condensed table-dark-header table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="5">방송</th>
+                                <th colspan="4">캐스트</th>
+                                <th colspan="2">접속</th>
+                                <th colspan="2">결제</th>
+                            </tr>
+                            <tr>
+                                <th>건수</th>
+                                <th>시간(분)</th>
+                                <th>청취자 수</th>
+                                <th>선물 건</th>
+                                <th>선물금액</th>
+
+                                <th>건수</th>
+                                <th>조회수</th>
+                                <th>선물 건</th>
+                                <th>선물금액</th>
+
+                                <th>방문자수</th>
+                                <th>접속자수</th>
+
+                                <th>건수</th>
+                                <th>금액(원)</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr role="row" class="odd">
-                                <td class="sorting_1"><a href="#">[#18765]</a></td>
-                                <td>Nov 21, 2013 15:45</td>
-                                <td>Front-End Site</td>
-                                <td>Smith</td>
-                                <td><a href="#">Product Review Problem</a></td>
-                                <td><span class="label label-high">#4 - High</span></td>
+                            <tr>
+                                <td><a href="javascript://">20</a></td>
+                                <td><a href="javascript://">20,000</a></td>
+                                <td><a href="javascript://">323</a></td>
+                                <td><a href="javascript://">14</a></td>
+                                <td><a href="javascript://">34,000</a></td>
+
+                                <td><a href="javascript://">50</a></td>
+                                <td><a href="javascript://">2,112</a></td>
+                                <td><a href="javascript://">512</a></td>
+                                <td><a href="javascript://">23,000</a></td>
+
+                                <td><a href="javascript://">20,000</a></td>
+                                <td><a href="javascript://">22,222</a></td>
+
+                                <td><a href="javascript://">600</a></td>
+                                <td><a href="javascript://">124,342,242</a></td>
                             </tr>
-                            <tr role="row" class="even">
-                                <td class="sorting_1"><a href="#">[#18766]</a></td>
-                                <td>Nov 21, 2013 16:12</td>
-                                <td>Technical Support</td>
-                                <td>Sean</td>
-                                <td><a href="#">Can't Download the Guide Doc</a></td>
-                                <td><span class="label label-medium">#5 - Medium</span></td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class="sorting_1"><a href="#">[#18767]</a></td>
-                                <td>Nov 21, 2013 16:43</td>
-                                <td>General Info</td>
-                                <td>Jane Doe</td>
-                                <td><a href="#">Regarding Customer Support</a></td>
-                                <td><span class="label label-medium">#5 - Medium</span></td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="sorting_1"><a href="#">[#18768]</a></td>
-                                <td>Nov 22, 2013 08:24</td>
-                                <td>General Info</td>
-                                <td>Smith</td>
-                                <td><a href="#">Can't Change My Address</a></td>
-                                <td><span class="label label-urgent">#3 - Urgent</span></td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class="sorting_1"><a href="#">[#18769]</a></td>
-                                <td>Nov 22, 2013 08:30</td>
-                                <td>Sales</td>
-                                <td>Smith</td>
-                                <td><a href="#">Review Tab Malfunction</a></td>
-                                <td><span class="label label-low">#6 - Low</span></td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="sorting_1"><a href="#">[#18770]</a></td>
-                                <td>Nov 22, 2013 08:47</td>
-                                <td>Front-End Site</td>
-                                <td>John Doe</td>
-                                <td><a href="#">Broken Link</a></td>
-                                <td><span class="label label-emergency">#2 - Emergency</span></td>
-                            </tr>
-                            <tr role="row" class="odd">
-                                <td class="sorting_1"><a href="#">[#18771]</a></td>
-                                <td>Nov 23, 2013 14:08</td>
-                                <td>Sales</td>
-                                <td>Jack</td>
-                                <td><a href="#">Need Info About My Order Status</a></td>
-                                <td><span class="label label-critical">#1 - Critical</span></td>
-                            </tr>
-                            <tr role="row" class="even">
-                                <td class="sorting_1"><a href="#">[#18772]</a></td>
-                                <td>Nov 23, 2013 17:45</td>
-                                <td>Techincal Support</td>
-                                <td>Darren</td>
-                                <td><a href="#">Bouncing Email</a></td>
-                                <td><span class="label label-critical">#1 - Critical</span></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <!--//종합현황-->
 
+            <!--방송건수-->
             <div class="widget">
                 <div class="widget-header">
                     <h3><i class="fa fa-bar-chart-o"></i> 방송 건수</h3> <em>- 2020년 03월 20일</em>
@@ -151,6 +89,18 @@
                     </div>
                     <!-- end chart placeholder-->
                     <hr class="separator">
+                </div>
+            </div>
+            <!--//방송건수-->
+
+            <div class="row">
+                <!-- 방송정보 -->
+                <div class="col-md-6">
+
+                </div>
+                <!-- //방송정보 -->
+                <div class="col-md-6">
+
                 </div>
             </div>
         </div>

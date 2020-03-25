@@ -549,7 +549,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8081/rest/broadcast/broadcast/update",
+							"raw": "http://localhost:8081/rest/broadcast/listen/manage",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -558,8 +558,8 @@
 							"path": [
 								"rest",
 								"broadcast",
-								"broadcast",
-								"update"
+								"listen",
+								"manage"
 							]
 						}
 					},
@@ -612,7 +612,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8081/rest/broadcast/listene/forceLeave",
+							"raw": "http://localhost:8081/rest/broadcast/listen/forceLeave",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -621,7 +621,7 @@
 							"path": [
 								"rest",
 								"broadcast",
-								"listene",
+								"listen",
 								"forceLeave"
 							]
 						}

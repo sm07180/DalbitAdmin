@@ -19,8 +19,8 @@
                     <!-- logged user and the menu -->
                     <div class="logged-user">
                         <div class="btn-group">
-                            <a href="#" class="btn btn-link">
-                                <img src="/template2/assets/img/user-avatar.png" alt="User Avatar">
+                            <a href="javascript://" class="btn btn-link">
+                                <img src="/favicon.ico" alt="User Avatar">
                                 <span class="name">${principal.getUserInfo().getName()}</span> [ <span class="name">${principal.getUserInfo().getUserid()}</span> ]
                                 님 께서 로그인 하셨습니다.
                             </a>

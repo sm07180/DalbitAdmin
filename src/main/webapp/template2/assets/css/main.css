@@ -12576,8 +12576,6 @@ body.topnav-fixed #wrapper {
 .top-bar .logged-user .btn:hover {
     color: #fff;
     text-decoration: none; }
-.top-bar .logged-user .btn img {
-    border: 1px solid #5e5e5e; }
 .top-bar .logged-user .open .btn {
     color: #fff; }
 .top-bar .logged-user .dropdown-menu {
@@ -13385,7 +13383,7 @@ body.sidebar-float .content-wrapper {
     border-bottom: 1px solid #E1E1E1;
     text-decoration: none; }
 .chart-nav ul li.active a, .chart-nav ul li.active a:hover, .chart-nav ul li.active a:focus {
-    background-color: #ececec;
+    background-color: #f70afd2e;
     border-bottom: 1px solid #E1E1E1;
     text-decoration: none; }
 
