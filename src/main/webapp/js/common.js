@@ -126,4 +126,18 @@ var common = {
 
         return obj;
     },
+
+    lpad(s, padLength, padString){
+        s = String(s);
+        while(s.length < padLength)
+            s = padString + s;
+        return s;
+    },
+
+    rpad(s, padLength, padString){
+        s = String(s);
+        while(s.length < padLength)
+            s = s + padString;
+        return s;
+    },
 }

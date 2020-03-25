@@ -251,7 +251,7 @@ var util = {
                         return;
                     }
                     html += '<label class="control-inline fancy-checkbox custom-color-green">';
-                    html += '<input type="checkbox" value="' + value.value + '" id="' + checkName + value.value + '" name="' + checkName + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
+                    html += '<input type="checkbox" value="' + value.code + '" id="' + checkName + value.value + '" name="' + checkName + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
                     html += '<span><i></i>' + value.code + '</span>'
                     html += '</label>';
                 }
