@@ -11,14 +11,14 @@
 
 <script>
     $(document).ready(function () {
-        fnc_chargeDetail.init();
+        fnc_exchangeDetail.init();
     });
 
 
-    var fnc_chargeDetail = {
+    var fnc_exchangeDetail = {
 //=------------------------------ Init / Event--------------------------------------------
-        "targetId": "chargeDetail",
-        "formId" : "chargeDetailForm",
+        "targetId": "exchangeDetail",
+        "formId" : "exchangeDetailForm",
 
         init() {
             this.target = $("#"+this.targetId);
@@ -26,13 +26,13 @@
             this.formId = this.targetId + "Form";
 
             if(common.isEmpty(getSelectDataInfo())){
-                fnc_chargeDetail.insertEventDetail();
+                fnc_exchangeDetail.insertEventDetail();
             }else{
                 console.log(getSelectDataInfo());
                 this.dataKey = getSelectDataInfo().dataKey;
                 this.data = getSelectDataInfo().data;
 
-                fnc_chargeDetail.updateEventDetail();
+                fnc_exchangeDetail.updateEventDetail();
             }
 
             // this.initDetail();
@@ -138,7 +138,7 @@
         // 등록 화면
         insertEventDetail() {
             console.log(this)
-            var template = $('#tmp_chargeDetailFrm').html();
+            var template = $('#tmp_exchangeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             this.target.find("#"+this.formId).html(templateScript);
 
@@ -166,7 +166,7 @@
 
             dalbitLog(data);
             // form 띄우기
-            var template = $('#tmp_chargeDetailFrm').html();
+            var template = $('#tmp_exchangeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             var context = data;
             var html = templateScript(context);
@@ -223,18 +223,18 @@
 
 
 <!-- =------------------ Handlebars ---------------------------------- -->
-<script id="tmp_chargeDetailFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="chargeIdx" value="{{chargeIdx}}" />
+<script id="tmp_exchangeDetailFrm" type="text/x-handlebars-template">
+    <input type="hidden" name="exchangeIdx" value="{{exchangeIdx}}" />
     <div class="row col-lg-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
-                • 스토어 페이지에서 구매 또는 선물할 수 있는 아이템을 등록 및 관리하는 페이지입니다
+                • 별을 달로 교환하는 아이템을 등록 및 관리하는 페이지입니다.
                 <br>
                 • 각 서비스 내 적용사항만 입력하세요.
             </div>
             <div class="pull-right">
-                {{^chargeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/chargeIdx}}
-                {{#chargeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/chargeIdx}}
+                {{^exchangeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/exchangeIdx}}
+                {{#exchangeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/exchangeIdx}}
             </div>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -255,7 +255,7 @@
             <tbody>
                 <tr class="align-middle">
                     <th rowspan="2">No</th>
-                    <td rowspan="2">{{chargeIdx}}</td>
+                    <td rowspan="2">{{exchangeIdx}}</td>
 
                     <th rowspan="2">플랫폼</th>
                     <td colspan="2" rowspan="2">{{{getCommonCodeCheck -1 'content_platform3' 'Y'}}}</td>
@@ -273,13 +273,13 @@
                 <tr>
                     <th>아이템명</th>
                     <td colspan="3">
-                        <input type="text" class="form-control" id="charge-itemNm" name="chargeItemNm" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{column02}}">
+                        <input type="text" class="form-control" id="exchange-itemNm" name="exchangeItemNm" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{column02}}">
                     </td>
 
                     <th>지급 수량 (달)</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-paymentQuantity" name="chargePaymentQuantity" placeholder="지급될 달 수량." value="{{column02}}" style="width: 70%;">
+                            <input type="text" class="form-control" id="exchange-paymentQuantity" name="exchangePaymentQuantity" placeholder="지급될 달 수량." value="{{column02}}" style="width: 70%;">
                             <span>(달)</span>
                         </div>
                     </td>
@@ -287,8 +287,8 @@
                     <th>가격</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-price" name="chargePrice" placeholder="아이템 구매 가격." value="{{column02}}" style="width: 70%;">
-                            <span>(원)</span>
+                            <input type="text" class="form-control" id="exchange-price" name="exchangePrice" placeholder="아이템 구매 별 수량." value="{{column02}}" style="width:70%;"/>
+                            <span>(별)</span>
                         </div>
                     </td>
                 </tr>
@@ -303,31 +303,31 @@
                     <td colspan="3">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
                 </tr>
                 <tr>
-                    <th>아이템 이미지</th>
+                    <th>아이템 이미지 URL</th>
                     <td colspan="5">
-                        <input type="text" id="charge-itemImg" name="chargeItemImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('chargeItemImg')">
+                        <input type="text" id="exchange-itemImg" name="exchangeItemImg" style="width:70%">
+                        <input type="button" value="미리보기" onclick="getImg('exchangeItemImg')">
                     </td>
 
                     <th>썸네일 (공통)</th>
                     <td colspan="4">
-                        <input type="text" id="charge-thumbImg" name="chargeThumbImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('chargeThumbImg')">
+                        <input type="text" id="exchange-thumbImg" name="exchangeThumbImg" style="width:70%">
+                        <input type="button" value="미리보기" onclick="getImg('exchangeThumbImg')">
                     </td>
                     <td colspan="1">
                         <!--미리보기-->
-                        <img id="chargeThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <img id="exchangeThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
                         <!--미리보기-->
-                        <img id="chargeItemImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <img id="exchangeItemImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                     </td>
 
                     <th>상품상세 설명</th>
                     <td colspan="5">
-                        <textarea class="form-control" name="chargeNote" id="charge-note" rows="5" cols="30" placeholder="아이템 상세 내용을 입력하여 주시기 바랍니다." style="resize: none" maxlength="200"></textarea>
+                        <textarea class="form-control" name="exchangeNote" id="exchange-note" rows="5" cols="30" placeholder="아이템 상세 내용을 입력하여 주시기 바랍니다." style="resize: none" maxlength="200"></textarea>
                     </td>
                 </tr>
             </tbody>
