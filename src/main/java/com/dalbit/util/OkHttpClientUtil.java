@@ -19,6 +19,20 @@ public class OkHttpClientUtil {
     // one instance, reuse
     OkHttpClient client = new OkHttpClient();
 
+    public Response sendGet(String url) throws Exception {
+
+        Request request = new Request.Builder()
+                .url(url)
+                /*.addHeader("custom-key", "mkyong")  // add request headers
+                .addHeader("User-Agent", "OkHttp Bot")*/
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response;
+        }
+
+    }
+
     public String sendGet(String url,HttpServletRequest httpRequest, String path, String domain) throws Exception {
 
         Cookie[] cookies = httpRequest.getCookies();

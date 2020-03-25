@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 <% request.setCharacterEncoding("utf-8"); %>
 
 <div class="main-header">
@@ -80,6 +81,8 @@
         menu();
     });
 
+
+
     $('#inforexMenu').load( function() {
 
         menu2();
@@ -134,14 +137,58 @@
             type : 'GET'
             , dataType : 'json'
         };
-        // util.getAjaxData("menu", "/rest/sample/menu", data, menuSuccess, menuFail,option);
-
-        util.getAjaxData("menu", url, null, menuSuccess, menuFail,option);
+        util.getAjaxData("menu", url, null, menuSuccess, menuFail, option);
     }
     function menuSuccess(dst_id, data){
         dalbitLog('menuSuccess');
         dalbitLog(data);
-        alert(data);
+
+        class INFOREX_MENU{
+            constructor(id, depth, name, url){
+                this.id = id;
+                this.depth = depth;
+                this.name = name;
+                this.url = url;
+            }
+        };
+        var menuInfo = [];
+        $.each(data, function(key, value){
+            var menuId = Math.floor(Math.random() * 1000000000);
+            //console.log('key:' + key + ' / ' + 'value:' + value);
+            if(value == '[object Object]'){
+                if(key != '인포렉스'){
+                    menuInfo.push(new INFOREX_MENU(menuId, 1, key, null));
+                }
+
+                $.each(data[key], function(key2, value2){
+                    if(value2 == '[object Object]'){
+
+                        var menuId2 = Math.floor(Math.random() * 1000000000);
+
+                        console.log('2뎁스 object'+ key2 + "/" + value2);
+                        menuInfo.push(new INFOREX_MENU(menuId2, 1, key2, null));
+                        $.each(data[key][key2], function(key3, value3){
+                            menuInfo.push(new INFOREX_MENU(menuId2, 2, key3, value3));
+                        });
+
+                    }else{
+                        console.log('2뎁스 추가' + key2 + "/" + value2);
+                        menuInfo.push(new INFOREX_MENU(menuId, 2, key2, value2));
+                    }
+                });
+            }
+        });
+
+        console.log("메뉴정보");
+        console.log(menuInfo);
+        util.getAjaxData("menu", "/rest/main/inforex/menu", {data : JSON.stringify(menuInfo)}, menuSave);
+
+
+    }
+
+    function menuSave(dst_id, data){
+        dalbitLog('menuSave');
+        dalbitLog(data);
     }
 
     function menuFail(a, b, c){

@@ -1,3 +1,11 @@
+class INFOREX_MENU{
+    constructor(depth, name, url){
+        this.depth = depth;
+        this.name = name;
+        this.url = url;
+    }
+};
+
 class COMMON_CODE{
     constructor(type, value, code){
         this.type = type;
