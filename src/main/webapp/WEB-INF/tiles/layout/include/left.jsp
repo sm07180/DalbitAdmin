@@ -12,8 +12,8 @@
     <div class="sidebar-scroll" style="overflow:auto; height: 100%">
         <nav class="main-nav">
             <ul class="main-menu">
-                <li class="${fn:contains(url, '/customer/faq/list') ? 'active': ''}">
-                    <a href="javascript://" class="_commingSoon">
+                <li class="page ${url.equals('/main') ? 'active': ''}">
+                    <a href="/main">
                         <i class="fa fa-home"></i><span class="text">메인</span>
                     </a>
                 </li>

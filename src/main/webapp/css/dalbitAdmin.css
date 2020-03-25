@@ -24,7 +24,9 @@
 .mr15{margin-left:15px;}
 
 /*left 통계현황*/
-#_statisticsArea div.rowData{padding:5px 0 0px 10px; margin-right: 0px;/*border: 1px solid gray;*/}
+.main-nav .main-menu li.page.active a{
+    background-color: #f2c2ff !important;
+}
 
 .container .clearfix div.topLogo a img{
     height : 30px;
