@@ -1,17 +1,13 @@
-class INFOREX_MENU{
-    constructor(depth, name, url){
-        this.depth = depth;
-        this.name = name;
-        this.url = url;
-    }
+var INFOREX_MENU = function(depth, name, url){
+    this.depth = depth;
+    this.name = name;
+    this.url = url;
 };
 
-class COMMON_CODE{
-    constructor(type, value, code){
-        this.type = type;
-        this.value = value;
-        this.code = code;
-    }
+var COMMON_CODE = function(type, value, code){
+    this.type = type;
+    this.value = value;
+    this.code = code;
 };
 
 var searchType = [
