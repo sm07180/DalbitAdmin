@@ -126,4 +126,27 @@ var common = {
 
         return obj;
     },
+
+    lpad(s, padLength, padString){
+        s = String(s);
+        while(s.length < padLength)
+            s = padString + s;
+        return s;
+    },
+
+    rpad(s, padLength, padString){
+        s = String(s);
+        while(s.length < padLength)
+            s = s + padString;
+        return s;
+    },
+
+    timeStamp(time){
+        var hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((time % (1000 * 60)) / 1000);
+        var time = hours  + ":" + minutes + ":" + seconds;
+        return time ;
+    }
+
 }

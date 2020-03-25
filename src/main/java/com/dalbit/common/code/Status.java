@@ -158,6 +158,12 @@ public enum Status {
     방송방상세조회_공지번호없음("-1", "no.data", "방번호가 없을 시"),
     방송방상세조회_에러("C006", "server.error", "방송방 상세 조회에서 에러 발생 시"),
 
+    //방송방 정보 수정
+    방송방정보수정_성공("0", "update.success", "방송방 정보 수정 성공 시"),
+    방송방정보수정_방번호없음("-1", "no.data", "방송방 정보 수정에서 방번호가 없을 시"),
+    방송방정보수정_종료된방("-2", "no.data", "방송방 정보 수정에서 방송방이 종료되었을 시"),
+    방송방정보수정_에러("C006", "server.error", "방송방 정보 수정에서 에러 발생 시"),
+
     //방송방 정보수정 내역 조회
     방송방수정내역조회_성공("C001", "select.success", "방송방 수정내역 조회 성공 시"),
     방송방수정내역조회_데이터없음("0", "no.data", "방송방 수정내역 조회 데이터 없을 시"),
@@ -171,6 +177,15 @@ public enum Status {
     //생방송 목록 보기
     생방송_청취자목록조회_성공("0", "broadcast.listen.list.view.success", "생방송 청취자 목록 조회 성공 시"),
     생방송_청취자목록조회_실패("-1", "broadcast.listen.list.view.fail", "생방송 청취자 목록 조회 데이터 없을 시"),
+
+    //생방송 청취자 강제퇴장
+    생방청취자강제퇴장_성공("0", "broadcast.listen.forced.success", "생방송 청취자 강제퇴장 성공 시"),
+    생방청취자강제퇴장_회원아님("-1", "broadcast.listen.forced.no.member", "생방송 청취자 강제퇴장 회원 아닐 시"),
+    생방청취자강제퇴장_방없음("-2", "broadcast.listen.forced.no.room", "생방송 청취자 강제퇴장 방 없을 시"),
+    생방청취자강제퇴장_종료된방("-3", "broadcast.listen.forced.end.room", "생방송 청취자 강제퇴장 종료된 방일 시"),
+    생방청취자강제퇴장_청취자아님("-4", "broadcast.listen.forced.no.listener", "생방송 청취자 강제퇴장 청취자 아닐 시"),
+    생방청취자강제퇴장_퇴장한회원("-5", "broadcast.listen.forced.no.forced", "생방송 청취자 강제퇴장 이미 퇴장한 회원 일 시"),
+
 
     ;
 

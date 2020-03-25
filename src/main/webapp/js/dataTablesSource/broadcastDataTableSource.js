@@ -54,7 +54,7 @@ var BroadcastDataTableSource = {
                     return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
             {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.memNo);
+                    return util.memNoLink(data, row.dj_mem_no);
                 }},
             {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
             {'title': '방송시작일시', 'data': 'start_date'},
@@ -86,8 +86,8 @@ var BroadcastDataTableSource = {
                     }
                 }},
             {'title': 'User ID', 'data': 'userID', 'width':'100px', 'render': function (data, type, row, meta) {
-                    var tmp = '<a href="javascript://" class="getBroadCast_info" onclick="javascript:memNoLink('+row.mem_no+');">'+data+'</a>';
-                    tmp = tmp + '<br/>' +  row.level +"/"+ row.grade;
+                    var tmp = util.memNoLink(data, row.mem_no);
+                    tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'nickName', 'width':'140px'},

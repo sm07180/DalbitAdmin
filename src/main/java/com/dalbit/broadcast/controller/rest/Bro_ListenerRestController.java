@@ -2,7 +2,8 @@ package com.dalbit.broadcast.controller.rest;
 
 
 import com.dalbit.broadcast.service.Bro_ListenerService;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastListenListInputVo;
+import com.dalbit.broadcast.vo.procedure.P_ListenForceLeaveVo;
+import com.dalbit.broadcast.vo.procedure.P_ListenListInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,11 @@ public class Bro_ListenerRestController {
      */
 
     @PostMapping("list")
-    public String getBroadcastList(P_BroadcastListenListInputVo pBroadcastListenListInputVo){
-        return bro_ListenerService.getListenerHistory_detail(pBroadcastListenListInputVo);
+    public String getBroadcastList(P_ListenListInputVo pListenListInputVo){
+        return bro_ListenerService.getListenerHistory_detail(pListenListInputVo);
+    }
+    @PostMapping("forceLeave")
+    public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
+        return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);
     }
 }

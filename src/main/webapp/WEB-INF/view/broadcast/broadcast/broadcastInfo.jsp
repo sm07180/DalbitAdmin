@@ -40,7 +40,7 @@
 
     $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
     $("#dj_memSex").html(util.getCommonCodeRadio(2, gender, "Y"));
-    $("#entryType").html(util.getCommonCodeRadio(-1, entry));
+    $("#entryType").html(util.getCommonCodeRadio(-1, entryType));
     $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
     $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
 
@@ -145,9 +145,31 @@
     }
 
     function bt_click(tmp) {
+        // 디폴트 배경이미지 - IMAGE_SERVER_URL/bg_3/roombg_200310_0.jpg
+
+        console.log(room_no);
+        var obj = new Object();
+        obj.room_no = room_no;
+        if(tmp == "bt_entry") {
+            obj.entryType = $('input:radio[name="entryType"]:checked').val();
+        } else if(tmp == "bt_freezing") {
+            obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
+        } else if(tmp == "bt_forcedExit") {
+            obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
+        }
+
+        util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
     }
 
+    function update_success(dst_id, response) {
+        dalbitLog(response);
+        alert('변경되었습니다');
 
+    }
+
+    function fn_fail(data, textStatus, jqXHR){
+        console.log(data, textStatus, jqXHR);
+    }
 </script>
 
 <script id="tmp_detailFrm" type="text/x-handlebars-template">
@@ -166,12 +188,12 @@
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                 </form>
-                <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right">이미지초기화</button>
+                <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">이미지초기화</button>
             </td>
         <tr>
             <th>입장제한</th>
             <td style="text-align: left">
-                {{{getCommonCodeRadio entryType 'entry'}}}
+                {{{getCommonCodeRadio entryType 'entryType'}}}
                 <button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>
             </td>
         </tr>
@@ -224,7 +246,8 @@
             <th>방송 제목</th>
             <td style="text-align: left">
                 <input type="text" class="form-control col-md-12" id="title" style="width: 90%;" value="{{title}}">
-                <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">변경</button>
+                <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">방송제목 초기화</button>
+                <!-- 회원 닉네임 + 의 방송입니다 -->
             </td>
             <th>방송 중 강제퇴장</th>
             <td style="text-align: left">{{forcedLeaveCnt}}</td>
@@ -237,13 +260,19 @@
         </tr>
         <tr>
             <th>DJ ID</th>
-            <td style="text-align: left">{{dj_userId}}</td>
+            <td style="text-align: left">
+                {{dj_userId}}
+                {{#equal dj_userId ''}}-{{/equal}}
+            </td>
             <th>방송 시작일</th>
             <td style="text-align: left">{{startDate}}</td>
         </tr>
         <tr>
             <th>DJ 닉네임</th>
-            <td style="text-align: left">{{dj_nickName}}</td>
+            <td style="text-align: left">
+                {{dj_nickName}}
+                {{#equal dj_nickName ''}}-{{/equal}}
+            </td>
             <th>방송 종료일시</th>
             <td style="text-align: left">
                 {{endDate}}
@@ -252,7 +281,10 @@
         </tr>
         <tr>
             <th>성별</th>
-            <td style="text-align: left">{{dj_memSex}}</td>
+            <td style="text-align: left">
+                {{dj_memSex}}
+                {{#equal dj_memSex ''}}-{{/equal}}
+            </td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
                 {{airTime}}
@@ -262,7 +294,7 @@
         <tr>
             <th rowspan="2">운영자메모</th>
             <td rowspan="1" style="text-align: left">
-                {{opMemoCnt}}
+                등록 : {{opMemoCnt}} 건
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">자세히</button>
             </td>
             <th>방송 정보 수정일시</th>

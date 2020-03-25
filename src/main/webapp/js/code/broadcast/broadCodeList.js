@@ -14,8 +14,8 @@ var subject_type = [
     ,new COMMON_CODE('99', '99', '기타')
 ];
 
-var entry = [
-    new COMMON_CODE(null, 'entry', '입장제한')
+var entryType = [
+    new COMMON_CODE(null, 'entryType', '입장제한')
     , new COMMON_CODE('all', '0', '전체')
     , new COMMON_CODE('fan', '1', '팬만입장')
     , new COMMON_CODE('entry', '2', '20세이상')
@@ -63,8 +63,6 @@ var state = [
     , new COMMON_CODE('0', '0', '청취중')
     , new COMMON_CODE('1', '1', '퇴장')
     , new COMMON_CODE('2', '2', '강제퇴장')
-    , new COMMON_CODE('3', '3', '매니저')
-    , new COMMON_CODE('4', '4', '게스트')
 ];
 
 

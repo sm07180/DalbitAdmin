@@ -1,32 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="content">
-    <div class="main-header">
-        <h2>관리자 로그인 테스트</h2>
-    </div>
+<% request.setCharacterEncoding("utf-8"); %>
 
-    <div>
-        <form class="form-horizontal" id="form">
-            <label for="memId" class="control-label sr-only">ID</label>
-            <input type="text" placeholder="ID" name="memId" id="memId" value="bgko">
-            <label for="memPwd" class="control-label sr-only">Password</label>
-            <input type="password" placeholder="Password" name="memPwd" id="memPwd" value="kbg5702!">
-            <button type="button" class="btn" id="loginBtn">로그인</button>
-        </form>
-    </div>
-    <div>
-        <button type="button" class="btn" id="logoutBtn">로그아웃</button>
-    </div>
+<div class="main-header">
+    <h2>관리자 로그인 테스트</h2>
+</div>
 
-    <button type="button" class="btn" id="callmanuBtn">메뉴불러오기</button>
-    <iframe id="inforexMenu" width="100%" height="300"></iframe>
-    <textarea type="textarea" class="form-control" id="txt_Menu" style="width: 100%;height: 300px"></textarea>
+<div>
+    <form class="form-horizontal" id="form">
+        <label for="memId" class="control-label sr-only">ID</label>
+        <input type="text" placeholder="ID" name="memId" id="memId" value="bgko">
+        <label for="memPwd" class="control-label sr-only">Password</label>
+        <input type="password" placeholder="Password" name="memPwd" id="memPwd" value="kbg5702!">
+        <button type="button" class="btn" id="loginBtn">로그인</button>
+    </form>
+</div>
+<div>
+    <button type="button" class="btn" id="logoutBtn">로그아웃</button>
+</div>
 
-    <div>
-        <li id="adminmenu">
+<button type="button" class="btn" id="callmanuBtn">메뉴불러오기</button>
+<iframe id="inforexMenu" width="100%" height="300"></iframe>
+<textarea type="textarea" class="form-control" id="txt_Menu" style="width: 100%;height: 300px"></textarea>
 
-        </li>
-    </div>
+<div>
+    <li id="adminmenu">
+
+    </li>
 </div>
 
 <script type="text/javascript" src="/js/cookie.js"></script>
@@ -66,11 +66,14 @@
         util.getAjaxData("login", "http://admin.inforex.co.kr/loginout.html", data, loginSuccess, loginFail);
     }
     function ajaxLogout(){
-        var data = new Object();
-        data.mode = "logout";
-        data.where = "dalbit";
+        var option = new Object();
+        option.domain = ".inforex.co.kr";
+        option.path = "/";
 
-        util.getAjaxData("login", "http://admin.inforex.co.kr/loginout.html", data, logoutSuccess, loginFail);
+        config("ADMIN_COOKIE","",option);
+        config("USER_ID","",option);
+        config("NAME","",option);
+        config("gSTAFF","",option);
     }
 
     function loginSuccess(dst_id, data){
@@ -80,6 +83,7 @@
             return;
         }
         // ADMIN_COOKIE
+
         var ADMIN_COOKIE = "eJxLtDK3qi62MrNSSs0tiM%2FLV7IutjK1UjIyMDA0ArFNrJTyEnNTQUygmg1vd23ZeBzKKS1OLcpMgSpKSs8G6zW2UipOrQCxDK2UcsG0AZCRmlcan16UX1oAEjGyUjI2BzEsoTIllQWpUIvhigyB%2BotLEtPSgPoSU1KhJhooWdcCAJ9aN6c%3D";
         var USER_ID = data.userInfo.userid;
         var NAME = data.userInfo.name;
