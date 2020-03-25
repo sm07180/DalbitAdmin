@@ -17,6 +17,7 @@
     </div>
 </div>
 
+<!-- 강제퇴장 Modal -->
 <div class="modal fade" id="forcedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 600px;display: table;">
         <div class="modal-content">
@@ -34,6 +35,7 @@
         </div>
     </div>
 </div>
+<!-- Modal 끝 -->
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript" src="/js/message/broadcast/broadCastMessage.js"></script>
@@ -47,7 +49,6 @@
             forced(this.id);
         });
     });
-
     var tmp_sortState = -1;
     function getBroadHistory_listen(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
@@ -76,7 +77,6 @@
     }
 
     function initDataTableTop_select_report(tmp){
-
         var topTable = '<span name="state" id="state" onchange="sel_change()"></span>';
         var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
 
@@ -101,13 +101,11 @@
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
     }
-
     function eventInit(){
         $("#btn_forced").on("click", function () { //강제퇴장
             forcedData();
         });
     }
-
     function forcedData(){
         if(dtList_info_detail.getCheckedData().length <= 0){
             alert("강제퇴장자를 선택해 주십시오");
@@ -136,8 +134,12 @@
         }
         var strName = '${principal.getUserInfo().getName()}';
         var date = new Date();
-        var timestamp = date.getFullYear() + "." + common.lpad(date.getMonth(),2,"0") + "." + common.lpad(date.getDay(),2,"0") + " " +
-                        common.lpad(date.getHours(),2,"0") + "." + common.lpad(date.getMinutes(),2,"0") + "." + common.lpad(date.getSeconds(),2,"0");
+        var timestamp = date.getFullYear() + "." +
+                        common.lpad(date.getMonth(),2,"0") + "." +
+                        common.lpad(date.getDay(),2,"0") + " " +
+                        common.lpad(date.getHours(),2,"0") + "." +
+                        common.lpad(date.getMinutes(),2,"0") + "." +
+                        common.lpad(date.getSeconds(),2,"0");
 
         var checkDatas = dtList_info_detail.getCheckedData();
         for(var i=0;i<checkDatas.length;i++){
@@ -159,7 +161,6 @@
         dalbitLog(response);
         $('#forcedModal').modal('hide');
         dtList_info_detail.reload();
-        alert(response.message);
     }
 </script>
 
