@@ -5,20 +5,18 @@
 </div>
 
 
-
-
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 
 <script>
     $(document).ready(function () {
-        fnc_chargeDetail.init();
+        fnc_giftDetail.init();
     });
 
 
-    var fnc_chargeDetail = {
+    var fnc_giftDetail = {
 //=------------------------------ Init / Event--------------------------------------------
-        "targetId": "chargeDetail",
-        "formId" : "chargeDetailForm",
+        "targetId": "giftDetail",
+        "formId" : "giftDetailForm",
 
         init() {
             this.target = $("#"+this.targetId);
@@ -26,13 +24,13 @@
             this.formId = this.targetId + "Form";
 
             if(common.isEmpty(getSelectDataInfo())){
-                fnc_chargeDetail.insertEventDetail();
+                fnc_giftDetail.insertEventDetail();
             }else{
                 console.log(getSelectDataInfo());
                 this.dataKey = getSelectDataInfo().dataKey;
                 this.data = getSelectDataInfo().data;
 
-                fnc_chargeDetail.updateEventDetail();
+                fnc_giftDetail.updateEventDetail();
             }
 
             // this.initDetail();
@@ -138,7 +136,7 @@
         // 등록 화면
         insertEventDetail() {
             console.log(this)
-            var template = $('#tmp_chargeDetailFrm').html();
+            var template = $('#tmp_giftDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             this.target.find("#"+this.formId).html(templateScript);
 
@@ -166,7 +164,7 @@
 
             dalbitLog(data);
             // form 띄우기
-            var template = $('#tmp_chargeDetailFrm').html();
+            var template = $('#tmp_giftDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             var context = data;
             var html = templateScript(context);
@@ -223,18 +221,16 @@
 
 
 <!-- =------------------ Handlebars ---------------------------------- -->
-<script id="tmp_chargeDetailFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="chargeIdx" value="{{chargeIdx}}" />
+<script id="tmp_giftDetailFrm" type="text/x-handlebars-template">
+    <input type="hidden" name="giftIdx" value="{{giftIdx}}" />
     <div class="row col-lg-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
-                • 스토어 페이지에서 구매 또는 선물할 수 있는 아이템을 등록 및 관리하는 페이지입니다
-                <br>
-                • 각 서비스 내 적용사항만 입력하세요.
+                • 스토어 페이지에서 구매 또는 선물할 수 있는 아이템을 등록 및 관리하는 페이지입니다.
             </div>
             <div class="pull-right">
-                {{^chargeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/chargeIdx}}
-                {{#chargeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/chargeIdx}}
+                {{^giftIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/giftIdx}}
+                {{#giftIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/giftIdx}}
             </div>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -255,7 +251,7 @@
             <tbody>
                 <tr class="align-middle">
                     <th rowspan="2">No</th>
-                    <td rowspan="2">{{chargeIdx}}</td>
+                    <td rowspan="2">{{giftIdx}}</td>
 
                     <th rowspan="2">플랫폼</th>
                     <td colspan="2" rowspan="2">{{{getCommonCodeCheck -1 'content_platform3' 'Y'}}}</td>
@@ -272,62 +268,82 @@
                 </tr>
                 <tr>
                     <th>아이템명</th>
-                    <td colspan="3">
-                        <input type="text" class="form-control" id="charge-itemNm" name="chargeItemNm" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{column02}}">
+                    <td colspan="8">
+                        <input type="text" class="form-control" id="gift-itemNm" name="giftItemNm" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{column02}}">
                     </td>
 
-                    <th>지급 수량 (달)</th>
+                    <th>게시여부</th>
+                    <td colspan="2">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
+                </tr>
+                <tr>
+                    <th>사용영역</th>
+                    <td colspan="3">{{{getCommonCodeSelect 0 'item_useArea'}}}</td>
+
+                    <th>파일등록 필드</th>
+                    <td colspan="3">{{{getCommonCodeSelect 1 'item_fileField'}}}</td>
+
+                    <th>플레이타임 제한</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-paymentQuantity" name="chargePaymentQuantity" placeholder="지급될 달 수량." value="{{column02}}" style="width: 70%;">
-                            <span>(달)</span>
+                            <input type="text" class="form-control" id="gift-playTime" name="giftPlayTime" placeholder="아이템 노출 시간" value="{{column02}}" style="width:70%;"/>
+                            <span>(초)</span>
                         </div>
                     </td>
+                </tr>
+                <tr>
+                    <th>타입</th>
+                    <td colspan="5">{{{getCommonCodeCheck 1 'item_itemType'}}}</td>
 
-                    <th>가격</th>
-                    <td colspan="3">
+                    <th>가격 (달)</th>
+                    <td colspan="5">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-price" name="chargePrice" placeholder="아이템 구매 가격." value="{{column02}}" style="width: 70%;">
-                            <span>(원)</span>
+                            <input type="text" class="form-control" id="gift-price" name="giftPrice" placeholder="아이템 구매 달 수량." value="{{column02}}" style="width: 70%;">
+                            <span>(달)</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th>할인율</th>
-                    <td colspan="3">{{{getCommonCodeRadio -1 'item_discount'}}}</td>
-
-                    <th>타입</th>
-                    <td colspan="3">{{{getCommonCodeCheck 1 'item_itemType'}}}</td>
-
-                    <th>게시여부</th>
-                    <td colspan="3">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
+                    <td colspan="11">{{{getCommonCodeRadio -1 'item_discount'}}}</td>
                 </tr>
                 <tr>
-                    <th>아이템 이미지</th>
+                    <th>Webp 이미지 URL</th>
                     <td colspan="5">
-                        <input type="text" id="charge-itemImg" name="chargeItemImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('chargeItemImg')">
+                        <input type="text" id="gift-itemImg" name="giftItemImg" style="width:70%">
+                        <input type="button" value="미리보기" onclick="getImg('giftItemImg')">
                     </td>
 
-                    <th>썸네일 (공통)</th>
-                    <td colspan="4">
-                        <input type="text" id="charge-thumbImg" name="chargeThumbImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('chargeThumbImg')">
-                    </td>
-                    <td colspan="1">
-                        <!--미리보기-->
-                        <img id="chargeThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    <th>Json 이미지 URL</th>
+                    <td colspan="5">
+                        <input type="text" id="gift-jsonImg" name="giftJsonImg" style="width:70%">
+                        <input type="button" value="미리보기" onclick="getImg('giftJsonImg')">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
                         <!--미리보기-->
-                        <img id="chargeItemImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <img id="giftItemImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                     </td>
 
-                    <th>상품상세 설명</th>
+                    <td colspan="6">
+                        <!--미리보기-->
+                        <img id="giftJsonImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>썸네일</th>
+                    <td colspan="4">
+                        <input type="text" id="gift-thumbImg" name="giftThumbImg" style="width:70%">
+                        <input type="button" value="미리보기" onclick="getImg('giftThumbImg')">
+                    </td>
+                    <td colspan="1">
+                        <!--미리보기-->
+                        <img id="giftThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    </td>
+
+                    <th>운영자 메모</th>
                     <td colspan="5">
-                        <textarea class="form-control" name="chargeNote" id="charge-note" rows="5" cols="30" placeholder="아이템 상세 내용을 입력하여 주시기 바랍니다." style="resize: none" maxlength="200"></textarea>
+                        <textarea class="form-control" name="giftNote" id="gift-note" rows="5" cols="30" placeholder="메모." style="resize: none" maxlength="200"></textarea>
                     </td>
                 </tr>
             </tbody>

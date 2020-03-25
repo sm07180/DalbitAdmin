@@ -371,6 +371,7 @@
     }
 
     function getMemNo_info_reload(memNo){
+        console.log("memNo : "  + memNo);
         var obj = new Object();
         obj.mem_no =  memNo;
         util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);

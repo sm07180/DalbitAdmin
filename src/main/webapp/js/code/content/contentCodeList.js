@@ -71,16 +71,9 @@ var banner_bannerType = [
     , new COMMON_CODE('gnb', '1', 'GNB')
     , new COMMON_CODE('expand', '2', '펼침')
     , new COMMON_CODE('popup', '3', '팝업')
-    , new COMMON_CODE('notice', '4', '공지사항')
-    , new COMMON_CODE('etc', '5', '???(추후추가)')
-];
-
-var banner_bannerType_noAll = [
-    new COMMON_CODE(null, 'bannerType', '배너구분')
-    , new COMMON_CODE('gnb', '1', 'GNB')
-    , new COMMON_CODE('expand', '2', '펼침')
-    , new COMMON_CODE('popup', '3', '팝업')
-    , new COMMON_CODE('mypage', '3', 'MyPage')
+    , new COMMON_CODE('notice', '4', '고객센터')
+    , new COMMON_CODE('notice', '5', '스토어')
+    , new COMMON_CODE('etc', '99', '???(추후추가)')
 ];
 
 var banner_loginType = [
@@ -147,6 +140,21 @@ var item_itemType = [
     , new COMMON_CODE('new', '1', '신규')
     , new COMMON_CODE('best', '2', '인기')
     , new COMMON_CODE('limit', '3', '한정')
+];
+
+var item_useArea = [
+    new COMMON_CODE(null, 'useArea', '사용영역')
+    , new COMMON_CODE('default', '0', '기본')
+    , new COMMON_CODE('particle', '1', '1번 영역(파티클)')
+    , new COMMON_CODE('combo', '2', '2번 영역(콤보)')
+    , new COMMON_CODE('top', '3', '3번 영역(상단)')
+    , new COMMON_CODE('right', '4', '4번 영역(우측)')
+];
+
+var item_fileField = [
+    new COMMON_CODE(null, 'fileField', '파일등록필드')
+    , new COMMON_CODE('webp/json', '1', 'Webp/Json')
+    , new COMMON_CODE('sticker', '2', 'sticker')
 ];
 
 

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class P_BroadcastListenListInputVo extends PagingVo {
+public class P_ListenListInputVo extends PagingVo {
 
     /*  intput  */
     private String room_no;

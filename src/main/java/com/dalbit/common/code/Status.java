@@ -178,6 +178,15 @@ public enum Status {
     생방송_청취자목록조회_성공("0", "broadcast.listen.list.view.success", "생방송 청취자 목록 조회 성공 시"),
     생방송_청취자목록조회_실패("-1", "broadcast.listen.list.view.fail", "생방송 청취자 목록 조회 데이터 없을 시"),
 
+    //생방송 청취자 강제퇴장
+    생방청취자강제퇴장_성공("0", "broadcast.listen.forced.success", "생방송 청취자 강제퇴장 성공 시"),
+    생방청취자강제퇴장_회원아님("-1", "broadcast.listen.forced.no.member", "생방송 청취자 강제퇴장 회원 아닐 시"),
+    생방청취자강제퇴장_방없음("-2", "broadcast.listen.forced.no.room", "생방송 청취자 강제퇴장 방 없을 시"),
+    생방청취자강제퇴장_종료된방("-3", "broadcast.listen.forced.end.room", "생방송 청취자 강제퇴장 종료된 방일 시"),
+    생방청취자강제퇴장_청취자아님("-4", "broadcast.listen.forced.no.listener", "생방송 청취자 강제퇴장 청취자 아닐 시"),
+    생방청취자강제퇴장_퇴장한회원("-5", "broadcast.listen.forced.no.forced", "생방송 청취자 강제퇴장 이미 퇴장한 회원 일 시"),
+
+
     ;
 
     final private String RESULT_SUCCESS = "success";

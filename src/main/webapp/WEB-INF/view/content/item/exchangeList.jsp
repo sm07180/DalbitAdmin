@@ -34,13 +34,13 @@
 
 <script>
     $(document).ready(function() {
-        fnc_chargeList.init();
+        fnc_exchangeList.init();
     });
 
-var fnc_chargeList = {
+var fnc_exchangeList = {
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "chargeList",
+    "targetId": "exchangeList",
 
     init() {
         this.target = $("#"+this.targetId);
@@ -67,7 +67,7 @@ var fnc_chargeList = {
             data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge);
+        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.exchange);
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
         this.dtList_info.setEventClick(this.updateData,5);
@@ -92,11 +92,11 @@ var fnc_chargeList = {
 
     initEvent(){
         this.target.find("#btn_insert").on("click", function () { //등록
-            fnc_chargeList.insertEvent();
+            fnc_exchangeList.insertEvent();
         })
 
         this.target.find("#btn_delete").on("click", function () { //삭제
-            fnc_chargeList.deleteEvent();
+            fnc_exchangeList.deleteEvent();
         })
     },
 
@@ -113,7 +113,7 @@ var fnc_chargeList = {
 
     // 삭제
     deleteEvent() {
-        var checkDatas = fnc_chargeList.dtList_info.getCheckedData();
+        var checkDatas = fnc_exchangeList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
             alert("삭제할 정보를 선택해주세요.");
@@ -130,7 +130,7 @@ var fnc_chargeList = {
     // 수정
     updateData(data) {
         var dataInfo = {
-            chargeIdx: data.rowNum
+            exchangeIdx: data.rowNum
             ,column02: data.item_col3
             ,column03: data.item_col14
             ,column04: "제목"
@@ -151,8 +151,9 @@ var fnc_chargeList = {
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo(data.rowNum, dataInfo);
 
-        var selectTabId = "chargeDetail";
-        if($("#contentTap").find(".active").length != 0){
+        var selectTabId = "exchangeDetail";
+        console.log($("#contentTap").find(".active"))
+        if(fnc_exchangeList.target.find("#contentTap").find(".active").length != 0){
             selectTabId = $("#contentTap").find(".active").find("a").prop("id").split("_")[1];
         }
         console.log(selectTabId)
