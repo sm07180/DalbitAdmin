@@ -140,4 +140,13 @@ var common = {
             s = s + padString;
         return s;
     },
+
+    timeStamp(time){
+        var hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((time % (1000 * 60)) / 1000);
+        var time = hours  + ":" + minutes + ":" + seconds;
+        return time ;
+    }
+
 }
