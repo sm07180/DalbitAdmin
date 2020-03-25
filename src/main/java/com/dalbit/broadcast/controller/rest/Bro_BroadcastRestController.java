@@ -4,6 +4,7 @@ package com.dalbit.broadcast.controller.rest;
 import com.dalbit.broadcast.service.Bro_BroadcastService;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailInputVo;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistInputVo;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,6 @@ public class Bro_BroadcastRestController {
      * //@param model
      * @return
      */
-
     @PostMapping("list")
     public String getBroadcastList(P_BroadcastListInputVo pBroadcastListInputVo){
         return bro_BroadcastService.callBroadcastList(pBroadcastListInputVo);
@@ -47,5 +47,13 @@ public class Bro_BroadcastRestController {
     @PostMapping("editHist")
     public String editHist(P_BroadcastEditHistInputVo pBroadcastEditHistInputVo) {
         return bro_BroadcastService.callBroadcastEditHistory(pBroadcastEditHistInputVo);
+    }
+
+    /**
+     * 방송방 정보수정
+     */
+    @PostMapping("edit")
+    public String edit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
+        return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
     }
 }

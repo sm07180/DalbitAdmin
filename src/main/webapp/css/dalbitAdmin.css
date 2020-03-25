@@ -109,3 +109,11 @@ table.table-dalbit tbody tr td .fit-table {
     width: 100%;
 }
 
+td._up {
+    color : #ff3538;
+}
+
+td._down {
+    color : #4747ff;
+}
+
