@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
+
 <div class="col-lg-12 no-padding">
     <div class="widget widget-table" id="main_table">
         <span id="listen_summaryArea"></span>
@@ -14,8 +17,35 @@
     </div>
 </div>
 
+<div class="modal fade" id="forcedModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 600px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <lable>운영자에 의한 변경 사유를 선택하여 주세요</lable>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <span id="declaration_Message"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="bt_modalForced" <%--data-dismiss="modal"--%>><i class="fa fa-times-circle"></i> 확인</button>
+                <button type="button" class="btn btn-custom-primary" id="bt_modalForcedNotice" data-dismiss="modal"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
+<script type="text/javascript" src="/js/message/broadcast/broadCastMessage.js"></script>
+
 <script>
     $(document).ready(function() {
+        $("#bt_modalForced").on("click", function () {          //강제퇴장 팝업 알림X
+            forced(this.id);
+        });
+        $("#bt_modalForcedNotice").on("click", function () {    //강제퇴장 팝업 알림O
+            forced(this.id);
+        });
     });
 
     var tmp_sortState = -1;
@@ -46,12 +76,12 @@
     }
 
     function initDataTableTop_select_report(tmp){
-        console.log("tmp : " + tmp);
+
         var topTable = '<span name="state" id="state" onchange="sel_change()"></span>';
-        var delBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
+        var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
 
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
-        $("#"+tmp).find("#main_table").find(".footer-left").append(delBtn);
+        $("#"+tmp).find("#main_table").find(".footer-left").append(forcedBtn);
 
         $("#state").html(util.getCommonCodeSelect(-1, state));
         eventInit();
@@ -73,19 +103,53 @@
     }
 
     function eventInit(){
-        $("#btn_delete").on("click", function () { //삭제
-            delListenData();
+        $("#btn_forced").on("click", function () { //강제퇴장
+            forcedData();
         });
     }
 
-    function delListenData(){
-        var checkDatas = dtList_info_detail.getCheckedData();
-
-        if(checkDatas.length <= 0){
-            alert("삭제할 정보를 선택해주세요.");
+    function forcedData(){
+        if(dtList_info_detail.getCheckedData().length <= 0){
+            alert("강제퇴장자를 선택해 주십시오");
             return false;
         }
+        $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
+        $('#forcedModal').modal('show');
+    }
+    function forced(tmp){
+        var checkDatas = dtList_info_detail.getCheckedData();
         dalbitLog(checkDatas);
+
+        var message="";
+        $('input:checkbox[name="message"]').each(function() {
+            if(this.checked){           //checked 처리된 항목의 값
+                message = message + " - " + this.value + "\n";
+            }
+        });
+        var strName = '${principal.getUserInfo().getName()}';
+        var date = new Date();
+        var forcedDate = date.getFullYear() + "." + common.lpad(date.getMonth(),2,"0") + "." + common.lpad(date.getDay(),2,"0") + " " +
+                        common.lpad(date.getHours(),2,"0") + "." + common.lpad(date.getMinutes(),2,"0") + "." + common.lpad(date.getSeconds(),2,"0");
+
+        for(var i=0;i<checkDatas.length;i++){
+            var meno = common.replace(message.forceLeave.toString(), '{{name}}', strName);
+            // var meno = "달빛라디오 Clean 운영자 " + strName +  "입니다.\n" +
+            //     "\n" +
+            //     checkDatas[i].nickName + "님께서 달빛라디오 서비스 이용 중 운영정책 위반사항이 접수되었습니다.\n" +
+            //     "이에 발생된 문제점이 확인되어, 즉시 강제퇴장 조치가 시행되었습니다.\n" +
+            //     "\n" +
+            //     "◈ 운영정책 위반사항\n"+
+            //     message +
+            //     "중단조치 일시 : " + forcedDate + "\n\n"+
+            //     "자세한 사유를 알고 싶으시면 1:1문의를 이용해주세요.";
+            console.log(meno);
+        }
+
+        if(tmp == "bt_modalForcedNotice"){      // 강제퇴장 알림O
+
+        }else if(tmp == "bt_modalForced"){    // 강제퇴장 알림X
+
+        }
     }
 </script>
 

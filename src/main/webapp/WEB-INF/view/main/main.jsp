@@ -68,7 +68,6 @@
                 <div class="widget-header">
                     <h3><i class="fa fa-bar-chart-o"></i> 방송 건수</h3> <em>- 2020년 03월 20일</em>
                     <div class="btn-group widget-header-toolbar">
-                        <a href="#" id="tour-focus" title="Focus" class="btn-borderless btn-focus"><i class="fa fa-eye"></i></a>
                         <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                     </div>
                 </div>
@@ -94,8 +93,8 @@
             <!--//방송건수-->
 
             <div class="row">
-                <!-- 방송정보 -->
-                <div class="col-md-6">
+                <div class="col-lg-6">
+                    <!-- 방송정보 -->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 방송정보</h3>
@@ -180,94 +179,9 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <!-- //방송정보 -->
+                    <!-- //방송정보 -->
 
-                <!-- 캐스트정보 -->
-                <div class="col-md-6">
-                    <div class="widget widget-table mb10">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 캐스트정보</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="javascript://" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
-                            </div>
-                        </div>
-                        <div class="widget-content mt10">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>실시간</th>
-                                        <th>전일</th>
-                                        <th>전일대비</th>
-                                        <th>주간</th>
-                                        <th>전주대비</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th>캐스트 건수</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>캐스트 시간</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>DJ</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>조회수</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>선물 건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>선물 금액</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- //캐스트정보 -->
-            </div>
-
-            <div class="row">
-                <!-- 접속정보 -->
-                <div class="col-md-6">
+                    <!-- 접속정보 -->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 접속정보</h3>
@@ -344,11 +258,219 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <!-- //접속정보 -->
+                    <!-- //접속정보 -->
 
-                <!-- 결제/결제취소-->
-                <div class="col-md-6">
+                    <!-- 회원가입/탈퇴 -->
+                    <div class="widget widget-table mb10">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-table"></i> 회원가입/탈퇴</h3>
+                            <div class="btn-group widget-header-toolbar">
+                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+
+                            <div class="btn-group widget-header-toolbar">
+                                <a href="javascript://" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                            </div>
+                        </div>
+                        <div class="widget-content mt10">
+                            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">회원가입</a></li>
+                                <li><a href="#reportDetail" role="tab" data-toggle="tab">탈퇴</a></li>
+                            </ul>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th colspan="2"></th>
+                                    <th>실시간</th>
+                                    <th>전일</th>
+                                    <th>전일대비</th>
+                                    <th>주간</th>
+                                    <th>전주대비</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th rowspan="3">성별</th>
+                                    <th>남</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>여</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>알수없음</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+
+                                <tr>
+                                    <th rowspan="7">연령별</th>
+                                    <th>남</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+
+                                <tr>
+                                    <th>10대</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>20대</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>30대</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>40대</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>50대</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>60대 이상</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+
+                                <tr class="success">
+                                    <th colspan="2">합계</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- //회원가입/탈퇴-->
+                </div>
+
+                <div class="col-lg-6">
+                    <!-- 캐스트정보 -->
+                    <div class="widget widget-table mb10">
+                        <div class="widget-header">
+                            <h3><i class="fa fa-table"></i> 캐스트정보</h3>
+                            <div class="btn-group widget-header-toolbar">
+                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
+                            </div>
+
+                            <div class="btn-group widget-header-toolbar">
+                                <a href="javascript://" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                            </div>
+                        </div>
+                        <div class="widget-content mt10">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>실시간</th>
+                                    <th>전일</th>
+                                    <th>전일대비</th>
+                                    <th>주간</th>
+                                    <th>전주대비</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>캐스트 건수</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>캐스트 시간</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>DJ</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>조회수</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>선물 건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>선물 금액</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- //캐스트정보 -->
+
+                    <!-- 결제/결제취소-->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 결제/결제취소</h3>
@@ -483,145 +605,9 @@
                             </table>
                         </div>
                     </div>
-                </div>
-                <!-- //결제/결제취소-->
+                    <!-- //결제/결제취소-->
 
-            </div>
-
-            <div class="row">
-                <!-- 회원가입/탈퇴 -->
-                <div class="col-md-6">
-                    <div class="widget widget-table mb10">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 회원가입/탈퇴</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="javascript://" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
-                            </div>
-                        </div>
-                        <div class="widget-content mt10">
-                            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">회원가입</a></li>
-                                <li><a href="#reportDetail" role="tab" data-toggle="tab">탈퇴</a></li>
-                            </ul>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2"></th>
-                                        <th>실시간</th>
-                                        <th>전일</th>
-                                        <th>전일대비</th>
-                                        <th>주간</th>
-                                        <th>전주대비</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th rowspan="3">성별</th>
-                                        <th>남</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>여</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>알수없음</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th rowspan="7">연령별</th>
-                                        <th>남</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>10대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>20대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>30대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>40대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>50대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>60대 이상</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-
-                                    <tr class="success">
-                                        <th colspan="2">합계</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <!-- //회원가입/탈퇴-->
-
-                <!-- 실시간 인기 아이템 TOP 5 -->
-                <div class="col-md-6">
+                    <!-- 실시간 인기 아이템 TOP 5 -->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 실시간 인기 아이템 TOP 5</h3>
@@ -632,107 +618,107 @@
                         <div class="widget-content mt10">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th colspan="2"></th>
-                                        <th>실시간</th>
-                                        <th>전일</th>
-                                        <th>전일대비</th>
-                                        <th>주간</th>
-                                        <th>전주대비</th>
-                                    </tr>
+                                <tr>
+                                    <th colspan="2"></th>
+                                    <th>실시간</th>
+                                    <th>전일</th>
+                                    <th>전일대비</th>
+                                    <th>주간</th>
+                                    <th>전주대비</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th rowspan="2">상품명</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">상품명</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">상품명</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">상품명</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">상품명</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
+                                <tr>
+                                    <th rowspan="2">상품명</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">상품명</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">상품명</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">상품명</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">상품명</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
+                    <!-- //실시간 인기 아이템 TOP 5-->
                 </div>
-                <!-- //실시간 인기 아이템 TOP 5-->
             </div>
         </div>
     </div>

@@ -16,7 +16,7 @@
                 <col width="5%" />
                 <col width="5%" />
                 <col width="5%" />
-                <col width="5%" />
+                <col width="6%" />
                 <col width="5%" />
                 <col width="5%" />
                 <col width="5%" />
@@ -73,12 +73,12 @@
             </tr>
             <tr>
                 <td>{{mem_id}}</td>
-                <td>레벨 : {{level}} / 등급 : {{grade}}</td>
+                <td>레벨 : {{level}}<br />등급 : {{grade}}</td>
                 <td>{{mem_nick}}</td>
                 <td>{{memSex}}</td>
 
                 <td>{{reported_mem_id}}</td>
-                <td>레벨 : {{reported_level}} / 등급 : {{reported_grade}}</td>
+                <td>레벨 : {{reported_level}}<br />등급 : {{reported_grade}}</td>
                 <td>{{reported_mem_nick}}</td>
                 <td>{{reported_memSex}}</td>
             </tr>
