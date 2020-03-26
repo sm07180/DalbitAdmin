@@ -21,8 +21,8 @@
             </div>
             <!-- //serachBox -->
             <!-- DATA TABLE -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table">
+            <div class="row col-lg-12 form-inline" id="div_broadcastList">
+                <div class="widget widget-table" id="main_table">>
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                         <div class="btn-group widget-header-toolbar">
@@ -33,10 +33,8 @@
                     </div>
                     <div class="widget-content">
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <thead>
-                            </thead>
-                            <tbody id="tableBody">
-                            </tbody>
+                            <thead></thead>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
@@ -84,7 +82,11 @@
         if(slctType == "1"){      // DJ정보
             data.dj_slctType = $("select[name='searchType_broad']").val();
             data.dj_searchText = $('#txt_search').val();
+            data.room_slctType = -1;
+            data.room_searchText = "";
         }else{                                                              // 방송정보
+            data.dj_slctType = -1;
+            data.dj_searchText = "";
             data.room_slctType = $("select[name='searchBroad_broad']").val();
             data.room_searchText = $('#txt_search').val();
         }
@@ -94,7 +96,26 @@
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
 
+    var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
+    $("#div_broadcastList").find("#main_table").find(".footer-right").append(excelBtn);
+
+
+    var tmp_slctType;
+    var tmp_dj_slctType = -1;
+    var tmp_dj_searchText;
+    var tmp_room_slctType = -1;
+    var tmp_room_searchText;
     function getSearch(){                 // 검색
+        /* 엑셀저장을 위해 조회조건 임시저장 */
+        var slctType = $('input[name="searchRadio"]:checked').val()
+        tmp_slctType = $('input[name="searchRadio"]:checked').val();
+        if(slctType == "1"){
+            tmp_dj_slctType = $("select[name='searchType_broad']").val();
+            tmp_dj_searchText = $('#txt_search').val();
+        }else {
+            tmp_room_slctType = $("select[name='searchBroad_broad']").val();
+            tmp_room_searchText = $('#txt_search').val();
+        }
         dtList_info.reload();
         ui.toggleSearchList();
     }
@@ -112,5 +133,23 @@
             $(this).parent().parent().find('.getBroadCast_info').click();
         }
     });
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("slctType", tmp_slctType);
+        formData.append("dj_slctType", tmp_dj_slctType);
+        formData.append("dj_searchText", tmp_dj_searchText);
+        formData.append("room_slctType", tmp_room_slctType);
+        formData.append("room_searchText", tmp_room_searchText);
+        util.excelDownload($(this), "/rest/broadcast/broadcast/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
 
 </script>
