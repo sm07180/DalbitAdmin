@@ -112,10 +112,7 @@
         // 버튼 끝
     }
 
-
-
     function fullSize(url) {     // 이미지 full size
-        console.log("url : " + url);
         $("#image_full_size").prop("src", url);
     }
 

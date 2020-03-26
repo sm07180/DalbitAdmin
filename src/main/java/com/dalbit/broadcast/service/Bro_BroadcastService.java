@@ -32,10 +32,10 @@ public class Bro_BroadcastService {
     public String callBroadcastList(P_BroadcastListInputVo pBroadcastListInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastListInputVo);
         ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(procedureVo);
-
+        P_BroadcastListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_BroadcastListOutputVo.class);
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, broadList, new PagingVo(procedureVo.getRet())));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, broadList, new PagingVo(procedureVo.getRet()),summary));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기실패));
         }

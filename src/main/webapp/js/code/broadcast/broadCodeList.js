@@ -70,11 +70,11 @@ var state = [
 
 // ------------------------- table -----------------------------
 var live_summary = [
-    new COMMON_CODE('', 'totalListen', '총 청취자')
-    , new COMMON_CODE('', 'totalgift', '총 선물')
-    , new COMMON_CODE('', 'totalGood', '총 좋아요')
-    , new COMMON_CODE('', 'totalBooster', '총 청취자 부스터')
-    , new COMMON_CODE('', 'totalBan', '총 강제퇴장')
+    new COMMON_CODE('', 'totalListenerCnt', '총 청취자')
+    , new COMMON_CODE('', 'totalGiftCnt', '총 선물')
+    , new COMMON_CODE('', 'totalGoodCnt', '총 좋아요')
+    , new COMMON_CODE('', 'totalBoosterCnt', '총 청취자 부스터')
+    , new COMMON_CODE('', 'totalForcedCnt', '총 강제퇴장')
 ];
 
 

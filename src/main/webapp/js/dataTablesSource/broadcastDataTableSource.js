@@ -1,47 +1,63 @@
 var BroadcastDataTableSource = {
     'liveList': {
-        'url': '/rest/broadcast/live/list'
+        'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': 'roomNo', 'data': 'roomNo' , 'visible' : false},
-            {'title': 'state', 'data': 'state', 'visible' : false},
-            {'title': '방송주제', 'data': 'type'},
-            {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
-                    return util.roomNoLink(data, row.roomNo, row.state);
+            {'title': '방송주제', 'data': 'subjectType','width' : '65px', 'render' : function (data){
+                    return util.getCommonCodeLabel(data, subject_type);
                 }},
-            {'title': '프로필이미지', 'data': 'imageProfile', 'render' : function(data, type, row, meta){
-                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="100px" height="100px" />';
+            {'title': '방송제목', 'data': 'title','width' : '200px', 'render': function (data, type, row, meta) {
+                    return util.roomNoLink(data, row.room_no, row.state);
                 }},
-            {'title': '테그부분', 'data': 'tag', 'render': function (data) {
-                    if(data == "ALL"){
-                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>' +
-                                '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>' +
-                                '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
-                    }else if(data == "repo"){
-                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>' +
-                                '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span>';
-                    }else if(data == "rene"){
-                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>' +
-                                '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
-                    }else if(data == "pone"){
-                        return '<span class ="label"  style="background-color:#3761d9">' + "인기" + '</span><br/>' +
-                                '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
-                    }else if(data == "re"){
-                        return '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span>';
-                    }else if(data == "po"){
-                        return '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span>';
-                    }else{
-                        return '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+            {'title': '프로필이미지', 'data': 'dj_profileImage', 'render' : function(data, type, row, meta){
+                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="50px" height="50px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src)"/>';
+                }},
+            {'title': '테그부분', 'data': 'tag', 'render': function (data, type, row, meta) {
+                    var tmp = "";
+                    if(row.recommBadge == "1"){
+                        tmp = '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>';
                     }
+                    if(row.popularBadge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>';
+                    }
+                    if(row.newjdBadge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }
+                    return tmp;
                 }},
-            {'title': 'User ID', 'data': 'memId', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.memNo);
+            {'title': 'DJ ID', 'data': 'dj_userid','width' : '65px','render': function (data, type, row, meta) {
+                    var tmp = util.memNoLink(data, row.dj_mem_no);
+                    tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
+                    return tmp;
                 }},
-            {'title': 'User 닉네임', 'data': 'memNick'},
-            {'title': '청취자', 'data': ''},
-            {'title': '선물', 'data': ''},
-            {'title': '좋아요', 'data': ''},
-            {'title': '부스터', 'data': ''},
-            {'title': '팬 수', 'data': ''},
+            {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '65px'},
+            {'title': '방송시작일시', 'data': 'start_date','width' : '120px'},
+            {'title': '진행시간', 'data': 'airTime','width' : '100px','render': function (data){
+                    return common.timeStamp(data);
+                }},
+            {'title': '청취자', 'data': 'totalListener','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
+            {'title': '좋아요', 'data': 'goodCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '부스터', 'data': 'boosterCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '선물', 'data': 'giftCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '팬 수', 'data': 'fanCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
+            {'title': '강제퇴장', 'data': 'forcedCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
         ]
         , 'comments' : 'ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.'
     },
@@ -49,20 +65,37 @@ var BroadcastDataTableSource = {
     'broadcastList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송주제', 'data': 'subjectType'},
+            {'title': '방송주제', 'data': 'subjectType', 'render' : function (data){
+                    return util.getCommonCodeLabel(data, subject_type);
+                }},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
+            {'title': '방송시작일시', 'data': 'start_date'},
+            {'title': '방송진행시간', 'data': 'airTime','render':function(data){
+                    return common.timeStamp(data);
+                }},
             {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.dj_mem_no);
+                    var tmp = util.memNoLink(data, row.dj_mem_no);
+                    tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
+                    return tmp;
                 }},
             {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
-            {'title': '방송시작일시', 'data': 'start_date'},
-            {'title': '청취자', 'data': 'liveListener'},
-            {'title': '선물', 'data': 'giftCnt'},
+            {'title': '청취자', 'data': 'totalListener'},
             {'title': '좋아요', 'data': 'goodCnt'},
-            {'title': '부스터', 'data': 'boosterCnt'},
-            {'title': '팬 수', 'data': 'fanCnt'},
+            {'title': '선물', 'data': 'giftCnt'},
+            {'title': '사연수', 'data': 'storyCnt'},
+            {'title': '방송상태', 'data': 'state','render': function (data, type, row, meta) {
+                    if(data == "1"){
+                        return "방송중";
+                    } else if (data == "2"){
+                        return "mic off";
+                    } else if (data == "3"){
+                        return data + "통화중";
+                    } else if (data == "5"){
+                        return "DJ비정상종료";
+                    }
+                }},
         ]
         , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
     },
