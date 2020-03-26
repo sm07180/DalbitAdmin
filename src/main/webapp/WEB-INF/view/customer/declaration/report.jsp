@@ -47,7 +47,9 @@
                 </td>
 
                 <th>처리상태</th>
-                <td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>
+                <%--<td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>--%>
+                {{^equal status '0'}}<td>처리완료</td>{{/equal}}
+                {{#equal status '0'}}<td>미처리</td>{{/equal}}
             </tr>
             <tr>
                 <th>플랫폼</th>
@@ -68,7 +70,7 @@
 
                 <th rowspan="2">제재 조치</th>
                 <td rowspan="2" colspan="3">
-                    {{{getCommonCodeRadio op_code 'declaration_slctType' 'N' 'opCode'}}}
+                    {{{getCommonCodeRadio op_code 'declaration_slctType' 'Y' 'opCode'}}}
                 </td>
             </tr>
             <tr>
@@ -187,16 +189,8 @@
     }
 
     $('#bt_declaration').on('click', function(){
-        var status = $('#declarationForm #status');
-        if(status.val() == 1) {
-            alert("이미 처리완료된 사항입니다.");
-            return false;
-        }
-        else if(status.val() == 0) {
-            if(confirm('처리하시겠습니까?')) {
-                util.getAjaxData("declaration", "/rest/customer/declaration/operate", $("#declarationForm").serialize(), fn_declaration_success);
-            }
-            return false;
+        if(confirm('처리하시겠습니까?')) {
+            util.getAjaxData("declaration", "/rest/customer/declaration/operate", $("#declarationForm").serialize(), fn_declaration_success);
         }
     });
 
@@ -209,12 +203,18 @@
         $("#declarationForm").empty();
     }
 
-   $('input:radio[name="opCode"]').on('click', function() {
+    $('input:radio[name="opCode"]').on('click', function() {
+        var radioValue = $(this).val();
+        var messageCheck = $('input:checkbox[name="message"]');
 
-           if($("#message").css("display") == "none") {
-               $('#message').css("display", "");
-           } else {
-               $("#hidden").css("display", "none");
-           }
-   });
+        if(radioValue == 0 || radioValue == 1) {
+            messageCheck.attr("disabled", "disabled");
+        } else {
+            messageCheck.removeAttr("disabled");
+        }
+    });
+
+    $(document).ready(function() {
+        $('input:radio[name="opCode"]:checked').click();
+    });
 </script>

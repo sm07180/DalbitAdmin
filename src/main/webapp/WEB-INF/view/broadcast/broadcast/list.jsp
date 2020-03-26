@@ -22,7 +22,7 @@
             <!-- //serachBox -->
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline" id="div_broadcastList">
-                <div class="widget widget-table" id="main_table">>
+                <div class="widget widget-table" id="main_table">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                         <div class="btn-group widget-header-toolbar">

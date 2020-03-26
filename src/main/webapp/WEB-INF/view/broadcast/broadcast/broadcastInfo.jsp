@@ -35,7 +35,6 @@
                 getSearch();
             };
         });
-
     });
 
     $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
@@ -112,6 +111,8 @@
         // 버튼 끝
     }
 
+
+
     function fullSize(url) {     // 이미지 full size
         $("#image_full_size").prop("src", url);
     }
@@ -133,7 +134,7 @@
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = $("#"+buttonId).data('roomno');
-            data.mem_no = $("#"+buttonId).data('memno');
+            // data.mem_no = $("#"+buttonId).data('memno');
         }
 
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
@@ -157,24 +158,30 @@
         } else if(tmp == "bt_forcedExit") {
             // obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
         } else if(tmp == "bt_msgWelcom") {
-            // 여기서 같으면 return false;
-            if (confirm('초기화하시겠습니까?')) {
-                $("#welcomeMsg").val("환영합니다!! 여기는 "+ detailData.dj_nickName +" 님의 방송방입니다.");
-                obj.welcomMsg = $("#welcomeMsg").val();
-                // $("#bt_msgWelcom").hide();
-            } else {
-                // 초기화된 멘트랑 바꿀멘트가 같으면 이미 초기화된 ""입니다. alert창 띄우면서 return=> 초기화하시겠습니까?전에
+            if($("#welcomeMsg").val() == ("환영합니다!! 여기는 " + detailData.dj_nickName + " 님의 방송방입니다.")){
+                alert("이미 초기화된 환영 메시지입니다.");
                 return false;
+            } else {
+                if (confirm('초기화하시겠습니까?')) {
+                    $("#welcomeMsg").val("환영합니다!! 여기는 " + detailData.dj_nickName + " 님의 방송방입니다.");
+                    obj.welcomMsg = $("#welcomeMsg").val();
+                } else {
+                    return false;
+                }
             }
             obj.welcomMsg = $("#welcomeMsg").val();
 
-
         } else if(tmp == "bt_title") {
-            if (confirm('초기화하시겠습니까?')) {
-                $("#title").val(detailData.dj_nickName + " 님의 방송입니다.");
-                obj.title = $("#title").val();
-            } else {
+            if($("#title").val() == (detailData.dj_nickName + " 님의 방송입니다.")) {
+                alert("이미 초기화된 방송 제목입니다.");
                 return false;
+            } else {
+                if (confirm('초기화하시겠습니까?')) {
+                    $("#title").val(detailData.dj_nickName + " 님의 방송입니다.");
+                    obj.title = $("#title").val();
+                } else {
+                    return false;
+                }
             }
         }
 
@@ -186,11 +193,12 @@
         alert(response.message);
 
         dtList_info.reload();
+        $("#detailFrm").empty();
     }
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
-        alert('정보 변경에 ')
+        alert('정보 변경에 실패하였습니다');
     }
 </script>
 
@@ -306,7 +314,7 @@
             </td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
-                {{airTime}}
+                {{timeStamp airTime}}
                 <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
