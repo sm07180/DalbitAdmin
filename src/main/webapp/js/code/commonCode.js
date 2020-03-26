@@ -1,4 +1,5 @@
-var INFOREX_MENU = function(depth, name, url){
+var INFOREX_MENU = function(id, depth, name, url){
+    this.id = id;
     this.depth = depth;
     this.name = name;
     this.url = url;
