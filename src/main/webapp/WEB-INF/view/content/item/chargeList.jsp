@@ -71,9 +71,21 @@ var fnc_chargeList = {
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
         this.dtList_info.setEventClick(this.updateData,5);
-        this.dtList_info.createDataTable();
+        this.dtList_info.createDataTable(this.initSummary);
         this.initDataTableButton();
         //---------- Main DataTable ----------=
+    },
+
+
+    initSummary(json) {
+        //------------- 우측 상단 통계 -----------------------------------
+        var template = $('#tmp_chargeListStatisticsFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = json.summary;
+        var html=templateScript(context);
+
+        fnc_chargeList.divDataTable = fnc_chargeList.targetDataTable.parent("div");
+        fnc_chargeList.divDataTable.find(".top-right").prepend(html);
     },
 
 
@@ -209,4 +221,48 @@ var fnc_chargeList = {
         // }
         /*----------- 엑셀 ---------=*/
 }
+</script>
+
+
+
+<!-- =------------------ Handlebars ---------------------------------- -->
+<script id="tmp_chargeListStatisticsFrm" type="text/x-handlebars-template">
+
+    <div style="float:left">
+        {{#each this}}
+        <table class="table table-bordered table-dalbit text-center" style="width:400px;">
+            <colgroup>
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+            </colgroup>
+            <tbody>
+            <tr class="align-middle">
+                <th colspan="9">게시중 아이템</th>
+                <th colspan="3"  rowspan="2">누적 구매현황</th>
+            </tr>
+            <tr>
+                <th colspan="3">PC</th>
+                <th colspan="3">Android</th>
+                <th colspan="3">IOS</th>
+            </tr>
+            <tr>
+                <td style="text-align:center;" colspan="3">{{item_col1}}건</td>
+                <td style="text-align:center;" colspan="3">{{item_col2}}건</td>
+                <td style="text-align:center;" colspan="3">{{item_col5}}건</td>
+                <td style="text-align:center;" colspan="3">{{item_col3}}건</td>
+            </tr>
+            </tbody>
+        </table>
+        {{/each}}
+    </div>
 </script>
