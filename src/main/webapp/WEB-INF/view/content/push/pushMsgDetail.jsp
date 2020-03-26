@@ -320,8 +320,8 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="3">메세지 내용</th>
-                <td colspan="5" rowspan="3">
+                <th rowspan="4">메세지 내용</th>
+                <td colspan="5" rowspan="4">
                     <div>
                         <textarea class="form-control" name="pushMsg-msg" id="pushMsg-msg" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40"></textarea>
                         <span style="color: red">* 메시지 내용은 10자~40자(한글) 입력 가능합니다.</span>
@@ -348,6 +348,7 @@
                 </td>
             </tr>
             <tr>
+                <!--
                 <th>메세지 포함 이미지</th>
                 <td colspan="5">
                     <div>
@@ -355,6 +356,7 @@
                         <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
                     </div>
                 </td>
+                -->
 
                 <th>등록/수정일</th>
                 <td colspan="5">{{date}}</td>
