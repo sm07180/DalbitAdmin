@@ -1,3 +1,4 @@
+/*
 package com.dalbit;
 
 import com.dalbit.common.service.CommonService;
@@ -116,3 +117,4 @@ public class SampleVoTest {
 
 
 }
+*/
