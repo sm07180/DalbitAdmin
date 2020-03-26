@@ -14,5 +14,20 @@ ui.toogleSearchListFooter = function(searchCnt){
     0 < searchCnt ? target.show() : target.hide();
 }
 
+/*인포렉스 메뉴를 클릭 했을 시*/
+ui.loadInforexAdminPage = function(menu){
 
+    //iframe 세팅
+    var html = '<iframe src="'+$(menu).data('url')+'" style="\n';
+        html += 'width: 100%;';
+        html += 'height: '+$("#left-sidebar").height()+'px;';
+        html += 'border: 0px;">';
+        html += '</iframe>';
+
+    $('#page-wrapper').empty().append(html);
+
+    //이전 메뉴 비활성화/ 클릭한 메뉴 활성화 처리
+    $('ul.sub-menu li.active, .main-menu li.page.active').removeClass('active');
+    $(menu).parent().addClass('active');
+}
 

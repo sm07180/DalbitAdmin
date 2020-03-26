@@ -31,7 +31,7 @@
                                 <c:if test="${menu2.depth eq 2 && menu.id eq menu2.id}">
                                     <ul class="sub-menu">
                                         <li>
-                                            <a href="${menu2.url}" target="_blank" class="_inforex">
+                                            <a href="javascript://" data-url="${menu2.url}" class="_inforex">
                                                 <span class="text">${menu2.name}</span>
                                             </a>
                                         </li>
@@ -438,8 +438,7 @@
         'font-weight' : 'bold'
     }).append(' - 준비중');
 
-    $('._inforex').find('span').css({
-        'color' : 'gray',
-        /*'font-weight' : 'bold'*/
-    }).append(' - 새창열기');
+    $('._inforex').on('click', function(){
+        ui.loadInforexAdminPage($(this));
+    });
 </script>

@@ -12667,7 +12667,8 @@ ul.main-menu .sub-menu li a {
     padding-left: 33px; }
 ul.main-menu .sub-menu li.active > a {
     font-weight: 700;
-    background-color: #f2c2ff
+    background-color: #8556F6;
+    color: #FFFFFF;
 }
 ul.main-menu .sub-menu .sub-menu li a {
     padding-left: 50px; }
