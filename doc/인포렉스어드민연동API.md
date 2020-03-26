@@ -52,7 +52,7 @@
   각 항목에 해당하는 메뉴의 URL 이 리턴되며 달빛 어드민 우측에 프레임으로 로드하면 됩니다.
   응답 JSON 은 admin.inforex.co.kr 로그인하면 보이는 좌측 메뉴트리에 해당하는 메뉴트리와 같습니다.
 
-  url : http://admin.inforex.co.kr/getCommonMenu.php
+  url : http://admin.inforex.co.kr/dalbit/getCommonMenu.php
   method : GET
 
   Response JSON: {

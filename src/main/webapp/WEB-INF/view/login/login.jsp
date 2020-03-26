@@ -96,7 +96,7 @@
     }
 
     function callInforexMenuApi(){
-        var url = "http://admin.inforex.co.kr/getCommonMenu.php";
+        var url = "http://admin.inforex.co.kr/dalbit/getCommonMenu.php";
         var data = new Object();
         data.url = url;
 

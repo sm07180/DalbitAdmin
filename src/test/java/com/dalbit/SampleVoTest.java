@@ -59,7 +59,7 @@ public class SampleVoTest {
     public void 인포렉스메뉴가져오기()throws Exception{
 
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
-        String result = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/getCommonMenu.php", null,"", "");
+        String result = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/dalbit/getCommonMenu.php", null,"", "");
         log.info(result);
     }
 
@@ -100,7 +100,7 @@ public class SampleVoTest {
     @Test
     public void 메뉴테스트()throws Exception{
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
-        Response response = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/getCommonMenu.php");
+        Response response = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/dalbit/getCommonMenu.php");
         log.info("sdlfkjalsf");
         log.info("sdlfkjalsf");
         log.info("sdlfkjalsf");
