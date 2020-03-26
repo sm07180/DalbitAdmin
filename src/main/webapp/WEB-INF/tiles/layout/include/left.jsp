@@ -47,8 +47,8 @@
                         <i class="fa fa-user"></i><span class="text">접속현황</span>
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/connect/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
-                        <li>
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/connect/') ? 'display:block;': ''}">
+                        <li class="${url.equals('/connect/login/info') ? 'active': ''}">
                             <a href="/connect/login/info">
                                 <i class="fa fa-search"></i><span class="text">로그인 현황</span>
                             </a>
