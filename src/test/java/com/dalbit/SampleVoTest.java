@@ -1,12 +1,13 @@
-/*
 package com.dalbit;
 
 import com.dalbit.common.service.CommonService;
 import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.inforex.vo.InforexPosCode;
 import com.dalbit.util.OkHttpClientUtil;
 import com.dalbit.util.RestApiUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -102,13 +103,16 @@ public class SampleVoTest {
     public void 메뉴테스트()throws Exception{
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
         Response response = okHttpClientUtil.sendGet("http://admin.inforex.co.kr/dalbit/getCommonMenu.php");
-        log.info("sdlfkjalsf");
-        log.info("sdlfkjalsf");
-        log.info("sdlfkjalsf");
-        log.info("sdlfkjalsf");
-        log.info("sdlfkjalsf");
+    }
+
+    @Test
+    public void 직급코드()throws Exception{
+        String result = RestApiUtil.sendGet("http://admin.inforex.co.kr/dalbit/getPosCodeList.php");
+
+        InforexPosCode[] inforexPosCodes = new Gson().fromJson(result, InforexPosCode[].class);
+        log.info("결과 : {}", inforexPosCodes);
+        log.info("파싱 결과 : {}", inforexPosCodes);
     }
 
 
 }
-*/

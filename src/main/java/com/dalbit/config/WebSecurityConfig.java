@@ -1,5 +1,6 @@
 package com.dalbit.config;
 
+import com.dalbit.security.handler.LogoutHandlerImpl;
 import com.dalbit.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired private AuthenticationSuccessHandler authSuccessHandler;
     @Autowired private AuthenticationFailureHandler authFailureHandler;
+    @Autowired private LogoutHandlerImpl logoutHandler;
     @Autowired private UserDetailsServiceImpl userDetailsService;
     @Autowired private AuthenticationProvider authProvider;
 
@@ -88,7 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .logout()
                     .logoutUrl("/logout")
-                    .deleteCookies("JSESSIONID")
+                    .addLogoutHandler(logoutHandler)
+                    .deleteCookies("JSESSIONID", "ADMIN_COOKIE", "gSTAFF", "NAME", "USER_ID")
                     .invalidateHttpSession(true)
 
             .and()
