@@ -122,3 +122,7 @@ Handlebars.registerHelper("getOnOffSwitch", function(value){
 Handlebars.registerHelper("renderImage", function(value){
     return IMAGE_SERVER_URL + value;
 });
+
+Handlebars.registerHelper("timeStamp", function(value) {
+   return common.timeStamp(value);
+});

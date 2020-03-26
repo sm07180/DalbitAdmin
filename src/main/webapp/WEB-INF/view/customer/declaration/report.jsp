@@ -189,16 +189,8 @@
     }
 
     $('#bt_declaration').on('click', function(){
-        console.log('클릭클릭');
-        if($('#status').val() == 1) {
-            alert("이미 처리완료된 사항입니다.");
-            return false;
-        }
-        else if($('#status').val() == 0) {
-            if(confirm('처리하시겠습니까?')) {
-                util.getAjaxData("declaration", "/rest/customer/declaration/operate", $("#declarationForm").serialize(), fn_declaration_success);
-            }
-            return false;
+        if(confirm('처리하시겠습니까?')) {
+            util.getAjaxData("declaration", "/rest/customer/declaration/operate", $("#declarationForm").serialize(), fn_declaration_success);
         }
     });
 
@@ -211,20 +203,16 @@
         $("#declarationForm").empty();
     }
 
-   $('input:radio[name="opCode"]').on('click', function() {
-        //현재 클릭한 값이 뭔지 알아내기.
-       var radioValue = $(this).val();
-       var messageCheck = $('input:checkbox[name="message"]');
+    $('input:radio[name="opCode"]').on('click', function() {
+        var radioValue = $(this).val();
+        var messageCheck = $('input:checkbox[name="message"]');
 
-        // if(라디오 값 == 미처리 || 라디오 값 == 정상)
-       if(radioValue == 0 || radioValue == 1) {
-           //조치선택의 체크박스를 모두 disable 처리
-           messageCheck.attr("disabled", "disabled");
-       } else {
-           //조치선택의 체크박스 disable 해제
-           messageCheck.removeAttr("disabled");
-       }
-   });
+        if(radioValue == 0 || radioValue == 1) {
+            messageCheck.attr("disabled", "disabled");
+        } else {
+            messageCheck.removeAttr("disabled");
+        }
+    });
 
     $(document).ready(function() {
         $('input:radio[name="opCode"]:checked').click();
