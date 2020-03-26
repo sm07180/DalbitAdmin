@@ -45,7 +45,7 @@
                 <li class="${fn:startsWith(url, '/미정/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-user"></i><span class="text">접속현황</span>
-                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/미정/') ? 'down': 'left'}"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/connect/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
                         <li>
