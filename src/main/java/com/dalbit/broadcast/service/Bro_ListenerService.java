@@ -34,7 +34,7 @@ public class Bro_ListenerService {
      */
     public String getListenerHistory_detail(P_ListenListInputVo pListenListInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pListenListInputVo);
-        ArrayList<P_ListenListOutputVo> broadList = bro_ListenerDao.callListener_detail(procedureVo);
+        ArrayList<P_ListenListOutputVo> broadList = bro_ListenerDao.callListenerList(procedureVo);
         P_ListenListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_ListenListOutputVo.class);
 
         String result;

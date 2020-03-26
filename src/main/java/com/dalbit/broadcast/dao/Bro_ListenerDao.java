@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 @Repository
 public interface Bro_ListenerDao {
-    ArrayList<P_ListenListOutputVo> callListener_detail(ProcedureVo procedureVo);
+    ArrayList<P_ListenListOutputVo> callListenerList(ProcedureVo procedureVo);
     ProcedureVo callForceLeave(ProcedureVo procedureVo);
 }

@@ -31,6 +31,7 @@ public class Bro_ListenerRestController {
     public String getBroadcastList(P_ListenListInputVo pListenListInputVo){
         return bro_ListenerService.getListenerHistory_detail(pListenListInputVo);
     }
+
     @PostMapping("forceLeave")
     public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
         return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);

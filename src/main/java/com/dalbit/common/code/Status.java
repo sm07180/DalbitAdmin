@@ -186,7 +186,13 @@ public enum Status {
     생방청취자강제퇴장_청취자아님("-4", "broadcast.listen.forced.no.listener", "생방송 청취자 강제퇴장 청취자 아닐 시"),
     생방청취자강제퇴장_퇴장한회원("-5", "broadcast.listen.forced.no.forced", "생방송 청취자 강제퇴장 이미 퇴장한 회원 일 시"),
 
+    //생방송 좋아요 목록 보기
+    생방송_좋아요목록조회_성공("0", "broadcast.like.list.view.success", "생방송 좋아요 목록 조회 성공 시"),
+    생방송_좋아요목록조회_실패("-1", "broadcast.like.list.view.fail", "생방송 좋아요 목록 조회 데이터 없을 시"),
 
+    //생방송 선물 목록 보기
+    생방송_선물목록조회_성공("0", "broadcast.gift.list.view.success", "생방송 선물 목록 조회 성공 시"),
+    생방송_선물목록조회_실패("-1", "broadcast.gift.list.view.fail", "생방송 선물 목록 조회 데이터 없을 시"),
     ;
 
     final private String RESULT_SUCCESS = "success";
