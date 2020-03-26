@@ -217,4 +217,17 @@
     $(document).ready(function() {
         $('input:radio[name="opCode"]:checked').click();
     });
+
+    function declarationCheck(data){
+        var radioValue = $('input:radio[name="opCode"]');
+        var messageCheck = $('input:checkbox[name="message"]');
+        if(data == 1) {
+            radioValue.attr("disabled", "disabled");
+            messageCheck.attr("disabled", "disabled");
+        } else {
+            radioValue.removeAttr("disabled");
+            messageCheck.removeAttr("disabled");
+        }
+
+    }
 </script>
