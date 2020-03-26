@@ -153,6 +153,8 @@
         $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
         util.editorInit("customer-declaration");
         getChattingHistoryDetail();
+
+        declarationCheck(response.data.status);
     }
 
 
