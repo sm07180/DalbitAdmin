@@ -133,6 +133,9 @@
                         //console.log('2뎁스 object'+ key2 + "/" + value2);
                         menuInfo.push(new INFOREX_MENU(menuId2, 1, key2, null));
                         $.each(data[key][key2], function(key3, value3){
+                            if(value3 == 'http://admin.inforex.co.kr/mng_common/board/company/board.html?brd_category=seatquarter'){
+                                value3 += '&doc_no=320';
+                            }
                             menuInfo.push(new INFOREX_MENU(menuId2, 2, key3, value3));
                         });
 

@@ -86,9 +86,13 @@ public class SampleController {
         return "sample/datepicker";
     }
 
-    @GetMapping("adminlogin")
-    public String adminlogin(){ return "sample/adminlogin";}
+    @GetMapping("inforexAdminLogin")
+    public String inforexAdminLogin(){ return "sample/inforexAdminLogin";}
 
-    @GetMapping("adminlogin2")
-    public String adminlogin2(){ return "sample/adminlogin2";}
+    @GetMapping("inforexAdminMenu")
+    public String inforexAdminMenu(){ return "sample/inforexAdminMenu";}
+
+    @GetMapping("inforexPosCodeList")
+    public String inforexPosCodeList(){ return "sample/inforexPosCodeList";}
+
 }
