@@ -9,7 +9,8 @@ var BroadcastDataTableSource = {
                     return util.roomNoLink(data, row.room_no, row.state);
                 }},
             {'title': '프로필이미지', 'data': 'dj_profileImage', 'render' : function(data, type, row, meta){
-                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="50px" height="50px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src)"/>';
+                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="50px" height="50px" data-toggle="modal" data-target="#imgModal"' +
+                        ' onclick="fullSize(this.src)" onerror="onErrorImg()"/>';
                 }},
             {'title': '테그부분', 'data': 'tag', 'render': function (data, type, row, meta) {
                     var tmp = "";
@@ -140,31 +141,38 @@ var BroadcastDataTableSource = {
     'chatList': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '채팅 장성 시간', 'data': '', 'defaultContent': '0건'},
-            {'title': '채팅 내용', 'data': '', 'defaultContent': '0건'},
+            {'title': '채팅 장성 시간', 'data': ''},
+            {'title': '채팅 내용', 'data': ''},
         ]
     },
     'chatUserList': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '채팅 장성 시간', 'data': '', 'defaultContent': '0건'},
-            {'title': '채팅 내용', 'data': '', 'defaultContent': '0건'},
+            {'title': '채팅 장성 시간', 'data': ''},
+            {'title': '채팅 내용', 'data': ''},
         ]
     },
 
 
     'likeDetail': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/broadcast/like/list'
         , 'columns': [
-            {'title': '회원번호', 'data': ''},
-            {'title': '보낸 User Id', 'data': '', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.memNo);
+            {'title': '보낸 User ID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
+                    var tmp = util.memNoLink(data, row.mem_no);
+                    tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
+                    return tmp;
                 }},
-            {'title': '보낸 User 닉네임', 'data': ''},
-            {'title': '보낸 일시', 'data': ''},
-            {'title': '보낸 좋아요', 'data': ''},
-            {'title': '보낸 부스터', 'data': ''},
-            {'title': '적용완료 일시', 'data': ''},
+            {'title': '보낸 User 닉네임', 'data': 'mem_nick','width' : '150px'},
+            {'title': '좋아요 보낸 일시', 'data': 'goodDate','width' : '150px'},
+            {'title': '누적 부스터', 'data': 'accumCnt','width' : '150px', 'render': function (data) {
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '부스터 적용 일시', 'data': 'boosterDate','width' : '150px'},
+            {'title': '좋아요 및 부스터 적용 시 방송방 실시간 순위', 'data': 'rank','width' : '100px', 'render': function (data) {
+                    var tmp = common.addComma(data);
+                    return tmp + "위";
+                }},
         ]
         , 'comments': 'ㆍ방송 중 좋아요와 부스터 적용상태를 확인할 수 있습니다.'
     },
@@ -172,16 +180,14 @@ var BroadcastDataTableSource = {
     'giftDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '회원번호', 'data': ''},
-            {'title': '보낸 User ID', 'data': '', 'render': function (data, type, row, meta) {
+            {'title': '보낸 User ID', 'data': 'userId', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
                 }},
-            {'title': '보낸 User 닉네임', 'data': ''},
-            {'title': '보낸 일시', 'data': ''},
-            {'title': '이미지', 'data': ''},
-            {'title': '선물 명', 'data': ''},
-            {'title': '보낸 선물 수', 'data': ''},
-            {'title': '적용완료 일시', 'data': ''},
+            {'title': '보낸 User 닉네임', 'data': 'nickName'},
+            {'title': '보낸 일시', 'data': 'giftDate'},
+            {'title': '이미지', 'data': 'itemImage'},
+            {'title': '선물 명', 'data': 'itemName'},
+            {'title': '누적 선물', 'data': 'accumCnt'},
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
     },
@@ -200,64 +206,33 @@ var BroadcastDataTableSource = {
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
 
-    'live_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '누적청취자', 'data': '', 'defaultContent': '0건'},
-            {'title': '누적선물', 'data': '', 'defaultContent': '0건'},
-            {'title': '누적좋아요', 'data': '', 'defaultContent': '0건'},
-            {'title': '누적DJ부스터', 'data': '', 'defaultContent': '0건'},
-            {'title': '누적청취자 부스터', 'data': '', 'defaultContent': '0건'},
-            {'title': '강제퇴장', 'data': '', 'defaultContent': '0건'},
-        ]
-    },
+    // 'chat_top': {
+    //     'url': '/rest/member/report/list'
+    //     , 'columns': [
+    //         {'title': '채팅참여자', 'data': ''},
+    //         {'title': '<i class="fa fa-moon-o" style="color: #009bff"></i>' + ": 달D", 'data': ''},
+    //         {'title': '<i class="fa fa-volume-up" style="color: #080004"></i>' + ": 청취자", 'data': ''},
+    //         {'title': '<i class="fa fa-star" style="color: #ff1600"></i>' + ": 게스트", 'data': ''},
+    //         {'title': '<i class="fa fa-street-view" style="color: #00ff32"></i>' + ": 매니저", 'data': ''},
+    //         {'title': '<i class="fa fa-bomb" style="color: #7400ff"></i>' + ": 강제퇴장자", 'data': ''},
+    //     ]
+    // },
 
-    'listen_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '청취자', 'data': '', 'defaultContent': '0건'},
-            {'title': '게스트ID', 'data': '', 'defaultContent': '0건'},
-            {'title': '매니저', 'data': '', 'defaultContent': '0건'},
-            {'title': '강제퇴장자', 'data': '', 'defaultContent': '0건'},
-            {'title': '좋아요', 'data': '', 'defaultContent': '0건'},
-            {'title': '부스터', 'data': '', 'defaultContent': '0건'},
-            {'title': '아이템', 'data': '', 'defaultContent': '0건'},
-        ]
-    },
-
-    'chat_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '채팅참여자', 'data': '', 'defaultContent': '0건'},
-            {'title': '<i class="fa fa-moon-o" style="color: #009bff"></i>' + ": 달D", 'data': '', 'defaultContent': '0건'},
-            {'title': '<i class="fa fa-volume-up" style="color: #080004"></i>' + ": 청취자", 'data': '', 'defaultContent': '0건'},
-            {'title': '<i class="fa fa-star" style="color: #ff1600"></i>' + ": 게스트", 'data': '', 'defaultContent': '0건'},
-            {'title': '<i class="fa fa-street-view" style="color: #00ff32"></i>' + ": 매니저", 'data': '', 'defaultContent': '0건'},
-            {'title': '<i class="fa fa-bomb" style="color: #7400ff"></i>' + ": 강제퇴장자", 'data': '', 'defaultContent': '0건'},
-        ]
-    },
-    'like_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '좋아요', 'data': '', 'defaultContent': '0건'},
-            {'title': '청취자 부스터', 'data': '', 'defaultContent': '0건'},
-        ]
-    },
     'gift_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '방송 중 선물', 'data': '', 'defaultContent': '0건'},
-            {'title': 'DJ>청취자', 'data': '', 'defaultContent': '0건'},
-            {'title': '남자', 'data': '', 'defaultContent': '0건'},
-            {'title': '여자', 'data': '', 'defaultContent': '0건'},
+            {'title': '방송 중 선물', 'data': ''},
+            {'title': 'DJ>청취자', 'data': ''},
+            {'title': '남자', 'data': ''},
+            {'title': '여자', 'data': ''},
         ]
     },
     'story_top': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '방송 중 사연', 'data': '', 'defaultContent': '0건'},
-            {'title': '남자', 'data': '', 'defaultContent': '0건'},
-            {'title': '여자', 'data': '', 'defaultContent': '0건'},
+            {'title': '방송 중 사연', 'data': ''},
+            {'title': '남자', 'data': ''},
+            {'title': '여자', 'data': ''},
         ]
     },
     
