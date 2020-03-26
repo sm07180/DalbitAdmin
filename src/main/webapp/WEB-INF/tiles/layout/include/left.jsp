@@ -318,7 +318,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/splash/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-envelope-o"></i><span class="text">스플래시 메시지</span>
                             </a>
                         </li>
@@ -328,7 +329,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/theme/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-search"></i><span class="text">방송주제</span>
                             </a>
                         </li>

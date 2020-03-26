@@ -5,7 +5,6 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.BannerService;
 import com.dalbit.content.vo.BannerVo;
-import com.dalbit.content.vo.PushVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -33,12 +32,12 @@ public class BannerRestController {
      * 배너관리
      */
     @PostMapping("list")
-    public String list(HttpServletRequest request, PushVo pushVo) {
+    public String list(HttpServletRequest request, BannerVo bannerVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = bannerVo.getPageStart();
 
         ArrayList<BannerVo> list = new ArrayList<BannerVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < bannerVo.getPageCnt(); i++){
             BannerVo data = new BannerVo();
             data.setRowNum((totalCnt - startIdx));
             data.setBanner_col1(DalbitUtil.randomValue("number", 1));
@@ -58,9 +57,9 @@ public class BannerRestController {
 
 
     @PostMapping("statistics")
-    public String statisticsList(HttpServletRequest request, PushVo pushVo) {
+    public String statisticsList(HttpServletRequest request, BannerVo bannerVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = bannerVo.getPageStart();
 
         ArrayList<BannerVo> list = new ArrayList<BannerVo>();
 

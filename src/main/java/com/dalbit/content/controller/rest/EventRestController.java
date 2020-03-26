@@ -4,9 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.EventService;
-import com.dalbit.content.vo.BannerVo;
 import com.dalbit.content.vo.EventVo;
-import com.dalbit.content.vo.PushVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -34,12 +32,12 @@ public class EventRestController {
      * 이벤트
      */
     @PostMapping("event")
-    public String eventList(HttpServletRequest request, PushVo pushVo) {
+    public String eventList(HttpServletRequest request, EventVo eventVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = eventVo.getPageStart();
 
         ArrayList<EventVo> list = new ArrayList<EventVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < eventVo.getPageCnt(); i++){
             EventVo data = new EventVo();
             data.setRowNum((totalCnt - startIdx));
             data.setEvent_col1(DalbitUtil.randomValue("number", 1));
@@ -59,12 +57,12 @@ public class EventRestController {
 
 
     @PostMapping("pastevent")
-    public String pastEventsList(HttpServletRequest request, PushVo pushVo) {
+    public String pastEventsList(HttpServletRequest request, EventVo eventVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = eventVo.getPageStart();
 
         ArrayList<EventVo> list = new ArrayList<EventVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < eventVo.getPageCnt(); i++){
             EventVo data = new EventVo();
             data.setRowNum((totalCnt - startIdx));
             data.setEvent_col1(DalbitUtil.randomValue("number", 1));
@@ -84,9 +82,9 @@ public class EventRestController {
 
 
     @PostMapping("reportstatistics")
-    public String statisticsList(HttpServletRequest request, PushVo pushVo) {
+    public String statisticsList(HttpServletRequest request, EventVo eventVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = eventVo.getPageStart();
 
         ArrayList<EventVo> list = new ArrayList<EventVo>();
 
@@ -106,9 +104,9 @@ public class EventRestController {
 
 
     @PostMapping("report")
-    public String reportList(HttpServletRequest request, PushVo pushVo) {
+    public String reportList(HttpServletRequest request, EventVo eventVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = eventVo.getPageStart();
 
         ArrayList<EventVo> list = new ArrayList<EventVo>();
         for(int i = 0; i < totalCnt; i++){

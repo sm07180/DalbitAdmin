@@ -56,6 +56,12 @@ var push_sendType = [
     , new COMMON_CODE('reservation', '1', '예약발송')
 ];
 
+/** =------ Splash ---------- */
+var splash_exposureType = [
+    new COMMON_CODE(null, 'exposureType', '게시 기간')
+    , new COMMON_CODE('immediately', '0', '즉시게시')
+    , new COMMON_CODE('reservation', '1', '예약게시')
+];
 
 
 /** =------ Banner ---------- */
