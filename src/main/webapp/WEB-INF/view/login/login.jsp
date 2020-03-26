@@ -16,7 +16,7 @@
                     <label for="memId" class="control-label sr-only">ID</label>
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control _loginInput" type="text" placeholder="아이디를 입력해주세요." name="memId" id="memId" value="" autofocus>
+                            <input class="form-control _loginInput" type="text" placeholder="아이디를 입력해주세요." name="memId" id="memId" value="bgko" autofocus>
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control _loginInput" type="password" placeholder="비밀번호를 입력해주세요." name="memPwd" id="memPwd" value="">
+                            <input class="form-control _loginInput" type="password" placeholder="비밀번호를 입력해주세요." name="memPwd" id="memPwd" value="kbg5702!">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         </div>
                     </div>

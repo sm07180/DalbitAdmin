@@ -99,3 +99,10 @@ var gift_summary = [
     ,new COMMON_CODE('','none','미지정')
 ];
 
+var story_summary = [
+    new COMMON_CODE('','storyCnt','방송 중 사연')
+    ,new COMMON_CODE('','male','남자')
+    ,new COMMON_CODE('','female','여자')
+    ,new COMMON_CODE('','none','미지정')
+];
+
