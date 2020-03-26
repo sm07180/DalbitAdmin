@@ -2,16 +2,21 @@ package com.dalbit.broadcast.controller.rest;
 
 
 import com.dalbit.broadcast.service.Bro_BroadcastService;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailInputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistInputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo;
+import com.dalbit.broadcast.vo.procedure.*;
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.util.GsonUtil;
+import org.springframework.ui.Model;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
@@ -22,6 +27,8 @@ public class Bro_BroadcastRestController {
     Bro_BroadcastService bro_BroadcastService;
     @Autowired
     GsonUtil gsonUtil;
+    @Autowired
+    ExcelService excelService;
 
     /**
      * 생방송 목록
@@ -29,8 +36,19 @@ public class Bro_BroadcastRestController {
      * @return
      */
     @PostMapping("list")
-    public String getBroadcastList(P_BroadcastListInputVo pBroadcastListInputVo){
+    public String list(P_BroadcastListInputVo pBroadcastListInputVo){
         return bro_BroadcastService.callBroadcastList(pBroadcastListInputVo);
+    }
+
+    /**
+     * 실시간 최신 생방송 엑셀
+     */
+    @PostMapping("listExcel")
+    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_BroadcastListInputVo pBroadcastListInputVo) throws GlobalException {
+        Model resultModel = bro_BroadcastService.callBroadcastListExcel(pBroadcastListInputVo, model);
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 
     /**

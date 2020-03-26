@@ -13,7 +13,7 @@
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                 </form>
-                <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">이미지초기화</button>
+                <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right">초기화</button>
             </td>
             <tr>
                 <th>회원레벨</th>
@@ -112,7 +112,7 @@
         </tr>
         <tr>
             <th>비밀번호</th>
-            <td colspan="3" style="text-align: left"><button type="button" id="bt_resatPass" class="btn btn-default btn-sm">비밀번호 초기화</button></td>
+            <td colspan="3" style="text-align: left"><button type="button" id="bt_resatPass" class="btn btn-default btn-sm">초기화</button></td>
             <th>회원탈퇴일시</th>
             <td style="text-align: left"><label id="lb_withdrawalDate"></label></td>
         </tr>

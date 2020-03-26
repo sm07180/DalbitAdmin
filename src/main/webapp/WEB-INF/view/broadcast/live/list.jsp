@@ -87,7 +87,6 @@
         });
     });
     $(function(){
-        init();
         getSearch();
     });
     $('#bt_search').on('click', function(){
@@ -98,24 +97,28 @@
     });
 
     var dtList_info="";
-    function init() {
-        var dtList_info_data = function (data) {
-            var slctType = $('input[name="searchRadio"]:checked').val()
-            data.slctType = $('input[name="searchRadio"]:checked').val();
-            if(slctType == "1"){      // DJ정보
-                data.dj_slctType = $("select[name='searchType_broad']").val();
-                data.dj_searchText = $('#txt_search').val();
-            }else {                                                              // 방송정보
-                data.room_slctType = $("select[name='searchBroad_broad']").val();
-                data.room_searchText = $('#txt_search').val();
-            }
-            data.pageCnt=10;
-        };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
-        dtList_info.useCheckBox(false);
-        dtList_info.useIndex(true);
-        dtList_info.createDataTable(live_summary_table);
-    }
+    var dtList_info_data = function (data) {
+        var slctType = $('input[name="searchRadio"]:checked').val()
+        data.slctType = $('input[name="searchRadio"]:checked').val();
+        if(slctType == "1"){      // DJ정보
+            data.dj_slctType = $("select[name='searchType_broad']").val();
+            data.dj_searchText = $('#txt_search').val();
+            data.room_slctType = -1;
+            data.room_searchText = "";
+        }else {                                                              // 방송정보
+            data.dj_slctType = -1;
+            data.dj_searchText = "";
+            data.room_slctType = $("select[name='searchBroad_broad']").val();
+            data.room_searchText = $('#txt_search').val();
+        }
+        data.pageCnt=10;
+    };
+    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
+    dtList_info.useCheckBox(false);
+    dtList_info.useIndex(true);
+    dtList_info.createDataTable(live_summary_table);
+    var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
+    $("#main_table").find(".footer-right").append(excelBtn);
 
     function live_summary_table(json){
         // dalbitLog(json);
@@ -130,9 +133,9 @@
     }
 
     var tmp_slctType;
-    var tmp_dj_slctType;
+    var tmp_dj_slctType = -1;
     var tmp_dj_searchText;
-    var tmp_room_slctType;
+    var tmp_room_slctType = -1;
     var tmp_room_searchText;
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
@@ -146,10 +149,6 @@
             tmp_room_searchText = $('#txt_search').val();
         }
         dtList_info.reload();
-
-        var forcedBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
-
-        $("#main_table").find(".footer-right").append(forcedBtn);
     }
 
     function fullSize(url) {     // 이미지 full size
@@ -166,7 +165,7 @@
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_searchText", tmp_room_searchText);
-        util.excelDownload($(this), "/rest/broadcast/broadcast/list", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/rest/broadcast/broadcast/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
     function fn_success_excel(){
         console.log("fn_success_excel");

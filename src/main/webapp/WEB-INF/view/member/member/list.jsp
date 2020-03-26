@@ -21,7 +21,7 @@
             <!-- //serachBox -->
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table">
+                <div class="widget widget-table" id="div_memberList">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                         <div class="btn-group widget-header-toolbar">
@@ -30,18 +30,11 @@
                             </a>
                         </div>
                     </div>
-                    <div class="widget-content">
+                    <div class="widget-content" id="main_table">
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <thead>
-                            </thead>
-                            <tbody id="tableBody">
-                            </tbody>
+                            <thead></thead>
+                            <tbody></tbody>
                         </table>
-                    </div>
-                    <div class="widget-footer">
-                        <span>
-                            <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
-                        </span>
                     </div>
                 </div>
             </div>
@@ -81,6 +74,9 @@
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
 
+    var forcedBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
+    $("#div_memberList").find("#main_table").find(".footer-right").append(forcedBtn);
+
     var tmp_searchType;
     var tmp_searchText;
     var memNo = "unknown";
@@ -114,6 +110,7 @@
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@");
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 

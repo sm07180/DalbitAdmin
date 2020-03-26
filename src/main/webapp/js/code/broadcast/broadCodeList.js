@@ -51,7 +51,7 @@ var searchType_broad = [
 
 var searchBroad_broad = [
     new COMMON_CODE(null, 'searchBroad_broad', '방송정보검색')
-    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('broadTitle', '1', '방송제목')
     , new COMMON_CODE('welcomMsg', '2', '인사말')
     , new COMMON_CODE('broadNotie', '3', '방송중공지')

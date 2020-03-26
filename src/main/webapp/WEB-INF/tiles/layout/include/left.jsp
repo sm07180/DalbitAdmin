@@ -289,19 +289,20 @@
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/content/') ? 'display:block;': ''}">
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/item/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-moon-o"></i><span class="text">아이템관리</span>
                             </a>
                         </li>
                         <li>
-                            <%--<a href="/content/event/list">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/event/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-gift"></i><span class="text">이벤트관리</span>
                             </a>
                         </li>
                         <li>
-                            <%--<a href="/content/banner/list">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/banner/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-server"></i><span class="text">배너관리</span>
                             </a>
                         </li>
@@ -311,8 +312,8 @@
                             </a>
                         </li>
                         <li>
-                            <%--<a href="/content/push/list">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/push/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-envelope-o"></i><span class="text">푸시 메시지</span>
                             </a>
                         </li>
