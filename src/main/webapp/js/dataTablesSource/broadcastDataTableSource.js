@@ -8,9 +8,9 @@ var BroadcastDataTableSource = {
             {'title': '방송제목', 'data': 'title','width' : '200px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no, row.state);
                 }},
-            {'title': '프로필이미지', 'data': 'dj_profileImage', 'render' : function(data, type, row, meta){
-                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="50px" height="50px" data-toggle="modal" data-target="#imgModal"' +
-                        ' onclick="fullSize(this.src)" onerror="onErrorImg()"/>';
+            {'title': '프로필이미지', 'data': 'dj_profileImage', 'render' : function(data, type, row){
+                    return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_sex) +'" width="50px" height="50px" ' +
+                            'data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src)"/>';
                 }},
             {'title': '테그부분', 'data': 'tag', 'render': function (data, type, row, meta) {
                     var tmp = "";
@@ -178,14 +178,18 @@ var BroadcastDataTableSource = {
     },
 
     'giftDetail': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/broadcast/gift/list'
         , 'columns': [
             {'title': '보낸 User ID', 'data': 'userId', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.memNo);
+                    var tmp = util.memNoLink(data, row.mem_no);
+                    tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
+                    return tmp;
                 }},
             {'title': '보낸 User 닉네임', 'data': 'nickName'},
             {'title': '보낸 일시', 'data': 'giftDate'},
-            {'title': '이미지', 'data': 'itemImage'},
+            {'title': '이미지', 'data': 'itemImage', 'render' : function(data, type, row, meta){
+                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="50px" height="50px"/>';
+                }},
             {'title': '선물 명', 'data': 'itemName'},
             {'title': '누적 선물', 'data': 'accumCnt'},
         ]
