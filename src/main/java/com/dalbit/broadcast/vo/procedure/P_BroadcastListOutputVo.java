@@ -37,6 +37,13 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int forcedCnt;
     private int storyCnt;
 
+    /* total */
+    private int totalListenerCnt;
+    private int totalGoodCnt;
+    private int totalGiftCnt;
+    private int totalBoosterCnt;
+    private int totalForcedCnt;
+
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;

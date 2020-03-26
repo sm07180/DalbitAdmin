@@ -68,10 +68,10 @@
 
     function initDataTableTop_select_report(tmp){
         var topTable = '<span name="state" id="state" onchange="force_sel_change()"></span>';
-        var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
+            var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
 
-        $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
-        $("#"+tmp).find("#main_table").find(".footer-left").append(forcedBtn);
+            $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+            $("#"+tmp).find("#main_table").find(".footer-left").append(forcedBtn);
 
         $("#state").html(util.getCommonCodeSelect(-1, state));
         eventInit();
@@ -168,9 +168,9 @@
             <td>{{content.guestId}}</td>
             <td>{{content.managerCnt}}명</td>
             <td>{{content.forcedCnt}}명</td>
-            <td>{{content.totalGoodCnt}}명</td>
-            <td>{{content.totalBoosterCnt}}명</td>
-            <td>{{content.totalGiftCnt}}명</td>
+            <td>{{content.totalGoodCnt}}건</td>
+            <td>{{content.totalBoosterCnt}}건</td>
+            <td>{{content.totalGiftCnt}}건</td>
         </tbody>
     </table>
 </script>

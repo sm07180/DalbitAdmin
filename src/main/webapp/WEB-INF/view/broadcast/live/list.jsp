@@ -11,13 +11,10 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
                         <div>
-                            <form id="search_radio">
-                                <label class="radio-inline"><input type="radio" name="radio_search" value="member" checked>회원</label>
-                                <label class="radio-inline"><input type="radio" name="radio_search" value="broad">방송</label>
-                                <span id="searchType"></span>
-                                <label><input type="text" class="form-control" id="txt_search"></label>
-                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                            </form>
+                            <span id="searchRadio"></span>
+                            <span id="searchType_broad"></span>
+                            <label><input type="text" class="form-control" id="txt_search"></label>
+                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
@@ -47,12 +44,37 @@
     </div>
 </div>
 
+<!-- 이미지 원본 보기 -->
+<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img id="image_full_size" src="#" alt="your image" style="max-width: 1000px;max-height: 1000px;">
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script>
-    $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
+    $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+    $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
 
     $(document).ready(function() {
+        $('#searchRadio').change(function() {
+            console.log($('input[name="searchRadio"]:checked').val());
+            if($('input[name="searchRadio"]:checked').val() == "1"){
+                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+            }else{
+                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
+            }
+        });
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getSearch();
@@ -64,27 +86,6 @@
             };
         });
     });
-    $(document).ready(function() {
-        $('input[id="txt_broad"]').keydown(function() {
-            if (event.keyCode === 13) {
-                getSearch();
-            };
-        });
-        $('input[id="txt_broad"]').keydown(function() {
-            if (event.keyCode === 13) {
-                getSearch();
-            };
-        });
-    });
-
-    $('#search_radio').change(function() {
-        if($('input[name="radio_search"]:checked').val() == "member"){
-            $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
-        }else{
-            $("#searchType").html(util.getCommonCodeSelect(-1, searchBroad));
-        }
-    });
-
     $(function(){
         init();
         getSearch();
@@ -99,10 +100,16 @@
     var dtList_info="";
     function init() {
         var dtList_info_data = function (data) {
-            data.search = $('#txt_search').val();                            // 검색명
-            data.gubun = $("select[name='selectGubun']").val();
-            data.searchBroad = $('#txt_broad').val();                        // 방송색명
-            data.gubunBroad = $("select[name='selectGubun_broad']").val();
+            var slctType = $('input[name="searchRadio"]:checked').val()
+            data.slctType = $('input[name="searchRadio"]:checked').val();
+            if(slctType == "1"){      // DJ정보
+                data.dj_slctType = $("select[name='searchType_broad']").val();
+                data.dj_searchText = $('#txt_search').val();
+            }else {                                                              // 방송정보
+                data.room_slctType = $("select[name='searchBroad_broad']").val();
+                data.room_searchText = $('#txt_search').val();
+            }
+            data.pageCnt=10;
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
         dtList_info.useCheckBox(false);
@@ -122,15 +129,52 @@
         $("#live_summaryArea").html(html);
     }
 
+    var tmp_slctType;
+    var tmp_dj_slctType;
+    var tmp_dj_searchText;
+    var tmp_room_slctType;
+    var tmp_room_searchText;
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        var tmp_search = $('#txt_search').val();
-        var tmp_gubun = $("select[name='selectGubun']").val();
-        var tmp_searchBroad = $('#txt_broad').val();                        // 방송색명
-        var tmp_gubunBroad = $("select[name='selectGubun_broad']").val();
-
+        var slctType = $('input[name="searchRadio"]:checked').val()
+        tmp_slctType = $('input[name="searchRadio"]:checked').val();
+        if(slctType == "1"){
+            tmp_dj_slctType = $("select[name='searchType_broad']").val();
+            tmp_dj_searchText = $('#txt_search').val();
+        }else {
+            tmp_room_slctType = $("select[name='searchBroad_broad']").val();
+            tmp_room_searchText = $('#txt_search').val();
+        }
         dtList_info.reload();
+
+        var forcedBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
+
+        $("#main_table").find(".footer-right").append(forcedBtn);
     }
+
+    function fullSize(url) {     // 이미지 full size
+        console.log(url);
+        $("#image_full_size").prop("src", url);
+    }
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("slctType", tmp_slctType);
+        formData.append("dj_slctType", tmp_dj_slctType);
+        formData.append("dj_searchText", tmp_dj_searchText);
+        formData.append("room_slctType", tmp_room_slctType);
+        formData.append("room_searchText", tmp_room_searchText);
+        util.excelDownload($(this), "/rest/broadcast/broadcast/list", formData, fn_success_excel, fn_fail_excel)
+    });
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+
 </script>
 
 <script id="live_tableSummary" type="text/x-handlebars-template">
@@ -143,11 +187,11 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{content.totalListen}}건</td>
-            <td>{{content.totalgift}}건</td>
-            <td>{{content.totalGood}}건</td>
-            <td>{{content.totalBooster}}건</td>
-            <td>{{content.totalBan}}건</td>
+            <td>{{content.totalListenerCnt}}건</td>
+            <td>{{content.totalGiftCnt}}건</td>
+            <td>{{content.totalGiftCnt}}건</td>
+            <td>{{content.totalBoosterCnt}}건</td>
+            <td>{{content.totalForcedCnt}}건</td>
         </tbody>
     </table>
 </script>
