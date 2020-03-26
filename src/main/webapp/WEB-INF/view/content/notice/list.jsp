@@ -10,10 +10,8 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 공지검색</h3>
                             <div>
-                                <span id="search_platform_aria"></span>
                                 <span id="search_searchType_aria"></span>
                                 <span id="search_slctType_aria"></span>
-                                <span id="search_viewOn_aria"></span>
 
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -96,10 +94,8 @@
         dtList_info.createDataTable();
 
         //검색조건 불러오기
-        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, search_platform));
         $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, notice_searchType));
         $("#search_slctType_aria").html(util.getCommonCodeSelect(-1, notice_slctType));
-        $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn));
     }
 
     $("#bt_insert").on("click", function(){
@@ -276,6 +272,10 @@
         console.log("fn_success_excel");
     }
     /*----------- 엑셀 ---------=*/
+
+    $(document).on('click', '._notice', function() {
+       alert("준비중입니다.");
+    });
 </script>
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">

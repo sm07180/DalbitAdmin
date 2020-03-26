@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d32c49bc-5dd8-4ab4-a956-17ceb70724dd",
+		"_postman_id": "e6700afb-f71a-472d-87d7-1bbe24f3c7c7",
 		"name": "달빛라디오 ADMIN API 정의서",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -45,6 +45,144 @@
 							"path": [
 								"login",
 								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 어드민 로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 어드민 로그아웃",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 공통 메뉴가져오기",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
 							]
 						}
 					},
@@ -244,7 +382,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8081/rest/broadcast/live/search",
+							"raw": "http://localhost:8081/rest/broadcast/live/search?",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -354,7 +492,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8081/rest/broadcast/broadcast/update",
+							"raw": "http://localhost:8081/rest/broadcast/broadcast/edit",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -364,7 +502,7 @@
 								"rest",
 								"broadcast",
 								"broadcast",
-								"update"
+								"edit"
 							]
 						}
 					},
@@ -411,7 +549,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8081/rest/broadcast/listen/manage",
+							"raw": "http://localhost:8081/rest/broadcast/listener/list",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -420,8 +558,8 @@
 							"path": [
 								"rest",
 								"broadcast",
-								"listen",
-								"manage"
+								"listener",
+								"list"
 							]
 						}
 					},
@@ -474,7 +612,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8081/rest/broadcast/listen/forceLeave",
+							"raw": "http://localhost:8081/rest/broadcast/listener/forceLeave",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -483,7 +621,7 @@
 							"path": [
 								"rest",
 								"broadcast",
-								"listen",
+								"listener",
 								"forceLeave"
 							]
 						}
@@ -507,13 +645,11 @@
 								{
 									"key": "pageNo",
 									"value": "1",
-									"description": "강제퇴장할 회원번호",
 									"type": "text"
 								},
 								{
 									"key": "pageCnt",
 									"value": "10",
-									"description": "알림보내기(0: 없음, 1: 알림보내기)",
 									"type": "text"
 								}
 							]
@@ -529,6 +665,49 @@
 								"rest",
 								"broadcast",
 								"like",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "선물 내역",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "room_no",
+									"value": "91585039397350",
+									"description": "방번호",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/gift/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"gift",
 								"list"
 							]
 						}

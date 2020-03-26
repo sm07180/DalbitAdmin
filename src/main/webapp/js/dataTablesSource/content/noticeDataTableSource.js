@@ -25,8 +25,11 @@ var NoticeDataTableSource = {
             , {'title': '게시상태', 'data': 'viewOn', 'render': function (data) {
                     return util.renderOnOff(data);
                 }}
+            , {'title': '바로알림', 'data': '', 'render': function (data) {
+                    return '<a href="javascript://" class="_notice">'+'[바로알림]'+'</a>';
+                }}
             , {'title': '처리자명', 'data': 'opName'}
         ]
-        , 'comments': ' 달빛라디오 사이트 내 공지를 등록/수정/삭제할 수 있습니다.'
+        , 'comments': ' • 달빛라디오 사이트 내 공지를 등록/수정/삭제할 수 있습니다.'
     },
 }
