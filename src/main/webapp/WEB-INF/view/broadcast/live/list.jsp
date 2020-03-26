@@ -159,11 +159,9 @@
         var tmp = IMAGE_SERVER_URL + "/profile_3/profile_f.jpg";
         console.log("--------------------------- 1");
         console.log(tmp);
-        console.log("--------------------------- 1");
         $("#profileImg").prop("src" ,tmp);
         console.log("--------------------------- 2");
         console.log($("#profileImg").prop("src"));
-        console.log("--------------------------- 2");
     }
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){

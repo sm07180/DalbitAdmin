@@ -41,11 +41,6 @@
         $("#like_summaryArea").html(html);
     }
 
-    function Like(index){
-        var data = dtList_info_detail.getDataRow(index);
-        var report_roomNo = data.roomNo;
-    }
-
 </script>
 
 <script id="like_tableSummary" type="text/x-handlebars-template">
