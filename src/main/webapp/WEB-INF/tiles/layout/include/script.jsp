@@ -75,6 +75,7 @@
 <script src="/js/dataTablesSource/dataTableSource.js"></script>
 <script src="/js/dataTablesSource/menuDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/pushDataTableSource.js"></script>
+<script src="/js/dataTablesSource/content/splashDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/bannerDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/eventDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/itemDataTableSource.js"></script>

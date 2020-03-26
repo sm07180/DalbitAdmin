@@ -45,11 +45,11 @@
                 <li class="${fn:startsWith(url, '/미정/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-user"></i><span class="text">접속현황</span>
-                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/미정/') ? 'down': 'left'}"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/connect/') ? 'down': 'left'}"></i>
                     </a>
-                    <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/connect/') ? 'display:block;': ''}">
+                        <li class="${url.equals('/connect/login/info') ? 'active': ''}">
+                            <a href="/connect/login/info">
                                 <i class="fa fa-search"></i><span class="text">로그인 현황</span>
                             </a>
                         </li>
@@ -318,7 +318,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/splash/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-envelope-o"></i><span class="text">스플래시 메시지</span>
                             </a>
                         </li>
@@ -328,7 +329,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/theme/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-search"></i><span class="text">방송주제</span>
                             </a>
                         </li>
@@ -347,8 +349,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
-                                <i class="fa fa-shield"></i><span class="text">권한관리</span>
+                            <a href="/administrate/authority/list">
+                                <i class="fa fa-shield"></i><span class="text">어드민 권한관리</span>
                             </a>
                         </li>
                         <li>

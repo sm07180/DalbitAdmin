@@ -346,20 +346,26 @@
             <tr>
                 <th>PC (1618px x 000px)</th>
                 <td colspan="5">
-                    <input type="file" id="event-eventPCImg" name="eventPCImg">
-                    <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
+                    <input type="text" id="event-eventPCImg" name="eventPCImg" style="width:70%">
+                    <input type="button" value="미리보기" onclick="getImg('eventPCImg')">
                 </td>
 
                 <th>Mobile (1618px x 000px)</th>
                 <td colspan="5">
-                    <input type="file" id="event-eventMobileImg" name="eventMobileImg">
-                    <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
+                    <input type="text" id="event-eventMobileImg" name="eventMobileImg" style="width:70%">
+                    <input type="button" value="미리보기" onclick="getImg('eventMobileImg')">
                 </td>
             </tr>
             <tr>
-                <td colspan="6">미리보기</td>
+                <td colspan="6">
+                    <!--미리보기-->
+                    <img id="eventPCImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                </td>
 
-                <td colspan="6">미리보기</td>
+                <td colspan="6">
+                    <!--미리보기-->
+                    <img id="eventMobileImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                </td>
             </tr>
             <tr>
                 <th>PC 링크</th>
@@ -371,10 +377,13 @@
             <tr>
                 <th>썸네일 (공통)</th>
                 <td colspan="4">
-                    <input type="file" id="event-thumbImg">
-                    <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
+                    <input type="text" id="event-thumbImg" name="eventThumbImg" style="width:70%">
+                    <input type="button" value="미리보기" onclick="getImg('eventThumbImg')">
                 </td>
-                <td colspan="1">미리보기</td>
+                <td colspan="1">
+                    <!--미리보기-->
+                    <img id="eventThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                </td>
 
                 <th>비고</th>
                 <td colspan="5">

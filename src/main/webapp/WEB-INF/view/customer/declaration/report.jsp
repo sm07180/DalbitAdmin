@@ -221,12 +221,16 @@
     function declarationCheck(data){
         var radioValue = $('input:radio[name="opCode"]');
         var messageCheck = $('input:checkbox[name="message"]');
+        var selectReason = $('select[name="slctReason"]');
+
         if(data == 1) {
             radioValue.attr("disabled", "disabled");
             messageCheck.attr("disabled", "disabled");
+            selectReason.attr("disabled", "disabled");
         } else {
             radioValue.removeAttr("disabled");
             messageCheck.removeAttr("disabled");
+            selectReason.attr("disabled", "disabled");
         }
 
     }
