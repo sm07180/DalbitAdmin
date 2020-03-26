@@ -49,7 +49,7 @@
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/connect/login/info">
                                 <i class="fa fa-search"></i><span class="text">로그인 현황</span>
                             </a>
                         </li>
@@ -347,8 +347,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
-                                <i class="fa fa-shield"></i><span class="text">권한관리</span>
+                            <a href="/administrate/authority/list">
+                                <i class="fa fa-shield"></i><span class="text">어드민 권한관리</span>
                             </a>
                         </li>
                         <li>
