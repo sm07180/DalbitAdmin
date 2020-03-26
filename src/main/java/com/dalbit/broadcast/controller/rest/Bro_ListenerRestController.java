@@ -29,7 +29,7 @@ public class Bro_ListenerRestController {
 
     @PostMapping("list")
     public String getBroadcastList(P_ListenListInputVo pListenListInputVo){
-        return bro_ListenerService.getListenerHistory_detail(pListenListInputVo);
+        return bro_ListenerService.getListenerList(pListenListInputVo);
     }
 
     @PostMapping("forceLeave")

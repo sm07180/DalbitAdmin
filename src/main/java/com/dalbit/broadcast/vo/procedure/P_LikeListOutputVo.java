@@ -27,12 +27,12 @@ public class P_LikeListOutputVo extends PagingVo {
     private int goodCnt;
     private int boosterCnt;
 
-//    public void setGoodDate(Date start_date){
+//    public void setGoodDate(Date goodDate){
 //        this.goodDate = goodDate;
 //        this.goodDateFormat = DalbitUtil.convertDateFormat(goodDate, "yyyy.MM.dd HH.mm.ss");
 //    }
-    public void setBoosterDate(Date start_date){
-        this.boosterDate = start_date;
+    public void setBoosterDate(Date boosterDate){
+        this.boosterDate = boosterDate;
         this.boosterDateFormat = DalbitUtil.convertDateFormat(boosterDate, "yyyy.MM.dd HH.mm.ss");
     }
 }

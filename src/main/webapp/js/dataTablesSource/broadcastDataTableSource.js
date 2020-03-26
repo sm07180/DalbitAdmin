@@ -180,16 +180,14 @@ var BroadcastDataTableSource = {
     'giftDetail': {
         'url': '/rest/member/report/list'
         , 'columns': [
-            {'title': '회원번호', 'data': ''},
-            {'title': '보낸 User ID', 'data': '', 'render': function (data, type, row, meta) {
+            {'title': '보낸 User ID', 'data': 'userId', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.memNo);
                 }},
-            {'title': '보낸 User 닉네임', 'data': ''},
-            {'title': '보낸 일시', 'data': ''},
-            {'title': '이미지', 'data': ''},
-            {'title': '선물 명', 'data': ''},
-            {'title': '보낸 선물 수', 'data': ''},
-            {'title': '적용완료 일시', 'data': ''},
+            {'title': '보낸 User 닉네임', 'data': 'nickName'},
+            {'title': '보낸 일시', 'data': 'giftDate'},
+            {'title': '이미지', 'data': 'itemImage'},
+            {'title': '선물 명', 'data': 'itemName'},
+            {'title': '누적 선물', 'data': 'accumCnt'},
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
     },
@@ -208,49 +206,18 @@ var BroadcastDataTableSource = {
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
 
-    'live_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '누적청취자', 'data': ''},
-            {'title': '누적선물', 'data': ''},
-            {'title': '누적좋아요', 'data': ''},
-            {'title': '누적DJ부스터', 'data': ''},
-            {'title': '누적청취자 부스터', 'data': ''},
-            {'title': '강제퇴장', 'data': ''},
-        ]
-    },
+    // 'chat_top': {
+    //     'url': '/rest/member/report/list'
+    //     , 'columns': [
+    //         {'title': '채팅참여자', 'data': ''},
+    //         {'title': '<i class="fa fa-moon-o" style="color: #009bff"></i>' + ": 달D", 'data': ''},
+    //         {'title': '<i class="fa fa-volume-up" style="color: #080004"></i>' + ": 청취자", 'data': ''},
+    //         {'title': '<i class="fa fa-star" style="color: #ff1600"></i>' + ": 게스트", 'data': ''},
+    //         {'title': '<i class="fa fa-street-view" style="color: #00ff32"></i>' + ": 매니저", 'data': ''},
+    //         {'title': '<i class="fa fa-bomb" style="color: #7400ff"></i>' + ": 강제퇴장자", 'data': ''},
+    //     ]
+    // },
 
-    'listen_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '청취자', 'data': ''},
-            {'title': '게스트ID', 'data': ''},
-            {'title': '매니저', 'data': ''},
-            {'title': '강제퇴장자', 'data': ''},
-            {'title': '좋아요', 'data': ''},
-            {'title': '부스터', 'data': ''},
-            {'title': '아이템', 'data': ''},
-        ]
-    },
-
-    'chat_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '채팅참여자', 'data': ''},
-            {'title': '<i class="fa fa-moon-o" style="color: #009bff"></i>' + ": 달D", 'data': ''},
-            {'title': '<i class="fa fa-volume-up" style="color: #080004"></i>' + ": 청취자", 'data': ''},
-            {'title': '<i class="fa fa-star" style="color: #ff1600"></i>' + ": 게스트", 'data': ''},
-            {'title': '<i class="fa fa-street-view" style="color: #00ff32"></i>' + ": 매니저", 'data': ''},
-            {'title': '<i class="fa fa-bomb" style="color: #7400ff"></i>' + ": 강제퇴장자", 'data': ''},
-        ]
-    },
-    'like_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '좋아요', 'data': ''},
-            {'title': '청취자 부스터', 'data': ''},
-        ]
-    },
     'gift_top': {
         'url': '/rest/member/report/list'
         , 'columns': [

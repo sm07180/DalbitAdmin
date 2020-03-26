@@ -31,7 +31,7 @@ public class Bro_LikeService {
     /**
      * 생방송 청취자 목록 조회
      */
-    public String getListenerHistory_detail(P_LikeListInputVo pLikeListInputVo){
+    public String getLikeList(P_LikeListInputVo pLikeListInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pLikeListInputVo);
         ArrayList<P_LikeListOutputVo> likeList = bro_LikeDao.callLikeList(procedureVo);
         P_LikeListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_LikeListOutputVo.class);
