@@ -9,10 +9,11 @@ var notice_searchType = [
 var notice_slctType = [
     new COMMON_CODE(null, 'slctType', '공지구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('notice', '1', '공지')
+    , new COMMON_CODE('notice', '1', '일반공지')
+    , new COMMON_CODE('notice', '', '긴급공지(개발필요)')
     , new COMMON_CODE('event', '2', '이벤트')
     , new COMMON_CODE('check', '3', '정기점검')
-    , new COMMON_CODE('update', '4', '업데이트')
+    , new COMMON_CODE('update', '4', '기타')
 ];
 
 
