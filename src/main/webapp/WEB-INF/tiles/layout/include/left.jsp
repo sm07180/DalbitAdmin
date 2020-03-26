@@ -410,14 +410,19 @@
                                 <i class="fa fa-search"></i><span class="text">공통함수</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/sample/adminlogin') ? 'active': ''}">
-                            <a href="/sample/adminlogin">
-                                <i class="fa fa-search"></i><span class="text">관리자로그인</span>
+                        <li class="${url.equals('/sample/inforexAdminLogin') ? 'active': ''}">
+                            <a href="/sample/inforexAdminLogin">
+                                <i class="fa fa-search"></i><span class="text">인포렉스 로그인 연동</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/sample/adminlogin2') ? 'active': ''}">
-                            <a href="/sample/adminlogin2">
-                                <i class="fa fa-search"></i><span class="text">Inforex메뉴불러오기</span>
+                        <li class="${url.equals('/sample/inforexAdminMenu') ? 'active': ''}">
+                            <a href="/sample/inforexAdminMenu">
+                                <i class="fa fa-search"></i><span class="text">인포렉스 메뉴 가져오기</span>
+                            </a>
+                        </li>
+                        <li class="${url.equals('/sample/inforexPosCodeList') ? 'active': ''}">
+                            <a href="/sample/inforexPosCodeList">
+                                <i class="fa fa-search"></i><span class="text">인포렉스 API 조회</span>
                             </a>
                         </li>
                     </ul>

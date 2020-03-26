@@ -133,6 +133,15 @@
                         //console.log('2뎁스 object'+ key2 + "/" + value2);
                         menuInfo.push(new INFOREX_MENU(menuId2, 1, key2, null));
                         $.each(data[key][key2], function(key3, value3){
+                            //비상연락망 default '콘텐츠사업부'로 세팅
+                            if(value3 == 'http://admin.inforex.co.kr/mng_common/inforex/staff/unusualcall.html'){
+                                value3 += '?wdivi=4000';
+                            }
+
+                            //자리배치도 default '서울'로 세팅
+                            if(value3 == 'http://admin.inforex.co.kr/mng_common/board/company/board.html?brd_category=seatquarter'){
+                                value3 += '&doc_no=320';
+                            }
                             menuInfo.push(new INFOREX_MENU(menuId2, 2, key3, value3));
                         });
 

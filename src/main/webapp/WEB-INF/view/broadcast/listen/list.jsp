@@ -85,7 +85,7 @@
         var template = $("#listen_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            header : Listen_summary
+            header : listen_summary
             , content : json.summary
         }
         var html = templateScript(data);

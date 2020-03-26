@@ -77,8 +77,7 @@ var live_summary = [
     , new COMMON_CODE('', 'totalForcedCnt', '총 강제퇴장')
 ];
 
-
-var Listen_summary = [
+var listen_summary = [
     new COMMON_CODE('','listenerCnt','청취자 수')
     ,new COMMON_CODE('','guest','게스트ID')
     ,new COMMON_CODE('','managerCnt','매니저 수')
@@ -87,3 +86,16 @@ var Listen_summary = [
     ,new COMMON_CODE('','totalBoosterCnt','부스터 수')
     ,new COMMON_CODE('','totalGiftCnt','선물 수')
 ];
+
+var like_summary = [
+    new COMMON_CODE('','goodCnt','좋아요')
+    ,new COMMON_CODE('','boosterCnt','청취자 부스터')
+];
+
+var gift_summary = [
+    new COMMON_CODE('','giftCnt','방송 중 선물')
+    ,new COMMON_CODE('','male','남자')
+    ,new COMMON_CODE('','female','여자')
+    ,new COMMON_CODE('','none','미지정')
+];
+

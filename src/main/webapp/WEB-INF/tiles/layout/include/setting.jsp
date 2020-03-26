@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- STYLE SWITCHER -->
-<div class="del-style-switcher" style="right: -250px;">
+<%--<div class="del-style-switcher" style="right: -250px;">
     <div class="del-switcher-toggle toggle-hide"></div>
     <form>
         <section class="del-section del-section-skin">
@@ -24,5 +24,5 @@
         </label>
         <p><a href="#" title="Reset Style" class="del-reset-style">Reset Style</a></p>
     </form>
-</div>
+</div>--%>
 <!-- END STYLE SWITCHER -->
