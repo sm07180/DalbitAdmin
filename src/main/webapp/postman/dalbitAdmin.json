@@ -2073,6 +2073,317 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "인포렉스 API",
+			"item": [
+				{
+					"name": "인포렉스 어드민 로그인",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 어드민 로그아웃",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 공통 메뉴가져오기",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/loginout.html",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"loginout.html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 직급코드목록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/dalbit/getPosCodeList.php",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"dalbit",
+								"getPosCodeList.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 직책코드목록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/dalbit/getDutyCodeList.php",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"dalbit",
+								"getDutyCodeList.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 부서코드목록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/dalbit/getDeptCodeList.php",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"dalbit",
+								"getDeptCodeList.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인포렉스 임직원목록",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "userid",
+									"value": "teststes",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asfsakfdj",
+									"type": "text"
+								},
+								{
+									"key": "mode",
+									"value": " login",
+									"type": "text"
+								},
+								{
+									"key": "where",
+									"value": " dalbit",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://admin.inforex.co.kr/dalbit/getUserList.php",
+							"protocol": "http",
+							"host": [
+								"admin",
+								"inforex",
+								"co",
+								"kr"
+							],
+							"path": [
+								"dalbit",
+								"getUserList.php"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
