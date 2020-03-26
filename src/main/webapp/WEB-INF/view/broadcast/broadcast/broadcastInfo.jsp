@@ -60,9 +60,11 @@
         util.getAjaxData("type", "/rest/broadcast/broadcast/info", obj, info_sel_success);
     }
 
+    var detailData;
     function info_sel_success(dst_id, response, param) {
         room_no = param.room_no;
         response.data.room_no = param.room_no;
+        detailData = response.data;
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -87,7 +89,7 @@
         $('#bt_forcedExit').click(function() {              // 방 강제종료
             bt_click(this.id);
         });
-        $('#bt_msgWelcom').click(function() {               // 환영메시지 변경
+        $('#bt_msgWelcom').click(function() {               // 환영메시지 삭제
             bt_click(this.id);
         });
         $('#bt_title').click(function() {                   // 방송제목 변경
@@ -151,11 +153,32 @@
         var obj = new Object();
         obj.room_no = room_no;
         if(tmp == "bt_entry") {
+            // 입장제한 버튼
             obj.entryType = $('input:radio[name="entryType"]:checked').val();
         } else if(tmp == "bt_freezing") {
-            obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
+            // obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
         } else if(tmp == "bt_forcedExit") {
-            obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
+            // obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
+        } else if(tmp == "bt_msgWelcom") {
+            // 여기서 같으면 return false;
+            if (confirm('초기화하시겠습니까?')) {
+                $("#welcomeMsg").val("환영합니다!! 여기는 "+ detailData.dj_nickName +" 님의 방송방입니다.");
+                obj.welcomMsg = $("#welcomeMsg").val();
+                // $("#bt_msgWelcom").hide();
+            } else {
+                // 초기화된 멘트랑 바꿀멘트가 같으면 이미 초기화된 ""입니다. alert창 띄우면서 return=> 초기화하시겠습니까?전에
+                return false;
+            }
+            obj.welcomMsg = $("#welcomeMsg").val();
+
+
+        } else if(tmp == "bt_title") {
+            if (confirm('초기화하시겠습니까?')) {
+                $("#title").val(detailData.dj_nickName + " 님의 방송입니다.");
+                obj.title = $("#title").val();
+            } else {
+                return false;
+            }
         }
 
         util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
@@ -163,12 +186,14 @@
 
     function update_success(dst_id, response) {
         dalbitLog(response);
-        alert('변경되었습니다');
+        alert(response.message);
 
+        dtList_info.reload();
     }
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
+        alert('정보 변경에 ')
     }
 </script>
 
@@ -183,47 +208,45 @@
         </colgroup>
         <tbody>
         <tr>
-            <th rowspan="5">배경 이미지</th>
-            <td rowspan="5">
+            <th rowspan="4">배경 이미지</th>
+            <td rowspan="4">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                 </form>
-                <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">이미지초기화</button>
+                <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">초기화</button>
             </td>
         <tr>
             <th>입장제한</th>
             <td style="text-align: left">
                 {{{getCommonCodeRadio entryType 'entryType'}}}
-                <button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
             </td>
         </tr>
         <tr>
             <th>얼리기</th>
             <td style="text-align: left">
                 {{{getCommonCodeRadio freezeMsg 'freezing'}}}
-                <button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button>
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button> {{/equal}}
             </td>
         </tr>
         <tr>
             <th>방송강제종료</th>
             <td style="text-align: left">
                 {{{getCommonCodeRadio forcedQuit 'forcedExit'}}}
-                <button type="button" id="bt_forcedExit" class="btn btn-default btn-sm pull-right">변경</button>
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_forcedExit" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
             </td>
         </tr>
         <tr>
+            <th rowspan="3">환영 인사말</th>
+            <td rowspan="3" style="text-align: left">
+                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 80%;height: 80px; resize:none;" >{{welcomeMsg}}</textarea>
+                <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>
+            </td>
             <th>방송상태</th>
             <td style="text-align: left">
                 <i class="fa fa-comment"></i>{{broadcastState}}
             </td>
         </tr>
-        </tr>
-        <tr>
-            <th rowspan="3">환영 인사말</th>
-            <td rowspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 90%;height: 40px">{{welcomeMsg}}</textarea>
-                <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">삭제</button>
-            </td>
         <tr>
             <th>마이크</th>
             <td style="text-align: left"><i class="fa fa-comment"></i>{{micState}}</td>
@@ -245,9 +268,8 @@
         <tr>
             <th>방송 제목</th>
             <td style="text-align: left">
-                <input type="text" class="form-control col-md-12" id="title" style="width: 90%;" value="{{title}}">
-                <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">방송제목 초기화</button>
-                <!-- 회원 닉네임 + 의 방송입니다 -->
+                <input type="text" class="form-control col-md-12" id="title" style="width: 70%;" value="{{title}}">
+                <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">초기화</button>
             </td>
             <th>방송 중 강제퇴장</th>
             <td style="text-align: left">{{forcedLeaveCnt}}</td>

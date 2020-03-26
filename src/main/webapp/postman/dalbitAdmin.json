@@ -627,6 +627,51 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "좋아요 내역",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "room_no",
+									"value": "91584435461328",
+									"description": "방번호",
+									"type": "text"
+								},
+								{
+									"key": "pageNo",
+									"value": "1",
+									"description": "강제퇴장할 회원번호",
+									"type": "text"
+								},
+								{
+									"key": "pageCnt",
+									"value": "10",
+									"description": "알림보내기(0: 없음, 1: 알림보내기)",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/rest/broadcast/like/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"rest",
+								"broadcast",
+								"like",
+								"list"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

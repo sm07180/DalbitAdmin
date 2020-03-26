@@ -116,14 +116,6 @@
         dalbitLog('menuSuccess');
         dalbitLog(data);
 
-        class INFOREX_MENU{
-            constructor(id, depth, name, url){
-                this.id = id;
-                this.depth = depth;
-                this.name = name;
-                this.url = url;
-            }
-        };
         var menuInfo = [];
         $.each(data, function(key, value){
             var menuId = Math.floor(Math.random() * 1000000000);

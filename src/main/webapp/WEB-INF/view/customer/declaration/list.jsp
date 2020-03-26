@@ -201,8 +201,7 @@
 <script id="tmp_declarationFrm" type="text/x-handlebars-template">
     <div class="row col-lg-12 mt15">
         <div class="tab-pane fade in active" id="report_tab">
-            {{#equal status '0'}}<button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리</button>{{/equal}}
-            {{#equal status '1'}}<button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>{{/equal}}
+            {{^equal status '1'}}<button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>{{/equal}}
             <!-- 상세 -->
             <jsp:include page="../../customer/declaration/report.jsp"/>
         </div>
