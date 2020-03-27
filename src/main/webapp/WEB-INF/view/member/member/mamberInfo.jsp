@@ -227,7 +227,7 @@
         dalbitLog(response);
         // profImgDel = "false";
         memNo = response.data.mem_no;
-        $("#image_section").prop("src", IMAGE_SERVER_URL + response.data.profileImage);
+        $("#image_section").prop("src", common.profileImage(IMAGE_SERVER_URL,response.data.profileImage,response.data.memSex));
         $("#lb_memNo").html(response.data.mem_no);
         $("#lb_memId").html(response.data.userId);
         $("#txt_memNick").val(response.data.nickName);

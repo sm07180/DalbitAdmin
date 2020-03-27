@@ -19,7 +19,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private String dj_mem_no;
     private String dj_userid;
     private String dj_nickname;
-    private String dj_sex;
+    private String dj_memSex;
     private String dj_level;
     private String dj_grade;
     private int recommBadge;

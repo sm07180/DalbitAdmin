@@ -43,7 +43,7 @@
             <!-- //serachBox -->
             <!-- 접속 관련 통계 데이터-->
             <div class="row col-lg-12 form-inline">
-                <div class="col-lg-6">
+                <div class="col-lg-6 pl0 pr5">
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 방문자 통계 현황 </h3>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pr0 pl5">
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 접속자 통계 현황 </h3>
