@@ -3,6 +3,6 @@ package com.dalbit.connect.dao;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LoginInfoDao {
+public interface Con_LoginDao {
 
 }

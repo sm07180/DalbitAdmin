@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("rest/connect/login")
-public class LoginInfoRestController {
+public class Con_LoginRestController {
 
     @Autowired
     GsonUtil gsonUtil;

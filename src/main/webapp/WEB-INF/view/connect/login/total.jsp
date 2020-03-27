@@ -37,7 +37,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="success">
                 <th>총계</th>
                 <td>100</td>
                 <td>40</td>
@@ -83,6 +83,11 @@
 
             </tbody>
         </table>
+    </div>
+    <div class="widget-footer">
+        <span>
+            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+        </span>
     </div>
 </div>
 

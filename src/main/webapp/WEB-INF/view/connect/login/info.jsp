@@ -46,40 +46,40 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>남성</td>
+                                <th>남성</th>
                                 <td><a href="javascript://">40</a></td>
                                 <td><a href="javascript://">30</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                             </tr>
                             <tr>
-                                <td>여성</td>
+                                <th>여성</th>
                                 <td><a href="javascript://">40</a></td>
                                 <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                             </tr>
-                            <tr>
-                                <td>합계</td>
+                            <tr class="success">
+                                <th>합계</th>
                                 <td><a href="javascript://">40</a></td>
                                 <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                             </tr>
                             </tbody>
                         </table>
