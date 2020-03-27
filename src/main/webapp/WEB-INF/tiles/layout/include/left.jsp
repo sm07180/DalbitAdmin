@@ -53,12 +53,12 @@
                                 <i class="fa fa-search"></i><span class="text">로그인 현황</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${url.equals('/connect/user/info') ? 'active': ''}">
                             <a href="/connect/user/info">
                                 <i class="fa fa-search"></i><span class="text">현재 접속자</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${url.equals('/connect/connect/info') ? 'active': ''}">
                             <a href="/connect/connect/info">
                                 <i class="fa fa-search"></i><span class="text">접속현황</span>
                             </a>
@@ -66,24 +66,24 @@
                     </ul>
                 </li>
 
-                <li class="${fn:startsWith(url, '/미정/') ? 'active': ''}">
+                <li class="${fn:startsWith(url, '/enter/') ? 'active': ''}">
                     <a href="javascript://" class="js-sub-menu-toggle">
                         <i class="fa fa-user"></i><span class="text">가입/결제현황</span>
-                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/미정/') ? 'down': 'left'}"></i>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/enter/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/enter/join/info') ? 'active': ''}">
+                            <a href="/enter/join/info">
                                 <i class="fa fa-search"></i><span class="text">회원가입</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/enter/pay/info') ? 'active': ''}">
+                            <a href="/enter/pay/info">
                                 <i class="fa fa-search"></i><span class="text">결제/환불</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/enter/exchange/info') ? 'active': ''}">
+                            <a href="/enter/exchange/info">
                                 <i class="fa fa-search"></i><span class="text">환전</span>
                             </a>
                         </li>
