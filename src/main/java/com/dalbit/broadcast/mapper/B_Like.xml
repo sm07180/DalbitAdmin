@@ -1,0 +1,18 @@
+<!--<?xml version="1.0" encoding="UTF-8" ?>-->
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="com.dalbit.broadcast.dao.B_LikeDao" >-->
+    <!--<select id="callLike_detail" parameterType="com.dalbit.broadcast.vo.LikeVo" resultType="com.dalbit.broadcast.vo.LikeVo">-->
+        <!--/* B_Like.xml - callLike_detail */-->
+        <!--select a.room_no as roomNo-->
+              <!--, b.mem_no     as memNo-->
+              <!--, b.mem_id    as memId-->
+              <!--, b.mem_nick  as memNick-->
+              <!--,DATE_FORMAT(a.last_upd_date,'%Y-%m-%d %H:%i:%s') as lastUpdDate-->
+              <!--,CONCAT(IFNULL((select (count_good + fn_get_point_used_item(room_no, 2001)) from rd_data.tb_broadcast_room where room_no = a.room_no),0),'건') as goodCnt-->
+              <!--,CONCAT(IFNULL((SELECT SUM(item_cnt) FROM rd_data.tb_broadcast_room_used_item WHERE room_no = a.room_no AND item_no = 2001 and mem_no = a.mem_no),0),'건') as boostCnt-->
+              <!--,IFNULL((select TIMESTAMPDIFF( second, NOW(), end_date ) from  rd_data.tb_broadcast_room_used_item WHERE room_no = a.room_no and mem_no = a.mem_no and end_date >= NOW() order by last_upd_date desc limit 1),0) as boostTime-->
+            <!--from rd_data.tb_broadcast_room_good AS a join (select mem_no, mem_id, mem_nick from tb_member_basic) AS b-->
+                <!--on a.mem_no = b.mem_no-->
+            <!--where a.room_no = #{roomNo}-->
+    <!--</select>-->
+<!--</mapper>-->
