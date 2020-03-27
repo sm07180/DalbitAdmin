@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("/connect/login")
-public class LoginInfoController {
+@RequestMapping("/connect/user")
+public class Con_UserController {
 
     @GetMapping("/info")
     public String list() {
-        return "connect/login/info";
+        return "connect/user/info";
     }
 
 

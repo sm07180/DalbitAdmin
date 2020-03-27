@@ -15,7 +15,7 @@ var EventDataTableSource = {
             }},
             {'title': '이미지', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
                 //TODO 썸네일 표시
-                return '<img src="https://devphoto2.dalbitcast.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+                return '<img src="https://devphoto2.dalbitlive.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
 
             }},
             {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
@@ -58,7 +58,7 @@ var EventDataTableSource = {
                 }},
             {'title': '이미지', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
                     //TODO 썸네일 표시
-                    return '<img src="https://devphoto2.dalbitcast.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+                    return '<img src="https://devphoto2.dalbitlive.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
 
                 }},
             {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {

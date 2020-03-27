@@ -54,12 +54,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/connect/user/info">
                                 <i class="fa fa-search"></i><span class="text">현재 접속자</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/connect/connect/info">
                                 <i class="fa fa-search"></i><span class="text">접속현황</span>
                             </a>
                         </li>

@@ -97,7 +97,7 @@ public class SampleVoTest {
                 .build();
 
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
-        Response response = okHttpClientUtil.sendPost("https://devm-hwlee.dalbitcast.com:4431/self/auth/res", formBody);
+        Response response = okHttpClientUtil.sendPost("https://devm-hwlee.dalbitlive.com:4431/self/auth/res", formBody);
     }
 
     @Test

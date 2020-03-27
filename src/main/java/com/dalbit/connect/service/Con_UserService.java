@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class LoginInfoService {
+public class Con_UserService {
 
     @Autowired
     MessageUtil messageUtil;
