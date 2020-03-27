@@ -9,7 +9,7 @@
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> FAQ 검색</h3>
+                            <h3 class="title"><i class="fa fa-search"></i> 직원 검색</h3>
                             <div>
                                 <span id="search_searchType_aria"></span>
                                 <span id="search_slctType_aria"></span>
@@ -167,7 +167,7 @@
         for (var i = 0; i < formArray.length; i++){
             data[formArray[i]['name']] = formArray[i]['value'];
         }
-        data["answer"] = $("#editor").summernote('code');
+        data["contents"] = $("#editor").summernote('code');
         data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
 
         dalbitLog(data);

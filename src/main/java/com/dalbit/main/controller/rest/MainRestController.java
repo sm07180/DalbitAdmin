@@ -1,8 +1,9 @@
 package com.dalbit.main.controller.rest;
 
 import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.InforexMenu;
+import com.dalbit.inforex.vo.InforexMenu;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class MainRestController {
 
         String json = request.getParameter("data");
         InforexMenu[] InforexMenuInfo =  new Gson().fromJson(json, InforexMenu[].class);
-        session.setAttribute("InforexMenuInfo", InforexMenuInfo);
+        session.setAttribute(DalbitUtil.getProperty("inforex.menu.key"), InforexMenuInfo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회));
     }

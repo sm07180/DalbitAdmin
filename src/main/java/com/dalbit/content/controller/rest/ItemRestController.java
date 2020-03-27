@@ -6,7 +6,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.EventService;
 import com.dalbit.content.service.ItemService;
 import com.dalbit.content.vo.ItemVo;
-import com.dalbit.content.vo.PushVo;
+import com.dalbit.content.vo.ItemVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -34,12 +34,12 @@ public class ItemRestController {
      * 충전 아이템
      */
     @PostMapping("charge")
-    public String chargeList(HttpServletRequest request, PushVo pushVo) {
+    public String chargeList(HttpServletRequest request, ItemVo itemVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = itemVo.getPageStart();
 
         ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < itemVo.getPageCnt(); i++){
             ItemVo data = new ItemVo();
             data.setRowNum((totalCnt - startIdx));
             data.setItem_col1(DalbitUtil.randomValue("number", 1));
@@ -74,12 +74,12 @@ public class ItemRestController {
      * 교환 아이템
      */
     @PostMapping("exchange")
-    public String exchangeList(HttpServletRequest request, PushVo pushVo) {
+    public String exchangeList(HttpServletRequest request, ItemVo itemVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = itemVo.getPageStart();
 
         ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < itemVo.getPageCnt(); i++){
             ItemVo data = new ItemVo();
             data.setRowNum((totalCnt - startIdx));
             data.setItem_col1(DalbitUtil.randomValue("number", 1));
@@ -114,12 +114,12 @@ public class ItemRestController {
      * 선물 아이템
      */
     @PostMapping("gift")
-    public String giftList(HttpServletRequest request, PushVo pushVo) {
+    public String giftList(HttpServletRequest request, ItemVo itemVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = itemVo.getPageStart();
 
         ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < itemVo.getPageCnt(); i++){
             ItemVo data = new ItemVo();
             data.setRowNum((totalCnt - startIdx));
             data.setItem_col1(DalbitUtil.randomValue("number", 1));
@@ -154,12 +154,12 @@ public class ItemRestController {
      * 구독 아이템
      */
     @PostMapping("subscribe")
-    public String subscribeList(HttpServletRequest request, PushVo pushVo) {
+    public String subscribeList(HttpServletRequest request, ItemVo itemVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = itemVo.getPageStart();
 
         ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < itemVo.getPageCnt(); i++){
             ItemVo data = new ItemVo();
             data.setRowNum((totalCnt - startIdx));
             data.setItem_col1(DalbitUtil.randomValue("number", 1));
@@ -194,12 +194,12 @@ public class ItemRestController {
      * 방송 아이템
      */
     @PostMapping("broadcast")
-    public String broadcastList(HttpServletRequest request, PushVo pushVo) {
+    public String broadcastList(HttpServletRequest request, ItemVo itemVo) {
         int totalCnt = 100;
-        int startIdx = pushVo.getPageStart();
+        int startIdx = itemVo.getPageStart();
 
         ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
+        for(int i = 0; i < itemVo.getPageCnt(); i++){
             ItemVo data = new ItemVo();
             data.setRowNum((totalCnt - startIdx));
             data.setItem_col1(DalbitUtil.randomValue("number", 1));

@@ -9,10 +9,8 @@
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i>푸시검색</h3>
+                            <h3 class="title"><i class="fa fa-search"></i>스플래시 검색</h3>
                             <div>
-                                <span id="search_platform_aria"></span>
-                                <span id="search_gender_aria"></span>
                                 <span id="search_searchType_aria"></span>
 
                                 <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
@@ -26,7 +24,7 @@
 
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table" id="pushDataTable">
+                <div class="widget widget-table" id="splashDataTable">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                         <div class="btn-group widget-header-toolbar">
@@ -52,7 +50,7 @@
 </div>
 <div class="main-content">
     <!-- TAB -->
-    <jsp:include page="pushTab.jsp"></jsp:include>
+    <jsp:include page="splashTab.jsp"></jsp:include>
     <jsp:include page="../util/select_memeberList.jsp"></jsp:include>
     <!-- TAB END -->
 </div>
@@ -70,8 +68,6 @@
 
     function init() {
         //검색조건 불러오기
-        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, platform));
-        $("#search_gender_aria").html(util.getCommonCodeSelect(-1, gender));
         $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, push_searchType));
     }
 
@@ -83,10 +79,10 @@
             data.search = $('#txt_search').val();                        // 검색명
             data.gubun = $("select[name='selectGubun']").val()
         };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, PushDataTableSource.pushMsgList, $("#searchForm"));
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, SplashDataTableSource.splashList, $("#searchForm"));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
-        dtList_info.setEventClick(updatePushInfo,4);
+        dtList_info.setEventClick(updateSplashInfo,4);
         dtList_info.createDataTable();
 
         // Button 추가
@@ -94,10 +90,10 @@
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Print</button>'
 
-        $("#pushDataTable").find(".footer-left").append(delBtn);
-        $("#pushDataTable").find(".top-right").append(addBtn);
+        $("#splashDataTable").find(".footer-left").append(delBtn);
+        $("#splashDataTable").find(".top-right").append(addBtn);
 
-        $("#pushDataTable").find(".footer-right").append(excelBtn);
+        $("#splashDataTable").find(".footer-right").append(excelBtn);
         //---------- 푸시메시지 DataTable ----------=
     }
 
@@ -105,20 +101,20 @@
     function initEvent(){
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getPushInfo();
+                getSplashInfo();
             };
         });
 
         $('#bt_search').click( function() {       //검색
-            getPushInfo();
+            getSplashInfo();
         });
 
         $("#btn_insert").on("click", function () { //등록
-            insertPushInfo();
+            insertSplashInfo();
         });
 
         $("#btn_delete").on("click", function () { //삭제
-            delPushMsgData();
+            delSplashData();
         });
     }
 
@@ -128,13 +124,13 @@
 //=------------------------------ Option --------------------------------------------
 
     // 등록
-    function insertPushInfo() {
-        insertPushMsg();
-        $("#tab_pushMsgList").click();
+    function insertSplashInfo() {
+        insertSplash();
+        $("#tab_splashList").click();
     }
 
     // 삭제
-    function delPushMsgData() {
+    function delSplashData() {
         var checkDatas = dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -145,14 +141,14 @@
     }
 
     // 수정
-    function updatePushInfo(data) {
-        updatePushMsg({
-            pushIdx: data.rowNum
-            ,column02: data.push_col5
-            ,column03: data.push_col1
+    function updateSplashInfo(data) {
+        updateSplash({
+            splashIdx: data.rowNum
+            ,column02: data.splash_col5
+            ,column03: data.splash_col1
             ,column04: "제목"
             ,column05: "내용"
-            ,column06: data.push_col2
+            ,column06: data.splash_col2
             ,column07: ""
             ,column08: "option5"
             ,column09: "#ffffff"
@@ -162,14 +158,14 @@
             ,column13: "00"
             ,column14: "00"
             ,column15: ""
-            ,column16: data.push_col6
+            ,column16: data.splash_col6
         })
 
-        $("#tab_pushMsgList").click();
+        $("#tab_splashList").click();
     }
 
     // 검색
-    function getPushInfo(){
+    function getSplashInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();

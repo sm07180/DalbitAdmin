@@ -39,7 +39,7 @@ public class InforexAdminLoginService {
 
             OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
 
-            Response response = okHttpClientUtil.sendPost(DalbitUtil.getProperty("inforex.admin.login.url"), formBody);
+            Response response = okHttpClientUtil.sendPost(DalbitUtil.getProperty("inforex.api.login.url"), formBody);
             String inforexLoginResult = response.body().string();
             InforexLoginLayoutVo inforexLoginLayoutVo = new Gson().fromJson(inforexLoginResult, InforexLoginLayoutVo.class);
 

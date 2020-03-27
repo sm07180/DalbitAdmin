@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
 <div class="wrapper full-page-wrapper page-auth page-login text-center">
     <div class="inner-page">
@@ -16,7 +17,7 @@
                     <label for="memId" class="control-label sr-only">ID</label>
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control _loginInput" type="text" placeholder="아이디를 입력해주세요." name="memId" id="memId" value="" autofocus>
+                            <input class="form-control _loginInput" type="text" placeholder="아이디를 입력해주세요." name="memId" id="memId" value="bgko" autofocus>
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         </div>
                     </div>
@@ -26,7 +27,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control _loginInput" type="password" placeholder="비밀번호를 입력해주세요." name="memPwd" id="memPwd" value="">
+                            <input class="form-control _loginInput" type="password" placeholder="비밀번호를 입력해주세요." name="memPwd" id="memPwd" value="kbg5702!">
                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                         </div>
                     </div>
@@ -96,7 +97,7 @@
     }
 
     function callInforexMenuApi(){
-        var url = "http://admin.inforex.co.kr/dalbit/getCommonMenu.php";
+        var url = "${cfn:getProperty("inforex.api.menu.url")}";
         var data = new Object();
         data.url = url;
 
