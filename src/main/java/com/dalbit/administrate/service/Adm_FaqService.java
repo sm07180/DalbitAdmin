@@ -6,8 +6,6 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.content.vo.procedure.P_noticeListInputVo;
-import com.dalbit.content.vo.procedure.P_noticeListOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.vo.MemberVo;
