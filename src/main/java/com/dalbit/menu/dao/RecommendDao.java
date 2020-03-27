@@ -1,6 +1,5 @@
 package com.dalbit.menu.dao;
 
-import com.dalbit.broadcast.vo.LikeVo;
 import com.dalbit.menu.vo.RecommendVo;
 import org.springframework.stereotype.Repository;
 
