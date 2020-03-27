@@ -26,7 +26,7 @@ public class Bro_StoryRestController {
      * 생방송 사연 목록
      */
     @PostMapping("list")
-    public String getBroadcastList(P_StoryListInputVo pStoryListInputVo){
+    public String list(P_StoryListInputVo pStoryListInputVo){
         return bro_StoryService.getStoryList(pStoryListInputVo);
     }
 
@@ -34,7 +34,7 @@ public class Bro_StoryRestController {
      * 생방송 사연 삭제
      */
     @PostMapping("delete")
-    public String getForcedLeave(P_StoryDeleteVo pStoryDeleteVo){
+    public String delete(P_StoryDeleteVo pStoryDeleteVo){
         return bro_StoryService.getStoryDelete(pStoryDeleteVo);
     }
 

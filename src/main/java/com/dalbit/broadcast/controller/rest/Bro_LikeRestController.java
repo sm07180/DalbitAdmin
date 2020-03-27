@@ -27,7 +27,7 @@ public class Bro_LikeRestController {
      * @return
      */
     @PostMapping("list")
-    public String getBroadcastList(P_LikeListInputVo pLikeListInputVo){
+    public String list(P_LikeListInputVo pLikeListInputVo){
         return bro_LikeService.getLikeList(pLikeListInputVo);
     }
 

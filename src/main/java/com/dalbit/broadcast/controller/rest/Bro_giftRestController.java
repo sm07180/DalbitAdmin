@@ -27,7 +27,7 @@ public class Bro_giftRestController {
      * @return
      */
     @PostMapping("list")
-    public String getBroadcastList(P_GiftListInputVo pGiftListInputVo){
+    public String list(P_GiftListInputVo pGiftListInputVo){
         return bro_GiftService.getGiftList(pGiftListInputVo);
     }
 

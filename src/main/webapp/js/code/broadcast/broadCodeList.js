@@ -65,7 +65,12 @@ var state = [
     , new COMMON_CODE('2', '2', '강제퇴장')
 ];
 
-
+var djOs = [
+    new COMMON_CODE(null, 'djOs', 'djOs')
+    , new COMMON_CODE('0', '1', 'android')
+    , new COMMON_CODE('1', '2', 'ios')
+    , new COMMON_CODE('2', '3', 'PC')
+];
 
 
 // ------------------------- table -----------------------------
@@ -106,3 +111,12 @@ var story_summary = [
     ,new COMMON_CODE('','none','미지정')
 ];
 
+
+var chat_summary = [
+    new COMMON_CODE('','chatCnt','채팅참여자')
+    ,new COMMON_CODE('','djCnt','달D')
+    ,new COMMON_CODE('','listenerCnt',': 청취자')
+    ,new COMMON_CODE('','guest',': 게스트')
+    ,new COMMON_CODE('','managerCnt',': 매니저')
+    ,new COMMON_CODE('','forcedCnt','강제퇴장자')
+];

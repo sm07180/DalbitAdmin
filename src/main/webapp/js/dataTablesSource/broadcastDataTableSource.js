@@ -77,6 +77,9 @@ var BroadcastDataTableSource = {
                     return common.timeStamp(data);
                 }},
             {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {
+                    console.log(data);
+                    if(data == ""){
+                    }
                     var tmp = util.memNoLink(data, row.dj_mem_no);
                     tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
                     return tmp;
@@ -204,15 +207,45 @@ var BroadcastDataTableSource = {
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
 
-    // 'chat_top': {
-    //     'url': '/rest/member/report/list'
-    //     , 'columns': [
-    //         {'title': '채팅참여자', 'data': ''},
-    //         {'title': '<i class="fa fa-moon-o" style="color: #009bff"></i>' + ": 달D", 'data': ''},
-    //         {'title': '<i class="fa fa-volume-up" style="color: #080004"></i>' + ": 청취자", 'data': ''},
-    //         {'title': '<i class="fa fa-star" style="color: #ff1600"></i>' + ": 게스트", 'data': ''},
-    //         {'title': '<i class="fa fa-street-view" style="color: #00ff32"></i>' + ": 매니저", 'data': ''},
-    //         {'title': '<i class="fa fa-bomb" style="color: #7400ff"></i>' + ": 강제퇴장자", 'data': ''},
-    //     ]
-    // },
+    'chatDetail': {
+        'url': '/rest/broadcast/chat/list'
+        , 'columns': [
+            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'120px'},
+            {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
+                    var tmp_auth;
+                    if(row.auth == "0"){             //일반
+                        tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
+                    }else if(row.auth == "1"){      //매니저
+                        tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
+                    }else if(row.auth == "2"){      //게스트
+                        tmp_auth = '<i class="fa fa-star" style="color: #ff1600"></i>';
+                    }else if(row.auth == "3"){      //dj
+                        tmp_auth = '<i class="fa fa-moon-o" style="color: #009bff"></i>';
+                    }
+                    var tmp = tmp_auth + '<a href="javascript://" onclick="targetChat(' + meta.row + ')">' + data + '</a>' + " :" +row.msg;
+                    return tmp;
+                }},
+        ]
+    },
+
+    'targetchat': {
+        'url': '/rest/broadcast/chat/targetList'
+        , 'columns': [
+            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'120px'},
+            {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
+                    var tmp_auth;
+                    if(row.auth == "0"){             //일반
+                        tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
+                    }else if(row.auth == "1"){      //매니저
+                        tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
+                    }else if(row.auth == "2"){      //게스트
+                        tmp_auth = '<i class="fa fa-star" style="color: #ff1600"></i>';
+                    }else if(row.auth == "3"){      //dj
+                        tmp_auth = '<i class="fa fa-moon-o" style="color: #009bff"></i>';
+                    }
+                    var tmp = tmp_auth + util.memNoLink(data, row.mem_no) + " :" +row.msg;
+                    return tmp;
+                }},
+        ]
+    },
 }
