@@ -15,9 +15,9 @@
         </div>
     </div>
     <div class="widget-content mt10">
-        <a>[이전]</a>
+        <a href="javascript://">[이전]</a>
         <%= sf.format(nowTime)%>
-        <a>[다음]</a>
+        <a href="javascript://">[다음]</a>
         <table class="table table-bordered">
             <thead>
             <tr>
