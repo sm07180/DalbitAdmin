@@ -1,18 +1,5 @@
-<!--<?xml version="1.0" encoding="UTF-8" ?>-->
-<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
-<!--<mapper namespace="com.dalbit.broadcast.dao.B_ManegerDao" >-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.broadcast.dao.B_ManegerDao" >
 
-    <!--<select id="callManeger_detail" parameterType="com.dalbit.broadcast.vo.ManegerVo" resultType="com.dalbit.broadcast.vo.ManegerVo">-->
-        <!--/* B_Maneger.xml - callManeger_detail */-->
-        <!--select (select code From rd_data.tbl_code_define where value = a.auth and type ='broadcast_auth')   as auth-->
-               <!--,b.mem_no     as memNo-->
-               <!--,b.mem_id     as memId-->
-               <!--,b.mem_nick   as memNick-->
-               <!--,DATE_FORMAT(a.join_date, '%Y-%m-%d %H:%i:%s')                as listenStDate-->
-               <!--,(CASE  a.auth WHEN 1 THEN '임명 중' ELSE '임명 하기' end) AS maneger-->
-         <!--from rd_data.tb_broadcast_room_member a, rd_data.tb_member_basic b-->
-         <!--where a.mem_no = b.mem_no-->
-           <!--and a.auth = 1-->
-           <!--and a.room_no=#{roomNo}-->
-    <!--</select>-->
-<!--</mapper>-->
+</mapper>
