@@ -600,6 +600,15 @@ public class DalbitUtil {
         return environment.getActiveProfiles()[0];
     }
 
+    public static String setTimestampInJsonOutputVo(){
+        StringBuffer sb = new StringBuffer();
+        sb.append(getTimeStamp());
+
+        sb.append("_");
+        sb.append(getActiveProfile());
+        return sb.toString();
+    }
+
     public static CookieVo parseCookie(String cookieString){
 
         CookieVo cookieVo = new CookieVo();
