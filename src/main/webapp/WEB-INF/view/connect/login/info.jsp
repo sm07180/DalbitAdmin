@@ -9,14 +9,33 @@
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 검색조건 </h3>
-                            <div>
-                                <span id="search_searchType_aria"></span>
-                                <span id="search_slctType_aria"></span>
+                            <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
+                                <div>
+                                    <label class="control-inline fancy-radio custom-color-green">
+                                        <input type="radio" name="inline-radio2">
+                                        <span><i></i>시간대 별</span>
+                                    </label>
+                                    <label class="control-inline fancy-radio custom-color-green">
+                                        <input type="radio" name="inline-radio2">
+                                        <span><i></i>일자 별</span>
+                                    </label>
+                                    <label class="control-inline fancy-radio custom-color-green">
+                                        <input type="radio" name="inline-radio2">
+                                        <span><i></i>월 별</span>
+                                    </label>
 
-                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
+                                    <label class="control-inline fancy-radio custom-color-green">
+                                        <input type="radio" name="inline-radio2">
+                                        <span><i></i>기간 별</span>
+                                    </label>
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" id="startDate" class="form-control">
+                                    <span>~</span>
+                                    <i class="fa fa-calendar"></i>
+                                    <input type="text" id="endDate" class="form-control">
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -46,40 +65,40 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>남성</td>
+                                <th>남성</th>
                                 <td><a href="javascript://">40</a></td>
                                 <td><a href="javascript://">30</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                             </tr>
                             <tr>
-                                <td>여성</td>
+                                <th>여성</th>
                                 <td><a href="javascript://">40</a></td>
                                 <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                             </tr>
-                            <tr>
-                                <td>합계</td>
+                            <tr class="success">
+                                <th>합계</th>
                                 <td><a href="javascript://">40</a></td>
                                 <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
                                 <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
+                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
                             </tr>
                             </tbody>
                         </table>

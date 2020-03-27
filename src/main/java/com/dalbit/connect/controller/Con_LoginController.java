@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequestMapping("/connect/login")
-public class LoginInfoController {
+public class Con_LoginController {
 
     @GetMapping("/info")
     public String list() {
