@@ -167,7 +167,7 @@
         for (var i = 0; i < formArray.length; i++){
             data[formArray[i]['name']] = formArray[i]['value'];
         }
-        data["contents"] = $("#editor").summernote('code');
+        data["answer"] = $("#editor").summernote('code');
         data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
 
         dalbitLog(data);

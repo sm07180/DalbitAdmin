@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
 <div class="wrapper full-page-wrapper page-auth page-login text-center">
     <div class="inner-page">
         <div class="logo">
-            <img src="https://image.dalbitcast.com/images/api/ic_logo_normal.png" alt="달빛라디오 관리자" />
+            <img src="https://image.dalbitlive.com/images/api/ic_logo_normal.png" alt="달빛라디오 관리자" />
         </div>
 
         <div class="login-box center-block">
@@ -96,7 +97,7 @@
     }
 
     function callInforexMenuApi(){
-        var url = "http://admin.inforex.co.kr/dalbit/getCommonMenu.php";
+        var url = "${cfn:getProperty("inforex.api.menu.url")}";
         var data = new Object();
         data.url = url;
 

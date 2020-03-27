@@ -23,8 +23,6 @@ public class OkHttpClientUtil {
 
         Request request = new Request.Builder()
                 .url(url)
-                /*.addHeader("custom-key", "mkyong")  // add request headers
-                .addHeader("User-Agent", "OkHttp Bot")*/
                 .build();
 
         try (Response response = client.newCall(request).execute()) {

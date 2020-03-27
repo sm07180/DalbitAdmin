@@ -145,13 +145,6 @@ var BroadcastDataTableSource = {
             {'title': '채팅 내용', 'data': ''},
         ]
     },
-    'chatUserList': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '채팅 장성 시간', 'data': ''},
-            {'title': '채팅 내용', 'data': ''},
-        ]
-    },
 
 
     'likeDetail': {
@@ -197,15 +190,16 @@ var BroadcastDataTableSource = {
     },
 
     'storyDetail': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/broadcast/story/list'
         , 'columns': [
-            {'title': '회원번호', 'data': ''},
-            {'title': '사연 보낸 청취자 ID', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.memNo);
+            {'title': '사연 보낸 청취자 ID','data':'userId', 'render': function (data, type, row, meta) {
+                    var tmp = util.memNoLink(data, row.mem_no);
+                    tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
+                    return tmp;
                 }},
-            {'title': '사연 보낸 청취자 닉네임', 'data': ''},
-            {'title': '보낸 일시', 'data': ''},
-            {'title': '사연 내용', 'data': ''},
+            {'title': '사연 보낸 청취자 닉네임', 'data': 'nickName'},
+            {'title': '보낸 일시', 'data': 'writeDateFormat'},
+            {'title': '사연 내용', 'data': 'contents'},
         ]
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
@@ -221,55 +215,4 @@ var BroadcastDataTableSource = {
     //         {'title': '<i class="fa fa-bomb" style="color: #7400ff"></i>' + ": 강제퇴장자", 'data': ''},
     //     ]
     // },
-
-    'gift_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '방송 중 선물', 'data': ''},
-            {'title': 'DJ>청취자', 'data': ''},
-            {'title': '남자', 'data': ''},
-            {'title': '여자', 'data': ''},
-        ]
-    },
-    'story_top': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '방송 중 사연', 'data': ''},
-            {'title': '남자', 'data': ''},
-            {'title': '여자', 'data': ''},
-        ]
-    },
-    
-    'adminMemoList': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '방송제목', 'data': ''},
-            {'title': 'DJ ID', 'data': ''},
-            {'title': 'DJ 닉네임', 'data': ''},
-            {'title': '등록 일시', 'data': ''},
-            {'title': '등록관리자', 'data': ''},
-            {'title': '운영자 조치', 'data': ''},
-            {'title': '운영자 메모내용', 'data': ''},
-        ]
-        , 'comments' : 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
-    },
-    'editDate': {
-        'url': '/rest/member/report/list'
-        , 'columns': [
-            {'title': '정보 수정 일시', 'data': ''},
-            {'title': '처리 전 정보 및 수정 처리 내역', 'data': ''},
-            {'title': '처리자명', 'data': ''},
-        ]
-        , 'comments' : 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
-    },
-
-    'editHistory': {
-        'url': '/rest/broadcast/broadcast/editHist'
-        , 'columns': [
-            {'title': '수정일자', 'data': 'editDate', 'defaultContent': ''},
-            {'title': '수정 내용', 'data': 'editContents', 'defaultContent': ''},
-            {'title': '처리자명', 'data': 'opName', 'defaultContent': ''},
-        ]
-    },
-
 }

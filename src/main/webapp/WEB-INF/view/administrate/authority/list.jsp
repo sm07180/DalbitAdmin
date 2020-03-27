@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -8,7 +9,7 @@
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 공지검색</h3>
+                            <h3 class="title"><i class="fa fa-search"></i> 직원 검색</h3>
                             <div>
                                 <span id="search_searchType_aria"></span>
                                 <span id="search_slctType_aria"></span>
@@ -22,6 +23,7 @@
             </form>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
+                <label id="faq_title">ㆍ검색결과 내 질문을 클릭하면 해당 상세정보를 확인할 수 있습니다.</label>
                 <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
             </div>
             <!-- DATA TABLE -->
@@ -45,7 +47,7 @@
                     </div>
                     <div class="widget-footer">
                         <span>
-                            <button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>
+                            <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
                         </span>
                         <span>
                             <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
@@ -55,118 +57,113 @@
             </div>
             <!-- #DataTable -->
 
-            <form id="noticeForm"></form>
+            <form id="faqForm"></form>
         </div>
     </div>
 </div>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
+<script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
 <script>
     $(document).ready(function() {
 
         $('input[id="searchText"]').keydown(function(e) {
             if (e.keyCode === 13) {
-                getNoticeInfo();
+                getFaqInfo();
             };
         });
 
         $('#bt_search').click( function() {       //검색
-            getNoticeInfo();
+            getFaqInfo();
         });
 
-        getNoticeInfo();
+        getFaqInfo();
 
     });
 
-    $('#notice_title').html("ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.");
+    var dtList_info;
+    var dtList_info_data = function ( data ) {
+        data.search = $('#searchText').val();                       // 검색명
+        data.gubun = $("select[name='selectGubun']").val()
+    };
 
-    init();
-    function init(){
-        var dtList_info_data = function ( data ) {
-            data.search = $('#searchText').val();                       // 검색명
-            data.gubun = $("select[name='selectGubun']").val()
-        };
+    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, FaqDataTableSource.faqInfo, $("#searchForm"));
+    dtList_info.useCheckBox(true);
+    dtList_info.useIndex(true);
+    dtList_info.createDataTable();
 
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, NoticeDataTableSource.noticeInfo, $("#searchForm"));
-        dtList_info.useCheckBox(true);
-        dtList_info.useIndex(true);
-        dtList_info.createDataTable();
-
-        //검색조건 불러오기
-        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, notice_searchType));
-        $("#search_slctType_aria").html(util.getCommonCodeSelect(-1, notice_slctType));
-    }
+    //검색조건 불러오기
+    $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, faq_searchType));
+    $("#search_slctType_aria").html(util.getCommonCodeSelect(-1, faq_slctType));
 
     $("#bt_insert").on("click", function(){
         generateForm();
     });
 
     function generateForm() {
-        var template = $('#tmp_noticeFrm').html();
+        var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
-        $("#noticeForm").html(templateScript);
+        $("#faqForm").html(templateScript);
+        //getFaqInfo();
 
-        util.editorInit("content-notice");
+        // uploadType 추가
+        util.editorInit("administrate-faq");
     }
 
-    $(document).on('click', '._getNoticeDetail', function(){
+    $(document).on('click', '._getFaqDetail', function(){
         var data = {
-            'noticeIdx' : $(this).data('idx')
+            'faqIdx' : $(this).data('idx')
         };
-        util.getAjaxData("detail", "/rest/content/notice/detail", data, fn_detail_success);
+        util.getAjaxData("detail", "/rest/administrate/faq/detail", data, fn_detail_success);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
-            $(this).parent().parent().find('._getNoticeDetail').click();
+            $(this).parent().parent().find('._getFaqDetail').click();
         }
     });
 
     function fn_detail_success(dst_id, response) {
-        var template = $('#tmp_noticeFrm').html();
+        dalbitLog('fn_detail_success');
+        dalbitLog(response);
+        // form 띄우기
+        var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
-        $("#noticeForm").html(html);
+        $("#faqForm").html(html);
 
         // uploadType 추가
-        util.editorInit("content-notice");
-    }
-
-    function fn_detail_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
+        util.editorInit("administrate-faq");
     }
 
     function isValid(){
-
-        var slctType = $("#noticeForm #slctType");
+        var slctType = $("#faqForm #slctType");
         if(common.isEmpty(slctType.val())){
             alert("구분을 선택해주세요.");
             slctType.focus();
             return false;
         }
 
-        var title = $("#noticeForm #title");
-        if(common.isEmpty(title.val())){
-            alert("제목을 입력해주세요.");
-            title.focus();
+        var question = $("#faqForm #question");
+        if(common.isEmpty(question.val())){
+            alert("질문을 입력해주세요.");
+            question.focus();
             return false;
         }
 
         var editor = $("#editor");
         if(editor.summernote('isEmpty')){
-            alert("내용을 입력해주세요.");
+            alert("답변을 입력해주세요.");
             editor.focus();
             return false;
         }
-
         return true;
     }
 
-    function generateFormData(){
+    function generateData(){
         var data = {};
-        var formArray = $("#noticeForm").serializeArray();
+        var formArray = $("#faqForm").serializeArray();
         for (var i = 0; i < formArray.length; i++){
             data[formArray[i]['name']] = formArray[i]['value'];
         }
@@ -180,17 +177,16 @@
 
     $(document).on('click', '#insertBtn', function(){
         if(isValid()){
-            if(confirm('등록하시겠습니까?')){
-                util.getAjaxData("insert", "/rest/content/notice/insert", generateFormData(), fn_insert_success);
+            if(confirm("등록하시겠습니까?")){
+                util.getAjaxData("insert", "/rest/administrate/faq/insert", generateData(), fn_insert_success);
             }
         }
     });
 
     $(document).on('click', '#updateBtn', function(){
-
         if(isValid()){
-            if(confirm('수정하시겠습니까?')) {
-                util.getAjaxData("update", "/rest/content/notice/update", generateFormData(), fn_insert_success);
+            if(confirm("수정하시겠습니까?")) {
+                util.getAjaxData("update", "/rest/administrate/faq/update", generateData(), fn_insert_success);
             }
         }
     });
@@ -198,31 +194,29 @@
     function fn_insert_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
-        generateForm();
         dtList_info.reload();
 
-        $("#noticeForm").empty();
+        $("#faqForm").empty();
     }
 
     $(document).on('click', '#bt_delete', function() {
-
         var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
         if(checked.length == 0){
-            alert('삭제할 공지사항을 선택해주세요.');
+            alert('삭제할 FAQ를 선택해주세요.');
             return;
         }
 
-        if(confirm(checked.length + "건의 공지사항을 삭제하시겠습니까?")){
-            var noticeIdxs = '';
+        if(confirm(checked.length + "개의 FAQ를 삭제하시겠습니까?")){
+            var faqIdxs = '';
             checked.each(function(){
-                noticeIdxs += $(this).parent().parent().find('._getNoticeDetail').data('idx') + ",";
+                faqIdxs += $(this).parent().parent().find('._getFaqDetail').data('idx') + ",";
             });
             var data = {
-                noticeIdxs : noticeIdxs
+                faqIdxs : faqIdxs
             }
             dalbitLog(data);
 
-            util.getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success);
+            util.getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
         }
 
     });
@@ -233,27 +227,28 @@
         alert(response.message +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건');
         dtList_info.reload();
 
-        $("#noticeForm").empty();
+        $("#faqForm").empty();
     }
 
+
     // 검색
-    function getNoticeInfo(){
+    function getFaqInfo(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        tmp_search = $('#searchText').val();
-        tmp_gubun = $("select[name='selectGubun']").val();
+        // tmp_search = $('#searchText').val();
+        // tmp_gubun = $("select[name='selectGubun']").val();
 
         dtList_info.reload();
 
+        /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
     }
 
     // /*=---------- 엑셀 ----------*/
     $('#excelDownBtn').on('click', function(){
-
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        util.excelDownload($(this), "/rest/content/notice/listExcel", formData, fn_success_excel)
+        util.excelDownload($(this), "/rest/administrate/faq/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 
     $("#excelBtn").on("click", function () {
@@ -271,87 +266,73 @@
     function fn_success_excel(){
         console.log("fn_success_excel");
     }
-    /*----------- 엑셀 ---------=*/
 
-    $(document).on('click', '._notice', function() {
-       alert("준비중입니다.");
-    });
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+    /*----------- 엑셀 ---------=*/
 </script>
 
-<script id="tmp_noticeFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="noticeIdx" value="{{noticeIdx}}" />
-    <div class="row col-lg-12 mt15">
+<script id="tmp_faqFrm" type="text/x-handlebars-template">
+    <input type="hidden" name="faqIdx" value="{{faqIdx}}" />
+    <div class="row col-lg-12 form-inline mt15">
         <div class="col-md-12 no-padding">
-            <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
+            <label id="faq_detatil_title">ㆍ선택한 FAQ 정보를 확인/수정/삭제를 할 수 있습니다.</label>
             <span>
-                {{^noticeIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
-                {{#noticeIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
+                {{^faqIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
+                {{#faqIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
             </span>
         </div>
-        <table class="table table-bordered table-dalbit">
+    </div>
+    <div class="row col-lg-12">
+        <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
             <colgroup>
                 <col width="5%" />
                 <col width="5%" />
                 <col width="5%" />
+                <col width="10%" />
                 <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
+                <col width="10%" />
                 <col width="5%" />
                 <col width="5%" />
                 <col width="5%" />
                 <col width="5%" />
             </colgroup>
             <tbody>
-                <tr class="align-middle">
-                    <th>No</th>
-                    <td>{{noticeIdx}}</td>
+            <tr class="align-middle">
+                <th rowspan="2">No</th>
+                <td rowspan="2" id="no">{{faqIdx}}</td>
 
-                    <th>구분</th>
-                    <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y'}}}</td>
+                <th>구분</th>
+                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
 
-                    <th>제목</th>
-                    <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
+                <th>질문</th>
+                <td colspan="5"><input type="text" name="question" id="question" class="form-control" value="{{question}}"></td>
+            </tr>
+            <tr>
 
-                    <th>조회수</th>
-                    <td>{{addComma viewCnt}}</td>
-                </tr>
-                <tr>
-                    <th>플랫폼</th>
-                    <td>{{{getCommonCodeSelect platform 'platform'}}}</td>
+                <th>사이트 적용</th>
+                <!--<td id="viewOn"></td>-->
+                <td>{{{getOnOffSwitch viewOn}}}</td>
 
-                    <th>성별</th>
-                    <td>{{{getCommonCodeSelect gender 'gender'}}}</td>
+                <th>등록일시</th>
+                <td id="regDate">{{writeDate}}</td>
 
-                    <th>등록일시</th>
-                    <td>{{writeDate}}</td>
+                <th>조회수</th>
+                <td id="cnt">{{addComma viewCnt}}</td>
 
-                    <th>게시중지일시</th>
-                    <td>
-                        {{offDate}}
-                        {{#equal offDate ''}}-{{/equal}}
-                    </td>
-
-                    <th>처리자</th>
-                    <td>{{opName}}</td>
-                    <th>게시상태</th>
-                    <td>
-                        {{{getOnOffSwitch viewOn}}}
-                    </td>
-                </tr>
+                <th>처리자</th>
+                <td id="processor">{{opName}}</td>
+            </tr>
             </tbody>
         </table>
     </div>
     <div class="row col-lg-12 form-inline">
         <div class="widget">
             <div class="widget-header">
-                <h3><i class="fa fa-user"></i> 내용 </h3>
+                <h3><i class="fa fa-user"></i> 답변 </h3>
             </div>
-            <div class="widget-content no-padding">
-                <div class="_editor" id="editor" name="editor">{{{replaceHtml contents}}}</div>
-            </div>
+            <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
         </div>
     </div>
-
 </script>
