@@ -2,6 +2,8 @@ package com.dalbit.broadcast.service;
 
 
 import com.dalbit.broadcast.dao.Bro_StoryDao;
+import com.dalbit.broadcast.vo.procedure.P_ListenForceLeaveVo;
+import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.broadcast.vo.procedure.P_StoryListInputVo;
 import com.dalbit.broadcast.vo.procedure.P_StoryListOutputVo;
 import com.dalbit.common.code.Status;
@@ -41,6 +43,24 @@ public class Bro_StoryService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연목록조회_성공, StoryList, new PagingVo(procedureVo.getRet()),summary));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연목록조회_실패));
+        }
+        return result;
+    }
+
+    /**
+     * 생방송 사연 내역 삭제
+     */
+    public String getStoryDelete(P_StoryDeleteVo pStoryDeleteVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStoryDeleteVo);
+        bro_StoryDao.callStoryDelete(procedureVo);
+
+        String result = "";
+        if(Status.생방송_사연삭제_성공.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_성공));
+        } else if(Status.생방송_사연삭제_번호없음.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_번호없음));
+        } else if(Status.생방송_사연삭제_방번호틀림.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_사연삭제_방번호틀림));
         }
         return result;
     }

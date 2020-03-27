@@ -12,15 +12,15 @@ import java.util.Date;
 public class P_StoryListOutputVo extends PagingVo {
 
     /* return result */
+    private int storyIdx;
+    private String mem_no;
     private String userId;
     private String nickName;
     private int level;
     private String grade;
     private Date writeDate;
     private String writeDateFormat;
-    private String itemImage;
-    private String itemName;
-    private int accumCnt;
+    private String contents;
     
     /* summry */
     private int storyCnt;

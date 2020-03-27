@@ -9,4 +9,5 @@ import java.util.ArrayList;
 @Repository
 public interface Bro_StoryDao {
     ArrayList<P_StoryListOutputVo> callStoryList(ProcedureVo procedureVo);
+    ProcedureVo callStoryDelete(ProcedureVo procedureVo);
 }

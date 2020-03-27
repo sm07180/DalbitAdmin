@@ -2,6 +2,7 @@ package com.dalbit.broadcast.controller.rest;
 
 
 import com.dalbit.broadcast.service.Bro_StoryService;
+import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.broadcast.vo.procedure.P_StoryListInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +24,18 @@ public class Bro_StoryRestController {
 
     /**
      * 생방송 사연 목록
-     * //@param model
-     * @return
      */
     @PostMapping("list")
     public String getBroadcastList(P_StoryListInputVo pStoryListInputVo){
         return bro_StoryService.getStoryList(pStoryListInputVo);
+    }
+
+    /**
+     * 생방송 사연 삭제
+     */
+    @PostMapping("delete")
+    public String getForcedLeave(P_StoryDeleteVo pStoryDeleteVo){
+        return bro_StoryService.getStoryDelete(pStoryDeleteVo);
     }
 
 }

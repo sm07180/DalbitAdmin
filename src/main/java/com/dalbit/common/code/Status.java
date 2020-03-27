@@ -197,6 +197,18 @@ public enum Status {
     //생방송 사연 목록 보기
     생방송_사연목록조회_성공("0", "broadcast.story.list.view.success", "생방송 사연 목록 조회 성공 시"),
     생방송_사연목록조회_실패("-1", "broadcast.story.list.view.fail", "생방송 사연 목록 조회 데이터 없을 시"),
+
+    //생방송 사연 삭제
+    생방송_사연삭제_성공("0", "broadcast.story.del.success", "생방송 사연 삭제 성공 시"),
+    생방송_사연삭제_번호없음("-1", "broadcast.story.del.no.index", "생방송 사연 삭제 방반호 없을 시"),
+    생방송_사연삭제_방번호틀림("-2", "broadcast.story.del.fail", "생방송 사연 삭제 방번호 틀릴 시"),
+
+
+
+
+
+
+
     ;
 
     final private String RESULT_SUCCESS = "success";

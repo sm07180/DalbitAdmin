@@ -190,14 +190,14 @@ var BroadcastDataTableSource = {
     },
 
     'storyDetail': {
-        'url': '/rest/member/report/list'
+        'url': '/rest/broadcast/story/list'
         , 'columns': [
-            {'title': '사연 보낸 청취자 ID','data':'mem_userid', 'render': function (data, type, row, meta) {
+            {'title': '사연 보낸 청취자 ID','data':'userId', 'render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
                     return tmp;
                 }},
-            {'title': '사연 보낸 청취자 닉네임', 'data': 'mem_nick'},
+            {'title': '사연 보낸 청취자 닉네임', 'data': 'nickName'},
             {'title': '보낸 일시', 'data': 'writeDateFormat'},
             {'title': '사연 내용', 'data': 'contents'},
         ]

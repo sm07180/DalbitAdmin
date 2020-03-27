@@ -17,9 +17,6 @@
 
 <script>
     $(document).ready(function() {
-        $("#btn_storyDel").on("click", function () { //사연삭제
-            storyDel();
-        });
     });
     var tmp_sortState = -1;
     function getBroadHistory_story(tmp) {     // 상세보기
@@ -61,17 +58,25 @@
     }
     function eventInit(){
         $("#btn_storyDel").on("click", function () { //선택삭제
-            storyDelData();
+            if (confirm("선택한 사연을 삭제하시겠습니까?")) {
+                storyDelData();
+            }
         });
     }
     function storyDelData(){
-        if(dtList_info_detail.getCheckedData().length <= 0){
+        var checkDatas = dtList_info_detail.getCheckedData();
+        if(checkDatas.length <= 0){
             alert("삭제할 사연을 선택해 주십시오");
             return;
         }
-    }
-    function storyDel(){
-        util.getAjaxData("delete", "/rest/broadcast/story/delete",data, storyDel_success);
+
+        for(var i=0;i<checkDatas.length;i++){
+            var data = new Object();
+            data.room_no = checkDatas[i].room_no;
+            data.storyIdx = checkDatas[i].storyIdx;
+
+            util.getAjaxData("delete", "/rest/broadcast/story/delete",data, storyDel_success);
+        }
     }
     function storyDel_success(dst_id, response){
         dalbitLog(response);
@@ -89,7 +94,7 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-        <td>{{content.storyerCnt}}건</td>
+        <td>{{content.storyCnt}}건</td>
         <td>{{content.male}}건</td>
         <td>{{content.female}}건</td>
         <td>{{content.none}}건</td>
