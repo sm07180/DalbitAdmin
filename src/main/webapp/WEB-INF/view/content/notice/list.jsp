@@ -45,7 +45,7 @@
                     </div>
                     <div class="widget-footer">
                         <span>
-                            <button type="button" class="btn btn-default" id="bt_delete">선택삭제</button>
+                            <button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>
                         </span>
                         <span>
                             <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>

@@ -7,6 +7,7 @@
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
+<%-- 로그인 현황 > 총계 --%>
 <div class="widget widget-table mb10">
     <div class="widget-header">
         <div class="btn-group widget-header-toolbar">
