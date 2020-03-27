@@ -1,0 +1,98 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div id="container-fluid">
+            <!-- searchBox -->
+            <form id="searchForm">
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i> 검색조건 </h3>
+                            <div>
+                                <span id="search_searchType_aria"></span>
+                                <span id="search_slctType_aria"></span>
+
+                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- //serachBox -->
+            <!-- 접속 관련 통계 데이터-->
+            <div class="row col-lg-12 form-inline">
+                <div class="widget widget-table mb10">
+                    <div class="widget-header">
+                        <h3> <!-- 머리글 --> </h3>
+                    </div>
+                    <div class="widget-content mt10">
+                        <table class="table table-condensed table-dark-header table-bordered">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>실시간</th>
+                                <th>전일</th>
+                                <th>증감</th>
+                                <th>주간</th>
+                                <th>전주</th>
+                                <th>증감</th>
+                                <th>월간</th>
+                                <th>전월</th>
+                                <th>증감</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>남성</td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                            </tr>
+                            <tr>
+                                <td>여성</td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                            </tr>
+                            <tr>
+                                <td>합계</td>
+                                <td><a href="javascript://">40</a></td>
+                                <td><a href="javascript://">30</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                                <td><a href="javascript://">10</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- // 접속 관련 통계 데이터 -->
+            <!-- tab -->
+            <div class="no-padding" id="infoTab">
+                <jsp:include page="infoTab.jsp"/>
+            </div>
+            <!-- //tab -->
+
+        </div> <!-- // container-fluid -->
+    </div> <!-- // page-wrapper -->
+</div> <!-- // wrapper -->
