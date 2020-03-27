@@ -43,10 +43,6 @@
             <!-- //serachBox -->
             <!-- 접속 관련 통계 데이터-->
             <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table mb10">
-                    <div class="widget-header">
-                        <h3> <!-- 머리글 --> </h3>
-                    </div>
                     <div class="widget-content mt10">
                         <table class="table table-condensed table-dark-header table-bordered">
                             <thead>
@@ -103,7 +99,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
             <!-- // 접속 관련 통계 데이터 -->
             <!-- tab -->
