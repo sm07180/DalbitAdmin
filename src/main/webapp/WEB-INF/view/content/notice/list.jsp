@@ -201,6 +201,9 @@
         generateForm();
         dtList_info.reload();
 
+        //상단이동
+        $('html').animate({scrollTop : 0}, 100);
+
         $("#noticeForm").empty();
     }
 

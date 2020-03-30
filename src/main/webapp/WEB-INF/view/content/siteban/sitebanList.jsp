@@ -5,23 +5,28 @@
 <div>
     <div class="row col-md-12" style="padding-bottom: 15px">
         <div class="pull-left">
-            ㆍ 방송 주제를 등록 수정 삭제 관리를 할 수 있습니다.
+            • 사이트 내 닉네임 , 채팅글 , 팬보드 , 방송 제목 또는 방송 환영글 등에서 사용을 금지하는 금지어 관리 공간입니다.
+            <br>
+            • 4글자 이상으로 등록해주세요.
         </div>
         <div class="pull-right">
-            <button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>
-            <button type="button" class="btn btn-primary "><i class="fa fa-floppy-o"></i>적용</button>
+            <%--<button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>--%>
+            <%--<button type="button" class="btn btn-primary "><i class="fa fa-floppy-o"></i>적용</button>--%>
         </div>
     </div>
 
     <div class="widget-content">
-        <table id="list" class="table table-sorting table-hover table-bordered datatable">
+        <table id="list" class="table table-sorting table-hover table-bordered datatable ui-pg-table">
+            <colgroup>
+                <col width="70px" />
+                <col width="120px"/>
+                <col/>
+            </colgroup>
             <thead>
             <tr>
                 <th>선택</th>
                 <th>No</th>
-                <th>순서변경</th>
-                <th>적용상태</th>
-                <th>방송주제</th>
+                <th>금지어</th>
             </tr>
             </thead>
             <tbody id="tableBody">
@@ -32,13 +37,12 @@
         <div class="btn-toolbar">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default" id="deleteBtn"><i class="fa fa-trash-o"></i>선택삭제</button>
-                <button type="button" class="btn btn-primary" id="updateBtn"><i class="fa fa-pencil"></i>선택수정</button>
             </div>
 
-            <%--<div class="btn-group pull-right" role="group">--%>
-                <%--<button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>--%>
-                <%--<button type="button" class="btn btn-primary "><i class="fa fa-floppy-o"></i>적용</button>--%>
-            <%--</div>--%>
+            <div class="btn-group pull-right" role="group">
+                <button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>
+                <button type="button" class="btn btn-primary" id="insertBtn"><i class="fa fa-floppy-o"></i>적용</button>
+            </div>
         </div>
     </div>
 </div>
@@ -47,17 +51,17 @@
 
 <script>
     $(document).ready(function() {
-        // util.getAjaxData("list", "/rest/content/theme/list", "", fn_success, fn_fail);
-        fnc_broadcastList.init();
+        // util.getAjaxData("list", "/rest/content/siteban/list", "", fn_success, fn_fail);
+        fnc_sitebanList.init();
     });
 
-    var fnc_broadcastList = {
-        "targetId": "broadcastList",
+    var fnc_sitebanList = {
+        "targetId": "sitebanList",
 
         init() {
             this.target = $("#" + this.targetId);
 
-            util.getAjaxData("list", "/rest/content/theme/broadcast", "", fnc_broadcastList.fn_success, fnc_broadcastList.fn_fail);
+            util.getAjaxData("list", "/rest/content/siteban/siteban", "", fnc_sitebanList.fn_success, fnc_sitebanList.fn_fail);
 
             this.initEvent();
         },
@@ -67,34 +71,34 @@
                 var targetTr = $(this).closest('tr');
                 var nextTr = targetTr.next();
                 targetTr.insertAfter(nextTr);
-                fnc_broadcastList.resetNo();
-                fnc_broadcastList.btnSet();
+                fnc_sitebanList.resetNo();
+                fnc_sitebanList.btnSet();
             });
 
             this.target.on('click', '._up', function () {
                 var targetTr = $(this).closest('tr');
                 var prevTr = targetTr.prev();
                 targetTr.insertBefore(prevTr);
-                fnc_broadcastList.resetNo();
-                fnc_broadcastList.btnSet();
+                fnc_sitebanList.resetNo();
+                fnc_sitebanList.btnSet();
             });
 
             this.target.find('#deleteBtn').on('click', function () {
-                var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
+                var checked = fnc_sitebanList.target.find('#tableBody').find('._check:checked');
 
                 if (0 == checked.length) {
                     alert("삭제할 방송 주제를 선택해주세요.");
                     return;
                 }
                 if (confirm('삭제하시겠습니까?')) {
-                    var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
+                    var checked = fnc_sitebanList.target.find('#tableBody').find('._check:checked');
                     checked.closest('tr').remove();
-                    fnc_broadcastList.resetNo();
+                    fnc_sitebanList.resetNo();
                 }
             });
 
             this.target.find("#updateBtn").on('click', function () {
-                var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
+                var checked = fnc_sitebanList.target.find('#tableBody').find('._check:checked');
                 if (0 == checked.length) {
                     alert("수정할 방송 주제를 선택해주세요.");
                     return;
@@ -107,24 +111,29 @@
                     }*/
                 });
 
-                fnc_broadcastList.target.find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
+                fnc_sitebanList.target.find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
             });
 
             this.target.find("#addBtn").on('click', function () {
+                var idx = (fnc_sitebanList.target.find('._noTd').length + 1);
                 var newData = {
-                    no: fnc_broadcastList.target.find('._noTd').length + 1,
-                    cdNm: '',
-                    isOn: true,
-                    readonly: false
+                    no: idx,
+                    cdNm: '<input type=text id="cdNm_' + idx + '" />'
                 }
 
-                var template = fnc_broadcastList.target.find('#tmp_list').html();
+                var template = fnc_sitebanList.target.find('#tmp_list').html();
                 var templateScript = Handlebars.compile(template);
                 var html = templateScript({data: newData});
 
-                fnc_broadcastList.target.find("#tableBody").append(html);
+                fnc_sitebanList.target.find("#tableBody").append(html);
 
-                fnc_broadcastList.btnSet();
+                fnc_sitebanList.btnSet();
+
+            });
+
+            this.target.find("#insertBtn").on('click', function () {
+                // TODO insert 처리 필요
+
             });
         },
 
@@ -132,13 +141,21 @@
         {
             dalbitLog(response);
 
-            var template = fnc_broadcastList.target.find('#tmp_list').html();
+            var template = fnc_sitebanList.target.find('#tmp_list').html();
             var templateScript = Handlebars.compile(template);
             var html = templateScript(response);
 
-            fnc_broadcastList.target.find("#tableBody").append(html);
+            fnc_sitebanList.target.find("#tableBody").append(html);
 
-            fnc_broadcastList.btnSet();
+            fnc_sitebanList.btnSet();
+
+            fnc_sitebanList.target.find("#list").DataTable({
+                sDom: "<'row col-md-12'<'pull-left'i><'pull-right'f>>t",
+                ordering: false,
+                paging:false,
+                bPaginate: true,                                                                // 페이징 처리 여부.
+                bLengthChange: true,                                                        //  페이지 표시 건수 변동 기능 사용 여
+            });
         },
 
         fn_fail(data, textStatus, jqXHR) {
@@ -178,17 +195,16 @@
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             var idx = data.split("_")[1];
-            var targetIdx = fnc_broadcastList.target.find(ev.target).parent("tr").attr("id").split("_")[1];
+            var targetIdx = $(ev.target).parent("tr").attr("id").split("_")[1];
 
             if(parseInt(targetIdx) < parseInt(idx)){
-                fnc_broadcastList.target.find(ev.target).parent("tr").before(fnc_broadcastList.target.find("#"+data));
+                $(ev.target).parent("tr").before(document.getElementById(data));
             }else{
-                fnc_broadcastList.target.find(ev.target).parent("tr").after(fnc_broadcastList.target.find("#"+data));
+                $(ev.target).parent("tr").after(document.getElementById(data));
             }
 
-
-            fnc_broadcastList.resetNo();
-            fnc_broadcastList.btnSet();
+            fnc_sitebanList.resetNo();
+            fnc_sitebanList.btnSet();
         }
 
     }
@@ -196,26 +212,13 @@
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
-    <tr class="_noTr" id="row_{{index @index no}}" ondrop="fnc_broadcastList.drop(event)" ondragover="fnc_broadcastList.allowDrop(event)" draggable="true" ondragstart="fnc_broadcastList.drag(event)">
+    <tr>
         <td>
             <input type="checkbox" class="form-control _check" />
         </td>
-        <td class="_noTd">{{index @index no}}</td>
-        <td>
-            <button type="button" class="btn btn-info _down"><i class="toggle-icon fa fa-angle-down"></i></button>
-            <button type="button" class="btn btn-danger _up"><i class="toggle-icon fa fa-angle-up"></i></button>
-        </td>
-        <td>
-            <div class="control-inline onoffswitch">
-                <input type="checkbox" name="useYn" class="onoffswitch-checkbox" id="broadcastList_useYn{{index @index no}}" {{#unless isOn}}checked{{/unless}}>
-                <label class="onoffswitch-label" for="broadcastList_useYn{{index @index no}}">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </label>
-            </div>
-        </td>
-        <td>
-            <input type="text" value="{{cdNm}}" class="form-control _cdNm" {{#unless isOn}}readonly="true"{{/unless}} />
+        <td class="_noTd" style="vertical-align:middle">{{index @index no}}</td>
+        <td style="vertical-align:middle">
+            {{{cdNm}}}
         </td>
     </tr>
     {{/data}}
