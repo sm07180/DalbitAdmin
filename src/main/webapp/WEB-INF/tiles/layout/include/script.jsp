@@ -72,6 +72,7 @@
 <script src="/js/dataTablesSource/broadcastDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
 <script src="/js/dataTablesSource/customer/customerDataTableSource.js"></script>
+<script src="/js/dataTablesSource/customer/questionDataTableSource.js"></script>
 <script src="/js/dataTablesSource/dataTableSource.js"></script>
 <script src="/js/dataTablesSource/menuDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/pushDataTableSource.js"></script>

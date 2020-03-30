@@ -81,9 +81,6 @@ var BroadcastDataTableSource = {
                     return common.timeStamp(data);
                 }},
             {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {
-                    console.log(data);
-                    if(data == ""){
-                    }
                     var tmp = util.memNoLink(data, row.dj_mem_no);
                     tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
                     return tmp;

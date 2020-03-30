@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
+
 <div>
     <form id="detailFrm"></form>
     <form id="editHistFrm" class="hide"></form>
@@ -21,6 +24,28 @@
     </div>
 </div>
 
+
+<!-- 입장제한, 얼리기, 방송강제종료 Modal -->
+<div class="modal fade" id="entryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 600px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <lable>운영자에 의한 변경 사유를 선택하여 주세요</lable>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <span id="broadCast_Message"></span>
+                <input type="text" id="text_message" class="form-control"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="bt_modalEntry"><i class="fa fa-times-circle"></i> 확인</button>
+                <button type="button" class="btn btn-custom-primary" id="bt_modalEntryNotice"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 끝 -->
+
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script type="text/javascript">
@@ -35,6 +60,13 @@
                 getSearch();
             };
         });
+
+        $("#bt_modalEntry").on("click", function () {             //입장제한변경 팝업 알림X
+            entry(this.id);
+        });
+        $("#bt_bt_modalEntryNotice").on("click", function () {    //입장제한변경 팝업 알림O
+            entry(this.id);
+        });
     });
 
     $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
@@ -43,7 +75,6 @@
     $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
     $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
 
-    var room_no;
     function getBroadCast_info_popup(tmp ,state){
         if(state == "4" || state == "5"){
             $('#bt_broadcastGo').hide();
@@ -59,6 +90,8 @@
         util.getAjaxData("type", "/rest/broadcast/broadcast/info", obj, info_sel_success);
     }
 
+    var room_no;
+    var mem_no;
     var detailData;
     function info_sel_success(dst_id, response, param) {
         $('#detailFrm').addClass("hid");
@@ -66,6 +99,7 @@
         room_no = param.room_no;
         response.data.room_no = param.room_no;
         detailData = response.data;
+        mem_no = response.data.dj_mem_no;
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -132,10 +166,10 @@
             tmp = tmp.split("_");
             tmp = tmp[1];
         }
-
+        var dtList_info;
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
-            data.room_no = $("#"+buttonId).data('roomno');
+            data.room_no = room_no;
             // data.mem_no = $("#"+buttonId).data('memno');
         }
 
@@ -146,19 +180,33 @@
         dtList_info_detail.reload();
     }
 
+    var editEntry;
     function bt_click(tmp) {
-        // 디폴트 배경이미지 - IMAGE_SERVER_URL/bg_3/roombg_200310_0.jpg
-
-        console.log(room_no);
         var obj = new Object();
         obj.room_no = room_no;
+        obj.backgroundImage = "";
+        obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
+        obj.entryType = $('input:radio[name="entryType"]:checked').val();
+        obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
         if(tmp == "bt_entry") {
-            // 입장제한 버튼
-            obj.entryType = $('input:radio[name="entryType"]:checked').val();
+            editEntry = tmp;
+            $("#broadCast_Message").html(util.getCommonCodeCheck(-1, entryType_Message,"Y"));
+            $('#entryModal').modal('show');
+            return;
         } else if(tmp == "bt_freezing") {
-            // obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
+            editEntry = tmp;
+            $("#broadCast_Message").html(util.getCommonCodeCheck(-1, freezeMsg_Message,"Y"));
+            $('#entryModal').modal('show');
+            return;
         } else if(tmp == "bt_forcedExit") {
-            // obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
+            editEntry = tmp;
+            if($('input:radio[name="forcedExit"]:checked').val() != 1){
+                alert("방송 강제종료 여부를 선택하여 주십시오.");
+                return;
+            }
+            $("#broadCast_Message").html(util.getCommonCodeCheck(-1, forceExit_Message,"Y"));
+            $('#entryModal').modal('show');
+            return;
         } else if(tmp == "bt_msgWelcom") {
             if($("#welcomeMsg").val() == ("환영합니다!! 여기는 " + detailData.dj_nickName + " 님의 방송방입니다.")){
                 alert("이미 초기화된 환영 메시지입니다.");
@@ -171,8 +219,6 @@
                     return false;
                 }
             }
-            obj.welcomMsg = $("#welcomeMsg").val();
-
         } else if(tmp == "bt_title") {
             if($("#title").val() == (detailData.dj_nickName + " 님의 방송입니다.")) {
                 alert("이미 초기화된 방송 제목입니다.");
@@ -188,18 +234,108 @@
         } else if(tmp == "bt_img" ){
             if (confirm('초기화하시겠습니까?')) {
                 obj.backgroundImage = "backImageDel";
+            }else{
+                return;
             }
         }
 
         util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
     }
 
+
+    function entry(tmp){
+        var sendNoti;
+        if(tmp == "bt_modalEntry") {    // 강제퇴장 알림X
+            sendNoti = 0;
+        }else if(tmp == "bt_modalEntryNotice"){      // 강제퇴장 알림O
+            sendNoti = 1;
+        }
+
+        var entryMessage="";
+        $('input:checkbox[name="message"]').each(function() {
+            if(this.checked){           //checked 처리된 항목의 값
+                console.log(this.value);
+                if(this.value == "기타 운영자 직접작성" ){
+                    entryMessage = entryMessage + " - " + this.value + " : " + $("#text_message").val() + "\n";
+                }else {
+                    entryMessage = entryMessage + " - " + this.value + "\n";
+                }
+            }
+        });
+        var tmp_msg;
+        if(entryMessage == "" && editEntry == "bt_forcedExit"){
+            alert("방송 강제종료 사유를 선택해 주십시오.");
+            return;
+        }else if(entryMessage == "" && editEntry == "bt_freezing"){
+            alert("방송 얼리기 변경 조치 사유를 선택해 주십시오.");
+            return;
+        }else if(entryMessage == "" && editEntry == "bt_entry"){
+            alert("방송 입장제한 변경 사유를 선택해 주십시오.");
+            return;
+        }
+
+        if(editEntry == "bt_entry"){
+            tmp_msg = "방송방 입장제한을 변경하시겠습니까?";
+        }else if(editEntry == "bt_freezing"){
+            tmp_msg = "방송방을 얼리시겠습니까?";
+        }else if(editEntry == "bt_forcedExit"){
+            tmp_msg = "방송을 강제종료 하시겠습니까?";
+        }
+
+        if (confirm(tmp_msg)) {
+            var strName = '${principal.getUserInfo().getName()}';
+            var date = new Date();
+            var timestamp = date.getFullYear() + "." +
+                common.lpad(date.getMonth(),2,"0") + "." +
+                common.lpad(date.getDay(),2,"0") + " " +
+                common.lpad(date.getHours(),2,"0") + "." +
+                common.lpad(date.getMinutes(),2,"0") + "." +
+                common.lpad(date.getSeconds(),2,"0");
+
+            var meno;
+            var title;
+            if(editEntry == "bt_forcedExit"){
+                meno = message.forceExit;
+                title = message.forceExitTitle;
+            }else if(editEntry == "bt_freezing"){
+                meno = message.freezing;
+                title = message.freezingTitle;
+            }else if(editEntry == "bt_entry"){
+                meno = message.entry;
+                title = message.entryTitle;
+            }
+            meno = meno.replace("{{name}}",strName)
+                .replace("{{nickName}}",detailData.dj_nickName)
+                .replace("{{message}}",entryMessage)
+                .replace("{{timestamp}}",timestamp);
+
+            console.log(meno);
+
+            var obj = new Object();
+            obj.room_no = room_no;
+            obj.backgroundImage = "";
+            obj.notiMeno = meno;
+            obj.sendNoti = sendNoti;
+            obj.notiContents = title;
+            obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
+            obj.entryType = $('input:radio[name="entryType"]:checked').val();
+            obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
+            console.log(mem_no);
+            obj.mem_no = mem_no;
+
+            // util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
+        }else{
+            return false;
+        }
+    }
+
+
     function update_success(dst_id, response) {
         dalbitLog(response);
         alert(response.message);
-
-        dtList_info.reload();
-        getInfoDetail("infoDetail", "상세정보")
+        $('#entryModal').modal('hide');
+        // dtList_info.reload();
+        getInfoDetail("editHistory", "정보수정내역");
         // $("#detailFrm").empty();
     }
 

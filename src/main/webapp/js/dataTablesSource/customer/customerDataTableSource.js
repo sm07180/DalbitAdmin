@@ -80,27 +80,6 @@ var customerDataTableSource = {
         , 'comments': '선택한 사람의 채팅 목록'
     },
 
-
-    'processingStatusHistory': {
-        'url': '/rest/member/member/list'
-        , 'columns': [
-            {'title': '문의유형', 'data': 'memNo','width':'100px'},
-            {'title': '플랫폼', 'data': 'memNo','width':'100px'},
-            {'title': 'Browser', 'data': 'memNo','width':'100px'},
-            {'title': '회원번호', 'data': 'memNo','width':'100px'},
-            {'title': '문의자UserId', 'data': 'memId', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:questionCall('+meta.row+');">' + data + '</a>'
-                },'width':'80px'},
-            {'title': '문의자닉네임', 'data': 'memNo','width':'100px'},
-            {'title': '문의제목', 'data': 'memNo','width':'100px'},
-            {'title': '접수일시/처리일시', 'data': 'memNo','width':'100px'},
-            {'title': '첨부파일', 'data': 'memNo','width':'100px'},
-            {'title': '처리상태', 'data': 'memNo','width':'100px'},
-            {'title': '처리자', 'data': 'memNo','width':'100px'},
-        ]
-        , 'comments': '회원 검색 시 신고자와 신고 대상자를 구분하여 검색하고, 상세정보를 확인할 수 있습니다.'
-    },
-
     'emailModalHistory': {
         'url': '/rest/member/member/list'
         , 'columns': [
