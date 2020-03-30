@@ -4,12 +4,11 @@
     <property name="LOG_PATH" value="/home/dalbit/logs" />
     <property name="LOG_FILE_NAME_PREFIX" value="radio_admin" />
     <property name="LOG_ERROR_FILE_NAME_PREFIX" value="error_radio_admin" />
-    <timestamp key="yyyyMMdd" datePattern="yyyyMMdd" />
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/${LOG_FILE_NAME_PREFIX}.log</file>
         <encoder>
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>[ADMIN] - [%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/${LOG_FILE_NAME_PREFIX}.%d{yyyy-MM-dd}.log</fileNamePattern>
@@ -23,7 +22,7 @@
         </filter>
         <file>${LOG_PATH}/${LOG_ERROR_FILE_NAME_PREFIX}.log</file>
         <encoder>
-            <pattern>[%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>[ADMIN] - [%d{yyyy-MM-dd HH:mm:ss}:%-3relative][%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_PATH}/${LOG_ERROR_FILE_NAME_PREFIX}.%d{yyyy-MM-dd}.log</fileNamePattern>
