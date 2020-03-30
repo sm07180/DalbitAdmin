@@ -28,39 +28,39 @@
                             <tbody>
                             <tr>
                                 <th>남성</th>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
                             </tr>
                             <tr>
                                 <th>여성</th>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 10 </td>
+                                <td> 10 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 10 </td>
+                                <td> 10 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
                             </tr>
                             <tr class="success">
                                 <th>합계</th>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 10 </td>
+                                <td> 10 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
                             </tr>
                             </tbody>
                         </table>

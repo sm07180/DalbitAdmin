@@ -10,32 +10,32 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
-                                <div>
-                                    <label class="control-inline fancy-radio custom-color-green">
-                                        <input type="radio" name="inline-radio2">
-                                        <span><i></i>시간대 별</span>
-                                    </label>
-                                    <label class="control-inline fancy-radio custom-color-green">
-                                        <input type="radio" name="inline-radio2">
-                                        <span><i></i>일자 별</span>
-                                    </label>
-                                    <label class="control-inline fancy-radio custom-color-green">
-                                        <input type="radio" name="inline-radio2">
-                                        <span><i></i>월 별</span>
-                                    </label>
+                            <div>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="inline-radio2">
+                                    <span><i></i>시간대 별</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="inline-radio2">
+                                    <span><i></i>일자 별</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="inline-radio2">
+                                    <span><i></i>월 별</span>
+                                </label>
 
-                                    <label class="control-inline fancy-radio custom-color-green">
-                                        <input type="radio" name="inline-radio2">
-                                        <span><i></i>기간 별</span>
-                                    </label>
-                                    <i class="fa fa-calendar"></i>
-                                    <input type="text" id="startDate" class="form-control">
-                                    <span>~</span>
-                                    <i class="fa fa-calendar"></i>
-                                    <input type="text" id="endDate" class="form-control">
-                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="inline-radio2">
+                                    <span><i></i>기간 별</span>
+                                </label>
+                                <i class="fa fa-calendar"></i>
+                                <input type="text" id="startDate" class="form-control">
+                                <span>~</span>
+                                <i class="fa fa-calendar"></i>
+                                <input type="text" id="endDate" class="form-control">
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
-                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -66,39 +66,39 @@
                             <tbody>
                             <tr>
                                 <th>남성</th>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
                             </tr>
                             <tr>
                                 <th>여성</th>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 10 </td>
+                                <td> 10 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 10 </td>
+                                <td> 10 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
                             </tr>
                             <tr class="success">
                                 <th>합계</th>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">40</a></td>
-                                <td><a href="javascript://">30</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td><a href="javascript://">10</a></td>
-                                <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 40 </td>
+                                <td> 30 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                <td> 10 </td>
+                                <td> 10 </td>
+                                <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
                             </tr>
                             </tbody>
                         </table>

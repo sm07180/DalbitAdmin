@@ -61,30 +61,30 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>방문자수</th>
-                                        <td><a href="javascript://">40</a></td>
-                                        <td><a href="javascript://">30</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                        <td><a href="javascript://">325</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>평균 방문시간</th>
-                                        <td><a href="javascript://">60</a></td>
-                                        <td><a href="javascript://">50</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                        <td><a href="javascript://">200분</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>페이지뷰</th>
-                                        <td><a href="javascript://">100</a></td>
-                                        <td><a href="javascript://">80</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">20</a></td>
-                                        <td><a href="javascript://">6,000</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">20</a></td>
-                                    </tr>
+                                <tr>
+                                    <th>방문자수</th>
+                                    <td> 40 </td>
+                                    <td> 30 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i>10</td>
+                                    <td> 325 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                </tr>
+                                <tr>
+                                    <th>평균 방문시간</th>
+                                    <td> 60 </td>
+                                    <td> 50 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                    <td> 200분 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                </tr>
+                                <tr>
+                                    <th>페이지뷰</th>
+                                    <td> 100 </td>
+                                    <td> 80 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 20 </td>
+                                    <td> 6,000 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 20 </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -109,30 +109,30 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>접속자수</th>
-                                        <td><a href="javascript://">40</a></td>
-                                        <td><a href="javascript://">30</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                        <td><a href="javascript://">325</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">10</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>인당 접속회수</th>
-                                        <td><a href="javascript://">3.2</a></td>
-                                        <td><a href="javascript://">3.1</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">0.1</a></td>
-                                        <td><a href="javascript://">3.3</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">0.1</a></td>
-                                    </tr>
-                                    <tr>
-                                        <th>평균 접속시간</th>
-                                        <td><a href="javascript://">100</a></td>
-                                        <td><a href="javascript://">80</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">20</a></td>
-                                        <td><a href="javascript://">6,000</a></td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i><a href="javascript://">20</a></td>
-                                    </tr>
+                                <tr>
+                                    <th>접속자수</th>
+                                    <td> 40 </td>
+                                    <td> 30 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                    <td> 325 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 10 </td>
+                                </tr>
+                                <tr>
+                                    <th>인당 접속회수</th>
+                                    <td> 3.2 </td>
+                                    <td> 3.1 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 0.1 </td>
+                                    <td> 3.3 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 0.1 </td>
+                                </tr>
+                                <tr>
+                                    <th>평균 접속시간</th>
+                                    <td> 100 </td>
+                                    <td> 80 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 20 </td>
+                                    <td> 6,000 </td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 20 </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>

@@ -123,70 +123,44 @@
             </div>
         </div>
 
-        <div class="col-md-6 no-padding">
-            <div class="widget widget-table" id="report_detail3">
-                <div class="widget-content">
-                    <table id="list_report_detail" class="table table-sorting table-hover table-bordered datatable">
-                        <thead id="tableTop_detail">
-                        </thead>
-                        <tbody id="tableBody_detail">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <!-- 채팅 내역 -->
+        <div class="col-md-12 no-padding" id="chatLeft">
+            <table class="table table-bordered" style="margin-bottom: -7px">
+                <th>신고 시 캡쳐내용(5분)</th>
+            </table>
+            <table id="list_chat_detail" class="table table-sorting table-hover table-bordered datatable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
         </div>
-        <div class="col-md-6 no-padding">
-            <div class="widget widget-table" id="report_detail4">
-                <div class="widget-content">
-                    <table id="list_report_user_detail" class="table table-sorting table-hover table-bordered datatable">
-                        <thead id="tableTop_detail2">
-                        </thead>
-                        <tbody id="tableBody_detail2">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="col-md-6 no-padding" id="chatRight">
+            <table class="table table-bordered" style="margin-bottom: -7px">
+                <th id="chatRight_title"></th>
+            </table>
+            <table id="list_target_chat" class="table table-sorting table-hover table-bordered datatable">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 </div>
 <script type="text/javascript">
 
-    var report_roomNo;
-    var report_memNo;
-
-    var dtList_list_report_detail;
-    var dtList_list_report_user_detail;
+    var dtList_info_detail;
     var dtList_info_detail_data = function (data) {
-        data.mem_no = report_memNo;
-        data.roomNo = report_roomNo;
-        data.search = report_memNo;
-        data.gubun = "9999";
+        // data.mem_no = detailData.mem_no;
+        data.room_no = "91585286445106";
     }
-    dtList_list_report_user_detail = new DalbitDataTable($("#list_report_user_detail"), dtList_info_detail_data, customerDataTableSource.userChattingHistory);
-    dtList_list_report_user_detail.useCheckBox(false);
-    dtList_list_report_user_detail.useIndex(false);
-    dtList_list_report_user_detail.createDataTable();
-
-    function getChattingHistoryDetail() {     // 상세보기
-        var dtList_info_detail_data = function (data) {
-            data.mem_no = report_memNo;
-            data.roomNo = report_roomNo;
-            data.search = "";
-            data.gubun = "9999";
-        }
-        dtList_list_report_detail = new DalbitDataTable($("#list_report_detail"), dtList_info_detail_data, customerDataTableSource.chattingHistory);
-        dtList_list_report_detail.useCheckBox(false);
-        dtList_list_report_detail.useIndex(false);
-        dtList_list_report_detail.createDataTable();
-        dtList_list_report_detail.reload();
-    }
-
-    function userChatting(index){
-        var data = dtList_list_report_detail.getDataRow(index);
-        report_memNo = data.mem_no;
-
-        dtList_list_report_user_detail.reload();
-    }
+    dtList_info_detail = new DalbitDataTable($("#list_chat_detail"), dtList_info_detail_data, BroadcastDataTableSource.chatDetail);
+    dtList_info_detail.useCheckBox(false);
+    dtList_info_detail.useIndex(false);
+    dtList_info_detail.useOrdering(false);
+    dtList_info_detail.setPageLength(20);
+    dtList_info_detail.createDataTable();
+    dtList_info_detail.reload();
+    $("#chatLeft").removeClass("col-md-6");
+    $("#chatLeft").addClass("col-md-12");
+    $("#chatRight").addClass("hide");
 
     $('#bt_declaration').on('click', function(){
         if(confirm('처리하시겠습니까?')) {
@@ -226,5 +200,26 @@
         } else {
             declarationValue.removeAttr("disabled");
         }
+    }
+
+
+    function targetChat(index){
+        $("#chatRight").removeClass("hide");
+        var metaData = dtList_info_detail.getDataRow(index);
+        $("#chatLeft").removeClass("col-md-12");
+        $("#chatLeft").addClass("col-md-6");
+        $('#chatRight_title').html(util.memNoLink(metaData.nickname, metaData.mem_no)  + "님의 채팅글");
+        var dtList_info_detail_data = function (data) {
+            data.room_no = "91585286445106";
+            data.mem_no = "11584402943774";
+        }
+        var dblist_chat_detail;
+        dblist_chat_detail = new DalbitDataTable($("#list_target_chat"), dtList_info_detail_data, BroadcastDataTableSource.targetchat);
+        dblist_chat_detail.useCheckBox(false);
+        dblist_chat_detail.useIndex(false);
+        dblist_chat_detail.useOrdering(false);
+        dblist_chat_detail.setPageLength(20);
+        dblist_chat_detail.createDataTable();
+        dblist_chat_detail.reload();
     }
 </script>
