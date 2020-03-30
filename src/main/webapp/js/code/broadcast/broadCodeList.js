@@ -129,7 +129,7 @@ var entryType_Message = [
     , new COMMON_CODE('msg1', '1', '회원에 의한 요청 시')
     , new COMMON_CODE('msg2', '2', '연령에 맞지 않은 방송방 처리 시')
     , new COMMON_CODE('msg3', '3', '방송DJ의 컨트롤 불가 사항 시')
-    , new COMMON_CODE('msg4', '4', '기타 운영자 직접작성')
+    , new COMMON_CODE('msg99', '99', '기타 운영자 직접작성')
 ];
 
 var freezeMsg_Message = [
@@ -137,7 +137,7 @@ var freezeMsg_Message = [
     , new COMMON_CODE('msg1', '1', '회원에 의한 요청 시')
     , new COMMON_CODE('msg2', '2', '도배성 글에 대한 처리 시')
     , new COMMON_CODE('msg3', '3', '방송DJ의 컨트롤 불가 사항 시')
-    , new COMMON_CODE('msg4', '4', '기타 운영자 직접작성')
+    , new COMMON_CODE('msg99', '99', '기타 운영자 직접작성')
 ];
 
 var forceExit_Message = [
@@ -149,6 +149,6 @@ var forceExit_Message = [
     ,new COMMON_CODE('msg5', '5', '방송방 내 음란물 게시')
     ,new COMMON_CODE('msg6', '6', '범법 행위에 관한 정보를 공유하거나, 법령에 위반 되는 행위를 유도, 조장하는 행위')
     ,new COMMON_CODE('msg7', '7', '위 항목 외 위법 행위')
-    ,new COMMON_CODE('msg8', '8', '기타 운영자 직접작성')
+    ,new COMMON_CODE('msg99', '99', '기타 운영자 직접작성')
 ];
 
