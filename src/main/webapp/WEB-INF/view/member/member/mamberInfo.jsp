@@ -48,7 +48,7 @@
             <th>회원이름</th>
             <td style="text-align: left"><label id="lb_name"></label></td>
             <th>내/외국인 구분</th>
-            <td style="text-align: left"><label id="lb_local"></label></td>\
+            <td style="text-align: left"><label id="lb_local"></label></td>
             <th>청취상태</th>
             <td style="text-align: left"><label id="lb_listeningState"></label></td>
         </tr>

@@ -100,16 +100,16 @@
         btn_init();
         $("#tablist_con").find('.active').find('a').click();
 
-        if(response.data.endDate != ""){
-            $('#bt_broadcastGo').addClass("hide");
-            $('#bt_img').addClass("hide");
-            $('#bt_entry').addClass("hide");
-            $('#bt_freezing').addClass("hide");
-            $('#bt_forcedExit').addClass("hide");
-            $('#bt_title').addClass("hide");
-            $('#bt_msgWelcom').addClass("hide");
-            $('#bt_adminMemo').addClass("hide");
-        }
+        // if(response.data.endDate != ""){
+        //     $('#bt_broadcastGo').addClass("hide");
+        //     $('#bt_img').addClass("hide");
+        //     $('#bt_entry').addClass("hide");
+        //     $('#bt_freezing').addClass("hide");
+        //     $('#bt_forcedExit').addClass("hide");
+        //     $('#bt_title').addClass("hide");
+        //     $('#bt_msgWelcom').addClass("hide");
+        //     $('#bt_adminMemo').addClass("hide");
+        // }
     }
 
     function btn_init(){
