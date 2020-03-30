@@ -324,7 +324,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/content/siteban/list">
+                            <%--<a href="javascript://" class="_commingSoon">--%>
                                 <i class="fa fa-ban"></i><span class="text">사이트 금지어</span>
                             </a>
                         </li>

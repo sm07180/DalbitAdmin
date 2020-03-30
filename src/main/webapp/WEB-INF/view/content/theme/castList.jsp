@@ -177,7 +177,14 @@
         drop(ev) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
-            $(ev.target).parent("tr").before(document.getElementById(data));
+            var idx = data.split("_")[1];
+            var targetIdx = fnc_castList.target.find(ev.target).parent("tr").attr("id").split("_")[1];
+
+            if(parseInt(targetIdx) < parseInt(idx)){
+                fnc_castList.target.find(ev.target).parent("tr").before(fnc_castList.target.find("#"+data));
+            }else{
+                fnc_castList.target.find(ev.target).parent("tr").after(fnc_castList.target.find("#"+data));
+            }
 
             fnc_castList.resetNo();
             fnc_castList.btnSet();
@@ -199,8 +206,8 @@
         </td>
         <td>
             <div class="control-inline onoffswitch">
-                <input type="checkbox" name="useYn" class="onoffswitch-checkbox" id="useYn{{index @index no}}" {{#unless isOn}}checked{{/unless}}>
-                <label class="onoffswitch-label" for="useYn{{index @index no}}">
+                <input type="checkbox" name="useYn" class="onoffswitch-checkbox" id="castList_useYn{{index @index no}}" {{#unless isOn}}checked{{/unless}}>
+                <label class="onoffswitch-label" for="castList_useYn{{index @index no}}">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
                 </label>
