@@ -64,7 +64,7 @@
         $("#bt_modalEntry").on("click", function () {             //입장제한변경 팝업 알림X
             entry(this.id);
         });
-        $("#bt_bt_modalEntryNotice").on("click", function () {    //입장제한변경 팝업 알림O
+        $("#bt_modalEntryNotice").on("click", function () {    //입장제한변경 팝업 알림O
             entry(this.id);
         });
     });
@@ -75,16 +75,7 @@
     $("#freezeMsg").html(util.getCommonCodeRadio(1, freezing));
     $("#forcedQuit").html(util.getCommonCodeRadio(1, forcedExit));
 
-    function getBroadCast_info_popup(tmp ,state){
-        if(state == "4" || state == "5"){
-            $('#bt_broadcastGo').hide();
-            $('#bt_img').hide();
-            $('#bt_entry').hide();
-            $('#bt_freezing').hide();
-            $('#bt_forcedExit').hide();
-            $('#bt_msgWelcom').hide();
-            $('#bt_title').hide();
-        }
+    function getBroadCast_info_popup(tmp){
         var obj = new Object();
         obj.room_no = tmp;
         util.getAjaxData("type", "/rest/broadcast/broadcast/info", obj, info_sel_success);
@@ -108,6 +99,17 @@
         $("#detailFrm").html(html);
         btn_init();
         $("#tablist_con").find('.active').find('a').click();
+
+        if(response.data.endDate != ""){
+            $('#bt_broadcastGo').addClass("hide");
+            $('#bt_img').addClass("hide");
+            $('#bt_entry').addClass("hide");
+            $('#bt_freezing').addClass("hide");
+            $('#bt_forcedExit').addClass("hide");
+            $('#bt_title').addClass("hide");
+            $('#bt_msgWelcom').addClass("hide");
+            $('#bt_adminMemo').addClass("hide");
+        }
     }
 
     function btn_init(){
@@ -238,10 +240,8 @@
                 return;
             }
         }
-
         util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
     }
-
 
     function entry(tmp){
         var sendNoti;
@@ -254,8 +254,8 @@
         var entryMessage="";
         $('input:checkbox[name="message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
-                console.log(this.value);
-                if(this.value == "기타 운영자 직접작성" ){
+                console.log(this.id);
+                if(this.id == "message99" ){
                     entryMessage = entryMessage + " - " + this.value + " : " + $("#text_message").val() + "\n";
                 }else {
                     entryMessage = entryMessage + " - " + this.value + "\n";
@@ -323,7 +323,7 @@
             console.log(mem_no);
             obj.mem_no = mem_no;
 
-            // util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
+            util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
         }else{
             return false;
         }
@@ -334,7 +334,7 @@
         dalbitLog(response);
         alert(response.message);
         $('#entryModal').modal('hide');
-        // dtList_info.reload();
+        dtList_info.reload();
         getInfoDetail("editHistory", "정보수정내역");
         // $("#detailFrm").empty();
     }
@@ -476,7 +476,7 @@
         <tr>
             <td style="text-align: left">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 90px"></textarea>
-                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">변경</button>
+                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">등록</button>
             </td>
             <th>방송 정보 수정 처리자</th>
             <td style="text-align: left">

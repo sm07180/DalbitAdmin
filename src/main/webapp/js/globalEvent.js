@@ -16,6 +16,6 @@ $(document).on('click', '._openMemberPop', function(){
 
 /*방송정보보기 팝업*/
 $(document).on('click', '._openBroadcastPop', function(){
-    var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+$(this).data('roomno')+"&state="+$(this).data('state');
+    var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+$(this).data('roomno');
     util.windowOpen(url, 1500, 800, 'broadcastInfo');
 });
