@@ -105,17 +105,20 @@
             data.dj_searchText = $('#txt_search').val();
             data.room_slctType = -1;
             data.room_searchText = "";
+            data.ortStartDate =2;
         }else {                                                              // 방송정보
             data.dj_slctType = -1;
             data.dj_searchText = "";
             data.room_slctType = $("select[name='searchBroad_broad']").val();
             data.room_searchText = $('#txt_search').val();
+            data.ortStartDate =2;
         }
         data.pageCnt=10;
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
+    dtList_info.setPageLength(20);
     dtList_info.createDataTable(live_summary_table);
     var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
     $("#main_table").find(".footer-right").append(excelBtn);

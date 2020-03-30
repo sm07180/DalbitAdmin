@@ -61,6 +61,8 @@
 
     var detailData;
     function info_sel_success(dst_id, response, param) {
+        $('#detailFrm').addClass("hid");
+        $("#editHistFrm").removeClass("show");
         room_no = param.room_no;
         response.data.room_no = param.room_no;
         detailData = response.data;
@@ -183,6 +185,10 @@
                     return false;
                 }
             }
+        } else if(tmp == "bt_img" ){
+            if (confirm('초기화하시겠습니까?')) {
+                obj.backgroundImage = "backImageDel";
+            }
         }
 
         util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
@@ -193,7 +199,8 @@
         alert(response.message);
 
         dtList_info.reload();
-        $("#detailFrm").empty();
+        getInfoDetail("infoDetail", "상세정보")
+        // $("#detailFrm").empty();
     }
 
     function fn_fail(data, textStatus, jqXHR){

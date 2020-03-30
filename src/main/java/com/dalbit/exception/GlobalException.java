@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @ToString
@@ -23,9 +24,24 @@ public class GlobalException extends Exception {
     private Status status;
     private Object data;
 
+    private ArrayList validationMessageDetail;
+
     public GlobalException(ErrorStatus errorStatus){
         setErrorStatus(errorStatus);
     }
+
+    public GlobalException(ErrorStatus errorStatus, Object data){
+        setErrorStatus(errorStatus);
+        setData(data);
+    }
+
+    public GlobalException(ErrorStatus errorStatus, Object data, ArrayList validationMessageDetail){
+        setErrorStatus(errorStatus);
+        setData(data);
+        setValidationMessageDetail(validationMessageDetail);
+    }
+
+
     public GlobalException(Status status){
         setStatus(status);
     }
@@ -33,6 +49,12 @@ public class GlobalException extends Exception {
     public GlobalException(Status status, Object data){
         setStatus(status);
         setData(data);
+    }
+
+    public GlobalException(Status status, Object data, ArrayList validationMessageDetail){
+        setStatus(status);
+        setData(data);
+        setValidationMessageDetail(validationMessageDetail);
     }
 
     public static JsonOutputVo throwException(ErrorStatus errorStatus){

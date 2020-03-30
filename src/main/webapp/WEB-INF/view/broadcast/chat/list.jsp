@@ -31,12 +31,12 @@
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
-            data.pageCnt = 20;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_chat_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(false);
         dtList_info_detail.useOrdering(false);
+        dtList_info_detail.setPageLength(20);
         dtList_info_detail.createDataTable(chat_summary_table);
         dtList_info_detail.reload();
 
@@ -67,13 +67,13 @@
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
             data.mem_no = metaData.mem_no;
-            data.pageCnt = 20;
         }
         var dblist_chat_detail;
         dblist_chat_detail = new DalbitDataTable($("#list_target_chat"), dtList_info_detail_data, BroadcastDataTableSource.targetchat);
         dblist_chat_detail.useCheckBox(false);
         dblist_chat_detail.useIndex(false);
         dblist_chat_detail.useOrdering(false);
+        dtList_info_detail.setPageLength(20);
         dblist_chat_detail.createDataTable();
         dblist_chat_detail.reload();
     }

@@ -2117,6 +2117,317 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "신고 상세",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "reportIdx",
+											"value": "4",
+											"description": "신고 번호",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/declaration/detail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"declaration",
+										"detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "신고 처리",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "reportIdx",
+											"value": "5",
+											"description": "신고 번호",
+											"type": "text"
+										},
+										{
+											"key": "opCode",
+											"value": "5",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/declaration/operate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"declaration",
+										"operate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "신고 처리 건수",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": []
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/declaration/opCount",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"declaration",
+										"opCount"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "문의",
+					"item": [
+						{
+							"name": "문의 목록",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "searchType",
+											"value": "-1",
+											"description": "검색구분( -1(or null): all, 1:회원번호,2:UserId,3:닉네임,4:연락처)",
+											"type": "text"
+										},
+										{
+											"key": "searchText",
+											"value": "",
+											"description": "검색어",
+											"type": "text"
+										},
+										{
+											"key": "slctType",
+											"value": "-1",
+											"description": "문의구분(-1(or null): all 1:회원정보,2:방송,3:청취,4:결제,5:건의,6:장애/버그,7:선물/아이템, 99:기타)",
+											"type": "text"
+										},
+										{
+											"key": "slctPlatform",
+											"value": "",
+											"description": "플랫폼구분( :전체, PC,Android-Mobile,IOS-Mobile,Web-Mobile",
+											"type": "text"
+										},
+										{
+											"key": "slctBrowser",
+											"value": "",
+											"description": "브라우저구분( :전체, Chrome,Internet Explorer,Firefox",
+											"type": "text"
+										},
+										{
+											"key": "sortSlct",
+											"value": "-1",
+											"description": "문의정렬( 0: asc, 1: desc, null or -1: X)",
+											"type": "text"
+										},
+										{
+											"key": "sortPlatform",
+											"value": "-1",
+											"description": "플랫폼정렬( 0: asc, 1: desc, null or -1: X)",
+											"type": "text"
+										},
+										{
+											"key": "sortBrowser",
+											"value": "-1",
+											"description": "브라우저정렬( 0: asc, 1: desc, null or -1: X)",
+											"type": "text"
+										},
+										{
+											"key": "sortState",
+											"value": "-1",
+											"description": "처리구분정렬( 0: asc, 1: desc, null or -1: X)",
+											"type": "text"
+										},
+										{
+											"key": "pageNo",
+											"value": "1",
+											"description": "페이지 번호",
+											"type": "text"
+										},
+										{
+											"key": "pageCnt",
+											"value": "10",
+											"description": "게시물 수",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/question/list",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"question",
+										"list"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "문의 상세",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "qnatIdx",
+											"value": "5",
+											"description": "문의 번호",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/question/detail",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"question",
+										"detail"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "문의 처리",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "qnatIdx",
+											"value": "5",
+											"description": "문의 번호",
+											"type": "text"
+										},
+										{
+											"key": "answer",
+											"value": "처리 완료",
+											"description": "답변 내용",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8081/rest/customer/question/operate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"rest",
+										"customer",
+										"question",
+										"operate"
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"protocolProfileBehavior": {},
