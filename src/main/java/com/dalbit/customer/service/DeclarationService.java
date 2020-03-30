@@ -74,10 +74,10 @@ public class DeclarationService {
 
             hm.put("platform", DalbitUtil.isEmpty(list.get(i).getPlatform()) ? "" : list.get(i).getPlatform());
             hm.put("reason", DalbitUtil.isEmpty(list.get(i).getReason()) ? "" : list.get(i).getReason());
-            hm.put("mem_id", DalbitUtil.isEmpty(list.get(i).getMem_id()) ? "" : list.get(i).getMem_id());
+            hm.put("mem_id", DalbitUtil.isEmpty(list.get(i).getMem_userid()) ? "" : list.get(i).getMem_userid());
             hm.put("mem_nick", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
-            hm.put("reported_mem_id", DalbitUtil.isEmpty(list.get(i).getReported_mem_id()) ? "" : list.get(i).getReported_mem_id());
-            hm.put("reported_mem_nick", DalbitUtil.isEmpty(list.get(i).getReported_mem_nick()) ? "" : list.get(i).getReported_mem_nick());
+            hm.put("reported_mem_id", DalbitUtil.isEmpty(list.get(i).getReported_userid()) ? "" : list.get(i).getReported_userid());
+            hm.put("reported_mem_nick", DalbitUtil.isEmpty(list.get(i).getReported_nick()) ? "" : list.get(i).getReported_nick());
             hm.put("regDate", DalbitUtil.isEmpty(list.get(i).getRegDate()) ? "" : list.get(i).getRegDate());
             hm.put("opDate", DalbitUtil.isEmpty(list.get(i).getOpDate()) ? "" : list.get(i).getOpDate());
             hm.put("status", DalbitUtil.isEmpty(list.get(i).getStatus()) ? "" : list.get(i).getStatus());

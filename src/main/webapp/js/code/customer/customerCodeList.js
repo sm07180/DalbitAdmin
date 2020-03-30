@@ -5,7 +5,8 @@ var declaration_searchType = [
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('memno', '1', '회원번호')
     , new COMMON_CODE('memid', '2', 'UserID')
-    , new COMMON_CODE('memnick', '3', '닉네임')
+    , new COMMON_CODE('memnick', '3', 'User닉네임')
+    , new COMMON_CODE('phone', '4', '연락처')
 ];
 
 var declaration_slctType = [

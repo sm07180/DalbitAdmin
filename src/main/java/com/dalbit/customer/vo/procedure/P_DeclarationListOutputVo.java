@@ -12,11 +12,11 @@ import java.sql.Date;
 public class P_DeclarationListOutputVo extends BaseVo {
     private int reportIdx;
     private String mem_no;
-    private String mem_id;
+    private String mem_userid;
     private String mem_nick;
     private String reported_mem_no;
-    private String reported_mem_id;
-    private String reported_mem_nick;
+    private String reported_userid;
+    private String reported_nick;
     private String room_no;
     private int reason;
     private String etc;
