@@ -19,19 +19,19 @@ public class JsonOutputVo {
 
     public JsonOutputVo(Status status){
         setStatus(status);
-        setTimestamp(DalbitUtil.getTimeStamp());
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
     }
 
     public JsonOutputVo(Status status, Object data){
         setStatus(status);
         setData(data);
-        setTimestamp(DalbitUtil.getTimeStamp());
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
     }
 
     public JsonOutputVo(Status status, Object data, ArrayList validationMessageDetail){
         setStatus(status);
         setData(data);
-        setTimestamp(DalbitUtil.getTimeStamp());
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
 
         setValidationMessageDetail(validationMessageDetail);
     }
@@ -39,7 +39,7 @@ public class JsonOutputVo {
     public JsonOutputVo(Status status, Object data, PagingVo pagingVo){
         setStatus(status);
         setData(data);
-        setTimestamp(DalbitUtil.getTimeStamp());
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
 
         setPagingVo(pagingVo);
     }
@@ -47,7 +47,7 @@ public class JsonOutputVo {
     public JsonOutputVo(Status status, Object data, PagingVo pagingVo, Object summary){
         setStatus(status);
         setData(data);
-        setTimestamp(DalbitUtil.getTimeStamp());
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
 
         setPagingVo(pagingVo);
         setSummary(summary);
@@ -55,13 +55,13 @@ public class JsonOutputVo {
 
     public JsonOutputVo(ErrorStatus errorStatus){
         setErrorStatus(errorStatus);
-        setTimestamp(DalbitUtil.getTimeStamp());
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
     }
 
     public JsonOutputVo(ErrorStatus errorStatus, Object data){
         setErrorStatus(errorStatus);
         setData(data);
-        setTimestamp(DalbitUtil.getTimeStamp());
+        setTimestamp(DalbitUtil.setTimestampInJsonOutputVo());
     }
 
     private String result;
