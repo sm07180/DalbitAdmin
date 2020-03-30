@@ -84,11 +84,13 @@
             data.dj_searchText = $('#txt_search').val();
             data.room_slctType = -1;
             data.room_searchText = "";
+            data.ortStartDate =2;
         }else{                                                              // 방송정보
             data.dj_slctType = -1;
             data.dj_searchText = "";
             data.room_slctType = $("select[name='searchBroad_broad']").val();
             data.room_searchText = $('#txt_search').val();
+            data.ortStartDate =2;
         }
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
@@ -118,6 +120,8 @@
         }
         dtList_info.reload();
         ui.toggleSearchList();
+        $('#detailFrm').addClass("hid");
+
     }
 
     function getBroadCast_info(index){

@@ -3,10 +3,12 @@ package com.dalbit.broadcast.controller.rest;
 
 import com.dalbit.broadcast.service.Bro_BroadcastService;
 import com.dalbit.broadcast.vo.procedure.*;
+import com.dalbit.common.code.Code;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import org.springframework.ui.Model;
 import lombok.extern.slf4j.Slf4j;
@@ -72,6 +74,12 @@ public class Bro_BroadcastRestController {
      */
     @PostMapping("edit")
     public String edit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
+
+        if(pBroadcastEditInputVo.getBackgroundImage().equals("backImageDel")) {
+            int random = Integer.parseInt(DalbitUtil.randomBgValue());
+            pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
+        }
+
         return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
     }
 }

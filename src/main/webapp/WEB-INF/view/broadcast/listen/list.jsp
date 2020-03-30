@@ -56,25 +56,28 @@
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
             data.sortState = tmp_sortState;       // 청취자인지, 퇴장인지, 강퇴인지
+            // data.pageCnt = 10;
+            data.sortState = 2;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
+        dtList_info_detail.setPageLength(10);
         dtList_info_detail.createDataTable(listen_summary_table);
         dtList_info_detail.reload();
 
-        initDataTableTop_select_report(tmp)
+        initDataTableTop_select_listen(tmp)
     }
 
-    function initDataTableTop_select_report(tmp){
-        var topTable = '<span name="state" id="state" onchange="force_sel_change()"></span>';
-            var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
+    function initDataTableTop_select_listen(tmp){
+        var table_sel = '<span name="state" id="state" onchange="force_sel_change()"></span>';
+        var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
 
-            $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
-            $("#"+tmp).find("#main_table").find(".footer-left").append(forcedBtn);
-
+        $("#" + tmp).find("#main_table").find(".top-left").addClass("no-padding").append(table_sel);
+        $("#" + tmp).find("#main_table").find(".footer-left").append(forcedBtn);
+        //
         $("#state").html(util.getCommonCodeSelect(-1, state));
-        eventInit();
+        forcedEventInit();
     }
 
     function force_sel_change(){
@@ -91,7 +94,7 @@
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
     }
-    function eventInit(){
+    function forcedEventInit(){
         $("#btn_forced").on("click", function () { //강제퇴장
             forcedData();
         });
@@ -122,29 +125,33 @@
             alert("강제 퇴장 사유를 선택해 주십시오");
             return;
         }
-        var strName = '${principal.getUserInfo().getName()}';
-        var date = new Date();
-        var timestamp = date.getFullYear() + "." +
-                        common.lpad(date.getMonth(),2,"0") + "." +
-                        common.lpad(date.getDay(),2,"0") + " " +
-                        common.lpad(date.getHours(),2,"0") + "." +
-                        common.lpad(date.getMinutes(),2,"0") + "." +
-                        common.lpad(date.getSeconds(),2,"0");
+        if (confirm('강제 퇴장 하겠습니까?')) {
+            var strName = '${principal.getUserInfo().getName()}';
+            var date = new Date();
+            var timestamp = date.getFullYear() + "." +
+                            common.lpad(date.getMonth(),2,"0") + "." +
+                            common.lpad(date.getDay(),2,"0") + " " +
+                            common.lpad(date.getHours(),2,"0") + "." +
+                            common.lpad(date.getMinutes(),2,"0") + "." +
+                            common.lpad(date.getSeconds(),2,"0");
 
-        var checkDatas = dtList_info_detail.getCheckedData();
-        for(var i=0;i<checkDatas.length;i++){
-            var meno = message.forceLeave.replace("{{name}}",strName)
-                                          .replace("{{nickName}}",checkDatas[i].nickName)
-                                          .replace("{{message}}",forceMessage)
-                                          .replace("{{timestamp}}",timestamp);
-            var data = new Object();
-            data.room_no = room_no;
-            data.mem_no = checkDatas[i].mem_no;
-            data.sendNoti = sendNoti;
-            data.notiContents = message.forceLeaveTitle;
-            data.notiMeno = meno;
+            var checkDatas = dtList_info_detail.getCheckedData();
+            for(var i=0;i<checkDatas.length;i++){
+                var meno = message.forceLeave.replace("{{name}}",strName)
+                                              .replace("{{nickName}}",checkDatas[i].nickName)
+                                              .replace("{{message}}",forceMessage)
+                                              .replace("{{timestamp}}",timestamp);
+                var data = new Object();
+                data.room_no = room_no;
+                data.mem_no = checkDatas[i].mem_no;
+                data.sendNoti = sendNoti;
+                data.notiContents = message.forceLeaveTitle;
+                data.notiMeno = meno;
 
-            util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
+                util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
+            }
+        }else{
+            return false;
         }
     }
     function forceLeave_success(dst_id, response){
