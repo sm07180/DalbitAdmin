@@ -4,6 +4,8 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.customer.service.QuestionService;
 import com.dalbit.customer.vo.QuestionVo;
+import com.dalbit.customer.vo.procedure.P_QuestionDetailInputVo;
+import com.dalbit.customer.vo.procedure.P_QuestionOperateVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -39,4 +41,23 @@ public class QuestionRestController {
     public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model) throws GlobalException {
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
+
+    /**
+     *  1:1 문의하기 상세 조회
+     */
+    @PostMapping("detail")
+    public String detail(P_QuestionDetailInputVo pQuestionDetailInputVo) {
+        String result = questionService.callServiceCenterQnaDetail(pQuestionDetailInputVo);
+
+        return result;
+    }
+
+    /**
+     *  1:1 문의하기 처리하기
+     */
+    @PostMapping("operate")
+    public String operate(P_QuestionOperateVo pQuestionOperateVo) {
+        return questionService.callServiceCenterQnaOperate(pQuestionOperateVo);
+    }
+
 }
