@@ -6,7 +6,7 @@ var BroadcastDataTableSource = {
                     return util.getCommonCodeLabel(data, subject_type);
                 }},
             {'title': '방송제목', 'data': 'title','width' : '200px', 'render': function (data, type, row, meta) {
-                    return util.roomNoLink(data, row.room_no, row.state);
+                    return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '프로필이미지', 'data': 'dj_profileImage', 'render' : function(data, type, row){
                     return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +

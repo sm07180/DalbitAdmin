@@ -97,7 +97,7 @@
                         <button type="button" id="bt_star" class="btn-sm btn btn-default">별환전</button>
                         <button type="button" id="bt_wallet" class="btn-sm btn btn-default">내지갑</button>
                         <button type="button" id="bt_profile" class="btn-sm btn btn-default">사진등록</button>
-                        <button type="button" id="bt_backimg" class="btn-sm btn btn-default">배송방법</button>
+                        <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default">방송방법</button>
                     </td>
                 </tr>
             </tbody>
@@ -108,6 +108,9 @@
             </div>
             <div class="widget-content no-padding">
                 <div class="_editor"></div>
+            </div>
+            <div class="pull-right">
+                <button type="button" id="bt_operate" class="btn-sm btn btn-default">등록</button>
             </div>
         </div>
     </div>

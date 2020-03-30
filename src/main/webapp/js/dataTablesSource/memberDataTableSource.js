@@ -30,7 +30,7 @@ var MemberDataTableSource = {
             {'title': 'roomNo', 'data': 'room_no', 'visible' : false},
             {'title': '방송주제', 'data': 'subject_type', 'width':'100px'},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
-                    return util.roomNoLink(data, row.room_no, row.end_date);
+                    return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '방송시작시간', 'data': 'start_date', 'width':'120px'},
             {'title': '방송종료시간', 'data': 'end_date', 'width':'120px'},
@@ -64,7 +64,7 @@ var MemberDataTableSource = {
             {'title': 'DJ닉네임', 'data': 'dj_nickName', 'width':'100px'},
             {'title': '청취방주제', 'data': 'subject_type', 'width':'100px'},
             {'title': '청취방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
-                    return util.roomNoLink(data, row.room_no, row.end_date);
+                    return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '청취시작시간', 'data': 'start_date', 'width':'120px'},
             {'title': '청취종료시간', 'data': 'end_date', 'width':'120px'},

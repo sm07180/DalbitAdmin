@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String in_roomNo = request.getParameter("roomNo");
-    String in_state = request.getParameter("status");
 %>
 
 <div class="col-md-12 no-padding">
@@ -16,9 +15,9 @@
 
     init();
     function init() {
+        console.log("1");
         var roomNo =  <%=in_roomNo%>;
-        var state =  <%=in_state%>;
 
-        getBroadCast_info_popup(roomNo,state);
+        getBroadCast_info_popup(roomNo);
     }
 </script>
