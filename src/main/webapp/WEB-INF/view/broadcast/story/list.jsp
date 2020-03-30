@@ -32,20 +32,16 @@
         dtList_info_detail.createDataTable(story_summary_table);
         dtList_info_detail.reload();
 
-        initDataTableTop_select_report(tmp)
+        initDataTableTop_select_story(tmp)
     }
 
-    function initDataTableTop_select_report(tmp){
+    function initDataTableTop_select_story(tmp){
         var storyDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_storyDel" style="margin-right: 3px;"/>'
-        $("#"+tmp).find("#main_table").find(".footer-left").append(storyDelBtn);
+        $("#storyDetail").find("#main_table").find(".footer-left").append(storyDelBtn);
 
-        eventInit();
+        storyDelEventInit();
     }
 
-    function force_sel_change(){
-        tmp_sortState = $("select[name='state']").val();
-        dtList_info_detail.reload();
-    }
     function story_summary_table(json){
         var template = $("#story_tableSummary").html();
         var templateScript = Handlebars.compile(template);
@@ -56,7 +52,7 @@
         var html = templateScript(data);
         $("#story_summaryArea").html(html);
     }
-    function eventInit(){
+    function storyDelEventInit(){
         $("#btn_storyDel").on("click", function () { //선택삭제
             if (confirm("선택한 사연을 삭제하시겠습니까?")) {
                 storyDelData();
@@ -77,6 +73,7 @@
 
             util.getAjaxData("delete", "/rest/broadcast/story/delete",data, storyDel_success);
         }
+
     }
     function storyDel_success(dst_id, response){
         dalbitLog(response);

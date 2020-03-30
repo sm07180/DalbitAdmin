@@ -2,7 +2,7 @@ var BroadcastDataTableSource = {
     'liveList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송주제', 'data': 'subjectType','width' : '65px', 'render' : function (data){
+            {'title': '방송주제', 'data': 'subjectType','width' : '60px', 'render' : function (data){
                     return util.getCommonCodeLabel(data, subject_type);
                 }},
             {'title': '방송제목', 'data': 'title','width' : '200px', 'render': function (data, type, row, meta) {
@@ -12,7 +12,7 @@ var BroadcastDataTableSource = {
                     return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
                             'data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src)"/>';
                 }},
-            {'title': '테그부분', 'data': 'tag', 'render': function (data, type, row, meta) {
+            {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     if(row.recommBadge == "1"){
                         tmp = '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>';
@@ -30,32 +30,36 @@ var BroadcastDataTableSource = {
                     tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
                     return tmp;
                 }},
-            {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '65px'},
+            {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
             {'title': '방송시작일시', 'data': 'start_date','width' : '120px'},
-            {'title': '진행시간', 'data': 'airTime','width' : '100px','render': function (data){
+            {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '청취자', 'data': 'totalListener','width' : '50px','render': function (data){
+            {'title': '누적청취자', 'data': 'totalListener','width' : '70px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '좋아요', 'data': 'goodCnt','width' : '50px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "건";
-                }},
-            {'title': '부스터', 'data': 'boosterCnt','width' : '50px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "건";
-                }},
-            {'title': '선물', 'data': 'giftCnt','width' : '50px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "건";
-                }},
-            {'title': '팬 수', 'data': 'fanCnt','width' : '50px','render': function (data){
+            {'title': '청취자', 'data': 'liveListener','width' : '45px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '강제퇴장', 'data': 'forcedCnt','width' : '50px','render': function (data){
+            {'title': '좋아요', 'data': 'goodCnt','width' : '45px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '부스터', 'data': 'boosterCnt','width' : '45px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '선물', 'data': 'giftCnt','width' : '45px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '팬 수', 'data': 'fanCnt','width' : '45px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
+            {'title': '강제퇴장', 'data': 'forcedCnt','width' : '60px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
@@ -85,10 +89,26 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
-            {'title': '청취자', 'data': 'totalListener'},
-            {'title': '좋아요', 'data': 'goodCnt'},
-            {'title': '선물', 'data': 'giftCnt'},
-            {'title': '사연수', 'data': 'storyCnt'},
+            {'title': '누적청취자', 'data': 'totalListener','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
+            {'title': '청취자', 'data': 'liveListener','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
+            {'title': '좋아요', 'data': 'goodCnt','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '선물', 'data': 'giftCnt','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '사연수', 'data': 'storyCnt','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
             {'title': '방송상태', 'data': 'state','render': function (data, type, row, meta) {
                     if(data == "1"){
                         return "방송중";
@@ -246,6 +266,15 @@ var BroadcastDataTableSource = {
                     var tmp = tmp_auth + util.memNoLink(data, row.mem_no) + " :" +row.msg;
                     return tmp;
                 }},
+        ]
+    },
+
+    'editHistory': {
+        'url': '/rest/broadcast/broadcast/editHist'
+        , 'columns': [
+            {'title': '수정일자', 'data': 'editDate', 'defaultContent': ''},
+            {'title': '수정 내용', 'data': 'editContents', 'defaultContent': ''},
+            {'title': '처리자명', 'data': 'opName', 'defaultContent': ''},
         ]
     },
 }
