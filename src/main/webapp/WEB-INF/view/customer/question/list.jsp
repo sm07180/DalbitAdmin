@@ -77,6 +77,7 @@
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 
+    var dtList_info;
     var dtList_info_data = function ( data ) {
         data.searchText = $('#txt_search').val();
         data.searchType = $("select[name='searchType']").val();
@@ -127,7 +128,11 @@
     }
 
     function getQuestDetail(index){
-        console.log(index);
+        $('#broadcastTab').addClass("show");
+        var data = dtList_info.getDataRow(index);
+        var obj = new Object();
+        obj.qnatIdx = data.qnaIdx;
+        util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 
     /*=============엑셀==================*/
