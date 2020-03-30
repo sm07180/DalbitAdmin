@@ -991,49 +991,73 @@
 								{
 									"key": "mem_no",
 									"value": "11583121500351",
-									"description": "회원번",
+									"description": "회원번호",
 									"type": "text"
 								},
 								{
 									"key": "profileImage",
 									"value": "a",
-									"description": "메모내",
+									"description": "초기화 이미지",
 									"type": "text"
 								},
 								{
 									"key": "phoneNum",
-									"value": "0100001",
-									"description": "운영자",
+									"value": "100001",
+									"description": "변경 전화번호",
 									"type": "text"
 								},
 								{
 									"key": "nickName",
 									"value": "test",
+									"description": "변경 닉네임",
 									"type": "text"
 								},
 								{
 									"key": "name",
 									"value": "test01",
+									"description": "변경 이름",
 									"type": "text"
 								},
 								{
-									"key": "birthDate",
-									"value": "1989-12-25",
+									"key": "birthdate",
+									"value": "32867",
+									"description": "변경 년월일",
 									"type": "text"
 								},
 								{
 									"key": "memSex",
 									"value": "f",
+									"description": "변경 성별",
 									"type": "text"
 								},
 								{
 									"key": "passwdReset",
 									"value": "1234",
+									"description": "변경 패스워드",
+									"type": "text"
+								},
+								{
+									"key": "sendNoti",
+									"value": "1",
+									"description": "알림 보내기(0: 안보냄, 1:보냄)",
+									"type": "text"
+								},
+								{
+									"key": "notiContents",
+									"value": "이미지초기화 조치 안내",
+									"description": "알림 제목",
+									"type": "text"
+								},
+								{
+									"key": "notiMemo",
+									"value": "알릴 상세 내용",
+									"description": "알림내용",
 									"type": "text"
 								},
 								{
 									"key": "opName",
 									"value": "운영자",
+									"description": "처리자",
 									"type": "text"
 								}
 							]
@@ -2182,6 +2206,25 @@
 										{
 											"key": "opCode",
 											"value": "5",
+											"description": "처리내용(0:미처리,1:유지,2:경고,3:1일정지,4:3일정지,5:5일정지,6:7일정지,7:15일정지,8:30일정지,9:강제탈퇴)",
+											"type": "text"
+										},
+										{
+											"key": "sendNoti",
+											"value": "1",
+											"description": "알림 보내기(0: 안보냄, 1:보냄)",
+											"type": "text"
+										},
+										{
+											"key": "notiContents",
+											"value": "경고조치 안내",
+											"description": "알림 제목",
+											"type": "text"
+										},
+										{
+											"key": "notiMemo",
+											"value": "안내내용",
+											"description": "알림 내용",
 											"type": "text"
 										}
 									]

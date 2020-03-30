@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class P_BroadcastEditInputVo {
     private String room_no;
+    private String mem_no;
     private String backgroundImage;
     private String welcomMsg;
     private String title;

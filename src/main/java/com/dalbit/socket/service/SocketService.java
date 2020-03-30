@@ -520,13 +520,35 @@ public class SocketService {
 
     public SocketVo getSocketVo(String roomNo, String memNo, boolean isLogin){
         try{
-            return new SocketVo(memNo, getUserInfo(roomNo, memNo, isLogin), isLogin);
+
+            SocketVo socketVo = new SocketVo();
+            socketVo.setCommand("chatEnd");
+            socketVo.setMessage("bjOut");
+            socketVo.setMemNo(memNo);
+            socketVo.setMemNk("아이유");
+            socketVo.setFan(0);
+            socketVo.setAuth(3);
+            socketVo.setAuthName("달D");
+            socketVo.setCtrlRole("");
+            socketVo.setLogin(1);
+            socketVo.setRecvMemNo("");
+            socketVo.setRecvDj(1);
+            socketVo.setRecvManager(0);
+            socketVo.setRecvListener(0);
+            socketVo.setRecvType("system");
+            socketVo.setRecvPosition("top1");
+            socketVo.setRecvLevel(1);
+            socketVo.setRecvTime(10);
+
+
+            return socketVo;
+            //return new SocketVo(memNo, getUserInfo(roomNo, memNo, isLogin), isLogin);
         }catch(Exception e){e.getStackTrace();}
         return null;
     }
 
+    /*
     public HashMap getUserInfo(String roomNo, String memNo, boolean isLogin){
-        /*
         P_RoomMemberInfoVo pRoomMemberInfoVo = new P_RoomMemberInfoVo();
         pRoomMemberInfoVo.setMem_no(memNo);
         pRoomMemberInfoVo.setRoom_no(roomNo);
@@ -543,23 +565,12 @@ public class SocketService {
             pRoomInfoViewVo.setRoom_no(roomNo);
             ProcedureVo procedureRoomVo = new ProcedureVo(pRoomInfoViewVo);
             P_RoomInfoViewVo roomInfoViewVo = roomDao.callBroadCastRoomInfoView(procedureRoomVo);
-            if(!DalbitUtil.isEmpty(roomInfoViewVo)) {
-                P_RoomMemberInfoVo pRoomMemberInfoDalDVo = new P_RoomMemberInfoVo();
-                pRoomMemberInfoDalDVo.setMem_no(memNo);
-                pRoomMemberInfoDalDVo.setRoom_no(roomNo);
-                pRoomMemberInfoDalDVo.setTarget_mem_no(roomInfoViewVo.getBj_mem_no());
-                ProcedureVo procedureDalDVo = new ProcedureVo(pRoomMemberInfoDalDVo);
-                roomDao.callBroadCastRoomMemberInfo(procedureDalDVo);
-                HashMap dalDInfo = new Gson().fromJson(procedureDalDVo.getExt(), HashMap.class);
-                userInfo.put("enableFan", DalbitUtil.getIntMap(dalDInfo, "enableFan"));
-            }
 
             return userInfo;
         }catch(Exception e){e.getStackTrace();}
-        */
         return null;
     }
-
+    */
     public HashMap getMyInfo(String memNo){
         /*
         P_MemberInfoVo apiData = new P_MemberInfoVo();
@@ -572,6 +583,7 @@ public class SocketService {
         */
         return null;
     }
+
 
 }
 

@@ -8,8 +8,10 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.socket.service.SocketService;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.dalbit.util.JwtUtil;
 import org.springframework.ui.Model;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,10 @@ public class Bro_BroadcastRestController {
     GsonUtil gsonUtil;
     @Autowired
     ExcelService excelService;
+    @Autowired
+    SocketService socketService;
+    @Autowired
+    JwtUtil jwtUtil;
 
     /**
      * 생방송 목록
@@ -75,9 +81,13 @@ public class Bro_BroadcastRestController {
     @PostMapping("edit")
     public String edit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
 
-        if(pBroadcastEditInputVo.getBackgroundImage().equals("backImageDel")) {
-            int random = Integer.parseInt(DalbitUtil.randomBgValue());
-            pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
+         if(pBroadcastEditInputVo.getBackgroundImage().equals("backImageDel")) {
+             int random = Integer.parseInt(DalbitUtil.randomBgValue());
+             pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
+        }
+        if(pBroadcastEditInputVo.getForceExit().equals("1")){
+             log.info(pBroadcastEditInputVo.getMem_no());
+             socketService.chatEnd(pBroadcastEditInputVo.getRoom_no(),pBroadcastEditInputVo.getMem_no(),jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true),true);
         }
 
         return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
