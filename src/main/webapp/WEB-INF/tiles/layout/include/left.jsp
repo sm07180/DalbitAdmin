@@ -434,7 +434,7 @@
 <script type="text/javascript">
 
     $('._commingSoon').on('click', function(e){
-        <c:if test="${fn:contains('/local/', cfn:getActiveProfile())}">
+        <c:if test="${fn:contains('/dev/', cfn:getActiveProfile())}">
             e.preventDefault();
             alert('준비중입니다.');
         </c:if>
