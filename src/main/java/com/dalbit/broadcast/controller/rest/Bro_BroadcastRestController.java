@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 @Slf4j
 @RestController
@@ -84,12 +85,16 @@ public class Bro_BroadcastRestController {
     @PostMapping("edit")
     public String edit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
 
-         if(pBroadcastEditInputVo.getBackgroundImage().equals("backImageDel")) {
+        if(pBroadcastEditInputVo.getBackgroundImage().equals("backImageDel")) {
              int random = Integer.parseInt(DalbitUtil.randomBgValue());
              pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
         }
         if(pBroadcastEditInputVo.getForceExit().equals("1")){
-             socketUtil.setSocket(pBroadcastEditInputVo.getRoom_no(),pBroadcastEditInputVo.getMem_no(),"","","chatEnd","",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
+            HashMap<String,String> param = new HashMap<>();
+            param.put("roomNo",pBroadcastEditInputVo.getRoom_no());
+            param.put("memNo",pBroadcastEditInputVo.getMem_no());
+
+            socketUtil.setSocket(param,"chatEnd","",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
         }
 
         return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @Slf4j
 @RestController
 @RequestMapping("rest/broadcast/listener")
@@ -42,7 +44,15 @@ public class Bro_ListenerRestController {
     @PostMapping("forceLeave")
     public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
 
-        socketUtil.setSocket(pListenForceLeaveVo.getRoom_no(),pListenForceLeaveVo.getDj_mem_no(),pListenForceLeaveVo.getMem_no(),pListenForceLeaveVo.getMem_nickName(),"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
+
+        HashMap<String,String> param = new HashMap<>();
+        param.put("roomNo",pListenForceLeaveVo.getRoom_no());
+        param.put("target_memNo",pListenForceLeaveVo.getMem_no());
+        param.put("target_nickName",pListenForceLeaveVo.getMem_nickName());
+        param.put("memNo",pListenForceLeaveVo.getDj_mem_no());
+        param.put("nickName",pListenForceLeaveVo.getDj_nickname());
+
+        socketUtil.setSocket(param,"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
 
         return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);
 //        return "0";
