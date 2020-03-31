@@ -35,7 +35,7 @@
             </div>
             <div class="modal-body">
                 <span id="broadCast_Message"></span>
-                <input type="text" id="text_message" class="form-control"/>
+                <input type="text" id="entry_message" class="form-control"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="bt_modalEntry"><i class="fa fa-times-circle"></i> 확인</button>
@@ -252,11 +252,11 @@
         }
 
         var entryMessage="";
-        $('input:checkbox[name="message"]').each(function() {
+        $('input:checkbox[name="entry_message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
                 console.log(this.id);
                 if(this.id == "message99" ){
-                    entryMessage = entryMessage + " - " + this.value + " : " + $("#text_message").val() + "\n";
+                    entryMessage = entryMessage + " - " + this.value + " : " + $("#entry_message").val() + "\n";
                 }else {
                     entryMessage = entryMessage + " - " + this.value + "\n";
                 }
@@ -281,6 +281,10 @@
         }else if(editEntry == "bt_forcedExit"){
             tmp_msg = "방송을 강제종료 하시겠습니까?";
         }
+
+        console.log("------------------------");
+        console.log(entryMessage);
+        console.log("------------------------");
 
         if (confirm(tmp_msg)) {
             var strName = '${principal.getUserInfo().getName()}';
@@ -334,6 +338,7 @@
         dalbitLog(response);
         alert(response.message);
         $('#entryModal').modal('hide');
+        $('#entry_message').val("");
         dtList_info.reload();
         getInfoDetail("editHistory", "정보수정내역");
         // $("#detailFrm").empty();

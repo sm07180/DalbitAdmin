@@ -125,7 +125,7 @@ var chat_summary = [
 //----------------massage---------------------
 
 var entryType_Message = [
-    new COMMON_CODE(null, 'message', '조치메시지')
+    new COMMON_CODE(null, 'entry_message', '조치메시지')
     , new COMMON_CODE('msg1', '1', '회원에 의한 요청 시')
     , new COMMON_CODE('msg2', '2', '연령에 맞지 않은 방송방 처리 시')
     , new COMMON_CODE('msg3', '3', '방송DJ의 컨트롤 불가 사항 시')
@@ -133,7 +133,7 @@ var entryType_Message = [
 ];
 
 var freezeMsg_Message = [
-    new COMMON_CODE(null, 'message', '조치메시지')
+    new COMMON_CODE(null, 'entry_message', '조치메시지')
     , new COMMON_CODE('msg1', '1', '회원에 의한 요청 시')
     , new COMMON_CODE('msg2', '2', '도배성 글에 대한 처리 시')
     , new COMMON_CODE('msg3', '3', '방송DJ의 컨트롤 불가 사항 시')
@@ -141,7 +141,7 @@ var freezeMsg_Message = [
 ];
 
 var forceExit_Message = [
-    new COMMON_CODE(null, 'message', '조치메시지')
+    new COMMON_CODE(null, 'entry_message', '조치메시지')
     ,new COMMON_CODE('msg1', '1', '성 매매를 하거나 이를 홍보하는 행위')
     ,new COMMON_CODE('msg2', '2', '게임물 내 도박/프리서버/유료 대리랭크를 하거나 이를 홍보하는 행위')
     ,new COMMON_CODE('msg3', '3', '타인의 개인정보를 유포하는 행위')

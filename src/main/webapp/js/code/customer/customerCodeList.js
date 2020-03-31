@@ -40,7 +40,7 @@ var declaration_status = [
 ];
 
 var declaration_Message = [
-  new COMMON_CODE(null, 'message', '조치메시지')
+  new COMMON_CODE(null, 'declaration_Message', '조치메시지')
     , new COMMON_CODE('msg1', '1', '성 매매를 하거나 이를 홍보하는 행위')
     , new COMMON_CODE('msg2', '2', '게임물 내 도박/프리서버/유료 대리랭크를 하거나 이를 홍보하는 행위')
     , new COMMON_CODE('msg3', '3', '타인의 개인정보를 유포하는 행위')
@@ -48,5 +48,5 @@ var declaration_Message = [
     , new COMMON_CODE('msg5', '5', '방송방 내 음란물 게시')
     , new COMMON_CODE('msg6', '6', '범법 행위에 관한 정보를 공유하거나, 법령에 위반 되는 행위를 유도, 조장하는 행위')
     , new COMMON_CODE('msg7', '7', '위 항목 외 위법 행위')
-    , new COMMON_CODE('msg8', '8', '기타 운영자 직접작성')
+    , new COMMON_CODE('msg99', '99', '기타 운영자 직접작성')
 ];
