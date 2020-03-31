@@ -106,6 +106,11 @@ Handlebars.registerHelper("getCommonCodeCheck", function(value, targetCode, isEx
     return util.getCommonCodeCheck(value, targetCode, isExcludeAllYn, name);
 });
 
+Handlebars.registerHelper("getCommonCodeLabel", function(value, targetCode)
+{
+    return util.getCommonCodeLabel(value, targetCode);
+});
+
 Handlebars.registerHelper("replaceHtml", function(value)
 {
     return common.replaceHtml(value);
