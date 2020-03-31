@@ -224,6 +224,11 @@ public enum Status {
     생방송_채팅목록조회_실패("-1", "broadcast.chat.list.view.fail", "생방송 채팅 목록 조회 방번호 없을 시"),
 
 
+    //푸시 등록
+    푸시등록_성공("0","insert.push.success", "푸시등록 성공 시"),
+    푸시등록_요청회원번호미존재("-1","insert.push.not.member", "요청회원번호 미존재 시"),
+    푸시등록_디바이스토큰미존재("-2","insert.push.not.token", "디바이스토큰 미존재 시"),
+    푸시등록_에러("C006", "server.error", "푸시등록 실패 시")
 
 
 
