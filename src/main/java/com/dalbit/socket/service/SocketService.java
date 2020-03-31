@@ -443,7 +443,7 @@ public class SocketService {
         kickedMemNo = kickedMemNo == null ? "" : kickedMemNo.trim();
         authToken = authToken == null ? "" : authToken.trim();
         if(!"".equals(roomNo) && !"".equals(memNo) && !"".equals(kickedMemNo) && !"".equals(authToken)){
-            SocketVo vo = getSocketVo(roomNo, memNo, isLogin);
+            SocketVo vo = getSocketVo(kickedMemNo, memNo, isLogin);
             if(vo.getMemNo() == null){
                 return null;
             }
@@ -518,15 +518,15 @@ public class SocketService {
         return null;
     }
 
-    public SocketVo getSocketVo(String roomNo, String memNo, boolean isLogin){
+    public SocketVo getSocketVo(String kickedMemNo, String memNo, boolean isLogin){
         try{
 
             Gson gson = new Gson();
 
             HashMap<String,Object> tmp = new HashMap();
-            tmp.put("revMemNo","11584609206454");
+            tmp.put("revMemNo",memNo);
             tmp.put("sndAuth",3);
-            tmp.put("sndMemNo",memNo);
+            tmp.put("sndMemNo",kickedMemNo);
             tmp.put("sndMemNk","아이유");
             tmp.put("revMemNk","11100000033");
             String json =  gson.toJson(tmp);
@@ -535,7 +535,7 @@ public class SocketService {
 
             SocketVo socketVo = new SocketVo();
             socketVo.setCommand("reqKickOut");
-            socketVo.setMemNo(memNo);
+            socketVo.setMemNo(kickedMemNo);
             socketVo.setMemNk("아이유");
             socketVo.setMemImg("https://devphoto2.dalbitlive.com/profile_0/20599113600/20200319161326315551.jpeg?120x120");
             socketVo.setMessage(tmp);
