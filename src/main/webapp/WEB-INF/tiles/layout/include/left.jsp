@@ -432,17 +432,18 @@
 <!-- end left sidebar -->
 
 <script type="text/javascript">
-    <c:if test="${fn:contains('/dev/', cfn:getActiveProfile())}">
-        $('._commingSoon').on('click', function(e){
+
+    $('._commingSoon').on('click', function(e){
+        <c:if test="${fn:contains('/local/', cfn:getActiveProfile())}">
             e.preventDefault();
             alert('준비중입니다.');
-        });
+        </c:if>
+    });
 
-        $('._commingSoon').find('span').css({
-            'color' : 'gray',
-            'font-weight' : 'bold'
-        }).append(' - 준비중');
-    </c:if>
+    $('._commingSoon').find('span').css({
+        'color' : 'gray',
+        'font-weight' : 'bold'
+    }).append(' - 준비중');
 
     $('._inforex').on('click', function(){
         ui.loadInforexAdminPage($(this));
