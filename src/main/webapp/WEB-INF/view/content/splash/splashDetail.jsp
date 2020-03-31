@@ -195,7 +195,7 @@
 
     // [수신대상 선택 - 지정회원] 회원 추가
     function choiceMember(data){
-        var html = '<p id="'+ data.memNo +'">' + data.memNo + ' <a onclick="delMember($(this))">[X]</a></p>'
+        var html = '<p id="'+ data.mem_no +'">' + data.mem_no + ' <a onclick="delMember($(this))">[X]</a></p>'
 
         if($("#div_selectTarget").find("p").length >= 20){
             alert("수신대상자는 최대 20명까지 지정 가능합니다.");
