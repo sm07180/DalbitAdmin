@@ -119,7 +119,7 @@
         var forceMessage="";
         $('input:checkbox[name="declaration_Message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
-                if(this.id == "message99" ){
+                if(this.id == "declaration_Message99" ){
                     forceMessage = forceMessage + " - " + this.value + " : " + $("#forced_message").val() + "\n";
                 }else {
                     forceMessage = forceMessage + " - " + this.value + "\n";
@@ -130,11 +130,6 @@
             alert("강제 퇴장 사유를 선택해 주십시오");
             return;
         }
-
-        console.log("------------------------");
-        console.log(forceMessage);
-        console.log("------------------------");
-
 
         if (confirm('강제 퇴장 하겠습니까?')) {
             var date = new Date();
@@ -152,7 +147,7 @@
                                               .replace("{{message}}",forceMessage)
                                               .replace("{{timestamp}}",timestamp);
 
-                console.log(meno);
+                // console.log(meno);
                 var data = new Object();
                 data.room_no = room_no;
                 data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
@@ -162,8 +157,6 @@
                 data.notiMeno = meno;
                 data.dj_mem_no = mem_no;
                 data.dj_nickname = dj_nickname;
-
-                console.log(checkDatas[i].nickName + "  /  " +  dj_nickname);
 
                 util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
             }

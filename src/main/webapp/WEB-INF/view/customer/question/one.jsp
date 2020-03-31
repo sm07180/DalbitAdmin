@@ -35,8 +35,8 @@
     var memId;
     var qnaIdx;
     function quest_detail_success(data, response, params){
-        dalbitLog(params);
-        dalbitLog(response);
+        // dalbitLog(params);
+        // dalbitLog(response);
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
@@ -66,12 +66,9 @@
     }
 
     function operate_click(){
-        console.log("@@@@@@@");
-
         var data = {};
         data["qnaIdx"] = qnaIdx;
         data["answer"] = $("#editor").summernote('code');
-
         // dalbitLog(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
@@ -172,7 +169,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="widget" style="margin: auto">
+            <div class="widget mt10">
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 답변 </h3>
                 </div>

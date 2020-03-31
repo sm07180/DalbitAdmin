@@ -93,6 +93,11 @@
         detailData = response.data;
         mem_no = response.data.dj_mem_no;
         dj_nickname = detailData.dj_nickName;
+
+        if(response.data.dj_memSex == "m")        response.data["dj_memSex"] = "2";
+        else if(response.data.dj_memSex == "f")  response.data["dj_memSex"] = "3";
+        else                                      response.data["dj_memSex"] = "4";
+
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -256,8 +261,7 @@
         var entryMessage="";
         $('input:checkbox[name="entry_message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
-                console.log(this.id);
-                if(this.id == "message99" ){
+                if(this.id == "entry_message99" ){
                     entryMessage = entryMessage + " - " + this.value + " : " + $("#entry_message").val() + "\n";
                 }else {
                     entryMessage = entryMessage + " - " + this.value + "\n";
@@ -309,7 +313,7 @@
                 .replace("{{message}}",entryMessage)
                 .replace("{{timestamp}}",timestamp);
 
-            console.log(meno);
+            // console.log(meno);
 
             var obj = new Object();
             obj.room_no = room_no;
@@ -320,7 +324,7 @@
             obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
             obj.entryType = $('input:radio[name="entryType"]:checked').val();
             obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
-            console.log(mem_no);
+            // console.log(mem_no);
             obj.mem_no = mem_no;
 
             util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
@@ -388,7 +392,7 @@
         <tr>
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
-                <textarea type="textarea" class="form-control" id="welcomeMsg" style="width: 80%;height: 80px; resize:none;" >{{welcomeMsg}}</textarea>
+                <label id="welcomeMsg" style="width: 80%;height: 80px; resize:none;">{{welcomeMsg}}</label>
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>
             </td>
             <th>방송상태</th>
@@ -417,7 +421,7 @@
         <tr>
             <th>방송 제목</th>
             <td style="text-align: left">
-                <input type="text" class="form-control col-md-12" id="title" style="width: 70%;" value="{{title}}">
+                <label id="title" style="width: 70%;">{{title}}</label>
                 <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">초기화</button>
             </td>
             <th>방송 중 강제퇴장</th>
@@ -453,8 +457,9 @@
         <tr>
             <th>성별</th>
             <td style="text-align: left">
-                {{dj_memSex}}
-                {{#equal dj_memSex ''}}-{{/equal}}
+                {{{getCommonCodeLabel dj_memSex 'gender'}}}
+                <%--{{dj_memSex}}--%>
+                <%--{{#equal dj_memSex ''}}-{{/equal}}--%>
             </td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
