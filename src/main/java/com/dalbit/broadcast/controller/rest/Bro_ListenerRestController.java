@@ -7,6 +7,7 @@ import com.dalbit.broadcast.vo.procedure.P_ListenListInputVo;
 import com.dalbit.socket.service.SocketService;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.JwtUtil;
+import com.dalbit.util.SocketUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ public class Bro_ListenerRestController {
     @Autowired
     GsonUtil gsonUtil;
     @Autowired
-    SocketService socketService;
+    SocketUtil socketUtil;
     @Autowired
     JwtUtil jwtUtil;
 
@@ -41,8 +42,9 @@ public class Bro_ListenerRestController {
     @PostMapping("forceLeave")
     public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
 
-        socketService.kickout(pListenForceLeaveVo.getRoom_no(),"11584609206454",pListenForceLeaveVo.getMem_no(),jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true),true);
+        socketUtil.setSocket(pListenForceLeaveVo.getRoom_no(),pListenForceLeaveVo.getDj_mem_no(),pListenForceLeaveVo.getMem_no(),"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
 
         return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);
+//        return "0";
     }
 }

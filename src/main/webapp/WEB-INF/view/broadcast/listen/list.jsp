@@ -160,6 +160,7 @@
                 data.sendNoti = sendNoti;
                 data.notiContents = message.forceLeaveTitle;
                 data.notiMeno = meno;
+                data.dj_mem_no = mem_no;
 
                 util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
             }

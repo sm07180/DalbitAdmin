@@ -281,11 +281,6 @@
         }else if(editEntry == "bt_forcedExit"){
             tmp_msg = "방송을 강제종료 하시겠습니까?";
         }
-
-        console.log("------------------------");
-        console.log(entryMessage);
-        console.log("------------------------");
-
         if (confirm(tmp_msg)) {
             var strName = '${principal.getUserInfo().getName()}';
             var date = new Date();

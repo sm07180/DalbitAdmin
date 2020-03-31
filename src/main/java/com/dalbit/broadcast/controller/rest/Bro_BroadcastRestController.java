@@ -89,8 +89,6 @@ public class Bro_BroadcastRestController {
              pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
         }
         if(pBroadcastEditInputVo.getForceExit().equals("1")){
-//             socketService.chatEnd(pBroadcastEditInputVo.getRoom_no(),pBroadcastEditInputVo.getMem_no(),jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true),true);
-
              socketUtil.setSocket(pBroadcastEditInputVo.getRoom_no(),pBroadcastEditInputVo.getMem_no(),"","chatEnd","",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
         }
 

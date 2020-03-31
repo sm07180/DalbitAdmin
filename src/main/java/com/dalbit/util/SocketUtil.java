@@ -10,24 +10,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-// reqMicOn     마이크 온
-// reqCalling   통화중
-// reqMicOff    마이크 오프
-// reqEndCall   ?
-// reqGrant     권한 변경
-// reqRoomChangeInfo 방정보 변경
-// reqChangeCount
-// reqGoodFirst
-// reqBooster
-// reqNotice
-// reqStory
-// reqFan
+// reqMicOn             // 마이크 온
+// reqCalling           // 통화중
+// reqMicOff            // 마이크 오프
+// reqEndCall           // ?
+// reqGrant             // 권한 변경
+// reqRoomChangeInfo    // 방정보 변경
+// reqChangeCount       //
+// reqGoodFirst         // 좋아요
+// reqBooster           // 부스터
+// reqNotice            // 알림
+// reqStory             // 사연
+// reqFan               // 팬
 // reqGiftDal
-// reqGiftImg
-// reqGuest
-// reqKickOut
+// reqGiftImg           // 선물 이미지
+// reqGuest             // 게스트
+// reqKickOut           // 강퇴
 // reqBanWord
-// chatEnd
+// chatEnd              // 방폭
 // reqMyInfo
 
 
