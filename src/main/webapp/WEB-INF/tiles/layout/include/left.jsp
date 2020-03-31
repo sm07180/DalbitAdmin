@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
 <c:set var="url" value="${requestScope['javax.servlet.forward.request_uri']}" />
 <c:set var="param" value="${requestScope['javax.servlet.forward.query_string']}" />
@@ -14,7 +15,7 @@
     <div class="sidebar-scroll" style="overflow:auto; height: 100%">
         <nav class="main-nav">
             <ul class="main-menu">
-                <li class="page ${url.equals('/main') ? 'active': ''}">
+                <li class="page _commingSoon ${url.equals('/main') ? 'active': ''}">
                     <a href="/main">
                         <i class="fa fa-home"></i><span class="text">메인</span>
                     </a>
@@ -48,17 +49,17 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/connect/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/connect/') ? 'display:block;': ''}">
-                        <li class="${url.equals('/connect/login/info') ? 'active': ''}">
+                        <li class="${url.equals('/connect/login/info') ? 'active': ''} _commingSoon">
                             <a href="/connect/login/info">
                                 <i class="fa fa-search"></i><span class="text">로그인 현황</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/connect/user/info') ? 'active': ''}">
+                        <li class="${url.equals('/connect/user/info') ? 'active': ''} _commingSoon">
                             <a href="/connect/user/info">
                                 <i class="fa fa-search"></i><span class="text">현재 접속자</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/connect/connect/info') ? 'active': ''}">
+                        <li class="${url.equals('/connect/connect/info') ? 'active': ''} _commingSoon">
                             <a href="/connect/connect/info">
                                 <i class="fa fa-search"></i><span class="text">접속현황</span>
                             </a>
@@ -72,17 +73,17 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/enter/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
-                        <li class="${url.equals('/enter/join/info') ? 'active': ''}">
+                        <li class="${url.equals('/enter/join/info') ? 'active': ''} _commingSoon">
                             <a href="/enter/join/info">
                                 <i class="fa fa-search"></i><span class="text">회원가입</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/enter/pay/info') ? 'active': ''}">
+                        <li class="${url.equals('/enter/pay/info') ? 'active': ''} _commingSoon">
                             <a href="/enter/pay/info">
                                 <i class="fa fa-search"></i><span class="text">결제/환불</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/enter/exchange/info') ? 'active': ''}">
+                        <li class="${url.equals('/enter/exchange/info') ? 'active': ''} _commingSoon">
                             <a href="/enter/exchange/info">
                                 <i class="fa fa-search"></i><span class="text">환전</span>
                             </a>
@@ -203,7 +204,7 @@
                                 <i class="fa fa-search"></i><span class="text">1:1문의</span>
                             </a>
                         </li>
-                        <li class="${fn:contains(url, '/customer/email/list') ? 'active': ''}">
+                        <li class="${fn:contains(url, '/customer/email/list') ? 'active': ''} _commingSoon">
                             <a href="/customer/email/list">
                                 <i class="fa fa-envelope-o"></i><span class="text">기타문의(전화/이메일)</span>
                             </a>
@@ -288,50 +289,43 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/content/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/content/') ? 'display:block;': ''}">
-                        <li>
-                            <a href="/content/item/list">
-                            <%--<a href="javascript://" class="_commingSoon">--%>
+                        <li class="${fn:contains(url, '/content/item/list') ? 'active': ''}">
+                            <a href="/content/item/list" class="_commingSoon">
                                 <i class="fa fa-moon-o"></i><span class="text">아이템관리</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/content/event/list">
-                            <%--<a href="javascript://" class="_commingSoon">--%>
+                        <li class="${fn:contains(url, '/content/event/list') ? 'active': ''}">
+                            <a href="/content/event/list" class="_commingSoon">
                                 <i class="fa fa-gift"></i><span class="text">이벤트관리</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/content/banner/list">
-                            <%--<a href="javascript://" class="_commingSoon">--%>
+                        <li class="${fn:contains(url, '/content/banner/list') ? 'active': ''}">
+                            <a href="/content/banner/list" class="_commingSoon">
                                 <i class="fa fa-server"></i><span class="text">배너관리</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/content/notice/list') ? 'active': ''}">
                             <a href="/content/notice/list">
                                 <i class="fa fa-bullhorn"></i><span class="text">사이트공지</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/content/push/list">
-                            <%--<a href="javascript://" class="_commingSoon">--%>
+                        <li class="${fn:contains(url, '/content/push/list') ? 'active': ''}">
+                            <a href="/content/push/list" class="_commingSoon">
                                 <i class="fa fa-envelope-o"></i><span class="text">푸시 메시지</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/content/splash/list">
-                            <%--<a href="javascript://" class="_commingSoon">--%>
+                        <li class="${fn:contains(url, '/content/splash/list') ? 'active': ''}">
+                            <a href="/content/splash/list" class="_commingSoon">
                                 <i class="fa fa-envelope-o"></i><span class="text">스플래시 메시지</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/content/siteban/list">
-                            <%--<a href="javascript://" class="_commingSoon">--%>
+                        <li class="${fn:contains(url, '/content/siteban/list') ? 'active': ''}">
+                            <a href="/content/siteban/list" class="_commingSoon">
                                 <i class="fa fa-ban"></i><span class="text">사이트 금지어</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/content/theme/list">
-                            <%--<a href="javascript://" class="_commingSoon">--%>
+                        <li class="${fn:contains(url, '/content/theme/list') ? 'active': ''}">
+                            <a href="/content/theme/list" class="_commingSoon">
                                 <i class="fa fa-search"></i><span class="text">방송주제</span>
                             </a>
                         </li>
@@ -349,8 +343,8 @@
                                 <i class="fa fa-list"></i><span class="text">어드민 카테고리</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/administrate/authority/list">
+                        <li class="${fn:contains(url, '/administrate/authority/list') ? 'active': ''}">
+                            <a href="/administrate/authority/list" class="_commingSoon">
                                 <i class="fa fa-shield"></i><span class="text">어드민 권한관리</span>
                             </a>
                         </li>
@@ -369,7 +363,7 @@
                                 <i class="fa fa-map-marker"></i><span class="text">방송가이드관리</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="${fn:contains(url, '/administrate/faq/list') ? 'active': ''}">
                             <a href="/administrate/faq/list">
                                 <i class="fa fa-question-circle"></i><span class="text">FAQ</span>
                             </a>
@@ -438,14 +432,17 @@
 <!-- end left sidebar -->
 
 <script type="text/javascript">
-    $('._commingSoon').on('click', function(){
-       alert('준비중입니다.');
-    });
+    <c:if test="${fn:contains('/dev/', cfn:getActiveProfile())}">
+        $('._commingSoon').on('click', function(e){
+            e.preventDefault();
+            alert('준비중입니다.');
+        });
 
-    $('._commingSoon').find('span').css({
-        'color' : 'gray',
-        'font-weight' : 'bold'
-    }).append(' - 준비중');
+        $('._commingSoon').find('span').css({
+            'color' : 'gray',
+            'font-weight' : 'bold'
+        }).append(' - 준비중');
+    </c:if>
 
     $('._inforex').on('click', function(){
         ui.loadInforexAdminPage($(this));
