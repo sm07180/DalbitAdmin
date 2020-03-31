@@ -40,42 +40,42 @@ public class SocketUtil {
     @Autowired
     SocketService socketService;
 
-    public Map<String, Object> setSocket(String roomNo, String memNo, String targetMenNo, String nickName, String command, Object message, String authToken){
-        if(!"".equals(roomNo) && !"".equals(memNo) && !"".equals(authToken)) {
-            SocketVo vo = getSocketVo(memNo, targetMenNo, nickName, command, message);
-            HashMap socketMap = new HashMap();
+    public Map<String, Object> setSocket(HashMap<String,String> param ,String command, Object message, String authToken){
+        if(!"".equals(param) && !"".equals(authToken)) {
+            SocketVo vo = getSocketVo(param, command, message);
             if(command == "chatEnd"){
                 vo.setMessage("bjOut");
             }
-            return socketService.sendSocketApi(authToken, roomNo, vo.toQueryString());
+            return socketService.sendSocketApi(authToken, param.get("roomNo"), vo.toQueryString());
         }
         return null;
     }
 
 
-    public SocketVo getSocketVo(String memNo, String targetMenNo,String nickName, String command, Object message){
+    public SocketVo getSocketVo(HashMap<String,String> param, String command, Object message){
         try{
             SocketVo socketVo = new SocketVo();
 
             String json = "";
             HashMap socketMap = new HashMap();
+
             if(message == ""){
                 Gson gson = new Gson();
                 HashMap<String,Object> tmp = new HashMap();
-                tmp.put("revMemNo",memNo);
+                tmp.put("revMemNo",param.get("memNo"));
+                tmp.put("revMemNk",param.get("nickName"));
                 tmp.put("sndAuth",3);
-                tmp.put("sndMemNo",targetMenNo);
-                tmp.put("sndMemNk",nickName);
-                tmp.put("revMemNk","");
+                tmp.put("sndMemNo",param.get("target_memNo"));
+                tmp.put("sndMemNk",param.get("target_nickName"));
                 json =  gson.toJson(tmp);
                 socketVo.setMessage(json);
             }else{
                 socketVo.setMessage(message);
             }
 
-            socketVo.setMemNo(targetMenNo);
+            socketVo.setMemNo(param.get("target_memNo"));
             socketVo.setCommand(command);
-            socketVo.setMemNk(nickName);
+            socketVo.setMemNk(param.get("target_nickName"));
             socketVo.setMemImg("");
             socketVo.setFan(1);
             socketVo.setAuth(3);

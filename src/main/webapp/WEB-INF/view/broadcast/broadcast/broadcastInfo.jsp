@@ -83,6 +83,7 @@
 
     var room_no;
     var mem_no;
+    var dj_nickname;
     var detailData;
     function info_sel_success(dst_id, response, param) {
         $('#detailFrm').addClass("hid");
@@ -91,6 +92,7 @@
         response.data.room_no = param.room_no;
         detailData = response.data;
         mem_no = response.data.dj_mem_no;
+        dj_nickname = detailData.dj_nickName;
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -282,7 +284,6 @@
             tmp_msg = "방송을 강제종료 하시겠습니까?";
         }
         if (confirm(tmp_msg)) {
-            var strName = '${principal.getUserInfo().getName()}';
             var date = new Date();
             var timestamp = date.getFullYear() + "." +
                 common.lpad(date.getMonth(),2,"0") + "." +
@@ -303,7 +304,7 @@
                 meno = message.entry;
                 title = message.entryTitle;
             }
-            meno = meno.replace("{{name}}",strName)
+            meno = meno.replace("{{name}}",ADMIN_NICKNAME)
                 .replace("{{nickName}}",detailData.dj_nickName)
                 .replace("{{message}}",entryMessage)
                 .replace("{{timestamp}}",timestamp);

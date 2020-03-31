@@ -137,7 +137,6 @@
 
 
         if (confirm('강제 퇴장 하겠습니까?')) {
-            var strName = '${principal.getUserInfo().getName()}';
             var date = new Date();
             var timestamp = date.getFullYear() + "." +
                             common.lpad(date.getMonth(),2,"0") + "." +
@@ -148,7 +147,7 @@
 
             var checkDatas = dtList_info_detail.getCheckedData();
             for(var i=0;i<checkDatas.length;i++){
-                var meno = message.forceLeave.replace("{{name}}",strName)
+                var meno = message.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
                                               .replace("{{nickName}}",checkDatas[i].nickName)
                                               .replace("{{message}}",forceMessage)
                                               .replace("{{timestamp}}",timestamp);
@@ -156,12 +155,15 @@
                 console.log(meno);
                 var data = new Object();
                 data.room_no = room_no;
-                data.mem_no = checkDatas[i].mem_no;
-                data.mem_nickName=checkDatas[i].nickName;
+                data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
+                data.mem_nickName=checkDatas[i].nickName;       // 강퇴 대상
                 data.sendNoti = sendNoti;
                 data.notiContents = message.forceLeaveTitle;
                 data.notiMeno = meno;
                 data.dj_mem_no = mem_no;
+                data.dj_nickname = dj_nickname;
+
+                console.log(checkDatas[i].nickName + "  /  " +  dj_nickname);
 
                 util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
             }
