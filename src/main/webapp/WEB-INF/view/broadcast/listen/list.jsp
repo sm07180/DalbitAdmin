@@ -119,7 +119,7 @@
         var forceMessage="";
         $('input:checkbox[name="declaration_Message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
-                if(this.id == "message99" ){
+                if(this.id == "declaration_Message99" ){
                     forceMessage = forceMessage + " - " + this.value + " : " + $("#forced_message").val() + "\n";
                 }else {
                     forceMessage = forceMessage + " - " + this.value + "\n";

@@ -42,12 +42,22 @@ var push_osType = [
 
 var push_messageType = [
     new COMMON_CODE(null, 'messageType', '메세지 구분')
-    , new COMMON_CODE('notice', '1', '일반공지')
-    , new COMMON_CODE('notice', '2', '긴급공지')
-    , new COMMON_CODE('event', '3', '이벤트')
-    , new COMMON_CODE('check', '4', '정기점검')
-    , new COMMON_CODE('update', '5', '업데이트')
-    , new COMMON_CODE('etc', '6', '기타')
+    , new COMMON_CODE('notice', '7', '일반공지')
+    , new COMMON_CODE('notice', '7', '긴급공지')
+    , new COMMON_CODE('event', '7', '이벤트')
+    , new COMMON_CODE('check', '7', '정기점검')
+    , new COMMON_CODE('update', '7', '업데이트')
+    , new COMMON_CODE('etc', '7', '기타')
+];
+
+var push_slctPush = [
+    new COMMON_CODE(null, 'slctPush', '푸시타입')
+    , new COMMON_CODE('mystar', '1', '마이스타')
+    , new COMMON_CODE('receive', '2', '선물 받은 달')
+    , new COMMON_CODE('fan', '3', '팬')
+    , new COMMON_CODE('comment', '4', '댓글')
+    , new COMMON_CODE('dalbit', '5', '달빛 라이브')
+    , new COMMON_CODE('event', '6', '이벤트 및 마케팅 정보')
 ];
 
 var push_sendType = [

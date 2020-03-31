@@ -172,7 +172,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="widget" style="margin: auto">
+            <div class="widget mt10">
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 답변 </h3>
                 </div>
