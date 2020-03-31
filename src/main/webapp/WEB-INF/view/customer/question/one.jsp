@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+<div class="col-md-12 no-padding">
+    <label id="one_title"></label>
+</div>
 <div>
     <form id="detailFrm"></form>
 </div>
@@ -25,12 +28,19 @@
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
 
 <script>
+    $(document).ready(function() {
+
+    });
     var memNo;
     var memId;
-    function quest_detail_success(data, response){
+    var qnaIdx;
+    function quest_detail_success(data, response, params){
+        dalbitLog(params);
         dalbitLog(response);
-
+        qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
+        response.data["answer"] = params.answer;
+
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -41,6 +51,10 @@
         memId = response.data.mem_userid;
 
         util.editorInit("customer-question");
+
+        $('#bt_operate').click(function() {                   // 방송제목 변경
+            operate_click();
+        });
     }
 
     function fullSize(url) {     // 이미지 full size
@@ -50,15 +64,32 @@
     function memInfo(memId, memNo){
         return util.memNoLink(memId, memNo);
     }
+
+    function operate_click(){
+        console.log("@@@@@@@");
+
+        var data = {};
+        data["qnaIdx"] = qnaIdx;
+        data["answer"] = $("#editor").summernote('code');
+
+        // dalbitLog(data);
+        if(confirm("등록하시겠습니까?")){
+            util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
+        }
+    }
+    function fn_insert_success(data, response, params){
+        dalbitLog(response);
+        alert(response.message);
+        dtList_info.reload();
+
+        $("#detailFrm").empty();
+    }
 </script>
 
 <script id="tmp_detailFrm" type="text/x-handlebars-template">
     <div id="wrapper">
         <div id="page-wrapper">
-            <div class="col-md-12 no-padding">
-                <label id="one_title"></label>
-            </div>
-            <table class="table table-bordered table-dalbit">
+            <table class="table table-bordered table-dalbit" style="margin: auto">
                 <colgroup>
                     <col width="5%"><col width="5%"><col width="5%"><col width="5%"><col width="5%"><col width="5%">
                     <col width="5%"><col width="5%"><col width="5%"><col width="5%"><col width="5%"><col width="5%">
@@ -97,7 +128,7 @@
                         </td>
 
                         <th>처리상태</th>
-                        <td>{{state}}</td>
+                        <td>{{{getCommonCodeLabel state 'state'}}}</td>
                     </tr>
                     <tr>
                         <th colspan="2">문의제목</th>
@@ -127,10 +158,8 @@
 
                     <tr>
                         <th colspan="2">매크로 답변하기</th>
-                        <td colspan="4">
-                            {{{getCommonCodeSelect question_type 'question_type'}}}
-                            {{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}
-                        </td>
+                        <td colspan="2">{{{getCommonCodeSelect question_type 'question_type'}}}</td>
+                        <td colspan="2">{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
 
                         <th colspan="2">바로가기버튼</th>
                         <td colspan="4">
@@ -143,7 +172,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="widget">
+            <div class="widget" style="margin: auto">
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 답변 </h3>
                 </div>

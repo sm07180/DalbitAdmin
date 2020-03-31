@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
@@ -94,4 +95,5 @@
         }
     }
     var IMAGE_SERVER_URL = '${cfn:getProperty("server.photo.url")}';
+    var ADMIN_NICKNAME = '달빛지기';
 </script>

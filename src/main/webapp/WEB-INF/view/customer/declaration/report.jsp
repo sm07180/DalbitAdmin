@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
 
 <div id="wrapper">
     <div id="page-wrapper">
@@ -91,8 +93,8 @@
                 <th colspan="2">누적 결제 수<br />/금액</th>
                 <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
 
-                <th rowspan="3">조치 선택</th>
-                <td rowspan="3" colspan="3" id="message"> <%-- style="display:none;"--%>
+                <th rowspan="2">조치 선택</th>
+                <td rowspan="2" colspan="3" id="message">
                     {{{getCommonCodeCheck message 'declaration_Message'}}}
                 </td>
             </tr>
@@ -109,6 +111,9 @@
 
                 <th colspan="2">총 신고/조치</th>
                 <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
+
+                <th>알림 보내기</th>
+                <td colspan="3">{{{getCommonCodeRadio 0 'declaration_send'}}}</td>
             </tr>
             </tbody>
         </table>
@@ -119,7 +124,7 @@
                 <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
             </div>
             <div class="widget-content no-padding">
-                <div class="_editor" id="chatEditor" name="charEditor">{{{replaceHtml message}}}</div>
+                <div class="_editor" id="chatEditor" name="charEditor">{{replaceHtml message}}</div>
             </div>
         </div>
 
@@ -144,6 +149,30 @@
         </div>
     </div>
 </div>
+
+
+<!-- 조치선택 팝업메시지 Modal -->
+<div class="modal fade" id="entryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 600px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <lable>운영자에 의한 변경 사유를 선택하여 주세요</lable>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <span id="declaration_Message"></span>
+                <input type="text" id="text_message" class="form-control"/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="bt_modalEntry"><i class="fa fa-times-circle"></i> 확인</button>
+                <button type="button" class="btn btn-custom-primary" id="bt_modalEntryNotice"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 끝 -->
+
+<script type="text/javascript" src="/js/message/customer/declarationMessage.js"></script>
 <script type="text/javascript">
 
     var dtList_info_detail;
@@ -169,38 +198,104 @@
     });
 
     function fn_declaration_success(dst_id, response) {
+
         dalbitLog(response);
         alert(response.message);
 
         dtList_info.reload();
 
+        // 상단이동
+        $('html').animate({scrollTop: 0}, 100);
         $("#declarationForm").empty();
     }
 
-    $('input:radio[name="opCode"]').on('click', function() {
-        var radioValue = $(this).val();
-        var messageCheck = $('input:checkbox[name="message"]');
-
-        if(radioValue == 0 || radioValue == 1) {
-            messageCheck.attr("disabled", "disabled");
-        } else {
-            messageCheck.removeAttr("disabled");
-        }
-    });
-
-    $(document).ready(function() {
+    //TODO - 이거는 나중에 처리... 처음 로드 했을 때 제재조치에 따라서 disable 시키는 기능.
+    /*$(document).ready(function() {
+        alert('ssss');
         $('input:radio[name="opCode"]:checked').click();
+    });*/
+
+
+    $(document).on('click', 'input:radio[name="opCode"]', function(title, content){
+        messageCheck();
     });
 
-    function declarationCheck(data){
-        var declarationValue = $('input:radio[name="opCode"], input:checkbox[name="message"], select[name="slctReason"]');
+    $(document).on('click', 'input:checkbox[name="declaration_Message"]',function(title, content) {
+        messageCheck();
+    });
 
-        if(data == 1) {
+    function messageCheck() {
+        var msgValue = '';
+
+        var radioValue = $('input:radio[name="opCode"]:checked').val();
+        declarationCheck();
+
+        if(radioValue == 6 || radioValue == 7){
+            msgValue = declarationMessage.out;
+        } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
+            msgValue = declarationMessage.stop;
+        } else if(radioValue == 2) {
+            msgValue = declarationMessage.warning;
+        } else {
+            msgValue = "";
+        }
+
+        var strName = ADMIN_NICKNAME;
+        var date = new Date();
+        var timestamp = date.getFullYear() + "." +
+            common.lpad(date.getMonth(),2,"0") + "." +
+            common.lpad(date.getDay(),2,"0")
+            // + " " +
+            // common.lpad(date.getHours(),2,"0") + "." +
+            // common.lpad(date.getMinutes(),2,"0") + "." +
+            // common.lpad(date.getSeconds(),2,"0");
+
+
+        // 조치선택 체크박스 클릭할 때 마다 {{message}} 여기에다가 <br />붙여서 replace..
+        var msg = '';
+        $('input:checkbox[name="declaration_Message"]:checked').each(function() {
+            msg += $(this).val() + '<br />';
+        });
+
+        msgValue = msgValue.replace(/{{name}}/gi, strName)
+            .replace(/{{nickName}}/gi, detailData.reported_mem_nick)
+            .replace(/{{message}}/gi, msg)
+            .replace(/{{timestamp}}/gi, timestamp);
+        dalbitLog(msgValue);
+
+        // dalbitLog('그 다음.. 에디터에 값 넣기');
+        $("#chatEditor").summernote('code', msgValue);
+    }
+
+    declarationCheck();
+    function declarationCheck(){
+        var opCode = $('input:radio[name="opCode"]');
+        var declarationValue = $('input:checkbox[name="declaration_Message"], select[name="slctReason"], input:radio[name="sendNoti"]');
+        var radioValue = $('input:radio[name="opCode"]:checked').val();
+
+        dalbitLog("length : " + $("#bt_declaration").length);
+        dalbitLog("radioValue : " + radioValue);
+
+        //라디오를 먼저 처리하고...
+        //미처리 일 때는 다 해야함
+        if(0 < $("#bt_declaration").length){
+            opCode.removeAttr("disabled");
+        }else{
+            opCode.attr("disabled", "disabled");
+        }
+
+        // 메시지랑 신고사유랑 처리하자..
+        if($('input:radio[name="opCode"]').prop('disabled')) {
             declarationValue.attr("disabled", "disabled");
         } else {
             declarationValue.removeAttr("disabled");
         }
     }
+
+    var message = $('input:checkbox[name="message"]:checked').val();
+    $('input:radio[name="sendNoti"]').on('click', function() {
+        alert("클릭");
+    })
 
 
     function targetChat(index){

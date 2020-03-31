@@ -35,6 +35,7 @@ public class SocketVo {
     private String command;
     private String message;
     private String memNo;
+    private String channel;     //roomNo
     private String memNk;
     private String memImg;
     private int fan = 0;
@@ -127,6 +128,8 @@ public class SocketVo {
         qs.append(this.recvLevel);
         qs.append("&recvTime=");
         qs.append(this.recvTime);
+        qs.append("&channel=");
+        qs.append(this.channel);
 
         return qs.toString();
     }

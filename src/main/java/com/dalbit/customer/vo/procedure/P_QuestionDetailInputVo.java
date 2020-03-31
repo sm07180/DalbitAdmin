@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class P_QuestionDetailInputVo extends SearchVo {
-    private int qnatIdx;
+    private int qnaIdx;
 }

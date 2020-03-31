@@ -2402,7 +2402,7 @@
 									"mode": "urlencoded",
 									"urlencoded": [
 										{
-											"key": "qnatIdx",
+											"key": "qnaIdx",
 											"value": "5",
 											"description": "문의 번호",
 											"type": "text"
@@ -2442,7 +2442,7 @@
 									"mode": "urlencoded",
 									"urlencoded": [
 										{
-											"key": "qnatIdx",
+											"key": "qnaIdx",
 											"value": "5",
 											"description": "문의 번호",
 											"type": "text"
