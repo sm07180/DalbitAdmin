@@ -46,7 +46,7 @@
             </div>
             <!-- DATA TABLE END -->
             <!-- TAB -->
-            <div class="no-padding">
+            <div class="no-padding mb15">
                 <jsp:include page="questionTab.jsp"></jsp:include>
             </div>
             <!-- TAB END -->

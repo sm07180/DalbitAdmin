@@ -67,7 +67,7 @@ public class Cus_QuestionService {
      */
     public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo){
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
-        ProcedureVo procedureVo = new ProcedureVo(pQuestionOperateVo);
+        ProcedureVo procedureVo = new ProcedureVo(pQuestionOperateVo,true);
         cus_questionDao.callServiceCenterQnaOperate(procedureVo);
 
         String result;
