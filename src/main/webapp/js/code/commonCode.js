@@ -47,6 +47,13 @@ var platformGroup = [
     , new COMMON_CODE('pc-mobile', '4', 'PC/Mobile')
 ];
 
+var os_type = [
+    new COMMON_CODE(null, 'os_type', 'OS타입')
+    , new COMMON_CODE('1', '1', 'Android')
+    , new COMMON_CODE('2', '2', 'IOS')
+    , new COMMON_CODE('3', '3', 'PC')
+];
+
 var progressStatus = [
     new COMMON_CODE(null, 'progressStatus', '진행여부')
     , new COMMON_CODE('all', '1', '전체')

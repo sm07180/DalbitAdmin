@@ -98,6 +98,22 @@
         else if(response.data.dj_memSex == "f")  response.data["dj_memSex"] = "3";
         else                                      response.data["dj_memSex"] = "4";
 
+        if(response.data.broadcastState == "ON")
+            response.data["icon_broadcastState"] = '<i class="fa fa-volume-up" style="color: #a037d9;font-size:20px;"></i> ' + response.data.broadcastState;
+        else
+            response.data["icon_broadcastState"] = '<i class="fa fa-volume-off" style="color: #000000;font-size:20px;"></i> ' + response.data.broadcastState;
+
+        if(response.data.micState == "ON")
+            response.data["icon_micState"] = '<i class="fa fa-microphone" style="color: #a037d9;font-size:20px;"></i> ' + response.data.micState;
+        else
+            response.data["icon_micState"] = '<i class="fa fa-microphone-slash" style="color: #000000;font-size:20px;"></i> ' + response.data.micState;
+
+        if(response.data.guestState == "NO")
+            response.data["icon_guestState"] = response.data.guestState;
+        else
+            response.data["icon_guestState"] = '<i class="fa fa-user" style="color: #a037d9;font-size:20px;"></i> ' + response.data.guestState + " / " + response.data.guest_userId;
+
+
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -396,27 +412,22 @@
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>
             </td>
             <th>방송상태</th>
-            <td style="text-align: left">
-                <i class="fa fa-comment"></i>{{broadcastState}}
-            </td>
+            <td style="text-align: left">{{{icon_broadcastState}}}</td>
         </tr>
         <tr>
             <th>마이크</th>
-            <td style="text-align: left"><i class="fa fa-comment"></i>{{micState}}</td>
+            <td style="text-align: left">{{{icon_micState}}}</td>
         </tr>
         <tr>
             <th>게스트 / 게스트 ID</th>
-            <td style="text-align: left"><i class="fa fa-comment"></i>
-                {{guestState}}
-                {{#equal guestState 'YES'}}<div>/{{guest_userId}}</div>{{/equal}}
-            </td>
+            <td style="text-align: left">{{{icon_guestState}}}
         </tr>
         </tr>
         <tr>
             <th>방송 주제</th>
             <td style="text-align: left">{{{getCommonCodeSelect subjectType 'subject_type'}}}</td>
             <th>매니저</th>
-            <td style="text-align: left">{{managerCnt}}</td>
+            <td style="text-align: left">{{managerCnt}} 명</td>
         </tr>
         <tr>
             <th>방송 제목</th>
@@ -425,13 +436,13 @@
                 <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">초기화</button>
             </td>
             <th>방송 중 강제퇴장</th>
-            <td style="text-align: left">{{forcedLeaveCnt}}</td>
+            <td style="text-align: left">{{forcedLeaveCnt}} 명</td>
         </tr>
         <tr>
             <th>DJ 회원번호</th>
             <td style="text-align: left">{{dj_mem_no}}</td>
             <th>방송 플랫폼</th>
-            <td style="text-align: left">{{osType}}</td>
+            <td style="text-align: left">{{{getCommonCodeLabel osType 'os_type'}}}</td>
         </tr>
         <tr>
             <th>DJ ID</th>
@@ -458,8 +469,6 @@
             <th>성별</th>
             <td style="text-align: left">
                 {{{getCommonCodeLabel dj_memSex 'gender'}}}
-                <%--{{dj_memSex}}--%>
-                <%--{{#equal dj_memSex ''}}-{{/equal}}--%>
             </td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
@@ -473,7 +482,7 @@
                 등록 : {{opMemoCnt}} 건
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">자세히</button>
             </td>
-            <th>방송 정보 수정일시</th>
+            <th>방송 정보<br/>수정일시</th>
             <td style="text-align: left">
                 {{lastOpDate}}
                 {{#equal lastOpDate ''}}-{{/equal}}
@@ -484,7 +493,7 @@
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 90px"></textarea>
                 <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right">등록</button>
             </td>
-            <th>방송 정보 수정 처리자</th>
+            <th>방송 정보<br/>수정 처리자</th>
             <td style="text-align: left">
                 {{lastOpName}}
                 {{#equal lastOpName ''}}-{{/equal}}
