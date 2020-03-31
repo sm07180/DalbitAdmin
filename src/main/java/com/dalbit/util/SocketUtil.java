@@ -40,9 +40,9 @@ public class SocketUtil {
     @Autowired
     SocketService socketService;
 
-    public Map<String, Object> setSocket(String roomNo, String memNo, String targetMenNo, String command, Object message, String authToken){
+    public Map<String, Object> setSocket(String roomNo, String memNo, String targetMenNo, String nickName, String command, Object message, String authToken){
         if(!"".equals(roomNo) && !"".equals(memNo) && !"".equals(authToken)) {
-            SocketVo vo = getSocketVo(memNo, targetMenNo, command, message);
+            SocketVo vo = getSocketVo(memNo, targetMenNo, nickName, command, message);
             HashMap socketMap = new HashMap();
             if(command == "chatEnd"){
                 vo.setMessage("bjOut");
@@ -53,7 +53,7 @@ public class SocketUtil {
     }
 
 
-    public SocketVo getSocketVo(String memNo, String targetMenNo, String command, Object message){
+    public SocketVo getSocketVo(String memNo, String targetMenNo,String nickName, String command, Object message){
         try{
             SocketVo socketVo = new SocketVo();
 
@@ -65,7 +65,7 @@ public class SocketUtil {
                 tmp.put("revMemNo",memNo);
                 tmp.put("sndAuth",3);
                 tmp.put("sndMemNo",targetMenNo);
-                tmp.put("sndMemNk","");
+                tmp.put("sndMemNk",nickName);
                 tmp.put("revMemNk","");
                 json =  gson.toJson(tmp);
                 socketVo.setMessage(json);
@@ -75,7 +75,7 @@ public class SocketUtil {
 
             socketVo.setMemNo(targetMenNo);
             socketVo.setCommand(command);
-            socketVo.setMemNk("");
+            socketVo.setMemNk(nickName);
             socketVo.setMemImg("");
             socketVo.setFan(1);
             socketVo.setAuth(3);

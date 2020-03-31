@@ -157,6 +157,7 @@
                 var data = new Object();
                 data.room_no = room_no;
                 data.mem_no = checkDatas[i].mem_no;
+                data.mem_nickName=checkDatas[i].nickName;
                 data.sendNoti = sendNoti;
                 data.notiContents = message.forceLeaveTitle;
                 data.notiMeno = meno;

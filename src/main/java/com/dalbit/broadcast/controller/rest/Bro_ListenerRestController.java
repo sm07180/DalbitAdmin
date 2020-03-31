@@ -42,7 +42,7 @@ public class Bro_ListenerRestController {
     @PostMapping("forceLeave")
     public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
 
-        socketUtil.setSocket(pListenForceLeaveVo.getRoom_no(),pListenForceLeaveVo.getDj_mem_no(),pListenForceLeaveVo.getMem_no(),"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
+        socketUtil.setSocket(pListenForceLeaveVo.getRoom_no(),pListenForceLeaveVo.getDj_mem_no(),pListenForceLeaveVo.getMem_no(),pListenForceLeaveVo.getMem_nickName(),"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
 
         return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);
 //        return "0";
