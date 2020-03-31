@@ -116,7 +116,7 @@
     }
 
     function qusetion_summary_table(json){
-        console.log(json);
+        // console.log(json);
         var template = $("#question_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {

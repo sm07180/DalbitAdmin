@@ -261,8 +261,6 @@
         var entryMessage="";
         $('input:checkbox[name="entry_message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
-                console.log(this.id);
-                console.log($("#entry_message").val());
                 if(this.id == "entry_message99" ){
                     entryMessage = entryMessage + " - " + this.value + " : " + $("#entry_message").val() + "\n";
                 }else {
@@ -315,7 +313,7 @@
                 .replace("{{message}}",entryMessage)
                 .replace("{{timestamp}}",timestamp);
 
-            console.log(meno);
+            // console.log(meno);
 
             var obj = new Object();
             obj.room_no = room_no;
@@ -326,7 +324,7 @@
             obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
             obj.entryType = $('input:radio[name="entryType"]:checked').val();
             obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
-            console.log(mem_no);
+            // console.log(mem_no);
             obj.mem_no = mem_no;
 
             util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);

@@ -131,11 +131,6 @@
             return;
         }
 
-        console.log("------------------------");
-        console.log(forceMessage);
-        console.log("------------------------");
-
-
         if (confirm('강제 퇴장 하겠습니까?')) {
             var date = new Date();
             var timestamp = date.getFullYear() + "." +
@@ -152,7 +147,7 @@
                                               .replace("{{message}}",forceMessage)
                                               .replace("{{timestamp}}",timestamp);
 
-                console.log(meno);
+                // console.log(meno);
                 var data = new Object();
                 data.room_no = room_no;
                 data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
@@ -162,8 +157,6 @@
                 data.notiMeno = meno;
                 data.dj_mem_no = mem_no;
                 data.dj_nickname = dj_nickname;
-
-                console.log(checkDatas[i].nickName + "  /  " +  dj_nickname);
 
                 util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
             }
