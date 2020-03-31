@@ -34,7 +34,7 @@
                 <td rowspan="2">{{reportIdx}}</td>
 
                 <th>신고사유</th>
-                <td>{{{getCommonCodeSelect report_reason 'declaration_reason'}}}</td>
+                <td>{{{getCommonCodeLabel report_reason 'declaration_reason'}}}</td>
 
                 <th>Browser</th>
                 <td>{{browser}}</td>
@@ -113,7 +113,7 @@
                 <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
 
                 <th>알림 보내기</th>
-                <td colspan="3">{{{getCommonCodeRadio 0 'declaration_send'}}}</td>
+                <td colspan="3">{{{getCommonCodeRadio declaration_sendNoti 'declaration_send'}}}</td>
             </tr>
             </tbody>
         </table>
@@ -191,7 +191,7 @@
     $("#chatLeft").addClass("col-md-12");
     $("#chatRight").addClass("hide");
 
-    $('#bt_declaration').on('click', function(){
+    $(document).on('click', '#bt_declaration', function(){
         if(confirm('처리하시겠습니까?')) {
             util.getAjaxData("declaration", "/rest/customer/declaration/operate", $("#declarationForm").serialize(), fn_declaration_success);
         }
@@ -209,12 +209,6 @@
         $("#declarationForm").empty();
     }
 
-    //TODO - 이거는 나중에 처리... 처음 로드 했을 때 제재조치에 따라서 disable 시키는 기능.
-    /*$(document).ready(function() {
-        alert('ssss');
-        $('input:radio[name="opCode"]:checked').click();
-    });*/
-
 
     $(document).on('click', 'input:radio[name="opCode"]', function(title, content){
         messageCheck();
@@ -224,8 +218,8 @@
         messageCheck();
     });
 
+    var msgValue = '';
     function messageCheck() {
-        var msgValue = '';
 
         var radioValue = $('input:radio[name="opCode"]:checked').val();
         declarationCheck();
@@ -263,9 +257,15 @@
             .replace(/{{timestamp}}/gi, timestamp);
         dalbitLog(msgValue);
 
-        // dalbitLog('그 다음.. 에디터에 값 넣기');
-        $("#chatEditor").summernote('code', msgValue);
+
     }
+
+    $(document).on('click', 'input:radio[name="declaration_sendNoti"]',function(title, content) {
+        if($(this).val() == 1) {
+            $("#chatEditor").summernote('code', msgValue);
+        }
+    });
+
 
     declarationCheck();
     function declarationCheck(){
@@ -276,26 +276,18 @@
         dalbitLog("length : " + $("#bt_declaration").length);
         dalbitLog("radioValue : " + radioValue);
 
-        //라디오를 먼저 처리하고...
-        //미처리 일 때는 다 해야함
         if(0 < $("#bt_declaration").length){
             opCode.removeAttr("disabled");
         }else{
             opCode.attr("disabled", "disabled");
         }
 
-        // 메시지랑 신고사유랑 처리하자..
         if($('input:radio[name="opCode"]').prop('disabled')) {
             declarationValue.attr("disabled", "disabled");
         } else {
             declarationValue.removeAttr("disabled");
         }
     }
-
-    var message = $('input:checkbox[name="message"]:checked').val();
-    $('input:radio[name="sendNoti"]').on('click', function() {
-        alert("클릭");
-    })
 
 
     function targetChat(index){
