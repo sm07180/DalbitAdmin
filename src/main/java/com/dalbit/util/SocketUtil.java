@@ -59,7 +59,7 @@ public class SocketUtil {
 
             String json = "";
             HashMap socketMap = new HashMap();
-            if(message == null){
+            if(message == ""){
                 Gson gson = new Gson();
                 HashMap<String,Object> tmp = new HashMap();
                 tmp.put("revMemNo",memNo);
