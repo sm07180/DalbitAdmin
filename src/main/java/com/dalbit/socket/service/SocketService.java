@@ -527,17 +527,16 @@ public class SocketService {
             tmp.put("revMemNo",memNo);
             tmp.put("sndAuth",3);
             tmp.put("sndMemNo",kickedMemNo);
-            tmp.put("sndMemNk","아이유");
-            tmp.put("revMemNk","11100000033");
+            tmp.put("sndMemNk","");
+            tmp.put("revMemNk","");
             String json =  gson.toJson(tmp);
 
             log.info(json);
 
             SocketVo socketVo = new SocketVo();
-            socketVo.setCommand("reqKickOut");
             socketVo.setMemNo(kickedMemNo);
-            socketVo.setMemNk("아이유");
-            socketVo.setMemImg("https://devphoto2.dalbitlive.com/profile_0/20599113600/20200319161326315551.jpeg?120x120");
+            socketVo.setMemNk("");
+            socketVo.setMemImg("");
             socketVo.setMessage(tmp);
             socketVo.setFan(1);
             socketVo.setAuth(3);

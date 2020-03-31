@@ -12,6 +12,7 @@ import com.dalbit.socket.service.SocketService;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.JwtUtil;
+import com.dalbit.util.SocketUtil;
 import org.springframework.ui.Model;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,8 @@ public class Bro_BroadcastRestController {
     GsonUtil gsonUtil;
     @Autowired
     ExcelService excelService;
+    @Autowired
+    SocketUtil socketUtil;
     @Autowired
     SocketService socketService;
     @Autowired
@@ -86,8 +89,9 @@ public class Bro_BroadcastRestController {
              pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
         }
         if(pBroadcastEditInputVo.getForceExit().equals("1")){
-             log.info(pBroadcastEditInputVo.getMem_no());
-             socketService.chatEnd(pBroadcastEditInputVo.getRoom_no(),pBroadcastEditInputVo.getMem_no(),jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true),true);
+//             socketService.chatEnd(pBroadcastEditInputVo.getRoom_no(),pBroadcastEditInputVo.getMem_no(),jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true),true);
+
+             socketUtil.setSocket(pBroadcastEditInputVo.getRoom_no(),pBroadcastEditInputVo.getMem_no(),"","chatEnd","",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
         }
 
         return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
