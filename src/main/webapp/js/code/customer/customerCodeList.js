@@ -50,3 +50,9 @@ var declaration_Message = [
     , new COMMON_CODE('msg7', '7', '위 항목 외 위법 행위')
     , new COMMON_CODE('msg99', '99', '기타 운영자 직접작성')
 ];
+
+var declaration_send = [
+    new COMMON_CODE(null, 'sendNoti', '보내기 구분')
+    , new COMMON_CODE('yes', '1', '알림 발송함')
+    , new COMMON_CODE('no', '0', '알림 발송 안함')
+];
