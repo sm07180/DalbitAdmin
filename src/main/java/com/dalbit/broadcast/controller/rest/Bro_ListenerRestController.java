@@ -54,6 +54,8 @@ public class Bro_ListenerRestController {
 
         socketUtil.setSocket(param,"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
 
+        //TODO - api에서는 reqChangeCount로 팬랭킹을 내려주는데. 일단 관리자에서는 제외한다.
+
         return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);
 //        return "0";
     }
