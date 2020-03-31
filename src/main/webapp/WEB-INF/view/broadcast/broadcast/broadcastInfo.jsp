@@ -338,6 +338,7 @@
         dalbitLog(response);
         alert(response.message);
         $('#entryModal').modal('hide');
+        $('#entry_message').val("");
         dtList_info.reload();
         getInfoDetail("editHistory", "정보수정내역");
         // $("#detailFrm").empty();
