@@ -1,4 +1,12 @@
 
+var state = [
+    new COMMON_CODE(null, 'state', '처리상태')
+    , new COMMON_CODE('0', '0', '미처리')
+    , new COMMON_CODE('1', '1', '처리완료')
+];
+
+
+
 // ------------------------- table -----------------------------
 var question_summary = [
     new COMMON_CODE('', 'totalQna', '총 1:1문의')

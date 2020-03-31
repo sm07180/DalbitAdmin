@@ -1,4 +1,3 @@
-/*
 package com.dalbit;
 
 import com.dalbit.common.service.CommonService;
@@ -6,6 +5,8 @@ import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.inforex.vo.InforexPosCode;
+import com.dalbit.socket.service.SocketService;
+import com.dalbit.util.JwtUtil;
 import com.dalbit.util.OkHttpClientUtil;
 import com.dalbit.util.RestApiUtil;
 import com.google.gson.Gson;
@@ -30,6 +31,10 @@ public class SampleVoTest {
     CommonService commonService;
     @Autowired
     RestApiUtil restApiUtil;
+    @Autowired
+    SocketService socketService;
+    @Autowired
+    JwtUtil jwtUtil;
 
     @Test
     public void 공통코드조회(){
@@ -114,7 +119,14 @@ public class SampleVoTest {
         log.info("결과 : {}", inforexPosCodes);
         log.info("파싱 결과 : {}", inforexPosCodes);
     }
+    @Test
+    public void 소켓테스트()throws Exception{
+
+        log.info("@@@@@@@@@@@@@@@@  1");
+        socketService.kickout("91585616496431","11584406236831","11583120797169",jwtUtil.generateToken("11584406236831", true),true);
+
+        log.info("@@@@@@@@@@@@@@@@  2");
+    }
 
 
 }
-*/

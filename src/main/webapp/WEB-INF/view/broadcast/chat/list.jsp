@@ -73,7 +73,7 @@
         dblist_chat_detail.useCheckBox(false);
         dblist_chat_detail.useIndex(false);
         dblist_chat_detail.useOrdering(false);
-        dtList_info_detail.setPageLength(20);
+        dblist_chat_detail.setPageLength(20);
         dblist_chat_detail.createDataTable();
         dblist_chat_detail.reload();
     }

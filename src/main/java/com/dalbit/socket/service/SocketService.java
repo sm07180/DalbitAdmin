@@ -521,24 +521,57 @@ public class SocketService {
     public SocketVo getSocketVo(String roomNo, String memNo, boolean isLogin){
         try{
 
+            Gson gson = new Gson();
+
+            HashMap<String,Object> tmp = new HashMap();
+            tmp.put("revMemNo","11584609206454");
+            tmp.put("sndAuth",3);
+            tmp.put("sndMemNo","11584592217870");
+            tmp.put("sndMemNk","아이유");
+            tmp.put("revMemNk","11100000033");
+            String json =  gson.toJson(tmp);
+
+            log.info(json);
+
             SocketVo socketVo = new SocketVo();
-            socketVo.setCommand("chatEnd");
-            socketVo.setMessage("bjOut");
-            socketVo.setMemNo(memNo);
+            socketVo.setCommand("reqKickOut");
+            socketVo.setMemNo("11584592217870");
             socketVo.setMemNk("아이유");
-            socketVo.setFan(0);
+            socketVo.setMemImg("https://devphoto2.dalbitlive.com/profile_0/20599113600/20200319161326315551.jpeg?120x120");
+            socketVo.setMessage(tmp);
+            socketVo.setFan(1);
             socketVo.setAuth(3);
             socketVo.setAuthName("달D");
-            socketVo.setCtrlRole("");
+            socketVo.setCtrlRole("1111111111");
             socketVo.setLogin(1);
             socketVo.setRecvMemNo("");
             socketVo.setRecvDj(1);
-            socketVo.setRecvManager(0);
-            socketVo.setRecvListener(0);
-            socketVo.setRecvType("system");
-            socketVo.setRecvPosition("top1");
-            socketVo.setRecvLevel(1);
-            socketVo.setRecvTime(10);
+            socketVo.setRecvManager(1);
+            socketVo.setRecvListener(1);
+            socketVo.setRecvType("chat");
+            socketVo.setRecvPosition("chat");
+            socketVo.setRecvLevel(0);
+            socketVo.setRecvTime(0);
+
+//            SocketVo socketVo = new SocketVo();
+//            socketVo.setCommand("chatEnd");
+//            socketVo.setMessage("bjOut");
+//            socketVo.setMemImg(null);
+//            socketVo.setMemNo(memNo);
+//            socketVo.setMemNk("");
+//            socketVo.setFan(1);
+//            socketVo.setAuth(0);
+//            socketVo.setAuthName("");
+//            socketVo.setCtrlRole("");
+//            socketVo.setLogin(1);
+//            socketVo.setRecvMemNo("");
+//            socketVo.setRecvDj(1);
+//            socketVo.setRecvManager(1);
+//            socketVo.setRecvListener(1);
+//            socketVo.setRecvType("chat");
+//            socketVo.setRecvPosition("chat");
+//            socketVo.setRecvLevel(0);
+//            socketVo.setRecvTime(0);
 
 
             return socketVo;

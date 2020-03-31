@@ -128,10 +128,11 @@
     }
 
     function getQuestDetail(index){
-        $('#broadcastTab').addClass("show");
+        $('#tab_list').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
-        obj.qnatIdx = data.qnaIdx;
+        obj.qnaIdx = data.qnaIdx;
+        obj.answer = data.answer;
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 
