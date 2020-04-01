@@ -98,43 +98,43 @@
                         <i class="toggle-icon fa fa-angle-left"></i>
                     </a>
                     <ul class="sub-menu">
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/broadcast/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/broadcast/info">
                                 <i class="fa fa-caret-square-o-down"></i><span class="text">방송</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/cast/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/cast/info">
                                 <i class="fa fa-cloud-download"></i></i><span class="text">캐스트</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/pay/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/pay/info">
                                 <i class="fa fa-user"></i><span class="text">결제/환전</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/cancel/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/cancel/info">
                                 <i class="fa fa-microphone"></i><span class="text">결제취소/환불</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/item/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/item/info">
                                 <i class="fa fa-headphones"></i><span class="text">아이템</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/question/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/question/info">
                                 <i class="fa fa-krw"></i><span class="text">1:1 문의</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/error/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/error/info">
                                 <i class="fa fa-times"></i><span class="text">시스템장애</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="javascript://" class="_commingSoon">
+                        <li class="${url.equals('/status/event/info') ? 'active': ''} _commingSoon">
+                            <a href="/status/event/info">
                                 <i class="fa fa-suitcase"></i><span class="text">이벤트</span>
                             </a>
                         </li>
