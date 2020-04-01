@@ -11,6 +11,7 @@ var FaqDataTableSource = {
                 }
             }
             , {'title': '등록일시', 'data': 'writeDateFormat'}
+            , {'title': '수정일시', 'data': 'lastUpdateDateFormat'}
             , {'title': '조회수', 'data': 'viewCnt', 'name': '', 'render' : function(data){
                     return common.addComma(data)
                 }}
