@@ -99,9 +99,9 @@
         else                                      response.data["dj_memSex"] = "4";
 
         if(response.data.broadcastState == "ON")
-            response.data["icon_broadcastState"] = '<i class="fa fa-volume-up" style="color: #a037d9;font-size:20px;"></i> ' + response.data.broadcastState;
+            response.data["icon_broadcastState"] = '<i class="fa fa-circle" style="color: #ff0000;font-size:20px;"></i> ' + response.data.broadcastState;
         else
-            response.data["icon_broadcastState"] = '<i class="fa fa-volume-off" style="color: #000000;font-size:20px;"></i> ' + response.data.broadcastState;
+            response.data["icon_broadcastState"] = '<i class="fa fa-circle" style="color: #000000;font-size:20px;"></i> ' + response.data.broadcastState;
 
         if(response.data.micState == "ON")
             response.data["icon_micState"] = '<i class="fa fa-microphone" style="color: #a037d9;font-size:20px;"></i> ' + response.data.micState;
@@ -375,7 +375,7 @@
         <tr>
             <th>입장제한</th>
             <td style="text-align: left">
-                {{{getCommonCodeRadio entryType 'entryType'}}}
+                {{{getCommonCodeLabel entryType 'entryType'}}}
                 {{#equal broadcastState 'ON'}}<button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
             </td>
         </tr>
@@ -396,7 +396,7 @@
         <tr>
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
-                <label id="welcomeMsg" style="width: 80%;height: 80px; resize:none;">{{welcomeMsg}}</label>
+                <label id="welcomeMsg" style="width: 80%;height: 80px; resize:none;">{{{replaceEnter welcomeMsg}}}</label>
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>
             </td>
             <th>방송상태</th>

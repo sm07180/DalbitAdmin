@@ -37,6 +37,7 @@
     $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
 
     var profImgDel;
+    var report;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         profImgDel = "false";
@@ -52,7 +53,7 @@
         $("#image_section").prop("src", common.profileImage(IMAGE_SERVER_URL,response.data.profileImage,response.data.memSex));
         $("#txt_birth").val(response.data.birthDate.substr(0, 10));
         $("#memSlct").html(util.renderSlct(response.data.memSlct,"20"));
-        $('#bt_report').data('url', "../member/popup/reportPopup?memNo=" + "'" + response.data.mem_no + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'");
+        report = "../member/popup/reportPopup?memNo=" + "'" + response.data.mem_no + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'";
 
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");
@@ -108,6 +109,9 @@
         });
         $('#bt_editHistory').click(function() {           //최근정보 수정일
             getInfoDetail(this.id,"정보수정내역");
+        });
+        $('#bt_report').click(function() {           //최근정보 수정일
+            reportPopup();
         });
         // 버튼 끝
     }
@@ -197,6 +201,10 @@
         util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
+    function reportPopup(){
+        util.windowOpen(report,"1000","720","경고/정지");
+    }
+
     function getInfoDetail(tmp,tmp1) {     // 상세보기
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -282,7 +290,7 @@
                 {{#equal memState '1'}}정상{{/equal}}
                 {{#equal memState '2'}}블럭{{/equal}}
                 {{#equal memState '3'}}탈퇴{{/equal}}
-                <button class="btn btn-default btn-sm pull-right _openPop" id="bt_report" data-url="" data-width="1000" data-height="520" name="reportPop">경고/정지</button>
+                <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
             </td>
         </tr>
         <tr>

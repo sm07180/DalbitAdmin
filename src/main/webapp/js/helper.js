@@ -131,3 +131,7 @@ Handlebars.registerHelper("renderImage", function(value){
 Handlebars.registerHelper("timeStamp", function(value) {
    return common.timeStamp(value);
 });
+
+Handlebars.registerHelper("replaceEnter", function(value) {
+   return common.replaceEnter(value);
+});

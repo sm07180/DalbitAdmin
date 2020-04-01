@@ -24,9 +24,10 @@
     var tmp_slctReason="-1";        // 최초 selectbox가 없기때문에 전체로 초기 세팅
     function getHistory_reportDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        console.log("tmp : " + memNo);
+        console.log("tmp : " + tmp);
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
+            data.searchType = -1;
             data.searchText = memNo;
             data.slctReason = tmp_slctReason;
             data.platform = tmp_platform;
@@ -36,33 +37,8 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
-        initDataTableTop(tmp);                  // 상단 정보 테이블
+        // initDataTableTop(tmp);                  // 상단 정보 테이블
         initDataTableTop_select_report(tmp);    // 상단 selectBox
-    }
-    function initDataTableTop(tmp){
-        var topTable = '<div class="col-md-12 no-padding pull-right">\n' +
-            '                <div class="widget-table" id="main_table_top">\n' +
-            '                    <div class="widget-content no-padding">\n' +
-            '                        <table id="top_info" class="table table-sorting table-hover table-bordered">\n' +
-            '                            <thead id="table_Top"></thead>\n' +
-            '                            <tbody id="table_Body"></tbody>\n' +
-            '                        </table>\n' +
-            '                    </div>\n' +
-            '                </div>\n' +
-            '            </div>';
-        $("#"+tmp).find("#main_table").find(".top-right").addClass("no-padding").append(topTable);
-        var top = tmp.replace("Detail","_top");
-        var source = MemberDataTableSource[top];
-        var dtList_info_detail_data = function (data) {
-            data.mem_no = memNo;
-        }
-        dtList_top_info = new DalbitDataTable($("#"+tmp).find("#top_info"), dtList_info_detail_data, source);
-        dtList_top_info.useCheckBox(false);
-        dtList_top_info.useIndex(false);
-        dtList_top_info.useOrdering(false);
-        dtList_top_info.onlyTableView();            //테이블만
-        dtList_top_info.createDataTable();
-        dtList_top_info.reload();
     }
     function initDataTableTop_select_report(tmp){
         var topTable = '<span name="search_platform_aria_top" id="search_platform_aria_top" onchange="sel_change()"></span>' +
@@ -70,8 +46,6 @@
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#search_platform_aria_top").html(util.getCommonCodeSelect(-1, search_platform));
         $("#search_reason_aria_top").html(util.getCommonCodeSelect(-1, declaration_reason));
-        // $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
-        // $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
     }
     function sel_change(){
         tmp_platform = $("select[name='platform']").val();

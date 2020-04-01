@@ -173,4 +173,10 @@ common.profileImage = function(IMAGE_SERVER_URL, path, gender){
     }
     return image ;
 }
+common.replaceEnter = function(text){
+    if(!common.isEmpty(text)){
+        text = text.replace(/\\n/g, "<br/>")
+        return text;
+    }
+}
 
