@@ -7,7 +7,7 @@
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
-<!-- 결제/환불 > 결제취소 -->
+<!-- 환전 > 총계 -->
 <div class="widget widget-table mb10">
     <div class="widget-header">
         <div class="btn-group widget-header-toolbar">
@@ -22,9 +22,9 @@
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="2">소계</th>
-                <th colspan="2">남성</th>
-                <th colspan="2">여성</th>
+                <th colspan="2">환전신청</th>
+                <th colspan="2">환전취소</th>
+                <th colspan="2">환전완료</th>
             </tr>
 
             <tr>
@@ -40,11 +40,11 @@
             <tr class="success">
                 <th>총계</th>
                 <td>23</td>
-                <td>150,000</td>
-                <td>12</td>
-                <td>75,000</td>
-                <td>11</td>
-                <td>75,000</td>
+                <td>15,000</td>
+                <td>23</td>
+                <td>15,000</td>
+                <td>23</td>
+                <td>15,000</td>
             </tr>
 
             <%
@@ -53,11 +53,11 @@
             <tr>
                 <th><%=i%>시 ~ <%=i+1%>시</th>
                 <td>23</td>
-                <td>150,000</td>
-                <td>12</td>
-                <td>75,000</td>
-                <td>11</td>
-                <td>75,000</td>
+                <td>15,000</td>
+                <td>23</td>
+                <td>15,000</td>
+                <td>23</td>
+                <td>15,000</td>
             </tr>
             <%
                 }
@@ -67,10 +67,10 @@
                 <th>총계</th>
                 <td>23</td>
                 <td>150,000</td>
-                <td>12</td>
-                <td>75,000</td>
-                <td>11</td>
-                <td>75,000</td>
+                <td>46</td>
+                <td>100%</td>
+                <td>0</td>
+                <td>0</td>
             </tr>
             </tbody>
         </table>

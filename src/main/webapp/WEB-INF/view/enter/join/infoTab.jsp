@@ -9,11 +9,11 @@
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#total" role="tab" data-toggle="tab">총계</a></li>
-                    <li><a href="#gender" role="tab" data-toggle="tab" id="tab_genderDetail">성별</a></li>
-                    <li><a href="#platGender" role="tab" data-toggle="tab" id="tab_platGenderDetail">플랫폼(성별)</a></li>
-                    <li><a href="#platAge" role="tab" data-toggle="tab" id="tab_platAgeDetail">플랫폼(연령별)</a></li>
-                    <li><a href="#memberQuit" role="tab" data-toggle="tab" id="tab_memberQuitDetail">회원 탈퇴</a></li>
-                    <li><a href="#memberAll" role="tab" data-toggle="tab" id="tab_memberAllDetail">전체 회원</a></li>
+                    <li><a href="#gender" role="tab" data-toggle="tab" id="tab_joGenderDetail">성별</a></li>
+                    <li><a href="#platGender" role="tab" data-toggle="tab" id="tab_joPlatGenderDetail">플랫폼(성별)</a></li>
+                    <li><a href="#platAge" role="tab" data-toggle="tab" id="tab_joPlatAgeDetail">플랫폼(연령별)</a></li>
+                    <li><a href="#memberQuit" role="tab" data-toggle="tab" id="tab_joMemberQuitDetail">회원 탈퇴</a></li>
+                    <li><a href="#memberAll" role="tab" data-toggle="tab" id="tab_joMemberAllDetail">전체 회원</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>       <!-- 총계 -->

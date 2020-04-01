@@ -12,7 +12,7 @@
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
 
             <div class="searchBoxArea" style="float:right;">
-                <select name="userSelect" id="userSelect" class="form-control">
+                <select name="memberAll" id="memberAll" class="form-control">
                     <option value="join">가입 순으로 보기</option>
                     <option value="on">접속 순으로 보기</option>
                     <option value="pay">결제액 높은 순으로 보기</option>
