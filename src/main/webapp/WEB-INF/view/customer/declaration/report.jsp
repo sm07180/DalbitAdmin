@@ -130,7 +130,7 @@
         </div>
 
         <!-- 채팅 내역 -->
-        <div class="col-md-12 no-padding" id="chatLeft">
+        <div class="col-md-12 no-padding" id="chatLeft" style="display:none;">
             <table class="table table-bordered" style="margin-bottom: -7px">
                 <th>신고 시 캡쳐내용(5분)</th>
             </table>
@@ -139,7 +139,7 @@
                 <tbody></tbody>
             </table>
         </div>
-        <div class="col-md-6 no-padding" id="chatRight">
+        <div class="col-md-6 no-padding" id="chatRight" style="display:none;">
             <table class="table table-bordered" style="margin-bottom: -7px">
                 <th id="chatRight_title"></th>
             </table>
@@ -290,13 +290,18 @@
         } else {
             declarationValue.removeAttr("disabled");
             if(radioValue == 0 || radioValue == 1) {
+                // 체크박스 해지
+                $('input:checkbox[name="declaration_Message"]').removeAttr("checked");
+                // sendNoti값 0
+                $('input:radio[name="declaration_sendNoti"]:radio[value="0"]').prop("checked", true);
+
+                $('#declaration_editor').hide();
                 declarationValue.attr("disabled", "disabled");
             }
         }
 
 
     }
-
 
     function targetChat(index){
         $("#chatRight").removeClass("hide");

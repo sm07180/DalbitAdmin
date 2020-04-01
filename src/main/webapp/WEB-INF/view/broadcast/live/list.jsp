@@ -120,7 +120,7 @@
     dtList_info.useIndex(true);
     dtList_info.setPageLength(20);
     dtList_info.createDataTable(live_summary_table);
-    var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
+    var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#main_table").find(".footer-right").append(excelBtn);
 
     function live_summary_table(json){

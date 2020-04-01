@@ -61,7 +61,7 @@ public class Adm_FaqService {
 
         List<P_FaqListOutputVo> list = adm_FaqDao.callFaqList(procedureVo);
 
-        String[] headers = {"FAQ구분", "FAQ질문", "FAQ구분", "등록일시", "조회수", "사이트 적용", "처리자명"};
+        String[] headers = {"FAQ구분", "FAQ질문", "등록일시", "조회수", "사이트 적용", "처리자명"};
         int[] headerWidths = {2000, 5000, 2000, 5000, 2000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();

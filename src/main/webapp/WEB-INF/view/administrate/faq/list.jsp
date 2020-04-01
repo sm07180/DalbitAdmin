@@ -50,7 +50,7 @@
                             <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
                         </span>
                         <span>
-                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
                         </span>
                     </div>
                 </div>

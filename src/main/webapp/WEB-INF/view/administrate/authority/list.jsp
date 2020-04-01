@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
 <div id="wrapper">
     <div id="page-wrapper">
@@ -11,8 +12,20 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 직원 검색</h3>
                             <div>
-                                <span id="search_searchType_aria"></span>
-                                <span id="search_slctType_aria"></span>
+                                <select class="form-control searchType">
+                                    <option value="">직급선택</option>
+                                    <c:forEach var="posCode" items="${cfn:getInforexPosCode()}" varStatus="status">
+                                        <option value="${posCode.pos_code}">${posCode.pos_name}</option>
+                                    </c:forEach>
+                                </select>
+
+                                <select class="form-control searchType">
+                                    <option value="">부서선택</option>
+                                    <c:forEach var="deptCode" items="${cfn:getInforexDeptCode()}" varStatus="status">
+                                        ${deptCode}
+                                        <option value="${deptCode.dept_no}">${deptCode.new_dept_name}</option>
+                                    </c:forEach>
+                                </select>
 
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -22,10 +35,6 @@
                 </div>
             </form>
             <!-- //serachBox -->
-            <div class="row col-lg-12 form-inline" id="insertBtnDiv">
-                <label id="faq_title">ㆍ검색결과 내 질문을 클릭하면 해당 상세정보를 확인할 수 있습니다.</label>
-                <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
-            </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
@@ -37,20 +46,28 @@
                             </a>
                         </div>
                     </div>
-                    <div class="widget-content">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered">
+                    <div class="widget-content mt10">
+                        <table class="table table-sorting table-hover table-bordered">
                             <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>No.</th>
+                                    <th>입사일</th>
+                                    <th>부서/팀명</th>
+                                    <th>직급/직책</th>
+                                    <th>이름</th>
+                                    <th>핸드폰</th>
+                                    <th>회사메일</th>
+                                    <th>개인메일</th>
+                                    <th>네이트ID</th>
+                                </tr>
                             </thead>
-                            <tbody id="tableBody">
-                            </tbody>
+                            <tbody id="tableBody"></tbody>
                         </table>
                     </div>
                     <div class="widget-footer">
                         <span>
-                            <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
-                        </span>
-                        <span>
-                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+                            <button class="btn btn-danger print-btn pull-right mb10" type="button">권한부여</button>
                         </span>
                     </div>
                 </div>
@@ -66,211 +83,43 @@
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
 <script>
     $(document).ready(function() {
-
-        $('input[id="searchText"]').keydown(function(e) {
-            if (e.keyCode === 13) {
-                getFaqInfo();
-            };
-        });
-
-        $('#bt_search').click( function() {       //검색
-            getFaqInfo();
-        });
-
-        getFaqInfo();
-
+        getMemberList();
     });
 
-    var dtList_info;
-    var dtList_info_data = function ( data ) {
-        data.search = $('#searchText').val();                       // 검색명
-        data.gubun = $("select[name='selectGubun']").val()
-    };
-
-    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, FaqDataTableSource.faqInfo, $("#searchForm"));
-    dtList_info.useCheckBox(true);
-    dtList_info.useIndex(true);
-    dtList_info.createDataTable();
-
-    //검색조건 불러오기
-    $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, faq_searchType));
-    $("#search_slctType_aria").html(util.getCommonCodeSelect(-1, faq_slctType));
-
-    $("#bt_insert").on("click", function(){
-        generateForm();
-    });
-
-    function generateForm() {
-        var template = $('#tmp_faqFrm').html();
-        var templateScript = Handlebars.compile(template);
-        $("#faqForm").html(templateScript);
-        //getFaqInfo();
-
-        // uploadType 추가
-        util.editorInit("administrate-faq");
+    function getMemberList(){
+        util.getAjaxData("memberList", "/rest/administrate/authority/list", null, fn_memberList_success);
     }
 
-    $(document).on('click', '._getFaqDetail', function(){
-        var data = {
-            'faqIdx' : $(this).data('idx')
-        };
-        util.getAjaxData("detail", "/rest/administrate/faq/detail", data, fn_detail_success);
-    });
-
-    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
-        if($(this).prop('checked')){
-            $(this).parent().parent().find('._getFaqDetail').click();
-        }
-    });
-
-    function fn_detail_success(dst_id, response) {
-        dalbitLog('fn_detail_success');
+    function fn_memberList_success(data, response, params){
         dalbitLog(response);
-        // form 띄우기
-        var template = $('#tmp_faqFrm').html();
+
+        var template = $('#tmp_memberList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
-        var html = templateScript(context);
-        $("#faqForm").html(html);
+        var html=templateScript(context);
+        $("#tableBody").html(html);
 
-        // uploadType 추가
-        util.editorInit("administrate-faq");
     }
+</script>
 
-    function isValid(){
-        var slctType = $("#faqForm #slctType");
-        if(common.isEmpty(slctType.val())){
-            alert("구분을 선택해주세요.");
-            slctType.focus();
-            return false;
-        }
-
-        var question = $("#faqForm #question");
-        if(common.isEmpty(question.val())){
-            alert("질문을 입력해주세요.");
-            question.focus();
-            return false;
-        }
-
-        var editor = $("#editor");
-        if(editor.summernote('isEmpty')){
-            alert("답변을 입력해주세요.");
-            editor.focus();
-            return false;
-        }
-        return true;
-    }
-
-    function generateData(){
-        var data = {};
-        var formArray = $("#faqForm").serializeArray();
-        for (var i = 0; i < formArray.length; i++){
-            data[formArray[i]['name']] = formArray[i]['value'];
-        }
-        data["contents"] = $("#editor").summernote('code');
-        data["viewOn"] = $("#detail_viewOn").prop('checked') ? 1 : 0;
-
-        dalbitLog(data);
-
-        return data;
-    }
-
-    $(document).on('click', '#insertBtn', function(){
-        if(isValid()){
-            if(confirm("등록하시겠습니까?")){
-                util.getAjaxData("insert", "/rest/administrate/faq/insert", generateData(), fn_insert_success);
-            }
-        }
-    });
-
-    $(document).on('click', '#updateBtn', function(){
-        if(isValid()){
-            if(confirm("수정하시겠습니까?")) {
-                util.getAjaxData("update", "/rest/administrate/faq/update", generateData(), fn_insert_success);
-            }
-        }
-    });
-
-    function fn_insert_success(dst_id, response) {
-        dalbitLog(response);
-        alert(response.message);
-        dtList_info.reload();
-
-        $("#faqForm").empty();
-    }
-
-    $(document).on('click', '#bt_delete', function() {
-        var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
-        if(checked.length == 0){
-            alert('삭제할 FAQ를 선택해주세요.');
-            return;
-        }
-
-        if(confirm(checked.length + "개의 FAQ를 삭제하시겠습니까?")){
-            var faqIdxs = '';
-            checked.each(function(){
-                faqIdxs += $(this).parent().parent().find('._getFaqDetail').data('idx') + ",";
-            });
-            var data = {
-                faqIdxs : faqIdxs
-            }
-            dalbitLog(data);
-
-            util.getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
-        }
-
-    });
-
-    function fn_delete_success(dst_id, response) {
-        dalbitLog(response);
-
-        alert(response.message +'\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt +'건');
-        dtList_info.reload();
-
-        $("#faqForm").empty();
-    }
-
-
-    // 검색
-    function getFaqInfo(){
-        /* 엑셀저장을 위해 조회조건 임시저장 */
-        // tmp_search = $('#searchText').val();
-        // tmp_gubun = $("select[name='selectGubun']").val();
-
-        dtList_info.reload();
-
-        /*검색결과 영역이 접혀 있을 시 열기*/
-        ui.toggleSearchList();
-    }
-
-    // /*=---------- 엑셀 ----------*/
-    $('#excelDownBtn').on('click', function(){
-        var formElement = document.querySelector("form");
-        var formData = new FormData(formElement);
-
-        util.excelDownload($(this), "/rest/administrate/faq/listExcel", formData, fn_success_excel, fn_fail_excel)
-    });
-
-    $("#excelBtn").on("click", function () {
-        $("#list_info").table2excel({
-            exclude: ".noExl",
-            name: "Excel Document Name",
-            filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
-            fileext: ".xls",
-            exclude_img: true,
-            exclude_links: true,
-            exclude_inputs: true
-        });
-    });
-
-    function fn_success_excel(){
-        console.log("fn_success_excel");
-    }
-
-    function fn_fail_excel(){
-        console.log("fn_fail_excel");
-    }
-    /*----------- 엑셀 ---------=*/
+<script id="tmp_memberList" type="text/x-handlebars-template">
+    {{#each this}}
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>{{index @index no}}</td>
+            <td>{{staff_enter_date}}</td>
+            <td>{{new_dept_name}}</td>
+            <td>{{staff_duty}}/{{staff_pos}}</td>
+            <td>{{staff_name}}</td>
+            <td>{{staff_hphone}}</td>
+            <td>{{staff_email}}@inforex.co.kr</td>
+            <td>{{staff_email_etc}}</td>
+            <td>
+                {{#equal staff_email_nate ''}}-{{/equal}}
+                {{staff_email_nate}}
+            </td>
+        </tr>
+    {{/each}}
 </script>
 
 <script id="tmp_faqFrm" type="text/x-handlebars-template">

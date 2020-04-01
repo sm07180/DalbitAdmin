@@ -119,7 +119,7 @@
         initDataTableButton() {
             var winnerBtn = '<input type="button" value="선택당첨" class="btn btn-success btn-sm" id="btn_winner" style="margin-left: 3px;"/>'
             var insertNoticeBtn = '<input type="button" value="바로 공지하기" class="btn btn-success btn-sm" id="btn_insertNotice" style="margin-left: 3px;"/>'
-            var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Print</button>'
+            var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
 
             this.divDataTable = this.targetDataTable.parent("div");

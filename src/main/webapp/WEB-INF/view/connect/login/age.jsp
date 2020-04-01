@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     Date nowTime = new Date();
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 %>
 
 <!-- 로그인 현황 > 연령대 별-->
@@ -112,7 +112,7 @@
     </div>
     <div class="widget-footer">
         <span>
-            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>
+            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
         </span>
     </div>
 </div>

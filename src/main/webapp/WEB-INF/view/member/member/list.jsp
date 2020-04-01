@@ -74,7 +74,7 @@
     dtList_info.useIndex(true);
     dtList_info.createDataTable();
 
-    var forcedBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Print</button>';
+    var forcedBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#div_memberList").find("#main_table").find(".footer-right").append(forcedBtn);
 
     var tmp_searchType;
