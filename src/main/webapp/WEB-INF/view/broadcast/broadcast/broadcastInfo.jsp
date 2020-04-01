@@ -376,7 +376,7 @@
             <th>입장제한</th>
             <td style="text-align: left">
                 {{{getCommonCodeLabel entryType 'entryType'}}}
-                {{#equal broadcastState 'ON'}}<button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
+                <%--{{#equal broadcastState 'ON'}}<button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}--%>
             </td>
         </tr>
         <tr>

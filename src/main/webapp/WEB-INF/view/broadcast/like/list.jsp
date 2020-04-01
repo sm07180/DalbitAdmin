@@ -36,6 +36,7 @@
         var data = {
             header : like_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#like_summaryArea").html(html);
@@ -48,13 +49,13 @@
         <thead>
         <tr>
             {{#each this.header}}
-            <th>{{this.code}}</th>
+                <th>{{this.code}}</th>
             {{/each}}
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-        <td>{{content.goodCnt}}건</td>
-        <td>{{content.boosterCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.goodCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.boosterCnt}}건</td>
         </tbody>
     </table>
 </script>

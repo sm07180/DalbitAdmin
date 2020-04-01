@@ -130,6 +130,7 @@
         var data = {
             header : live_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
@@ -196,11 +197,11 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{content.totalListenerCnt}}건</td>
-            <td>{{content.totalGiftCnt}}건</td>
-            <td>{{content.totalGiftCnt}}건</td>
-            <td>{{content.totalBoosterCnt}}건</td>
-            <td>{{content.totalForcedCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalListenerCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalForcedCnt}}건</td>
         </tbody>
     </table>
 </script>

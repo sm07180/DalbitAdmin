@@ -51,6 +51,7 @@
         var data = {
             header : chat_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#chat_summaryArea").html(html);
@@ -131,12 +132,12 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{content.chatCnt}}명</td>
-            <td>{{content.djCnt}}명</td>
-            <td>{{content.listenerCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.chatCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.djCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.listenerCnt}}명</td>
             <td>{{content.guest}}</td>
-            <td>{{content.managerCnt}}명</td>
-            <td>{{content.forcedCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.managerCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.forcedCnt}}명</td>
         </tbody>
     </table>
 </script>

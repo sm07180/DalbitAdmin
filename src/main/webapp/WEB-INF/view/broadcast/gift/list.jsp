@@ -36,6 +36,7 @@
         var data = {
             header : gift_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#gift_summaryArea").html(html);
@@ -53,10 +54,10 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-        <td>{{content.giftCnt}}건</td>
-        <td>{{content.male}}건</td>
-        <td>{{content.female}}건</td>
-        <td>{{content.none}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.giftCnt}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.male}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.female}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.none}}건</td>
         </tbody>
     </table>
 </script>
