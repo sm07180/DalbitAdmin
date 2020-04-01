@@ -86,7 +86,7 @@
                     <%--<div class="widget-content">--%>
                         <%--<table id="list_info" class="table table-sorting table-hover table-bordered datatable">--%>
                             <%--<span>--%>
-                                <%--<button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>--%>
+                                <%--<button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Down</button>--%>
                             <%--</span>--%>
                             <%--<thead>--%>
                             <%--<tr>--%>
@@ -313,7 +313,7 @@
                                 <%--</tbody>--%>
                             <%--</table>--%>
                             <%--<span>--%>
-                                <%--<button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Print</button>--%>
+                                <%--<button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>Excel Down</button>--%>
                             <%--</span>--%>
                         <%--</div>--%>
                     <%--</div>--%>

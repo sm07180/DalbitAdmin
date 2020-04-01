@@ -81,7 +81,7 @@
                     <%--<div class="widget-content">--%>
                         <%--<table id="list_info" class="table table-sorting table-hover table-bordered">--%>
                             <%--<span>--%>
-                                <%--<button class="btn btn-default" type="button" id="excelDownBtn"><i class="fa"></i>Excel Print</button>--%>
+                                <%--<button class="btn btn-default" type="button" id="excelDownBtn"><i class="fa"></i>Excel Down</button>--%>
                                 <%--<button class="btn btn-default" type="button" id="excelBtn"><i class="fa"></i>Excel</button>--%>
                             <%--</span>--%>
                             <%--<thead>--%>
