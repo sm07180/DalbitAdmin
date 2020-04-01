@@ -7,7 +7,7 @@
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
-<!-- 회원가입 > 총계 -->
+<!-- 결제/환불 > 총계 -->
 <div class="widget widget-table mb10">
     <div class="widget-header">
         <div class="btn-group widget-header-toolbar">

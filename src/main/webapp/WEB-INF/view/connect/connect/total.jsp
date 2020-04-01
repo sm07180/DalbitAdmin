@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     Date nowTime = new Date();
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
 <!-- 접속 현황 > 총계 -->
