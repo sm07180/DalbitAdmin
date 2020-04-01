@@ -190,7 +190,11 @@
     $(document).on('click', '#bt_declaration', function(){
 
         if(confirm('처리하시겠습니까?')) {
-            util.getAjaxData("declaration", "/rest/customer/declaration/operate", declarationFormData(), fn_declaration_success);
+            if ($('input:radio[name="opCode"]:checked').val() == 0) {
+                alert('미처리 조치입니다. 신고조치 처리해주십시오.');
+            } else {
+                util.getAjaxData("declaration", "/rest/customer/declaration/operate", declarationFormData(), fn_declaration_success);
+            }
         }
     });
 
