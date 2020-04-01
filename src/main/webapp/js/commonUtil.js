@@ -301,7 +301,7 @@ util.renderOnOff = function(value){
 util.renderSlct = function(value,size){
     if(size != "undefined"){
         if(value == "p"){
-            return '<i class="fa fa-phone" style="color: ##8556F6;' + "font-size: " + size + 'px"></i>'
+            return '<i class="fa fa-phone" style="color: #8556F6;' + "font-size: " + size + 'px"></i>'
         }else if (value == "f"){
             return '<i class="fa fa-facebook-square" style="color: #0064ff;' + "font-size: " + size + 'px"></i>'
         }else if (value == "g"){
@@ -313,7 +313,7 @@ util.renderSlct = function(value,size){
         }
     }else{
         if(value == "p"){
-            return '<i class="fa fa-phone" style="color: ##8556F6;"></i>'
+            return '<i class="fa fa-phone" style="color: #8556F6;"></i>'
         }else if (value == "f"){
             return '<i class="fa fa-facebook-square" style="color: #0064ff;"></i>'
         }else if (value == "g"){
