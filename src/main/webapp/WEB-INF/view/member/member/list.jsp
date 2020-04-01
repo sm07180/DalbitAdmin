@@ -12,7 +12,7 @@
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
                             <span id="searchType"></span>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
+                            <label><input type="text" class="form-control" id="txt_search" value="리정"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
     var tmp_searchText;
     var memNo = "unknown";
     function getUserInfo(){                 // 검색
-        if( $('#txt_search').val() == ""){
+        if( $('#txt_search').val().length < 2){
             alert("검색대상을 입력해 주세요.");
             return;
         }

@@ -40,21 +40,26 @@ public class SocketUtil {
     @Autowired
     SocketService socketService;
 
-    public Map<String, Object> setSocket(HashMap<String,String> param ,String command, Object message, String authToken){
+    public Map<String, Object> setSocket(HashMap<String,Object> param ,String command, Object message, String authToken){
         if(!"".equals(param) && !"".equals(authToken)) {
             SocketVo vo = getSocketVo(param, command, message);
             if(command == "chatEnd"){
                 vo.setMessage("bjOut");
             }
-            return socketService.sendSocketApi(authToken, param.get("roomNo"), vo.toQueryString());
+            return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
         }
         return null;
     }
 
 
-    public SocketVo getSocketVo(HashMap<String,String> param, String command, Object message){
+    public SocketVo getSocketVo(HashMap<String,Object> param, String command, Object message){
         try{
             SocketVo socketVo = new SocketVo();
+
+            socketVo.setRecvType(DalbitUtil.getStringMap(param, "recvType"));
+            socketVo.setRecvPosition(DalbitUtil.getStringMap(param, "recvPosition"));
+            socketVo.setRecvLevel(DalbitUtil.getIntMap(param,"recvLevel"));
+            socketVo.setRecvTime(DalbitUtil.getIntMap(param, "recvTime"));
 
             String json = "";
             HashMap socketMap = new HashMap();
@@ -62,20 +67,20 @@ public class SocketUtil {
             if(message == ""){
                 Gson gson = new Gson();
                 HashMap<String,Object> tmp = new HashMap();
-                tmp.put("revMemNo",param.get("memNo"));
-                tmp.put("revMemNk",param.get("nickName"));
+                tmp.put("revMemNo",DalbitUtil.getStringMap(param, "target_memNo"));     // 받는 사람
+                tmp.put("revMemNk",DalbitUtil.getStringMap(param, "target_nickName"));
                 tmp.put("sndAuth",3);
-                tmp.put("sndMemNo",param.get("target_memNo"));
-                tmp.put("sndMemNk",param.get("target_nickName"));
+                tmp.put("sndMemNo",DalbitUtil.getStringMap(param, "memNo"));            // 보낸 사람
+                tmp.put("sndMemNk",DalbitUtil.getStringMap(param, "nickName"));
                 json =  gson.toJson(tmp);
                 socketVo.setMessage(json);
             }else{
                 socketVo.setMessage(message);
             }
 
-            socketVo.setMemNo(param.get("target_memNo"));
+            socketVo.setMemNo(DalbitUtil.getStringMap(param, "target_memNo"));
             socketVo.setCommand(command);
-            socketVo.setMemNk(param.get("target_nickName"));
+            socketVo.setMemNk(DalbitUtil.getStringMap(param, "target_nickName"));
             socketVo.setMemImg("");
             socketVo.setFan(1);
             socketVo.setAuth(3);
@@ -86,10 +91,9 @@ public class SocketUtil {
             socketVo.setRecvDj(1);
             socketVo.setRecvManager(1);
             socketVo.setRecvListener(1);
-            socketVo.setRecvType("chat");
-            socketVo.setRecvPosition("chat");
-            socketVo.setRecvLevel(0);
-            socketVo.setRecvTime(0);
+
+
+
 
             return socketVo;
         }catch(Exception e){e.getStackTrace();}

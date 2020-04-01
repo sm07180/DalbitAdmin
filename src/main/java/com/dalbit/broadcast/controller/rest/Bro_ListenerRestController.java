@@ -45,12 +45,17 @@ public class Bro_ListenerRestController {
     public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
 
 
-        HashMap<String,String> param = new HashMap<>();
+        HashMap<String,Object> param = new HashMap<>();
         param.put("roomNo",pListenForceLeaveVo.getRoom_no());
         param.put("target_memNo",pListenForceLeaveVo.getMem_no());
         param.put("target_nickName",pListenForceLeaveVo.getMem_nickName());
         param.put("memNo",pListenForceLeaveVo.getDj_mem_no());
         param.put("nickName",pListenForceLeaveVo.getDj_nickname());
+
+        param.put("recvType","system");
+        param.put("recvPosition","top1");
+        param.put("recvLevel",2);
+        param.put("recvTime",1);
 
         socketUtil.setSocket(param,"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
 

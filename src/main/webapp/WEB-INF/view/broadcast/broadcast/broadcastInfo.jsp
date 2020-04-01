@@ -113,7 +113,6 @@
         else
             response.data["icon_guestState"] = '<i class="fa fa-user" style="color: #a037d9;font-size:20px;"></i> ' + response.data.guestState + " / " + response.data.guest_userId;
 
-
         dalbitLog(response);
         var template = $('#tmp_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -122,17 +121,6 @@
         $("#detailFrm").html(html);
         btn_init();
         $("#tablist_con").find('.active').find('a').click();
-
-        // if(response.data.endDate != ""){
-        //     $('#bt_broadcastGo').addClass("hide");
-        //     $('#bt_img').addClass("hide");
-        //     $('#bt_entry').addClass("hide");
-        //     $('#bt_freezing').addClass("hide");
-        //     $('#bt_forcedExit').addClass("hide");
-        //     $('#bt_title').addClass("hide");
-        //     $('#bt_msgWelcom').addClass("hide");
-        //     $('#bt_adminMemo').addClass("hide");
-        // }
     }
 
     function btn_init(){

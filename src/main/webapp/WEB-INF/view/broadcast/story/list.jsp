@@ -32,10 +32,10 @@
         dtList_info_detail.createDataTable(story_summary_table);
         dtList_info_detail.reload();
 
-        initDataTableTop_select_story(tmp)
+        story_initDataTable_sub()
     }
 
-    function initDataTableTop_select_story(tmp){
+    function story_initDataTable_sub(){
         var storyDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_storyDel" style="margin-right: 3px;"/>'
         $("#storyDetail").find("#main_table").find(".footer-left").append(storyDelBtn);
 
@@ -77,7 +77,9 @@
     }
     function storyDel_success(dst_id, response){
         dalbitLog(response);
+        dtList_info_detail.createDataTable(story_summary_table);
         dtList_info_detail.reload();
+        story_initDataTable_sub()
     }
 </script>
 

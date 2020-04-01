@@ -32,8 +32,8 @@ var MemberDataTableSource = {
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
-            {'title': '방송시작시간', 'data': 'start_date', 'width':'120px'},
-            {'title': '방송종료시간', 'data': 'end_date', 'width':'120px'},
+            {'title': '방송시작시간', 'data': 'startDateFormat', 'width':'120px'},
+            {'title': '방송종료시간', 'data': 'endDateFormat', 'width':'120px'},
             {'title': '방송진행시간', 'data': 'airtime', 'width':'100px'},
             {'title': '청취자', 'data': 'listenerCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data) + "명";
@@ -66,8 +66,8 @@ var MemberDataTableSource = {
             {'title': '청취방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
-            {'title': '청취시작시간', 'data': 'start_date', 'width':'120px'},
-            {'title': '청취종료시간', 'data': 'end_date', 'width':'120px'},
+            {'title': '청취시작시간', 'data': 'startDateFormat', 'width':'120px'},
+            {'title': '청취종료시간', 'data': 'endDateFormat', 'width':'120px'},
             {'title': '청취진행시간', 'data': 'listentime', 'width':'120px'},
             {'title': '강제퇴장', 'data': 'forcedLeave', 'width':'80px'},
             {'title': '보낸 별', 'data': 'giftByeol', 'width':'80px', 'render': function (data) {
@@ -238,7 +238,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
             {'title': '등록 관리자', 'data': 'opName','width':'100px'},
-            {'title': '운영자 메모 내용', 'data': 'memo', 'textAlign': 'left'},
+            {'title': '운영자 메모 내용', 'data': 'memo', 'className' : 'text-left'},
         ]
     },
 
