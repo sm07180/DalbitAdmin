@@ -126,19 +126,20 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '구분', 'data': 'state', 'width':'80px', 'render': function (data, type, row, meta) {
                     if(data == "1") {
-                        return '<lable style="color:#004dd9">퇴장</lable>';
+                        return '<lable style="color:#d98000">퇴장</lable>';
                     }else if(data == "2"){
-                        return '<lable style="color:#a037d9">강제퇴장자</lable>';
+                        return '<lable style="color:#ff1600">강제퇴장자</lable>';
                     }else if(data == "0"){
                         if(row.auth == "0"){
-                        return '<lable style="color:rgba(0,0,0,0.99)">청취자</lable>';
+                        return '<lable style="color:#080004">청취자</lable>';
                         }else if(row.auth == "1"){
-                            return '<lable style="color:#00d917">매니저</lable>';
+                            return '<lable style="color:#00ff32">매니저</lable>';
                         }else if(row.auth == "2"){
-                            return '<lable style="color:#d9222b">게스트</lable>';
+                            return '<lable style="color:#0036ff">게스트</lable>';
                         }
                     }
                 }},
+
             {'title': 'User ID', 'data': 'userID', 'width':'100px', 'render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
@@ -235,9 +236,9 @@ var BroadcastDataTableSource = {
                     }else if(row.auth == "1"){      //매니저
                         tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
                     }else if(row.auth == "2"){      //게스트
-                        tmp_auth = '<i class="fa fa-star" style="color: #ff1600"></i>';
+                        tmp_auth = '<i class="fa fa-star" style="color: #0036ff"></i>';
                     }else if(row.auth == "3"){      //dj
-                        tmp_auth = '<i class="fa fa-moon-o" style="color: #009bff"></i>';
+                        tmp_auth = '<i class="fa fa-microphone" style="color: #8556F6"></i>';
                     }
                     var tmp = tmp_auth + '<a href="javascript://" onclick="targetChat(' + meta.row + ')">' + data + '</a>' + " :" +row.msg;
                     return tmp;
@@ -256,9 +257,9 @@ var BroadcastDataTableSource = {
                     }else if(row.auth == "1"){      //매니저
                         tmp_auth = '<i class="fa fa-street-view" style="color: #00ff32"></i>';
                     }else if(row.auth == "2"){      //게스트
-                        tmp_auth = '<i class="fa fa-star" style="color: #ff1600"></i>';
+                        tmp_auth = '<i class="fa fa-star" style="color: #0036ff"></i>';
                     }else if(row.auth == "3"){      //dj
-                        tmp_auth = '<i class="fa fa-moon-o" style="color: #009bff"></i>';
+                        tmp_auth = '<i class="fa fa-microphone" style="color: #8556F6"></i>';
                     }
                     var tmp = tmp_auth + util.memNoLink(data, row.mem_no) + " :" +row.msg;
                     return tmp;

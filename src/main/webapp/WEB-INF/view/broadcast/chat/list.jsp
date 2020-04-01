@@ -51,6 +51,7 @@
         var data = {
             header : chat_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#chat_summaryArea").html(html);
@@ -123,20 +124,20 @@
         <thead>
         <tr>
             <th>채팅참여자</th>
-            <th><i class="fa fa-moon-o" style="color: #009bff"></i>: 달D</th>
+            <th><i class="fa fa-microphone" style="color: #8556F6"></i>: 달D</th>
             <th><i class="fa fa-volume-up" style="color: #080004"></i>: 청취자</th>
-            <th><i class="fa fa-star" style="color: #ff1600"></i>: 게스트</th>
+            <th><i class="fa fa-star" style="color: #0036ff"></i>: 게스트</th>
             <th><i class="fa fa-street-view" style="color: #00ff32"></i>: 매니저</th>
-            <th><i class="fa fa-bomb" style="color: #7400ff"></i> 강제퇴장자</th>
+            <th><i class="fa fa-bomb" style="color: #ff1600"></i> 강제퇴장자</th>
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{content.chatCnt}}명</td>
-            <td>{{content.djCnt}}명</td>
-            <td>{{content.listenerCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.chatCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.djCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.listenerCnt}}명</td>
             <td>{{content.guest}}</td>
-            <td>{{content.managerCnt}}명</td>
-            <td>{{content.forcedCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.managerCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.forcedCnt}}명</td>
         </tbody>
     </table>
 </script>

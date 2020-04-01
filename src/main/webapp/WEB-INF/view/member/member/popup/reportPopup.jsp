@@ -37,7 +37,7 @@
                     </tr>
                     <tr>
                         <th>제재조치</th>
-                        <td colspan="5" style="text-align: left"><span id="declaration_slctType"></span></td>
+                        <td colspan="5" style="text-align: left"><span id="member_declaration_slctType"></span></td>
                     </tr>
                     <tr>
                         <th>조치사항 선택</th>
@@ -62,7 +62,7 @@
                 </tbody>
             </table>
 
-            <div class="col-md-12 no-padding" style="text-align: center">
+            <div class="col-md-12 no-padding mt10" style="text-align: center">
                 <button type="button" id="bt_complet" class="btn btn-default btn-sm">처리완료</button>
                 <button type="button" id="bt_close" class="btn btn-default btn-sm" onclick="window.close();" >취소</button>
             </div>
@@ -71,6 +71,7 @@
 </div>
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -81,8 +82,8 @@
     var memSex =  <%=in_memSex%>;
 
     $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
-    $("#declaration_slctType").html(util.getCommonCodeRadio(1, declaration_slctType,"Y"));
-    $("#declaration_Message").html(util.getCommonCodeCheck(1, declaration_Message,"Y"));
+    $("#member_declaration_slctType").html(util.getCommonCodeRadio(2, member_declaration_slctType));
+    $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
 
     init();
     function init() {

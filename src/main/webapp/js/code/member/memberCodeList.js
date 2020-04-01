@@ -37,3 +37,13 @@ var question = [
     ,new COMMON_CODE('call', '1','전화')
     ,new COMMON_CODE('email', '2','메일')
 ];
+
+var member_declaration_slctType = [
+    new COMMON_CODE(null, 'slctType', '제재 조치')
+    , new COMMON_CODE('warning', '2', '경고')
+    , new COMMON_CODE('stop1', '3', '1일정지')
+    , new COMMON_CODE('stop3', '4', '3일정지')
+    , new COMMON_CODE('stop7', '5', '7일정지')
+    , new COMMON_CODE('stop15', '6', '강제탈퇴')
+    , new COMMON_CODE('withdrawal', '7', '영구정지')
+];

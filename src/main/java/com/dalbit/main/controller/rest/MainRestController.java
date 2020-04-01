@@ -32,8 +32,6 @@ public class MainRestController {
     @PostMapping("inforex/menu")
     public String inforexMenu(HttpServletRequest request, HttpSession session){
 
-        log.info("메뉴");
-
         String json = request.getParameter("data");
         InforexMenu[] InforexMenuInfo =  new Gson().fromJson(json, InforexMenu[].class);
         session.setAttribute(DalbitUtil.getProperty("inforex.menu.key"), InforexMenuInfo);

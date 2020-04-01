@@ -122,6 +122,7 @@
         var data = {
             header : question_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#question_summaryArea").html(html);
@@ -164,15 +165,15 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{content.totalQna}}건</td>
-            <td>{{content.type1Cnt}}건</td>
-            <td>{{content.type2Cnt}}건</td>
-            <td>{{content.type3Cnt}}건</td>
-            <td>{{content.type4Cnt}}건</td>
-            <td>{{content.type5Cnt}}건</td>
-            <td>{{content.type6Cnt}}건</td>
-            <td>{{content.type7Cnt}}건</td>
-            <td>{{content.type99Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalQna}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type1Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type2Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type3Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type4Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type5Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type6Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type7Cnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.type99Cnt}}건</td>
         </tbody>
     </table>
 </script>

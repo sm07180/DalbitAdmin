@@ -192,9 +192,8 @@ var MemberDataTableSource = {
     },
 
     'reportDetail': {
-        'url': '/rest/customer/declaration/list'
+        'url': ''
         , 'columns': [
-            {'title': 'reportIdx', 'data': 'reportIdx'}
             ,{'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat'}
             ,{'title': '신고 구분', 'data' : 'reason', 'name' : 'sortReport', 'render': function(data) {
                     return util.getCommonCodeLabel(data, declaration_reason);
