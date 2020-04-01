@@ -23,6 +23,11 @@ public enum Code {
     포토_이미지_경로("_0/", "실제 파일이 올라갈 경로 -done 이후 경로"),
     포토_이미지_임시경로("_1/", "이미지가 올라가는 임시 경로"),
 
+    인포렉스_메뉴("inforex.menu.key", "inforex.api.menu.url"),
+    인포렉스_직급코드("inforex.posCode.key", "inforex.api.posCode.url"),
+    인포렉스_부서코드("inforex.deptCode.key", "inforex.api.deptCode.url"),
+    인포렉스_직책코드("inforex.dutyCode.key", "inforex.api.dutyCode.url"),
+    인포렉스_임직원목록("inforex.memberList.key", "inforex.api.memberList.url"),
 
    ;
 

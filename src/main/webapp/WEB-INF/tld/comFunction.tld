@@ -29,11 +29,20 @@
     </function>
 
     <function>
-        <description>property 값을 조회한다</description>
+        <description>인포렉스 직급코드 목록을 조회한다</description>
         <name>getInforexPosCode</name>
         <function-class>com.dalbit.util.InforexApiUtil</function-class>
         <function-signature>
             com.dalbit.inforex.vo.InforexPosCode[] getInforexPosCode()
+        </function-signature>
+    </function>
+
+    <function>
+        <description>인포렉스 부서코드 목록을 조회한다</description>
+        <name>getInforexDeptCode</name>
+        <function-class>com.dalbit.util.InforexApiUtil</function-class>
+        <function-signature>
+            com.dalbit.inforex.vo.InforexDeptCode[] getInforexDeptCode()
         </function-signature>
     </function>
 
