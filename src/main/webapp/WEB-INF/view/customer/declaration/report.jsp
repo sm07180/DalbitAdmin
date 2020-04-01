@@ -113,18 +113,19 @@
                 <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
 
                 <th>알림 보내기</th>
-                <td colspan="3">{{{getCommonCodeRadio declaration_sendNoti 'declaration_send'}}}</td>
+                <td colspan="3">{{{getCommonCodeRadio 0 'declaration_send'}}}</td>
             </tr>
             </tbody>
         </table>
 
         <%-- 에디터 --%>
-        <div class="widget">
+        <div class="widget" id="declaration_editor" style="display:none;">
+            <input type="hidden" id ="notiContents" name="notiContents">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
             </div>
             <div class="widget-content no-padding">
-                <div class="_editor" id="chatEditor" name="charEditor">{{replaceHtml message}}</div>
+                <div class="_editor" id="notiMemo" name="notiMemo">{{replaceHtml declaration_Message}}</div>
             </div>
         </div>
 
@@ -151,27 +152,6 @@
 </div>
 
 
-<!-- 조치선택 팝업메시지 Modal -->
-<div class="modal fade" id="entryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width: 600px;display: table;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <lable>운영자에 의한 변경 사유를 선택하여 주세요</lable>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <span id="declaration_Message"></span>
-                <input type="text" id="text_message" class="form-control"/>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="bt_modalEntry"><i class="fa fa-times-circle"></i> 확인</button>
-                <button type="button" class="btn btn-custom-primary" id="bt_modalEntryNotice"><i class="fa fa-check-circle"></i> 확인+메시지 발송</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal 끝 -->
-
 <script type="text/javascript" src="/js/message/customer/declarationMessage.js"></script>
 <script type="text/javascript">
 
@@ -191,9 +171,26 @@
     $("#chatLeft").addClass("col-md-12");
     $("#chatRight").addClass("hide");
 
+
+    function declarationFormData() {
+        var data = {};
+        var formArray = $("declarationForm").serializeArray();
+        for(var i=0; i<formArray.length; i++) {
+            data[formArray[i]['name']] = formArray[i]['value'];
+        }
+
+        data["notiContents"] = $("#notiContents").val();  // 알림 제목
+        data["notiMemo"] = $("#notiMemo").summernote('code', msgValue);   // 알림 내용
+
+        dalbitLog(data);
+
+        return data;
+    }
+
     $(document).on('click', '#bt_declaration', function(){
+
         if(confirm('처리하시겠습니까?')) {
-            util.getAjaxData("declaration", "/rest/customer/declaration/operate", $("#declarationForm").serialize(), fn_declaration_success);
+            util.getAjaxData("declaration", "/rest/customer/declaration/operate", declarationFormData(), fn_declaration_success);
         }
     });
 
@@ -219,6 +216,7 @@
     });
 
     var msgValue = '';
+    var msgTitle = '';
     function messageCheck() {
 
         var radioValue = $('input:radio[name="opCode"]:checked').val();
@@ -226,19 +224,23 @@
 
         if(radioValue == 6 || radioValue == 7){
             msgValue = declarationMessage.out;
+            msgTitle = declarationMessage.outTitle;
         } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
             msgValue = declarationMessage.stop;
+            msgTitle = declarationMessage.stopTitle;
         } else if(radioValue == 2) {
             msgValue = declarationMessage.warning;
+            msgTitle = declarationMessage.warningTitle;
         } else {
             msgValue = "";
+            msgTitle = "";
         }
 
         var strName = ADMIN_NICKNAME;
         var date = new Date();
         var timestamp = date.getFullYear() + "." +
             common.lpad(date.getMonth(),2,"0") + "." +
-            common.lpad(date.getDay(),2,"0")
+            common.lpad(date.getDay(),2,"0");
             // + " " +
             // common.lpad(date.getHours(),2,"0") + "." +
             // common.lpad(date.getMinutes(),2,"0") + "." +
@@ -255,14 +257,15 @@
             .replace(/{{nickName}}/gi, detailData.reported_mem_nick)
             .replace(/{{message}}/gi, msg)
             .replace(/{{timestamp}}/gi, timestamp);
-        dalbitLog(msgValue);
-
-
     }
 
     $(document).on('click', 'input:radio[name="declaration_sendNoti"]',function(title, content) {
         if($(this).val() == 1) {
-            $("#chatEditor").summernote('code', msgValue);
+            $("#notiMemo").summernote('code', msgValue);
+            $("#notiContents").val(msgTitle);
+            $("#declaration_editor").show();
+        } else {
+            $('#declaration_editor').hide();
         }
     });
 
@@ -270,7 +273,7 @@
     declarationCheck();
     function declarationCheck(){
         var opCode = $('input:radio[name="opCode"]');
-        var declarationValue = $('input:checkbox[name="declaration_Message"], select[name="slctReason"], input:radio[name="sendNoti"]');
+        var declarationValue = $('input:checkbox[name="declaration_Message"], input:radio[name="declaration_sendNoti"]');
         var radioValue = $('input:radio[name="opCode"]:checked').val();
 
         dalbitLog("length : " + $("#bt_declaration").length);
@@ -282,10 +285,17 @@
             opCode.attr("disabled", "disabled");
         }
 
-        if($('input:radio[name="opCode"]').prop('disabled')) {
+        if($('input:radio[name="opCode"]').prop('disabled') || $('input:radio[name="opCode"]:checked').val == 0 || $('input:radio[name="opCode"]:checked').val == 1) {
             declarationValue.attr("disabled", "disabled");
         } else {
-            declarationValue.removeAttr("disabled");
+            // 추가 // opCode가 disabled가 풀려도 val이 0,1일 시 declarationValue막기
+            // if($('input:radio[name="opCode"]:checked').val == 0 || $('input:radio[name="opCode"]:checked').val == 1) {
+            //     declarationValue.attr("disabled", "disabled");
+            // } else {
+                declarationValue.removeAttr("disabled");
+            // }
+
+            // 추가 //
         }
     }
 
