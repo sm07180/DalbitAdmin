@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     Date nowTime = new Date();
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 %>
 
 <!-- 로그인 현황 > 연령대 별-->
