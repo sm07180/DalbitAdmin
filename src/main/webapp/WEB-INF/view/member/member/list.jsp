@@ -12,7 +12,7 @@
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
                             <span id="searchType"></span>
-                            <label><input type="text" class="form-control" id="txt_search" value="리정"></label>
+                            <label><input type="text" class="form-control" id="txt_search"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
