@@ -44,6 +44,7 @@
         var data = {
             header : listen_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
@@ -60,10 +61,10 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{content.totalforcedCnt}}건</td>
-            <td>{{content.totalByeol}}건</td>
-            <td>{{content.totalGood}}건</td>
-            <td>{{content.totalBooster}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalforcedCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalByeol}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGood}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalBooster}}건</td>
         </tbody>
     </table>
 </script>

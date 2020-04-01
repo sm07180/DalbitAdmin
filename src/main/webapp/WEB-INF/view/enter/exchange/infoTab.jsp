@@ -9,11 +9,9 @@
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#total" role="tab" data-toggle="tab">총계</a></li>
-                    <li><a href="#currentUser" role="tab" data-toggle="tab" id="tab_usUserDetail">현재 접속 회원</a></li><!-- 회원검색 새 창도 열리게끔 -->
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- 총계 -->
-                    <div class="tab-pane fade" id="currentUser"><jsp:include page="currentUser.jsp"/></div>             <!-- 현재 접속 회원 -->
+                    <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>       <!-- 총계 -->
                 </div>
             </div>
         </div>

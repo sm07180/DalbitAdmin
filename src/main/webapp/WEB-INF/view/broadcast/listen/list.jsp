@@ -91,6 +91,7 @@
         var data = {
             header : listen_summary
             , content : json.summary
+            , length : json.recordsTotal
         }
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
@@ -182,13 +183,13 @@
         </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{content.listenerCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.listenerCnt}}명</td>
             <td>{{content.guestId}}</td>
-            <td>{{content.managerCnt}}명</td>
-            <td>{{content.forcedCnt}}명</td>
-            <td>{{content.totalGoodCnt}}건</td>
-            <td>{{content.totalBoosterCnt}}건</td>
-            <td>{{content.totalGiftCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.managerCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.forcedCnt}}명</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
         </tbody>
     </table>
 </script>

@@ -376,7 +376,7 @@
             <th>입장제한</th>
             <td style="text-align: left">
                 {{{getCommonCodeLabel entryType 'entryType'}}}
-                {{#equal broadcastState 'ON'}}<button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
+                <%--{{#equal broadcastState 'ON'}}<button type="button" id="bt_entry" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}--%>
             </td>
         </tr>
         <tr>
@@ -396,7 +396,7 @@
         <tr>
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
-                <label id="welcomeMsg" style="width: 80%;height: 80px; resize:none;">{{{replaceEnter welcomeMsg}}}</label>
+                <label id="welcomeMsg" style="width: 80%;height: auto; resize:none;">{{{replaceEnter welcomeMsg}}}</label>
                 <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>
             </td>
             <th>방송상태</th>

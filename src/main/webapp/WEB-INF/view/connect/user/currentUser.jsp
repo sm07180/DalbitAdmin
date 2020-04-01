@@ -10,15 +10,15 @@
     </div>
     <div class="widget-content mt10">
         <table id="list" class="table table-sorting table-hover table-bordered datatable">
-            <span>
-                <select name="userSelect" id="userSelect" class="form-control" style="float:right">
+            <div class="searchBoxArea" style="float:right;">
+                <select name="currentUser" id="currentUser" class="form-control">
                     <option value="on">접속 순으로 보기</option>
 					<option value="join">가입 순으로 보기</option>
 					<option value="pay">결제액 높은 순으로 보기</option>
 					<option value="air">방송회수 높은 순으로 보기</option>
 					<option value="gift">선물 많이 한 순으로 보기</option>
 				</select>
-            </span>
+            </div>
             <thead>
             <tr>
                 <th>NO</th>
