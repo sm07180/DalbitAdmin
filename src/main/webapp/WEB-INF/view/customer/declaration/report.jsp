@@ -285,18 +285,16 @@
             opCode.attr("disabled", "disabled");
         }
 
-        if($('input:radio[name="opCode"]').prop('disabled') || $('input:radio[name="opCode"]:checked').val == 0 || $('input:radio[name="opCode"]:checked').val == 1) {
+        if($('input:radio[name="opCode"]').prop('disabled')) {
             declarationValue.attr("disabled", "disabled");
         } else {
-            // 추가 // opCode가 disabled가 풀려도 val이 0,1일 시 declarationValue막기
-            // if($('input:radio[name="opCode"]:checked').val == 0 || $('input:radio[name="opCode"]:checked').val == 1) {
-            //     declarationValue.attr("disabled", "disabled");
-            // } else {
-                declarationValue.removeAttr("disabled");
-            // }
-
-            // 추가 //
+            declarationValue.removeAttr("disabled");
+            if(radioValue == 0 || radioValue == 1) {
+                declarationValue.attr("disabled", "disabled");
+            }
         }
+
+
     }
 
 
