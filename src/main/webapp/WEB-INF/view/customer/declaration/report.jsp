@@ -174,7 +174,7 @@
 
     function declarationFormData() {
         var data = {};
-        var formArray = $("declarationForm").serializeArray();
+        var formArray = $("#declarationForm").serializeArray();
         for(var i=0; i<formArray.length; i++) {
             data[formArray[i]['name']] = formArray[i]['value'];
         }
