@@ -12,23 +12,6 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" >&times;</button>
-            </div>
-            <div class="modal-body" style="height:320px">
-                <div class="row col-md-12 form-inline">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
 <script>
     $(document).ready(function() {
     });
@@ -45,7 +28,7 @@
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
     }
-    function Fanbord(index){
+    function Fanboard(index){
         modalView(data.roomNo);
     }
 
