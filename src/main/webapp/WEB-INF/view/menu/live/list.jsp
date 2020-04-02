@@ -26,7 +26,7 @@
             </div>
             <!-- //serachBox -->
 
-            <div class="row col-lg-12 form-inline">
+            <%--<div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
@@ -74,30 +74,20 @@
 
                     </div>
                 </div>
-            </div>
+            </div>--%>
 
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline block">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                    <li class="tab_select">
-                        <select class="form-control">
-                            <option>일상/채팅</option>
-                            <option>연애/오락</option>
-                            <option>노래/연주</option>
-                            <option>고민/사연</option>
-                            <option>책/힐링 ASMR</option>
-                            <option>스포츠</option>
-                            <option>노래방</option>
-                        </select>
+                    <li class="tab_select" id="searchSubjectType"></li>
+                    <li class="_tab active">
+                        <a href="#recommend" role="tab" data-toggle="tab" data-slctType="1"><i class="fa fa-home"></i> 추천 DJ</a>
                     </li>
-                    <li class="active">
-                        <a href="#recommend" role="tab" data-toggle="tab"><i class="fa fa-home"></i> 추천 DJ</a>
+                    <li class="_tab">
+                        <a href="#popular" role="tab" data-toggle="tab" data-slctType="2"><i class="fa fa-user"></i> 인기 DJ</a>
                     </li>
-                    <li>
-                        <a href="#popular" role="tab" data-toggle="tab"><i class="fa fa-user"></i> 인기 DJ</a>
-                    </li>
-                    <li>
-                        <a href="#newbie" role="tab" data-toggle="tab"><i class="fa fa-user"></i> 신입 DJ</a>
+                    <li class="_tab">
+                        <a href="#newbie" role="tab" data-toggle="tab" data-slctType="3"><i class="fa fa-user"></i> 신입 DJ</a>
                     </li>
                 </ul>
                 <div class="widget widget-table">
@@ -107,7 +97,7 @@
                             <div>- 실시간 Live 추천/인기/신입 DJ Main 노출 수는 대표 총 2명 입니다.</div>
                         </div>
 
-                        <div class="table-option">
+                        <%--<div class="table-option">
                             <label class="control-inline fancy-radio custom-color-green">
                                 <input type="radio" name="inline-radio2">
                                 <span><i></i>일간</span>
@@ -120,15 +110,27 @@
                                 <input type="radio" name="inline-radio2">
                                 <span><i></i>월간</span>
                             </label>
-                        </div>
+                        </div>--%>
 
                         <table id="list_info" class="table table-sorting table-hover table-bordered" style="margin-top: 10px;">
-                            <thead id="tableTop"></thead>
+                            <thead id="tableTop">
+                                <tr>
+                                    <th>프로필 이미지</th>
+                                    <th>태그부분</th>
+                                    <th>User ID</th>
+                                    <th>User 닉네임</th>
+                                    <th>보유결제금액</th>
+                                    <th>누적 받은 별</th>
+                                    <th>누적 받은 선물</th>
+                                    <td>누적 방송 횟수</td>
+                                    <td>최초 방송 시작일</td>
+                                    <td>총 방송 진행 시간</td>
+                                </tr>
+                            </thead>
                             <tbody id="tableBody"></tbody>
                         </table>
                         <span>
-                            <button class="btn btn-default print-btn" type="button"><i class="fa fa-print"></i>선택삭제</button>
-                            <button class="btn btn-default print-btn pull-right" type="button"><i class="fa fa-print"></i>Excel 출력</button>
+                            <button class="btn btn-default print-btn pull-right mb10" type="button"><i class="fa fa-print"></i>Excel 출력</button>
                         </span>
                     </div>
                 </div>
@@ -138,84 +140,62 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/dataTablesSource/menuDataTableSource.js"></script>
 <script type="text/javascript">
 
     $(function(){
+        $("#searchSubjectType").html(util.getCommonCodeSelect('', broadcastSubjectType));
         init();
-        getSearch();
     });
 
-    $('#bt_search').on('click', function(){
-        getSearch();
-    });
-
-    $('#_recommendTab').on('click', function(){
-        getHistoryDetail(this.id);
-    });
-    $('#_bestTab').on('click',function(){
-        getHistoryDetail(this.id);
-    });
-
-    var memNo = "";
-    var dtList_info="";
     function init(){
-
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val();
-            data.value = '01';
-        };
-
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MenuDataTableSource.best);
-        dtList_info.useCheckBox(false);
-        dtList_info.useIndex(true);
-        // dtList_info.setEventClick(test01,0);
-        dtList_info.createDataTable();
+        var data = {
+            subjectType : $('#subject_type').val()
+            , slctType : $('._tab.active a').data('slcttype')
+        }
+        util.getAjaxData("liveList", "/rest/menu/live/list", data, fn_succ_list);
     }
 
-    function getSearch(){
-        /* 엑셀저장을 위해 조회조건 임시저장 */
-        tmp_search = $('#txt_search').val();
-        tmp_gubun = $("select[name='selectGubun']").val();
-
-        dtList_info.reload();
-
-        $('tbody').sortable({
-            stop: function (e, ui) {
-                resetNo();
-                btnSet();
-            }
-        });
-    }
-
-    $(document).on('click', '._down', function(){
-        var targetTr = $(this).closest('tr');
-        var nextTr = targetTr.next();
-        targetTr.insertAfter(nextTr);
-        resetNo();
-        btnSet();
+    $('#bt_search, ._tab').on('click', function(){
+        init();
     });
 
-    $(document).on('click', '._up', function(){
-        var targetTr = $(this).closest('tr');
-        var prevTr = targetTr.prev();
-        targetTr.insertBefore(prevTr);
-        resetNo();
-        btnSet();
-    });
 
-    function resetNo(){
-        $('tbody tr').each(function(index){
-            $(this).find('td:first').html(index + 1);
-        });
+    function fn_succ_list(data, response, params) {
+        dalbitLog(response);
+
+        var template = $('#tmp_liveList').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#tableBody").html(html);
     }
 
-    function btnSet(){
-        $('.btn._down').prop('disabled', false);
-        $('.btn._down:last').prop('disabled', true);
+</script>
 
-        $('.btn._up').prop('disabled', false);
-        $('.btn._up:first').prop('disabled', true);
-    }
+<script type="text/x-handlebars-template" id="tmp_liveList">
+    {{#each this.list as |live|}}
+        <tr>
+            <td>
+                {{#equal live.bjProfImg.path ''}}
+                    이미지 없음
+                {{else}}
+                    <img src="{{viewImage live.bjProfImg.path}}" style='height:100px; width:auto;' />
+                {{/equal}}
+            </td>
+            <td>태그부분</td>
+            <td>{{live.link}}</td>
+            <td>{{live.bjNickNm}}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+        </tr>
+
+    {{else}}
+        <tr>
+            <td colspan="10">{{isEmptyData}}</td>
+        </tr>
+    {{/each}}
 </script>

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequestMapping("menu/live")
-public class LiveController {
+public class Men_LiveController {
 
     @RequestMapping("list")
     public String list(){

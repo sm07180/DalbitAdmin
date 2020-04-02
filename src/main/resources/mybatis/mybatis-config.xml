@@ -10,6 +10,8 @@
 
 	<typeAliases>
 		<typeAlias type="com.dalbit.sample.vo.SampleVo" alias="SampleVo" />
+		<typeAlias type="com.dalbit.common.vo.ProcedureVo" alias="ProcedureVo" />
+		<typeAlias type="com.dalbit.menu.vo.procedure.P_RoomListVo" alias="P_RoomListVo" />
 	</typeAliases>
 
 </configuration>
