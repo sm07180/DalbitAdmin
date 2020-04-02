@@ -8,6 +8,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.Mem_MemberService;
 import com.dalbit.member.vo.procedure.*;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,19 +68,16 @@ public class Mem_MemberRestController {
      */
     @PostMapping("editor")
     public String editor(P_MemberEditorVo pMemberEditorVo){
-        String result = "1";
+        String result;
         if(pMemberEditorVo.getPhotoUrl() != null){
             pMemberEditorVo.setReset_profileImage(new ImageVo(null, pMemberEditorVo.getMemSex(), pMemberEditorVo.getPhotoUrl()));
             pMemberEditorVo.setProfileImage(pMemberEditorVo.getReset_profileImage().getUrl().replace(pMemberEditorVo.getPhotoUrl(),""));
         }
-        if(pMemberEditorVo.getNickName() != null){
-            result = mem_MemberService.callNickNameCheck(new ProcedureVo(pMemberEditorVo.getNickName()));
+        if(pMemberEditorVo.getPasswdReset() != null){
+            pMemberEditorVo.setPasswdReset(DalbitUtil.randomValue("string", 4) + DalbitUtil.randomValue("p", 2) + DalbitUtil.randomValue("number", 4));
+            pMemberEditorVo.setNotiSms("1");
         }
-        if(result.equals("1")){
-             result = mem_MemberService.getMemberEditor(pMemberEditorVo);
-        }else{
-            result = "0";
-        }
+        result = mem_MemberService.getMemberEditor(pMemberEditorVo);
         return result;
     }
 

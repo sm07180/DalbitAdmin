@@ -1,19 +1,22 @@
 package com.dalbit.member.service;
 
 
+import com.dalbit.broadcast.dao.Bro_BroadcastDao;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo;
 import com.dalbit.common.code.Status;
+import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.common.vo.SmsVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.member.vo.procedure.*;
-import com.dalbit.util.DalbitUtil;
-import com.dalbit.util.GsonUtil;
-import com.dalbit.util.MessageUtil;
+import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
@@ -30,11 +33,19 @@ public class Mem_MemberService {
     @Autowired
     Mem_MemberDao mem_MemberDao;
     @Autowired
+    Bro_BroadcastDao bro_BroadcastDao;
+    @Autowired
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
     @Autowired
     ExcelService excelService;
+    @Autowired
+    SocketUtil socketUtil;
+    @Autowired
+    JwtUtil jwtUtil;
+    @Autowired
+    SmsService smsService;
 
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
@@ -129,6 +140,32 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEditor(procedureVo);
         String result;
         if(Status.회원정보수정성공.getMessageCode().equals(procedureVo.getRet())){
+            if(pMemberEditorVo.getSendNoti().equals("1")) {
+                P_BroadcastListInputVo pBroadcastListInputVo = new P_BroadcastListInputVo();
+                pBroadcastListInputVo.setDj_searchText(pMemberEditorVo.getMem_no());
+                pBroadcastListInputVo.setSlctType(1);
+                pBroadcastListInputVo.setDj_slctType(0);
+                pBroadcastListInputVo.setRoom_slctType(-1);
+
+                ProcedureVo inner_procedureVo = new ProcedureVo(pBroadcastListInputVo);
+                ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(inner_procedureVo);
+
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("roomNo", broadList.get(0).getRoom_no());
+                param.put("memNo", pMemberEditorVo.getMem_no());
+                param.put("nickName", pMemberEditorVo.getNickName());
+
+                param.put("ctrlRole", "ctrlRole");
+                param.put("recvType", "system");
+                param.put("recvPosition", "top1");
+                param.put("recvLevel", 1);
+                param.put("recvTime", 5);
+
+                socketUtil.setSocket(param, "reqAlert", pMemberEditorVo.getNotiMemo(), jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
+            }
+            if(pMemberEditorVo.getNotiSms().equals("1")){
+                smsService.sendSms(new SmsVo(pMemberEditorVo.getNotiMemo() + "[" + pMemberEditorVo.getPasswdReset()+ "]",pMemberEditorVo.getPhoneNum()));
+            }
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정성공));
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정실패));

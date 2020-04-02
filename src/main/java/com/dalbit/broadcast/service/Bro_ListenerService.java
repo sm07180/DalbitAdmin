@@ -10,13 +10,16 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.util.GsonUtil;
+import com.dalbit.util.JwtUtil;
 import com.dalbit.util.MessageUtil;
+import com.dalbit.util.SocketUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Slf4j
 @Service
@@ -28,6 +31,10 @@ public class Bro_ListenerService {
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
+    @Autowired
+    SocketUtil socketUtil;
+    @Autowired
+    JwtUtil jwtUtil;
 
     /**
      * 생방송 청취자 목록 조회
@@ -56,6 +63,26 @@ public class Bro_ListenerService {
         String result = "";
         if(Status.생방청취자강제퇴장_성공.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방청취자강제퇴장_성공));
+
+            //청취자 강제 퇴장
+            HashMap<String,Object> param = new HashMap<>();
+            param.put("roomNo",pListenForceLeaveVo.getRoom_no());
+            param.put("target_memNo",pListenForceLeaveVo.getMem_no());
+            param.put("target_nickName",pListenForceLeaveVo.getMem_nickName());
+            param.put("memNo",pListenForceLeaveVo.getDj_mem_no());
+            param.put("nickName",pListenForceLeaveVo.getDj_nickname());
+
+            // option
+            param.put("ctrlRole","ctrlRole");
+            param.put("recvType","system");
+            param.put("recvPosition","top1");
+            param.put("recvLevel",2);
+            param.put("recvTime",1);
+
+            socketUtil.setSocket(param,"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
+
+            //TODO - api에서는 reqChangeCount로 팬랭킹을 내려주는데. 일단 관리자에서는 제외한다.
+
         } else if(Status.생방청취자강제퇴장_회원아님.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방청취자강제퇴장_회원아님));
         } else if(Status.생방청취자강제퇴장_방없음.getMessageCode().equals(procedureVo.getRet())){

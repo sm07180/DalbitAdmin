@@ -26,6 +26,7 @@
 
 <script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
+<script type="text/javascript" src="/js/message/member/memberMessage.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -123,7 +124,6 @@
     var tmp_bt;
     function bt_click(tmp) {
         tmp_bt = tmp;
-        console.log($("#"+tmp).data('nickname'));
         if(memNo == "unknown"){
             alert("변경대상 회원을 선택해 주십시오.");
             return;
@@ -139,29 +139,57 @@
             obj.memo = $("#txt_adminMemo").val();
             util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
         }else{
-            var obj = new Object();
-            obj.mem_no = memNo;
-            if(tmp == "bt_img"){                        //사진초기화
-                obj.memSex = $('input[name="memSex"]:checked').val();
-                obj.photoUrl = IMAGE_SERVER_URL;
-            }else if(tmp == "bt_resatPass"){            //비밀번호 초기화
-                if ($("#"+tmp).data('nickname') + "님의 비밀번호를 초기화 하여 휴대폰 연락처로 임의 비밀번호를 전송합니다. 지금 바로 전송하시겠습니까?") {
-                    obj.passwdReset = $("#lb_memId").html();
-                }else{
-                    return;
-                }
-            }else if(tmp == "bt_resatNick"){
-                obj.nickName = $("#txt_memNick").val();     //0
-            }else if(tmp == "bt_phon"  || tmp == "bt_birth" || tmp == "bt_gender"){
-                var tmp_phone = $("#txt_phon").val().replace(/-/gi,"");
-                if(tmp_phone.length > 11 || tmp_phone.length < 10){
+            var sendNoti;
+            var tmp_phone = $("#txt_phon").val().replace(/-/gi, "");
+            if(tmp == "bt_resatPass" || tmp == "bt_phon"){          // 비밀번호초기화, 휴대폰 번호 변경 Check
+                if (tmp_phone.substring(0, 3) == "010" && (tmp_phone.length > 11 || tmp_phone.length < 10)) {
                     alert("전화번호를 정확히 입력해 주십시오.");
                     return;
                 }
-                obj.phoneNum = tmp_phone;                   //0
-                obj.birthDate = $("#txt_birth" ).val();
-                obj.memSex = $('input[name="memSex"]:checked').val();
             }
+            var obj = new Object();
+            obj.mem_no = memNo;
+            if(tmp == "bt_img"){                        //사진초기화
+                if(confirm("프로필 사진을 초기화 하시겠습니까?")){
+                    obj.memSex = $('input[name="memSex"]:checked').val();
+                    obj.photoUrl = IMAGE_SERVER_URL;
+                    sendNoti = 1;
+                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiMemo = memberMessage.profileReset;
+                }else return;
+            }else if(tmp == "bt_resatPass"){
+                //비밀번호 변경 후 문자 보내기
+                if (confirm($("#bt_resatPass").data('nickname') + memberMessage.passwordReset)) {
+                    obj.passwdReset = "Reset";
+                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiMemo = memberMessage.passwordResetSms;
+                    obj.phoneNum = tmp_phone;                   //0
+                    sendNoti = 0;
+                }else return;
+            }else if(tmp == "bt_resatNick"){
+                if(confirm("닉네임을 초기화 하시겠습니까?")) {
+                    obj.nickName = $("#bt_resatNick").data('userid');
+                    sendNoti = 1;
+                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiMemo = memberMessage.nickNameReset;
+                }else return;
+            }else if(tmp == "bt_phon"){
+                if(confirm("연락처를 초기화 하시겠습니까?")) {
+                    obj.phoneNum = tmp_phone;                   //0
+                    sendNoti = 0;
+                }else return;
+            }else if(tmp == "bt_birth"){
+                if(confirm("생년월일을 변경 하시겠습니까?")) {
+                    obj.birthDate = $("#txt_birth").val();
+                    sendNoti = 0;
+                }else return;
+            }else if(tmp == "bt_gender"){
+                if(confirm("성별을 변경 하시겠습니까?")) {
+                    obj.memSex = $('input[name="memSex"]:checked').val();
+                    sendNoti = 0;
+                }else return;
+            }
+            obj.sendNoti=sendNoti;
             util.getAjaxData("editor", "/rest/member/member/editor", obj, update_success, fn_fail);
         }
     }
@@ -173,11 +201,7 @@
         } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
             alert($("#"+tmp_bt).data('nickname') + "님의 연락처가 변경되었습니다.");
         } else if (tmp_bt == "bt_resatNick") {            // 닉네임 변경
-            if(response == "0"){
-                alert("닉네임 중복");
-            }else{
-                alert($("#"+tmp_bt).data('nickname') + "님의 닉네임이 변경되었습니다.");
-            }
+            alert($("#"+tmp_bt).data('nickname') + "님의 닉네임이 변경되었습니다.");
         } else if (tmp_bt == "bt_birth") {                //생일 변경
             alert($("#"+tmp_bt).data('nickname') + "님의 생년월일이 변경되었습니다.");
         } else if (tmp_bt == "bt_gender") {               //성별 변경
@@ -202,7 +226,7 @@
     }
 
     function reportPopup(){
-        util.windowOpen(report,"1000","720","경고/정지");
+        util.windowOpen(report,"1000","750","경고/정지");
     }
 
     function getInfoDetail(tmp,tmp1) {     // 상세보기
@@ -341,8 +365,8 @@
         <tr>
             <th>닉네임</th>
             <td colspan="3" style="text-align: left">
-                <input type="text" class="form-control" id="txt_memNick" style="width: 90%;" value="{{nickName}}">
-                <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                <%--<input type="text" class="form-control" id="txt_memNick" style="width: 90%;" value="{{nickName}}">--%>
+                <button type="button" id="bt_resatNick" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
             </td>
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
             <td style="text-align: left">
@@ -373,7 +397,7 @@
         </tr>
         <tr>
             <th>비밀번호</th>
-            <td colspan="3" style="text-align: left"><button type="button" id="bt_resatPass" class="btn btn-default btn-sm">초기화</button></td>
+            <td colspan="3" style="text-align: left"><button type="button" id="bt_resatPass" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button></td>
             <th>회원탈퇴일시</th>
             <td style="text-align: left">{{withdrawalDate}}</td>
         </tr>

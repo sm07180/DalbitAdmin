@@ -8,9 +8,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
-import com.dalbit.util.DalbitUtil;
-import com.dalbit.util.GsonUtil;
-import com.dalbit.util.MessageUtil;
+import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
@@ -32,6 +30,10 @@ public class Bro_BroadcastService {
     GsonUtil gsonUtil;
     @Autowired
     ExcelService excelService;
+    @Autowired
+    SocketUtil socketUtil;
+    @Autowired
+    JwtUtil jwtUtil;
 
     /**
      * 생방송 list 목록
@@ -155,6 +157,23 @@ public class Bro_BroadcastService {
 
         if(Status.방송방정보수정_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_성공));
+
+            // 방송방 강제 종료 ------------------------------------
+            if(pBroadcastEditInputVo.getForceExit().equals("1")){
+                HashMap<String,Object> param = new HashMap<>();
+                param.put("roomNo",pBroadcastEditInputVo.getRoom_no());
+                param.put("memNo",pBroadcastEditInputVo.getMem_no());
+
+                //option
+                param.put("ctrlRole","ctrlRole");
+                param.put("recvType","system");
+                param.put("recvPosition","top1");
+                param.put("recvLevel",2);
+                param.put("recvTime",5);
+
+                socketUtil.setSocket(param,"chatEnd","",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
+            }
+
         } else if(Status.방송방정보수정_방번호없음.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_방번호없음));
         } else if(Status.방송방정보수정_종료된방.getMessageCode().equals(procedureVo.getRet())) {

@@ -18,5 +18,9 @@ public class P_MemberEditorVo extends BaseVo {
     private String	memSex;
     private String	passwdReset;
     private String	photoUrl;
+    private String  sendNoti;
+    private String  notiContents;
+    private String  notiMemo;
+    private String  notiSms;
 }
 
