@@ -71,7 +71,6 @@ public class Bro_ListenerService {
             param.put("target_nickName",pListenForceLeaveVo.getMem_nickName());
             param.put("memNo",pListenForceLeaveVo.getDj_mem_no());
             param.put("nickName",pListenForceLeaveVo.getDj_nickname());
-
             // option
             param.put("ctrlRole","ctrlRole");
             param.put("recvType","system");
@@ -79,7 +78,17 @@ public class Bro_ListenerService {
             param.put("recvLevel",2);
             param.put("recvTime",1);
 
-            socketUtil.setSocket(param,"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
+            // message set
+            Gson gson = new Gson();
+            HashMap<String,Object> tmp = new HashMap();
+            tmp.put("revMemNo",pListenForceLeaveVo.getMem_no());     // 받는 사람
+            tmp.put("revMemNk",pListenForceLeaveVo.getMem_nickName());
+            tmp.put("sndAuth",3);
+            tmp.put("sndMemNo",pListenForceLeaveVo.getDj_mem_no());            // 보낸 사람
+            tmp.put("sndMemNk",pListenForceLeaveVo.getDj_nickname());
+            String message =  gson.toJson(tmp);
+
+            socketUtil.setSocket(param,"reqKickOut",message,jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
 
             //TODO - api에서는 reqChangeCount로 팬랭킹을 내려주는데. 일단 관리자에서는 제외한다.
 

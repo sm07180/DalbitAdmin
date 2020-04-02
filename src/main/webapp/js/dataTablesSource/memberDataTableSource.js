@@ -38,10 +38,10 @@ var MemberDataTableSource = {
             {'title': '청취자', 'data': 'listenerCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data) + "명";
                 }},
-            {'title': '방송 중 매니저', 'data': 'managerCnt', 'width':'80px', 'render': function (data) {
+            {'title': '방송 중<br/>매니저', 'data': 'managerCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data) + "명";
                 }},
-            {'title': '선물 주고/받음', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
+            {'title': '선물<br/>주고/받음', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data) + "건";
                 }},
             {'title': '받은 별', 'data': 'byeolCnt', 'width':'80px', 'render': function (data) {

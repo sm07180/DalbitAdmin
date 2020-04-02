@@ -1,5 +1,6 @@
 package com.dalbit.member.vo.procedure;
 
+import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.SearchVo;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 public class P_MemberInfoOutputVo extends SearchVo {
 
     private String profileImage;
+    private ImageVo profileImage_reset;
     private String mem_no;
     private String userId;
     private String userName;

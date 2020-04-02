@@ -150,10 +150,10 @@
             var obj = new Object();
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
-                if(confirm("프로필 사진을 초기화 하시겠습니까?")){
+                if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     obj.photoUrl = IMAGE_SERVER_URL;
-                    sendNoti = 1;
+                    sendNoti = 0;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;
                 }else return;
@@ -161,15 +161,15 @@
                 //비밀번호 변경 후 문자 보내기
                 if (confirm($("#bt_resatPass").data('nickname') + memberMessage.passwordReset)) {
                     obj.passwdReset = "Reset";
-                    obj.notiContents = memberMessage.notiContents;
-                    obj.notiMemo = memberMessage.passwordResetSms;
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 0;
+                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
             }else if(tmp == "bt_resatNick"){
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
                     obj.nickName = $("#bt_resatNick").data('userid');
-                    sendNoti = 1;
+                    sendNoti = 0;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
@@ -195,10 +195,14 @@
     }
 
     function update_success(dst_id, response) {
-        dalbitLog(response);
+        dalbitLog(response.message);
         if (tmp_bt == "bt_img") {                        //사진변경
             alert($("#"+tmp_bt).data('nickname') + "님의 프로필 이미지가 초기화 되었습니다.");
         } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
+            if(response == 0){
+                alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
+                return;
+            }
             alert($("#"+tmp_bt).data('nickname') + "님의 연락처가 변경되었습니다.");
         } else if (tmp_bt == "bt_resatNick") {            // 닉네임 변경
             alert($("#"+tmp_bt).data('nickname') + "님의 닉네임이 변경되었습니다.");
@@ -207,6 +211,10 @@
         } else if (tmp_bt == "bt_gender") {               //성별 변경
             alert($("#"+tmp_bt).data('nickname') + "님의 성별이 변경되었습니다.");
         } else if (tmp_bt == "bt_resatPass") {            //비밀번호 초기화
+            if(response == 0){
+                alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
+                return;
+            }
             alert($("#"+tmp_bt).data('nickname') + "님의 비밀번호가 초기화 되었습니다.");
         }
 
@@ -214,17 +222,11 @@
             dtList_info_detail.reload();
             // getMemNo_info_reload(memNo);
         } else {
-            getMemNo_info_reload(memNo);
+            var obj = new Object();
+            obj.mem_no =  memNo;
+            util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
         }
     }
-
-    function getMemNo_info_reload(memNo){
-        console.log("memNo : "  + memNo);
-        var obj = new Object();
-        obj.mem_no =  memNo;
-        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
-    }
-
     function reportPopup(){
         util.windowOpen(report,"1000","750","경고/정지");
     }

@@ -127,6 +127,12 @@
                 }
             }
         });
+        if($("#declaration_Message99").prop('checked')){
+            if($("#forced_message").val().length < 1){
+                alert("기타 사유를 입력해 주십시오.");
+                return false;
+            }
+        }
         if(forceMessage == ""){
             alert("강제 퇴장 사유를 선택해 주십시오");
             return;
@@ -143,7 +149,7 @@
 
             var checkDatas = dtList_info_detail.getCheckedData();
             for(var i=0;i<checkDatas.length;i++){
-                var meno = message.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
+                var meno = broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
                                               .replace("{{nickName}}",checkDatas[i].nickName)
                                               .replace("{{message}}",forceMessage)
                                               .replace("{{timestamp}}",timestamp);
@@ -154,7 +160,7 @@
                 data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
                 data.mem_nickName=checkDatas[i].nickName;       // 강퇴 대상
                 data.sendNoti = sendNoti;
-                data.notiContents = message.forceLeaveTitle;
+                data.notiContents = broadCastMessage.forceLeaveTitle;
                 data.notiMeno = meno;
                 data.dj_mem_no = mem_no;
                 data.dj_nickname = dj_nickname;

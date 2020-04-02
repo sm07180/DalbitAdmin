@@ -270,9 +270,18 @@ var BroadcastDataTableSource = {
     'editHistory': {
         'url': '/rest/broadcast/broadcast/editHist'
         , 'columns': [
-            {'title': '수정일자', 'data': 'editDate', 'defaultContent': ''},
-            {'title': '수정 내용', 'data': 'editContents', 'defaultContent': ''},
-            {'title': '처리자명', 'data': 'opName', 'defaultContent': ''},
+            {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px', 'className' : 'text-left'},
+            {'title': '처리자명', 'data': 'opName','width':'100px'},
+        ]
+    },
+
+    'adminMemoList': {
+        'url': '/rest/member/member/adminMemolist'
+        , 'columns': [
+            {'title': '등록 일시', 'data': 'regDate','width':'180px'},
+            {'title': '등록 관리자', 'data': 'opName','width':'100px'},
+            {'title': '운영자 메모 내용', 'data': 'memo', 'className' : 'text-left'},
         ]
     },
 }
