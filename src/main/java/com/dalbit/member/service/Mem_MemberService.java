@@ -12,6 +12,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SmsVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.P_LoginVo;
@@ -135,7 +136,7 @@ public class Mem_MemberService {
     /**
      * 회원 정보 수정
      */
-    public String getMemberEditor(P_MemberEditorVo pMemberEditorVo){
+    public String getMemberEditor(P_MemberEditorVo pMemberEditorVo) throws GlobalException {
         ProcedureVo procedureVo = new ProcedureVo(pMemberEditorVo);
         mem_MemberDao.callMemberEditor(procedureVo);
         String result;

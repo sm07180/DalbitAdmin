@@ -67,7 +67,7 @@ public class Mem_MemberRestController {
      * 회원 정보 수정
      */
     @PostMapping("editor")
-    public String editor(P_MemberEditorVo pMemberEditorVo){
+    public String editor(P_MemberEditorVo pMemberEditorVo)throws GlobalException{
         String result;
         if(pMemberEditorVo.getPhotoUrl() != null){
             pMemberEditorVo.setReset_profileImage(new ImageVo(null, pMemberEditorVo.getMemSex(), pMemberEditorVo.getPhotoUrl()));
