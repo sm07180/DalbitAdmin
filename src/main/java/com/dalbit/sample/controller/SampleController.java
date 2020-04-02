@@ -95,4 +95,7 @@ public class SampleController {
     @GetMapping("inforexPosCodeList")
     public String inforexPosCodeList(){ return "sample/inforexPosCodeList";}
 
+    @GetMapping("confirmError")
+    public String confirmError(){return "sample/confirmError";}
+
 }
