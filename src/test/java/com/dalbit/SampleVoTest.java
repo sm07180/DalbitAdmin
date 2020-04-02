@@ -2,8 +2,10 @@
 package com.dalbit;
 
 import com.dalbit.common.service.CommonService;
+import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.CookieVo;
+import com.dalbit.common.vo.SmsVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.inforex.vo.InforexPosCode;
 import com.dalbit.socket.service.SocketService;
@@ -36,6 +38,9 @@ public class SampleVoTest {
     SocketService socketService;
     @Autowired
     JwtUtil jwtUtil;
+    @Autowired
+    SmsService smsService;
+
 
     @Test
     public void 공통코드조회(){
@@ -129,6 +134,10 @@ public class SampleVoTest {
         log.info("@@@@@@@@@@@@@@@@  2");
     }
 
+    @Test
+    public void 문자발송테스트(){
+        smsService.sendSms(new SmsVo("[제목]테스트입니다", "[내용]내용이에요 안드로이드는 제목이 보이죠?", "01073041558"));
+    }
 
 }
 */

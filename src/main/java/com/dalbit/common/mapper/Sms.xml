@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.common.dao.SmsDao" >
+
+    <insert id="sendSms" parameterType="com.dalbit.common.vo.SmsVo" useGeneratedKeys="true" keyProperty="CMID" keyColumn="CMID">
+        <selectKey keyProperty="CMID" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO rd_data.hp_msg(
+            UMID
+            , MSG_TYPE
+            , SEND_PHONE
+            , DEST_PHONE
+            , SUBJECT
+            , MSG_BODY
+        ) values(
+            #{umId}
+            , #{msgType}
+            , #{sendPhoneNo}
+            , #{phoneNo}
+            , #{subject}
+            , #{msgBody}
+        )
+    </insert>
+</mapper>
