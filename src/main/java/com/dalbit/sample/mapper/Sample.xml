@@ -31,4 +31,23 @@
         )
     </insert>
 
+    <select id="getLogErrorData" parameterType="com.dalbit.sample.vo.ErrorVo" resultType="com.dalbit.sample.vo.ErrorVo">
+        /* Sample.xml - getLogErrorData */
+        select idx
+            , mem_no
+            , ostype
+            , version
+            , dtype
+            , ctype
+            , `desc`
+            , upd_date
+        from rd_data.tb_log_error_data
+        where 1=1
+        <if test="ostype != null and ostype != '' ">
+          and ostype = #{ostype}
+        </if>
+        order by idx desc
+        limit 500
+    </select>
+
 </mapper>

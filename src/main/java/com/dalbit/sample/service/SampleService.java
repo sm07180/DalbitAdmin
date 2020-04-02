@@ -1,6 +1,7 @@
 package com.dalbit.sample.service;
 
 import com.dalbit.sample.dao.SampleDao;
+import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.sample.vo.SampleVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class SampleService {
         String[] arr = new String[1];
         log.error(arr[2]);
 
+    }
+
+    public List<ErrorVo> getLogErrorData(ErrorVo errorVo) {
+        List<ErrorVo> errorList = sampleDao.getLogErrorData(errorVo);
+        return errorList;
     }
 }

@@ -3,6 +3,7 @@ package com.dalbit.sample.controller.rest;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.sample.service.SampleService;
+import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.OkHttpClientUtil;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -57,5 +59,11 @@ public class SampleRestController {
         String result = okHttpClientUtil.sendGet(url, request, "/", ".inforex.co.kr");
 
         return result;
+    }
+
+    @PostMapping("errorList")
+    public String errorList(ErrorVo errorVo) {
+        List<ErrorVo> errorList = sampleService.getLogErrorData(errorVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, errorList));
     }
 }

@@ -49,17 +49,17 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/connect/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/connect/') ? 'display:block;': ''}">
-                        <li class="${url.equals('/connect/login/info') ? 'active': ''} _commingSoon">
+                        <li class="${url.equals('/connect/login/info') ? 'active': ''}">
                             <a href="/connect/login/info">
                                 <i class="fa fa-search"></i><span class="text">로그인 현황</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/connect/user/info') ? 'active': ''} _commingSoon">
+                        <li class="${url.equals('/connect/user/info') ? 'active': ''}">
                             <a href="/connect/user/info">
                                 <i class="fa fa-search"></i><span class="text">현재 접속자</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/connect/connect/info') ? 'active': ''} _commingSoon">
+                        <li class="${url.equals('/connect/connect/info') ? 'active': ''}">
                             <a href="/connect/connect/info">
                                 <i class="fa fa-search"></i><span class="text">접속현황</span>
                             </a>
@@ -73,17 +73,17 @@
                         <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/enter/') ? 'down': 'left'}"></i>
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
-                        <li class="${url.equals('/enter/join/info') ? 'active': ''} _commingSoon">
+                        <li class="${url.equals('/enter/join/info') ? 'active': ''}">
                             <a href="/enter/join/info">
                                 <i class="fa fa-search"></i><span class="text">회원가입</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/enter/pay/info') ? 'active': ''} _commingSoon">
+                        <li class="${url.equals('/enter/pay/info') ? 'active': ''}">
                             <a href="/enter/pay/info">
                                 <i class="fa fa-search"></i><span class="text">결제/환불</span>
                             </a>
                         </li>
-                        <li class="${url.equals('/enter/exchange/info') ? 'active': ''} _commingSoon">
+                        <li class="${url.equals('/enter/exchange/info') ? 'active': ''}">
                             <a href="/enter/exchange/info">
                                 <i class="fa fa-search"></i><span class="text">환전</span>
                             </a>
@@ -420,6 +420,11 @@
                         <li class="${url.equals('/sample/inforexPosCodeList') ? 'active': ''}">
                             <a href="/sample/inforexPosCodeList">
                                 <i class="fa fa-search"></i><span class="text">인포렉스 API 조회</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/confirmError') ? 'active': ''}">
+                            <a href="/sample/confirmError">
+                                <i class="fa fa-search"></i><span class="text">에러확인</span>
                             </a>
                         </li>
                     </ul>
