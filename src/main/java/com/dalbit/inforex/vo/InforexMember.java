@@ -13,7 +13,9 @@ public class InforexMember {
     String staff_name;
     String staff_eng_name;
     String staff_pos;
+    String staff_pos_name;
     String staff_duty;
+    String staff_duty_name;
     String staff_hphone;
     String staff_phone;
     String staff_phone_office;

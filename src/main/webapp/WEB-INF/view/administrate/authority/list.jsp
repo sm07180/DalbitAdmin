@@ -12,17 +12,16 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 직원 검색</h3>
                             <div>
-                                <select class="form-control searchType">
+                                <select name="posType" class="form-control searchType">
                                     <option value="">직급선택</option>
                                     <c:forEach var="posCode" items="${cfn:getInforexPosCode()}" varStatus="status">
                                         <option value="${posCode.pos_code}">${posCode.pos_name}</option>
                                     </c:forEach>
                                 </select>
 
-                                <select class="form-control searchType">
+                                <select name="deptType" class="form-control searchType">
                                     <option value="">부서선택</option>
                                     <c:forEach var="deptCode" items="${cfn:getInforexDeptCode()}" varStatus="status">
-                                        ${deptCode}
                                         <option value="${deptCode.dept_no}">${deptCode.new_dept_name}</option>
                                     </c:forEach>
                                 </select>
@@ -81,13 +80,23 @@
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
-<script>
+<script type="text/javascript">
     $(document).ready(function() {
         getMemberList();
     });
 
+    $('#searchText').on('keydown', function(e) {
+        if (e.keyCode === 13) {
+            getMemberList();
+        };
+    });
+
+    $('#bt_search').on('click', function(){
+        getMemberList();
+    });
+
     function getMemberList(){
-        util.getAjaxData("memberList", "/rest/administrate/authority/list", null, fn_memberList_success);
+        util.getAjaxData("memberList", "/rest/administrate/authority/list", $("#searchForm").serialize(), fn_memberList_success);
     }
 
     function fn_memberList_success(data, response, params){
@@ -103,85 +112,34 @@
 </script>
 
 <script id="tmp_memberList" type="text/x-handlebars-template">
-    {{#each this}}
+    {{#each this as |member|}}
         <tr>
             <td><input type="checkbox"></td>
             <td>{{index @index no}}</td>
             <td>{{staff_enter_date}}</td>
             <td>{{new_dept_name}}</td>
-            <td>{{staff_duty}}/{{staff_pos}}</td>
+            <td>
+                {{#equal staff_pos_name staff_duty_name}}
+                    {{member.staff_pos_name}}
+                {{else}}
+                    {{member.staff_pos_name}}/{{member.staff_duty_name}}
+                {{/equal}}
+            </td>
             <td>{{staff_name}}</td>
             <td>{{staff_hphone}}</td>
             <td>{{staff_email}}@inforex.co.kr</td>
             <td>{{staff_email_etc}}</td>
             <td>
-                {{#equal staff_email_nate ''}}-{{/equal}}
-                {{staff_email_nate}}
+                {{#equal staff_email_nate ''}}
+                    -
+                {{else}}
+                    {{member.staff_email_nate}}
+                {{/equal}}
             </td>
         </tr>
+    {{else}}
+        <tr>
+            <td colspan="10">검색 결과가 없습니다.</td>
+        </tr>
     {{/each}}
-</script>
-
-<script id="tmp_faqFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="faqIdx" value="{{faqIdx}}" />
-    <div class="row col-lg-12 form-inline mt15">
-        <div class="col-md-12 no-padding">
-            <label id="faq_detatil_title">ㆍ선택한 FAQ 정보를 확인/수정/삭제를 할 수 있습니다.</label>
-            <span>
-                {{^faqIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
-                {{#faqIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
-            </span>
-        </div>
-    </div>
-    <div class="row col-lg-12">
-        <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
-            <colgroup>
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="10%" />
-                <col width="5%" />
-                <col width="10%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-            </colgroup>
-            <tbody>
-            <tr class="align-middle">
-                <th rowspan="2">No</th>
-                <td rowspan="2" id="no">{{faqIdx}}</td>
-
-                <th>구분</th>
-                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
-
-                <th>질문</th>
-                <td colspan="5"><input type="text" name="question" id="question" class="form-control" value="{{question}}"></td>
-            </tr>
-            <tr>
-
-                <th>사이트 적용</th>
-                <!--<td id="viewOn"></td>-->
-                <td>{{{getOnOffSwitch viewOn}}}</td>
-
-                <th>등록일시</th>
-                <td id="regDate">{{writeDate}}</td>
-
-                <th>조회수</th>
-                <td id="cnt">{{addComma viewCnt}}</td>
-
-                <th>처리자</th>
-                <td id="processor">{{opName}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row col-lg-12 form-inline">
-        <div class="widget">
-            <div class="widget-header">
-                <h3><i class="fa fa-user"></i> 답변 </h3>
-            </div>
-            <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
-        </div>
-    </div>
 </script>

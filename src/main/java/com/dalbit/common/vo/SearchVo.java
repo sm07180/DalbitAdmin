@@ -22,5 +22,6 @@ public class SearchVo extends PagingVo {
     private Integer sortView;
     private Integer slctReason;
 
-
+    private String posType;
+    private String deptType;
 }
