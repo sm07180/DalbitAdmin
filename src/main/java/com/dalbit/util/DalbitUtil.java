@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Component
@@ -651,5 +652,29 @@ public class DalbitUtil {
             strPwd.append(strs[0]);
         }
         return strPwd.toString();
+    }
+
+    /**
+     * 휴대폰 유효성 체크
+     */
+    public static boolean isSmsPhoneNoChk(String phoneNo){
+        boolean chk = false;
+        /*if(phoneNo.startsWith("010") || !phoneNo.startsWith("011") || !phoneNo.startsWith("016") || !phoneNo.startsWith("017") || !phoneNo.startsWith("018") || !phoneNo.startsWith("018")){
+            chk = true;
+        }
+
+        if(Pattern.matches("^[\\d]10-11$", phoneNo)){
+            chk = true;
+        }else{
+            chk = false;
+        }
+
+        if(!(phoneNo.length() == 10 || phoneNo.length() == 11)){
+            chk = false;
+        }*/
+
+
+
+        return phoneNo.matches("(01[016789])(\\d{3,4})(\\d{4})");
     }
 }

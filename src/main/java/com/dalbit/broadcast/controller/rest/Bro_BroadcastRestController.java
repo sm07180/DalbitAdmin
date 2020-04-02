@@ -35,12 +35,6 @@ public class Bro_BroadcastRestController {
     GsonUtil gsonUtil;
     @Autowired
     ExcelService excelService;
-    @Autowired
-    SocketUtil socketUtil;
-    @Autowired
-    SocketService socketService;
-    @Autowired
-    JwtUtil jwtUtil;
 
     /**
      * 생방송 목록
@@ -89,19 +83,6 @@ public class Bro_BroadcastRestController {
              int random = Integer.parseInt(DalbitUtil.randomBgValue());
              pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
         }
-        if(pBroadcastEditInputVo.getForceExit().equals("1")){
-            HashMap<String,Object> param = new HashMap<>();
-            param.put("roomNo",pBroadcastEditInputVo.getRoom_no());
-            param.put("memNo",pBroadcastEditInputVo.getMem_no());
-
-            param.put("recvType","system");
-            param.put("recvPosition","top1");
-            param.put("recvLevel",2);
-            param.put("recvTime",5);
-
-            socketUtil.setSocket(param,"chatEnd","",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
-        }
-
         return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
     }
 }

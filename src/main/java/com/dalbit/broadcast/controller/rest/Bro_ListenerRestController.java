@@ -25,10 +25,6 @@ public class Bro_ListenerRestController {
     Bro_ListenerService bro_ListenerService;
     @Autowired
     GsonUtil gsonUtil;
-    @Autowired
-    SocketUtil socketUtil;
-    @Autowired
-    JwtUtil jwtUtil;
 
     /**
      * 방송방 청취자 리스트
@@ -43,25 +39,6 @@ public class Bro_ListenerRestController {
 
     @PostMapping("forceLeave")
     public String getForcedLeave(P_ListenForceLeaveVo pListenForceLeaveVo){
-
-
-        HashMap<String,Object> param = new HashMap<>();
-        param.put("roomNo",pListenForceLeaveVo.getRoom_no());
-        param.put("target_memNo",pListenForceLeaveVo.getMem_no());
-        param.put("target_nickName",pListenForceLeaveVo.getMem_nickName());
-        param.put("memNo",pListenForceLeaveVo.getDj_mem_no());
-        param.put("nickName",pListenForceLeaveVo.getDj_nickname());
-
-        param.put("recvType","system");
-        param.put("recvPosition","top1");
-        param.put("recvLevel",2);
-        param.put("recvTime",1);
-
-        socketUtil.setSocket(param,"reqKickOut","",jwtUtil.generateToken(pListenForceLeaveVo.getMem_no(), true));
-
-        //TODO - api에서는 reqChangeCount로 팬랭킹을 내려주는데. 일단 관리자에서는 제외한다.
-
         return bro_ListenerService.getListenerForceLeave(pListenForceLeaveVo);
-//        return "0";
     }
 }
