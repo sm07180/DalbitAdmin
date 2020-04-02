@@ -46,10 +46,10 @@
                         </div>
                     </div>
                     <div class="widget-content mt10">
-                        <table class="table table-sorting table-hover table-bordered">
+                        <table class="table table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th><input type="checkbox"></th>
+                                    <th><input type="checkbox" id="all_chk"></th>
                                     <th>No.</th>
                                     <th>입사일</th>
                                     <th>부서/팀명</th>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="widget-footer">
                         <span>
-                            <button class="btn btn-danger print-btn pull-right mb10" type="button">권한부여</button>
+                            <button type="button" id="authority_btn" class="btn btn-danger print-btn pull-right mb10">권한부여</button>
                         </span>
                     </div>
                 </div>
@@ -95,6 +95,24 @@
         getMemberList();
     });
 
+    $('#all_chk').on('click', function(){
+        if($(this).prop('checked')){
+            $('._chk').prop('checked', true);
+        }else{
+            $('._chk').prop('checked', false);
+        }
+
+    });
+
+    $('#authority_btn').on('click', function(){
+        /*var checked = $('._chk:checked');
+        checked.each(function(){
+           dalbitLog($(this).data('empno'));
+        });*/
+        alert('준비중입니다.');
+    });
+
+
     function getMemberList(){
         util.getAjaxData("memberList", "/rest/administrate/authority/list", $("#searchForm").serialize(), fn_memberList_success);
     }
@@ -114,7 +132,7 @@
 <script id="tmp_memberList" type="text/x-handlebars-template">
     {{#each this as |member|}}
         <tr>
-            <td><input type="checkbox"></td>
+            <td><input type="checkbox" class="_chk" data-empno={{emp_no}}></td>
             <td>{{index @index no}}</td>
             <td>{{staff_enter_date}}</td>
             <td>{{new_dept_name}}</td>
