@@ -42,7 +42,8 @@
                     <tr>
                         <th>조치사항 선택</th>
                         <td colspan="5" style="text-align: left;height: 142px;">
-                            <span id="declaration_Message"></span></td>
+                            <span id="declaration_Message"></span>
+                            <input type="text" id="txt_declaration_message" class="form-control"/>
                         </td>
                     </tr>
                     <tr>

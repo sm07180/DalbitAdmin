@@ -40,7 +40,7 @@ public class SocketUtil {
     @Autowired
     SocketService socketService;
 
-    public Map<String, Object> setSocket(HashMap<String,Object> param ,String command, Object message, String authToken){
+    public Map<String, Object> setSocket(HashMap<String,Object> param ,String command, String message, String authToken){
         if(!"".equals(param) && !"".equals(authToken)) {
             SocketVo vo = getSocketVo(param, command, message);
             if(command == "chatEnd"){
@@ -85,15 +85,12 @@ public class SocketUtil {
             socketVo.setFan(1);
             socketVo.setAuth(3);
             socketVo.setAuthName("달D");
-            socketVo.setCtrlRole("1111111111");
+            socketVo.setCtrlRole(DalbitUtil.getStringMap(param, "ctrlRole"));
             socketVo.setLogin(1);
             socketVo.setRecvMemNo("");
             socketVo.setRecvDj(1);
             socketVo.setRecvManager(1);
             socketVo.setRecvListener(1);
-
-
-
 
             return socketVo;
         }catch(Exception e){e.getStackTrace();}
