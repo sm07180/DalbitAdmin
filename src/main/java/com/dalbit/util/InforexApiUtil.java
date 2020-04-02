@@ -2,6 +2,7 @@ package com.dalbit.util;
 
 import com.dalbit.common.code.Code;
 import com.dalbit.inforex.vo.InforexDeptCode;
+import com.dalbit.inforex.vo.InforexDutyCode;
 import com.dalbit.inforex.vo.InforexMember;
 import com.dalbit.inforex.vo.InforexPosCode;
 import com.google.gson.Gson;
@@ -46,15 +47,15 @@ public class InforexApiUtil {
         return inforexDeptCodes;
     }
 
-    public static InforexMember[] getInforexDutyCode(){
+    public static InforexDutyCode[] getInforexDutyCode(){
         String sessionName = DalbitUtil.getProperty(Code.인포렉스_직책코드.getCode());
-        InforexMember[] inforexMembers = (InforexMember[])httpSession.getAttribute(sessionName);
-        if(DalbitUtil.isEmpty(inforexMembers)){
+        InforexDutyCode[] inforexDutyCodes = (InforexDutyCode[])httpSession.getAttribute(sessionName);
+        if(DalbitUtil.isEmpty(inforexDutyCodes)){
             String result = RestApiUtil.sendGet(DalbitUtil.getProperty(Code.인포렉스_직책코드.getDesc()));
-            inforexMembers = new Gson().fromJson(result, InforexMember[].class);
-            httpSession.setAttribute(sessionName, inforexMembers);
+            inforexDutyCodes = new Gson().fromJson(result, InforexDutyCode[].class);
+            httpSession.setAttribute(sessionName, inforexDutyCodes);
         }
-        return inforexMembers;
+        return inforexDutyCodes;
     }
 
     public static InforexMember[] getInforexMemberList(){
