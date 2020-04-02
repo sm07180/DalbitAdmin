@@ -167,8 +167,8 @@ var MemberDataTableSource = {
         , 'comments': 'ㆍ각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'
     },
 
-    'fanbordDetail': {
-        'url': ''
+    'fanboardDetail': {
+        'url': '/rest/member/fanboard/list'
         , 'columns': [
             {'title': '프로필이미지', 'data': 'memNo'},
             {'title': '회원번호', 'data': 'memNo'},
@@ -177,7 +177,7 @@ var MemberDataTableSource = {
             {'title': '등록일시', 'data': 'memNo'},
             {'title': '작성내용', 'data': 'memNo'},
             {'title': '총 댓글 수', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return data + '<br/><a href="javascript://" onclick="javascript:Fanbord(' + meta.row + ');" data-toggle="modal" data-target="#myModal">' + "[댓글]" + '</a>'
+                    return data + '<br/><a href="javascript://" onclick="javascript:Fanboard(' + meta.row + ');" data-toggle="modal" data-target="#myModal">' + "[댓글]" + '</a>'
                 }},
         ]
         , 'comments': 'ㆍ회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'

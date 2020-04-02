@@ -177,7 +177,7 @@
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
-            data.mem_no = mem_no;
+            data.mem_no = room_no;
         }
 
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
@@ -203,7 +203,7 @@
                 return;
             }
             var obj = new Object();
-            obj.mem_no = mem_no;
+            obj.mem_no = room_no;
             obj.memo = $("#txt_adminMemo").val();
 
             getInfoDetail("bt_adminMemoList", "운영자메모");
@@ -347,7 +347,6 @@
 
     function update_success(dst_id, response) {
         dalbitLog(response);
-        alert(response.message);
         $('#entryModal').modal('hide');
         $('#entry_message').val("");
         dtList_info.reload();
@@ -358,8 +357,8 @@
             var obj = new Object();
             obj.room_no = room_no;
             util.getAjaxData("type", "/rest/broadcast/broadcast/info", obj, info_sel_success);
+            getInfoDetail("editHistory", "정보수정내역");
         }
-        getInfoDetail("editHistory", "정보수정내역");
         // $("#detailFrm").empty();
     }
 
