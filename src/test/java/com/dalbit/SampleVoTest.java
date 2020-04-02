@@ -9,6 +9,7 @@ import com.dalbit.common.vo.SmsVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.inforex.vo.InforexPosCode;
 import com.dalbit.socket.service.SocketService;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.JwtUtil;
 import com.dalbit.util.OkHttpClientUtil;
 import com.dalbit.util.RestApiUtil;
@@ -135,8 +136,17 @@ public class SampleVoTest {
     }
 
     @Test
-    public void 문자발송테스트(){
-        smsService.sendSms(new SmsVo("[제목]테스트입니다", "[내용]내용이에요 안드로이드는 제목이 보이죠?", "01073041558"));
+    public void 문자발송테스트()throws GlobalException{
+        smsService.sendSms(new SmsVo("[내용]내용이에요 안드로이드는 제목이 보이죠?", "01073041558"));
+    }
+
+    @Test
+    public void 휴대폰유효성체크(){
+        log.info("검증결과 : {}", DalbitUtil.isSmsPhoneNoChk("01055606434"));
+        log.info("검증결과 : {}", DalbitUtil.isSmsPhoneNoChk("0105560643"));
+        log.info("검증결과 : {}", DalbitUtil.isSmsPhoneNoChk("010556064311"));
+        log.info("검증결과 : {}", DalbitUtil.isSmsPhoneNoChk("331230556064311"));
+        log.info("검증결과 : {}", DalbitUtil.isSmsPhoneNoChk("1234567890"));
     }
 
 }
