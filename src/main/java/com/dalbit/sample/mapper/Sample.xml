@@ -47,7 +47,7 @@
           and ostype = #{ostype}
         </if>
         order by idx desc
-        limit 100
+        limit 500
     </select>
 
 </mapper>
