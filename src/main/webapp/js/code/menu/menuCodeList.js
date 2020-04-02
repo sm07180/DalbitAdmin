@@ -7,3 +7,5 @@ var special_searchType = [
     , new COMMON_CODE('phone', '4', '연락처')
     , new COMMON_CODE('broad', '5', '방송제목')
 ];
+
+

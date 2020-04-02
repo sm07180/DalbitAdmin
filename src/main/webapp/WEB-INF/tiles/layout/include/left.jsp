@@ -276,8 +276,7 @@
                             </a>
                         </li>
                         <li class="${fn:contains(url, '/menu/live/list') ? 'active': ''}">
-                            <%--<a href="/menu/live/list">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/menu/live/list">
                                 <i class="fa fa-microphone"></i><span class="text">실시간 Live</span>
                             </a>
                         </li>
@@ -344,7 +343,7 @@
                             </a>
                         </li>
                         <li class="${fn:contains(url, '/administrate/authority/list') ? 'active': ''}">
-                            <a href="/administrate/authority/list" class="_commingSoon">
+                            <a href="/administrate/authority/list">
                                 <i class="fa fa-shield"></i><span class="text">어드민 권한관리</span>
                             </a>
                         </li>

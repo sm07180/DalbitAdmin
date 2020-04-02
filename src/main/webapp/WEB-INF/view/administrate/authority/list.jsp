@@ -157,7 +157,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="10">검색 결과가 없습니다.</td>
+            <td colspan="10">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
