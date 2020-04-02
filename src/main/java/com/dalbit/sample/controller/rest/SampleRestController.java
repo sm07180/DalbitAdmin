@@ -2,6 +2,8 @@ package com.dalbit.sample.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.sample.service.SampleService;
 import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.util.DalbitUtil;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +33,9 @@ public class SampleRestController {
 
     @Autowired
     SampleService sampleService;
+
+    @Autowired
+    ExcelService excelService;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -61,9 +67,23 @@ public class SampleRestController {
         return result;
     }
 
+    /**
+     * 에러 데이터 로그 조회
+     */
     @PostMapping("errorList")
     public String errorList(ErrorVo errorVo) {
         List<ErrorVo> errorList = sampleService.getLogErrorData(errorVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, errorList));
+    }
+
+    /**
+     * 에러 데이터 로그 엑셀 출력
+     */
+    @PostMapping("errorListExcel")
+    public String errorListExcel(HttpServletRequest request, HttpServletResponse response, Model model, ErrorVo errorVo) throws GlobalException {
+        Model resultModel = sampleService.getErrorListExcel(errorVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 }
