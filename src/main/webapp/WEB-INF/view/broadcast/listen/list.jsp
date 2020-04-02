@@ -127,6 +127,12 @@
                 }
             }
         });
+        if($("#declaration_Message99").prop('checked')){
+            if($("#forced_message").val().length < 1){
+                alert("기타 사유를 입력해 주십시오.");
+                return false;
+            }
+        }
         if(forceMessage == ""){
             alert("강제 퇴장 사유를 선택해 주십시오");
             return;

@@ -268,18 +268,24 @@
         }
 
         var entryMessage="";
+
+        var messageCheck = false;
         $('input:checkbox[name="entry_message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
                 if(this.id == "entry_message99" ){
-                    if($("#entry_message").val().length < 1){
-                        alert
-                    }
                     entryMessage = entryMessage + " - " + this.value + " : " + $("#entry_message").val() + "\n";
                 }else {
                     entryMessage = entryMessage + " - " + this.value + "\n";
                 }
             }
         });
+        if($("#entry_message99").prop('checked')){
+            if($("#entry_message").val().length < 1){
+                alert("기타 사유를 입력해 주십시오.");
+                return false;
+            }
+        }
+
         var tmp_msg;
         if(entryMessage == "" && editEntry == "bt_forcedExit"){
             alert("방송 강제종료 사유를 선택해 주십시오.");
