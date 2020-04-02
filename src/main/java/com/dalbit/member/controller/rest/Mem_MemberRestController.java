@@ -69,13 +69,20 @@ public class Mem_MemberRestController {
     @PostMapping("editor")
     public String editor(P_MemberEditorVo pMemberEditorVo)throws GlobalException{
         String result;
+        pMemberEditorVo.setNotiSms("0");
         if(pMemberEditorVo.getPhotoUrl() != null){
             pMemberEditorVo.setReset_profileImage(new ImageVo(null, pMemberEditorVo.getMemSex(), pMemberEditorVo.getPhotoUrl()));
             pMemberEditorVo.setProfileImage(pMemberEditorVo.getReset_profileImage().getUrl().replace(pMemberEditorVo.getPhotoUrl(),""));
         }
-        if(pMemberEditorVo.getPasswdReset() != null){
-            pMemberEditorVo.setPasswdReset(DalbitUtil.randomValue("string", 4) + DalbitUtil.randomValue("p", 2) + DalbitUtil.randomValue("number", 4));
-            pMemberEditorVo.setNotiSms("1");
+        if(pMemberEditorVo.getPhoneNum() != null) {
+            if(DalbitUtil.isSmsPhoneNoChk(pMemberEditorVo.getPhoneNum())) {
+                if(pMemberEditorVo.getPasswdReset() != null){
+                    pMemberEditorVo.setPasswdReset(DalbitUtil.randomValue("string", 4) + DalbitUtil.randomValue("p", 2) + DalbitUtil.randomValue("number", 4));
+                    pMemberEditorVo.setNotiSms("1");
+                }
+            }else{
+                return "0";
+            }
         }
         result = mem_MemberService.getMemberEditor(pMemberEditorVo);
         return result;

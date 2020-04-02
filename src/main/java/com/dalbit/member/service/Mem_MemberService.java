@@ -141,29 +141,32 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEditor(procedureVo);
         String result;
         if(Status.회원정보수정성공.getMessageCode().equals(procedureVo.getRet())){
-            if(pMemberEditorVo.getSendNoti().equals("1")) {
-                P_BroadcastListInputVo pBroadcastListInputVo = new P_BroadcastListInputVo();
-                pBroadcastListInputVo.setDj_searchText(pMemberEditorVo.getMem_no());
-                pBroadcastListInputVo.setSlctType(1);
-                pBroadcastListInputVo.setDj_slctType(0);
-                pBroadcastListInputVo.setRoom_slctType(-1);
+//            if(pMemberEditorVo.getSendNoti().equals("1")) {
+//                P_BroadcastListInputVo pBroadcastListInputVo = new P_BroadcastListInputVo();
+//                pBroadcastListInputVo.setDj_searchText(pMemberEditorVo.getMem_no());
+//                pBroadcastListInputVo.setSlctType(1);
+//                pBroadcastListInputVo.setDj_slctType(0);
+//                pBroadcastListInputVo.setRoom_slctType(-1);
+//
+//                ProcedureVo inner_procedureVo = new ProcedureVo(pBroadcastListInputVo);
+//                ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(inner_procedureVo);
+//
+//                //프로필, 닉네임
+//                HashMap<String, Object> param = new HashMap<>();
+//                param.put("roomNo", broadList.get(0).getRoom_no());
+//                param.put("memNo", pMemberEditorVo.getMem_no());
+//                param.put("nickName", pMemberEditorVo.getNickName());
+//                // option
+//                param.put("ctrlRole", "ctrlRole");
+//                param.put("recvType", "system");
+//                param.put("recvPosition", "top1");
+//                param.put("recvLevel", 1);
+//                param.put("recvTime", 5);
+//
+//                socketUtil.setSocket(param, "reqAlert", pMemberEditorVo.getNotiMemo(), jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
+//            }
 
-                ProcedureVo inner_procedureVo = new ProcedureVo(pBroadcastListInputVo);
-                ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(inner_procedureVo);
-
-                HashMap<String, Object> param = new HashMap<>();
-                param.put("roomNo", broadList.get(0).getRoom_no());
-                param.put("memNo", pMemberEditorVo.getMem_no());
-                param.put("nickName", pMemberEditorVo.getNickName());
-
-                param.put("ctrlRole", "ctrlRole");
-                param.put("recvType", "system");
-                param.put("recvPosition", "top1");
-                param.put("recvLevel", 1);
-                param.put("recvTime", 5);
-
-                socketUtil.setSocket(param, "reqAlert", pMemberEditorVo.getNotiMemo(), jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
-            }
+            // 비밀번호 변경
             if(pMemberEditorVo.getNotiSms().equals("1")){
                 smsService.sendSms(new SmsVo(pMemberEditorVo.getNotiMemo() + "[" + pMemberEditorVo.getPasswdReset()+ "]",pMemberEditorVo.getPhoneNum()));
             }

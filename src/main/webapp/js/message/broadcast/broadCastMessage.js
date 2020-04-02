@@ -1,4 +1,4 @@
-var message = {
+var broadCastMessage = {
     forceLeaveTitle : '청취자 강제퇴장 조치 안내',
     forceLeave : '달빛라디오 Clean 운영자 {{name}}입니다.\n' +
     '\n' +
@@ -52,6 +52,13 @@ var message = {
     '중단조치 일시 : {{timestamp}}\n' +
     '\n' +
     '자세한 사유를 알고 싶으시면 1:1문의를 이용해주세요.',
+
+
+    notiContents : '달빛 라이브 운영자 메시지\n',
+    backgroundImgReset : '운영정책 위반으로 배경이미지가 초기화됩니다.',
+    welcomeMsg : '운영정책 위반으로 환영 인사말을 초기화 합니다.',
+    titleReset : '운영정책 위반으로 방송방 제목을 초기화 합니다.',
+
 }
 
 
