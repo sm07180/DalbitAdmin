@@ -129,9 +129,9 @@
                             </thead>
                             <tbody id="tableBody"></tbody>
                         </table>
-                        <span>
+                        <%--<span>
                             <button class="btn btn-default print-btn pull-right mb10" type="button"><i class="fa fa-print"></i>Excel 출력</button>
-                        </span>
+                        </span>--%>
                     </div>
                 </div>
             </div>
