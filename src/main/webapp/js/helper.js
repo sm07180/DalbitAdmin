@@ -124,6 +124,10 @@ Handlebars.registerHelper("getOnOffSwitch", function(value){
    return util.getOnOffSwitch(value);
 });
 
+Handlebars.registerHelper("renderProfileImage", function(value,gender){
+    return common.profileImage(IMAGE_SERVER_URL,value,gender)
+});
+
 Handlebars.registerHelper("renderImage", function(value){
     return IMAGE_SERVER_URL + value;
 });
@@ -142,4 +146,8 @@ Handlebars.registerHelper("viewImage", function(value) {
 
 Handlebars.registerHelper("isEmptyData", function() {
     return common.isEmptyData();
+});
+
+Handlebars.registerHelper("isSmall", function(value, target, opt) {
+    return common.isSmall(value, target, opt);
 });

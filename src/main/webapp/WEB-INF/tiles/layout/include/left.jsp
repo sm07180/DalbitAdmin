@@ -264,14 +264,12 @@
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/menu/') ? 'display:block;': ''}">
                         <li class="${fn:contains(url, '/menu/special/list') ? 'active': ''}">
-                            <%--<a href="/menu/special/list">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/menu/special/list" class="_commingSoon">
                                 <i class="fa fa-thumbs-o-up"></i><span class="text">스페셜 DJ</span>
                             </a>
                         </li>
                         <li class="${fn:contains(url, '/menu/rank/djRankList') ? 'active': ''}">
-                            <%--<a href="/menu/rank/djRankList">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/menu/rank/djRankList">
                                 <i class="fa fa-list-alt"></i><span class="text">DJ랭킹/팬랭킹</span>
                             </a>
                         </li>

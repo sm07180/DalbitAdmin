@@ -10,7 +10,7 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '프로필이미지', 'data': 'dj_profileImage', 'render' : function(data, type, row){
                     return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
-                            'data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src)"/>';
+                            'onclick="fullSize_live(this.src)"/>';
                 }},
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";

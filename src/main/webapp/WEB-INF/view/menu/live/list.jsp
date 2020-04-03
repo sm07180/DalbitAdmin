@@ -129,9 +129,9 @@
                             </thead>
                             <tbody id="tableBody"></tbody>
                         </table>
-                        <span>
+                        <%--<span>
                             <button class="btn btn-default print-btn pull-right mb10" type="button"><i class="fa fa-print"></i>Excel 출력</button>
-                        </span>
+                        </span>--%>
                     </div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
 <script type="text/javascript">
 
     $(function(){
-        $("#searchSubjectType").html(util.getCommonCodeSelect('', broadcastSubjectType));
+        renderSubjectType();
         init();
     });
 
@@ -159,6 +159,13 @@
         init();
     });
 
+    function renderSubjectType(){
+        $("#searchSubjectType").html(util.getCommonCodeSelect('', broadcastSubjectType));
+
+        $('#subject_type').on('change', function(){
+            init();
+        });
+    }
 
     function fn_succ_list(data, response, params) {
         dalbitLog(response);

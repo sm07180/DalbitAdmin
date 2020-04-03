@@ -358,4 +358,21 @@ util.editorInit = function(type) {
             }
         }
     });
+},
+util.imageFullSize = function(modalId ,url){
+    var html = '<div class="modal fade" id="'+ modalId +'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'
+        html+=      '<div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">'
+        html+=          '<div class="modal-content">'
+        html+=              '<div class="modal-header">'
+        html+=                  '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
+        html+=              '</div>'
+        html+=              '<div class="modal-body">'
+        html+=                  '<img id="image_full_size" src="'+ url + '" alt="your image" style="max-width: 1000px;max-height: 1000px;">'
+        html+=              '</div>'
+        html+=              '<div class="modal-footer">'
+        html+=              '</div>'
+        html+=          '</div>'
+        html+=      '</div>'
+        html+= '</div>'
+    return html;
 }

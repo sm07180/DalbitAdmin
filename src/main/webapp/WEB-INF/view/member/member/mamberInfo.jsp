@@ -7,20 +7,7 @@
 </div>
 
 <!-- 이미지 원본 보기 -->
-<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img id="image_full_size" src="#" alt="your image" style="max-width: 1000px;max-height: 1000px;">
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
+<div id="imageFullSize"></div>
 <!-- detail -->
 <form id="detailForm" class="hide"></form>
 
@@ -51,7 +38,6 @@
         $("#memberInfoFrm").html(html);
         init();
 
-        $("#image_section").prop("src", common.profileImage(IMAGE_SERVER_URL,response.data.profileImage,response.data.memSex));
         $("#txt_birth").val(response.data.birthDate.substr(0, 10));
         $("#memSlct").html(util.renderSlct(response.data.memSlct,"20"));
         report = "../member/popup/reportPopup?memNo=" + "'" + response.data.mem_no + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'";
@@ -117,8 +103,9 @@
         // 버튼 끝
     }
 
-    function fullSize(url) {     // 이미지 full size
-        $("#image_full_size").prop("src", url);
+    function fullSize_profile(url) {     // 이미지 full size
+        $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
+        $('#fullSize_profile').modal('show');
     }
 
     var tmp_bt;
@@ -298,7 +285,7 @@
             <th rowspan="5">프로필이미지</th>
             <td rowspan="5" colspan="3">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
-                    <img id="image_section" src="#" alt="your image" style="width: 150px;height: 150px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    <img id="image_section" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" onclick="fullSize_profile(this.src);"/>
                 </form>
                 <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
             </td>
