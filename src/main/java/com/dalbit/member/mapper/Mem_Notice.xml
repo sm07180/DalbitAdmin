@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.Mem_NoticeDao" >
+
+    <!--<select id="callNoticeHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">-->
+        <!--/* Mem_Noticet.xml - callNoticeHistory */-->
+        <!--call rd_admin.sp_admin_member_notice_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+    <!--</select>-->
+
+    <select id="callNoticeHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo">
+      select
+          @rownum := @rownum + 1 as rowNum,
+          c.*
+        FROM (select idx,'마이페이지 공지' as type ,contents,last_upd_date
+                  From rd_data.tb_member_broadcast_notice where mem_no=#{mem_no}
+                union
+               select idx,'방송 중 공지' as type ,notice,last_upd_date
+                  From rd_data.tb_broadcast_room where CHAR_LENGTH(notice) > 0 and mem_no=#{mem_no}
+        ) AS c, (select @rownum := #{pageNo} ) AS d
+        order by last_upd_date desc
+        limit #{pageNo}, #{pageCnt};
+    </select>
+
+    <select id="callNoticeHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="integer">
+        select sum(cnt) totalCnt
+          From ( select count(*) cnt From rd_data.tb_member_broadcast_notice where mem_no=#{mem_no}
+                   union
+                  select count(*) cnt From rd_data.tb_broadcast_room where CHAR_LENGTH(notice) > 0 and mem_no=#{mem_no}
+            ) a
+    </select>
+
+</mapper>

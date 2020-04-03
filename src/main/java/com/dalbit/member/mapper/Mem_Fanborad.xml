@@ -21,7 +21,7 @@
           ,(select mem_sex From rd_data.tb_member_basic where mem_no = a.mem_no) as mem_sex
           ,last_upd_date
           , contents
-          from rd_data.tb_member_fanboard a ,(select @rownum := 0) b
+          from rd_data.tb_member_fanboard a ,(select @rownum := #{pageNo}) b
          where writer_no = #{mem_no}
          ORDER BY a.last_upd_date DESC
           limit #{pageNo}, #{pageCnt}

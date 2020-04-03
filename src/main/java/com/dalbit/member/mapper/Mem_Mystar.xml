@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.Mem_MystarDao" >
+
+    <!--<select id="callMystarHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">-->
+        <!--/* Mem_Mystar.xml - callMystarHistory */-->
+        <!--call rd_admin.sp_admin_member_Mystar_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+    <!--</select>-->
+
+    <select id="callMystarHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">
+      select @rownum := @rownum + 1 as rowNum,
+              a.*
+         from ( select a.mem_no_star,a.reg_date
+                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_star) as mem_no_start_id
+                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_star) as mem_no_start_nick
+                        ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as accumCnt
+                        ,(select sum(item_cnt) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as totalItemCnt
+                   From rd_data.tb_member_fanstar a
+                  where mem_no_fan = #{mem_no}) as a, (select @rownum := #{pageNo} ) AS d
+         order by totalItemCnt desc,reg_date desc
+          limit #{pageNo}, #{pageCnt}
+    </select>
+
+    <select id="callMystarHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="integer">
+        select count(*) as totalCnt From rd_data.tb_member_fanstar where mem_no_fan = #{mem_no}
+    </select>
+
+    <!--<select id="callMyfanHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">-->
+    <!--/* Mem_Mystar.xml - callMyfanHistory */-->
+    <!--call rd_admin.sp_admin_member_Myfan_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+    <!--</select>-->
+
+    <select id="callMyfanHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberMystarOutputVo">
+      select @rownum := @rownum + 1 as rowNum,
+              a.*
+         from ( select a.mem_no_fan,a.reg_date
+                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_fan) as mem_no_fan_id
+                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_fan) as mem_no_fan_nick
+                        ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_star and gifted_mem_no = a.mem_no_fan) as accumCnt
+                        ,(select sum(item_cnt) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_star and gifted_mem_no = a.mem_no_fan) as totalItemCnt
+                   From rd_data.tb_member_fanstar a
+                  where mem_no_star = #{mem_no}) as a, (select @rownum := #{pageNo} ) AS d
+         order by totalItemCnt desc,reg_date desc
+          limit #{pageNo}, #{pageCnt}
+    </select>
+
+    <select id="callMyfanHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberMystarInputVo" resultType="integer">
+        select count(*) as totalCnt From rd_data.tb_member_fanstar where mem_no_star = #{mem_no}
+    </select>
+
+</mapper>

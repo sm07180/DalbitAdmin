@@ -47,3 +47,10 @@ var member_declaration_slctType = [
     , new COMMON_CODE('stop15', '6', '강제탈퇴')
     , new COMMON_CODE('withdrawal', '7', '영구정지')
 ];
+
+var declaration_summary = [
+    new COMMON_CODE('','cnt','미처리 건')
+    ,new COMMON_CODE('','cnt','누적 처리 건')
+    ,new COMMON_CODE('','cnt','제재 조치')
+    ,new COMMON_CODE('','cnt','전화문의/처리')
+];

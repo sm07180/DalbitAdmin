@@ -136,33 +136,46 @@ var MemberDataTableSource = {
         , 'comments': 'ㆍ회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인할 수 있습니다.<br>ㆍ이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물'
     },
 
-    'mystarDetail': {
-        'url': ''
+    'mystar': {
+        'url': '/rest/member/mystar/mystarlist'
         , 'columns': [
-            {'title': '회원번호', 'data': 'memNo'},
-            {'title': '마이스타ID', 'data': 'memId', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Mystar('+meta.row+');">' + data + '</a>'
+            {'title': 'MyStar ID', 'data': 'mem_no_start_id', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no_star);
                 }},
-            {'title': '마이스타 닉네임', 'data': 'memNick'},
-            {'title': '아이템보낸건수', 'data': 'tmp1'},
-            {'title': '아이템보낸개수', 'data': 'tmp2'},
-            {'title': 'FanID', 'data': 'tmp2'},
-            {'title': 'Fan닉네임', 'data': 'tmp2'},
-            {'title': '받은 선물 건 수', 'data': 'regDate'},
-            {'title': '받은 선물 금액', 'data': 'tmp3'}
+            {'title': 'MyStar 닉네임', 'data': 'mem_no_start_nick'},
+            {'title': '아이템보낸건수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': '보낸달수', 'data': 'totalItemCnt', 'width':'120px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': 'Mystar등록일', 'data': 'regDateFormat'},
         ]
-        , 'comments': 'ㆍMyStar : 내가 Fan으로 등록하거나, 방송 중 선물을 보낸 회원입니다.<br>ㆍFan: 타 회원이 Fan으로 등록하면 해당회원이 MyStar 가 됩니다.'
+    },
+
+    'myfan': {
+        'url': '/rest/member/mystar/myfanlist'
+        , 'columns': [
+            {'title': 'Fan ID', 'data': 'mem_no_fan_id', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no_fan);
+                }},
+            {'title': 'Fan 닉네임', 'data': 'mem_no_fan_nick'},
+            {'title': '아이템보낸건수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': '보낸달', 'data': 'totalItemCnt', 'width':'120px', 'render': function (data) {
+                    return common.addComma(data) + "건";
+                }},
+            {'title': 'Fan 등록일', 'data': 'regDateFormat'},
+        ]
     },
 
     'noticeDetail': {
-        'url': ''
+        'url': '/rest/member/notice/list'
         , 'columns': [
             {'title': '구분', 'data': 'type','width':'100px'},
-            {'title': '방송제목', 'data': 'title','width':'250px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Notice('+meta.row+');">' + data + '</a>'
-                }},
-            {'title': '공지내용', 'data': 'notice','width':'200px'},
-            {'title': '등록일시', 'data': 'lastUpdDate','width':'100px'},
+            {'title': '공지내용', 'data': 'contents','width':'200px'},
+            {'title': '등록일시', 'data': 'lastUpdDateFormat','width':'100px'},
         ]
         , 'comments': 'ㆍ각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'
     },
@@ -201,29 +214,29 @@ var MemberDataTableSource = {
         , 'comments': 'ㆍ회원이 직접 100개까지 관리를 할 수 있고, 관리자에 의해 등록/수정/삭제도 할 수 없습니다.'
     },
 
-    'reportDetail': {
-        'url': ''
-        , 'columns': [
-            ,{'title': '플랫폼', 'data': 'platform', 'name': 'sortPlat'}
+    'declarationDetail': {
+        'url': '/rest/customer/declaration/list'
+
+        ,'columns': [
+            {'title': '플랫폼', 'data': 'platform', 'name': 'sortPlatform'}
             ,{'title': '신고 구분', 'data' : 'reason', 'name' : 'sortReport', 'render': function(data) {
                     return util.getCommonCodeLabel(data, declaration_reason);
                 }}
-            ,{'title': '신고자 UserID', 'data': 'mem_id', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" onclick="javascript:Report('+row.reportIdx+');">' + data + '</a>'
-                    // return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'
-                }}
-            ,{'title': '신고 대상 UserID', 'data': 'reported_mem_id', 'render': function (data, type, row) {
-                    return '<a href="javascript://" class="Report" data-idx="' + row.reportIdx + '">' + data + '</a>'
-                }}
-            ,{'title': '신고 대상 User닉네임', 'data': 'reported_mem_nick'}
-            ,{'title': '접수 일시', 'data': 'regDate'}
-            ,{'title': '처리 일시', 'data': 'opDate', 'defaultContent':'-'}
-            ,{'title': '처리 상태', 'data': 'status', 'name': 'slctType', 'render' : function(data) {
-                    return util.getCommonCodeLabel(data, declaration_slctType)
+            ,{'title': '신고자 UserID', 'data': 'mem_userid', 'render': function (data, type, row) {
+                    return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
+            ,{'title': '신고자 User닉네임', 'data': 'mem_nick'}
+            ,{'title': '신고 대상 UserID', 'data': 'reported_userid', 'render': function (data, type, row) {
+                    return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}
+                , 'defaultContent': '-'}
+            ,{'title': '신고 대상 User닉네임', 'data': 'reported_nick'}
+            ,{'title': '접수 일시', 'data': 'regDateFormat'}
+            ,{'title': '처리 일시', 'data': 'opDateFormat', 'defaultContent':'-'}
+            ,{'title': '처리 상태', 'data': 'op_code', 'name': 'slctType', 'render' : function(data) {
+                    return util.getCommonCodeLabel(data, declaration_slctType);
                 }}
             ,{'title': '처리자', 'data': 'opName', 'defaultContent':'-'}
         ]
-        , 'comments': 'ㆍ회원이 신고하고, 신고 당한 정보를 한눈에 확인할 수 있습니다.'
+        , 'comments' : ' • 최신 신고자를 기준으로 상위 구성하고, 확인하고자 하는 회원 정보 내 선택을 클릭하면 상세정보 및 회원 신고조치를 처리할 수 있습니다.'
     },
 
     'questionDetail': {
