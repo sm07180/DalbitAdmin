@@ -143,10 +143,10 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no_star);
                 }},
             {'title': 'MyStar 닉네임', 'data': 'mem_no_start_nick'},
-            {'title': '아이템보낸건수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
+            {'title': '아이템보낸 건 수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
                     return common.addComma(data) + "건";
                 }},
-            {'title': '보낸달수', 'data': 'totalItemCnt', 'width':'120px', 'render': function (data) {
+            {'title': '보낸 달 수', 'data': 'totalItemCnt', 'width':'120px', 'render': function (data) {
                     return common.addComma(data) + "건";
                 }},
             {'title': 'Mystar등록일', 'data': 'regDateFormat'},
@@ -160,10 +160,10 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no_fan);
                 }},
             {'title': 'Fan 닉네임', 'data': 'mem_no_fan_nick'},
-            {'title': '아이템보낸건수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
+            {'title': '아이템보낸 건 수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
                     return common.addComma(data) + "건";
                 }},
-            {'title': '보낸달', 'data': 'totalItemCnt', 'width':'120px', 'render': function (data) {
+            {'title': '보낸 달 수', 'data': 'totalItemCnt', 'width':'120px', 'render': function (data) {
                     return common.addComma(data) + "건";
                 }},
             {'title': 'Fan 등록일', 'data': 'regDateFormat'},
@@ -199,8 +199,8 @@ var MemberDataTableSource = {
                         return "삭제";
                     }
                 }},
-            {'title': '총 댓글 수', 'data': 'memNo', 'render': function (data, type, row, meta) {
-                    return data + '<br/><a href="javascript://" onclick="javascript:Fanboard(' + meta.row + ');" data-toggle="modal" data-target="#myModal">' + "[댓글]" + '</a>'
+            {'title': '총 댓글 수', 'data': 'replyCnt', 'render': function (data, type, row, meta) {
+                    return data + '<br/><a href="javascript://" onclick="javascript:Fanboard(' + meta.row + ');">' + "[댓글]" + '</a>'
                 }},
         ]
         , 'comments': 'ㆍ회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'

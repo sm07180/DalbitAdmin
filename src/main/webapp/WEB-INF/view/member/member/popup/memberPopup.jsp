@@ -12,7 +12,10 @@
 <script>
     $(document).ready(function() {
         $('#tabList_top').addClass("show");
-        getMemNo_info_reload(<%=in_memNo%>);
+
+        var data = new Object();
+        data.mem_no = <%=in_memNo%>;
+        util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
     });
 
 </script>

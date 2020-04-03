@@ -6,7 +6,7 @@
     <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
             <li class="active"><a href="#mystar" role="tab" data-toggle="tab" onclick="getHistory_mystarDetail(this.id);"> My Star </a></li>
-            <li><a href="#mystar" role="tab" data-toggle="tab" onclick="getHistory_myfanDetail(this.id);"> My Fan </a></li>
+            <li><a role="tab" data-toggle="tab" onclick="getHistory_myfanDetail(this.id);"> My Fan </a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active" id="mystar">

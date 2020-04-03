@@ -13,6 +13,22 @@
     </div>
 </div>
 
+<!-- 팬보드 댓글 보기 -->
+<div class="modal fade" id="fanboardModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 600px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 끝 -->
+
 <div id="imageFullSize_fanboard"></div>
 
 <script>
@@ -32,7 +48,14 @@
         dtList_info_detail.reload();
     }
     function Fanboard(index){
-        modalView(data.roomNo);
+        var data = dtList_info_detail.getDataRow(index);
+        if(data.replyCnt > 0){
+            $('#fanboardModal').modal("show");
+            util.getAjaxData("info", "/rest/member/fanboard/replyList", data, replyList_success, fn_fail);
+        }
+    }
+    function replyList_success(dst_id, response) {
+        dalbitLog(response)
     }
 
     function FullSize_fanboard(url) {     // 이미지 full size
