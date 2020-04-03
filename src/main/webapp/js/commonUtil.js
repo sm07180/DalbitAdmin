@@ -421,4 +421,21 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
 
         $("#" + targetId).html(paging);
     }
+
+
+    $("#"+targetId).find('.handlebarsPaging li.paginate_button').on('click', function(){
+
+        var currentPage = Number($('#list_info_paginate').find('.handlebarsPaging li.paginate_button.active').data('index'));
+
+        var me = $(this);
+        if(me.hasClass('previous')) {
+            pagingInfo.pageNo = currentPage - 1;
+        }else if(me.hasClass('next')){
+            pagingInfo.pageNo = currentPage + 1;
+        }else{
+            pagingInfo.pageNo = $(this).data('index');
+        }
+
+        handlebarsPaging(pagingInfo);
+    });
 }

@@ -125,22 +125,6 @@
         util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
     }
 
-    $(document).on('click', '.handlebarsPaging li.paginate_button', function(){
-
-        var currentPage = Number($('#list_info_paginate').find('.handlebarsPaging li.paginate_button.active').data('index'));
-
-        var me = $(this);
-        if(me.hasClass('previous')) {
-            djRankListPagingInfo.pageNo = currentPage - 1;
-        }else if(me.hasClass('next')){
-            djRankListPagingInfo.pageNo = currentPage + 1;
-        }else{
-            djRankListPagingInfo.pageNo = $(this).data('index');
-        }
-
-        init();
-    });
-
     $('input[name="rankType"]').on('change', function(){
         djRankListPagingInfo.pageNo = 1;
         init();
@@ -151,6 +135,11 @@
         djRankListPagingInfo.pageNo = 1;
         init(rank);
     });
+
+    function handlebarsPaging(pagingInfo){
+        djRankListPagingInfo = pagingInfo;
+        init();
+    }
 
 </script>
 
