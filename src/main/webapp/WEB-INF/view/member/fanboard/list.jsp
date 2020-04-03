@@ -12,6 +12,9 @@
         </div>
     </div>
 </div>
+
+<div id="imageFullSize_fanboard"></div>
+
 <script>
     $(document).ready(function() {
     });
@@ -30,6 +33,11 @@
     }
     function Fanboard(index){
         modalView(data.roomNo);
+    }
+
+    function FullSize_fanboard(url) {     // 이미지 full size
+        $("#imageFullSize_fanboard").html(util.imageFullSize("fanboardFullSize",url));
+        $('#fanboardFullSize').modal('show');
     }
 
 </script>

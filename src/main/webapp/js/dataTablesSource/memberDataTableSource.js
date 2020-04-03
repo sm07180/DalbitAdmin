@@ -170,12 +170,22 @@ var MemberDataTableSource = {
     'fanboardDetail': {
         'url': '/rest/member/fanboard/list'
         , 'columns': [
-            {'title': '프로필이미지', 'data': 'memNo'},
-            {'title': '회원번호', 'data': 'memNo'},
-            {'title': '팬ID', 'data': 'memNo'},
-            {'title': '팬닉네임', 'data': 'memNo'},
-            {'title': '등록일시', 'data': 'memNo'},
-            {'title': '작성내용', 'data': 'memNo'},
+            {'title': '프로필이미지', 'data': 'image_profile', 'render' : function(data, type, row){
+                    return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
+                        'onclick="FullSize_fanboard(this.src)"/>';
+                }},
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': '팬ID', 'data': 'mem_userid'},
+            {'title': '팬닉네임', 'data': 'mem_nick'},
+            {'title': '등록일시', 'data': 'lastUpdDateFormat'},
+            {'title': '작성내용', 'data': 'contents'},
+            {'title': '상태', 'data': 'status', 'render':function(data){
+                    if(data == "1"){
+                        return "정상";
+                    }else{
+                        return "삭제";
+                    }
+                }},
             {'title': '총 댓글 수', 'data': 'memNo', 'render': function (data, type, row, meta) {
                     return data + '<br/><a href="javascript://" onclick="javascript:Fanboard(' + meta.row + ');" data-toggle="modal" data-target="#myModal">' + "[댓글]" + '</a>'
                 }},

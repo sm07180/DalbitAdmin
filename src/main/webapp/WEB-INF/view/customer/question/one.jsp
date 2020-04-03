@@ -10,20 +10,7 @@
 </div>
 
 <!-- 이미지 원본 보기 -->
-<div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <img id="image_full_size" src="#" alt="your image" style="max-width: 1000px;max-height: 1000px;">
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
+<div id="imageFullSize"></div>
 
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
 
@@ -57,8 +44,9 @@
         });
     }
 
-    function fullSize(url) {     // 이미지 full size
-        $("#image_full_size").prop("src", url);
+    function fullSize_add_file(url) {     // 이미지 full size
+        $("#imageFullSize").html(util.imageFullSize("fullSize_add_file",url));
+        $('#fullSize_add_file').modal('show');
     }
 
     function memInfo(memId, memNo){
@@ -149,7 +137,7 @@
 
                         <th>첨부파일</th>
                         <td colspan="3">
-                            <img src="{{renderImage add_file}}" width="auto" height="100px" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src)"/>
+                            <img src="{{renderImage add_file}}" width="auto" height="100px" onclick="fullSize_add_file(this.src)"/>
                         </td>
                     </tr>
 
