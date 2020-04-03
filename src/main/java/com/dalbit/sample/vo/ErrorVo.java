@@ -14,4 +14,6 @@ public class ErrorVo {
     private String ctype;
     private String desc;
     private String upd_date;
+    private String txt_startSel;
+    private String txt_endSel;
 }

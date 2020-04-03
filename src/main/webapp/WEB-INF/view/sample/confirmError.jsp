@@ -12,6 +12,13 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
+                                <div class="input-group date" id="date_startSel">
+                                    <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
+                                </div>
+                                <label>~</label>
+                                <div class="input-group date" id="date_endSel">
+                                    <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
+                                </div>
                                 <span id="osTypeArea"></span>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -68,6 +75,16 @@
 
     function init() {
         $("#osTypeArea").html(util.getCommonCodeSelect(-1, search_osType));
+
+        $('#txt_startSel').datepicker("setDate", new Date());
+        $('#txt_endSel').datepicker("setDate", new Date());
+
+        $('#txt_startSel').datepicker().on('dp.change',function(e){
+            $("#txt_startSel").html($("#txt_startSel").val());
+        });
+        $('#txt_endSel').datepicker().on('dp.change',function(e){
+            $("#txt_endSel").html($("#txt_endSel").val());
+        });
 
         getErrorList();
     }

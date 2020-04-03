@@ -42,12 +42,19 @@
             , `desc`
             , upd_date
         from rd_data.tb_log_error_data
-        where 1=1
-        <if test="ostype != null and ostype != '' ">
-          and ostype = #{ostype}
-        </if>
+        <where>
+            <if test='txt_startSel != null and txt_startSel != ""'>
+                DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00') <![CDATA[<=]]> upd_date
+            </if>
+            <if test='txt_endSel != null and txt_endSel != ""'>
+                and upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
+            </if>
+            <if test="ostype != null and ostype != '' ">
+                and ostype = #{ostype}
+            </if>
+        </where>
         order by idx desc
-        limit 500
+        limit 500;
     </select>
 
 </mapper>
