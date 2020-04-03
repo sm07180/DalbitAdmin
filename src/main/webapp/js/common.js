@@ -188,3 +188,9 @@ common.isEmptyData = function(){
     return COMMON_MESSAGE.isEmptyData;
 }
 
+common.isSmall = function(value, target, opt){
+    console.log(value);
+    console.log(target);
+    return 0 < target - value ? opt.fn(this) : opt.inverse(this);;
+}
+

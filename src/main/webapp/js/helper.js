@@ -143,3 +143,7 @@ Handlebars.registerHelper("viewImage", function(value) {
 Handlebars.registerHelper("isEmptyData", function() {
     return common.isEmptyData();
 });
+
+Handlebars.registerHelper("isSmall", function(value, target, opt) {
+    return common.isSmall(value, target, opt);
+});
