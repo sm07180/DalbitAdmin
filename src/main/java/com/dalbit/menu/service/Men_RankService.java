@@ -44,7 +44,9 @@ public class Men_RankService {
             outVoList.add(new MainDjRankingOutVo(mainDjRankingVoList.get(i)));
         }
         ProcedureOutputVo procedureOutputVo = new ProcedureOutputVo(procedureVo, outVoList);
+        HashMap resultMap = new Gson().fromJson(procedureOutputVo.getExt(), HashMap.class);
         mainDjRankingList.put("list", procedureOutputVo.getOutputBox());
+        mainDjRankingList.put("paging", new PagingVo(DalbitUtil.getIntMap(resultMap, "totalCnt"), DalbitUtil.getIntMap(resultMap, "pageNo"), DalbitUtil.getIntMap(resultMap, "pageCnt")));
 
         String result;
         if(Integer.parseInt(procedureOutputVo.getRet()) > 0) {
@@ -72,6 +74,7 @@ public class Men_RankService {
         ProcedureOutputVo procedureOutputVo = new ProcedureOutputVo(procedureVo, outVoList);
         HashMap resultMap = new Gson().fromJson(procedureOutputVo.getExt(), HashMap.class);
         mainFanRankingList.put("list", procedureOutputVo.getOutputBox());
+        mainFanRankingList.put("paging", new PagingVo(DalbitUtil.getIntMap(resultMap, "totalCnt")));
 
         String result;
         if(Integer.parseInt(procedureOutputVo.getRet()) > 0) {
