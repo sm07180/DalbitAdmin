@@ -15,5 +15,6 @@ public interface Mem_FanboardDao {
 
     ArrayList<P_MemberFanboardOutputVo> callFanboardHistory(P_MemberFanboardInputVo pMemberFanboardInputVo);
     int callFanboardHistory_totalCnt(P_MemberFanboardInputVo pMemberFanboardInputVo);
+    ArrayList<P_MemberFanboardOutputVo> callFanboardReplyList(P_MemberFanboardInputVo pMemberFanboardInputVo);
 
 }

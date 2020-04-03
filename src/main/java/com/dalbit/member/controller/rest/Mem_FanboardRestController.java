@@ -34,4 +34,13 @@ public class Mem_FanboardRestController {
         return mem_FanboardService.getFanboardHistory(pMemberFanboardInputVo);
 
     }
+
+    /**
+     * 회원 팬보드 리플 목록
+     */
+    @PostMapping("replyList")
+    public String replyList(P_MemberFanboardInputVo pMemberFanboardInputVo){
+        return mem_FanboardService.getFanboardReplyList(pMemberFanboardInputVo);
+
+    }
 }

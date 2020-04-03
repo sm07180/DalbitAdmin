@@ -21,14 +21,35 @@
           ,(select mem_sex From rd_data.tb_member_basic where mem_no = a.mem_no) as mem_sex
           ,last_upd_date
           , contents
+          ,(select count(*) as cnt from rd_data.tb_member_fanboard where board_no = a.board_no and depth !='1') replyCnt
           from rd_data.tb_member_fanboard a ,(select @rownum := #{pageNo}) b
          where writer_no = #{mem_no}
+            and depth='1'
          ORDER BY a.last_upd_date DESC
           limit #{pageNo}, #{pageCnt}
     </select>
 
     <select id="callFanboardHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardInputVo" resultType="integer">
         select count(*) totalCnt from rd_data.tb_member_fanboard where writer_no = #{mem_no}
+    </select>
+
+
+    <select id="callFanboardReplyList" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberFanboardOutputVo">
+        SELECT a.idx idx,
+              a.board_no,
+              a.writer_no,
+              b.mem_nick,
+              b.mem_userid,
+              b.mem_sex,
+              ( SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.writer_no ) AS image_profile,
+              a.contents,
+              a.status,
+              a.last_upd_date
+            from
+              ( select idx, board_no, contents, writer_no, status, last_upd_date from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = #{depth} ) AS a LEFT JOIN rd_data.tb_member_basic AS b
+                ON a.writer_no = b.mem_no
+            where a.status = 1
+            order BY a.last_upd_date DESC
     </select>
 
 </mapper>

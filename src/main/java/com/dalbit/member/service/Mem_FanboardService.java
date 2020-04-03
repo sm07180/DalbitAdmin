@@ -39,7 +39,24 @@ public class Mem_FanboardService {
 
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, memberList, new PagingVo(memberList_totalCnt)));
-        log.info(result);
+        return result;
+    }
+
+    public String getFanboardReplyList(P_MemberFanboardInputVo pMemberFanboardInputVo){
+
+//        ProcedureVo procedureVo = new ProcedureVo(pMemberFanboardInputVo);
+//        ArrayList<P_MemberFanboardOutputVo> memberList = mem_FanboardDao.callFanboardReplyList(procedureVo);
+
+//        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+//            result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, memberList)));
+//        }else{
+//            result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기실패));
+//        }
+
+        ArrayList<P_MemberFanboardOutputVo> memberList = mem_FanboardDao.callFanboardReplyList(pMemberFanboardInputVo);
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, memberList));
         return result;
     }
 }

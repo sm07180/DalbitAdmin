@@ -11,7 +11,7 @@ $(document).on('click', '._openPop', function(){
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
     var url = "/member/member/popup/memberPopup?memNo="+$(this).data('memno');
-    util.windowOpen(url, 1500, 800, 'memberInfo');
+    util.windowOpen(url, 1500, 850, 'memberInfo');
 });
 
 /*방송정보보기 팝업*/

@@ -13,9 +13,8 @@
         </div>
     </div>
 </div>
-<div class="tab-pane fade in active" id="declaration_tab">
-    <form id="declarationForm"></form>
-</div>
+
+<form id="declarationForm"></form>
 
 <script>
     $(document).ready(function() {
@@ -98,16 +97,6 @@
 
 </script>
 
-<script id="tmp_declarationFrm" type="text/x-handlebars-template">
-    <div class="row col-lg-12 mt15">
-        <div class="tab-pane fade in active" id="report_tab">
-            {{^equal status '1'}}<button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>{{/equal}}
-            <!-- 상세 -->
-            <%--<div><jsp:include page="../../customer/declaration/report.jsp"/></div>--%>
-        </div>
-    </div>
-</script>
-
 <script id="tmp_declarationSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right">
         <thead>
@@ -127,3 +116,12 @@
         </tbody>
     </table>
 </script>
+
+<script id="tmp_declarationFrm" type="text/x-handlebars-template">
+    <div class="tab-pane fade in active" id="report_tab">
+        {{^equal status '1'}}<button type="button" class="btn btn-default print-btn pull-right mt10" id="bt_declaration">처리완료</button>{{/equal}}
+        <!-- 상세 -->
+        <%--<jsp:include page="../../customer/declaration/report.jsp"/>--%>
+    </div>
+</script>
+
