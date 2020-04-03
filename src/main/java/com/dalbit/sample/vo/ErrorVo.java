@@ -10,6 +10,7 @@ public class ErrorVo {
     private String mem_no;
     private String ostype;
     private String version;
+    private String build;
     private String dtype;
     private String ctype;
     private String desc;

@@ -41,6 +41,7 @@
                             <th>mem_no</th>
                             <th>ostype</th>
                             <th>version</th>
+                            <th>build</th>
                             <th>dtype</th>
                             <th>ctype</th>
                             <th>desc</th>
@@ -80,10 +81,10 @@
         $('#txt_endSel').datepicker("setDate", new Date());
 
         $('#txt_startSel').datepicker().on('dp.change',function(e){
-            $("#txt_startSel").html($("#txt_startSel").val());
+            $(this).html($(this).val());
         });
         $('#txt_endSel').datepicker().on('dp.change',function(e){
-            $("#txt_endSel").html($("#txt_endSel").val());
+            $(this).html($(this).val());
         });
 
         getErrorList();
@@ -121,6 +122,7 @@
         <td>{{mem_no}}</td>
         <td>{{ostype}}</td>
         <td>{{version}}</td>
+        <td>{{build}}</td>
         <td>{{dtype}}</td>
         <td>{{ctype}}</td>
         <td style="text-align:left">{{desc}}</td>

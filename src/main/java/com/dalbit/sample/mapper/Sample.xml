@@ -37,6 +37,7 @@
             , mem_no
             , ostype
             , version
+            , build
             , dtype
             , ctype
             , `desc`
@@ -44,7 +45,7 @@
         from rd_data.tb_log_error_data
         <where>
             <if test='txt_startSel != null and txt_startSel != ""'>
-                DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00') <![CDATA[<=]]> upd_date
+                upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')
             </if>
             <if test='txt_endSel != null and txt_endSel != ""'>
                 and upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
