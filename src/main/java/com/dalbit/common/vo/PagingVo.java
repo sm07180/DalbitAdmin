@@ -17,6 +17,12 @@ public class PagingVo extends BaseVo {
         this.totalCnt = totalCnt;
     }
 
+    public PagingVo(int totalCnt, int pageStart, int pageCnt){
+        this.totalCnt = totalCnt;
+        this.pageStart = pageStart;
+        this.pageCnt = pageCnt;
+    }
+
     /*output*/
     private int totalCnt;
     private String tableColumnName;

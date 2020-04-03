@@ -2,6 +2,7 @@ package com.dalbit.util;
 
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
+import com.dalbit.common.vo.MenuVo;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -658,23 +659,7 @@ public class DalbitUtil {
      * 휴대폰 유효성 체크
      */
     public static boolean isSmsPhoneNoChk(String phoneNo){
-        boolean chk = false;
-        /*if(phoneNo.startsWith("010") || !phoneNo.startsWith("011") || !phoneNo.startsWith("016") || !phoneNo.startsWith("017") || !phoneNo.startsWith("018") || !phoneNo.startsWith("018")){
-            chk = true;
-        }
-
-        if(Pattern.matches("^[\\d]10-11$", phoneNo)){
-            chk = true;
-        }else{
-            chk = false;
-        }
-
-        if(!(phoneNo.length() == 10 || phoneNo.length() == 11)){
-            chk = false;
-        }*/
-
-
-
         return phoneNo.matches("(01[016789])(\\d{3,4})(\\d{4})");
     }
+
 }

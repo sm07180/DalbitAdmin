@@ -4,6 +4,7 @@ import com.dalbit.common.annotation.NoLogging;
 import com.dalbit.common.dao.CommonDao;
 import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.ItemVo;
+import com.dalbit.common.vo.MenuVo;
 import com.dalbit.util.DalbitUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +116,10 @@ public class CommonService {
         }
 
         return result;
+    }
+
+    public List<MenuVo> getMenuInfo(MenuVo menuVo){
+        return commonDao.getMenuInfo(menuVo);
     }
 
 }

@@ -6,4 +6,26 @@
       	call rd_data.sp_code_define_select
     </select>
 
+    <select id="getMenuInfo" parameterType="com.dalbit.common.vo.MenuVo" resultType="com.dalbit.common.vo.MenuVo">
+        <!-- Common.xml - getMenuInfo -->
+        select
+            idx
+            , menu_name
+            , menu_url
+            , depth
+            , order_no
+            , parent_idx
+            , icon
+            , is_pop
+            , is_comming_soon
+            , is_use
+            , reg_date
+            , last_upd_date
+        from rd_admin.tb_admin_menu
+        where 1=1
+            <if test='depth != 0'>
+                and depth = #{depth}
+            </if>
+        order by depth, order_no
+    </select>
 </mapper>

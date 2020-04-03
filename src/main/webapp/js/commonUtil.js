@@ -376,3 +376,49 @@ util.imageFullSize = function(modalId ,url){
         html+= '</div>'
     return html;
 }
+
+util.renderPagingNavigation = function(targetId, pagingInfo){
+
+    if(0 < pagingInfo.totalCnt) {
+        var totalPage;
+        var startPage;
+        var endPage;
+
+        if(pagingInfo.totalCnt < pagingInfo.pageCnt){
+            totalPage = 1;
+        }else if(pagingInfo.totalCnt % pagingInfo.pageCnt == 0){
+            totalPage = Math.floor(pagingInfo.totalCnt / pagingInfo.pageCnt);
+        }else{
+            totalPage = Math.floor(pagingInfo.totalCnt / pagingInfo.pageCnt) + 1;
+        }
+
+        if(totalPage <= 10){
+            startPage = 1;
+            endPage = totalPage;
+        }else{
+            startPage = Math.floor((pagingInfo.pageNo-1) / 10) * 10 + 1;
+            endPage = startPage + 10 - 1;
+            if(totalPage < endPage){
+                endPage = totalPage;
+            }
+        }
+
+        var pagingPrefix = '<ul class="pagination borderless handlebarsPaging">';
+        pagingPrefix += '<li class="paginate_button first '+ (pagingInfo.pageNo == 1 ? 'disabled' : '')+'" aria-controls="list_info" tabindex="0" id="list_info_first" data-index="1"><a href="#">처음</a></li>';
+        pagingPrefix += '<li class="paginate_button previous '+ (pagingInfo.pageNo == 1 ? 'disabled' : '')+'" aria-controls="list_info" tabindex="0" id="list_info_previous"><a href="#">이전</a></li>';
+
+        var pagingContent = '';
+        for (var i = startPage; i <= endPage; i++) {
+            pagingContent += '<li class="paginate_button ' + (i == pagingInfo.pageNo ? 'active' : '') +'" aria-controls="list_info" tabindex="0" data-index="'+i+'"><a href="javascript://">' + i + '</a></li>';
+        }
+
+        var isEndPage = (Math.floor(pagingInfo.totalCnt/pagingInfo.pageCnt)+1);
+        var pagingSurfix = '<li class="paginate_button next '+ (endPage <= 1 || isEndPage == pagingInfo.pageNo ? 'disabled' : '') +'" aria-controls="list_info" tabindex="0" id="list_info_next"><a href="#">다음</a></li>';
+        pagingSurfix += '<li class="paginate_button last '+ (endPage <= 1 || isEndPage == pagingInfo.pageNo ? 'disabled' : '') +'" aria-controls="list_info" tabindex="0" id="list_info_last" data-index="'+ isEndPage +'"><a href="#">마지막</a></li>';
+        pagingSurfix += '</ul>';
+
+        var paging = pagingPrefix + pagingContent + pagingSurfix;
+
+        $("#" + targetId).html(paging);
+    }
+}

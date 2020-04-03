@@ -3,6 +3,7 @@
 <mapper namespace="com.dalbit.common.dao.SmsDao" >
 
     <insert id="sendSms" parameterType="com.dalbit.common.vo.SmsVo" useGeneratedKeys="true" keyProperty="CMID" keyColumn="CMID">
+        <!-- Common.xml - getMenuInfo -->
         <selectKey keyProperty="CMID" resultType="int" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>

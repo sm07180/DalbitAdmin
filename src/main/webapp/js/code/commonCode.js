@@ -1,3 +1,9 @@
+var PAGING_INFO = function(totalCnt, pageNo, pageCnt){
+    this.totalCnt = common.isEmpty(totalCnt) ? 0 : totalCnt;
+    this.pageNo = common.isEmpty(pageNo) ? 1 : pageNo;
+    this.pageCnt = common.isEmpty(pageCnt) ? 10 : pageCnt;
+};
+
 var INFOREX_MENU = function(id, depth, name, url){
     this.id = id;
     this.depth = depth;

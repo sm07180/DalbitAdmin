@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -60,6 +59,32 @@
 
                         <table id="list_info" class="table table-sorting table-hover table-bordered"></table>
                     </div>
+
+
+                    <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate">
+                        <%--<ul class="pagination borderless">
+                            <li class="paginate_button first" aria-controls="list_info" tabindex="0"
+                                id="list_info_first"><a href="#">처음</a></li>
+                            <li class="paginate_button previous" aria-controls="list_info" tabindex="0"
+                                id="list_info_previous"><a href="#">이전</a></li>
+                            <li class="paginate_button active" aria-controls="list_info" tabindex="0"><a href="#">1</a>
+                            </li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">2</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">3</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">4</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">5</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">6</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">7</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">8</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">9</a></li>
+                            <li class="paginate_button " aria-controls="list_info" tabindex="0"><a href="#">10</a></li>
+                            <li class="paginate_button next" aria-controls="list_info" tabindex="0" id="list_info_next">
+                                <a href="#">다음</a></li>
+                            <li class="paginate_button last" aria-controls="list_info" tabindex="0" id="list_info_last">
+                                <a href="#">마지막</a></li>
+                        </ul>--%>
+                    </div>
+
                 </div>
             </div>
             <!-- DATA TABLE END -->
@@ -68,6 +93,7 @@
 </div>
 
 <script type="text/javascript">
+    djRankListPagingInfo = new PAGING_INFO(0, 1, 10);
 
     $(function(){
         init();
@@ -78,7 +104,8 @@
         var rank = common.isEmpty(tabName) ? $('#rankTab li.active a').data('rank') : tabName;
         var data = {
             rankType : $('input[name="rankType"]:checked').val()
-            , records : 100
+            , page : djRankListPagingInfo.pageNo
+            , records : djRankListPagingInfo.pageCnt
         }
         util.getAjaxData(rank, "/rest/menu/rank/"+rank, data, fn_succ_list);
     }
@@ -92,15 +119,36 @@
         var context = response.data;
         var html = templateScript(context);
         $("#list_info").html(html);
+
+        var pagingInfo = response.data.paging;
+        djRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
+        util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
     }
 
+    $(document).on('click', '.handlebarsPaging li.paginate_button', function(){
+
+        var currentPage = Number($('#list_info_paginate').find('.handlebarsPaging li.paginate_button.active').data('index'));
+
+        var me = $(this);
+        if(me.hasClass('previous')) {
+            djRankListPagingInfo.pageNo = currentPage - 1;
+        }else if(me.hasClass('next')){
+            djRankListPagingInfo.pageNo = currentPage + 1;
+        }else{
+            djRankListPagingInfo.pageNo = $(this).data('index');
+        }
+
+        init();
+    });
+
     $('input[name="rankType"]').on('change', function(){
-       init();
+        djRankListPagingInfo.pageNo = 1;
+        init();
     });
 
     $('#rankTab li').on('click', function(){
         var rank = $(this).find('a').data('rank');
-        dalbitLog(rank);
+        djRankListPagingInfo.pageNo = 1;
         init(rank);
     });
 
