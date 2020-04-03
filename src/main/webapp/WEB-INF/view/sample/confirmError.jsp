@@ -12,9 +12,6 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
-                               <%-- <label>
-                                    <input type="text" id="search" id="search" class="form-control">
-                                </label>--%>
                                 <span id="osTypeArea"></span>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -26,7 +23,10 @@
 
             <!-- error log table-->
             <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table"  style="width:3000px; overflow: scroll">
+                <span>
+                    <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                </span>
+                <div class="widget widget-table"  style="width:5000px; overflow: scroll">
                     <div class="widget-content">
                         <table id="errorList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
@@ -43,11 +43,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="widget-footer">
-                        <span>
-                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
-                        </span>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -91,6 +87,13 @@
 
     }
 
+    $("#excelDownBtn").on('click', function() {
+
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+
+        util.excelDownload($(this), "/rest/sample/errorListExcel", formData);
+    });
 
 </script>
 

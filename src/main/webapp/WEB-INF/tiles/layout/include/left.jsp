@@ -50,17 +50,17 @@
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/connect/') ? 'display:block;': ''}">
                         <li class="${url.equals('/connect/login/info') ? 'active': ''}">
-                            <a href="/connect/login/info">
+                            <a href="/connect/login/info" class="_commingSoon">
                                 <i class="fa fa-search"></i><span class="text">로그인 현황</span>
                             </a>
                         </li>
                         <li class="${url.equals('/connect/user/info') ? 'active': ''}">
-                            <a href="/connect/user/info">
+                            <a href="/connect/user/info" class="_commingSoon">
                                 <i class="fa fa-search"></i><span class="text">현재 접속자</span>
                             </a>
                         </li>
                         <li class="${url.equals('/connect/connect/info') ? 'active': ''}">
-                            <a href="/connect/connect/info">
+                            <a href="/connect/connect/info" class="_commingSoon">
                                 <i class="fa fa-search"></i><span class="text">접속현황</span>
                             </a>
                         </li>
@@ -74,17 +74,17 @@
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/미정/') ? 'display:block;': ''}">
                         <li class="${url.equals('/enter/join/info') ? 'active': ''}">
-                            <a href="/enter/join/info">
+                            <a href="/enter/join/info" class="_commingSoon">
                                 <i class="fa fa-search"></i><span class="text">회원가입</span>
                             </a>
                         </li>
                         <li class="${url.equals('/enter/pay/info') ? 'active': ''}">
-                            <a href="/enter/pay/info">
+                            <a href="/enter/pay/info" class="_commingSoon">
                                 <i class="fa fa-search"></i><span class="text">결제/환불</span>
                             </a>
                         </li>
                         <li class="${url.equals('/enter/exchange/info') ? 'active': ''}">
-                            <a href="/enter/exchange/info">
+                            <a href="/enter/exchange/info" class="_commingSoon">
                                 <i class="fa fa-search"></i><span class="text">환전</span>
                             </a>
                         </li>
@@ -99,42 +99,42 @@
                     </a>
                     <ul class="sub-menu">
                         <li class="${url.equals('/status/broadcast/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/broadcast/info">
+                            <a href="/status/broadcast/info" class="_commingSoon">
                                 <i class="fa fa-caret-square-o-down"></i><span class="text">방송</span>
                             </a>
                         </li>
                         <li class="${url.equals('/status/cast/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/cast/info">
+                            <a href="/status/cast/info" class="_commingSoon">
                                 <i class="fa fa-cloud-download"></i></i><span class="text">캐스트</span>
                             </a>
                         </li>
                         <li class="${url.equals('/status/pay/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/pay/info">
+                            <a href="/status/pay/info" class="_commingSoon">
                                 <i class="fa fa-user"></i><span class="text">결제/환전</span>
                             </a>
                         </li>
                         <li class="${url.equals('/status/cancel/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/cancel/info">
+                            <a href="/status/cancel/info" class="_commingSoon">
                                 <i class="fa fa-microphone"></i><span class="text">결제취소/환불</span>
                             </a>
                         </li>
                         <li class="${url.equals('/status/item/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/item/info">
+                            <a href="/status/item/info" class="_commingSoon">
                                 <i class="fa fa-headphones"></i><span class="text">아이템</span>
                             </a>
                         </li>
                         <li class="${url.equals('/status/question/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/question/info">
+                            <a href="/status/question/info" class="_commingSoon">
                                 <i class="fa fa-krw"></i><span class="text">1:1 문의</span>
                             </a>
                         </li>
                         <li class="${url.equals('/status/error/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/error/info">
+                            <a href="/status/error/info" class="_commingSoon">
                                 <i class="fa fa-times"></i><span class="text">시스템장애</span>
                             </a>
                         </li>
                         <li class="${url.equals('/status/event/info') ? 'active': ''} _commingSoon">
-                            <a href="/status/event/info">
+                            <a href="/status/event/info" class="_commingSoon">
                                 <i class="fa fa-suitcase"></i><span class="text">이벤트</span>
                             </a>
                         </li>
@@ -264,20 +264,17 @@
                     </a>
                     <ul class="sub-menu" style="${fn:startsWith(url, '/menu/') ? 'display:block;': ''}">
                         <li class="${fn:contains(url, '/menu/special/list') ? 'active': ''}">
-                            <%--<a href="/menu/special/list">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/menu/special/list" class="_commingSoon">
                                 <i class="fa fa-thumbs-o-up"></i><span class="text">스페셜 DJ</span>
                             </a>
                         </li>
                         <li class="${fn:contains(url, '/menu/rank/djRankList') ? 'active': ''}">
-                            <%--<a href="/menu/rank/djRankList">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/menu/rank/djRankList">
                                 <i class="fa fa-list-alt"></i><span class="text">DJ랭킹/팬랭킹</span>
                             </a>
                         </li>
                         <li class="${fn:contains(url, '/menu/live/list') ? 'active': ''}">
-                            <%--<a href="/menu/live/list">--%>
-                            <a href="javascript://" class="_commingSoon">
+                            <a href="/menu/live/list">
                                 <i class="fa fa-microphone"></i><span class="text">실시간 Live</span>
                             </a>
                         </li>
@@ -344,7 +341,7 @@
                             </a>
                         </li>
                         <li class="${fn:contains(url, '/administrate/authority/list') ? 'active': ''}">
-                            <a href="/administrate/authority/list" class="_commingSoon">
+                            <a href="/administrate/authority/list">
                                 <i class="fa fa-shield"></i><span class="text">어드민 권한관리</span>
                             </a>
                         </li>

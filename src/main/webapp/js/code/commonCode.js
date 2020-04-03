@@ -196,6 +196,23 @@ var question_type = [
     ,new COMMON_CODE('etc','7','기타')
 ];
 
+var broadcastSubjectType = [
+    new COMMON_CODE(null, 'subject_type', '방송주제')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('all', '00', '일상/챗')
+    , new COMMON_CODE('memno', '01', '노래/연주')
+    , new COMMON_CODE('memname', '02', '고민/사연')
+    , new COMMON_CODE('memid', '03', '책/힐링')
+    , new COMMON_CODE('memnick', '04', '연애/오락')
+    , new COMMON_CODE('memphone', '05', 'ASMR')
+    , new COMMON_CODE('memphone', '06', '노래방')
+    , new COMMON_CODE('memphone', '07', '성우')
+    , new COMMON_CODE('memphone', '08', '스터디')
+    , new COMMON_CODE('memphone', '09', '공포')
+    , new COMMON_CODE('memphone', '10', '먹방/요리')
+    , new COMMON_CODE('memphone', '99', '기타')
+]
+
 var timeHour = getTimeHour();
 
 function getTimeHour() {
@@ -223,3 +240,4 @@ function getTimeMinute() {
 
     return timeMinute;
 }
+

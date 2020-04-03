@@ -139,3 +139,15 @@ Handlebars.registerHelper("timeStamp", function(value) {
 Handlebars.registerHelper("replaceEnter", function(value) {
    return common.replaceEnter(value);
 });
+
+Handlebars.registerHelper("viewImage", function(value) {
+    return common.viewImage(value);
+});
+
+Handlebars.registerHelper("isEmptyData", function() {
+    return common.isEmptyData();
+});
+
+Handlebars.registerHelper("isSmall", function(value, target, opt) {
+    return common.isSmall(value, target, opt);
+});

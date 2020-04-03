@@ -448,7 +448,7 @@ public class DalbitUtil {
         try{
             return map.get(key).toString();
         }catch (Exception e){
-            log.error("StringUtil.getStringMap error - key name is [{}]", key);
+            log.debug("StringUtil.getStringMap error - key name is [{}]", key);
             return "";
         }
     }
@@ -457,7 +457,7 @@ public class DalbitUtil {
         try{
             return Integer.valueOf(getStringMap(map, key));
         }catch (Exception e){
-            log.error("StringUtil.getIntMap error - key name is [{}]", key);
+            log.debug("StringUtil.getIntMap error - key name is [{}]", key);
             return 0;
         }
     }
@@ -466,7 +466,7 @@ public class DalbitUtil {
         try{
             return Double.valueOf(getStringMap(map, key));
         }catch (Exception e){
-            log.error("StringUtil.getDoubleMap error - key name is [{}]", key);
+            log.debug("StringUtil.getDoubleMap error - key name is [{}]", key);
             return 0.0;
         }
     }
@@ -475,7 +475,7 @@ public class DalbitUtil {
         try{
             return Boolean.valueOf(getStringMap(map, key));
         }catch (Exception e){
-            log.error("StringUtil.getBooleanMap error - key name is [{}]", key);
+            log.debug("StringUtil.getBooleanMap error - key name is [{}]", key);
             return false;
         }
     }

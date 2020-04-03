@@ -229,11 +229,28 @@ public enum Status {
     푸시등록_성공("0","insert.push.success", "푸시등록 성공 시"),
     푸시등록_요청회원번호미존재("-1","insert.push.not.member", "요청회원번호 미존재 시"),
     푸시등록_디바이스토큰미존재("-2","insert.push.not.token", "디바이스토큰 미존재 시"),
-    푸시등록_에러("C006", "server.error", "푸시등록 실패 시")
+    푸시등록_에러("C006", "server.error", "푸시등록 실패 시"),
 
 
 
+    //---- 여기 밑으로는 API STATUS 복사 --------------
+    //방송리스트
+    방송리스트조회("C001", "broadcast.room.list.select.success", "방송리스트 정보 조회 성공 시"),
+    방송리스트없음("0", "broadcast.room.list.no.success", "방송리스트가 없을 시"),
+    방송리스트_회원아님("-1", "broadcast.room.list.member.number.no", "회원번호가 아닐 시"),
+    방송리스트조회_실패("C006", "broadcast.room.list.select.fail", "방송리스트 정보 조회 실패 시"),
 
+    //메인 DJ 랭킹
+    메인_DJ랭킹조회_성공("C001", "main.dj.ranking.select.success", "DJ 랭킹 조회 성공 시"),
+    메인_DJ랭킹조회_내역없음("0", "main.dj.ranking.no.ranking.success", "랭킹 내역 없을 시"),
+    메인_DJ랭킹조회_요청회원_회원아님("-1", "main.dj.ranking.member.number.error", "요청회원번호가 회원 아닐 시"),
+    메인_DJ랭킹조회_실패("C006", "main.dj.ranking.select.fail", "DJ 랭킹 조회 실패 시"),
+
+    //메인 팬 랭킹
+    메인_팬랭킹조회_성공("C001", "main.fan.ranking.select.success", "팬 랭킹 조회 성공 시"),
+    메인_팬랭킹조회_내역없음("0", "main.fan.ranking.no.ranking.success", "랭킹 내역 없을 시"),
+    메인_팬랭킹조회_요청회원_회원아님("-1", "main.fan.ranking.member.number.error", "요청회원번호가 회원 아닐 시"),
+    메인_팬랭킹조회_실패("C006", "main.fan.ranking.select.fail", "팬 랭킹 조회 실패 시"),
 
     ;
 

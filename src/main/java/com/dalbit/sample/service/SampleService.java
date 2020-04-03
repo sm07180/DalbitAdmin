@@ -1,19 +1,27 @@
 package com.dalbit.sample.service;
 
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.sample.dao.SampleDao;
 import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.sample.vo.SampleVo;
+import com.dalbit.util.DalbitUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
 @Transactional
 public class SampleService {
+
+    @Autowired
+    ExcelService excelService;
 
     @Autowired
     private SampleDao sampleDao;
@@ -36,8 +44,45 @@ public class SampleService {
 
     }
 
+    /**
+     * 에러 데이터 로그 조회
+     */
     public List<ErrorVo> getLogErrorData(ErrorVo errorVo) {
         List<ErrorVo> errorList = sampleDao.getLogErrorData(errorVo);
         return errorList;
+    }
+
+    /**
+     * 에러 데이터 로그 엑셀 출력
+     */
+    public Model getErrorListExcel (ErrorVo errorVo, Model model) {
+        List<ErrorVo> list = sampleDao.getLogErrorData(errorVo);
+
+        String[] headers = {"idx", "mem_no", "ostype", "version", "dtype", "ctype", "desc", "upd_date"};
+        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 20000, 6000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("idx", DalbitUtil.isEmpty(list.get(i).getIdx()) ? "" : list.get(i).getIdx());
+            hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("ostype", DalbitUtil.isEmpty(list.get(i).getOstype()) ? "" : list.get(i).getOstype());
+            hm.put("version", DalbitUtil.isEmpty(list.get(i).getVersion()) ? "" : list.get(i).getVersion());
+            hm.put("dtype", DalbitUtil.isEmpty(list.get(i).getDtype()) ? "" : list.get(i).getDtype());
+            hm.put("ctype", DalbitUtil.isEmpty(list.get(i).getCtype()) ? "" : list.get(i).getCtype());
+            hm.put("desc", DalbitUtil.isEmpty(list.get(i).getDesc()) ? "" : list.get(i).getDesc());
+            hm.put("upd_date", DalbitUtil.isEmpty(list.get(i).getUpd_date()) ? "" : list.get(i).getUpd_date());
+
+            bodies.add(hm.values().toArray());
+        }
+
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("Error log",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "Error log");
+
+        return model;
     }
 }

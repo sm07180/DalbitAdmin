@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequestMapping("menu/rank")
-public class RankController {
+public class Men_RankController {
 
     @RequestMapping("djRankList")
     public String djRankList(){
-        return "menu/rank/djRankList";
+        return "menu/rank/rankList";
     }
 
     @RequestMapping("fanRankList")
