@@ -264,6 +264,29 @@ util.getCommonCodeCheck = function(code, targetCode, isExcludeAllYn, name) {
     }
 },
 
+util.getCommonCodeHorizontalCheck = function(code, targetCode, isExcludeAllYn, name) {
+    targetCode = eval(targetCode);
+    if (!common.isEmpty(targetCode)) {
+
+        var header = targetCode[0];
+        var html = '';
+        var checkName = common.isEmpty(name) ? header.value : name;
+        targetCode.forEach(function (value) {
+            if (!common.isEmpty(value.type)) {
+
+                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                    return;
+                }
+                html += '<label class="control-inline fancy-checkbox custom-color-green">';
+                html += '<input type="checkbox" value="' + value.code + '" id="' + checkName + value.value + '" name="' + checkName + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
+                html += '<span><i></i>' + value.code + '</span>'
+                html += '</label>';
+            }
+        });
+        return html;
+    }
+},
+
 util.getOnOffSwitch = function(data) {
     var html = '<div class="onoffswitch">';
     html += '<input type="checkbox" name="viewOn" id="detail_viewOn" class="onoffswitch-checkbox" ' + (data == 1 ? 'checked="checked"': '') +'>';

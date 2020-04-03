@@ -7,6 +7,7 @@ import com.dalbit.content.service.EventService;
 import com.dalbit.content.service.ItemService;
 import com.dalbit.content.vo.ItemVo;
 import com.dalbit.content.vo.ItemVo;
+import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ import java.util.Date;
 public class ItemRestController {
 
     @Autowired
-    ItemService service;
+    ItemService itemService;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -33,41 +34,50 @@ public class ItemRestController {
     /**
      * 충전 아이템
      */
-    @PostMapping("charge")
-    public String chargeList(HttpServletRequest request, ItemVo itemVo) {
-        int totalCnt = 100;
-        int startIdx = itemVo.getPageStart();
-
-        ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < itemVo.getPageCnt(); i++){
-            ItemVo data = new ItemVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setItem_col1(DalbitUtil.randomValue("number", 1));
-            data.setItem_col2(DalbitUtil.randomValue("number", 1));
-            data.setItem_col3("충전 아이템_" + data.getItem_col1());
-            data.setItem_col4(new Date());
-            data.setItem_col5(DalbitUtil.randomValue("number", 1));
-            data.setItem_col6(new Date());
-            data.setItem_col7("YOOSIN");
-
-            list.add(data);
-            startIdx++;
-        }
-
-        ArrayList<ItemVo> summaryList = new ArrayList<ItemVo>();
-
-        ItemVo data = new ItemVo();
-        data.setRowNum((totalCnt - startIdx));
-        data.setItem_col1(DalbitUtil.randomValue("number", 1));
-        data.setItem_col2(DalbitUtil.randomValue("number", 1));
-        data.setItem_col3(DalbitUtil.randomValue("number", 1));
-        data.setItem_col5(DalbitUtil.randomValue("number", 1));
-        data.setItem_col7(DalbitUtil.randomValue("number", 1));
-
-        summaryList.add(data);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt), summaryList));
+    @PostMapping("charge/list")
+    public String chargeList(P_itemChargeListInputVo pItemChargeListInputVo) {
+        String result = itemService.callContentsChargeItemList(pItemChargeListInputVo);
+        return result;
     }
+
+    /**
+     * 충전 아이템 상세
+     */
+    @PostMapping("charge/detail")
+    public String chargeDetail(P_itemChargeDetailInputVo pItemChargeDetailInputVo) {
+        String result = itemService.callContentsChargeItemDetail(pItemChargeDetailInputVo);
+        return result;
+    }
+
+    /**
+     * 충전 아이템 등록
+     */
+    @PostMapping("charge/insert")
+    public String chargeInsert(P_itemChargeInsertVo pItemChargeInsertVo) {
+        String result = itemService.callContentsChargeItemAdd(pItemChargeInsertVo);
+        return result;
+    }
+
+    /**
+     * 충전 아이템 수정
+     */
+    @PostMapping("charge/update")
+    public String chargeUpdate(P_itemChargeUpdateVo pItemChargeUpdateVo) {
+        String result = itemService.callContentsChargeItemEdit(pItemChargeUpdateVo);
+        return result;
+    }
+
+    /**
+     * 충전 아이템 삭제
+     */
+    @PostMapping("charge/delete")
+    public String chargeDelete(P_itemChargeDeleteVo pItemChargeDeleteVo) {
+        String result = itemService.callContentsChargeItemDelete(pItemChargeDeleteVo);
+        return result;
+    }
+
+
+
 
 
     /**
@@ -114,41 +124,10 @@ public class ItemRestController {
      * 선물 아이템
      */
     @PostMapping("gift")
-    public String giftList(HttpServletRequest request, ItemVo itemVo) {
-        int totalCnt = 100;
-        int startIdx = itemVo.getPageStart();
-
-        ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < itemVo.getPageCnt(); i++){
-            ItemVo data = new ItemVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setItem_col1(DalbitUtil.randomValue("number", 1));
-            data.setItem_col2(DalbitUtil.randomValue("number", 1));
-            data.setItem_col3("선물 아이템_" + data.getItem_col1());
-            data.setItem_col4(new Date());
-            data.setItem_col5(DalbitUtil.randomValue("number", 1));
-            data.setItem_col6(new Date());
-            data.setItem_col7("YOOSIN");
-
-            list.add(data);
-            startIdx++;
-        }
-
-        ArrayList<ItemVo> summaryList = new ArrayList<ItemVo>();
-
-        ItemVo data = new ItemVo();
-        data.setRowNum((totalCnt - startIdx));
-        data.setItem_col1(DalbitUtil.randomValue("number", 1));
-        data.setItem_col2(DalbitUtil.randomValue("number", 1));
-        data.setItem_col3(DalbitUtil.randomValue("number", 1));
-        data.setItem_col5(DalbitUtil.randomValue("number", 1));
-        data.setItem_col7(DalbitUtil.randomValue("number", 1));
-
-        summaryList.add(data);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt), summaryList));
+    public String giftList(P_itemGiftListInputVo pItemGiftListInputVo) {
+            String result = itemService.callServiceCenterItemGiftList(pItemGiftListInputVo);
+            return result;
     }
-
 
     /**
      * 구독 아이템

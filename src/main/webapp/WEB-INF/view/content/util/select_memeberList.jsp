@@ -102,6 +102,18 @@
 
     }
     function getModalUserInfo() {                 // 검색
+        var inputText = $("#"+targetId).find('#txt_search').val();
+
+        if(common.isEmpty(inputText)){
+            alert("검색어(2자 이상)를 입력하여 주시기 바랍니다.");
+            return false;
+        }
+
+        if(inputText.length < 2){
+            alert("검색어는 최소 2자 이상 입력하여 주셔야 합니다.");
+            return false;
+        }
+
         dtList_modal_info_detail.reload();
     }
     function bt_x(){

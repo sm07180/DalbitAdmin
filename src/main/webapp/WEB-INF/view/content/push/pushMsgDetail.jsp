@@ -347,7 +347,7 @@
                 <td colspan="3">{{{getCommonCodeRadio 0 'push_snedStatus'}}}</td>
 
                 <th>노출 OS구분</th>
-                <%--<td colspan="5">{{{getCommonCodeRadio -1 'push_osType'}}}</td>--%>
+                <%--<td colspan="5">{{{getCommonCodeRadio -1 'push_platform'}}}</td>--%>
                 <td colspan="5">
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="-1" checked="true"><span>전체</span> </label>
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="1" checked="true"><span>PC</span></label>

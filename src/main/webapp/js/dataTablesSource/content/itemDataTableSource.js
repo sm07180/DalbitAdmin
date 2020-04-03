@@ -1,62 +1,110 @@
 var ItemDataTableSource = {
     'charge': {
-        'url': '/rest/content/item/charge'
+        'url': '/rest/content/item/charge/list'
 
         , 'columns': [
-            {'title': '플랫폼', 'data': 'event_col1', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 코드에 맞게 변경 필요
+            {'title': '플랫폼', 'data': 'platform', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+                    var arrCode = data.split("");
+                    if(arrCode.length < 3){
+                        return data;
+                    }
+    
+                    var result = "";
+                    if(arrCode[0] == "1"){
+                        result += "/ PC(WEB) "
+                    }
+    
+                    if(arrCode[1] == "1"){
+                        result += "/ Mobile-Android "
+                    }
+    
+                    if(arrCode[2] == "1"){
+                        result += "/ Mobile-IOS "
+                    }
+    
+                    if(!common.isEmpty(result)){
+                        result = result.substring(1);
+                    }
+    
+                    return result;
+
+            }},
+            {'title': '코드', 'data': 'item_code', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+                    return data;
+
+            }},
+            {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+                    if(common.isEmpty(data)){
+                        return "";
+                    }
+
+                    // return '<img src="'+data+'?45x45" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+                    return '<img src="' + IMAGE_SERVER_URL + data + '?45x45" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+
+            }},
+            {'title': '아이템 명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                 return data;
 
             }},
-            {'title': '코드', 'data': 'item_col2', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 코드에 맞게 변경 필요
-                return data;
+            {'title': '타입', 'data': 'item_type', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    var arrCode = data.split("");
+                    if(arrCode.length < 3){
+                        return data;
+                    }
 
-            }},
-            {'title': '이미지', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 썸네일 표시
-                return '<img src="https://devphoto2.dalbitlive.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+                    var result = "";
+                    if(arrCode[0] == "1"){
+                        result += "/ 신규 "
+                    }
 
-            }},
-            {'title': '아이템 명', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                return data;
+                    if(arrCode[1] == "1"){
+                        result += "/ 인기 "
+                    }
 
+                    if(arrCode[2] == "1"){
+                        result += "/ 한정 "
+                    }
+
+                    if(!common.isEmpty(result)){
+                        result = result.substring(1);
+                    }
+
+                    return result;
             }},
-            {'title': '타입', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
+            {'title': '수량', 'data': 'dal', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
             }},
-            {'title': '수량', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
+            {'title': '가격', 'data': 'item_price', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
             }},
-            {'title': '가격', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
+            {'title': 'IOS 가격', 'data': 'item_price_ios', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
             }},
-            {'title': 'IOS 가격', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
-                    return data;
-            }},
-            {'title': '할인율', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '할인율', 'data': 'discount_rate', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data + "%";
             }},
-            {'title': '설명', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '설명', 'data': 'desc', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
             }},
-            {'title': '게시상태', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    return data;
+            {'title': '게시상태', 'data': 'view_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    if(data == "1"){
+                        return "ON";
+                    }
+
+                    if(data == "2"){
+                        return "OFF";
+                    }
             }},
-            {'title': '등록/수정일', 'data': 'item_col5', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 일자에 맞게 변경 필요
-                return common.convertToDate(data) + " ~ " + common.convertToDate(data);
-                //     return data;
+            {'title': '등록/수정일', 'data': 'lastUpdDate', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                return common.convertToDate(data);
 
             }},
-            {'title': '구매', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    return data + "명";
+            {'title': '구매', 'data': 'purchase_count', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return data;
             }},
-            {'title': '등록자명', 'data': 'item_col14', 'defaultContent': '장근원'}
+            {'title': '등록자명', 'data': 'op_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return data;
+            }}
         ]
         , 'comments': '<div>• 스토어 페이지에서 구매 또는 선물할 수 있는 아이템을 등록 및 관리하는 페이지입니다.</div>'
     },

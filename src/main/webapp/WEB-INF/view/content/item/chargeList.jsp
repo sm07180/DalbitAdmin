@@ -67,10 +67,10 @@ var fnc_chargeList = {
             data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge);
+        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
-        this.dtList_info.setEventClick(this.updateData,5);
+        this.dtList_info.setEventClick(this.updateData);
         this.dtList_info.createDataTable(this.initSummary);
         this.initDataTableButton();
         //---------- Main DataTable ----------=
@@ -118,7 +118,7 @@ var fnc_chargeList = {
     // 등록
     insertEvent() {
         //등록을 위한 데이터 초기화
-        setSelectDataInfo(null, null);
+        initSelectDataInfo();
 
         $("#tab_chargeDetail").click();
     },
@@ -141,27 +141,8 @@ var fnc_chargeList = {
 
     // 수정
     updateData(data) {
-        var dataInfo = {
-            chargeIdx: data.rowNum
-            ,column02: data.item_col3
-            ,column03: data.item_col14
-            ,column04: "제목"
-            ,column05: data.item_col1
-            ,column06: data.item_col1
-            ,column07: data.item_col1
-            ,column08: data.item_col1
-            ,column09: data.item_col1
-            ,column10: data.item_col2
-            ,column11: "0"
-            ,column12: "2020-03-04"
-            ,column13: "00"
-            ,column14: "00"
-            ,column15: ""
-            ,column16: data.item_col6
-        }
-
         // 정보전달을 위한 값 셋팅
-        setSelectDataInfo(data.rowNum, dataInfo);
+        setSelectDataInfo("data", data);
 
         var selectTabId = "chargeDetail";
         if($("#contentTap").find(".active").length != 0){

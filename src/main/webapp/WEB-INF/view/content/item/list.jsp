@@ -75,7 +75,7 @@
     function init() {
         //검색조건 불러오기
         $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn));
-        $("#search_osType_aria").html(util.getCommonCodeSelect(-1, push_osType));
+        $("#search_osType_aria").html(util.getCommonCodeSelect(-1, push_platform));
         $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, item_searchType));
     }
 
@@ -176,22 +176,24 @@
         // }
         /*----------- 엑셀 ---------=*/
 
-    var dataKey = "";
-    var dataInfo = "";
+    var choiceDataInfo = null;
+    function initSelectDataInfo() {
+        choiceDataInfo = {};
+    }
+
     function setSelectDataInfo(key, data){
-        dataKey = key;
-        dataInfo = data;
+        if(common.isEmpty(choiceDataInfo)){
+            initSelectDataInfo();
+        }
+        choiceDataInfo[key] = data;
     }
 
     function getSelectDataInfo() {
-        if(common.isEmpty(dataKey) && common.isEmpty(dataInfo)){
+        if(common.isEmpty(choiceDataInfo) || jQuery.isEmptyObject(choiceDataInfo)){
             return null;
         }
 
-        return {
-            "dataKey" : dataKey
-            ,"data" : dataInfo
-        }
+        return choiceDataInfo;
     }
 
     function getImg(targetName) {

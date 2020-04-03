@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.ItemDao" >
+
+    <select id="callContentsChargeItemList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_itemChargeListOutputVo">
+          call rd_admin.sp_admin_contents_charge_item_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsChargeItemDetail" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_itemChargeDetailOutputVo">
+          call rd_admin.sp_admin_contents_charge_item_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsChargeItemAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+          call rd_admin.sp_admin_contents_charge_item_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsChargeItemEdit" statementType="CALLABLE"  parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+          call rd_admin.sp_admin_contents_charge_item_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsChargeItemDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+          call rd_admin.sp_admin_contents_charge_item_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+
+
+
+
+
+    <!-- 충전 아이템 -->
+    <sql id="giftSelect">
+            SELECT
+                item_code			AS 	itemCode
+                ,item_name			AS 	itemName
+                ,item_image			AS 	itemImage
+                ,item_thumbnail		AS 	itemThumbnail
+                ,item_price			AS 	itemPrice
+                ,item_price_ios		AS 	itemPriceIos
+                ,item_type			AS 	itemType
+                ,discount_rate		AS 	discountRate
+                ,sale_price			AS 	salePrice
+                ,dal				AS 	dal
+                ,platform			AS 	platform
+                ,`desc`				AS 	'desc'
+                ,view_yn			AS 	viewYn
+                ,main_yn			AS 	mainYn
+                ,purchase_count		AS 	purchaseCount
+                ,op_name			AS 	opName
+                ,reg_date			AS 	regDate
+                ,last_upd_date		AS 	lastUpdDate
+            FROM
+                rd_data.tbl_charge_item
+    </sql>
+
+    <select id="callServiceCenterItemGiftList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_itemGiftListOutputVo">
+        select
+        @rownum := @rownum + 1 as rowNum,
+        a.*
+        FROM
+        (
+        <include refid="giftSelect"/>
+        <where>
+            <if test='viewYn != null and viewYn != ""'>
+                AND view_yn = #{viewYn}
+            </if>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND item_name like #{searchText}
+                    </when>
+                    <when test='searchType == 2'>
+                        AND item_code like #{searchText}
+                    </when>
+                    <otherwise>
+                        AND (item_name like #{searchText} OR item_code like #{searchText})
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+        ) AS a,
+        (select @rownum := #{pageStart}) AS b
+        <trim prefix="ORDER BY">
+            <choose>
+                <when test="orderColumn == 'test'">
+                    <if test="orderDir == 'desc'">  a.test desc, </if>
+                    <if test="orderDir == 'asc'">  a.test asc, </if>
+                </when>
+            </choose>
+            a.last_upd_date desc
+        </trim>
+        limit  #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="callServiceCenterItemGiftListDetail" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_noticeDetailOutputVo">
+    </select>
+
+    <select id="callServiceCenterItemGiftAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+    </select>
+
+    <select id="callServiceCenterItemGiftUpdate" statementType="CALLABLE"  parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+    </select>
+
+    <select id="callServiceCenterItemGiftDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+    </select>
+    
+    
+    
+</mapper>

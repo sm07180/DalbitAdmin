@@ -48,7 +48,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         lengthMenu : [ [ 5, 10, 20, 30, 40 ], [ 5, 10, 20, 30, 40 ] ],                  // "bLengthChange" 리스트 항목을 구성할 옵션
         bAutoWidth: false,                                                            // 자동 Width 계산 여부
         processing: false,                                                              // Process 바 출력 여부
-        ordering: true,                                                                 // 정렬 사용 여부
+        ordering: false,                                                                 // 정렬 사용 여부
         serverSide: true,                                                             // 서버에서 정렬한 데이터 그대로 사용할지 여부 (false : 서버에서 정렬한 데이터도 client에서 다시 재정렬)
         searching: false,                                                               // 서칭 기능 사용 여부
         pagingType: "full_numbers",

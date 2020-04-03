@@ -144,22 +144,17 @@
         // }
         /*----------- 엑셀 ---------=*/
 
-    var dataKey = "";
-    var dataInfo = "";
+    var choiceDataInfo = {};
     function setSelectDataInfo(key, data){
-        dataKey = key;
-        dataInfo = data;
+        choiceDataInfo[key] = data;
     }
 
     function getSelectDataInfo() {
-        if(common.isEmpty(dataKey) && common.isEmpty(dataInfo)){
+        if(common.isEmpty(choiceDataInfo)){
             return null;
         }
 
-        return {
-            "dataKey" : dataKey
-            ,"data" : dataInfo
-        }
+        return choiceDataInfo;
     }
 
     function getImg(targetName) {

@@ -16,7 +16,7 @@
 
 
     var fnc_chargeDetail = {
-//=------------------------------ Init / Event--------------------------------------------
+//=------------------------------ Init / Event / UI--------------------------------------------
         "targetId": "chargeDetail",
         "formId" : "chargeDetailForm",
 
@@ -29,10 +29,11 @@
                 fnc_chargeDetail.insertEventDetail();
             }else{
                 console.log(getSelectDataInfo());
-                this.dataKey = getSelectDataInfo().dataKey;
-                this.data = getSelectDataInfo().data;
 
-                fnc_chargeDetail.updateEventDetail();
+                var data = new Object();
+                data.item_code = getSelectDataInfo().data.item_code;
+
+                util.getAjaxData(fnc_chargeDetail.targetId, "/rest/content/item/charge/detail",data, fnc_chargeDetail.fn_detail_success, fnc_chargeDetail.fn_fail);
             }
 
             // this.initDetail();
@@ -73,14 +74,12 @@
             // 캘린더 기능추가
             this.target.find("#event-div-period").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
                 function(start, end, t1) {
-                    console.log(t1);
                     this.target.find("#event-div-period").find("#startDate").val(start.format('YYYY.MM.DD'));
                     this.target.find("#event-div-period").find("#endDate").val(end.format('YYYY.MM.DD'));
                 }
             );
             this.target.find("#event-div-exposure").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
                 function(start, end, t1) {
-                    console.log(t1);
                     this.target.find("#event-div-exposure").find("#startDate").val(start.format('YYYY.MM.DD'));
                     this.target.find("#event-div-exposure").find("#endDate").val(end.format('YYYY.MM.DD'));
                 }
@@ -115,35 +114,61 @@
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
-                if(this.isValid()){
-                    //TODO 완료처리 필요
-                    this.getEventDetailData();
+                var data = fnc_chargeDetail.getDetailData();
+
+                if(!fnc_chargeDetail.isValid(data)){
+                    return false;
                 }
+
+                util.getAjaxData("insert", "/rest/content/item/charge/insert", data, fnc_chargeDetail.fn_insert_success, fnc_chargeDetail.fn_fail);
             })
 
 
             // 수정 버튼
-            this.target.find("#insertBtn").on("click", function () {
-                if(this.isValid()){
-                    //TODO 완료처리 필요
-                    this.getEventDetailData();
+            this.target.find("#updateBtn").on("click", function () {
+                var data = fnc_chargeDetail.getDetailData();
+
+                if(!fnc_chargeDetail.isValid(data)){
+                    return false;
                 }
+
+                util.getAjaxData("upldate", "/rest/content/item/charge/update", data, fnc_chargeDetail.fn_update_success, fnc_chargeDetail.fn_fail);
             })
         },
 
 
+        //수정 데이터 조회 후 UI 처리
+        initUpdateUI(){
+            var detailData = getSelectDataInfo().detailData;
 
-//=------------------------------ Option --------------------------------------------
+            console.log(detailData);
+
+            //platform
+            var platformCode = detailData.platform.split("");
+            for(var i = 0; i < platformCode.length; i++){
+                if(platformCode[i] == "1"){
+                    fnc_chargeDetail.target.find("#platform"+(i+1)).attr("checked", true);
+                }
+            }
+
+
+            //item_type
+            var item_typeCode = detailData.item_type.split("");
+            for(var i = 0; i < item_typeCode.length; i++){
+                if(item_typeCode[i] == "1"){
+                    fnc_chargeDetail.target.find("#item_type"+(i+1)).attr("checked", true);
+                }
+            }
+
+
+        },
+
 
         // 등록 화면
         insertEventDetail() {
-            console.log(this)
             var template = $('#tmp_chargeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             this.target.find("#"+this.formId).html(templateScript);
-
-            console.log(this.target.find("#"+this.formId))
-            console.log(templateScript)
 
             this.initDetail();
             this.initEventDetail();
@@ -151,41 +176,66 @@
 
 
         // 수정 화면
-        updateEventDetail(json){
-            if(common.isEmpty(getSelectDataInfo())){
-                alert("[ERROR] SelectDataInfo 전달 실패!")
-                console.log("[ERROR] SelectDataInfo 전달 실패! =-----")
-                console.log(getSelectDataInfo());
-                console.log("[ERROR] SelectDataInfo 전달 실패! -----=")
-                return false;
-            }
-
-            var dataKey = getSelectDataInfo().dataKey;
-            var data = getSelectDataInfo().data;
+        updateEventDetail(){
+            var detailData = getSelectDataInfo().detailData;
+            detailData.rowNum = getSelectDataInfo().data.rowNum;
+            dalbitLog(detailData);
 
 
-            dalbitLog(data);
             // form 띄우기
             var template = $('#tmp_chargeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
-            var context = data;
+            var context = detailData;
             var html = templateScript(context);
-            this.target.find("#"+ this.formId).html(html);
+            fnc_chargeDetail.target.find("#"+ fnc_chargeDetail.formId).html(html);
 
-            this.initDetail();
-            this.initEventDetail();
+            fnc_chargeDetail.initDetail();
+            fnc_chargeDetail.initEventDetail();
+            fnc_chargeDetail.initUpdateUI();
+        },
 
-            //TODO 데이터 셋팅 후 이벤트 처리 필요
-            //TODO 수신대상 그려야 함.
+//=------------------------------ Option --------------------------------------------
+
+        // 상세 목록 조회 성공 시
+        fn_detail_success(dst_id, data, dst_params){
+            setSelectDataInfo("detailData", data.data);
+
+            fnc_chargeDetail.updateEventDetail();
         },
 
 
+        // 등록 성공 시
+        fn_insert_success(dst_id, data, dst_params){
+            alert(data.message);
+
+            //상단 이동
+            $('html').animate({scrollTop : 0}, 100);
+            $("#"+fnc_chargeDetail.formId).empty();
+        },
+
+
+        // 수정 성공 시
+        fn_update_success(dst_id, data, dst_params){
+            alert(data.message);
+
+            //상단 이동
+            $('html').animate({scrollTop : 0}, 100);
+            $("#"+fnc_chargeDetail.formId).empty();
+        },
+
+
+        // Ajax 실패
+        fn_fail(data, textStatus, jqXHR){
+            alert(data.message);
+
+            console.log(data, textStatus, jqXHR);
+        },
 
 
 //=------------------------------ Data Handler ----------------------------------
 
         // 데이터 가져오기
-        getEventDetailData(){
+        getDetailData(){
             var resultJson ={};
 
             var formArray = this.target.find("#" + this.formId).serializeArray();
@@ -193,25 +243,78 @@
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
 
-            //Date 처리이이이~~~
-            var periodStartDiv = this.target.find("#event-div-period").find("#event-div-startDate");
-            resultJson['periodStartDate'] = periodStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
-            var periodEndDiv = this.target.find("#event-div-period").find("#event-div-endDate");
-            resultJson['periodEndDate'] = periodEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
+            //platform
+            var platformCnt = fnc_chargeDetail.target.find("input[name=platform]").length;
+            var platform = "";
+            for(var i = 0; i < platformCnt; i++){
+                if(fnc_chargeDetail.target.find("#platform"+(i+1)).is(":checked")){
+                    platform += "1";
+                }else{
+                    platform += "0";
+                }
+            }
+            resultJson['platform'] = platform;
 
-            var exposureStartDiv = this.target.find("#event-div-exposure").find("#event-div-startDate");
-            resultJson['exposureStartDate'] = exposureStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
-            var exposureEndDiv = this.target.find("#event-div-exposure").find("#event-div-endDate");
-            resultJson['exposureEndDate'] = exposureEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
+            //item_type
+            var item_typeCnt = fnc_chargeDetail.target.find("input[name=item_type]").length;
+            var item_type = "";
+            for(var i = 0; i < item_typeCnt; i++){
+                if(fnc_chargeDetail.target.find("#item_type"+(i+1)).is(":checked")){
+                    item_type += "1";
+                }else{
+                    item_type += "0";
+                }
+            }
+            resultJson['item_type'] = item_type;
 
-            dalbitLog(resultJson)
-            return resultJson
+            //discount_rate
+            var discount_rate = fnc_chargeDetail.target.find("input[name=discount_rate]:checked");
+            if(discount_rate.val() == "-1"){
+                resultJson['discount_rate'] = fnc_chargeDetail.target.find("#inputDiscountEtc").val();
+            }
+
+
+            //item_price_ios TODO 알아봐야함...
+            resultJson['item_price_ios'] = 0;
+
+            dalbitLog(resultJson);
+            return resultJson;
         },
 
 
-        isValid(){
+        isValid(data){
+            if(common.isEmpty(data.item_code)){
+                alert("아이템 코드를 입력하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=item_code]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.item_name)){
+                alert("아이템 명을 입력하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=item_name]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.dal)){
+                alert("지급 수량(달)을 입력하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=dal]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.item_price)){
+                alert("아이템 가격을 입력하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=item_price]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.discount_rate) || (data.discount_rate < 0 || data.discount_rate > 100)){
+                alert("아이템 할인율을 확인하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=discount_rate]").focus();
+                return false;
+            }
+
             return true;
-        }
+        },
 
     }
 //=------------------------------ Modal ----------------------------------
@@ -224,7 +327,7 @@
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_chargeDetailFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="chargeIdx" value="{{chargeIdx}}" />
+    <input type="hidden" name="item_code" value="{{item_code}}" />
     <div class="row col-lg-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
@@ -233,8 +336,8 @@
                 • 각 서비스 내 적용사항만 입력하세요.
             </div>
             <div class="pull-right">
-                {{^chargeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/chargeIdx}}
-                {{#chargeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/chargeIdx}}
+                {{^item_code}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/item_code}}
+                {{#item_code}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/item_code}}
             </div>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -255,31 +358,33 @@
             <tbody>
                 <tr class="align-middle">
                     <th rowspan="2">No</th>
-                    <td rowspan="2">{{chargeIdx}}</td>
+                    <td rowspan="2">{{rowNum}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeCheck -1 'content_platform3' 'Y'}}}</td>
+                    <td colspan="2" rowspan="2">{{{getCommonCodeHorizontalCheck -1 'content_platform2' 'Y' 'platform'}}}</td>
 
                     <th rowspan="2">아이템 코드</th>
-                    <td colspan="3" rowspan="2"></td>
+                    <td colspan="3" rowspan="2">
+                        <input type="text" class="form-control" id="charge-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." value="{{item_code}}">
+                    </td>
 
                     <th>등록/수정자</th>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{opName}}</td>
                 </tr>
                 <tr>
                     <th>등록/수정일시</th>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{lastUpdDate}}</td>
                 </tr>
                 <tr>
                     <th>아이템명</th>
                     <td colspan="3">
-                        <input type="text" class="form-control" id="charge-itemNm" name="chargeItemNm" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{column02}}">
+                        <input type="text" class="form-control" id="charge-item_name" name="item_name" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{item_name}}">
                     </td>
 
                     <th>지급 수량 (달)</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-paymentQuantity" name="chargePaymentQuantity" placeholder="지급될 달 수량." value="{{column02}}" style="width: 70%;">
+                            <input type="text" class="form-control" id="charge-dal" name="dal" placeholder="지급될 달 수량." value="{{dal}}" style="width: 70%;">
                             <span>(달)</span>
                         </div>
                     </td>
@@ -287,47 +392,50 @@
                     <th>가격</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-price" name="chargePrice" placeholder="아이템 구매 가격." value="{{column02}}" style="width: 70%;">
+                            <input type="text" class="form-control" id="charge-item_price" name="item_price" placeholder="아이템 구매 가격." value="{{item_price}}" style="width: 70%;">
                             <span>(원)</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th>할인율</th>
-                    <td colspan="3">{{{getCommonCodeRadio -1 'item_discount'}}}</td>
-
+                    <td colspan="11">{{{getCommonCodeRadio discount_rate 'item_discount'}}}</td>
+                </tr>
                     <th>타입</th>
-                    <td colspan="3">{{{getCommonCodeCheck 1 'item_itemType'}}}</td>
+                    <td colspan="5">{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
 
                     <th>게시여부</th>
-                    <td colspan="3">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
+                    <td colspan="2">{{{getCommonCodeRadio view_yn 'content_viewOn' 'N' 'view_yn'}}}</td>
+
+                    <th>메인노출</th>
+                    <td colspan="2">{{{getCommonCodeRadio main_yn 'content_viewOn' 'N' 'main_yn'}}}</td>
                 </tr>
                 <tr>
                     <th>아이템 이미지</th>
                     <td colspan="5">
-                        <input type="text" id="charge-itemImg" name="chargeItemImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('chargeItemImg')">
+                        <input type="text" id="charge-item_image" name="item_image" style="width:70%" value="{{item_image}}" >
+                        <input type="button" value="미리보기" onclick="getImg('item_image')">
                     </td>
 
                     <th>썸네일 (공통)</th>
                     <td colspan="4">
-                        <input type="text" id="charge-thumbImg" name="chargeThumbImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('chargeThumbImg')">
+                        <input type="text" id="charge-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}" >
+                        <input type="button" value="미리보기" onclick="getImg('item_thumbnail')">
                     </td>
                     <td colspan="1">
                         <!--미리보기-->
-                        <img id="chargeThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <img id="item_thumbnailViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
                         <!--미리보기-->
-                        <img id="chargeItemImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <img id="item_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
                     </td>
 
                     <th>상품상세 설명</th>
                     <td colspan="5">
-                        <textarea class="form-control" name="chargeNote" id="charge-note" rows="5" cols="30" placeholder="아이템 상세 내용을 입력하여 주시기 바랍니다." style="resize: none" maxlength="200"></textarea>
+                        <textarea class="form-control" name="desc" id="charge-desc" rows="5" cols="30" placeholder="아이템 상세 내용을 입력하여 주시기 바랍니다." style="resize: none" maxlength="200">{{desc}}</textarea>
                     </td>
                 </tr>
             </tbody>

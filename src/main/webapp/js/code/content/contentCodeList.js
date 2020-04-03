@@ -33,8 +33,8 @@ var push_snedStatus = [
     , new COMMON_CODE('send', '2', '발송완료')
 ];
 
-var push_osType = [
-    new COMMON_CODE(null, 'osType', '노출 OS구분')
+var push_platform = [
+    new COMMON_CODE(null, 'platform', '노출 OS구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('pc', '1', 'PC')
     , new COMMON_CODE('android', '2', 'Android')
@@ -138,7 +138,7 @@ var item_searchType = [
 ];
 
 var item_discount = [
-    new COMMON_CODE(null, 'discount', '할인율')
+    new COMMON_CODE(null, 'discount_rate', '할인율')
     , new COMMON_CODE('0', '0', 'OFF')
     , new COMMON_CODE('10', '10', '10%')
     , new COMMON_CODE('20', '20', '20%')
@@ -154,7 +154,7 @@ var item_discount = [
 ];
 
 var item_itemType = [
-    new COMMON_CODE(null, 'itemType', '아이템 타입')
+    new COMMON_CODE(null, 'item_type', '아이템 타입')
     , new COMMON_CODE('new', '1', '신규')
     , new COMMON_CODE('best', '2', '인기')
     , new COMMON_CODE('limit', '3', '한정')
@@ -179,7 +179,7 @@ var item_fileField = [
 /** =------ Util ---------- */
 
 var content_viewOn = [
-    new COMMON_CODE(null, 'viewOn', '게시구분')
+    new COMMON_CODE(null, 'viewYn', '게시구분')
     , new COMMON_CODE('on', '1', 'ON')
     , new COMMON_CODE('off', '2', 'OFF')
 ];

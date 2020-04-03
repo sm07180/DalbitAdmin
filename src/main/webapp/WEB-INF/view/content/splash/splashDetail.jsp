@@ -102,17 +102,30 @@
             }
         });
 
-
-        // 등록 수정 완료 버튼
-        $("#insertBtn").on("click", function () {
-            //TODO 완료처리 필요
-            getSplashData();
-        })
-
         // 지정회원 - 수신대상
         $("#btn_selectMember").on("click", function () {
             showPopMemberList(choiceMember);
         })
+
+        // 등록 완료 버튼
+        $("#insertBtn").on("click", function () {
+            var data = getSplashData();
+
+            if(!isValid(data)){
+                return false;
+            }
+
+            util.getAjaxData("insert", "/rest/content/splash/insert", data, fn_splash_insert_success, fn_fail);
+        });
+
+        // 수정 완료 버튼
+        $("#updateBtn").on("click", function () {
+            //TODO 완료처리 필요
+            var data = getSplashData();
+
+            util.getAjaxData("insert", "/rest/content/splash/update", data, fn_splash_update_success, fn_fail);
+        });
+
     }
 
 
@@ -150,7 +163,30 @@
     }
 
 
+    // 등록 성공 시
+    function fn_splash_insert_success(dst_id, data, dst_params){
+        alert(data.message);
 
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#splashForm").empty();
+    }
+
+    // 수정 성공 시
+    function fn_splash_update_success(dst_id, data, dst_params){
+        alert(data.message);
+
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#splashForm").empty();
+    }
+
+    // Ajax 실패
+    function fn_fail(data, textStatus, jqXHR){
+        alert(data.message);
+
+        console.log(data, textStatus, jqXHR);
+    }
 
 
 //=------------------------------ Data Handler ----------------------------------
@@ -170,14 +206,12 @@
 
         //지정회원 parsing
         var selectTarget = [];
-        if($("input:radio[name=splash-receiveType]:checked").val() == "4"){
+        if($("input:checkbox[name=receiveType]:checked").val() == "target"){
             $("#div_selectTarget").find("p").each(function () {
                 var id = $(this).prop("id");
-                alert(id);
-
-                selectTarget.splash(id);
+                selectTarget.push(id);
             })
-            resultJson['selectTarget'] = selectTarget;
+            resultJson['mem_no'] = selectTarget.toString();
         }
 
         dalbitLog(resultJson)
@@ -186,7 +220,22 @@
 
 
 
-    function isValid(){
+    function isValid(data){
+        if(common.isEmpty(data.mem_no)){
+            alert("발송 대상을 선택하여 주시기 바랍니다.")
+            return false;
+        }
+
+        if(common.isEmpty(data.title)){
+            alert("메시지 제목을 입력하여 주시기 바랍니다.")
+            return false;
+        }
+
+        if(common.isEmpty(data.contents)){
+            alert("메시지 내용을 입력하여 주시기 바랍니다.")
+            return false;
+        }
+
         return true;
     }
 
