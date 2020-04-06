@@ -156,7 +156,7 @@
     }
 
     $('#bt_search').on('click', function(){
-        init();
+        init($('._tab.active').find('a').data('slcttype'));
     });
 
     $('._tab').on('click', function(){
