@@ -147,16 +147,20 @@
         init();
     });
 
-    function init(){
+    function init(slctType){
         var data = {
             subjectType : $('#subject_type').val()
-            , slctType : $('._tab.active a').data('slcttype')
+            , slctType : common.isEmpty(slctType) ? 1 : slctType
         }
         util.getAjaxData("liveList", "/rest/menu/live/list", data, fn_succ_list);
     }
 
-    $('#bt_search, ._tab').on('click', function(){
+    $('#bt_search').on('click', function(){
         init();
+    });
+
+    $('._tab').on('click', function(){
+        init($(this).find('a').data('slcttype'));
     });
 
     function renderSubjectType(){
