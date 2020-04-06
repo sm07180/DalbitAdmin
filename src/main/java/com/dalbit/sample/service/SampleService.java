@@ -1,11 +1,15 @@
 package com.dalbit.sample.service;
 
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.sample.dao.SampleDao;
 import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.sample.vo.SampleVo;
 import com.dalbit.util.DalbitUtil;
+import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,9 @@ public class SampleService {
 
     @Autowired
     private SampleDao sampleDao;
+
+    @Autowired
+    GsonUtil gsonUtil;
 
     public int getCount(){
         int cnt = sampleDao.getCount();
@@ -47,9 +54,16 @@ public class SampleService {
     /**
      * 에러 데이터 로그 조회
      */
-    public List<ErrorVo> getLogErrorData(ErrorVo errorVo) {
+    public String getLogErrorData(ErrorVo errorVo) {
+
+        int getLogErrorDataCnt = sampleDao.getLogErrorDataCnt(errorVo);
+        errorVo.setTotalCnt(getLogErrorDataCnt);
+
         List<ErrorVo> errorList = sampleDao.getLogErrorData(errorVo);
-        return errorList;
+
+
+        String result =  gsonUtil.toJson(new JsonOutputVo(Status.조회, errorList, new PagingVo(errorVo.getTotalCnt(), errorVo.getPageStart(), errorVo.getPageCnt())));
+        return result;
     }
 
     /**

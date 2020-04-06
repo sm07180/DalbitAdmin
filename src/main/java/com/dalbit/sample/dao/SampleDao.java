@@ -13,4 +13,5 @@ public interface SampleDao {
     List<SampleVo> getList();
     int insertSample(SampleVo sampleVo);
     List<ErrorVo> getLogErrorData(ErrorVo errorVo);
+    int getLogErrorDataCnt(ErrorVo errorVo);
 }

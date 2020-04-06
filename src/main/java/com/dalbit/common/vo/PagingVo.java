@@ -14,7 +14,7 @@ public class PagingVo extends BaseVo {
     }
 
     public PagingVo(int totalCnt){
-        this.totalCnt = totalCnt;
+        setTotalCnt(totalCnt);
     }
 
     public PagingVo(int totalCnt, int pageStart, int pageCnt){
@@ -30,5 +30,14 @@ public class PagingVo extends BaseVo {
     private String orderDir;
     private int pageStart;
     private int pageCnt;
+
+    private int searchStartNo;
+    private int searchEndNo;
+
+    public void setTotalCnt(int totalCnt){
+        this.totalCnt = totalCnt;
+        this.searchStartNo = (int)(Math.floor(this.pageStart-1) * this.pageCnt) + 1;
+        this.searchEndNo = this.pageStart * this.pageCnt;
+    }
 
 }

@@ -11,6 +11,8 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
+                            <input type="hidden" name="pageStart" id="pageStart">
+                            <input type="hidden" name="pageCnt" id="pageCnt">
                             <div>
                                 <div class="input-group date" id="date_startSel">
                                     <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
@@ -51,8 +53,8 @@
                             </tbody>
                         </table>
                     </div>
-
                 </div>
+                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
             </div>
         </div>
     </div>
@@ -60,6 +62,7 @@
 
 <script type="text/javascript" src="/js/code/sample/sampleCodeList.js"></script>
 <script type="text/javascript">
+    var errorPagingInfo = new PAGING_INFO(0, 1, 500);
     $(document).ready(function() {
         init();
     });
@@ -91,6 +94,8 @@
     }
 
     function getErrorList(){
+        $("#pageStart").val(errorPagingInfo.pageNo);
+        $("#pageCnt").val(errorPagingInfo.pageCnt);
         util.getAjaxData("errorList", "/rest/sample/errorList", $('#searchForm').serialize(), fn_success);
     }
 
@@ -98,11 +103,22 @@
         dalbitLog(response);
         var template = $('#tmp_errorList').html();
         var templateScript = Handlebars.compile(template);
-        var context = response;
+        var context = response.data;
         var html = templateScript(context);
 
         $("#tableBody").html(html);
 
+        var pagingInfo = response.pagingVo;
+        errorPagingInfo.totalCnt = pagingInfo.totalCnt;
+        console.log(errorPagingInfo);
+        util.renderPagingNavigation("list_info_paginate", errorPagingInfo);
+
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+    //이전/다음 눌렀을 때 새로 검색하는
+        errorPagingInfo = pagingInfo;
+        getErrorList();
     }
 
     $("#excelDownBtn").on('click', function() {
@@ -116,7 +132,7 @@
 </script>
 
 <script id="tmp_errorList" type="text/x-handlebars-template">
-    {{#data}}
+    {{#each this}}
     <tr>
         <td>{{idx}}</td>
         <td>{{mem_no}}</td>
@@ -128,5 +144,5 @@
         <td style="text-align:left">{{desc}}</td>
         <td>{{upd_date}}</td>
     </tr>
-    {{/data}}
+    {{/each}}
 </script>

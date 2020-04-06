@@ -136,7 +136,7 @@
         init(rank);
     });
 
-    function handlebarsPaging(pagingInfo){
+    function handlebarsPaging(targetId, pagingInfo){
         djRankListPagingInfo = pagingInfo;
         init();
     }
@@ -247,7 +247,7 @@
 
     {{else}}
         <tr>
-            <td colspan="10">{{isEmptyData}}</td>
+            <td colspan="11">{{isEmptyData}}</td>
         </tr>
     {{/each}}
     </tbody>

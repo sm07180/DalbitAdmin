@@ -435,7 +435,7 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
             pagingContent += '<li class="paginate_button ' + (i == pagingInfo.pageNo ? 'active' : '') +'" aria-controls="list_info" tabindex="0" data-index="'+i+'"><a href="javascript://">' + i + '</a></li>';
         }
 
-        var isEndPage = (Math.floor(pagingInfo.totalCnt/pagingInfo.pageCnt)+1);
+        var isEndPage = Math.floor(pagingInfo.totalCnt/pagingInfo.pageCnt) + (pagingInfo.totalCnt % pagingInfo.pageCnt == 0 ? 0 : 1);
         var pagingSurfix = '<li class="paginate_button next '+ (endPage <= 1 || isEndPage == pagingInfo.pageNo ? 'disabled' : '') +'" aria-controls="list_info" tabindex="0" id="list_info_next"><a href="#">다음</a></li>';
         pagingSurfix += '<li class="paginate_button last '+ (endPage <= 1 || isEndPage == pagingInfo.pageNo ? 'disabled' : '') +'" aria-controls="list_info" tabindex="0" id="list_info_last" data-index="'+ isEndPage +'"><a href="#">마지막</a></li>';
         pagingSurfix += '</ul>';
@@ -459,6 +459,7 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
             pagingInfo.pageNo = $(this).data('index');
         }
 
-        handlebarsPaging(pagingInfo);
+        //한 페이지에 여러개의 페이징이 있을 경우 구분하기위해 targetId를 같이 보낸다.
+        handlebarsPaging(targetId, pagingInfo);
     });
 }
