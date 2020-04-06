@@ -39,14 +39,22 @@
                     <div class="widget-content">
                         <table id="errorList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
+                            <th>idx</th>
+                            <th>mem_no</th>
+                            <th>ostype</th>
+                            <th>version</th>
+                            <th>build</th>
+                            <th>dtype</th>
+                            <th>ctype</th>
+                            <th>desc</th>
+                            <th>upd_date</th>
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
                         </table>
                     </div>
-
-                    <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                 </div>
+                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
             </div>
         </div>
     </div>

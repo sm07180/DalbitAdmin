@@ -7,6 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ErrorVo extends PagingVo {
+    /* input */
+    private String txt_startSel;
+    private String txt_endSel;
+
+    /* output */
     private int idx;
     private String mem_no;
     private String ostype;
@@ -16,6 +21,4 @@ public class ErrorVo extends PagingVo {
     private String ctype;
     private String desc;
     private String upd_date;
-    private String txt_startSel;
-    private String txt_endSel;
 }
