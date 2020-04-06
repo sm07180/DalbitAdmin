@@ -2,6 +2,7 @@ package com.dalbit.member.controller.rest;
 
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.member.service.Mem_NoticeService;
+import com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,15 @@ public class Mem_NoticeRestController {
     @PostMapping("list")
     public String list(P_MemberNoticeInputVo pMemberNoticeInputVo){
         return mem_NoticeService.getNoticeHistory(pMemberNoticeInputVo);
+
+    }
+
+    /**
+     * 회원 공지 삭제
+     */
+    @PostMapping("delete")
+    public String delete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo){
+        return mem_NoticeService.getNoticeDelete(pMemberNoticeDeleteVo);
 
     }
 }

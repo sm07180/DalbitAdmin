@@ -49,12 +49,16 @@
             ( SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.writer_no ) AS profileImage,
             a.contents AS contents,
             a.`STATUS` AS `STATUS`,
-            a.last_upd_date AS writeDate
+            a.last_upd_date AS writeDate,
+            depth
         from
-            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date from rd_data.tb_member_fanboard where mem_no = #{writer_mem_no} AND board_no = #{board_no} AND depth = 2 ) AS a LEFT JOIN rd_data.tb_member_basic AS b
+            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no}) AS a LEFT JOIN rd_data.tb_member_basic AS b
         ON a.writer_no = b.mem_no
-        where a.`STATUS` = 1
         order BY a.last_upd_date DESC;
     </select>
 
+    <update id="callFanboardDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo">
+        /* Mem_Fanboard.xml - callFanboardDelete */
+        UPDATE rd_data.tb_member_fanboard SET contents = '삭제되었습니다.', `STATUS` = 2 WHERE idx = #{idx}
+    </update>
 </mapper>

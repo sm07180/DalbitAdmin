@@ -80,7 +80,6 @@
         dalbitLog(response);
         dtList_info_detail.createDataTable(story_summary_table);
         dtList_info_detail.reload();
-        story_initDataTable_sub()
     }
 </script>
 

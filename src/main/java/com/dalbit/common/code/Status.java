@@ -89,6 +89,18 @@ public enum Status {
     Fan목록보기성공("0", "fan.list.view.success", "Fan 목록보기 성공 시"),
     Fan목록보기실패("C006", "fan.list.view.fail", "Fan 목록보기 실패 시"),
 
+    //Fanboard 보기
+    Fanboard목록보기성공("0", "fanboard.list.view.success", "Fanboard 목록보기 성공 시"),
+    Fanboard목록보기실패("C006", "fanboard.list.view.fail", "Fanboard 목록보기 실패 시"),
+
+    //Fanboard 보기
+    Fanboard삭제성공("0", "fanboard.list.del.success", "Fanboard 삭제 성공 시"),
+    Fanboard삭제실패("C006", "fanboard.list.del.fail", "Fanboard 삭제 실패 시"),
+
+    //Fanboard reply 보기
+    FanboardReply목록보기성공("0", "fanboard.reply.list.view.success", "Fanboard Reply 보기 성공 시"),
+    FanboardReply목록보기실패("C006", "fanboard.reply.list.view.fail", "Fanboard Reply 보기 실패 시"),
+
     //개별/방송 중 공지
     공지보기성공("0", "notice.list.view.success", "공지보기 성공 시"),
     공지보기실패("C006", "notice.list.view.fail", "공지보기 실패 시"),

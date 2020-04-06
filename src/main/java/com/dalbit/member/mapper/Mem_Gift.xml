@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.Mem_GiftDao" >
+
+    <!--<select id="callGiftHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">-->
+        <!--/* Mem_Gift.xml - callGiftHistory */-->
+    <!--</select>-->
+
+    <select id="callGiftHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
+        /* Mem_Gift.xml - callGiftHistory */
+        select @rownum := @rownum + 1 as rowNum,
+              c.*
+            FROM
+              ( SELECT
+                  a.gubun,a.ruby,a.room_no,a.gifted_mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.accumCnt
+                FROM
+                  (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,gifted_mem_no,item_type, mem_userid
+                      AS userId, mem_nick AS nickName, mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_no, accum_cnt AS accumCnt
+                    FROM rd_data.tb_member_broadcast_item where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}) AS a
+                  LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_no = b.item_no
+                  ORDER BY giftDate DESC
+                  limit #{pageNo}, #{pageCnt}
+        ) AS c, (select @rownum := #{pageNo} ) AS d
+
+    </select>
+    
+    <select id="callGiftHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
+        SELECT count(*) totalCnt FROM rd_data.tb_member_broadcast_item where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
+    </select>
+
+</mapper>

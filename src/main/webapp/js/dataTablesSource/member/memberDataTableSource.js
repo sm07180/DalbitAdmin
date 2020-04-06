@@ -121,17 +121,21 @@ var MemberDataTableSource = {
     },
 
     'giftDetail': {
-        'url': ''
+        'url': '/rest/member/gift/list'
         , 'columns': [
-            {'title': '회원번호', 'data': 'type'},
-            {'title': 'UserID', 'data': 'type'},
-            {'title': 'User닉네임', 'data': 'type'},
-            {'title': '구분', 'data': 'type'},
-            {'title': '이미지', 'data': 'type'},
-            {'title': '아이템명', 'data': 'type'},
-            {'title': '보낸/받은/교환건수', 'data': 'giftCnt'},
-            {'title': '선물/교환 금액', 'data': 'type'},
-            {'title': '선물/교환 일시', 'data': 'type'},
+            {'title': '회원번호', 'data': 'gifted_mem_no'},
+            {'title': 'UserID', 'data': 'userId'},
+            {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': '구분', 'data': 'gubun'},
+            {'title': '이미지', 'data': 'itemImage'},
+            {'title': '아이템명', 'data': 'itemName'},
+            {'title': '보낸/받은/교환건수', 'data': 'accumCnt', 'render': function (data) {
+                    return data + " 개"
+                }},
+            {'title': '선물/교환-별/달', 'data': 'ruby', 'render': function (data) {
+                    return data + " 개"
+                }},
+            {'title': '선물/교환-일시', 'data': 'giftDateFormat'},
         ]
         , 'comments': 'ㆍ회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인할 수 있습니다.<br>ㆍ이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물'
     },
@@ -173,7 +177,13 @@ var MemberDataTableSource = {
     'noticeDetail': {
         'url': '/rest/member/notice/list'
         , 'columns': [
-            {'title': '구분', 'data': 'type','width':'100px'},
+            {'title': '구분', 'data': 'type','width':'100px','render' : function(data){
+                    if(data == "1"){
+                        return "회원공지";
+                    }else{
+                        return "방송공지";
+                    }
+                }},
             {'title': '공지내용', 'data': 'contents','width':'200px'},
             {'title': '등록일시', 'data': 'lastUpdDateFormat','width':'100px'},
         ]
@@ -192,7 +202,7 @@ var MemberDataTableSource = {
             {'title': '팬ID', 'data': 'userId'},
             {'title': '팬닉네임', 'data': 'nickName'},
             {'title': '등록일시', 'data': 'writeDateFormat'},
-            {'title': '작성내용', 'data': 'contents'},
+            {'title': '작성내용', 'data': 'contents','width' : '400px'},
             {'title': '상태', 'data': 'STATUS', 'render':function(data){
                     if(data == "1"){
                         return "정상";
@@ -205,14 +215,6 @@ var MemberDataTableSource = {
                 }},
         ]
         , 'comments': 'ㆍ회원의 팬보드 내 작성 된 팬보드에서의 작성 글 및 댓글정보를 확인할 수 있습니다.'
-    },
-
-    'banDetail': {
-        'url': ''
-        , 'columns': [
-            {'title': '금지어', 'data': 'type'},
-        ]
-        , 'comments': 'ㆍ회원이 직접 100개까지 관리를 할 수 있고, 관리자에 의해 등록/수정/삭제도 할 수 없습니다.'
     },
 
     'declarationDetail': {
@@ -280,6 +282,14 @@ var MemberDataTableSource = {
             {'title': '처리자', 'data': 'op_name','width':'80px'},
         ]
         , 'comments': 'ㆍ해당 회원의 1:1문의, 전화문의, 메일문의 전체내역을 리스트로 확인할 수 있습니다.'
+    },
+
+    'banwordDetail': {
+        'url': ''
+        , 'columns': [
+            {'title': '금지어', 'data': 'type'},
+        ]
+        , 'comments': 'ㆍ회원이 직접 100개까지 관리를 할 수 있고, 관리자에 의해 등록/수정/삭제도 할 수 없습니다.'
     },
 
     'adminMemoList': {

@@ -4,6 +4,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.member.service.Mem_BroadcastService;
 import com.dalbit.member.service.Mem_FanboardService;
 import com.dalbit.member.vo.procedure.P_MemberBroadcastInputVo;
+import com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo;
 import com.dalbit.member.vo.procedure.P_MemberFanboardInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +42,15 @@ public class Mem_FanboardRestController {
     @PostMapping("replyList")
     public String replyList(P_MemberFanboardInputVo pMemberFanboardInputVo){
         return mem_FanboardService.getFanboardReplyList(pMemberFanboardInputVo);
+
+    }
+
+    /**
+     * 회원 팬보드 삭제
+     */
+    @PostMapping("delete")
+    public String delete(P_MemberFanboardDeleteVo pMemberFanboardDeleteVo){
+        return mem_FanboardService.getFanboardDelete(pMemberFanboardDeleteVo);
 
     }
 }

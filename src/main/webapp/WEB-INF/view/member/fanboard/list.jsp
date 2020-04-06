@@ -21,6 +21,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
+                <div id="div_fanboard"></div><br/>
+                <div id="div_reply"></div>
             </div>
             <div class="modal-footer">
             </div>
@@ -46,21 +48,81 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
+
+        var fanboardDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_fanboardDel" style="margin-right: 3px;"/>'
+        $("#" + tmp).find("#main_table").find(".footer-left").append(fanboardDelBtn);
+        $("#btn_fanboardDel").on("click", function () { //강제퇴장
+            fanboardDelData();
+        });
     }
+
+    function fanboardDelData(){
+        var checkDatas = dtList_info_detail.getCheckedData();
+        if(checkDatas.length <= 0){
+            alert("삭제할 팬보드를 선택해 주십시오");
+            return;
+        }
+
+        for(var i=0;i<checkDatas.length;i++){
+            var data = new Object();
+            data.mem_no = memNo;
+            data.idx = checkDatas[i].board_no;
+            util.getAjaxData("delete", "/rest/member/fanboard/delete",data, fanboardDel_success);
+        }
+    }
+
+    function fanboardDel_success(dst_id, response){
+        dalbitLog(response);
+        dtList_info_detail.reload();
+    }
+
+
     function Fanboard(index){
         var data = dtList_info_detail.getDataRow(index);
         if(data.replyCnt > 0){
-            $('#fanboardModal').modal("show");
-            util.getAjaxData("info", "/rest/member/fanboard/replyList", data, replyList_success, fn_fail);
+            var obj = new Object();
+            obj.mem_no = memNo;
+            obj.board_no = data.board_no;
+
+            dalbitLog(obj);
+
+            util.getAjaxData("info", "/rest/member/fanboard/replyList", obj, replyList_success, fn_fail);
         }
     }
+    function fanboard_fullSize_profile(url) {     // 이미지 full size
+        $("#imageFullSize_fanboard").html(util.imageFullSize("fanboard_fullSize_profile",url));
+        $('#fanboard_fullSize_profile').modal('show');
+    }
+
     function replyList_success(dst_id, response) {
-        dalbitLog(response)
-    }
+        // dalbitLog(response);
 
-    function FullSize_fanboard(url) {     // 이미지 full size
-        $("#imageFullSize_fanboard").html(util.imageFullSize("fanboardFullSize",url));
-        $('#fanboardFullSize').modal('show');
-    }
+        $('#div_reply').empty();
+        $('#div_fanboard').empty();
+        for(var i=0 ; i<response.data.length; i++){
 
+            var tmp = '<form id="profileImg' + i + '" method="post" enctype="multipart/form-data">';
+            tmp +=      '<img id="image_section' + i + '" src="" alt="your image" style="width: 60px;height: 60px"/>';
+            tmp +=     '<label id="nickName' + i + '"></label> <label id="userId' + i + '"></label> - <label id="writeDateFormat' + i + '"></label> <br/>';
+            tmp +=     '<lable id="contents' + i + '"></label><br>';
+            tmp +=     '</form>';
+
+            if(response.data[i].depth == "1"){          // fanboard
+                $('#div_fanboard').append(tmp + "<br/>");
+            }else{   // reply
+                $('#div_reply').append(tmp);
+                $('#image_section' + i).attr('style', "width: 40px;height: 40px");
+            }
+
+            $('#nickName' + i).text(response.data[i].nickName);
+            $('#userId' + i).text(response.data[i].userId);
+            $('#writeDateFormat' + i).text(response.data[i].writeDateFormat);
+            $('#contents' + i).text(response.data[i].contents);
+            $('#image_section' + i).prop("src" ,common.profileImage(IMAGE_SERVER_URL,response.data[i].profileImage,memSex));
+
+
+            $('#fanboardModal').modal("show");
+        }
+
+    }
 </script>
