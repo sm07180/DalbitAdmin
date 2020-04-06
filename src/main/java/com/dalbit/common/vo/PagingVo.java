@@ -14,21 +14,13 @@ public class PagingVo extends BaseVo {
     }
 
     public PagingVo(int totalCnt){
-        this.totalCnt = totalCnt;
+        setTotalCnt(totalCnt);
     }
 
     public PagingVo(int totalCnt, int pageStart, int pageCnt){
         this.totalCnt = totalCnt;
         this.pageStart = pageStart;
         this.pageCnt = pageCnt;
-
-        if(totalCnt <= 10) {
-            searchStartNo=1;
-            searchEndNo = totalCnt;
-        } else {
-            searchStartNo = (int)Math.floor((pageStart-1) / 10) * 10 +1;
-            searchEndNo = searchStartNo + 10 - 1;
-        }
     }
 
     /*output*/
@@ -41,5 +33,11 @@ public class PagingVo extends BaseVo {
 
     private int searchStartNo;
     private int searchEndNo;
+
+    public void setTotalCnt(int totalCnt){
+        this.totalCnt = totalCnt;
+        this.searchStartNo = (int)(Math.floor(this.pageStart-1) / this.pageCnt) + 1;
+        this.searchEndNo = this.pageStart * this.pageCnt;
+    }
 
 }

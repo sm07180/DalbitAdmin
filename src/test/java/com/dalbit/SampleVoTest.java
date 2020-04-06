@@ -1,10 +1,10 @@
-/*
 package com.dalbit;
 
 import com.dalbit.common.service.CommonService;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.CookieVo;
+import com.dalbit.common.vo.MenuVo;
 import com.dalbit.common.vo.SmsVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.inforex.vo.InforexPosCode;
@@ -149,5 +149,13 @@ public class SampleVoTest {
         log.info("검증결과 : {}", DalbitUtil.isSmsPhoneNoChk("1234567890"));
     }
 
+    @Test
+    public void 메뉴가져오기테스트(){
+        List<MenuVo> allMenuList = commonService.getMenuInfo(new MenuVo());
+        List<MenuVo> oneDepthMenuList = commonService.getMenuInfo(new MenuVo(1));
+        List<MenuVo> twoDepthMenuList = commonService.getMenuInfo(new MenuVo(2));
+        log.debug("test");
+
+    }
+
 }
-*/

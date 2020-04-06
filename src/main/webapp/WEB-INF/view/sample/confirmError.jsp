@@ -95,13 +95,14 @@
         dalbitLog(response);
         var template = $('#tmp_errorList').html();
         var templateScript = Handlebars.compile(template);
-        var context = response;
+        var context = response.data;
         var html = templateScript(context);
 
         $("#tableBody").html(html);
 
-        var pagingInfo = response.paging;
+        var pagingInfo = response.pagingVo;
         errorPagingInfo.totalCnt = pagingInfo.totalCnt;
+        console.log(errorPagingInfo);
         util.renderPagingNavigation("list_info_paginate", errorPagingInfo);
 
     }
@@ -123,7 +124,7 @@
 </script>
 
 <script id="tmp_errorList" type="text/x-handlebars-template">
-    {{#data}}
+    {{#each this}}
     <tr>
         <td>{{idx}}</td>
         <td>{{mem_no}}</td>
@@ -135,5 +136,5 @@
         <td style="text-align:left">{{desc}}</td>
         <td>{{upd_date}}</td>
     </tr>
-    {{/data}}
+    {{/each}}
 </script>

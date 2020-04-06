@@ -55,10 +55,14 @@ public class SampleService {
      * 에러 데이터 로그 조회
      */
     public String getLogErrorData(ErrorVo errorVo) {
-        List<ErrorVo> errorList = sampleDao.getLogErrorData(errorVo);
-        int getLogErrorDataCnt = sampleDao.getLogErrorDataCnt(errorVo);
 
-        String result =  gsonUtil.toJson(new JsonOutputVo(Status.조회, errorList, new PagingVo(getLogErrorDataCnt, errorVo.getPageStart(), errorVo.getPageCnt())));
+        int getLogErrorDataCnt = sampleDao.getLogErrorDataCnt(errorVo);
+        errorVo.setTotalCnt(getLogErrorDataCnt);
+
+        List<ErrorVo> errorList = sampleDao.getLogErrorData(errorVo);
+
+
+        String result =  gsonUtil.toJson(new JsonOutputVo(Status.조회, errorList, new PagingVo(errorVo.getTotalCnt(), errorVo.getPageStart(), errorVo.getPageCnt())));
         return result;
     }
 
