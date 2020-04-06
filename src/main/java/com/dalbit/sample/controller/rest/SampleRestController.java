@@ -72,8 +72,8 @@ public class SampleRestController {
      */
     @PostMapping("errorList")
     public String errorList(ErrorVo errorVo) {
-        List<ErrorVo> errorList = sampleService.getLogErrorData(errorVo);
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, errorList));
+        String result = sampleService.getLogErrorData(errorVo);
+        return result;
     }
 
     /**

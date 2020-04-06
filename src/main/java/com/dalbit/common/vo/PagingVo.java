@@ -21,6 +21,14 @@ public class PagingVo extends BaseVo {
         this.totalCnt = totalCnt;
         this.pageStart = pageStart;
         this.pageCnt = pageCnt;
+
+        if(totalCnt <= 10) {
+            searchStartNo=1;
+            searchEndNo = totalCnt;
+        } else {
+            searchStartNo = (int)Math.floor((pageStart-1) / 10) * 10 +1;
+            searchEndNo = searchStartNo + 10 - 1;
+        }
     }
 
     /*output*/
@@ -30,5 +38,8 @@ public class PagingVo extends BaseVo {
     private String orderDir;
     private int pageStart;
     private int pageCnt;
+
+    private int searchStartNo;
+    private int searchEndNo;
 
 }

@@ -1,11 +1,12 @@
 package com.dalbit.sample.vo;
 
+import com.dalbit.common.vo.PagingVo;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ErrorVo {
+public class ErrorVo extends PagingVo {
     private int idx;
     private String mem_no;
     private String ostype;

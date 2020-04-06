@@ -11,6 +11,8 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
+                            <input type="hidden" name="pageStart" id="pageStart">
+                            <input type="hidden" name="pageCnt" id="pageCnt">
                             <div>
                                 <div class="input-group date" id="date_startSel">
                                     <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
@@ -37,21 +39,13 @@
                     <div class="widget-content">
                         <table id="errorList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
-                            <th>idx</th>
-                            <th>mem_no</th>
-                            <th>ostype</th>
-                            <th>version</th>
-                            <th>build</th>
-                            <th>dtype</th>
-                            <th>ctype</th>
-                            <th>desc</th>
-                            <th>upd_date</th>
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
                         </table>
                     </div>
 
+                    <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                 </div>
             </div>
         </div>
@@ -60,6 +54,7 @@
 
 <script type="text/javascript" src="/js/code/sample/sampleCodeList.js"></script>
 <script type="text/javascript">
+    var errorPagingInfo = new PAGING_INFO(0, 1, 500);
     $(document).ready(function() {
         init();
     });
@@ -91,6 +86,8 @@
     }
 
     function getErrorList(){
+        $("#pageStart").val(errorPagingInfo.pageNo);
+        $("#pageCnt").val(errorPagingInfo.pageCnt);
         util.getAjaxData("errorList", "/rest/sample/errorList", $('#searchForm').serialize(), fn_success);
     }
 
@@ -103,6 +100,16 @@
 
         $("#tableBody").html(html);
 
+        var pagingInfo = response.paging;
+        errorPagingInfo.totalCnt = pagingInfo.totalCnt;
+        util.renderPagingNavigation("list_info_paginate", errorPagingInfo);
+
+    }
+
+    function handlebarsPaging(pagingInfo){
+    //이전/다음 눌렀을 때 새로 검색하는
+        errorPagingInfo = pagingInfo;
+        getErrorList();
     }
 
     $("#excelDownBtn").on('click', function() {
