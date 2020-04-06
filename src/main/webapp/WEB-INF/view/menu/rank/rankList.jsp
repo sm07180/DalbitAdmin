@@ -136,7 +136,7 @@
         init(rank);
     });
 
-    function handlebarsPaging(pagingInfo){
+    function handlebarsPaging(targetId, pagingInfo){
         djRankListPagingInfo = pagingInfo;
         init();
     }

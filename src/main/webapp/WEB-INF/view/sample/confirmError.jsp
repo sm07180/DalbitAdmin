@@ -115,7 +115,7 @@
 
     }
 
-    function handlebarsPaging(pagingInfo){
+    function handlebarsPaging(targetId, pagingInfo){
     //이전/다음 눌렀을 때 새로 검색하는
         errorPagingInfo = pagingInfo;
         getErrorList();
