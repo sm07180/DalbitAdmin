@@ -100,11 +100,11 @@
             response.data["icon_guestState"] = '<i class="fa fa-user" style="color: #a037d9;font-size:20px;"></i> ' + response.data.guestState + " / " + response.data.guest_userId;
 
         dalbitLog(response);
-        var template = $('#tmp_detailFrm').html();
+        var template = $('#tmp_broadcast_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html=templateScript(context);
-        $("#detailFrm").html(html);
+        $("#broadcast_detailFrm").html(html);
         btn_init();
         $("#tablist_con").find('.active').find('a').click();
     }
@@ -346,7 +346,7 @@
             util.getAjaxData("type", "/rest/broadcast/broadcast/info", obj, info_sel_success);
             getInfoDetail("editHistory", "정보수정내역");
         }
-        // $("#detailFrm").empty();
+        // $("#broadcast_detailFrm").empty();
     }
 
     function fn_fail(data, textStatus, jqXHR){
@@ -355,7 +355,7 @@
     }
 </script>
 
-<script id="tmp_detailFrm" type="text/x-handlebars-template">
+<script id="tmp_broadcast_detailFrm" type="text/x-handlebars-template">
     <div class="col-lg-12 no-padding">
         <label style="height: 30px;"> ㆍ라이브 중인 방송 정보를 확인하고, 부득이한 상황시 방송 컨트롤 할 수 있습니다.</label>
         {{#equal broadcastState 'ON'}}<button type="button" id="bt_broadcastGo" class="btn btn-default btn-sm pull-right">방송방 입장하기</button>{{/equal}}
