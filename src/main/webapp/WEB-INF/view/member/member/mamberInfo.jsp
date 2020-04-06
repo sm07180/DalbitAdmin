@@ -9,7 +9,7 @@
 <!-- 이미지 원본 보기 -->
 <div id="imageFullSize"></div>
 <!-- detail -->
-<form id="detailForm" class="hide"></form>
+<form id="member_detailFrm" class="hide"></form>
 
 <script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
@@ -45,7 +45,7 @@
         $('#div_info_detail').removeClass("show");
         $('#report_detail').removeClass("show");
         $('#question_tab').removeClass("show");
-        $("#detailForm").html("");
+        $("#member_detailFrm").html("");
         // // 상단 목록 클릭시 detail 재 조회
         $("#tablist_con").find('.active').find('a').click();
     }
@@ -219,12 +219,12 @@
     }
 
     function getInfoDetail(tmp,tmp1) {     // 상세보기
-        var template = $('#tmp_detailFrm').html();
+        var template = $('#tmp_member_detailFrm').html();
         var templateScript = Handlebars.compile(template);
-        $("#detailForm").html(templateScript);
+        $("#member_detailFrm").html(templateScript);
 
         $('#tab_memberInfoDetail').text(tmp1);           //텝 이름 변경
-        $('#detailForm').addClass("show");
+        $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         console.log("tmp : " + tmp);
 
@@ -419,7 +419,7 @@
 </script>
 
 <!-- info detail -->
-<script id="tmp_detailFrm" type="text/x-handlebars-template">
+<script id="tmp_member_detailFrm" type="text/x-handlebars-template">
     <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
             <li class="active" id="detail1"><a href="#memberInfoDetail" role="tab" data-toggle="tab" id="tab_memberInfoDetail"></a></li>

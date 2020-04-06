@@ -6,7 +6,7 @@
     <label id="one_title"></label>
 </div>
 <div>
-    <form id="detailFrm"></form>
+    <form id="question_detailFrm"></form>
 </div>
 
 <!-- 이미지 원본 보기 -->
@@ -27,12 +27,22 @@
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
+        var add_file_cnt = response.data.add_file.split(",");
+        response.data["add_file_cnt"] = add_file_cnt.length;
 
-        var template = $('#tmp_detailFrm').html();
+        console.log("--------------------------------------");
+        console.log(response.data);
+        console.log("--------------------------------------");
+
+        var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html=templateScript(context);
-        $("#detailFrm").html(html);
+        $("#question_detailFrm").html(html);
+
+        console.log("--------------------------------------");
+        console.log(html);
+        console.log("--------------------------------------");
 
         memNo = response.data.mem_no;
         memId = response.data.mem_userid;
@@ -67,11 +77,11 @@
         alert(response.message);
         dtList_info.reload();
 
-        $("#detailFrm").empty();
+        $("#question_detailFrm").empty();
     }
 </script>
 
-<script id="tmp_detailFrm" type="text/x-handlebars-template">
+<script id="tmp_question_detailFrm" type="text/x-handlebars-template">
     <div id="wrapper">
         <div id="page-wrapper">
             <table class="table table-bordered table-dalbit" style="margin: auto">
@@ -97,7 +107,7 @@
                         <td rowspan="2">{{write_date}}</td>
 
                         <th>첨부파일</th>
-                        <td>{{add_file}}</td>
+                        <td>{{add_file_cnt}} 건</td>
                     </tr>
                     <tr>
                         <th>플랫폼</th>

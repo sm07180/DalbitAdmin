@@ -183,16 +183,17 @@ var MemberDataTableSource = {
     'fanboardDetail': {
         'url': '/rest/member/fanboard/list'
         , 'columns': [
-            {'title': '프로필이미지', 'data': 'image_profile', 'render' : function(data, type, row){
-                    return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
+            {'title': 'boardNo', 'data': 'board_no'},
+            {'title': '프로필이미지', 'data': 'profileImage', 'render' : function(data, type, row){
+                    return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
                         'onclick="FullSize_fanboard(this.src)"/>';
                 }},
-            {'title': '회원번호', 'data': 'mem_no'},
-            {'title': '팬ID', 'data': 'mem_userid'},
-            {'title': '팬닉네임', 'data': 'mem_nick'},
-            {'title': '등록일시', 'data': 'lastUpdDateFormat'},
+            {'title': '회원번호', 'data': 'writer_mem_no'},
+            {'title': '팬ID', 'data': 'userId'},
+            {'title': '팬닉네임', 'data': 'nickName'},
+            {'title': '등록일시', 'data': 'writeDateFormat'},
             {'title': '작성내용', 'data': 'contents'},
-            {'title': '상태', 'data': 'status', 'render':function(data){
+            {'title': '상태', 'data': 'STATUS', 'render':function(data){
                     if(data == "1"){
                         return "정상";
                     }else{
@@ -240,17 +241,45 @@ var MemberDataTableSource = {
     },
 
     'questionDetail': {
-        'url': ''
+        'url': '/rest/customer/question/list'
         , 'columns': [
-            {'title': '문의 구분', 'data': 'type'},
-            {'title': '문의유형', 'data': 'type'},
-            {'title': '문의자ID', 'data': 'type'},
-            {'title': '문의자닉네임', 'data': 'type'},
-            {'title': '문의 내용', 'data': 'type'},
-            {'title': '접수일시/처리일시', 'data': 'type'},
-            {'title': '첨부파일', 'data': 'type'},
-            {'title': '처리상태', 'data': 'type'},
-            {'title': '처리자', 'data': 'type'},
+            {'title': 'qnaIdx', 'data': 'qnaIdx','width':'60px'},
+            {'title': 'answer', 'data': 'answer','width':'60px'},
+            {'title': '문의유형', 'data': 'slct_type','width':'80px','render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, question_type);
+                }},
+            {'title': '플랫폼', 'data': 'platform','width':'60px'},
+            {'title': 'Browser', 'data': 'browser','width':'70px'},
+            {'title': '문의자UserId', 'data': 'mem_userid','width':'80px','render': function (data, type, row, meta) {
+                    var tmp = util.memNoLink(data, row.mem_no);
+                    tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
+                    return tmp;
+                }},
+            {'title': '문의자닉네임', 'data': 'mem_nick','width':'100px'},
+            {'title': '문의제목', 'data': 'question_title','width':'250px','render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+row.qnaIdx+');">'+data+'</a>'
+                }},
+            {'title': '접수일시<br>/처리일시', 'data': 'writeDateFormat','width':'120px','render' : function(data,type,row){
+                    if(row.opDateFormat == ""){
+                        return data;
+                    }else{
+                        return data + '<br/>/' + row.opDateFormat;
+                    }
+                }},
+            // {'title': '첨부파일', 'data': 'add_file','width':'60px'},
+            {'title': '첨부파일', 'data': 'add_file','width':'60px','render' : function(data){
+                    var tmp = data.split(",");
+                    return tmp.length + " 건";
+                }},
+            {'title': '처리상태', 'data': 'state','width':'60px','render' : function(data){
+                    if(data == "0"){
+                        return "미처리";
+                    }else if (data == "1"){
+                        return "처리완료";
+                    }
+                }},
+            {'title': '알림', 'data': 'memNo','width':'60px'},
+            {'title': '처리자', 'data': 'op_name','width':'80px'},
         ]
         , 'comments': 'ㆍ해당 회원의 1:1문의, 전화문의, 메일문의 전체내역을 리스트로 확인할 수 있습니다.'
     },
