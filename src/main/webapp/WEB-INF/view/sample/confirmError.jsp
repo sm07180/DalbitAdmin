@@ -63,18 +63,35 @@
 <script type="text/javascript" src="/js/code/sample/sampleCodeList.js"></script>
 <script type="text/javascript">
     var errorPagingInfo = new PAGING_INFO(0, 1, 500);
+
     $(document).ready(function() {
         init();
     });
 
+    function compare() {
+        var startDate = $('#txt_startSel').val();
+        var startDateArr = startDate.split('-');
+        var endDate = $('#txt_endSel').val();
+        var endDateArr = endDate.split('-');
+
+        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
+        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+
+        if(startDateCompare.getTime() > endDateCompare.getTime()) {
+            alert('시작날짜와 종료날짜를 확인해주세요');
+        }
+    }
+
     $('input[id="searchText"]').keydown(function(e) {
         if (e.keyCode === 13) {
+            compare();
             getErrorList();
         };
     });
 
     $('#bt_search').click( function() {       //검색
-        getErrorList();
+       compare();
+       getErrorList();
     });
 
     function init() {
