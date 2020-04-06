@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 
-<div id="contentTap">
+<div id="contentTab">
     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
         <li><a href="#chargeDetail" role="tab" data-toggle="tab" id="tab_chargeDetail" onclick="onClickContentTab(this.id)">충전 아이템 상세</a></li>
     </ul>

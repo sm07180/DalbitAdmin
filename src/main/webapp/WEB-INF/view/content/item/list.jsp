@@ -16,7 +16,7 @@
                                 <span id="search_osType_aria"></span>
                                 <span id="search_searchType_aria"></span>
 
-                                <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
+                                <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
@@ -74,8 +74,8 @@
 
     function init() {
         //검색조건 불러오기
-        $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn));
-        $("#search_osType_aria").html(util.getCommonCodeSelect(-1, push_platform));
+        $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn, 'N', 'viewYn'));
+        $("#search_osType_aria").html(util.getCommonCodeSelect(-1, content_platform2));
         $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, item_searchType));
     }
 
@@ -107,9 +107,13 @@
         }
 
 
-        // 하위 탭 노출여부
+        // 하위 탭 초기화
+        initSelectDataInfo();
         var targetContent = eval($("#"+targetName+"Content"))
         $("[name=main-content-div]").each(function(){
+            $(this).find("#contentTab").find(".active").removeClass("active");
+            $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
+
             if($(this).attr("id") == targetContent.attr("id")){
                 $(this).show();
             }else{
@@ -117,6 +121,14 @@
             }
         });
     }
+
+    function initContentTab(){
+        $("[name=main-content-div]").each(function(){
+            $(this).find("#contentTab").find(".active").removeClass("active");
+            $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
+        });
+    }
+
 
     // 검색
     function getItemInfo(){
@@ -196,8 +208,8 @@
         return choiceDataInfo;
     }
 
-    function getImg(targetName) {
-        var target = $("input[name="+targetName+"]");
+    function getImg(targetId) {
+        var target = $("#"+targetId);
 
         if(target.length <= 0 || target.val().length <= 0){
             alert("이미지 URL을 확인하여 주시기 바랍니다.");
@@ -205,8 +217,8 @@
         }
 
         var imgUrl = target.val();
-        $("#"+targetName+"Viewer").attr("src", imgUrl);
-        $("#"+targetName+"Viewer").attr("onerror", "imgError(this.src)");
+        $("#"+targetId+"Viewer").attr("src", imgUrl);
+        $("#"+targetId+"Viewer").attr("onerror", "imgError(this.src)");
     }
 
     function imgError(imgURL) {

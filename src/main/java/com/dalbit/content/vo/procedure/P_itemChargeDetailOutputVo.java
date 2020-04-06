@@ -26,19 +26,8 @@ public class P_itemChargeDetailOutputVo extends BaseVo {
     private int main_yn;						    // 메인노출
     private int purchase_count;				// 구매건수
     private String op_name;					// 처리자 이름
-    private Date reg_date;						// 등록 일자
+    private String reg_date;						// 등록 일자
     private String reg_dateFormat;
-    private Date lastUpdDate;			        //  최종 수정일자
-    private String lastUpdDateFormat;
-
-
-    public void setRegDate(java.sql.Date reg_date){
-        this.reg_date = reg_date;
-        this.reg_dateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH.mm.ss");
-    }
-
-    public void setLastUpdDate(java.sql.Date lastUpdDate){
-        this.lastUpdDate = lastUpdDate;
-        this.lastUpdDateFormat = DalbitUtil.convertDateFormat(lastUpdDate, "yyyy.MM.dd HH.mm.ss");
-    }
+    private String lastupdDate;			        //  최종 수정일자
+    private String lastupdDateFormat;
 }

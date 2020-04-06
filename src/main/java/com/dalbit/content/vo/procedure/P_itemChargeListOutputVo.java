@@ -31,6 +31,13 @@ public class P_itemChargeListOutputVo extends BaseVo {
     private Date lastUpdDate;			        //  최종 수정일자
     private String lastUpdDateFormat;
 
+    //Summary
+    private int pcCnt;                           //pc게시 건수
+    private int androidCnt;                     //android 게시 건수
+    private int iosCnt;                           //ios 게시 건수
+    private int totalPurchaseCnt;            //누적 구매 건수
+
+
 
     public void setRegDate(java.sql.Date reg_date){
         this.reg_date = reg_date;

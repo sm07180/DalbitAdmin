@@ -133,8 +133,8 @@ var event_searchType = [
 var item_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('itemName', '1', '상품명')
-    , new COMMON_CODE('code', '2', '코드')
+    , new COMMON_CODE('code', '1', '코드')
+    , new COMMON_CODE('itemName', '2', '상품명')
 ];
 
 var item_discount = [
@@ -150,7 +150,7 @@ var item_discount = [
     , new COMMON_CODE('80', '80', '80%')
     , new COMMON_CODE('90', '90', '90%')
     , new COMMON_CODE('100', '100', '100%(무료)')
-    , new COMMON_CODE('etc', '-1', '기타 <input id="inputDiscountEtc" style="width:40px;"/>%')
+    , new COMMON_CODE('etc', '-1', '기타 <input id="inputDiscountEtc" style="width:40px;" onkeydown="common.inputFilterNumber(event)" maxlength="3">%')
 ];
 
 var item_itemType = [
@@ -181,7 +181,7 @@ var item_fileField = [
 var content_viewOn = [
     new COMMON_CODE(null, 'viewYn', '게시구분')
     , new COMMON_CODE('on', '1', 'ON')
-    , new COMMON_CODE('off', '2', 'OFF')
+    , new COMMON_CODE('off', '0', 'OFF')
 ];
 
 var content_platform1 = [
@@ -203,7 +203,7 @@ var content_platform2 = [
 
 var content_platform3 = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
-    , new COMMON_CODE('all', '', '전체')
-    , new COMMON_CODE('pc', '1', 'PC/Android')
-    , new COMMON_CODE('ios', '2', 'IOS')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('pc', '110', 'PC/Android')
+    , new COMMON_CODE('ios', '001', 'IOS')
 ];

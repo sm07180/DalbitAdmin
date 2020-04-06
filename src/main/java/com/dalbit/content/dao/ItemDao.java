@@ -1,9 +1,7 @@
 package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.content.vo.procedure.P_itemChargeDetailOutputVo;
-import com.dalbit.content.vo.procedure.P_itemChargeListOutputVo;
-import com.dalbit.content.vo.procedure.P_itemGiftListOutputVo;
+import com.dalbit.content.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -16,6 +14,11 @@ public interface ItemDao {
     ProcedureVo callContentsChargeItemEdit(ProcedureVo procedureVo);
     ProcedureVo callContentsChargeItemDelete(ProcedureVo procedureVo);
 
+    ArrayList<P_itemExchangeListOutputVo> callContentsExchangeItemList(ProcedureVo procedureVo);
+    P_itemExchangeDetailOutputVo callContentsExchangeItemDetail(ProcedureVo procedureVo);
+    ProcedureVo callContentsExchangeItemAdd(ProcedureVo procedureVo);
+    ProcedureVo callContentsExchangeItemEdit(ProcedureVo procedureVo);
+    ProcedureVo callContentsExchangeItemDelete(ProcedureVo procedureVo);
 
     ArrayList<P_itemGiftListOutputVo> callServiceCenterItemGiftList(ProcedureVo procedureVo);
 

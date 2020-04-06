@@ -194,3 +194,22 @@ common.isSmall = function(value, target, opt){
     return 0 < target - value ? opt.fn(this) : opt.inverse(this);;
 }
 
+//input 숫자 입력만 가능
+common.inputFilterNumber = function (event) {
+    console.log(event)
+    var code = event.which;
+
+    //숫자
+    if((48 <= code && code <= 57)){
+        return;
+    }
+
+    // 특수키 9 : TAB, 36 : HOME, 35 : END, 37 : LEFT, 39 : RIGHT, 8 : BACKSPACE, 46 : DELETE
+    if (code === 9 || code === 36 || code === 35 || code === 37 ||
+        code === 39 || code === 8 || code === 46) {
+        return;
+    }
+
+    event.preventDefault();
+}
+

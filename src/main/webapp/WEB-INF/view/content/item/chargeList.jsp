@@ -59,20 +59,21 @@ var fnc_chargeList = {
     initDataTable(){
         //=---------- Main DataTable ----------
         var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val()
-            data.showTarget = $("select[name='banner-selectShowTarget']").val()
-            data.bannerType = $("select[name='banner-selectBannerType']").val()
-            data.startDate = $('#banner-inputReportrange').attr("startDated");
-            data.endDate = $('#banner-inputReportrange').attr("endDate");
+            // data.search = $('#txt_search').val();                        // 검색명
+            // data.gubun = $("select[name='selectGubun']").val()
+            // data.showTarget = $("select[name='banner-selectShowTarget']").val()
+            // data.bannerType = $("select[name='banner-selectBannerType']").val()
+            // data.startDate = $('#banner-inputReportrange').attr("startDated");
+            // data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
 
         this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
         this.dtList_info.setEventClick(this.updateData);
+        this.dtList_info.useInitReload(true);
         this.dtList_info.createDataTable(this.initSummary);
-        this.initDataTableButton();
+
         //---------- Main DataTable ----------=
     },
 
@@ -86,6 +87,9 @@ var fnc_chargeList = {
 
         fnc_chargeList.divDataTable = fnc_chargeList.targetDataTable.parent("div");
         fnc_chargeList.divDataTable.find(".top-right").prepend(html);
+
+        fnc_chargeList.initDataTableButton();
+        fnc_chargeList.initEvent();
     },
 
 
@@ -132,11 +136,27 @@ var fnc_chargeList = {
             return false;
         }
 
-        if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
-            //TODO 삭제 로직 추가아아앙
-        };
-
         dalbitLog(checkDatas);
+        if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
+
+            var itemCodes = "";
+            for(var idx=0; idx < checkDatas.length; idx++){
+                var dataInfo = checkDatas[idx];
+                if(common.isEmpty(dataInfo.item_code)){
+                    dalbitLog("[delete] Item code does not exist. : ");
+                    dalbitLog(dataInfo);
+                    continue;
+                }
+
+                itemCodes += "," + dataInfo.item_code;
+            }
+            itemCodes = itemCodes.substring(1);
+
+            var data = new Object();
+            data.item_code = itemCodes;
+
+            util.getAjaxData(fnc_chargeList.targetId, "/rest/content/item/charge/delete",data, fnc_chargeList.fn_delete_success, fnc_chargeList.fn_fail);
+        };
     },
 
     // 수정
@@ -145,14 +165,34 @@ var fnc_chargeList = {
         setSelectDataInfo("data", data);
 
         var selectTabId = "chargeDetail";
-        if($("#contentTap").find(".active").length != 0){
-            selectTabId = $("#contentTap").find(".active").find("a").prop("id").split("_")[1];
+        if(fnc_chargeList.target.find("#contentTab").find(".active").length != 0){
+            selectTabId = $("#contentTab").find(".active").find("a").prop("id").split("_")[1];
         }
         console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);
 
         // targetFnc.updateEventDetail();
         $("#tab_" + selectTabId).click();
+    },
+
+    // 삭제 성공 시
+    fn_delete_success(dst_id, data, dst_params){
+        alert(data.message);
+
+        // reload
+        fnc_chargeList.selectEventList();
+
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#"+fnc_chargeDetail.formId).empty();
+    },
+
+
+    // Ajax 실패
+    fn_fail(data, textStatus, jqXHR){
+        alert(data.message);
+
+        console.log(data, textStatus, jqXHR);
     },
 
 
@@ -163,7 +203,9 @@ var fnc_chargeList = {
         // tmp_gubun = $("select[name='selectGubun']").val();
 
 
-        this.dtList_info.reload();
+        this.dtList_info.createDataTable(this.initSummary);
+        // this.dtList_info.reload();
+
     },
 
         // /*=---------- 엑셀 ----------*/
@@ -210,7 +252,6 @@ var fnc_chargeList = {
 <script id="tmp_chargeListStatisticsFrm" type="text/x-handlebars-template">
 
     <div style="float:left">
-        {{#each this}}
         <table class="table table-bordered table-dalbit text-center" style="width:400px;">
             <colgroup>
                 <col width="8%" />
@@ -237,13 +278,12 @@ var fnc_chargeList = {
                 <th colspan="3">IOS</th>
             </tr>
             <tr>
-                <td style="text-align:center;" colspan="3">{{item_col1}}건</td>
-                <td style="text-align:center;" colspan="3">{{item_col2}}건</td>
-                <td style="text-align:center;" colspan="3">{{item_col5}}건</td>
-                <td style="text-align:center;" colspan="3">{{item_col3}}건</td>
+                <td style="text-align:center;" colspan="3">{{pcCnt}}건</td>
+                <td style="text-align:center;" colspan="3">{{androidCnt}}건</td>
+                <td style="text-align:center;" colspan="3">{{iosCnt}}건</td>
+                <td style="text-align:center;" colspan="3">{{totalPurchaseCnt}}건</td>
             </tr>
             </tbody>
         </table>
-        {{/each}}
     </div>
 </script>

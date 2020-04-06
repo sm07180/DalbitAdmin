@@ -29,10 +29,11 @@
                 fnc_exchangeDetail.insertEventDetail();
             }else{
                 console.log(getSelectDataInfo());
-                this.dataKey = getSelectDataInfo().dataKey;
-                this.data = getSelectDataInfo().data;
 
-                fnc_exchangeDetail.updateEventDetail();
+                var data = new Object();
+                data.item_code = getSelectDataInfo().data.item_code;
+
+                util.getAjaxData(fnc_exchangeDetail.targetId, "/rest/content/item/exchange/detail",data, fnc_exchangeDetail.fn_detail_success, fnc_exchangeDetail.fn_fail);
             }
 
             // this.initDetail();
@@ -40,110 +41,91 @@
         },
 
 
-
-        // Datapicker
-        "dataPickerSrc" : {
-            startDate: moment(),
-            endDate: moment(),
-            // dateLimit: { days: 60 },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: false,
-            ranges: {
-                '1일': [moment(), moment()],
-                // '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                '7일': [moment(), moment().add('days', 6)],
-                '30일': [moment(), moment().add('days', 29)]
-            },
-            opens: 'left',
-            // buttonClasses: ['btn btn-default'],
-            // applyClass: 'btn-small btn-primary',
-            // cancelClass: 'btn-small',
-            format: 'L',
-            separator: ' to ',
-            locale: {
-                customRangeLabel: '직접선택',
-            }
-        },
-
         // 초기 설정
         initDetail() {
-            // 캘린더 기능추가
-            this.target.find("#event-div-period").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
-                function(start, end, t1) {
-                    console.log(t1);
-                    this.target.find("#event-div-period").find("#startDate").val(start.format('YYYY.MM.DD'));
-                    this.target.find("#event-div-period").find("#endDate").val(end.format('YYYY.MM.DD'));
-                }
-            );
-            this.target.find("#event-div-exposure").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
-                function(start, end, t1) {
-                    console.log(t1);
-                    this.target.find("#event-div-exposure").find("#startDate").val(start.format('YYYY.MM.DD'));
-                    this.target.find("#event-div-exposure").find("#endDate").val(end.format('YYYY.MM.DD'));
-                }
-            );
 
-            // 캘린더 초기값
-            this.target.find("[name=startDate]").val(moment().format('YYYY.MM.DD'));
-            this.target.find("[name=endDate]").val(moment().format('YYYY.MM.DD'));
-
-            // 시간 Select CSS 적용
-            this.target.find("[name=timeHour]").attr("class", "select-time");
-            this.target.find("[name=timeMinute]").attr("class", "select-time");
         },
 
         // 이벤트 적용
         initEventDetail(){
 
-            //로그인 타입 선택
-            this.target.find("input[name='loginType']:radio").change(function () {
+            //플랫폼 IOS일 경우 코드 수기 입력
+            this.target.find("input[name='platform']:radio").change(function () {
                 var type = this.value;
 
-                //로그인 사용자일 경우 성별 선택 가능
-                if(type == "1"){
-                    this.target.find("input[name='gender']").prop("disabled",false);
+                if(type == "001"){
+                    fnc_exchangeDetail.target.find("input[name=item_code]").show();
                 }else{
-                    this.target.find("input[name='gender']").prop("disabled",true);
-                    this.target.find("input[name='gender']:input[value='1']").prop("checked", true);
+                    fnc_exchangeDetail.target.find("input[name=item_code]").hide();
+                    fnc_exchangeDetail.target.find("input[name=item_code]").val("");
                 }
-
             });
 
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
-                if(this.isValid()){
-                    //TODO 완료처리 필요
-                    this.getEventDetailData();
+                var data = fnc_exchangeDetail.getDetailData();
+
+                if(!fnc_exchangeDetail.isValid(data)){
+                    return false;
                 }
+
+                util.getAjaxData("insert", "/rest/content/item/exchange/insert", data, fnc_exchangeDetail.fn_insert_success, fnc_exchangeDetail.fn_fail);
             })
 
 
             // 수정 버튼
-            this.target.find("#insertBtn").on("click", function () {
-                if(this.isValid()){
-                    //TODO 완료처리 필요
-                    this.getEventDetailData();
+            this.target.find("#updateBtn").on("click", function () {
+                var data = fnc_exchangeDetail.getDetailData();
+
+                if(!fnc_exchangeDetail.isValid(data)){
+                    return false;
                 }
+
+                util.getAjaxData("upldate", "/rest/content/item/exchange/update", data, fnc_exchangeDetail.fn_update_success, fnc_exchangeDetail.fn_fail);
             })
         },
 
 
+        //수정 데이터 조회 후 UI 처리
+        initUpdateUI(){
+            var detailData = getSelectDataInfo().detailData;
 
-//=------------------------------ Option --------------------------------------------
+            console.log(detailData);
+
+            //platform
+            var platformCode = detailData.platform.split("");
+            for(var i = 0; i < platformCode.length; i++){
+                if(platformCode[i] == "1"){
+                    if(i == 0 || i == 1)    // 110
+                    {
+                        fnc_exchangeDetail.target.find("#platform1").attr("checked", true);
+                        fnc_exchangeDetail.target.find("input[name=item_code]").hide();
+                    }
+
+                    if(i == 2){             //001
+                        fnc_exchangeDetail.target.find("#platform2").attr("checked", true);
+                        fnc_exchangeDetail.target.find("input[name=item_code]").show();
+                    }
+                }
+            }
+
+
+            //item_type
+            var item_typeCode = detailData.item_type.split("");
+            for(var i = 0; i < item_typeCode.length; i++){
+                if(item_typeCode[i] == "1"){
+                    fnc_exchangeDetail.target.find("#item_type"+(i+1)).attr("checked", true);
+                }
+            }
+        },
+
 
         // 등록 화면
         insertEventDetail() {
-            console.log(this)
             var template = $('#tmp_exchangeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             this.target.find("#"+this.formId).html(templateScript);
-
-            console.log(this.target.find("#"+this.formId))
-            console.log(templateScript)
 
             this.initDetail();
             this.initEventDetail();
@@ -151,41 +133,89 @@
 
 
         // 수정 화면
-        updateEventDetail(json){
-            if(common.isEmpty(getSelectDataInfo())){
-                alert("[ERROR] SelectDataInfo 전달 실패!")
-                console.log("[ERROR] SelectDataInfo 전달 실패! =-----")
-                console.log(getSelectDataInfo());
-                console.log("[ERROR] SelectDataInfo 전달 실패! -----=")
-                return false;
-            }
-
-            var dataKey = getSelectDataInfo().dataKey;
-            var data = getSelectDataInfo().data;
+        updateEventDetail(){
+            var detailData = getSelectDataInfo().detailData;
+            detailData.rowNum = getSelectDataInfo().data.rowNum;
+            dalbitLog(detailData);
 
 
-            dalbitLog(data);
             // form 띄우기
             var template = $('#tmp_exchangeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
-            var context = data;
+            var context = detailData;
             var html = templateScript(context);
-            this.target.find("#"+ this.formId).html(html);
+            fnc_exchangeDetail.target.find("#"+ fnc_exchangeDetail.formId).html(html);
 
-            this.initDetail();
-            this.initEventDetail();
+            fnc_exchangeDetail.initDetail();
+            fnc_exchangeDetail.initEventDetail();
+            fnc_exchangeDetail.initUpdateUI();
+        },
 
-            //TODO 데이터 셋팅 후 이벤트 처리 필요
-            //TODO 수신대상 그려야 함.
+//=------------------------------ Option --------------------------------------------
+
+        // 상세 목록 조회 성공 시
+        fn_detail_success(dst_id, data, dst_params){
+            if(data.result == "fail"){
+                alert(data.message);
+                return false;
+            }
+
+            setSelectDataInfo("detailData", data.data);
+
+            fnc_exchangeDetail.updateEventDetail();
         },
 
 
+        // 등록 성공 시
+        fn_insert_success(dst_id, data, dst_params){
+            if(data.result == "fail"){
+                alert(data.message);
+                return false;
+            }
+
+            alert(data.message);
+
+            fnc_exchangeList.selectEventList();
+
+            //하위 탭 초기화
+            initContentTab();
+            //상단 이동
+            $('html').animate({scrollTop : 0}, 100);
+            $("#"+fnc_exchangeDetail.formId).empty();
+        },
+
+
+        // 수정 성공 시
+        fn_update_success(dst_id, data, dst_params){
+            if(data.result == "fail"){
+                alert(data.message);
+                return false;
+            }
+
+            alert(data.message);
+
+            fnc_exchangeList.selectEventList();
+
+            //하위 탭 초기화
+            initContentTab();
+            //상단 이동
+            $('html').animate({scrollTop : 0}, 100);
+            $("#"+fnc_exchangeDetail.formId).empty();
+        },
+
+
+        // Ajax 실패
+        fn_fail(data, textStatus, jqXHR){
+            alert(data.message);
+
+            console.log(data, textStatus, jqXHR);
+        },
 
 
 //=------------------------------ Data Handler ----------------------------------
 
         // 데이터 가져오기
-        getEventDetailData(){
+        getDetailData(){
             var resultJson ={};
 
             var formArray = this.target.find("#" + this.formId).serializeArray();
@@ -193,25 +223,79 @@
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
 
-            //Date 처리이이이~~~
-            var periodStartDiv = this.target.find("#event-div-period").find("#event-div-startDate");
-            resultJson['periodStartDate'] = periodStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
-            var periodEndDiv = this.target.find("#event-div-period").find("#event-div-endDate");
-            resultJson['periodEndDate'] = periodEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + periodStartDiv.find("#timeHour").val() + periodStartDiv.find("#timeMinute").val();
+            //item_type
+            var item_typeCnt = fnc_exchangeDetail.target.find("input[name=item_type]").length;
+            var item_type = "";
+            for(var i = 0; i < item_typeCnt; i++){
+                if(fnc_exchangeDetail.target.find("#item_type"+(i+1)).is(":checked")){
+                    item_type += "1";
+                }else{
+                    item_type += "0";
+                }
+            }
+            resultJson['item_type'] = item_type;
 
-            var exposureStartDiv = this.target.find("#event-div-exposure").find("#event-div-startDate");
-            resultJson['exposureStartDate'] = exposureStartDiv.find("#startDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
-            var exposureEndDiv = this.target.find("#event-div-exposure").find("#event-div-endDate");
-            resultJson['exposureEndDate'] = exposureEndDiv.find("#endDate").val().replace(/[^0-9]/gi, '') + exposureStartDiv.find("#timeHour").val() + exposureStartDiv.find("#timeMinute").val();
+            //discount_rate
+            var discount_rate = fnc_exchangeDetail.target.find("input[name=discount_rate]:checked");
+            if(discount_rate.val() == "-1"){
+                resultJson['discount_rate'] = fnc_exchangeDetail.target.find("#inputDiscountEtc").val();
+            }
 
-            dalbitLog(resultJson)
-            return resultJson
+
+            //item_price_ios TODO 알아봐야함...
+            resultJson['item_price_ios'] = 0;
+
+            dalbitLog(resultJson);
+            return resultJson;
         },
 
 
-        isValid(){
+        isValid(data){
+
+            if(common.isEmpty(data.platform) || data.platform == "000"){
+                alert("플랫폼을 선택하여 주시기 바랍니다.");
+                fnc_exchangeDetail.target.find("input[name=platform]").focus();
+                return false;
+            }
+
+            if(data.platform == "001" && common.isEmpty(data.item_code)){
+                alert("아이템 코드를 입력하여 주시기 바랍니다.");
+                fnc_exchangeDetail.target.find("input[name=item_code]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.item_name)){
+                alert("아이템 명을 입력하여 주시기 바랍니다.");
+                fnc_exchangeDetail.target.find("input[name=item_name]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.dal)){
+                alert("지급 수량(달)을 입력하여 주시기 바랍니다.");
+                fnc_exchangeDetail.target.find("input[name=dal]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.item_price)){
+                alert("아이템 가격을 입력하여 주시기 바랍니다.");
+                fnc_exchangeDetail.target.find("input[name=item_price]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.discount_rate) || (data.discount_rate < 0 || data.discount_rate > 100)){
+                alert("아이템 할인율을 확인하여 주시기 바랍니다.");
+                fnc_exchangeDetail.target.find("input[name=discount_rate]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.view_yn)){
+                alert("게시 여부를 확인하여 주시기 바랍니다.");
+                fnc_exchangeDetail.target.find("input[name=view_yn]").focus();
+                return false;
+            }
+
             return true;
-        }
+        },
 
     }
 //=------------------------------ Modal ----------------------------------
@@ -224,7 +308,7 @@
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_exchangeDetailFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="exchangeIdx" value="{{exchangeIdx}}" />
+    <input type="hidden" name="item_code" value="{{item_code}}" />
     <div class="row col-lg-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
@@ -233,8 +317,8 @@
                 • 각 서비스 내 적용사항만 입력하세요.
             </div>
             <div class="pull-right">
-                {{^exchangeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/exchangeIdx}}
-                {{#exchangeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/exchangeIdx}}
+                {{^item_code}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/item_code}}
+                {{#item_code}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/item_code}}
             </div>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -255,31 +339,34 @@
             <tbody>
                 <tr class="align-middle">
                     <th rowspan="2">No</th>
-                    <td rowspan="2">{{exchangeIdx}}</td>
+                    <td rowspan="2">{{item_code}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeCheck -1 'content_platform3' 'Y'}}}</td>
+                    <td colspan="2" rowspan="2">{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}</td>
 
                     <th rowspan="2">아이템 코드</th>
-                    <td colspan="3" rowspan="2"></td>
+                    <td colspan="3" rowspan="2">
+                        {{^item_code}}<input type="text" class="form-control" id="exchange-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." style="display:none;">{{/item_code}}
+                        {{#item_code}}{{this}}{{/item_code}}
+                    </td>
 
                     <th>등록/수정자</th>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{opName}}</td>
                 </tr>
                 <tr>
                     <th>등록/수정일시</th>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{lastupdDate}}</td>
                 </tr>
                 <tr>
                     <th>아이템명</th>
                     <td colspan="3">
-                        <input type="text" class="form-control" id="exchange-itemNm" name="exchangeItemNm" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{column02}}">
+                        <input type="text" class="form-control" id="exchange-item_name" name="item_name" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{item_name}}">
                     </td>
 
                     <th>지급 수량 (달)</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="exchange-paymentQuantity" name="exchangePaymentQuantity" placeholder="지급될 달 수량." value="{{column02}}" style="width: 70%;">
+                            <input type="text" class="form-control" id="exchange-dal" name="dal" placeholder="지급될 달 수량." value="{{dal}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(달)</span>
                         </div>
                     </td>
@@ -287,47 +374,47 @@
                     <th>가격</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="exchange-price" name="exchangePrice" placeholder="아이템 구매 별 수량." value="{{column02}}" style="width:70%;"/>
+                            <input type="text" class="form-control" id="exchange-item_price" name="item_price" placeholder="아이템 구매 별 수량." value="{{item_price}}" style="width:70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(별)</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th>할인율</th>
-                    <td colspan="3">{{{getCommonCodeRadio -1 'item_discount'}}}</td>
+                    <td colspan="3">{{{getCommonCodeRadio discount_rate 'item_discount'}}}</td>
 
                     <th>타입</th>
-                    <td colspan="3">{{{getCommonCodeCheck 1 'item_itemType'}}}</td>
+                    <td colspan="3">{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
 
                     <th>게시여부</th>
-                    <td colspan="3">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
+                    <td colspan="3">{{{getCommonCodeRadio view_yn 'content_viewOn' 'N' 'view_yn'}}}</td>
                 </tr>
                 <tr>
                     <th>아이템 이미지 URL</th>
                     <td colspan="5">
-                        <input type="text" id="exchange-itemImg" name="exchangeItemImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('exchangeItemImg')">
+                        <input type="text" id="exchange-item_image" name="item_image" style="width:70%" value="{{item_image}}">
+                        <input type="button" value="미리보기" onclick="getImg('exchange-item_image')">
                     </td>
 
                     <th>썸네일 (공통)</th>
                     <td colspan="4">
-                        <input type="text" id="exchange-thumbImg" name="exchangeThumbImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('exchangeThumbImg')">
+                        <input type="text" id="exchange-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}">
+                        <input type="button" value="미리보기" onclick="getImg('exchange-item_thumbnail')">
                     </td>
                     <td colspan="1">
                         <!--미리보기-->
-                        <img id="exchangeThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <a href="javascript:;"><img id="exchange-item_thumbnailViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
                         <!--미리보기-->
-                        <img id="exchangeItemImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <a href="javascript:;"><img id="exchange-item_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
 
                     <th>상품상세 설명</th>
                     <td colspan="5">
-                        <textarea class="form-control" name="exchangeNote" id="exchange-note" rows="5" cols="30" placeholder="아이템 상세 내용을 입력하여 주시기 바랍니다." style="resize: none" maxlength="200"></textarea>
+                        <textarea class="form-control" name="desc" id="exchange-desc" rows="5" cols="30" placeholder="아이템 상세 내용을 입력하여 주시기 바랍니다." style="resize: none" maxlength="200">{{desc}}</textarea>
                     </td>
                 </tr>
             </tbody>

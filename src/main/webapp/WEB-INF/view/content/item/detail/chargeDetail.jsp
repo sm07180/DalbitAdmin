@@ -41,74 +41,24 @@
         },
 
 
-
-        // Datapicker
-        "dataPickerSrc" : {
-            startDate: moment(),
-            endDate: moment(),
-            // dateLimit: { days: 60 },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: false,
-            ranges: {
-                '1일': [moment(), moment()],
-                // '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
-                '7일': [moment(), moment().add('days', 6)],
-                '30일': [moment(), moment().add('days', 29)]
-            },
-            opens: 'left',
-            // buttonClasses: ['btn btn-default'],
-            // applyClass: 'btn-small btn-primary',
-            // cancelClass: 'btn-small',
-            format: 'L',
-            separator: ' to ',
-            locale: {
-                customRangeLabel: '직접선택',
-            }
-        },
-
         // 초기 설정
         initDetail() {
-            // 캘린더 기능추가
-            this.target.find("#event-div-period").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
-                function(start, end, t1) {
-                    this.target.find("#event-div-period").find("#startDate").val(start.format('YYYY.MM.DD'));
-                    this.target.find("#event-div-period").find("#endDate").val(end.format('YYYY.MM.DD'));
-                }
-            );
-            this.target.find("#event-div-exposure").find("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
-                function(start, end, t1) {
-                    this.target.find("#event-div-exposure").find("#startDate").val(start.format('YYYY.MM.DD'));
-                    this.target.find("#event-div-exposure").find("#endDate").val(end.format('YYYY.MM.DD'));
-                }
-            );
 
-            // 캘린더 초기값
-            this.target.find("[name=startDate]").val(moment().format('YYYY.MM.DD'));
-            this.target.find("[name=endDate]").val(moment().format('YYYY.MM.DD'));
-
-            // 시간 Select CSS 적용
-            this.target.find("[name=timeHour]").attr("class", "select-time");
-            this.target.find("[name=timeMinute]").attr("class", "select-time");
         },
 
         // 이벤트 적용
         initEventDetail(){
 
-            //로그인 타입 선택
-            this.target.find("input[name='loginType']:radio").change(function () {
+            //플랫폼 IOS일 경우 코드 수기 입력
+            this.target.find("input[name='platform']:radio").change(function () {
                 var type = this.value;
 
-                //로그인 사용자일 경우 성별 선택 가능
-                if(type == "1"){
-                    this.target.find("input[name='gender']").prop("disabled",false);
+                if(type == "001"){
+                    fnc_chargeDetail.target.find("input[name=item_code]").show();
                 }else{
-                    this.target.find("input[name='gender']").prop("disabled",true);
-                    this.target.find("input[name='gender']:input[value='1']").prop("checked", true);
+                    fnc_chargeDetail.target.find("input[name=item_code]").hide();
+                    fnc_chargeDetail.target.find("input[name=item_code]").val("");
                 }
-
             });
 
 
@@ -147,7 +97,16 @@
             var platformCode = detailData.platform.split("");
             for(var i = 0; i < platformCode.length; i++){
                 if(platformCode[i] == "1"){
-                    fnc_chargeDetail.target.find("#platform"+(i+1)).attr("checked", true);
+                    if(i == 0 || i == 1)    // 110
+                    {
+                        fnc_chargeDetail.target.find("#platform1").attr("checked", true);
+                        fnc_chargeDetail.target.find("input[name=item_code]").hide();
+                    }
+
+                    if(i == 2){             //001
+                        fnc_chargeDetail.target.find("#platform2").attr("checked", true);
+                        fnc_chargeDetail.target.find("input[name=item_code]").show();
+                    }
                 }
             }
 
@@ -159,8 +118,6 @@
                     fnc_chargeDetail.target.find("#item_type"+(i+1)).attr("checked", true);
                 }
             }
-
-
         },
 
 
@@ -198,6 +155,11 @@
 
         // 상세 목록 조회 성공 시
         fn_detail_success(dst_id, data, dst_params){
+            if(data.result == "fail"){
+                alert(data.message);
+                return false;
+            }
+
             setSelectDataInfo("detailData", data.data);
 
             fnc_chargeDetail.updateEventDetail();
@@ -206,8 +168,14 @@
 
         // 등록 성공 시
         fn_insert_success(dst_id, data, dst_params){
+            if(data.result == "fail"){
+                alert(data.message);
+                return false;
+            }
+
             alert(data.message);
 
+            fnc_chargeList.selectEventList();
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_chargeDetail.formId).empty();
@@ -216,8 +184,14 @@
 
         // 수정 성공 시
         fn_update_success(dst_id, data, dst_params){
+            if(data.result == "fail"){
+                alert(data.message);
+                return false;
+            }
+
             alert(data.message);
 
+            fnc_chargeList.selectEventList();
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_chargeDetail.formId).empty();
@@ -231,7 +205,6 @@
             console.log(data, textStatus, jqXHR);
         },
 
-
 //=------------------------------ Data Handler ----------------------------------
 
         // 데이터 가져오기
@@ -242,18 +215,6 @@
             for (var i = 0; i < formArray.length; i++){
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
-
-            //platform
-            var platformCnt = fnc_chargeDetail.target.find("input[name=platform]").length;
-            var platform = "";
-            for(var i = 0; i < platformCnt; i++){
-                if(fnc_chargeDetail.target.find("#platform"+(i+1)).is(":checked")){
-                    platform += "1";
-                }else{
-                    platform += "0";
-                }
-            }
-            resultJson['platform'] = platform;
 
             //item_type
             var item_typeCnt = fnc_chargeDetail.target.find("input[name=item_type]").length;
@@ -283,7 +244,14 @@
 
 
         isValid(data){
-            if(common.isEmpty(data.item_code)){
+
+            if(common.isEmpty(data.platform) || data.platform == "000"){
+                alert("플랫폼을 선택하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=platform]").focus();
+                return false;
+            }
+
+            if(data.platform == "001" && common.isEmpty(data.item_code)){
                 alert("아이템 코드를 입력하여 주시기 바랍니다.");
                 fnc_chargeDetail.target.find("input[name=item_code]").focus();
                 return false;
@@ -310,6 +278,18 @@
             if(common.isEmpty(data.discount_rate) || (data.discount_rate < 0 || data.discount_rate > 100)){
                 alert("아이템 할인율을 확인하여 주시기 바랍니다.");
                 fnc_chargeDetail.target.find("input[name=discount_rate]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.view_yn)){
+                alert("게시 여부를 확인하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=view_yn]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.main_yn)){
+                alert("메인 노출 여부를 확인하여 주시기 바랍니다.");
+                fnc_chargeDetail.target.find("input[name=main_yn]").focus();
                 return false;
             }
 
@@ -361,11 +341,12 @@
                     <td rowspan="2">{{rowNum}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeHorizontalCheck -1 'content_platform2' 'Y' 'platform'}}}</td>
+                    <td colspan="2" rowspan="2">{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}</td>
 
                     <th rowspan="2">아이템 코드</th>
                     <td colspan="3" rowspan="2">
-                        <input type="text" class="form-control" id="charge-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." value="{{item_code}}">
+                        {{^item_code}}<input type="text" class="form-control" id="charge-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." value="{{item_code}}" style="display:none;">{{/item_code}}
+                        {{#item_code}}{{this}}{{/item_code}}
                     </td>
 
                     <th>등록/수정자</th>
@@ -373,7 +354,7 @@
                 </tr>
                 <tr>
                     <th>등록/수정일시</th>
-                    <td colspan="2">{{lastUpdDate}}</td>
+                    <td colspan="2">{{lastupdDate}}</td>
                 </tr>
                 <tr>
                     <th>아이템명</th>
@@ -384,7 +365,7 @@
                     <th>지급 수량 (달)</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-dal" name="dal" placeholder="지급될 달 수량." value="{{dal}}" style="width: 70%;">
+                            <input type="text" class="form-control" id="charge-dal" name="dal" placeholder="지급될 달 수량." value="{{dal}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(달)</span>
                         </div>
                     </td>
@@ -392,7 +373,7 @@
                     <th>가격</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-item_price" name="item_price" placeholder="아이템 구매 가격." value="{{item_price}}" style="width: 70%;">
+                            <input type="text" class="form-control" id="charge-item_price" name="item_price" placeholder="아이템 구매 가격." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(원)</span>
                         </div>
                     </td>
@@ -414,23 +395,23 @@
                     <th>아이템 이미지</th>
                     <td colspan="5">
                         <input type="text" id="charge-item_image" name="item_image" style="width:70%" value="{{item_image}}" >
-                        <input type="button" value="미리보기" onclick="getImg('item_image')">
+                        <input type="button" value="미리보기" onclick="getImg('charge-item_image')">
                     </td>
 
                     <th>썸네일 (공통)</th>
                     <td colspan="4">
                         <input type="text" id="charge-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}" >
-                        <input type="button" value="미리보기" onclick="getImg('item_thumbnail')">
+                        <input type="button" value="미리보기" onclick="getImg('charge-item_thumbnail')">
                     </td>
                     <td colspan="1">
                         <!--미리보기-->
-                        <img id="item_thumbnailViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <a href="javascript:;"><img id="charge-item_thumbnailViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
                         <!--미리보기-->
-                        <img id="item_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                        <a href="javascript:;"><img id="charge-item_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
 
                     <th>상품상세 설명</th>
