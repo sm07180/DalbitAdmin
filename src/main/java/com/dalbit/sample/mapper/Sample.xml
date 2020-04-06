@@ -42,6 +42,9 @@
             <if test="ostype != null and ostype != '' ">
                 and ostype = #{ostype}
             </if>
+            <if test='searchText != null and searchText != ""'>
+                and upper(`desc`) like concat ('%', upper(#{searchText}), '%')
+            </if>
         </where>
     </sql>
 

@@ -22,6 +22,7 @@
                                     <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
                                 </div>
                                 <span id="osTypeArea"></span>
+                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="description 검색창"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
@@ -39,15 +40,15 @@
                     <div class="widget-content">
                         <table id="errorList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
-                            <th>idx</th>
-                            <th>mem_no</th>
-                            <th>ostype</th>
-                            <th>version</th>
-                            <th>build</th>
-                            <th>dtype</th>
-                            <th>ctype</th>
-                            <th>desc</th>
-                            <th>upd_date</th>
+                            <th width="100px">idx</th>
+                            <th width="200px">mem_no</th>
+                            <th width="100px">ostype</th>
+                            <th width="100px">version</th>
+                            <th width="100px">build</th>
+                            <th width="100px">dtype</th>
+                            <th width="500px">ctype</th>
+                            <th width="8000px">desc</th>
+                            <th width="100px">upd_date</th>
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
@@ -133,7 +134,6 @@
     }
 
     function handlebarsPaging(targetId, pagingInfo){
-    //이전/다음 눌렀을 때 새로 검색하는
         errorPagingInfo = pagingInfo;
         getErrorList();
     }
