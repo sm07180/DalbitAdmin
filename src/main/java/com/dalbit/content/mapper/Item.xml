@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.content.dao.ItemDao" >
 
+    <!-- 충전 아이템 -->
     <select id="callContentsChargeItemList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_itemChargeListOutputVo">
           call rd_admin.sp_admin_contents_charge_item_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
@@ -24,10 +25,32 @@
 
 
 
+    <!-- 교환 아이템 -->
+    <select id="callContentsExchangeItemList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_itemExchangeListOutputVo">
+          call rd_admin.sp_admin_contents_change_item_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsExchangeItemDetail" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.content.vo.procedure.P_itemExchangeDetailOutputVo">
+          call rd_admin.sp_admin_contents_change_item_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsExchangeItemAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+          call rd_admin.sp_admin_contents_change_item_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsExchangeItemEdit" statementType="CALLABLE"  parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+          call rd_admin.sp_admin_contents_change_item_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callContentsExchangeItemDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+          call rd_admin.sp_admin_contents_change_item_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 
 
 
-    <!-- 충전 아이템 -->
+
+
+    <!-- 선물 아이템 -->
     <sql id="giftSelect">
             SELECT
                 item_code			AS 	itemCode

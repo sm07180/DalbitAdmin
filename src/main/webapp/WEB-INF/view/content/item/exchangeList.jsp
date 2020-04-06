@@ -59,20 +59,21 @@ var fnc_exchangeList = {
     initDataTable(){
         //=---------- Main DataTable ----------
         var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val()
-            data.showTarget = $("select[name='banner-selectShowTarget']").val()
-            data.bannerType = $("select[name='banner-selectBannerType']").val()
-            data.startDate = $('#banner-inputReportrange').attr("startDated");
-            data.endDate = $('#banner-inputReportrange').attr("endDate");
+            // data.search = $('#txt_search').val();                        // 검색명
+            // data.gubun = $("select[name='selectGubun']").val()
+            // data.showTarget = $("select[name='banner-selectShowTarget']").val()
+            // data.bannerType = $("select[name='banner-selectBannerType']").val()
+            // data.startDate = $('#banner-inputReportrange').attr("startDated");
+            // data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.exchange);
+        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.exchange, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
-        this.dtList_info.setEventClick(this.updateData,5);
+        this.dtList_info.setEventClick(this.updateData);
+        this.dtList_info.useInitReload(true);
         this.dtList_info.createDataTable(this.initSummary);
-        this.initDataTableButton();
+
         //---------- Main DataTable ----------=
     },
 
@@ -85,6 +86,9 @@ var fnc_exchangeList = {
 
         fnc_exchangeList.divDataTable = fnc_exchangeList.targetDataTable.parent("div");
         fnc_exchangeList.divDataTable.find(".top-right").prepend(html);
+
+        fnc_exchangeList.initDataTableButton();
+        fnc_exchangeList.initEvent();
     },
 
 
@@ -117,9 +121,9 @@ var fnc_exchangeList = {
     // 등록
     insertEvent() {
         //등록을 위한 데이터 초기화
-        setSelectDataInfo(null, null);
+        initSelectDataInfo();
 
-        $("#tab_chargeDetail").click();
+        $("#tab_exchangeDetail").click();
     },
 
     // 삭제
@@ -132,46 +136,62 @@ var fnc_exchangeList = {
         }
 
         if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
-            //TODO 삭제 로직 추가아아앙
-        };
 
-        dalbitLog(checkDatas);
+            var itemCodes = "";
+            for(var idx=0; idx < checkDatas.length; idx++){
+                var dataInfo = checkDatas[idx];
+                if(common.isEmpty(dataInfo.item_code)){
+                    dalbitLog("[delete] Item code does not exist. : ");
+                    dalbitLog(dataInfo);
+                    continue;
+                }
+
+                itemCodes += "," + dataInfo.item_code;
+            }
+            itemCodes = itemCodes.substring(1);
+
+            var data = new Object();
+            data.item_code = itemCodes;
+
+            util.getAjaxData(fnc_exchangeList.targetId, "/rest/content/item/exchange/delete",data, fnc_exchangeList.fn_delete_success, fnc_exchangeList.fn_fail);
+        };
     },
 
     // 수정
     updateData(data) {
-        var dataInfo = {
-            exchangeIdx: data.rowNum
-            ,column02: data.item_col3
-            ,column03: data.item_col14
-            ,column04: "제목"
-            ,column05: data.item_col1
-            ,column06: data.item_col1
-            ,column07: data.item_col1
-            ,column08: data.item_col1
-            ,column09: data.item_col1
-            ,column10: data.item_col2
-            ,column11: "0"
-            ,column12: "2020-03-04"
-            ,column13: "00"
-            ,column14: "00"
-            ,column15: ""
-            ,column16: data.item_col6
-        }
-
         // 정보전달을 위한 값 셋팅
-        setSelectDataInfo(data.rowNum, dataInfo);
+        setSelectDataInfo("data", data);
 
         var selectTabId = "exchangeDetail";
-        console.log($("#contentTap").find(".active"))
-        if(fnc_exchangeList.target.find("#contentTap").find(".active").length != 0){
-            selectTabId = $("#contentTap").find(".active").find("a").prop("id").split("_")[1];
+        console.log($("#contentTab").find(".active"))
+        if(fnc_exchangeList.target.find("#contentTab").find(".active").length != 0){
+            selectTabId = $("#contentTab").find(".active").find("a").prop("id").split("_")[1];
         }
         console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);
 
         // targetFnc.updateEventDetail();
         $("#tab_" + selectTabId).click();
+    },
+
+    // 삭제 성공 시
+    fn_delete_success(dst_id, data, dst_params){
+        alert(data.message);
+
+        // reload
+        fnc_exchangeList.selectEventList();
+
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#"+fnc_exchangeDetail.formId).empty();
+    },
+
+
+    // Ajax 실패
+    fn_fail(data, textStatus, jqXHR){
+        alert(data.message);
+
+        console.log(data, textStatus, jqXHR);
     },
 
 
@@ -181,8 +201,8 @@ var fnc_exchangeList = {
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-
-        this.dtList_info.reload();
+        this.dtList_info.createDataTable(this.initSummary);
+        // this.dtList_info.reload();
     },
 
         // /*=---------- 엑셀 ----------*/
@@ -229,7 +249,6 @@ var fnc_exchangeList = {
 <script id="tmp_exchangeListStatisticsFrm" type="text/x-handlebars-template">
 
     <div style="float:left">
-        {{#each this}}
         <table class="table table-bordered table-dalbit text-center" style="width:400px;">
             <colgroup>
                 <col width="8%" />
@@ -256,13 +275,12 @@ var fnc_exchangeList = {
                 <th colspan="3">IOS</th>
             </tr>
             <tr>
-                <td style="text-align:center;" colspan="3">{{item_col1}}건</td>
-                <td style="text-align:center;" colspan="3">{{item_col2}}건</td>
-                <td style="text-align:center;" colspan="3">{{item_col5}}건</td>
-                <td style="text-align:center;" colspan="3">{{item_col3}}건</td>
+                <td style="text-align:center;" colspan="3">{{pcCnt}}건</td>
+                <td style="text-align:center;" colspan="3">{{androidCnt}}건</td>
+                <td style="text-align:center;" colspan="3">{{iosCnt}}건</td>
+                <td style="text-align:center;" colspan="3">{{totalPurchaseCnt}}건</td>
             </tr>
             </tbody>
         </table>
-        {{/each}}
     </div>
 </script>

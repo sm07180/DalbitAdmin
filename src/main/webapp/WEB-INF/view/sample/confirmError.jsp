@@ -22,6 +22,7 @@
                                     <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
                                 </div>
                                 <span id="osTypeArea"></span>
+                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="description 검색창"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
@@ -39,15 +40,15 @@
                     <div class="widget-content">
                         <table id="errorList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
-                            <th>idx</th>
-                            <th>mem_no</th>
-                            <th>ostype</th>
-                            <th>version</th>
-                            <th>build</th>
-                            <th>dtype</th>
-                            <th>ctype</th>
-                            <th>desc</th>
-                            <th>upd_date</th>
+                            <th width="100px">idx</th>
+                            <th width="200px">mem_no</th>
+                            <th width="100px">ostype</th>
+                            <th width="100px">version</th>
+                            <th width="100px">build</th>
+                            <th width="100px">dtype</th>
+                            <th width="500px">ctype</th>
+                            <th width="8000px">desc</th>
+                            <th width="100px">upd_date</th>
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
@@ -63,18 +64,35 @@
 <script type="text/javascript" src="/js/code/sample/sampleCodeList.js"></script>
 <script type="text/javascript">
     var errorPagingInfo = new PAGING_INFO(0, 1, 500);
+
     $(document).ready(function() {
         init();
     });
 
+    function compare() {
+        var startDate = $('#txt_startSel').val();
+        var startDateArr = startDate.split('-');
+        var endDate = $('#txt_endSel').val();
+        var endDateArr = endDate.split('-');
+
+        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
+        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+
+        if(startDateCompare.getTime() > endDateCompare.getTime()) {
+            alert('시작날짜와 종료날짜를 확인해주세요');
+        }
+    }
+
     $('input[id="searchText"]').keydown(function(e) {
         if (e.keyCode === 13) {
+            compare();
             getErrorList();
         };
     });
 
     $('#bt_search').click( function() {       //검색
-        getErrorList();
+       compare();
+       getErrorList();
     });
 
     function init() {
@@ -116,7 +134,6 @@
     }
 
     function handlebarsPaging(targetId, pagingInfo){
-    //이전/다음 눌렀을 때 새로 검색하는
         errorPagingInfo = pagingInfo;
         getErrorList();
     }

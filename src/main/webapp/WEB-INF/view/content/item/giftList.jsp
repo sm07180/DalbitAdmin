@@ -70,9 +70,10 @@ var fnc_giftList = {
         this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.gift);
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
-        this.dtList_info.setEventClick(this.updateData,5);
+        this.dtList_info.setEventClick(this.updateData);
+        // this.dtList_info.useInitReload(true);
         this.dtList_info.createDataTable(this.initSummary);
-        this.initDataTableButton();
+
         //---------- Main DataTable ----------=
     },
 
@@ -87,6 +88,8 @@ var fnc_giftList = {
         fnc_giftList.divDataTable = fnc_giftList.targetDataTable.parent("div");
         fnc_giftList.divDataTable.find(".top-right").prepend(html);
 
+        fnc_giftList.initDataTableButton();
+        fnc_giftList.initEvent();
     },
 
 
@@ -119,7 +122,7 @@ var fnc_giftList = {
     // 등록
     insertEvent() {
         //등록을 위한 데이터 초기화
-        setSelectDataInfo(null, null);
+        initSelectDataInfo();
 
         $("#tab_chargeDetail").click();
     },
@@ -134,45 +137,61 @@ var fnc_giftList = {
         }
 
         if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
-            //TODO 삭제 로직 추가아아앙
-        };
 
-        dalbitLog(checkDatas);
+            var itemCodes = "";
+            for(var idx=0; idx < checkDatas.length; idx++){
+                var dataInfo = checkDatas[idx];
+                if(common.isEmpty(dataInfo.item_code)){
+                    dalbitLog("[delete] Item code does not exist. : ");
+                    dalbitLog(dataInfo);
+                    continue;
+                }
+
+                itemCodes += "," + dataInfo.item_code;
+            }
+            itemCodes = itemCodes.substring(1);
+
+            var data = new Object();
+            data.item_code = itemCodes;
+
+            util.getAjaxData(fnc_giftList.targetId, "/rest/content/item/gift/delete",data, fnc_giftList.fn_delete_success, fnc_giftList.fn_fail);
+        };
     },
 
     // 수정
     updateData(data) {
-        var dataInfo = {
-            giftIdx: data.rowNum
-            ,column02: data.item_col3
-            ,column03: data.item_col14
-            ,column04: "제목"
-            ,column05: data.item_col1
-            ,column06: data.item_col1
-            ,column07: data.item_col1
-            ,column08: data.item_col1
-            ,column09: data.item_col1
-            ,column10: data.item_col2
-            ,column11: "0"
-            ,column12: "2020-03-04"
-            ,column13: "00"
-            ,column14: "00"
-            ,column15: ""
-            ,column16: data.item_col6
-        }
-
         // 정보전달을 위한 값 셋팅
-        setSelectDataInfo(data.rowNum, dataInfo);
+        setSelectDataInfo("data", data);
 
         var selectTabId = "giftDetail";
-        if($("#contentTap").find(".active").length != 0){
-            selectTabId = $("#contentTap").find(".active").find("a").prop("id").split("_")[1];
+        if(fnc_giftList.target.find("#contentTab").find(".active").length != 0){
+            selectTabId = $("#contentTab").find(".active").find("a").prop("id").split("_")[1];
         }
         console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);
 
         // targetFnc.updateEventDetail();
         $("#tab_" + selectTabId).click();
+    },
+
+    // 삭제 성공 시
+    fn_delete_success(dst_id, data, dst_params){
+        alert(data.message);
+
+        // reload
+        fnc_giftList.selectEventList();
+
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#"+fnc_giftDetail.formId).empty();
+    },
+
+
+    // Ajax 실패
+    fn_fail(data, textStatus, jqXHR){
+        alert(data.message);
+
+        console.log(data, textStatus, jqXHR);
     },
 
 
@@ -182,7 +201,7 @@ var fnc_giftList = {
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-
+        this.dtList_info.createDataTable(this.initSummary);
         this.dtList_info.reload();
     },
 

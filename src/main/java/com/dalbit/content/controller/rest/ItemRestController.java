@@ -31,6 +31,7 @@ public class ItemRestController {
     @Autowired
     GsonUtil gsonUtil;
 
+/** ==----------------------------------------- 충전 아이템 ------------------------------------------------------------------*/
     /**
      * 충전 아이템
      */
@@ -78,52 +79,61 @@ public class ItemRestController {
 
 
 
-
-
+/** ==----------------------------------------- 교환 아이템 ------------------------------------------------------------------*/
     /**
      * 교환 아이템
      */
-    @PostMapping("exchange")
-    public String exchangeList(HttpServletRequest request, ItemVo itemVo) {
-        int totalCnt = 100;
-        int startIdx = itemVo.getPageStart();
-
-        ArrayList<ItemVo> list = new ArrayList<ItemVo>();
-        for(int i = 0; i < itemVo.getPageCnt(); i++){
-            ItemVo data = new ItemVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setItem_col1(DalbitUtil.randomValue("number", 1));
-            data.setItem_col2(DalbitUtil.randomValue("number", 1));
-            data.setItem_col3("교환 아이템_" + data.getItem_col1());
-            data.setItem_col4(new Date());
-            data.setItem_col5(DalbitUtil.randomValue("number", 1));
-            data.setItem_col6(new Date());
-            data.setItem_col7("YOOSIN");
-
-            list.add(data);
-            startIdx++;
-        }
-
-        ArrayList<ItemVo> summaryList = new ArrayList<ItemVo>();
-
-        ItemVo data = new ItemVo();
-        data.setRowNum((totalCnt - startIdx));
-        data.setItem_col1(DalbitUtil.randomValue("number", 1));
-        data.setItem_col2(DalbitUtil.randomValue("number", 1));
-        data.setItem_col3(DalbitUtil.randomValue("number", 1));
-        data.setItem_col5(DalbitUtil.randomValue("number", 1));
-        data.setItem_col7(DalbitUtil.randomValue("number", 1));
-
-        summaryList.add(data);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt), summaryList));
+    @PostMapping("exchange/list")
+    public String exchangeList(P_itemExchangeListInputVo pItemExchangeListInputVo) {
+        String result = itemService.callContentsExchangeItemList(pItemExchangeListInputVo);
+        return result;
     }
+
+    /**
+     * 교환 아이템 상세
+     */
+    @PostMapping("exchange/detail")
+    public String exchangeDetail(P_itemExchangeDetailInputVo pItemExchangeDetailInputVo) {
+        String result = itemService.callContentsExchangeItemDetail(pItemExchangeDetailInputVo);
+        return result;
+    }
+
+    /**
+     * 교환 아이템 등록
+     */
+    @PostMapping("exchange/insert")
+    public String exchangeInsert(P_itemExchangeInsertVo pItemExchangeInsertVo) {
+        String result = itemService.callContentsExchangeItemAdd(pItemExchangeInsertVo);
+        return result;
+    }
+
+    /**
+     * 교환 아이템 수정
+     */
+    @PostMapping("exchange/update")
+    public String exchangeUpdate(P_itemExchangeUpdateVo pItemExchangeUpdateVo) {
+        String result = itemService.callContentsExchangeItemEdit(pItemExchangeUpdateVo);
+        return result;
+    }
+
+    /**
+     * 교환 아이템 삭제
+     */
+    @PostMapping("exchange/delete")
+    public String exchangeDelete(P_itemExchangeDeleteVo pItemExchangeDeleteVo) {
+        String result = itemService.callContentsExchangeItemDelete(pItemExchangeDeleteVo);
+        return result;
+    }
+
+
+
+
 
 
     /**
      * 선물 아이템
      */
-    @PostMapping("gift")
+    @PostMapping("gift/list")
     public String giftList(P_itemGiftListInputVo pItemGiftListInputVo) {
             String result = itemService.callServiceCenterItemGiftList(pItemGiftListInputVo);
             return result;

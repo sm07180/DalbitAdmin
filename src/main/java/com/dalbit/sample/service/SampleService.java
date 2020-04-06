@@ -72,8 +72,8 @@ public class SampleService {
     public Model getErrorListExcel (ErrorVo errorVo, Model model) {
         List<ErrorVo> list = sampleDao.getLogErrorData(errorVo);
 
-        String[] headers = {"idx", "mem_no", "ostype", "version", "dtype", "ctype", "desc", "upd_date"};
-        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 20000, 6000};
+        String[] headers = {"idx", "mem_no", "ostype", "version", "build", "dtype", "ctype", "desc", "upd_date"};
+        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 20000, 6000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i=0; i<list.size(); i++) {
@@ -83,6 +83,7 @@ public class SampleService {
             hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
             hm.put("ostype", DalbitUtil.isEmpty(list.get(i).getOstype()) ? "" : list.get(i).getOstype());
             hm.put("version", DalbitUtil.isEmpty(list.get(i).getVersion()) ? "" : list.get(i).getVersion());
+            hm.put("build", DalbitUtil.isEmpty(list.get(i).getBuild()) ? "" : list.get(i).getBuild());
             hm.put("dtype", DalbitUtil.isEmpty(list.get(i).getDtype()) ? "" : list.get(i).getDtype());
             hm.put("ctype", DalbitUtil.isEmpty(list.get(i).getCtype()) ? "" : list.get(i).getCtype());
             hm.put("desc", DalbitUtil.isEmpty(list.get(i).getDesc()) ? "" : list.get(i).getDesc());
