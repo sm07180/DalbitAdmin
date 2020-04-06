@@ -243,8 +243,6 @@ var MemberDataTableSource = {
     'questionDetail': {
         'url': '/rest/customer/question/list'
         , 'columns': [
-            {'title': 'qnaIdx', 'data': 'qnaIdx','width':'60px'},
-            {'title': 'answer', 'data': 'answer','width':'60px'},
             {'title': '문의유형', 'data': 'slct_type','width':'80px','render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, question_type);
                 }},

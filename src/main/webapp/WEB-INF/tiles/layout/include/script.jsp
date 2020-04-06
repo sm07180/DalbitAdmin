@@ -70,8 +70,8 @@
 <script src="/js/uiControl.js"></script>
 
 <!-- DataTable Util -->
-<script src="/js/dataTablesSource/memberDataTableSource.js"></script>
-<script src="/js/dataTablesSource/broadcastDataTableSource.js"></script>
+<script src="/js/dataTablesSource/member/memberDataTableSource.js"></script>
+<script src="/js/dataTablesSource/broadcast/broadcastDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
 <script src="/js/dataTablesSource/customer/customerDataTableSource.js"></script>
 <script src="/js/dataTablesSource/customer/questionDataTableSource.js"></script>
