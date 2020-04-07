@@ -2,12 +2,14 @@ package com.dalbit.common.vo;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Date;
 import java.util.List;
 
 @Getter
 @Setter
+@ToString
 public class MenuVo {
 
     public List<MenuVo> twoDepth;
@@ -30,4 +32,9 @@ public class MenuVo {
     private int is_use;
     private Date reg_date;
     private Date last_upd_date;
+
+    private int is_read;
+    private int is_insert;
+    private int is_delete;
+
 }

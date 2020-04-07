@@ -1,6 +1,7 @@
 package com.dalbit.administrate.dao;
 
 import com.dalbit.common.vo.MenuAuthVo;
+import com.dalbit.common.vo.MenuVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface Adm_AuthorityDao {
 
     void deleteMenuAuth(int empNo);
     void insertMenuAuth(MenuAuthVo menuAuthVo);
-    List<MenuAuthVo> getMemberAuthInfo(int empNo);
+    List<MenuVo> getMemberAuthInfo(int empNo);
 }

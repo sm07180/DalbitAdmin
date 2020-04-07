@@ -46,4 +46,13 @@
         </function-signature>
     </function>
 
+    <function>
+        <description>권한이 있는 관리자 목록을 조회한다</description>
+        <name>getMenuList</name>
+        <function-class>com.dalbit.util.DalbitUtil</function-class>
+        <function-signature><!--List<MenuVo>-->
+            java.util.List getMenuList()
+        </function-signature>
+    </function>
+
 </taglib>

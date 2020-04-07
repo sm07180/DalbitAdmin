@@ -49,7 +49,7 @@ public class Adm_AuthorityRestController {
         List<MenuVo> menuList = admAuthorityService.getAdminMenuInfo();
 
         //선택된 관리자 메뉴 조회
-        List<MenuAuthVo> memberAuthList = admAuthorityService.getMemberAuthInfo(searchVo.getEmpNo());
+        List<MenuVo> memberAuthList = admAuthorityService.getMemberAuthInfo(searchVo.getEmpNo());
 
         var map = new HashMap();
         map.put("menuInfo", menuList);

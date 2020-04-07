@@ -1,8 +1,8 @@
 package com.dalbit.member.vo;
 
-import com.dalbit.common.vo.BaseVo;
 import com.dalbit.common.vo.ImageVo;
 import com.dalbit.security.vo.InforexLoginLayoutVo;
+import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.var;
@@ -19,6 +19,11 @@ public class MemberVo{
     public static String getMyMemNo() {
         var inforexLoginLayoutVo = (InforexLoginLayoutVo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return inforexLoginLayoutVo.getUserInfo().getName();
+    }
+
+    public static InforexLoginUserInfoVo getUserInfo(){
+        var inforexLoginLayoutVo = (InforexLoginLayoutVo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return inforexLoginLayoutVo.getUserInfo();
     }
 
     private String memNo;

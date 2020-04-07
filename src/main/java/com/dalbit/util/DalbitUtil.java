@@ -1,5 +1,6 @@
 package com.dalbit.util;
 
+import com.dalbit.administrate.service.Adm_AuthorityService;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
 import com.dalbit.common.vo.MenuVo;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -24,7 +24,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Pattern;
 
 @Slf4j
 @Component
@@ -38,6 +37,12 @@ public class DalbitUtil {
     @PostConstruct
     private void init () {
         environment = this.activeEnvironment;
+    }
+
+    private static Adm_AuthorityService admAuthorityService;
+    @Autowired(required=true)
+    public void setAdmAuthorityService(Adm_AuthorityService admAuthorityService) {
+        this.admAuthorityService = admAuthorityService;
     }
 
     public static boolean isNullBlank(String checkValue) {
@@ -660,6 +665,10 @@ public class DalbitUtil {
      */
     public static boolean isSmsPhoneNoChk(String phoneNo){
         return phoneNo.matches("(01[016789])(\\d{3,4})(\\d{4})");
+    }
+
+    public static List<MenuVo> getMenuList(){
+        return admAuthorityService.getLnbMemberAuthInfo(MemberVo.getUserInfo().getEmp_no());
     }
 
 }

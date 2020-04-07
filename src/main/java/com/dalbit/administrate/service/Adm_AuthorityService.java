@@ -117,7 +117,24 @@ public class Adm_AuthorityService {
         return memberList;
     }
 
-    public List<MenuAuthVo> getMemberAuthInfo(int empNo){
+    public List<MenuVo> getMemberAuthInfo(int empNo){
         return admAuthorityDao.getMemberAuthInfo(empNo);
+    }
+
+    public List<MenuVo> getLnbMemberAuthInfo(int empNo){
+
+        List<MenuVo> menuAuthList = getMemberAuthInfo(empNo);
+        List<MenuVo> authList = menuAuthList.stream().filter(one -> one.getDepth() == 1).collect(Collectors.toList());
+
+        authList.forEach(one -> {
+            var twoDepthMenuList = new ArrayList<MenuVo>();
+            menuAuthList.stream().filter(two -> two.getDepth() == 2 && two.getParent_idx() == one.getIdx()).forEach(twoDepthMenu-> {
+                twoDepthMenuList.add(twoDepthMenu);
+            });
+            one.setTwoDepth(twoDepthMenuList);
+        });
+
+        return authList;
+
     }
 }

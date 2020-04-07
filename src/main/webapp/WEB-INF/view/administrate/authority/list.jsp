@@ -185,7 +185,7 @@
             menus.each(function(){
                 menu = $(this);
                 if(common.isEmpty(menu.data('twoidx'))){
-                    if($(this).data('oneidx') == auth.menu_idx){
+                    if($(this).data('oneidx') == auth.idx){
 
                         if(1 == auth.is_read){
                             menu.find('._read').prop('checked', 'checked');
@@ -198,7 +198,7 @@
                         }
                     }
                 }else {
-                    if($(this).data('twoidx') == auth.menu_idx){
+                    if($(this).data('twoidx') == auth.idx){
                         if(1 == auth.is_read){
                             menu.find('._read').prop('checked', 'checked');
                         }
