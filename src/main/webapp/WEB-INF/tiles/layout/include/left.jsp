@@ -13,11 +13,6 @@
     <div class="sidebar-scroll" style="overflow:auto; height: 100%">
         <nav class="main-nav">
             <ul class="main-menu">
-                <%--<li class="page _commingSoon ${url.equals('/main') ? 'active': ''}">
-                    <a href="/main">
-                        <i class="fa fa-home"></i><span class="text">메인</span>
-                    </a>
-                </li>--%>
 
                 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
                     <c:if test="${menu.menu_name eq '메인'}">
@@ -95,7 +90,7 @@
 
                         <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''} ${isContainSubmenu ? '' : 'page'} ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''} ${isSubmenuView ? 'active': ''}">
 
-                            <a href="${menu.menu_url}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
+                            <a href="${0 < fn:length(menu.menu_url) ? 'javascript://' : menu.menu_url}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
                                 <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
                                 <c:if test="${isContainSubmenu}">
                                     <i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'left'}"></i>
@@ -106,7 +101,7 @@
                                 <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': ''}">
                                     <c:forEach var="twoDepth" items="${menu.twoDepth}">
                                         <li class="${url.equals(twoDepth.menu_url) ? 'active': ''}">
-                                            <a href="${twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
+                                            <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
                                                 <i class="fa fa-thumbs-o-up"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>
                                         </li>
