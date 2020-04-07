@@ -66,7 +66,7 @@
                             <tbody id="tableBody"></tbody>
                         </table>
                     </div>
-                    <div class="widget-footer">
+                    <div class="widget-footer" style="display: none;">
                         <span>
                             <button type="button" id="authority_view" class="btn btn-danger print-btn pull-right mb10">권한부여하기</button>
                         </span>
@@ -146,6 +146,7 @@
     });
 
     function getMemberList(){
+        $("#authArea").hide();
         util.getAjaxData("memberList", "/rest/administrate/authority/list", $("#searchForm").serialize(), fn_memberList_success);
     }
 
@@ -225,6 +226,7 @@
 
     $(document).on('click', '._memberTableRow', function(){
        $(this).find('input[type="radio"]').prop('checked', 'checked');
+       $("#authority_view").click();
     });
 
     $(document).on('click', '._authChk', function(){
