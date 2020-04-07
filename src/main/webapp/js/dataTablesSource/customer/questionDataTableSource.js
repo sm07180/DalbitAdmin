@@ -35,7 +35,10 @@ var questionDataTableSource = {
                     }
                 }},
             // {'title': '첨부파일', 'data': 'add_file','width':'60px'},
-            {'title': '첨부파일', 'data': '','width':'60px'},
+            {'title': '첨부파일', 'data': 'add_file','width':'60px', 'render' : function(data, type, row, meta){
+                    var fileCnt = common.isEmpty(data) ? 0 : data.split(",").length;
+                    return '첨부파일 ' + fileCnt +'건';
+                }},
             {'title': '처리상태', 'data': 'state','width':'60px','render' : function(data){
                     if(data == "0"){
                         return "미처리"; 
