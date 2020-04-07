@@ -13,11 +13,6 @@
     <div class="sidebar-scroll" style="overflow:auto; height: 100%">
         <nav class="main-nav">
             <ul class="main-menu">
-                <%--<li class="page _commingSoon ${url.equals('/main') ? 'active': ''}">
-                    <a href="/main">
-                        <i class="fa fa-home"></i><span class="text">메인</span>
-                    </a>
-                </li>--%>
 
                 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
                     <c:if test="${menu.menu_name eq '메인'}">
@@ -95,7 +90,7 @@
 
                         <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''} ${isContainSubmenu ? '' : 'page'} ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''} ${isSubmenuView ? 'active': ''}">
 
-                            <a href="${menu.menu_url}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
+                            <a href="${0 < fn:length(menu.menu_url) ? 'javascript://' : menu.menu_url}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
                                 <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
                                 <c:if test="${isContainSubmenu}">
                                     <i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'left'}"></i>
@@ -106,7 +101,7 @@
                                 <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': ''}">
                                     <c:forEach var="twoDepth" items="${menu.twoDepth}">
                                         <li class="${url.equals(twoDepth.menu_url) ? 'active': ''}">
-                                            <a href="${twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
+                                            <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
                                                 <i class="fa fa-thumbs-o-up"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>
                                         </li>
@@ -116,6 +111,61 @@
                         </li>
                     </c:if>
                 </c:forEach>
+
+
+                <li class="${fn:startsWith(url, '/sample/') ? 'active': ''}">
+                    <a href="javascript://" class="js-sub-menu-toggle">
+                        <i class="fa fa-question"></i><span class="text">샘플페이지</span>
+                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/sample/') ? 'down': 'left'}"></i>
+                    </a>
+                    <ul class="sub-menu" style="${fn:startsWith(url, '/sample/') ? 'display:block;': ''}">
+                        <li class="${fn:contains(url, '/sample/editor') ? 'active': ''}">
+                            <a href="/sample/editor">
+                                <i class="fa fa-search"></i><span class="text">에디터</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/chart') ? 'active': ''}">
+                            <a href="/sample/chart">
+                                <i class="fa fa-search"></i><span class="text">차트</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/datepicker') ? 'active': ''}">
+                            <a href="/sample/datepicker">
+                                <i class="fa fa-search"></i><span class="text">DatePicker</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/layer') ? 'active': ''}">
+                            <a href="/sample/layer">
+                                <i class="fa fa-search"></i><span class="text">레이어</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/function') ? 'active': ''}">
+                            <a href="/sample/function">
+                                <i class="fa fa-search"></i><span class="text">공통함수</span>
+                            </a>
+                        </li>
+                        <li class="${url.equals('/sample/inforexAdminLogin') ? 'active': ''}">
+                            <a href="/sample/inforexAdminLogin">
+                                <i class="fa fa-search"></i><span class="text">인포렉스 로그인 연동</span>
+                            </a>
+                        </li>
+                        <li class="${url.equals('/sample/inforexAdminMenu') ? 'active': ''}">
+                            <a href="/sample/inforexAdminMenu">
+                                <i class="fa fa-search"></i><span class="text">인포렉스 메뉴 가져오기</span>
+                            </a>
+                        </li>
+                        <li class="${url.equals('/sample/inforexPosCodeList') ? 'active': ''}">
+                            <a href="/sample/inforexPosCodeList">
+                                <i class="fa fa-search"></i><span class="text">인포렉스 API 조회</span>
+                            </a>
+                        </li>
+                        <li class="${fn:contains(url, '/sample/confirmError') ? 'active': ''}">
+                            <a href="/sample/confirmError">
+                                <i class="fa fa-search"></i><span class="text">에러확인</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /main-nav -->
