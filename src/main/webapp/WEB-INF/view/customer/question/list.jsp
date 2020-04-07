@@ -155,6 +155,16 @@
         console.log("fn_success_excel");
     }
 
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+        if($(this).prop('checked')){
+            $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked');
+            $(this).prop('checked', 'checked');
+            $(this).parent().parent().find('.getQuestDetail').click();
+        }else{
+            $('#tab_list').removeClass("show");
+        }
+    });
+
     /*==================================*/
 </script>
 <script id="question_tableSummary" type="text/x-handlebars-template">
