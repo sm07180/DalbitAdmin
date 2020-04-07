@@ -31,3 +31,7 @@ ui.loadInforexAdminPage = function(menu){
     $(menu).parent().addClass('active');
 }
 
+ui.topScroll = function(){
+    window.scrollTo(0,0);
+}
+
