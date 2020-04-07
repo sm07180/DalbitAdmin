@@ -161,7 +161,7 @@
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
             }else if(tmp == "bt_phon"){
-                if(confirm("연락처를 초기화 하시겠습니까?")) {
+                if(confirm("연락처를 변경 하시겠습니까?")) {
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 0;
                 }else return;
@@ -334,7 +334,7 @@
             <td style="text-align: left">{{dal}} 개</td>
         </tr>
         <tr>
-            <th>소셜아이디</th>
+            <th>로그인 아이디</th>
             <td colspan="3" style="text-align: left">{{socialId}}</td>
             <th>보유별</th>
             <td style="text-align: left">{{byeol}} 개</td>
