@@ -69,8 +69,6 @@
             getUserInfo();
         });
         <!-- 버튼 끝 -->
-
-        getUserInfo();
     });
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
     $("#question_type").html(util.getCommonCodeSelect(-1, question_type));
