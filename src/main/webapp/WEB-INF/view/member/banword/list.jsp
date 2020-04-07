@@ -31,10 +31,4 @@
         dtList_info_detail.reload();
     }
 
-    function Ban(index){
-        var data = dtList_info_detail.getDataRow(index);
-        var roomNo = data.roomNo;
-        console.log('Ban~ roomNo : ' + roomNo);
-    }
-
 </script>

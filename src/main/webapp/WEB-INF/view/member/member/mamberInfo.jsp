@@ -34,18 +34,23 @@
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
-        var html=templateScript(context);
+        var html = templateScript(context);
         $("#memberInfoFrm").html(html);
         init();
 
         $("#txt_birth").val(response.data.birthDate.substr(0, 10));
-        $("#memSlct").html(util.renderSlct(response.data.memSlct,"20"));
+        $("#memSlct").html(util.renderSlct(response.data.memSlct, "20"));
         report = "../member/popup/reportPopup?memNo=" + "'" + response.data.mem_no + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'";
 
-        $('#div_info_detail').removeClass("show");
-        $('#report_detail').removeClass("show");
-        $('#question_tab').removeClass("show");
-        $("#member_detailFrm").html("");
+        if(response.data.memSlct != "p" ){
+            $("#div_socialId").empty();
+            var tmp = '<label>' + response.data.socialId + '</label>';
+            $("#div_socialId").append(tmp);
+        }
+
+        if(tmp_bt != "adminMemoAdd" ){
+            $("#member_detailFrm").html("");
+        }
         // // 상단 목록 클릭시 detail 재 조회
         $("#tablist_con").find('.active').find('a').click();
     }
@@ -207,12 +212,19 @@
 
         if (dst_id == "adminMemoAdd") {
             dtList_info_detail.reload();
-            // getMemNo_info_reload(memNo);
+            tmp_bt = dst_id;
+            getMemNo_info_reload(memNo);
         } else {
             var obj = new Object();
             obj.mem_no =  memNo;
             util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
         }
+    }
+    function getMemNo_info_reload(memNo){
+        var data = new Object;
+        data.mem_no = memNo;
+
+        util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
     }
     function reportPopup(){
         util.windowOpen(report,"1000","750","경고/정지");
@@ -226,7 +238,6 @@
         $('#tab_memberInfoDetail').text(tmp1);           //텝 이름 변경
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        console.log("tmp : " + tmp);
 
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
@@ -300,9 +311,7 @@
         <tr>
             <th>회원상태</th>
             <td style="text-align: left">
-                {{#equal memState '1'}}정상{{/equal}}
-                {{#equal memState '2'}}블럭{{/equal}}
-                {{#equal memState '3'}}탈퇴{{/equal}}
+                {{{getCommonCodeLabel memState 'mem_state'}}}
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
             </td>
         </tr>
@@ -335,7 +344,12 @@
         </tr>
         <tr>
             <th>소셜아이디</th>
-            <td colspan="3" style="text-align: left">{{socialId}}</td>
+            <td colspan="3" style="text-align: left">
+                <div id="div_socialId">
+                    <input type="text" class="form-control" id="txt_socialId" style="width: 90%;" value="{{socialId}}">
+                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                </div>
+            </td>
             <th>보유별</th>
             <td style="text-align: left">{{byeol}} 개</td>
         </tr>

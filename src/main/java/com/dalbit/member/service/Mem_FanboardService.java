@@ -35,6 +35,9 @@ public class Mem_FanboardService {
 //            result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기실패));
 //        }
 
+        pMemberFanboardInputVo.setPageNo(pMemberFanboardInputVo.getPageNo() -1);
+        pMemberFanboardInputVo.setPageNo(pMemberFanboardInputVo.getPageNo() * pMemberFanboardInputVo.getPageCnt());
+
         ArrayList<P_MemberFanboardOutputVo> memberList = mem_FanboardDao.callFanboardHistory(pMemberFanboardInputVo);
         int memberList_totalCnt = mem_FanboardDao.callFanboardHistory_totalCnt(pMemberFanboardInputVo);
 

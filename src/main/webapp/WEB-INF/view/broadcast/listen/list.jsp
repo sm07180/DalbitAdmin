@@ -175,6 +175,7 @@
         dalbitLog(response);
         $('#forcedModal').modal('hide');
         $('#forced_message').val("");
+        dtList_info_detail.createDataTable(listen_summary_table);
         dtList_info_detail.reload();
     }
 </script>

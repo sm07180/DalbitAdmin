@@ -11,6 +11,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberInfoInputVo;
 import com.dalbit.member.vo.procedure.P_MemberInfoOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberListInputVo;
@@ -159,6 +160,7 @@ public class Bro_BroadcastService {
      * 방송방 정보수정
      */
     public String callBroadcastEdit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
+        pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastEditInputVo);
         bro_BroadcastDao.callBroadcastEdit(procedureVo);
         String result;

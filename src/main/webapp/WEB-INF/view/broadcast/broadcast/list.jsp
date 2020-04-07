@@ -76,6 +76,7 @@
         <!-- 버튼 끝 -->
     });
 
+    var dtList_info;
     var dtList_info_data = function ( data ) {
         var slctType = $('input[name="searchRadio"]:checked').val()
         data.slctType = $('input[name="searchRadio"]:checked').val();
@@ -121,10 +122,10 @@
         dtList_info.reload();
         ui.toggleSearchList();
         $('#detailFrm').addClass("hid");
-
     }
 
     function getBroadCast_info(index){
+        editEntry = "";
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.room_no = data.room_no;

@@ -73,7 +73,6 @@
     var detailData;
     function info_sel_success(dst_id, response, param) {
         $('#detailFrm').addClass("hid");
-        $("#editHistFrm").removeClass("show");
         room_no = param.room_no;
         response.data.room_no = param.room_no;
         detailData = response.data;
@@ -107,6 +106,9 @@
         $("#broadcast_detailFrm").html(html);
         btn_init();
         $("#tablist_con").find('.active').find('a').click();
+        if(editEntry != "adminMemoAdd" ){
+            $("#editHistFrm").removeClass("show");
+        }
     }
 
     function btn_init(){
@@ -339,7 +341,11 @@
         dtList_info.reload();
 
         if (dst_id == "adminMemoAdd") {
+            editEntry = dst_id;
             dtList_info_detail.reload();
+            var obj = new Object();
+            obj.room_no = room_no;
+            util.getAjaxData("type", "/rest/broadcast/broadcast/info",obj, info_sel_success);
         }else{
             var obj = new Object();
             obj.room_no = room_no;
@@ -461,7 +467,6 @@
             <th>방송 진행시간</th>
             <td style="text-align: left">
                 {{timeStamp airTime}}
-                <button type="button" id="bt_broadcastTime" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         <tr>

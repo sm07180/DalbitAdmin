@@ -31,6 +31,7 @@
     function getHistory_mystarDetail(tmp) {     // 상세보기
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
+            data.pageCnt = 5;
         }
         dtList_info_detail = new DalbitDataTable($("#mystar").find("#list_mystar"), dtList_info_detail_data, MemberDataTableSource.mystar);
         dtList_info_detail.useCheckBox(false);

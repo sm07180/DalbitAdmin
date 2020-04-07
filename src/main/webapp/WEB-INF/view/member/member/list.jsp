@@ -72,6 +72,7 @@
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
     dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
+    dtList_info.useInitReload(false);
     dtList_info.createDataTable();
 
     var forcedBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
@@ -93,7 +94,7 @@
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList()
-        $('#tabList').removeClass("show");
+        $('#tabList_top').removeClass("show");
     }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
@@ -103,6 +104,7 @@
     });
 
     function getMemNo_info(index){
+        tmp_bt = "";
         $('#tabList_top').addClass("show");
         var data = dtList_info.getDataRow(index);
         util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);

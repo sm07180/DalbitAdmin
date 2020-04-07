@@ -30,22 +30,27 @@ public class Mem_BanwordService {
         int start = pMemberBanwordInputVo.getPageStart();
         int end = pMemberBanwordInputVo.getPageCnt() + pMemberBanwordInputVo.getPageStart();
 
-        String[] banword = memberList.get(0).getBan_word().split("\\|");
-        if(end > banword.length){
-            end = banword.length;
-        }
-
-        if(banword.length > 0){
-            for(int i = start; i < end; i++){
-                P_MemberBanwordOutputVo data = new P_MemberBanwordOutputVo();
-                data.setRowNum(i + 1);
-                data.setBan_word(banword[i]);
-                list.add(data);
-            }
-        }
-
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.금지어목록보기성공, list, new PagingVo(memberList.get(0).getCount())));
+
+        if(memberList.size() > 0) {
+            String[] banword = memberList.get(0).getBan_word().split("\\|");
+            if (end > banword.length) {
+                end = banword.length;
+            }
+
+            if (banword.length > 0) {
+                for (int i = start; i < end; i++) {
+                    P_MemberBanwordOutputVo data = new P_MemberBanwordOutputVo();
+                    data.setRowNum(i + 1);
+                    data.setBan_word(banword[i]);
+                    list.add(data);
+                }
+            }
+            result = gsonUtil.toJson(new JsonOutputVo(Status.금지어목록보기성공, list, new PagingVo(memberList.get(0).getCount())));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.금지어목록보기실패));
+        }
+
         return result;
     }
 }

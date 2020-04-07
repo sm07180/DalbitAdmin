@@ -36,7 +36,9 @@ var MemberDataTableSource = {
                 }},
             {'title': '방송시작시간', 'data': 'startDateFormat', 'width':'120px'},
             {'title': '방송종료시간', 'data': 'endDateFormat', 'width':'120px'},
-            {'title': '방송진행시간', 'data': 'airtime', 'width':'100px'},
+            {'title': '방송진행시간', 'data': 'airtime', 'width':'100px','render' : function(data){
+                    return common.timeStamp(data);
+                }},
             {'title': '청취자', 'data': 'listenerCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data) + "명";
                 }},
@@ -195,7 +197,6 @@ var MemberDataTableSource = {
     'fanboardDetail': {
         'url': '/rest/member/fanboard/list'
         , 'columns': [
-            {'title': 'boardNo', 'data': 'board_no'},
             {'title': '프로필이미지', 'data': 'profileImage', 'render' : function(data, type, row){
                     return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
                         'onclick="fanboard_fullSize_profile(this.src)"/>';

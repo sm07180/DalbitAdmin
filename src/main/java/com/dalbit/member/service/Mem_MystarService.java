@@ -33,6 +33,10 @@ public class Mem_MystarService {
 //            result = gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기실패));
 //        }
 
+
+        pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() -1);
+        pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() * pMemberMystarInputVo.getPageCnt());
+
         ArrayList<P_MemberMystarOutputVo> memberList = mem_MystarDao.callMystarHistory(pMemberMystarInputVo);
         int memberList_totalCnt = mem_MystarDao.callMystarHistory_totalCnt(pMemberMystarInputVo);
 
@@ -53,6 +57,9 @@ public class Mem_MystarService {
 //        }else{
 //            result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기실패));
 //        }
+
+        pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() -1);
+        pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() * pMemberMystarInputVo.getPageCnt());
 
         ArrayList<P_MemberMystarOutputVo> memberList = mem_MystarDao.callMyfanHistory(pMemberMystarInputVo);
         int memberList_totalCnt = mem_MystarDao.callMyfanHistory_totalCnt(pMemberMystarInputVo);
