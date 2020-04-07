@@ -183,7 +183,7 @@ var BroadcastDataTableSource = {
                     return tmp + "건";
                 }},
             {'title': '부스터 적용 일시', 'data': 'boosterDate','width' : '150px'},
-            {'title': '좋아요 및 부스터 적용 시 방송방 실시간 순위', 'data': 'rank','width' : '100px', 'render': function (data) {
+            {'title': '실시간 순위', 'data': 'rank','width' : '100px', 'render': function (data) {
                     var tmp = common.addComma(data);
                     return tmp + "위";
                 }},

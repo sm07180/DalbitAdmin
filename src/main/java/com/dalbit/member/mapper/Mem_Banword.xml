@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.Mem_BanwordDao" >
+
+    <select id="callBanwordHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberBanwordInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberBanwordOutputVo">
+        /* Mem_Banword.xml - callBanwordHistory */
+       select * From rd_data.tb_member_broadcast_banword where mem_no=#{mem_no}
+    </select>
+    
+</mapper>

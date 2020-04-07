@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.administrate.dao.Adm_AuthorityDao" >
+
+    <delete id="deleteMenuAuth" parameterType="int">
+        /* Adm_Authority.xml - deleteMenuAuth */
+        DELETE FROM rd_admin.tb_admin_menu_auth
+        WHERE EMP_NO = #{empNo}
+    </delete>
+
+    <insert id="insertMenuAuth" parameterType="com.dalbit.common.vo.MenuAuthVo">
+        /* Adm_Authority.xml - insertMenuAuth */
+        INSERT INTO rd_admin.tb_admin_menu_auth(
+            EMP_NO
+            , MENU_IDX
+            , IS_READ
+            , IS_INSERT
+            , IS_DELETE
+        ) values(
+              #{emp_no}
+            , #{menu_idx}
+            , #{is_read}
+            , #{is_insert}
+            , #{is_delete}
+        )
+    </insert>
+
+    <select id="getMemberAuthInfo" parameterType="int" resultType="com.dalbit.common.vo.MenuVo">
+        /* Adm_Authority.xml - getMemberAuthInfo */
+        SELECT
+            MENU.IDX
+            , MENU.MENU_NAME
+            , MENU.MENU_URL
+            , MENU.DEPTH
+            , MENU.ORDER_NO
+            , MENU.PARENT_IDX
+            , MENU.ICON
+            , MENU.IS_POP
+            , MENU.IS_COMMING_SOON
+            , AUTH.IS_READ
+            , AUTH.IS_INSERT
+            , AUTH.IS_DELETE
+        FROM rd_admin.tb_admin_menu_auth AUTH
+            , rd_admin.tb_admin_menu MENU
+        WHERE AUTH.MENU_IDX = MENU.IDX
+            AND EMP_NO = #{empNo}
+    </select>
+</mapper>

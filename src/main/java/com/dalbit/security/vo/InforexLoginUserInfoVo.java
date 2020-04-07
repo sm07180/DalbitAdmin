@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class InforexLoginUserInfoVo {
-    String emp_no;
+    int emp_no;
     String name;
     String userid;
     String sex;

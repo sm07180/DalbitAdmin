@@ -4,7 +4,7 @@
 <sec:authentication var="principal" property="principal" />
 
 <div>
-    <form id="detailFrm"></form>
+    <form id="broadcast_detailFrm"></form>
     <form id="editHistFrm" class="hide"></form>
 </div>
 

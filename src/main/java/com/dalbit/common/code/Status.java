@@ -89,9 +89,25 @@ public enum Status {
     Fan목록보기성공("0", "fan.list.view.success", "Fan 목록보기 성공 시"),
     Fan목록보기실패("C006", "fan.list.view.fail", "Fan 목록보기 실패 시"),
 
+    //Fanboard 보기
+    Fanboard목록보기성공("0", "fanboard.list.view.success", "Fanboard 목록보기 성공 시"),
+    Fanboard목록보기실패("C006", "fanboard.list.view.fail", "Fanboard 목록보기 실패 시"),
+
+    //Fanboard 보기
+    Fanboard삭제성공("0", "fanboard.list.del.success", "Fanboard 삭제 성공 시"),
+    Fanboard삭제실패("C006", "fanboard.list.del.fail", "Fanboard 삭제 실패 시"),
+
+    //Fanboard reply 보기
+    FanboardReply목록보기성공("0", "fanboard.reply.list.view.success", "Fanboard Reply 보기 성공 시"),
+    FanboardReply목록보기실패("C006", "fanboard.reply.list.view.fail", "Fanboard Reply 보기 실패 시"),
+
     //개별/방송 중 공지
     공지보기성공("0", "notice.list.view.success", "공지보기 성공 시"),
     공지보기실패("C006", "notice.list.view.fail", "공지보기 실패 시"),
+
+    //금지어
+    금지어목록보기성공("0", "banword.list.view.success", "금지어목록보기 성공 시"),
+    금지어목록보기실패("C006", "banword.list.view.fail", "금지어목록보기 실패 시"),
 
     //신고/1:1문의
     신고문의보기성공("0", "report.list.view.success", "신고문의보기 성공 시"),
@@ -277,6 +293,11 @@ public enum Status {
     선물아이템조회_데이터없음("0", "no.data", "선물아이템 조회 데이터가 없을 시"),
     선물아이템조회_성공("C001", "select.success", "선물아이템 조회 성공 시"),
     선물아이템조회_에러("C006", "server.error", "선물아이템 조회에서 에러 발생 시"),
+
+    관리자권한부여_성공("A001", "auth.set.success", "어드민관리 관리자 권한 부여 성공 시"),
+    관리자권한부여_임직원번호업음("A001", "auth.set.success", "권한 부여 시 임직원번호가 안넘어 왔을 시"),
+    관리자권한부여_메뉴없음("A001", "auth.set.success", "권한 부여 시 메뉴번호가 안넘어 왔을 시"),
+    관리자권한부여_실패("C006", "server.error", "어드민관리 > 권한 부여 성공 시"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트

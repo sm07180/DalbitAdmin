@@ -16,15 +16,17 @@
     $(document).ready(function() {
     });
 
-    function getHistory_banDetail(tmp) {     // 상세보기
+    function getHistory_banwordDetail (tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
+            data.pageCnt=20;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
+        dtList_info_detail.setPageLength(20);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
     }

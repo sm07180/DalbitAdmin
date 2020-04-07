@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.Mem_FanboardDao;
+import com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo;
 import com.dalbit.member.vo.procedure.P_MemberFanboardInputVo;
 import com.dalbit.member.vo.procedure.P_MemberFanboardOutputVo;
 import com.dalbit.util.GsonUtil;
@@ -59,4 +60,19 @@ public class Mem_FanboardService {
         result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, memberList));
         return result;
     }
+
+    /**
+     * 회원 공지 삭제
+     */
+    public String getFanboardDelete(P_MemberFanboardDeleteVo pMemberFanboardDeleteVo){
+//        ProcedureVo procedureVo = new ProcedureVo(pMemberFanboardDeleteVo);
+//        mem_FanboardDao.callFanboardDelete(procedureVo);
+
+        mem_FanboardDao.callFanboardDelete(pMemberFanboardDeleteVo);
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.Fanboard삭제성공));
+        return result;
+    }
+
 }

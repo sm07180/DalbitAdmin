@@ -23,16 +23,39 @@
             data.mem_no = memNo;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
-        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
+
+        var noteDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_noticeDel" style="margin-right: 3px;"/>'
+        $("#" + tmp).find("#main_table").find(".footer-left").append(noteDelBtn);
+        $("#btn_noticeDel").on("click", function () { //강제퇴장
+            notiDelData();
+        });
     }
 
-    function Notice(index){
-        var data = dtList_info_detail.getDataRow(index);
-        var roomNo = data.roomNo;
-        console.log('Notice~ roomNo : ' + roomNo);
+    function notiDelData(){
+        var checkDatas = dtList_info_detail.getCheckedData();
+        if(checkDatas.length <= 0){
+            alert("삭제할 공지사항을 선택해 주십시오");
+            return;
+        }
+
+        for(var i=0;i<checkDatas.length;i++){
+            var data = new Object();
+            data.mem_no = memNo;
+            data.idx = checkDatas[i].idx;
+            data.type = checkDatas[i].type;
+
+            util.getAjaxData("delete", "/rest/member/notice/delete",data, noticeDel_success);
+        }
     }
+
+    function noticeDel_success(dst_id, response){
+        dalbitLog(response);
+        dtList_info_detail.reload();
+    }
+
 
 </script>

@@ -11,10 +11,10 @@
       select
           @rownum := @rownum + 1 as rowNum,
           c.*
-        FROM (select idx,'마이페이지 공지' as type ,contents,last_upd_date
+        FROM (select idx,'1' as type,contents,last_upd_date
                   From rd_data.tb_member_broadcast_notice where mem_no=#{mem_no}
                 union
-               select idx,'방송 중 공지' as type ,notice,last_upd_date
+               select idx,'2' as type ,notice,last_upd_date
                   From rd_data.tb_broadcast_room where CHAR_LENGTH(notice) > 0 and mem_no=#{mem_no}
         ) AS c, (select @rownum := #{pageNo} ) AS d
         order by last_upd_date desc
@@ -28,5 +28,11 @@
                   select count(*) cnt From rd_data.tb_broadcast_room where CHAR_LENGTH(notice) > 0 and mem_no=#{mem_no}
             ) a
     </select>
+    <delete id="callMemberNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
+         delete from rd_data.tb_member_broadcast_notice where mem_no=#{mem_no} and idx=#{idx}
+    </delete>
+    <update id="callBroadNoticeDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeDeleteVo">
+         update rd_data.tb_broadcast_room set notice='', last_upd_date = now() where mem_no=#{mem_no} and idx=#{idx}
+    </update>
 
 </mapper>

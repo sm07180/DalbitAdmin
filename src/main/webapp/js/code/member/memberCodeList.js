@@ -1,3 +1,11 @@
+var mem_state = [
+    new COMMON_CODE('', 'mem_state', '회원상태')
+    , new COMMON_CODE('1', '1', '정상')
+    , new COMMON_CODE('2', '2', '정지')
+    , new COMMON_CODE('4', '4', '탈퇴')
+    , new COMMON_CODE('5', '5', '영구정지')
+];
+
 var broadCast_summary = [
     new COMMON_CODE('', 'totalListenerCnt', '총 청취자')
     , new COMMON_CODE('', 'totalGiftCnt', '총 선물 주고/받음')
