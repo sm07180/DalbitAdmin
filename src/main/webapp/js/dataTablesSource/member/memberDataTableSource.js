@@ -17,7 +17,9 @@ var MemberDataTableSource = {
                      return common.addComma(data);
                  }},
              {'title': '결제 건 수/금액', 'data': 'payCntAmount', 'width':'90px'},
-             {'title': '회원상태', 'data': 'mem_state',  'width':'60px'},
+             {'title': '회원상태', 'data': 'mem_state',  'width':'60px', 'render': function (data) {
+                     return util.getCommonCodeLabel(data, mem_state);
+                 }},
              {'title': '접속상태', 'data': 'connectState', 'width':'80px'},
              {'title': '방송상태', 'data': 'liveBroad', 'width':'80px'},
         ]
@@ -196,7 +198,7 @@ var MemberDataTableSource = {
             {'title': 'boardNo', 'data': 'board_no'},
             {'title': '프로필이미지', 'data': 'profileImage', 'render' : function(data, type, row){
                     return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
-                        'onclick="FullSize_fanboard(this.src)"/>';
+                        'onclick="fanboard_fullSize_profile(this.src)"/>';
                 }},
             {'title': '회원번호', 'data': 'writer_mem_no'},
             {'title': '팬ID', 'data': 'userId'},
@@ -285,9 +287,9 @@ var MemberDataTableSource = {
     },
 
     'banwordDetail': {
-        'url': ''
+        'url': '/rest/member/banword/list'
         , 'columns': [
-            {'title': '금지어', 'data': 'type'},
+            {'title': '금지어', 'data': 'ban_word'},
         ]
         , 'comments': 'ㆍ회원이 직접 100개까지 관리를 할 수 있고, 관리자에 의해 등록/수정/삭제도 할 수 없습니다.'
     },
