@@ -52,7 +52,6 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         serverSide: true,                                                             // 서버에서 정렬한 데이터 그대로 사용할지 여부 (false : 서버에서 정렬한 데이터도 client에서 다시 재정렬)
         searching: false,                                                               // 서칭 기능 사용 여부
         pagingType: "full_numbers",
-        deferLoading: 0,
         bStateSave: true,
         cache: false,
         ajax : {
