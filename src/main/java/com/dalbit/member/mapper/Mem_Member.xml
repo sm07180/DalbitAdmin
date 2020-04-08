@@ -25,6 +25,17 @@
         /* M_Member.xml - callMemberEditor */
         call rd_admin.sp_admin_member_info_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <update id="callMemberSocialIdEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberSocialIdEditor */
+        update rd_data.tb_member_basic set mem_id=#{socialId} where mem_no=#{mem_no}
+    </update>
+
+    <update id="callMemberStateEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberStateEditor */
+        update rd_data.tb_member_basic set mem_state=1, block_day=0, block_end_date=null where mem_no=#{mem_no}
+    </update>
+
+
 
     <!-- 자세히보기 -->
     <select id="callMemAdminMemoAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">

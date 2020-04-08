@@ -91,11 +91,20 @@ public class Mem_MemberRestController {
     /**
      * 회원 소셜아이디 변경
      */
-//    @PostMapping("socialId_edit")
-//    public String socialId_edit(P_MemberEditorVo pMemberEditorVo){
-//        String result = mem_MemberService.getMemberSocialIdEdit(pMemberEditorVo);
-//        return result;
-//    }
+    @PostMapping("socialId_edit")
+    public String socialId_edit(P_MemberEditorVo pMemberEditorVo){
+        String result = mem_MemberService.getMemberSocialIdEdit(pMemberEditorVo);
+        return result;
+    }
+
+    /**
+     * 회원 상태 정상 변경
+     */
+    @PostMapping("state_edit")
+    public String state_edit(P_MemberEditorVo pMemberEditorVo){
+        String result = mem_MemberService.getMemberStateEdit(pMemberEditorVo);
+        return result;
+    }
 
     //------------------------------------------------------------------------
     /* 자세히 보기 */
