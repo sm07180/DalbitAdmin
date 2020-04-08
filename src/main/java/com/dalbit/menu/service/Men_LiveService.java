@@ -6,6 +6,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.menu.dao.Men_LiveDao;
+import com.dalbit.menu.vo.LiveVo;
 import com.dalbit.menu.vo.RoomOutVo;
 import com.dalbit.menu.vo.procedure.P_RoomListVo;
 import com.dalbit.util.DalbitUtil;
@@ -64,4 +65,20 @@ public class Men_LiveService {
         }
         return result;
     }
+
+    /**
+     * 실시간 Live 리스트 조회
+     */
+    public String getLiveList(LiveVo liveVo) {
+
+        liveVo.setSlctType(DalbitUtil.isEmpty(liveVo.getSlctType()) ? 1 : liveVo.getSlctType());
+
+        int getLiveListCnt  = menLiveDao.getLiveListCnt(liveVo);
+        liveVo.setTotalCnt(getLiveListCnt);
+        List<LiveVo> liveVoList = menLiveDao.getLiveList(liveVo);
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, liveVoList, new PagingVo(liveVo.getTotalCnt(), liveVo.getPageStart(), liveVo.getPageCnt())));
+
+        return result;
+    }
+
 }
