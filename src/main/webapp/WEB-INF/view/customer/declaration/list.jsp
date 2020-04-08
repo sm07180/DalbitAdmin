@@ -135,6 +135,7 @@
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
+        $("#declarationForm").empty();
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {
