@@ -88,6 +88,14 @@ public class Mem_MemberRestController {
         return result;
     }
 
+    /**
+     * 회원 소셜아이디 변경
+     */
+//    @PostMapping("socialId_edit")
+//    public String socialId_edit(P_MemberEditorVo pMemberEditorVo){
+//        String result = mem_MemberService.getMemberSocialIdEdit(pMemberEditorVo);
+//        return result;
+//    }
 
     //------------------------------------------------------------------------
     /* 자세히 보기 */

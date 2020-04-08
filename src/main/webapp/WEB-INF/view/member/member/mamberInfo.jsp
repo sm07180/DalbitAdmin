@@ -14,6 +14,7 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript" src="/js/message/member/memberMessage.js"></script>
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -69,6 +70,11 @@
         $('#bt_img').click(function() {				 //이미지초기화
             bt_click(this.id);
         });
+        $('#bt_socialId').click(function() {            //소셜아이디 변경
+            alert('준비중입니다.');
+            return;
+            // bt_click(this.id);
+        });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
             bt_click(this.id);
         });
@@ -87,7 +93,7 @@
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
             bt_click(this.id);
         });
-        $('#bt_adminMemoList').click(function() {       //운영자 메모 정보
+        $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
             getInfoDetail(this.id,"운영자메모");
         });
         $('#bt_connectState').click(function() {         //접속상태
@@ -99,10 +105,10 @@
         $('#bt_black').click(function() {               //블랙리스트 자세히
             getInfoDetail(this.id,"(내가 등록학) 블랙리스트");
         });
-        $('#bt_editHistory').click(function() {           //최근정보 수정일
+        $('#bt_editHistory').click(function() {         //최근정보 내역
             getInfoDetail(this.id,"정보수정내역");
         });
-        $('#bt_report').click(function() {           //최근정보 수정일
+        $('#bt_report').click(function() {           // 회원상태(경고/정지)
             reportPopup();
         });
         // 버튼 끝
@@ -116,22 +122,36 @@
     var tmp_bt;
     function bt_click(tmp) {
         tmp_bt = tmp;
-        if(memNo == "unknown"){
+        var obj = new Object();
+        if (memNo == "unknown") {
             alert("변경대상 회원을 선택해 주십시오.");
             return;
         }
-        if(tmp == "bt_adminMemo") {            //운영자 메모 변경
-            if ($("#txt_adminMemo").val() == "" || $("#txt_adminMemo").val() == null) {
+        if (tmp == "bt_adminMemo") {            //운영자 메모 변경
+            if (common.isEmpty($("#txt_adminMemo").val())) {
                 alert("등록할 운영자 메모를 입력해 주십시오.");
                 return;
             }
             getInfoDetail("bt_adminMemoList", "운영자메모");
-            var obj = new Object();
             obj.mem_no = memNo;
             obj.memo = $("#txt_adminMemo").val();
             util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
+        } else if(tmp == "bt_socialId" ){       // 소셜ID변경
+            if (common.isEmpty($("#txt_socialId").val())) {
+                alert("소셜아이디를 입력해 주십시오.");
+                return;
+            }
+            if(confirm("소셜아이디를 변경 하시겠습니까?")) {
+                obj.mem_no = memNo;
+                obj.socilaId = $("#txt_socialId").val().replace(/-/gi, "");
+                util.getAjaxData("editor", "/rest/member/member/socialId_edit", obj, update_success, fn_fail);
+            }else return;
         }else{
             var sendNoti;
+            if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
+                alert("전화번호를 입력해 주십시오.");
+                return;
+            }
             var tmp_phone = $("#txt_phon").val().replace(/-/gi, "");
             if(tmp == "bt_resatPass" || tmp == "bt_phon"){          // 비밀번호초기화, 휴대폰 번호 변경 Check
                 if (tmp_phone.substring(0, 3) == "010" && (tmp_phone.length > 11 || tmp_phone.length < 10)) {
@@ -139,7 +159,6 @@
                     return;
                 }
             }
-            var obj = new Object();
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){

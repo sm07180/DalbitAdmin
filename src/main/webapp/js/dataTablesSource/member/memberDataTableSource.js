@@ -30,7 +30,9 @@ var MemberDataTableSource = {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'room_no', 'visible' : false},
-            {'title': '방송주제', 'data': 'subject_type', 'width':'100px'},
+            {'title': '방송주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
+                    return util.getCommonCodeLabel(data, subject_type);
+                }},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
@@ -64,9 +66,13 @@ var MemberDataTableSource = {
         'url': '/rest/member/listen/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'room_no' , 'visible' : false},
-            {'title': 'DJID', 'data': 'dj_userId', 'width':'100px'},
+            {'title': 'DJID', 'data': 'dj_userId', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.dj_mem_no);
+                }},
             {'title': 'DJ닉네임', 'data': 'dj_nickName', 'width':'100px'},
-            {'title': '청취방주제', 'data': 'subject_type', 'width':'100px'},
+            {'title': '청취방주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
+                    return util.getCommonCodeLabel(data, subject_type);
+                }},
             {'title': '청취방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
