@@ -122,6 +122,8 @@
         dtList_info.reload();
         ui.toggleSearchList();
         $('#detailFrm').addClass("hid");
+
+        $('#broadcastTab').removeClass("show");
     }
 
     function getBroadCast_info(index){
