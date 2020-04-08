@@ -72,7 +72,6 @@
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@");
         $('#tab_list').removeClass("hide");
         var data = {
             'reportIdx' : $(this).data('idx')

@@ -110,7 +110,6 @@
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@");
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
