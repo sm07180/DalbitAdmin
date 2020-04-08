@@ -18,7 +18,7 @@
                                 <option value="4">이름</option>
                             </select>
                             <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>

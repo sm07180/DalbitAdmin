@@ -82,11 +82,27 @@
     }
 
     $(document).on('click', '#bt_declaration', function(){
-
+        var validationChk = false;
         if(confirm('처리하시겠습니까?')) {
-            if ($('input:radio[name="opCode"]:checked').val() == 0) {
+
+            if (($('input:radio[name="opCode"]:checked').val() == 1)) {  //정상일 경우
+                validationChk = true;
+
+            } else if ($('input:radio[name="opCode"]:checked').val() == 0) {    //미처리일 경우
                 alert('미처리 조치입니다. 신고조치 처리해주십시오.');
+                return false;
+
             } else {
+                if (common.isEmpty($('input:checkbox[name="declaration_Message"]:checked').val())) {    //조치 선택
+                    alert('제재 조치의 사유를 선택해주십시오.');
+                    return false;
+                } else {
+                    validationChk = true;
+                }
+            }
+
+            // 정상일 경우 & 제재, 조치사유 선택완료
+            if(validationChk){
                 util.getAjaxData("declaration", "/rest/customer/declaration/operate", declarationFormData(), fn_declaration_success);
             }
         }
@@ -225,6 +241,7 @@
         <div id="page-wrapper">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                 <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">신고처리</a></li>
+                {{^equal status 1}}<button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>{{/equal}}
             </ul>
             <div class="col-lg-12 no-padding">
                 <label id="report_title"></label>

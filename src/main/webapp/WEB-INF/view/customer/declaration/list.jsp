@@ -76,7 +76,6 @@
 
             <div class="row col-lg-12 mt15">
                 <div class="tab-pane fade in active" id="report_tab">
-                    <button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>
                     <!-- 상세 -->
                     <jsp:include page="../../customer/declaration/report.jsp"/>
                 </div>

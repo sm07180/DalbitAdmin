@@ -172,6 +172,12 @@
         init($('._tab.active').find('a').data('slcttype'));
     });
 
+    $('input[id="txt_search"]').on('keydown', function(e) {    // textBox 처리
+        if(e.keyCode == 13) {
+            init($('._tab.active').find('a').data('slcttype'));
+        };
+    });
+
     $('._tab').on('click', function(){
         init($(this).find('a').data('slcttype'));
     });
