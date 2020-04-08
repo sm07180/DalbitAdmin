@@ -203,8 +203,8 @@
         <td>{{addComma code_3_Cnt}}건</td> <%--1일 정지--%>
         <td>{{addComma code_4_Cnt}}건</td> <%--3일 정지--%>
         <td>{{addComma code_5_Cnt}}건</td> <%--7일 정지--%>
-        <td>{{addComma telCnt}}건</td> <%--강제 탈퇴 --%>
-        <td>{{addComma code_9_Cnt}}건</td> <%--영구 정지--%>
+        <td>{{addComma code_6_Cnt}}건</td> <%--강제 탈퇴 --%>
+        <td>{{addComma code_7_Cnt}}건</td> <%--영구 정지--%>
     </tr>
     {{/data}}
 </script>
