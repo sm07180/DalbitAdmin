@@ -14,6 +14,7 @@ public class TestIdListVo {
     private String mem_no;
     private String mem_nick;
     private String mem_id;
+    private String mem_userId;
     private String mem_phone;
     private String mem_state;
     private String level;

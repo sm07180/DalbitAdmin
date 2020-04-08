@@ -77,6 +77,7 @@
             , test.relation
             , mem.mem_no
             , mem.mem_id
+            , mem.mem_userId
             , mem.mem_nick
             , mem.mem_phone
             , mem.mem_state

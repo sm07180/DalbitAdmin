@@ -277,7 +277,7 @@
             <td>{{user.emp_name}}</td>
             <td>{{relationName user.relation}}</td>
             <td>{{user.mem_no}}</td>
-            <td>{{user.mem_id}}</td>
+            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
             <td>{{user.mem_nick}}</td>
             <td>{{user.mem_phone}}</td>
             <td>{{user.level}} / {{user.grade}}</td>

@@ -5,7 +5,7 @@
 <div id="main-header">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-        <div class="row col-lg-12 form-inline">
+        <div class="row col-lg-12 form-inline mb15">
             <div class="widget widget-table">
                 <div class="widget-header">
                     <h3><i class="fa fa-desktop"></i> 검색결과</h3>
