@@ -125,6 +125,11 @@ public enum Status {
     회원접속기록보기성공("0", "connect.list.view.success", "회원접속기록보기 성공 시"),
     회원접속기록보기실패("C006", "connect.list.view.fail", "회원접속기록보기 실패 시"),
 
+    //회원로그인ID변경
+    회원로그인ID변경_성공("0", "member.edit.socialId.success", "회원로그인ID변경 성공 시"),
+    회원로그인ID변경_중복("1", "member.edit.socialId.duplicate", "회원로그인ID변경 중복 시"),
+    회원로그인ID변경_실패("-1", "member.edit.socialId.fail", "회원로그인ID변경 실패 시"),
+
     //프로시저 연동 부분
     공지사항조회_데이터없음("0", "no.data", "공지사항 조회 데이터가 없을 시"),
     공지사항조회_성공("C001", "select.success", "공지사항 조회 성공 시"),

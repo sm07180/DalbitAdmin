@@ -198,8 +198,13 @@ public class Mem_MemberService {
      * 회원 소셜아이디 변경
      */
     public String getMemberSocialIdEdit(P_MemberEditorVo pMemberEditorVo){
+        int cnt = mem_MemberDao.callMemberSocialIdCheck(pMemberEditorVo);
+        if(cnt > 0){
+
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원로그인ID변경_중복));
+        }
         mem_MemberDao.callMemberSocialIdEditor(pMemberEditorVo);
-        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원로그인ID변경_성공));
     }
 
     /**
