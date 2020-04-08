@@ -3,158 +3,32 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication var="principal" property="principal" />
 
-<div id="wrapper">
-    <div id="page-wrapper">
-        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-            <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">신고처리</a></li>
-        </ul>
-        <div class="col-lg-12 no-padding">
-            <label id="report_title"></label>
-        </div>
 
-        <input type="hidden" name="reportIdx" value="{{reportIdx}}" />
-        <table class="table table-bordered table-dalbit">
-            <colgroup>
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="6%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-            </colgroup>
-            <tbody>
-            <tr class="align-middle">
-                <th rowspan="2">No</th>
-                <td rowspan="2">{{reportIdx}}</td>
+<form id="declarationForm"></form>
 
-                <th>신고사유</th>
-                <td>{{{getCommonCodeLabel report_reason 'declaration_reason'}}}</td>
-
-                <th>Browser</th>
-                <td>{{browser}}</td>
-
-                <th rowspan="2">접수일시</th>
-                <td rowspan="2">{{reg_date}}</td>
-
-                <th rowspan="2">처리일시</th>
-                <td rowspan="2">
-                    {{op_date}}
-                    {{#equal op_date ''}}-{{/equal}}
-                </td>
-
-                <th>처리상태</th>
-                <%--<td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>--%>
-                {{^equal status '0'}}<td>처리완료</td>{{/equal}}
-                {{#equal status '0'}}<td>미처리</td>{{/equal}}
-            </tr>
-            <tr>
-                <th>플랫폼</th>
-                <td>{{platform}}</td>
-
-                <th>IP Address</th>
-                <td>{{ipAddress}}</td>
-
-                <th>처리자명</th>
-                <td>
-                    {{op_name}}
-                    {{#equal op_name ''}}-{{/equal}}
-                </td>
-            </tr>
-            <tr class="align-middle">
-                <th rowspan="1" colspan="4">신고자</th>
-                <th rowspan="1" colspan="4">대상자</th>
-
-                <th rowspan="2">제재 조치</th>
-                <td rowspan="2" colspan="3">
-                    {{{getCommonCodeRadio op_code 'declaration_slctType' 'Y' 'opCode'}}}
-                </td>
-            </tr>
-            <tr>
-                <td>{{mem_id}}</td>
-                <td>레벨 : {{level}}<br />등급 : {{grade}}</td>
-                <td>{{mem_nick}}</td>
-                <td>{{memSex}}</td>
-
-                <td>{{reported_mem_id}}</td>
-                <td>레벨 : {{reported_level}}<br />등급 : {{reported_grade}}</td>
-                <td>{{reported_mem_nick}}</td>
-                <td>{{reported_memSex}}</td>
-            </tr>
-            <tr>
-                <th colspan="2">누적 결제 수<br />/금액</th>
-                <td colspan="2">{{addComma payCount}}개 <br />{{addComma payAmount}}원</td>
-
-                <th colspan="2">누적 결제 수<br />/금액</th>
-                <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
-
-                <th rowspan="2">조치 선택</th>
-                <td rowspan="2" colspan="3" id="message">
-                    {{{getCommonCodeCheck message 'declaration_Message'}}}
-                </td>
-            </tr>
-            <tr>
-                <th colspan="2">누적 선물 수<br />/금액</th>
-                <td colspan="2">{{addComma giftCount}}개 <br />{{addComma giftAmount}}원</td>
-
-                <th colspan="2">누적 선물 수<br />/금액</th>
-                <td colspan="2">{{addComma reported_giftCount}}개 <br />{{addComma reported_giftAmount}}원</td>
-            </tr>
-            <tr>
-                <th colspan="2">총 신고</th>
-                <td colspan="2">프로시저에 없음</td>
-
-                <th colspan="2">총 신고/조치</th>
-                <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
-
-                <th>알림 보내기</th>
-                <td colspan="3">{{{getCommonCodeRadio 0 'declaration_send'}}}</td>
-            </tr>
-            </tbody>
-        </table>
-
-        <%-- 에디터 --%>
-        <div class="widget" id="declaration_editor">
-            <input type="hidden" id ="notiContents" name="notiContents">
-            <div class="widget-header">
-                <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
-            </div>
-            <div class="widget-content no-padding">
-                <div class="_editor" id="notiMemo" name="notiMemo">{{replaceHtml declaration_Message}}</div>
-            </div>
-        </div>
-
-        <!-- 채팅 내역 -->
-        <div class="col-md-12 no-padding" id="chatLeft" style="display:none;">
-            <table class="table table-bordered" style="margin-bottom: -7px">
-                <th>신고 시 캡쳐내용(5분)</th>
-            </table>
-            <table id="list_chat_detail" class="table table-sorting table-hover table-bordered datatable">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
-        </div>
-        <div class="col-md-6 no-padding" id="chatRight" style="display:none;">
-            <table class="table table-bordered" style="margin-bottom: -7px">
-                <th id="chatRight_title"></th>
-            </table>
-            <table id="list_target_chat" class="table table-sorting table-hover table-bordered datatable">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
+<!-- 채팅 내역 -->
+<div class="col-md-12 no-padding" id="chatLeft" style="display:none;">
+    <table class="table table-bordered" style="margin-bottom: -7px">
+        <th>신고 시 캡쳐내용(5분)</th>
+    </table>
+    <table id="list_chat_detail" class="table table-sorting table-hover table-bordered datatable">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="col-md-6 no-padding" id="chatRight" style="display:none;">
+    <table class="table table-bordered" style="margin-bottom: -7px">
+        <th id="chatRight_title"></th>
+    </table>
+    <table id="list_target_chat" class="table table-sorting table-hover table-bordered datatable">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
 </div>
 
-
 <script type="text/javascript" src="/js/message/customer/declarationMessage.js"></script>
-<script type="text/javascript">
 
+<script type="text/javascript">
     var dtList_info_detail;
     var dtList_info_detail_data = function (data) {
         // data.mem_no = detailData.mem_no;
@@ -171,6 +45,26 @@
     $("#chatLeft").addClass("col-md-12");
     $("#chatRight").addClass("hide");
 
+    var detailData;
+    function fn_detail_success(dst_id, response) {
+        dalbitLog(response);
+        var template = $('#tmp_declarationFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+        $("#declarationForm").html(html);
+        $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
+        util.editorInit("customer-declaration");
+        detailData = response.data;
+
+        if(response.data.status == "1"){
+            $('#bt_declaration').addClass("hide");
+        }else{
+            $('#bt_declaration').removeClass("hide");
+        }
+
+        declarationCheck(response.data.status);
+    }
 
     function declarationFormData() {
         var data = {};
@@ -274,7 +168,7 @@
     });
 
 
-    declarationCheck();
+    // declarationCheck();
     function declarationCheck(){
         var opCode = $('input:radio[name="opCode"]');
         var declarationValue = $('input:checkbox[name="declaration_Message"], input:radio[name="declaration_sendNoti"]');
@@ -303,8 +197,6 @@
                 declarationValue.attr("disabled", "disabled");
             }
         }
-
-
     }
 
     function targetChat(index){
@@ -326,4 +218,134 @@
         dblist_chat_detail.createDataTable();
         dblist_chat_detail.reload();
     }
+</script>
+
+<script id="tmp_declarationFrm" type="text/x-handlebars-template">
+    <div id="wrapper">
+        <div id="page-wrapper">
+            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">신고처리</a></li>
+            </ul>
+            <div class="col-lg-12 no-padding">
+                <label id="report_title"></label>
+            </div>
+
+            <input type="hidden" name="reportIdx" value="{{reportIdx}}" />
+            <table class="table table-bordered table-dalbit">
+                <colgroup>
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="6%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                    <col width="5%" />
+                </colgroup>
+                <tbody>
+                <tr class="align-middle">
+                    <th rowspan="2">No</th>
+                    <td rowspan="2">{{reportIdx}}</td>
+
+                    <th>신고사유</th>
+                    <td>{{{getCommonCodeLabel report_reason 'declaration_reason'}}}</td>
+
+                    <th>Browser</th>
+                    <td>{{browser}}</td>
+
+                    <th rowspan="2">접수일시</th>
+                    <td rowspan="2">{{reg_date}}</td>
+
+                    <th rowspan="2">처리일시</th>
+                    <td rowspan="2">
+                        {{op_date}}
+                        {{#equal op_date ''}}-{{/equal}}
+                    </td>
+
+                    <th>처리상태</th>
+                    <%--<td>{{{getCommonCodeSelect status 'declaration_status'}}}</td>--%>
+                    {{^equal status '0'}}<td>처리완료</td>{{/equal}}
+                    {{#equal status '0'}}<td>미처리</td>{{/equal}}
+                </tr>
+                <tr>
+                    <th>플랫폼</th>
+                    <td>{{platform}}</td>
+
+                    <th>IP Address</th>
+                    <td>{{ipAddress}}</td>
+
+                    <th>처리자명</th>
+                    <td>
+                        {{op_name}}
+                        {{#equal op_name ''}}-{{/equal}}
+                    </td>
+                </tr>
+                <tr class="align-middle">
+                    <th rowspan="1" colspan="4">신고자</th>
+                    <th rowspan="1" colspan="4">대상자</th>
+
+                    <th rowspan="2">제재 조치</th>
+                    <td rowspan="2" colspan="3">
+                        {{{getCommonCodeRadio op_code 'declaration_slctType' 'Y' 'opCode'}}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{mem_id}}</td>
+                    <td>레벨 : {{level}}<br />등급 : {{grade}}</td>
+                    <td>{{mem_nick}}</td>
+                    <td>{{memSex}}</td>
+
+                    <td>{{reported_mem_id}}</td>
+                    <td>레벨 : {{reported_level}}<br />등급 : {{reported_grade}}</td>
+                    <td>{{reported_mem_nick}}</td>
+                    <td>{{reported_memSex}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">누적 결제 수<br />/금액</th>
+                    <td colspan="2">{{addComma payCount}}개 <br />{{addComma payAmount}}원</td>
+
+                    <th colspan="2">누적 결제 수<br />/금액</th>
+                    <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
+
+                    <th rowspan="2">조치 선택</th>
+                    <td rowspan="2" colspan="3" id="message">
+                        {{{getCommonCodeCheck message 'declaration_Message'}}}
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">누적 선물 수<br />/금액</th>
+                    <td colspan="2">{{addComma giftCount}}개 <br />{{addComma giftAmount}}원</td>
+
+                    <th colspan="2">누적 선물 수<br />/금액</th>
+                    <td colspan="2">{{addComma reported_giftCount}}개 <br />{{addComma reported_giftAmount}}원</td>
+                </tr>
+                <tr>
+                    <th colspan="2">총 신고</th>
+                    <td colspan="2">프로시저에 없음</td>
+
+                    <th colspan="2">총 신고/조치</th>
+                    <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
+
+                    <th>알림 보내기</th>
+                    <td colspan="3">{{{getCommonCodeRadio 0 'declaration_send'}}}</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <%-- 에디터 --%>
+            <div class="widget" id="declaration_editor" style="display:none;">
+                <input type="hidden" id ="notiContents" name="notiContents">
+                <div class="widget-header">
+                    <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
+                </div>
+                <div class="widget-content no-padding">
+                    <div class="_editor" id="notiMemo" name="notiMemo">{{replaceHtml declaration_Message}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </script>

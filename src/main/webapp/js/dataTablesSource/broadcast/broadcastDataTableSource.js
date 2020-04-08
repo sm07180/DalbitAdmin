@@ -220,7 +220,9 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '사연 보낸 청취자 닉네임', 'data': 'nickName'},
             {'title': '보낸 일시', 'data': 'writeDateFormat'},
-            {'title': '사연 내용', 'data': 'contents'},
+            {'title': '사연 내용', 'data': 'contents', 'render': function (data, type, row, meta) {
+                    return data.replace(/\\n/gi,"<br/>");
+                }},
         ]
         , 'comments': 'ㆍ방송 중 받은 사연 내역을 확인할 수 있습니다.'
     },
