@@ -16,4 +16,5 @@ public interface Adm_TestIdDao {
     int insertTestId(TestIdVo testIdVo);
     List<TestIdVo> getTestIdSummary();
     List<TestIdListVo> getTestIdList(SearchVo searchVo);
+    void deleteTestId(String[] memNos);
 }

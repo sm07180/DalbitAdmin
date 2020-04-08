@@ -70,6 +70,7 @@
     </select>
 
     <select id="getTestIdList" parameterType="com.dalbit.common.vo.SearchVo" resultType="com.dalbit.administrate.vo.TestIdListVo">
+        /* Adm_TestId.xml - getTestIdList */
         select
             test.emp_no
             , test.emp_name
@@ -87,6 +88,34 @@
             , rd_data.tb_member_level level
         where mem.mem_no = test.mem_no
             and mem.mem_no = level.mem_no
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND test.emp_name like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND mem.mem_no like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND mem.mem_id like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 4'>
+                        AND mem.mem_nick like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 5'>
+                        AND mem.mem_phone like concat('%', #{searchText}, '%')
+                    </when>
+                </choose>
+            </if>
         order by test.reg_date desc
     </select>
+
+    <delete id="deleteTestId" parameterType="java.lang.String">
+        /* Adm_TestId.xml - deleteTestId */
+        delete from rd_admin.tb_admin_test_account
+        where mem_no in
+        <foreach collection="array" item="memNo" separator="," open="(" close=")">
+            #{memNo}
+        </foreach>
+    </delete>
 </mapper>

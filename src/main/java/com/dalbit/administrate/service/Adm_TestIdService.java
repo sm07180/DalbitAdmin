@@ -65,4 +65,8 @@ public class Adm_TestIdService {
         List<TestIdListVo> testIdList = admTestIdDao.getTestIdList(searchVo);
         return testIdList;
     }
+
+    public void deleteTestId(String[] memNos){
+        admTestIdDao.deleteTestId(memNos);
+    }
 }

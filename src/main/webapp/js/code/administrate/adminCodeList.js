@@ -34,3 +34,13 @@ var testId_userInfo = [
     , new COMMON_CODE('mem_id', '3', 'User ID')
     , new COMMON_CODE('mem_nick', '4', 'User 닉네임')
 ];
+
+var testId_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색조건')
+    , new COMMON_CODE('all', '', '선택')
+    , new COMMON_CODE('emp_name', '1', '직원명')
+    , new COMMON_CODE('mem_no', '2', '회원번호')
+    , new COMMON_CODE('mem_id', '3', 'User ID')
+    , new COMMON_CODE('mem_nick', '4', 'User 닉네임')
+    , new COMMON_CODE('mem_phone', '5', '연락처')
+];
