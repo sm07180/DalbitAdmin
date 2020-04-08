@@ -14,7 +14,7 @@ var broadCast_summary = [
     , new COMMON_CODE('', 'totalBooster', '총 받은 부스터')
 ];
 
-var listen_summary = [
+var member_listen_summary = [
     new COMMON_CODE('', 'totalforcedCnt', '총 강제퇴장')
     , new COMMON_CODE('', 'totalByeol', '총 보낸 별')
     , new COMMON_CODE('', 'totalGood', '총 좋아요')

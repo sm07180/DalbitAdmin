@@ -16,7 +16,16 @@
                 FROM
                   (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,gifted_mem_no,item_type, mem_userid
                       AS userId, mem_nick AS nickName, mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_no, accum_cnt AS accumCnt
-                    FROM rd_data.tb_member_broadcast_item where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}) AS a
+                      FROM rd_data.tb_member_broadcast_item
+                      <if test="slctType == -1">    <!-- 전체 -->
+                        where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}) AS a
+                      </if>
+                      <if test="slctType == 0">    <!-- 보낸선물 -->
+                        where mem_no = #{mem_no}) AS a
+                      </if>
+                      <if test="slctType == 1">    <!-- 전체 -->
+                        where gifted_mem_no = #{mem_no}) AS a
+                      </if>
                   LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_no = b.item_no
                   ORDER BY giftDate DESC
                   limit #{pageNo}, #{pageCnt}
@@ -25,7 +34,16 @@
     </select>
     
     <select id="callGiftHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
-        SELECT count(*) totalCnt FROM rd_data.tb_member_broadcast_item where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
+        SELECT count(*) totalCnt FROM rd_data.tb_member_broadcast_item
+        <if test="slctType == -1">    <!-- 전체 -->
+            where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
+        </if>
+        <if test="slctType == 0">    <!-- 보낸선물 -->
+            where mem_no = #{mem_no}
+        </if>
+        <if test="slctType == 1">    <!-- 전체 -->
+            where gifted_mem_no = #{mem_no}
+        </if>
     </select>
 
 </mapper>

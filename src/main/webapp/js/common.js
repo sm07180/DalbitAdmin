@@ -145,9 +145,10 @@ common.rpad = function(s, padLength, padString){
 }
 
 common.timeStamp = function(time){
-    var hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((time % (1000 * 60)) / 1000);
+    time = parseInt(time);
+    var hours = Math.floor(time / 3600);
+    var minutes = Math.floor((time - (hours * 3600)) /60);
+    var seconds = time - (hours * 3600) - (minutes * 60);
     var time = hours  + ":" + minutes + ":" + seconds;
     return time ;
 }

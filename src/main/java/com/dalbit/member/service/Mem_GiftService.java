@@ -38,6 +38,8 @@ public class Mem_GiftService {
 //        }
 //        return result;
 
+        pMemberGiftInputVo.setPageNo(pMemberGiftInputVo.getPageNo() -1);
+        pMemberGiftInputVo.setPageNo(pMemberGiftInputVo.getPageNo() * pMemberGiftInputVo.getPageCnt());
 
         ArrayList<P_MemberGiftOutputVo> memberList = mem_GiftDao.callGiftHistory(pMemberGiftInputVo);
         int memberList_totalCnt = mem_GiftDao.callGiftHistory_totalCnt(pMemberGiftInputVo);

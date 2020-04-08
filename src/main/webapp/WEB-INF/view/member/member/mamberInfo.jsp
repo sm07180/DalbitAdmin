@@ -14,6 +14,7 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript" src="/js/message/member/memberMessage.js"></script>
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -34,18 +35,23 @@
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
-        var html=templateScript(context);
+        var html = templateScript(context);
         $("#memberInfoFrm").html(html);
         init();
 
         $("#txt_birth").val(response.data.birthDate.substr(0, 10));
-        $("#memSlct").html(util.renderSlct(response.data.memSlct,"20"));
+        $("#memSlct").html(util.renderSlct(response.data.memSlct, "20"));
         report = "../member/popup/reportPopup?memNo=" + "'" + response.data.mem_no + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'";
 
-        $('#div_info_detail').removeClass("show");
-        $('#report_detail').removeClass("show");
-        $('#question_tab').removeClass("show");
-        $("#member_detailFrm").html("");
+        if(response.data.memSlct != "p" ){
+            $("#div_socialId").empty();
+            var tmp = '<label>' + response.data.socialId + '</label>';
+            $("#div_socialId").append(tmp);
+        }
+
+        if(tmp_bt != "adminMemoAdd" ){
+            $("#member_detailFrm").html("");
+        }
         // // 상단 목록 클릭시 detail 재 조회
         $("#tablist_con").find('.active').find('a').click();
     }
@@ -62,6 +68,11 @@
         })
         // 버튼
         $('#bt_img').click(function() {				 //이미지초기화
+            bt_click(this.id);
+        });
+        $('#bt_socialId').click(function() {            //소셜아이디 변경
+            // alert('준비중입니다.');
+            // return;
             bt_click(this.id);
         });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
@@ -82,7 +93,7 @@
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
             bt_click(this.id);
         });
-        $('#bt_adminMemoList').click(function() {       //운영자 메모 정보
+        $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
             getInfoDetail(this.id,"운영자메모");
         });
         $('#bt_connectState').click(function() {         //접속상태
@@ -94,11 +105,14 @@
         $('#bt_black').click(function() {               //블랙리스트 자세히
             getInfoDetail(this.id,"(내가 등록학) 블랙리스트");
         });
-        $('#bt_editHistory').click(function() {           //최근정보 수정일
+        $('#bt_editHistory').click(function() {         //최근정보 내역
             getInfoDetail(this.id,"정보수정내역");
         });
-        $('#bt_report').click(function() {           //최근정보 수정일
+        $('#bt_report').click(function() {           // 회원상태(경고/정지)
             reportPopup();
+        });
+        $('#bt_state').click(function() {           // 상태 정상으로 변경
+            stateEdit();
         });
         // 버튼 끝
     }
@@ -111,22 +125,36 @@
     var tmp_bt;
     function bt_click(tmp) {
         tmp_bt = tmp;
-        if(memNo == "unknown"){
+        var obj = new Object();
+        if (memNo == "unknown") {
             alert("변경대상 회원을 선택해 주십시오.");
             return;
         }
-        if(tmp == "bt_adminMemo") {            //운영자 메모 변경
-            if ($("#txt_adminMemo").val() == "" || $("#txt_adminMemo").val() == null) {
+        if (tmp == "bt_adminMemo") {            //운영자 메모 변경
+            if (common.isEmpty($("#txt_adminMemo").val())) {
                 alert("등록할 운영자 메모를 입력해 주십시오.");
                 return;
             }
             getInfoDetail("bt_adminMemoList", "운영자메모");
-            var obj = new Object();
             obj.mem_no = memNo;
             obj.memo = $("#txt_adminMemo").val();
             util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
+        } else if(tmp == "bt_socialId" ){       // 소셜ID변경
+            if (common.isEmpty($("#txt_socialId").val())) {
+                alert("소셜아이디를 입력해 주십시오.");
+                return;
+            }
+            if(confirm("소셜아이디를 변경 하시겠습니까?")) {
+                obj.mem_no = memNo;
+                obj.socialId = $("#txt_socialId").val().replace(/-/gi, "");
+                util.getAjaxData("editor", "/rest/member/member/socialId_edit", obj, update_success, fn_fail);
+            }else return;
         }else{
             var sendNoti;
+            if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
+                alert("전화번호를 입력해 주십시오.");
+                return;
+            }
             var tmp_phone = $("#txt_phon").val().replace(/-/gi, "");
             if(tmp == "bt_resatPass" || tmp == "bt_phon"){          // 비밀번호초기화, 휴대폰 번호 변경 Check
                 if (tmp_phone.substring(0, 3) == "010" && (tmp_phone.length > 11 || tmp_phone.length < 10)) {
@@ -134,7 +162,6 @@
                     return;
                 }
             }
-            var obj = new Object();
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
@@ -203,16 +230,25 @@
                 return;
             }
             alert($("#"+tmp_bt).data('nickname') + "님의 비밀번호가 초기화 되었습니다.");
+        } else if (tmp_bt == "bt_socialId") {            //비밀번호 초기화
+            alert($("#"+tmp_bt).data('nickname') + "님의 소셜아이디가 변경되었습니다.");
         }
 
         if (dst_id == "adminMemoAdd") {
             dtList_info_detail.reload();
-            // getMemNo_info_reload(memNo);
+            tmp_bt = dst_id;
+            getMemNo_info_reload(memNo);
         } else {
             var obj = new Object();
             obj.mem_no =  memNo;
             util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
         }
+    }
+    function getMemNo_info_reload(memNo){
+        var data = new Object;
+        data.mem_no = memNo;
+
+        util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
     }
     function reportPopup(){
         util.windowOpen(report,"1000","750","경고/정지");
@@ -226,7 +262,6 @@
         $('#tab_memberInfoDetail').text(tmp1);           //텝 이름 변경
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        console.log("tmp : " + tmp);
 
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
@@ -268,6 +303,17 @@
         dtList_info_detail.reload();
     }
 
+    function stateEdit() {
+        var obj = new Object();
+        obj.mem_no = memNo;
+        util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+    }
+
+    function state_edit_success(dst_id, response) {
+        getMemNo_info_reload(memNo);
+    }
+
+
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -300,10 +346,9 @@
         <tr>
             <th>회원상태</th>
             <td style="text-align: left">
-                {{#equal memState '1'}}정상{{/equal}}
-                {{#equal memState '2'}}블럭{{/equal}}
-                {{#equal memState '3'}}탈퇴{{/equal}}
+                {{{getCommonCodeLabel memState 'mem_state'}}}
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
+                <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
             </td>
         </tr>
         <tr>
@@ -334,8 +379,13 @@
             <td style="text-align: left">{{dal}} 개</td>
         </tr>
         <tr>
-            <th>소셜아이디</th>
-            <td colspan="3" style="text-align: left">{{socialId}}</td>
+            <th>로그인 아이디</th>
+            <td colspan="3" style="text-align: left">
+                <div id="div_socialId">
+                    <input type="text" class="form-control" id="txt_socialId" style="width: 90%;" value="{{socialId}}">
+                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                </div>
+            </td>
             <th>보유별</th>
             <td style="text-align: left">{{byeol}} 개</td>
         </tr>

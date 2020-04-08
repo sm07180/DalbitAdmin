@@ -69,8 +69,6 @@
             getUserInfo();
         });
         <!-- 버튼 끝 -->
-
-        getUserInfo();
     });
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
     $("#question_type").html(util.getCommonCodeSelect(-1, question_type));
@@ -154,6 +152,16 @@
     function fn_success_excel(){
         console.log("fn_success_excel");
     }
+
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+        if($(this).prop('checked')){
+            $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked');
+            $(this).prop('checked', 'checked');
+            $(this).parent().parent().find('.getQuestDetail').click();
+        }else{
+            $('#tab_list').removeClass("show");
+        }
+    });
 
     /*==================================*/
 </script>

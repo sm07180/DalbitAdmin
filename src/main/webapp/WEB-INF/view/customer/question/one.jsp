@@ -30,10 +30,6 @@
         var add_file_cnt = response.data.add_file.split(",");
         response.data["add_file_cnt"] = add_file_cnt.length;
 
-        console.log("--------------------------------------");
-        console.log(response.data);
-        console.log("--------------------------------------");
-
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -95,7 +91,7 @@
                         <td rowspan="2">{{qnaIdx}}</td>
 
                         <th>문의유형</th>
-                        <td>{{slct_type}}</td>
+                        <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>
 
                         <th>Browser</th>
                         <td>{{browser}}</td>

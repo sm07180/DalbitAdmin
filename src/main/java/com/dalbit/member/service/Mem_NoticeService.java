@@ -35,6 +35,8 @@ public class Mem_NoticeService {
 //            result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기실패));
 //        }
 
+        pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() -1);
+        pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() * pMemberNoticeInputVo.getPageCnt());
         ArrayList<P_MemberNoticeOutputVo> memberList = mem_NoticeDao.callNoticeHistory(pMemberNoticeInputVo);
         int memberList_totalCnt = mem_NoticeDao.callNoticeHistory_totalCnt(pMemberNoticeInputVo);
 

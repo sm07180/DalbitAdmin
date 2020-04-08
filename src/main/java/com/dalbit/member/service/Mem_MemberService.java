@@ -177,6 +177,22 @@ public class Mem_MemberService {
         return result;
     }
 
+    /**
+     * 회원 소셜아이디 변경
+     */
+    public String getMemberSocialIdEdit(P_MemberEditorVo pMemberEditorVo){
+        mem_MemberDao.callMemberSocialIdEditor(pMemberEditorVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+    }
+
+    /**
+     * 회원 상태 정상 변경
+     */
+    public String getMemberStateEdit(P_MemberEditorVo pMemberEditorVo){
+        mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+    }
+
     //-------------------------------------------------------------------
     /*자세히보기*/
 

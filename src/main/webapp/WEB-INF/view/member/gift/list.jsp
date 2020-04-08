@@ -16,6 +16,7 @@
     $(document).ready(function() {
     });
 
+    var slctType = -1;
     function getHistory_giftDetail(tmp) {     // 상세보기
         // console.log("memNo : " + memNo);
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
@@ -23,29 +24,26 @@
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.pageCnt = 10;
+            data.slctType = slctType;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
-        dtList_info_detail.createDataTable();
         dtList_info_detail.setPageLength(10);
+        dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
 
         initDataTableTop_select_gift(tmp);
     }
     function initDataTableTop_select_gift(tmp){
-        var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="sel_change()"></span>';
+        var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#search_gift_top").html(util.getCommonCodeSelect(-1, gift));
     }
-    // function sel_change(value){
-    //     console.log("value : " + value);
-    // }
-
-    function Gift(index){
-        var data = dtList_info_detail.getDataRow(index);
-        var roomNo = data.roomNo;
-        console.log('Gift~ roomNo : ' + roomNo);
+    function gift_sel_change(){
+        var value = $("#search_gift_top").find("#gift option:selected").val();
+        console.log("value : " + value);
+        slctType = value;
+        dtList_info_detail.reload();
     }
-
 </script>
