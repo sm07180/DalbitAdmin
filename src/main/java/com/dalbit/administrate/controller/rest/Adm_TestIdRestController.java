@@ -12,12 +12,14 @@ import com.dalbit.member.vo.MemberVo;
 import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Slf4j
@@ -64,6 +66,17 @@ public class Adm_TestIdRestController {
     public String list(SearchVo searchVo){
         List<TestIdListVo> testIdList = admTestIdService.getTestIdList(searchVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, testIdList));
+    }
+
+    @PostMapping("/delete")
+    public String delete(HttpServletRequest request){
+
+        String memNosJson = request.getParameter("memNos");
+        String[] memNos = new Gson().fromJson(memNosJson, String[].class);
+
+        admTestIdService.deleteTestId(memNos);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.삭제));
     }
 
 }
