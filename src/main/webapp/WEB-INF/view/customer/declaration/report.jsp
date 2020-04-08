@@ -161,9 +161,9 @@
         if($(this).val() == 1) {
             $("#notiMemo").summernote('code', msgValue);
             $("#notiContents").val(msgTitle);
-            $("#declaration_editor").show();
+            //$("#declaration_editor").show();
         } else {
-            $('#declaration_editor').hide();
+            //$('#declaration_editor').hide();
         }
     });
 
@@ -193,7 +193,7 @@
                 // sendNoti값 0
                 $('input:radio[name="declaration_sendNoti"]:radio[value="0"]').prop("checked", true);
 
-                $('#declaration_editor').hide();
+                //$('#declaration_editor').hide();
                 declarationValue.attr("disabled", "disabled");
             }
         }

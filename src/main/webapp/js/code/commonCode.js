@@ -216,6 +216,7 @@ var broadcastSubjectType = [
     , new COMMON_CODE('memphone', '08', '스터디')
     , new COMMON_CODE('memphone', '09', '공포')
     , new COMMON_CODE('memphone', '10', '먹방/요리')
+    , new COMMON_CODE('11', '11', '건강/스포츠')
     , new COMMON_CODE('memphone', '99', '기타')
 ]
 

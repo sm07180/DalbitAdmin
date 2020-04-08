@@ -21,7 +21,7 @@
                                 <option value="4">이름</option>
                             </select>
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,6 @@
                                     <th>누적 방송 횟수</th>
                                     <th>최초 방송 시작일</th>
                                     <th>총 방송 진행 시간</th>
-                                    <%--<th>주제</th>--%>
                                 </tr>
                             </thead>
                             <tbody id="tableBody"></tbody>
@@ -163,11 +162,9 @@
             , slctType : common.isEmpty(slctType) ? 1 : slctType
             , pageStart : livePagingInfo.pageNo
             , pageCnt : livePagingInfo.pageCnt
+            , selectGubun : $('select[name="selectGubun"]').val()
+            , txt_search : $("#txt_search").val()
         }
-        dalbitLog(data);
-
-        /*data["pageStart"] = $("#pageStart").val(livePagingInfo.pageNo);
-        data["pageCnt"] = $("#pageCnt").val(livePagingInfo.pageCnt);*/
         util.getAjaxData("liveList", "/rest/menu/live/list", data, fn_succ_list);
     }
 
@@ -231,7 +228,6 @@
             <td>{{airCount}}</td>
             <td>{{convertToDate start_date "YYYY-MM-DD HH:mm:ss"}}</td>
             <td>{{airTime}}</td>
-            <%--<td>{{subject_type}}</td>--%>
         </tr>
 
     {{else}}

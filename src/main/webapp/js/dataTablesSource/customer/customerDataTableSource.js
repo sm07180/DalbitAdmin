@@ -19,10 +19,11 @@ var customerDataTableSource = {
                 return util.getCommonCodeLabel(data, declaration_reason);
                 }}
             ,{'title': '신고자 UserID', 'data': 'mem_userid', 'render': function (data, type, row) {
-                    return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo="'+row.mem_no+'">' + data + '</a>' +
+                        '<a href="javascript://" style="display:none;" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '"></a>'}}
             ,{'title': '신고자 User닉네임', 'data': 'mem_nick'}
             ,{'title': '신고 대상 UserID', 'data': 'reported_userid', 'render': function (data, type, row) {
-                    return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo="'+row.reported_mem_no+'">' + data + '</a>'}
                     , 'defaultContent': '-'}
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_nick'}
             ,{'title': '접수 일시', 'data': 'regDateFormat'}

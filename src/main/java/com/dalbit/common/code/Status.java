@@ -8,7 +8,7 @@ public enum Status {
     //공통
     조회("C001", "select.success", "조회"),
     수정("C002", "update.success", "수정"),
-    생성("C003", "create.success", "생성"),
+    생성("C003", "insert.success", "생성"),
     삭제("C004", "delete.success", "삭제"),
     파라미터오류("C005", "param.error", "파라미터 오류 시"),
     비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),
@@ -302,6 +302,9 @@ public enum Status {
     관리자권한부여_임직원번호업음("A001", "auth.set.success", "권한 부여 시 임직원번호가 안넘어 왔을 시"),
     관리자권한부여_메뉴없음("A001", "auth.set.success", "권한 부여 시 메뉴번호가 안넘어 왔을 시"),
     관리자권한부여_실패("C006", "server.error", "어드민관리 > 권한 부여 성공 시"),
+
+    테스트아이디_회원검색_결과없음("C008", "testid.member.notFound", "회원검색이 안되었을 때"),
+    테스트아이디_이미등록된테스트아이디("C008", "testid.already.regist", "테스트아이디가 이미 등록이 되었을 때"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
