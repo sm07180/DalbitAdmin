@@ -379,7 +379,7 @@
             <td style="text-align: left">{{dal}} 개</td>
         </tr>
         <tr>
-            <th>소셜아이디</th>
+            <th>로그인 아이디</th>
             <td colspan="3" style="text-align: left">
                 <div id="div_socialId">
                     <input type="text" class="form-control" id="txt_socialId" style="width: 90%;" value="{{socialId}}">

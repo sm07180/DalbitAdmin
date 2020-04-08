@@ -31,7 +31,7 @@
         )
     </insert>
 
-    <sql id="error">
+    <sql id="condition">
         <where>
             <if test='txt_startSel != null and txt_startSel != ""'>
                 upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')
@@ -65,10 +65,10 @@
         @RNUM := @RNUM + 1 as rowNum
         from rd_data.tb_log_error_data
         , (select @RNUM := 0) r
-        <include refid="error"/>
+        <include refid="condition"/>
         order by idx desc
         )a
-        where rowNum between #{searchStartNo} and #{searchEndNo}
+        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
     <select id="getLogErrorDataCnt" parameterType="com.dalbit.sample.vo.ErrorVo" resultType="integer">
@@ -85,7 +85,7 @@
         , `desc`
         , upd_date
         from rd_data.tb_log_error_data
-        <include refid="error"/>
+        <include refid="condition"/>
         ) as tb
     </select>
 
