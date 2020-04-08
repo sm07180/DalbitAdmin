@@ -12,7 +12,6 @@
                             <h3 class="title"><i class="fa fa-search"></i> 테스트아이디 검색</h3>
                             <div>
                                 <span id="search_searchType_aria"></span>
-                                <span id="search_slctType_aria"></span>
 
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -87,7 +86,7 @@
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox" /></th>
+                                        <th><input type="checkbox" id="allChk" /></th>
                                         <th>No</th>
                                         <th>사번</th>
                                         <th>직원명</th>
@@ -134,6 +133,9 @@
     });
 
     function init(){
+
+        $('#search_searchType_aria').html(util.getCommonCodeSelect(-1, testId_searchType));
+
         $("#relationArea").html(util.getCommonCodeSelect(-1, testId_relation));
         $("#userInfoArea").html(util.getCommonCodeSelect(-1, testId_userInfo));
 
@@ -163,8 +165,12 @@
         }
     }
 
+    $("#bt_search").on('click', function(){
+       getList();
+    });
+
     function getList(){
-        util.getAjaxData("summary", "/rest/administrate/testId/list", null, fn_list_success);
+        util.getAjaxData("summary", "/rest/administrate/testId/list", $("#searchForm").serialize(), fn_list_success);
     }
 
     function fn_list_success(dst_id, response){
@@ -219,10 +225,31 @@
         }
     }
 
+    $('#allChk').on('click', function(){
+        if($(this).prop('checked')){
+            $('._chk').prop('checked', 'checked');
+        }else{
+            $('._chk').removeAttr('checked');
+        }
+    });
+
     $('#bt_delete').on('click', function(){
-        var checkeds = $("#tableBody").find('._chk');
+        var checkeds = $("#tableBody").find('._chk:checked');
         if(0 == checkeds.length){
-            alert('선택된 ')
+            alert('삭제할 테스트 아이디를 선택해주세요.');
+            return false;
+        }
+
+        if(confirm(checkeds.length +'건을 삭제하시겠습니까?')){
+            var memNos = [];
+            checkeds.each(function(){
+                memNos.push($(this).data('memno'));
+            });
+
+            var data = {
+                memNos : JSON.stringify(memNos)
+            }
+            util.getAjaxData("delete", "/rest/administrate/testId/delete", data, fn_insert_success);
         }
     });
 
@@ -230,21 +257,21 @@
 
 <script id="tmp_summary" type="text/x-handlebars-template">
     {{#each this}}
-    <tr>
-        <td>{{emp_name}}</td>
-        <td>{{cnt}}개</td>
-    </tr>
+        <tr>
+            <td>{{emp_name}}</td>
+            <td>{{cnt}}개</td>
+        </tr>
     {{else}}
-    <tr>
-        <td colspan="2">{{isEmptyData}}</td>
-    </tr>
+        <tr>
+            <td colspan="2">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#each this as |user|}}
         <tr>
-            <td><input type="checkbox" class="_chk" /></td>
+            <td><input type="checkbox" class="_chk" data-memno="{{user.mem_no}}" /></td>
             <td>{{index @index}}</td>
             <td>{{user.emp_no}}</td>
             <td>{{user.emp_name}}</td>
@@ -256,6 +283,10 @@
             <td>{{user.level}} / {{user.grade}}</td>
             <td>{{user.lastLoginDatetime}}</td>
             <td>{{stateName user.mem_state}}</td>
+        </tr>
+    {{else}}
+        <tr>
+            <td colspan="12">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>

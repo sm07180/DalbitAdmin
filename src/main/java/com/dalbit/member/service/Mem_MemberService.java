@@ -134,9 +134,26 @@ public class Mem_MemberService {
     }
 
     /**
+     * 회원 정보수정 내역 보기
+     */
+    public String callMemberEditHistory(P_MemberEditHistInputVo pMemberEditHistInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pMemberEditHistInputVo);
+        ArrayList<P_MemberEditHistOutputVo> editList = mem_MemberDao.callMemberEditHistory(procedureVo);
+        String result;
+        if (Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_성공, editList, new PagingVo(procedureVo.getRet())));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_실패));
+        }
+        return result;
+
+    }
+
+    /**
      * 회원 정보 수정
      */
     public String getMemberEditor(P_MemberEditorVo pMemberEditorVo) throws GlobalException {
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pMemberEditorVo);
         mem_MemberDao.callMemberEditor(procedureVo);
         String result;
@@ -181,8 +198,13 @@ public class Mem_MemberService {
      * 회원 소셜아이디 변경
      */
     public String getMemberSocialIdEdit(P_MemberEditorVo pMemberEditorVo){
+        int cnt = mem_MemberDao.callMemberSocialIdCheck(pMemberEditorVo);
+        if(cnt > 0){
+
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원로그인ID변경_중복));
+        }
         mem_MemberDao.callMemberSocialIdEditor(pMemberEditorVo);
-        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원로그인ID변경_성공));
     }
 
     /**

@@ -13,7 +13,9 @@ public interface Mem_MemberDao {
     ArrayList<P_MemberListOutputVo> callMemberList(ProcedureVo procedureVo);
     P_MemberInfoOutputVo callMemberInfo(ProcedureVo procedureVo);
     ProcedureVo callNickNameCheck(ProcedureVo procedureVo);
+    ArrayList<P_MemberEditHistOutputVo> callMemberEditHistory(ProcedureVo procedureVo);
     ProcedureVo callMemberEditor(ProcedureVo procedureVo);
+    int callMemberSocialIdCheck(P_MemberEditorVo pMemberEditorVo);
     int callMemberSocialIdEditor(P_MemberEditorVo pMemberEditorVo);
     int callMemberStateEditor(P_MemberEditorVo pMemberEditorVo);
 

@@ -70,7 +70,7 @@
         $('#bt_img').click(function() {				 //이미지초기화
             bt_click(this.id);
         });
-        $('#bt_socialId').click(function() {            //소셜아이디 변경
+        $('#bt_socialId').click(function() {            //로그인아이디 변경
             // alert('준비중입니다.');
             // return;
             bt_click(this.id);
@@ -139,12 +139,12 @@
             obj.mem_no = memNo;
             obj.memo = $("#txt_adminMemo").val();
             util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
-        } else if(tmp == "bt_socialId" ){       // 소셜ID변경
+        } else if(tmp == "bt_socialId" ){       // 로그인ID변경
             if (common.isEmpty($("#txt_socialId").val())) {
-                alert("소셜아이디를 입력해 주십시오.");
+                alert("로그인 아이디를 입력해 주십시오.");
                 return;
             }
-            if(confirm("소셜아이디를 변경 하시겠습니까?")) {
+            if(confirm("로그인 아이디를 변경 하시겠습니까?")) {
                 obj.mem_no = memNo;
                 obj.socialId = $("#txt_socialId").val().replace(/-/gi, "");
                 util.getAjaxData("editor", "/rest/member/member/socialId_edit", obj, update_success, fn_fail);
@@ -188,7 +188,7 @@
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
             }else if(tmp == "bt_phon"){
-                if(confirm("연락처를 초기화 하시겠습니까?")) {
+                if(confirm("연락처를 변경 하시겠습니까?")) {
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 0;
                 }else return;
@@ -209,7 +209,7 @@
     }
 
     function update_success(dst_id, response) {
-        dalbitLog(response.message);
+        dalbitLog(response);
         if (tmp_bt == "bt_img") {                        //사진변경
             alert($("#"+tmp_bt).data('nickname') + "님의 프로필 이미지가 초기화 되었습니다.");
         } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
@@ -231,7 +231,11 @@
             }
             alert($("#"+tmp_bt).data('nickname') + "님의 비밀번호가 초기화 되었습니다.");
         } else if (tmp_bt == "bt_socialId") {            //비밀번호 초기화
-            alert($("#"+tmp_bt).data('nickname') + "님의 소셜아이디가 변경되었습니다.");
+            if(response.code == "1"){
+                alert(response.message);
+            }else{
+                alert($("#"+tmp_bt).data('nickname') + "님의 로그인 아이디가 변경되었습니다.");
+            }
         }
 
         if (dst_id == "adminMemoAdd") {
@@ -263,6 +267,9 @@
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
 
+        console.log("@@@@@@@@@@@@@@@@@@@@@@ : " + tmp);
+        console.log("@@@@@@@@@@@@@@@@@@@@@@ : " + memNo);
+
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
@@ -272,6 +279,7 @@
                 data.slctType = "1";
             }
         }
+        console.log(dtList_info_detail_data);
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);

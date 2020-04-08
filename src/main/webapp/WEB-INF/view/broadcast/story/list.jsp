@@ -32,14 +32,6 @@
         dtList_info_detail.createDataTable(story_summary_table);
         dtList_info_detail.reload();
 
-        story_initDataTable_sub()
-    }
-
-    function story_initDataTable_sub(){
-        var storyDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_storyDel" style="margin-right: 3px;"/>'
-        $("#storyDetail").find("#main_table").find(".footer-left").append(storyDelBtn);
-
-        storyDelEventInit();
     }
 
     function story_summary_table(json){
@@ -52,6 +44,11 @@
         }
         var html = templateScript(data);
         $("#story_summaryArea").html(html);
+
+        var storyDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_storyDel" style="margin-right: 3px;"/>'
+        $("#storyDetail").find("#main_table").find(".footer-left").append(storyDelBtn);
+
+        storyDelEventInit();
     }
     function storyDelEventInit(){
         $("#btn_storyDel").on("click", function () { //선택삭제

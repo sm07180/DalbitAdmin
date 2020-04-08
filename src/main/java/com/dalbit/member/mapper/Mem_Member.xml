@@ -21,10 +21,21 @@
       call rd_data.sp_checkDuplicateNickName(#{nickName, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callMemberEditHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo">
+        /* M_Member.xml - callMemberEditHistory */
+        call rd_admin.sp_admin_member_info_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
     <select id="callMemberEditor" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         /* M_Member.xml - callMemberEditor */
         call rd_admin.sp_admin_member_info_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="callMemberSocialIdCheck" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo" resultType="integer">
+        /* M_Member.xml - callMemberEditor */
+        select count(*) as cnt from rd_data.tb_member_basic where upper(mem_id)=upper(#{socialId})
+    </select>
+
     <update id="callMemberSocialIdEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberSocialIdEditor */
         update rd_data.tb_member_basic set mem_id=#{socialId} where mem_no=#{mem_no}

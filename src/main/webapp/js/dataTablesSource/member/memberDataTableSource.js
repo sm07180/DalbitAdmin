@@ -114,7 +114,7 @@ var MemberDataTableSource = {
 
 
 
-'exchangeDetail': {
+    'exchangeDetail': {
         'url': ''
         , 'columns': [
             {'title': '회원번호', 'data': 'type'},
@@ -138,7 +138,9 @@ var MemberDataTableSource = {
         'url': '/rest/member/gift/list'
         , 'columns': [
             {'title': '회원번호', 'data': 'gifted_mem_no'},
-            {'title': 'UserID', 'data': 'userId'},
+            {'title': 'UserID', 'data': 'userId', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.gifted_mem_no);
+                }},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},
             {'title': '이미지', 'data': 'itemImage','render' : function (data, type, row, meta) {
@@ -214,7 +216,9 @@ var MemberDataTableSource = {
                         'onclick="fanboard_fullSize_profile(this.src)"/>';
                 }},
             {'title': '회원번호', 'data': 'writer_mem_no'},
-            {'title': '팬ID', 'data': 'userId'},
+            {'title': '팬ID', 'data': 'userId', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.writer_mem_no);
+                }},
             {'title': '팬닉네임', 'data': 'nickName'},
             {'title': '등록일시', 'data': 'writeDateFormat'},
             {'title': '작성내용', 'data': 'contents','width' : '400px'},
@@ -377,11 +381,11 @@ var MemberDataTableSource = {
     },
 
     'editHistory': {
-        'url': ''
+        'url': '/rest/member/member/editHist'
         , 'columns': [
-            {'title': '정보 수정일시', 'data': 'type'},
-            {'title': '수정 처리 내역', 'data': 'type'},
-            {'title': '처리자명', 'data': 'type'},
+            {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px', 'className' : 'text-left'},
+            {'title': '처리자명', 'data': 'opName','width':'100px'},
         ]
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
