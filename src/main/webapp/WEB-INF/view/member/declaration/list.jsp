@@ -14,7 +14,10 @@
     </div>
 </div>
 
-<form id="declarationForm"></form>
+<div class="col-md-12 no-padding">
+    <jsp:include page="declarationTab.jsp"></jsp:include>
+</div>
+
 
 <script>
     $(document).ready(function() {
@@ -69,6 +72,7 @@
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {
+        $('#tab_list').removeClass("hide");
         var data = {
             'reportIdx' : $(this).data('idx')
         };
@@ -80,20 +84,6 @@
             $(this).parent().parent().find('._getDeclarationDetail').click();
         }
     });
-
-    var detailData;
-    function fn_detail_success(dst_id, response) {
-        var template = $('#tmp_declarationFrm').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html=templateScript(context);
-        $("#declarationForm").html(html);
-        $('#report_title').html("ㆍ신고 시 캡쳐내용은 라이브 방송방 신고시점을 기준으로 5분 이내의 채팅 내역 정보입니다.<br/>ㆍ캡쳐화면 내 닉네임을 클릭하면 클릭한 닉네임의 채팅글만 우측에서 보여집니다.<br/> ㆍ신중히 확인 한 후 조치바랍니다.");
-        util.editorInit("customer-declaration");
-        detailData = response.data;
-
-        declarationCheck(response.data.status);
-    }
 
 </script>
 
@@ -116,12 +106,3 @@
         </tbody>
     </table>
 </script>
-
-<script id="tmp_declarationFrm" type="text/x-handlebars-template">
-    <div class="tab-pane fade in active" id="report_tab">
-        {{^equal status '1'}}<button type="button" class="btn btn-default print-btn pull-right mt10" id="bt_declaration">처리완료</button>{{/equal}}
-        <!-- 상세 -->
-        <%--<jsp:include page="../../customer/declaration/report.jsp"/>--%>
-    </div>
-</script>
-
