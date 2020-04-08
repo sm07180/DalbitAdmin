@@ -6,51 +6,85 @@
         call rd_data.sp_broadcast_room_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <sql id="liveCondition">
+        select *, @RNUM := @RNUM + 1 as rowNum
+        from (
+        select prof.image_profile as image_profile
+        , bro.badge_recomm as badge_recomm
+        , bro.badge_popular as badge_popular
+        , bro.badge_newdj as badge_newdj
+        , mem.mem_id as mem_id
+        , mem.mem_nick as mem_nick
+        , bro.count_entry as count_entry
+        , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
+        , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
+        , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
+        , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
+        , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
+        , bro.subject_type as subject_type
+        , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item where room_no = bro.room_no and item_type = 1) as byeol
+        , (select sum(ifnull(count_good,0)) from rd_data.tb_broadcast_room where mem_no = mem.mem_no) as count_good
+        from rd_data.tb_member_basic mem
+        , rd_data.tb_member_profile prof
+        , rd_data.tb_broadcast_room bro
+        where mem.mem_no = prof.mem_no
+        and bro.mem_no = mem.mem_no
+        and bro.state <![CDATA[ < ]]> 4
+        <if test='subject_type != null and subject_type != "" '>
+            and subject_type = #{subject_type}
+        </if>
+
+        <if test='slctType =="3"'>
+            and badge_newdj = 1
+        </if>
+
+        <if test='txt_search != null and txt_search != "" '>
+            <choose>
+                <when test='selectGubun == "1"'>
+                    and mem_id like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='selectGubun == "2"'>
+                    and mem_nick like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='selectGubun == "3"'>
+                    and mem.mem_phone like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='selectGubun == "4"'>
+                    and mem.mem_name like concat('%', #{txt_search}, '%')
+                </when>
+                <otherwise>
+                    and (mem_id like concat('%', #{txt_search}, '%')
+                    or mem_nick like concat('%', #{txt_search}, '%')
+                    or mem.mem_phone like concat('%', #{txt_search}, '%')
+                    or mem.mem_name like concat('%', #{txt_search}, '%'))
+                </otherwise>
+            </choose>
+        </if>
+        group by mem.mem_no
+        ) a , (select @RNUM := 0) r
+        order by
+        <choose>
+            <when test='slctType == "1"'>
+                a.count_entry desc, a.byeol desc, a.start_date asc
+            </when>
+            <when test='slctType =="2"'>
+                a.byeol desc, a.count_entry desc, a.start_date asc
+            </when>
+            <when test='slctType =="3"'>
+                a.count_entry desc, a.byeol desc, a.start_date asc
+            </when>
+            <otherwise>
+                a.count_entry desc, a.count_good desc, a.start_date asc
+            </otherwise>
+        </choose>
+    </sql>
+
     <select id="getLiveList" parameterType="com.dalbit.menu.vo.LiveVo" resultType="com.dalbit.menu.vo.LiveVo">
         /* Men_Live.xml - getLiveList */
         select *
-            from (
-                select *, @RNUM := @RNUM + 1 as rowNum
-                    from (
-                        select prof.image_profile as image_profile
-                            , bro.badge_recomm as badge_recomm
-                            , bro.badge_popular as badge_popular
-                            , bro.badge_newdj as badge_newdj
-                            , mem.mem_id as mem_id
-                            , mem.mem_nick as mem_nick
-                            , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
-                            , (select sum(ifnull(gold,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as byeol
-                            , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
-                            , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
-                            , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                            , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
-                            , (select sum(ifnull(count_entry,0)) from rd_data.tb_broadcast_room where mem_no = mem.mem_no) as count_entry
-                            , (select sum(ifnull(count_good,0)) from rd_data.tb_broadcast_room where mem_no = mem.mem_no) as count_good
-                            , bro.subject_type as subject_type
-                        from rd_data.tb_member_basic mem
-                            , rd_data.tb_member_profile prof
-                            , rd_data.tb_broadcast_room bro
-                        where mem.mem_no = prof.mem_no
-                            and bro.state <![CDATA[ < ]]> 4
-                            <if test='subject_type != null and subject_type !=""'>
-                                and subject_type = #{subject_type}
-                            </if>
-                        group by mem.mem_no
-                    ) a , (select @RNUM := 0) r
-            order by
-                    <if test='slctType == "1"'>
-                        a.count_entry desc, a.byeol desc, a.start_date asc
-                    </if>
-                    <if test='slctType =="2"'>
-                        a.byeol desc, a.count_entry desc, a.start_date asc
-                    </if>
-                    <if test='slctType =="3"'>
-                         a.count_entry desc, a.byeol desc, a.start_date asc
-                    </if>
-                    <if test='slctType == "-1" or slctType == "0" or slctType == "" or slctType == null'>
-                         a.count_entry desc, a.count_good desc, a.start_date asc
-                    </if>
-               ) b
+         from (
+          <include refid="liveCondition"/>
+        ) b
         where
         rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
@@ -60,46 +94,7 @@
         select
           count(*)
             from(
-            select *, @RNUM := @RNUM + 1 as rowNum
-                from (
-                    select prof.image_profile as image_profile
-                    , bro.badge_recomm as badge_recomm
-                    , bro.badge_popular as badge_popular
-                    , bro.badge_newdj as badge_newdj
-                    , mem.mem_id as mem_id
-                    , mem.mem_nick as mem_nick
-                    , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
-                    , (select sum(ifnull(gold,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as byeol
-                    , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
-                    , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
-                    , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                    , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
-                    , (select sum(ifnull(count_entry,0)) from rd_data.tb_broadcast_room where mem_no = mem.mem_no) as count_entry
-                    , (select sum(ifnull(count_good,0)) from rd_data.tb_broadcast_room where mem_no = mem.mem_no) as count_good
-                    , bro.subject_type as subject_type
-                    from rd_data.tb_member_basic mem
-                    , rd_data.tb_member_profile prof
-                    , rd_data.tb_broadcast_room bro
-                    where mem.mem_no = prof.mem_no
-                    and bro.state <![CDATA[ < ]]> 4
-                    <if test='subject_type != null and subject_type !=""'>
-                        and a.subject_type = #{subject_type}
-                    </if>
-                    group by mem.mem_no
-                ) a , (select @RNUM := 0) r
-            order by
-            <if test='slctType == "1"'>
-                a.count_entry desc, a.byeol desc, a.start_date asc
-            </if>
-            <if test='slctType =="2"'>
-                a.byeol desc, a.count_entry desc, a.start_date asc
-            </if>
-            <if test='slctType =="3"'>
-                a.count_entry desc, a.byeol desc, a.start_date asc
-            </if>
-            <if test='slctType == "-1" or slctType == "0" or slctType == "" or slctType == null'>
-                a.count_entry desc, a.count_good desc, a.start_date asc
-            </if>
+            <include refid="liveCondition"/>
         )as tb
     </select>
 </mapper>

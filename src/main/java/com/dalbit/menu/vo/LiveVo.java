@@ -12,6 +12,7 @@ public class LiveVo extends PagingVo {
     private int slctType;           // 검색구분(1.추천 2.인기 3.신입)
     private String subject_type;        // 방주제 구분
     private String selectGubun;        // 검색구분(userID, user닉네임, 연락처, 이름)
+    private String txt_search;
 
     /* output */
     private String image_profile;
