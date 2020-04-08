@@ -119,7 +119,7 @@
         </table>
 
         <%-- 에디터 --%>
-        <div class="widget" id="declaration_editor" style="display:none;">
+        <div class="widget" id="declaration_editor">
             <input type="hidden" id ="notiContents" name="notiContents">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>
@@ -267,9 +267,9 @@
         if($(this).val() == 1) {
             $("#notiMemo").summernote('code', msgValue);
             $("#notiContents").val(msgTitle);
-            $("#declaration_editor").show();
+            //$("#declaration_editor").show();
         } else {
-            $('#declaration_editor').hide();
+            //$('#declaration_editor').hide();
         }
     });
 
@@ -299,7 +299,7 @@
                 // sendNoti값 0
                 $('input:radio[name="declaration_sendNoti"]:radio[value="0"]').prop("checked", true);
 
-                $('#declaration_editor').hide();
+                //$('#declaration_editor').hide();
                 declarationValue.attr("disabled", "disabled");
             }
         }
