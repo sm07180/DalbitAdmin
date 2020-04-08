@@ -71,9 +71,9 @@
             bt_click(this.id);
         });
         $('#bt_socialId').click(function() {            //소셜아이디 변경
-            alert('준비중입니다.');
-            return;
-            // bt_click(this.id);
+            // alert('준비중입니다.');
+            // return;
+            bt_click(this.id);
         });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
             bt_click(this.id);
@@ -111,6 +111,9 @@
         $('#bt_report').click(function() {           // 회원상태(경고/정지)
             reportPopup();
         });
+        $('#bt_state').click(function() {           // 상태 정상으로 변경
+            stateEdit();
+        });
         // 버튼 끝
     }
 
@@ -143,7 +146,7 @@
             }
             if(confirm("소셜아이디를 변경 하시겠습니까?")) {
                 obj.mem_no = memNo;
-                obj.socilaId = $("#txt_socialId").val().replace(/-/gi, "");
+                obj.socialId = $("#txt_socialId").val().replace(/-/gi, "");
                 util.getAjaxData("editor", "/rest/member/member/socialId_edit", obj, update_success, fn_fail);
             }else return;
         }else{
@@ -227,6 +230,8 @@
                 return;
             }
             alert($("#"+tmp_bt).data('nickname') + "님의 비밀번호가 초기화 되었습니다.");
+        } else if (tmp_bt == "bt_socialId") {            //비밀번호 초기화
+            alert($("#"+tmp_bt).data('nickname') + "님의 소셜아이디가 변경되었습니다.");
         }
 
         if (dst_id == "adminMemoAdd") {
@@ -298,6 +303,17 @@
         dtList_info_detail.reload();
     }
 
+    function stateEdit() {
+        var obj = new Object();
+        obj.mem_no = memNo;
+        util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+    }
+
+    function state_edit_success(dst_id, response) {
+        getMemNo_info_reload(memNo);
+    }
+
+
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -332,6 +348,7 @@
             <td style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
+                <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
             </td>
         </tr>
         <tr>
