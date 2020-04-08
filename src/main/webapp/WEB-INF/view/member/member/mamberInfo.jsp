@@ -188,7 +188,7 @@
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
             }else if(tmp == "bt_phon"){
-                if(confirm("연락처를 초기화 하시겠습니까?")) {
+                if(confirm("연락처를 변경 하시겠습니까?")) {
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 0;
                 }else return;
@@ -263,6 +263,9 @@
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
 
+        console.log("@@@@@@@@@@@@@@@@@@@@@@ : " + tmp);
+        console.log("@@@@@@@@@@@@@@@@@@@@@@ : " + memNo);
+
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
@@ -272,6 +275,7 @@
                 data.slctType = "1";
             }
         }
+        console.log(dtList_info_detail_data);
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);

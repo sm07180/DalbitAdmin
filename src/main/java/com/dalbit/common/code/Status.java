@@ -61,6 +61,10 @@ public enum Status {
     회원정보수정성공("0", "member.editor.success", "회원 정보 수정 성공"),
     회원정보수정실패("-1", "member.editor.fail", "회원 정소 수정 실패"),
 
+    //회원정보수정 내역 조회
+    회원정보수정내역조회_성공("0", "member.editor.list.success", "회원정보 수정내역 조회 성공 시"),
+    회원정보수정내역조회_실패("-1", "member.editor.list.fail", "회원정보 수정내역 조회 실패 시"),
+
     //방송기록보기
     방송기록보기성공("0", "broadcast.list.view.success", "방송기록 보기 성공 시"),
     방송기록보기실패("C006", "broadcast.list.view.fail", "방송기록 보기 실패 시"),

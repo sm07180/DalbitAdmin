@@ -134,9 +134,26 @@ public class Mem_MemberService {
     }
 
     /**
+     * 회원 정보수정 내역 보기
+     */
+    public String callMemberEditHistory(P_MemberEditHistInputVo pMemberEditHistInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pMemberEditHistInputVo);
+        ArrayList<P_MemberEditHistOutputVo> editList = mem_MemberDao.callMemberEditHistory(procedureVo);
+        String result;
+        if (Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_성공, editList, new PagingVo(procedureVo.getRet())));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정내역조회_실패));
+        }
+        return result;
+
+    }
+
+    /**
      * 회원 정보 수정
      */
     public String getMemberEditor(P_MemberEditorVo pMemberEditorVo) throws GlobalException {
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pMemberEditorVo);
         mem_MemberDao.callMemberEditor(procedureVo);
         String result;

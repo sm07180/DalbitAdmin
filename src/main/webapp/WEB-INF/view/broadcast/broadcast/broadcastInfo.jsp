@@ -72,6 +72,7 @@
     var dj_nickname;
     var detailData;
     function info_sel_success(dst_id, response, param) {
+        dalbitLog(response);
         $('#detailFrm').addClass("hid");
         room_no = param.room_no;
         response.data.room_no = param.room_no;
@@ -98,6 +99,14 @@
         else
             response.data["icon_guestState"] = '<i class="fa fa-user" style="color: #a037d9;font-size:20px;"></i> ' + response.data.guestState + " / " + response.data.guest_userId;
 
+
+        if(response.data.broadcastState == "ON"){
+            response.data["freezing"] = util.getCommonCodeRadio(response.data.freezeMsg, freezing);
+            response.data["forcedExit"] = util.getCommonCodeRadio(response.data.forcedQuit, forcedExit);
+        }else{
+            response.data["freezing"] = "방송종료";
+            response.data["forcedExit"] = "방송종료";
+        }
         dalbitLog(response);
         var template = $('#tmp_broadcast_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -377,7 +386,7 @@
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" onclick="fullSize_background(this.src);"/>
                 </form>
-                <button type="button" id="bt_img" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">초기화</button>
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_img" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">초기화</button>{{/equal}}
             </td>
         <tr>
             <th>입장제한</th>
@@ -388,14 +397,14 @@
         <tr>
             <th>얼리기</th>
             <td style="text-align: left">
-                {{{getCommonCodeRadio freezeMsg 'freezing'}}}
-                {{#equal broadcastState 'ON'}}<button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button> {{/equal}}
+                {{{freezing}}}
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_freezing" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
             </td>
         </tr>
         <tr>
             <th>방송강제종료</th>
             <td style="text-align: left">
-                {{{getCommonCodeRadio forcedQuit 'forcedExit'}}}
+                {{{forcedExit}}}
                 {{#equal broadcastState 'ON'}}<button type="button" id="bt_forcedExit" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
             </td>
         </tr>
@@ -403,7 +412,7 @@
             <th rowspan="3">환영 인사말</th>
             <td rowspan="3" style="text-align: left">
                 <label id="welcomeMsg" style="width: 80%;height: auto; resize:none;">{{{replaceEnter welcomeMsg}}}</label>
-                <button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>{{/equal}}
             </td>
             <th>방송상태</th>
             <td style="text-align: left">{{{icon_broadcastState}}}</td>
@@ -427,7 +436,7 @@
             <th>방송 제목</th>
             <td style="text-align: left">
                 <label id="title" style="width: 70%;">{{title}}</label>
-                <button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">초기화</button>
+                {{#equal broadcastState 'ON'}}<button type="button" id="bt_title" class="btn btn-default btn-sm pull-right">초기화</button>{{/equal}}
             </td>
             <th>방송 중 강제퇴장</th>
             <td style="text-align: left">{{forcedLeaveCnt}} 명</td>
