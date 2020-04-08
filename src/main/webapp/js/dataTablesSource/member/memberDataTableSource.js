@@ -94,23 +94,27 @@ var MemberDataTableSource = {
     },
 
     'payDetail': {
-        'url': ''
+        'url': '/rest/member/pay/list'
         , 'columns': [
             {'title': '구분', 'data': 'type'},
-            {'title': '환불가능여부', '': 'type'},
             {'title': '아이템명', 'data': 'type'},
-            {'title': '결제/환불 건 수', 'data': 'type'},
-            {'title': '결제/환불 수단', 'data': 'type'},
+            {'title': '수량', 'data': 'type'},
             {'title': '요청 금액', 'data': 'type'},
-            {'title': '결제/환불 일시', 'data': 'type'},
-            {'title': '처리 일시', 'data': 'type'},
-            {'title': '처리 상태', 'data': 'type'},
+            {'title': '결제취소 수단', 'data': 'type'},
+            {'title': '결제취소 일시', 'data': 'type'},
+            {'title': '가능여부', 'data': 'type'},
+            {'title': '취소처리 일시', 'data': 'type'},
+            {'title': '처리상태', 'data': 'type'},
             {'title': '처리자명', 'data': 'type'},
         ]
-        , 'comments': 'ㆍ회원의 결제/환불 정보를 확인하고, 결제 건에 한해 구분>결제를 클릭 시 취소처리를 할 수 있습니다.'
+        , 'comments': 'ㆍ회원의 결제취소 정보를 확인하고, 결제 건에 한해 구분>”결제 : 결제 완료, 불가>결제 취소를 요청하였으나<br/>' +
+                      '&nbsp;&nbsp;&nbsp;&nbsp;이미 아이템을 사용한 경우, 취소 : 결제 취소가 완료된 경우”로 구분됩니다. <br/>' +
+                      'ㆍ결제를 클릭 가능여부 Y인경우만 취소처리가 가능하고, 클릭 시 결제 취소처리를 할 수 있습니다.'
     },
 
-    'exchangeDetail': {
+
+
+'exchangeDetail': {
         'url': ''
         , 'columns': [
             {'title': '회원번호', 'data': 'type'},
@@ -137,7 +141,9 @@ var MemberDataTableSource = {
             {'title': 'UserID', 'data': 'userId'},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},
-            {'title': '이미지', 'data': 'itemImage'},
+            {'title': '이미지', 'data': 'itemImage','render' : function (data, type, row, meta) {
+                    return '<img src="'+ IMAGE_SERVER_URL + data +'" width="50px" height="50px"/>';
+                }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '보낸/받은/교환건수', 'data': 'accumCnt', 'render': function (data) {
                     return data + " 개"
