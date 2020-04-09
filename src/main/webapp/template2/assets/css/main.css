@@ -12677,6 +12677,8 @@ ul.main-menu .sub-menu .sub-menu li a {
 
 ul.main-menu > li > a,
 .content-wrapper {
+    background-color: #dfdfdf;
+    border-top: 1px #FFFFFF solid;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
