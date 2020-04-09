@@ -273,7 +273,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/broadcast/editHist'
         , 'columns': [
             {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
-            {'title': '수정 내용', 'data': 'editContents','width':'900px', 'className' : 'text-left'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px'},
             {'title': '처리자명', 'data': 'opName','width':'100px'},
         ]
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
@@ -284,7 +284,7 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
             {'title': '등록 관리자', 'data': 'opName','width':'100px'},
-            {'title': '운영자 메모 내용', 'data': 'memo', 'className' : 'text-left'},
+            {'title': '운영자 메모 내용', 'data': 'memo'},
         ]
     },
 }

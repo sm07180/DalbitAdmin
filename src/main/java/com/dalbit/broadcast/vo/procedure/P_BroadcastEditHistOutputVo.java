@@ -17,6 +17,6 @@ public class P_BroadcastEditHistOutputVo extends BaseVo {
 
     public void setEditDate(Date editDate){
         this.editDate = editDate;
-        this.editDateFormat = DalbitUtil.convertDateFormat(editDate, "yyyy.MM.dd HH.mm.ss");
+        this.editDateFormat = DalbitUtil.convertDateFormat(editDate, "yyyy.MM.dd HH:mm:ss");
     }
 }

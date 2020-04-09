@@ -30,7 +30,7 @@
         dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable(story_summary_table);
-        dtList_info_detail.reload();
+        // dtList_info_detail.reload();
 
     }
 
@@ -75,8 +75,7 @@
     }
     function storyDel_success(dst_id, response){
         dalbitLog(response);
-        dtList_info_detail.createDataTable(story_summary_table);
-        dtList_info_detail.reload();
+        dtList_info_detail.reload(story_summary_table);
     }
 </script>
 

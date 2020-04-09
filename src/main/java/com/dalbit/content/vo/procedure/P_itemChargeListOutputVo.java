@@ -41,11 +41,11 @@ public class P_itemChargeListOutputVo extends BaseVo {
 
     public void setRegDate(java.sql.Date reg_date){
         this.reg_date = reg_date;
-        this.reg_dateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH.mm.ss");
+        this.reg_dateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH:mm:ss");
     }
 
     public void setLastUpdDate(java.sql.Date lastUpdDate){
         this.lastUpdDate = lastUpdDate;
-        this.lastUpdDateFormat = DalbitUtil.convertDateFormat(lastUpdDate, "yyyy.MM.dd HH.mm.ss");
+        this.lastUpdDateFormat = DalbitUtil.convertDateFormat(lastUpdDate, "yyyy.MM.dd HH:mm:ss");
     }
 }

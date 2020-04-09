@@ -2,8 +2,11 @@ package com.dalbit.member.vo.procedure;
 
 import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.SearchVo;
+import com.dalbit.util.DalbitUtil;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -40,4 +43,14 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String lastOpDate;
     private String lastOpName;
 
+    private String certification;
+    private String comm_company;
+    private String block_day;
+    private Date block_end_date;
+    private String blockEndDateFormat;
+
+    public void setBlock_end_date(Date block_end_date){
+        this.block_end_date = block_end_date;
+        this.blockEndDateFormat = DalbitUtil.convertDateFormat(block_end_date, "yyyy.MM.dd HH:mm:ss");
+    }
 }

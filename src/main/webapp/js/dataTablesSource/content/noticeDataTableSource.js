@@ -30,6 +30,6 @@ var NoticeDataTableSource = {
                 }}
             , {'title': '처리자명', 'data': 'opName'}
         ]
-        , 'comments': ' • 달빛라디오 사이트 내 공지를 등록/수정/삭제할 수 있습니다.'
+        , 'comments': ' • 달빛라이브 사이트 내 공지를 등록/수정/삭제할 수 있습니다.'
     },
 }

@@ -96,7 +96,7 @@
     /** Data Table **/
     function init() {
 
-        util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success, fn_fail);
+        util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success);
 
         var dtList_info_data = function ( data ) {
             data.search = $('#searchText').val();
@@ -188,9 +188,7 @@
 
         $("#summaryDataTable").append(html);
     }
-    function fn_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
-    }
+
 </script>
 
 <script id="tmp_declarationSummary" type="text/x-handlebars-template">
