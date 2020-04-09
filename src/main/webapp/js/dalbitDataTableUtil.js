@@ -229,8 +229,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         //초기화
         this.initDataTable();
 
-        this.dataTableSource.ajax.complete = function(afterFnc){
-            return function (response) {
+        this.dataTableSource.ajax.complete = function (response) {
                 dalbitLog("[complete]");
 
                 if(!common.isEmpty(response.responseJSON)){
@@ -245,7 +244,6 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                 }
             };
 
-        };
 
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
