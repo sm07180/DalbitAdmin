@@ -5,7 +5,7 @@
 <div class="wrapper full-page-wrapper page-auth page-login text-center">
     <div class="inner-page">
         <div class="logo">
-            <img src="https://image.dalbitlive.com/images/api/ic_logo_normal.png" alt="달빛라디오 관리자" />
+            <img src="https://image.dalbitlive.com/images/api/ic_logo_normal.png" alt="달빛라이브 관리자" />
         </div>
 
         <div class="login-box center-block">
