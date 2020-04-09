@@ -24,7 +24,7 @@
             this.formId = this.targetId + "Form";
 
             if(common.isEmpty(getSelectDataInfo())){
-                fnc_giftDetail.insertEventDetail();
+                fnc_giftDetail.insertDetail();
             }else{
                 console.log(getSelectDataInfo());
 
@@ -35,7 +35,7 @@
             }
 
             // this.initDetail();
-            // this.initEventDetail();
+            // this.initDetailEvent();
         },
 
 
@@ -45,20 +45,18 @@
         },
 
         // 이벤트 적용
-        initEventDetail(){
+        initDetailEvent(){
 
-            //로그인 타입 선택
-            this.target.find("input[name='loginType']:radio").change(function () {
+            //플랫폼 IOS일 경우 코드 수기 입력
+            this.target.find("input[name='platform']:radio").change(function () {
                 var type = this.value;
 
-                //로그인 사용자일 경우 성별 선택 가능
-                if(type == "1"){
-                    this.target.find("input[name='gender']").prop("disabled",false);
+                if(type == "001"){
+                    fnc_giftDetail.target.find("input[name=banner_idx]").show();
                 }else{
-                    this.target.find("input[name='gender']").prop("disabled",true);
-                    this.target.find("input[name='gender']:input[value='1']").prop("checked", true);
+                    fnc_giftDetail.target.find("input[name=banner_idx]").hide();
+                    fnc_giftDetail.target.find("input[name=banner_idx]").val("");
                 }
-
             });
 
 
@@ -97,7 +95,16 @@
             var platformCode = detailData.platform.split("");
             for(var i = 0; i < platformCode.length; i++){
                 if(platformCode[i] == "1"){
-                    fnc_giftDetail.target.find("#platform"+(i+1)).attr("checked", true);
+                    if(i == 0 || i == 1)    // 110
+                    {
+                        fnc_giftDetail.target.find("#platform1").attr("checked", true);
+                        fnc_giftDetail.target.find("input[name=banner_idx]").hide();
+                    }
+
+                    if(i == 2){             //001
+                        fnc_giftDetail.target.find("#platform2").attr("checked", true);
+                        fnc_giftDetail.target.find("input[name=banner_idx]").show();
+                    }
                 }
             }
 
@@ -113,18 +120,18 @@
 
 
         // 등록 화면
-        insertEventDetail() {
-            var template = $('#tmp_chargeDetailFrm').html();
+        insertDetail() {
+            var template = $('#tmp_giftDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             this.target.find("#"+this.formId).html(templateScript);
 
             this.initDetail();
-            this.initEventDetail();
+            this.initDetailEvent();
         },
 
 
         // 수정 화면
-        updateEventDetail(){
+        updateDetail(){
             var detailData = getSelectDataInfo().detailData;
             detailData.rowNum = getSelectDataInfo().data.rowNum;
             dalbitLog(detailData);
@@ -138,7 +145,7 @@
             fnc_giftDetail.target.find("#"+ fnc_giftDetail.formId).html(html);
 
             fnc_giftDetail.initDetail();
-            fnc_giftDetail.initEventDetail();
+            fnc_giftDetail.initDetailEvent();
             fnc_giftDetail.initUpdateUI();
         },
 
@@ -153,7 +160,7 @@
 
             setSelectDataInfo("detailData", data.data);
 
-            fnc_giftDetail.updateEventDetail();
+            fnc_giftDetail.updateDetail();
         },
 
 
@@ -166,7 +173,10 @@
 
             alert(data.message);
 
-            fnc_giftList.selectEventList();
+            fnc_giftList.selectMainList();
+
+            //하위 탭 초기화
+            initContentTab();
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_giftDetail.formId).empty();
@@ -182,7 +192,10 @@
 
             alert(data.message);
 
-            fnc_giftList.selectEventList();
+            fnc_giftList.selectMainList();
+
+            //하위 탭 초기화
+            initContentTab();
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_giftDetail.formId).empty();
@@ -196,7 +209,6 @@
             console.log(data, textStatus, jqXHR);
         },
 
-
 //=------------------------------ Data Handler ----------------------------------
 
         // 데이터 가져오기
@@ -207,18 +219,6 @@
             for (var i = 0; i < formArray.length; i++){
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
-
-            //platform
-            var platformCnt = fnc_giftDetail.target.find("input[name=platform]").length;
-            var platform = "";
-            for(var i = 0; i < platformCnt; i++){
-                if(fnc_giftDetail.target.find("#platform"+(i+1)).is(":checked")){
-                    platform += "1";
-                }else{
-                    platform += "0";
-                }
-            }
-            resultJson['platform'] = platform;
 
             //item_type
             var item_typeCnt = fnc_giftDetail.target.find("input[name=item_type]").length;
@@ -248,9 +248,16 @@
 
 
         isValid(data){
-            if(common.isEmpty(data.item_code)){
+
+            if(common.isEmpty(data.platform) || data.platform == "000"){
+                alert("플랫폼을 선택하여 주시기 바랍니다.");
+                fnc_giftDetail.target.find("input[name=platform]").focus();
+                return false;
+            }
+
+            if(data.platform == "001" && common.isEmpty(data.item_code)){
                 alert("아이템 코드를 입력하여 주시기 바랍니다.");
-                fnc_giftDetail.target.find("input[name=item_code]").focus();
+                fnc_giftDetail.target.find("input[name=banner_idx]").focus();
                 return false;
             }
 
@@ -260,9 +267,9 @@
                 return false;
             }
 
-            if(common.isEmpty(data.dal)){
-                alert("지급 수량(달)을 입력하여 주시기 바랍니다.");
-                fnc_giftDetail.target.find("input[name=dal]").focus();
+            if(common.isEmpty(data.play_time)){
+                alert("플레이타임을 입력하여 주시기 바랍니다.");
+                fnc_giftDetail.target.find("input[name=item_price]").focus();
                 return false;
             }
 
@@ -284,12 +291,6 @@
                 return false;
             }
 
-            if(common.isEmpty(data.main_yn)){
-                alert("메인 노출 여부를 확인하여 주시기 바랍니다.");
-                fnc_giftDetail.target.find("input[name=main_yn]").focus();
-                return false;
-            }
-
             return true;
         },
 
@@ -304,15 +305,15 @@
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_giftDetailFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="giftIdx" value="{{giftIdx}}" />
+    <input type="hidden" name="item_code" value="{{item_code}}" />
     <div class="row col-lg-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
                 • 스토어 페이지에서 구매 또는 선물할 수 있는 아이템을 등록 및 관리하는 페이지입니다.
             </div>
             <div class="pull-right">
-                {{^giftIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/giftIdx}}
-                {{#giftIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/giftIdx}}
+                {{^item_code}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/item_code}}
+                {{#item_code}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/item_code}}
             </div>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -333,99 +334,102 @@
             <tbody>
                 <tr class="align-middle">
                     <th rowspan="2">No</th>
-                    <td rowspan="2">{{giftIdx}}</td>
+                    <td rowspan="2">{{rowNum}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeCheck -1 'content_platform3' 'Y'}}}</td>
+                    <td colspan="2" rowspan="2">{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}</td>
 
                     <th rowspan="2">아이템 코드</th>
-                    <td colspan="3" rowspan="2"></td>
+                    <td colspan="3" rowspan="2">
+                        {{^item_code}}<input type="text" class="form-control" id="gift-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." value="{{item_code}}" style="display:none;">{{/item_code}}
+                        {{#item_code}}{{this}}{{/item_code}}
+                    </td>
 
                     <th>등록/수정자</th>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{opName}}</td>
                 </tr>
                 <tr>
                     <th>등록/수정일시</th>
-                    <td colspan="2"></td>
+                    <td colspan="2">{{lastupdDate}}</td>
                 </tr>
                 <tr>
                     <th>아이템명</th>
                     <td colspan="8">
-                        <input type="text" class="form-control" id="gift-itemNm" name="giftItemNm" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{column02}}">
+                        <input type="text" class="form-control" id="gift-item_name" name="item_name" placeholder="아이템명을 입력하여 주시기 바랍니다." value="{{item_name}}">
                     </td>
 
                     <th>게시여부</th>
-                    <td colspan="2">{{{getCommonCodeRadio 1 'content_viewOn'}}}</td>
+                    <td colspan="2">{{{getCommonCodeRadio view_yn 'content_viewOn' 'N' 'view_yn'}}}</td>
                 </tr>
                 <tr>
                     <th>사용영역</th>
-                    <td colspan="3">{{{getCommonCodeSelect 0 'item_useArea'}}}</td>
+                    <td colspan="3">{{{getCommonCodeSelect use_area 'item_useArea' 'N' 'use_area'}}}</td>
 
                     <th>파일등록 필드</th>
-                    <td colspan="3">{{{getCommonCodeSelect 1 'item_fileField'}}}</td>
+                    <td colspan="3">{{{getCommonCodeSelect file_slct 'item_fileField' 'N' 'file_slct'}}}</td>
 
                     <th>플레이타임 제한</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="gift-playTime" name="giftPlayTime" placeholder="아이템 노출 시간" value="{{column02}}" style="width:70%;"/>
+                            <input type="text" class="form-control" id="gift-play_time" name="play_time" placeholder="아이템 노출 시간" value="{{play_time}}" style="width:70%;"/>
                             <span>(초)</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th>타입</th>
-                    <td colspan="5">{{{getCommonCodeCheck 1 'item_itemType'}}}</td>
+                    <td colspan="5">{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
 
                     <th>가격 (달)</th>
                     <td colspan="5">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="gift-price" name="giftPrice" placeholder="아이템 구매 달 수량." value="{{column02}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
+                            <input type="text" class="form-control" id="gift-item_price" name="item_price" placeholder="아이템 구매 달 수량." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(달)</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th>할인율</th>
-                    <td colspan="11">{{{getCommonCodeRadio -1 'item_discount'}}}</td>
+                    <td colspan="11">{{{getCommonCodeRadio discount_rate 'item_discount'}}}</td>
                 </tr>
                 <tr>
                     <th>Webp 이미지 URL</th>
                     <td colspan="5">
-                        <input type="text" id="gift-itemImg" name="giftItemImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('giftItemImg')">
+                        <input type="text" id="gift-webp_image" name="webp_image" style="width:70%" value="{{webp_image}}">
+                        <input type="button" value="미리보기" onclick="getImg('gift-webp_image')">
                     </td>
 
                     <th>Json 이미지 URL</th>
                     <td colspan="5">
-                        <input type="text" id="gift-jsonImg" name="giftJsonImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('giftJsonImg')">
+                        <input type="text" id="gift-jason_image" name="jason_image" style="width:70%" value="{{jason_image}}">
+                        <input type="button" value="미리보기" onclick="getImg('gift-jason_image')">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
                         <!--미리보기-->
-                        <a href="javascript:;"><img id="giftItemImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
+                        <a href="javascript:;"><img id="gift-webp_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
 
                     <td colspan="6">
                         <!--미리보기-->
-                        <a href="javascript:;"><img id="giftJsonImgViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
+                        <a href="javascript:;"><img id="gift-jason_imageViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
                 </tr>
                 <tr>
                     <th>썸네일</th>
                     <td colspan="4">
-                        <input type="text" id="gift-thumbImg" name="giftThumbImg" style="width:70%">
-                        <input type="button" value="미리보기" onclick="getImg('giftThumbImg')">
+                        <input type="text" id="gift-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}">
+                        <input type="button" value="미리보기" onclick="getImg('gift-item_thumbnail')">
                     </td>
                     <td colspan="1">
                         <!--미리보기-->
-                        <a href="javascript:;"><img id="giftThumbImgViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
+                        <a href="javascript:;"><img id="gift-item_thumbnailViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
                     </td>
 
                     <th>운영자 메모</th>
                     <td colspan="5">
-                        <textarea class="form-control" name="giftNote" id="gift-note" rows="5" cols="30" placeholder="메모." style="resize: none" maxlength="200"></textarea>
+                        <textarea class="form-control" id="gift-desc" name="desc" rows="5" cols="30" placeholder="메모." style="resize: none" maxlength="200">{{desc}}</textarea>
                     </td>
                 </tr>
             </tbody>

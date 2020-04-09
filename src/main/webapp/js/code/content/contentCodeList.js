@@ -86,17 +86,17 @@ var banner_searchType = [
 var banner_bannerType = [
     new COMMON_CODE(null, 'bannerType', '배너구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('gnb', '1', 'GNB')
-    , new COMMON_CODE('expand', '2', '펼침')
-    , new COMMON_CODE('popup', '3', '팝업')
-    , new COMMON_CODE('notice', '4', '고객센터')
-    , new COMMON_CODE('notice', '5', '스토어')
+    , new COMMON_CODE('gnb', '0', 'GNB')
+    , new COMMON_CODE('expand', '1', '펼침')
+    , new COMMON_CODE('popup', '2', '팝업')
+    , new COMMON_CODE('notice', '3', '고객센터')
+    , new COMMON_CODE('notice', '4', '스토어')
     , new COMMON_CODE('etc', '99', '???(추후추가)')
 ];
 
 var banner_loginType = [
     new COMMON_CODE(null, 'loginType', '로그인구분')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '0', '전체')
     , new COMMON_CODE('login', '1', '로그인')
     , new COMMON_CODE('nonlogin', '2', '비로그인')
 ];
@@ -171,8 +171,8 @@ var item_useArea = [
 
 var item_fileField = [
     new COMMON_CODE(null, 'fileField', '파일등록필드')
-    , new COMMON_CODE('webp/json', '1', 'Webp/Json')
-    , new COMMON_CODE('sticker', '2', 'sticker')
+    , new COMMON_CODE('webp/json', 'webp/json', 'Webp/Json')
+    // , new COMMON_CODE('sticker', '2', 'sticker')
 ];
 
 

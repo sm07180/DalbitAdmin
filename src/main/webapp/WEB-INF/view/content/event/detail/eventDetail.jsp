@@ -53,7 +53,7 @@
             }
 
             // this.initDetail();
-            // this.initEventDetail();
+            // this.initDetailEvent();
         },
 
 

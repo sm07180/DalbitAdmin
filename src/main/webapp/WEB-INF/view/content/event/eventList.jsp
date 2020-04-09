@@ -157,13 +157,13 @@ var fnc_eventList = {
         console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);
 
-        // targetFnc.updateEventDetail();
+        // targetFnc.updateDetail();
         $("#tab_" + selectTabId).click();
     },
 
 
     // 검색
-    selectEventList(){
+    selectMainList(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();

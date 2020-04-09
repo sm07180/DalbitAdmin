@@ -128,13 +128,68 @@ public class ItemRestController {
 
 
 
-
-
+/** ==----------------------------------------- 선물 아이템 ------------------------------------------------------------------*/
     /**
      * 선물 아이템
      */
     @PostMapping("gift/list")
     public String giftList(P_itemGiftListInputVo pItemGiftListInputVo) {
+        String result = itemService.callContentsGiftItemList(pItemGiftListInputVo);
+        return result;
+    }
+
+    /**
+     * 선물 아이템 상세
+     */
+    @PostMapping("gift/detail")
+    public String giftDetail(P_itemGiftDetailInputVo pItemGiftDetailInputVo) {
+        String result = itemService.callContentsGiftItemDetail(pItemGiftDetailInputVo);
+        return result;
+    }
+
+    /**
+     * 선물 아이템 등록
+     */
+    @PostMapping("gift/insert")
+    public String giftInsert(P_itemGiftInsertVo pItemGiftInsertVo) {
+        String result = itemService.callContentsGiftItemAdd(pItemGiftInsertVo);
+        return result;
+    }
+
+    /**
+     * 선물 아이템 수정
+     */
+    @PostMapping("gift/update")
+    public String giftUpdate(P_itemGiftUpdateVo pItemGiftUpdateVo) {
+        String result = itemService.callContentsGiftItemEdit(pItemGiftUpdateVo);
+        return result;
+    }
+
+    /**
+     * 선물 아이템 삭제
+     */
+    @PostMapping("gift/delete")
+    public String giftDelete(P_itemGiftDeleteVo pItemGiftDeleteVo) {
+        String result = itemService.callContentsGiftItemDelete(pItemGiftDeleteVo);
+        return result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 선물 아이템
+     */
+    @PostMapping("gift/test/list")
+    public String giftTestList(P_itemGiftListInputVo pItemGiftListInputVo) {
             String result = itemService.callServiceCenterItemGiftList(pItemGiftListInputVo);
             return result;
     }

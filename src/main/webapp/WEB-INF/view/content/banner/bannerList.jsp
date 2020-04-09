@@ -5,7 +5,7 @@
 <div id="main-header">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-        <div class="row col-lg-12 form-inline mb15">
+        <div class="row col-lg-12 form-inline">
             <div class="widget widget-table">
                 <div class="widget-header">
                     <h3><i class="fa fa-desktop"></i> 검색결과</h3>
@@ -34,21 +34,20 @@
 
 <script>
     $(document).ready(function() {
-        fnc_chargeList.init();
+        fnc_bannerList.init();
     });
 
-var fnc_chargeList = {
+var fnc_bannerList = {
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "chargeList",
+    "targetId": "bannerList",
 
     init() {
-        this.target = $("#"+this.targetId);
-        this.targetDataTableId = "list_info_"+this.targetId;
+        this.target = $("#" + this.targetId);
+        this.targetDataTableId = "list_info_" + this.targetId;
         this.target.find("#list_info").attr("id", this.targetDataTableId);
-        this.targetDataTable = this.target.find("#"+this.targetDataTableId);
+        this.targetDataTable = this.target.find("#" + this.targetDataTableId);
         this.divDataTable = this.targetDataTable.parent("div");
-
 
         this.initDataTable();
         this.initEvent();
@@ -59,32 +58,32 @@ var fnc_chargeList = {
     "dtList_statistics_info":"",
     initDataTable() {
         //=---------- Main DataTable ----------
-        var dtList_info_data = function ( data ) {
+        var dtList_info_data = function (data) {
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge, $("#searchForm"));
+        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, BannerDataTableSource.list, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
-        this.dtList_info.setEventClick(this.updateData);
+        this.dtList_info.setEventClick(this.updateData, 4);
         this.dtList_info.createDataTable(this.initSummary);
 
         //---------- Main DataTable ----------=
 
-        fnc_chargeList.initDataTableButton();
-        fnc_chargeList.initEvent();
+        fnc_bannerList.initDataTableButton();
+        fnc_bannerList.initEvent();
     },
 
 
     initSummary(json) {
         //------------- 우측 상단 통계 -----------------------------------
-        var template = $('#tmp_chargeListStatisticsFrm').html();
+        var template = $('#tmp_bannerListStatisticsFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = json.summary;
         var html=templateScript(context);
 
-        fnc_chargeList.divDataTable = fnc_chargeList.targetDataTable.parent("div");
-        fnc_chargeList.target.find("#div_summary").remove();
-        fnc_chargeList.divDataTable.find(".top-right").prepend(html);
+        fnc_bannerList.divDataTable = fnc_bannerList.targetDataTable.parent("div");
+        fnc_bannerList.target.find("#div_summary").remove();
+        fnc_bannerList.divDataTable.find(".top-right").prepend(html);
     },
 
 
@@ -95,7 +94,7 @@ var fnc_chargeList = {
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
         this.divDataTable.find(".footer-left").append(delBtn);
-        this.divDataTable.find(".top-right").append(addBtn);
+        this.divDataTable.find(".footer-right").append(addBtn);
         this.divDataTable.find(".footer-right").append(excelBtn);
     },
 
@@ -103,11 +102,11 @@ var fnc_chargeList = {
 
     initEvent(){
         this.target.find("#btn_insert").on("click", function () { //등록
-            fnc_chargeList.insertEvent();
+            fnc_bannerList.insertEvent();
         })
 
         this.target.find("#btn_delete").on("click", function () { //삭제
-            fnc_chargeList.deleteEvent();
+            fnc_bannerList.deleteEvent();
         })
     },
 
@@ -119,12 +118,12 @@ var fnc_chargeList = {
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
-        $("#tab_chargeDetail").click();
+        $("#tab_bannerDetail").click();
     },
 
     // 삭제
     deleteEvent() {
-        var checkDatas = fnc_chargeList.dtList_info.getCheckedData();
+        var checkDatas = fnc_bannerList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
             alert("삭제할 정보를 선택해주세요.");
@@ -150,7 +149,7 @@ var fnc_chargeList = {
             var data = new Object();
             data.item_code = itemCodes;
 
-            util.getAjaxData(fnc_chargeList.targetId, "/rest/content/item/charge/delete",data, fnc_chargeList.fn_delete_success, fnc_chargeList.fn_fail);
+            util.getAjaxData(fnc_bannerList.targetId, "/rest/content/banner/delete",data, fnc_bannerList.fn_delete_success, fnc_bannerList.fn_fail);
         };
     },
 
@@ -159,8 +158,8 @@ var fnc_chargeList = {
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo("data", data);
 
-        var selectTabId = "chargeDetail";
-        if(fnc_chargeList.target.find("#contentTab").find(".active").length != 0){
+        var selectTabId = "bannerDetail";
+        if(fnc_bannerList.target.find("#contentTab").find(".active").length != 0){
             selectTabId = $("#contentTab").find(".active").find("a").prop("id").split("_")[1];
         }
         console.log(selectTabId)
@@ -175,11 +174,11 @@ var fnc_chargeList = {
         alert(data.message);
 
         // reload
-        fnc_chargeList.selectMainList();
+        fnc_bannerList.selectMainList();
 
         //상단 이동
         $('html').animate({scrollTop : 0}, 100);
-        $("#"+fnc_chargeDetail.formId).empty();
+        $("#"+fnc_bannerDetail.formId).empty();
     },
 
 
@@ -202,48 +201,48 @@ var fnc_chargeList = {
 
     },
 
-        // /*=---------- 엑셀 ----------*/
-        // $('#excelDownBtn').on('click', function(){
-        //     var formElement = document.querySelector("form");
-        //     var formData = new FormData(formElement);
-        //
-        //     formData.append("search", tmp_search);
-        //     formData.append("date", tmp_date);
-        //     formData.append("gubun", tmp_gubun);
-        //     formData.append("checkDate", tmp_checkDate);
-        //     formData.append("stDate", tmp_stDate);
-        //     formData.append("edDate", tmp_edDate);
-        //     /*formData.append("test003", "test003");*/
-        //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
-        // });
+    // /*=---------- 엑셀 ----------*/
+    // $('#excelDownBtn').on('click', function(){
+    //     var formElement = document.querySelector("form");
+    //     var formData = new FormData(formElement);
+    //
+    //     formData.append("search", tmp_search);
+    //     formData.append("date", tmp_date);
+    //     formData.append("gubun", tmp_gubun);
+    //     formData.append("checkDate", tmp_checkDate);
+    //     formData.append("stDate", tmp_stDate);
+    //     formData.append("edDate", tmp_edDate);
+    //     /*formData.append("test003", "test003");*/
+    //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+    // });
 
-        // $("#excelBtn").on("click", function () {
-        //     $("#list_info").table2excel({
-        //         exclude: ".noExl",
-        //         name: "Excel Document Name",
-        //         filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
-        //         fileext: ".xls",
-        //         exclude_img: true,
-        //         exclude_links: true,
-        //         exclude_inputs: true
-        //     });
-        // });
-        //
-        // function fn_success_excel(){
-        //     console.log("fn_success_excel");
-        // }
-        //
-        // function fn_fail_excel(){
-        //     console.log("fn_fail_excel");
-        // }
-        /*----------- 엑셀 ---------=*/
+    // $("#excelBtn").on("click", function () {
+    //     $("#list_info").table2excel({
+    //         exclude: ".noExl",
+    //         name: "Excel Document Name",
+    //         filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
+    //         fileext: ".xls",
+    //         exclude_img: true,
+    //         exclude_links: true,
+    //         exclude_inputs: true
+    //     });
+    // });
+    //
+    // function fn_success_excel(){
+    //     console.log("fn_success_excel");
+    // }
+    //
+    // function fn_fail_excel(){
+    //     console.log("fn_fail_excel");
+    // }
+    /*----------- 엑셀 ---------=*/
 }
 </script>
 
 
 
 <!-- =------------------ Handlebars ---------------------------------- -->
-<script id="tmp_chargeListStatisticsFrm" type="text/x-handlebars-template">
+<script id="tmp_bannerListStatisticsFrm" type="text/x-handlebars-template">
 
     <div id="div_summary" style="float:left">
         <table class="table table-bordered table-dalbit text-center" style="width:400px;">
@@ -263,19 +262,16 @@ var fnc_chargeList = {
             </colgroup>
             <tbody>
             <tr class="align-middle">
-                <th colspan="9">게시중 아이템</th>
-                <th colspan="3"  rowspan="2">누적 구매현황</th>
+                <th colspan="3">ON 배너</th>
+                <th colspan="3">ON 배너 클릭</th>
+                <th colspan="3">남</th>
+                <th colspan="3">여</th>
             </tr>
             <tr>
-                <th colspan="3">PC</th>
-                <th colspan="3">Android</th>
-                <th colspan="3">IOS</th>
-            </tr>
-            <tr>
-                <td style="text-align:center;" colspan="3">{{pcCnt}}건</td>
-                <td style="text-align:center;" colspan="3">{{androidCnt}}건</td>
-                <td style="text-align:center;" colspan="3">{{iosCnt}}건</td>
-                <td style="text-align:center;" colspan="3">{{totalPurchaseCnt}}건</td>
+                <td style="text-align:center;" colspan="3">{{banner_col1}}건</td>
+                <td style="text-align:center;" colspan="3">{{banner_col1}}건 ({{banner_col1}}%)</td>
+                <td style="text-align:center;" colspan="3">{{banner_col1}}명</td>
+                <td style="text-align:center;" colspan="3">{{banner_col1}}명</td>
             </tr>
             </tbody>
         </table>

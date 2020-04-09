@@ -53,6 +53,29 @@
                     <if test='rankType == "3"'>
                         and ranking_date = concat(date_format(SUBDATE(NOW(), INTERVAL 1 MONTH), '%Y-%m'), '-01')
                     </if>
+
+                    <if test='txt_search != null and txt_search != ""'>
+                        <choose>
+                            <when test='selectGubun =="1"'>
+                                and mem.mem_no like concat('%', #{txt_search}, '%')
+                            </when>
+                            <when test='selectGubun =="2"'>
+                                and mem_id like concat('%', #{txt_search}, '%')
+                            </when>
+                            <when test='selectGubun =="3"'>
+                                and mem_nick like concat('%', #{txt_search}, '%')
+                            </when>
+                            <when test='selectGubun =="4"'>
+                                and mem.mem_phone like concat('%', #{txt_search}, '%')
+                            </when>
+                            <otherwise>
+                                and (mem.mem_no like concat('%', #{txt_search}, '%')
+                                or mem_id like concat('%', #{txt_search}, '%')
+                                or mem_nick like concat('%', #{txt_search}, '%')
+                                or mem.mem_phone like concat('%', #{txt_search}, '%'))
+                            </otherwise>
+                        </choose>
+                    </if>
             ) a , (select @RNUM := 0) r
             order by djRank asc
     </sql>
@@ -99,6 +122,29 @@
                         <if test='rankType == "3"'>
                             and ranking_date = concat(date_format(SUBDATE(NOW(), INTERVAL 1 MONTH), '%Y-%m'), '-01')
                         </if>
+
+                        <if test='txt_search != null and txt_search != ""'>
+                            <choose>
+                                <when test='selectGubun =="1"'>
+                                    and mem.mem_no like concat('%', #{txt_search}, '%')
+                                </when>
+                                <when test='selectGubun =="2"'>
+                                    and mem_id like concat('%', #{txt_search}, '%')
+                                </when>
+                                <when test='selectGubun =="3"'>
+                                    and mem_nick like concat('%', #{txt_search}, '%')
+                                </when>
+                                <when test='selectGubun =="4"'>
+                                    and mem.mem_phone like concat('%', #{txt_search}, '%')
+                                </when>
+                                <otherwise>
+                                    and (mem.mem_no like concat('%', #{txt_search}, '%')
+                                    or mem_id like concat('%', #{txt_search}, '%')
+                                    or mem_nick like concat('%', #{txt_search}, '%')
+                                    or mem.mem_phone like concat('%', #{txt_search}, '%'))
+                                </otherwise>
+                            </choose>
+                        </if>
                 ) a , (select @RNUM := 0) r
             order by fanRank asc
     </sql>
@@ -108,9 +154,9 @@
      <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
          /* Men_Rank.xml - getMainDjRankingList */
          select *
-         from (
-          <include refid="djCondition"/>
-         ) b
+             from (
+              <include refid="djCondition"/>
+             ) b
          where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
      </select>
 
@@ -128,18 +174,18 @@
     <select id="getMainFanRankingList" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="com.dalbit.menu.vo.FanRankingVo">
         /* Men_Rank.xml - getMainFanRankingList */
         select *
-        from (
-        <include refid="fanCondition"/>
-        ) b
+            from (
+            <include refid="fanCondition"/>
+            ) b
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
     <select id="getMainFanRankingListCnt" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="integer">
         /* Men_Rank.xml - getMainFanRankingListCnt */
         select
-        count(*)
-        from (
-        <include refid="fanCondition"/>
-        ) as tb
+          count(*)
+            from (
+              <include refid="fanCondition"/>
+            ) as tb
     </select>
 </mapper>

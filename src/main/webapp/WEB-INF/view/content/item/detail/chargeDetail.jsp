@@ -26,7 +26,7 @@
             this.formId = this.targetId + "Form";
 
             if(common.isEmpty(getSelectDataInfo())){
-                fnc_chargeDetail.insertEventDetail();
+                fnc_chargeDetail.insertDetail();
             }else{
                 console.log(getSelectDataInfo());
 
@@ -37,7 +37,7 @@
             }
 
             // this.initDetail();
-            // this.initEventDetail();
+            // this.initDetailEvent();
         },
 
 
@@ -47,17 +47,17 @@
         },
 
         // 이벤트 적용
-        initEventDetail(){
+        initDetailEvent(){
 
             //플랫폼 IOS일 경우 코드 수기 입력
             this.target.find("input[name='platform']:radio").change(function () {
                 var type = this.value;
 
                 if(type == "001"){
-                    fnc_chargeDetail.target.find("input[name=item_code]").show();
+                    fnc_chargeDetail.target.find("input[name=banner_idx]").show();
                 }else{
-                    fnc_chargeDetail.target.find("input[name=item_code]").hide();
-                    fnc_chargeDetail.target.find("input[name=item_code]").val("");
+                    fnc_chargeDetail.target.find("input[name=banner_idx]").hide();
+                    fnc_chargeDetail.target.find("input[name=banner_idx]").val("");
                 }
             });
 
@@ -100,12 +100,12 @@
                     if(i == 0 || i == 1)    // 110
                     {
                         fnc_chargeDetail.target.find("#platform1").attr("checked", true);
-                        fnc_chargeDetail.target.find("input[name=item_code]").hide();
+                        fnc_chargeDetail.target.find("input[name=banner_idx]").hide();
                     }
 
                     if(i == 2){             //001
                         fnc_chargeDetail.target.find("#platform2").attr("checked", true);
-                        fnc_chargeDetail.target.find("input[name=item_code]").show();
+                        fnc_chargeDetail.target.find("input[name=banner_idx]").show();
                     }
                 }
             }
@@ -122,18 +122,18 @@
 
 
         // 등록 화면
-        insertEventDetail() {
+        insertDetail() {
             var template = $('#tmp_chargeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             this.target.find("#"+this.formId).html(templateScript);
 
             this.initDetail();
-            this.initEventDetail();
+            this.initDetailEvent();
         },
 
 
         // 수정 화면
-        updateEventDetail(){
+        updateDetail(){
             var detailData = getSelectDataInfo().detailData;
             detailData.rowNum = getSelectDataInfo().data.rowNum;
             dalbitLog(detailData);
@@ -147,7 +147,7 @@
             fnc_chargeDetail.target.find("#"+ fnc_chargeDetail.formId).html(html);
 
             fnc_chargeDetail.initDetail();
-            fnc_chargeDetail.initEventDetail();
+            fnc_chargeDetail.initDetailEvent();
             fnc_chargeDetail.initUpdateUI();
         },
 
@@ -162,7 +162,7 @@
 
             setSelectDataInfo("detailData", data.data);
 
-            fnc_chargeDetail.updateEventDetail();
+            fnc_chargeDetail.updateDetail();
         },
 
 
@@ -175,7 +175,10 @@
 
             alert(data.message);
 
-            fnc_chargeList.selectEventList();
+            fnc_chargeList.selectMainList();
+
+            //하위 탭 초기화
+            initContentTab();
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_chargeDetail.formId).empty();
@@ -191,7 +194,10 @@
 
             alert(data.message);
 
-            fnc_chargeList.selectEventList();
+            fnc_chargeList.selectMainList();
+
+            //하위 탭 초기화
+            initContentTab();
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_chargeDetail.formId).empty();
@@ -253,7 +259,7 @@
 
             if(data.platform == "001" && common.isEmpty(data.item_code)){
                 alert("아이템 코드를 입력하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=item_code]").focus();
+                fnc_chargeDetail.target.find("input[name=banner_idx]").focus();
                 return false;
             }
 

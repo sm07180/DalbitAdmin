@@ -9,11 +9,14 @@
     <sql id="liveCondition">
         select *, @RNUM := @RNUM + 1 as rowNum
         from (
-        select prof.image_profile as image_profile
+        select
+        prof.image_profile as image_profile
         , bro.badge_recomm as badge_recomm
         , bro.badge_popular as badge_popular
         , bro.badge_newdj as badge_newdj
         , mem.mem_id as mem_id
+        , lev.level as `level`
+        , lev.grade as grade
         , mem.mem_nick as mem_nick
         , bro.count_entry as count_entry
         , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
@@ -27,8 +30,10 @@
         from rd_data.tb_member_basic mem
         , rd_data.tb_member_profile prof
         , rd_data.tb_broadcast_room bro
+        , rd_data.tb_member_level lev
         where mem.mem_no = prof.mem_no
         and bro.mem_no = mem.mem_no
+        and mem.mem_no = lev.mem_no
         and bro.state <![CDATA[ < ]]> 4
         <if test='subject_type != null and subject_type != "" '>
             and subject_type = #{subject_type}
