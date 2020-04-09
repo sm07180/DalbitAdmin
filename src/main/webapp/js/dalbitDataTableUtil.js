@@ -229,7 +229,21 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         //초기화
         this.initDataTable();
 
-        this.dataTableSource.ajax.complete = afterComplaetFnc(initFn);
+        this.dataTableSource.ajax.complete = function (response) {
+                dalbitLog("[complete]");
+
+                if(!common.isEmpty(response.responseJSON)){
+                    dalbitLog(response.responseJSON);
+                    ui.toogleSearchListFooter(response.responseJSON.recordsTotal);
+                }
+
+                // 완료 후 처리 함수
+                if(!common.isEmpty(initFn)){
+                    initFn(response.responseJSON);
+                    initFn = "";    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
+                }
+            };
+
 
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
@@ -297,11 +311,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 
     // DataTable Reload / Ajax 재호출
     DalbitDataTable.prototype.reload = function (afterFnc) {
-        if(!common.isEmpty(afterFnc)){
-            this.dataTableSource.ajax.complete = afterComplaetFnc(afterFnc);
-        }
-
-        this.dom.DataTable().ajax.reload();
+        this.dom.DataTable().ajax.reload(afterFnc);
     }
 
     // DataTable Reload / Url, Data, Columns 초기화 후 Reload (기존 테이블 변경  시 사용)
@@ -379,28 +389,6 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     DalbitDataTable.prototype.useOrdering = function(isUse){
         if(common.isEmpty(isUse)){return false;}
         this.dataTableSource.ordering = isUse;
-    }
-
-
-
-    // complete After 함수 호출
-    afterComplaetFnc = function(afterFnc){
-
-        return function (response) {
-                        dalbitLog("[complete]");
-
-                        if(!common.isEmpty(response.responseJSON)){
-                            dalbitLog(response.responseJSON);
-                            ui.toogleSearchListFooter(response.responseJSON.recordsTotal);
-                        }
-
-                        // 완료 후 처리 함수
-                        if(!common.isEmpty(afterFnc)){
-                            afterFnc(response.responseJSON);
-                            afterFnc = "";    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
-                        }
-                    };
-
     }
 
 
