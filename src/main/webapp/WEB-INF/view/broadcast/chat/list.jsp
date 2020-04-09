@@ -38,7 +38,6 @@
         dtList_info_detail.useOrdering(false);
         dtList_info_detail.setPageLength(20);
         dtList_info_detail.createDataTable(chat_summary_table);
-        dtList_info_detail.reload();
 
         $("#chatLeft").removeClass("col-md-6");
         $("#chatLeft").addClass("col-md-12");
@@ -76,7 +75,6 @@
         dblist_chat_detail.useOrdering(false);
         dblist_chat_detail.setPageLength(20);
         dblist_chat_detail.createDataTable();
-        dblist_chat_detail.reload();
     }
 
 </script>

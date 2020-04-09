@@ -34,7 +34,6 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable(qusetion_summary_table);
-        dtList_info_detail.reload();
 
         initDataTableTop_select_quest(tmp);         // 상탄 selectBox
     }

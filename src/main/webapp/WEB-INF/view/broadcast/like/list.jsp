@@ -27,7 +27,6 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable(like_summary_table);
-        dtList_info_detail.reload();
     }
 
     function like_summary_table(json){

@@ -82,6 +82,8 @@ public class Mem_MemberRestController {
             pMemberEditorVo.setReset_profileImage(new ImageVo(null, pMemberEditorVo.getMemSex(), pMemberEditorVo.getPhotoUrl()));
             pMemberEditorVo.setProfileImage(pMemberEditorVo.getReset_profileImage().getUrl().replace(pMemberEditorVo.getPhotoUrl(),""));
         }
+
+
         if(pMemberEditorVo.getPhoneNum() != null) {
             if(DalbitUtil.isSmsPhoneNoChk(pMemberEditorVo.getPhoneNum())) {
                 if(pMemberEditorVo.getPasswdReset() != null){
