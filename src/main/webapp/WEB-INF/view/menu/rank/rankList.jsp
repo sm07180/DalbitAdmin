@@ -186,9 +186,10 @@
             </td>
             <td>
                 {{#isSmall djRank '6'}}
-                    ●<br/>추천 중
+                <i class="fa fa-circle" style="color: blue"></i><br/><span class="text">추천 중</span>
+
                 {{else}}
-                    ○<br/>비추천
+                <i class="fa fa-circle-o" style="color: blue"></i><br/><span class="text">비추천</span>
                 {{/isSmall}}
             </td>
             <td>
