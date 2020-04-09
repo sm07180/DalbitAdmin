@@ -6,6 +6,8 @@
         <div class="container-fluid">
             <!-- serachBox -->
             <div class="row col-lg-12 form-inline">
+                <input type="hidden" name="pageStart" id="pageStart">
+                <input type="hidden" name="pageCnt" id="pageCnt">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
@@ -57,7 +59,26 @@
                             </label>
                         </div>
 
-                        <table id="list_info" class="table table-sorting table-hover table-bordered"></table>
+                        <table id="list_info" class="table table-sorting table-hover table-bordered">
+                            <thead id="tableTop">
+                            <tr>
+                                <th>순위</th>
+                                <th>프로필 이미지</th>
+                                <th>User ID</th>
+                                <th>User 닉네임</th>
+                                <th>보유결제금액</th>
+                                <th>누적 받은 별</th>
+                                <th>누적 받은 선물</th>
+                                <th>누적 방송 횟수</th>
+                                <th>최초 방송 시작일</th>
+                                <th>총 방송진행 시간</th>
+                            </tr>
+                            </thead>
+                            <tbody id="djRankListBody">
+                            </tbody>
+                            <tbody id="fanRankListBody">
+                            </tbody>
+                        </table>
                     </div>
 
 
@@ -93,7 +114,7 @@
 </div>
 
 <script type="text/javascript">
-    djRankListPagingInfo = new PAGING_INFO(0, 1, 10);
+     djRankListPagingInfo = new PAGING_INFO(0, 1, 10);
 
     $(function(){
         init();
@@ -104,11 +125,13 @@
         var rank = common.isEmpty(tabName) ? $('#rankTab li.active a').data('rank') : tabName;
         var data = {
             rankType : $('input[name="rankType"]:checked').val()
-            , page : djRankListPagingInfo.pageNo
-            , records : djRankListPagingInfo.pageCnt
+            , rank
+            , pageStart : djRankListPagingInfo.pageNo
+            , pageCnt : djRankListPagingInfo.pageCnt
         }
         util.getAjaxData(rank, "/rest/menu/rank/"+rank, data, fn_succ_list);
     }
+
 
     function fn_succ_list(dst_id, response, params) {
         dalbitLog(dst_id);
@@ -118,9 +141,9 @@
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
-        $("#list_info").html(html);
+        $("#"+dst_id+"Body").html(html); // dst_id응용해서 바꿀 것
 
-        var pagingInfo = response.data.paging;
+        var pagingInfo = response.pagingVo;
         djRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
         util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
     }
@@ -144,78 +167,46 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_djRankList">
-    <thead id="tableTop">
+    {{#each this as |rank|}}
         <tr>
-            <th>순위</th>
-            <th>프로필 이미지</th>
-            <th>User ID</th>
-            <th>User 닉네임</th>
-            <th>보유결제금액</th>
-            <th>누적 받은 별</th>
-            <th>누적 받은 선물</th>
-            <th>누적 방송 횟수</th>
-            <th>최초 방송 시작일</th>
-            <th>총 방송진행 시간</th>
+            <td>
+                {{djRank}} <br /><br />
+                {{upDown}}
+            </td>
+            <td>
+                {{#equal rank.image_profile ''}}
+                    이미지 없음
+                {{else}}
+                    <img src="{{renderImage rank.image_profile}}" style='height:100px; width:auto;' />
+                {{/equal}}
+            </td>
+            <td>
+                {{mem_id}} <br /> <br />
+                레벨 : {{level}} <br />
+                등급 : {{grade}}
+            </td>
+            <td>{{mem_nick}}</td>
+            <td>{{money}}</td>
+            <td>{{byeol}}</td>
+            <td>{{gifted_mem_no}}</td>
+            <td>{{airCount}}</td>
+            <td>{{start_date}}</td>
+            <td>{{airTime}}</td>
         </tr>
-    </thead>
-    <tbody id="tableBody">
-        {{#each this.list as |rank|}}
-            <tr>
-                <td>
-                    {{rank.rank}} <br /><br />
-                    {{rank.upDown}}
-                </td>
-                <td>
-                    {{#equal rank.profImg.path ''}}
-                        이미지 없음
-                    {{else}}
-                        <img src="{{viewImage rank.profImg.path}}" style='height:100px; width:auto;' />
-                    {{/equal}}
-                </td>
-                <td>
-                    {{rank.memId}} <br /> <br />
-                    레벨 : {{rank.level}} <br />
-                    등급 : {{rank.grade}}
-                </td>
-                <td>{{rank.nickNm}}</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-            </tr>
 
         {{else}}
             <tr>
                 <td colspan="10">{{isEmptyData}}</td>
             </tr>
         {{/each}}
-    </tbody>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_fanRankList">
-    <thead id="tableTop">
-    <tr>
-        <th>순위</th>
-        <th>Main<br />추천상태</th>
-        <th>프로필 이미지</th>
-        <th>User ID</th>
-        <th>User 닉네임</th>
-        <th>보유결제금액</th>
-        <th>누적<br />받은 별</th>
-        <th>누적<br />방송 선물</th>
-        <th>누적<br />방송 횟수</th>
-        <th>최초 방송<br />시작일</th>
-        <th>총 방송진행<br />시간</th>
-    </tr>
-    </thead>
-    <tbody id="tableBody">
-    {{#each this.list as |fan|}}
+    {{#each this as |fan|}}
         <tr>
             <td>
-                {{fan.rank}} <br /><br />
-                {{fan.upDown}}
+                {{fanRank}} <br /><br />
+                {{upDown}}
             </td>
             <td>
                 {{#isSmall rank 6}}
@@ -225,30 +216,29 @@
                 {{/isSmall}}
             </td>
             <td>
-                {{#equal fan.profImg.path ''}}
+                {{#equal fan.image_profile ''}}
                     이미지 없음
                 {{else}}
-                    <img src="{{viewImage fan.profImg.path}}" style='height:100px; width:auto;' />
+                    <img src="{{viewImage fan.image_profile}}" style='height:100px; width:auto;' />
                 {{/equal}}
             </td>
             <td>
-                {{fan.memId}} <br /> <br />
-                레벨 : {{fan.level}} <br />
-                등급 : {{fan.grade}}
+                {{mem_id}} <br /> <br />
+                레벨 : {{level}} <br />
+                등급 : {{grade}}
             </td>
-            <td>{{fan.nickNm}}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td>{{mem_nick}}</td>
+            <td>{{money}}</td>
+            <td>{{byeol}}</td>
+            <td>{{gifted_mem_no}}</td>
+            <td>{{airCount}}</td>
+            <td>{{start_date}}</td>
+            <td>{{airTime}}</td>
         </tr>
 
     {{else}}
         <tr>
-            <td colspan="11">{{isEmptyData}}</td>
+            <td colspan="10">{{isEmptyData}}</td>
         </tr>
     {{/each}}
-    </tbody>
 </script>
