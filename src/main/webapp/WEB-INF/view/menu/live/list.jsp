@@ -226,7 +226,10 @@
                 {{#equal badge_popular '1'}} <span class ="label" style="background-color:#3761d9">인기</span><br/> {{/equal}}<br>
                 {{#equal badge_newdj '1'}} <span class ="label" style="background-color:#d9c811">신입</span> {{/equal}}
             </td>
-            <td>{{mem_id}}</td>
+            <td>{{mem_id}} <br /> <br />
+                레벨 : {{level}} <br />
+                등급 : {{grade}}
+            </td>
             <td>{{mem_nick}}</td>
             <td>{{money}}</td>
             <td>{{byeol}}</td>
