@@ -30,7 +30,7 @@ public class P_GiftListOutputVo extends PagingVo {
     
     public void setGiftDate(Date giftDate){
         this.giftDate = giftDate;
-        this.giftDateFormat = DalbitUtil.convertDateFormat(giftDate, "yyyy.MM.dd HH.mm.ss");
+        this.giftDateFormat = DalbitUtil.convertDateFormat(giftDate, "yyyy.MM.dd HH:mm:ss");
     }
 }
 

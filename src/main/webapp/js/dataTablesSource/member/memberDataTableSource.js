@@ -30,7 +30,9 @@ var MemberDataTableSource = {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'room_no', 'visible' : false},
-            {'title': '방송주제', 'data': 'subject_type', 'width':'100px'},
+            {'title': '방송주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
+                    return util.getCommonCodeLabel(data, subject_type);
+                }},
             {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
@@ -64,9 +66,13 @@ var MemberDataTableSource = {
         'url': '/rest/member/listen/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'room_no' , 'visible' : false},
-            {'title': 'DJID', 'data': 'dj_userId', 'width':'100px'},
+            {'title': 'DJID', 'data': 'dj_userId', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.dj_mem_no);
+                }},
             {'title': 'DJ닉네임', 'data': 'dj_nickName', 'width':'100px'},
-            {'title': '청취방주제', 'data': 'subject_type', 'width':'100px'},
+            {'title': '청취방주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
+                    return util.getCommonCodeLabel(data, subject_type);
+                }},
             {'title': '청취방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
@@ -88,21 +94,25 @@ var MemberDataTableSource = {
     },
 
     'payDetail': {
-        'url': ''
+        'url': '/rest/member/pay/list'
         , 'columns': [
             {'title': '구분', 'data': 'type'},
-            {'title': '환불가능여부', '': 'type'},
             {'title': '아이템명', 'data': 'type'},
-            {'title': '결제/환불 건 수', 'data': 'type'},
-            {'title': '결제/환불 수단', 'data': 'type'},
+            {'title': '수량', 'data': 'type'},
             {'title': '요청 금액', 'data': 'type'},
-            {'title': '결제/환불 일시', 'data': 'type'},
-            {'title': '처리 일시', 'data': 'type'},
-            {'title': '처리 상태', 'data': 'type'},
+            {'title': '결제취소 수단', 'data': 'type'},
+            {'title': '결제취소 일시', 'data': 'type'},
+            {'title': '가능여부', 'data': 'type'},
+            {'title': '취소처리 일시', 'data': 'type'},
+            {'title': '처리상태', 'data': 'type'},
             {'title': '처리자명', 'data': 'type'},
         ]
-        , 'comments': 'ㆍ회원의 결제/환불 정보를 확인하고, 결제 건에 한해 구분>결제를 클릭 시 취소처리를 할 수 있습니다.'
+        , 'comments': 'ㆍ회원의 결제취소 정보를 확인하고, 결제 건에 한해 구분>”결제 : 결제 완료, 불가>결제 취소를 요청하였으나<br/>' +
+                      '&nbsp;&nbsp;&nbsp;&nbsp;이미 아이템을 사용한 경우, 취소 : 결제 취소가 완료된 경우”로 구분됩니다. <br/>' +
+                      'ㆍ결제를 클릭 가능여부 Y인경우만 취소처리가 가능하고, 클릭 시 결제 취소처리를 할 수 있습니다.'
     },
+
+
 
     'exchangeDetail': {
         'url': ''
@@ -128,10 +138,14 @@ var MemberDataTableSource = {
         'url': '/rest/member/gift/list'
         , 'columns': [
             {'title': '회원번호', 'data': 'gifted_mem_no'},
-            {'title': 'UserID', 'data': 'userId'},
+            {'title': 'UserID', 'data': 'userId', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.gifted_mem_no);
+                }},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},
-            {'title': '이미지', 'data': 'itemImage'},
+            {'title': '이미지', 'data': 'itemImage','render' : function (data, type, row, meta) {
+                    return '<img src="'+ IMAGE_SERVER_URL + data +'" width="50px" height="50px"/>';
+                }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '보낸/받은/교환건수', 'data': 'accumCnt', 'render': function (data) {
                     return data + " 개"
@@ -202,7 +216,9 @@ var MemberDataTableSource = {
                         'onclick="fanboard_fullSize_profile(this.src)"/>';
                 }},
             {'title': '회원번호', 'data': 'writer_mem_no'},
-            {'title': '팬ID', 'data': 'userId'},
+            {'title': '팬ID', 'data': 'userId', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.writer_mem_no);
+                }},
             {'title': '팬닉네임', 'data': 'nickName'},
             {'title': '등록일시', 'data': 'writeDateFormat'},
             {'title': '작성내용', 'data': 'contents','width' : '400px'},
@@ -300,14 +316,14 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
             {'title': '등록 관리자', 'data': 'opName','width':'100px'},
-            {'title': '운영자 메모 내용', 'data': 'memo', 'className' : 'text-left'},
+            {'title': '운영자 메모 내용', 'data': 'memo'},
         ]
     },
 
     'connectState': {
         'url': '/rest/member/member/connect'
         , 'columns': [
-            {'title': '접속일시', 'data': 'connectDate'},
+            {'title': '접속일시', 'data': 'connectDateFormat'},
             {'title': 'App Ver', 'data': 'appVersion'},
             {'title': 'Browser', 'data': 'Browser'},
             {'title': 'Device', 'data': 'Device'},
@@ -365,11 +381,11 @@ var MemberDataTableSource = {
     },
 
     'editHistory': {
-        'url': ''
+        'url': '/rest/member/member/editHist'
         , 'columns': [
-            {'title': '정보 수정일시', 'data': 'type'},
-            {'title': '수정 처리 내역', 'data': 'type'},
-            {'title': '처리자명', 'data': 'type'},
+            {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px'},
+            {'title': '처리자명', 'data': 'opName','width':'100px'},
         ]
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },

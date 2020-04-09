@@ -85,7 +85,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         },
         fnServerParams: function ( aoData ) {
             dalbitLog("[fnServerParams]");
-
+            console.log(aoData.start + "/" + aoData.length + "/" + (aoData.start / aoData.length + 1))
             aoData.pageNo = aoData.start / aoData.length + 1;
             aoData.pageStart = aoData.start;
             aoData.pageCnt = aoData.length;
@@ -229,20 +229,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         //초기화
         this.initDataTable();
 
-        this.dataTableSource.ajax.complete = function (response) {
-            dalbitLog("[complete]");
-
-            if(!common.isEmpty(response.responseJSON)){
-                dalbitLog(response.responseJSON);
-                ui.toogleSearchListFooter(response.responseJSON.recordsTotal);
-            }
-
-            // 완료 후 처리 함수
-            if(!common.isEmpty(initFn)){
-                initFn(response.responseJSON);
-                initFn = "";    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
-            }
-        };
+        this.dataTableSource.ajax.complete = afterComplaetFnc(initFn);
 
         this.g_DataTable = this.dom.DataTable(this.dataTableSource);
 
@@ -309,7 +296,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 /* === Option =================================================================*/
 
     // DataTable Reload / Ajax 재호출
-    DalbitDataTable.prototype.reload = function () {
+    DalbitDataTable.prototype.reload = function (afterFnc) {
+        if(!common.isEmpty(afterFnc)){
+            this.dataTableSource.ajax.complete = afterComplaetFnc(afterFnc);
+        }
+
         this.dom.DataTable().ajax.reload();
     }
 
@@ -391,6 +382,26 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     }
 
 
+
+    // complete After 함수 호출
+    afterComplaetFnc = function(afterFnc){
+
+        return function (response) {
+                        dalbitLog("[complete]");
+
+                        if(!common.isEmpty(response.responseJSON)){
+                            dalbitLog(response.responseJSON);
+                            ui.toogleSearchListFooter(response.responseJSON.recordsTotal);
+                        }
+
+                        // 완료 후 처리 함수
+                        if(!common.isEmpty(afterFnc)){
+                            afterFnc(response.responseJSON);
+                            afterFnc = "";    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
+                        }
+                    };
+
+    }
 
 
 /* === Getter =================================================================*/

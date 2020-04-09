@@ -64,6 +64,14 @@ public class Mem_MemberRestController {
     }
 
     /**
+     * 회원 정보수정 내역 보기
+     */
+    @PostMapping("editHist")
+    public String editHist(P_MemberEditHistInputVo pMemberEditHistInputVo) {
+        return mem_MemberService.callMemberEditHistory(pMemberEditHistInputVo);
+    }
+
+    /**
      * 회원 정보 수정
      */
     @PostMapping("editor")
@@ -88,6 +96,23 @@ public class Mem_MemberRestController {
         return result;
     }
 
+    /**
+     * 회원 소셜아이디 변경
+     */
+    @PostMapping("socialId_edit")
+    public String socialId_edit(P_MemberEditorVo pMemberEditorVo){
+        String result = mem_MemberService.getMemberSocialIdEdit(pMemberEditorVo);
+        return result;
+    }
+
+    /**
+     * 회원 상태 정상 변경
+     */
+    @PostMapping("state_edit")
+    public String state_edit(P_MemberEditorVo pMemberEditorVo){
+        String result = mem_MemberService.getMemberStateEdit(pMemberEditorVo);
+        return result;
+    }
 
     //------------------------------------------------------------------------
     /* 자세히 보기 */

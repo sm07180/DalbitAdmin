@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -6,7 +5,10 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
+            <form id="searchForm">
             <div class="row col-lg-12 form-inline">
+                <input type="hidden" name="pageStart" id="pageStart">
+                <input type="hidden" name="pageCnt" id="pageCnt">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 실시간 Live</h3>
@@ -18,12 +20,13 @@
                                 <option value="3">연락처</option>
                                 <option value="4">이름</option>
                             </select>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
             </div>
+            </form>
             <!-- //serachBox -->
 
             <%--<div class="row col-lg-12 form-inline">
@@ -79,17 +82,18 @@
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline block">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                    <li class="tab_select" id="searchSubjectType"></li>
+                    <li class="tab_select" id="searchSubjectType" name="searchSubjectType"></li>
                     <li class="_tab active">
-                        <a href="#recommend" role="tab" data-toggle="tab" data-slctType="1"><i class="fa fa-home"></i> 추천 DJ</a>
+                        <a href="#recommend" id="recommend" name="recommend" role="tab" data-toggle="tab" data-slcttype="1"><i class="fa fa-home"></i> 추천 DJ</a>
                     </li>
                     <li class="_tab">
-                        <a href="#popular" role="tab" data-toggle="tab" data-slctType="2"><i class="fa fa-user"></i> 인기 DJ</a>
+                        <a href="#popular" id="popular" name="popular" role="tab" data-toggle="tab" data-slcttype="2"><i class="fa fa-user"></i> 인기 DJ</a>
                     </li>
                     <li class="_tab">
-                        <a href="#newbie" role="tab" data-toggle="tab" data-slctType="3"><i class="fa fa-user"></i> 신입 DJ</a>
+                        <a href="#newbie" id="newbie" name="newbie" role="tab" data-toggle="tab" data-slcttype="3"><i class="fa fa-user"></i> 신입 DJ</a>
                     </li>
                 </ul>
+
                 <div class="widget widget-table">
                     <div class="widget-content" style="border-top-width:0px;">
 
@@ -122,9 +126,9 @@
                                     <th>보유결제금액</th>
                                     <th>누적 받은 별</th>
                                     <th>누적 받은 선물</th>
-                                    <td>누적 방송 횟수</td>
-                                    <td>최초 방송 시작일</td>
-                                    <td>총 방송 진행 시간</td>
+                                    <th>누적 방송 횟수</th>
+                                    <th>최초 방송 시작일</th>
+                                    <th>총 방송 진행 시간</th>
                                 </tr>
                             </thead>
                             <tbody id="tableBody"></tbody>
@@ -132,15 +136,20 @@
                         <%--<span>
                             <button class="btn btn-default print-btn pull-right mb10" type="button"><i class="fa fa-print"></i>Excel 출력</button>
                         </span>--%>
+
                     </div>
                 </div>
+                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
             </div>
             <!-- DATA TABLE END -->
+
         </div>
     </div>
 </div>
 
+<script type="text/javascript" src="/js/code/commonCode.js"></script>
 <script type="text/javascript">
+    var livePagingInfo = new PAGING_INFO(0,1,100);
 
     $(function(){
         renderSubjectType();
@@ -149,14 +158,24 @@
 
     function init(slctType){
         var data = {
-            subjectType : $('#subject_type').val()
+            subject_type : $('#subject_type').val()
             , slctType : common.isEmpty(slctType) ? 1 : slctType
+            , pageStart : livePagingInfo.pageNo
+            , pageCnt : livePagingInfo.pageCnt
+            , selectGubun : $('select[name="selectGubun"]').val()
+            , txt_search : $("#txt_search").val()
         }
         util.getAjaxData("liveList", "/rest/menu/live/list", data, fn_succ_list);
     }
 
     $('#bt_search').on('click', function(){
         init($('._tab.active').find('a').data('slcttype'));
+    });
+
+    $('input[id="txt_search"]').on('keydown', function(e) {    // textBox 처리
+        if(e.keyCode == 13) {
+            init($('._tab.active').find('a').data('slcttype'));
+        };
     });
 
     $('._tab').on('click', function(){
@@ -167,7 +186,7 @@
         $("#searchSubjectType").html(util.getCommonCodeSelect('', broadcastSubjectType));
 
         $('#subject_type').on('change', function(){
-            init();
+            init($('._tab.active').find('a').data('slcttype'));
         });
     }
 
@@ -179,29 +198,42 @@
         var context = response.data;
         var html = templateScript(context);
         $("#tableBody").html(html);
+
+        var pagingInfo = response.pagingVo;
+        livePagingInfo.totalCnt = pagingInfo.totalCnt;
+        util.renderPagingNavigation("list_info_paginate", livePagingInfo);
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+        livePagingInfo = pagingInfo;
+        init();
     }
 
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_liveList">
-    {{#each this.list as |live|}}
+    {{#each this as |user|}}
         <tr>
             <td>
-                {{#equal live.bjProfImg.path ''}}
+                {{#equal image_profile ''}}
                     이미지 없음
                 {{else}}
-                    <img src="{{viewImage live.bjProfImg.path}}" style='height:100px; width:auto;' />
+                    <img src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' />
                 {{/equal}}
             </td>
-            <td>태그부분</td>
-            <td>{{live.link}}</td>
-            <td>{{live.bjNickNm}}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td>
+                {{#equal badge_recomm '1'}} <span class ="label" style="background-color:#d9534f">추천</span><br/> {{/equal}}<br>
+                {{#equal badge_popular '1'}} <span class ="label" style="background-color:#3761d9">인기</span><br/> {{/equal}}<br>
+                {{#equal badge_newdj '1'}} <span class ="label" style="background-color:#d9c811">신입</span> {{/equal}}
+            </td>
+            <td>{{mem_id}}</td>
+            <td>{{mem_nick}}</td>
+            <td>{{money}}</td>
+            <td>{{byeol}}</td>
+            <td>{{gifted_mem_no}}</td>
+            <td>{{airCount}}</td>
+            <td>{{convertToDate start_date "YYYY-MM-DD HH:mm:ss"}}</td>
+            <td>{{airTime}}</td>
         </tr>
 
     {{else}}

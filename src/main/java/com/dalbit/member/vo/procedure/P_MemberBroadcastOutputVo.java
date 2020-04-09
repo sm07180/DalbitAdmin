@@ -37,10 +37,10 @@ public class P_MemberBroadcastOutputVo extends SearchVo {
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;
-        this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH.mm.ss");
+        this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH:mm:ss");
     }
     public void setEnd_date(Date end_date){
         this.end_date = end_date;
-        this.endDateFormat = DalbitUtil.convertDateFormat(end_date, "yyyy.MM.dd HH.mm.ss");
+        this.endDateFormat = DalbitUtil.convertDateFormat(end_date, "yyyy.MM.dd HH:mm:ss");
     }
 }

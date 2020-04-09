@@ -10,7 +10,7 @@
 </div>
 
 <!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
+<div id="fullSize_question"></div>
 
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
 
@@ -50,9 +50,9 @@
         });
     }
 
-    function fullSize_add_file(url) {     // 이미지 full size
-        $("#imageFullSize").html(util.imageFullSize("fullSize_add_file",url));
-        $('#fullSize_add_file').modal('show');
+    function fullSize_question_file(url) {     // 이미지 full size
+        $("#fullSize_question").html(util.imageFullSize("fullSize_question_file",url));
+        $('#fullSize_question_file').modal('show');
     }
 
     function memInfo(memId, memNo){
@@ -143,7 +143,7 @@
 
                         <th>첨부파일</th>
                         <td colspan="3">
-                            <img src="{{renderImage add_file}}" width="auto" height="100px" onclick="fullSize_add_file(this.src)"/>
+                            <img src="{{renderImage add_file}}" width="auto" height="100px" onclick="fullSize_question_file(this.src)"/>
                         </td>
                     </tr>
 

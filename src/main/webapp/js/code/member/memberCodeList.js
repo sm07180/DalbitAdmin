@@ -1,9 +1,10 @@
 var mem_state = [
     new COMMON_CODE('', 'mem_state', '회원상태')
     , new COMMON_CODE('1', '1', '정상')
-    , new COMMON_CODE('2', '2', '정지')
-    , new COMMON_CODE('4', '4', '탈퇴')
+    , new COMMON_CODE('2', '2', '경고')
+    , new COMMON_CODE('2', '3', '정지')
     , new COMMON_CODE('5', '5', '영구정지')
+    , new COMMON_CODE('4', '4', '탈퇴')
 ];
 
 var broadCast_summary = [
@@ -14,7 +15,7 @@ var broadCast_summary = [
     , new COMMON_CODE('', 'totalBooster', '총 받은 부스터')
 ];
 
-var listen_summary = [
+var member_listen_summary = [
     new COMMON_CODE('', 'totalforcedCnt', '총 강제퇴장')
     , new COMMON_CODE('', 'totalByeol', '총 보낸 별')
     , new COMMON_CODE('', 'totalGood', '총 좋아요')
@@ -52,8 +53,8 @@ var member_declaration_slctType = [
     , new COMMON_CODE('stop1', '3', '1일정지')
     , new COMMON_CODE('stop3', '4', '3일정지')
     , new COMMON_CODE('stop7', '5', '7일정지')
-    , new COMMON_CODE('stop15', '6', '강제탈퇴')
-    , new COMMON_CODE('withdrawal', '7', '영구정지')
+    , new COMMON_CODE('withdrawal', '6', '영구정지')
+    , new COMMON_CODE('stop15', '7', '강제탈퇴')
 ];
 
 var declaration_summary = [

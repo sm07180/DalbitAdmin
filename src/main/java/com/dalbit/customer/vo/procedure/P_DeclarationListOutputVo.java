@@ -32,10 +32,10 @@ public class P_DeclarationListOutputVo extends BaseVo {
 
     public void setRegDate(Date regDate) {
         this.regDate = regDate;
-        this.regDateFormat = DalbitUtil.convertDateFormat(regDate, "yyyy.MM.dd HH.mm.ss");
+        this.regDateFormat = DalbitUtil.convertDateFormat(regDate, "yyyy.MM.dd HH:mm:ss");
     }
     public void setOpDate(Date opDate) {
         this.opDate = opDate;
-        this.opDateFormat = DalbitUtil.convertDateFormat(opDate, "yyyy.MM.dd HH.mm.ss");
+        this.opDateFormat = DalbitUtil.convertDateFormat(opDate, "yyyy.MM.dd HH:mm:ss");
     }
 }

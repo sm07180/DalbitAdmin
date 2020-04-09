@@ -8,13 +8,14 @@ public enum Status {
     //공통
     조회("C001", "select.success", "조회"),
     수정("C002", "update.success", "수정"),
-    생성("C003", "create.success", "생성"),
+    생성("C003", "insert.success", "생성"),
     삭제("C004", "delete.success", "삭제"),
     파라미터오류("C005", "param.error", "파라미터 오류 시"),
     비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),
     로그인필요("C007", "login.need", "로그인 세션이 없어 로그인 해야 할 때"),
     데이터없음("C008", "no.data", "데이터가 없을 시"),
     처리완료("C008", "operate.success", "처리완료 시"),
+    권한없음("C009", "no.auth", "접근 권한이 없을 시"),
 
     //로그인
     로그인성공("0", "login.success", "로그인 성공 시"),
@@ -60,6 +61,10 @@ public enum Status {
     //회원정보수정
     회원정보수정성공("0", "member.editor.success", "회원 정보 수정 성공"),
     회원정보수정실패("-1", "member.editor.fail", "회원 정소 수정 실패"),
+
+    //회원정보수정 내역 조회
+    회원정보수정내역조회_성공("0", "member.editor.list.success", "회원정보 수정내역 조회 성공 시"),
+    회원정보수정내역조회_실패("-1", "member.editor.list.fail", "회원정보 수정내역 조회 실패 시"),
 
     //방송기록보기
     방송기록보기성공("0", "broadcast.list.view.success", "방송기록 보기 성공 시"),
@@ -120,6 +125,11 @@ public enum Status {
     //회원접속기록
     회원접속기록보기성공("0", "connect.list.view.success", "회원접속기록보기 성공 시"),
     회원접속기록보기실패("C006", "connect.list.view.fail", "회원접속기록보기 실패 시"),
+
+    //회원로그인ID변경
+    회원로그인ID변경_성공("0", "member.edit.socialId.success", "회원로그인ID변경 성공 시"),
+    회원로그인ID변경_중복("1", "member.edit.socialId.duplicate", "회원로그인ID변경 중복 시"),
+    회원로그인ID변경_실패("-1", "member.edit.socialId.fail", "회원로그인ID변경 실패 시"),
 
     //프로시저 연동 부분
     공지사항조회_데이터없음("0", "no.data", "공지사항 조회 데이터가 없을 시"),
@@ -298,6 +308,9 @@ public enum Status {
     관리자권한부여_임직원번호업음("A001", "auth.set.success", "권한 부여 시 임직원번호가 안넘어 왔을 시"),
     관리자권한부여_메뉴없음("A001", "auth.set.success", "권한 부여 시 메뉴번호가 안넘어 왔을 시"),
     관리자권한부여_실패("C006", "server.error", "어드민관리 > 권한 부여 성공 시"),
+
+    테스트아이디_회원검색_결과없음("C008", "testid.member.notFound", "회원검색이 안되었을 때"),
+    테스트아이디_이미등록된테스트아이디("C008", "testid.already.regist", "테스트아이디가 이미 등록이 되었을 때"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트

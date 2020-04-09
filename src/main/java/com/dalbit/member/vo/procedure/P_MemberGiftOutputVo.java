@@ -31,6 +31,6 @@ public class P_MemberGiftOutputVo extends SearchVo {
 
     public void setGiftDate(Date giftDate){
         this.giftDate = giftDate;
-        this.giftDateFormat = DalbitUtil.convertDateFormat(giftDate, "yyyy.MM.dd HH.mm.ss");
+        this.giftDateFormat = DalbitUtil.convertDateFormat(giftDate, "yyyy.MM.dd HH:mm:ss");
     }
 }

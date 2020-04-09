@@ -73,8 +73,13 @@
                     </div>
                 </div>
             </div> <%-- #data table --%>
-            <form id="declarationForm"></form>
-            <form id="chatFrm"></form>
+
+            <div class="row col-lg-12 mt15">
+                <div class="tab-pane fade in active" id="report_tab">
+                    <!-- 상세 -->
+                    <jsp:include page="../../customer/declaration/report.jsp"/>
+                </div>
+            </div>
         </div> <%-- #container fluid--%>
     </div> <%-- #page-wrapper --%>
 </div> <%-- #wapper --%>
@@ -91,7 +96,7 @@
     /** Data Table **/
     function init() {
 
-        util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success, fn_fail);
+        util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success);
 
         var dtList_info_data = function ( data ) {
             data.search = $('#searchText').val();
@@ -130,6 +135,7 @@
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
+        $("#declarationForm").empty();
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {
@@ -144,21 +150,6 @@
             $(this).parent().parent().find('._getDeclarationDetail').click();
         }
     });
-
-    var detailData;
-    function fn_detail_success(dst_id, response) {
-        var template = $('#tmp_declarationFrm').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html=templateScript(context);
-        $("#declarationForm").html(html);
-        $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
-        util.editorInit("customer-declaration");
-        detailData = response.data;
-
-        declarationCheck(response.data.status);
-    }
-
 
     // /*=---------- 엑셀 ----------*/
     $('#excelDownBtn').on('click', function(){
@@ -197,19 +188,7 @@
 
         $("#summaryDataTable").append(html);
     }
-    function fn_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
-    }
-</script>
 
-<script id="tmp_declarationFrm" type="text/x-handlebars-template">
-    <div class="row col-lg-12 mt15">
-        <div class="tab-pane fade in active" id="report_tab">
-            {{^equal status '1'}}<button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>{{/equal}}
-            <!-- 상세 -->
-            <jsp:include page="../../customer/declaration/report.jsp"/>
-        </div>
-    </div>
 </script>
 
 <script id="tmp_declarationSummary" type="text/x-handlebars-template">
@@ -222,8 +201,8 @@
         <td>{{addComma code_3_Cnt}}건</td> <%--1일 정지--%>
         <td>{{addComma code_4_Cnt}}건</td> <%--3일 정지--%>
         <td>{{addComma code_5_Cnt}}건</td> <%--7일 정지--%>
-        <td>{{addComma telCnt}}건</td> <%--강제 탈퇴 --%>
-        <td>{{addComma code_9_Cnt}}건</td> <%--영구 정지--%>
+        <td>{{addComma code_6_Cnt}}건</td> <%--강제 탈퇴 --%>
+        <td>{{addComma code_7_Cnt}}건</td> <%--영구 정지--%>
     </tr>
     {{/data}}
 </script>

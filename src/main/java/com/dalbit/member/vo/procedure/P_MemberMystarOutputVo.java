@@ -25,6 +25,6 @@ public class P_MemberMystarOutputVo extends SearchVo {
 
     public void setReg_date(Date reg_date){
         this.reg_date = reg_date;
-        this.regDateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH.mm.ss");
+        this.regDateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH:mm:ss");
     }
 }

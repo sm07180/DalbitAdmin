@@ -14,6 +14,7 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript" src="/js/message/member/memberMessage.js"></script>
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -26,10 +27,15 @@
 
     var profImgDel;
     var report;
+    var memberInfo_responseDate;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
+        memberInfo_responseDate = response.data;
         profImgDel = "false";
         memNo = response.data.mem_no;
+
+        if(response.data.block_day == 2)
+            response.data["block"] =  " / 정지기간: " + response.data.block_day + " / 정지종료일: " + response.data.blockEndDateFormat;
 
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -69,6 +75,11 @@
         $('#bt_img').click(function() {				 //이미지초기화
             bt_click(this.id);
         });
+        $('#bt_socialId').click(function() {            //로그인아이디 변경
+            // alert('준비중입니다.');
+            // return;
+            bt_click(this.id);
+        });
         $('#bt_phon').click(function() {                //휴대폰 번호 변경
             bt_click(this.id);
         });
@@ -87,7 +98,7 @@
         $('#bt_adminMemo').click(function() {           //운영자 메모 변경
             bt_click(this.id);
         });
-        $('#bt_adminMemoList').click(function() {       //운영자 메모 정보
+        $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
             getInfoDetail(this.id,"운영자메모");
         });
         $('#bt_connectState').click(function() {         //접속상태
@@ -99,11 +110,14 @@
         $('#bt_black').click(function() {               //블랙리스트 자세히
             getInfoDetail(this.id,"(내가 등록학) 블랙리스트");
         });
-        $('#bt_editHistory').click(function() {           //최근정보 수정일
+        $('#bt_editHistory').click(function() {         //최근정보 내역
             getInfoDetail(this.id,"정보수정내역");
         });
-        $('#bt_report').click(function() {           //최근정보 수정일
+        $('#bt_report').click(function() {           // 회원상태(경고/정지)
             reportPopup();
+        });
+        $('#bt_state').click(function() {           // 상태 정상으로 변경
+            stateEdit();
         });
         // 버튼 끝
     }
@@ -116,22 +130,41 @@
     var tmp_bt;
     function bt_click(tmp) {
         tmp_bt = tmp;
-        if(memNo == "unknown"){
+        var obj = new Object();
+        if (memNo == "unknown") {
             alert("변경대상 회원을 선택해 주십시오.");
             return;
         }
-        if(tmp == "bt_adminMemo") {            //운영자 메모 변경
-            if ($("#txt_adminMemo").val() == "" || $("#txt_adminMemo").val() == null) {
+        if (tmp == "bt_adminMemo") {            //운영자 메모 변경
+            if (common.isEmpty($("#txt_adminMemo").val())) {
                 alert("등록할 운영자 메모를 입력해 주십시오.");
                 return;
             }
             getInfoDetail("bt_adminMemoList", "운영자메모");
-            var obj = new Object();
             obj.mem_no = memNo;
             obj.memo = $("#txt_adminMemo").val();
             util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
+        } else if(tmp == "bt_socialId" ){       // 로그인ID변경
+            if (common.isEmpty($("#txt_socialId").val())) {
+                alert("로그인 아이디를 입력해 주십시오.");
+                return;
+            }
+            if(memberInfo_responseDate.socialId == $("#txt_socialId").val().replace(/-/gi, "")){
+                alert("동일한 로그인 아이디 입니다. 변경할 아이디를 입력해 주세요.");
+                return;
+            }
+            if(confirm("로그인 아이디를 변경 하시겠습니까?")) {
+                obj.mem_no = memNo;
+                obj.socialId = $("#txt_socialId").val().replace(/-/gi, "");
+                obj.before_socialId = memberInfo_responseDate.socialId;
+                util.getAjaxData("editor", "/rest/member/member/socialId_edit", obj, update_success, fn_fail);
+            }else return;
         }else{
             var sendNoti;
+            if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
+                alert("전화번호를 입력해 주십시오.");
+                return;
+            }
             var tmp_phone = $("#txt_phon").val().replace(/-/gi, "");
             if(tmp == "bt_resatPass" || tmp == "bt_phon"){          // 비밀번호초기화, 휴대폰 번호 변경 Check
                 if (tmp_phone.substring(0, 3) == "010" && (tmp_phone.length > 11 || tmp_phone.length < 10)) {
@@ -139,9 +172,12 @@
                     return;
                 }
             }
-            var obj = new Object();
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
+                if(memberInfo_responseDate.profileImage.indexOf("/profile_3/profile_" + memberInfo_responseDate.memSex) > -1){
+                    alert("이미 초기화된 프로필 이미지 입니다. 프로필 초기화가 불가능합니다.");
+                    return;
+                }
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     obj.photoUrl = IMAGE_SERVER_URL;
@@ -159,6 +195,10 @@
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
             }else if(tmp == "bt_resatNick"){
+                if(memberInfo_responseDate.nickName == $("#bt_resatNick").data('userid')){
+                    alert("이미 초기화된 닉네임 입니다. 닉네임 초기화가 불가능합니다.");
+                    return;
+                }
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
                     obj.nickName = $("#bt_resatNick").data('userid');
                     sendNoti = 0;
@@ -166,16 +206,28 @@
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
             }else if(tmp == "bt_phon"){
-                if(confirm("연락처를 초기화 하시겠습니까?")) {
+                if(memberInfo_responseDate.phoneNum == $("#txt_phon").val().replace(/-/gi, "")){
+                    alert("동일한 전화번호 입니다. 변경할 전화번호를 입력해주세요.");
+                    return;
+                }
+                if(confirm("연락처를 변경 하시겠습니까?")) {
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 0;
                 }else return;
             }else if(tmp == "bt_birth"){
+                if(memberInfo_responseDate.birthDate.substr(0, 10) == $("#txt_birth").val()){
+                    alert("생년월일을 변경해주세요.");
+                    return;
+                }
                 if(confirm("생년월일을 변경 하시겠습니까?")) {
                     obj.birthDate = $("#txt_birth").val();
                     sendNoti = 0;
                 }else return;
             }else if(tmp == "bt_gender"){
+                if(memberInfo_responseDate.memSex == $('input[name="memSex"]:checked').val()){
+                    alert("성별을 변경해 주세요.");
+                    return;
+                }
                 if(confirm("성별을 변경 하시겠습니까?")) {
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     sendNoti = 0;
@@ -187,7 +239,7 @@
     }
 
     function update_success(dst_id, response) {
-        dalbitLog(response.message);
+        dalbitLog(response);
         if (tmp_bt == "bt_img") {                        //사진변경
             alert($("#"+tmp_bt).data('nickname') + "님의 프로필 이미지가 초기화 되었습니다.");
         } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
@@ -208,6 +260,12 @@
                 return;
             }
             alert($("#"+tmp_bt).data('nickname') + "님의 비밀번호가 초기화 되었습니다.");
+        } else if (tmp_bt == "bt_socialId") {            //비밀번호 초기화
+            if(response.code == "1"){
+                alert(response.message);
+            }else{
+                alert($("#"+tmp_bt).data('nickname') + "님의 로그인 아이디가 변경되었습니다.");
+            }
         }
 
         if (dst_id == "adminMemoAdd") {
@@ -279,6 +337,17 @@
         dtList_info_detail.reload();
     }
 
+    function stateEdit() {
+        var obj = new Object();
+        obj.mem_no = memNo;
+        util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+    }
+
+    function state_edit_success(dst_id, response) {
+        getMemNo_info_reload(memNo);
+    }
+
+
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -312,7 +381,9 @@
             <th>회원상태</th>
             <td style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
+                {{{block}}}
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
+                <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
             </td>
         </tr>
         <tr>
@@ -343,11 +414,11 @@
             <td style="text-align: left">{{dal}} 개</td>
         </tr>
         <tr>
-            <th>소셜아이디</th>
+            <th>로그인 아이디</th>
             <td colspan="3" style="text-align: left">
                 <div id="div_socialId">
-                    <input type="text" class="form-control" id="txt_socialId" style="width: 90%;" value="{{socialId}}">
-                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                    <input type="text" class="form-control" id="txt_socialId" style="width: 50%;" value="{{socialId}}">
+                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                 </div>
             </td>
             <th>보유별</th>
@@ -356,8 +427,9 @@
         <tr>
             <th>연락처</th>
             <td colspan="3" style="text-align: left">
-                <input type="text" class="form-control" id="txt_phon" style="width: 90%;" value="{{phoneNum}}">
-                <button type="button" id="bt_phon" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                <input type="text" class="form-control" id="txt_phon" style="width: 50%;" value="{{phoneNum}}">
+                <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{certification}}
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
             <td style="text-align: left">

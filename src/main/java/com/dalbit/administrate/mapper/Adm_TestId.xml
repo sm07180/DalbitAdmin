@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.administrate.dao.Adm_TestIdDao" >
+
+    <select id="getMemberInfo" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.member.vo.MemberVo">
+        /* Adm_TestId.xml - getMemberInfo */
+        SELECT
+            idx
+            , mem_no memNo
+            , mem_id memId
+            , mem_phone memPhone
+            , mem_passwd memPasswd
+            , mem_nick memNick
+            , mem_sex memSex
+            , mem_birth_year memBirthYear
+            , mem_birth_month memBirthMonth
+            , mem_birth_day memBirthDay
+            , mem_slct memSlct
+            , mem_adid memAdid
+            , mem_state memState
+            , mem_join_date memJoinDate
+            , last_upd_date lastUpdDate
+        FROM rd_data.tb_member_basic
+        WHERE
+            <if test="userInfo == 1">
+                mem_phone = #{userInfoValue}
+            </if>
+            <if test="userInfo == 2">
+                mem_no = #{userInfoValue}
+            </if>
+            <if test="userInfo == 3">
+                mem_id = #{userInfoValue}
+            </if>
+            <if test="userInfo == 4">
+                mem_nick = #{userInfoValue}
+            </if>
+        LIMIT 1
+    </select>
+
+    <select id="getTestIdInfo" parameterType="com.dalbit.administrate.vo.TestIdVo" resultType="com.dalbit.administrate.vo.TestIdVo">
+        /* Adm_TestId.xml - getTestIdInfo */
+        SELECT *
+        FROM rd_admin.tb_admin_test_account
+        WHERE mem_no = #{mem_no}
+    </select>
+
+    <insert id="insertTestId" parameterType="com.dalbit.administrate.vo.TestIdVo">
+        /* Adm_TestId.xml - insertTestId */
+        INSERT INTO rd_admin.tb_admin_test_account(
+            MEM_NO
+            , EMP_NO
+            , EMP_NAME
+            , RELATION
+        ) values(
+              #{mem_no}
+            , #{emp_no}
+            , #{emp_name}
+            , #{relation}
+        )
+    </insert>
+
+    <select id="getTestIdSummary" resultType="com.dalbit.administrate.vo.TestIdVo">
+        /* Adm_TestId.xml - getTestIdSummary */
+        SELECT
+            EMP_NAME
+            , COUNT(EMP_NAME) CNT
+        FROM rd_admin.tb_admin_test_account
+        GROUP BY EMP_NAME
+        ORDER BY COUNT(EMP_NAME) DESC
+    </select>
+
+    <select id="getTestIdList" parameterType="com.dalbit.common.vo.SearchVo" resultType="com.dalbit.administrate.vo.TestIdListVo">
+        /* Adm_TestId.xml - getTestIdList */
+        select
+            test.emp_no
+            , test.emp_name
+            , test.relation
+            , mem.mem_no
+            , mem.mem_id
+            , mem.mem_userId
+            , mem.mem_nick
+            , mem.mem_phone
+            , mem.mem_state
+            , level.level
+            , level.grade
+            , DATE_FORMAT((select max(session.last_upd_date) from rd_data.tb_member_session session where session.mem_no = mem.mem_no), "%Y.%m.%d %T") lastLoginDatetime
+        from rd_data.tb_member_basic mem
+            , rd_admin.tb_admin_test_account test
+            , rd_data.tb_member_level level
+        where mem.mem_no = test.mem_no
+            and mem.mem_no = level.mem_no
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND test.emp_name like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND mem.mem_no like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND mem.mem_id like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 4'>
+                        AND mem.mem_nick like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 5'>
+                        AND mem.mem_phone like concat('%', #{searchText}, '%')
+                    </when>
+                </choose>
+            </if>
+        order by test.reg_date desc
+    </select>
+
+    <delete id="deleteTestId" parameterType="java.lang.String">
+        /* Adm_TestId.xml - deleteTestId */
+        delete from rd_admin.tb_admin_test_account
+        where mem_no in
+        <foreach collection="array" item="memNo" separator="," open="(" close=")">
+            #{memNo}
+        </foreach>
+    </delete>
+</mapper>

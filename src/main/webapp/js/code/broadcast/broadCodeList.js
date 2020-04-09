@@ -11,6 +11,7 @@ var subject_type = [
     ,new COMMON_CODE('08', '08', '스터디')
     ,new COMMON_CODE('09', '09', '공포')
     ,new COMMON_CODE('10', '10', '먹방/요리')
+    ,new COMMON_CODE('11', '11', '건강/스포츠')
     ,new COMMON_CODE('99', '99', '기타')
 ];
 

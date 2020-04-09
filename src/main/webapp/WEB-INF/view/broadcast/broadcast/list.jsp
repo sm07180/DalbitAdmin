@@ -4,48 +4,46 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid">
-            <!-- serachBox -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
-                        <div>
-                            <span id="searchRadio"></span>
-                            <span id="searchType_broad"></span>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                        </div>
+        <!-- serachBox -->
+        <div class="row col-lg-12 form-inline">
+            <div class="widget widget-table searchBoxArea">
+                <div class="widget-header searchBoxRow">
+                    <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
+                    <div>
+                        <span id="searchRadio"></span>
+                        <span id="searchType_broad"></span>
+                        <label><input type="text" class="form-control" id="txt_search"></label>
+                        <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                     </div>
                 </div>
             </div>
-            <!-- //serachBox -->
-            <!-- DATA TABLE -->
-            <div class="row col-lg-12 form-inline" id="div_broadcastList">
-                <div class="widget widget-table" id="main_table">
-                    <div class="widget-header">
-                        <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="widget-content">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- DATA TABLE END -->
-            <!-- TAB -->
-            <div class="no-padding hide" id="broadcastTab">
-                <jsp:include page="broadcastTab.jsp"/>
-            </div>
-            <!-- TAB END -->
         </div>
+        <!-- //serachBox -->
+        <!-- DATA TABLE -->
+        <div class="row col-lg-12 form-inline" id="div_broadcastList">
+            <div class="widget widget-table" id="main_table">
+                <div class="widget-header">
+                    <h3><i class="fa fa-desktop"></i> 검색결과</h3>
+                    <div class="btn-group widget-header-toolbar">
+                        <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
+                            <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <table id="list_info" class="table table-sorting table-hover table-bordered">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- DATA TABLE END -->
+        <!-- TAB -->
+        <div class="no-padding hide" id="broadcastTab">
+            <jsp:include page="broadcastTab.jsp"/>
+        </div>
+        <!-- TAB END -->
     </div>
 </div>
 
@@ -122,6 +120,8 @@
         dtList_info.reload();
         ui.toggleSearchList();
         $('#detailFrm').addClass("hid");
+
+        $('#broadcastTab').removeClass("show");
     }
 
     function getBroadCast_info(index){

@@ -9,4 +9,137 @@
     <select id="callMainFanRanking" statementType="CALLABLE" parameterType="ProcedureVo" resultType="com.dalbit.menu.vo.procedure.P_MainFanRankingVo">
         call rd_data.sp_ranking_fan(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <sql id="djCondition">
+        select *, @RNUM := @RNUM + 1 as rowNum
+            from (
+                select
+                    dj.rank as djRank
+                    , dj.up_down as upDown
+                    , prof.image_profile as image_profile
+                    , mem.mem_id as mem_id
+                    , lev.`level` as `level`
+                    , lev.grade as grade
+                    , mem.mem_nick as mem_nick
+                    , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
+                    , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item
+                    , rd_data.tb_broadcast_room bro where item.room_no = bro.room_no and item_type = 1) as byeol
+                    , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
+                    , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
+                    , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
+                    , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
+                    , dj.ranking_date as ranking_date
+                from rd_data.tb_member_basic mem
+                    , rd_data.tb_member_profile prof
+                    , rd_data.tb_member_level lev
+                    <if test='rankType == "1"'>
+                    , rd_data.tb_ranking_dj_day dj
+                    </if>
+                    <if test='rankType == "2"'>
+                    , rd_data.tb_ranking_dj_week dj
+                    </if>
+                    <if test='rankType == "3"'>
+                    , rd_data.tb_ranking_dj_month dj
+                    </if>
+                where mem.mem_no = prof.mem_no
+                    and mem.mem_no = lev.mem_no
+                    and mem.mem_no = dj.mem_no
+                    <if test='rankType == "1"'>
+                        and ranking_date = DATE(SUBDATE( NOW(), INTERVAL 1 DAY))
+                    </if>
+                    <if test='rankType == "2"'>
+                        and ranking_date = DATE(SUBDATE( NOW(), INTERVAL (DAYOFWEEK(NOW())+6) DAY))
+                    </if>
+                    <if test='rankType == "3"'>
+                        and ranking_date = concat(date_format(SUBDATE(NOW(), INTERVAL 1 MONTH), '%Y-%m'), '-01')
+                    </if>
+            ) a , (select @RNUM := 0) r
+            order by djRank asc
+    </sql>
+    <sql id="fanCondition">
+        select *, @RNUM := @RNUM + 1 as rowNum
+           from (
+                  select
+                      fan.rank as fanRank
+                    , fan.up_down as upDown
+                    , prof.image_profile as image_profile
+                    , mem.mem_id as mem_id
+                    , lev.`level` as `level`
+                    , lev.grade as grade
+                    , mem.mem_nick as mem_nick
+                    , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
+                    , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item
+                    , rd_data.tb_broadcast_room bro where item.room_no = bro.room_no and item_type = 1) as byeol
+                    , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
+                    , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
+                    , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
+                    , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
+                    , fan.ranking_date as ranking_date
+                  from rd_data.tb_member_basic mem
+                    , rd_data.tb_member_profile prof
+                    , rd_data.tb_member_level lev
+                    <if test='rankType == "1"'>
+                        , rd_data.tb_ranking_fan_day fan
+                    </if>
+                    <if test='rankType == "2"'>
+                        , rd_data.tb_ranking_fan_week fan
+                    </if>
+                    <if test='rankType == "3"'>
+                        , rd_data.tb_ranking_fan_month fan
+                    </if>
+                  where mem.mem_no = prof.mem_no
+                        and mem.mem_no = lev.mem_no
+                        and mem.mem_no = fan.mem_no
+                        <if test='rankType == "1"'>
+                            and ranking_date = DATE(SUBDATE( NOW(), INTERVAL 1 DAY))
+                        </if>
+                        <if test='rankType == "2"'>
+                            and ranking_date = DATE(SUBDATE( NOW(), INTERVAL (DAYOFWEEK(NOW())+6) DAY))
+                        </if>
+                        <if test='rankType == "3"'>
+                            and ranking_date = concat(date_format(SUBDATE(NOW(), INTERVAL 1 MONTH), '%Y-%m'), '-01')
+                        </if>
+                ) a , (select @RNUM := 0) r
+            order by fanRank asc
+    </sql>
+
+
+    <!-- DJ -->
+     <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
+         /* Men_Rank.xml - getMainDjRankingList */
+         select *
+         from (
+          <include refid="djCondition"/>
+         ) b
+         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+     </select>
+
+    <select id="getMainDjRankingListCnt" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="integer">
+        /* Men_Rank.xml - getMainDjRankingListCnt */
+        select
+          count(*)
+            from (
+              <include refid="djCondition"/>
+            ) as tb
+    </select>
+
+
+    <!-- fan -->
+    <select id="getMainFanRankingList" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="com.dalbit.menu.vo.FanRankingVo">
+        /* Men_Rank.xml - getMainFanRankingList */
+        select *
+        from (
+        <include refid="fanCondition"/>
+        ) b
+        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="getMainFanRankingListCnt" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="integer">
+        /* Men_Rank.xml - getMainFanRankingListCnt */
+        select
+        count(*)
+        from (
+        <include refid="fanCondition"/>
+        ) as tb
+    </select>
 </mapper>
