@@ -23,5 +23,7 @@ public class P_MemberEditorVo extends BaseVo {
     private String  notiMemo;
     private String  notiSms;
     private String  socialId;
+    private String  before_socialId;
+    private String  editContents;
 }
 

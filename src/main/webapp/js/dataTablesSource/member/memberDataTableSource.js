@@ -316,14 +316,14 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
             {'title': '등록 관리자', 'data': 'opName','width':'100px'},
-            {'title': '운영자 메모 내용', 'data': 'memo', 'className' : 'text-left'},
+            {'title': '운영자 메모 내용', 'data': 'memo'},
         ]
     },
 
     'connectState': {
         'url': '/rest/member/member/connect'
         , 'columns': [
-            {'title': '접속일시', 'data': 'connectDate'},
+            {'title': '접속일시', 'data': 'connectDateFormat'},
             {'title': 'App Ver', 'data': 'appVersion'},
             {'title': 'Browser', 'data': 'Browser'},
             {'title': 'Device', 'data': 'Device'},
@@ -384,7 +384,7 @@ var MemberDataTableSource = {
         'url': '/rest/member/member/editHist'
         , 'columns': [
             {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
-            {'title': '수정 내용', 'data': 'editContents','width':'900px', 'className' : 'text-left'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px'},
             {'title': '처리자명', 'data': 'opName','width':'100px'},
         ]
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'

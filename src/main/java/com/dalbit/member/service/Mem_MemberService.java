@@ -60,6 +60,9 @@ public class Mem_MemberService {
     public String getMemberList(P_MemberListInputVo pMemberListInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pMemberListInputVo);
         ArrayList<P_MemberListOutputVo> memberList = mem_MemberDao.callMemberList(procedureVo);
+
+
+
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberList, new PagingVo(procedureVo.getRet())));
@@ -115,6 +118,20 @@ public class Mem_MemberService {
         ProcedureVo procedureVo = new ProcedureVo(pMemberInfoInputVo);
         mem_MemberDao.callMemberInfo(procedureVo);
         P_MemberInfoOutputVo memberInfo = new Gson().fromJson(procedureVo.getExt(), P_MemberInfoOutputVo.class);
+
+        P_MemberInfoOutputVo block = mem_MemberDao.callMemberBlock(pMemberInfoInputVo);
+        if(!DalbitUtil.isEmpty(block.getBlock_day()) && !DalbitUtil.isEmpty(block.getBlock_end_date())){
+            memberInfo.setBlock_day(block.getBlock_day());
+            memberInfo.setBlock_end_date(block.getBlock_end_date());
+        }
+
+        P_MemberInfoOutputVo certification = mem_MemberDao.callMemberCertification(pMemberInfoInputVo);
+        if(!DalbitUtil.isEmpty(certification)){
+            memberInfo.setCertification("통신사: " + certification.getComm_company() + " | 본인인증: Y");
+        }else{
+            memberInfo.setCertification("본인인증: N");
+        }
+
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberInfo));
@@ -198,12 +215,17 @@ public class Mem_MemberService {
      * 회원 소셜아이디 변경
      */
     public String getMemberSocialIdEdit(P_MemberEditorVo pMemberEditorVo){
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
         int cnt = mem_MemberDao.callMemberSocialIdCheck(pMemberEditorVo);
         if(cnt > 0){
-
             return gsonUtil.toJson(new JsonOutputVo(Status.회원로그인ID변경_중복));
         }
         mem_MemberDao.callMemberSocialIdEditor(pMemberEditorVo);
+
+        pMemberEditorVo.setEditContents("로그인ID 변경 : " + pMemberEditorVo.getSocialId() + " >> " + pMemberEditorVo.getBefore_socialId());
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+
         return gsonUtil.toJson(new JsonOutputVo(Status.회원로그인ID변경_성공));
     }
 

@@ -49,10 +49,10 @@ public class P_QuestionListOutputVo extends BaseVo {
 
     public void setWrite_date(Date write_date) {
         this.write_date = write_date;
-        this.writeDateFormat = DalbitUtil.convertDateFormat(write_date, "yyyy.MM.dd HH.mm.ss");
+        this.writeDateFormat = DalbitUtil.convertDateFormat(write_date, "yyyy.MM.dd HH:mm:ss");
     }
     public void setOp_date(Date op_date) {
         this.op_date = op_date;
-        this.opDateFormat = DalbitUtil.convertDateFormat(op_date, "yyyy.MM.dd HH.mm.ss");
+        this.opDateFormat = DalbitUtil.convertDateFormat(op_date, "yyyy.MM.dd HH:mm:ss");
     }
 }

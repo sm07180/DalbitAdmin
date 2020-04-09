@@ -30,10 +30,10 @@ public class P_MemberListOutputVo extends SearchVo {
 
     public void setJoinDate(Date joinDate){
         this.joinDate = joinDate;
-        this.joinDateFormat = DalbitUtil.convertDateFormat(joinDate, "yyyy.MM.dd HH.mm.ss");
+        this.joinDateFormat = DalbitUtil.convertDateFormat(joinDate, "yyyy.MM.dd HH:mm:ss");
     }
     public void setLast_connect_date(Date last_connect_date){
         this.last_connect_date = last_connect_date;
-        this.last_connect_DateFormat = DalbitUtil.convertDateFormat(last_connect_date, "yyyy.MM.dd HH.mm.ss");
+        this.last_connect_DateFormat = DalbitUtil.convertDateFormat(last_connect_date, "yyyy.MM.dd HH:mm:ss");
     }
 }

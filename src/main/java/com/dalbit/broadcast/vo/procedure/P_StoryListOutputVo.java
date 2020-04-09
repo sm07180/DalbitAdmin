@@ -30,7 +30,7 @@ public class P_StoryListOutputVo extends PagingVo {
     
     public void setWriteDate(Date writeDate){
         this.writeDate = writeDate;
-        this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy.MM.dd HH.mm.ss");
+        this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy.MM.dd HH:mm:ss");
     }
 }
 
