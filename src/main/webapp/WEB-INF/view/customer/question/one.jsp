@@ -99,11 +99,11 @@
                         <th>회원번호</th>
                         <td>{{mem_no}}</td>
 
-                        <th rowspan="2">접수일시</th>
-                        <td rowspan="2">{{write_date}}</td>
+                        <th>접수일시</th>
+                        <td>{{write_date}}</td>
 
-                        <th>첨부파일</th>
-                        <td>{{add_file_cnt}} 건</td>
+                        <th>처리상태</th>
+                        <td>{{{getCommonCodeLabel state 'state'}}}</td>
                     </tr>
                     <tr>
                         <th>플랫폼</th>
@@ -118,21 +118,22 @@
                             <br/>{{mem_level}}/{{mem_grade}}
                         </td>
 
-                        <th>처리상태</th>
-                        <td>{{{getCommonCodeLabel state 'state'}}}</td>
+                        <th>처리일시</th>
+                        <td>{{op_date}}</td>
+
+                        <th>처리자명</th>
+                        <td>{{op_name}}</td>
                     </tr>
                     <tr>
                         <th colspan="2">문의제목</th>
                         <td colspan="4"><input type="text" class="form-control fit-table" value="{{question_title}}" /></td>
 
                         <th>문의자<br />닉네임</th>
-                        <td>{{mem_nick}}</td>
+                        <td>{{mem_nick}} / {{email}}</td>
 
-                        <th>처리일시</th>
-                        <td>{{op_date}}</td>
+                        <th>문의자 이메일</th>
+                        <td colspan="3">{{email}}</td>
 
-                        <th>처리자명</th>
-                        <td>{{op_name}}</td>
                     </tr>
 
                     <tr>
@@ -141,7 +142,7 @@
                             <textarea class="form-control fit-table" rows="5">{{question_contents}}</textarea>
                         </td>
 
-                        <th>첨부파일</th>
+                        <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
                         <td colspan="3">
                             <img src="{{renderImage add_file}}" width="auto" height="100px" onclick="fullSize_question_file(this.src)"/>
                         </td>
@@ -149,8 +150,8 @@
 
                     <tr>
                         <th colspan="2">매크로 답변하기</th>
-                        <td colspan="2">{{{getCommonCodeSelect question_type 'question_type'}}}</td>
                         <td colspan="2">{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
+                        <td colspan="2">{{{getCommonCodeSelect question_type 'question_type'}}}</td>
 
                         <th colspan="2">바로가기버튼</th>
                         <td colspan="4">
