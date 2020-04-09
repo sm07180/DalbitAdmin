@@ -70,10 +70,10 @@ var progressStatus = [
 
 var gender = [
     new COMMON_CODE(null, 'gender', '성별구분')
-    , new COMMON_CODE('all', '1', '전체')
-    , new COMMON_CODE('man', '2', '남자')
-    , new COMMON_CODE('female', '3', '여자')
-    , new COMMON_CODE('unknown', '4', '알수없음')
+    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('man', '1', '남자')
+    , new COMMON_CODE('female', '2', '여자')
+    , new COMMON_CODE('unknown', '3', '알수없음')
 ];
 
 var memSex = [
@@ -92,8 +92,8 @@ var viewOn = [
 
 var viewType = [
     new COMMON_CODE(null, 'viewType', '링크표시구분')
+    , new COMMON_CODE('link', '0', '링크이동')
     , new COMMON_CODE('new', '1', '새 창 열기')
-    , new COMMON_CODE('link', '2', '링크이동')
 ];
 
 var level = [

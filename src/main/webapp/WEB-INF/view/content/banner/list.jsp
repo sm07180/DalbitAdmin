@@ -4,78 +4,58 @@
 
 <div id="main-header">
     <div id="page-wrapper">
-        <%--<div class="container-fluid">--%>
-            <!-- serachBox -->
-            <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
-                            <div class="row col-md-12">
-                                <h3 class="title"><i class="fa fa-search"></i>진행기간</h3>
-                                <div>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="banner-selectDateType" value="0" checked="true">전체
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="banner-selectDateType" value="1" style="margin-top: 10px;">
-                                        <div class="input-group">
-                                            <span id="banner-reportrange" class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                            <%--<span class="range-value"></span><b class="caret"></b>--%>
-                                            <input type="text" class="form-control" id="banner-inputReportrange" style="width: 180px;" readonly>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
-                            -->
-                            <div class="row col-md-12">
-                                <h3 class="title"><i class="fa fa-search"></i>배너검색</h3>
-                                <div>
-                                    <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
-                                    <span id="search_platform_aria"></span>
-                                    <span id="search_bannerType_aria"></span>
-                                    <span id="search_searchType_aria"></span>
-                                    -->
-
-                                    <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- //serachBox -->
-
-            <!-- DATA TABLE -->
+        <!-- serachBox -->
+        <form id="searchForm">
             <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table" id="bannerDataTable">
-                    <div class="widget-header">
-                        <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                            </a>
+                <div class="widget widget-table searchBoxArea">
+                    <div class="widget-header searchBoxRow">
+                        <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
+                        <div class="row col-md-12">
+                            <h3 class="title"><i class="fa fa-search"></i>진행기간</h3>
+                            <div>
+                                <label class="radio-inline">
+                                    <input type="radio" name="banner-selectDateType" value="0" checked="true">전체
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="banner-selectDateType" value="1" style="margin-top: 10px;">
+                                    <div class="input-group">
+                                        <span id="banner-reportrange" class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <%--<span class="range-value"></span><b class="caret"></b>--%>
+                                        <input type="text" class="form-control" id="banner-inputReportrange" style="width: 180px;" readonly>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="widget-content">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <thead>
-                            </thead>
-                            <tbody id="tableBody">
-                            </tbody>
-                        </table>
+                        -->
+                        <div class="row col-md-12">
+                            <h3 class="title"><i class="fa fa-search"></i>배너검색</h3>
+                            <div>
+                                <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
+                                <span id="search_platform_aria"></span>
+                                <span id="search_bannerType_aria"></span>
+                                <span id="search_searchType_aria"></span>
+                                -->
+
+                                <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- DATA TABLE END -->
-        <%--</div>--%>
+        </form>
+        <!-- //serachBox -->
 
+        <div id="headerTab">
+            <div id="bannerList"><jsp:include page="/WEB-INF/view/content/banner/bannerList.jsp"/></div>          <!-- 배너 -->
+        </div>
     </div>
 </div>
 <div class="main-content" style="margin-top: 3px;">
     <!-- TAB -->
-    <jsp:include page="bannerTab.jsp"></jsp:include>
+        <div name="main-content-div" id="bannerListContent">
+            <jsp:include page="bannerTab.jsp"></jsp:include>
+        </div>  <!-- 배너 -->
     <!-- TAB END -->
 </div>
 
@@ -85,12 +65,10 @@
 <script>
     $(document).ready(function() {
         init();
-        initDataTable();
         initEvent();
     });
 
 //=------------------------------ Init / Event--------------------------------------------
-
     var startDate;
     var endDate;
     function init() {
@@ -103,7 +81,7 @@
         $('#banner-reportrange').daterangepicker({
                 startDate: moment().subtract('days', 29),
                 endDate: moment(),
-                dateLimit: { days: 60 },
+                dateLimit: {days: 60},
                 showDropdowns: true,
                 showWeekNumbers: true,
                 timePicker: false,
@@ -128,7 +106,7 @@
                 }
             },
 
-            function(start, end) {
+            function (start, end) {
                 console.log("Callback has been called!");
                 startDate = start.format('YYYYMMDD');
                 endDate = end.format('YYYYMMDD');
@@ -140,161 +118,43 @@
         );
     }
 
-
-    var dtList_info;
-    var dtList_statistics_info;
-    function initDataTable(){
-        //=---------- Main DataTable ----------
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val()
-            data.showTarget = $("select[name='banner-selectShowTarget']").val()
-            data.bannerType = $("select[name='banner-selectBannerType']").val()
-            data.startDate = $('#banner-inputReportrange').attr("startDated");
-            data.endDate = $('#banner-inputReportrange').attr("endDate");
-        };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BannerDataTableSource.list);
-        dtList_info.useCheckBox(true);
-        dtList_info.useIndex(true);
-        dtList_info.setEventClick(updateBanner,4);
-        dtList_info.createDataTable();
-        initDataTableButton();
-        //---------- Main DataTable ----------=
-
-
-        //=---------- top-right Sub DataTable ----------
-        var dtList_info_data = function ( data ) {
-            data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val()
-            data.showTarget = $("select[name='banner-selectShowTarget']").val()
-            data.bannerType = $("select[name='banner-selectBannerType']").val()
-            data.startDate = $('#banner-inputReportrange').attr("startDated");
-            data.endDate = $('#banner-inputReportrange').attr("endDate");
-        };
-        dtList_statistics_info = new DalbitDataTable($("#list_statistics_info"), dtList_info_data, BannerDataTableSource.statisticsList);
-        dtList_statistics_info.useCheckBox(false);
-        dtList_statistics_info.useIndex(false);
-        dtList_statistics_info.useOrdering(false);
-        dtList_statistics_info.useInitReload(true);
-        dtList_statistics_info.onlyTableView();
-        dtList_statistics_info.createDataTable();
-        //---------- top-right Sub DataTable ----------
-    }
-
-
-    // DataTable Button
-    function initDataTableButton() {
-        var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
-        var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
-        var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
-
-        var subTable = '        <table id="list_statistics_info" class="table table-sorting table-hover table-bordered">\n' +
-            '                               <thead>\n' +
-            '                               </thead>\n' +
-            '                               <tbody id="tableBody">\n' +
-            '                               </tbody>\n' +
-            '                          </table>';
-
-        $("#bannerDataTable").find(".top-right").append(subTable);
-
-        $("#bannerDataTable").find(".footer-left").append(delBtn);
-        $("#bannerDataTable").find(".footer-right").append(addBtn);
-        $("#bannerDataTable").find(".footer-right").append(excelBtn);
-    }
-
-
-
     function initEvent(){
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getBannerInfo();
+                getItemInfo();
             };
         });
 
         $('#bt_search').click( function() {       //검색
-            getBannerInfo();
+            getItemInfo();
         });
-
-        $("#btn_insert").on("click", function () { //등록
-            insertBanner();
-        })
-
-        $("#btn_delete").on("click", function () { //삭제
-            deleteBanner();
-        })
-
-        $("input[name='banner-selectDateType']:radio").change(function () {
-            var type = this.value;
-
-            //지정 일 경우 button 활성화
-            if(type == "1"){
-                $("#banner-reportrange").prop("disabled",false);
-            }else{
-                $("#banner-reportrange").prop("disabled",true);
-                $("#banner-inputReportrange").val("");
-                startDate = "";
-                endDate = "";
-            }
-        });
-
     }
 
 
 //=------------------------------ Option --------------------------------------------
 
-    // 등록
-    function insertBanner() {
-        insertBannerDetail();
-
-        $("#tab_pushMsgList").click();
-    }
-
-    // 삭제
-    function deleteBanner() {
-        var checkDatas = dtList_info.getCheckedData();
-
-        if(checkDatas.length <= 0){
-            alert("삭제할 정보를 선택해주세요.");
-            return false;
-        }
-
-        confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?");
-
-        dalbitLog(checkDatas);
-    }
-
-    // 수정
-    function updateBanner(data) {
-        updateBannerDetail({
-            bannerIdx: data.rowNum
-            ,column02: data.banner_col3
-            ,column03: data.banner_col14
-            ,column04: "제목"
-            ,column05: data.banner_col1
-            ,column06: data.banner_col1
-            ,column07: data.banner_col1
-            ,column08: data.banner_col1
-            ,column09: data.banner_col1
-            ,column10: data.banner_col2
-            ,column11: "0"
-            ,column12: "2020-03-04"
-            ,column13: "00"
-            ,column14: "00"
-            ,column15: ""
-            ,column16: data.push_col6
-        })
-
-        $("#tab_pushMsgList").click();
+    // Content Tab 선택 초기화
+    function initContentTab(){
+        $("[name=main-content-div]").each(function(){
+            $(this).find("#contentTab").find(".active").removeClass("active");
+            $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
+        });
     }
 
 
     // 검색
-    function getBannerInfo(){
+    function getItemInfo(){
+        // var selectTabId = $("#headerTab").find(".active").find("a").prop("id").split("_")[1];
+        var selectTabId = "bannerList";
+        console.log(selectTabId)
+        var targetFnc = eval("fnc_"+selectTabId);
+
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-        dtList_info.reload();
+        // targetFnc.dtList_info.reload();
+        targetFnc.selectMainList();
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
@@ -335,4 +195,25 @@
         //     console.log("fn_fail_excel");
         // }
         /*----------- 엑셀 ---------=*/
+
+    var choiceDataInfo = null;
+    function initSelectDataInfo() {
+        choiceDataInfo = {};
+    }
+
+    function setSelectDataInfo(key, data){
+        if(common.isEmpty(choiceDataInfo)){
+            initSelectDataInfo();
+        }
+        choiceDataInfo[key] = data;
+    }
+
+    function getSelectDataInfo() {
+        if(common.isEmpty(choiceDataInfo) || jQuery.isEmptyObject(choiceDataInfo)){
+            return null;
+        }
+
+        return choiceDataInfo;
+    }
+
 </script>

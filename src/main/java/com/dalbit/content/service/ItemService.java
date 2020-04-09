@@ -291,4 +291,145 @@ public class ItemService {
 
         return result;
     }
+
+
+
+
+
+/** ==----------------------------------------- 선물 아이템 ------------------------------------------------------------------*/
+
+    /** 선물 아이템 리스트 */
+    public String callContentsGiftItemList(P_itemGiftListInputVo pItemGiftListInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pItemGiftListInputVo);
+
+        ArrayList<P_itemGiftListOutputVo> giftList = itemDao.callContentsGiftItemList(procedureVo);
+        P_itemGiftListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_itemGiftListOutputVo.class);
+
+        String result;
+
+        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_성공, giftList, new PagingVo(procedureVo.getRet()), summary));
+        }else if(Status.선물아이템조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_데이터없음));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템조회_에러));
+        }
+
+        return result;
+    }
+
+    /** 선물 아이템 상세 */
+    public String callContentsGiftItemDetail(P_itemGiftDetailInputVo pItemGiftDetailInputVo) {
+        ProcedureVo procedureVo = new ProcedureVo(pItemGiftDetailInputVo);
+
+        itemDao.callContentsGiftItemDetail(procedureVo);
+        P_itemGiftDetailOutputVo giftDetail = new Gson().fromJson(procedureVo.getExt(), P_itemGiftDetailOutputVo.class);
+
+        String result;
+
+        if(Status.선물아이템상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템상세조회_성공, giftDetail));
+        } else if(Status.선물아이템상세조회_상품코드없음.getMessageCode().equals(procedureVo.getRet())) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템상세조회_상품코드없음));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템상세조회_에러));
+        }
+
+        return result;
+    }
+
+    /**
+     * 선물 아이템 등록
+     */
+    public String callContentsGiftItemAdd(P_itemGiftInsertVo pItemGiftInsertVo){
+        pItemGiftInsertVo.setOpName(MemberVo.getMyMemNo());
+
+        ProcedureVo procedureVo = new ProcedureVo(pItemGiftInsertVo, true);
+
+        itemDao.callContentsGiftItemAdd(procedureVo);
+
+        String result;
+        if(Status.선물아이템등록_성공.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_성공));
+        } else if(Status.선물아이템등록_플랫폼미선택.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_플랫폼미선택));
+        } else if(Status.선물아이템등록_아이템구분미선택.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_아이템구분미선택));
+        } else if(Status.선물아이템등록_아이템가격미입력.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_아이템가격미입력));
+        } else if(Status.선물아이템등록_지급별수량미입력.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_지급별수량미입력));
+        } else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_실패));
+        }
+
+        return result;
+    }
+
+    /**
+     * 선물 아이템 수정
+     */
+    public String callContentsGiftItemEdit(P_itemGiftUpdateVo pItemGiftUpdateVo) {
+        pItemGiftUpdateVo.setOpName(MemberVo.getMyMemNo());
+        ProcedureVo procedureVo = new ProcedureVo(pItemGiftUpdateVo, true);
+
+        itemDao.callContentsGiftItemEdit(procedureVo);
+        String result;
+        if(Status.선물아이템수정_성공.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_성공));
+        } else if(Status.선물아이템수정_아이템코드미입력.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_아이템코드미입력));
+        } else if(Status.선물아이템등록_플랫폼미선택.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_플랫폼미선택));
+        } else if(Status.선물아이템등록_아이템구분미선택.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_아이템구분미선택));
+        } else if(Status.선물아이템등록_아이템가격미입력.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_아이템가격미입력));
+        } else if(Status.선물아이템등록_지급별수량미입력.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_지급별수량미입력));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_에러));
+        }
+
+        return result;
+    }
+
+    /**
+     * 선물 아이템 삭제
+     */
+    public String callContentsGiftItemDelete(P_itemGiftDeleteVo pItemGiftDeleteVo) {
+        pItemGiftDeleteVo.setOpName(MemberVo.getMyMemNo());
+
+        int sucCnt=0;
+        int failCnt=0;
+
+        String result="";
+
+        String[] idxs = pItemGiftDeleteVo.getItem_code().split(",");
+        for(int i=0; i < idxs.length; i++) {
+            ProcedureVo procedureVo = new ProcedureVo(new P_itemGiftDeleteVo(idxs[i]));
+
+            itemDao.callContentsGiftItemDelete(procedureVo);
+
+            if (Status.선물아이템삭제_성공.getMessageCode().equals(procedureVo.getRet())) {
+                sucCnt++;
+            } else {
+                failCnt++;
+            }
+        }
+
+        HashMap resultMap = new HashMap();
+        resultMap.put("sucCnt", sucCnt);
+        resultMap.put("failCnt", failCnt);
+
+        if(0 < sucCnt){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템삭제_성공, resultMap));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템삭제_실패, resultMap));
+        }
+
+        return result;
+    }
 }
+
+

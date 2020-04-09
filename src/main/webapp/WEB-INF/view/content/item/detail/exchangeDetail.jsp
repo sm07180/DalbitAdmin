@@ -26,7 +26,7 @@
             this.formId = this.targetId + "Form";
 
             if(common.isEmpty(getSelectDataInfo())){
-                fnc_exchangeDetail.insertEventDetail();
+                fnc_exchangeDetail.insertDetail();
             }else{
                 console.log(getSelectDataInfo());
 
@@ -37,7 +37,7 @@
             }
 
             // this.initDetail();
-            // this.initEventDetail();
+            // this.initDetailEvent();
         },
 
 
@@ -47,17 +47,17 @@
         },
 
         // 이벤트 적용
-        initEventDetail(){
+        initDetailEvent(){
 
             //플랫폼 IOS일 경우 코드 수기 입력
             this.target.find("input[name='platform']:radio").change(function () {
                 var type = this.value;
 
                 if(type == "001"){
-                    fnc_exchangeDetail.target.find("input[name=item_code]").show();
+                    fnc_exchangeDetail.target.find("input[name=banner_idx]").show();
                 }else{
-                    fnc_exchangeDetail.target.find("input[name=item_code]").hide();
-                    fnc_exchangeDetail.target.find("input[name=item_code]").val("");
+                    fnc_exchangeDetail.target.find("input[name=banner_idx]").hide();
+                    fnc_exchangeDetail.target.find("input[name=banner_idx]").val("");
                 }
             });
 
@@ -100,12 +100,12 @@
                     if(i == 0 || i == 1)    // 110
                     {
                         fnc_exchangeDetail.target.find("#platform1").attr("checked", true);
-                        fnc_exchangeDetail.target.find("input[name=item_code]").hide();
+                        fnc_exchangeDetail.target.find("input[name=banner_idx]").hide();
                     }
 
                     if(i == 2){             //001
                         fnc_exchangeDetail.target.find("#platform2").attr("checked", true);
-                        fnc_exchangeDetail.target.find("input[name=item_code]").show();
+                        fnc_exchangeDetail.target.find("input[name=banner_idx]").show();
                     }
                 }
             }
@@ -122,18 +122,18 @@
 
 
         // 등록 화면
-        insertEventDetail() {
+        insertDetail() {
             var template = $('#tmp_exchangeDetailFrm').html();
             var templateScript = Handlebars.compile(template);
             this.target.find("#"+this.formId).html(templateScript);
 
             this.initDetail();
-            this.initEventDetail();
+            this.initDetailEvent();
         },
 
 
         // 수정 화면
-        updateEventDetail(){
+        updateDetail(){
             var detailData = getSelectDataInfo().detailData;
             detailData.rowNum = getSelectDataInfo().data.rowNum;
             dalbitLog(detailData);
@@ -147,7 +147,7 @@
             fnc_exchangeDetail.target.find("#"+ fnc_exchangeDetail.formId).html(html);
 
             fnc_exchangeDetail.initDetail();
-            fnc_exchangeDetail.initEventDetail();
+            fnc_exchangeDetail.initDetailEvent();
             fnc_exchangeDetail.initUpdateUI();
         },
 
@@ -162,7 +162,7 @@
 
             setSelectDataInfo("detailData", data.data);
 
-            fnc_exchangeDetail.updateEventDetail();
+            fnc_exchangeDetail.updateDetail();
         },
 
 
@@ -175,7 +175,7 @@
 
             alert(data.message);
 
-            fnc_exchangeList.selectEventList();
+            fnc_exchangeList.selectMainList();
 
             //하위 탭 초기화
             initContentTab();
@@ -194,7 +194,7 @@
 
             alert(data.message);
 
-            fnc_exchangeList.selectEventList();
+            fnc_exchangeList.selectMainList();
 
             //하위 탭 초기화
             initContentTab();
@@ -260,7 +260,7 @@
 
             if(data.platform == "001" && common.isEmpty(data.item_code)){
                 alert("아이템 코드를 입력하여 주시기 바랍니다.");
-                fnc_exchangeDetail.target.find("input[name=item_code]").focus();
+                fnc_exchangeDetail.target.find("input[name=banner_idx]").focus();
                 return false;
             }
 

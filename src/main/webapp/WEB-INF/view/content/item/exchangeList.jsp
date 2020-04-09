@@ -59,22 +59,18 @@ var fnc_exchangeList = {
     initDataTable(){
         //=---------- Main DataTable ----------
         var dtList_info_data = function ( data ) {
-            // data.search = $('#txt_search').val();                        // 검색명
-            // data.gubun = $("select[name='selectGubun']").val()
-            // data.showTarget = $("select[name='banner-selectShowTarget']").val()
-            // data.bannerType = $("select[name='banner-selectBannerType']").val()
-            // data.startDate = $('#banner-inputReportrange').attr("startDated");
-            // data.endDate = $('#banner-inputReportrange').attr("endDate");
         };
 
         this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.exchange, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
         this.dtList_info.setEventClick(this.updateData);
-        this.dtList_info.useInitReload(true);
         this.dtList_info.createDataTable(this.initSummary);
 
         //---------- Main DataTable ----------=
+
+        fnc_exchangeList.initDataTableButton();
+        fnc_exchangeList.initEvent();
     },
 
     initSummary(json) {
@@ -85,10 +81,8 @@ var fnc_exchangeList = {
         var html=templateScript(context);
 
         fnc_exchangeList.divDataTable = fnc_exchangeList.targetDataTable.parent("div");
+        fnc_exchangeList.target.find("#div_summary").remove();
         fnc_exchangeList.divDataTable.find(".top-right").prepend(html);
-
-        fnc_exchangeList.initDataTableButton();
-        fnc_exchangeList.initEvent();
     },
 
 
@@ -170,7 +164,7 @@ var fnc_exchangeList = {
         console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);
 
-        // targetFnc.updateEventDetail();
+        // targetFnc.updateDetail();
         $("#tab_" + selectTabId).click();
     },
 
@@ -179,7 +173,7 @@ var fnc_exchangeList = {
         alert(data.message);
 
         // reload
-        fnc_exchangeList.selectEventList();
+        fnc_exchangeList.selectMainList();
 
         //상단 이동
         $('html').animate({scrollTop : 0}, 100);
@@ -196,13 +190,12 @@ var fnc_exchangeList = {
 
 
     // 검색
-    selectEventList(){
+    selectMainList(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-        this.dtList_info.createDataTable(this.initSummary);
-        // this.dtList_info.reload();
+        this.dtList_info.reload(this.initSummary);
     },
 
         // /*=---------- 엑셀 ----------*/
@@ -248,7 +241,7 @@ var fnc_exchangeList = {
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_exchangeListStatisticsFrm" type="text/x-handlebars-template">
 
-    <div style="float:left">
+    <div id="div_summary" style="float:left">
         <table class="table table-bordered table-dalbit text-center" style="width:400px;">
             <colgroup>
                 <col width="8%" />

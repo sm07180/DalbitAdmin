@@ -3,7 +3,7 @@ var ItemDataTableSource = {
         'url': '/rest/content/item/charge/list'
 
         , 'columns': [
-            {'title': '플랫폼', 'data': 'platform', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '플랫폼', 'data': 'platform', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     var arrCode = data.split("");
                     if(arrCode.length < 3){
                         return data;
@@ -29,11 +29,11 @@ var ItemDataTableSource = {
                     return result;
 
             }},
-            {'title': '코드', 'data': 'item_code', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '코드', 'data': 'item_code', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
 
             }},
-            {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
                         return "";
                     }
@@ -184,30 +184,43 @@ var ItemDataTableSource = {
         'url': '/rest/content/item/gift/list'
 
         , 'columns': [
-            {'title': '사용영역', 'data': 'event_col1', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
+            {'title': '사용영역', 'data': 'use_area', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    if(data == "1"){
+                        return "파티클";
+                    }
+                    if(data == "2"){
+                        return "콤보";
+                    }
+                    if(data == "3"){
+                        return "상단";
+                    }
+                    if(data == "4"){
+                        return "우측";
+                    }
+                    if(data == "5"){
+                        return "전체";
+                    }
+
+                    return "기본";
+                }},
+            {'title': '파일등록 필드', 'data': 'file_slct', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
+            {'title': '플레이타임', 'data': 'play_time', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
 
                 }},
-            {'title': '파일등록 필드', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '코드', 'data': 'item_code', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '플레이타임', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    return data;
-
-                }},
-            {'title': '코드', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    return data;
-                }},
-            {'title': '이미지', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 썸네일 표시
+            {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return '<a href="javascript:;"><img src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" /></a>'
 
                 }},
-            {'title': '아이템명', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '아이템명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '타입', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '타입', 'data': 'item_type', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     var arrCode = data.split("");
                     if(arrCode.length < 3){
                         return data;
@@ -232,28 +245,28 @@ var ItemDataTableSource = {
 
                     return result;
                 }},
-            {'title': '수량', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '수량', 'data': 'byeol', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '가격', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '가격', 'data': 'item_price', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': 'IOS 가격', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': 'IOS 가격', 'data': 'item_price_ios', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '설명', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
+            {'title': '설명', 'data': 'desc', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
-            {'title': '등록/수정일', 'data': 'item_col5', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 일자에 맞게 변경 필요
-                    return common.convertToDate(data) + " ~ " + common.convertToDate(data);
-                    //     return data;
+            {'title': '등록/수정일', 'data': 'lastupdDate', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return (common.isEmpty(row.lastupdDateFormat) ? row.regDateFormat : row.lastupdDateFormat);
 
                 }},
-            {'title': '선물현황', 'data': 'item_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    return data + "명";
+            {'title': '선물현황', 'data': 'purchase_count', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return data;
                 }},
-            {'title': '등록자', 'data': 'item_col14', 'defaultContent': '장근원'}
+            {'title': '등록자', 'data': 'op_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return data;
+                }},
         ]
         , 'comments': '<div>• 방송 중 DJ 또는 게스트에게 선물할 수 있는 아이템을 등록 및 관리할 수 있습니다.</div>' +
                             '<div> ※ 선물아이템 영역 : 기본, 1번-파티클, 2번-콤보, 3번-상단, 4번-우측, 5번-전체</div>'

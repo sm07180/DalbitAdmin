@@ -101,7 +101,7 @@
 
         // targetFnc.dtList_info.reload();
         console.log(targetFnc.dtList_info)
-        targetFnc.selectEventList();
+        targetFnc.selectMainList();
 
 
         /*검색결과 영역이 접혀 있을 시 열기*/
@@ -144,13 +144,20 @@
         // }
         /*----------- 엑셀 ---------=*/
 
-    var choiceDataInfo = {};
+    var choiceDataInfo = null;
+    function initSelectDataInfo() {
+        choiceDataInfo = {};
+    }
+
     function setSelectDataInfo(key, data){
+        if(common.isEmpty(choiceDataInfo)){
+            initSelectDataInfo();
+        }
         choiceDataInfo[key] = data;
     }
 
     function getSelectDataInfo() {
-        if(common.isEmpty(choiceDataInfo)){
+        if(common.isEmpty(choiceDataInfo) || jQuery.isEmptyObject(choiceDataInfo)){
             return null;
         }
 

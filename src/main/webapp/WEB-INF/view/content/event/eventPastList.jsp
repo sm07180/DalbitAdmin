@@ -58,12 +58,6 @@
         initDataTable(){
             //=---------- Main DataTable ----------
             var dtList_info_data = function ( data ) {
-                data.search = $('#txt_search').val();                        // 검색명
-                data.gubun = $("select[name='selectGubun']").val()
-                data.showTarget = $("select[name='banner-selectShowTarget']").val()
-                data.bannerType = $("select[name='banner-selectBannerType']").val()
-                data.startDate = $('#banner-inputReportrange').attr("startDated");
-                data.endDate = $('#banner-inputReportrange').attr("endDate");
             };
             this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge);
             this.dtList_info.useCheckBox(true);
@@ -103,9 +97,10 @@
 
         // 등록
         insertEvent() {
-            insertEventDetail();
+            //등록을 위한 데이터 초기화
+            initSelectDataInfo();
 
-            this.target.find("#tab_eventDetail").click();
+            $("#tab_eventDetail").click();
         },
 
         // 삭제
@@ -155,7 +150,7 @@
 
 
         // 검색
-        selectEventList(){
+        selectMainList(){
             /* 엑셀저장을 위해 조회조건 임시저장 */
             // tmp_search = $('#txt_search').val();
             // tmp_gubun = $("select[name='selectGubun']").val();
