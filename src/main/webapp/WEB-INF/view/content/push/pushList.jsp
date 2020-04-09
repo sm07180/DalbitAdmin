@@ -1,11 +1,10 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="main-header">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-        <div class="row col-lg-12 form-inline mb15">
+        <div class="row col-lg-12 form-inline">
             <div class="widget widget-table">
                 <div class="widget-header">
                     <h3><i class="fa fa-desktop"></i> 검색결과</h3>
@@ -34,21 +33,20 @@
 
 <script>
     $(document).ready(function() {
-        fnc_giftList.init();
+        fnc_pushList.init();
     });
 
-var fnc_giftList = {
+var fnc_pushList = {
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "giftList",
+    "targetId": "pushList",
 
     init() {
-        this.target = $("#"+this.targetId);
-        this.targetDataTableId = "list_info_"+this.targetId;
+        this.target = $("#" + this.targetId);
+        this.targetDataTableId = "list_info_" + this.targetId;
         this.target.find("#list_info").attr("id", this.targetDataTableId);
-        this.targetDataTable = this.target.find("#"+this.targetDataTableId);
+        this.targetDataTable = this.target.find("#" + this.targetDataTableId);
         this.divDataTable = this.targetDataTable.parent("div");
-
 
         this.initDataTable();
         this.initEvent();
@@ -56,34 +54,19 @@ var fnc_giftList = {
 
 
     "dtList_info":"",
-    initDataTable(){
+    initDataTable() {
         //=---------- Main DataTable ----------
-        var dtList_info_data = function ( data ) {
+        var dtList_info_data = function (data) {
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.gift, $("#searchForm"));
+        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, PushDataTableSource.pushList, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
-        this.dtList_info.setEventClick(this.updateData);
-        this.dtList_info.createDataTable(this.initSummary);
-
+        this.dtList_info.setEventClick(this.updateData, 4);
+        this.dtList_info.createDataTable();
         //---------- Main DataTable ----------=
 
-        fnc_giftList.initDataTableButton();
-        fnc_giftList.initEvent();
-    },
-
-
-    initSummary(json) {
-        //------------- 우측 상단 통계 -----------------------------------
-        var template = $('#tmp_giftListStatisticsFrm').html();
-        var templateScript = Handlebars.compile(template);
-        var context = json.summary;
-        var html=templateScript(context);
-
-        fnc_giftList.divDataTable = fnc_giftList.targetDataTable.parent("div");
-        fnc_giftList.target.find("#div_summary").remove();
-        fnc_giftList.divDataTable.find(".top-right").prepend(html);
+        this.initDataTableButton();
     },
 
 
@@ -102,11 +85,11 @@ var fnc_giftList = {
 
     initEvent(){
         this.target.find("#btn_insert").on("click", function () { //등록
-            fnc_giftList.insertEvent();
+            fnc_pushList.insertEvent();
         })
 
         this.target.find("#btn_delete").on("click", function () { //삭제
-            fnc_giftList.deleteEvent();
+            fnc_pushList.deleteEvent();
         })
     },
 
@@ -118,18 +101,19 @@ var fnc_giftList = {
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
-        $("#tab_giftDetail").click();
+        $("#tab_pushDetail").click();
     },
 
     // 삭제
     deleteEvent() {
-        var checkDatas = fnc_giftList.dtList_info.getCheckedData();
+        var checkDatas = fnc_pushList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
             alert("삭제할 정보를 선택해주세요.");
             return false;
         }
 
+        dalbitLog(checkDatas);
         if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
 
             var itemCodes = "";
@@ -148,7 +132,7 @@ var fnc_giftList = {
             var data = new Object();
             data.item_code = itemCodes;
 
-            util.getAjaxData(fnc_giftList.targetId, "/rest/content/item/gift/delete",data, fnc_giftList.fn_delete_success, fnc_giftList.fn_fail);
+            util.getAjaxData(fnc_pushList.targetId, "/rest/content/push/delete",data, fnc_pushList.fn_delete_success, fnc_pushList.fn_fail);
         };
     },
 
@@ -157,8 +141,8 @@ var fnc_giftList = {
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo("data", data);
 
-        var selectTabId = "giftDetail";
-        if(fnc_giftList.target.find("#contentTab").find(".active").length != 0){
+        var selectTabId = "pushDetail";
+        if(fnc_pushList.target.find("#contentTab").find(".active").length != 0){
             selectTabId = $("#contentTab").find(".active").find("a").prop("id").split("_")[1];
         }
         console.log(selectTabId)
@@ -173,11 +157,11 @@ var fnc_giftList = {
         alert(data.message);
 
         // reload
-        fnc_giftList.selectMainList();
+        fnc_pushList.selectMainList();
 
         //상단 이동
         $('html').animate({scrollTop : 0}, 100);
-        $("#"+fnc_giftDetail.formId).empty();
+        $("#"+fnc_pushDetail.formId).empty();
     },
 
 
@@ -195,78 +179,44 @@ var fnc_giftList = {
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-        // Summary를 위한 재생성
-        this.dtList_info.reload(this.initSummary);
+        this.dtList_info.reload();
 
     },
 
-        // /*=---------- 엑셀 ----------*/
-        // $('#excelDownBtn').on('click', function(){
-        //     var formElement = document.querySelector("form");
-        //     var formData = new FormData(formElement);
-        //
-        //     formData.append("search", tmp_search);
-        //     formData.append("date", tmp_date);
-        //     formData.append("gubun", tmp_gubun);
-        //     formData.append("checkDate", tmp_checkDate);
-        //     formData.append("stDate", tmp_stDate);
-        //     formData.append("edDate", tmp_edDate);
-        //     /*formData.append("test003", "test003");*/
-        //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
-        // });
+    // /*=---------- 엑셀 ----------*/
+    // $('#excelDownBtn').on('click', function(){
+    //     var formElement = document.querySelector("form");
+    //     var formData = new FormData(formElement);
+    //
+    //     formData.append("search", tmp_search);
+    //     formData.append("date", tmp_date);
+    //     formData.append("gubun", tmp_gubun);
+    //     formData.append("checkDate", tmp_checkDate);
+    //     formData.append("stDate", tmp_stDate);
+    //     formData.append("edDate", tmp_edDate);
+    //     /*formData.append("test003", "test003");*/
+    //     excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+    // });
 
-        // $("#excelBtn").on("click", function () {
-        //     $("#list_info").table2excel({
-        //         exclude: ".noExl",
-        //         name: "Excel Document Name",
-        //         filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
-        //         fileext: ".xls",
-        //         exclude_img: true,
-        //         exclude_links: true,
-        //         exclude_inputs: true
-        //     });
-        // });
-        //
-        // function fn_success_excel(){
-        //     console.log("fn_success_excel");
-        // }
-        //
-        // function fn_fail_excel(){
-        //     console.log("fn_fail_excel");
-        // }
-        /*----------- 엑셀 ---------=*/
+    // $("#excelBtn").on("click", function () {
+    //     $("#list_info").table2excel({
+    //         exclude: ".noExl",
+    //         name: "Excel Document Name",
+    //         filename: "report" +'.xls', //확장자를 여기서 붙여줘야한다.
+    //         fileext: ".xls",
+    //         exclude_img: true,
+    //         exclude_links: true,
+    //         exclude_inputs: true
+    //     });
+    // });
+    //
+    // function fn_success_excel(){
+    //     console.log("fn_success_excel");
+    // }
+    //
+    // function fn_fail_excel(){
+    //     console.log("fn_fail_excel");
+    // }
+    /*----------- 엑셀 ---------=*/
 }
-</script>
-
-
-
-<!-- =------------------ Handlebars ---------------------------------- -->
-<script id="tmp_giftListStatisticsFrm" type="text/x-handlebars-template">
-
-    <div id="div_summary" style="float:left">
-        <table class="table table-bordered table-dalbit text-center" style="width:100px;">
-            <colgroup>
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-            </colgroup>
-            <tbody>
-            <tr class="align-middle">
-                <th colspan="12">총 선물현황</th>
-            </tr>
-            <tr>
-                <td style="text-align:center;" colspan="12">{{totalGiftCnt}}건</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 </script>

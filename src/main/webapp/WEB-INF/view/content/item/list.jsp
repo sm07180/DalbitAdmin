@@ -145,7 +145,7 @@
 
         // targetFnc.dtList_info.reload();
         console.log(targetFnc.dtList_info)
-        targetFnc.selectEventList();
+        targetFnc.selectMainList();
 
 
         /*검색결과 영역이 접혀 있을 시 열기*/

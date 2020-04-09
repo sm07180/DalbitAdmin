@@ -91,9 +91,9 @@ Handlebars.registerHelper("index", function(index, no)
     return common.isEmpty(index) ? no : parseInt(index) + 1;
 });
 
-Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn)
+Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn, name)
 {
-    return util.getCommonCodeSelect(value, targetCode, isExcludeAllYn);
+    return util.getCommonCodeSelect(value, targetCode, isExcludeAllYn, name);
 });
 
 Handlebars.registerHelper("getCommonCodeRadio", function(value, targetCode, isExcludeAllYn, name)

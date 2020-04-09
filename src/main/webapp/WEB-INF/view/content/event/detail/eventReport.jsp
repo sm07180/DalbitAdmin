@@ -92,7 +92,6 @@
             this.dtList_info.useCheckBox(true);
             this.dtList_info.useIndex(true);
             this.dtList_info.setEventClick(this.updateBanner,4);
-            this.dtList_info.useInitReload(true);
             this.dtList_info.setPageLength(-1);
             this.dtList_info.createDataTable(this.initSummary);
 
@@ -111,6 +110,7 @@
             var html=templateScript(context);
 
             fnc_eventReport.divDataTable = fnc_eventReport.targetDataTable.parent("div");
+            fnc_eventReport.target.find("#div_summary").remove();
             fnc_eventReport.divDataTable.find(".top-right").append(html);
         },
 
@@ -178,7 +178,7 @@
 
         // 등록
         insertEvent() {
-            fnc_eventReport.insertEventDetail();
+            fnc_eventReport.insertDetail();
 
             $("#tab_eventReport").click();
         },
@@ -342,36 +342,36 @@
 <!-- =------------------ Handlebars ---------------------------------- -->
 <script id="tmp_eventReportStatisticsFrm" type="text/x-handlebars-template">
 
-    {{#each this}}
-    <table class="table table-bordered table-dalbit text-center" style="width:400px;">
-        <colgroup>
-            <col width="16%" />
-            <col width="16%" />
-            <col width="16%" />
-            <col width="16%" />
-            <col width="16%" />
-            <col width="16%" />
-        </colgroup>
-        <tbody>
-            <tr class="align-middle">
-                <th colspan="2">총 응모자</th>
-                <th colspan="2" rowspan="2">중복 응모</th>
-                <th colspan="2">당첨자</th>
-            </tr>
-            <tr>
-                <th>남</th>
-                <th>여</th>
-                <th>남</th>
-                <th>여</th>
-            </tr>
-            <tr>
-                <td style="text-align:center;">{{event_col1}}명</td>
-                <td style="text-align:center;">{{event_col2}}명</td>
-                <td style="text-align:center;" colspan="2">{{event_col3}}건</td>
-                <td style="text-align:center;">{{event_col5}}명</td>
-                <td style="text-align:center;">{{event_col7}}명</td>
-            </tr>
-        </tbody>
-    </table>
-    {{/each}}
+    <div id="div_summary" style="float:left">
+        <table class="table table-bordered table-dalbit text-center" style="width:400px;">
+            <colgroup>
+                <col width="16%" />
+                <col width="16%" />
+                <col width="16%" />
+                <col width="16%" />
+                <col width="16%" />
+                <col width="16%" />
+            </colgroup>
+            <tbody>
+                <tr class="align-middle">
+                    <th colspan="2">총 응모자</th>
+                    <th colspan="2" rowspan="2">중복 응모</th>
+                    <th colspan="2">당첨자</th>
+                </tr>
+                <tr>
+                    <th>남</th>
+                    <th>여</th>
+                    <th>남</th>
+                    <th>여</th>
+                </tr>
+                <tr>
+                    <td style="text-align:center;">{{event_col1}}명</td>
+                    <td style="text-align:center;">{{event_col2}}명</td>
+                    <td style="text-align:center;" colspan="2">{{event_col3}}건</td>
+                    <td style="text-align:center;">{{event_col5}}명</td>
+                    <td style="text-align:center;">{{event_col7}}명</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </script>

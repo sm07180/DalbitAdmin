@@ -67,7 +67,7 @@ common.convertToDate = function(date, format){
         return "-";
     }
     if(this.isEmpty(format)){
-        format = "YYYY.MM.DD HH:MM";
+        format = "YYYY.MM.DD HH:mm";
     }
     return moment(date).format(format);
 }
@@ -197,11 +197,15 @@ common.isSmall = function(value, target, opt){
 
 //input 숫자 입력만 가능
 common.inputFilterNumber = function (event) {
-    console.log(event)
     var code = event.which;
 
     //숫자
     if((48 <= code && code <= 57)){
+        return;
+    }
+
+    //NUM keyPad
+    if((96 <= code && code <= 105)){
         return;
     }
 

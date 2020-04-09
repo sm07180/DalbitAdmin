@@ -1,5 +1,5 @@
 var PushDataTableSource = {
-    'pushMsgList': {
+    'pushList': {
         'url': '/rest/content/push/list'
 
         , 'columns': [

@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.BannerService;
 import com.dalbit.content.vo.BannerVo;
+import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,37 +24,61 @@ import java.util.Date;
 public class BannerRestController {
 
     @Autowired
-    BannerService service;
+    BannerService bannerService;
 
     @Autowired
     GsonUtil gsonUtil;
 
+
     /**
-     * 배너관리
+     * 배너 아이템
      */
     @PostMapping("list")
-    public String list(HttpServletRequest request, BannerVo bannerVo) {
-        int totalCnt = 100;
-        int startIdx = bannerVo.getPageStart();
-
-        ArrayList<BannerVo> list = new ArrayList<BannerVo>();
-        for(int i = 0; i < bannerVo.getPageCnt(); i++){
-            BannerVo data = new BannerVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setBanner_col1(DalbitUtil.randomValue("number", 1));
-            data.setBanner_col2(DalbitUtil.randomValue("number", 1));
-            data.setBanner_col3("메시지 제목 이란다 ㅋㅋㅋㅋㅋ _" + data.getBanner_col1());
-            data.setBanner_col4(new Date());
-            data.setBanner_col5(DalbitUtil.randomValue("number", 1));
-            data.setBanner_col6(new Date());
-            data.setBanner_col7("YOOSIN");
-
-            list.add(data);
-            startIdx++;
-        }
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
+    public String bannerList(P_bannerListInputVo pBannerListInputVo) {
+        String result = bannerService.callContentsBannerList(pBannerListInputVo);
+        return result;
     }
+
+    /**
+     * 배너 아이템 상세
+     */
+    @PostMapping("detail")
+    public String bannerDetail(P_bannerDetailInputVo pBannerDetailInputVo) {
+        String result = bannerService.callContentsBannerDetail(pBannerDetailInputVo);
+        return result;
+    }
+
+    /**
+     * 배너 아이템 등록
+     */
+    @PostMapping("insert")
+    public String bannerInsert(P_bannerInsertVo pBannerInsertVo) {
+        String result = bannerService.callContentsBannerAdd(pBannerInsertVo);
+        return result;
+    }
+
+    /**
+     * 배너 아이템 수정
+     */
+    @PostMapping("update")
+    public String bannerUpdate(P_bannerUpdateVo pBannerUpdateVo) {
+        String result = bannerService.callContentsBannerEdit(pBannerUpdateVo);
+        return result;
+    }
+
+    /**
+     * 배너 아이템 삭제
+     */
+    @PostMapping("delete")
+    public String bannerDelete(P_bannerDeleteVo pBannerDeleteVo) {
+        String result = bannerService.callContentsBannerDelete(pBannerDeleteVo);
+        return result;
+    }
+
+
+
+
+
 
 
     @PostMapping("statistics")

@@ -20,6 +20,12 @@ public interface ItemDao {
     ProcedureVo callContentsExchangeItemEdit(ProcedureVo procedureVo);
     ProcedureVo callContentsExchangeItemDelete(ProcedureVo procedureVo);
 
+    ArrayList<P_itemGiftListOutputVo> callContentsGiftItemList(ProcedureVo procedureVo);
+    P_itemGiftDetailOutputVo callContentsGiftItemDetail(ProcedureVo procedureVo);
+    ProcedureVo callContentsGiftItemAdd(ProcedureVo procedureVo);
+    ProcedureVo callContentsGiftItemEdit(ProcedureVo procedureVo);
+    ProcedureVo callContentsGiftItemDelete(ProcedureVo procedureVo);
+
     ArrayList<P_itemGiftListOutputVo> callServiceCenterItemGiftList(ProcedureVo procedureVo);
 
 

@@ -1,6 +1,7 @@
 package com.dalbit.content.vo;
 
 import com.dalbit.common.vo.PagingVo;
+import com.dalbit.common.vo.SearchVo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +9,11 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class PushVo extends PagingVo {
+public class PushVo extends SearchVo {
 
-    /* input */
-    private String search;
-    private String searchType;
+//    /* input */
+//    private String search;
+//    private String searchType;
 
     /* output */
     private String push_col1;
