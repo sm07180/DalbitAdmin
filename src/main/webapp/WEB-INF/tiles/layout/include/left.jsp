@@ -28,7 +28,9 @@
                             </c:if>
                         </c:forEach>
 
-                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''} ${isContainSubmenu ? '' : 'page'} ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''} ${isSubmenuView ? 'active': ''}">
+                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''} ${isContainSubmenu ? '' : 'page'} ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''} ${isSubmenuView ? 'active': ''}"
+                            data-isread="${menu.is_read}" data-isinsert="${menu.is_insert}" data-isdelete="${menu.is_delete}"
+                        >
 
                             <a href="${menu.menu_url}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
                                 <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
@@ -88,7 +90,9 @@
                             </c:if>
                         </c:forEach>
 
-                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''} ${isContainSubmenu ? '' : 'page'} ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''} ${isSubmenuView ? 'active': ''}">
+                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''} ${isContainSubmenu ? '' : 'page'} ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''} ${isSubmenuView ? 'active': ''}"
+                            data-isread="${menu.is_read}" data-isinsert="${menu.is_insert}" data-isdelete="${menu.is_delete}"
+                        >
 
                             <a href="${0 < fn:length(menu.menu_url) ? 'javascript://' : menu.menu_url}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
                                 <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
@@ -100,7 +104,9 @@
                             <c:if test="${isContainSubmenu}">
                                 <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': ''}">
                                     <c:forEach var="twoDepth" items="${menu.twoDepth}">
-                                        <li class="${url.equals(twoDepth.menu_url) ? 'active': ''}">
+                                        <li class="${url.equals(twoDepth.menu_url) ? 'active': ''}"
+                                            data-isread="${twoDepth.is_read}" data-isinsert="${twoDepth.is_insert}" data-isdelete="${twoDepth.is_delete}"
+                                        >
                                             <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
                                                 <i class="fa fa-thumbs-o-up"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>

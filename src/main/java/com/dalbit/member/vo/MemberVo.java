@@ -22,8 +22,13 @@ public class MemberVo{
     }
 
     public static InforexLoginUserInfoVo getUserInfo(){
-        var inforexLoginLayoutVo = (InforexLoginLayoutVo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return inforexLoginLayoutVo.getUserInfo();
+        try{
+            var inforexLoginLayoutVo = (InforexLoginLayoutVo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return inforexLoginLayoutVo.getUserInfo();
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
     private String memNo;
