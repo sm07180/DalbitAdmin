@@ -231,6 +231,13 @@
                 if(confirm("성별을 변경 하시겠습니까?")) {
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     sendNoti = 0;
+
+                    if(memberInfo_responseDate.profileImage.indexOf("/profile_3/profile_" + memberInfo_responseDate.memSex) > -1){
+                        obj.photoUrl = IMAGE_SERVER_URL;
+                        sendNoti = 0;
+                        obj.notiContents = memberMessage.notiContents;
+                        obj.notiMemo = memberMessage.profileReset;
+                    }
                 }else return;
             }
             obj.sendNoti=sendNoti;
@@ -309,8 +316,7 @@
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
-        dtList_info_detail.createDataTable()
-        dtList_info_detail.reload();
+        dtList_info_detail.createDataTable();
 
         if(tmp == "manager" || tmp == "black"){
             $('#detail2').addClass("show");
@@ -333,8 +339,7 @@
         dtList_info_detail = new DalbitDataTable($("#info_detail2"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
-        dtList_info_detail.createDataTable()
-        dtList_info_detail.reload();
+        dtList_info_detail.createDataTable();
     }
 
     function stateEdit() {

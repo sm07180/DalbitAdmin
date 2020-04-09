@@ -202,7 +202,7 @@ public class Mem_MemberService {
 
             // 비밀번호 변경
             if(pMemberEditorVo.getNotiSms().equals("1")){
-                smsService.sendSms(new SmsVo(pMemberEditorVo.getNotiMemo() + "[" + pMemberEditorVo.getPasswdReset()+ "]",pMemberEditorVo.getPhoneNum()));
+                smsService.sendSms(new SmsVo(pMemberEditorVo.getNotiMemo() + " " + pMemberEditorVo.getPasswdReset()+ " 입니다.",pMemberEditorVo.getPhoneNum()));
             }
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정성공));
         } else {
@@ -222,7 +222,7 @@ public class Mem_MemberService {
         }
         mem_MemberDao.callMemberSocialIdEditor(pMemberEditorVo);
 
-        pMemberEditorVo.setEditContents("로그인ID 변경 : " + pMemberEditorVo.getSocialId() + " >> " + pMemberEditorVo.getBefore_socialId());
+        pMemberEditorVo.setEditContents("로그인ID 변경 : " + pMemberEditorVo.getBefore_socialId() + " >> " + pMemberEditorVo.getSocialId());
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
 
 

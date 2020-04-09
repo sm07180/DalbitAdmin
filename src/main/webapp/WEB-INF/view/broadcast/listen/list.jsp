@@ -89,7 +89,6 @@
         }
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
-
     }
     function forcedEventInit(){
         $("#btn_forced").on("click", function () { //강제퇴장

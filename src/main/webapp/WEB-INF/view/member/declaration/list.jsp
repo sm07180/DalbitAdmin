@@ -38,7 +38,6 @@
         dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
         initDataTableTop_select_declaration(tmp);    // 상단 selectBox
 
         util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success, fn_fail);
