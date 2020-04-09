@@ -17,7 +17,6 @@ public class DjRankingVo extends PagingVo {
     private int djRank;
     private String upDown;
     private String image_profile;
-    // main추천상태
     private String mem_id;
     private int level;
     private String grade;

@@ -5,6 +5,7 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
+            <form id="searchForm">
             <div class="row col-lg-12 form-inline">
                 <input type="hidden" name="pageStart" id="pageStart">
                 <input type="hidden" name="pageCnt" id="pageCnt">
@@ -14,17 +15,18 @@
                         <div>
                             <select class="form-control searchType" name="selectGubun">
                                 <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
+                                <option value="1">회원번호</option>
+                                <option value="2">User ID</option>
+                                <option value="3">User 닉네임</option>
+                                <option value="4">연락처</option>
                             </select>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
+                            <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                             <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
             </div>
+            </form>
             <!-- //serachBox -->
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
@@ -60,24 +62,6 @@
                         </div>
 
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <thead id="tableTop">
-                            <tr>
-                                <th>순위</th>
-                                <th>프로필 이미지</th>
-                                <th>User ID</th>
-                                <th>User 닉네임</th>
-                                <th>보유결제금액</th>
-                                <th>누적 받은 별</th>
-                                <th>누적 받은 선물</th>
-                                <th>누적 방송 횟수</th>
-                                <th>최초 방송 시작일</th>
-                                <th>총 방송진행 시간</th>
-                            </tr>
-                            </thead>
-                            <tbody id="djRankListBody">
-                            </tbody>
-                            <tbody id="fanRankListBody">
-                            </tbody>
                         </table>
                     </div>
 
@@ -125,9 +109,10 @@
         var rank = common.isEmpty(tabName) ? $('#rankTab li.active a').data('rank') : tabName;
         var data = {
             rankType : $('input[name="rankType"]:checked').val()
-            , rank
             , pageStart : djRankListPagingInfo.pageNo
             , pageCnt : djRankListPagingInfo.pageCnt
+            , selectGubun : $('select[name="selectGubun"]').val()
+            , txt_search : $("#txt_search").val()
         }
         util.getAjaxData(rank, "/rest/menu/rank/"+rank, data, fn_succ_list);
     }
@@ -141,7 +126,7 @@
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
-        $("#"+dst_id+"Body").html(html); // dst_id응용해서 바꿀 것
+        $("#list_info").html(html);
 
         var pagingInfo = response.pagingVo;
         djRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
@@ -159,6 +144,16 @@
         init(rank);
     });
 
+    $('#bt_search').on('click', function() {
+        init($('#rankTab li.active a').data('rank'));
+    });
+
+    $('input[id="txt_search"]').on('keydown', function(e) {
+        if(e.keyCode == 13) {
+            init($('#rankTab li.active a').data('rank'));
+        };
+    });
+
     function handlebarsPaging(targetId, pagingInfo){
         djRankListPagingInfo = pagingInfo;
         init();
@@ -167,11 +162,34 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_djRankList">
+    <thead id="djtableTop">
+    <tr>
+        <th>순위</th>
+        <th>Main 추천상태</th>
+        <th>프로필 이미지</th>
+        <th>User ID</th>
+        <th>User 닉네임</th>
+        <th>보유결제금액</th>
+        <th>누적 받은 별</th>
+        <th>누적 받은 선물</th>
+        <th>누적 방송 횟수</th>
+        <th>최초 방송 시작일</th>
+        <th>총 방송진행 시간</th>
+    </tr>
+    </thead>
+    <tbody id="djRankListBody">
     {{#each this as |rank|}}
         <tr>
             <td>
                 {{djRank}} <br /><br />
                 {{upDown}}
+            </td>
+            <td>
+                {{#isSmall djRank '6'}}
+                    ●<br/>추천 중
+                {{else}}
+                    ○<br/>비추천
+                {{/isSmall}}
             </td>
             <td>
                 {{#equal rank.image_profile ''}}
@@ -199,9 +217,26 @@
                 <td colspan="10">{{isEmptyData}}</td>
             </tr>
         {{/each}}
+    </tbody>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_fanRankList">
+    <thead id="tableTop">
+    <tr>
+        <th>순위</th>
+        <th>Main 추천상태</th>
+        <th>프로필 이미지</th>
+        <th>User ID</th>
+        <th>User 닉네임</th>
+        <th>보유결제금액</th>
+        <th>누적 받은 별</th>
+        <th>누적 받은 선물</th>
+        <th>누적 방송 횟수</th>
+        <th>최초 방송 시작일</th>
+        <th>총 방송진행 시간</th>
+    </tr>
+    </thead>
+    <tbody id="fanRankListBody">
     {{#each this as |fan|}}
         <tr>
             <td>
@@ -209,10 +244,10 @@
                 {{upDown}}
             </td>
             <td>
-                {{#isSmall rank 6}}
-                    추천중
+                {{#isSmall fanRank '6'}}
+                    ●<br/>추천 중
                 {{else}}
-                    비추천
+                    ○<br/>비추천
                 {{/isSmall}}
             </td>
             <td>
@@ -241,4 +276,5 @@
             <td colspan="10">{{isEmptyData}}</td>
         </tr>
     {{/each}}
+    </tbody>
 </script>
