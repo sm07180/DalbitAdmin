@@ -62,6 +62,7 @@
 
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
 
+    var dtList_info
     var dtList_info_data = function ( data ) {
         data.searchType = $("select[name='searchType']").val();          // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명

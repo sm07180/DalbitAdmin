@@ -27,10 +27,15 @@
 
     var profImgDel;
     var report;
+    var memberInfo_responseDate;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
+        memberInfo_responseDate = response.data;
         profImgDel = "false";
         memNo = response.data.mem_no;
+
+        if(response.data.block_day == 2)
+            response.data["block"] =  " / 정지기간: " + response.data.block_day + " / 정지종료일: " + response.data.blockEndDateFormat;
 
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -144,9 +149,14 @@
                 alert("로그인 아이디를 입력해 주십시오.");
                 return;
             }
+            if(memberInfo_responseDate.socialId == $("#txt_socialId").val().replace(/-/gi, "")){
+                alert("동일한 로그인 아이디 입니다. 변경할 아이디를 입력해 주세요.");
+                return;
+            }
             if(confirm("로그인 아이디를 변경 하시겠습니까?")) {
                 obj.mem_no = memNo;
                 obj.socialId = $("#txt_socialId").val().replace(/-/gi, "");
+                obj.before_socialId = memberInfo_responseDate.socialId;
                 util.getAjaxData("editor", "/rest/member/member/socialId_edit", obj, update_success, fn_fail);
             }else return;
         }else{
@@ -164,6 +174,10 @@
             }
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
+                if(memberInfo_responseDate.profileImage.indexOf("/profile_3/profile_" + memberInfo_responseDate.memSex) > -1){
+                    alert("이미 초기화된 프로필 이미지 입니다. 프로필 초기화가 불가능합니다.");
+                    return;
+                }
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     obj.photoUrl = IMAGE_SERVER_URL;
@@ -181,6 +195,10 @@
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
             }else if(tmp == "bt_resatNick"){
+                if(memberInfo_responseDate.nickName == $("#bt_resatNick").data('userid')){
+                    alert("이미 초기화된 닉네임 입니다. 닉네임 초기화가 불가능합니다.");
+                    return;
+                }
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
                     obj.nickName = $("#bt_resatNick").data('userid');
                     sendNoti = 0;
@@ -188,16 +206,28 @@
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
             }else if(tmp == "bt_phon"){
+                if(memberInfo_responseDate.phoneNum == $("#txt_phon").val().replace(/-/gi, "")){
+                    alert("동일한 전화번호 입니다. 변경할 전화번호를 입력해주세요.");
+                    return;
+                }
                 if(confirm("연락처를 변경 하시겠습니까?")) {
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 0;
                 }else return;
             }else if(tmp == "bt_birth"){
+                if(memberInfo_responseDate.birthDate.substr(0, 10) == $("#txt_birth").val()){
+                    alert("생년월일을 변경해주세요.");
+                    return;
+                }
                 if(confirm("생년월일을 변경 하시겠습니까?")) {
                     obj.birthDate = $("#txt_birth").val();
                     sendNoti = 0;
                 }else return;
             }else if(tmp == "bt_gender"){
+                if(memberInfo_responseDate.memSex == $('input[name="memSex"]:checked').val()){
+                    alert("성별을 변경해 주세요.");
+                    return;
+                }
                 if(confirm("성별을 변경 하시겠습니까?")) {
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     sendNoti = 0;
@@ -267,9 +297,6 @@
         $('#member_detailFrm').addClass("show");
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
 
-        console.log("@@@@@@@@@@@@@@@@@@@@@@ : " + tmp);
-        console.log("@@@@@@@@@@@@@@@@@@@@@@ : " + memNo);
-
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
@@ -279,7 +306,6 @@
                 data.slctType = "1";
             }
         }
-        console.log(dtList_info_detail_data);
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
@@ -355,6 +381,7 @@
             <th>회원상태</th>
             <td style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
+                {{{block}}}
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
                 <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
             </td>
@@ -390,8 +417,8 @@
             <th>로그인 아이디</th>
             <td colspan="3" style="text-align: left">
                 <div id="div_socialId">
-                    <input type="text" class="form-control" id="txt_socialId" style="width: 90%;" value="{{socialId}}">
-                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                    <input type="text" class="form-control" id="txt_socialId" style="width: 50%;" value="{{socialId}}">
+                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                 </div>
             </td>
             <th>보유별</th>
@@ -400,8 +427,9 @@
         <tr>
             <th>연락처</th>
             <td colspan="3" style="text-align: left">
-                <input type="text" class="form-control" id="txt_phon" style="width: 90%;" value="{{phoneNum}}">
-                <button type="button" id="bt_phon" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                <input type="text" class="form-control" id="txt_phon" style="width: 50%;" value="{{phoneNum}}">
+                <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{certification}}
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
             <td style="text-align: left">

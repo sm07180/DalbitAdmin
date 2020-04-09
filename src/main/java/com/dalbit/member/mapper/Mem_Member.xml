@@ -16,6 +16,16 @@
         call rd_admin.sp_admin_member_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callMemberCertification" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
+        /* M_Member.xml - callMemberCertification */
+        select comm_company from rd_data.tb_member_certification where mem_no=#{mem_no}
+    </select>
+
+    <select id="callMemberBlock" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
+        /* M_Member.xml - callMemberBlock */
+        select block_day,block_end_date From rd_data.tb_member_basic where mem_no=#{mem_no}
+    </select>
+
     <select id="callNickNameCheck" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         /* M_Member.xml - callNickNameCheck */
       call rd_data.sp_checkDuplicateNickName(#{nickName, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
@@ -40,6 +50,10 @@
         /* M_Member.xml - callMemberSocialIdEditor */
         update rd_data.tb_member_basic set mem_id=#{socialId} where mem_no=#{mem_no}
     </update>
+    <insert id="callMemberEditHistoryAdd" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberEditHistoryAdd */
+        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents, op_name, last_upd_date ) values ( #{mem_no}, #{editContents}, #{opName}, now())
+    </insert>
 
     <update id="callMemberStateEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberStateEditor */

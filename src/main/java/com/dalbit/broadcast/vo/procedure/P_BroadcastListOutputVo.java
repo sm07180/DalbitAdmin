@@ -48,7 +48,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;
-        this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH.mm.ss");
+        this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH:mm:ss");
     }
 }
 

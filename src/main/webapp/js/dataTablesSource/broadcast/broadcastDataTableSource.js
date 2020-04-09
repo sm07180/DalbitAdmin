@@ -8,7 +8,7 @@ var BroadcastDataTableSource = {
             {'title': '방송제목', 'data': 'title','width' : '200px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
-            {'title': '프로필이미지', 'data': 'dj_profileImage', 'render' : function(data, type, row){
+            {'title': '프로필이미지', 'data': 'dj_profileImage', 'width' : '80px', 'render' : function(data, type, row){
                     return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
                             'onclick="fullSize_live(this.src)"/>';
                 }},
@@ -273,7 +273,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/broadcast/editHist'
         , 'columns': [
             {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
-            {'title': '수정 내용', 'data': 'editContents','width':'900px', 'className' : 'text-left'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px'},
             {'title': '처리자명', 'data': 'opName','width':'100px'},
         ]
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
@@ -284,7 +284,7 @@ var BroadcastDataTableSource = {
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
             {'title': '등록 관리자', 'data': 'opName','width':'100px'},
-            {'title': '운영자 메모 내용', 'data': 'memo', 'className' : 'text-left'},
+            {'title': '운영자 메모 내용', 'data': 'memo'},
         ]
     },
 }

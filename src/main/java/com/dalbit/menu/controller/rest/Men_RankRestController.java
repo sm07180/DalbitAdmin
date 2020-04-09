@@ -1,6 +1,8 @@
 package com.dalbit.menu.controller.rest;
 
 import com.dalbit.menu.service.Men_RankService;
+import com.dalbit.menu.vo.DjRankingVo;
+import com.dalbit.menu.vo.FanRankingVo;
 import com.dalbit.menu.vo.MainDjRankingVo;
 import com.dalbit.menu.vo.MainFanRankingVo;
 import com.dalbit.menu.vo.procedure.P_MainDjRankingVo;
@@ -10,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,21 +30,31 @@ public class Men_RankRestController {
     Men_RankService menRankService;
 
 
+//    @RequestMapping("djRankList")
+//    public String djRankList(@Valid MainDjRankingVo mainDjRankingVo, BindingResult bindingResult, HttpServletRequest request){
+//
+//        P_MainDjRankingVo apiData = new P_MainDjRankingVo(mainDjRankingVo, request);
+//
+//        String result = menRankService.callMainDjRanking(apiData);
+//        return result;
+//    }
+
     @RequestMapping("djRankList")
-    public String djRankList(@Valid MainDjRankingVo mainDjRankingVo, BindingResult bindingResult, HttpServletRequest request){
-
-        P_MainDjRankingVo apiData = new P_MainDjRankingVo(mainDjRankingVo, request);
-
-        String result = menRankService.callMainDjRanking(apiData);
-        return result;
+    public String djRankList(DjRankingVo djRankingVo) {
+        return menRankService.getMainDjRankingList(djRankingVo);
     }
 
+//    @RequestMapping("fanRankList")
+//    public String fanRankList(@Valid MainFanRankingVo mainFanRankingVo, BindingResult bindingResult, HttpServletRequest request){
+//
+//        P_MainFanRankingVo apiData = new P_MainFanRankingVo(mainFanRankingVo, request);
+//
+//        String result = menRankService.callMainFanRanking(apiData);
+//        return result;
+//    }
+
     @RequestMapping("fanRankList")
-    public String fanRankList(@Valid MainFanRankingVo mainFanRankingVo, BindingResult bindingResult, HttpServletRequest request){
-
-        P_MainFanRankingVo apiData = new P_MainFanRankingVo(mainFanRankingVo, request);
-
-        String result = menRankService.callMainFanRanking(apiData);
-        return result;
+    public String fanRankList(FanRankingVo fanRankingVo) {
+        return menRankService.getMainFanRankingList(fanRankingVo);
     }
 }

@@ -6,6 +6,8 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.menu.dao.Men_RankDao;
+import com.dalbit.menu.vo.DjRankingVo;
+import com.dalbit.menu.vo.FanRankingVo;
 import com.dalbit.menu.vo.MainDjRankingOutVo;
 import com.dalbit.menu.vo.MainFanRankingOutVo;
 import com.dalbit.menu.vo.procedure.P_MainDjRankingVo;
@@ -31,7 +33,7 @@ public class Men_RankService {
     GsonUtil gsonUtil;
 
     /**
-     * DJ 랭킹
+     * DJ 랭킹 (프로시저)
      */
     public String callMainDjRanking(P_MainDjRankingVo pMainDjRankingVo) {
         ProcedureVo procedureVo = new ProcedureVo(pMainDjRankingVo);
@@ -60,7 +62,20 @@ public class Men_RankService {
     }
 
     /**
-     * 팬 랭킹
+     * DJ 랭킹
+     */
+    public String getMainDjRankingList(DjRankingVo djRankingVo) {
+        djRankingVo.setRankType(DalbitUtil.isEmpty(djRankingVo.getRankType()) ? 1 : djRankingVo.getRankType());
+
+        int getMainDjRankingListCnt = menRankDao.getMainDjRankingListCnt(djRankingVo);
+        djRankingVo.setTotalCnt(getMainDjRankingListCnt);
+        List<DjRankingVo> djRankingList = menRankDao.getMainDjRankingList(djRankingVo);
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.메인_DJ랭킹조회_성공, djRankingList, new PagingVo(djRankingVo.getTotalCnt(), djRankingVo.getPageStart(), djRankingVo.getPageCnt())));
+        return result;
+    }
+
+    /**
+     * 팬 랭킹 (프로시저)
      */
     public String callMainFanRanking(P_MainFanRankingVo pMainFanRankingVo) {
         ProcedureVo procedureVo = new ProcedureVo(pMainFanRankingVo);
@@ -84,6 +99,20 @@ public class Men_RankService {
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.메인_팬랭킹조회_실패));
         }
+        return result;
+    }
+
+    /**
+     * 팬 랭킹
+     */
+    public String getMainFanRankingList(FanRankingVo fanRankingVo) {
+        fanRankingVo.setRankType(DalbitUtil.isEmpty(fanRankingVo.getRankType()) ? 1 : fanRankingVo.getRankType());
+
+        int getMainFanRankingListCnt = menRankDao.getMainFanRankingListCnt(fanRankingVo);
+        fanRankingVo.setTotalCnt(getMainFanRankingListCnt);
+        List<FanRankingVo> fanRankingList = menRankDao.getMainFanRankingList(fanRankingVo);
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.메인_팬랭킹조회_성공, fanRankingList, new PagingVo(fanRankingVo.getTotalCnt(), fanRankingVo.getPageStart(), fanRankingVo.getPageCnt())));
+
         return result;
     }
 }

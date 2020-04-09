@@ -71,8 +71,10 @@
     var mem_no;
     var dj_nickname;
     var detailData;
+    var broadCast_responseData
     function info_sel_success(dst_id, response, param) {
         dalbitLog(response);
+        broadCast_responseData = response.data;
         $('#detailFrm').addClass("hid");
         room_no = param.room_no;
         response.data.room_no = param.room_no;
@@ -171,7 +173,6 @@
             tmp = tmp.split("_");
             tmp = tmp[1];
         }
-        var dtList_info;
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
@@ -207,32 +208,31 @@
             getInfoDetail("bt_adminMemoList", "운영자메모");
             util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
         }else {
-
             if (tmp == "bt_img") {
+                if(broadCast_responseData.backgroundImage.indexOf("/bg_3/roombg") > -1){
+                   alert("이미 기본 배경이미지 입니다.");
+                   return;
+                }
                 if (confirm('배경 이미지를 초기화하시겠습니까?')) {
                     obj.backgroundImage = "backImageDel";
-                    // obj.notiMeno = broadCastMessage.backgroundImgReset;
                 } else return;
             } else if (tmp == "bt_msgWelcom") {
-                if ($("#welcomeMsg").val() == ("환영합니다!! 여기는 " + detailData.dj_nickName + " 님의 방송방입니다.")) {
+                if (broadCast_responseData.welcomeMsg == "환영합니다!! 여기는 " + detailData.dj_nickName + " 님의 방송방입니다.") {
                     alert("이미 초기화된 환영 메시지입니다.");
                     return;
                 } else {
-                    if (confirm('환영 인사말을 초기화 하시겠습니까?')) {
-                        $("#welcomeMsg").val("환영합니다!! 여기는 " + detailData.dj_nickName + " 님의 방송방입니다.");
-                        obj.welcomMsg = $("#welcomeMsg").val()
-                        // obj.notiMeno = broadCastMessage.welcomeMsg;;
+                    if (confirm('초기화하시겠습니까?')) {
+                        obj.welcomMsg = "환영합니다!! 여기는 " + detailData.dj_nickName + " 님의 방송방입니다.";
                     } else return;
                 }
             } else if (tmp == "bt_title") {
-                if ($("#title").val() == (detailData.dj_nickName + " 님의 방송입니다.")) {
+                console.log();
+                if (broadCast_responseData.title == detailData.dj_nickName + " 님의 방송입니다.") {
                     alert("이미 초기화된 방송 제목입니다.");
                     return;
                 } else {
                     if (confirm('초기화하시겠습니까?')) {
-                        $("#title").val(detailData.dj_nickName + " 님의 방송입니다.");
-                        obj.title = $("#title").val();
-                        // obj.notiMeno = broadCastMessage.titleReset;
+                        obj.title = detailData.dj_nickName + " 님의 방송입니다.";
                     } else return;
                 }
             } else if (tmp == "bt_freezing") {
@@ -347,7 +347,6 @@
         dalbitLog(response);
         $('#entryModal').modal('hide');
         $('#entry_message').val("");
-        dtList_info.reload();
 
         if (dst_id == "adminMemoAdd") {
             editEntry = dst_id;

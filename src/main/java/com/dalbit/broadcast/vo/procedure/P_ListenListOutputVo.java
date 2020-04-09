@@ -41,19 +41,19 @@ public class P_ListenListOutputVo extends PagingVo {
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;
-        this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH.mm.ss");
+        this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH:mm:ss");
     }
     public void setEnd_date(Date start_date){
         this.end_date = start_date;
-        this.endDateFormat = DalbitUtil.convertDateFormat(end_date, "yyyy.MM.dd HH.mm.ss");
+        this.endDateFormat = DalbitUtil.convertDateFormat(end_date, "yyyy.MM.dd HH:mm:ss");
     }
     public void setAuth_start_date(Date auth_start_date){
         this.auth_start_date = auth_start_date;
-        this.authStartDateFormat = DalbitUtil.convertDateFormat(auth_start_date, "yyyy.MM.dd HH.mm.ss");
+        this.authStartDateFormat = DalbitUtil.convertDateFormat(auth_start_date, "yyyy.MM.dd HH:mm:ss");
     }
     public void setAuth_end_date(Date auth_end_date){
         this.auth_end_date = auth_end_date;
-        this.authEndDateFormat = DalbitUtil.convertDateFormat(auth_end_date, "yyyy.MM.dd HH.mm.ss");
+        this.authEndDateFormat = DalbitUtil.convertDateFormat(auth_end_date, "yyyy.MM.dd HH:mm:ss");
     }
 }
 

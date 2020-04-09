@@ -65,25 +65,19 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(10);
         dtList_info_detail.createDataTable(listen_summary_table);
-        dtList_info_detail.reload();
 
-        initDataTableTop_select_listen(tmp)
-    }
-
-    function initDataTableTop_select_listen(tmp){
         var table_sel = '<span name="state" id="state" onchange="force_sel_change()"></span>';
         var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
 
         $("#" + tmp).find("#main_table").find(".top-left").addClass("no-padding").append(table_sel);
         $("#" + tmp).find("#main_table").find(".footer-left").append(forcedBtn);
-        //
         $("#state").html(util.getCommonCodeSelect(-1, state));
         forcedEventInit();
     }
 
     function force_sel_change(){
         tmp_sortState = $("select[name='state']").val();
-        dtList_info_detail.reload();
+        dtList_info_detail.reload(listen_summary_table);
     }
     function listen_summary_table(json){
         var template = $("#listen_tableSummary").html();
@@ -95,6 +89,7 @@
         }
         var html = templateScript(data);
         $("#listen_summaryArea").html(html);
+
     }
     function forcedEventInit(){
         $("#btn_forced").on("click", function () { //강제퇴장
@@ -175,8 +170,7 @@
         dalbitLog(response);
         $('#forcedModal').modal('hide');
         $('#forced_message').val("");
-        dtList_info_detail.createDataTable(listen_summary_table);
-        dtList_info_detail.reload();
+        dtList_info_detail.reload(listen_summary_table);
     }
 </script>
 
