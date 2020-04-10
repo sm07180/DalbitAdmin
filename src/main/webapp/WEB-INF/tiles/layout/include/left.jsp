@@ -15,7 +15,7 @@
             <ul class="main-menu">
 
                 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
-                    <c:if test="${menu.menu_name eq '메인'}">
+                    <c:if test="${menu.menu_name eq '메인' or menu.menu_name eq '구글 Analytics'}">
                         <c:set var="isContainSubmenu" value="${0 < fn:length(menu.twoDepth)}" />
                         <c:set var="isSubmenuView" value="false" />
 
@@ -28,11 +28,16 @@
                             </c:if>
                         </c:forEach>
 
-                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''} ${isContainSubmenu ? '' : 'page'} ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''} ${isSubmenuView ? 'active': ''}"
+                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''}
+                                   ${isContainSubmenu ? '' : 'page'}
+                                   ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''}
+                                   ${isSubmenuView ? 'active': ''}
+                                  "
                             data-isread="${menu.is_read}" data-isinsert="${menu.is_insert}" data-isdelete="${menu.is_delete}"
                         >
 
-                            <a href="${menu.menu_url}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
+                            <a href="${menu.menu_url}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
+
                                 <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
                                 <c:if test="${isContainSubmenu}">
                                     <i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'left'}"></i>
@@ -77,7 +82,7 @@
                 </c:forEach>
 
                 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
-                    <c:if test="${menu.menu_name ne '메인'}">
+                    <c:if test="${menu.menu_name ne '메인' and menu.menu_name ne '구글 Analytics'}">
                         <c:set var="isContainSubmenu" value="${0 < fn:length(menu.twoDepth)}" />
                         <c:set var="isSubmenuView" value="false" />
 
