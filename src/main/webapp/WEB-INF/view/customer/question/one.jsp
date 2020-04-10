@@ -29,7 +29,7 @@
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
         var add_file_cnt = response.data.add_file.split(",");
-        response.data["add_file_cnt"] = add_file_cnt.length;
+        response.data["add_file_cnt"] = common.isEmpty(response.data.add_file) ? 0 : add_file_cnt.length;
 
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -37,6 +37,7 @@
         var html=templateScript(context);
         $("#question_detailFrm").html(html);
 
+        console.log("###############" + response.data.add_file);
         console.log("--------------------------------------");
         console.log(html);
         console.log("--------------------------------------");
@@ -108,9 +109,21 @@
 
     $(document).on('click', '#bt_faq', function() {
         $('button.btn-codeview').click();
-        $('#editor').summernote('code', $('select[name="faqSub"]').find('option:selected').data('answer'));
+        $('#editor').summernote('code', $('#editor').summernote('code') + '<p>' + $('select[name="faqSub"]').find('option:selected').data('answer')) + '</p>';
         $('button.btn-codeview').click();
-    })
+    });
+
+    $(document).on('click', '.bt_baro', function() {
+
+        dalbitLog($(this).text() + ' 바로가기');
+        $('button.btn-codeview').click();
+
+
+        // 버튼 만드는 처리
+        var button = '<p><button><a href=' + $(this).data('url') + '>' + $(this).text() + ' 바로가기' + '</a></button><p>';
+        $('#editor').summernote('code', $('#editor').summernote('code') + button);
+        $('button.btn-codeview').click();
+    });
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -180,7 +193,11 @@
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
                         <td colspan="3">
+                            <%--{{#equal add_file ''}}--%>
+                            <%-- - --%>
+                            <%--{{else}}--%>
                             <img src="{{renderImage add_file}}" width="auto" height="100px" class="_imageFullPop" />
+                            <%--{{/equal}}--%>
                         </td>
                     </tr>
 
@@ -192,36 +209,38 @@
                         <td><button type="button" id="bt_faq" class="btn-sm btn btn-default">적용</button></td>
 
                         <th>바로가기버튼</th>
-                        <td colspan="3">
-                            <%--<button type="button" id="bt_moon" class="btn-sm btn btn-default" data-url="https://www.dalibitlive.com/달결제">달결제</button>
-                            <button type="button" id="bt_star" class="btn-sm btn btn-default">별환전</button>
-                            <button type="button" id="bt_wallet" class="btn-sm btn btn-default">내지갑</button>
-                            <button type="button" id="bt_profile" class="btn-sm btn btn-default">사진등록</button>
-                            <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default">방송방법</button>--%>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" id="moon" name="inline-radio" value='1' checked="checked" data-url="https://www.dalibitlive.com/"/>
-                                <span><i></i>달결제</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" id="star" name="inline-radio" value='2' data-url="https://www.dalibitlive.com/"/>
-                                <span><i></i>별환전</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" id="wallet" name="inline-radio" value='3' data-url="https://www.dalibitlive.com/" />
-                                <span><i></i>내지갑</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" id="profile" name="inline-radio" value='4' data-url="https://www.dalibitlive.com/"/>
-                                <span><i></i>사진등록</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" id="broadRoot" name="inline-radio" value='5' data-url="https://www.dalibitlive.com/"/>
-                                <span><i></i>방송방법</span>
-                            </label>
+                        <td colspan="4">
+                            <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/moon">달결제</button>
+                            <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/star">별환전</button>
+                            <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/wallet">내지갑</button>
+                            <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/profile">사진등록</button>
+                            <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/bro">방송방법</button>
+
                         </td>
+                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
+                                <%--<input type="radio" id="moon" name="inline-radio" value='1' checked="checked" data-url="https://www.dalibitlive.com/"/>--%>
+                                <%--<span><i></i>달결제</span>--%>
+                            <%--</label>--%>
+                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
+                                <%--<input type="radio" id="star" name="inline-radio" value='2' data-url="https://www.dalibitlive.com/"/>--%>
+                                <%--<span><i></i>별환전</span>--%>
+                            <%--</label>--%>
+                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
+                                <%--<input type="radio" id="wallet" name="inline-radio" value='3' data-url="https://www.dalibitlive.com/" />--%>
+                                <%--<span><i></i>내지갑</span>--%>
+                            <%--</label>--%>
+                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
+                                <%--<input type="radio" id="profile" name="inline-radio" value='4' data-url="https://www.dalibitlive.com/"/>--%>
+                                <%--<span><i></i>사진등록</span>--%>
+                            <%--</label>--%>
+                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
+                                <%--<input type="radio" id="broadRoot" name="inline-radio" value='5' data-url="https://www.dalibitlive.com/"/>--%>
+                                <%--<span><i></i>방송방법</span>--%>
+                            <%--</label>--%>
+                        <%--</td>
                         <td>
                                 <button type="button" id="bt_baro" class="btn-sm btn btn-default">적용</button>
-                        </td>
+                        </td>--%>
                     </tr>
                 </tbody>
             </table>
