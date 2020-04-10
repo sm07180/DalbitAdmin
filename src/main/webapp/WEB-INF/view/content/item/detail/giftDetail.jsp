@@ -52,10 +52,10 @@
                 var type = this.value;
 
                 if(type == "001"){
-                    fnc_giftDetail.target.find("input[name=banner_idx]").show();
+                    fnc_giftDetail.target.find("input[name=item_code]").show();
                 }else{
-                    fnc_giftDetail.target.find("input[name=banner_idx]").hide();
-                    fnc_giftDetail.target.find("input[name=banner_idx]").val("");
+                    fnc_giftDetail.target.find("input[name=item_code]").hide();
+                    fnc_giftDetail.target.find("input[name=item_code]").val("");
                 }
             });
 
@@ -95,16 +95,7 @@
             var platformCode = detailData.platform.split("");
             for(var i = 0; i < platformCode.length; i++){
                 if(platformCode[i] == "1"){
-                    if(i == 0 || i == 1)    // 110
-                    {
-                        fnc_giftDetail.target.find("#platform1").attr("checked", true);
-                        fnc_giftDetail.target.find("input[name=banner_idx]").hide();
-                    }
-
-                    if(i == 2){             //001
-                        fnc_giftDetail.target.find("#platform2").attr("checked", true);
-                        fnc_giftDetail.target.find("input[name=banner_idx]").show();
-                    }
+                    fnc_giftDetail.target.find("#platform"+(i+1)).attr("checked", true);
                 }
             }
 
@@ -220,6 +211,18 @@
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
 
+            //platform
+            var platformCnt = fnc_giftDetail.target.find("input[name=platform]").length;
+            var platform = "";
+            for(var i = 0; i < platformCnt; i++){
+                if(fnc_giftDetail.target.find("#platform"+(i+1)).is(":checked")){
+                    platform += "1";
+                }else{
+                    platform += "0";
+                }
+            }
+            resultJson['platform'] = platform;
+
             //item_type
             var item_typeCnt = fnc_giftDetail.target.find("input[name=item_type]").length;
             var item_type = "";
@@ -257,7 +260,7 @@
 
             if(data.platform == "001" && common.isEmpty(data.item_code)){
                 alert("아이템 코드를 입력하여 주시기 바랍니다.");
-                fnc_giftDetail.target.find("input[name=banner_idx]").focus();
+                fnc_giftDetail.target.find("input[name=item_code]").focus();
                 return false;
             }
 
@@ -269,19 +272,25 @@
 
             if(common.isEmpty(data.play_time)){
                 alert("플레이타임을 입력하여 주시기 바랍니다.");
-                fnc_giftDetail.target.find("input[name=item_price]").focus();
+                fnc_giftDetail.target.find("input[name=play_time]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.item_type) || data.item_type == "000"){
+                alert("아이템타입을 선택하여 주시기 바랍니다.");
+                fnc_giftDetail.target.find("input[name=item_type]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.byeol)){
+                alert("지급 별 수량을 입력하여 주시기 바랍니다.");
+                fnc_giftDetail.target.find("input[name=byeol]").focus();
                 return false;
             }
 
             if(common.isEmpty(data.item_price)){
                 alert("아이템 가격을 입력하여 주시기 바랍니다.");
                 fnc_giftDetail.target.find("input[name=item_price]").focus();
-                return false;
-            }
-
-            if(common.isEmpty(data.discount_rate) || (data.discount_rate < 0 || data.discount_rate > 100)){
-                alert("아이템 할인율을 확인하여 주시기 바랍니다.");
-                fnc_giftDetail.target.find("input[name=discount_rate]").focus();
                 return false;
             }
 
@@ -337,7 +346,7 @@
                     <td rowspan="2">{{rowNum}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}</td>
+                    <td colspan="2" rowspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2' 'Y' 'platform'}}}</td>
 
                     <th rowspan="2">아이템 코드</th>
                     <td colspan="3" rowspan="2">
@@ -362,36 +371,49 @@
                     <td colspan="2">{{{getCommonCodeRadio view_yn 'content_viewOn' 'N' 'view_yn'}}}</td>
                 </tr>
                 <tr>
+                    <th>구분</th>
+                    <td colspan="2">{{{getCommonCodeSelect item_itemSlct 'item_itemSlct'}}}</td>
+
                     <th>사용영역</th>
-                    <td colspan="3">{{{getCommonCodeSelect use_area 'item_useArea' 'N' 'use_area'}}}</td>
+                    <td colspan="2">{{{getCommonCodeSelect use_area 'item_useArea' 'N' 'use_area'}}}</td>
 
                     <th>파일등록 필드</th>
-                    <td colspan="3">{{{getCommonCodeSelect file_slct 'item_fileField' 'N' 'file_slct'}}}</td>
+                    <td colspan="2">{{{getCommonCodeSelect file_slct 'item_fileField' 'N' 'file_slct'}}}</td>
 
                     <th>플레이타임 제한</th>
-                    <td colspan="3">
+                    <td colspan="2">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="gift-play_time" name="play_time" placeholder="아이템 노출 시간" value="{{play_time}}" style="width:70%;"/>
+                            <input type="text" class="form-control" id="gift-play_time" name="play_time" placeholder="아이템 노출 시간" value="{{play_time}}" style="width:70%;" onkeydown="common.inputFilterNumber(event)" />
                             <span>(초)</span>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <th>타입</th>
-                    <td colspan="5">{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
+                    <td colspan="3">{{{getCommonCodeHorizontalCheck item_type 'item_itemType'}}}</td>
+
+                    <th>지급 수량 (별)</th>
+                    <td colspan="3">
+                        <div class="form-inline">
+                            <input type="text" class="form-control" id="exchange-byeol" name="byeol" placeholder="지급될 별 수량." value="{{byeol}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
+                            <span>(별)</span>
+                        </div>
+                    </td>
 
                     <th>가격 (달)</th>
-                    <td colspan="5">
+                    <td colspan="3">
                         <div class="form-inline">
                             <input type="text" class="form-control" id="gift-item_price" name="item_price" placeholder="아이템 구매 달 수량." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(달)</span>
                         </div>
                     </td>
                 </tr>
+                <%--
                 <tr>
                     <th>할인율</th>
                     <td colspan="11">{{{getCommonCodeRadio discount_rate 'item_discount'}}}</td>
                 </tr>
+                --%>
                 <tr>
                     <th>Webp 이미지 URL</th>
                     <td colspan="5">

@@ -51,7 +51,6 @@ var fnc_chargeList = {
 
 
         this.initDataTable();
-        this.initEvent();
     },
 
 

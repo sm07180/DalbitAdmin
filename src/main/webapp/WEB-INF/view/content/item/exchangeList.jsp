@@ -51,7 +51,6 @@ var fnc_exchangeList = {
 
 
         this.initDataTable();
-        this.initEvent();
     },
 
 

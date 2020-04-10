@@ -160,6 +160,13 @@ var item_itemType = [
     , new COMMON_CODE('limit', '3', '한정')
 ];
 
+var item_itemSlct = [
+    new COMMON_CODE(null, 'item_slct', '아이템 구분')
+    , new COMMON_CODE('gift', '1', '방송방선물')
+    , new COMMON_CODE('use', '2', '방송방사용')
+    , new COMMON_CODE('dal', '3', '달 선물')
+];
+
 var item_useArea = [
     new COMMON_CODE(null, 'useArea', '사용영역')
     , new COMMON_CODE('default', '0', '기본')

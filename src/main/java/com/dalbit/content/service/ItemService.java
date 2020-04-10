@@ -379,14 +379,14 @@ public class ItemService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_성공));
         } else if(Status.선물아이템수정_아이템코드미입력.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_아이템코드미입력));
-        } else if(Status.선물아이템등록_플랫폼미선택.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_플랫폼미선택));
-        } else if(Status.선물아이템등록_아이템구분미선택.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_아이템구분미선택));
-        } else if(Status.선물아이템등록_아이템가격미입력.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_아이템가격미입력));
-        } else if(Status.선물아이템등록_지급별수량미입력.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템등록_지급별수량미입력));
+        } else if(Status.선물아이템수정_플랫폼미선택.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_플랫폼미선택));
+        } else if(Status.선물아이템수정_아이템구분미선택.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_아이템구분미선택));
+        } else if(Status.선물아이템수정_아이템가격미입력.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_아이템가격미입력));
+        } else if(Status.선물아이템수정_지급별수량미입력.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_지급별수량미입력));
         } else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.선물아이템수정_에러));
         }

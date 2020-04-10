@@ -51,7 +51,6 @@ var fnc_giftList = {
 
 
         this.initDataTable();
-        this.initEvent();
     },
 
 
@@ -101,11 +100,11 @@ var fnc_giftList = {
 
 
     initEvent(){
-        this.target.find("#btn_insert").on("click", function () { //등록
+        this.target.find("#btn_insert").off("click").on("click", function () { //등록
             fnc_giftList.insertEvent();
         })
 
-        this.target.find("#btn_delete").on("click", function () { //삭제
+        this.target.find("#btn_delete").off("click").on("click", function () { //삭제
             fnc_giftList.deleteEvent();
         })
     },

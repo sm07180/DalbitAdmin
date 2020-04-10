@@ -54,10 +54,10 @@
                 var type = this.value;
 
                 if(type == "001"){
-                    fnc_exchangeDetail.target.find("input[name=banner_idx]").show();
+                    fnc_exchangeDetail.target.find("input[name=item_code]").show();
                 }else{
-                    fnc_exchangeDetail.target.find("input[name=banner_idx]").hide();
-                    fnc_exchangeDetail.target.find("input[name=banner_idx]").val("");
+                    fnc_exchangeDetail.target.find("input[name=item_code]").hide();
+                    fnc_exchangeDetail.target.find("input[name=item_code]").val("");
                 }
             });
 
@@ -100,12 +100,12 @@
                     if(i == 0 || i == 1)    // 110
                     {
                         fnc_exchangeDetail.target.find("#platform1").attr("checked", true);
-                        fnc_exchangeDetail.target.find("input[name=banner_idx]").hide();
+                        fnc_exchangeDetail.target.find("input[name=item_code]").hide();
                     }
 
                     if(i == 2){             //001
                         fnc_exchangeDetail.target.find("#platform2").attr("checked", true);
-                        fnc_exchangeDetail.target.find("input[name=banner_idx]").show();
+                        fnc_exchangeDetail.target.find("input[name=item_code]").show();
                     }
                 }
             }
@@ -260,7 +260,7 @@
 
             if(data.platform == "001" && common.isEmpty(data.item_code)){
                 alert("아이템 코드를 입력하여 주시기 바랍니다.");
-                fnc_exchangeDetail.target.find("input[name=banner_idx]").focus();
+                fnc_exchangeDetail.target.find("input[name=item_code]").focus();
                 return false;
             }
 
