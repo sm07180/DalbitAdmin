@@ -82,29 +82,21 @@
     }
 
     $(document).on('click', '#bt_declaration', function(){
-        var validationChk = false;
-        if(confirm('처리하시겠습니까?')) {
+        if (($('input:radio[name="opCode"]:checked').val() == 1)) {  //정상일 경우
+            //????
+        } else if ($('input:radio[name="opCode"]:checked').val() == 0) {    //미처리일 경우
+            alert('미처리 조치입니다. 신고조치 처리해주십시오.');
+            return false;
 
-            if (($('input:radio[name="opCode"]:checked').val() == 1)) {  //정상일 경우
-                validationChk = true;
-
-            } else if ($('input:radio[name="opCode"]:checked').val() == 0) {    //미처리일 경우
-                alert('미처리 조치입니다. 신고조치 처리해주십시오.');
+        } else {
+            if (common.isEmpty($('input:checkbox[name="declaration_Message"]:checked').val())) {    //조치 선택
+                alert('제재 조치의 사유를 선택해주십시오.');
                 return false;
-
-            } else {
-                if (common.isEmpty($('input:checkbox[name="declaration_Message"]:checked').val())) {    //조치 선택
-                    alert('제재 조치의 사유를 선택해주십시오.');
-                    return false;
-                } else {
-                    validationChk = true;
-                }
             }
-
+        }
+        if(confirm('처리하시겠습니까?')) {
             // 정상일 경우 & 제재, 조치사유 선택완료
-            if(validationChk){
-                util.getAjaxData("declaration", "/rest/customer/declaration/operate", declarationFormData(), fn_declaration_success);
-            }
+            util.getAjaxData("declaration", "/rest/customer/declaration/operate", declarationFormData(), fn_declaration_success);
         }
     });
 
@@ -164,16 +156,21 @@
         // 조치선택 체크박스 클릭할 때 마다 {{message}} 여기에다가 <br />붙여서 replace..
         var msg = '';
         $('input:checkbox[name="declaration_Message"]:checked').each(function() {
-            msg += $(this).val() + '<br />';
+            if($(this).val() != '기타 운영자 직접작성'){
+                msg += $(this).val() + '<br />';
+            }
         });
 
         msgValue = msgValue.replace(/{{name}}/gi, strName)
             .replace(/{{nickName}}/gi, detailData.reported_mem_nick)
             .replace(/{{message}}/gi, msg)
             .replace(/{{timestamp}}/gi, timestamp);
+
+        $("#notiMemo").summernote('code', msgValue);
+        $("#notiContents").val(msgTitle);
     }
 
-    $(document).on('click', 'input:radio[name="declaration_sendNoti"]',function(title, content) {
+    /*$(document).on('click', 'input:radio[name="declaration_sendNoti"]',function(title, content) {
         if($(this).val() == 1) {
             $("#notiMemo").summernote('code', msgValue);
             $("#notiContents").val(msgTitle);
@@ -181,8 +178,7 @@
         } else {
             //$('#declaration_editor').hide();
         }
-    });
-
+    });*/
 
     // declarationCheck();
     function declarationCheck(){
@@ -354,7 +350,7 @@
             </table>
 
             <%-- 에디터 --%>
-            <div class="widget" id="declaration_editor" style="display:none;">
+            <div class="widget" id="declaration_editor">
                 <input type="hidden" id ="notiContents" name="notiContents">
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 신고 시 조치내용 </h3>

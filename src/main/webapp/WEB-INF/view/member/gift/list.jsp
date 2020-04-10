@@ -31,7 +31,6 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(10);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
 
         initDataTableTop_select_gift(tmp);
     }

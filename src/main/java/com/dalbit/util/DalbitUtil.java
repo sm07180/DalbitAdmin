@@ -89,6 +89,12 @@ public class DalbitUtil {
                         strPwd.append(rnd.nextInt(10));
                     }
                 }
+            } else if(type.equals("e")){
+                char[] passwordTable =  {'!', '@', '#', '$', '%', '^', '&', '*','(', ')'};
+                Random random = new Random(System.currentTimeMillis());
+                for(i = 0; i < cnt; i++) {
+                    strPwd.append(Character.toString(passwordTable[random.nextInt(passwordTable.length)]));
+                }
             }
         }
 

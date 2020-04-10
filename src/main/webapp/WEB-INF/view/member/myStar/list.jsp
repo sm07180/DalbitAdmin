@@ -37,7 +37,6 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
     }
 
     function getHistory_myfanDetail(tmp) {     // 상세보기
@@ -48,7 +47,6 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
     }
 
 </script>

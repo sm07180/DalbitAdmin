@@ -20,6 +20,8 @@ public class LiveVo extends PagingVo {
     private int badge_popular;
     private int badge_newdj;
     private String mem_id;
+    private int level;
+    private String grade;
     private String mem_nick;
     private int money;
     private int byeol;

@@ -12,5 +12,8 @@
     <div class="container">
         <tiles:insertAttribute name="body" />
     </div>
+
+    <!-- 이미지 원본 보기 -->
+    <div id="fullSize_question"></div>
 </body>
 </html>

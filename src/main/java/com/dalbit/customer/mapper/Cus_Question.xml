@@ -14,4 +14,19 @@
         call rd_admin.sp_admin_service_center_qna_operate(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="getFaqGroupList" resultType="com.dalbit.customer.vo.FaqVo">
+        /* Cus_Question.xml - getFaqGroupList */
+        select slct_type
+        from rd_data.tb_service_center_faq
+        where view_on = 1
+        group by slct_type
+    </select>
+
+    <select id="getFaqSubList" parameterType="com.dalbit.customer.vo.FaqVo" resultType="com.dalbit.customer.vo.FaqVo">
+        /* Cus_Question.xml - getFaqSubList */
+        select *
+        from rd_data.tb_service_center_faq
+        where view_on = 1
+            and slct_type = #{slct_type}
+    </select>
 </mapper>

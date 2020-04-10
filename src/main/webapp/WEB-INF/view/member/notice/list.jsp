@@ -26,7 +26,6 @@
         dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
 
         var noteDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_noticeDel" style="margin-right: 3px;"/>'
         $("#" + tmp).find("#main_table").find(".footer-left").append(noteDelBtn);

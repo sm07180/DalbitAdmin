@@ -13,7 +13,6 @@
 <div id="fullSize_question"></div>
 
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
-
 <script>
     $(document).ready(function() {
 
@@ -50,11 +49,6 @@
         });
     }
 
-    function fullSize_question_file(url) {     // 이미지 full size
-        $("#fullSize_question").html(util.imageFullSize("fullSize_question_file",url));
-        $('#fullSize_question_file').modal('show');
-    }
-
     function memInfo(memId, memNo){
         return util.memNoLink(memId, memNo);
     }
@@ -71,7 +65,7 @@
     function fn_insert_success(data, response, params){
         dalbitLog(response);
         alert(response.message);
-        dtList_info.reload();
+        dtList_info.reload(qusetion_summary_table);
 
         $("#question_detailFrm").empty();
     }
@@ -99,11 +93,11 @@
                         <th>회원번호</th>
                         <td>{{mem_no}}</td>
 
-                        <th rowspan="2">접수일시</th>
-                        <td rowspan="2">{{write_date}}</td>
+                        <th>접수일시</th>
+                        <td>{{write_date}}</td>
 
-                        <th>첨부파일</th>
-                        <td>{{add_file_cnt}} 건</td>
+                        <th>처리상태</th>
+                        <td>{{{getCommonCodeLabel state 'state'}}}</td>
                     </tr>
                     <tr>
                         <th>플랫폼</th>
@@ -118,8 +112,11 @@
                             <br/>{{mem_level}}/{{mem_grade}}
                         </td>
 
-                        <th>처리상태</th>
-                        <td>{{{getCommonCodeLabel state 'state'}}}</td>
+                        <th>처리일시</th>
+                        <td>{{op_date}}</td>
+
+                        <th>처리자명</th>
+                        <td>{{op_name}}</td>
                     </tr>
                     <tr>
                         <th colspan="2">문의제목</th>
@@ -128,11 +125,9 @@
                         <th>문의자<br />닉네임</th>
                         <td>{{mem_nick}}</td>
 
-                        <th>처리일시</th>
-                        <td>{{op_date}}</td>
+                        <th>문의자 이메일</th>
+                        <td colspan="3">{{email}}</td>
 
-                        <th>처리자명</th>
-                        <td>{{op_name}}</td>
                     </tr>
 
                     <tr>
@@ -141,16 +136,16 @@
                             <textarea class="form-control fit-table" rows="5">{{question_contents}}</textarea>
                         </td>
 
-                        <th>첨부파일</th>
+                        <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
                         <td colspan="3">
-                            <img src="{{renderImage add_file}}" width="auto" height="100px" onclick="fullSize_question_file(this.src)"/>
+                            <img src="{{renderImage add_file}}" width="auto" height="100px" class="_imageFullPop" />
                         </td>
                     </tr>
 
                     <tr>
                         <th colspan="2">매크로 답변하기</th>
-                        <td colspan="2">{{{getCommonCodeSelect question_type 'question_type'}}}</td>
                         <td colspan="2">{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
+                        <td colspan="2">{{{getCommonCodeSelect question_type 'question_type'}}}</td>
 
                         <th colspan="2">바로가기버튼</th>
                         <td colspan="4">

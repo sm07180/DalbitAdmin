@@ -109,7 +109,7 @@
         tmp_platform = $("select[name='platform']").val();
         tmp_browser = $("select[name='browser']").val();
 
-        dtList_info.reload();
+        dtList_info.reload(qusetion_summary_table);
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
