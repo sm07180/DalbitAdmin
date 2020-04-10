@@ -698,4 +698,19 @@ public class DalbitUtil {
         }
         return browser;
     }
+
+
+    /**
+     *  유니코드 디코딩
+     */
+    public static String uniDecode(String uni){
+        StringBuffer str = new StringBuffer();
+        for( int i= uni.indexOf("\\u") ; i > -1 ; i = uni.indexOf("\\u") ){// euc-kr(%u), utf-8(//u)
+            str.append( uni.substring( 0, i ) );
+            str.append( String.valueOf( (char)Integer.parseInt( uni.substring( i + 2, i + 6 ) ,16) ) );
+            uni = uni.substring( i +6);
+        }
+        str.append( uni );
+        return str.toString();
+    }
 }

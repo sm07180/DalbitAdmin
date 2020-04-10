@@ -1,5 +1,6 @@
 package com.dalbit.common.vo;
 
+import com.dalbit.util.DalbitUtil;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class ProcedureVo {
     public ProcedureVo(){}
 
     public ProcedureVo(Object paramVo){
-        setData(new Gson().toJson(paramVo));
+        setData(DalbitUtil.uniDecode(new Gson().toJson(paramVo)));
     }
 
     public ProcedureVo(Object paramVo, boolean isHtmlEscape){
