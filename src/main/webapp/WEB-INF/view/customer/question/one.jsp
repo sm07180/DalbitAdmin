@@ -129,7 +129,7 @@
                         <td colspan="4"><input type="text" class="form-control fit-table" value="{{question_title}}" /></td>
 
                         <th>문의자<br />닉네임</th>
-                        <td>{{mem_nick}} / {{email}}</td>
+                        <td>{{mem_nick}}</td>
 
                         <th>문의자 이메일</th>
                         <td colspan="3">{{email}}</td>
