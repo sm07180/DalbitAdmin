@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.BannerDao" >
+
+    <!-- 배너 -->
+    <sql id="bannerSelect">
+        SELECT
+            idx                         AS banner_idx
+            ,title                      AS title
+            ,view_type          AS view_type
+            ,sex                    AS sex
+            ,frequency_rate    AS frequency_rate
+            ,term_type           AS term_type
+            ,start_datetime     AS start_datetime
+            ,end_datetime       AS end_datetime
+            ,is_pop             AS is_pop
+            ,is_view            AS is_view
+            ,position           AS position
+            ,pc_img_url         AS pc_img_url
+            ,pc_link_url        AS pc_link_url
+            ,mobile_img_url     AS mobile_img_url
+            ,mobile_link_url    AS mobile_link_url
+            ,thumb_img_url      AS thumb_img_url
+            ,platform              AS platform
+            ,`desc`             AS `desc`
+            ,reg_date           AS reg_date
+            ,op_name            AS opName
+            ,last_upd_date      AS lastUpdDate
+            ,last_op_name       AS lastOpName
+        FROM rd_admin.tb_admin_banner
+    </sql>
+
+    <!-- 배너 -->
+    <select id="callContentsBannerListCnt" parameterType="com.dalbit.content.vo.procedure.P_bannerListInputVo" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM
+          rd_admin.tb_admin_banner
+    </select>
+
+    <select id="callContentsBannerList" parameterType="com.dalbit.content.vo.procedure.P_bannerListInputVo" resultType="com.dalbit.content.vo.procedure.P_bannerListOutputVo">
+        select
+            @rownum := @rownum + 1 as rowNum,
+            a.*
+        FROM
+        (
+            <include refid="bannerSelect"/>
+            <where>
+                <if test='searchText != null and searchText != ""'>
+                        AND title like #{title}
+                </if>
+            </where>
+        ) AS a,
+        (select @rownum := #{pageStart}) AS b
+        <trim prefix="ORDER BY">
+            a.lastOpName desc
+        </trim>
+        limit  #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="callContentsBannerDetail" parameterType="com.dalbit.content.vo.procedure.P_bannerDetailInputVo" resultType="com.dalbit.content.vo.procedure.P_bannerDetailOutputVo">
+        <include refid="bannerSelect"/>
+         WHERE
+            idx like #{banner_idx}
+    </select>
+
+    <insert id="callContentsBannerAdd" parameterType="com.dalbit.content.vo.procedure.P_bannerInsertVo">
+          INSERT INTO rd_admin.tb_admin_banner
+          (
+                title
+                ,view_type
+                ,sex
+                ,frequency_rate
+                ,term_type
+                ,start_datetime
+                ,end_datetime
+                ,is_pop
+                ,is_view
+                ,`position`
+                ,pc_img_url
+                ,pc_link_url
+                ,mobile_img_url
+                ,mobile_link_url
+                ,thumb_img_url
+                ,platform
+                ,`desc`
+                ,reg_date
+                ,op_name
+                ,last_upd_date
+                ,last_op_name
+          )
+          VALUES
+          (
+                #{title}
+                ,#{view_type}
+                ,#{sex}
+                ,#{frequency_rate}
+                ,#{term_type}
+                ,STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S')
+                ,STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S')
+                ,#{is_pop}
+                ,#{is_view}
+                ,#{position}
+                ,#{pc_img_url}
+                ,#{pc_link_url}
+                ,#{mobile_img_url}
+                ,#{mobile_link_url}
+                ,#{thumb_img_url}
+                ,#{platform}
+                ,#{desc}
+                ,NOW()
+                ,#{opName}
+                ,NOW()
+                ,#{opName}
+          )
+    </insert>
+
+    <update id="callContentsBannerEdit" parameterType="com.dalbit.content.vo.procedure.P_bannerUpdateVo">
+        UPDATE rd_admin.tb_admin_banner
+        SET
+            title = IFNULL(#{title}, title)
+            ,view_type = IFNULL(#{view_type}, view_type)
+            ,sex = IFNULL(#{sex}, sex)
+            ,frequency_rate = IFNULL(#{frequency_rate}, frequency_rate)
+            ,term_type = IFNULL(#{term_type}, term_type)
+            ,start_datetime = IFNULL(STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S'), start_datetime)
+            ,end_datetime = IFNULL(STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S'), end_datetime)
+            ,is_pop = IFNULL(#{is_pop}, is_pop)
+            ,is_view = IFNULL(#{is_view}, is_view)
+            ,`position` = IFNULL(#{position}, `position`)
+            ,pc_img_url = IFNULL(#{pc_img_url}, pc_img_url)
+            ,pc_link_url = IFNULL(#{pc_link_url}, pc_link_url)
+            ,mobile_img_url = IFNULL(#{mobile_img_url}, mobile_img_url)
+            ,mobile_link_url = IFNULL(#{mobile_link_url}, mobile_link_url)
+            ,thumb_img_url = IFNULL(#{thumb_img_url}, thumb_img_url)
+            ,platform = IFNULL(#{platform}, platform)
+            ,`desc` = IFNULL(#{desc}, `desc`)
+            ,last_upd_date = NOW()
+            ,last_op_name = #{opName}
+        WHERE
+            idx = #{banner_idx}
+    </update>
+
+    <delete id="callContentsBannerDelete" parameterType="com.dalbit.content.vo.procedure.P_bannerDeleteVo">
+        DELETE FROM rd_admin.tb_admin_banner WHERE idx = #{banner_idx}
+    </delete>
+
+
+
+
+</mapper>
