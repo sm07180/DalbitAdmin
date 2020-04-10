@@ -91,6 +91,7 @@
 
     $(document).ready(function() {
         init();
+        $("#list_info-select-all").remove();
     });
 
     /** Data Table **/
@@ -139,6 +140,7 @@
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {
+        $('#report_tab').addClass("show");
         var data = {
             'reportIdx' : $(this).data('idx')
         };
@@ -147,7 +149,11 @@
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
         if($(this).prop('checked')){
+            $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked');
+            $(this).prop('checked', 'checked');
             $(this).parent().parent().find('._getDeclarationDetail').click();
+        } else {
+            $("#declarationForm").empty();
         }
     });
 
