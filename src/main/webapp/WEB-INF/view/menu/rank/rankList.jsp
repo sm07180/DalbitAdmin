@@ -209,7 +209,12 @@
             <td>{{byeol}}</td>
             <td>{{gifted_mem_no}}</td>
             <td>{{airCount}}</td>
-            <td>{{start_date}}</td>
+            <td>{{#equal rank.start_date ''}}
+                -
+                {{else}}
+                {{rank.start_date}}
+                {{/equal}}
+            </td>
             <td>{{airTime}}</td>
         </tr>
 
@@ -246,9 +251,9 @@
             </td>
             <td>
                 {{#isSmall fanRank '6'}}
-                    ●<br/>추천 중
+                <i class="fa fa-circle" style="color: blue"></i><br/><span class="text">추천 중</span>
                 {{else}}
-                    ○<br/>비추천
+                <i class="fa fa-circle-o" style="color: blue"></i><br/><span class="text">비추천</span>
                 {{/isSmall}}
             </td>
             <td>
@@ -268,7 +273,12 @@
             <td>{{byeol}}</td>
             <td>{{gifted_mem_no}}</td>
             <td>{{airCount}}</td>
-            <td>{{start_date}}</td>
+            <td>{{#equal fan.start_date ''}}
+                -
+                {{else}}
+                {{fan.start_date}}
+                {{/equal}}
+            </td>
             <td>{{airTime}}</td>
         </tr>
 
