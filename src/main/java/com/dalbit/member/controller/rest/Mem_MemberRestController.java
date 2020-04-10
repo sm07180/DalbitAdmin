@@ -1,9 +1,7 @@
 package com.dalbit.member.controller.rest;
 
 import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.JsonOutputVo;
-import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.Mem_MemberService;
@@ -78,16 +76,14 @@ public class Mem_MemberRestController {
     public String editor(P_MemberEditorVo pMemberEditorVo)throws GlobalException{
         String result;
         pMemberEditorVo.setNotiSms("0");
-        if(pMemberEditorVo.getPhotoUrl() != null){
-            pMemberEditorVo.setReset_profileImage(new ImageVo(null, pMemberEditorVo.getMemSex(), pMemberEditorVo.getPhotoUrl()));
-            pMemberEditorVo.setProfileImage(pMemberEditorVo.getReset_profileImage().getUrl().replace(pMemberEditorVo.getPhotoUrl(),""));
-        }
-
-
         if(pMemberEditorVo.getPhoneNum() != null) {
             if(DalbitUtil.isSmsPhoneNoChk(pMemberEditorVo.getPhoneNum())) {
                 if(pMemberEditorVo.getPasswdReset() != null){
                     String password = DalbitUtil.randomValue("string", 4) + DalbitUtil.randomValue("e", 2) + DalbitUtil.randomValue("number", 4);
+//                    String password = "123qweasd";
+                    log.info("------------------------------------------------------------------------------");
+                    log.info("password : " + password);
+                    log.info("------------------------------------------------------------------------------");
                     pMemberEditorVo.setPasswdReset(password);
                     pMemberEditorVo.setNotiSms("1");
                 }
@@ -116,6 +112,19 @@ public class Mem_MemberRestController {
         String result = mem_MemberService.getMemberStateEdit(pMemberEditorVo);
         return result;
     }
+
+    /**
+     * 회원 경고/정지
+     */
+    @PostMapping("report")
+    public String report(P_MemberReportVo pMemberReportVo, HttpServletRequest request){
+        pMemberReportVo.setIp(DalbitUtil.getIp(request));
+        pMemberReportVo.setBrowser(DalbitUtil.getUserAgent(request));
+
+        String result = mem_MemberService.getMemberReport(pMemberReportVo);
+        return result;
+    }
+
 
     //------------------------------------------------------------------------
     /* 자세히 보기 */

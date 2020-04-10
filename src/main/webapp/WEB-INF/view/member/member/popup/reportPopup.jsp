@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String in_memNo = request.getParameter("memNo");
+    String in_memId = request.getParameter("memId");
     String in_memNick = request.getParameter("memNick");
     String in_memSex = request.getParameter("memSex");
 %>
@@ -25,7 +26,7 @@
                         <th colspan="6">대상자</th>
                     <tr>
                         <th>아이디</th>
-                        <td style="text-align: left" id="td_memNo"></td>
+                        <td style="text-align: left" id="td_memId"></td>
                         <th>닉네임</th>
                         <td style="text-align: left" id="td_memNick"></td>
                         <th>성별</th>
@@ -73,27 +74,110 @@
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
+<script type="text/javascript" src="/js/message/customer/declarationMessage.js"></script>
 
 <script>
     $(document).ready(function() {
         $('#report_title').html("ㆍ운영자에 의해 경고 또는 정지/강제탈퇴 등의 처리가 가능합니다.<br/>ㆍ해당 유저를 제외한 경고/정지/탈퇴 처리 시 사유를 메모에 남겨주세요.");
+
+        $('#bt_complet').click(function() {           //운영자 메모 등록
+            bt_complet_click(this.id);
+        });
     });
     var memNo =  <%=in_memNo%>;
+    var memId =  <%=in_memId%>;
     var memNick =  <%=in_memNick%>;
     var memSex =  <%=in_memSex%>;
 
     $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
     $("#member_declaration_slctType").html(util.getCommonCodeRadio(2, member_declaration_slctType));
     $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
+    $('#td_memId').html(memId);
+    $('#td_memNick').html(memNick);
+    if(memSex == "m")
+        $('#td_memSex').html("남");
+    else if(memSex == "f")
+        $('#td_memSex').html("여");
+    else
+        $('#td_memSex').html("알수없음");
 
-    init();
-    function init() {
-        $('#td_memNo').html(memNo);
-        $('#td_memNick').html(memNick);
-        if(memSex == "m"){
-            $('#td_memSex').html("남");
-        }else{
-            $('#td_memSex').html("여");
+    function bt_complet_click(){
+        if (common.isEmpty($("#txt_adminMemo").val())) {
+            alert("등록할 운영자 메모를 입력해 주십시오.");
+            return;
         }
+
+        var reportMessage ="";
+        $('input:checkbox[name="declaration_Message"]').each(function() {
+            if(this.checked){           //checked 처리된 항목의 값
+                if(this.id == "declaration_Message99" ){
+                    reportMessage = reportMessage + " - " + this.value + " : " + $("#txt_declaration_message").val() + "\n";
+                }else {
+                    reportMessage = reportMessage + " - " + this.value + "\n";
+                }
+            }
+        });
+        if($("#declaration_Message99").prop('checked')){
+            if($("#txt_declaration_message").val().length < 1){
+                alert("기타 사유를 입력해 주십시오.");
+                return;
+            }
+        }
+        if(reportMessage == ""){
+            alert("조치사항을 선택해 주십시오.");
+            return;
+        }
+
+        var strName = ADMIN_NICKNAME;
+        var date = new Date();
+        var timestamp = date.getFullYear() + "." +
+            common.lpad(date.getMonth(),2,"0") + "." +
+            common.lpad(date.getDay(),2,"0");
+            + " " +
+            common.lpad(date.getHours(),2,"0") + "." +
+            common.lpad(date.getMinutes(),2,"0") + "." +
+            common.lpad(date.getSeconds(),2,"0");
+
+        var msgValue;
+        var msgTitle;
+        var radioValue = $('input:radio[name="slctType"]:checked').val();
+        if(radioValue == 6 || radioValue == 7){
+            msgValue = declarationMessage.out;
+            msgTitle = declarationMessage.outTitle;
+        } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
+            msgValue = declarationMessage.stop;
+            msgTitle = declarationMessage.stopTitle;
+        } else if(radioValue == 2) {
+            msgValue = declarationMessage.warning;
+            msgTitle = declarationMessage.warningTitle;
+        }
+
+        msgValue = msgValue.replace(/{{name}}/gi, strName)
+            .replace(/{{nickName}}/gi, memNick)
+            .replace(/{{message}}/gi, reportMessage)
+            .replace(/{{timestamp}}/gi, timestamp);
+
+
+        var obj = new Object();
+        obj.mem_no = memNo;             // 신고자 대상 ID검색용
+        obj.slctReason = $('#slctReason').val();
+        obj.slctType =$('input:radio[name="slctType"]:checked').val();
+        obj.memo = $("#txt_adminMemo").val();
+        obj.notiContents = msgTitle;
+        obj.notimemo = msgValue;
+        util.getAjaxData("report", "/rest/member/member/report", obj, update_success, fn_fail);
+
+        window.opener.getMemNo_info_reload(memNo);
+    }
+
+
+
+
+    function update_success(dst_id, response) {
+        alert("신고 성공");
+        window.close();
+    }
+    function fn_fail(data, textStatus, jqXHR){
+        console.log(data, textStatus, jqXHR);
     }
 </script>

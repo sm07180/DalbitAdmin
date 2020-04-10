@@ -19,3 +19,12 @@ var question_summary = [
     , new COMMON_CODE('', 'type7Cnt', '선물/아이템')
     , new COMMON_CODE('', 'type99Cnt', '기타')
 ];
+
+var question_slctType = [
+    new COMMON_CODE(null, 'slct_type', 'FAQ구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('notice', '1', '일반')
+    , new COMMON_CODE('event', '2', '방송')
+    , new COMMON_CODE('check', '3', '결제')
+    , new COMMON_CODE('update', '4', '기타')
+];

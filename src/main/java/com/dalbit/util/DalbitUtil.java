@@ -677,4 +677,40 @@ public class DalbitUtil {
         return admAuthorityService.getLnbMemberAuthInfo(MemberVo.getUserInfo().getEmp_no());
     }
 
+    /**
+     * 브라우저 정보 가져오기
+     */
+    public static String getUserAgent(HttpServletRequest request){
+        String userAgent  = request.getHeader("User-Agent");
+        String browser;
+        if (userAgent .indexOf("MSIE") > -1 || userAgent .indexOf("Trident") > -1) {
+            browser = "MSIE";
+        } else if (userAgent .indexOf("Opera") > -1) {
+            browser =  "Opera";
+        } else if (userAgent .indexOf("Firefox") > -1) {
+            browser = "Firefox";
+        } else if (userAgent .indexOf("Chrome") > -1) {
+            browser = "Chrome";
+        } else if (userAgent .indexOf("Safari") > -1) {
+            browser = "Safari";
+        }else {
+            browser = "Firefox";
+        }
+        return browser;
+    }
+
+
+    /**
+     *  유니코드 디코딩
+     */
+    public static String uniDecode(String uni){
+        StringBuffer str = new StringBuffer();
+        for( int i= uni.indexOf("\\u") ; i > -1 ; i = uni.indexOf("\\u") ){// euc-kr(%u), utf-8(//u)
+            str.append( uni.substring( 0, i ) );
+            str.append( String.valueOf( (char)Integer.parseInt( uni.substring( i + 2, i + 6 ) ,16) ) );
+            uni = uni.substring( i +6);
+        }
+        str.append( uni );
+        return str.toString();
+    }
 }
