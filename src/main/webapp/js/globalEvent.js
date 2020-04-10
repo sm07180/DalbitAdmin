@@ -19,3 +19,8 @@ $(document).on('click', '._openBroadcastPop', function(){
     var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+$(this).data('roomno');
     util.windowOpen(url, 1500, 800, 'broadcastInfo');
 });
+
+$(document).on('click', 'img._imageFullPop', function(){
+    $("#_imgFullLayer").html(util.imageFullSize("_imgFullLayer_modal", $(this).attr('src')));
+    $('#_imgFullLayer_modal').modal('show');
+});

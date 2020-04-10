@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.customer.dao.Cus_QuestionDao;
+import com.dalbit.customer.vo.FaqVo;
 import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -82,5 +84,13 @@ public class Cus_QuestionService {
         }
 
         return result;
+    }
+
+    public List<FaqVo> getFaqGroupList(){
+        return cus_questionDao.getFaqGroupList();
+    }
+
+    public List<FaqVo> getFaqSubList(FaqVo faqVo){
+        return cus_questionDao.getFaqSubList(faqVo);
     }
 }

@@ -13,7 +13,6 @@
 <div id="fullSize_question"></div>
 
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
-
 <script>
     $(document).ready(function() {
 
@@ -48,11 +47,6 @@
         $('#bt_operate').click(function() {                   // 방송제목 변경
             operate_click();
         });
-    }
-
-    function fullSize_question_file(url) {     // 이미지 full size
-        $("#fullSize_question").html(util.imageFullSize("fullSize_question_file",url));
-        $('#fullSize_question_file').modal('show');
     }
 
     function memInfo(memId, memNo){
@@ -129,7 +123,7 @@
                         <td colspan="4"><input type="text" class="form-control fit-table" value="{{question_title}}" /></td>
 
                         <th>문의자<br />닉네임</th>
-                        <td>{{mem_nick}} / {{email}}</td>
+                        <td>{{mem_nick}}</td>
 
                         <th>문의자 이메일</th>
                         <td colspan="3">{{email}}</td>
@@ -144,7 +138,7 @@
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
                         <td colspan="3">
-                            <img src="{{renderImage add_file}}" width="auto" height="100px" onclick="fullSize_question_file(this.src)"/>
+                            <img src="{{renderImage add_file}}" width="auto" height="100px" class="_imageFullPop" />
                         </td>
                     </tr>
 
