@@ -12,14 +12,16 @@
 <!-- 이미지 원본 보기 -->
 <div id="fullSize_question"></div>
 
-<script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
-<script>
+<script type="text/javascript" src="/js/code/customer/questionCodeList.js"></script>
+<script type="text/javascript" src="/js/handlebars/customerHelper.js"></script>
+<script type="text/javascript">
     $(document).ready(function() {
 
     });
     var memNo;
     var memId;
     var qnaIdx;
+    var slct_type;
     function quest_detail_success(data, response, params){
         // dalbitLog(params);
         // dalbitLog(response);
@@ -44,9 +46,27 @@
 
         util.editorInit("customer-question");
 
+        slct_type = response.data.slct_type;
+        var faqData = {
+            slct_type : slct_type
+        }
+
+        util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", faqData, fn_getFaqGroup_success);
+
         $('#bt_operate').click(function() {                   // 방송제목 변경
             operate_click();
         });
+    }
+
+    function fn_getFaqGroup_success(data, response, params) {
+        dalbitLog(response);
+        var template = $("#tmp_question_faqGroup").html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.faqGroupList;
+        var html = templateScript(context);
+        $("#_faqGroupArea").html(html);
+
+        fn_sublist_success(data, response);
     }
 
     function memInfo(memId, memNo){
@@ -69,6 +89,28 @@
 
         $("#question_detailFrm").empty();
     }
+
+    $(document).on('change', '#faqGroup', function() {
+        var faqData = {
+            slct_type : $('select[name="faqGroup"]').find('option:selected').val()
+        }
+        dalbitLog(faqData);
+        util.getAjaxData("getSub", "/rest/customer/question/getFaqSubList", faqData, fn_sublist_success);
+    });
+
+    function fn_sublist_success(data, response, params) {
+        var template = $("#tmp_question_faqSub").html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.faqSubList;
+        var html = templateScript(context);
+        $("#_faqSubArea").html(html);
+    }
+
+    $(document).on('click', '#bt_faq', function() {
+        $('button.btn-codeview').click();
+        $('#editor').summernote('code', $('select[name="faqSub"]').find('option:selected').data('answer'));
+        $('button.btn-codeview').click();
+    })
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -144,16 +186,41 @@
 
                     <tr>
                         <th colspan="2">매크로 답변하기</th>
-                        <td colspan="2">{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
-                        <td colspan="2">{{{getCommonCodeSelect question_type 'question_type'}}}</td>
+                        <td colspan="2" id="_faqGroupArea"></td>
+                        <td colspan="2" id="_faqSubArea"></td>
 
-                        <th colspan="2">바로가기버튼</th>
-                        <td colspan="4">
-                            <button type="button" id="bt_moon" class="btn-sm btn btn-default">달결제</button>
+                        <td><button type="button" id="bt_faq" class="btn-sm btn btn-default">적용</button></td>
+
+                        <th>바로가기버튼</th>
+                        <td colspan="3">
+                            <%--<button type="button" id="bt_moon" class="btn-sm btn btn-default" data-url="https://www.dalibitlive.com/달결제">달결제</button>
                             <button type="button" id="bt_star" class="btn-sm btn btn-default">별환전</button>
                             <button type="button" id="bt_wallet" class="btn-sm btn btn-default">내지갑</button>
                             <button type="button" id="bt_profile" class="btn-sm btn btn-default">사진등록</button>
-                            <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default">방송방법</button>
+                            <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default">방송방법</button>--%>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" id="moon" name="inline-radio" value='1' checked="checked" data-url="https://www.dalibitlive.com/"/>
+                                <span><i></i>달결제</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" id="star" name="inline-radio" value='2' data-url="https://www.dalibitlive.com/"/>
+                                <span><i></i>별환전</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" id="wallet" name="inline-radio" value='3' data-url="https://www.dalibitlive.com/" />
+                                <span><i></i>내지갑</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" id="profile" name="inline-radio" value='4' data-url="https://www.dalibitlive.com/"/>
+                                <span><i></i>사진등록</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" id="broadRoot" name="inline-radio" value='5' data-url="https://www.dalibitlive.com/"/>
+                                <span><i></i>방송방법</span>
+                            </label>
+                        </td>
+                        <td>
+                                <button type="button" id="bt_baro" class="btn-sm btn btn-default">적용</button>
                         </td>
                     </tr>
                 </tbody>
@@ -169,4 +236,20 @@
             </div>
         </div>
     </div>
+</script>
+
+<script id="tmp_question_faqGroup" type="text/x-handlebars-template">
+    <select name="faqGroup" id="faqGroup" class="form-control">
+        {{#each this as |faq|}}
+            <option value="{{faq.slct_type}}">{{questionGroupName faq.slct_type}}</option>
+        {{/each}}
+    </select>
+</script>
+
+<script id="tmp_question_faqSub" type="text/x-handlebars-template">
+    <select name="faqSub" id="faqSub" class="form-control">
+        {{#each this as |sub|}}
+            <option data-answer="{{replaceHtml sub.answer}}">{{sub.question}}</option>
+        {{/each}}
+    </select>
 </script>

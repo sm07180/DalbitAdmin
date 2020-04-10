@@ -108,7 +108,7 @@
 
         var rank = common.isEmpty(tabName) ? $('#rankTab li.active a').data('rank') : tabName;
         var data = {
-            rankType : $('input[name="rankType"]:checked').val()
+            rankType : $('input:radio[name="rankType"]:checked').val()
             , pageStart : djRankListPagingInfo.pageNo
             , pageCnt : djRankListPagingInfo.pageCnt
             , selectGubun : $('select[name="selectGubun"]').val()
