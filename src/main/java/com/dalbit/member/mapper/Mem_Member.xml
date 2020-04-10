@@ -59,8 +59,48 @@
         /* M_Member.xml - callMemberStateEditor */
         update rd_data.tb_member_basic set mem_state=1, block_day=0, block_end_date=null where mem_no=#{mem_no}
     </update>
+    <delete id="callMemberWithdrawal_del" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberWithdrawal_del */
+        delete From rd_data.tb_member_withdrawal where mem_no=#{mem_no}
+    </delete>
+    <insert id="callMemberReport" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
+        /* M_Member.xml - callMemberReport */
+        insert into rd_data.tb_member_report
+                      (mem_no,mem_userid,mem_nick,mem_phone,mem_level,mem_grade,reported_mem_no,reported_userid,
+                      reported_nick,reported_phone,reported_level,reported_grade,room_no,reason,etc,status,op_code,
+                      op_msg,platform,browser,ip,op_name,op_date,reg_date)
+         value (#{mem_no},#{mem_userid},#{mem_nick},'',1,'',#{reported_mem_no},#{reported_userid},
+                #{reported_nick},#{reported_phone},#{reported_level},#{reported_grade},null,1,null,'2',#{slctType},
+                '','PC',#{browser},#{ip},#{opName},now(),now())
+    </insert>
 
-
+    <update id="callMemberBasicReport_Edit" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
+        /* M_Member.xml - callMemberBasicReport_Edit */
+        update rd_data.tb_member_basic
+          <if test='slctType lt 3'>                      <!-- <  -->
+              set mem_state = #{slctType}
+          </if>
+          <if test="slctType gt 2 and slctType lt 6">    <!--  >   <  -->
+              set mem_state = 3,
+                  block_day = #{blockDay},
+                  block_end_date = DATE_ADD( now(), interval #{blockDay} day)
+          </if>
+          <if test="slctType == 6">
+              set mem_state = 5
+          </if>
+          <if test="slctType == 7">
+              set mem_state = 4
+          </if>
+        where mem_no = #{reported_mem_no}
+    </update>
+    <insert id="callMemberWithdrawal_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
+        /* M_Member.xml - callMemberWithdrawal_Add */
+        insert into rd_data.tb_member_withdrawal( mem_no, state, op_name) values ( #{reported_mem_no}, 2, #{opName})
+    </insert>
+    <insert id="callMemberNotification_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
+        /* M_Member.xml - callMemberNotification_Add */
+        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo  ) values ( #{reported_mem_no}, 7, #{notiContents}, #{notimemo})
+    </insert>
 
     <!-- 자세히보기 -->
     <select id="callMemAdminMemoAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">

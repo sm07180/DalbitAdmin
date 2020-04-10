@@ -6,6 +6,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.customer.service.DeclarationService;
 import com.dalbit.customer.vo.procedure.P_DeclarationDetailInputVo;
 import com.dalbit.customer.vo.procedure.P_DeclarationListInputVo;
+import com.dalbit.customer.vo.procedure.P_DeclarationOperateCntInputVo;
 import com.dalbit.customer.vo.procedure.P_DeclarationOperateVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
@@ -92,6 +93,15 @@ public class DeclarationRestController {
 
         String result = declarationService.callServiceCenterReportOpCount(procedureVo);
 
+        return result;
+    }
+
+    /**
+     * 회원 신고 처리 내역 건 수
+     */
+    @PostMapping("opCount_target")
+    public String opCount_target(P_DeclarationOperateCntInputVo pDeclarationOperateCntInputVo) {
+        String result = declarationService.callServiceCenterReportOpCountTarget(pDeclarationOperateCntInputVo);
         return result;
     }
 

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class P_MemberEditorVo extends BaseVo {
     private String  mem_no;
-    private ImageVo reset_profileImage;
+    private String  reset_profileImage;
     private String  profileImage;
     private String	phoneNum;
     private String	nickName;

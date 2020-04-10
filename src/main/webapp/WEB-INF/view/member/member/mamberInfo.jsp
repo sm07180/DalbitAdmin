@@ -34,7 +34,7 @@
         profImgDel = "false";
         memNo = response.data.mem_no;
 
-        if(response.data.block_day == 2)
+        if(response.data.memState == 3)
             response.data["block"] =  " / 정지기간: " + response.data.block_day + " / 정지종료일: " + response.data.blockEndDateFormat;
 
         var template = $('#tmp_memberInfoFrm').html();
@@ -46,7 +46,7 @@
 
         $("#txt_birth").val(response.data.birthDate.substr(0, 10));
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "20"));
-        report = "../member/popup/reportPopup?memNo=" + "'" + response.data.mem_no + "'" + "&memNick=" + "'" + response.data.nickName + "'" + "&memSex=" + "'" + response.data.memSex + "'";
+        report = "../member/popup/reportPopup?memNo='" + response.data.mem_no + "'&memId='" + response.data.userId + "'&memNick='" + response.data.nickName + "'&memSex='" + response.data.memSex + "'";
 
         if(response.data.memSlct != "p" ){
             $("#div_socialId").empty();
@@ -95,7 +95,7 @@
         $('#bt_resatPass').click(function() {           //비밀번호 초기화
             bt_click(this.id);
         });
-        $('#bt_adminMemo').click(function() {           //운영자 메모 변경
+        $('#bt_adminMemo').click(function() {           //운영자 메모 등록
             bt_click(this.id);
         });
         $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
@@ -149,7 +149,10 @@
                 alert("로그인 아이디를 입력해 주십시오.");
                 return;
             }
-            if(memberInfo_responseDate.socialId == $("#txt_socialId").val().replace(/-/gi, "")){
+            if($("#txt_socialId").val().size){
+
+            }
+            if(memberInfo_responseDate.socialId == $("#txt_socialId").val()){
                 alert("동일한 로그인 아이디 입니다. 변경할 아이디를 입력해 주세요.");
                 return;
             }
@@ -174,13 +177,13 @@
             }
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
-                if(memberInfo_responseDate.profileImage.indexOf("/profile_3/profile_" + memberInfo_responseDate.memSex) > -1){
+                if(common.isEmpty(memberInfo_responseDate.profileImage)){
                     alert("이미 초기화된 프로필 이미지 입니다. 프로필 초기화가 불가능합니다.");
                     return;
                 }
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     obj.memSex = $('input[name="memSex"]:checked').val();
-                    obj.photoUrl = IMAGE_SERVER_URL;
+                    obj.profileImage = "";
                     sendNoti = 0;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;
@@ -292,7 +295,36 @@
         util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
     }
     function reportPopup(){
+        console.log(report);
         util.windowOpen(report,"1000","750","경고/정지");
+    }
+
+    function fnChkByte(obj) {
+        var maxByte = 11; //최대 입력 바이트 수
+        var str = obj.value;
+        var str_len = str.length;
+        var rbyte = 0;
+        var rlen = 0;
+        var one_char = "";
+        var str2 = "";
+        for (var i = 0; i < str_len; i++) {
+            one_char = str.charAt(i);
+            if (escape(one_char).length > 4) {
+                rbyte += 2; //한글2Byte
+            } else {
+                rbyte++; //영문 등 나머지 1Byte
+            }
+            if (rbyte <= maxByte) {
+                rlen = i + 1; //return할 문자열 갯수
+            }
+        }
+        if (rbyte > maxByte) {
+            str2 = str.substr(0, rlen); //문자열 자르기
+            obj.value = str2;
+            fnChkByte(obj, maxByte);
+        } else {
+            document.getElementById('byteInfo').innerText = rbyte;
+        }
     }
 
     function getInfoDetail(tmp,tmp1) {     // 상세보기
@@ -422,7 +454,7 @@
             <th>로그인 아이디</th>
             <td colspan="3" style="text-align: left">
                 <div id="div_socialId">
-                    <input type="text" class="form-control" id="txt_socialId" style="width: 50%;" value="{{socialId}}">
+                    <input type="text" class="form-control" id="txt_socialId" style="width: 50%;" value="{{socialId}}" onkeyup="fnChkByte(this);">
                     <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                 </div>
             </td>

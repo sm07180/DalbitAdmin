@@ -161,4 +161,12 @@ public class DeclarationService {
         return result;
     }
 
+    /**
+     * 회원 신고 처리 내역 건 수
+     */
+    public String callServiceCenterReportOpCountTarget(P_DeclarationOperateCntInputVo pDeclarationOperateCntInputVo) {
+        HashMap<P_DeclarationOpCountVo, String> OpList = declarationDao.callServiceCenterReportOpCountTarget(pDeclarationOperateCntInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.신고처리내역수조회_성공, OpList));
+    }
+
 }
