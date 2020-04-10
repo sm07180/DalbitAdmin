@@ -216,4 +216,23 @@
         return choiceDataInfo;
     }
 
+    function getImg(targetId) {
+        var target = $("#"+targetId);
+
+        if(target.length <= 0 || target.val().length <= 0){
+            alert("이미지 URL을 확인하여 주시기 바랍니다.");
+            return false;
+        }
+
+        var imgUrl = target.val();
+        $("#"+targetId+"Viewer").attr("src", imgUrl);
+        $("#"+targetId+"Viewer").attr("onerror", "imgError(this.src)");
+    }
+
+    function imgError(imgURL) {
+        if(imgURL.length > 0){
+            alert("이미지 URL이 정상적이지 않습니다.\n입력 URL :" + imgURL);
+        }
+    }
+
 </script>

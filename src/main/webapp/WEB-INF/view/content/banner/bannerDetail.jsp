@@ -350,6 +350,9 @@
                 <td colspan="2">{{lastUpdDate}}</td>
             </tr>
             <tr>
+                <th>플랫폼</th>
+                <td colspan="2">{{{getCommonCodeRadio platform 'content_platform4'}}}</td>
+
                 <th>구분</th>
                 <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
 
@@ -358,9 +361,6 @@
 
                 <th>페이지 전환</th>
                 <td colspan="2">{{{getCommonCodeRadio is_pop 'viewType' 'N' 'is_pop'}}}</td>
-
-                <th>게시여부</th>
-                <td colspan="2">{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
             </tr>
             <tr>
                 <th>노출 빈도</th>
@@ -370,8 +370,11 @@
                 <td colspan="5">{{{getCommonCodeRadio position 'banner_bannerType' 'Y' 'position'}}}</td>
             </tr>
             <tr>
+                <th>게시여부</th>
+                <td colspan="2">{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
+
                 <th>노출 기간</th>
-                <td colspan="11">
+                <td colspan="8">
                     <div>
                         {{{getCommonCodeRadio term_type 'banner_exposureType' 'N' 'term_type'}}}
                     </div>

@@ -49,15 +49,12 @@
         // 이벤트 적용
         initDetailEvent(){
 
-            //플랫폼 IOS일 경우 코드 수기 입력
-            this.target.find("input[name='platform']:radio").change(function () {
-                var type = this.value;
-
-                if(type == "001"){
-                    fnc_exchangeDetail.target.find("input[name=item_code]").show();
-                }else{
-                    fnc_exchangeDetail.target.find("input[name=item_code]").hide();
-                    fnc_exchangeDetail.target.find("input[name=item_code]").val("");
+            // 플랫폼 IOS 사용 불가 안내
+            $("input[name=platform]").on('change', function(){
+                if(!common.isEmpty($(this).val()) && $(this).val().toString().toLocaleUpperCase() == "IOS"){
+                    alert("IOS는 지원하지 않습니다.");
+                    $(this).prop("checked", false);
+                    return false;
                 }
             });
 
@@ -97,16 +94,7 @@
             var platformCode = detailData.platform.split("");
             for(var i = 0; i < platformCode.length; i++){
                 if(platformCode[i] == "1"){
-                    if(i == 0 || i == 1)    // 110
-                    {
-                        fnc_exchangeDetail.target.find("#platform1").attr("checked", true);
-                        fnc_exchangeDetail.target.find("input[name=item_code]").hide();
-                    }
-
-                    if(i == 2){             //001
-                        fnc_exchangeDetail.target.find("#platform2").attr("checked", true);
-                        fnc_exchangeDetail.target.find("input[name=item_code]").show();
-                    }
+                    fnc_exchangeDetail.target.find("#platform"+(i+1)).attr("checked", true);
                 }
             }
 
@@ -223,6 +211,18 @@
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
 
+            //platform
+            var platformCnt = fnc_exchangeDetail.target.find("input[name=platform]").length;
+            var platform = "";
+            for(var i = 0; i < platformCnt; i++){
+                if(fnc_exchangeDetail.target.find("#platform"+(i+1)).is(":checked")){
+                    platform += "1";
+                }else{
+                    platform += "0";
+                }
+            }
+            resultJson['platform'] = platform;
+
             //item_type
             var item_typeCnt = fnc_exchangeDetail.target.find("input[name=item_type]").length;
             var item_type = "";
@@ -255,12 +255,6 @@
             if(common.isEmpty(data.platform) || data.platform == "000"){
                 alert("플랫폼을 선택하여 주시기 바랍니다.");
                 fnc_exchangeDetail.target.find("input[name=platform]").focus();
-                return false;
-            }
-
-            if(data.platform == "001" && common.isEmpty(data.item_code)){
-                alert("아이템 코드를 입력하여 주시기 바랍니다.");
-                fnc_exchangeDetail.target.find("input[name=item_code]").focus();
                 return false;
             }
 
@@ -342,11 +336,10 @@
                     <td rowspan="2">{{item_code}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}</td>
+                    <td colspan="2" rowspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2' 'Y' 'platform'}}}</td>
 
                     <th rowspan="2">아이템 코드</th>
                     <td colspan="3" rowspan="2">
-                        {{^item_code}}<input type="text" class="form-control" id="exchange-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." style="display:none;">{{/item_code}}
                         {{#item_code}}{{this}}{{/item_code}}
                     </td>
 

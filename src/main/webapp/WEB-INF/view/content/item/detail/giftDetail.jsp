@@ -47,19 +47,6 @@
         // 이벤트 적용
         initDetailEvent(){
 
-            //플랫폼 IOS일 경우 코드 수기 입력
-            this.target.find("input[name='platform']:radio").change(function () {
-                var type = this.value;
-
-                if(type == "001"){
-                    fnc_giftDetail.target.find("input[name=item_code]").show();
-                }else{
-                    fnc_giftDetail.target.find("input[name=item_code]").hide();
-                    fnc_giftDetail.target.find("input[name=item_code]").val("");
-                }
-            });
-
-
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
                 var data = fnc_giftDetail.getDetailData();
@@ -350,7 +337,6 @@
 
                     <th rowspan="2">아이템 코드</th>
                     <td colspan="3" rowspan="2">
-                        {{^item_code}}<input type="text" class="form-control" id="gift-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." value="{{item_code}}" style="display:none;">{{/item_code}}
                         {{#item_code}}{{this}}{{/item_code}}
                     </td>
 

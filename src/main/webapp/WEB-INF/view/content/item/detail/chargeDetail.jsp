@@ -347,11 +347,14 @@
                     <td rowspan="2">{{rowNum}}</td>
 
                     <th rowspan="2">플랫폼</th>
-                    <td colspan="2" rowspan="2">{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}</td>
+                    <td colspan="2" rowspan="2">
+                        {{^item_code}}{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}{{/item_code}}
+                        {{#item_code}}{{{getCommonCodeLabel ../platform 'content_platform3'}}}{{/item_code}}
+                    </td>
 
                     <th rowspan="2">아이템 코드</th>
                     <td colspan="3" rowspan="2">
-                        {{^item_code}}<input type="text" class="form-control" id="charge-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." value="{{item_code}}" style="display:none;">{{/item_code}}
+                        {{^item_code}}<input type="text" class="form-control" id="charge-item_code" name="item_code" placeholder="아이템코드를 입력하여 주시기 바랍니다." style="display:none;">{{/item_code}}
                         {{#item_code}}{{this}}{{/item_code}}
                     </td>
 

@@ -70,7 +70,6 @@ var fnc_bannerList = {
         //---------- Main DataTable ----------=
 
         fnc_bannerList.initDataTableButton();
-        fnc_bannerList.initEvent();
     },
 
 
@@ -136,18 +135,18 @@ var fnc_bannerList = {
             var itemCodes = "";
             for(var idx=0; idx < checkDatas.length; idx++){
                 var dataInfo = checkDatas[idx];
-                if(common.isEmpty(dataInfo.item_code)){
+                if(common.isEmpty(dataInfo.banner_idx)){
                     dalbitLog("[delete] Item code does not exist. : ");
                     dalbitLog(dataInfo);
                     continue;
                 }
 
-                itemCodes += "," + dataInfo.item_code;
+                itemCodes += "," + dataInfo.banner_idx;
             }
             itemCodes = itemCodes.substring(1);
 
             var data = new Object();
-            data.item_code = itemCodes;
+            data.banner_idx = itemCodes;
 
             util.getAjaxData(fnc_bannerList.targetId, "/rest/content/banner/delete",data, fnc_bannerList.fn_delete_success, fnc_bannerList.fn_fail);
         };

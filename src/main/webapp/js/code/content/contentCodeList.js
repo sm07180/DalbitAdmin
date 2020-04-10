@@ -214,3 +214,10 @@ var content_platform3 = [
     , new COMMON_CODE('pc', '110', 'PC/Android')
     , new COMMON_CODE('ios', '001', 'IOS')
 ];
+
+var content_platform4 = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('pc', '1', 'PC')
+    , new COMMON_CODE('Mobile', '2', 'Mobile')
+];
