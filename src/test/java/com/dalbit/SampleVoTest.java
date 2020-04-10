@@ -26,6 +26,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @SpringBootTest
@@ -159,5 +160,30 @@ public class SampleVoTest {
 
     }
 
+    @Test
+    public void 지정특수문자만난수테스트(){
+        int pwdLength = 2;
+        char[] passwordTable =  {'!', '@', '#', '$', '%', '^', '&', '*','(', ')'};
+        Random random = new Random(System.currentTimeMillis());
+        int tablelength = passwordTable.length;
+        String password = "";
+        for(int i = 0; i < pwdLength; i++) {
+            password = password + Character.toString(passwordTable[random.nextInt(tablelength)]);
+        }
+        log.info(password);
+        log.debug("test");
+
+    }
+
+    @Test
+    public void 난수테스트(){
+        log.info(DalbitUtil.randomValue("p", 6));
+        log.info(DalbitUtil.randomValue("a", 6));
+        log.info(DalbitUtil.randomValue("String", 6));
+        log.info(DalbitUtil.randomValue("number", 6));
+        log.info(DalbitUtil.randomValue("c", 6));
+        log.info(DalbitUtil.randomValue("e", 6));
+
+    }
 }
 */

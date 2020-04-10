@@ -87,7 +87,8 @@ public class Mem_MemberRestController {
         if(pMemberEditorVo.getPhoneNum() != null) {
             if(DalbitUtil.isSmsPhoneNoChk(pMemberEditorVo.getPhoneNum())) {
                 if(pMemberEditorVo.getPasswdReset() != null){
-                    pMemberEditorVo.setPasswdReset(DalbitUtil.randomValue("string", 4) + DalbitUtil.randomValue("p", 2) + DalbitUtil.randomValue("number", 4));
+                    String password = DalbitUtil.randomValue("string", 4) + DalbitUtil.randomValue("e", 2) + DalbitUtil.randomValue("number", 4);
+                    pMemberEditorVo.setPasswdReset(password);
                     pMemberEditorVo.setNotiSms("1");
                 }
             }else{
