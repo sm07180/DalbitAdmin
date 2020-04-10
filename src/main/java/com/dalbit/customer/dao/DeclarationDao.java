@@ -1,11 +1,11 @@
 package com.dalbit.customer.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.customer.vo.procedure.P_DeclarationDetailOutputVo;
-import com.dalbit.customer.vo.procedure.P_DeclarationListOutputVo;
+import com.dalbit.customer.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Repository
 public interface DeclarationDao {
@@ -13,4 +13,5 @@ public interface DeclarationDao {
     P_DeclarationDetailOutputVo callServiceCenterReportDetail(ProcedureVo procedureVo);
     ProcedureVo callServiceCenterReportOperate(ProcedureVo procedureVo);
     ProcedureVo callServiceCenterReportOpCount(ProcedureVo procedureVo);
+    HashMap<P_DeclarationOpCountVo,String> callServiceCenterReportOpCountTarget(P_DeclarationOperateCntInputVo pDeclarationOperateCntInputVo);
 }

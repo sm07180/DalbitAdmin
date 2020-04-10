@@ -29,6 +29,7 @@ var declaration_reason = [
     , new COMMON_CODE('obs', '2', '음란성')
     , new COMMON_CODE('adv', '3', '광고 및 상업성')
     , new COMMON_CODE('abuse', '4', '욕설 및 비방성')
+    , new COMMON_CODE('admin', '98', '관리자신고')
     , new COMMON_CODE('etc', '99', '기타')
 ];
 

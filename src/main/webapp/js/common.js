@@ -155,24 +155,15 @@ common.timeStamp = function(time){
 
 common.profileImage = function(IMAGE_SERVER_URL, path, gender){
     var image;
-    if(!common.isEmpty(path)){
-        if(path.indexOf("/profile") >= 0){         // 이상한 값이 들어가있는 애가 있음.. 테스트면 나중에 지워도 될 듯
-            image = IMAGE_SERVER_URL + path;
-        }else {
-            if (gender == "n") {
-                var image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "_200327.png";
-            } else {
-                var image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "_200327.jpg";
-            }
+    if(common.isEmpty(path)){
+        if (gender == "n") {
+            image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "_200327.png";
+        } else {
+            image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "_200327.jpg";
         }
     }else{
-        if(gender == "n"){
-            var image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "_200327.png" ;
-        }else{
-            var image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "._200327jpg" ;
-        }
+        image = IMAGE_SERVER_URL + path;
     }
-    console.log(image);
     return image ;
 }
 common.replaceEnter = function(text){

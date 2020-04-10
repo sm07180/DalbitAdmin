@@ -17,6 +17,7 @@ import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.member.vo.procedure.*;
+import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -234,6 +235,52 @@ public class Mem_MemberService {
      */
     public String getMemberStateEdit(P_MemberEditorVo pMemberEditorVo){
         mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
+        mem_MemberDao.callMemberWithdrawal_del(pMemberEditorVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+    }
+
+    /**
+     * 회원 경고/정지
+     */
+    public String getMemberReport(P_MemberReportVo pMemberReportVo){
+        pMemberReportVo.setOpName(MemberVo.getMyMemNo());
+
+        // 신고 대상자 정보
+        ProcedureVo procedureVo = new ProcedureVo(pMemberReportVo);
+        mem_MemberDao.callMemberInfo(procedureVo);
+        P_MemberInfoOutputVo memberInfo = new Gson().fromJson(procedureVo.getExt(), P_MemberInfoOutputVo.class);
+
+        // 신고 -----
+        InforexLoginUserInfoVo inforexLoginUserInfoVo = MemberVo.getUserInfo();
+        log.info(Integer.toString(inforexLoginUserInfoVo.getEmp_no()));
+        pMemberReportVo.setMem_no(Integer.toString(inforexLoginUserInfoVo.getEmp_no()));        // 신고자
+        pMemberReportVo.setMem_userid(Integer.toString(inforexLoginUserInfoVo.getEmp_no()));
+        pMemberReportVo.setMem_nick(MemberVo.getMyMemNo());
+        pMemberReportVo.setReported_mem_no(memberInfo.getMem_no());
+        pMemberReportVo.setReported_userid(memberInfo.getUserId());
+        pMemberReportVo.setReported_nick(memberInfo.getNickName());
+        pMemberReportVo.setReported_phone(memberInfo.getPhoneNum());
+        pMemberReportVo.setReported_level(memberInfo.getLevel());
+        pMemberReportVo.setReported_grade(memberInfo.getGrade());
+        mem_MemberDao.callMemberReport(pMemberReportVo);
+
+        //회원정보 변경 3-1  4-3    5-7
+        if(pMemberReportVo.getSlctType() == 3){
+            pMemberReportVo.setBlockDay(1);
+        }else if(pMemberReportVo.getSlctType() == 4){
+            pMemberReportVo.setBlockDay(3);
+        }else if(pMemberReportVo.getSlctType() == 5){
+            pMemberReportVo.setBlockDay(7);
+        }
+        mem_MemberDao.callMemberBasicReport_Edit(pMemberReportVo);
+
+        //tb_member_withdrawal insert
+        mem_MemberDao.callMemberWithdrawal_Add(pMemberReportVo);
+        //notice
+        mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
+        // 어드민 메모
+        mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
     }
 

@@ -17,4 +17,18 @@
     <select id="callServiceCenterReportOpCount" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         call rd_admin.sp_admin_service_center_report_op_count(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="callServiceCenterReportOpCountTarget" parameterType="com.dalbit.customer.vo.procedure.P_DeclarationOperateCntInputVo" resultType="java.util.HashMap">
+        SELECT COUNT(*) as allOpCnt,
+              SUM( if( op_code = 0, 1, 0)) as notOpCnt,
+              SUM( if( op_code = 1, 1, 0)) as code_1_Cnt,
+              SUM( if( op_code = 2, 1, 0)) as code_2_Cnt,
+              SUM( if( op_code = 3, 1, 0)) as code_3_Cnt,
+              SUM( if( op_code = 4, 1, 0)) as code_4_Cnt,
+              SUM( if( op_code = 5, 1, 0)) as code_5_Cnt,
+              SUM( if( op_code = 6, 1, 0)) as code_6_Cnt,
+              SUM( if( op_code = 7, 1, 0)) as code_7_Cnt
+             FROM rd_data.tb_member_report
+            WHERE idx > 0 and (mem_no = #{mem_no} or reported_mem_no =#{mem_no})
+    </select>
 </mapper>
