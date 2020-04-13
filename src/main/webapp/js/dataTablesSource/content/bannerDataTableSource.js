@@ -4,40 +4,10 @@ var BannerDataTableSource = {
 
         , 'columns': [
             {'title': '노출구분', 'data': 'view_type', 'render': function (data, type, row, meta) {
-                    if(data == "0"){
-                        return "전체";
-                    }
-
-                    if(data == "1"){
-                        return "로그인";
-                    }
-
-                    if(data == "2"){
-                        return "비로그인";
-                    }
+                    return util.getCommonCodeLabel(data, banner_loginType);
                 }},
             {'title': '배너구분', 'data': 'position', 'render': function (data, type, row, meta) {
-                    if(data == "0"){
-                        return "GNB";
-                    }
-
-                    if(data == "1"){
-                        return "펼침";
-                    }
-
-                    if(data == "2"){
-                        return "팝업";
-                    }
-
-                    if(data == "3"){
-                        return "고객센터";
-                    }
-
-                    if(data == "4"){
-                        return "스토어";
-                    }
-
-                    return "-";
+                    return util.getCommonCodeLabel(data, banner_bannerType);
                 }},
             {'title': '이미지', 'data': 'banner_col3', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
@@ -48,7 +18,9 @@ var BannerDataTableSource = {
                     return '<a href="javascript:;"><img src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" /></a>'
 
                 }},
-            {'title': '배너 제목', 'data': 'title'},
+            {'title': '배너 제목', 'data': 'title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
+                }},
             {'title': '노출기간', 'data': 'term_type', 'render': function (data, type, row, meta) {
                     if(data == "0"){
                         return "상시";

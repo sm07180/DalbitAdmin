@@ -59,10 +59,9 @@
             //=---------- Main DataTable ----------
             var dtList_info_data = function ( data ) {
             };
-            this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge);
+            this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.pastEvent);
             this.dtList_info.useCheckBox(true);
             this.dtList_info.useIndex(true);
-            this.dtList_info.setEventClick(this.updateData,5);
             this.dtList_info.createDataTable();
             this.initDataTableButton();
             //---------- Main DataTable ----------=
@@ -84,12 +83,27 @@
 
         initEvent(){
             this.target.find("#btn_insert").on("click", function () { //등록
-                this.insertEvent();
+                fnc_pastEventList.insertEvent();
             })
 
             this.target.find("#btn_delete").on("click", function () { //삭제
-                this.deleteEvent();
+                fnc_pastEventList.deleteEvent();
             })
+
+            // Detail 선택 이벤트
+            this.target.on('click', '._getNoticeDetail', function(){
+                var code = $(this).data('idx');
+                var data = fnc_pastEventList.dtList_info.getDataRow(code);
+
+                fnc_pastEventList.updateData(data);
+            });
+
+            // CheckBox 이벤트
+            this.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
+                if($(this).prop('checked')){
+                    $(this).parent().parent().find('._getNoticeDetail').click();
+                }
+            });
         },
 
 

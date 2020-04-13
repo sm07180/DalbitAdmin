@@ -493,3 +493,4 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         if(common.isEmpty(orderDir)){orderDir = "desc"}
         this.dataTableSource.order = [[ columnIdx, orderDir ]] ;
     }
+
