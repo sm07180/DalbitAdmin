@@ -143,10 +143,6 @@
         util.editorInit("content-notice");
     }
 
-    function fn_detail_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
-    }
-
     function isValid(){
 
         var slctType = $("#noticeForm #slctType");
@@ -321,7 +317,7 @@
                     <td>{{noticeIdx}}</td>
 
                     <th>구분</th>
-                    <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y'}}}</td>
+                    <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
 
                     <th>제목</th>
                     <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
