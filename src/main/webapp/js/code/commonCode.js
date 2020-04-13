@@ -76,13 +76,6 @@ var gender = [
     , new COMMON_CODE('unknown', '3', '알수없음')
 ];
 
-var gender2 = [
-    new COMMON_CODE(null, 'gender', '성별구분')
-    , new COMMON_CODE('all', '0', '전체')
-    , new COMMON_CODE('man', '1', '남자')
-    , new COMMON_CODE('female', '2', '여자')
-];
-
 var memSex = [
     new COMMON_CODE(null, 'memSex', '성별구분')
     , new COMMON_CODE('man', 'm', '남자')

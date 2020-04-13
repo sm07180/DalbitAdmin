@@ -357,7 +357,7 @@
                 <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
 
                 <th>성별</th>
-                <td colspan="2">{{{getCommonCodeRadio sex 'gender2' 'N' 'sex'}}}</td>
+                <td colspan="2">{{{getCommonCodeRadio sex 'gender' 'N' 'sex'}}}</td>
 
                 <th>페이지 전환</th>
                 <td colspan="2">{{{getCommonCodeRadio is_pop 'viewType' 'N' 'is_pop'}}}</td>
