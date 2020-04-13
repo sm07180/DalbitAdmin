@@ -77,17 +77,19 @@ public class Mem_MemberService {
      * 회원 엑셀
      */
     public Model getListExcel(P_MemberListInputVo pMemberListInputVo, Model model) {
+        pMemberListInputVo.setPageCnt(100000);
         ProcedureVo procedureVo = new ProcedureVo(pMemberListInputVo);
 
         List<P_MemberListOutputVo> list = mem_MemberDao.callMemberList(procedureVo);
 
-        String[] headers = {"회원번호", "UserID", "닉네임", "연락처", "가입플랫폼", "회원가입일시", "최근 접속 일시", "누적 접속 수", "결제 건 수/금액", "회원상태", "접속상태", "방송상태"};
+        String[] headers = {"No", "회원번호", "UserID", "닉네임", "연락처", "가입플랫폼", "회원가입일시", "최근 접속 일시", "누적 접속 수", "결제 건 수/금액", "회원상태", "접속상태", "방송상태"};
         int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
 
+            hm.put("no", list.size() - i);
             hm.put("mem1", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
             hm.put("mem2", DalbitUtil.isEmpty(list.get(i).getMem_userid()) ? "" : list.get(i).getMem_userid());
             hm.put("mem3", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
