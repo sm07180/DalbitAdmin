@@ -13,4 +13,6 @@ public class P_MemberFanboardInputVo extends SearchVo {
     private String depth;
     private String idx;
     private String writer_mem_no;
+    private String withdrawal;
+
 }

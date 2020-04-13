@@ -29,11 +29,28 @@
                         </a>
                     </div>
                 </div>
-                <div class="widget-content" id="main_table">
-                    <table id="list_info" class="table table-sorting table-hover table-bordered">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
+
+                <ul class="nav nav-tabs nav-tabs-custom-colored">
+                    <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">회원</a></li>
+                    <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active " id="memberList">       <!-- 회원 -->
+                        <div class="widget-content">
+                            <table id="tb_memberList" class="table table-sorting table-hover table-bordered">
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="withdrawalList">       <!-- 회원 -->
+                        <div class="widget-content">
+                            <table id="tb_withdrawalList" class="table table-sorting table-hover table-bordered">
+                                <thead></thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,38 +79,65 @@
 
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
 
-    var dtList_info
+    var memWithdrawal = "0";
+
+    var dtList_info;
     var dtList_info_data = function ( data ) {
         data.searchType = $("select[name='searchType']").val();          // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명
+        data.memWithdrawal = memWithdrawal;
         // data.pageCnt = 10;
     };
-    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, MemberDataTableSource.userInfo);
+    dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.userInfo);
     dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
     dtList_info.useInitReload(false);
     dtList_info.createDataTable();
 
-    var forcedBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-    $("#div_memberList").find("#main_table").find(".footer-right").append(forcedBtn);
+    var dtList_info2;
+    var dtList_info_data2 = function ( data ) {
+        data.searchType = $("select[name='searchType']").val();          // 검색구분
+        data.searchText = $('#txt_search').val();                        // 검색명
+        data.memWithdrawal = memWithdrawal;
+        // data.pageCnt = 10;
+    };
+    dtList_info2 = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data2, MemberDataTableSource.userInfo);
+    dtList_info2.useCheckBox(true);
+    dtList_info2.useIndex(true);
+    dtList_info2.useInitReload(false);
+    dtList_info2.createDataTable();
+
+    var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+    $("#div_memberList").find(".footer-right").append(excel);
 
     var tmp_searchType;
     var tmp_searchText;
     var memNo = "unknown";
-    function getUserInfo(){                 // 검색
-        if( $('#txt_search').val().length < 2){
-            alert("검색대상을 입력해 주세요.");
-            return;
+    function getUserInfo() {                 // 검색
+        if (memWithdrawal == "0") {
+            if ($('#txt_search').val().length < 2) {
+                alert("검색대상을 입력해 주세요.");
+                return;
+            }
         }
-        dtList_info.reload();
-
+        if(memWithdrawal == "0"){
+            dtList_info.reload();
+        }else{
+            dtList_info2.reload();
+        }
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchType = $("select[name='searchType']").val();
         tmp_searchText = $('#txt_search').val();
-
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList()
         $('#tabList_top').removeClass("show");
+    }
+    function memberList(){
+        memWithdrawal = "0";
+    }
+    function withdrawalList(){
+        memWithdrawal = "1";
+        getUserInfo();
     }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
@@ -105,17 +149,26 @@
     function getMemNo_info(index){
         tmp_bt = "";
         $('#tabList_top').addClass("show");
-        var data = dtList_info.getDataRow(index);
-        util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
+        var obj = new Object();
+        if(memWithdrawal == "0"){
+            var data = dtList_info.getDataRow(index);
+            obj.mem_no = data.mem_no;
+        }else{
+            var data = dtList_info2.getDataRow(index);
+            obj.mem_no = data.mem_no;
+        }
+        obj.memWithdrawal = memWithdrawal;
+
+        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
-
         formData.append("searchType", tmp_searchType);
         formData.append("searchText", tmp_searchText);
+        formData.append("memWithdrawal", memWithdrawal);
         util.excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
 

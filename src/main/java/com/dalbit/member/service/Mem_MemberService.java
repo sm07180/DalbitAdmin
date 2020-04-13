@@ -62,8 +62,6 @@ public class Mem_MemberService {
         ProcedureVo procedureVo = new ProcedureVo(pMemberListInputVo);
         ArrayList<P_MemberListOutputVo> memberList = mem_MemberDao.callMemberList(procedureVo);
 
-
-
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberList, new PagingVo(procedureVo.getRet())));
@@ -123,9 +121,11 @@ public class Mem_MemberService {
         P_MemberInfoOutputVo memberInfo = new Gson().fromJson(procedureVo.getExt(), P_MemberInfoOutputVo.class);
 
         P_MemberInfoOutputVo block = mem_MemberDao.callMemberBlock(pMemberInfoInputVo);
-        if(!DalbitUtil.isEmpty(block.getBlock_day()) && !DalbitUtil.isEmpty(block.getBlock_end_date())){
-            memberInfo.setBlock_day(block.getBlock_day());
-            memberInfo.setBlock_end_date(block.getBlock_end_date());
+        if(!DalbitUtil.isEmpty(block)) {
+            if (!DalbitUtil.isEmpty(block.getBlock_day()) && !DalbitUtil.isEmpty(block.getBlock_end_date())) {
+                memberInfo.setBlock_day(block.getBlock_day());
+                memberInfo.setBlock_end_date(block.getBlock_end_date());
+            }
         }
 
         P_MemberInfoOutputVo certification = mem_MemberDao.callMemberCertification(pMemberInfoInputVo);
