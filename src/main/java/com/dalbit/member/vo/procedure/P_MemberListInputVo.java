@@ -8,4 +8,5 @@ import lombok.Setter;
 @Setter
 public class P_MemberListInputVo extends SearchVo {
     private int pageNo;
+    private String memWithdrawal;
 }

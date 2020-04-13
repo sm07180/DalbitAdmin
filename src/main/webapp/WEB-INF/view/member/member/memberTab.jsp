@@ -26,12 +26,18 @@
             <div class="tab-pane fade" id="mystarDetail"><jsp:include page="../myStar/list.jsp"/></div>         <!-- 마이스타 -->
             <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../notice/list.jsp"/></div>         <!-- 공지 -->
             <div class="tab-pane fade" id="fanboardDetail"><jsp:include page="../fanboard/list.jsp"/></div>       <!-- 팬보드 -->
-            <div class="tab-pane fade" id="banwordDetail"><jsp:include page="../banword/list.jsp"/></div>                 <!-- 금지어 -->
+            <div class="tab-pane fade" id="banwordDetail"><jsp:include page="../banword/list.jsp"/></div>         <!-- 금지어 -->
             <div class="tab-pane fade" id="declarationDetail"><jsp:include page="../declaration/list.jsp"/></div> <!-- 신고 -->
             <div class="tab-pane fade" id="questionDetail"><jsp:include page="../question/list.jsp"/></div>     <!-- 문의 -->
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
+<script type="text/javascript" src="/js/message/member/memberMessage.js"></script>
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
