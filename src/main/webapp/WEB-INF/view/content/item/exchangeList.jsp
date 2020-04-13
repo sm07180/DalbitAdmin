@@ -208,7 +208,8 @@ var fnc_exchangeList = {
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-        this.dtList_info.reload(this.initSummary);
+        this.dtList_info.createDataTable(this.initSummary);
+        // this.dtList_info.reload(this.initSummary);
     },
 
         // /*=---------- 엑셀 ----------*/

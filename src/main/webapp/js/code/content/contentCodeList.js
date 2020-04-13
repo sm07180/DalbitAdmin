@@ -29,8 +29,8 @@ var push_searchType = [
 var push_snedStatus = [
     new COMMON_CODE(null, 'snedStatus', '발송상태')
     , new COMMON_CODE('ready', '0', '발송대기')
-    , new COMMON_CODE('error', '1', '발송실패')
-    , new COMMON_CODE('send', '2', '발송완료')
+    , new COMMON_CODE('send', '1', '발송완료')
+    , new COMMON_CODE('error', '2', '발송실패')
 ];
 
 var push_platform = [
@@ -43,22 +43,22 @@ var push_platform = [
 
 var push_messageType = [
     new COMMON_CODE(null, 'messageType', '메세지 구분')
-    , new COMMON_CODE('notice', '7', '일반공지')
-    , new COMMON_CODE('notice', '7', '긴급공지')
-    , new COMMON_CODE('event', '7', '이벤트')
-    , new COMMON_CODE('check', '7', '정기점검')
-    , new COMMON_CODE('update', '7', '업데이트')
-    , new COMMON_CODE('etc', '7', '기타')
+    , new COMMON_CODE('notice', '0', '일반공지')
+    , new COMMON_CODE('notice', '1', '긴급공지')
+    , new COMMON_CODE('event', '2', '이벤트')
+    , new COMMON_CODE('check', '3', '정기점검')
+    , new COMMON_CODE('update', '4', '업데이트')
+    , new COMMON_CODE('etc', '99', '기타')
 ];
 
 var push_slctPush = [
     new COMMON_CODE(null, 'slctPush', '푸시타입')
-    , new COMMON_CODE('mystar', '1', '마이스타')
-    , new COMMON_CODE('receive', '2', '선물 받은 달')
-    , new COMMON_CODE('fan', '3', '팬')
-    , new COMMON_CODE('comment', '4', '댓글')
-    , new COMMON_CODE('dalbit', '5', '달빛 라이브')
-    , new COMMON_CODE('event', '6', '이벤트 및 마케팅 정보')
+    , new COMMON_CODE('mystar', '0', '마이스타')
+    , new COMMON_CODE('receive', '1', '선물 받은 달')
+    , new COMMON_CODE('fan', '2', '팬')
+    , new COMMON_CODE('comment', '3', '댓글')
+    , new COMMON_CODE('dalbit', '4', '달빛 라이브')
+    , new COMMON_CODE('event', '5', '이벤트 및 마케팅 정보')
 ];
 
 var push_sendType = [

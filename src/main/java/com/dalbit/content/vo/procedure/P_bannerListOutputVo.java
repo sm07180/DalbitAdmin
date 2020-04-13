@@ -43,7 +43,7 @@ public class P_bannerListOutputVo extends BaseVo {
 
 
 
-    public void setRegDate(java.sql.Date reg_date){
+    public void setReg_date(java.sql.Date reg_date){
         this.reg_date = reg_date;
         this.reg_dateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH.mm.ss");
     }

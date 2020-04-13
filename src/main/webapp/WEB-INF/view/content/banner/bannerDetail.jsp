@@ -290,6 +290,61 @@
 
 
         isValid(data){
+
+            if(common.isEmpty(data.title)){
+                alert("배너 제목을 입력하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=title]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.platform)){
+                alert("플랫폼을 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=platform]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.view_type)){
+                alert("로그인 구분을 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=view_type]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.sex)){
+                alert("성별을 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=sex]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.is_pop)){
+                alert("페이지 전환 방식을 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=is_pop]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.frequency_rate)){
+                alert("노출 빈도를 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=frequency_rate]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.position)){
+                alert("배너 위치를 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=position]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.is_view)){
+                alert("게시 여부를 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=position]").focus();
+                return false;
+            }
+
+            if(common.isEmpty(data.term_type)){
+                alert("노출 기간 타입을 선택하여 주시기 바랍니다.");
+                fnc_bannerDetail.target.find("input[name=term_type]").focus();
+                return false;
+            }
+
             return true;
         },
 

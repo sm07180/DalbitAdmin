@@ -31,7 +31,7 @@
                 console.log(getSelectDataInfo());
 
                 var data = new Object();
-                data.item_code = getSelectDataInfo().data.item_code;
+                data.push_idx = getSelectDataInfo().data.push_idx;
 
                 util.getAjaxData(fnc_pushDetail.targetId, "/rest/content/push/detail",data, fnc_pushDetail.fn_detail_success, fnc_pushDetail.fn_fail);
             }
@@ -59,16 +59,16 @@
         {
 
             //수신대상 선택
-            this.target.find("input[name='receiveType']").change(function () {
+            this.target.find("input[name='is_all']").change(function () {
                 if ($(this).val() == "-1") {
                     if ($(this).is(":checked")) {
-                        fnc_pushDetail.target.find("input[name='receiveType']").each(function () {
+                        fnc_pushDetail.target.find("input[name='is_all']").each(function () {
                             if ($(this).val() != "target") {
                                 this.checked = true;
                             }
                         });
                     } else {
-                        fnc_pushDetail.target.find("input[name='receiveType']").each(function () {
+                        fnc_pushDetail.target.find("input[name='is_all']").each(function () {
                             if ($(this).val() != "target") {
                                 this.checked = false;
                             }
@@ -85,46 +85,46 @@
                     }
                 } else {
                     if ($(this).is(":checked")) {
-                        var cntTotal = fnc_pushDetail.target.find("input[name='receiveType']").length;
-                        var cntChecked = fnc_pushDetail.target.find("input[name='receiveType']:checked").length;
+                        var cntTotal = fnc_pushDetail.target.find("input[name='is_all']").length;
+                        var cntChecked = fnc_pushDetail.target.find("input[name='is_all']:checked").length;
                         if ((cntTotal - 1) == (cntChecked + 1)) {     //지정회원 제외
-                            fnc_pushDetail.target.find("input[name='receiveType'][value='-1']").prop("checked", true);
+                            fnc_pushDetail.target.find("input[name='is_all'][value='-1']").prop("checked", true);
                         }
                     } else {
-                        fnc_pushDetail.target.find("input[name='receiveType'][value='-1']").prop("checked", false);
+                        fnc_pushDetail.target.find("input[name='is_all'][value='-1']").prop("checked", false);
                     }
                 }
             });
 
 
             //OS 구분
-            this.target.find("input[name='osType']").change(function () {
+            this.target.find("input[name='platform']").change(function () {
                 if ($(this).val() == "-1") {
                     if ($(this).is(":checked")) {
-                        fnc_pushDetail.target.find("input[name='osType']").each(function () {
+                        fnc_pushDetail.target.find("input[name='platform']").each(function () {
                             this.checked = true;
                         });
                     } else {
-                        fnc_pushDetail.target.find("input[name='osType']").each(function () {
+                        fnc_pushDetail.target.find("input[name='platform']").each(function () {
                             this.checked = false;
                         });
                     }
                 } else {
                     if ($(this).is(":checked")) {
-                        var cntTotal = fnc_pushDetail.target.find("input[name='osType']").length;
-                        var cntChecked = fnc_pushDetail.target.find("input[name='osType']:checked").length;
+                        var cntTotal = fnc_pushDetail.target.find("input[name='platform']").length;
+                        var cntChecked = fnc_pushDetail.target.find("input[name='platform']:checked").length;
                         if ((cntTotal) == (cntChecked + 1)) {
-                            fnc_pushDetail.target.find("input[name='osType'][value='-1']").prop("checked", true);
+                            fnc_pushDetail.target.find("input[name='platform'][value='-1']").prop("checked", true);
                         }
                     } else {
-                        fnc_pushDetail.target.find("input[name='osType'][value='-1']").prop("checked", false);
+                        fnc_pushDetail.target.find("input[name='platform'][value='-1']").prop("checked", false);
                     }
                 }
             });
 
 
             //발송여부 선택
-            this.target.find("input[name='sendType']:radio").change(function () {
+            this.target.find("input[name='is_direct']:radio").change(function () {
                 var type = this.value;
 
                 //예약 발송 일 경우 날짜 추가
@@ -274,18 +274,37 @@
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
 
+
+            //platform
+            if(fnc_pushDetail.target.find("#platform-1").is(":checked")){
+                resultJson['platform'] = "111";
+            }else{
+                var platformCnt = fnc_pushDetail.target.find("input[name=platform]").length;
+                var platform = "";
+                for(var i = 0; i < platformCnt; i++){
+                    if(fnc_pushDetail.target.find("#platform"+(i+1)).is(":checked")){
+                        platform += "1";
+                    }else{
+                        platform += "0";
+                    }
+                }
+                resultJson['platform'] = platform;
+            }
+
             //Date 처리이이이~~~
             var sendDateDiv = fnc_pushDetail.target.find("#push-div-sendDate");
-            resultJson['sendDate'] = sendDateDiv.find("#push-sendDate").val().replace(/[^0-9]/gi, '') + sendDateDiv.find("#timeHour").val() + sendDateDiv.find("#timeMinute").val();
+            resultJson['send_datetime'] = sendDateDiv.find("#push-sendDate").val().replace(/[^0-9]/gi, '') + sendDateDiv.find("#timeHour").val() + sendDateDiv.find("#timeMinute").val();
 
             //지정회원 parsing
             var selectTarget = [];
-            if (fnc_pushDetail.target.find("input:checkbox[name=receiveType]:checked").val() == "target") {
+            alert(fnc_pushDetail.target.find("input:checkbox[name=is_all]:checked").val());
+            if (fnc_pushDetail.target.find("input:checkbox[name=is_all]:checked").val() == "1") {
                 fnc_pushDetail.target.find("#div_selectTarget").find("p").each(function () {
                     var id = $(this).prop("id");
                     selectTarget.push(id);
                 })
-                resultJson['mem_no'] = selectTarget.toString();
+                console.log(selectTarget.toString());
+                resultJson['mem_nos'] = selectTarget.toString().replace(/,/gi , "|");
             }
 
             dalbitLog(resultJson)
@@ -294,21 +313,21 @@
 
 
         isValid(data) {
-            if (common.isEmpty(data.mem_no)) {
+            if (common.isEmpty(data.mem_nos)) {
                 alert("발송 대상을 선택하여 주시기 바랍니다.");
                 fnc_pushDetail.target.find("input[name=mem_no]").focus();
                 return false;
             }
 
-            if (common.isEmpty(data.title)) {
+            if (common.isEmpty(data.send_title)) {
                 alert("메시지 제목을 입력하여 주시기 바랍니다.");
                 fnc_pushDetail.target.find("input[name=title]").focus();
                 return false;
             }
 
-            if (common.isEmpty(data.contents)) {
+            if (common.isEmpty(data.send_cont)) {
                 alert("메시지 내용을 입력하여 주시기 바랍니다.");
-                fnc_pushDetail.target.find("input[name=contents]").focus();
+                fnc_pushDetail.target.find("input[name=send_cont]").focus();
                 return false;
             }
 
@@ -322,16 +341,10 @@
         choiceMember(data) {
             var html = '<p id="' + data.mem_no + '">' + data.mem_no + ' <a onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
 
-            if (fnc_pushDetail.target.find("#div_selectTarget").find("p").length >= 1) {
-                alert("수신대상자는 최대 1명까지 지정 가능합니다.");
+            if(fnc_pushDetail.target.find("#div_selectTarget").find("p").length >= 20){
+                alert("수신대상자는 최대 20명까지 지정 가능합니다.");
                 return false;
             }
-
-            //TODO 테스트 진행중 으로 인한 주석 (2020.03.31) 위에 if로 대체
-            // if(fnc_pushDetail.target.find("#div_selectTarget").find("p").length >= 20){
-            //     alert("수신대상자는 최대 20명까지 지정 가능합니다.");
-            //     return false;
-            // }
 
             fnc_pushDetail.target.find("#div_selectTarget").append(html);
         },
@@ -352,7 +365,7 @@
 <!-- =------------------ Handlebars ---------------------------------- -->
 
 <script id="tmp_pushDetailFrm" type="text/x-handlebars-template">
-    <input type="hidden" name="pushIdx" value="{{pushIdx}}" />
+    <input type="hidden" name="push_idx" value="{{push_idx}}" />
     <div class="row col-lg-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
@@ -360,8 +373,8 @@
                 ㆍ 발송 상태를 확인하시고 미발송 또는 발송오류 시 해당 정보가 맞는지 확인한 후 수정완료를 하시면 재발송이 가능합니다.
             </div>
             <div class="pull-right">
-                {{^pushIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/pushIdx}}
-                {{#pushIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/pushIdx}}
+                {{^push_idx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/push_idx}}
+                {{#push_idx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/push_idx}}
             </div>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -382,35 +395,44 @@
             <tbody>
             <tr class="align-middle">
                 <th>No</th>
-                <td>{{pushIdx}}</td>
+                <td>{{rowNum}}</td>
 
                 <th>발송상태</th>
-                <td colspan="3">{{{getCommonCodeRadio 0 'push_snedStatus'}}}</td>
+                <td colspan="3">
+                    {{^push_idx}}
+                        {{{getCommonCodeLabel 0 'push_snedStatus'}}}
+                        <input type="hidden" name="status" value="0" />
+                    {{/push_idx}}
+                    {{#push_idx}}
+                        {{{getCommonCodeLabel ../status 'push_snedStatus'}}}
+                        <input type="hidden" name="status" value="{{../status}}" />
+                    {{/push_idx}}
+                </td>
 
                 <th>노출 OS구분</th>
                 <%--<td colspan="5">{{{getCommonCodeRadio -1 'push_platform'}}}</td>--%>
                 <td colspan="5">
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="-1" checked="true"><span>전체</span> </label>
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="1" checked="true"><span>PC</span></label>
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="2" checked="true"><span>Android</span></label>
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="osType" value="3" checked="true"><span>IOS</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform-1" value="-1" checked="true"><span>전체</span> </label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform0" value="1" checked="true"><span>PC</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform1" value="2" checked="true"><span>Android</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform2" value="3" checked="true"><span>IOS</span></label>
                 </td>
             </tr>
             <tr>
                 <th>메세지 제목</th>
-                <td colspan="5"><input type="text" class="form-control" name="title" id="push-title" placeholder="관리를 위한 제목을 입력해주세요."></td>
+                <td colspan="5"><input type="text" class="form-control" name="send_title" id="push-send_title" placeholder="제목을 입력해주세요."></td>
 
                 <th rowspan="2">수신대상 선택</th>
                 <td colspan="5" rowspan="2">
                     <div>
-                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="-1" disabled><span>전체</span> </label>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="1" checked="true"><span>생방송</span></label>--%>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="2" checked="true"><span>여자</span></label>--%>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="3" checked="true"><span>남자</span></label>--%>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="4" checked="true"><span>로그인</span></label>--%>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="5" checked="true"><span>비로그인</span></label>--%>
+                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="0" disabled><span>전체</span> </label>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>생방송</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="2" checked="true"><span>여자</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="3" checked="true"><span>남자</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="4" checked="true"><span>로그인</span></label>--%>
+                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="5" checked="true"><span>비로그인</span></label>--%>
                         <div>
-                            <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="receiveType" value="target" checked="true"><span>지정 회원 </span></label>
+                            <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>지정 회원 </span></label>
                             <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember"/>
                         </div>
                     </div>
@@ -422,20 +444,20 @@
                 <th rowspan="3">메세지 내용</th>
                 <td colspan="5" rowspan="3">
                     <div>
-                        <textarea class="form-control" name="contents" id="push-contents" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40"></textarea>
+                        <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40"></textarea>
                         <span style="color: red">* 메시지 내용은 10자~40자(한글) 입력 가능합니다.</span>
                     </div>
                 </td>
             </tr>
             <tr>
                 <th>메세지 구분</th>
-                <td colspan="5">{{{getCommonCodeRadio 1 'push_messageType'}}}</td>
+                <td colspan="5">{{{getCommonCodeRadio msg_type 'push_messageType' 'N' 'msg_type'}}}</td>
             </tr>
             <tr>
                 <th>발송여부</th>
                 <td colspan="5">
                     <div>
-                        {{{getCommonCodeRadio 0 'push_sendType'}}}
+                        {{{getCommonCodeRadio is_direct 'push_sendType' 'N' 'is_direct'}}}
                     </div>
                     <div class="input-group date" id="push-div-sendDate" style="display:none;">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -457,10 +479,10 @@
                 </td>
                 -->
                 <th>푸시 타입</th>
-                <td colspan="5">{{{getCommonCodeRadio 1 'push_slctPush'}}}</td>
+                <td colspan="5">{{{getCommonCodeRadio slct_push 'push_slctPush' 'N' 'slct_push'}}}</td>
 
-                <th>등록/수정일</th>
-                <td colspan="5">{{date}}</td>
+                <th>등록일</th>
+                <td colspan="5">{{regDate}}</td>
             </tr>
             </tbody>
         </table>
