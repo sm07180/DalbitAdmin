@@ -124,7 +124,7 @@
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
-            $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked');
+            // $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked'); => 선택삭제 때문에 중복이 필요할 것 같아서 주석처리합니다!
             $(this).prop('checked', 'checked');
             $(this).parent().parent().find('._getNoticeDetail').click();
         } else {

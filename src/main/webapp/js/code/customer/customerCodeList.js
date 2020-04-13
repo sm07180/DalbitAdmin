@@ -18,8 +18,8 @@ var declaration_slctType = [
     , new COMMON_CODE('stop1', '3', '1일정지')
     , new COMMON_CODE('stop3', '4', '3일정지')
     , new COMMON_CODE('stop7', '5', '7일정지')
-    , new COMMON_CODE('withdrawal', '6', '영구정지')
     , new COMMON_CODE('stop15', '7', '강제탈퇴')
+    , new COMMON_CODE('withdrawal', '6', '영구정지')
 ];
 
 var declaration_reason = [

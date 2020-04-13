@@ -215,7 +215,7 @@
                 {{rank.start_date}}
                 {{/equal}}
             </td>
-            <td>{{airTime}}</td>
+            <td>{{timeStamp airTime}}</td>
         </tr>
 
         {{else}}
@@ -279,7 +279,7 @@
                 {{fan.start_date}}
                 {{/equal}}
             </td>
-            <td>{{airTime}}</td>
+            <td>{{timeStamp airTime}}</td>
         </tr>
 
     {{else}}

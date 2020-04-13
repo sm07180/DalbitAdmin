@@ -236,7 +236,7 @@
             <td>{{gifted_mem_no}}</td>
             <td>{{airCount}}</td>
             <td>{{convertToDate start_date "YYYY-MM-DD HH:mm:ss"}}</td>
-            <td>{{airTime}}</td>
+            <td>{{timeStamp airTime}}</td>
         </tr>
 
     {{else}}
