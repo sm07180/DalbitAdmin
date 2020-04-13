@@ -243,7 +243,7 @@
                     return;
                 }
                 if(memberInfo_responseDate.memSex != "n" && $('input[name="memSex"]:checked').val() == "n"){
-                    alert("성별을 알수 없음으로 변경이 불가능합니다.");
+                    alert("성별을 알수없음으로 변경이 불가능합니다.");
                     return false;
                 }
                 if(confirm("성별을 변경 하시겠습니까?")) {
@@ -388,9 +388,11 @@
     }
 
     function stateEdit() {
-        var obj = new Object();
-        obj.mem_no = memNo;
-        util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+        if(confirm("상태를 정상으로 변경 하시겠습니까?")) {
+            var obj = new Object();
+            obj.mem_no = memNo;
+            util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+        }return false;
     }
 
     function state_edit_success(dst_id, response) {

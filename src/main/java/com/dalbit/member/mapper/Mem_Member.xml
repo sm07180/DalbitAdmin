@@ -59,7 +59,7 @@
     </update>
     <insert id="callMemberEditHistoryAdd" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberEditHistoryAdd */
-        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents, op_name, last_upd_date ) values ( #{mem_no}, #{editContents}, #{opName}, now())
+        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents,state, op_name, last_upd_date ) values ( #{mem_no}, #{editContents},'2', #{opName}, now())
     </insert>
 
     <update id="callMemberStateEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
@@ -69,6 +69,14 @@
     <delete id="callMemberWithdrawal_del" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberWithdrawal_del */
         delete From rd_data.tb_member_withdrawal where mem_no=#{mem_no}
+    </delete>
+    <insert id="callMemberBasicAdd" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBasicAdd */
+        insert into rd_data.tb_member_basic (select * from rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no})
+    </insert>
+    <delete id="callMemberWithdrawal_bak_del" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberWithdrawal_bak_del */
+        delete From rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no}
     </delete>
 
     <insert id="callMemberReport" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
@@ -81,7 +89,6 @@
                 #{reported_nick},#{reported_phone},#{reported_level},#{reported_grade},null,1,null,'2',#{slctType},
                 '','PC',#{browser},#{ip},#{opName},now(),now())
     </insert>
-
     <update id="callMemberBasicReport_Edit" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberBasicReport_Edit */
         update rd_data.tb_member_basic
@@ -109,6 +116,16 @@
         /* M_Member.xml - callMemberNotification_Add */
         insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo  ) values ( #{reported_mem_no}, 7, #{notiContents}, #{notimemo})
     </insert>
+
+    <insert id="callMemberWithdrawal_bak_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBasicAdd */
+        insert into rd_data.tb_member_withdrawal_bak (select * from rd_data.tb_member_basic where mem_no=#{reported_mem_no})
+    </insert>
+    <delete id="callMemberBasic_del" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberWithdrawal_bak_del */
+        delete From rd_data.tb_member_basic where mem_no=#{reported_mem_no}
+    </delete>
+
 
     <!-- 자세히보기 -->
     <select id="callMemAdminMemoAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">

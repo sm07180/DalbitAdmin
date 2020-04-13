@@ -236,8 +236,10 @@ public class Mem_MemberService {
      * 회원 상태 정상 변경
      */
     public String getMemberStateEdit(P_MemberEditorVo pMemberEditorVo){
-        mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
         mem_MemberDao.callMemberWithdrawal_del(pMemberEditorVo);
+        mem_MemberDao.callMemberBasicAdd(pMemberEditorVo);
+        mem_MemberDao.callMemberWithdrawal_bak_del(pMemberEditorVo);
+        mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
     }
 
@@ -275,13 +277,20 @@ public class Mem_MemberService {
             pMemberReportVo.setBlockDay(7);
         }
         mem_MemberDao.callMemberBasicReport_Edit(pMemberReportVo);
-
-        //tb_member_withdrawal insert
-        mem_MemberDao.callMemberWithdrawal_Add(pMemberReportVo);
         //notice
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
         // 어드민 메모
         mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+
+        if(pMemberReportVo.getSlctType() == 7) {
+            // callMemberWithdrawal_bak_Add
+            mem_MemberDao.callMemberWithdrawal_bak_Add(pMemberReportVo);
+            // tb_member_basic del
+            mem_MemberDao.callMemberBasic_del(pMemberReportVo);
+            //tb_member_withdrawal insert
+            mem_MemberDao.callMemberWithdrawal_Add(pMemberReportVo);
+
+        }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
     }

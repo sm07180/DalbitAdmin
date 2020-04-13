@@ -157,23 +157,21 @@
             .replace(/{{message}}/gi, reportMessage)
             .replace(/{{timestamp}}/gi, timestamp);
 
+        if(confirm("신고 하시겠습니까?")) {
+            var obj = new Object();
+            obj.mem_no = memNo;             // 신고자 대상 ID검색용
+            obj.slctReason = $('#slctReason').val();
+            obj.slctType = $('input:radio[name="slctType"]:checked').val();
+            obj.memo = $("#txt_adminMemo").val();
+            obj.notiContents = msgTitle;
+            obj.notimemo = msgValue;
+            util.getAjaxData("report", "/rest/member/member/report", obj, update_success, fn_fail);
+        }return false;
 
-        var obj = new Object();
-        obj.mem_no = memNo;             // 신고자 대상 ID검색용
-        obj.slctReason = $('#slctReason').val();
-        obj.slctType =$('input:radio[name="slctType"]:checked').val();
-        obj.memo = $("#txt_adminMemo").val();
-        obj.notiContents = msgTitle;
-        obj.notimemo = msgValue;
-        util.getAjaxData("report", "/rest/member/member/report", obj, update_success, fn_fail);
-
-        window.opener.getMemNo_info_reload(memNo);
     }
 
-
-
-
     function update_success(dst_id, response) {
+        window.opener.getMemNo_info_reload(memNo);
         alert("신고 성공");
         window.close();
     }
