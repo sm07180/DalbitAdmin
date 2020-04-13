@@ -57,20 +57,21 @@ public class Adm_FaqService {
      * Faq 엑셀
      */
     public Model getListExcel(P_FaqListInputVo pFaqListInputVo, Model model) {
+        pFaqListInputVo.setTotalCnt(100000);
         ProcedureVo procedureVo = new ProcedureVo(pFaqListInputVo);
 
         List<P_FaqListOutputVo> list = adm_FaqDao.callFaqList(procedureVo);
 
-        String[] headers = {"FAQ구분", "FAQ질문", "등록일시", "조회수", "사이트 적용", "처리자명"};
-        int[] headerWidths = {2000, 5000, 2000, 5000, 2000, 3000, 3000};
+        String[] headers = {"No", "FAQ구분", "FAQ질문", "등록일시", "조회수", "사이트 적용", "처리자명"};
+        int[] headerWidths = {3000, 3000, 20000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
 
+            hm.put("no", list.size()-i);
             hm.put("faq1", DalbitUtil.isEmpty(list.get(i).getSlctType()) ? "" : list.get(i).getSlctType());
             hm.put("faq2", DalbitUtil.isEmpty(list.get(i).getQuestion()) ? "" : list.get(i).getQuestion());
-            hm.put("faq3", DalbitUtil.isEmpty(list.get(i).getSlctType()) ? "" : list.get(i).getSlctType());
             hm.put("faq4", DalbitUtil.isEmpty(list.get(i).getWriteDate()) ? "" : list.get(i).getWriteDate());
             hm.put("faq5", DalbitUtil.isEmpty(list.get(i).getViewCnt()) ? "" : list.get(i).getViewCnt());
             hm.put("faq6", DalbitUtil.isEmpty(list.get(i).getViewOn()) ? "" : list.get(i).getViewOn());
