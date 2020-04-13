@@ -62,17 +62,19 @@ public class NoticeService {
      * 사이트 공지 엑셀
      */
     public Model getListExcel(P_noticeListInputVo pNoticeListInputVo, Model model) {
+        pNoticeListInputVo.setPageCnt(100000);
         ProcedureVo procedureVo = new ProcedureVo(pNoticeListInputVo);
 
         List<P_noticeListOutputVo> list = noticeDao.callServiceCenterNoticeList(procedureVo);
 
-        String[] headers = {"플랫폼", "공지구분", "성별", "제목", "등록일시", "조회수", "게시상태", "처리자명"};
-        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
+        String[] headers = {"No", "플랫폼", "공지구분", "성별", "제목", "등록일시", "조회수", "게시상태", "처리자명"};
+        int[] headerWidths = {3000, 3000, 3000, 3000, 10000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
 
+            hm.put("no", list.size()-i);
             hm.put("platform", DalbitUtil.isEmpty(list.get(i).getPlatform()) ? "" : list.get(i).getPlatform());
             hm.put("slctType", DalbitUtil.isEmpty(list.get(i).getSlctType()) ? "" : list.get(i).getSlctType());
             hm.put("gender", DalbitUtil.isEmpty(list.get(i).getGender()) ? "" : list.get(i).getGender());
