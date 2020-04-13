@@ -106,5 +106,3 @@
         </tbody>
     </table>
 </script>
-
-bhmq@\u00261422
