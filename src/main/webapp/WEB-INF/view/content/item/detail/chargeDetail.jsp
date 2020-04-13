@@ -349,7 +349,10 @@
                     <th rowspan="2">플랫폼</th>
                     <td colspan="2" rowspan="2">
                         {{^item_code}}{{{getCommonCodeRadio platform 'content_platform3' 'Y' 'platform'}}}{{/item_code}}
-                        {{#item_code}}{{{getCommonCodeLabel ../platform 'content_platform3'}}}{{/item_code}}
+                        {{#item_code}}
+                            {{{getCommonCodeLabel ../platform 'content_platform3'}}}
+                            <input type="hidden" name="platform" value="{{../platform}}" />
+                        {{/item_code}}
                     </td>
 
                     <th rowspan="2">아이템 코드</th>

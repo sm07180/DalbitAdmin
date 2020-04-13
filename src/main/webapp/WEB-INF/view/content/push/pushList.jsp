@@ -62,7 +62,6 @@ var fnc_pushList = {
         this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, PushDataTableSource.pushList, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
-        this.dtList_info.setEventClick(this.updateData, 4);
         this.dtList_info.createDataTable();
         //---------- Main DataTable ----------=
 
@@ -91,6 +90,21 @@ var fnc_pushList = {
         this.target.find("#btn_delete").on("click", function () { //삭제
             fnc_pushList.deleteEvent();
         })
+
+        // Detail 선택 이벤트
+        this.target.on('click', '._getNoticeDetail', function(){
+            var code = $(this).data('idx');
+            var data = fnc_pushList.dtList_info.getDataRow(code);
+
+            fnc_pushList.updateData(data);
+        });
+
+        // CheckBox 이벤트
+        this.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
+            if($(this).prop('checked')){
+                $(this).parent().parent().find('._getNoticeDetail').click();
+            }
+        });
     },
 
 

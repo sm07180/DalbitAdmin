@@ -19,7 +19,7 @@ var EventDataTableSource = {
 
             }},
             {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                return '<a href="javascript:;">' + data + '</a>'
+                return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>';
 
             }},
             {'title': '이벤트 기간', 'data': 'event_col5', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
@@ -62,7 +62,7 @@ var EventDataTableSource = {
 
                 }},
             {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript:;">' + data + '</a>'
+                    return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
 
                 }},
             {'title': '이벤트 기간', 'data': 'event_col5', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {

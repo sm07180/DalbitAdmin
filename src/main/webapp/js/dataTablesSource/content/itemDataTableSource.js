@@ -43,7 +43,8 @@ var ItemDataTableSource = {
 
             }},
             {'title': '아이템 명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                return data;
+                    return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
+                // return data;
 
             }},
             {'title': '타입', 'data': 'item_type', 'defaultContent': '-', 'render': function (data, type, row, meta) {
@@ -87,13 +88,7 @@ var ItemDataTableSource = {
                     return data;
             }},
             {'title': '게시상태', 'data': 'view_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    if(data == "1"){
-                        return "ON";
-                    }
-
-                    if(data == "0"){
-                        return "OFF";
-                    }
+                    return util.getCommonCodeLabel(data, content_viewOn);
             }},
             {'title': '등록/수정일', 'data': 'lastUpdDateFormat', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                 return data;
@@ -123,7 +118,8 @@ var ItemDataTableSource = {
 
                 }},
             {'title': '아이템명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
+                    // return data;
 
                 }},
             {'title': '타입', 'data': 'item_type', 'defaultContent': '-', 'render': function (data, type, row, meta) {
@@ -161,13 +157,7 @@ var ItemDataTableSource = {
                     return data;
                 }},
             {'title': '게시상태', 'data': 'view_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    if(data == "1"){
-                        return "ON";
-                    }
-
-                    if(data == "0"){
-                        return "OFF";
-                    }
+                    return util.getCommonCodeLabel(data, content_viewOn);
                 }},
             {'title': '등록/수정일', 'data': 'lastupdDate', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                         return data;
@@ -185,23 +175,7 @@ var ItemDataTableSource = {
 
         , 'columns': [
             {'title': '사용영역', 'data': 'use_area', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    if(data == "1"){
-                        return "파티클";
-                    }
-                    if(data == "2"){
-                        return "콤보";
-                    }
-                    if(data == "3"){
-                        return "상단";
-                    }
-                    if(data == "4"){
-                        return "우측";
-                    }
-                    if(data == "5"){
-                        return "전체";
-                    }
-
-                    return "기본";
+                    return util.getCommonCodeLabel(data, item_useArea);
                 }},
             {'title': '파일등록 필드', 'data': 'file_slct', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
@@ -211,7 +185,8 @@ var ItemDataTableSource = {
 
                 }},
             {'title': '코드', 'data': 'item_code', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    return data;
+                    return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
+                    // return data;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return '<a href="javascript:;"><img src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" /></a>'
