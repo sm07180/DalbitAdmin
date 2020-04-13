@@ -49,8 +49,19 @@ public class Bro_BroadcastRestController {
     /**
      * 실시간 최신 생방송 엑셀
      */
-    @PostMapping("listExcel")
-    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_BroadcastListInputVo pBroadcastListInputVo) throws GlobalException {
+    @PostMapping("liveListExcel")
+    public String liveListExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_BroadcastListInputVo pBroadcastListInputVo) throws GlobalException {
+        Model resultModel = bro_BroadcastService.callLiveListExcel(pBroadcastListInputVo, model);
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+    }
+
+    /**
+     * 생방송 검색 엑셀
+     */
+    @PostMapping("broadcastListExcel")
+    public String broadcastListExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_BroadcastListInputVo pBroadcastListInputVo) throws GlobalException {
         Model resultModel = bro_BroadcastService.callBroadcastListExcel(pBroadcastListInputVo, model);
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
 

@@ -6,6 +6,7 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
+            <form id="searchForm">
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
@@ -14,11 +15,12 @@
                             <span id="searchRadio"></span>
                             <span id="searchType_broad"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
             </div>
+            </form>
             <!-- //serachBox -->
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
@@ -54,28 +56,28 @@
     $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
 
     $(document).ready(function() {
-        $('#searchRadio').change(function() {
-            console.log($('input[name="searchRadio"]:checked').val());
-            if($('input[name="searchRadio"]:checked').val() == "1"){
-                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
-            }else{
-                $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
-            }
-        });
-        $('input[id="txt_search"]').keydown(function() {
-            if (event.keyCode === 13) {
-                getSearch();
-            };
-        });
-        $('input[id="txt_broad"]').keydown(function() {
-            if (event.keyCode === 13) {
-                getSearch();
-            };
-        });
-    });
-    $(function(){
         getSearch();
     });
+
+    $('#searchRadio').change(function() {
+        if($('input[name="searchRadio"]:checked').val() == "1"){
+            $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+        }else{
+            $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchBroad_broad));
+        }
+    });
+
+    $('input[id="txt_search"]').keydown(function() {
+        if (event.keyCode === 13) {
+            getSearch();
+        };
+    });
+    $('input[id="txt_broad"]').keydown(function() {
+        if (event.keyCode === 13) {
+            getSearch();
+        };
+    });
+
     $('#bt_search').on('click', function(){
         getSearch();
     });
@@ -85,8 +87,8 @@
 
     var dtList_info="";
     var dtList_info_data = function (data) {
-        var slctType = $('input[name="searchRadio"]:checked').val()
-        data.slctType = $('input[name="searchRadio"]:checked').val();
+        var slctType = $('input[name="searchRadio"]:checked').val();
+        data.slctType = slctType;
         if(slctType == "1"){      // DJ정보
             data.dj_slctType = $("select[name='searchType_broad']").val();
             data.dj_searchText = $('#txt_search').val();
@@ -107,7 +109,7 @@
     dtList_info.useIndex(true);
     dtList_info.setPageLength(10);
     dtList_info.createDataTable(live_summary_table);
-    var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+    var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#main_table").find(".footer-right").append(excelBtn);
 
     function live_summary_table(json){
@@ -130,8 +132,8 @@
     var tmp_room_searchText;
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        var slctType = $('input[name="searchRadio"]:checked').val()
-        tmp_slctType = $('input[name="searchRadio"]:checked').val();
+        var slctType = $('input[name="searchRadio"]:checked').val();
+        tmp_slctType = slctType;
         if(slctType == "1"){
             tmp_dj_slctType = $("select[name='searchType_broad']").val();
             tmp_dj_searchText = $('#txt_search').val();
@@ -154,8 +156,9 @@
         console.log("--------------------------- 2");
         console.log($("#profileImg").prop("src"));
     }
+
     /*=============엑셀==================*/
-    $('#excelDownBtn').on('click', function(){
+    $('#liveexcelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("slctType", tmp_slctType);
@@ -163,14 +166,8 @@
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_searchText", tmp_room_searchText);
-        util.excelDownload($(this), "/rest/broadcast/broadcast/listExcel", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/rest/broadcast/broadcast/liveListExcel", formData)
     });
-    function fn_success_excel(){
-        console.log("fn_success_excel");
-    }
-    function fn_fail_excel(){
-        console.log("fn_fail_excel");
-    }
 
 </script>
 
