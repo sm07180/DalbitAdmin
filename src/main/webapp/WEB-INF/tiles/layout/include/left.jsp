@@ -122,61 +122,6 @@
                         </li>
                     </c:if>
                 </c:forEach>
-
-
-                <li class="${fn:startsWith(url, '/sample/') ? 'active': ''}">
-                    <a href="javascript://" class="js-sub-menu-toggle">
-                        <i class="fa fa-question"></i><span class="text">샘플페이지</span>
-                        <i class="toggle-icon fa fa-angle-${fn:startsWith(url, '/sample/') ? 'down': 'left'}"></i>
-                    </a>
-                    <ul class="sub-menu" style="${fn:startsWith(url, '/sample/') ? 'display:block;': ''}">
-                        <li class="${fn:contains(url, '/sample/editor') ? 'active': ''}">
-                            <a href="/sample/editor">
-                                <i class="fa fa-search"></i><span class="text">에디터</span>
-                            </a>
-                        </li>
-                        <li class="${fn:contains(url, '/sample/chart') ? 'active': ''}">
-                            <a href="/sample/chart">
-                                <i class="fa fa-search"></i><span class="text">차트</span>
-                            </a>
-                        </li>
-                        <li class="${fn:contains(url, '/sample/datepicker') ? 'active': ''}">
-                            <a href="/sample/datepicker">
-                                <i class="fa fa-search"></i><span class="text">DatePicker</span>
-                            </a>
-                        </li>
-                        <li class="${fn:contains(url, '/sample/layer') ? 'active': ''}">
-                            <a href="/sample/layer">
-                                <i class="fa fa-search"></i><span class="text">레이어</span>
-                            </a>
-                        </li>
-                        <li class="${fn:contains(url, '/sample/function') ? 'active': ''}">
-                            <a href="/sample/function">
-                                <i class="fa fa-search"></i><span class="text">공통함수</span>
-                            </a>
-                        </li>
-                        <li class="${url.equals('/sample/inforexAdminLogin') ? 'active': ''}">
-                            <a href="/sample/inforexAdminLogin">
-                                <i class="fa fa-search"></i><span class="text">인포렉스 로그인 연동</span>
-                            </a>
-                        </li>
-                        <li class="${url.equals('/sample/inforexAdminMenu') ? 'active': ''}">
-                            <a href="/sample/inforexAdminMenu">
-                                <i class="fa fa-search"></i><span class="text">인포렉스 메뉴 가져오기</span>
-                            </a>
-                        </li>
-                        <li class="${url.equals('/sample/inforexPosCodeList') ? 'active': ''}">
-                            <a href="/sample/inforexPosCodeList">
-                                <i class="fa fa-search"></i><span class="text">인포렉스 API 조회</span>
-                            </a>
-                        </li>
-                        <li class="${fn:contains(url, '/sample/confirmError') ? 'active': ''}">
-                            <a href="/sample/confirmError">
-                                <i class="fa fa-search"></i><span class="text">에러확인</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
             </ul>
         </nav>
         <!-- /main-nav -->
