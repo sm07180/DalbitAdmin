@@ -1,7 +1,7 @@
 package com.dalbit.content.service;
 
 import com.dalbit.content.dao.SitebanDao;
-import com.dalbit.content.dao.ThemeDao;
+import com.dalbit.content.vo.SitebanVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,14 @@ import org.springframework.stereotype.Service;
 public class SitebanService {
 
     @Autowired
-    SitebanDao dao;
+    SitebanDao sitebanDao;
 
+    public SitebanVo selectBanword(){
+        SitebanVo sitebanVo = sitebanDao.selectBanword();
+
+        sitebanVo.getBan_word();
+        sitebanVo.getCount();
+
+        return sitebanVo;
+    }
 }
