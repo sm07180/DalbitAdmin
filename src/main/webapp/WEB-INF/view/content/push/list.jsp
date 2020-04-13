@@ -12,7 +12,7 @@
                         <h3 class="title"><i class="fa fa-search"></i>푸시검색</h3>
                         <div>
                             <span id="search_platform_aria"></span>
-                            <span id="search_gender_aria"></span>
+                            <%--<span id="search_gender_aria"></span>--%>
                             <span id="search_searchType_aria"></span>
 
                             <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
@@ -52,7 +52,7 @@
     function init() {
         //검색조건 불러오기
         $("#search_platform_aria").html(util.getCommonCodeSelect(-1, platform));
-        $("#search_gender_aria").html(util.getCommonCodeSelect(-1, gender));
+        // $("#search_gender_aria").html(util.getCommonCodeSelect(-1, gender));
         $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, push_searchType));
     }
 
@@ -82,7 +82,8 @@
 
     // 검색
     function getItemInfo(){
-        var selectTabId = $("#headerTab").find(".active").find("a").prop("id").split("_")[1];
+        // var selectTabId = $("#headerTab").find(".active").find("a").prop("id").split("_")[1];
+        var selectTabId = "pushList";
         console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);
 

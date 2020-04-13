@@ -5,10 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.PushVo;
-import com.dalbit.content.vo.procedure.P_pushDeleteVo;
-import com.dalbit.content.vo.procedure.P_pushDetailInputVo;
-import com.dalbit.content.vo.procedure.P_pushInsertVo;
-import com.dalbit.content.vo.procedure.P_pushUpdateVo;
+import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,27 +33,9 @@ public class PushRestController {
      * 푸시 메시지
      */
     @PostMapping("list")
-    public String list(HttpServletRequest request, PushVo pushVo) {
-        int totalCnt = 0;
-        int startIdx = pushVo.getPageStart();
-
-        ArrayList<PushVo> list = new ArrayList<PushVo>();
-        for(int i = 0; i < pushVo.getPageCnt(); i++){
-            PushVo data = new PushVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setPush_col1(DalbitUtil.randomValue("number", 1));
-            data.setPush_col2(DalbitUtil.randomValue("number", 1));
-            data.setPush_col3("메시지 제목 이란다 ㅋㅋㅋㅋㅋ _" + data.getPush_col1());
-            data.setPush_col4(new Date());
-            data.setPush_col5(DalbitUtil.randomValue("number", 1));
-            data.setPush_col6(new Date());
-            data.setPush_col7("YOOSIN");
-
-            list.add(data);
-            startIdx++;
-        }
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
+    public String list(P_pushListInputVo pPushListInputVo) {
+        String result = pushService.callContentsPushList(pPushListInputVo);
+        return result;
     }
 
 
@@ -65,7 +44,7 @@ public class PushRestController {
      */
     @PostMapping("detail")
     public String detail(P_pushDetailInputVo p_pushDetailInputVo) {
-        String result = pushService.callServiceCenterPushListDetail(p_pushDetailInputVo);
+        String result = pushService.callContentsPushDetail(p_pushDetailInputVo);
         return result;
     }
 
@@ -74,7 +53,7 @@ public class PushRestController {
      */
     @PostMapping("insert")
     public String insert(P_pushInsertVo pPushInsertVo) {
-        String result = pushService.callServiceStmpPushAdd(pPushInsertVo);
+        String result = pushService.callContentsPushAdd(pPushInsertVo);
         return result;
     }
 
@@ -83,7 +62,7 @@ public class PushRestController {
      */
     @PostMapping("update")
     public String update(P_pushUpdateVo pPushUpdateVo) {
-        String result = pushService.callServiceCenterPushUpdate(pPushUpdateVo);
+        String result = pushService.callContentsPushEdit(pPushUpdateVo);
         return result;
     }
 
@@ -92,7 +71,7 @@ public class PushRestController {
      */
     @PostMapping("delete")
     public String delete(P_pushDeleteVo pPushDeleteVo) {
-        String result = pushService.callServiceCenterPushDelete(pPushDeleteVo);
+        String result = pushService.callContentsPushDelete(pPushDeleteVo);
         return result;
     }
 }

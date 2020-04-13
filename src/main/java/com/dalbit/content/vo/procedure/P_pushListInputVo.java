@@ -7,4 +7,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class P_pushListInputVo extends SearchVo {
+    private int push_idx;                //푸시번호
 }

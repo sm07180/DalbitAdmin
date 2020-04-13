@@ -209,7 +209,8 @@ var fnc_giftList = {
         // tmp_gubun = $("select[name='selectGubun']").val();
 
         // Summary를 위한 재생성
-        this.dtList_info.reload(this.initSummary);
+        this.dtList_info.createDataTable(this.initSummary);
+        // this.dtList_info.reload(this.initSummary);
 
     },
 

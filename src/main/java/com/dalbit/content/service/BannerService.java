@@ -38,14 +38,14 @@ public class BannerService {
             P_bannerListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_bannerListOutputVo.class);
 
             if(bannerList != null && bannerList.size() > 0) {
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템조회_성공, bannerList, new PagingVo(totalCnt), summary));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너조회_성공, bannerList, new PagingVo(totalCnt), summary));
             }else {
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템조회_데이터없음));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너조회_데이터없음));
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템조회_에러));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.배너조회_에러));
         }
 
         return result;
@@ -60,14 +60,14 @@ public class BannerService {
             P_bannerDetailOutputVo bannerDetail = bannerDao.callContentsBannerDetail(pBannerDetailInputVo);
 
             if (bannerDetail != null) {
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템상세조회_성공, bannerDetail));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너상세조회_성공, bannerDetail));
             } else{
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템상세조회_상품코드없음));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너상세조회_상품코드없음));
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템상세조회_에러));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.배너상세조회_에러));
         }
 
         return result;
@@ -85,14 +85,14 @@ public class BannerService {
             int insertResult = bannerDao.callContentsBannerAdd(pBannerInsertVo);
 
             if(insertResult > 0){
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템등록_성공));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너등록_성공));
             }else{
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템등록_실패));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너등록_실패));
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템등록_실패));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.배너등록_실패));
         }
 
         return result;
@@ -110,14 +110,14 @@ public class BannerService {
             int updateResult = bannerDao.callContentsBannerEdit(pBannerUpdateVo);
 
             if(updateResult > 0){
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템수정_성공));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너수정_성공));
             }else{
-                result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템수정_실패));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.배너수정_실패));
             }
 
         }catch (Exception e){
             e.printStackTrace();
-            result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템수정_에러));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.배너수정_에러));
         }
 
         return result;
@@ -152,9 +152,9 @@ public class BannerService {
         resultMap.put("failCnt", failCnt);
 
         if(0 < sucCnt){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템삭제_성공, resultMap));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.배너삭제_성공, resultMap));
         }else{
-            result = gsonUtil.toJson(new JsonOutputVo(Status.배너아이템삭제_실패, resultMap));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.배너삭제_실패, resultMap));
         }
 
         return result;

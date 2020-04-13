@@ -23,7 +23,7 @@
             ,thumb_img_url      AS thumb_img_url
             ,platform              AS platform
             ,`desc`             AS `desc`
-            ,reg_date           AS reg_date
+            ,reg_date           AS regDate
             ,op_name            AS opName
             ,last_upd_date      AS lastUpdDate
             ,last_op_name       AS lastOpName
