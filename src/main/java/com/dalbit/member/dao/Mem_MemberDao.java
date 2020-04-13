@@ -22,10 +22,15 @@ public interface Mem_MemberDao {
     int callMemberEditHistoryAdd(P_MemberEditorVo pMemberEditorVo);
     int callMemberStateEditor(P_MemberEditorVo pMemberEditorVo);
     int callMemberWithdrawal_del(P_MemberEditorVo pMemberEditorVo);
+    int callMemberBasicAdd(P_MemberEditorVo pMemberEditorVo);
+    int callMemberWithdrawal_bak_del(P_MemberEditorVo pMemberEditorVo);
     int callMemberReport(P_MemberReportVo pMemberReportVo);
     int callMemberBasicReport_Edit(P_MemberReportVo pMemberReportVo);
     int callMemberWithdrawal_Add(P_MemberReportVo pMemberReportVo);
     int callMemberNotification_Add(P_MemberReportVo pMemberReportVo);
+
+    int callMemberWithdrawal_bak_Add(P_MemberReportVo pMemberReportVo);
+    int callMemberBasic_del(P_MemberReportVo pMemberReportVo);
 
     ProcedureVo callMemAdminMemoAdd(ProcedureVo procedureVo);
     ArrayList<P_MemberAdminMemoListOutputVo> callMemAdminMemoList(ProcedureVo procedureVo);
