@@ -88,7 +88,7 @@ var banner_bannerType = [
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('gnb', '0', 'GNB')
     , new COMMON_CODE('top', '1', 'MainTop')
-    , new COMMON_CODE('thumb', '2', 'Main 썸네일')
+    /*, new COMMON_CODE('thumb', '2', 'Main 썸네일')*/
     , new COMMON_CODE('dj', '3', 'DJ랭킹')
     , new COMMON_CODE('store', '4', '스토어')
     , new COMMON_CODE('center', '5', '고객센터')
