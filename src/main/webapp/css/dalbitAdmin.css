@@ -145,3 +145,15 @@ td._down {
     color : #4747ff;
 }
 
+.table-hover-ban #tableBody tr{
+    border: 1px solid #ddd;
+}
+
+.table-hover-ban #tableBody tr td{
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-hover-ban #tableBody tr td:hover{
+    background-color: #f2f3bb;
+}

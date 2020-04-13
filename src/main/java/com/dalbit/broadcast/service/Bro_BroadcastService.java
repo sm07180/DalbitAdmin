@@ -61,21 +61,22 @@ public class Bro_BroadcastService {
     }
 
     /**
-     * 회원 엑셀
+     * 실시간 최신 생방송 엑셀
      */
-    public Model callBroadcastListExcel(P_BroadcastListInputVo pBroadcastListInputVo, Model model) {
+    public Model callLiveListExcel(P_BroadcastListInputVo pBroadcastListInputVo, Model model) {
+        pBroadcastListInputVo.setPageCnt(100000);
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastListInputVo);
 
         List<P_BroadcastListOutputVo> list = bro_BroadcastDao.callBroadcastList(procedureVo);
 
-        String[] headers = {"방번호","방송주제", "방송제목", "프로필이미지", "테그부분","회원번호", "DJID", "닉네임", "DJ레벨", "DJ등급", "방송시작일시", "진행시간", "청취자", "좋아요", "부스터", "선물", "팬수", "강제퇴장","사연수"};
-        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
+        String[] headers = {"No","방송주제", "방송제목", "프로필이미지", "테그부분", "DJID", "User 닉네임", "방송시작일시", "진행시간", "누적청취자", "청취자", "좋아요", "부스터", "선물", "팬수", "강제퇴장"};
+        int[] headerWidths = {3000, 3000, 6000, 6000, 6000, 6000, 6000, 6000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
 
-            hm.put("mem1",  DalbitUtil.isEmpty(list.get(i).getRoom_no())         ? "" : list.get(i).getRoom_no());
+            hm.put("no", list.size()-i);
             hm.put("mem2",  DalbitUtil.isEmpty(list.get(i).getSubjectType())     ? "" : list.get(i).getSubjectType());
             hm.put("mem3",  DalbitUtil.isEmpty(list.get(i).getTitle())           ? "" : list.get(i).getTitle());
             hm.put("mem4",  DalbitUtil.isEmpty(list.get(i).getDj_profileImage()) ? "" : list.get(i).getDj_profileImage());
@@ -84,11 +85,8 @@ public class Bro_BroadcastService {
             if(list.get(i).getPopularBadge() == 1)tmp = tmp + "인기 ";
             if(list.get(i).getNewjdBadge() == 1)tmp = tmp + "신입";
             hm.put("mem5", tmp);
-            hm.put("mem6",  DalbitUtil.isEmpty(list.get(i).getDj_mem_no()) ? "" : list.get(i).getDj_mem_no());
             hm.put("mem7",  DalbitUtil.isEmpty(list.get(i).getDj_userid()) ? "" : list.get(i).getDj_userid());
             hm.put("mem8",  DalbitUtil.isEmpty(list.get(i).getDj_nickname()) ? "" : list.get(i).getDj_nickname());
-            hm.put("mem9",  DalbitUtil.isEmpty(list.get(i).getDj_level()) ? "" : list.get(i).getDj_level());
-            hm.put("mem10",  DalbitUtil.isEmpty(list.get(i).getDj_grade()) ? "" : list.get(i).getDj_grade());
             hm.put("mem11", DalbitUtil.isEmpty(list.get(i).getStartDateFormat()) ? "" : list.get(i).getStartDateFormat());
             hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
             hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getLiveListener()) ? "" : list.get(i).getLiveListener());
@@ -97,7 +95,6 @@ public class Bro_BroadcastService {
             hm.put("mem16", DalbitUtil.isEmpty(list.get(i).getGiftCnt()) ? "" : list.get(i).getGiftCnt());
             hm.put("mem17", DalbitUtil.isEmpty(list.get(i).getFanCnt()) ? "" : list.get(i).getFanCnt());
             hm.put("mem18", DalbitUtil.isEmpty(list.get(i).getForcedCnt()) ? "" : list.get(i).getForcedCnt());
-            hm.put("mem19", DalbitUtil.isEmpty(list.get(i).getStoryCnt()) ? "" : list.get(i).getStoryCnt());
 
             bodies.add(hm.values().toArray());
         }
@@ -105,10 +102,52 @@ public class Bro_BroadcastService {
         SXSSFWorkbook workbook = excelService.excelDownload("목록",vo);
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "생방송 목록");
+        model.addAttribute("workbookName", "실시간 최신 생방송 목록");
 
         return model;
     }
+
+    /**
+     * 생방송 검색 엑셀
+     */
+    public Model callBroadcastListExcel(P_BroadcastListInputVo pBroadcastListInputVo, Model model) {
+        pBroadcastListInputVo.setPageCnt(100000);
+        ProcedureVo procedureVo = new ProcedureVo(pBroadcastListInputVo);
+
+        List<P_BroadcastListOutputVo> list = bro_BroadcastDao.callBroadcastList(procedureVo);
+
+        String[] headers = {"No", "방송주제", "방송제목", "방송시작일시", "방송진행시간", "DJ ID", "DJ 닉네임", "누적청취자", "청취자", "좋아요", "선물", "사연수", "방송상태"};
+        int[] headerWidths = {3000, 3000, 6000, 6000, 6000, 6000, 6000, 3000, 3000, 3000, 3000, 3000, 3000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("no", list.size()-i);
+            hm.put("mem1",  DalbitUtil.isEmpty(list.get(i).getSubjectType()) ? "" : list.get(i).getSubjectType());
+            hm.put("mem2",  DalbitUtil.isEmpty(list.get(i).getTitle()) ? "" : list.get(i).getTitle());
+            hm.put("mem3", DalbitUtil.isEmpty(list.get(i).getStartDateFormat()) ? "" : list.get(i).getStartDateFormat());
+            hm.put("mem4", DalbitUtil.isEmpty(list.get(i).getAirTime()) ? "" : list.get(i).getAirTime());
+            hm.put("mem5",  DalbitUtil.isEmpty(list.get(i).getDj_userid()) ? "" : list.get(i).getDj_userid());
+            hm.put("mem6",  DalbitUtil.isEmpty(list.get(i).getDj_nickname()) ? "" : list.get(i).getDj_nickname());
+            hm.put("mem7", DalbitUtil.isEmpty(list.get(i).getTotalListener()) ? "" : list.get(i).getTotalListener());
+            hm.put("mem8", DalbitUtil.isEmpty(list.get(i).getLiveListener()) ? "" : list.get(i).getLiveListener());
+            hm.put("mem9", DalbitUtil.isEmpty(list.get(i).getGoodCnt()) ? "" : list.get(i).getGoodCnt());
+            hm.put("mem10", DalbitUtil.isEmpty(list.get(i).getGiftCnt()) ? "" : list.get(i).getGiftCnt());
+            hm.put("mem11", DalbitUtil.isEmpty(list.get(i).getStoryCnt()) ? "" : list.get(i).getStoryCnt());
+            hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getState()) ? "" : list.get(i).getState());
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("목록",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "생방송 검색 엑셀 목록");
+
+        return model;
+    }
+
 
     /**
      * 선택한 방 정보

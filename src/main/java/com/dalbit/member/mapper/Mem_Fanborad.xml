@@ -22,11 +22,28 @@
           a.`STATUS` AS `STATUS`,
           a.last_upd_date AS writeDate
         from
-          ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1  and `status` = 1) AS a LEFT JOIN rd_data.tb_member_basic AS b
+          ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1  and `status` = 1) AS a JOIN rd_data.tb_member_basic AS b
             ON a.writer_no = b.mem_no
-        order BY a.last_upd_date desc
+
+        union
+        SELECT
+          a.idx AS board_idx,
+          a.board_no AS board_no,
+          a.writer_no AS writer_mem_no,
+          b.mem_nick AS nickName,
+          b.mem_userid as userId,
+          b.mem_sex AS memSex,
+          ( SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.writer_no ) AS profileImage,
+          a.contents AS contents,
+          ( SELECT COUNT(*) FROM rd_data.tb_member_fanboard WHERE mem_no =  #{mem_no} and `status` = 1 AND board_no = a.board_no AND depth = 2 ) AS replyCnt,
+          a.`STATUS` AS `STATUS`,
+          a.last_upd_date AS writeDate
+        from
+          ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND depth = 1  and `status` = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
+            ON a.writer_no = b.mem_no
           limit #{pageNo}, #{pageCnt}
         ) aa, (select @rownum := #{pageNo}) b
+        order BY writeDate desc
     </select>
 
     <select id="callFanboardHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardInputVo" resultType="integer">
@@ -52,9 +69,28 @@
             a.last_upd_date AS writeDate,
             depth
         from
-            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a LEFT JOIN rd_data.tb_member_basic AS b
+            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a JOIN rd_data.tb_member_basic AS b
         ON a.writer_no = b.mem_no
-        order BY a.last_upd_date DESC;
+
+        union
+
+        SELECT
+            a.idx AS board_idx,
+            a.board_no AS board_no,
+            a.writer_no AS writer_mem_no,
+            b.mem_nick AS nickName,
+            b.mem_userid as userId,
+            b.mem_sex AS memSex,
+            ( SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.writer_no ) AS profileImage,
+            a.contents AS contents,
+            a.`STATUS` AS `STATUS`,
+            a.last_upd_date AS writeDate,
+            depth
+        from
+            ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
+        ON a.writer_no = b.mem_no
+
+        order BY writeDate DESC;
     </select>
 
     <update id="callFanboardDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo">

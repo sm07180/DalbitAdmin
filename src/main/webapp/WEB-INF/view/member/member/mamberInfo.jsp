@@ -11,10 +11,6 @@
 <!-- detail -->
 <form id="member_detailFrm" class="hide"></form>
 
-<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
-<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
-<script type="text/javascript" src="/js/message/member/memberMessage.js"></script>
-<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -28,14 +24,24 @@
     var profImgDel;
     var report;
     var memberInfo_responseDate;
+    var withdrawal;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         memberInfo_responseDate = response.data;
         profImgDel = "false";
         memNo = response.data.mem_no;
 
-        if(response.data.memState == 3)
-            response.data["block"] =  " / 정지기간: " + response.data.block_day + " / 정지종료일: " + response.data.blockEndDateFormat;
+        if (response.data.memState == 3)
+            response.data["block"] = " / 정지기간: " + response.data.block_day + " / 정지종료일: " + response.data.blockEndDateFormat;
+
+        if (response.data.memState == 4)
+            response.data["memWithdrawal"] = "1";
+        else
+            response.data["memWithdrawal"] = "0";
+
+        // withdrawal = response.data["memWithdrawal"];
+
+        response.data["birthData"] = response.data.birthDate.substr(0, 10);
 
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -44,20 +50,25 @@
         $("#memberInfoFrm").html(html);
         init();
 
-        $("#txt_birth").val(response.data.birthDate.substr(0, 10));
+        // $("#txt_birth").val(response.data.birthDate);
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "20"));
         report = "../member/popup/reportPopup?memNo='" + response.data.mem_no + "'&memId='" + response.data.userId + "'&memNick='" + response.data.nickName + "'&memSex='" + response.data.memSex + "'";
 
-        if(response.data.memSlct != "p" ){
+        if (response.data.memSlct != "p") {
             $("#div_socialId").empty();
             var tmp = '<label>' + response.data.socialId + '</label>';
             $("#div_socialId").append(tmp);
         }
 
-        if(tmp_bt != "adminMemoAdd" ){
+        if (tmp_bt != "adminMemoAdd") {
             $("#member_detailFrm").html("");
         }
-        // // 상단 목록 클릭시 detail 재 조회
+        if (response.data.memState == 4){
+            $("#txt_phon").css("display", "none");
+        }else{
+            $("#txt_phon").css("display", "");
+        }
+
         $("#tablist_con").find('.active').find('a').click();
     }
 
@@ -231,6 +242,10 @@
                     alert("성별을 변경해 주세요.");
                     return;
                 }
+                if(memberInfo_responseDate.memSex != "n" && $('input[name="memSex"]:checked').val() == "n"){
+                    alert("성별을 알수없음으로 변경이 불가능합니다.");
+                    return false;
+                }
                 if(confirm("성별을 변경 하시겠습니까?")) {
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     sendNoti = 0;
@@ -373,16 +388,26 @@
     }
 
     function stateEdit() {
-        var obj = new Object();
-        obj.mem_no = memNo;
-        util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+        if(confirm("상태를 정상으로 변경 하시겠습니까?")) {
+            var obj = new Object();
+            obj.mem_no = memNo;
+            util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+        }return false;
     }
 
     function state_edit_success(dst_id, response) {
         getMemNo_info_reload(memNo);
     }
 
-
+    $(document).on('click', 'input:radio[name="memSex"]', function(title, content){
+        if(memberInfo_responseDate.memState == 4){
+            return false;
+        }
+        if(memberInfo_responseDate.memSex != "n" && $('input[name="memSex"]:checked').val() == "n"){
+            alert("성별을 알수 없음으로 변경이 불가능합니다.");
+            return false;
+        }
+    });
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -402,7 +427,9 @@
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" onclick="fullSize_profile(this.src);"/>
                 </form>
-                <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                {{/equal}}
             </td>
         <tr>
             <th>회원레벨</th>
@@ -417,7 +444,9 @@
             <td style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
                 {{{block}}}
-                <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
+                {{/equal}}
                 <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
             </td>
         </tr>
@@ -463,7 +492,9 @@
             <th>연락처</th>
             <td colspan="3" style="text-align: left">
                 <input type="text" class="form-control" id="txt_phon" style="width: 50%;" value="{{phoneNum}}">
-                <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{/equal}}
                 {{certification}}
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
@@ -475,8 +506,9 @@
         <tr>
             <th>닉네임</th>
             <td colspan="3" style="text-align: left">
-                <%--<input type="text" class="form-control" id="txt_memNick" style="width: 90%;" value="{{nickName}}">--%>
-                <button type="button" id="bt_resatNick" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_resatNick" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
+                {{/equal}}
             </td>
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
             <td style="text-align: left">
@@ -488,9 +520,11 @@
             <th>생년월일</th>
             <td colspan="3" style="text-align: left">
                 <div class="input-group date" id="date_birth">
-                    <input type="text" class="form-control" id="txt_birth"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input type="text" class="form-control" id="txt_birth" value="{{{birthData}}}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
-                <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{/equal}}
             </td>
             <th>소셜가입</th>
             <td style="text-align: left"><label id="memSlct"></label></td>
@@ -499,15 +533,22 @@
             <th>나이</th>
             <td style="text-align: left">{{age}}세</td>
             <th>성별</th>
-            <td style="text-align: left">{{{getCommonCodeRadio memSex 'memSex'}}}
-                <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+            <td style="text-align: left">
+                {{{getCommonCodeRadio memSex 'memSex'}}}
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{/equal}}
             </td>
             <th>회원가입일시</th>
             <td style="text-align: left">{{joinDate}}</td>
         </tr>
         <tr>
             <th>비밀번호</th>
-            <td colspan="3" style="text-align: left"><button type="button" id="bt_resatPass" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button></td>
+            <td colspan="3" style="text-align: left">
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_resatPass" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                {{/equal}}
+            </td>
             <th>회원탈퇴일시</th>
             <td style="text-align: left">{{withdrawalDate}}</td>
         </tr>

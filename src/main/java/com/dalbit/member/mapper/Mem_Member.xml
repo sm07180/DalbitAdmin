@@ -8,12 +8,14 @@
 
     <select id="callMemberList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberListOutputVo">
         /* M_Member.xml - callMemberList */
-        call rd_admin.sp_admin_member_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        <!--call rd_admin.sp_admin_member_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        call rd_admin.sp_admin_member_all_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callMemberInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberInfo */
-        call rd_admin.sp_admin_member_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        <!--call rd_admin.sp_admin_member_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        call rd_admin.sp_admin_member_all_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callMemberCertification" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
@@ -24,6 +26,8 @@
     <select id="callMemberBlock" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberBlock */
         select block_day,block_end_date From rd_data.tb_member_basic where mem_no=#{mem_no}
+         union
+        select block_day,block_end_date From rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no}
     </select>
 
     <select id="callNickNameCheck" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
@@ -33,7 +37,8 @@
 
     <select id="callMemberEditHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo">
         /* M_Member.xml - callMemberEditHistory */
-        call rd_admin.sp_admin_member_info_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        <!--call rd_admin.sp_admin_member_info_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        call rd_admin.sp_admin_member_all_info_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callMemberEditor" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
@@ -44,6 +49,8 @@
     <select id="callMemberSocialIdCheck" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo" resultType="integer">
         /* M_Member.xml - callMemberEditor */
         select count(*) as cnt from rd_data.tb_member_basic where upper(mem_id)=upper(#{socialId})
+        union
+        select count(*) as cnt from rd_data.tb_member_withdrawal_bak where upper(mem_id)=upper(#{socialId})
     </select>
 
     <update id="callMemberSocialIdEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
@@ -52,7 +59,7 @@
     </update>
     <insert id="callMemberEditHistoryAdd" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberEditHistoryAdd */
-        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents, op_name, last_upd_date ) values ( #{mem_no}, #{editContents}, #{opName}, now())
+        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents,state, op_name, last_upd_date ) values ( #{mem_no}, #{editContents},'2', #{opName}, now())
     </insert>
 
     <update id="callMemberStateEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
@@ -63,6 +70,15 @@
         /* M_Member.xml - callMemberWithdrawal_del */
         delete From rd_data.tb_member_withdrawal where mem_no=#{mem_no}
     </delete>
+    <insert id="callMemberBasicAdd" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBasicAdd */
+        insert into rd_data.tb_member_basic (select * from rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no})
+    </insert>
+    <delete id="callMemberWithdrawal_bak_del" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberWithdrawal_bak_del */
+        delete From rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no}
+    </delete>
+
     <insert id="callMemberReport" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberReport */
         insert into rd_data.tb_member_report
@@ -73,7 +89,6 @@
                 #{reported_nick},#{reported_phone},#{reported_level},#{reported_grade},null,1,null,'2',#{slctType},
                 '','PC',#{browser},#{ip},#{opName},now(),now())
     </insert>
-
     <update id="callMemberBasicReport_Edit" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberBasicReport_Edit */
         update rd_data.tb_member_basic
@@ -102,6 +117,16 @@
         insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo  ) values ( #{reported_mem_no}, 7, #{notiContents}, #{notimemo})
     </insert>
 
+    <insert id="callMemberWithdrawal_bak_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBasicAdd */
+        insert into rd_data.tb_member_withdrawal_bak (select * from rd_data.tb_member_basic where mem_no=#{reported_mem_no})
+    </insert>
+    <delete id="callMemberBasic_del" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberWithdrawal_bak_del */
+        delete From rd_data.tb_member_basic where mem_no=#{reported_mem_no}
+    </delete>
+
+
     <!-- 자세히보기 -->
     <select id="callMemAdminMemoAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         /* M_Member.xml - callMemberAdminMemoAdd */
@@ -113,14 +138,17 @@
     </select>
     <select id="callMemConnect" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberConnectOutputVo">
         /* M_Member.xml - callMemConnect */
-        call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        <!--call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        call rd_admin.sp_admin_member_all_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
     <select id="callMemManagerList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberManagerListOutputVo">
         /* M_Member.xml - callMemManagerList */
-        call rd_admin.sp_admin_member_info_manager(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        <!--call rd_admin.sp_admin_member_info_manager(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        call rd_admin.sp_admin_member_all_info_manager(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
     <select id="callMemBlackList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberBlackListOutputVo">
         /* M_Member.xml - callMemBlackList */
-        call rd_admin.sp_admin_member_info_black(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        <!--call rd_admin.sp_admin_member_info_black(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        call rd_admin.sp_admin_member_all_info_black(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 </mapper>

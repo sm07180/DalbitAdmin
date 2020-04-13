@@ -11,8 +11,12 @@
       select @rownum := @rownum + 1 as rowNum,
               a.*
          from ( select a.mem_no_star,a.reg_date
-                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_star) as mem_no_start_id
-                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_star) as mem_no_start_nick
+                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_star
+                          union
+                          select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star ) as mem_no_start_id
+                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_star
+                          union
+                          select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star ) as mem_no_start_nick
                         ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as accumCnt
                         ,(select sum(item_cnt) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as totalItemCnt
                    From rd_data.tb_member_fanstar a
@@ -34,8 +38,12 @@
       select @rownum := @rownum + 1 as rowNum,
               a.*
          from ( select a.mem_no_fan,a.reg_date
-                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_fan) as mem_no_fan_id
-                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_fan) as mem_no_fan_nick
+                        ,(select mem_userid From rd_data.tb_member_basic where mem_no = a.mem_no_fan
+                          union
+                          select mem_userid From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan ) as mem_no_fan_id
+                        ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_fan
+                          union
+                          select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan ) as mem_no_fan_nick
                         ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_star and gifted_mem_no = a.mem_no_fan) as accumCnt
                         ,(select sum(item_cnt) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_star and gifted_mem_no = a.mem_no_fan) as totalItemCnt
                    From rd_data.tb_member_fanstar a

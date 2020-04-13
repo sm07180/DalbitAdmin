@@ -62,16 +62,18 @@ public class DeclarationService {
      * 신고 목록 엑셀
      */
     public Model getListExcel(P_DeclarationListInputVo pDeclarationListInputVo, Model model){
+        pDeclarationListInputVo.setPageCnt(100000);
         ProcedureVo procedureVo = new ProcedureVo(pDeclarationListInputVo);
         List<P_DeclarationListOutputVo> list = declarationDao.callServiceCenterReportList(procedureVo);
 
-        String[] headers = {"플랫폼", "신고구분", "신고자 UserID", "신고자 User닉네임", "신고 대상 UserID", "신고 대상 User닉네임", "접수 일시", "처리 일시", "처리 상태", "처리자"};
-        int[] headerWidths = {3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000};
+        String[] headers = {"No", "플랫폼", "신고구분", "신고자 UserID", "신고자 User닉네임", "신고 대상 UserID", "신고 대상 User닉네임", "접수 일시", "처리 일시", "처리 상태", "처리자"};
+        int[] headerWidths = {3000, 6000, 3000, 6000, 6000, 6000, 6000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
 
+            hm.put("no", list.size()-i);
             hm.put("platform", DalbitUtil.isEmpty(list.get(i).getPlatform()) ? "" : list.get(i).getPlatform());
             hm.put("reason", DalbitUtil.isEmpty(list.get(i).getReason()) ? "" : list.get(i).getReason());
             hm.put("mem_id", DalbitUtil.isEmpty(list.get(i).getMem_userid()) ? "" : list.get(i).getMem_userid());

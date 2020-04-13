@@ -41,18 +41,21 @@
             return;
         }
 
-        for(var i=0;i<checkDatas.length;i++){
-            var data = new Object();
-            data.mem_no = memNo;
-            data.idx = checkDatas[i].idx;
-            data.type = checkDatas[i].type;
+        if(confirm("공지를 삭제 하시겠습니까?")) {
+            for(var i=0;i<checkDatas.length;i++){
+                var data = new Object();
+                data.mem_no = memNo;
+                data.idx = checkDatas[i].idx;
+                data.type = checkDatas[i].type;
 
-            util.getAjaxData("delete", "/rest/member/notice/delete",data, noticeDel_success);
-        }
+                util.getAjaxData("delete", "/rest/member/notice/delete",data, noticeDel_success);
+            }
+        }return false;
     }
 
     function noticeDel_success(dst_id, response){
         dalbitLog(response);
+        alert("공지 삭제 완료");
         dtList_info_detail.reload();
     }
 
