@@ -116,7 +116,7 @@ public class Bro_BroadcastService {
 
         List<P_BroadcastListOutputVo> list = bro_BroadcastDao.callBroadcastList(procedureVo);
 
-        String[] headers = {"No", "방송주제", "방송제목", "방송시작일시", "방송진행시간", "DJID", "DJ 닉네임", "누적청취자", "청취자", "좋아요", "선물", "사연수", "방송상태"};
+        String[] headers = {"No", "방송주제", "방송제목", "방송시작일시", "방송진행시간", "DJ ID", "DJ 닉네임", "누적청취자", "청취자", "좋아요", "선물", "사연수", "방송상태"};
         int[] headerWidths = {3000, 3000, 6000, 6000, 6000, 6000, 6000, 3000, 3000, 3000, 3000, 3000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();

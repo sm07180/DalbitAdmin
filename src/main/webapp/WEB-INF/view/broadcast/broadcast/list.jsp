@@ -102,7 +102,6 @@
     var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="broadexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#main_table").find(".footer-right").append(excelBtn);
 
-
     var tmp_slctType;
     var tmp_dj_slctType = -1;
     var tmp_dj_searchText;
@@ -150,7 +149,7 @@
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_searchText", tmp_room_searchText);
-        util.excelDownload($(this), "/rest/broadcast/broadcast/broadcastExcel", formData)
+        util.excelDownload($(this), "/rest/broadcast/broadcast/broadcastListExcel", formData)
     });
 
 </script>

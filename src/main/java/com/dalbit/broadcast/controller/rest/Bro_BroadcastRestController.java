@@ -60,8 +60,8 @@ public class Bro_BroadcastRestController {
     /**
      * 생방송 검색 엑셀
      */
-    @PostMapping("broadcastExcel")
-    public String broadcastExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_BroadcastListInputVo pBroadcastListInputVo) throws GlobalException {
+    @PostMapping("broadcastListExcel")
+    public String broadcastListExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_BroadcastListInputVo pBroadcastListInputVo) throws GlobalException {
         Model resultModel = bro_BroadcastService.callBroadcastListExcel(pBroadcastListInputVo, model);
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
 
