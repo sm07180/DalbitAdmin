@@ -160,9 +160,6 @@
                 alert("로그인 아이디를 입력해 주십시오.");
                 return;
             }
-            if($("#txt_socialId").val().size){
-
-            }
             if(memberInfo_responseDate.socialId == $("#txt_socialId").val()){
                 alert("동일한 로그인 아이디 입니다. 변경할 아이디를 입력해 주세요.");
                 return;
@@ -453,7 +450,9 @@
         <tr>
             <th>접속상태</th>
             <td style="text-align: left">{{connectState}}
-                <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
+                {{/equal}}
             </td>
         </tr>
         </tr>
@@ -482,7 +481,9 @@
             <td colspan="3" style="text-align: left">
                 <div id="div_socialId">
                     <input type="text" class="form-control" id="txt_socialId" style="width: 50%;" value="{{socialId}}" onkeyup="fnChkByte(this);">
-                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                    {{#equal memWithdrawal '0'}}
+                        <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                    {{/equal}}
                 </div>
             </td>
             <th>보유별</th>
@@ -500,7 +501,9 @@
             <th>(내가/나를등록한)<br/>매니저정보</th>
             <td style="text-align: left">
                 {{managerICnt}} 명 / {{managerMeCnt}} 명
-                <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
+                {{/equal}}
             </td>
         </tr>
         <tr>
@@ -513,7 +516,9 @@
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
             <td style="text-align: left">
                 {{blackICnt}} 명 / {{blackMeCnt}} 명
-                <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
+                {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
+                {{/equal}}
             </td>
         </tr>
         <tr>

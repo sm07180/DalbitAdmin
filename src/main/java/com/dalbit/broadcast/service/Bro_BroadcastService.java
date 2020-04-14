@@ -159,8 +159,16 @@ public class Bro_BroadcastService {
 
         P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
 
-        String result;
+        if(DalbitUtil.isEmpty(broadcastDetail.getDj_userId())){
+            HashMap<P_BroadcastDetailOutputVo,String> withdrawal= bro_BroadcastDao.callBroadcastInfo_withdrawal(broadcastDetail.getDj_mem_no());
+            if(!DalbitUtil.isEmpty(withdrawal)) {
+                broadcastDetail.setDj_userId(withdrawal.get("dj_userId"));
+                broadcastDetail.setDj_nickName(withdrawal.get("dj_nickName"));
+                broadcastDetail.setDj_memSex(withdrawal.get("dj_memSex"));
+            }
+        }
 
+        String result;
         if(Status.방송방상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송방상세조회_성공, broadcastDetail));
         } else if(Status.방송방상세조회_공지번호없음.getMessageCode().equals(procedureVo.getRet())) {

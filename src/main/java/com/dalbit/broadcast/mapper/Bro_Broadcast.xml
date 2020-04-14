@@ -19,4 +19,12 @@
     <select id="callBroadcastEdit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         call rd_admin.sp_admin_broadcast_room_edit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="callBroadcastInfo_withdrawal" parameterType="String" resultType="java.util.HashMap">
+        select mem_userid as dj_userId,
+                mem_nick as dj_nickName,
+                mem_sex as dj_memSex
+          from rd_data.tb_member_withdrawal_bak
+         where mem_no = #{mem_no}
+    </select>
 </mapper>

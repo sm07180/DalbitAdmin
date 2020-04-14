@@ -62,6 +62,7 @@
         insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents,state, op_name, last_upd_date ) values ( #{mem_no}, #{editContents},'2', #{opName}, now())
     </insert>
 
+    <!-- 회원상태 정상 변경 -->
     <update id="callMemberStateEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberStateEditor */
         update rd_data.tb_member_basic set mem_state=1, block_day=0, block_end_date=null where mem_no=#{mem_no}
@@ -78,7 +79,10 @@
         /* M_Member.xml - callMemberWithdrawal_bak_del */
         delete From rd_data.tb_member_withdrawal_bak where mem_no=#{mem_no}
     </delete>
+    <!-- 회원상태 정상 변경 -->
 
+
+    <!-- 정지/탈퇴 (신고) -->
     <insert id="callMemberReport" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberReport */
         insert into rd_data.tb_member_report
@@ -95,7 +99,6 @@
         select count(*) as cnt from rd_data.tb_broadcast_room_member where mem_no = #{mem_no} and state = 0
 
     </select>
-
     <update id="callMemberBasicReport_Edit" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberBasicReport_Edit */
         update rd_data.tb_member_basic
@@ -123,7 +126,6 @@
         /* M_Member.xml - callMemberNotification_Add */
         insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo  ) values ( #{reported_mem_no}, 7, #{notiContents}, #{notimemo})
     </insert>
-
     <insert id="callMemberWithdrawal_bak_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
         insert into rd_data.tb_member_withdrawal_bak (select * from rd_data.tb_member_basic where mem_no=#{reported_mem_no})
@@ -132,6 +134,15 @@
         /* M_Member.xml - callMemberWithdrawal_bak_del */
         delete From rd_data.tb_member_basic where mem_no=#{reported_mem_no}
     </delete>
+    <delete id="callMemberWithdrawal_fanDel" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
+        /* M_Member.xml - callMemberWithdrawal_fanDel */
+        delete FROM rd_data.tb_member_fanstar WHERE mem_no_fan = #{reported_mem_no}
+    </delete>
+    <delete id="callMemberWithdrawal_starDel" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
+        /* M_Member.xml - callMemberWithdrawal_starDel */
+        delete FROM rd_data.tb_member_fanstar WHERE mem_no_star = #{reported_mem_no}
+    </delete>
+    <!-- 정지/탈퇴 (신고) -->
 
 
     <!-- 자세히보기 -->
