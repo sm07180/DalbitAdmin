@@ -51,18 +51,18 @@
     <select id="getLogErrorData" parameterType="com.dalbit.sample.vo.ErrorVo" resultType="com.dalbit.sample.vo.ErrorVo">
         /* Sample.xml - getLogErrorData */
         select *
-        from (
-        select
-        idx,
-        mem_no,
-        ostype,
-        version,
-        build,
-        dtype,
-        ctype,
-        `desc`,
-        upd_date,
-        @RNUM := @RNUM + 1 as rowNum
+            from (
+                select
+                idx,
+                mem_no,
+                ostype,
+                version,
+                build,
+                dtype,
+                ctype,
+                `desc`,
+                upd_date,
+                @RNUM := @RNUM + 1 as rowNum
         from rd_data.tb_log_error_data
         , (select @RNUM := 0) r
         <include refid="condition"/>
