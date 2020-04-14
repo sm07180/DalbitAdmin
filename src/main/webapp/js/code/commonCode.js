@@ -192,14 +192,14 @@ var browser = [
 var question_type = [
     new COMMON_CODE(null, 'question_type', '문의유형')
     ,new COMMON_CODE('all','-1','전체')
-    ,new COMMON_CODE('meminfo','0','회원정보')
-    ,new COMMON_CODE('broad','1','방송하기')
-    ,new COMMON_CODE('listen','2','청취하기')
-    ,new COMMON_CODE('pay','3','결제')
-    ,new COMMON_CODE('suggestion','4','건의하기')
-    ,new COMMON_CODE('error','5','장애/버그')
-    ,new COMMON_CODE('gift','6','선물/아이템')
-    ,new COMMON_CODE('etc','7','기타')
+    ,new COMMON_CODE('meminfo','1','회원정보')
+    ,new COMMON_CODE('broad','2','방송하기')
+    ,new COMMON_CODE('listen','3','청취하기')
+    ,new COMMON_CODE('pay','4','결제')
+    ,new COMMON_CODE('suggestion','5','건의하기')
+    ,new COMMON_CODE('error','6','장애/버그')
+    ,new COMMON_CODE('gift','7','선물/아이템')
+    ,new COMMON_CODE('etc','99','기타')
 ];
 
 var broadcastSubjectType = [
