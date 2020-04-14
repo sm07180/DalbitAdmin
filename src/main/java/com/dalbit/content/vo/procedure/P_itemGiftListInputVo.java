@@ -8,4 +8,5 @@ import lombok.Setter;
 @Setter
 public class P_itemGiftListInputVo extends SearchVo {
     private int pageNo;
+    private int viewYn = -1;
 }

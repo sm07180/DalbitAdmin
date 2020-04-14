@@ -143,6 +143,10 @@
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
+                if(!confirm("등록 하시겠습니까?")){
+                    return false;
+                }
+
                 var data = fnc_pushDetail.getDetailData();
 
                 if(!fnc_pushDetail.isValid(data)){
@@ -155,13 +159,17 @@
 
             // 수정 버튼
             this.target.find("#updateBtn").on("click", function () {
+                if(!confirm("재발송 하시겠습니까?")){
+                    return false;
+                }
+
                 var data = fnc_pushDetail.getDetailData();
 
                 if(!fnc_pushDetail.isValid(data)){
                     return false;
                 }
 
-                util.getAjaxData("upldate", "/rest/content/push/update", data, fnc_pushDetail.fn_update_success, fnc_pushDetail.fn_fail);
+                util.getAjaxData("upldate", "/rest/content/push/insert", data, fnc_pushDetail.fn_update_success, fnc_pushDetail.fn_fail);
             })
         },
 
@@ -169,8 +177,33 @@
         //수정 데이터 조회 후 UI 처리
         initUpdateUI(){
             var detailData = getSelectDataInfo().detailData;
-
             console.log(detailData);
+
+            // 지정회원일 경우 추가처리
+            if(detailData.is_all == "1"){
+                var selectTarget = detailData.mem_nos.split("|");
+                var data = {};
+                for(var idx in selectTarget){
+                    var target = selectTarget[idx];
+                    data.mem_no = target;
+                    fnc_pushDetail.choiceMember(data);
+                }
+            }
+
+            //예약 발송 일 경우 날짜 데이터 추가
+            if (detailData.is_direct == "1") {
+                fnc_pushDetail.target.find("#push-div-sendDate").show();
+
+                var sendDate = moment(detailData.send_datetime);
+
+                // 캘린더 초기값
+                fnc_pushDetail.target.find("#push-div-sendDate").find("#push-sendDate").val(sendDate.format('YYYY.MM.DD'));
+
+                // 시간 Select CSS 적용
+                fnc_pushDetail.target.find("#push-div-sendDate").find("#timeHour").val(sendDate.hour().toString().length == 1?("0"+sendDate.hour()):sendDate.hour());
+                fnc_pushDetail.target.find("#push-div-sendDate").find("#timeMinute").val(sendDate.minute().toString().length == 1?("0"+sendDate.minute()):sendDate.minute());
+
+            }
         },
 
 
@@ -225,9 +258,9 @@
                 return false;
             }
 
-            alert(data.message);
+            alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
 
-            fnc_pushList.selectMainList();
+            fnc_pushList.selectMainList(false);
 
             //하위 탭 초기화
             initContentTab();
@@ -244,9 +277,9 @@
                 return false;
             }
 
-            alert(data.message);
+            alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
 
-            fnc_pushList.selectMainList();
+            fnc_pushList.selectMainList(false);
 
             //하위 탭 초기화
             initContentTab();
@@ -297,7 +330,6 @@
 
             //지정회원 parsing
             var selectTarget = [];
-            alert(fnc_pushDetail.target.find("input:checkbox[name=is_all]:checked").val());
             if (fnc_pushDetail.target.find("input:checkbox[name=is_all]:checked").val() == "1") {
                 fnc_pushDetail.target.find("#div_selectTarget").find("p").each(function () {
                     var id = $(this).prop("id");
@@ -313,9 +345,9 @@
 
 
         isValid(data) {
-            if (common.isEmpty(data.mem_nos)) {
-                alert("발송 대상을 선택하여 주시기 바랍니다.");
-                fnc_pushDetail.target.find("input[name=mem_no]").focus();
+            if (common.isEmpty(data.platform) || data.platform == "000") {
+                alert("노출 OS 구분을 선택하여 주시기 바랍니다.");
+                fnc_pushDetail.target.find("input[name=platform]").focus();
                 return false;
             }
 
@@ -331,6 +363,50 @@
                 return false;
             }
 
+            if (common.isEmpty(data.is_all)) {
+                alert("수신대상 구분을 선택하여 주시기 바랍니다.");
+                fnc_pushDetail.target.find("input[name=is_all]").focus();
+                return false;
+            }
+
+            if (data.is_all == "1") {
+                if (common.isEmpty(data.mem_nos)) {
+                    alert("발송 대상을 선택하여 주시기 바랍니다.");
+                    fnc_pushDetail.target.find("#btn_selectMember").focus();
+                    return false;
+                }
+            }
+
+            if (common.isEmpty(data.msg_type)) {
+                alert("메세지 구분을 선택하여 주시기 바랍니다.");
+                fnc_pushDetail.target.find("input[name=msg_type]").focus();
+                return false;
+            }
+
+            if (common.isEmpty(data.is_direct)) {
+                alert("발송 구분을 선택하여 주시기 바랍니다.");
+                fnc_pushDetail.target.find("input[name=is_direct]").focus();
+                return false;
+            }
+
+            if (data.is_direct == "1") {
+                var sendDate = common.stringToDateTime(data.send_datetime);
+                console.log(sendDate.toLocaleString());
+                console.log(moment().toDate().toLocaleString());
+                if(sendDate < moment()){
+                   if(!confirm("예약발송 시간이 현재 시간보다 이전 시간 입니다.\n그래도 예약발송을 진행 하시겠습니까?")){
+                       return false;
+                   }
+                }
+            }
+
+            if (common.isEmpty(data.slct_push)) {
+                alert("푸시 타입을 선택하여 주시기 바랍니다.");
+                fnc_pushDetail.target.find("input[name=slct_push]").focus();
+                return false;
+            }
+
+
             return true;
         },
 
@@ -339,7 +415,7 @@
 
         // [수신대상 선택 - 지정회원] 회원 추가
         choiceMember(data) {
-            var html = '<p id="' + data.mem_no + '">' + data.mem_no + ' <a onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
+            var html = '<p id="' + data.mem_no + '">' + data.mem_no + ' <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
 
             if(fnc_pushDetail.target.find("#div_selectTarget").find("p").length >= 20){
                 alert("수신대상자는 최대 20명까지 지정 가능합니다.");
@@ -374,7 +450,7 @@
             </div>
             <div class="pull-right">
                 {{^push_idx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/push_idx}}
-                {{#push_idx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/push_idx}}
+                {{#push_idx}}<button class="btn btn-default" type="button" id="updateBtn">재발송</button>{{/push_idx}}
             </div>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -400,12 +476,10 @@
                 <th>발송상태</th>
                 <td colspan="3">
                     {{^push_idx}}
-                        {{{getCommonCodeLabel 0 'push_snedStatus'}}}
-                        <input type="hidden" name="status" value="0" />
+                        {{{getCommonCodeLabelAndHidden 0 'push_snedStatus' 'status'}}}
                     {{/push_idx}}
                     {{#push_idx}}
-                        {{{getCommonCodeLabel ../status 'push_snedStatus'}}}
-                        <input type="hidden" name="status" value="{{../status}}" />
+                        {{{getCommonCodeLabelAndHidden ../status 'push_snedStatus' 'status'}}}
                     {{/push_idx}}
                 </td>
 
@@ -420,7 +494,7 @@
             </tr>
             <tr>
                 <th>메세지 제목</th>
-                <td colspan="5"><input type="text" class="form-control" name="send_title" id="push-send_title" placeholder="제목을 입력해주세요."></td>
+                <td colspan="5"><input type="text" class="form-control" name="send_title" id="push-send_title" placeholder="제목을 입력해주세요." value="{{send_title}}"></td>
 
                 <th rowspan="2">수신대상 선택</th>
                 <td colspan="5" rowspan="2">
@@ -444,7 +518,7 @@
                 <th rowspan="3">메세지 내용</th>
                 <td colspan="5" rowspan="3">
                     <div>
-                        <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40"></textarea>
+                        <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40">{{send_cont}}</textarea>
                         <span style="color: red">* 메시지 내용은 10자~40자(한글) 입력 가능합니다.</span>
                     </div>
                 </td>

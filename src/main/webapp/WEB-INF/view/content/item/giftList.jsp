@@ -154,6 +154,11 @@ var fnc_giftList = {
                     continue;
                 }
 
+                if(dataInfo.item_code == "U1447"){
+                    alert("삭제 불가능한 아이템이 포함되어 있습니다.\n해당 아이템을 제외하고 삭제를 진행합니다.\n\n * 삭제 불가능 아이템 : 부스터(U1447)");
+                    continue;
+                }
+
                 itemCodes += "," + dataInfo.item_code;
             }
             itemCodes = itemCodes.substring(1);
@@ -203,14 +208,13 @@ var fnc_giftList = {
 
 
     // 검색
-    selectMainList(){
+    selectMainList(isResetPaging){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
         // Summary를 위한 재생성
-        this.dtList_info.createDataTable(this.initSummary);
-        // this.dtList_info.reload(this.initSummary);
+        this.dtList_info.reload(this.initSummary, isResetPaging);
 
     },
 
