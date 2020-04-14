@@ -199,11 +199,11 @@
 
                         <th>바로가기버튼</th>
                         <td colspan="4">
-                            <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/moon">달결제</button>
-                            <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/star">별환전</button>
-                            <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/wallet">내지갑</button>
-                            <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/profile">사진등록</button>
-                            <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalibitlive.com/bro">방송방법</button>
+                            <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" data-url=" https://www.dalbitlive.com/store">달결제</button>
+                            <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/wallet">별환전</button>
+                            <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/wallet">내지갑</button>
+                            <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/setting">사진등록</button>
+                            <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/customer/faq">방송방법</button>
 
                         </td>
                             <%--<label class="control-inline fancy-radio custom-color-green">--%>
