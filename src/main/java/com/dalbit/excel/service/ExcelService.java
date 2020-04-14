@@ -127,7 +127,7 @@ public class ExcelService {
         int[] headerWidths = vo.getHeaderWidths();
         int hSize = headers != null ? headers.length : 0;
         List<Object[]> bodies = vo.getBodies();
-        int bSize = bodies.get(0).length;
+        int bSize = bodies.size() == 0 ? bodies.size() : bodies.get(0).length;
 
         // 시트 생성
         sheetName = DalbitUtil.isEmpty(sheetName) ? "Sheet01" : sheetName;

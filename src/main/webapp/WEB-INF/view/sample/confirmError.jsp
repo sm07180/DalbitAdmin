@@ -91,8 +91,8 @@
     });
 
     $('#bt_search').click( function() {       //검색
-       compare();
-       getErrorList();
+        compare();
+        getErrorList();
     });
 
     function init() {
@@ -139,9 +139,14 @@
     }
 
     $("#excelDownBtn").on('click', function() {
-
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
+        formData.append("pageStart", $("#pageStart").val());
+        formData.append("pageCnt", $("#pageCnt").val());
+        formData.append("txt_startSel", $("#txt_startSel").val());
+        formData.append("txt_endSel", $("#txt_endSel").val());
+        formData.append("ostype", $("#ostype").val());
+        formData.append("searchText", $("#searchText").val());
 
         util.excelDownload($(this), "/rest/sample/errorListExcel", formData);
     });

@@ -59,7 +59,8 @@
 
 <script>
     $(document).ready(function() {
-        ui.checkBoxInit();
+
+        ui.checkBoxInit('list_info');
 
         $('input[id="txt_search"]').keydown(function(e) {
             if (e.keyCode === 13) {
