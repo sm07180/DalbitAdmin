@@ -18,8 +18,6 @@ public class P_LikeListOutputVo extends PagingVo {
     private int level;
     private String grade;
     private String goodDate;
-//    private Date goodDate;
-//    private String goodDateFormat;
     private int accumCnt;
     private Date boosterDate;
     private String boosterDateFormat;

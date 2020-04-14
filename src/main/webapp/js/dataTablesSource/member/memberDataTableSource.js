@@ -276,7 +276,7 @@ var MemberDataTableSource = {
                 }},
             {'title': '문의자닉네임', 'data': 'mem_nick','width':'100px'},
             {'title': '문의제목', 'data': 'question_title','width':'250px','render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+row.qnaIdx+');">'+data+'</a>'
+                    return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+meta.row+');">'+data+'</a>'
                 }},
             {'title': '접수일시<br>/처리일시', 'data': 'writeDateFormat','width':'120px','render' : function(data,type,row){
                     if(row.opDateFormat == ""){

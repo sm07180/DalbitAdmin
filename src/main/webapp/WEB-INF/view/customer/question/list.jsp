@@ -59,7 +59,8 @@
 
 <script>
     $(document).ready(function() {
-        ui.checkBoxInit();
+
+        ui.checkBoxInit('list_info');
 
         $('input[id="txt_search"]').keydown(function(e) {
             if (e.keyCode === 13) {
@@ -131,7 +132,7 @@
     }
 
     function getQuestDetail(index){
-        $('#tab_list').addClass("show");
+        $('#tab_customerQuestion').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.qnaIdx = data.qnaIdx;
@@ -159,7 +160,7 @@
         if($(this).prop('checked')){
             $(this).parent().parent().find('.getQuestDetail').click();
         }else{
-            $('#tab_list').removeClass("show");
+            $('#tab_customerQuestion').removeClass("show");
         }
     });
 

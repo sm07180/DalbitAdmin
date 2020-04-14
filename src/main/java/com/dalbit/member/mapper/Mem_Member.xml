@@ -14,8 +14,8 @@
 
     <select id="callMemberInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberInfo */
-        call rd_admin.sp_admin_member_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
-        <!--call rd_admin.sp_admin_member_all_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        <!--call rd_admin.sp_admin_member_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
+        call rd_admin.sp_admin_member_all_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callMemberCertification" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
@@ -89,6 +89,13 @@
                 #{reported_nick},#{reported_phone},#{reported_level},#{reported_grade},null,1,null,'2',#{slctType},
                 '','PC',#{browser},#{ip},#{opName},now(),now())
     </insert>
+
+    <select id="callMemberListen_check" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo" resultType="integer">
+        /* M_Member.xml - callMemberEditor */
+        select count(*) as cnt from rd_data.tb_broadcast_room_member where mem_no = #{mem_no} and state = 0
+
+    </select>
+
     <update id="callMemberBasicReport_Edit" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberBasicReport_Edit */
         update rd_data.tb_member_basic

@@ -57,7 +57,7 @@
 
     $(document).ready(function() {
         getSearch();
-        ui.checkBoxInit();
+        ui.checkBoxInit('list_info');
     });
 
     $('#searchRadio').change(function() {
