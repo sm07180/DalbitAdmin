@@ -9,7 +9,7 @@ var BannerDataTableSource = {
             {'title': '배너구분', 'data': 'position', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, banner_bannerType);
                 }},
-            {'title': '이미지', 'data': 'banner_col3', 'render': function (data, type, row, meta) {
+            {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
                     if(common.isEmpty(data)){
                         return "";
                     }
