@@ -65,6 +65,9 @@
 
 <script>
     $(document).ready(function() {
+
+        ui.checkBoxInit('tb_memberList');
+
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getUserInfo();
@@ -114,6 +117,8 @@
     var tmp_searchText;
     var memNo = "unknown";
     function getUserInfo() {                 // 검색
+
+
         if (memWithdrawal == "0") {
             if ($('#txt_search').val().length < 2) {
                 alert("검색대상을 입력해 주세요.");
@@ -122,8 +127,10 @@
         }
         if(memWithdrawal == "0"){
             dtList_info.reload();
+            ui.checkBoxInit('tb_memberList');
         }else{
             dtList_info2.reload();
+            ui.checkBoxInit('tb_withdrawalList');
         }
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchType = $("select[name='searchType']").val();
@@ -131,6 +138,7 @@
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList()
         $('#tabList_top').removeClass("show");
+
     }
     function memberList(){
         memWithdrawal = "0";
@@ -143,6 +151,8 @@
     $(document).on('click', '#tb_memberList .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
             $(this).parent().parent().find('.getMemberDetail').click();
+        } else {
+            $("#tabList_top").removeClass("show");
         }
     });
 

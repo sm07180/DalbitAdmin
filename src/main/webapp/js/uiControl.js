@@ -35,13 +35,13 @@ ui.topScroll = function(){
     window.scrollTo(0,0);
 }
 
-ui.checkBoxInit = function(){
+ui.checkBoxInit = function(tableId){
 
-    $("#list_info-select-all").remove();
+    $("#"+tableId+"-select-all").remove();
 
-    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
+    $(document).on('click', '#'+tableId+' .dt-body-center input[type="checkbox"]', function() {
         if($(this).prop('checked')){
-            $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked');
+            $('#'+tableId+' .dt-body-center input[type="checkbox"]').removeAttr('checked');
             $(this).prop('checked', 'checked');
         }
     });

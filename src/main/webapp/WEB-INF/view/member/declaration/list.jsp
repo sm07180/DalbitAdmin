@@ -40,6 +40,9 @@
         dtList_info_detail.createDataTable();
         initDataTableTop_select_declaration(tmp);    // 상단 selectBox
 
+        ui.checkBoxInit('list_info_detail');
+
+
         var obj = new Object();
         obj.mem_no = memNo;
         util.getAjaxData("summary", "/rest/customer/declaration/opCount_target", obj, fn_success, fn_fail);

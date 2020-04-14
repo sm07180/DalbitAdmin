@@ -70,6 +70,9 @@ public class SampleService {
      * 에러 데이터 로그 엑셀 출력
      */
     public Model getErrorListExcel (ErrorVo errorVo, Model model) {
+        int getLogErrorDataCnt = sampleDao.getLogErrorDataCnt(errorVo);
+        errorVo.setTotalCnt(getLogErrorDataCnt);
+
         List<ErrorVo> list = sampleDao.getLogErrorData(errorVo);
 
         String[] headers = {"idx", "mem_no", "ostype", "version", "build", "dtype", "ctype", "desc", "upd_date"};

@@ -91,7 +91,7 @@
 
     $(document).ready(function() {
         init();
-        ui.checkBoxInit();
+        ui.checkBoxInit('list_info');
     });
 
     /** Data Table **/
