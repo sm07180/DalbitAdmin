@@ -177,13 +177,12 @@ var fnc_eventList = {
 
 
     // 검색
-    selectMainList(){
+    selectMainList(isResetPaging){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-
-        this.dtList_info.reload();
+        this.dtList_info.reload(null, isResetPaging);
     },
 
         // /*=---------- 엑셀 ----------*/

@@ -209,3 +209,21 @@ common.inputFilterNumber = function (event) {
     event.preventDefault();
 }
 
+common.stringToDateTime = function (strDate) {
+    if(this.isEmpty(strDate) || strDate.length < 8){
+        return strDate;
+    }
+
+    if(strDate.length == 8){
+        return new Date(strDate.substring(0,4), strDate.substring(4,6)-1, strDate.substring(6,8));
+    }
+
+    if(strDate.length == 12){
+        return new Date(strDate.substring(0,4), strDate.substring(4,6)-1, strDate.substring(6,8), strDate.substring(8,10), strDate.substring(10,12));
+    }
+
+    if(strDate.length == 15){
+        return new Date(strDate.substring(0,4), strDate.substring(4,6)-1, strDate.substring(6,8), strDate.substring(8,10), strDate.substring(10,12), strDate.substring(12,15));
+    }
+
+}

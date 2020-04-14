@@ -314,6 +314,24 @@ util.getCommonCodeLabel = function(code, targetCode) {
     }
 },
 
+util.getCommonCodeLabelAndHidden = function(code, targetCode, name) {
+    targetCode = eval(targetCode);
+    if (!common.isEmpty(targetCode)) {
+        var html = "";
+        var header = targetCode[0];
+        var checkName = common.isEmpty(name) ? header.value : name;
+        targetCode.forEach(function (value) {
+            if (!common.isEmpty(value.type)) {
+                if (code == value.value) {
+                    html = '<lable>' + value.code + '</lable>';
+                    html += '<input type="hidden" id="' + checkName + value.value + '" name="' + checkName + '" value="' + value.value + '"/>';
+                }
+            }
+        });
+        return html;
+    }
+},
+
 util.renderOnOff = function(value){
     if(value == 1){
         return ' <i class="fa fa-circle"></i>' + " ON" ;

@@ -132,6 +132,10 @@
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
+                if(!confirm("등록 하시겠습니까?")){
+                    return false;
+                }
+
                 if(this.isValid()){
                     //TODO 완료처리 필요
                     this.getEventDetailData();
@@ -141,6 +145,10 @@
 
             // 수정 버튼
             this.target.find("#insertBtn").on("click", function () {
+                if(!confirm("수정 하시겠습니까?")){
+                    return false;
+                }
+
                 if(this.isValid()){
                     //TODO 완료처리 필요
                     this.getEventDetailData();

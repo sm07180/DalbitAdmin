@@ -49,6 +49,10 @@
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
+                if(!confirm("등록 하시겠습니까?")){
+                    return false;
+                }
+
                 var data = fnc_giftDetail.getDetailData();
 
                 if(!fnc_giftDetail.isValid(data)){
@@ -61,6 +65,10 @@
 
             // 수정 버튼
             this.target.find("#updateBtn").on("click", function () {
+                if(!confirm("수정 하시겠습니까?")){
+                    return false;
+                }
+
                 var data = fnc_giftDetail.getDetailData();
 
                 if(!fnc_giftDetail.isValid(data)){
@@ -151,7 +159,7 @@
 
             alert(data.message);
 
-            fnc_giftList.selectMainList();
+            fnc_giftList.selectMainList(false);
 
             //하위 탭 초기화
             initContentTab();
@@ -170,7 +178,7 @@
 
             alert(data.message);
 
-            fnc_giftList.selectMainList();
+            fnc_giftList.selectMainList(false);
 
             //하위 탭 초기화
             initContentTab();
@@ -352,7 +360,7 @@
                 </tr>
                 <tr>
                     <th>구분</th>
-                    <td colspan="2">{{{getCommonCodeSelect item_itemSlct 'item_itemSlct'}}}</td>
+                    <td colspan="2">{{{getCommonCodeSelect item_slct 'item_itemSlct'}}}</td>
 
                     <th>사용영역</th>
                     <td colspan="2">{{{getCommonCodeSelect use_area 'item_useArea' 'N' 'use_area'}}}</td>

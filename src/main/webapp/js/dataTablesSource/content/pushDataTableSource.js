@@ -47,19 +47,7 @@ var PushDataTableSource = {
                      return data;
                  }},
              {'title': '발송상태', 'data': 'status', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                     if(data == "0"){
-                         return "대기";
-                     }
-
-                     if(data == "1"){
-                         return "성공";
-                     }
-
-                     if(data == "2"){
-                         return "실패";
-                     }
-
-                     return data;
+                     return util.getCommonCodeLabel(data, push_snedStatus);
                  }},
              {'title': '등록일자', 'data': 'reg_dateFormat', 'width':'100px', 'render': function (data, type, row, meta) {
                      return data;

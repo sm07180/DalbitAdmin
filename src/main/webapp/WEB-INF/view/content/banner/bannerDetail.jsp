@@ -123,6 +123,10 @@
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
+                if(!confirm("등록 하시겠습니까?")){
+                    return false;
+                }
+
                 var data = fnc_bannerDetail.getDetailData();
 
                 if(!fnc_bannerDetail.isValid(data)){
@@ -135,6 +139,10 @@
 
             // 수정 버튼
             this.target.find("#updateBtn").on("click", function () {
+                if(!confirm("수정 하시겠습니까?")){
+                    return false;
+                }
+
                 var data = fnc_bannerDetail.getDetailData();
 
                 if(!fnc_bannerDetail.isValid(data)){
@@ -225,7 +233,7 @@
 
             alert(data.message);
 
-            fnc_bannerList.selectMainList();
+            fnc_bannerList.selectMainList(false);
 
             //하위 탭 초기화
             initContentTab();
@@ -244,7 +252,7 @@
 
             alert(data.message);
 
-            fnc_bannerList.selectMainList();
+            fnc_bannerList.selectMainList(false);
 
             //하위 탭 초기화
             initContentTab();
