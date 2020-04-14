@@ -61,5 +61,6 @@ var declaration_summary = [
     new COMMON_CODE('','cnt','미처리 건')
     ,new COMMON_CODE('','cnt','누적 처리 건')
     ,new COMMON_CODE('','cnt','제재 조치')
-    ,new COMMON_CODE('','cnt','전화문의/처리')
+    ,new COMMON_CODE('','cnt','강제탈퇴')
+    ,new COMMON_CODE('','cnt','영구정지')
 ];

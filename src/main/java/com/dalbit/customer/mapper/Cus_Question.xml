@@ -31,15 +31,15 @@
     </select>
 
     <select id="callQuestionCountTarget" parameterType="com.dalbit.customer.vo.procedure.P_QuestionListInputVo" resultType="java.util.HashMap">
-        select count(*)                   as  qnaCnt,
-              sum(if(slct_type = 1, 1, 0)) as  type1Cnt,
-              sum(if(slct_type = 2, 1, 0)) as  type2Cnt,
-              sum(if(slct_type = 3, 1, 0)) as  type3Cnt,
-              sum(if(slct_type = 4, 1, 0)) as  type4Cnt,
-              sum(if(slct_type = 5, 1, 0)) as  type5Cnt,
-              sum(if(slct_type = 6, 1, 0)) as  type6Cnt,
-              sum(if(slct_type = 7, 1, 0)) as  type7Cnt,
-              sum(if(slct_type = 99, 1, 0)) as type99Cnt
+        select count(*) as qnaCnt,
+              IFNULL(sum(if(slct_type = 1, 1, 0)),0)  as type1Cnt,
+              IFNULL(sum(if(slct_type = 2, 1, 0)),0)  as type2Cnt,
+              IFNULL(sum(if(slct_type = 3, 1, 0)),0)  as type3Cnt,
+              IFNULL(sum(if(slct_type = 4, 1, 0)),0)  as type4Cnt,
+              IFNULL(sum(if(slct_type = 5, 1, 0)),0)  as type5Cnt,
+              IFNULL(sum(if(slct_type = 6, 1, 0)),0)  as type6Cnt,
+              IFNULL(sum(if(slct_type = 7, 1, 0)),0)  as type7Cnt,
+              IFNULL(sum(if(slct_type = 99, 1, 0)),0) as type99Cnt
              from rd_data.tb_service_center_qna
             where idx > 0
               and mem_no = #{mem_no}

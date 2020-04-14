@@ -41,11 +41,9 @@
         initDataTableTop_select_declaration(tmp);    // 상단 selectBox
 
         ui.checkBoxInit('list_info_detail');
-
-
         var obj = new Object();
         obj.mem_no = memNo;
-        util.getAjaxData("summary", "/rest/customer/declaration/opCount_target", obj, fn_success, fn_fail);
+        util.getAjaxData("summary", "/rest/customer/declaration/opCount_target", obj, declaration_fn_success, fn_fail);
     }
     function initDataTableTop_select_declaration(tmp){
         var topTable = '<span name="search_platform_aria_top" id="search_platform_aria_top" onchange="sel_change()"></span>' +
@@ -59,7 +57,7 @@
         dtList_info_detail.reload();
     }
 
-    function fn_success(dst_id, response) {
+    function declaration_fn_success(dst_id, response) {
         dalbitLog(response);
         var template = $("#tmp_declarationSummary").html();
         var templateScript = Handlebars.compile(template);
@@ -105,7 +103,8 @@
             <td>정상: {{addComma content.code_1_Cnt}}건, 경고: {{addComma content.code_2_Cnt}}건, 강제탈퇴: {{addComma content.telCnt}}건<br/>
                 1일: {{addComma content.code_3_Cnt}}건, 3일: {{addComma content.code_4_Cnt}}건, 7일: {{addComma content.code_5_Cnt}}건
             </td> <%--정상--%>
-            <td>{{addComma content.code_9_Cnt}}건</td> <%--영구 정지--%>
+            <td>{{addComma content.code_6_Cnt}}건</td> <%--영구 정지--%>
+            <td>{{addComma content.code_7_Cnt}}건</td> <%--영구 정지--%>
         </tbody>
     </table>
 </script>
