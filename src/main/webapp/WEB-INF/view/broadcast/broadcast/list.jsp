@@ -57,6 +57,7 @@
 
     $(document).ready(function() {
         getSearch();
+        ui.checkBoxInit();
     });
 
     $('#searchRadio').change(function() {
@@ -137,6 +138,8 @@
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
             $(this).parent().parent().find('.getBroadCast_info').click();
+        } else {
+            $('#broadcastTab').removeClass("show");
         }
     });
 

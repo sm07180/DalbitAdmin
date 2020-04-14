@@ -59,6 +59,8 @@
 
 <script>
     $(document).ready(function() {
+        ui.checkBoxInit();
+
         $('input[id="txt_search"]').keydown(function(e) {
             if (e.keyCode === 13) {
                 getUserInfo();
@@ -155,8 +157,6 @@
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
-            $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked');
-            $(this).prop('checked', 'checked');
             $(this).parent().parent().find('.getQuestDetail').click();
         }else{
             $('#tab_list').removeClass("show");
