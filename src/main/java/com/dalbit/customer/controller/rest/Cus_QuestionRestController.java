@@ -87,4 +87,13 @@ public class Cus_QuestionRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, map));
     }
 
+    /**
+     * 회원 문의 내역 건 수
+     */
+    @PostMapping("questionCount_target")
+    public String questionCount_target(P_QuestionListInputVo pQuestionListInputVo) {
+        String result = cus_questionService.getQuestionCountTarget(pQuestionListInputVo);
+        return result;
+    }
+
 }

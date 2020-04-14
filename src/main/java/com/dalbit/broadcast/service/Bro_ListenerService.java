@@ -59,8 +59,10 @@ public class Bro_ListenerService {
                 outVo.setAuthEndDateFormat(broadList.get(i).getAuthEndDateFormat());
                 if(DalbitUtil.isEmpty(broadList.get(i).getUserID())){
                     ArrayList<P_ListenListOutputVo> withdrawal = bro_ListenerDao.callListenerList_withdrawal(broadList.get(i).getMem_no());
-                    outVo.setUserID(withdrawal.get(0).getUserID());
-                    outVo.setNickName(withdrawal.get(0).getNickName());
+                    if(!DalbitUtil.isEmpty(withdrawal)) {
+                        outVo.setUserID(withdrawal.get(0).getUserID());
+                        outVo.setNickName(withdrawal.get(0).getNickName());
+                    }
                 }
                 list.add(outVo);
             }

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -92,5 +93,16 @@ public class Cus_QuestionService {
 
     public List<FaqVo> getFaqSubList(FaqVo faqVo){
         return cus_questionDao.getFaqSubList(faqVo);
+    }
+
+
+
+
+    /**
+     * 회원 1:1문의 내역 건 수
+     */
+    public String getQuestionCountTarget(P_QuestionListInputVo pQuestionListInputVo) {
+        HashMap<P_QuestionListOutputVo, String> questionList = cus_questionDao.callQuestionCountTarget(pQuestionListInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.문의목록조회_성공, questionList));
     }
 }
