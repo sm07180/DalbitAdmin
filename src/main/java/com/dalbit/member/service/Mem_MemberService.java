@@ -335,9 +335,27 @@ public class Mem_MemberService {
     public String getMemberConnect(P_MemberConnectInputVo pMemberConnectInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pMemberConnectInputVo);
         ArrayList<P_MemberConnectOutputVo> memberConnect = mem_MemberDao.callMemConnect(procedureVo);
+
+        List list = new ArrayList();
+        if(!DalbitUtil.isEmpty(memberConnect)){
+            String deviceToken = mem_MemberDao.callMemConnect_deviceToken(pMemberConnectInputVo);
+            for (int i=0; i < memberConnect.size(); i++){
+                P_MemberConnectOutputVo outVo = new P_MemberConnectOutputVo();
+                outVo.setDevice_token(deviceToken);
+                outVo.setDevice(memberConnect.get(i).getDevice());
+                outVo.setDeviceUUID(memberConnect.get(i).getDeviceUUID());
+                outVo.setAdID(memberConnect.get(i).getAdID());
+                outVo.setAppVersion(memberConnect.get(i).getAppVersion());
+                outVo.setBrowser(memberConnect.get(i).getBrowser());
+                outVo.setConnectDate(memberConnect.get(i).getConnectDate());
+                outVo.setConnectDateFormat(memberConnect.get(i).getConnectDateFormat());
+                outVo.setIp(memberConnect.get(i).getIp());
+                list.add(outVo);
+            }
+        }
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_성공, memberConnect, new PagingVo(procedureVo.getRet())));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_성공, list, new PagingVo(procedureVo.getRet())));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_접속정보보기_실패));
         }

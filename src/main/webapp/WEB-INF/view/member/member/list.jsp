@@ -140,11 +140,18 @@
         getUserInfo();
     }
 
-    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+    $(document).on('click', '#tb_memberList .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
             $(this).parent().parent().find('.getMemberDetail').click();
         }
     });
+
+    $(document).on('click', '#tb_withdrawalList .dt-body-center input[type="checkbox"]', function(){
+        if($(this).prop('checked')){
+            $(this).parent().parent().find('.getMemberDetail').click();
+        }
+    });
+
 
     function getMemNo_info(index){
         tmp_bt = "";
@@ -159,6 +166,7 @@
         }
         obj.memWithdrawal = memWithdrawal;
 
+        console.log("1");
         util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
