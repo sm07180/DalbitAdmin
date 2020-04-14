@@ -100,7 +100,6 @@ common.formatDate = function(date, stringFormat){
 
 common.replaceHtml = function(text){
         if(!common.isEmpty(text)){
-            console.log(text);
             text = text.replace('\\', "'");
             text = this.replace(text, "&lt;", "<");
             text = this.replace(text, "&gt;", ">");

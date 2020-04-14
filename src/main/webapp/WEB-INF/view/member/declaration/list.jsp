@@ -75,7 +75,7 @@
     }
 
     $(document).on('click', '._getDeclarationDetail', function() {
-        $('#tab_list').removeClass("hide");
+        $('#tab_memberReport').removeClass("hide");
         var data = {
             'reportIdx' : $(this).data('idx')
         };

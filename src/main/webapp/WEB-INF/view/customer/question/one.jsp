@@ -23,8 +23,8 @@
     var qnaIdx;
     var slct_type;
     function quest_detail_success(data, response, params){
-        // dalbitLog(params);
-        // dalbitLog(response);
+        dalbitLog(params);
+        dalbitLog(response);
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
@@ -37,21 +37,10 @@
         var html=templateScript(context);
         $("#question_detailFrm").html(html);
 
-        console.log("###############" + response.data.add_file);
-        console.log("--------------------------------------");
-        console.log(html);
-        console.log("--------------------------------------");
-
         memNo = response.data.mem_no;
         memId = response.data.mem_userid;
 
         util.editorInit("customer-question");
-
-        /*slct_type = response.data.slct_type;
-        var faqData = {
-            slct_type : 1
-        }*/
-
         util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", null, fn_getFaqGroup_success);
 
         $('#bt_operate').click(function() {                   // 방송제목 변경

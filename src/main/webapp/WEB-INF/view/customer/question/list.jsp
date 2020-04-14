@@ -132,7 +132,7 @@
     }
 
     function getQuestDetail(index){
-        $('#tab_list').addClass("show");
+        $('#tab_customerQuestion').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj = new Object();
         obj.qnaIdx = data.qnaIdx;
@@ -160,7 +160,7 @@
         if($(this).prop('checked')){
             $(this).parent().parent().find('.getQuestDetail').click();
         }else{
-            $('#tab_list').removeClass("show");
+            $('#tab_customerQuestion').removeClass("show");
         }
     });
 
