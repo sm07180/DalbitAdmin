@@ -4,6 +4,8 @@ import com.dalbit.common.vo.SearchVo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Getter
 @Setter
 public class P_MemberConnectInputVo extends SearchVo {

@@ -5,6 +5,7 @@ import com.dalbit.member.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Repository
 public interface Mem_MemberDao {
@@ -35,6 +36,7 @@ public interface Mem_MemberDao {
     ProcedureVo callMemAdminMemoAdd(ProcedureVo procedureVo);
     ArrayList<P_MemberAdminMemoListOutputVo> callMemAdminMemoList(ProcedureVo procedureVo);
     ArrayList<P_MemberConnectOutputVo> callMemConnect(ProcedureVo procedureVo);
+    String callMemConnect_deviceToken(P_MemberConnectInputVo pMemberConnectInputVo);
     ArrayList<P_MemberManagerListOutputVo> callMemManagerList(ProcedureVo procedureVo);
     ArrayList<P_MemberBlackListOutputVo> callMemBlackList(ProcedureVo procedureVo);
 

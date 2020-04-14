@@ -19,6 +19,7 @@ public class P_MemberConnectOutputVo extends SearchVo {
     private String deviceUUID;
     private String adID;
     private String ip;
+    private String device_token;
 
     public void setConnectDate(Date connectDate){
         this.connectDate = connectDate;

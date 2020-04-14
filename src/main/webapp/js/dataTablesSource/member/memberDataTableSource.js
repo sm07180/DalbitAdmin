@@ -327,6 +327,9 @@ var MemberDataTableSource = {
             {'title': 'App Ver', 'data': 'appVersion'},
             {'title': 'Browser', 'data': 'Browser'},
             {'title': 'Device', 'data': 'Device'},
+            {'title': 'DeviceToken', 'data': 'device_token','render' : function(data){
+                    return '<label class="word-break">' + data +'</label>';
+                }},
             {'title': 'Mobile Device ID', 'data': 'deviceUUID'},
             {'title': 'Mobile AD ID', 'data': 'adID'},
             {'title': 'IP 주소', 'data': 'ip'},
