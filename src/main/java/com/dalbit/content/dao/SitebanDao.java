@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SitebanDao {
     public SitebanVo selectBanword();
+
+    public int updateBanword(SitebanVo sitebanVo);
 }

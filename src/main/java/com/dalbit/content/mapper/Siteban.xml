@@ -3,6 +3,7 @@
 <mapper namespace="com.dalbit.content.dao.SitebanDao" >
 
     <select id="selectBanword" resultType="com.dalbit.content.vo.SitebanVo">
+        /* Siteban.xml - selectBanword */
         select
             idx
             , ban_word
@@ -13,4 +14,12 @@
         order by idx desc
         limit 1
     </select>
+
+    <update id="updateBanword" parameterType="com.dalbit.content.vo.SitebanVo">
+        /* Siteban.xml - updateBanword */
+        UPDATE rd_data.tbl_banword
+        SET ban_word = #{ban_word}
+            , count = #{count}
+        WHERE idx = #{idx}
+    </update>
 </mapper>

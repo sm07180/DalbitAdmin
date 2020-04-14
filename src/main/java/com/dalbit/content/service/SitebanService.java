@@ -21,4 +21,8 @@ public class SitebanService {
 
         return sitebanVo;
     }
+
+    public int updateBanword(SitebanVo sitebanVo){
+        return sitebanDao.updateBanword(sitebanVo);
+    }
 }

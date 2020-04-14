@@ -33,16 +33,16 @@ public class SitebanRestController {
     GsonUtil gsonUtil;
 
     @PostMapping("list")
-    public String list(HttpServletRequest request, ThemeVo splashVo) {
+    public String list() {
         SitebanVo sitebanVo = sitebanService.selectBanword();
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, sitebanVo));
     }
 
     @PostMapping("update")
-    public String update(HttpServletRequest request, ThemeVo splashVo) {
-        SitebanVo sitebanVo = sitebanService.selectBanword();
+    public String update(SitebanVo sitebanVo) {
+        sitebanService.updateBanword(sitebanVo);
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, sitebanVo));
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정, sitebanService.selectBanword()));
     }
 }

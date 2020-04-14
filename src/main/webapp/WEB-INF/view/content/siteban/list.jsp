@@ -24,6 +24,14 @@
                         </div>
 
                         <div class="widget-content">
+
+                            <div class="form-group row">
+                                <div class="col-xs-4">
+                                    <input class="form-control" id="banword" type="text" placeholder="등록할 금지어를 입력해주세요." />
+                                </div>
+                                <button type="button" id="regBtn" class="btn-success btn pull-left">등록</button>
+                            </div>
+
                             <table id="list" class="table table-sorting table-hover-ban table-bordered datatable ui-pg-table">
                                 <%--<colgroup>
                                     <col width="70px" />
@@ -73,6 +81,17 @@
     }
 
     function fn_succ_list(dst_id, response){
+        console.log(response);
+
+        if(dst_id == 'insert'){
+            ui.topScroll();
+            $("#banword").val('');
+            alert('등록되었습니다.');
+        }else if(dst_id == 'delete'){
+            ui.topScroll();
+            alert('삭제되었습니다.');
+        }
+
         $("#idx").val(response.data.idx);
         var banwords = response.data.ban_word.split('|');
 
@@ -101,19 +120,57 @@
         }
 
         if(confirm(checkboxs.length + '개의 금칙어를 삭제하시겠습니까?')){
-            var banwords = '';
-            $('._banword span.text-danger').each(function(){
-                banwords += $(this).text() + '|';
+
+            $('input._banwordChk:checked').each(function(){
+               $(this).parent().remove();
             });
 
-            var data = {
-                idx : $("#idx").val()
-                , ban_word : banwords
-                , count : $('._banword span.text-danger').length
-            }
-            util.getAjaxData('siteban', '/rest/content/siteban/update', data, fn_succ_list);
+            insertBanword('delete');
         }
     });
+
+    $('#regBtn').on('click', function(){
+
+        console.log('click');
+        var banword = $('#banword');
+        if(banword.val().length < 4){
+            alert('4글자 이상으로 등록해주세요.');
+            return false;
+        }
+
+        var isDuplBanword = false;
+        $('.text-danger').each(function(){
+           if(banword.val() == $(this).text()){
+               isDuplBanword = true;
+               alert('이미 등록된 금지어 입니다.');
+               return false;
+           }
+        });
+
+        if(!isDuplBanword){
+            if(confirm("등록하시겠습니까?")){
+                $('td.last').append('<a href="javascript://" class="_banword" style="display:none">등록.[<span class="text-danger">'+banword.val()+'</span>]</a>');
+                insertBanword('insert');
+            }
+
+        }
+    });
+
+    function insertBanword(type){
+        var banwords = '';
+        $('._banword span.text-danger').each(function(){
+            banwords += $(this).text() + '|';
+        });
+
+        banwords = banwords.substr(0, banwords.length-1);
+
+        var data = {
+            idx : $("#idx").val()
+            , ban_word : banwords
+            , count : $('._banword span.text-danger').length
+        }
+        util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_list);
+    }
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_banword">
