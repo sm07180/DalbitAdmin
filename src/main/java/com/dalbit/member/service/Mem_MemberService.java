@@ -249,6 +249,13 @@ public class Mem_MemberService {
     public String getMemberReport(P_MemberReportVo pMemberReportVo){
         pMemberReportVo.setOpName(MemberVo.getMyMemNo());
 
+        // 신고 대상자가 방송 참여중인지
+        int check = mem_MemberDao.callMemberListen_check(pMemberReportVo);
+
+        if(check > 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원탈퇴_방접속중));
+        }
+
         // 신고 대상자 정보
         ProcedureVo procedureVo = new ProcedureVo(pMemberReportVo);
         mem_MemberDao.callMemberInfo(procedureVo);

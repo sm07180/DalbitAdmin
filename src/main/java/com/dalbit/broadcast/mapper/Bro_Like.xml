@@ -6,5 +6,12 @@
         /* B_Listener.xml - callLikeList */
         call rd_admin.sp_admin_broadcast_room_good_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <select id="callLikeList_withdrawal" parameterType="String" resultType="com.dalbit.broadcast.vo.procedure.P_LikeListOutputVo">
+        /* B_Listener.xml - callLikeList_withdrawal */
+        select mem_userid as userid
+                ,mem_nick  as nickName
+          from rd_data.tb_member_withdrawal_bak
+         where mem_no=#{mem_no}
+    </select>
 
 </mapper>

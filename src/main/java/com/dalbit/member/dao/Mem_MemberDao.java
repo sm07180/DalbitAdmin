@@ -26,6 +26,7 @@ public interface Mem_MemberDao {
     int callMemberBasicAdd(P_MemberEditorVo pMemberEditorVo);
     int callMemberWithdrawal_bak_del(P_MemberEditorVo pMemberEditorVo);
     int callMemberReport(P_MemberReportVo pMemberReportVo);
+    int callMemberListen_check(P_MemberReportVo pMemberReportVo);
     int callMemberBasicReport_Edit(P_MemberReportVo pMemberReportVo);
     int callMemberWithdrawal_Add(P_MemberReportVo pMemberReportVo);
     int callMemberNotification_Add(P_MemberReportVo pMemberReportVo);

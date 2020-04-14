@@ -9,10 +9,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.util.GsonUtil;
-import com.dalbit.util.JwtUtil;
-import com.dalbit.util.MessageUtil;
-import com.dalbit.util.SocketUtil;
+import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -42,11 +40,37 @@ public class Bro_ListenerService {
     public String getListenerList(P_ListenListInputVo pListenListInputVo){
         ProcedureVo procedureVo = new ProcedureVo(pListenListInputVo);
         ArrayList<P_ListenListOutputVo> broadList = bro_ListenerDao.callListenerList(procedureVo);
+
+        List list = new ArrayList();
+        if(!DalbitUtil.isEmpty(broadList)){
+            for (int i=0; i < broadList.size(); i++){
+                P_ListenListOutputVo outVo = new P_ListenListOutputVo();
+                outVo.setAuth(broadList.get(i).getAuth());
+                outVo.setState(broadList.get(i).getState());
+                outVo.setMem_no(broadList.get(i).getMem_no());
+                outVo.setUserID(broadList.get(i).getUserID());
+                outVo.setNickName(broadList.get(i).getNickName());
+                outVo.setLevel(broadList.get(i).getLevel());
+                outVo.setGrade(broadList.get(i).getGrade());
+                outVo.setStartDateFormat(broadList.get(i).getStartDateFormat());
+                outVo.setEndDateFormat(broadList.get(i).getEndDateFormat());
+                outVo.setListenTime(broadList.get(i).getListenTime());
+                outVo.setAuthStartDateFormat(broadList.get(i).getAuthStartDateFormat());
+                outVo.setAuthEndDateFormat(broadList.get(i).getAuthEndDateFormat());
+                if(DalbitUtil.isEmpty(broadList.get(i).getUserID())){
+                    ArrayList<P_ListenListOutputVo> withdrawal = bro_ListenerDao.callListenerList_withdrawal(broadList.get(i).getMem_no());
+                    outVo.setUserID(withdrawal.get(0).getUserID());
+                    outVo.setNickName(withdrawal.get(0).getNickName());
+                }
+                list.add(outVo);
+            }
+        }
+
         P_ListenListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_ListenListOutputVo.class);
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_청취자목록조회_성공, broadList, new PagingVo(procedureVo.getRet()),summary));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_청취자목록조회_성공, list, new PagingVo(procedureVo.getRet()),summary));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방송_청취자목록조회_실패));
         }

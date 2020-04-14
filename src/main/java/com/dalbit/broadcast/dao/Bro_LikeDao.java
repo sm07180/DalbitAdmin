@@ -9,4 +9,5 @@ import java.util.ArrayList;
 @Repository
 public interface Bro_LikeDao {
     ArrayList<P_LikeListOutputVo> callLikeList(ProcedureVo procedureVo);
+    ArrayList<P_LikeListOutputVo> callLikeList_withdrawal(String mem_no);
 }

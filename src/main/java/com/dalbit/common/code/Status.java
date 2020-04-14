@@ -167,6 +167,13 @@ public enum Status {
     FAQ삭제성공("0", "delete.success", "FAQ삭제 성공 시"),
     FAQ삭제실패("C006", "server.error", "FAQ삭제 실패 시"),
 
+    //회원탈퇴
+    회원탈퇴_성공("0", "member.withdrawal.success", "회원탈퇴 성공 시"),
+    회원탈퇴_회원아님("-1", "member.withdrawal.member.number.error", "요청회원번호 회원 아닐 시"),
+    회원탈퇴_이미탈퇴("-2", "member.withdrawal.already", "이미 탈퇴한 회원일 시"),
+    회원탈퇴_방접속중("-3", "member.withdrawal.playing", "방송방 접속중일 시"),
+    회원탈퇴_실패("C006", "member.withdrawal.fail", "회원탈퇴 실패 시"),
+
     //신고센터
     신고목록조회_데이터없음("0", "no.data", "신고목록 조회 데이터가 없을 시"),
     신고목록조회_성공("C001", "select.success", "신고목록 조회 시"),

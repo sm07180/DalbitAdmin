@@ -15,7 +15,7 @@
                   a.gubun,a.ruby,a.room_no,a.gifted_mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.accumCnt
                 FROM
                   (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,gifted_mem_no,item_type, mem_userid
-                      AS userId, mem_nick AS nickName, mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_no, accum_cnt AS accumCnt
+                      AS userId, mem_nick AS nickName, mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, accum_cnt AS accumCnt
                       FROM rd_data.tb_member_broadcast_item
                       <if test="slctType == -1">    <!-- 전체 -->
                         where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}) AS a
@@ -26,7 +26,7 @@
                       <if test="slctType == 1">    <!-- 전체 -->
                         where gifted_mem_no = #{mem_no}) AS a
                       </if>
-                  LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_no = b.item_no
+                  LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
                   ORDER BY giftDate DESC
                   limit #{pageNo}, #{pageCnt}
         ) AS c, (select @rownum := #{pageNo} ) AS d
