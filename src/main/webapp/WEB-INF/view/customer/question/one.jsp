@@ -204,7 +204,6 @@
                             <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/wallet">내지갑</button>
                             <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/setting">사진등록</button>
                             <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/customer/faq">방송방법</button>
-
                         </td>
                             <%--<label class="control-inline fancy-radio custom-color-green">--%>
                                 <%--<input type="radio" id="moon" name="inline-radio" value='1' checked="checked" data-url="https://www.dalibitlive.com/"/>--%>
