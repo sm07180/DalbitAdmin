@@ -294,8 +294,12 @@ public class Mem_MemberService {
             mem_MemberDao.callMemberWithdrawal_bak_Add(pMemberReportVo);
             // tb_member_basic del
             mem_MemberDao.callMemberBasic_del(pMemberReportVo);
-            //tb_member_withdrawal insert
+            // tb_member_withdrawal insert
             mem_MemberDao.callMemberWithdrawal_Add(pMemberReportVo);
+            // 해당 회원번호로 등록된 팬목록 삭제
+            mem_MemberDao.callMemberWithdrawal_fanDel(pMemberReportVo);
+            // 해당 회원번호로 등록된 스타목록 삭제
+            mem_MemberDao.callMemberWithdrawal_starDel(pMemberReportVo);
 
         }
 
