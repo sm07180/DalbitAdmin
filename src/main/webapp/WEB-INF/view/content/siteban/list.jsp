@@ -6,59 +6,189 @@
     <div id="page-wrapper">
         <div id="headerTab">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                <li class="active"><a href="#sitebanList" role="tab" data-toggle="tab" id="tab_sitebanList" onclick="onClickHeaderTab(this.id)">사이트 금지어 관리</a></li>
+                <li class="active"><a href="#sitebanList" role="tab" data-toggle="tab">사이트 금지어 관리</a></li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane fade active in" id="sitebanList"><jsp:include page="/WEB-INF/view/content/siteban/sitebanList.jsp"/></div>     <!-- 사이트 금지어 관리 -->
+                <div class="tab-pane fade active in" id="sitebanList">
+                    <div>
+                        <div class="row col-md-12" style="padding-bottom: 15px">
+                            <div class="pull-left">
+                                • 사이트 내 닉네임 , 채팅글 , 팬보드 , 방송 제목 또는 방송 환영글 등에서 사용을 금지하는 금지어 관리 공간입니다.
+                                <br>
+                                • 4글자 이상으로 등록해주세요.
+                            </div>
+                            <div class="pull-right">
+                                <%--<button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>--%>
+                                <%--<button type="button" class="btn btn-primary "><i class="fa fa-floppy-o"></i>적용</button>--%>
+                            </div>
+                        </div>
+
+                        <div class="widget-content">
+
+                            <div class="form-group row">
+                                <div class="col-xs-4">
+                                    <input class="form-control" id="banword" type="text" placeholder="등록할 금지어를 입력해주세요." />
+                                </div>
+                                <button type="button" id="regBtn" class="btn-success btn pull-left">등록</button>
+                            </div>
+
+                            <table id="list" class="table table-sorting table-hover-ban table-bordered datatable ui-pg-table">
+                                <%--<colgroup>
+                                    <col width="70px" />
+                                    <col width="120px"/>
+                                    <col/>
+                                </colgroup>--%>
+                                <thead>
+                                <tr>
+                                    <th colspan="7">금지어</th>
+                                </tr>
+                                </thead>
+                                <tbody id="tableBody"></tbody>
+                            </table>
+
+                            <div class="btn-toolbar">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default" id="deleteBtn"><i class="fa fa-trash-o"></i>선택삭제</button>
+                                </div>
+
+                                <div class="btn-group pull-right" role="group">
+                                    <button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>
+                                    <button type="button" class="btn btn-primary" id="insertBtn"><i class="fa fa-floppy-o"></i>적용</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     <!-- 사이트 금지어 관리 -->
             </div>
         </div>
     </div>
 </div>
-<div class="main-content" style="margin-top: 3px;">
-</div>
 
-<script src="../../../js/lib/jquery.table2excel.js"></script>
+<input type="hidden" name="idx" id="idx" />
+
+<script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
-
-<script>
+<script type="text/javascript" src="/js/handlebars/contentHelper.js"></script>
+<script type="text/javascript">
     $(document).ready(function() {
         init();
-        initEvent();
     });
 
     //=------------------------------ Init / Event--------------------------------------------
 
     function init() {
-
+        util.getAjaxData('siteban', '/rest/content/siteban/list', null, fn_succ_list);
     }
 
-    function initEvent(){
+    function fn_succ_list(dst_id, response){
+        console.log(response);
 
-    }
-
-
-    //=------------------------------ Option --------------------------------------------
-
-    //Tab 선택시 호출 함수
-    function onClickHeaderTab(id){
-        var targetName = id.split("_")[1];
-        var targetFnc = eval("fnc_"+targetName);
-
-        // targetFnc.init();
-    }
-
-
-    var choiceDataInfo = {};
-    function setSelectDataInfo(key, data){
-        choiceDataInfo[key] = data;
-    }
-
-    function getSelectDataInfo() {
-        if(common.isEmpty(choiceDataInfo)){
-            return null;
+        if(dst_id == 'insert'){
+            ui.topScroll();
+            $("#banword").val('');
+            alert('등록되었습니다.');
+        }else if(dst_id == 'delete'){
+            ui.topScroll();
+            alert('삭제되었습니다.');
         }
 
-        return choiceDataInfo;
+        $("#idx").val(response.data.idx);
+        var banwords = response.data.ban_word.split('|');
+
+        var template = $('#tmp_banword').html();
+        var templateScript = Handlebars.compile(template);
+        var context = banwords;
+        var html = templateScript(context);
+        $("#tableBody").html(html);
     }
 
+    $(document).on('click', '._banword', function(){
+        var checkbox = $(this).parent().find('input[type="checkbox"]');
+
+        if(checkbox.prop('checked')){
+            checkbox.removeAttr('checked');
+        }else{
+            checkbox.prop('checked', 'checked');
+        }
+    });
+
+    $("#deleteBtn").on('click', function(){
+        var checkboxs = $('input._banwordChk:checked');
+        if(0 == checkboxs.length){
+            alert('삭제할 금지어를 선택해주세요.');
+            return;
+        }
+
+        if(confirm(checkboxs.length + '개의 금칙어를 삭제하시겠습니까?')){
+
+            $('input._banwordChk:checked').each(function(){
+               $(this).parent().remove();
+            });
+
+            insertBanword('delete');
+        }
+    });
+
+    $('#regBtn').on('click', function(){
+
+        console.log('click');
+        var banword = $('#banword');
+        if(banword.val().length < 4){
+            alert('4글자 이상으로 등록해주세요.');
+            return false;
+        }
+
+        var isDuplBanword = false;
+        $('.text-danger').each(function(){
+           if(banword.val() == $(this).text()){
+               isDuplBanword = true;
+               alert('이미 등록된 금지어 입니다.');
+               return false;
+           }
+        });
+
+        if(!isDuplBanword){
+            if(confirm("등록하시겠습니까?")){
+                $('td.last').append('<a href="javascript://" class="_banword" style="display:none">등록.[<span class="text-danger">'+banword.val()+'</span>]</a>');
+                insertBanword('insert');
+            }
+
+        }
+    });
+
+    function insertBanword(type){
+        var banwords = '';
+        $('._banword span.text-danger').each(function(){
+            banwords += $(this).text() + '|';
+        });
+
+        banwords = banwords.substr(0, banwords.length-1);
+
+        var data = {
+            idx : $("#idx").val()
+            , ban_word : banwords
+            , count : $('._banword span.text-danger').length
+        }
+        util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_list);
+    }
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_banword">
+    {{#each this}}
+        {{#openTr @index 7}}
+            <tr>
+        {{/openTr}}
+            <td class='{{#equal @last true}}last{{/equal}}'>
+                <input type="checkbox" class="_banwordChk" />
+                <a href="javascript://" class="_banword">{{index @index no}}.[<span class='text-danger'>{{this}}</span>]</a>
+            </td>
+
+        {{#closeTr @index 7 @last}}
+            </tr>
+        {{/closeTr}}
+    {{else}}
+        <tr>
+            <td colspan="10">{{isEmptyData}}</td>
+        </tr>
+    {{/each}}
 </script>

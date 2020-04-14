@@ -47,12 +47,12 @@
 
         util.editorInit("customer-question");
 
-        slct_type = response.data.slct_type;
+        /*slct_type = response.data.slct_type;
         var faqData = {
-            slct_type : slct_type
-        }
+            slct_type : 1
+        }*/
 
-        util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", faqData, fn_getFaqGroup_success);
+        util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", null, fn_getFaqGroup_success);
 
         $('#bt_operate').click(function() {                   // 방송제목 변경
             operate_click();

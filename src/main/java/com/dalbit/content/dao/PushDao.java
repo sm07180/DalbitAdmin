@@ -1,17 +1,20 @@
 package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.content.vo.procedure.P_pushDetailOutputVo;
-import com.dalbit.content.vo.procedure.P_pushListOutputVo;
+import com.dalbit.content.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
 @Repository
 public interface PushDao {
-    ArrayList<P_pushListOutputVo> callServiceCenterPushList(ProcedureVo procedureVo);
-    P_pushDetailOutputVo callServiceCenterPushListDetail(ProcedureVo procedureVo);
-    ProcedureVo callServiceStmpPushAdd(ProcedureVo procedureVo);
-    ProcedureVo callServiceCenterPushUpdate(ProcedureVo procedureVo);
-    ProcedureVo callServiceCenterPushDelete(ProcedureVo procedureVo);
+    ArrayList<P_pushListOutputVo> callContentsPushList(P_pushListInputVo pPushListInputVo);
+    int callContentsPushListCnt(P_pushListInputVo pPushListInputVo);
+    P_pushDetailOutputVo callContentsPushDetail(P_pushDetailInputVo pPushDetailInputVo);
+    int callContentsPushAdd(P_pushInsertVo pPushInsertVo);
+    int callContentsPushEdit(P_pushUpdateVo pPushUpdateVo);
+    int callContentsPushDelete(P_pushDeleteVo pPushDeleteVo);
+
+
+    ProcedureVo callStmpPushAdd(ProcedureVo procedureVo);
 }

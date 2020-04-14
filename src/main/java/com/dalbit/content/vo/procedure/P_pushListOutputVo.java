@@ -10,4 +10,30 @@ import java.sql.Date;
 @Getter
 @Setter
 public class P_pushListOutputVo extends BaseVo {
+    private int push_idx;                //푸시번호
+    private String platform;        //플랫폼
+    private int status;             //방송상태
+    private String send_title;      //메세지 제목
+    private String send_cont;       //메세지 내용
+    private String send_url;        //이미지URL
+    private int is_all;             //수신대상전체여부
+    private String mem_nos;         //회원번호s
+    private int msg_type;           //메시지 구분
+    private int slct_push;           //푸시 구분
+    private int is_direct;          //즉시발송여부
+    private Date send_datetime;     //발송시작일시
+    private String send_datetimeFormat;     //발송시작일시
+    private Date reg_date;          //등록일
+    private String reg_dateFormat;          //등록일
+    private String op_name;         //등록자
+
+    public void setReg_date(java.sql.Date reg_date){
+        this.reg_date = reg_date;
+        this.reg_dateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH:mm:ss");
+    }
+
+    public void setSend_datetime(java.sql.Date send_datetime){
+        this.send_datetime = send_datetime;
+        this.send_datetimeFormat = DalbitUtil.convertDateFormat(send_datetime, "yyyy.MM.dd HH:mm:ss");
+    }
 }

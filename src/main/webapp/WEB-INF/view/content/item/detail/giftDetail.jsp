@@ -263,12 +263,6 @@
                 return false;
             }
 
-            if(common.isEmpty(data.item_type) || data.item_type == "000"){
-                alert("아이템타입을 선택하여 주시기 바랍니다.");
-                fnc_giftDetail.target.find("input[name=item_type]").focus();
-                return false;
-            }
-
             if(common.isEmpty(data.byeol)){
                 alert("지급 별 수량을 입력하여 주시기 바랍니다.");
                 fnc_giftDetail.target.find("input[name=byeol]").focus();

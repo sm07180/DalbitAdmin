@@ -35,3 +35,15 @@ ui.topScroll = function(){
     window.scrollTo(0,0);
 }
 
+ui.checkBoxInit = function(){
+
+    $("#list_info-select-all").remove();
+
+    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
+        if($(this).prop('checked')){
+            $('#list_info .dt-body-center input[type="checkbox"]').removeAttr('checked');
+            $(this).prop('checked', 'checked');
+        }
+    });
+}
+

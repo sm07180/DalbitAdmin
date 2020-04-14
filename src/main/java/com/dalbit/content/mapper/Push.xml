@@ -2,7 +2,121 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.content.dao.PushDao" >
 
-    <select id="callServiceStmpPushAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+    <!-- 푸시 -->
+    <sql id="pushSelect">
+        SELECT
+            idx              AS push_idx
+            ,platform         AS platform
+            ,status           AS status
+            ,send_title       AS send_title
+            ,send_cont        AS send_cont
+            ,send_url         AS send_url
+            ,is_all           AS is_all
+            ,mem_nos          AS mem_nos
+            ,msg_type         AS msg_type
+            ,slct_push         AS slct_push
+            ,is_direct        AS is_direct
+            ,send_datetime    AS send_datetime
+            ,reg_date         AS reg_date
+            ,op_name          AS opName
+        FROM
+            rd_admin.tb_admin_push
+    </sql>
+
+    <!-- 푸시 -->
+    <select id="callContentsPushListCnt" parameterType="com.dalbit.content.vo.procedure.P_pushListInputVo" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM
+          rd_admin.tb_admin_push
+    </select>
+
+    <select id="callContentsPushList" parameterType="com.dalbit.content.vo.procedure.P_pushListInputVo" resultType="com.dalbit.content.vo.procedure.P_pushListOutputVo">
+        select
+        @rownum := @rownum + 1 as rowNum,
+        a.*
+        FROM
+        (
+        <include refid="pushSelect"/>
+        <where>
+            <if test='platform != null and platform != "" and platform != "1"'>
+                AND platform = #{platform}
+            </if>
+
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND send_title like #{searchText}
+                    </when>
+                    <when test='searchType == 2'>
+                        AND send_cont like #{searchText}
+                    </when>
+                    <otherwise>
+                        AND (send_title like #{searchText} OR send_cont like #{searchText})
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+        ) AS a,
+        (select @rownum := #{pageStart}) AS b
+        <trim prefix="ORDER BY">
+            a.reg_date desc
+        </trim>
+        limit  #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="callContentsPushDetail" parameterType="com.dalbit.content.vo.procedure.P_pushDetailInputVo" resultType="com.dalbit.content.vo.procedure.P_pushDetailOutputVo">
+        <include refid="pushSelect"/>
+        WHERE
+        idx like #{push_idx}
+    </select>
+
+    <insert id="callContentsPushAdd" parameterType="com.dalbit.content.vo.procedure.P_pushInsertVo">
+          INSERT INTO rd_admin.tb_admin_push
+          (
+                platform
+                ,status
+                ,send_title
+                ,send_cont
+                ,send_url
+                ,is_all
+                ,mem_nos
+                ,msg_type
+                ,slct_push
+                ,is_direct
+                ,send_datetime
+                ,reg_date
+                ,op_name
+          )
+          VALUES
+          (
+                #{platform}
+                ,#{status}
+                ,#{send_title}
+                ,#{send_cont}
+                ,#{send_url}
+                ,#{is_all}
+                ,#{mem_nos}
+                ,#{msg_type}
+                ,#{slct_push}
+                ,#{is_direct}
+                ,STR_TO_DATE(#{send_datetime},'%Y%m%d %H%i%S')
+                ,NOW()
+                ,#{opName}
+          )
+    </insert>
+
+
+    <update id="callContentsPushEdit" parameterType="com.dalbit.content.vo.procedure.P_pushUpdateVo">
+    </update>
+
+    <delete id="callContentsPushDelete" parameterType="com.dalbit.content.vo.procedure.P_pushDeleteVo">
+--         DELETE FROM rd_admin.tb_admin_push WHERE idx = #{push_idx}
+    </delete>
+
+
+    <!-- 푸시 발송  -->
+    <select id="callStmpPushAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         call rd_data.sp_stmp_push_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 

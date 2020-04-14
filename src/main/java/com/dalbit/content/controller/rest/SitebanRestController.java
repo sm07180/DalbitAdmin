@@ -6,6 +6,7 @@ import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.content.service.SitebanService;
 import com.dalbit.content.service.ThemeService;
+import com.dalbit.content.vo.SitebanVo;
 import com.dalbit.content.vo.ThemeVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ import java.util.List;
 public class SitebanRestController {
 
     @Autowired
-    SitebanService service;
+    SitebanService sitebanService;
 
     @Autowired
     CommonService commonService;
@@ -31,10 +32,17 @@ public class SitebanRestController {
     @Autowired
     GsonUtil gsonUtil;
 
-    @PostMapping("siteban")
-    public String sitebanList(HttpServletRequest request, ThemeVo splashVo) {
-        List<CodeVo> roomTypeList = commonService.getCodeList("roomType");
+    @PostMapping("list")
+    public String list() {
+        SitebanVo sitebanVo = sitebanService.selectBanword();
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, roomTypeList));
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, sitebanVo));
+    }
+
+    @PostMapping("update")
+    public String update(SitebanVo sitebanVo) {
+        sitebanService.updateBanword(sitebanVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정, sitebanService.selectBanword()));
     }
 }
