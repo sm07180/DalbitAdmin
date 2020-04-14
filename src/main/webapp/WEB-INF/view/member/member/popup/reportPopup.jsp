@@ -171,8 +171,9 @@
     }
 
     function update_success(dst_id, response) {
+        dalbitLog(response);
         window.opener.getMemNo_info_reload(memNo);
-        alert("신고 성공");
+        alert(response.message);
         window.close();
     }
     function fn_fail(data, textStatus, jqXHR){
