@@ -85,7 +85,15 @@ public class PushService {
             int insertResult = pushDao.callContentsPushAdd(pPushInsertVo);
 
             if(insertResult > 0){
-                result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공));
+                //TODO 전체 발송은 따로 처리 필요 (프로시져 아직 안나옴)
+                HashMap resultHash = null;
+                // 지정 일 경우 푸시 발송
+                if(pPushInsertVo.getIs_all().equals("1")){
+                    resultHash = callSendPush(pPushInsertVo);
+                }
+
+                result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공, resultHash));
+
             }else{
                 result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_에러));
             }
@@ -138,7 +146,7 @@ public class PushService {
         for(int i=0; i < idxs.length; i++) {
             ProcedureVo procedureVo = new ProcedureVo(new P_pushDeleteVo(idxs[i]));
 
-            int deleteResult = pushDao.callContentsPushDelete(pPushDeleteVo);
+            int deleteResult = pushDao.callContentsPushDelete(new P_pushDeleteVo(idxs[i]));
 
             if (deleteResult > 0) {
                 sucCnt++;
@@ -159,7 +167,39 @@ public class PushService {
 
         return result;
     }
-    
+
+
+    public HashMap callSendPush(P_pushInsertVo pPushInsertVo){
+        String mem_nos = pPushInsertVo.getMem_nos();
+        HashMap resultMap = new HashMap();
+        int sucCnt=0;
+        int failCnt=0;
+
+        if(mem_nos != null && mem_nos.length() > 0){
+            String[] arryMem_no = mem_nos.split("\\|");
+
+            for(String target : arryMem_no){
+                P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
+                ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
+
+                pushDao.callStmpPushAdd(procedureVo);
+
+                if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+                    log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
+                    sucCnt++;
+                } else {
+                    log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " (" + target + ")");
+                    failCnt++;
+                }
+            }
+
+        }
+
+        resultMap.put("sucCnt", sucCnt);
+        resultMap.put("failCnt", failCnt);
+
+        return resultMap;
+    }
 
 
     public String callStmpPushAdd(P_pushInsertVo pPushInsertVo) {
@@ -168,14 +208,14 @@ public class PushService {
         pushDao.callStmpPushAdd(procedureVo);
 
         String result;
-        if(Status.푸시등록_성공.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공));
-        } else if(Status.푸시등록_요청회원번호미존재.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_요청회원번호미존재));
-        } else if(Status.푸시등록_디바이스토큰미존재.getMessageCode().equals(procedureVo.getRet())){
-            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_디바이스토큰미존재));
+        if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시발송_성공));
+        } else if(Status.푸시발송_요청회원번호미존재.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시발송_요청회원번호미존재));
+        } else if(Status.푸시발송_디바이스토큰미존재.getMessageCode().equals(procedureVo.getRet())){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시발송_디바이스토큰미존재));
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_에러));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시발송_에러));
         }
 
         return result;

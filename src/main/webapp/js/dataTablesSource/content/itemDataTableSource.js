@@ -232,6 +232,9 @@ var ItemDataTableSource = {
             {'title': '설명', 'data': 'desc', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data;
                 }},
+            {'title': '게시상태', 'data': 'view_yn', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, content_viewOn);
+                }},
             {'title': '등록/수정일', 'data': 'lastupdDate', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return (common.isEmpty(row.lastupdDateFormat) ? row.regDateFormat : row.lastupdDateFormat);
 

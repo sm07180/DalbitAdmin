@@ -130,21 +130,26 @@ var fnc_pushList = {
         dalbitLog(checkDatas);
         if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
 
-            var itemCodes = "";
+            var push_idxs = "";
             for(var idx=0; idx < checkDatas.length; idx++){
                 var dataInfo = checkDatas[idx];
-                if(common.isEmpty(dataInfo.item_code)){
+                if(common.isEmpty(dataInfo.push_idx)){
                     dalbitLog("[delete] Item code does not exist. : ");
                     dalbitLog(dataInfo);
                     continue;
                 }
 
-                itemCodes += "," + dataInfo.item_code;
+                if(dataInfo.status != "0"){
+                    alert("삭제 불가능한 상태가 존재합니다.\n해당 상태를 제외하고 삭제를 진행합니다.\n\n * 삭제 가능 상태 : 발송대기");
+                    continue;
+                }
+
+                push_idxs += "," + dataInfo.push_idx;
             }
-            itemCodes = itemCodes.substring(1);
+            push_idxs = push_idxs.substring(1);
 
             var data = new Object();
-            data.item_code = itemCodes;
+            data.push_idx = push_idxs;
 
             util.getAjaxData(fnc_pushList.targetId, "/rest/content/push/delete",data, fnc_pushList.fn_delete_success, fnc_pushList.fn_fail);
         };
@@ -168,7 +173,7 @@ var fnc_pushList = {
 
     // 삭제 성공 시
     fn_delete_success(dst_id, data, dst_params){
-        alert(data.message);
+        alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
 
         // reload
         fnc_pushList.selectMainList();
@@ -188,12 +193,12 @@ var fnc_pushList = {
 
 
     // 검색
-    selectMainList(){
+    selectMainList(isResetPaging){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-        this.dtList_info.reload();
+        this.dtList_info.reload(null, isResetPaging);
 
     },
 

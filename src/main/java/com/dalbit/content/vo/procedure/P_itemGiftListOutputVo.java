@@ -36,7 +36,6 @@ public class P_itemGiftListOutputVo extends BaseVo {
     private String regDateFormat;
     private Date lastupdDate;			//최종변경일자
     private String lastupdDateFormat;
-    private int item_no;				//아이템코드
     private int ruby;					//소모 루비
     private int gold;					//획득 골드
     private int exp;					//획득 경험치

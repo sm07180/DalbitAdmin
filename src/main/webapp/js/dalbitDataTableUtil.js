@@ -310,8 +310,8 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
 /* === Option =================================================================*/
 
     // DataTable Reload / Ajax 재호출
-    DalbitDataTable.prototype.reload = function (afterFnc) {
-        this.dom.DataTable().ajax.reload(afterFnc);
+    DalbitDataTable.prototype.reload = function (afterFnc, isResetPaging) {
+        this.dom.DataTable().ajax.reload(afterFnc, isResetPaging);
     }
 
     // DataTable Reload / Url, Data, Columns 초기화 후 Reload (기존 테이블 변경  시 사용)

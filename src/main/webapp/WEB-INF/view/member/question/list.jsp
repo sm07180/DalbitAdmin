@@ -52,11 +52,11 @@
         //summary
         var obj = new Object();
         obj.mem_no = memNo;
-        util.getAjaxData("summary", "/rest/customer/question/questionCount_target", obj, fn_success, fn_fail);
+        util.getAjaxData("summary", "/rest/customer/question/questionCount_target", obj, question_fn_success, fn_fail);
 
     }
 
-    function fn_success(dst_id, response) {
+    function question_fn_success(dst_id, response) {
         dalbitLog(response);
         var template = $("#question_tableSummary").html();
         var templateScript = Handlebars.compile(template);

@@ -100,7 +100,14 @@
                 ,#{msg_type}
                 ,#{slct_push}
                 ,#{is_direct}
-                ,STR_TO_DATE(#{send_datetime},'%Y%m%d %H%i%S')
+                <choose>
+                    <when test='is_direct == 1'>
+                        ,STR_TO_DATE(#{send_datetime},'%Y%m%d %H%i%S')
+                    </when>
+                    <otherwise>
+                        ,NOW()
+                    </otherwise>
+                </choose>
                 ,NOW()
                 ,#{opName}
           )
@@ -111,7 +118,7 @@
     </update>
 
     <delete id="callContentsPushDelete" parameterType="com.dalbit.content.vo.procedure.P_pushDeleteVo">
---         DELETE FROM rd_admin.tb_admin_push WHERE idx = #{push_idx}
+        DELETE FROM rd_admin.tb_admin_push WHERE idx = #{push_idx} AND status = '0'
     </delete>
 
 

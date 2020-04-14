@@ -184,7 +184,7 @@ var fnc_bannerList = {
 
     // 삭제 성공 시
     fn_delete_success(dst_id, data, dst_params){
-        alert(data.message);
+        alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
 
         // reload
         fnc_bannerList.selectMainList();
@@ -204,14 +204,13 @@ var fnc_bannerList = {
 
 
     // 검색
-    selectMainList(){
+    selectMainList(isResetPaging){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
         // Summary를 위한 재생성
-        this.dtList_info.createDataTable(this.initSummary);
-        // this.dtList_info.reload(this.initSummary);
+        this.dtList_info.reload(this.initSummary, isResetPaging);
 
     },
 

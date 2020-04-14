@@ -169,7 +169,7 @@
             // tmp_search = $('#txt_search').val();
             // tmp_gubun = $("select[name='selectGubun']").val();
 
-            this.dtList_info.reload();
+            this.dtList_info.reload(null, false);
         }
 
             // /*=---------- 엑셀 ----------*/

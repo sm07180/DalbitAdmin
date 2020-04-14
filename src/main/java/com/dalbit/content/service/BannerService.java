@@ -138,7 +138,7 @@ public class BannerService {
         for(int i=0; i < idxs.length; i++) {
             ProcedureVo procedureVo = new ProcedureVo(new P_bannerDeleteVo(idxs[i]));
 
-            int deleteResult = bannerDao.callContentsBannerDelete(pBannerDeleteVo);
+            int deleteResult = bannerDao.callContentsBannerDelete(new P_bannerDeleteVo(idxs[i]));
 
             if (deleteResult > 0) {
                 sucCnt++;

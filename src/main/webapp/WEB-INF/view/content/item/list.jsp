@@ -101,9 +101,9 @@
 
         // 검색조건
         if(targetName == "exchangeList"){
-            $("#search_osType_aria").hide();
+            $("#search_osType_aria").html("");
         }else{
-            $("#search_osType_aria").show();
+            $("#search_osType_aria").html(util.getCommonCodeSelect(-1, content_platform2));
         }
 
 
