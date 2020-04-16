@@ -194,7 +194,7 @@
             </td>
             <td>
                 {{#equal rank.image_profile ''}}
-                    이미지 없음
+                    <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
                 {{else}}
                     <img src="{{renderImage rank.image_profile}}" style='height:100px; width:auto;' />
                 {{/equal}}
@@ -258,7 +258,7 @@
             </td>
             <td>
                 {{#equal fan.image_profile ''}}
-                    이미지 없음
+                    <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
                 {{else}}
                     <img src="{{viewImage fan.image_profile}}" style='height:100px; width:auto;' />
                 {{/equal}}

@@ -9,7 +9,7 @@
         </div>
         <div class="pull-right">
             <button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>
-            <button type="button" class="btn btn-primary "><i class="fa fa-floppy-o"></i>적용</button>
+            <button type="button" class="btn btn-primary " id="submitBtn" ><i class="fa fa-floppy-o"></i>적용</button>
         </div>
     </div>
 
@@ -57,13 +57,13 @@
         init() {
             this.target = $("#" + this.targetId);
 
-            util.getAjaxData("list", "/rest/content/theme/broadcast", "", fnc_broadcastList.fn_success, fnc_broadcastList.fn_fail);
+            util.getAjaxData("list", "/rest/content/theme/broadcast/list", "", fnc_broadcastList.fn_success, fnc_broadcastList.fn_fail);
 
             this.initEvent();
         },
 
         initEvent() {
-            this.target.on('click', '._down', function () {
+            this.target.off('click').on('click', '._down', function () {
                 var targetTr = $(this).closest('tr');
                 var nextTr = targetTr.next();
                 targetTr.insertAfter(nextTr);
@@ -71,7 +71,7 @@
                 fnc_broadcastList.btnSet();
             });
 
-            this.target.on('click', '._up', function () {
+            this.target.off('click').on('click', '._up', function () {
                 var targetTr = $(this).closest('tr');
                 var prevTr = targetTr.prev();
                 targetTr.insertBefore(prevTr);
@@ -79,7 +79,7 @@
                 fnc_broadcastList.btnSet();
             });
 
-            this.target.find('#deleteBtn').on('click', function () {
+            this.target.find('#deleteBtn').off('click').on('click', function () {
                 var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
 
                 if (0 == checked.length) {
@@ -93,7 +93,7 @@
                 }
             });
 
-            this.target.find("#updateBtn").on('click', function () {
+            this.target.find("#updateBtn").off('click').on('click', function () {
                 var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
                 if (0 == checked.length) {
                     alert("수정할 방송 주제를 선택해주세요.");
@@ -110,10 +110,12 @@
                 fnc_broadcastList.target.find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
             });
 
-            this.target.find("#addBtn").on('click', function () {
+            this.target.find("#addBtn").off('click').on('click', function () {
                 var newData = {
-                    no: fnc_broadcastList.target.find('._noTd').length + 1,
+                    sortNo: fnc_broadcastList.target.find('._noTd').length + 1,
+                    cd: fnc_broadcastList.createCodeValue(),
                     cdNm: '',
+                    isUse: 0,
                     isOn: true,
                     readonly: false
                 }
@@ -126,7 +128,20 @@
 
                 fnc_broadcastList.btnSet();
             });
+
+            this.target.find("#submitBtn").off('click').on('click', function () {
+
+                var editData = {
+                    codeType: "subject_type",
+                    codeVoArr: JSON.stringify(fnc_broadcastList.getArrCodeData())
+                }
+
+                util.getAjaxData("list", "/rest/content/theme/broadcast/submit", editData, fnc_broadcastList.fn_submit_success, fnc_broadcastList.fn_fail);
+
+            });
+
         },
+
 
         fn_success(dst_id, response)
         {
@@ -136,9 +151,18 @@
             var templateScript = Handlebars.compile(template);
             var html = templateScript(response);
 
-            fnc_broadcastList.target.find("#tableBody").append(html);
+            fnc_broadcastList.target.find("#tableBody").html(html);
 
             fnc_broadcastList.btnSet();
+        },
+
+        fn_submit_success(dst_id, response)
+        {
+            dalbitLog(response);
+
+            alert(response.message);
+
+            fnc_broadcastList.init();
         },
 
         fn_fail(data, textStatus, jqXHR) {
@@ -149,7 +173,9 @@
 
         resetNo() {
             this.target.find('._noTd').each(function (index) {
-                $(this).html(index + 1);
+                var html = '<input type="hidden" name="sortNo" value="'+(index+1)+'">';
+                html += (index+1);
+                $(this).html(html);
             });
 
             this.target.find('._noTr').each(function (index) {
@@ -189,33 +215,71 @@
 
             fnc_broadcastList.resetNo();
             fnc_broadcastList.btnSet();
-        }
+        },
 
+        // 수정데이터 셋팅
+        getArrCodeData(){
+            var arrCode = [];
+
+            fnc_broadcastList.target.find("#tableBody").find("tr").each(function(){
+                var code = {
+                    cd : $(this).find('[name="cd"]').val(),
+                    cdNm: $(this).find('[name="cdNm"]').val(),
+                    sortNo: $(this).find('[name="sortNo"]').val(),
+                    isUse: $(this).find('[name="isUse"]').is(":checked")? "1" : "0"
+                }
+
+                if(!common.isEmpty(code.cdNm)){
+                    arrCode.push(code);
+                }
+            });
+
+            console.log(arrCode);
+            return arrCode;
+        },
+
+        createCodeValue(){
+            var newCodeValue = 0;
+
+            //TODO 나중에 수정 필요 가능성 큼. (코드가 숫자, 99까지밖에 안됨.)
+            fnc_broadcastList.target.find("[name=cd]").each(function(){
+                var codeValue = $(this).val();
+                if(codeValue != "99" && codeValue > newCodeValue){
+                    newCodeValue = codeValue;
+                }
+            });
+
+            return parseInt(newCodeValue) + 1;
+        }
     }
 </script>
 
 <script id="tmp_list" type="text/x-handlebars-template">
     {{#data}}
-    <tr class="_noTr" id="row_{{index @index no}}" ondrop="fnc_broadcastList.drop(event)" ondragover="fnc_broadcastList.allowDrop(event)" draggable="true" ondragstart="fnc_broadcastList.drag(event)">
+    <tr class="_noTr" id="row_{{sortNo}}" ondrop="fnc_broadcastList.drop(event)" ondragover="fnc_broadcastList.allowDrop(event)" draggable="true" ondragstart="fnc_broadcastList.drag(event)">
         <td>
             <input type="checkbox" class="form-control _check" />
         </td>
-        <td class="_noTd">{{index @index no}}</td>
+        <td class="_noTd">
+            <input type="hidden" name="sortNo" value="{{sortNo}}"/>
+            {{sortNo}}
+        </td>
         <td>
             <button type="button" class="btn btn-info _down"><i class="toggle-icon fa fa-angle-down"></i></button>
             <button type="button" class="btn btn-danger _up"><i class="toggle-icon fa fa-angle-up"></i></button>
         </td>
         <td>
             <div class="control-inline onoffswitch">
-                <input type="checkbox" name="useYn" class="onoffswitch-checkbox" id="broadcastList_useYn{{index @index no}}" {{#unless isOn}}checked{{/unless}}>
-                <label class="onoffswitch-label" for="broadcastList_useYn{{index @index no}}">
+                <input type="checkbox" name="isUse" class="onoffswitch-checkbox" id="broadcastList_isUse{{sortNo}}" {{#dalbit_if isUse "==" "1"}}checked{{/dalbit_if}}>
+                <label class="onoffswitch-label" for="broadcastList_isUse{{sortNo}}">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
                 </label>
             </div>
         </td>
         <td>
-            <input type="text" value="{{cdNm}}" class="form-control _cdNm" {{#unless isOn}}readonly="true"{{/unless}} />
+            <input type="hidden" name="cd" value="{{cd}}"/>
+            <input type="text" name="cdNm" value="{{cdNm}}" class="form-control _cdNm" {{#unless isOn}}readonly="true"{{/unless}} />
         </td>
     </tr>
     {{/data}}

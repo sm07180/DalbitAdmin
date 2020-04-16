@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.ThemeDao" >
+
+    <delete id="callContentsThemeDelete" parameterType="java.lang.String">
+        DELETE FROM rd_data.tbl_code_define WHERE `type` = #{value}
+    </delete>
+
+    <insert id="callContentsThemeInsert" parameterType="hashmap">
+        INSERT INTO rd_data.tbl_code_define(
+            `type`
+            ,`value`
+            ,`code`
+            ,`order`
+            ,`is_use`
+        ) VALUES
+        <trim suffixOverrides=",">
+            <foreach item="item" index="index" collection="codeVoList">
+                (
+                    #{codeType}
+                    ,#{item.cd}
+                    ,#{item.cdNm}
+                    ,#{item.sortNo}
+                    ,#{item.isUse}
+                ),
+            </foreach>
+        </trim>
+    </insert>
+</mapper>

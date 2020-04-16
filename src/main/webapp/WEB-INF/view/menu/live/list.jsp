@@ -216,7 +216,7 @@
         <tr>
             <td>
                 {{#equal image_profile ''}}
-                    이미지 없음
+                    <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
                 {{else}}
                     <img src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' />
                 {{/equal}}

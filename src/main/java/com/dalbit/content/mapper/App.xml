@@ -2,18 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.content.dao.AppDao" >
 
-    <select id="getAppVersionList" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
-      select
+    <sql id="appCondition">
+        select
         idx
         , os
         , version
         , is_force
         , is_use
         , reg_date
-      from
+        from
         rd_admin.tb_app_version
-      where is_use = 1
-      /* 조건 추가 */
-      order by idx desc
+        where is_use=1
+        <if test = 'os != null and os != ""'>
+            and os = #{os}
+        </if>
+        order by idx desc
+    </sql>
+
+    <select id="getAppVersionList" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
+        /* App.xml - getAppVersionList */
+      <include refid="appCondition"/>
+    </select>
+
+    <select id="getAppVersionListCnt" parameterType="com.dalbit.content.vo.AppVo" resultType="integer">
+        /* App.xml - getAppVersionListCnt */
+        select
+          count(*)
+          from (
+        <include refid="appCondition"/>
+          ) as tb
+    </select>
+
+    <select id="getListDetail" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
+        select
+        idx
+        , os
+        , version
+        , is_force
+        , is_use
+        , reg_date
+        from
+        rd_admin.tb_app_version
+        where is_use=1
+        <if test = 'idx != null and idx != ""'>
+        and idx = #{idx}
+        </if>
     </select>
 </mapper>
