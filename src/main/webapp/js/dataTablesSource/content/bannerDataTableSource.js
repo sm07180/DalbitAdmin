@@ -45,9 +45,15 @@ var BannerDataTableSource = {
                 return text;
 
             }},
-            {'title': '성별', 'data': 'banner_col7', 'defaultContent': '0'},
-            {'title': '노출', 'data': 'banner_col8', 'defaultContent': '0'},
-            {'title': '노출여부', 'data': 'banner_col9', 'defaultContent': '0'},
+            {'title': '성별', 'data': 'sex', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, gender);
+                }},
+            {'title': '노출', 'data': 'view_type', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, banner_loginType);
+                }},
+            {'title': '게시여부', 'data': 'is_view', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, content_viewOn);
+                }},
             {'title': '노출', 'data': 'banner_col10', 'defaultContent': '0'},
             {'title': '클릭', 'data': 'banner_col11', 'defaultContent': '0'},
             {'title': '남', 'data': 'banner_col12', 'defaultContent': '0'},
