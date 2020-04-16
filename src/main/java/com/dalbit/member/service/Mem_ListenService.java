@@ -29,12 +29,12 @@ public class Mem_ListenService {
     public String getListenHistory(P_MemberListenInputVo pMemberListenInputVo) {
 
         ProcedureVo procedureVo = new ProcedureVo(pMemberListenInputVo);
-        ArrayList<P_MemberListenOutputVo> memberList = mem_ListenDao.callListenHistory(procedureVo);
+        ArrayList<P_MemberListenOutputVo> listenList = mem_ListenDao.callListenHistory(procedureVo);
         P_MemberListenOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_MemberListenOutputVo.class);
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_청취내역보기_성공, memberList, new PagingVo(procedureVo.getRet()), summary));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_청취내역보기_성공, listenList, new PagingVo(procedureVo.getRet()), summary));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_청취내역보기_실패));
         }

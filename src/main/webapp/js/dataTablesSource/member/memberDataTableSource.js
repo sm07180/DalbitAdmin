@@ -143,11 +143,16 @@ var MemberDataTableSource = {
                 }},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},
+            {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    if(data == 1) var tmp = "O";
+                    else var tmp = "X";
+                    return tmp;
+                }},
             {'title': '이미지', 'data': 'item_thumbnail','render' : function (data, type, row, meta) {
                     return '<img src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
-            {'title': '보낸/받은/교환건수', 'data': 'accumCnt', 'render': function (data) {
+            {'title': '보낸/받은/교환건수', 'data': 'itemCnt', 'render': function (data) {
                     return data + " 개"
                 }},
             {'title': '선물/교환-별/달', 'data': 'ruby', 'render': function (data) {

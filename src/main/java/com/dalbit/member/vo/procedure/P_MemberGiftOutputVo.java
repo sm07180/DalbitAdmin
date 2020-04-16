@@ -25,8 +25,9 @@ public class P_MemberGiftOutputVo extends SearchVo {
     private String giftDateFormat;
     private String itemImage;
     private String itemName;
-    private int accumCnt;
+    private int itemCnt;
     private String item_thumbnail;
+    private int secret;
 
     //summary
 

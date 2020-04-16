@@ -59,6 +59,7 @@ public class Bro_GiftService {
                 outVo.setAccumCnt(GiftList.get(i).getAccumCnt());
                 outVo.setItem_thumbnail(GiftList_thumbnail.get(i).getItem_thumbnail());
                 outVo.setItemCnt(GiftList_thumbnail.get(i).getItemCnt());
+                outVo.setSecret(GiftList_thumbnail.get(i).getSecret());
 
                 list.add(outVo);
             }

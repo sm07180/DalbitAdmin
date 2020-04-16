@@ -25,23 +25,13 @@ public class Mem_NoticeService {
     GsonUtil gsonUtil;
 
     public String getNoticeHistory(P_MemberNoticeInputVo pMemberNoticeInputVo){
-
-//        ProcedureVo procedureVo = new ProcedureVo(pMemberNoticeInputVo);
-//        ArrayList<P_MemberNoticeOutputVo> memberList = mem_NoticeDao.callNoticeHistory(procedureVo);
-
-//        if(Integer.parseInt(procedureVo.getRet()) > 0) {
-//            result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, memberList, new PagingVo(procedureVo.getRet())));
-//        }else{
-//            result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기실패));
-//        }
-
         pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() -1);
         pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() * pMemberNoticeInputVo.getPageCnt());
-        ArrayList<P_MemberNoticeOutputVo> memberList = mem_NoticeDao.callNoticeHistory(pMemberNoticeInputVo);
-        int memberList_totalCnt = mem_NoticeDao.callNoticeHistory_totalCnt(pMemberNoticeInputVo);
+        ArrayList<P_MemberNoticeOutputVo> noticeList = mem_NoticeDao.callNoticeHistory(pMemberNoticeInputVo);
+        int totalCnt = mem_NoticeDao.callNoticeHistory_totalCnt(pMemberNoticeInputVo);
 
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, memberList, new PagingVo(memberList_totalCnt)));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(totalCnt)));
         log.info(result);
         return result;
     }

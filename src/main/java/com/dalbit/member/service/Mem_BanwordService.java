@@ -25,15 +25,15 @@ public class Mem_BanwordService {
     GsonUtil gsonUtil;
 
     public String getBanwordHistory(P_MemberBanwordInputVo pMemberBanwordInputVo){
-        ArrayList<P_MemberBanwordOutputVo> memberList = mem_BanwordDao.callBanwordHistory(pMemberBanwordInputVo);
+        ArrayList<P_MemberBanwordOutputVo> banwordList = mem_BanwordDao.callBanwordHistory(pMemberBanwordInputVo);
         ArrayList<P_MemberBanwordOutputVo> list = new ArrayList<>();
         int start = pMemberBanwordInputVo.getPageStart();
         int end = pMemberBanwordInputVo.getPageCnt() + pMemberBanwordInputVo.getPageStart();
 
         String result;
 
-        if(memberList.size() > 0) {
-            String[] banword = memberList.get(0).getBan_word().split("\\|");
+        if(banwordList.size() > 0) {
+            String[] banword = banwordList.get(0).getBan_word().split("\\|");
             if (end > banword.length) {
                 end = banword.length;
             }
@@ -46,7 +46,7 @@ public class Mem_BanwordService {
                     list.add(data);
                 }
             }
-            result = gsonUtil.toJson(new JsonOutputVo(Status.금지어목록보기성공, list, new PagingVo(memberList.get(0).getCount())));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.금지어목록보기성공, list, new PagingVo(banwordList.get(0).getCount())));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.금지어목록보기실패));
         }

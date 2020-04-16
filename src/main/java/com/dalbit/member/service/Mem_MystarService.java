@@ -24,24 +24,14 @@ public class Mem_MystarService {
 
     public String getMystarHistory(P_MemberMystarInputVo pMemberMystarInputVo){
 
-//        ProcedureVo procedureVo = new ProcedureVo(pMemberMystarInputVo);
-//        ArrayList<P_MemberMystarOutputVo> memberList = mem_MystarDao.callMystarHistory(procedureVo);
-
-//        if(Integer.parseInt(procedureVo.getRet()) > 0) {
-//            result = gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, memberList, new PagingVo(procedureVo.getRet())));
-//        }else{
-//            result = gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기실패));
-//        }
-
-
         pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() -1);
         pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() * pMemberMystarInputVo.getPageCnt());
 
-        ArrayList<P_MemberMystarOutputVo> memberList = mem_MystarDao.callMystarHistory(pMemberMystarInputVo);
-        int memberList_totalCnt = mem_MystarDao.callMystarHistory_totalCnt(pMemberMystarInputVo);
+        ArrayList<P_MemberMystarOutputVo> mystarList = mem_MystarDao.callMystarHistory(pMemberMystarInputVo);
+        int totalCnt = mem_MystarDao.callMystarHistory_totalCnt(pMemberMystarInputVo);
 
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, memberList, new PagingVo(memberList_totalCnt)));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.MyStar목록보기성공, mystarList, new PagingVo(totalCnt)));
         log.info(result);
         return result;
     }
@@ -49,23 +39,14 @@ public class Mem_MystarService {
 
     public String getFanHistory(P_MemberMystarInputVo pMemberMystarInputVo){
 
-//        ProcedureVo procedureVo = new ProcedureVo(pMemberMyfanInputVo);
-//        ArrayList<P_MemberMyfanOutputVo> memberList = mem_MyfanDao.callMyfanHistory(procedureVo);
-
-//        if(Integer.parseInt(procedureVo.getRet()) > 0) {
-//            result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, memberList, new PagingVo(procedureVo.getRet())));
-//        }else{
-//            result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기실패));
-//        }
-
         pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() -1);
         pMemberMystarInputVo.setPageNo(pMemberMystarInputVo.getPageNo() * pMemberMystarInputVo.getPageCnt());
 
-        ArrayList<P_MemberMystarOutputVo> memberList = mem_MystarDao.callMyfanHistory(pMemberMystarInputVo);
-        int memberList_totalCnt = mem_MystarDao.callMyfanHistory_totalCnt(pMemberMystarInputVo);
+        ArrayList<P_MemberMystarOutputVo> myfanList = mem_MystarDao.callMyfanHistory(pMemberMystarInputVo);
+        int totalCnt = mem_MystarDao.callMyfanHistory_totalCnt(pMemberMystarInputVo);
 //
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, memberList, new PagingVo(memberList_totalCnt)));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, myfanList, new PagingVo(totalCnt)));
         log.info(result);
         return result;
     }

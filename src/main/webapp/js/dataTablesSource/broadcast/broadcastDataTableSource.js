@@ -154,8 +154,12 @@ var BroadcastDataTableSource = {
                     return common.timeStamp(data);
                 }},
             {'title': '좋아요', 'data': 'goodCnt', 'width':'60px'},
-            {'title': '부스터', 'data': 'boosterCnt', 'width':'60px'},
-            {'title': '보낸아이템', 'data': 'giftCnt', 'width':'80px'},
+            {'title': '부스터', 'data': 'boosterCnt', 'width':'60px', 'render': function (data) {
+                    return data + " 개"
+                }},
+            {'title': '보낸아이템', 'data': 'giftCnt', 'width':'80px', 'render': function (data) {
+                    return data + " 개"
+                }},
         ]
         , 'comments' : 'ㆍ방송 중 (게스트와 매니저를 포함한) 청취자 변동사항을 확인할 수 있습니다.<br/>' +
                        'ㆍ청취자 리스트는 방송 Live상태 내에서의 데이터로 방송 입퇴장 정보를 포함합니다.'
@@ -184,7 +188,7 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '부스터 적용 일시', 'data': 'boosterDate','width' : '150px'},
+            {'title': '부스터 적용 일시', 'data': 'boosterDateFormat','width' : '150px'},
             {'title': '실시간 순위', 'data': 'rank','width' : '100px', 'render': function (data) {
                     var tmp = common.addComma(data);
                     return tmp + "위";
@@ -203,12 +207,21 @@ var BroadcastDataTableSource = {
                 }},
             {'title': '보낸 User 닉네임', 'data': 'nickName'},
             {'title': '보낸 일시', 'data': 'giftDateFormat'},
+            {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    if(data == 1) var tmp = "O";
+                    else var tmp = "X";
+                    return tmp;
+                }},
             {'title': '이미지', 'data': 'item_thumbnail', 'render' : function(data, type, row, meta){
                     return '<img src="'+ data+'" width="50px" height="50px"/>';
                 }},
             {'title': '선물 명', 'data': 'itemName'},
-            {'title': '선물 수', 'data': 'itemCnt'},
-            {'title': '누적 선물', 'data': 'accumCnt'},
+            {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
+                    return data + " 개"
+                }},
+            {'title': '누적 선물', 'data': 'accumCnt', 'render': function (data) {
+                    return data + " 개"
+                }},
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'
     },

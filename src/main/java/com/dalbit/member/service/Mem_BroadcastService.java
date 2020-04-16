@@ -28,12 +28,12 @@ public class Mem_BroadcastService {
     public String getBroadHistory(P_MemberBroadcastInputVo pMemberBroadcastInputVo){
 
         ProcedureVo procedureVo = new ProcedureVo(pMemberBroadcastInputVo);
-        ArrayList<P_MemberBroadcastOutputVo> memberList = mem_BroadcastDao.callBroadHistory(procedureVo);
+        ArrayList<P_MemberBroadcastOutputVo> broacastList = mem_BroadcastDao.callBroadHistory(procedureVo);
         P_MemberBroadcastOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_MemberBroadcastOutputVo.class);
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_방송내역보기_성공, memberList, new PagingVo(procedureVo.getRet()), summary));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_방송내역보기_성공, broacastList, new PagingVo(procedureVo.getRet()), summary));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보_방송내역보기_실패));
         }

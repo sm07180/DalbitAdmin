@@ -11,7 +11,7 @@
         /* B_Listener.xml - callGiftList_thumbnail */
         select @rownum := @rownum + 1 as rowNum,
                 c.*
-          FROM ( SELECT a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.accumCnt, item_thumbnail ,itemCnt
+          FROM ( SELECT a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.accumCnt, item_thumbnail ,itemCnt, secret
                     FROM (SELECT mem_userid AS userId
                                 , mem_nick AS nickName
                                 , mem_level AS `level`
@@ -19,6 +19,7 @@
                                 , last_upd_date AS giftDate
                                 , item_code, accum_cnt AS accumCnt
                                 , item_cnt as itemCnt
+                                , secret
                              FROM rd_data.tb_member_broadcast_item
                             where room_no = #{room_no}
                               AND item_type = 1) AS a

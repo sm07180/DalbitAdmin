@@ -23,6 +23,7 @@ public class P_GiftListOutputVo extends PagingVo {
     private String item_thumbnail;
     private int accumCnt;
     private int itemCnt;
+    private int secret;
 
     /* summry */
     private int giftCnt;
