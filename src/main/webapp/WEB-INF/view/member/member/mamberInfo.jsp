@@ -263,30 +263,30 @@
     function update_success(dst_id, response) {
         dalbitLog(response);
         if (tmp_bt == "bt_img") {                        //사진변경
-            alert($("#"+tmp_bt).data('nickname') + "님의 프로필 이미지가 초기화 되었습니다.");
+            alert("프로필 이미지가 초기화 되었습니다.");
         } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
             if(response == 0){
                 alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
                 return;
             }
-            alert($("#"+tmp_bt).data('nickname') + "님의 연락처가 변경되었습니다.");
+            alert("연락처가 변경되었습니다.");
         } else if (tmp_bt == "bt_resatNick") {            // 닉네임 변경
-            alert($("#"+tmp_bt).data('nickname') + "님의 닉네임이 변경되었습니다.");
+            alert("닉네임이 변경되었습니다.");
         } else if (tmp_bt == "bt_birth") {                //생일 변경
-            alert($("#"+tmp_bt).data('nickname') + "님의 생년월일이 변경되었습니다.");
+            alert("생년월일이 변경되었습니다.");
         } else if (tmp_bt == "bt_gender") {               //성별 변경
-            alert($("#"+tmp_bt).data('nickname') + "님의 성별이 변경되었습니다.");
+            alert("성별이 변경되었습니다.");
         } else if (tmp_bt == "bt_resatPass") {            //비밀번호 초기화
             if(response == 0){
                 alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
                 return;
             }
-            alert($("#"+tmp_bt).data('nickname') + "님의 비밀번호가 초기화 되었습니다.");
+            alert("비밀번호가 초기화 되었습니다.");
         } else if (tmp_bt == "bt_socialId") {            //비밀번호 초기화
             if(response.code == "1"){
                 alert(response.message);
             }else{
-                alert($("#"+tmp_bt).data('nickname') + "님의 로그인 아이디가 변경되었습니다.");
+                alert("로그인 아이디가 변경되었습니다.");
             }
         }
 
@@ -587,7 +587,7 @@
 
 <!-- info detail -->
 <script id="tmp_member_detailFrm" type="text/x-handlebars-template">
-    <div class="widget-content">
+    <div class="widget-content mt5">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
             <li class="active" id="detail1"><a href="#memberInfoDetail" role="tab" data-toggle="tab" id="tab_memberInfoDetail"></a></li>
             <li class="hide" id="detail2"><a href="#memberInfoDetail2" role="tab" data-toggle="tab" id="tab_memberInfoDetail2"></a></li>

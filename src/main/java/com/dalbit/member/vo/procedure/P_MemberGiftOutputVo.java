@@ -26,6 +26,7 @@ public class P_MemberGiftOutputVo extends SearchVo {
     private String itemImage;
     private String itemName;
     private int accumCnt;
+    private String item_thumbnail;
 
     //summary
 

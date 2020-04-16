@@ -7,4 +7,24 @@
         call rd_admin.sp_admin_broadcast_room_gift_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callGiftList_thumbnail" parameterType="com.dalbit.broadcast.vo.procedure.P_GiftListInputVo" resultType="com.dalbit.broadcast.vo.procedure.P_GiftListOutputVo">
+        /* B_Listener.xml - callGiftList_thumbnail */
+        select @rownum := @rownum + 1 as rowNum,
+                c.*
+          FROM ( SELECT a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.accumCnt, item_thumbnail ,itemCnt
+                    FROM (SELECT mem_userid AS userId
+                                , mem_nick AS nickName
+                                , mem_level AS `level`
+                                , mem_grade AS grade
+                                , last_upd_date AS giftDate
+                                , item_code, accum_cnt AS accumCnt
+                                , item_cnt as itemCnt
+                             FROM rd_data.tb_member_broadcast_item
+                            where room_no = #{room_no}
+                              AND item_type = 1) AS a
+                    LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code	) AS c, (select @rownum := #{pageNo} ) AS d
+            ORDER BY c.giftDate DESC
+             limit #{pageNo}, #{pageCnt}
+    </select>
+
 </mapper>

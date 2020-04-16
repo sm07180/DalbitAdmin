@@ -143,8 +143,8 @@ var MemberDataTableSource = {
                 }},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},
-            {'title': '이미지', 'data': 'itemImage','render' : function (data, type, row, meta) {
-                    return '<img src="'+ IMAGE_SERVER_URL + data +'" width="50px" height="50px"/>';
+            {'title': '이미지', 'data': 'item_thumbnail','render' : function (data, type, row, meta) {
+                    return '<img src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '보낸/받은/교환건수', 'data': 'accumCnt', 'render': function (data) {
@@ -202,7 +202,9 @@ var MemberDataTableSource = {
                         return "방송공지";
                     }
                 }},
-            {'title': '공지내용', 'data': 'contents','width':'200px'},
+            {'title': '공지내용', 'data': 'contents','width':'200px','render':function(data){
+                    return data.replace(/\\n/gi,"<br/>");
+                }},
             {'title': '등록일시', 'data': 'lastUpdDateFormat','width':'100px'},
         ]
         , 'comments': 'ㆍ각 회원의 방송중 공지와 팬보드 내 연동된 공지 및 팬보드에서의 개인공지를 확인하고, 관리할 수 있습니다.'

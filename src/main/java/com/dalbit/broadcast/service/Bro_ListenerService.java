@@ -45,6 +45,7 @@ public class Bro_ListenerService {
         if(!DalbitUtil.isEmpty(broadList)){
             for (int i=0; i < broadList.size(); i++){
                 P_ListenListOutputVo outVo = new P_ListenListOutputVo();
+                outVo.setRowNum(broadList.get(i).getRowNum());
                 outVo.setAuth(broadList.get(i).getAuth());
                 outVo.setState(broadList.get(i).getState());
                 outVo.setMem_no(broadList.get(i).getMem_no());
@@ -59,9 +60,11 @@ public class Bro_ListenerService {
                 outVo.setAuthEndDateFormat(broadList.get(i).getAuthEndDateFormat());
                 if(DalbitUtil.isEmpty(broadList.get(i).getUserID())){
                     ArrayList<P_ListenListOutputVo> withdrawal = bro_ListenerDao.callListenerList_withdrawal(broadList.get(i).getMem_no());
-                    if(!DalbitUtil.isEmpty(withdrawal)) {
+                    if(withdrawal.size() > 0) {
                         outVo.setUserID(withdrawal.get(0).getUserID());
                         outVo.setNickName(withdrawal.get(0).getNickName());
+                    }else {
+                        outVo.setNickName("비회원");
                     }
                 }
                 list.add(outVo);

@@ -343,27 +343,27 @@ util.renderOnOff = function(value){
 util.renderSlct = function(value,size){
     if(size != "undefined"){
         if(value == "p"){
-            return '<i class="fa fa-phone" style="color: #8556F6;' + "font-size: " + size + 'px"></i>'
+            return '<i class="fa fa-phone" style="color: #8556F6;' + "font-size: " + size + 'px"></i>';
         }else if (value == "f"){
-            return '<i class="fa fa-facebook-square" style="color: #0064ff;' + "font-size: " + size + 'px"></i>'
+            return '<i class="fa fa-facebook-square" style="color: #0064ff;' + "font-size: " + size + 'px"></i>';
         }else if (value == "g"){
-            return '<i class="fa fa-google" style="color: #ff0004;' + "font-size: " + size + 'px"></i>'
+            return '<i class="fa fa-google" style="color: #ff0004;' + "font-size: " + size + 'px"></i>';
         }else if (value == "k"){        // 아이콘 추가 해야됨
-            return '<i class="fa fa-facebook-square" style="color: #fdff00;' + "font-size: " + size + 'px"></i>'
+            return '<img src="../../img/icon/kakao.png" style="width: ' + size +'px;height:' + size +'px">';
         }else if (value == "n"){        // 아이콘 추가 해야됨
-            return '<i class="fa fa-facebook-square" style="color: #00ff37;' + "font-size: " + size + 'px"></i>'
+            return '<img src="../../img/icon/naver.png" style="width: ' + size +'px;height:' + size +'px">';
         }
     }else{
         if(value == "p"){
-            return '<i class="fa fa-phone" style="color: #8556F6;"></i>'
+            return '<i class="fa fa-phone" style="color: #8556F6;"></i>';
         }else if (value == "f"){
-            return '<i class="fa fa-facebook-square" style="color: #0064ff;"></i>'
+            return '<i class="fa fa-facebook-square" style="color: #0064ff;"></i>';
         }else if (value == "g"){
-            return '<i class="fa fa-google" style="color: #ff0004;"></i>'
+            return '<i class="fa fa-google" style="color: #ff0004;"></i>';
         }else if (value == "k"){        // 아이콘 추가 해야됨
-            return '<i class="fa fa-facebook-square" style="color: #fdff00;"></i>'
+            return '<img src="../../img/icon/kakao.png">';
         }else if (value == "n"){        // 아이콘 추가 해야됨
-            return '<i class="fa fa-facebook-square" style="color: #00ff37;"></i>'
+            return '<img src="../../img/icon/naver.png">';
         }
     }
 },

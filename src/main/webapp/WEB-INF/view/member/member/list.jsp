@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <ul class="nav nav-tabs nav-tabs-custom-colored">
+                <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
                     <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">회원</a></li>
                     <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
                 </ul>

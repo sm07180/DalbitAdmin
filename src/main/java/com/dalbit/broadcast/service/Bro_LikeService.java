@@ -42,6 +42,7 @@ public class Bro_LikeService {
         if(!DalbitUtil.isEmpty(likeList)){
             for (int i=0; i < likeList.size(); i++){
                 P_LikeListOutputVo outVo = new P_LikeListOutputVo();
+                outVo.setRowNum(likeList.get(i).getRowNum());
                 outVo.setMem_no(likeList.get(i).getMem_no());
                 outVo.setMem_userid(likeList.get(i).getMem_userid());
                 outVo.setMem_nick(likeList.get(i).getMem_nick());
@@ -53,7 +54,7 @@ public class Bro_LikeService {
                 outVo.setRank(likeList.get(i).getRank());
                 if(DalbitUtil.isEmpty(likeList.get(i).getMem_userid())){
                     ArrayList<P_LikeListOutputVo> withdrawal = bro_LikeDao.callLikeList_withdrawal(likeList.get(i).getMem_no());
-                    if(!DalbitUtil.isEmpty(withdrawal)) {
+                    if(withdrawal.size() > 0) {
                         outVo.setMem_userid(withdrawal.get(0).getMem_userid());
                         outVo.setMem_nick(withdrawal.get(0).getMem_nick());
                     }

@@ -150,7 +150,9 @@ var BroadcastDataTableSource = {
             {'title': '청취 종료시간', 'data': 'endDateFormat', 'width':'120px'},
             {'title': '권한 시작 일시', 'data': 'authStartDateFormat', 'width':'120px'},
             {'title': '권한 종료 일시', 'data': 'authEndDateFormat', 'width':'120px'},
-            {'title': '청취진행시간', 'data': 'listenTime', 'width':'120px'},
+            {'title': '청취진행시간', 'data': 'listenTime', 'width':'120px','render' : function (data){
+                    return common.timeStamp(data);
+                }},
             {'title': '좋아요', 'data': 'goodCnt', 'width':'60px'},
             {'title': '부스터', 'data': 'boosterCnt', 'width':'60px'},
             {'title': '보낸아이템', 'data': 'giftCnt', 'width':'80px'},
@@ -200,11 +202,12 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': '보낸 User 닉네임', 'data': 'nickName'},
-            {'title': '보낸 일시', 'data': 'giftDate'},
-            {'title': '이미지', 'data': 'itemImage', 'render' : function(data, type, row, meta){
-                    return '<img src="'+ IMAGE_SERVER_URL + data+'" width="50px" height="50px"/>';
+            {'title': '보낸 일시', 'data': 'giftDateFormat'},
+            {'title': '이미지', 'data': 'item_thumbnail', 'render' : function(data, type, row, meta){
+                    return '<img src="'+ data+'" width="50px" height="50px"/>';
                 }},
             {'title': '선물 명', 'data': 'itemName'},
+            {'title': '선물 수', 'data': 'itemCnt'},
             {'title': '누적 선물', 'data': 'accumCnt'},
         ]
         , 'comments': 'ㆍ방송 중 DJ에게 보낸 회원 및 선물 세부 내역을 확인할 수 있습니다.'

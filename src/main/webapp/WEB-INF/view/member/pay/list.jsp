@@ -26,7 +26,6 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
         initDataTableTop_select_pay(tmp);    // 상단 selectBox
     }
 

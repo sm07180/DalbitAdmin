@@ -20,8 +20,10 @@ public class P_GiftListOutputVo extends PagingVo {
     private String giftDateFormat;
     private String itemImage;
     private String itemName;
+    private String item_thumbnail;
     private int accumCnt;
-    
+    private int itemCnt;
+
     /* summry */
     private int giftCnt;
     private int male;

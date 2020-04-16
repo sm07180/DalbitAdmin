@@ -26,7 +26,6 @@
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
-        dtList_info_detail.setPageLength(10);
         dtList_info_detail.createDataTable();
     }
 
