@@ -175,6 +175,7 @@ var item_useArea = [
     , new COMMON_CODE('combo', '2', '2번 영역(콤보)')
     , new COMMON_CODE('top', '3', '3번 영역(상단)')
     , new COMMON_CODE('right', '4', '4번 영역(우측)')
+    , new COMMON_CODE('topAll', '5', '5번 영역(상단전체)')
 ];
 
 var item_fileField = [
