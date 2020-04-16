@@ -24,4 +24,13 @@ public class AppRestController {
         String result = appService.getAppVersionList(appVo);
         return result;
     }
+
+    /**
+     * 앱버전 리스트 상세 조회
+     */
+    @PostMapping("/detail")
+    public String getListDetail(AppVo appVo) {
+        String result = appService.getListDetail(appVo);
+        return result;
+    }
 }

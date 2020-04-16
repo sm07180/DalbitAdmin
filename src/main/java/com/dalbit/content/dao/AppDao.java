@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface AppDao {
     List<AppVo> getAppVersionList(AppVo appVo);
+    int getAppVersionListCnt(AppVo appVo);
+    AppVo getListDetail(AppVo appVo);
 }
