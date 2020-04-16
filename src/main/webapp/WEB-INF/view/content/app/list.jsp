@@ -72,7 +72,6 @@
        var data = {
            'idx' : $(this).data('idx')
        };
-       alert($(this).data('idx')); // undefined
        util.getAjaxData("detail", "/rest/content/app/detail", data, fn_success, fn_fail);
     });
 
@@ -84,13 +83,11 @@
 
     function fn_success(dst_id, response) {
         dalbitLog(response);
-        alert('성공?');
         var template = $("#tmp_appList").html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
 
-        alert('ㅇㅇ');
         $("#appList").html(html);
     }
 
@@ -136,7 +133,7 @@
                 </tr>
                 <tr>
                     <th>등록일</th>
-                    <td>{{convertToDate reg_date "YYYY-MM-DD HH:mm:ss"}}</td>
+                    <td>{{convertToDate reg_date "YYYY-MM-DD HH:mm"}}</td>
                 </tr>
         </table>
     </div>
