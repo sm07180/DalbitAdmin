@@ -67,7 +67,7 @@ public class CommonService {
         if(list != null && list.size() > 0){
             for(int i = 0; i < list.size(); i++){
                 if(type.equals((String)list.get(i).get("type"))){
-                    data.add(new CodeVo((String)list.get(i).get("value"), (String)list.get(i).get("code"), i));
+                    data.add(new CodeVo((String)list.get(i).get("value"), (String)list.get(i).get("code"), DalbitUtil.isEmpty(list.get(i).get("order"))? i : (int) list.get(i).get("order"), (int) list.get(i).get("is_use")));
                 }
             }
         }
