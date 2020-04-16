@@ -9,6 +9,7 @@ import com.dalbit.content.service.ThemeService;
 import com.dalbit.content.vo.ThemeVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,11 +35,25 @@ public class ThemeRestController {
     @Autowired
     GsonUtil gsonUtil;
 
-    @PostMapping("broadcast")
+    @PostMapping("broadcast/list")
     public String broadcastList(HttpServletRequest request, ThemeVo splashVo) {
         List<CodeVo> roomTypeList = commonService.getCodeList("roomType");
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, roomTypeList));
+    }
+
+    @PostMapping("broadcast/submit")
+    public String broadcastUpdate(HttpServletRequest request) {
+        String codeType = request.getParameter("codeType");
+        String codeVoArr = request.getParameter("codeVoArr");
+
+        CodeVo[] codeVos = new Gson().fromJson(codeVoArr, CodeVo[].class);
+
+        service.callContentsThemeEdit(codeType, codeVos);
+        //API splash Reload
+        service.sendSplashApi();
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 
 

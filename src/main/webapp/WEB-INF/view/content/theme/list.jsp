@@ -7,11 +7,11 @@
         <div id="headerTab">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                 <li class="active"><a href="#broadcastList" role="tab" data-toggle="tab" id="tab_broadcastList" onclick="onClickHeaderTab(this.id)">방송주제 관리</a></li>
-                <li><a href="#castList" role="tab" data-toggle="tab" id="tab_castList" onclick="onClickHeaderTab(this.id)">캐스트주제 관리</a></li>
+                <%--<li><a href="#castList" role="tab" data-toggle="tab" id="tab_castList" onclick="onClickHeaderTab(this.id)">캐스트주제 관리</a></li>--%>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="broadcastList"><jsp:include page="/WEB-INF/view/content/theme/broadcastList.jsp"/></div>     <!-- 방송주제 -->
-                <div class="tab-pane fade" id="castList"><jsp:include page="/WEB-INF/view/content/theme/castList.jsp"/></div>     <!-- 캐스트주제 -->
+                <%--<div class="tab-pane fade" id="castList"><jsp:include page="/WEB-INF/view/content/theme/castList.jsp"/></div>     <!-- 캐스트주제 -->--%>
             </div>
         </div>
     </div>

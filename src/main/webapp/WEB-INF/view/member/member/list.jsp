@@ -19,6 +19,10 @@
         </div>
         <!-- //serachBox -->
         <!-- DATA TABLE -->
+        <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
+            <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">회원</a></li>
+            <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
+        </ul>
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table" id="div_memberList">
                 <div class="widget-header">
@@ -29,12 +33,7 @@
                         </a>
                     </div>
                 </div>
-
-                <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-                    <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">회원</a></li>
-                    <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
-                </ul>
-                <div class="tab-content">
+                <div class="tab-content no-padding">
                     <div class="tab-pane fade in active " id="memberList">       <!-- 회원 -->
                         <div class="widget-content">
                             <table id="tb_memberList" class="table table-sorting table-hover table-bordered">
