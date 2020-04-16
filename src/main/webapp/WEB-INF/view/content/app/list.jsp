@@ -89,6 +89,12 @@
         var html = templateScript(context);
 
         $("#appList").html(html);
+        disabled();
+    }
+
+    function disabled() {
+        $('input:radio[name="content_os"]').attr("disabled", "disabled");
+        $('input:radio[name="content_isUse"]').attr("disabled", "disabled");
     }
 
     function fn_fail() {
