@@ -506,7 +506,7 @@
 </script>
 
 <script id="tmp_editHistFrm" type="text/x-handlebars-template">
-    <div class="widget-content">
+    <div class="widget-content mt5">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
             <li class="active" id="detail1"><a href="#memberInfoDetail" role="tab" data-toggle="tab" id="tab_memberInfoDetail"></a></li>
             <li class="hide" id="detail2"><a href="#memberInfoDetail2" role="tab" data-toggle="tab" id="tab_memberInfoDetail2"></a></li>

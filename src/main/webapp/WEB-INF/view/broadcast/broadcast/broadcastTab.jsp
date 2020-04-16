@@ -6,7 +6,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
+        <div class="row col-lg-12 form-inline mt5">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
