@@ -83,6 +83,7 @@
 <script src="/js/dataTablesSource/content/eventDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/itemDataTableSource.js"></script>
 <script src="/js/dataTablesSource/content/noticeDataTableSource.js"></script>
+<script src="/js/dataTablesSource/content/appDataTableSource.js"></script>
 <script src="/js/dataTablesSource/utilDataTableSource.js"></script>
 <script src="/js/dataTablesSource/administrate/faqDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sample/sampleDataTableSource.js"></script>

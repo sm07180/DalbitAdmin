@@ -227,7 +227,7 @@ var content_platform4 = [
 /** =------ App ---------- */
 var content_app = [
     new COMMON_CODE(null, 'os', '앱구분')
-    , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('android', '1', '안드로이드')
-    , new COMMON_CODE('ios', '2', 'IOS')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('android', 1, '안드로이드')
+    , new COMMON_CODE('ios', 2, 'IOS')
 ];
