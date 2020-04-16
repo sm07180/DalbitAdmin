@@ -304,7 +304,7 @@
                 <td rowspan="2" id="no">{{faqIdx}}</td>
 
                 <th>구분</th>
-                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y'}}}</td>
+                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y', 'slctType'}}}</td>
 
                 <th>질문</th>
                 <td colspan="5"><input type="text" name="question" id="question" class="form-control" value="{{question}}"></td>
