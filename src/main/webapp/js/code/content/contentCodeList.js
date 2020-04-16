@@ -225,9 +225,21 @@ var content_platform4 = [
 
 
 /** =------ App ---------- */
-var content_app = [
+var content_selectApp = [
     new COMMON_CODE(null, 'os', '앱구분')
     , new COMMON_CODE('all', '', '전체')
     , new COMMON_CODE('android', 1, '안드로이드')
     , new COMMON_CODE('ios', 2, 'IOS')
 ];
+
+var content_radioApp = [
+    new COMMON_CODE(null, 'os', '앱구분')
+    , new COMMON_CODE('android', 1, '안드로이드')
+    , new COMMON_CODE('ios', 2, 'IOS')
+];
+
+var content_isUse = [
+    new COMMON_CODE(null, 'isUse', '사용여부')
+    , new COMMON_CODE('no', 0, '사용 안 함')
+    , new COMMON_CODE('yes', 1, '사용 함')
+]

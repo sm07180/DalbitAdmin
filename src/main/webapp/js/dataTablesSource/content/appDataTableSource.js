@@ -5,22 +5,14 @@ var AppDataTableSource = {
         , 'columns': [
             {'title': 'idx', 'data': 'idx'}
             , {'title': 'os', 'data': 'os', 'render' : function(data) {
-                if(data == 1) {
-                    return '안드로이드'
-                } else {
-                    return 'IOS'
-                }
+                return util.getCommonCodeLabel(data, content_radioApp);
                 }}
             , {'title': 'version', 'data' : 'version'}
             , {'title': '강제업데이트 여부', 'data': 'is_force', 'render' : function(data, type, row) {
-                return '<a href="javascript://" class="_appDetail" data-idx="' + row.idx + '">' + data + '</a>'
+                return '<a href="javascript://" class="_appDetail" data-idx="' + row.idx + '">' + data + '</a>' + ' (<- 클릭 시 상세 보기)'
                 }}
-            , {'title': '사용함', 'data': 'is_use', 'render' : function(data) {
-                if(data == 1) {
-                    return '사용함'
-                } else {
-                    return '사용 안 함'
-                }
+            , {'title': '사용여부', 'data': 'is_use', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, content_isUse);
                 }}
             , {'title': '등록일', 'data': 'reg_date', 'render' : function(data) {
                 return common.convertToDate(data);

@@ -58,7 +58,7 @@
         dtList_info.useIndex(false);
         dtList_info.createDataTable();
 
-        $("#search_os_area").html(util.getCommonCodeSelect(-1, content_app));
+        $("#search_os_area").html(util.getCommonCodeSelect(-1, content_selectApp));
 
         getAppList();
     }
@@ -96,6 +96,7 @@
     }
 
 
+
 </script>
 
 <script id="tmp_appList" type="text/x-handlebars-template">
@@ -117,7 +118,9 @@
                 </tr>
                 <tr>
                     <th>os</th>
-                    <td>{{os}}</td>
+                    <td>
+                        {{{getCommonCodeRadio os 'content_radioApp'}}}
+                    </td>
                 </tr>
                 <tr>
                     <th>version</th>
@@ -128,8 +131,10 @@
                     <td>{{is_force}}</td>
                 </tr>
                 <tr>
-                    <th>사용함</th>
-                    <td>{{is_use}}</td>
+                    <th>사용여부</th>
+                    <td>
+                       {{{getCommonCodeRadio is_use 'content_isUse'}}}
+                    </td>
                 </tr>
                 <tr>
                     <th>등록일</th>
