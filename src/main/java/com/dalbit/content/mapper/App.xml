@@ -48,4 +48,12 @@
         and idx = #{idx}
         </if>
     </select>
+
+    <insert id="addAppVersion" parameterType="com.dalbit.content.vo.AppInsertVo">
+        insert
+        into
+          rd_admin.tb_app_version (os, version, is_force, is_use, reg_date)
+        values
+          (#{os}, #{version}, #{is_force}, #{is_use}, current_timestamp())
+    </insert>
 </mapper>

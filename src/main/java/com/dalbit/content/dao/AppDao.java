@@ -1,5 +1,6 @@
 package com.dalbit.content.dao;
 
+import com.dalbit.content.vo.AppInsertVo;
 import com.dalbit.content.vo.AppVo;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,5 @@ public interface AppDao {
     List<AppVo> getAppVersionList(AppVo appVo);
     int getAppVersionListCnt(AppVo appVo);
     AppVo getListDetail(AppVo appVo);
+    int addAppVersion(AppInsertVo appInsertVo);
 }
