@@ -49,7 +49,7 @@
     var dtList_info;
     $(document).ready(function () {
         init();
-        ui.checkBoxInit('list_info');
+        ui.checkBoxInit('list_info')
     });
 
     $("#bt_search").click(function () {
@@ -80,7 +80,7 @@
         var data = {
             'idx': $(this).data('idx')
         };
-        util.getAjaxData("detail", "/rest/content/app/detail", data, fn_success);
+        util.getAjaxData("detail", "/rest/content/app/detail", data, fn_detail_success);
         if($("#bt_insert").removeClass("hide")) {
             $("#bt_insert").show();
         }
@@ -92,19 +92,23 @@
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function () {
         if ($(this).prop('checked')) {
+            $(this).prop('checked', 'checked');
             $(this).parent().parent().find('._appDetail').click();
         } else {
             $("#appList").empty();
+            $("#bt_edit").hide();
         }
     });
 
-    function fn_success(dst_id, response) {
+    var obj = new Object();
+    function fn_detail_success(dst_id, response) {
         dalbitLog(response);
         var template = $("#tmp_appList").html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html = templateScript(context);
 
+        obj = response.data;
         $("#appList").html(html);
         disabled();
     }
@@ -163,7 +167,7 @@
     $(document).on('click', '#insertAppBtn', function () {
         if(isValid()) {
             if (confirm("등록하시겠습니까?")) {
-                util.getAjaxData("insert", "/rest/content/app/insert", $("#appList").serialize(), fn_insert_success, fn_insert_fail);
+                util.getAjaxData("insert", "/rest/content/app/insert", $("#appList").serialize(), fn_success, fn_fail);
             } else {
                 return;
             }
@@ -183,14 +187,14 @@
     $(document).on('click', '#updateAppBtn', function() {
         if(isValid()) {
             if (confirm("수정하시겠습니까?")) {
-                util.getAjaxData("update", "/rest/content/app/update", $("#appList").serialize(), fn_insert_success, fn_insert_fail);
+                util.getAjaxData("update", "/rest/content/app/update", $("#appList").serialize(), fn_success, fn_fail);
             } else {
                 return;
             }
         }
     });
 
-    function fn_insert_success(dst_id, response) {
+    function fn_success(dst_id, response) {
         alert(response.message);
         generateForm();
         dtList_info.reload();
@@ -200,10 +204,30 @@
         $("#bt_insert").show();
     }
 
-    function fn_insert_fail() {
+    function fn_fail() {
         dalbitLog("#####실패");
     }
 
+    $("#bt_delete").on('click', function() {
+        var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
+        if(checked.length == 0) {
+            alert("삭제할 공지사항을 선택해주세요.");
+            return
+        }
+
+       if(confirm("삭제하시겠습니까?")) {
+           var data = {
+               'idx': obj.idx
+           };
+           util.getAjaxData("delete", "/rest/content/app/delete", data, fn_delete_success, fn_fail);
+       }
+    });
+
+    function fn_delete_success(dst_id, response) {
+        alert(response.message);
+        dtList_info.reload();
+        $("#appList").empty();
+    }
 
 </script>
 

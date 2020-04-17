@@ -13,4 +13,5 @@ public interface AppDao {
     AppVo getListDetail(AppVo appVo);
     int addAppVersion(AppInsertVo appInsertVo);
     int updateAppVersion(AppVo appVo);
+    int deleteAppVersion(AppVo appVo);
 }

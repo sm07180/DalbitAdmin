@@ -65,4 +65,11 @@
         set os = #{os}, version = #{version}, is_force = #{is_force}, is_use = #{is_use}, reg_date = current_timestamp()
         where idx = #{idx}
     </update>
+
+    <delete id="deleteAppVersion" parameterType="com.dalbit.content.vo.AppVo">
+        /* App.xml - deleteAppVersion */
+        delete from rd_admin.tb_app_version
+        where idx = #{idx}
+    </delete>
+
 </mapper>

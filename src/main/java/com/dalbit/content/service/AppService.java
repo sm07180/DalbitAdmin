@@ -52,7 +52,6 @@ public class AppService {
      * 앱버전 리스트 등록
      */
     public String addAppVersion(AppInsertVo appInsertVo) {
-        appInsertVo.setOpName(MemberVo.getMyMemNo());
         int result = appDao.addAppVersion(appInsertVo);
 
         if(result > 0) {
@@ -66,11 +65,23 @@ public class AppService {
      * 앱버전 리스트 수정
      */
     public String updateAppVersion(AppVo appVo) {
-        appVo.setOpName(MemberVo.getMyMemNo());
         int result = appDao.updateAppVersion(appVo);
 
         if(result > 0) {
             return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+        }
+    }
+
+    /**
+     * 앱버전 리스트 삭제
+     */
+    public String deleteAppVersion(AppVo appVo) {
+        int result = appDao.deleteAppVersion(appVo);
+
+        if(result > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.삭제));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
