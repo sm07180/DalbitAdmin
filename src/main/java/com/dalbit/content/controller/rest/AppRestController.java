@@ -1,6 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.AppService;
+import com.dalbit.content.vo.AppInsertVo;
 import com.dalbit.content.vo.AppVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,33 @@ public class AppRestController {
     @PostMapping("/detail")
     public String getListDetail(AppVo appVo) {
         String result = appService.getListDetail(appVo);
+        return result;
+    }
+
+    /**
+     * 앱버전 리스트 등록
+     */
+    @PostMapping("/insert")
+    public String addAppVersion(AppInsertVo appInsertVo) {
+        String result = appService.addAppVersion(appInsertVo);
+        return result;
+    }
+
+    /**
+     * 앱버전 리스트 수정
+     */
+    @PostMapping("/update")
+    public String updateAppVersion(AppVo appVo) {
+        String result = appService.updateAppVersion(appVo);
+        return result;
+    }
+
+    /**
+     * 앱버전 리스트 삭제
+     */
+    @PostMapping("/delete")
+    public String deleteAppVersion(AppVo appVo) {
+        String result = appService.deleteAppVersion(appVo);
         return result;
     }
 }

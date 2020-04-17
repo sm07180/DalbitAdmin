@@ -227,7 +227,7 @@
             });
             var data = {
                 noticeIdxs : noticeIdxs
-            }
+            };
             dalbitLog(data);
 
             util.getAjaxData("delete", "/rest/content/notice/delete", data, fn_delete_success);

@@ -181,6 +181,7 @@ var item_useArea = [
     , new COMMON_CODE('combo', '2', '2번 영역(콤보)')
     , new COMMON_CODE('top', '3', '3번 영역(상단)')
     , new COMMON_CODE('right', '4', '4번 영역(우측)')
+    , new COMMON_CODE('topAll', '5', '5번 영역(상단전체)')
 ];
 
 var item_fileField = [
@@ -246,6 +247,12 @@ var content_radioApp = [
 
 var content_isUse = [
     new COMMON_CODE(null, 'content_isUse', '사용여부')
+    , new COMMON_CODE('no', 0, '사용 안 함')
+    , new COMMON_CODE('yes', 1, '사용 함')
+]
+
+var content_isForce = [
+    new COMMON_CODE(null, 'content_isForce', '강제 업데이트 여부')
     , new COMMON_CODE('no', 0, '사용 안 함')
     , new COMMON_CODE('yes', 1, '사용 함')
 ]

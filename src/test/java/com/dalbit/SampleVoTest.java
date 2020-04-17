@@ -22,6 +22,7 @@ import okhttp3.Response;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.HashMap;
@@ -184,6 +185,16 @@ public class SampleVoTest {
         log.info(DalbitUtil.randomValue("c", 6));
         log.info(DalbitUtil.randomValue("e", 6));
 
+    }
+
+    @Test
+    @Async("threadTaskExecutor")
+    public void API호출(){
+        HashMap map = new HashMap();
+        map.put("test", "test");
+
+        String result = RestApiUtil.sendPost("https://devm-leejaeho1144.dalbitlive.com:4431/splash", new Gson().toJson(map));
+        log.debug(result);
     }
 }
 */

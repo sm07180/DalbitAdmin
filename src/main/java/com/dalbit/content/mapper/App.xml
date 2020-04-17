@@ -34,6 +34,7 @@
     </select>
 
     <select id="getListDetail" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
+        /* App.xml - getListDetail */
         select
         idx
         , os
@@ -48,4 +49,27 @@
         and idx = #{idx}
         </if>
     </select>
+
+    <insert id="addAppVersion" parameterType="com.dalbit.content.vo.AppInsertVo">
+        /* App.xml - addAppVersion */
+        insert
+        into
+          rd_admin.tb_app_version (os, version, is_force, is_use, reg_date)
+        values
+          (#{os}, #{version}, #{is_force}, #{is_use}, current_timestamp())
+    </insert>
+
+    <update id="updateAppVersion" parameterType="com.dalbit.content.vo.AppVo">
+        /* App.xml - updateAppVersion */
+        update rd_admin.tb_app_version
+        set os = #{os}, version = #{version}, is_force = #{is_force}, is_use = #{is_use}, reg_date = current_timestamp()
+        where idx = #{idx}
+    </update>
+
+    <delete id="deleteAppVersion" parameterType="com.dalbit.content.vo.AppVo">
+        /* App.xml - deleteAppVersion */
+        delete from rd_admin.tb_app_version
+        where idx = #{idx}
+    </delete>
+
 </mapper>
