@@ -32,11 +32,8 @@
                 </div>
             </div> <!-- #DataTable -->
             <form id="appList"></form>
-
-        </div>
-    </div> <!-- #container-fluid -->
-</div>
-<!-- #page-wrapper -->
+         </div> <!-- #container-fluid -->
+    </div><!-- #page-wrapper -->
 </div> <!-- #wrapper -->
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
@@ -114,9 +111,9 @@
 
 
     $("#bt_insert").on('click', function () {
-            $("#appList").empty();
-            $(this).hide();
-            generateForm();
+        $("#appList").empty();
+        $(this).hide();
+        generateForm();
     });
 
     function generateForm() {
@@ -175,7 +172,7 @@
             <tr>
                 <th>version</th>
                 <td>
-                    <input type="text" name="version" id="version" value="{{version}}"/>
+                    <input type="text" name="version" id="version" value="{{version}}" maxlength="10"/>
                 </td>
             </tr>
             <tr>
