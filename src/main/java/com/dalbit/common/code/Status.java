@@ -364,6 +364,18 @@ public enum Status {
     테스트아이디_회원검색_결과없음("C008", "testid.member.notFound", "회원검색이 안되었을 때"),
     테스트아이디_이미등록된테스트아이디("C008", "testid.already.regist", "테스트아이디가 이미 등록이 되었을 때"),
 
+    // 이벤트 관리
+    이벤트목록보기_성공("0", "event.list.view.success", "이벤트목록보기 성공 시"),
+    이벤트목록보기_실패("C006", "event.list.view.fail", "이벤트목록보기 실패 시"),
+    // 이벤트 등록
+    이벤트등록성공("0", "event.add.success", "이벤트등록 성공 시"),
+    이벤트등록실패("C006", "event.add.fail", "이벤트등록 실패 시"),
+    // 이벤트 수정
+    이벤트수정성공("0", "event.update.success", "이벤트수정 성공 시"),
+    이벤트수정실패("C006", "event.update.fail", "이벤트수정 실패 시"),
+    // 이벤트 응모자 목록
+    이벤트응모자목록보기_성공("0", "event.member.list.view.success", "이벤트응모자목록보기 성공 시"),
+    이벤트응모자목록보기_실패("C006", "event.member.list.view.fail", "이벤트응모자목록보기 실패 시"),
 
     //배너 조회
     배너조회_데이터없음("0", "no.data", "배너 조회 데이터가 없을 시"),

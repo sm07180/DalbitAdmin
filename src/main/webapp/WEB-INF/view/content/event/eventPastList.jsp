@@ -58,8 +58,11 @@
         initDataTable(){
             //=---------- Main DataTable ----------
             var dtList_info_data = function ( data ) {
+                data.search = $('#txt_search').val();                        // 검색명
+                data.search_event = $("select[name='search_event']").val()
+                data.state = 1;
             };
-            this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.pastEvent);
+            this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.endEvent);
             this.dtList_info.useCheckBox(true);
             this.dtList_info.useIndex(true);
             this.dtList_info.createDataTable();
@@ -83,94 +86,54 @@
 
         initEvent(){
             this.target.find("#btn_insert").on("click", function () { //등록
-                fnc_pastEventList.insertEvent();
-            })
+                fnc_eventList.insertEvent();
+            });
 
             this.target.find("#btn_delete").on("click", function () { //삭제
-                fnc_pastEventList.deleteEvent();
-            })
-
-            // Detail 선택 이벤트
-            this.target.on('click', '._getNoticeDetail', function(){
-                var code = $(this).data('idx');
-                var data = fnc_pastEventList.dtList_info.getDataRow(code);
-
-                fnc_pastEventList.updateData(data);
+                fnc_eventList.deleteEvent();
             });
 
             // CheckBox 이벤트
             this.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
                 if($(this).prop('checked')){
-                    $(this).parent().parent().find('._getNoticeDetail').click();
+                    $(this).parent().parent().find('.getEventDetail').click();
                 }
             });
         },
 
 
-    //=------------------------------ Option --------------------------------------------
+        //=------------------------------ Option --------------------------------------------
 
         // 등록
         insertEvent() {
-            //등록을 위한 데이터 초기화
-            initSelectDataInfo();
-
+            $('#div_eventTabList').removeClass("hide");
+            fnc_eventDetail.insertEventDetail();
             $("#tab_eventDetail").click();
         },
 
         // 삭제
         deleteEvent() {
-            var checkDatas = this.dtList_info.getCheckedData();
-
+            var checkDatas = dtList_info.getCheckedData();
             if(checkDatas.length <= 0){
                 alert("삭제할 정보를 선택해주세요.");
                 return false;
             }
-
             if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
                 //TODO 삭제 로직 추가아아앙
             };
-
             dalbitLog(checkDatas);
         },
 
-        // 수정
-        updateData(data) {
-            var dataInfo = {
-                eventIdx: data.rowNum
-                ,column02: data.event_col3
-                ,column03: data.event_col14
-                ,column04: "제목"
-                ,column05: data.event_col1
-                ,column06: data.event_col1
-                ,column07: data.event_col1
-                ,column08: data.event_col1
-                ,column09: data.event_col1
-                ,column10: data.event_col2
-                ,column11: "0"
-                ,column12: "2020-03-04"
-                ,column13: "00"
-                ,column14: "00"
-                ,column15: ""
-                ,column16: data.event_col6
-            }
-
-            // 정보전달을 위한 값 셋팅
-            setSelectDataInfo(data.rowNum, dataInfo);
-
-            fnc_eventDetail.updateEventDetail()
-
-            $("#tab_eventDetail").click();
+        getEventDetail_info(index){
+            $('#div_eventTabList').removeClass("hide");
+            var data = this.dtList_info.getDataRow(index);
+            fnc_eventDetail.updateEventDetail(data);
         },
 
-
         // 검색
-        selectMainList(){
-            /* 엑셀저장을 위해 조회조건 임시저장 */
-            // tmp_search = $('#txt_search').val();
-            // tmp_gubun = $("select[name='selectGubun']").val();
-
-            this.dtList_info.reload(null, false);
-        }
+        selectMainList(isResetPaging){
+            this.dtList_info.reload(null, isResetPaging);
+        },
 
             // /*=---------- 엑셀 ----------*/
             // $('#excelDownBtn').on('click', function(){

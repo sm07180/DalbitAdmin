@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_EventDao" >
+
+    <select id="callEventList" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">
+        select @rownum := @rownum + 1 as rowNum, a.*
+            from ( select if(start_datetime > now(),'대기 중','진행중') as state ,b.*
+                      From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
+                     where end_datetime >= now()
+                     order by reg_date desc
+                      limit #{pageNo}, #{pageCnt}) a
+    </select>
+    <select id="callEventList_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">
+       select count(*) From rd_admin.tb_event_basic where end_datetime >= now()
+    </select>
+
+    <select id="callEventList_End" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">
+        select @rownum := @rownum + 1 as rowNum, a.*
+            from ( select '마감' as state ,b.*
+                      From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
+                     where end_datetime <![CDATA[<]]> now()
+                     order by reg_date desc
+                      limit #{pageNo}, #{pageCnt}) a
+    </select>
+    <select id="callEventList_End_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">
+       select count(*) From rd_admin.tb_event_basic where end_datetime  <![CDATA[<]]>  now()
+    </select>
+
+
+    <!-- 이벤트 정보 등록/수정 -->
+    <insert id="callEventInsert" parameterType="com.dalbit.content.vo.procedure.P_EventUpdateVo">
+        /* Con_Event.xml - callEventInsert */
+        insert into rd_admin.tb_event_basic
+          (event_title,start_datetime,end_datetime,view_start_datetime,view_end_datetime,platform,event_slct,is_pop,is_view,
+           pc_img_url,pc_link_url,mobile_img_url,mobile_link_url,thumb_img_url,`desc`,reg_date,op_name,last_upd_date,last_op_name)
+        value
+          (#{event_title},STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_end_datetime},'%Y%m%d %H%i%S'),#{platform},#{loginType},#{viewType},#{viewYn},
+           #{pc_img_url},#{pc_link_url},#{mobile_img_url},#{mobile_link_url},#{thumb_img_url},#{desc},now(),#{opName},now(),#{opName})
+    </insert>
+
+    <update id="callEventUpdate" parameterType="com.dalbit.content.vo.procedure.P_EventUpdateVo">
+        /* Con_Event.xml - callEventUpdate */
+        update rd_admin.tb_event_basic
+            set event_title = #{event_title},
+                 start_datetime = STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S'),
+                 end_datetime = STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S'),
+                 view_start_datetime = STR_TO_DATE(#{view_start_datetime},'%Y%m%d %H%i%S'),
+                 view_end_datetime = STR_TO_DATE(#{view_end_datetime},'%Y%m%d %H%i%S'),
+                 platform = #{platform},
+                 event_slct = #{loginType},
+                 is_pop = #{viewType},
+                 is_view = #{viewYn},
+                 pc_img_url = #{pc_img_url},
+                 pc_link_url = #{pc_link_url},
+                 mobile_img_url = #{mobile_img_url},
+                 mobile_link_url = #{mobile_link_url},
+                 thumb_img_url = #{thumb_img_url},
+                 `desc` = #{desc},
+                 last_upd_date=now(),
+                 last_op_name = #{opName}
+         where idx=#{idx}
+    </update>
+
+    <!--이벤트 응모자 목록 -->
+    <select id="callEventMemberList" parameterType="com.dalbit.content.vo.procedure.P_EventMemberListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventMemberListOutputVo">
+        /* Con_Event.xml - callEventMemberList */
+        select  @rownum := @rownum + 1 as rowNum, a.*
+          from ( select b.event_idx
+                        ,b.mem_no
+                        ,b.is_win
+                        ,b.order
+                        ,(select mem_userid from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_userid
+                        ,(select mem_nick from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_nick
+                        ,(select mem_sex from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_sex
+                        ,(select mem_phone from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_phone
+                        ,(select count(*) from rd_data.tb_broadcast_room_member where mem_no=b.mem_no and auth <![CDATA[<]]>  3) as listenCnt
+                        ,(select count(*) from rd_data.tb_broadcast_room where mem_no=b.mem_no) as broadCnt
+                        ,(select count(*) From rd_data.tb_member_broadcast_item where mem_no=b.mem_no or gifted_mem_no=b.mem_no) as giftCnt
+                        ,sum(1) as applyCnt
+                  From rd_admin.tb_event_member b
+                 where event_idx=#{event_idx}
+                 group by event_idx,mem_no,`order`, mem_userid,mem_nick, mem_sex, mem_phone, listenCnt, broadCnt, giftCnt
+                 order by mem_no limit #{pageNo}, #{pageCnt}) a, (select @rownum := #{pageNo} ) AS d
+    </select>
+    <select id="callEventMemberList_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">
+        /* Con_Event.xml - callEventList_totalCnt */
+        select count(*) totalCnt From (select distinct mem_no From rd_admin.tb_event_member b where event_idx=#{event_idx}) a
+    </select>
+    <select id="callEventMemberList_winCnt" parameterType="String" resultType="integer">
+        /* Con_Event.xml - callEventMemberList_winCnt */
+        select count(*) winCnt from rd_admin.tb_event_member where mem_no=#{mem_no} and is_win =0
+    </select>
+</mapper>

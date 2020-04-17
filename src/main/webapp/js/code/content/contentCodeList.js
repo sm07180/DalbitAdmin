@@ -74,6 +74,12 @@ var splash_exposureType = [
     , new COMMON_CODE('reservation', '1', '예약게시')
 ];
 
+var search_event = [
+    new COMMON_CODE(null, 'search_event', '이벤트')
+    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('title', '1', '이벤트제목')
+];
+
 
 /** =------ Banner ---------- */
 var banner_searchType = [

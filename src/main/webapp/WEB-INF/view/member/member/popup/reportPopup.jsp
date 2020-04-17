@@ -130,9 +130,9 @@
 
         var strName = ADMIN_NICKNAME;
         var date = new Date();
-        var timestamp = date.getFullYear() + "." +
-            common.lpad(date.getMonth(),2,"0") + "." +
-            common.lpad(date.getDay(),2,"0");
+        var timestamp = date.getFullYear() + "-" +
+            common.lpad(date.getMonth() + 1,2,"0") + "-" +
+            common.lpad(date.getDate(),2,"0");
             + " " +
             common.lpad(date.getHours(),2,"0") + "." +
             common.lpad(date.getMinutes(),2,"0") + "." +

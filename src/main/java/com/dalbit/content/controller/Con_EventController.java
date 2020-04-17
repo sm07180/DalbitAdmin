@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequestMapping("/content/event")
-public class EventController {
+public class Con_EventController {
 
     @GetMapping("/list")
     public String list() {

@@ -47,7 +47,7 @@
 
 <script>
     $(document).ready(function() {
-        fnc_eventReport.init();
+
     });
 
     var fnc_eventReport = {
@@ -79,19 +79,15 @@
         "dtList_info":"",
         "dtList_statistics_info":"",
         initDataTable(){
+            console.log(event_idx);
             //=---------- Main DataTable ----------
             var dtList_info_data = function ( data ) {
-                data.search = $('#txt_search').val();                        // 검색명
-                data.gubun = $("select[name='selectGubun']").val()
-                data.showTarget = $("select[name='banner-selectShowTarget']").val()
-                data.bannerType = $("select[name='banner-selectBannerType']").val()
-                data.startDate = $('#banner-inputReportrange').attr("startDated");
-                data.endDate = $('#banner-inputReportrange').attr("endDate");
+                data.event_idx = event_idx;
+                data.pageCnt = 20;
             };
             this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.report);
             this.dtList_info.useCheckBox(true);
             this.dtList_info.useIndex(true);
-            this.dtList_info.setEventClick(this.updateBanner,4);
             this.dtList_info.setPageLength(-1);
             this.dtList_info.createDataTable(this.initSummary);
 
@@ -218,32 +214,6 @@
 
             //TODO 데이터 셋팅 후 이벤트 처리 필요
             //TODO 수신대상 그려야 함.
-        },
-
-
-
-        // 수정
-        updateBanner(data) {
-            fnc_eventDetail.updateEventDetail({
-                eventIdx: data.rowNum
-                ,column02: data.banner_col3
-                ,column03: data.banner_col14
-                ,column04: "제목"
-                ,column05: data.banner_col1
-                ,column06: data.banner_col1
-                ,column07: data.banner_col1
-                ,column08: data.banner_col1
-                ,column09: data.banner_col1
-                ,column10: data.banner_col2
-                ,column11: "0"
-                ,column12: "2020-03-04"
-                ,column13: "00"
-                ,column14: "00"
-                ,column15: ""
-                ,column16: data.push_col6
-            })
-
-            $("#tab_eventDetail").click();
         },
 
         //당첨자 지정선택

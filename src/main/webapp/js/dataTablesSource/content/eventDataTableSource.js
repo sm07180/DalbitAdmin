@@ -1,127 +1,122 @@
 var EventDataTableSource = {
     'event': {
-        'url': '/rest/content/event/event'
-
+        'url': '/rest/content/event/list'
         , 'columns': [
-            {'title': '진행여부', 'data': 'event_col1', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 코드에 맞게 변경 필요
-                return data;
-
+            {'title': '진행여부', 'data': 'state'},
+            {'title': '구분', 'data': 'platform', 'render': function (data, type, row, meta) {
+                var arrCode = data.toString().split("");
+                if(arrCode.length < 3)
+                    return data;
+                var result = "";
+                if(arrCode[0] == "1")
+                    result += "/ PC(WEB) "
+                if(arrCode[1] == "1")
+                    result += "/ Mobile-Android "
+                if(arrCode[2] == "1")
+                    result += "/ Mobile-IOS "
+                if(!common.isEmpty(result)){
+                    result = result.substring(1);
+                }
+                return result;
             }},
-            {'title': '구분', 'data': 'event_col2', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 코드에 맞게 변경 필요
-                return data;
-
+            {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
+                return '<img src="' + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
             }},
-            {'title': '이미지', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 썸네일 표시
-                return '<img src="https://devphoto2.dalbitlive.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
-
+            {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_eventList.getEventDetail_info('+meta.row+');">' + data + '</a>'
+                }},
+            {'title': '이벤트 기간', 'data': 'startDatetimeFormat', 'render': function (data, type, row, meta) {
+                var tmp = data + " ~ " + row.endDatetimeFormat;
+                return tmp;
             }},
-            {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>';
-
+            {'title': '노출 기간', 'data': 'viewStartDatetimeFormat', 'render': function (data, type, row, meta) {
+                var tmp = data + " ~ " + row.viewEndDatetimeFormat;
+                return tmp;
             }},
-            {'title': '이벤트 기간', 'data': 'event_col5', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 일자에 맞게 변경 필요
-                return common.convertToDate(data) + " ~ " + common.convertToDate(data);
-                //     return data;
-
-            }},
-            {'title': '노출 기간', 'data': 'event_col6', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                //TODO 일자에 맞게 변경 필요
-                return common.convertToDate(data) + " ~ " + common.convertToDate(data);
-                    // return data;
-            }},
-            {'title': '클릭', 'data': 'event_col10', 'defaultContent': '0'},
-            {'title': '총 참여자', 'data': 'event_col11', 'defaultContent': '0'},
+            {'title': '조회수', 'data': 'event_col10', 'defaultContent': '0'},
+            {'title': '총 응모자', 'data': 'event_col11', 'defaultContent': '0'},
             {'title': '남', 'data': 'event_col12', 'defaultContent': '0'},
             {'title': '여', 'data': 'event_col13', 'defaultContent': '0'},
-            {'title': '등록자명', 'data': 'event_col14', 'defaultContent': '장근원'}
+            {'title': '등록자명', 'data': 'op_name'}
         ]
         , 'comments': '<div>• 이벤트 기간을 기준으로 이벤트 기간 마감 1초전까지의 리스트입니다.</div><div>• [등록 ]버튼 클릭 시 이벤트 상세정보 입력 페이지를 제공하고 , 선택 시 해당 이벤트 상세페이지를 확인 및 관리할 수 있습니다.</div><div>• 이벤트 제목 클릭 시 미리보기가 가능합니다.</div>'
     },
 
-    'pastEvent': {
-        'url': '/rest/content/event/pastevent'
 
+    'endEvent': {
+        'url': '/rest/content/event/list'
         , 'columns': [
-            {'title': '진행여부', 'data': 'event_col1', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
-                    return data;
-
+            {'title': '진행여부', 'data': 'state'},
+            {'title': '구분', 'data': 'platform', 'render': function (data, type, row, meta) {
+                    var arrCode = data.toString().split("");
+                    if(arrCode.length < 3)
+                        return data;
+                    var result = "";
+                    if(arrCode[0] == "1")
+                        result += "/ PC(WEB) "
+                    if(arrCode[1] == "1")
+                        result += "/ Mobile-Android "
+                    if(arrCode[2] == "1")
+                        result += "/ Mobile-IOS "
+                    if(!common.isEmpty(result)){
+                        result = result.substring(1);
+                    }
+                    return result;
                 }},
-            {'title': '구분', 'data': 'event_col2', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
-                    return data;
-
+            {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
+                    return '<img src="' + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
                 }},
-            {'title': '이미지', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 썸네일 표시
-                    return '<img src="https://devphoto2.dalbitlive.com/content-test_0/20604729600/20200324141306155465.png" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
-
+            {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_pastEventList.getEventDetail_info('+meta.row+');">' + data + '</a>'
                 }},
-            {'title': '이벤트 제목', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
-
+            {'title': '이벤트 기간', 'data': 'startDatetimeFormat', 'render': function (data, type, row, meta) {
+                    var tmp = data + " ~ " + row.endDatetimeFormat;
+                    return tmp;
                 }},
-            {'title': '이벤트 기간', 'data': 'event_col5', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 일자에 맞게 변경 필요
-                    return common.convertToDate(data) + " ~ " + common.convertToDate(data);
-
-                }},
-            {'title': '노출 기간', 'data': 'event_col6', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 일자에 맞게 변경 필요
-                    return common.convertToDate(data) + " ~ " + common.convertToDate(data);
-
+            {'title': '노출 기간', 'data': 'viewStartDatetimeFormat', 'render': function (data, type, row, meta) {
+                    var tmp = data + " ~ " + row.viewEndDatetimeFormat;
+                    return tmp;
                 }},
             {'title': '조회수', 'data': 'event_col10', 'defaultContent': '0'},
             {'title': '총 응모자', 'data': 'event_col11', 'defaultContent': '0'},
-            {'title': '당첨자', 'data': 'event_col13', 'defaultContent': '0'},
             {'title': '남', 'data': 'event_col12', 'defaultContent': '0'},
             {'title': '여', 'data': 'event_col13', 'defaultContent': '0'},
-            {'title': '등록자명', 'data': 'event_col14', 'defaultContent': '장근원'}
-
+            {'title': '당첨자', 'data': 'event_col14', 'defaultContent': '0'},
+            {'title': '등록자명', 'data': 'op_name'}
         ]
         , 'comments': '<div>• 이벤트 기간을 기준으로 이벤트 기간 마감 1초전까지의 리스트입니다.</div><div>• [등록 ]버튼 클릭 시 이벤트 상세정보 입력 페이지를 제공하고 , 선택 시 해당 이벤트 상세페이지를 확인 및 관리할 수 있습니다.</div><div>• 이벤트 제목 클릭 시 미리보기가 가능합니다.</div>'
     },
 
     'report': {
-        'url': '/rest/content/event/report'
-
+        'url': '/rest/content/event/memberList'
         , 'columns': [
-            {'title': '당첨 여부', 'data': 'event_col1', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 코드에 맞게 변경 필요
+            {'title': '당첨 여부', 'data': 'is_win', 'render': function (data, type, row, meta) {
                     return data;
+                }},
+            {'title': '선정번호', 'data': 'order', 'defaultContent': ''},
+            {'title': '참여자 User ID', 'data': 'mem_userid', 'render': function (data, type, row, meta) {
+                    return data
+                }},
+            {'title': '참여자 닉네임', 'data': 'mem_nick'},
+            {'title': '성별', 'data': 'mem_sex'},
+            {'title': '연락처', 'data': 'mem_phone'},
+            {'title': '응모횟수', 'data': 'applyCnt', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript:;" data-toggle="modal" data-target="#eventReportModal" onclick="fnc_eventReport.setModalData('+meta.row+')">' + data + ' 건' + '</a>'
+                }},
+            {'title': '당첨경험', 'data': 'winCnt', 'render': function (data, type, row, meta) {
+                    return data + ' 건'
 
                 }},
-            {'title': '선정번호', 'data': 'event_col8', 'defaultContent': ''},
-            {'title': '참여자 User ID', 'data': 'event_col3', 'defaultContent': 'null.....', 'render': function (data, type, row, meta) {
-                    //TODO 썸네일 표시
-                    return '<a href="javascript:;">' + data + '</a>'
+            {'title': '누적 선물', 'data': 'giftCnt', 'render': function (data, type, row, meta) {
+                    return data + ' 개'
 
                 }},
-            {'title': '참여자 닉네임', 'data': 'event_col4', 'defaultContent': 'null.....'},
-            {'title': '성별', 'data': 'event_col5', 'defaultContent': 'null.....'},
-            {'title': '연락처', 'data': 'event_col6', 'defaultContent': 'null.....'},
-            {'title': '응모횟수', 'data': 'event_col2', 'defaultContent': '0', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript:;" data-toggle="modal" data-target="#eventReportModal" onclick="fnc_eventReport.setModalData('+meta.row+')">' + data + '</a>'
+            {'title': '누적 방송', 'data': 'broadCnt', 'render': function (data, type, row, meta) {
+                    return data + ' 건'
 
                 }},
-            {'title': '당첨경험', 'data': 'event_col11', 'defaultContent': '0', 'render': function (data, type, row, meta) {
-                    return data + '건'
-
-                }},
-            {'title': '선물', 'data': 'event_col13', 'defaultContent': '0', 'render': function (data, type, row, meta) {
-                    return data + '건'
-
-                }},
-            {'title': '누적 방송', 'data': 'event_col12', 'defaultContent': '0', 'render': function (data, type, row, meta) {
-                    return data + '건'
-
-                }},
-            {'title': '누적 청취', 'data': 'event_col13', 'defaultContent': '0', 'render': function (data, type, row, meta) {
-                    return data + '건'
+            {'title': '누적 청취', 'data': 'listenCnt', 'render': function (data, type, row, meta) {
+                    return data + ' 건'
 
                 }}
 

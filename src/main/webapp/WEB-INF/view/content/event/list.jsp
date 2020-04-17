@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -12,10 +11,7 @@
                         <div class="row col-md-12">
                             <h3 class="title"><i class="fa fa-search"></i>이벤트검색</h3>
                             <div>
-                                <span id="search_platform_aria"></span>
-                                <span id="search_progressStatus_aria"></span>
-                                <span id="search_searchType_aria"></span>
-
+                                <span id="search_event"></span>
                                 <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -31,14 +27,14 @@
                 <li class="active"><a href="#eventList" role="tab" data-toggle="tab" id="tab_eventList" onclick="onClickHeaderTab(this.id)">진행 이벤트</a></li>
                 <li><a href="#pastEventList" role="tab" data-toggle="tab" id="tab_pastEventList" onclick="onClickHeaderTab(this.id)">마감 이벤트</a></li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content no-padding">
                 <div class="tab-pane fade active in" id="eventList"><jsp:include page="/WEB-INF/view/content/event/eventList.jsp"/></div>     <!-- 진행 이벤트 -->
                 <div class="tab-pane fade" id="pastEventList"><jsp:include page="/WEB-INF/view/content/event/eventPastList.jsp"/></div>     <!-- 지난 이벤트 -->
             </div>
         </div>
     </div>
 </div>
-<div class="main-content" style="margin-top: 3px;">
+<div class="main-content hide mt5" id="div_eventTabList">
     <!-- TAB -->
     <jsp:include page="detail/eventTab.jsp"></jsp:include>
     <!-- TAB END -->
@@ -58,20 +54,18 @@
 
     function init() {
         //검색조건 불러오기
-        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, platformGroup));
-        $("#search_progressStatus_aria").html(util.getCommonCodeSelect(-1, progressStatus));
-        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, event_searchType));
+        $("#search_event").html(util.getCommonCodeSelect(-1, search_event));
     }
 
     function initEvent(){
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getBannerInfo();
+                getEventInfo();
             };
         });
 
         $('#bt_search').click( function() {       //검색
-            getBannerInfo();
+            getEventInfo();
         });
     }
 
@@ -87,20 +81,14 @@
     }
 
     // 검색
-    function getBannerInfo(){
+    function getEventInfo(){
         var selectTabId = $("#headerTab").find(".active").find("a").prop("id").split("_")[1];
-        console.log(selectTabId)
         var targetFnc = eval("fnc_"+selectTabId);
-
-        console.log(targetFnc)
-        console.log(targetFnc.dtList_info.dataTableSource);
 
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-        // targetFnc.dtList_info.reload();
-        console.log(targetFnc.dtList_info)
         targetFnc.selectMainList();
 
 
@@ -173,6 +161,9 @@
         }
 
         var imgUrl = target.val();
+        console.log(imgUrl);
+
+
         $("#"+targetName+"Viewer").attr("src", imgUrl);
         $("#"+targetName+"Viewer").attr("onerror", "imgError(this.src)");
     }

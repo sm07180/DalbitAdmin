@@ -155,8 +155,8 @@ var MemberDataTableSource = {
             {'title': '보낸/받은/교환건수', 'data': 'itemCnt', 'render': function (data) {
                     return data + " 개"
                 }},
-            {'title': '선물/교환-별/달', 'data': 'ruby', 'render': function (data) {
-                    return data + " 개"
+            {'title': '선물/교환-달', 'data': 'ruby', 'render': function (data) {
+                    return data + " 달"
                 }},
             {'title': '선물/교환-일시', 'data': 'giftDateFormat'},
         ]
