@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -42,14 +43,14 @@ public class SitebanService {
 
         Gson gson = new Gson();
         HashMap<String,Object> message = new HashMap();
-        String publicChanel = "channel.public.dalbit";
+        String publicChanel = DalbitUtil.getProperty("socket.global.room");
         message.put("channel", publicChanel);
         message.put("memNo", "");
 
         HashMap<String,Object> param = new HashMap<>();
         param.put("roomNo", publicChanel);
 
-        socketUtil.setSocket(param,"reqBanWord", gson.toJson(message), jwtUtil.generateToken(DalbitUtil.getProperty("temp.memNo"), true));
+        Map<String, Object> data =  socketUtil.setSocket(param,"reqBanWord", gson.toJson(message), jwtUtil.generateToken(DalbitUtil.getProperty("temp.memNo"), true));
 
         return result;
     }
