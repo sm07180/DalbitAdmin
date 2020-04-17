@@ -61,4 +61,18 @@ public class AppService {
             return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
         }
     }
+
+    /**
+     * 앱버전 리스트 수정
+     */
+    public String updateAppVersion(AppVo appVo) {
+        appVo.setOpName(MemberVo.getMyMemNo());
+        int result = appDao.updateAppVersion(appVo);
+
+        if(result > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+        }
+    }
 }

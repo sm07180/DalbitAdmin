@@ -30,6 +30,14 @@
                         <tbody id="tableBody"></tbody>
                     </table>
                 </div>
+                <div class="widget-footer">
+                    <span>
+                        <button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>
+                    </span>
+                    <span>
+                        <button class="btn btn-default print-btn pull-right hide" type="button" id="bt_edit">수정하기</button>
+                    </span>
+                </div>
             </div> <!-- #DataTable -->
             <form id="appList"></form>
          </div> <!-- #container-fluid -->
@@ -73,6 +81,13 @@
             'idx': $(this).data('idx')
         };
         util.getAjaxData("detail", "/rest/content/app/detail", data, fn_success);
+        if($("#bt_insert").removeClass("hide")) {
+            $("#bt_insert").show();
+        }
+        if($("#bt_edit").removeClass("hide")) {
+            $("#bt_edit").show();
+        }
+
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function () {
@@ -91,7 +106,6 @@
         var html = templateScript(context);
 
         $("#appList").html(html);
-        $("#insertAppBtn").hide();
         disabled();
     }
 
@@ -101,11 +115,6 @@
             $('input:radio[name="is_use"]').attr("disabled", "disabled");
             $('input:radio[name="is_force"]').attr("disabled", "disabled");
             $('input:text[name="version"]').attr("disabled", "disabled");
-        } else {
-            $('input:radio[name="os"]').removeAttr("disabled");
-            $('input:radio[name="is_use"]').removeAttr("disabled");
-            $('input:radio[name="is_force"]').removeAttr("disabled");
-            $('input:text[name="version"]').removeAttr("disabled");
         }
     }
 
@@ -113,6 +122,7 @@
     $("#bt_insert").on('click', function () {
         $("#appList").empty();
         $(this).hide();
+        $("#bt_edit").hide();
         generateForm();
     });
 
@@ -122,9 +132,62 @@
         $("#appList").html(templateScript);
     }
 
+    function isValid() {
+        var os = $('input:radio[name="os"]:checked').val();
+        if(common.isEmpty(os)) {
+            alert("os타입을 선택해주세요.");
+            return false;
+        }
+
+        var version = $('input:text[name="version"]').val();
+        if(common.isEmpty(version)) {
+            alert("version을 입력해주세요.");
+            return false;
+        }
+
+        var isForce = $('input:radio[name="is_force"]:checked').val();
+        if(common.isEmpty(isForce)) {
+            alert("강제 업데이트 여부를 선택해주세요.");
+            return false;
+        }
+
+        var isUse = $('input:radio[name="is_use"]:checked').val();
+        if(common.isEmpty(isUse)) {
+            alert("사용 여부를 선택해주세요.");
+            return false;
+        }
+
+        return true;
+    }
 
     $(document).on('click', '#insertAppBtn', function () {
-        util.getAjaxData("insert", "/rest/content/app/insert", $("#appList").serialize() , fn_insert_success, fn_insert_fail);
+        if(isValid()) {
+            if (confirm("등록하시겠습니까?")) {
+                util.getAjaxData("insert", "/rest/content/app/insert", $("#appList").serialize(), fn_insert_success, fn_insert_fail);
+            } else {
+                return;
+            }
+        }
+    });
+
+    $("#bt_edit").on('click', function() {
+        $(this).hide();
+        $('input:radio[name="os"]').removeAttr("disabled");
+        $('input:radio[name="is_use"]').removeAttr("disabled");
+        $('input:radio[name="is_force"]').removeAttr("disabled");
+        $('input:text[name="version"]').removeAttr("disabled");
+
+        $("#updateAppBtn").removeClass("hide");
+    });
+
+    $(document).on('click', '#updateAppBtn', function() {
+        if(isValid()) {
+            if (confirm("수정하시겠습니까?")) {
+                util.getAjaxData("update", "/rest/content/app/update", $("#appList").serialize(), fn_insert_success, fn_insert_fail);
+            } else {
+                return;
+            }
+        }
     });
 
     function fn_insert_success(dst_id, response) {
@@ -149,7 +212,8 @@
     <div class="row col-lg-12 mt15">
         <div class="col-md-12 no-padding">
             <span>
-                <button class="btn btn-default pull-right mb15" type="button" id="insertAppBtn">등록하기</button>
+                {{^idx}}<button class="btn btn-default pull-right mb15" type="button" id="insertAppBtn">등록하기</button>{{/idx}}
+                {{#idx}}<button class="btn btn-default pull-right mb15 hide" type="button" id="updateAppBtn">수정완료</button>{{/idx}}
             </span>
         </div>
         <table class="table table-bordered table-dalbit">

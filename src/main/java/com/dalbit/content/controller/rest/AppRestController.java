@@ -43,4 +43,13 @@ public class AppRestController {
         String result = appService.addAppVersion(appInsertVo);
         return result;
     }
+
+    /**
+     * 앱버전 리스트 수정
+     */
+    @PostMapping("/update")
+    public String updateAppVersion(AppVo appVo) {
+        String result = appService.updateAppVersion(appVo);
+        return result;
+    }
 }
