@@ -69,7 +69,11 @@ util.getAjaxData = function(dst_id, dst_url, dst_params, successFunc, errorFunc,
         },
         crossDomain: true
     }).done(function (data) {
-        if (successFunc != null) successFunc(dst_id, data, dst_params);
+        if (successFunc != null){
+            dalbitLog("[ajax 통신 결과]url : " + dst_url);
+            dalbitLog(data);
+            successFunc(dst_id, data, dst_params);
+        }
     }).fail(function (data, textStatus, jqXHR) {
         try {
             if (errorFunc != null) {
