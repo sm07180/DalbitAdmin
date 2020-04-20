@@ -14,4 +14,6 @@ public interface Ent_JoinDao {
     public List<P_JoinPlatformGenderOutDetailVo> callJoinPlatformGender(ProcedureVo procedureVo);
     public List<P_JoinPlatformAgeOutDetailVo> callJoinPlatformAge(ProcedureVo procedureVo);
     public List<P_JoinWithdrawOutDetailVo> callJoinWithdraw(ProcedureVo procedureVo);
+    public List<P_JoinWithdrawOutDetailVo> callStatJoin(ProcedureVo procedureVo);
+    public List<P_JoinWithdrawOutDetailVo> callStatWithdraw(ProcedureVo procedureVo);
 }

@@ -142,4 +142,34 @@ public class Ent_JoinService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
+
+    /**
+     * 어드민 가입현황 고정
+     * @return
+     */
+    public String callStatJoin(){
+        ProcedureVo procedureVo = new ProcedureVo();
+        entJoinDao.callStatJoin(procedureVo);
+
+        P_StatJoinOutVo joinInfo = new Gson().fromJson(procedureVo.getExt(), P_StatJoinOutVo.class);
+        var result = new HashMap<String, Object>();
+        result.put("joinInfo", joinInfo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 어드민 탈퇴현황 고정
+     * @return
+     */
+    public String callStatWithdraw(){
+        ProcedureVo procedureVo = new ProcedureVo();
+        entJoinDao.callStatWithdraw(procedureVo);
+
+        P_StatJoinOutVo withdrawInfo = new Gson().fromJson(procedureVo.getExt(), P_StatJoinOutVo.class);
+        var result = new HashMap<String, Object>();
+        result.put("withdrawInfo", withdrawInfo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
 }
