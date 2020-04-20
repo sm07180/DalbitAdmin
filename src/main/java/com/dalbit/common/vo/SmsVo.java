@@ -12,10 +12,10 @@ public class SmsVo {
         setPhoneNo(phoneNo);
     }
 
-    private String phoneNo; //문자받을번호
-    private String msgBody; //메시지
-    private String subject = ""; //제목
-
+    private String phoneNo;         //문자받을번호
+    private String msgBody;         //메시지
+    private String subject = "";    //제목
+    private String vxmlFile;        //문자발송구분 (0: 회원가입, 1: 비밀번호변경) Admin은 비밀번호 초기화 '1' 하드코딩
     //0(단문)으로 하드코딩.
     private String msgType;
 
