@@ -4,7 +4,6 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.code.*;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.dao.AppDao;
-import com.dalbit.content.vo.AppInsertVo;
 import com.dalbit.content.vo.AppVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -49,8 +48,12 @@ public class AppService {
     /**
      * 앱버전 리스트 등록
      */
-    public String addAppVersion(AppInsertVo appInsertVo) {
-        int result = appDao.addAppVersion(appInsertVo);
+    public String addAppVersion(AppVo appVo) {
+        int result = appDao.addAppVersion(appVo);
+
+        if(appVo.getIs_use() == 1) {
+            appDao.updateOs(appVo);
+        }
 
         if(result > 0) {
             return gsonUtil.toJson(new JsonOutputVo(Status.생성));

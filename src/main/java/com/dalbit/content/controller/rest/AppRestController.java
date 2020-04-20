@@ -1,7 +1,6 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.AppService;
-import com.dalbit.content.vo.AppInsertVo;
 import com.dalbit.content.vo.AppVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +38,8 @@ public class AppRestController {
      * 앱버전 리스트 등록
      */
     @PostMapping("/insert")
-    public String addAppVersion(AppInsertVo appInsertVo) {
-        String result = appService.addAppVersion(appInsertVo);
+    public String addAppVersion(AppVo appVo) {
+        String result = appService.addAppVersion(appVo);
         return result;
     }
 
