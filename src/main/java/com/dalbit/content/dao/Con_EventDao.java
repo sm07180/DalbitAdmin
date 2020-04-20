@@ -17,5 +17,7 @@ public interface Con_EventDao {
     ArrayList<P_EventMemberListOutputVo> callEventMemberList(P_EventMemberListInputVo P_EventMemberListInputVo);
     int callEventMemberList_totalCnt(P_EventMemberListInputVo P_EventMemberListInputVo);
     int callEventMemberList_winCnt(String mem_no);
+    int callEventSelWIn(P_EventMemberSelWinVo pEventMemberSelWinVo);
 
+    ArrayList<P_EventMemberListOutputVo> callEventOverlapApplyList(P_EventMemberListInputVo pEventMemberListInputVo);
 }

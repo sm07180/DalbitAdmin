@@ -376,6 +376,12 @@ public enum Status {
     // 이벤트 응모자 목록
     이벤트응모자목록보기_성공("0", "event.member.list.view.success", "이벤트응모자목록보기 성공 시"),
     이벤트응모자목록보기_실패("C006", "event.member.list.view.fail", "이벤트응모자목록보기 실패 시"),
+    // 이벤트 응모자 선정
+    이벤트응모자선정_성공("0", "event.member.sel.win.success", "이벤트응모자선정 성공 시"),
+    이벤트응모자선정_실패("C006", "event.member.sel.win.fail", "이벤트응모자선정 실패 시"),
+    // 이벤트 중복 응모자 목록
+    이벤트중복응모자목록보기_성공("0", "event.overlap.apply.list.view.success", "이벤트중복응모자목록보기 성공 시"),
+    이벤트중복응모자목록보기_실패("C006", "event.overlap.apply.list.view.fail", "이벤트중복응모자목록보기 실패 시"),
 
     //배너 조회
     배너조회_데이터없음("0", "no.data", "배너 조회 데이터가 없을 시"),

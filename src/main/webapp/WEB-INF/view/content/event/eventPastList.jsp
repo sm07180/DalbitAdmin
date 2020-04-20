@@ -128,6 +128,8 @@
             $('#div_eventTabList').removeClass("hide");
             var data = this.dtList_info.getDataRow(index);
             fnc_eventDetail.updateEventDetail(data);
+            event_idx = data.idx;
+            fnc_eventReport.init();
         },
 
         // 검색

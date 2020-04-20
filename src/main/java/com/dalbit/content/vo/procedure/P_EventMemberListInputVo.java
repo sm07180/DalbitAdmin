@@ -9,5 +9,6 @@ import lombok.Setter;
 public class P_EventMemberListInputVo extends SearchVo {
     private int pageNo;
     private int event_idx;              // 이벤트 번호
+    private String mem_no;
 
 }

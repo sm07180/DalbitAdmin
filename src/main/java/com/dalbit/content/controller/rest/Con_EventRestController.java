@@ -7,6 +7,7 @@ import com.dalbit.content.service.Con_EventService;
 import com.dalbit.content.vo.EventVo;
 import com.dalbit.content.vo.procedure.P_EventListInputVo;
 import com.dalbit.content.vo.procedure.P_EventMemberListInputVo;
+import com.dalbit.content.vo.procedure.P_EventMemberSelWinVo;
 import com.dalbit.content.vo.procedure.P_EventUpdateVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.util.DalbitUtil;
@@ -69,8 +70,26 @@ public class Con_EventRestController {
         return result;
     }
 
+    /**
+     * 이벤트 선택당첨
+     */
+    @PostMapping("memberSelWin")
+    public String memberSelWin(P_EventMemberSelWinVo pEventMemberSelWinVo){
+        String result="";
+        if(pEventMemberSelWinVo.getChoiceNum() != 0) {
+            result = con_EventService.getEventMemberSelWin(pEventMemberSelWinVo);
+        }
+        return result;
+    }
 
-
+    /**
+     * 이벤트 중복 응모자 목록
+     */
+    @PostMapping("overlapApplyList")
+    public String overlapApplyList(P_EventMemberListInputVo pEventMemberListInputVo){
+        String result = con_EventService.getEventOverlapApplyList(pEventMemberListInputVo);
+        return result;
+    }
 
 
 
