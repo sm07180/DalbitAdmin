@@ -75,6 +75,20 @@
         ui.toggleSearchList();
     }
 
+    var obj = new Object();
+
+    function fn_detail_success(dst_id, response) {
+        dalbitLog(response);
+        var template = $("#tmp_appList").html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+
+        obj = response.data;
+        $("#appList").html(html);
+        disabled();
+    }
+
     $(document).on('click', '._appDetail', function () {
 
         var data = {
@@ -87,7 +101,7 @@
         if($("#bt_edit").removeClass("hide")) {
             $("#bt_edit").show();
         }
-
+        $("#day").html(obj.reg_date);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function () {
@@ -99,19 +113,6 @@
             $("#bt_edit").hide();
         }
     });
-
-    var obj = new Object();
-    function fn_detail_success(dst_id, response) {
-        dalbitLog(response);
-        var template = $("#tmp_appList").html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
-
-        obj = response.data;
-        $("#appList").html(html);
-        disabled();
-    }
 
     function disabled() {
         if($("#bt_insert").length > 0) {
@@ -128,6 +129,15 @@
         $(this).hide();
         $("#bt_edit").hide();
         generateForm();
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var date = today.getDate();
+        var hour = today.getHours();
+        var min = today.getMinutes();
+
+        var day = year + "." + month + "." + date + " " + hour + ":" + min;
+        $("#day").html(day);
     });
 
     function generateForm() {
@@ -232,6 +242,7 @@
     //     $("#bt_edit").hide();
     // }
 
+
 </script>
 
 <script id="tmp_appList" type="text/x-handlebars-template">
@@ -274,7 +285,7 @@
             </tr>
             <tr>
                 <th>등록일</th>
-                <td>
+                <td id = "day">
                     {{convertToDate reg_date "YYYY-MM-DD HH:mm"}}
                 </td>
             </tr>
