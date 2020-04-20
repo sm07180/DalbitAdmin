@@ -30,17 +30,17 @@
                         <tbody id="tableBody"></tbody>
                     </table>
                 </div>
-                <div class="widget-footer">
-                    <span>
-                        <button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>
-                    </span>
-                    <span>
-                        <button class="btn btn-default print-btn pull-right hide" type="button" id="bt_edit">수정하기</button>
-                    </span>
-                </div>
+                <%--<div class="widget-footer">--%>
+                    <%--<span>--%>
+                        <%--<button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>--%>
+                    <%--</span>--%>
+                    <%--<span>--%>
+                        <%--<button class="btn btn-default print-btn pull-right hide" type="button" id="bt_edit">수정하기</button>--%>
+                    <%--</span>--%>
+                <%--</div>--%>
             </div> <!-- #DataTable -->
             <form id="appList"></form>
-         </div> <!-- #container-fluid -->
+        </div> <!-- #container-fluid -->
     </div><!-- #page-wrapper -->
 </div> <!-- #wrapper -->
 
@@ -174,25 +174,26 @@
         }
     });
 
-    $("#bt_edit").on('click', function() {
-        $(this).hide();
-        $('input:radio[name="os"]').removeAttr("disabled");
-        $('input:radio[name="is_use"]').removeAttr("disabled");
-        $('input:radio[name="is_force"]').removeAttr("disabled");
-        $('input:text[name="version"]').removeAttr("disabled");
+    // // 수정하기
+    // $("#bt_edit").on('click', function() {
+    //     $(this).hide();
+    //     $('input:radio[name="os"]').removeAttr("disabled");
+    //     $('input:radio[name="is_use"]').removeAttr("disabled");
+    //     $('input:radio[name="is_force"]').removeAttr("disabled");
+    //     $('input:text[name="version"]').removeAttr("disabled");
+    //
+    //     $("#updateAppBtn").removeClass("hide");
+    // });
 
-        $("#updateAppBtn").removeClass("hide");
-    });
-
-    $(document).on('click', '#updateAppBtn', function() {
-        if(isValid()) {
-            if (confirm("수정하시겠습니까?")) {
-                util.getAjaxData("update", "/rest/content/app/update", $("#appList").serialize(), fn_success, fn_fail);
-            } else {
-                return;
-            }
-        }
-    });
+    // $(document).on('click', '#updateAppBtn', function() {
+    //     if(isValid()) {
+    //         if (confirm("수정하시겠습니까?")) {
+    //             util.getAjaxData("update", "/rest/content/app/update", $("#appList").serialize(), fn_success, fn_fail);
+    //         } else {
+    //             return;
+    //         }
+    //     }
+    // });
 
     function fn_success(dst_id, response) {
         alert(response.message);
@@ -208,26 +209,28 @@
         dalbitLog("#####실패");
     }
 
-    $("#bt_delete").on('click', function() {
-        var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
-        if(checked.length == 0) {
-            alert("삭제할 공지사항을 선택해주세요.");
-            return
-        }
-
-       if(confirm("삭제하시겠습니까?")) {
-           var data = {
-               'idx': obj.idx
-           };
-           util.getAjaxData("delete", "/rest/content/app/delete", data, fn_delete_success, fn_fail);
-       }
-    });
-
-    function fn_delete_success(dst_id, response) {
-        alert(response.message);
-        dtList_info.reload();
-        $("#appList").empty();
-    }
+    // // 삭제하기
+    // $("#bt_delete").on('click', function() {
+    //     var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
+    //     if(checked.length == 0) {
+    //         alert("삭제할 공지사항을 선택해주세요.");
+    //         return
+    //     }
+    //
+    //     if(confirm("삭제하시겠습니까?")) {
+    //         var data = {
+    //             'idx': obj.idx
+    //         };
+    //         util.getAjaxData("delete", "/rest/content/app/delete", data, fn_delete_success, fn_fail);
+    //     }
+    // });
+    //
+    // function fn_delete_success(dst_id, response) {
+    //     alert(response.message);
+    //     dtList_info.reload();
+    //     $("#appList").empty();
+    //     $("#bt_edit").hide();
+    // }
 
 </script>
 
@@ -237,7 +240,7 @@
         <div class="col-md-12 no-padding">
             <span>
                 {{^idx}}<button class="btn btn-default pull-right mb15" type="button" id="insertAppBtn">등록하기</button>{{/idx}}
-                {{#idx}}<button class="btn btn-default pull-right mb15 hide" type="button" id="updateAppBtn">수정완료</button>{{/idx}}
+                <%--{{#idx}}<button class="btn btn-default pull-right mb15 hide" type="button" id="updateAppBtn">수정완료</button>{{/idx}}--%>
             </span>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -245,12 +248,6 @@
                 <col width="5%"/>
                 <col width="10%"/>
             </colgroup>
-            <tr>
-                <th>idx</th>
-                <td style="text-align: left">
-                    {{idx}}
-                </td>
-            </tr>
             <tr>
                 <th>os</th>
                 <td>
@@ -277,7 +274,9 @@
             </tr>
             <tr>
                 <th>등록일</th>
-                <td>{{convertToDate reg_date "YYYY-MM-DD HH:mm"}}</td>
+                <td>
+                    {{convertToDate reg_date "YYYY-MM-DD HH:mm"}}
+                </td>
             </tr>
         </table>
     </div>

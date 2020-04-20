@@ -12,6 +12,6 @@ public interface AppDao {
     int getAppVersionListCnt(AppVo appVo);
     AppVo getListDetail(AppVo appVo);
     int addAppVersion(AppInsertVo appInsertVo);
-    int updateAppVersion(AppVo appVo);
-    int deleteAppVersion(AppVo appVo);
+//    int updateAppVersion(AppVo appVo);
+//    int deleteAppVersion(AppVo appVo);
 }

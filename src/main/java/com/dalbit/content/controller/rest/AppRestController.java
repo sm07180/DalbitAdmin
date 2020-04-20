@@ -44,21 +44,21 @@ public class AppRestController {
         return result;
     }
 
-    /**
-     * 앱버전 리스트 수정
-     */
-    @PostMapping("/update")
-    public String updateAppVersion(AppVo appVo) {
-        String result = appService.updateAppVersion(appVo);
-        return result;
-    }
-
-    /**
-     * 앱버전 리스트 삭제
-     */
-    @PostMapping("/delete")
-    public String deleteAppVersion(AppVo appVo) {
-        String result = appService.deleteAppVersion(appVo);
-        return result;
-    }
+//    /**
+//     * 앱버전 리스트 수정
+//     */
+//    @PostMapping("/update")
+//    public String updateAppVersion(AppVo appVo) {
+//        String result = appService.updateAppVersion(appVo);
+//        return result;
+//    }
+//
+//    /**
+//     * 앱버전 리스트 삭제
+//     */
+//    @PostMapping("/delete")
+//    public String deleteAppVersion(AppVo appVo) {
+//        String result = appService.deleteAppVersion(appVo);
+//        return result;
+//    }
 }

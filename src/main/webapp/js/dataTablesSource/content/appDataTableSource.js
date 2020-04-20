@@ -8,7 +8,9 @@ var AppDataTableSource = {
                 return '<a href="javascript://" class="_appDetail" data-idx="' + row.idx + '">'  + util.getCommonCodeLabel(data, content_radioApp) + '</a>' + ' (클릭 시 상세 보기)'
                 }}
             , {'title': 'version', 'data' : 'version'}
-            , {'title': '강제업데이트 여부', 'data': 'is_force'}
+            , {'title': '강제업데이트 여부', 'data': 'is_force', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, content_isForce);
+                }}
             , {'title': '사용여부', 'data': 'is_use', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, content_isUse);
                 }}
@@ -18,4 +20,4 @@ var AppDataTableSource = {
         ]
         , 'comments': ''
     },
-}
+};
