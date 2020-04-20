@@ -5,15 +5,15 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i>검색조건</h3>
-                            <span id="search_os_area"></span>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                        </div>
-                    </div>
-                </div>
+                <%--<div class="row col-lg-12 form-inline">--%>
+                    <%--<div class="widget widget-table searchBoxArea">--%>
+                        <%--<div class="widget-header searchBoxRow">--%>
+                            <%--<h3 class="title"><i class="fa fa-search"></i>검색조건</h3>--%>
+                            <%--<span id="search_os_area"></span>--%>
+                            <%--<button type="button" class="btn btn-success" id="bt_search">검색</button>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
             </form>
             <div class="row col-lg-12 form-inline" id="insertBtn">
                 <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
@@ -235,7 +235,7 @@
 </script>
 
 <script id="tmp_appList" type="text/x-handlebars-template">
-    <input type="hidden" name="idx" value="{{idx}}"/>
+    {{#idx}}<input type="hidden" name="idx" value="{{idx}}"/>{{/idx}}
     <div class="row col-lg-12 mt15">
         <div class="col-md-12 no-padding">
             <span>
