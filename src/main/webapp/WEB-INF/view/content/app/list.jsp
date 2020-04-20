@@ -5,15 +5,15 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
-                    <div class="widget widget-table searchBoxArea">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i>검색조건</h3>
-                            <span id="search_os_area"></span>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                        </div>
-                    </div>
-                </div>
+                <%--<div class="row col-lg-12 form-inline">--%>
+                    <%--<div class="widget widget-table searchBoxArea">--%>
+                        <%--<div class="widget-header searchBoxRow">--%>
+                            <%--<h3 class="title"><i class="fa fa-search"></i>검색조건</h3>--%>
+                            <%--<span id="search_os_area"></span>--%>
+                            <%--<button type="button" class="btn btn-success" id="bt_search">검색</button>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
             </form>
             <div class="row col-lg-12 form-inline" id="insertBtn">
                 <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
@@ -30,17 +30,17 @@
                         <tbody id="tableBody"></tbody>
                     </table>
                 </div>
-                <div class="widget-footer">
-                    <span>
-                        <button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>
-                    </span>
-                    <span>
-                        <button class="btn btn-default print-btn pull-right hide" type="button" id="bt_edit">수정하기</button>
-                    </span>
-                </div>
+                <%--<div class="widget-footer">--%>
+                    <%--<span>--%>
+                        <%--<button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>--%>
+                    <%--</span>--%>
+                    <%--<span>--%>
+                        <%--<button class="btn btn-default print-btn pull-right hide" type="button" id="bt_edit">수정하기</button>--%>
+                    <%--</span>--%>
+                <%--</div>--%>
             </div> <!-- #DataTable -->
             <form id="appList"></form>
-         </div> <!-- #container-fluid -->
+        </div> <!-- #container-fluid -->
     </div><!-- #page-wrapper -->
 </div> <!-- #wrapper -->
 
@@ -75,6 +75,20 @@
         ui.toggleSearchList();
     }
 
+    var obj = new Object();
+
+    function fn_detail_success(dst_id, response) {
+        dalbitLog(response);
+        var template = $("#tmp_appList").html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+
+        obj = response.data;
+        $("#appList").html(html);
+        disabled();
+    }
+
     $(document).on('click', '._appDetail', function () {
 
         var data = {
@@ -87,7 +101,7 @@
         if($("#bt_edit").removeClass("hide")) {
             $("#bt_edit").show();
         }
-
+        $("#day").html(obj.reg_date);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function () {
@@ -99,19 +113,6 @@
             $("#bt_edit").hide();
         }
     });
-
-    var obj = new Object();
-    function fn_detail_success(dst_id, response) {
-        dalbitLog(response);
-        var template = $("#tmp_appList").html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
-
-        obj = response.data;
-        $("#appList").html(html);
-        disabled();
-    }
 
     function disabled() {
         if($("#bt_insert").length > 0) {
@@ -128,6 +129,15 @@
         $(this).hide();
         $("#bt_edit").hide();
         generateForm();
+        var today = new Date();
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var date = today.getDate();
+        var hour = today.getHours();
+        var min = today.getMinutes();
+
+        var day = year + "." + month + "." + date + " " + hour + ":" + min;
+        $("#day").html(day);
     });
 
     function generateForm() {
@@ -174,25 +184,26 @@
         }
     });
 
-    $("#bt_edit").on('click', function() {
-        $(this).hide();
-        $('input:radio[name="os"]').removeAttr("disabled");
-        $('input:radio[name="is_use"]').removeAttr("disabled");
-        $('input:radio[name="is_force"]').removeAttr("disabled");
-        $('input:text[name="version"]').removeAttr("disabled");
+    // // 수정하기
+    // $("#bt_edit").on('click', function() {
+    //     $(this).hide();
+    //     $('input:radio[name="os"]').removeAttr("disabled");
+    //     $('input:radio[name="is_use"]').removeAttr("disabled");
+    //     $('input:radio[name="is_force"]').removeAttr("disabled");
+    //     $('input:text[name="version"]').removeAttr("disabled");
+    //
+    //     $("#updateAppBtn").removeClass("hide");
+    // });
 
-        $("#updateAppBtn").removeClass("hide");
-    });
-
-    $(document).on('click', '#updateAppBtn', function() {
-        if(isValid()) {
-            if (confirm("수정하시겠습니까?")) {
-                util.getAjaxData("update", "/rest/content/app/update", $("#appList").serialize(), fn_success, fn_fail);
-            } else {
-                return;
-            }
-        }
-    });
+    // $(document).on('click', '#updateAppBtn', function() {
+    //     if(isValid()) {
+    //         if (confirm("수정하시겠습니까?")) {
+    //             util.getAjaxData("update", "/rest/content/app/update", $("#appList").serialize(), fn_success, fn_fail);
+    //         } else {
+    //             return;
+    //         }
+    //     }
+    // });
 
     function fn_success(dst_id, response) {
         alert(response.message);
@@ -208,36 +219,39 @@
         dalbitLog("#####실패");
     }
 
-    $("#bt_delete").on('click', function() {
-        var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
-        if(checked.length == 0) {
-            alert("삭제할 공지사항을 선택해주세요.");
-            return
-        }
+    // // 삭제하기
+    // $("#bt_delete").on('click', function() {
+    //     var checked = $('#list_info .dt-body-center input[type="checkbox"]:checked');
+    //     if(checked.length == 0) {
+    //         alert("삭제할 공지사항을 선택해주세요.");
+    //         return
+    //     }
+    //
+    //     if(confirm("삭제하시겠습니까?")) {
+    //         var data = {
+    //             'idx': obj.idx
+    //         };
+    //         util.getAjaxData("delete", "/rest/content/app/delete", data, fn_delete_success, fn_fail);
+    //     }
+    // });
+    //
+    // function fn_delete_success(dst_id, response) {
+    //     alert(response.message);
+    //     dtList_info.reload();
+    //     $("#appList").empty();
+    //     $("#bt_edit").hide();
+    // }
 
-       if(confirm("삭제하시겠습니까?")) {
-           var data = {
-               'idx': obj.idx
-           };
-           util.getAjaxData("delete", "/rest/content/app/delete", data, fn_delete_success, fn_fail);
-       }
-    });
-
-    function fn_delete_success(dst_id, response) {
-        alert(response.message);
-        dtList_info.reload();
-        $("#appList").empty();
-    }
 
 </script>
 
 <script id="tmp_appList" type="text/x-handlebars-template">
-    <input type="hidden" name="idx" value="{{idx}}"/>
+    {{#idx}}<input type="hidden" name="idx" value="{{idx}}"/>{{/idx}}
     <div class="row col-lg-12 mt15">
         <div class="col-md-12 no-padding">
             <span>
                 {{^idx}}<button class="btn btn-default pull-right mb15" type="button" id="insertAppBtn">등록하기</button>{{/idx}}
-                {{#idx}}<button class="btn btn-default pull-right mb15 hide" type="button" id="updateAppBtn">수정완료</button>{{/idx}}
+                <%--{{#idx}}<button class="btn btn-default pull-right mb15 hide" type="button" id="updateAppBtn">수정완료</button>{{/idx}}--%>
             </span>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -245,12 +259,6 @@
                 <col width="5%"/>
                 <col width="10%"/>
             </colgroup>
-            <tr>
-                <th>idx</th>
-                <td style="text-align: left">
-                    {{idx}}
-                </td>
-            </tr>
             <tr>
                 <th>os</th>
                 <td>
@@ -277,7 +285,9 @@
             </tr>
             <tr>
                 <th>등록일</th>
-                <td>{{convertToDate reg_date "YYYY-MM-DD HH:mm"}}</td>
+                <td id = "day">
+                    {{convertToDate reg_date "YYYY-MM-DD HH:mm"}}
+                </td>
             </tr>
         </table>
     </div>

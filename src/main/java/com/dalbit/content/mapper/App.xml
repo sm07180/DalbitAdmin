@@ -10,9 +10,11 @@
         , is_force
         , is_use
         , reg_date
+        , @RNUM := @RNUM + 1 as rowNum
         from
         rd_admin.tb_app_version
-        where is_use=1
+        , (select @RNUM := 0) r
+        where is_use = 1
         <if test = 'os != null and os != ""'>
             and os = #{os}
         </if>
@@ -21,7 +23,11 @@
 
     <select id="getAppVersionList" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
         /* App.xml - getAppVersionList */
-      <include refid="appCondition"/>
+        select *
+        from (
+          <include refid="appCondition"/>
+        ) a
+        limit  #{pageStart}, #{pageCnt}
     </select>
 
     <select id="getAppVersionListCnt" parameterType="com.dalbit.content.vo.AppVo" resultType="integer">
@@ -36,40 +42,48 @@
     <select id="getListDetail" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
         /* App.xml - getListDetail */
         select
-        idx
-        , os
+        os
         , version
         , is_force
         , is_use
         , reg_date
         from
         rd_admin.tb_app_version
-        where is_use=1
-        <if test = 'idx != null and idx != ""'>
-        and idx = #{idx}
-        </if>
+        where is_use = 1
+            <if test = 'idx != null and idx != ""'>
+            and idx = #{idx}
+            </if>
     </select>
 
-    <insert id="addAppVersion" parameterType="com.dalbit.content.vo.AppInsertVo">
+    <insert id="addAppVersion" parameterType="com.dalbit.content.vo.AppVo">
         /* App.xml - addAppVersion */
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert
         into
-          rd_admin.tb_app_version (os, version, is_force, is_use, reg_date)
+          rd_admin.tb_app_version (idx, os, version, is_force, is_use, reg_date)
         values
-          (#{os}, #{version}, #{is_force}, #{is_use}, current_timestamp())
+          (#{idx}, #{os}, #{version}, #{is_force}, #{is_use}, current_timestamp())
     </insert>
 
-    <update id="updateAppVersion" parameterType="com.dalbit.content.vo.AppVo">
-        /* App.xml - updateAppVersion */
+    <update id="updateOs" parameterType="com.dalbit.content.vo.AppVo">
         update rd_admin.tb_app_version
-        set os = #{os}, version = #{version}, is_force = #{is_force}, is_use = #{is_use}, reg_date = current_timestamp()
-        where idx = #{idx}
+        set is_use = 0
+        where idx <![CDATA[ <> ]]> #{idx} and os = #{os}
     </update>
 
-    <delete id="deleteAppVersion" parameterType="com.dalbit.content.vo.AppVo">
-        /* App.xml - deleteAppVersion */
-        delete from rd_admin.tb_app_version
-        where idx = #{idx}
-    </delete>
+    <!--<update id="updateAppVersion" parameterType="com.dalbit.content.vo.AppVo">-->
+        <!--/* App.xml - updateAppVersion */-->
+        <!--update rd_admin.tb_app_version-->
+        <!--set os = #{os}, version = #{version}, is_force = #{is_force}, is_use = #{is_use}, reg_date = current_timestamp()-->
+        <!--where idx = #{idx}-->
+    <!--</update>-->
+
+    <!--<delete id="deleteAppVersion" parameterType="com.dalbit.content.vo.AppVo">-->
+        <!--/* App.xml - deleteAppVersion */-->
+        <!--delete from rd_admin.tb_app_version-->
+        <!--where idx = #{idx}-->
+    <!--</delete>-->
 
 </mapper>
