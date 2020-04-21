@@ -51,7 +51,7 @@
 <div class="main-content">
     <!-- TAB -->
     <jsp:include page="splashTab.jsp"></jsp:include>
-    <jsp:include page="../util/select_memeberList.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/view/common/util/select_memeberList.jsp"></jsp:include>
     <!-- TAB END -->
 </div>
 

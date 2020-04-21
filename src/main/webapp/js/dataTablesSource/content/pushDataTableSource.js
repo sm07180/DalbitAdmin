@@ -35,7 +35,7 @@ var PushDataTableSource = {
                      }
 
                      if(data == "1"){
-                         return "회원";
+                         return "회원 (" + row.send_cnt + ")건";
                      }
 
                      return data;

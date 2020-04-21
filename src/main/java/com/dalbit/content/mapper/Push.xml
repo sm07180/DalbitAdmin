@@ -16,9 +16,11 @@
             ,msg_type         AS msg_type
             ,slct_push         AS slct_push
             ,is_direct        AS is_direct
+            ,send_cnt       AS send_cnt
             ,send_datetime    AS send_datetime
             ,reg_date         AS reg_date
             ,op_name          AS opName
+            ,link_url          AS link_url
         FROM
             rd_admin.tb_admin_push
     </sql>
@@ -84,9 +86,11 @@
                 ,msg_type
                 ,slct_push
                 ,is_direct
+                ,send_cnt
                 ,send_datetime
                 ,reg_date
                 ,op_name
+                ,link_url
           )
           VALUES
           (
@@ -100,6 +104,7 @@
                 ,#{msg_type}
                 ,#{slct_push}
                 ,#{is_direct}
+                ,#{send_cnt}
                 <choose>
                     <when test='is_direct == 1'>
                         ,STR_TO_DATE(#{send_datetime},'%Y%m%d %H%i%S')
@@ -110,6 +115,7 @@
                 </choose>
                 ,NOW()
                 ,#{opName}
+                ,#{link_url}
           )
     </insert>
 
@@ -126,5 +132,24 @@
     <select id="callStmpPushAdd" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
         call rd_data.sp_stmp_push_add(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="selectMemInfo" parameterType="java.util.List" resultType="com.dalbit.member.vo.procedure.P_MemberListOutputVo">
+        SELECT
+          mem_no, mem_id, mem_nick, mem_userid, mem_name, mem_phone, mem_sex
+          , mem_birth_year, mem_birth_month, mem_birth_day, mem_slct, mem_state, mem_join_date
+          ,'0' AS memWithdrawal
+		FROM
+		  rd_data.tb_member_basic
+		WHERE
+		  mem_no IN
+          (
+            <trim suffixOverrides=",">
+                <foreach item="item" index="index" collection="list">
+                    #{item},
+                </foreach>
+            </trim>
+          )
+    </select>
+
 
 </mapper>

@@ -7,6 +7,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.PushDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -59,6 +62,14 @@ public class PushService {
         try {
             P_pushDetailOutputVo pushDetail = pushDao.callContentsPushDetail(pPushDetailInputVo);
 
+            // 수신대상이 지정회원일 경우 대상 정보 조회
+            if(pushDetail.getIs_all() != null && pushDetail.getIs_all().equals("7")){
+                List arrayList = Arrays.asList(pushDetail.getMem_nos().split("\\|"));
+                List<P_MemberListOutputVo> memInfo = pushDao.selectMemInfo(arrayList);
+                pushDetail.setMem_info(memInfo);
+            }
+
+
             if (pushDetail != null) {
                 result = gsonUtil.toJson(new JsonOutputVo(Status.푸시상세조회_성공, pushDetail));
             } else{
@@ -88,7 +99,7 @@ public class PushService {
                 //TODO 전체 발송은 따로 처리 필요 (프로시져 아직 안나옴)
                 HashMap resultHash = null;
                 // 지정 일 경우 푸시 발송
-                if(pPushInsertVo.getIs_all().equals("1")){
+                if(pPushInsertVo.getIs_all().equals("7")){
                     resultHash = callSendPush(pPushInsertVo);
                 }
 
@@ -169,6 +180,10 @@ public class PushService {
     }
 
 
+
+    /**
+     * 푸시 발송 모듈 적재
+     */
     public HashMap callSendPush(P_pushInsertVo pPushInsertVo){
         String mem_nos = pPushInsertVo.getMem_nos();
         HashMap resultMap = new HashMap();
@@ -188,7 +203,7 @@ public class PushService {
                     log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
                     sucCnt++;
                 } else {
-                    log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " (" + target + ")");
+                    log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + target + ")");
                     failCnt++;
                 }
             }

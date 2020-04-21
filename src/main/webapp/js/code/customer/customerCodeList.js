@@ -57,3 +57,17 @@ var declaration_send = [
     , new COMMON_CODE('yes', '1', '알림 발송함')
     , new COMMON_CODE('no', '0', '알림 발송 안함')
 ];
+
+
+
+
+/** =------ Image ---------- */
+var declaration_image_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색 조건')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('memno', '1', '회원번호')
+    , new COMMON_CODE('memid', '2', 'UserID')
+    , new COMMON_CODE('memnick', '3', 'User닉네임')
+    , new COMMON_CODE('phone', '4', '연락처')
+    , new COMMON_CODE('roomNm', '5', '방송제목')
+];
