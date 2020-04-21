@@ -24,7 +24,6 @@
                                 <span id="smsArea"></span>
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,8 +77,11 @@
     });
 
     function init() {
-        $("#txt_startSel").datepicker("setDate", new Date());
-        $("#txt_endSel").datepicker("setDate", new Date());
+        var date = new Date();
+        var thisYear = date.getFullYear();
+        var thisMonth = date.getMonth() + 1;
+        $("#txt_startSel").datepicker("setDate", thisYear + '.' + thisMonth + '.01');
+        $("#txt_endSel").datepicker("setDate", date);
 
         $("#txt_startSel").on("dp.change", function() {
            $(this).html($(this).val());
@@ -95,9 +97,9 @@
 
     function compare() {
         var startDate = $("#txt_startSel").val();
-        var startDateArr = startDate.split('-');
+        var startDateArr = startDate.split('.');
         var endDate = $("#txt_endSel").val();
-        var endDateArr = endDate.split('-');
+        var endDateArr = endDate.split('.');
 
         var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1]-1), startDateArr[2]);
         var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1]-1), endDateArr[2]);
