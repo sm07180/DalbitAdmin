@@ -148,15 +148,6 @@
         $("#imageFullSize").html(util.imageFullSize("fullSize_live",url));
         $('#fullSize_live').modal('show');
     }
-    function onErrorImg(){
-        var tmp = IMAGE_SERVER_URL + "/profile_3/profile_f.jpg";
-        console.log("--------------------------- 1");
-        console.log(tmp);
-        $("#profileImg").prop("src" ,tmp);
-        console.log("--------------------------- 2");
-        console.log($("#profileImg").prop("src"));
-    }
-
     /*=============엑셀==================*/
     $('#liveexcelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");

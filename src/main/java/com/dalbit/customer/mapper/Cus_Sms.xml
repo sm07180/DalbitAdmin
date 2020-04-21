@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.customer.dao.Cus_SmsDao">
+
+    <select id="getSmsList" parameterType="com.dalbit.customer.vo.SmsVo" resultType="com.dalbit.customer.vo.SmsVo">
+      select *
+      from (
+          select
+              cmid
+              , send_phone
+              , wap_info
+              , dest_phone
+              , report_time
+              , msg_body
+              , vxml_file
+              , @RNUM := @RNUM + 1 as rowNum
+          from rd_data.hp_msg_hist_000000
+          , (select @RNUM := 0) r
+          order by report_time desc
+      ) a
+      where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="getSmsListCnt" parameterType="com.dalbit.customer.vo.SmsVo" resultType="integer">
+        select
+          count(*)
+          from (
+          select
+              cmid
+              , send_phone
+              , wap_info
+              , dest_phone
+              , report_time
+              , msg_body
+              , vxml_file
+              from rd_data.hp_msg_hist_000000
+          ) b
+    </select>
+</mapper>

@@ -459,7 +459,7 @@
                 <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
 
                 <th>제목</th>
-                <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen onkeypress="titleInput();"></td>
+                <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen onkeypress="titleInput();" onkeyup="titleInput();"></td>
 
                 <th>조회수</th>
                 <td>{{addComma viewCnt}}</td>

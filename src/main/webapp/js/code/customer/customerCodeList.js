@@ -57,3 +57,12 @@ var declaration_send = [
     , new COMMON_CODE('yes', '1', '알림 발송함')
     , new COMMON_CODE('no', '0', '알림 발송 안함')
 ];
+
+/** =------ Sms ---------- */
+
+var sms_code = [
+  new COMMON_CODE(null, 'vxml_file', 'sms구분')
+  , new COMMON_CODE('all', '', '전체')
+  , new COMMON_CODE('join', '0', '회원가입')
+  , new COMMON_CODE('change', '1', '비밀번호 변경')
+];
