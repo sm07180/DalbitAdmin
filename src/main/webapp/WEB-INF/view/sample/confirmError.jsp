@@ -166,5 +166,9 @@
         <td style="text-align:left">{{desc}}</td>
         <td>{{upd_date}}</td>
     </tr>
+    {{else}}
+    <tr>
+        <td colspan="7">{{isEmptyData}}</td>
+    </tr>
     {{/each}}
 </script>
