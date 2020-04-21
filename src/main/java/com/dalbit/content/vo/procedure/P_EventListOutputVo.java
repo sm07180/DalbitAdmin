@@ -41,6 +41,11 @@ public class P_EventListOutputVo extends BaseVo {
     private String regDateFormat;
     private String lastUpdDateFormat;
 
+    private int mem_cnt;
+    private int male_cnt;
+    private int female_cnt;
+    private int win_cnt;
+
     public void setStart_datetime(Date start_datetime){
         this.start_datetime = start_datetime;
         this.startDatetimeFormat = DalbitUtil.convertDateFormat(start_datetime, "yyyy.MM.dd HH:mm:ss");

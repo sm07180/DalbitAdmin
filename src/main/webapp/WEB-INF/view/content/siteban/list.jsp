@@ -51,10 +51,10 @@
                                     <button type="button" class="btn btn-default" id="deleteBtn"><i class="fa fa-trash-o"></i>선택삭제</button>
                                 </div>
 
-                                <div class="btn-group pull-right" role="group">
+                                <%--<div class="btn-group pull-right" role="group">
                                     <button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>
                                     <button type="button" class="btn btn-primary" id="insertBtn"><i class="fa fa-floppy-o"></i>적용</button>
-                                </div>
+                                </div>--%>
                             </div>
                         </div>
                     </div>

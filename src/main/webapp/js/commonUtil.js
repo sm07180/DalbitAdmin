@@ -92,9 +92,9 @@ util.getAjaxData = function(dst_id, dst_url, dst_params, successFunc, errorFunc,
 util.commonAjaxError = function(data, textStatus, jqXHR) {
     try {
         console.log(data);
-        if (0 < data.responseText.indexOf('로그인')) {
-            //alert('세션이 만료되어 로그인 페이지로 이동합니다.');
-            //location.href = '/login';
+        if (textStatus == 'parsererror' && 0 < data.responseText.indexOf('로그인')) {
+            alert('세션이 만료되어 로그인 페이지로 이동합니다.');
+            location.href = '/login';
         }
     } catch (e) {
 

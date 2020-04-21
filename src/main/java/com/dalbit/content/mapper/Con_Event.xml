@@ -4,11 +4,14 @@
 
     <select id="callEventList" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">
         select @rownum := @rownum + 1 as rowNum, a.*
-            from ( select if(start_datetime > now(),'대기 중','진행중') as state ,b.*
-                      From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
-                     where end_datetime >= now()
-                     order by reg_date desc
-                      limit #{pageNo}, #{pageCnt}) a
+                ,(select count(*) from rd_data.tb_member_basic where mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) mem_cnt
+                ,(select count(*) from rd_data.tb_member_basic where mem_sex = 'm' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) male_cnt
+                ,(select count(*) from rd_data.tb_member_basic where mem_sex = 'f' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) female_cnt
+           from ( select if(start_datetime > now(),'대기 중','진행중') as state ,b.*
+                    From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
+                   where end_datetime >= now()
+                   order by reg_date desc
+                    limit #{pageNo}, #{pageCnt}) a
     </select>
     <select id="callEventList_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">
        select count(*) From rd_admin.tb_event_basic where end_datetime >= now()
@@ -16,11 +19,15 @@
 
     <select id="callEventList_End" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventListOutputVo">
         select @rownum := @rownum + 1 as rowNum, a.*
-            from ( select '마감' as state ,b.*
-                      From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
-                     where end_datetime <![CDATA[<]]> now()
-                     order by reg_date desc
-                      limit #{pageNo}, #{pageCnt}) a
+                ,(select count(*) from rd_data.tb_member_basic where mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) mem_cnt
+                ,(select count(*) from rd_data.tb_member_basic where mem_sex = 'm' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) male_cnt
+                ,(select count(*) from rd_data.tb_member_basic where mem_sex = 'f' and mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx)) female_cnt
+                ,(select count(*) from rd_data.tb_member_basic where mem_no in (select mem_no From rd_admin.tb_event_member b where event_idx = a.idx and is_win='1')) as win_cnt
+          from ( select '마감' as state ,b.*
+                   From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
+                  where end_datetime <![CDATA[<]]> now()
+                  order by reg_date desc
+                   limit #{pageNo}, #{pageCnt}) a
     </select>
     <select id="callEventList_End_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventListInputVo" resultType="integer">
        select count(*) From rd_admin.tb_event_basic where end_datetime  <![CDATA[<]]>  now()
