@@ -161,3 +161,11 @@ Handlebars.registerHelper("isEmptyData", function() {
 Handlebars.registerHelper("isSmall", function(value, target, opt) {
     return common.isSmall(value, target, opt);
 });
+
+Handlebars.registerHelper("upAndDownClass", function(value) {
+    return common.upAndDownClass(value);
+});
+
+Handlebars.registerHelper("upAndDownIcon", function(value) {
+    return common.upAndDownIcon(value);
+});

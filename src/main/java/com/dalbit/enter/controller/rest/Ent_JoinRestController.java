@@ -100,4 +100,16 @@ public class Ent_JoinRestController {
         String result = entJoinService.callJoinWithdraw(pStatVo);
         return result;
     }
+
+    @PostMapping("stat/join")
+    public String statJoin(){
+        String result = entJoinService.callStatJoin();
+        return result;
+    }
+
+    @PostMapping("stat/withdraw")
+    public String statWithdraw(){
+        String result = entJoinService.callStatWithdraw();
+        return result;
+    }
 }

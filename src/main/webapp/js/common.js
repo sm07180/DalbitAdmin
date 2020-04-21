@@ -181,8 +181,6 @@ common.isEmptyData = function(){
 }
 
 common.isSmall = function(value, target, opt){
-    console.log(value);
-    console.log(target);
     return 0 < target - value ? opt.fn(this) : opt.inverse(this);;
 }
 
@@ -226,4 +224,24 @@ common.stringToDateTime = function (strDate) {
         return new Date(strDate.substring(0,4), strDate.substring(4,6)-1, strDate.substring(6,8), strDate.substring(8,10), strDate.substring(10,12), strDate.substring(12,15));
     }
 
+}
+
+common.upAndDownClass = function(value){
+    var result = '';
+    if(0 < Number(value)){
+        result = '_up';
+    }else if(Number(value) < 0){
+        result = '_down';
+    }
+    return result;
+}
+
+common.upAndDownIcon = function(value){
+    var result = '';
+    if(0 < Number(value)){
+        result = 'fa-caret-up';
+    }else if(Number(value) < 0){
+        result = 'fa-caret-down';
+    }
+    return result;
 }

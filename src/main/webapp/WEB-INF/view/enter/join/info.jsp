@@ -58,32 +58,7 @@
                                         <th>증감</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>남</th>
-                                        <td>32</td>
-                                        <td>64</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                        <td>64</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                    </tr>
-                                    <tr>
-                                        <th>여</th>
-                                        <td>20</td>
-                                        <td>40</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                        <td>64</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                    </tr>
-                                    <tr>
-                                        <th>총계</th>
-                                        <td>52</td>
-                                        <td>104</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 20</td>
-                                        <td>104</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 20</td>
-                                    </tr>
-                                </tbody>
+                                    <tbody id="statJoinTableBody"></tbody>
                             </table>
                         </div>
                     </div>
@@ -111,32 +86,7 @@
                                     <th>증감</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <th>남</th>
-                                    <td>32</td>
-                                    <td>64</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                    <td>64</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                </tr>
-                                <tr>
-                                    <th>여</th>
-                                    <td>20</td>
-                                    <td>40</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                    <td>64</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 10</td>
-                                </tr>
-                                <tr>
-                                    <th>총계</th>
-                                    <td>52</td>
-                                    <td>104</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 20</td>
-                                    <td>104</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 20</td>
-                                </tr>
-                                </tbody>
+                                <tbody id="statWithdrawTableBody"></tbody>
                             </table>
                         </div>
                     </div>
@@ -180,8 +130,11 @@
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
 
-        //목록 부르기 공통 함수
-        //getTotalList();
+        //가입자수 통계 현황
+        getStatJoinInfo();
+
+        //탈퇴자수 통계 현황
+        getStatWithdrawInfo();
     });
 
     $(document).on('change', 'input[name="slctType"]', function(){
@@ -231,4 +184,63 @@
             customRangeLabel: '직접선택',
         }
     }
+
+    function getStatJoinInfo(){
+        util.getAjaxData("statJoin", "/rest/enter/join/stat/join", null, fn_statJoin_success);
+    }
+
+    function fn_statJoin_success(data, response){
+        var template = $('#tmp_statJoin').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.joinInfo;
+        var html=templateScript(context);
+        $("#statJoinTableBody").append(html);
+    }
+
+    function getStatWithdrawInfo(){
+        util.getAjaxData("statJoin", "/rest/enter/join/stat/withdraw", null, fn_statWithdraw_success);
+    }
+
+    function fn_statWithdraw_success(data, response){
+        var template = $('#tmp_statJoin').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.withdrawInfo;
+        var html=templateScript(context);
+        $("#statWithdrawTableBody").append(html);
+    }
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_statJoin">
+    <tr>
+        <th>남</th>
+        <td>{{addComma m_now_Cnt}}</td>
+        <td>{{addComma m_yes_Cnt}}</td>
+        <td class="{{upAndDownClass m_now_inc_cnt}}"><i class="fa {{upAndDownIcon m_now_inc_cnt}}"></i> {{addComma m_now_inc_cnt}}</td>
+        <td>{{addComma m_week_cnt}}</td>
+        <td class="{{upAndDownClass m_week_inc_cnt}}"><i class="fa {{upAndDownIcon m_week_inc_cnt}}"></i> {{addComma m_week_inc_cnt}}</td>
+    </tr>
+    <tr>
+        <th>여</th>
+        <td>{{addComma f_now_Cnt}}</td>
+        <td>{{addComma f_yes_Cnt}}</td>
+        <td class="{{upAndDownClass f_now_inc_cnt}}"><i class="fa {{upAndDownIcon f_now_inc_cnt}}"></i> {{addComma f_now_inc_cnt}}</td>
+        <td>{{addComma f_week_cnt}}</td>
+        <td class="{{upAndDownClass f_week_inc_cnt}}"><i class="fa {{upAndDownIcon f_week_inc_cnt}}"></i> {{addComma f_week_inc_cnt}}</td>
+    </tr>
+    <tr>
+        <th>알수없음</th>
+        <td>{{addComma n_now_Cnt}}</td>
+        <td>{{addComma n_yes_Cnt}}</td>
+        <td class="{{upAndDownClass n_now_inc_cnt}}"><i class="fa {{upAndDownIcon n_now_inc_cnt}}"></i> {{addComma n_now_inc_cnt}}</td>
+        <td>{{addComma n_week_cnt}}</td>
+        <td class="{{upAndDownClass n_week_inc_cnt}}"><i class="fa {{upAndDownIcon n_week_inc_cnt}}"></i> {{addComma n_week_inc_cnt}}</td>
+    </tr>
+    <tr>
+        <th>총계</th>
+        <td>{{addComma t_now_Cnt}}</td>
+        <td>{{addComma t_yes_Cnt}}</td>
+        <td class="{{upAndDownClass t_now_inc_cnt}}"><i class="fa {{upAndDownIcon t_now_inc_cnt}}"></i> {{addComma t_now_inc_cnt}}</td>
+        <td>{{addComma t_week_cnt}}</td>
+        <td class="{{upAndDownClass t_week_inc_cnt}}"><i class="fa {{upAndDownIcon t_week_inc_cnt}}"></i> {{addComma t_week_inc_cnt}}</td>
+    </tr>
 </script>
