@@ -61,6 +61,22 @@ var push_slctPush = [
     , new COMMON_CODE('event', '5', '이벤트 및 마케팅 정보')
 ];
 
+var push_slctPush2 = [
+    new COMMON_CODE(null, 'slctPush', '푸시타입')
+    , new COMMON_CODE('room', '1', '방송방 [room_no]')
+    , new COMMON_CODE('main', '2', '메인')
+    , new COMMON_CODE('fan', '31', '마이페이지>팬 보드')
+    , new COMMON_CODE('wallet', '32', '마이페이지>내 지갑')
+    , new COMMON_CODE('cast', '33', '마이페이지>캐스트>캐스트 정보 변경 페이지')
+    , new COMMON_CODE('noti', '34', '마이페이지>알림>해당 알림 글')
+    , new COMMON_CODE('mypage', '35', '마이페이지')
+    , new COMMON_CODE('djpage', '36', '레벨 업 DJ 마이페이지 [mem_no]')
+    , new COMMON_CODE('incast', '4', '등록 된 캐스트')
+    , new COMMON_CODE('spdj', '5', '스페셜 DJ 선정 페이지')
+    , new COMMON_CODE('event', '6', '이벤트 페이지>해당 이벤트 [board_idx]')
+    , new COMMON_CODE('notice', '7', ' 공지사항 페이지 [board_idx]')
+];
+
 var push_sendType = [
     new COMMON_CODE(null, 'sendType', '발송 구분')
     , new COMMON_CODE('instant', '0', '즉시발송')

@@ -2,9 +2,11 @@ package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public interface PushDao {
@@ -17,4 +19,6 @@ public interface PushDao {
 
 
     ProcedureVo callStmpPushAdd(ProcedureVo procedureVo);
+
+    List<P_MemberListOutputVo> selectMemInfo(List arrayList);
 }

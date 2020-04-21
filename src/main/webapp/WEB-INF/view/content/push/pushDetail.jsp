@@ -28,8 +28,6 @@
             if(common.isEmpty(getSelectDataInfo())){
                 fnc_pushDetail.insertDetail();
             }else{
-                console.log(getSelectDataInfo());
-
                 var data = new Object();
                 data.push_idx = getSelectDataInfo().data.push_idx;
 
@@ -60,39 +58,13 @@
 
             //수신대상 선택
             this.target.find("input[name='is_all']").change(function () {
-                if ($(this).val() == "-1") {
-                    if ($(this).is(":checked")) {
-                        fnc_pushDetail.target.find("input[name='is_all']").each(function () {
-                            if ($(this).val() != "target") {
-                                this.checked = true;
-                            }
-                        });
-                    } else {
-                        fnc_pushDetail.target.find("input[name='is_all']").each(function () {
-                            if ($(this).val() != "target") {
-                                this.checked = false;
-                            }
-                        });
-                    }
-                } else if ($(this).val() == "target") { //지정 회원
-                    if ($(this).is(":checked")) {
-                        fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", false);
-                        fnc_pushDetail.target.find("#div_selectTarget").show();
-                    } else {
-                        fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
-                        fnc_pushDetail.target.find("#div_selectTarget").hide();
-                        fnc_pushDetail.target.find("#div_selectTarget").empty();
-                    }
+                if ($(this).val() == "7") { //지정 회원
+                    fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", false);
+                    fnc_pushDetail.target.find("#div_selectTarget").show();
                 } else {
-                    if ($(this).is(":checked")) {
-                        var cntTotal = fnc_pushDetail.target.find("input[name='is_all']").length;
-                        var cntChecked = fnc_pushDetail.target.find("input[name='is_all']:checked").length;
-                        if ((cntTotal - 1) == (cntChecked + 1)) {     //지정회원 제외
-                            fnc_pushDetail.target.find("input[name='is_all'][value='-1']").prop("checked", true);
-                        }
-                    } else {
-                        fnc_pushDetail.target.find("input[name='is_all'][value='-1']").prop("checked", false);
-                    }
+                    fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
+                    fnc_pushDetail.target.find("#div_selectTarget").hide();
+                    fnc_pushDetail.target.find("#div_selectTarget").empty();
                 }
             });
 
@@ -180,12 +152,11 @@
             console.log(detailData);
 
             // 지정회원일 경우 추가처리
-            if(detailData.is_all == "1"){
-                var selectTarget = detailData.mem_nos.split("|");
+            if(detailData.is_all == "7"){
+                var selectTarget = detailData.mem_info;
                 var data = {};
                 for(var idx in selectTarget){
-                    var target = selectTarget[idx];
-                    data.mem_no = target;
+                    var data = selectTarget[idx];
                     fnc_pushDetail.choiceMember(data);
                 }
             }
@@ -330,14 +301,18 @@
 
             //지정회원 parsing
             var selectTarget = [];
-            if (fnc_pushDetail.target.find("input:checkbox[name=is_all]:checked").val() == "1") {
+            var send_cnt = -1;
+            if (fnc_pushDetail.target.find("input[name=is_all]:checked").val() == "7") {
+                send_cnt = fnc_pushDetail.target.find("#div_selectTarget").find("p").length;
                 fnc_pushDetail.target.find("#div_selectTarget").find("p").each(function () {
                     var id = $(this).prop("id");
                     selectTarget.push(id);
                 })
-                console.log(selectTarget.toString());
+
                 resultJson['mem_nos'] = selectTarget.toString().replace(/,/gi , "|");
             }
+
+            resultJson['send_cnt'] = send_cnt;
 
             dalbitLog(resultJson)
             return resultJson;
@@ -369,7 +344,7 @@
                 return false;
             }
 
-            if (data.is_all == "1") {
+            if (data.is_all == "7") {
                 if (common.isEmpty(data.mem_nos)) {
                     alert("발송 대상을 선택하여 주시기 바랍니다.");
                     fnc_pushDetail.target.find("#btn_selectMember").focus();
@@ -391,8 +366,6 @@
 
             if (data.is_direct == "1") {
                 var sendDate = common.stringToDateTime(data.send_datetime);
-                console.log(sendDate.toLocaleString());
-                console.log(moment().toDate().toLocaleString());
                 if(sendDate < moment()){
                    if(!confirm("예약발송 시간이 현재 시간보다 이전 시간 입니다.\n그래도 예약발송을 진행 하시겠습니까?")){
                        return false;
@@ -415,7 +388,7 @@
 
         // [수신대상 선택 - 지정회원] 회원 추가
         choiceMember(data) {
-            var html = '<p id="' + data.mem_no + '">' + data.mem_no + ' <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
+            var html = '<p id="' + data.mem_no + '">' + data.mem_nick + '(' +data.mem_userid+ ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
 
             if(fnc_pushDetail.target.find("#div_selectTarget").find("p").length >= 20){
                 alert("수신대상자는 최대 20명까지 지정 가능합니다.");
@@ -499,14 +472,14 @@
                 <th rowspan="2">수신대상 선택</th>
                 <td colspan="5" rowspan="2">
                     <div>
-                        <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="0" disabled><span>전체</span> </label>
+                        <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control" disabled><span><i></i>전체</span> </label>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>생방송</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="2" checked="true"><span>여자</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="3" checked="true"><span>남자</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="4" checked="true"><span>로그인</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="5" checked="true"><span>비로그인</span></label>--%>
                         <div>
-                            <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>지정 회원 </span></label>
+                            <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="7" id="is_all7" name="is_all" class="form-control" checked="checked"><span><i></i>지정 회원 </span></label>
                             <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember"/>
                         </div>
                     </div>
@@ -515,8 +488,8 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="3">메세지 내용</th>
-                <td colspan="5" rowspan="3">
+                <th rowspan="2">메세지 내용</th>
+                <td colspan="5" rowspan="2">
                     <div>
                         <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40">{{send_cont}}</textarea>
                         <span style="color: red">* 메시지 내용은 10자~40자(한글) 입력 가능합니다.</span>
@@ -528,6 +501,9 @@
                 <td colspan="5">{{{getCommonCodeRadio msg_type 'push_messageType' 'N' 'msg_type'}}}</td>
             </tr>
             <tr>
+                <th>이동 링크</th>
+                <td colspan="5"><input type="text" class="form-control" name="link_url" id="push-link_url" placeholder="푸시 클릭 시 이동 URL을 입력해주세요." value="{{link_url}}"></td>
+
                 <th>발송여부</th>
                 <td colspan="5">
                     <div>
