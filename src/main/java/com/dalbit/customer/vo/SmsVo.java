@@ -7,6 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SmsVo extends PagingVo {
+
+    /* input */
+    private String searchText;
+
+    /* output */
     private String cmid;
     private String send_phone;
     private String wap_info;

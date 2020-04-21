@@ -56,19 +56,19 @@
        init();
     });
 
+    $('input[id="searchText"]').keydown(function(e) {
+        if(e.keyCode == 13) {
+            smsList();
+        }
+    });
+    $("#bt_search").on('click', function() {
+        smsList();
+    });
+
     function init() {
         $("#smsArea").html(util.getCommonCodeSelect(-1, sms_code));
         smsList();
     }
-
-    $('input[id="searchText"]').keydown(function(e) {
-       if(e.keyCode == 13) {
-           smsList();
-       }
-    });
-    $("#bt_search").on('click', function() {
-       smsList();
-    });
 
     function smsList() {
         $("#pageStart").val(listPagingInfo.pageNo);
@@ -89,6 +89,12 @@
         listPagingInfo.totalCnt = pagingInfo.totalCnt;
         dalbitLog(listPagingInfo);
         util.renderPagingNavigation("list_info_paginate", listPagingInfo);
+
+        if(response.data.length == 0) {
+            $("#list_info_paginate").hide();
+        } else {
+            $("#list_info_paginate").show();
+        }
     }
 
     function handlebarsPaging(targetId, pagingInfo) {
@@ -111,5 +117,9 @@
         <td>{{msg_body}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
     </tr>
+    {{else}}
+        <tr>
+            <td colspan="6">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>

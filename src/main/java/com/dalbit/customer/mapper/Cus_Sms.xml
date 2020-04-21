@@ -2,7 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.customer.dao.Cus_SmsDao">
 
+    <sql id="condition">
+        <where>
+        <if test = 'vxml_file == "0" or vxml_file == "1" or vxml_file == "" or vxml_file == null'>
+            and vxml_file = #{vxml_file}
+        </if>
+
+        <if test = 'searchText != null and searchText != ""'>
+            and send_phone like concat('%', #{searchText}, '%')
+            or wap_info like concat('%', #{searchText}, '%')
+            or dest_phone like concat('%', #{searchText}, '%')
+            or msg_body like concat('%', #{searchText}, '%')
+        </if>
+        </where>
+    </sql>
+
     <select id="getSmsList" parameterType="com.dalbit.customer.vo.SmsVo" resultType="com.dalbit.customer.vo.SmsVo">
+        /* Cus_Sms.xml - getSmsList */
       select *
       from (
           select
@@ -16,12 +32,14 @@
               , @RNUM := @RNUM + 1 as rowNum
           from rd_data.hp_msg_hist_000000
           , (select @RNUM := 0) r
+        <include refid="condition"/>
           order by report_time desc
       ) a
       where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
     <select id="getSmsListCnt" parameterType="com.dalbit.customer.vo.SmsVo" resultType="integer">
+        /* Cus_Sms.xml - getSmsListCnt */
         select
           count(*)
           from (
@@ -34,6 +52,7 @@
               , msg_body
               , vxml_file
               from rd_data.hp_msg_hist_000000
-          ) b
+        <include refid="condition"/>
+        ) b
     </select>
 </mapper>
