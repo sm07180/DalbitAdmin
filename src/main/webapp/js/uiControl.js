@@ -32,7 +32,8 @@ ui.loadInforexAdminPage = function(menu){
 }
 
 ui.topScroll = function(){
-    window.scrollTo(0,0);
+    //window.scrollTo(0,0);
+    $('html').animate({scrollTop : 0}, 100);
 }
 
 ui.checkBoxInit = function(tableId){

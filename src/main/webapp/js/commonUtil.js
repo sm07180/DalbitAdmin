@@ -481,5 +481,7 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
 
         //한 페이지에 여러개의 페이징이 있을 경우 구분하기위해 targetId를 같이 보낸다.
         handlebarsPaging(targetId, pagingInfo);
+
+        ui.topScroll();
     });
 }

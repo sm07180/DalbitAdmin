@@ -60,7 +60,10 @@
 <script type="text/javascript">
     var listPagingInfo = new PAGING_INFO(0,1,20);
 
-    $("#htmlTag").html("ㆍ서비스를 위한 문자 발송 대기/완료 상태 및 발송 내역을 확인할 수 있습니다. <br>ㆍ대기 상태가 수일을 통과한 경우 SMS 발송 담당자에게 문의하여 주시기 바랍니다. <br>");
+    $("#htmlTag").html("ㆍ서비스를 위한 문자 발송 대기/완료 상태 및 발송 내역을 확인할 수 있습니다. " +
+        "<br>ㆍ대기 상태가 수일을 경과한 경우 SMS 발송 담당자에게 문의하여 주시기 바랍니다. " +
+        "<br> ㆍ서비스를 위한 문자 발송 상태 실패 내역을 확인 할 수 있습니다.");
+
     $(document).ready(function() {
        init();
     });
@@ -101,13 +104,14 @@
         var endDate = $("#txt_endSel").val();
         var endDateArr = endDate.split('.');
 
-        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1]-1), startDateArr[2]);
-        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1]-1), endDateArr[2]);
+        var startDateCompare = new Date(startDateArr[0], startDateArr[1]-1, startDateArr[2]);
+        var endDateCompare = new Date(endDateArr[0], endDateArr[1]-1, endDateArr[2]);
 
         if(startDateCompare.getTime() > endDateCompare.getTime()) {
             alert('시작날짜와 종료날짜를 확인해주세요');
         }
     }
+
     function smsList() {
         $("#pageStart").val(listPagingInfo.pageNo);
         $("#pageCnt").val(listPagingInfo.pageCnt);
@@ -143,8 +147,6 @@
         dalbitLog("#####실패");
     }
 
-
-
 </script>
 
 <script id="tmp_smsList" type="text/x-handlebars-template">
@@ -152,7 +154,7 @@
     <tr>
         <td>{{cmid}}</td>
         <td>{{send_phone}}</td>
-        <td>{{wap_info}} / {{dest_phone}}</td>
+        <td>[{{wap_info}}] {{dest_phone}}</td>
         <td>{{report_time}}</td>
         <td>{{msg_body}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
