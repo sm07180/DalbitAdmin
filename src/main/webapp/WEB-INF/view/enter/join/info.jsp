@@ -104,6 +104,7 @@
 </div>
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js"></script>
+<script type="text/javascript" src="/js/util/statUtil.js"></script>
 <script type="text/javascript">
     $(function(){
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
@@ -126,9 +127,7 @@
 
         var dateTime = new Date();
         dateTime = moment(dateTime).format("YYYY.MM.DD");
-        $("#onedayDate").val(dateTime);
-        $("#startDate").val(dateTime);
-        $("#endDate").val(dateTime);
+        setTimeDate(dateTime);
 
         //가입자수 통계 현황
         getStatJoinInfo();
@@ -136,6 +135,21 @@
         //탈퇴자수 통계 현황
         getStatWithdrawInfo();
     });
+
+    function setTimeDate(dateTime){
+        $("#onedayDate").val(dateTime);
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("._searchDate").html(dateTime);
+    }
+
+    function setRangeDate(displayDate, startDate, endDate){
+        $("#onedayDate").val(startDate);
+        $("#startDate").val(startDate);
+        $("#endDate").val(endDate);
+        $("._searchDate").html(displayDate);
+        $("#displayDate").val(startDate + ' - ' + endDate);
+    }
 
     $(document).on('change', 'input[name="slctType"]', function(){
        var me = $(this);
@@ -146,6 +160,7 @@
             $("#startDate").val($("#onedayDate").val());
             $("#endDate").val($("#onedayDate").val());
 
+            $("._searchDate").html($("#onedayDate").val());
 
        }else{
            $("#oneDayDatePicker").hide();
@@ -156,6 +171,12 @@
                $("#startDate").val(rangeDate[0]);
                $("#endDate").val(rangeDate[1]);
            };
+
+           if(me.val() == 1){
+               $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년 MM월'));
+           }else{
+               $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년'));
+           }
        }
     });
 
@@ -207,6 +228,33 @@
         var context = response.data.withdrawInfo;
         var html=templateScript(context);
         $("#statWithdrawTableBody").append(html);
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        prevNext(true);
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        prevNext(false);
+    });
+
+    function prevNext(isPrev){
+        var slctType = $('input[name="slctType"]:checked').val();
+        var targetDate = statUtil.getStatTimeDate($("#onedayDate").val(), stat_searchType, slctType, isPrev);
+        var addDate = isPrev ? -1 : 1;
+
+        if(slctType == 0){
+            setTimeDate(targetDate);
+        }else if(slctType == 1){
+            $("#startDate").val(moment($("#startDate").val()).add("months", addDate).format('YYYY.MM.DD'));
+            $("#endDate").val(moment($("#endDate").val()).add("months", addDate).format('YYYY.MM.DD'));
+            setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
+        }else{
+            $("#startDate").val(moment($("#startDate").val()).add("years", addDate).format('YYYY.MM.DD'));
+            $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
+            setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
+        }
+        $("#bt_search").click();
     }
 </script>
 

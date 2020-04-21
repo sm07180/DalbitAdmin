@@ -19,7 +19,6 @@
                     <div class="tab-pane fade" id="platGender"><jsp:include page="platform_gender.jsp"/></div>  <!-- 플랫폼(성별) -->
                     <div class="tab-pane fade" id="platAge"><jsp:include page="platform_age.jsp"/></div>        <!-- 플랫폼(연령별) -->
                     <div class="tab-pane fade" id="memberQuit"><jsp:include page="member_withdraw.jsp"/></div>      <!-- 회원 탈퇴 -->
-                    <%--<div class="tab-pane fade" id="memberAll"><jsp:include page="member_all.jsp"/></div>        <!-- 전체 회원 -->--%>
                 </div>
             </div>
         </div>
@@ -43,6 +42,8 @@
        }else if(tabId == 'tab_withdraw'){
            getWithdrawList();
        }
+
+        $(".searchDate").html($("#onedayDate").val());
     });
 
     $("#bt_search").on('click', function(){
