@@ -20,7 +20,7 @@ var EventDataTableSource = {
                 return result;
             }},
             {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
-                return '<img src="' + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+                return '<img src="' + data + '" style="width: 45px; height: 45px;" onclick="eventList_fullSize(this.src);" />'
             }},
             {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_eventList.getEventDetail_info('+meta.row+');">' + data + '</a>'
@@ -34,9 +34,15 @@ var EventDataTableSource = {
                 return tmp;
             }},
             {'title': '조회수', 'data': 'event_col10', 'defaultContent': '0'},
-            {'title': '총 응모자', 'data': 'event_col11', 'defaultContent': '0'},
-            {'title': '남', 'data': 'event_col12', 'defaultContent': '0'},
-            {'title': '여', 'data': 'event_col13', 'defaultContent': '0'},
+            {'title': '총 응모자', 'data': 'mem_cnt', 'render': function (data) {
+                    return data + " 명";
+                }},
+            {'title': '남', 'data': 'male_cnt', 'render': function (data) {
+                    return data + " 명";
+                }},
+            {'title': '여', 'data': 'female_cnt', 'render': function (data) {
+                    return data + " 명";
+                }},
             {'title': '등록자명', 'data': 'op_name'}
         ]
         , 'comments': '<div>• 이벤트 기간을 기준으로 이벤트 기간 마감 1초전까지의 리스트입니다.</div><div>• [등록 ]버튼 클릭 시 이벤트 상세정보 입력 페이지를 제공하고 , 선택 시 해당 이벤트 상세페이지를 확인 및 관리할 수 있습니다.</div><div>• 이벤트 제목 클릭 시 미리보기가 가능합니다.</div>'
@@ -64,7 +70,7 @@ var EventDataTableSource = {
                     return result;
                 }},
             {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
-                    return '<img src="' + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+                    return '<img src="' + data + '" style="width: 45px; height: 45px;" onclick="eventPastList_fullSize(this.src);" />'
                 }},
             {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_pastEventList.getEventDetail_info('+meta.row+');">' + data + '</a>'
@@ -78,10 +84,18 @@ var EventDataTableSource = {
                     return tmp;
                 }},
             {'title': '조회수', 'data': 'event_col10', 'defaultContent': '0'},
-            {'title': '총 응모자', 'data': 'event_col11', 'defaultContent': '0'},
-            {'title': '남', 'data': 'event_col12', 'defaultContent': '0'},
-            {'title': '여', 'data': 'event_col13', 'defaultContent': '0'},
-            {'title': '당첨자', 'data': 'event_col14', 'defaultContent': '0'},
+            {'title': '총 응모자', 'data': 'mem_cnt', 'render': function (data) {
+                    return data + " 명";
+                }},
+            {'title': '남', 'data': 'male_cnt', 'render': function (data) {
+                    return data + " 명";
+                }},
+            {'title': '여', 'data': 'female_cnt', 'render': function (data) {
+                    return data + " 명";
+                }},
+            {'title': '당첨자', 'data': 'win_cnt', 'render': function (data) {
+                    return data + " 명";
+                }},
             {'title': '등록자명', 'data': 'op_name'}
         ]
         , 'comments': '<div>• 이벤트 기간을 기준으로 이벤트 기간 마감 1초전까지의 리스트입니다.</div><div>• [등록 ]버튼 클릭 시 이벤트 상세정보 입력 페이지를 제공하고 , 선택 시 해당 이벤트 상세페이지를 확인 및 관리할 수 있습니다.</div><div>• 이벤트 제목 클릭 시 미리보기가 가능합니다.</div>'

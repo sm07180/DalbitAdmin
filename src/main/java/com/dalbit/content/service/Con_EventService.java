@@ -99,7 +99,6 @@ public class Con_EventService {
         if(!DalbitUtil.isEmpty(eventMemberList)) {
             for (int i = 0; i < eventMemberList.size(); i++) {
                 winCnt = con_EventDao.callEventMemberList_winCnt(eventMemberList.get(i).getMem_no());
-
                 P_EventMemberListOutputVo outVo = new P_EventMemberListOutputVo();
                 outVo.setRowNum(eventMemberList.get(i).getRowNum());
                 outVo.setEvent_idx(eventMemberList.get(i).getEvent_idx());
@@ -115,7 +114,6 @@ public class Con_EventService {
                 outVo.setGiftCnt(eventMemberList.get(i).getGiftCnt());
                 outVo.setApplyCnt(eventMemberList.get(i).getApplyCnt());
                 outVo.setWinCnt(winCnt);
-
                 list.add(outVo);
 
                 if(eventMemberList.get(i).getMem_sex().equals("m")){
@@ -134,7 +132,6 @@ public class Con_EventService {
                 }
             }
         }
-
 
         P_EventMemberListOutputVo summary = new P_EventMemberListOutputVo();
         summary.setMaleCnt(maleCnt);
