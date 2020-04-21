@@ -36,6 +36,12 @@ public class P_EventMemberListOutputVo extends BaseVo {
     private int applyCnt;
     private int winCnt;
 
+    private int maleCnt;
+    private int femaleCnt;
+    private int maleWinCnt;
+    private int femaleWinCnt;
+    private int overlapCnt;
+
     public void setEnter_date(Date enter_date){
         this.enter_date = enter_date;
         this.enterDateFormat = DalbitUtil.convertDateFormat(enter_date, "yyyy.MM.dd HH:mm:ss");

@@ -69,7 +69,11 @@ util.getAjaxData = function(dst_id, dst_url, dst_params, successFunc, errorFunc,
         },
         crossDomain: true
     }).done(function (data) {
-        if (successFunc != null) successFunc(dst_id, data, dst_params);
+        if (successFunc != null){
+            dalbitLog("[ajax 통신 결과]url : " + dst_url);
+            dalbitLog(data);
+            successFunc(dst_id, data, dst_params);
+        }
     }).fail(function (data, textStatus, jqXHR) {
         try {
             if (errorFunc != null) {
@@ -88,9 +92,9 @@ util.getAjaxData = function(dst_id, dst_url, dst_params, successFunc, errorFunc,
 util.commonAjaxError = function(data, textStatus, jqXHR) {
     try {
         console.log(data);
-        if (0 < data.responseText.indexOf('로그인')) {
-            //alert('세션이 만료되어 로그인 페이지로 이동합니다.');
-            //location.href = '/login';
+        if (textStatus == 'parsererror' && 0 < data.responseText.indexOf('로그인')) {
+            alert('세션이 만료되어 로그인 페이지로 이동합니다.');
+            location.href = '/login';
         }
     } catch (e) {
 

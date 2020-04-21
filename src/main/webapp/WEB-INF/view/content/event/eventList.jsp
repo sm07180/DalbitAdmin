@@ -29,6 +29,8 @@
     </div>
 </div>
 
+<div id="eventList_fullSize"></div>
+
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
 
@@ -126,6 +128,7 @@
             var data = this.dtList_info.getDataRow(index);
             fnc_eventDetail.updateEventDetail(data);
             event_idx = data.idx;
+            fnc_eventReport.init();
         },
 
         // 검색
@@ -168,6 +171,11 @@
             //     console.log("fn_fail_excel");
             // }
             /*----------- 엑셀 ---------=*/
+    }
+
+    function eventList_fullSize(url) {     // 이미지 full size
+        $("#eventList_fullSize").html(util.imageFullSize("eventListFullSize",url));
+        $('#eventListFullSize').modal('show');
     }
 
 </script>

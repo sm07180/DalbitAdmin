@@ -55,16 +55,23 @@
             </if>
     </select>
 
-    <insert id="addAppVersion" parameterType="com.dalbit.content.vo.AppInsertVo">
+    <insert id="addAppVersion" parameterType="com.dalbit.content.vo.AppVo">
         /* App.xml - addAppVersion */
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert
         into
-          rd_admin.tb_app_version (os, version, is_force, is_use, reg_date)
+          rd_admin.tb_app_version (idx, os, version, is_force, is_use, reg_date)
         values
-          (#{os}, #{version}, #{is_force}, #{is_use}, current_timestamp())
-        on duplicate key update
-        is_use = 0
+          (#{idx}, #{os}, #{version}, #{is_force}, #{is_use}, current_timestamp())
     </insert>
+
+    <update id="updateOs" parameterType="com.dalbit.content.vo.AppVo">
+        update rd_admin.tb_app_version
+        set is_use = 0
+        where idx <![CDATA[ <> ]]> #{idx} and os = #{os}
+    </update>
 
     <!--<update id="updateAppVersion" parameterType="com.dalbit.content.vo.AppVo">-->
         <!--/* App.xml - updateAppVersion */-->

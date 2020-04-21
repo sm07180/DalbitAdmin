@@ -7,6 +7,7 @@ import com.dalbit.content.service.Con_EventService;
 import com.dalbit.content.vo.EventVo;
 import com.dalbit.content.vo.procedure.P_EventListInputVo;
 import com.dalbit.content.vo.procedure.P_EventMemberListInputVo;
+import com.dalbit.content.vo.procedure.P_EventMemberSelWinVo;
 import com.dalbit.content.vo.procedure.P_EventUpdateVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.util.DalbitUtil;
@@ -59,7 +60,6 @@ public class Con_EventRestController {
         return result;
     }
 
-
     /**
      * 이벤트 응모자 목록
      */
@@ -69,70 +69,25 @@ public class Con_EventRestController {
         return result;
     }
 
-
-
-
-
-
-
-    @PostMapping("reportstatistics")
-    public String statisticsList(HttpServletRequest request, EventVo eventVo) {
-        int totalCnt = 100;
-        int startIdx = eventVo.getPageStart();
-
-        ArrayList<EventVo> list = new ArrayList<EventVo>();
-
-        EventVo data = new EventVo();
-        data.setRowNum((totalCnt - startIdx));
-        data.setEvent_col1(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col2(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col3(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col5(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col7(DalbitUtil.randomValue("number", 1));
-
-        list.add(data);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt)));
-    }
-
-
-
-    @PostMapping("report")
-    public String reportList(HttpServletRequest request, EventVo eventVo) {
-        int totalCnt = 100;
-        int startIdx = eventVo.getPageStart();
-
-        ArrayList<EventVo> list = new ArrayList<EventVo>();
-        for(int i = 0; i < totalCnt; i++){
-            EventVo data = new EventVo();
-            data.setRowNum((totalCnt - startIdx));
-            data.setEvent_col1(DalbitUtil.randomValue("number", 1));
-            data.setEvent_col2(DalbitUtil.randomValue("number", 1));
-            data.setEvent_col3("응모자/담청자 이란다 ㅋㅋㅋㅋㅋ _" + data.getEvent_col1());
-            data.setEvent_col4(new Date());
-            data.setEvent_col5(DalbitUtil.randomValue("number", 1));
-            data.setEvent_col6(new Date());
-            data.setEvent_col7("YOOSIN");
-
-            list.add(data);
-            startIdx++;
+    /**
+     * 이벤트 선택당첨
+     */
+    @PostMapping("memberSelWin")
+    public String memberSelWin(P_EventMemberSelWinVo pEventMemberSelWinVo){
+        String result="";
+        if(pEventMemberSelWinVo.getChoiceNum() != 0) {
+            result = con_EventService.getEventMemberSelWin(pEventMemberSelWinVo);
         }
-
-        ArrayList<EventVo> summaryList = new ArrayList<EventVo>();
-
-        EventVo data = new EventVo();
-        data.setRowNum((totalCnt - startIdx));
-        data.setEvent_col1(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col2(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col3(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col5(DalbitUtil.randomValue("number", 1));
-        data.setEvent_col7(DalbitUtil.randomValue("number", 1));
-
-        summaryList.add(data);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt), summaryList));
-
+        return result;
     }
 
+    /**
+     * 이벤트 중복 응모자 목록
+     */
+    @PostMapping("overlapApplyList")
+    public String overlapApplyList(P_EventMemberListInputVo pEventMemberListInputVo){
+        String result = con_EventService.getEventOverlapApplyList(pEventMemberListInputVo);
+        return result;
+    }
 
 }

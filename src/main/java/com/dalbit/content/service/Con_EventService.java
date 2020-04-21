@@ -89,11 +89,16 @@ public class Con_EventService {
         int totalCnt = con_EventDao.callEventMemberList_totalCnt(pEventMemberListInputVo);
         int winCnt;
 
+        int maleCnt =0;
+        int femaleCnt =0;
+        int maleWinCnt =0;
+        int femaleWinCnt =0;
+        int overlapCnt =0;
+
         List list = new ArrayList();
         if(!DalbitUtil.isEmpty(eventMemberList)) {
             for (int i = 0; i < eventMemberList.size(); i++) {
                 winCnt = con_EventDao.callEventMemberList_winCnt(eventMemberList.get(i).getMem_no());
-
                 P_EventMemberListOutputVo outVo = new P_EventMemberListOutputVo();
                 outVo.setRowNum(eventMemberList.get(i).getRowNum());
                 outVo.setEvent_idx(eventMemberList.get(i).getEvent_idx());
@@ -109,17 +114,70 @@ public class Con_EventService {
                 outVo.setGiftCnt(eventMemberList.get(i).getGiftCnt());
                 outVo.setApplyCnt(eventMemberList.get(i).getApplyCnt());
                 outVo.setWinCnt(winCnt);
-
                 list.add(outVo);
+
+                if(eventMemberList.get(i).getMem_sex().equals("m")){
+                    maleCnt++;
+                    if(eventMemberList.get(i).getIs_win() == 1){
+                        maleWinCnt++;
+                    }
+                }else{
+                    femaleCnt++;
+                    if(eventMemberList.get(i).getIs_win() == 1){
+                        femaleWinCnt++;
+                    }
+                }
+                if(eventMemberList.get(i).getApplyCnt() > 1){
+                    overlapCnt++;
+                }
             }
         }
 
+        P_EventMemberListOutputVo summary = new P_EventMemberListOutputVo();
+        summary.setMaleCnt(maleCnt);
+        summary.setMaleWinCnt(maleWinCnt);
+        summary.setFemaleCnt(femaleCnt);
+        summary.setFemaleWinCnt(femaleWinCnt);
+        summary.setOverlapCnt(overlapCnt);
+
+
         String result;
         if(eventMemberList.size() > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트응모자목록보기_성공, list, new PagingVo(totalCnt)));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트응모자목록보기_성공, list, new PagingVo(totalCnt),summary));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트응모자목록보기_실패));
         }
         return result;
     }
+
+
+    /**
+     * 이벤트 응모자 선정
+     */
+    public String getEventMemberSelWin(P_EventMemberSelWinVo pEventMemberSelWinVo){
+        pEventMemberSelWinVo.setOpName(MemberVo.getMyMemNo());
+        con_EventDao.callEventSelWIn(pEventMemberSelWinVo);
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트응모자선정_성공));
+        return result;
+    }
+
+    /**
+     * 이벤트 중복 응모자 목록
+     */
+    public String getEventOverlapApplyList(P_EventMemberListInputVo pEventMemberListInputVo){
+        ArrayList<P_EventMemberListOutputVo> eventOverlapApplyList = con_EventDao.callEventOverlapApplyList(pEventMemberListInputVo);
+
+        String result;
+        if(eventOverlapApplyList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트중복응모자목록보기_성공, eventOverlapApplyList));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트중복응모자목록보기_실패));
+        }
+        return result;
+    }
+
+
+
 }

@@ -3,10 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
+<%--<%
     Date nowTime = new Date();
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-%>
+%>--%>
 
 <!-- 회원가입 > 플랫폼(연령별) -->
 <div class="widget widget-table mb10">
@@ -16,18 +16,17 @@
         </div>
     </div>
     <div class="widget-content mt10">
-        <a href="javascript://">[이전]</a>
+        <%--<a href="javascript://">[이전]</a>
         <%= sf.format(nowTime)%>
-        <a href="javascript://">[다음]</a>
+        <a href="javascript://">[다음]</a>--%>
         <table class="table table-bordered">
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
                 <th rowspan="2">소계</th>
-                <th colspan="6">PC웹</th>
-                <th colspan="6">모바일웹</th>
                 <th colspan="6">안드로이드</th>
                 <th colspan="6">아이폰</th>
+                <th colspan="6">PC웹</th>
             </tr>
             <tr>
                 <th>10대</th>
@@ -50,140 +49,109 @@
                 <th>40대</th>
                 <th>50대</th>
                 <th>60대 이상</th>
-
-                <th>10대</th>
-                <th>20대</th>
-                <th>30대</th>
-                <th>40대</th>
-                <th>50대</th>
-                <th>60대 이상</th>
-
             </tr>
             </thead>
-            <tbody>
-            <tr class="success">
-                <th>소계</th>
-                <td>44</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-            </tr>
-
-            <%
-                for(int i=0; i<24; i++) {
-            %>
-            <tr>
-                <th><%=i%>시 ~ <%=i+1%>시</th>
-
-                <td>44</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-            </tr>
-            <%
-                }
-            %>
-
-            <tr class="success">
-                <th>소계</th>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>44</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>0</td>
-            </tr>
-
-            <tr class="success">
-                <th>총계</th>
-                <td>44</td>
-                <td colspan="6">11</td>
-                <td colspan="6">11</td>
-                <td colspan="6">11</td>
-                <td colspan="6">11</td>
-            </tr>
-            </tbody>
+            <tbody id="platformAgeTableBody"></tbody>
         </table>
     </div>
     <div class="widget-footer">
         <span>
-            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
         </span>
     </div>
 </div>
 
 <script type="text/javascript">
+    function getPlatformAgeList(){
+        util.getAjaxData("platformAgeList", "/rest/enter/join/platform/age", $("#searchForm").serialize(), fn_platformAge_success);
+    }
 
+    function fn_platformAge_success(data, response){
+        var isDataEmpty = response.data.detailList == null;
+        var tableBody = $("#platformAgeTableBody");
 
+        tableBody.empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_platformAgeTotal').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalTtml = templateScript(totalContext);
+            tableBody.append(totalTtml);
+
+            response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
+        }
+
+        var template = $('#tmp_platformAgeDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        tableBody.append(html);
+
+        if(isDataEmpty){
+            $("#platformAgeTableBody td:last").remove();
+        }else{
+            tableBody.append(totalTtml);
+        }
+    }
+
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_platformAgeTotal">
+    <tr class="success">
+        <td>소계</td>
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_android10Cnt}}</td>
+        <td>{{addComma sum_android20Cnt}}</td>
+        <td>{{addComma sum_android30Cnt}}</td>
+        <td>{{addComma sum_android40Cnt}}</td>
+        <td>{{addComma sum_android50Cnt}}</td>
+        <td>{{addComma sum_android60Cnt}}</td>
+        <td>{{addComma sum_ios10Cnt}}</td>
+        <td>{{addComma sum_ios20Cnt}}</td>
+        <td>{{addComma sum_ios30Cnt}}</td>
+        <td>{{addComma sum_ios40Cnt}}</td>
+        <td>{{addComma sum_ios50Cnt}}</td>
+        <td>{{addComma sum_ios60Cnt}}</td>
+        <td>{{addComma sum_pc10Cnt}}</td>
+        <td>{{addComma sum_pc20Cnt}}</td>
+        <td>{{addComma sum_pc30Cnt}}</td>
+        <td>{{addComma sum_pc40Cnt}}</td>
+        <td>{{addComma sum_pc50Cnt}}</td>
+        <td>{{addComma sum_pc60Cnt}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_platformAgeDetailList">
+    {{#each this as |data|}}
+        <tr>
+            <td>
+                {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+                {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+                {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+            </td>
+            <td>{{addComma totalCnt}}</td>
+            <td>{{addComma android10Cnt}}</td>
+            <td>{{addComma android20Cnt}}</td>
+            <td>{{addComma android30Cnt}}</td>
+            <td>{{addComma android40Cnt}}</td>
+            <td>{{addComma android50Cnt}}</td>
+            <td>{{addComma android60Cnt}}</td>
+            <td>{{addComma ios10Cnt}}</td>
+            <td>{{addComma ios20Cnt}}</td>
+            <td>{{addComma ios30Cnt}}</td>
+            <td>{{addComma ios40Cnt}}</td>
+            <td>{{addComma ios50Cnt}}</td>
+            <td>{{addComma ios60Cnt}}</td>
+            <td>{{addComma pc10Cnt}}</td>
+            <td>{{addComma pc20Cnt}}</td>
+            <td>{{addComma pc30Cnt}}</td>
+            <td>{{addComma pc40Cnt}}</td>
+            <td>{{addComma pc50Cnt}}</td>
+            <td>{{addComma pc60Cnt}}</td>
+        </tr>
+    {{else}}
+        <tr>
+            <td colspan="20" class="noData">{{isEmptyData}}<td>
+        </tr>
+    {{/each}}
 </script>

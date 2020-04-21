@@ -13,7 +13,7 @@ public enum Status {
     파라미터오류("C005", "param.error", "파라미터 오류 시"),
     비즈니스로직오류("C006", "business.error", "비즈니스로직 오류 시"),
     로그인필요("C007", "login.need", "로그인 세션이 없어 로그인 해야 할 때"),
-    데이터없음("C008", "no.data", "데이터가 없을 시"),
+    데이터없음("0", "no.data", "데이터가 없을 시"),
     처리완료("C008", "operate.success", "처리완료 시"),
     권한없음("C009", "no.auth", "접근 권한이 없을 시"),
 
@@ -376,6 +376,12 @@ public enum Status {
     // 이벤트 응모자 목록
     이벤트응모자목록보기_성공("0", "event.member.list.view.success", "이벤트응모자목록보기 성공 시"),
     이벤트응모자목록보기_실패("C006", "event.member.list.view.fail", "이벤트응모자목록보기 실패 시"),
+    // 이벤트 응모자 선정
+    이벤트응모자선정_성공("0", "event.member.sel.win.success", "이벤트응모자선정 성공 시"),
+    이벤트응모자선정_실패("C006", "event.member.sel.win.fail", "이벤트응모자선정 실패 시"),
+    // 이벤트 중복 응모자 목록
+    이벤트중복응모자목록보기_성공("0", "event.overlap.apply.list.view.success", "이벤트중복응모자목록보기 성공 시"),
+    이벤트중복응모자목록보기_실패("C006", "event.overlap.apply.list.view.fail", "이벤트중복응모자목록보기 실패 시"),
 
     //배너 조회
     배너조회_데이터없음("0", "no.data", "배너 조회 데이터가 없을 시"),

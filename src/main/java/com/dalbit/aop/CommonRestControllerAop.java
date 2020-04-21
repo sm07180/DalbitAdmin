@@ -157,6 +157,9 @@ public class CommonRestControllerAop {
         }
 
         String[] urlSplit = request.getRequestURL().toString().split("/rest/");
+        if(DalbitUtil.isEmpty(request.getHeader("referer"))){
+            return;
+        }
         String referer = request.getHeader("referer").replaceAll(urlSplit[0], "");
 
         List<MenuVo> allMenuList = commonService.getMenuInfo(new MenuVo());

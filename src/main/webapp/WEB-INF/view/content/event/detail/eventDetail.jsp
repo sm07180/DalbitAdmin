@@ -4,6 +4,8 @@
     <form id="eventForm"></form>
 </div>
 
+<div id="eventDetail_fullSize"></div>
+
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 
 <script>
@@ -313,6 +315,11 @@
             console.log("에러!!!");
         },
     }
+
+    function eventDetail_fullSize(url) {     // 이미지 full size
+        $("#eventDetail_fullSize").html(util.imageFullSize("eventDetailFullSize",url));
+        $('#eventDetailFullSize').modal('show');
+    }
 //=------------------------------ Modal ----------------------------------
 
 </script>
@@ -451,12 +458,12 @@
             <tr>
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="pc_img_urlViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    <img id="pc_img_urlViewer" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
                 </td>
 
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="mobile_img_urlViewer" style="max-width:360px; max-height:450px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    <img id="mobile_img_urlViewer" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
                 </td>
             </tr>
             <tr>
@@ -474,7 +481,7 @@
                 </td>
                 <td colspan="1">
                     <!--미리보기-->
-                    <img id="thumb_img_urlViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/>
+                    <img id="thumb_img_urlViewer" style="width:70px; height:70px;" onclick="eventDetail_fullSize(this.src);"/>
                 </td>
 
                 <th>비고</th>
