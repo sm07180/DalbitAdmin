@@ -52,8 +52,8 @@ public class Cus_SmsService {
 
         List<SmsVo> list = cusSmsDao.getSmsList(smsVo);
 
-        String[] headers = {"No", "발신번호", "수신번호", "발송일", "발송내용", "구분"};
-        int[] headerWidths = {3000, 3000, 3000, 6000, 20000, 3000};
+        String[] headers = {"No", "발신번호", "통신사", "수신번호", "발송일", "발송내용", "구분"};
+        int[] headerWidths = {3000, 3000, 3000, 3000, 6000, 20000, 3000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i=0; i<list.size(); i++) {
@@ -61,6 +61,7 @@ public class Cus_SmsService {
 
             hm.put("No", DalbitUtil.isEmpty(list.get(i).getCmid()) ? "" : list.get(i).getCmid());
             hm.put("send_phone", DalbitUtil.isEmpty(list.get(i).getSend_phone()) ? "" : list.get(i).getSend_phone());
+            hm.put("phone", DalbitUtil.isEmpty(list.get(i).getWap_info()) ? "" : list.get(i).getWap_info());
             hm.put("dest_phone", DalbitUtil.isEmpty(list.get(i).getDest_phone()) ? "" : list.get(i).getDest_phone());
             hm.put("report_time", DalbitUtil.isEmpty(list.get(i).getReport_time()) ? "" : list.get(i).getReport_time());
             hm.put("msg_body", DalbitUtil.isEmpty(list.get(i).getMsg_body()) ? "" : list.get(i).getMsg_body());
