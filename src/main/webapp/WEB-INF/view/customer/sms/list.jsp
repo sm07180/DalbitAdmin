@@ -48,6 +48,9 @@
                         </table>
                     </div>
                     <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                    <span>
+                        <button class="btn btn-default print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                    </span>
                 </div>
             </div>
             <!-- // data table -->
@@ -58,7 +61,7 @@
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript">
-    var listPagingInfo = new PAGING_INFO(0,1,20);
+    var listPagingInfo = new PAGING_INFO(0, 1, 20);
 
     $("#htmlTag").html("ㆍ서비스를 위한 문자 발송 대기/완료 상태 및 발송 내역을 확인할 수 있습니다. " +
         "<br>ㆍ대기 상태가 수일을 경과한 경우 SMS 발송 담당자에게 문의하여 주시기 바랍니다. " +
@@ -70,13 +73,13 @@
 
     $('input[id="searchText"]').keydown(function(e) {
         if(e.keyCode == 13) {
-            smsList();
             compare();
+            smsList();
         }
     });
     $("#bt_search").on('click', function() {
-        smsList();
         compare();
+        smsList();
     });
 
     function init() {
@@ -94,8 +97,8 @@
         });
 
         $("#smsArea").html(util.getCommonCodeSelect(-1, sms_code));
-        smsList();
         compare();
+        smsList();
     }
 
     function compare() {
@@ -113,7 +116,7 @@
     }
 
     function smsList() {
-        $("#pageStart").val(listPagingInfo.pageNo);
+        $("#pageStart").val(1);
         $("#pageCnt").val(listPagingInfo.pageCnt);
         util.getAjaxData("list", "/rest/customer/sms/list", $("#searchForm").serialize(), fn_success_list, fn_fail);
     }
@@ -145,6 +148,23 @@
 
     function fn_fail(){
         dalbitLog("#####실패");
+    }
+
+    $("#excelDownBtn").on('click', function() {
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("pageStart", $("#pageStart").val());
+        formData.append("pageCnt", $("#pageCnt").val());
+        formData.append("txt_startSel", $("#txt_startSel").val());
+        formData.append("txt_endSel", $("#txt_endSel").val());
+        formData.append("vxml_file", $('select[name="sms_code"]').val());
+        formData.append("searchText", $("#searchText").val());
+
+        util.excelDownload($(this), "/rest/customer/sms/listExcel", formData, fn_success_excel);
+    });
+
+    function fn_success_excel() {
+        dalbitLog("excel down 성공");
     }
 
 </script>

@@ -33,6 +33,17 @@
        select count(*) From rd_admin.tb_event_basic where end_datetime  <![CDATA[<]]>  now()
     </select>
 
+    <update id="callEventDelete" parameterType="com.dalbit.content.vo.procedure.P_EventDeleteVo">
+        /* Con_Event.xml - callEventDelete */
+        delete from rd_admin.tb_event_basic
+         where idx=#{idx}
+    </update>
+
+    <update id="callEventMemberDelete" parameterType="com.dalbit.content.vo.procedure.P_EventDeleteVo">
+        /* Con_Event.xml - callEventDelete */
+        delete from rd_admin.tb_event_member
+         where event_idx=#{idx}
+    </update>
 
     <!-- 이벤트 정보 등록/수정 -->
     <insert id="callEventInsert" parameterType="com.dalbit.content.vo.procedure.P_EventUpdateVo">

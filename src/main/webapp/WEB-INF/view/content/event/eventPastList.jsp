@@ -92,7 +92,8 @@
             });
 
             this.target.find("#btn_delete").on("click", function () { //삭제
-                fnc_eventList.deleteEvent();
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                fnc_eventList.deleteEvent("pastList");
             });
 
             // CheckBox 이벤트
