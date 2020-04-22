@@ -5,6 +5,7 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- serachBox -->
+        <form id="searchForm">
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table searchBoxArea">
                 <div class="widget-header searchBoxRow">
@@ -19,13 +20,14 @@
                 </div>
             </div>
         </div>
+        </form>
         <!-- //serachBox -->
         <!-- DATA TABLE -->
         <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
             <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">가입정보</a></li>
             <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴정보</a></li>
         </ul>
-        <div class="row col-lg-12 form-inline" id="div_memberList">
+        <div class="row col-lg-12 form-inline">
             <div class="tab-content no-padding">
                 <div class="tab-pane fade in active " id="memberList">       <!-- 회원 -->
                     <div class="widget-content">
@@ -102,6 +104,10 @@
         });
     });
 
+    var tmp_memWithdrawal;
+    var tmp_period;
+    var tmp_sDate;
+    var tmp_eDate;
 
     var memWithdrawal = "0";
     var dtList_info;
@@ -118,7 +124,7 @@
         }
     };
     dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.joinList);
-    dtList_info.useCheckBox(true);
+    dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
     dtList_info.useInitReload(false);
     dtList_info.setPageLength(100);
@@ -138,23 +144,35 @@
         }
     };
     dtList_info2 = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data2, MemberDataTableSource.withdrawalList);
-    dtList_info2.useCheckBox(true);
+    dtList_info.useCheckBox(false);
     dtList_info2.useIndex(true);
     dtList_info2.useInitReload(false);
     dtList_info.setPageLength(100);
     dtList_info2.createDataTable(withdrawalListSummary);
 
     var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-    $("#div_memberList").find(".footer-right").append(excel);
+    $("#memberList").find(".footer-right").append(excel);
+
+    var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+    $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
     function getUserInfo() {                 // 검색
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
-            ui.checkBoxInit('tb_memberList');
         }else{
             dtList_info2.reload(withdrawalListSummary);
-            ui.checkBoxInit('tb_withdrawalList');
         }
+        tmp_memWithdrawal = memWithdrawal;
+        tmp_period = $('input[name="joinDate"]:checked').val();
+        if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
+            tmp_sDate = sDate;
+            tmp_eDate = eDate;
+        }else if($('input[name="joinDate"]:checked').val() == "3" ){
+            tmp_sDate = sDate;
+        }else if($('input[name="joinDate"]:checked').val() == "4" ){
+            tmp_sDate = $("#txt_selDate").val().replace(/-/gi, "");
+        }
+
         /*검색결과 영역이 접혀 있을 시 열기*/
     }
     function memberList(){
@@ -192,19 +210,20 @@
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
-        formData.append("searchType", tmp_searchType);
-        formData.append("searchText", tmp_searchText);
-        formData.append("memWithdrawal", memWithdrawal);
-        util.excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel, fn_fail_excel)
+        formData.append("period", tmp_period);
+        formData.append("sDate", tmp_sDate);
+        formData.append("eDate", tmp_eDate);
+        util.excelDownload($(this), "/rest/member/join/listExcel", formData);
     });
 
-    function fn_success_excel(){
-        console.log("fn_success_excel");
-    }
-
-    function fn_fail_excel(){
-        console.log("fn_fail_excel");
-    }
+    $('#withdrawal_excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("period", tmp_period);
+        formData.append("sDate", tmp_sDate);
+        formData.append("eDate", tmp_eDate);
+        util.excelDownload($(this), "/rest/member/join/withdrawalListExcel", formData);
+    });
     /*==================================*/
 </script>
 

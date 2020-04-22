@@ -9,10 +9,14 @@ var MemberDataTableSource = {
                 }},
             {'title': 'OS', 'data': 'os_type', 'width':'100px'},
             {'title': '회원번호', 'data': 'mem_no', 'width':'100px'},
-            {'title': 'UserID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': '로그인ID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'UserID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
+            {'title': '이름', 'data': 'mem_name', 'width':'100px'},
             {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
             {'title': 'IP', 'data': 'ip', 'width':'100px'},
         ]
@@ -27,12 +31,16 @@ var MemberDataTableSource = {
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
                     return util.renderSlct(data,"15","");
                 }},
-            {'title': 'OS', 'data': 'mem_no', 'os_type':'100px'},
+            {'title': 'OS', 'data': 'os_type', 'width':'100px'},
             {'title': '회원번호', 'data': 'mem_no', 'width':'100px'},
-            {'title': 'UserID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': '로그인ID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'UserID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
+            {'title': '이름', 'data': 'mem_name', 'width':'100px'},
             {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
             {'title': 'IP', 'data': 'ip', 'width':'100px'},
         ]
