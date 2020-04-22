@@ -15,7 +15,7 @@
                         <div class="input-group date" id="seldate">
                             <input type="text" class="form-control" id="txt_selDate"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" disabled="true"></i></span>
                         </div>
-                        <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                        <button type="button" id="bt_search" class="btn btn-success">검색</button>
                     </div>
                 </div>
             </div>
@@ -70,38 +70,30 @@
             format: "YYYY-MM-DD",
         });
 
-        $('input[id="txt_search"]').keydown(function() {
-            if (event.keyCode === 13) {
-                getUserInfo();
-            };
-        });
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getUserInfo();
         });
         <!-- 버튼 끝 -->
+    });
+    $('#selJoinDate').change(function() {
+        sDate = "";
+        eDate = "";
 
-        $('#selJoinDate').change(function() {
-            sDate = "";
-            eDate = "";
-
-            eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");         // 오늘
-            if($('input[name="joinDate"]:checked').val() == "0"){               // 월
-                sDate = date.getFullYear() + common.lpad(date.getMonth(),2,"0") + common.lpad(date.getDate(),2,"0");        // 한달전
-            }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
-                sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-7,2,"0");      // 일주일전
-            }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일
-                eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");      // 어제
-                sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-1,2,"0");      //어제
-            }else if($('input[name="joinDate"]:checked').val() == "3"){               // 당일
-                sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
-            }else if($('input[name="joinDate"]:checked').val() == "4") {               // 선택
-                $("#txt_selDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"))
-            }
-            getUserInfo();
-            console.log(sDate);
-            console.log(eDate);
-        });
+        eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");         // 오늘
+        if($('input[name="joinDate"]:checked').val() == "0"){               // 월
+            sDate = date.getFullYear() + common.lpad(date.getMonth(),2,"0") + common.lpad(date.getDate(),2,"0");        // 한달전
+        }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
+            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-7,2,"0");      // 일주일전
+        }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일
+            eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");      // 어제
+            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-1,2,"0");      //어제
+        }else if($('input[name="joinDate"]:checked').val() == "3"){               // 당일
+            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
+        }else if($('input[name="joinDate"]:checked').val() == "4") {               // 선택
+            $("#txt_selDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"))
+        }
+        getUserInfo();
     });
 
     var tmp_memWithdrawal;
@@ -172,8 +164,6 @@
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
             tmp_sDate = $("#txt_selDate").val().replace(/-/gi, "");
         }
-
-        /*검색결과 영역이 접혀 있을 시 열기*/
     }
     function memberList(){
         memWithdrawal = "0";
@@ -230,7 +220,7 @@
 
 <!-- summary -->
 <script id="joinList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" id="declarationSummary">
+    <table class="table table-bordered table-summary pull-right">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2">총 가입자 수</th>
@@ -258,7 +248,7 @@
 </script>
 
 <script id="withdrawalList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" id="declarationSummary">
+    <table class="table table-bordered table-summary pull-right">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2">총 가입자 수</th>
