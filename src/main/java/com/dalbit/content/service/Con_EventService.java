@@ -57,6 +57,19 @@ public class Con_EventService {
     /**
      * 이벤트 등록
      */
+    public String setEventDelete(P_EventDeleteVo pEventDeleteVo){
+        String result;
+        pEventDeleteVo.setOpName(MemberVo.getMyMemNo());
+        con_EventDao.callEventDelete(pEventDeleteVo);
+        con_EventDao.callEventMemberDelete(pEventDeleteVo);
+        result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트삭제성공));
+
+        return result;
+    }
+
+    /**
+     * 이벤트 등록
+     */
     public String setEventInsert(P_EventUpdateVo pEventUpdateVo){
         String result;
         pEventUpdateVo.setOpName(MemberVo.getMyMemNo());
