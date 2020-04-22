@@ -13,7 +13,7 @@
                        where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
                    </if>
                 )as c, (select @rownum := #{pageNo} ) AS d
-         order by last_upd_date desc
+         order by mem_join_date desc
          limit #{pageNo}, #{pageCnt}
     </select>
 
