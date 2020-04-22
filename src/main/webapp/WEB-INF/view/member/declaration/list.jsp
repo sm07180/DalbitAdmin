@@ -23,6 +23,8 @@
     $(document).ready(function() {
     });
 
+    var tmp_platform = -1;
+    var tmp_slctReason = -1;
     function getHistory_declarationDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         console.log("tmp : " + tmp);
@@ -30,8 +32,8 @@
 
         var dtList_info_detail_data = function (data) {
             data.searchType = 1;
-            data.slctType = -1;
-            data.slctReason = -1;
+            data.strPlatform = tmp_platform;
+            data.slctReason = tmp_slctReason;
             data.searchText = memNo;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
@@ -46,14 +48,16 @@
         util.getAjaxData("summary", "/rest/customer/declaration/opCount_target", obj, declaration_fn_success, fn_fail);
     }
     function initDataTableTop_select_declaration(tmp){
-        var topTable = '<span name="search_platform_aria_top" id="search_platform_aria_top" onchange="sel_change()"></span>' +
-                        '<span name="search_reason_aria_top" id="search_reason_aria_top" onchange="sel_change()"></span>';
+        var topTable = '<span name="search_platform_aria_top" id="search_platform_aria_top" onchange="sel_change_report()"></span>' +
+                        '<span name="search_reason_aria_top" id="search_reason_aria_top" onchange="sel_change_report()"></span>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#search_platform_aria_top").html(util.getCommonCodeSelect(-1, search_platform));
         $("#search_reason_aria_top").html(util.getCommonCodeSelect(-1, declaration_reason));
     }
 
-    function sel_change(){
+    function sel_change_report(){
+        tmp_platform = $("select[name='platform']").val();
+        tmp_slctReason = $("select[name='slctReason']").val();
         dtList_info_detail.reload();
     }
 

@@ -116,9 +116,10 @@
                 <div>
                     <h4>Slct 사용하기</h4>
                     commomUtil.js => util.renderSlct 함수 사용<br />
-                    util.renderSlct(보낼 코드 값, size)<br />
-                    ex) size : util.renderSlct("p","15"), util.renderSlct("f","20"), util.renderSlct("g","15")<br /><br />
-                               util.renderSlct("p"), util.renderSlct("f"), util.renderSlct("g")<br /><br />
+                    util.renderSlct(보낼 코드 값, size,팝업 경로)<br />
+                    ex) size : util.renderSlct("p","15",""), util.renderSlct("f","20",""), util.renderSlct("g","15","")<br /><br />
+                               util.renderSlct("p","",""), util.renderSlct("f","",""), util.renderSlct("g","","")<br /><br />
+                               util.renderSlct("p","","../"), util.renderSlct("f","","../"), util.renderSlct("g","","../../")<br /><br />
                 </div>
                 <div id="icon1"></div>
                 <div id="icon2"></div>
@@ -127,12 +128,12 @@
                 <div id="icon5"></div>
                 <div id="icon6"></div>
                 <script type="text/javascript">
-                    $("#icon1").html(util.renderSlct("p","100"));
-                    $("#icon2").html(util.renderSlct("f","200"));
-                    $("#icon3").html(util.renderSlct("g","50"));
-                    $("#icon4").html(util.renderSlct("p"));
-                    $("#icon5").html(util.renderSlct("f"));
-                    $("#icon6").html(util.renderSlct("g"));
+                    $("#icon1").html(util.renderSlct("p","100",""));
+                    $("#icon2").html(util.renderSlct("f","200",""));
+                    $("#icon3").html(util.renderSlct("g","50",""));
+                    $("#icon4").html(util.renderSlct("p","",""));
+                    $("#icon5").html(util.renderSlct("f","",""));
+                    $("#icon6").html(util.renderSlct("g","",""));
                 </script>
             </div>
         </div>

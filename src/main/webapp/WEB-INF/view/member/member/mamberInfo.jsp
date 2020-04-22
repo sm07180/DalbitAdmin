@@ -51,7 +51,7 @@
         init();
 
         // $("#txt_birth").val(response.data.birthDate);
-        $("#memSlct").html(util.renderSlct(response.data.memSlct, "20"));
+        $("#memSlct").html(util.renderSlct(response.data.memSlct, "20",popup));
         report = "../member/popup/reportPopup?memNo='" + response.data.mem_no + "'&memId='" + response.data.userId + "'&memNick='" + response.data.nickName + "'&memSex='" + response.data.memSex + "'";
 
         if (response.data.memSlct != "p") {
@@ -525,7 +525,10 @@
             <th>생년월일</th>
             <td colspan="3" style="text-align: left">
                 <div class="input-group date" id="date_birth">
-                    <input type="text" class="form-control" id="txt_birth" value="{{{birthData}}}"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input type="text" class="form-control" id="txt_birth" value="{{{birthData}}}">
+                    {{#equal memWithdrawal '0'}}
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    {{/equal}}
                 </div>
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>

@@ -8,4 +8,5 @@ import lombok.Setter;
 @Setter
 public class P_DeclarationListInputVo extends SearchVo {
     private int pageNo;
+    private String strPlatform;
 }

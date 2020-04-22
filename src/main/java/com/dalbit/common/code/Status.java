@@ -28,6 +28,12 @@ public enum Status {
     엑셀다운로드성공("1", "excel.download.success", "엑셀 다운로드 성공 시"),
     엑셀다운로드실패("0", "excel.download.fail", "엑셀 다운로드 실패 시"),
 
+    //회원가입/탈퇴 보기
+    회원가입조회_성공("0", "member.join.list.view.success", "회원가입조회 성공 시"),
+    회원가입조회_실패("-1", "member.join.list.view.fail", "회원가입조회 실패 시"),
+    회원탈퇴조회_성공("0", "member.withdrawal.list.view.success", "회원탈퇴조회 성공 시 "),
+    회원탈퇴조회_실패("-1", "member.withdrawal.list.view.fail", "회원탈퇴조회 실패 시"),
+
     //회원정보보기 (프로필, 마이페이지 통합)
     회원정보보기_성공("0", "member.info.view.success", "회원정보보기 성공 시"),
     회원정보보기_회원아님("-1", "member.no", "회원이 아닐 시"),

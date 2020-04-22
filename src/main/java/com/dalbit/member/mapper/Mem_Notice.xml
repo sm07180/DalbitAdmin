@@ -18,7 +18,7 @@
                   From rd_data.tb_broadcast_room where CHAR_LENGTH(notice) > 0 and mem_no=#{mem_no}
         ) AS c, (select @rownum := #{pageNo} ) AS d
         order by last_upd_date desc
-        limit #{pageNo}, #{pageCnt};
+        limit #{pageNo}, #{pageCnt}
     </select>
 
     <select id="callNoticeHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberNoticeInputVo" resultType="integer">

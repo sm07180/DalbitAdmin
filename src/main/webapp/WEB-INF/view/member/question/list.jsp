@@ -22,13 +22,19 @@
     $(document).ready(function() {
     });
 
+    var tmp_question = -1;
+    var tmp_question_type = -1;
+    var tmp_platform = -1;
+    var tmp_browser = -1;
     function getHistory_questionDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.searchText = memNo;
             data.searchType = 1;
-            data.slctType = -1;
+            data.slctType = tmp_question_type;
+            data.slctPlatform = tmp_platform;
+            data.slctBrowser = tmp_browser;
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
@@ -38,22 +44,31 @@
         initDataTableTop_select_quest(tmp);         // 상탄 selectBox
     }
     function initDataTableTop_select_quest(tmp){
-        var topTable = '<span name="search_question_top" id="search_question_top" onchange="sel_change()"></span>' +
-            '<span name="search_question_type_top" id="search_question_type_top" onchange="sel_change()"></span>' +
-            '<span name="search_platform_top" id="search_platform_top" onchange="sel_change()"></span>' +
-            '<span name="search_browser_top" id="search_browser_top" onchange="sel_change()"></span>'
+        var topTable = '<span name="search_question_top" id="search_question_top" onchange="sel_change_question()"></span>' +
+            '<span name="search_question_type_top" id="search_question_type_top" onchange="sel_change_question()"></span>' +
+            '<span name="search_platform_top" id="search_platform_top" onchange="sel_change_question()"></span>' +
+            '<span name="search_browser_top" id="search_browser_top" onchange="sel_change_question()"></span>'
         ;
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#search_question_top").html(util.getCommonCodeSelect(-1, question));
         $("#search_question_type_top").html(util.getCommonCodeSelect(-1, question_type));
-        $("#search_platform_top").html(util.getCommonCodeSelect(-1, platform));
-        $("#search_browser_top").html(util.getCommonCodeSelect(-1, browser));
+        $("#search_platform_top").html(util.getCommonCodeSelect(-1, search_platform));
+        $("#search_browser_top").html(util.getCommonCodeSelect(-1, search_browser));
 
         //summary
         var obj = new Object();
         obj.mem_no = memNo;
         util.getAjaxData("summary", "/rest/customer/question/questionCount_target", obj, question_fn_success, fn_fail);
 
+    }
+
+    function sel_change_question(){
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        tmp_question = $("select[name='question']").val();
+        tmp_question_type = $("select[name='question_type']").val();
+        tmp_platform = $("select[name='platform']").val();
+        tmp_browser = $("select[name='browser']").val();
+        dtList_info_detail.reload();
     }
 
     function question_fn_success(dst_id, response) {
