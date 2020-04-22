@@ -48,6 +48,9 @@
                         </table>
                     </div>
                     <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                    <span>
+                        <button class="btn btn-default print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                    </span>
                 </div>
             </div>
             <!-- // data table -->
@@ -145,6 +148,23 @@
 
     function fn_fail(){
         dalbitLog("#####실패");
+    }
+
+    $("#excelDownBtn").on('click', function() {
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("pageStart", $("#pageStart").val());
+        formData.append("pageCnt", $("#pageCnt").val());
+        formData.append("txt_startSel", $("#txt_startSel").val());
+        formData.append("txt_endSel", $("#txt_endSel").val());
+        formData.append("vxml_file", $('select[name="sms_code"]').val());
+        formData.append("searchText", $("#searchText").val());
+
+        util.excelDownload($(this), "/rest/customer/sms/listExcel", formData, fn_success_excel);
+    });
+
+    function fn_success_excel() {
+        dalbitLog("excel down 성공");
     }
 
 </script>
