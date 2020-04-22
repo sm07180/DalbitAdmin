@@ -34,11 +34,12 @@
             <div class="row col-lg-12 form-inline">
                 <div id="htmlTag"></div>
                 <div class="widget widget-table">
-                    <div class="widget-content">
+                    <div class="widget-content mt10">
                         <table id="smsList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
                                 <th>No</th>
                                 <th>발신번호</th>
+                                <th>통신사</th>
                                 <th>수신번호</th>
                                 <th>발송일</th>
                                 <th>발송내용</th>
@@ -48,6 +49,9 @@
                         </table>
                     </div>
                     <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                    <span>
+                        <button class="btn btn-default print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                    </span>
                 </div>
             </div>
             <!-- // data table -->
@@ -58,7 +62,7 @@
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript">
-    var listPagingInfo = new PAGING_INFO(0,1,20);
+    var listPagingInfo = new PAGING_INFO(0, 1, 20);
 
     $("#htmlTag").html("ㆍ서비스를 위한 문자 발송 대기/완료 상태 및 발송 내역을 확인할 수 있습니다. " +
         "<br>ㆍ대기 상태가 수일을 경과한 경우 SMS 발송 담당자에게 문의하여 주시기 바랍니다. " +
@@ -70,13 +74,13 @@
 
     $('input[id="searchText"]').keydown(function(e) {
         if(e.keyCode == 13) {
+            listPagingInfo.pageNo = 1;
             smsList();
-            compare();
         }
     });
     $("#bt_search").on('click', function() {
+        listPagingInfo.pageNo = 1;
         smsList();
-        compare();
     });
 
     function init() {
@@ -95,7 +99,6 @@
 
         $("#smsArea").html(util.getCommonCodeSelect(-1, sms_code));
         smsList();
-        compare();
     }
 
     function compare() {
@@ -113,6 +116,8 @@
     }
 
     function smsList() {
+        compare();
+
         $("#pageStart").val(listPagingInfo.pageNo);
         $("#pageCnt").val(listPagingInfo.pageCnt);
         util.getAjaxData("list", "/rest/customer/sms/list", $("#searchForm").serialize(), fn_success_list, fn_fail);
@@ -131,6 +136,11 @@
         dalbitLog(listPagingInfo);
         util.renderPagingNavigation("list_info_paginate", listPagingInfo);
 
+        var btn = $(".paginate_button");
+        btn.find('a').click(function() {
+            $(this).addClass("active");
+        });
+
         if(response.data.length == 0) {
             $("#list_info_paginate").hide();
         } else {
@@ -147,6 +157,23 @@
         dalbitLog("#####실패");
     }
 
+    $("#excelDownBtn").on('click', function() {
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("pageStart", $("#pageStart").val());
+        formData.append("pageCnt", $("#pageCnt").val());
+        formData.append("txt_startSel", $("#txt_startSel").val());
+        formData.append("txt_endSel", $("#txt_endSel").val());
+        formData.append("vxml_file", $('select[name="sms_code"]').val());
+        formData.append("searchText", $("#searchText").val());
+
+        util.excelDownload($(this), "/rest/customer/sms/listExcel", formData, fn_success_excel);
+    });
+
+    function fn_success_excel() {
+        dalbitLog("excel down 성공");
+    }
+
 </script>
 
 <script id="tmp_smsList" type="text/x-handlebars-template">
@@ -154,7 +181,8 @@
     <tr>
         <td>{{cmid}}</td>
         <td>{{send_phone}}</td>
-        <td>[{{wap_info}}] {{dest_phone}}</td>
+        <td>{{wap_info}}</td>
+        <td>{{dest_phone}}</td>
         <td>{{report_time}}</td>
         <td>{{msg_body}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
