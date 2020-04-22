@@ -53,7 +53,7 @@
         ) AS a,
         (select @rownum := #{pageStart}) AS b
         <trim prefix="ORDER BY">
-            a.lastOpName desc
+            a.regDate desc
         </trim>
         limit  #{pageStart}, #{pageCnt}
     </select>
