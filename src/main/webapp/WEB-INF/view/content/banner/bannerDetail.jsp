@@ -102,8 +102,9 @@
                 if (type == "1") {
                     fnc_bannerDetail.target.find("input[name='sex']").prop("disabled", false);
                 } else {
-                    fnc_bannerDetail.target.find("input[name='sex']").prop("disabled", true);
-                    fnc_bannerDetail.target.find("input[name='sex']:input[value='0']").prop("checked", true);
+                    $("input[name='sex']:eq(0)").click();
+                    $("input[name='sex']:eq(1)").prop("disabled", true);
+                    $("input[name='sex']:eq(2)").prop("disabled", true);
                 }
 
             });
