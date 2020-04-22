@@ -90,7 +90,7 @@
             ( select idx, board_no, contents, writer_no, `STATUS`, last_upd_date,depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} AND board_no = #{board_no} and `status` = 1) AS a JOIN rd_data.tb_member_withdrawal_bak AS b
         ON a.writer_no = b.mem_no
 
-        order BY writeDate DESC;
+        order BY writeDate DESC
     </select>
 
     <update id="callFanboardDelete" parameterType="com.dalbit.member.vo.procedure.P_MemberFanboardDeleteVo">

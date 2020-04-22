@@ -30,12 +30,12 @@
     }
 
     function initDataTableTop_select_pay(tmp){
-        var topTable = '<span name="search_pay_top" id="search_pay_top" onchange="sel_change()"></span>';
+        var topTable = '<span name="search_pay_top" id="search_pay_top" onchange="sel_change_pay()"></span>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#search_pay_top").html(util.getCommonCodeSelect(-1, pay));
     }
 
-    function sel_change(){
+    function sel_change_pay(){
         // tmp_slctReason = $("select[name='slctReason']").val();
         // dtList_info_detail.reload();
     }

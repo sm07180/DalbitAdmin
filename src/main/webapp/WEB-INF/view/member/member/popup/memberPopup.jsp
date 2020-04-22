@@ -18,4 +18,6 @@
         util.getAjaxData("info", "/rest/member/member/info", data, info_sel_success, fn_fail);
     });
 
+    var popup = "../";
+
 </script>

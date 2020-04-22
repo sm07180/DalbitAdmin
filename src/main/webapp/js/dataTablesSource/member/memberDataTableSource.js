@@ -1,4 +1,48 @@
 var MemberDataTableSource = {
+
+    'joinList': {
+        'url': '/rest/member/join/list'
+        , 'columns': [
+            {'title': '회원가입일시', 'data': 'memJoinDateFormat', 'width':'100px'},
+            {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
+                    return util.renderSlct(data,"15","");
+                }},
+            {'title': 'OS', 'data': 'os_type', 'width':'100px'},
+            {'title': '회원번호', 'data': 'mem_no', 'width':'100px'},
+            {'title': 'UserID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
+            {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
+            {'title': 'IP', 'data': 'ip', 'width':'100px'},
+        ]
+        , 'comments': 'ㆍ최근 가입 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>' +
+                      'ㆍ회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요.'
+    },
+
+    'withdrawalList': {
+        'url': '/rest/member/join/withdrawalList'
+        , 'columns': [
+            {'title': '회원가입일시', 'data': 'lastUpdDateFormat', 'width':'100px'},
+            {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
+                    return util.renderSlct(data,"15","");
+                }},
+            {'title': 'OS', 'data': 'mem_no', 'os_type':'100px'},
+            {'title': '회원번호', 'data': 'mem_no', 'width':'100px'},
+            {'title': 'UserID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
+            {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
+            {'title': 'IP', 'data': 'ip', 'width':'100px'},
+        ]
+        , 'comments': 'ㆍ 최근 탈퇴 회원 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>' +
+                      'ㆍ 탈퇴 회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요. <br/>' +
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;단, 탈퇴 회원에 대한 정보 수정은 불가합니다.'
+    },
+
+
+
     'userInfo': {
         'url': '/rest/member/member/list'
         , 'columns': [
@@ -9,7 +53,7 @@ var MemberDataTableSource = {
              {'title': '닉네임', 'data': 'mem_nick', 'width':'80px'},
              {'title': '연락처', 'data': 'mem_phone', 'width':'80px'},
              {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
-                    return util.renderSlct(data,"15");
+                    return util.renderSlct(data,"15","");
                  }},
              {'title': '회원가입일시', 'data': 'joinDateFormat', 'width':'120px'},
              {'title': '최근 접속 일시', 'data': 'last_connect_DateFormat', 'width':'120px'},

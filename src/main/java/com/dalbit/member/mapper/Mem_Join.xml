@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.Mem_JoinDao" >
+
+    <select id="callJoinList" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
+        select @rownum := @rownum + 1 as rowNum, c.*
+          from ( select *
+                   From rd_data.tb_member_basic
+                   <if test="period != 4 and period != 3">
+                      where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+                   </if>
+                   <if test="period == 3 or period == 4">
+                       where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+                   </if>
+                )as c, (select @rownum := #{pageNo} ) AS d
+         order by last_upd_date desc
+         limit #{pageNo}, #{pageCnt}
+    </select>
+
+    <select id="callJoinList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
+        select count(*) totalCnt From rd_data.tb_member_basic
+            <if test="period != 4 and period != 3">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            </if>
+            <if test="period == 3 or period == 4">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            </if>
+    </select>
+
+    <select id="callJoinList_slctCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
+        select count(*) as allCnt
+                ,count(case when mem_slct = 'p' then 1 end) as slctPhonCnt
+                ,count(case when mem_slct = 'f' then 1 end) as slctFaceCnt
+                ,count(case when mem_slct = 'g' then 1 end) as slctGoogleCnt
+                ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
+                ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
+                ,count(case when mem_slct = 'e' then 1 end) as slctAppleCnt
+         From rd_data.tb_member_basic
+            <if test="period != 4 and period != 3">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            </if>
+            <if test="period == 3 or period == 4">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            </if>
+    </select>
+
+
+    <select id="callWithdrawalList" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
+        select @rownum := @rownum + 1 as rowNum, c.*
+          from ( select *
+                   From rd_data.tb_member_withdrawal_bak
+                   <if test="period != 4 and period != 3">
+                      where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+                   </if>
+                   <if test="period == 3 or period == 4">
+                       where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+                   </if>
+                )as c, (select @rownum := #{pageNo} ) AS d
+         order by last_upd_date desc
+         limit #{pageNo}, #{pageCnt}
+    </select>
+
+    <select id="callWithdrawalList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
+        select count(*) totalCnt From rd_data.tb_member_withdrawal_bak
+            <if test="period != 4 and period != 3">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            </if>
+            <if test="period == 3 or period == 4">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            </if>
+    </select>
+
+    <select id="callWithdrawalList_slctCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
+        select count(*) as allCnt
+                ,count(case when mem_slct = 'p' then 1 end) as slctPhonCnt
+                ,count(case when mem_slct = 'f' then 1 end) as slctFaceCnt
+                ,count(case when mem_slct = 'g' then 1 end) as slctGoogleCnt
+                ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
+                ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
+                ,count(case when mem_slct = 'e' then 1 end) as slctAppleCnt
+         From rd_data.tb_member_withdrawal_bak
+            <if test="period != 4 and period != 3">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            </if>
+            <if test="period == 3 or period == 4">
+                where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            </if>
+    </select>
+
+</mapper>

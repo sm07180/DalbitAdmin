@@ -30,10 +30,10 @@ var searchType = [
 var search_platform = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
     , new COMMON_CODE('all', '', '전체')
-    , new COMMON_CODE('pc', '2', 'PC')
-    , new COMMON_CODE('android', '3', 'Android')
-    , new COMMON_CODE('ios', '4', 'IOS')
-    , new COMMON_CODE('mobile', '5', 'Web-Mobile')
+    , new COMMON_CODE('PC', 'PC', 'PC')
+    , new COMMON_CODE('Android', 'Android', 'Android')
+    , new COMMON_CODE('IOS', 'IOS', 'IOS')
+    , new COMMON_CODE('Web-Mobile', 'Web-Mobile', 'Web-Mobile')
 ];
 
 var platform = [
@@ -187,6 +187,14 @@ var browser = [
     ,new COMMON_CODE('c',  '0','chrome')
     ,new COMMON_CODE('i', '1','Internet Explorer')
     ,new COMMON_CODE('f', '2','Firefox')
+];
+
+var search_browser = [
+    new COMMON_CODE(null, 'browser', 'Browser ')
+    ,new COMMON_CODE('all',  '','전체')
+    ,new COMMON_CODE('c',  'chrome','chrome')
+    ,new COMMON_CODE('i', 'Internet Explorer','Internet Explorer')
+    ,new COMMON_CODE('f', 'Firefox','Firefox')
 ];
 
 var question_type = [

@@ -82,6 +82,7 @@
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
 
     var memWithdrawal = "0";
+    var popup = "";
 
     var dtList_info;
     var dtList_info_data = function ( data ) {

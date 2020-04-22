@@ -344,8 +344,8 @@ util.renderOnOff = function(value){
     }
 },
 
-util.renderSlct = function(value,size){
-    if(size != "undefined"){
+util.renderSlct = function(value,size,popup){
+    if(size != ""){
         if(value == "p"){
             return '<i class="fa fa-phone" style="color: #8556F6;' + "font-size: " + size + 'px"></i>';
         }else if (value == "f"){
@@ -353,9 +353,11 @@ util.renderSlct = function(value,size){
         }else if (value == "g"){
             return '<i class="fa fa-google" style="color: #ff0004;' + "font-size: " + size + 'px"></i>';
         }else if (value == "k"){        // 아이콘 추가 해야됨
-            return '<img src="../../img/icon/kakao.png" style="width: ' + size +'px;height:' + size +'px">';
+            return '<img src="' +popup+ '../../img/icon/kakao.png" style="width: ' + size +'px;height:' + size +'px">';
         }else if (value == "n"){        // 아이콘 추가 해야됨
-            return '<img src="../../img/icon/naver.png" style="width: ' + size +'px;height:' + size +'px">';
+            return '<img src="' +popup+ '../../img/icon/naver.png" style="width: ' + size +'px;height:' + size +'px">';
+        }else if (value == "e"){        // 아이콘 추가 해야됨
+            return '<img src="' +popup+ '../../img/icon/apple.png" style="width: ' + size +'px;height:' + size +'px">';
         }
     }else{
         if(value == "p"){
@@ -365,9 +367,11 @@ util.renderSlct = function(value,size){
         }else if (value == "g"){
             return '<i class="fa fa-google" style="color: #ff0004;"></i>';
         }else if (value == "k"){        // 아이콘 추가 해야됨
-            return '<img src="../../img/icon/kakao.png">';
+            return '<img src="' +popup+ '../../img/icon/kakao.png">';
         }else if (value == "n"){        // 아이콘 추가 해야됨
-            return '<img src="../../img/icon/naver.png">';
+            return '<img src="' +popup+ '../../img/icon/naver.png">';
+        }else if (value == "e"){        // 아이콘 추가 해야됨
+            return '<img src="' +popup+ '../../img/icon/apple.png">';
         }
     }
 },
@@ -405,18 +409,18 @@ util.editorInit = function(type) {
     });
 },
 util.imageFullSize = function(modalId ,url){
-    var html = '<div class="modal fade" id="'+ modalId +'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'
-        html+=      '<div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">'
-        html+=          '<div class="modal-content">'
-        html+=              '<div class="modal-header no-padding">'
-        html+=                  '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
-        html+=              '</div>'
-        html+=              '<div class="modal-body no-padding">'
-        html+=                  '<img id="image_full_size" src="'+ url + '" alt="your image" style="max-width: 1000px;max-height: 1000px;">'
-        html+=              '</div>'
-        html+=          '</div>'
-        html+=      '</div>'
-        html+= '</div>'
+    var html = '<div class="modal fade" id="'+ modalId +'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">';
+        html+=      '<div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">';
+        html+=          '<div class="modal-content">';
+        html+=              '<div class="modal-header no-padding">';
+        html+=                  '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
+        html+=              '</div>';
+        html+=              '<div class="modal-body no-padding">';
+        html+=                  '<img id="image_full_size" src="'+ url + '" alt="your image" style="max-width: 1000px;max-height: 1000px;">';
+        html+=              '</div>';
+        html+=          '</div>';
+        html+=      '</div>';
+        html+= '</div>';
     return html;
 }
 

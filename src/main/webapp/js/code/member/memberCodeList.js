@@ -1,3 +1,13 @@
+var joinDate = [
+    new COMMON_CODE('', 'joinDate', '날짜선택')
+    , new COMMON_CODE('0', '0', '월별')
+    , new COMMON_CODE('1', '1', '주별')
+    , new COMMON_CODE('2', '2', '전일')
+    , new COMMON_CODE('3', '3', '당일')
+    , new COMMON_CODE('4', '4', '날짜선택')
+];
+
+
 var mem_state = [
     new COMMON_CODE('', 'mem_state', '회원상태')
     , new COMMON_CODE('1', '1', '정상')

@@ -50,15 +50,13 @@
             forced(this.id);
         });
     });
-    var tmp_sortState = -1;
+    var tmp_sortAuth = -1;
     function getBroadHistory_listen(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = BroadcastDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.room_no = room_no;
-            data.sortState = tmp_sortState;       // 청취자인지, 퇴장인지, 강퇴인지
-            // data.pageCnt = 10;
-            data.sortState = 2;
+            data.sortAuth = tmp_sortAuth;       // 청취자인지, 퇴장인지, 강퇴인지
         }
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(true);
@@ -75,7 +73,7 @@
     }
 
     function force_sel_change(){
-        tmp_sortState = $("select[name='state']").val();
+        tmp_sortAuth = $("select[name='state']").val();
         dtList_info_detail.reload(listen_summary_table);
     }
     function listen_summary_table(json){
