@@ -4,16 +4,23 @@
 
     <sql id="condition">
         <where>
-        <if test = 'vxml_file == "0" or vxml_file == "1" or vxml_file == "" or vxml_file == null'>
-            and vxml_file = #{vxml_file}
-        </if>
+            <if test = 'txt_startSel != null and txt_startSel != ""'>
+                and report_time <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel}, '%Y-%m-%d 00:00:00')
+            </if>
+            <if test = 'txt_endSel != null and txt_endSel != ""'>
+                and report_time <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel}, '%Y-%m-%d 23:59:59')
+            </if>
 
-        <if test = 'searchText != null and searchText != ""'>
-            and send_phone like concat('%', #{searchText}, '%')
-            or wap_info like concat('%', #{searchText}, '%')
-            or dest_phone like concat('%', #{searchText}, '%')
-            or msg_body like concat('%', #{searchText}, '%')
-        </if>
+            <if test = 'vxml_file == "0" or vxml_file == "1" or vxml_file == "" or vxml_file == null'>
+                and vxml_file = #{vxml_file}
+            </if>
+
+            <if test = 'searchText != null and searchText != ""'>
+                and send_phone like concat('%', #{searchText}, '%')
+                or wap_info like concat('%', #{searchText}, '%')
+                or dest_phone like concat('%', #{searchText}, '%')
+                or msg_body like concat('%', #{searchText}, '%')
+            </if>
         </where>
     </sql>
 

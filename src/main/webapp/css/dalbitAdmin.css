@@ -74,7 +74,7 @@ div.searchBoxArea .searchBoxRow h3.title{
     font-weight: bold;
 }
 
-div.searchBoxArea .searchBoxRow div select.searchType{
+select.searchType{
     /*margin-left:10px;*/
     background:#ffffff;
 }

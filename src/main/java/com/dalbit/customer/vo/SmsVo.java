@@ -10,6 +10,8 @@ public class SmsVo extends PagingVo {
 
     /* input */
     private String searchText;
+    private String txt_startSel;
+    private String txt_endSel;
 
     /* output */
     private String cmid;

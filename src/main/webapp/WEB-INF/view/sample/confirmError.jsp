@@ -71,9 +71,9 @@
 
     function compare() {
         var startDate = $('#txt_startSel').val();
-        var startDateArr = startDate.split('-');
+        var startDateArr = startDate.split('.');
         var endDate = $('#txt_endSel').val();
-        var endDateArr = endDate.split('-');
+        var endDateArr = endDate.split('.');
 
         var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
         var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
@@ -165,6 +165,10 @@
         <td>{{ctype}}</td>
         <td style="text-align:left">{{desc}}</td>
         <td>{{upd_date}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="7">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
