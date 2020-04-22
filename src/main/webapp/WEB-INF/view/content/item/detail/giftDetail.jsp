@@ -371,7 +371,7 @@
                     <th>플레이타임 제한</th>
                     <td colspan="2">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="gift-play_time" name="play_time" placeholder="아이템 노출 시간" value="{{play_time}}" style="width:70%;" onkeydown="common.inputFilterNumber(event)" />
+                            <input type="text" class="form-control _trim" id="gift-play_time" name="play_time" placeholder="아이템 노출 시간" value="{{play_time}}" style="width:70%;" onkeydown="common.inputFilterNumber(event)" />
                             <span>(초)</span>
                         </div>
                     </td>
@@ -383,7 +383,7 @@
                     <th>지급 수량 (별)</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="exchange-byeol" name="byeol" placeholder="지급될 별 수량." value="{{byeol}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
+                            <input type="text" class="form-control _trim" id="exchange-byeol" name="byeol" placeholder="지급될 별 수량." value="{{byeol}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(별)</span>
                         </div>
                     </td>
@@ -391,7 +391,7 @@
                     <th>가격 (달)</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="gift-item_price" name="item_price" placeholder="아이템 구매 달 수량." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
+                            <input type="text" class="form-control _trim" id="gift-item_price" name="item_price" placeholder="아이템 구매 달 수량." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(달)</span>
                         </div>
                     </td>
@@ -405,13 +405,13 @@
                 <tr>
                     <th>Webp 이미지 URL</th>
                     <td colspan="5">
-                        <input type="text" id="gift-webp_image" name="webp_image" style="width:70%" value="{{webp_image}}">
+                        <input type="text" class="_trim" id="gift-webp_image" name="webp_image" style="width:70%" value="{{webp_image}}">
                         <input type="button" value="미리보기" onclick="getImg('gift-webp_image')">
                     </td>
 
                     <th>Json 이미지 URL</th>
                     <td colspan="5">
-                        <input type="text" id="gift-jason_image" name="jason_image" style="width:70%" value="{{jason_image}}">
+                        <input type="text" class="_trim" id="gift-jason_image" name="jason_image" style="width:70%" value="{{jason_image}}">
                         <input type="button" value="미리보기" onclick="getImg('gift-jason_image')">
                     </td>
                 </tr>
@@ -429,7 +429,7 @@
                 <tr>
                     <th>썸네일</th>
                     <td colspan="4">
-                        <input type="text" id="gift-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}">
+                        <input type="text" class="_trim" id="gift-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}">
                         <input type="button" value="미리보기" onclick="getImg('gift-item_thumbnail')">
                     </td>
                     <td colspan="1">
