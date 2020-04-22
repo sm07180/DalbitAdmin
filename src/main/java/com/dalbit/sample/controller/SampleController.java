@@ -98,4 +98,7 @@ public class SampleController {
     @GetMapping("confirmError")
     public String confirmError(){return "sample/confirmError";}
 
+    @GetMapping("tree")
+    public String tree(){return "sample/tree";}
+
 }

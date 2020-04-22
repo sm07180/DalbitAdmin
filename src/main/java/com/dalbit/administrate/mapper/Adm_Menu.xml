@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.administrate.dao.Adm_MenuDao" >
+
+    <select id="callMenuList" resultType="com.dalbit.administrate.vo.procedure.P_MenuListOutputVo">
+        select idx as id,ifnull(parent_idx,'#') as parent, menu_name as `text`,
+	           idx,menu_name,menu_url,depth,order_no,parent_idx,icon,is_pop,is_comming_soon,is_use,reg_date,last_upd_date
+          from rd_admin.tb_admin_menu
+         order by depth,parent_idx,order_no
+    </select>
+
+    <select id="callMenuInfo" parameterType="com.dalbit.administrate.vo.procedure.P_MenuInfoInputVo" resultType="java.util.HashMap">
+        select * from rd_admin.tb_admin_menu where idx = #{idx}
+    </select>
+
+</mapper>
