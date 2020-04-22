@@ -12,6 +12,8 @@ public interface Con_EventDao {
     ArrayList<P_EventListOutputVo> callEventList_End(P_EventListInputVo P_EventListInputVo);
     int callEventList_totalCnt(P_EventListInputVo P_EventListInputVo);
     int callEventList_End_totalCnt(P_EventListInputVo P_EventListInputVo);
+    int callEventDelete(P_EventDeleteVo pEventDeleteVo);
+    int callEventMemberDelete(P_EventDeleteVo pEventDeleteVo);
     int callEventInsert(P_EventUpdateVo pEventUpdateVo);
     int callEventUpdate(P_EventUpdateVo pEventUpdateVo);
     ArrayList<P_EventMemberListOutputVo> callEventMemberList(P_EventMemberListInputVo P_EventMemberListInputVo);

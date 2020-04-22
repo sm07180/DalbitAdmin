@@ -5,10 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.Con_EventService;
 import com.dalbit.content.vo.EventVo;
-import com.dalbit.content.vo.procedure.P_EventListInputVo;
-import com.dalbit.content.vo.procedure.P_EventMemberListInputVo;
-import com.dalbit.content.vo.procedure.P_EventMemberSelWinVo;
-import com.dalbit.content.vo.procedure.P_EventUpdateVo;
+import com.dalbit.content.vo.procedure.*;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -39,6 +36,15 @@ public class Con_EventRestController {
     @PostMapping("list")
     public String list(P_EventListInputVo pEventListInputVo){
         String result = con_EventService.getEventList(pEventListInputVo);
+        return result;
+    }
+
+    /**
+     * 이벤트 삭제
+     */
+    @PostMapping("eventDelete")
+    public String eventDelete(P_EventDeleteVo pEventDeleteVo){
+        String result = con_EventService.setEventDelete(pEventDeleteVo);
         return result;
     }
 

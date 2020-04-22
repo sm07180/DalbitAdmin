@@ -373,6 +373,9 @@ public enum Status {
     // 이벤트 관리
     이벤트목록보기_성공("0", "event.list.view.success", "이벤트목록보기 성공 시"),
     이벤트목록보기_실패("C006", "event.list.view.fail", "이벤트목록보기 실패 시"),
+    // 이벤트 삭제
+    이벤트삭제성공("0", "event.del.success", "이벤트삭제 성공 시"),
+    이벤트삭제실패("C006", "event.del.fail", "이벤트삭제 실패 시"),
     // 이벤트 등록
     이벤트등록성공("0", "event.add.success", "이벤트등록 성공 시"),
     이벤트등록실패("C006", "event.add.fail", "이벤트등록 실패 시"),

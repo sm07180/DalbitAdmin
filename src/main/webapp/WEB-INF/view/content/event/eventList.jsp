@@ -88,7 +88,7 @@
             });
 
             this.target.find("#btn_delete").on("click", function () { //삭제
-                fnc_eventList.deleteEvent();
+                fnc_eventList.deleteEvent("list");
             });
 
             // CheckBox 이벤트
@@ -110,16 +110,32 @@
         },
 
         // 삭제
-        deleteEvent() {
-            var checkDatas = dtList_info.getCheckedData();
-            if(checkDatas.length <= 0){
-                alert("삭제할 정보를 선택해주세요.");
+        deleteEvent(eventState) {
+
+            console.log(eventState);
+
+            if(eventState == "list"){
+                var checkDatas = fnc_eventList.dtList_info.getCheckedData();
+                if(checkDatas.length <= 0) {
+                    alert("삭제할 정보를 선택해주세요.");
+                    return false;
+                }
+            }else{
+                var checkDatas = fnc_pastEventList.dtList_info.getCheckedData();
+                if(checkDatas.length <= 0){
+                    alert("삭제할 정보를 선택해주세요.");
+                    return false;
+                }
+            }
+            dalbitLog(checkDatas);
+            if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
+                for(var i=0; i < checkDatas.length ; i ++){
+                    // console.log(checkDatas[i]);
+                    util.getAjaxData("eventDelete", "/rest/content/event/eventDelete",checkDatas[i], fnc_eventList.event_del_fn_success, fnc_eventList.event_del_fn_fail);
+                }
+            }else{
                 return false;
             }
-            if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
-                //TODO 삭제 로직 추가아아앙
-            };
-            dalbitLog(checkDatas);
         },
 
 
@@ -134,6 +150,21 @@
         // 검색
         selectMainList(isResetPaging){
             this.dtList_info.reload(null, isResetPaging);
+        },
+
+
+        // 등록 완료
+        event_del_fn_success(dst_id, response){
+            if(response.result == "fail"){
+                alert(response.message);
+                return false;
+            }
+            fnc_eventList.dtList_info.reload();
+            fnc_pastEventList.dtList_info.reload();
+        },
+
+        event_del_fn_fail(dst_id, response){
+            console.log("에러!!!");
         },
 
             // /*=---------- 엑셀 ----------*/
