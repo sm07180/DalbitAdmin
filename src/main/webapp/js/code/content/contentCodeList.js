@@ -173,7 +173,7 @@ var item_discount = [
     , new COMMON_CODE('80', '80', '80%')
     , new COMMON_CODE('90', '90', '90%')
     , new COMMON_CODE('100', '100', '100%(무료)')
-    , new COMMON_CODE('etc', '-1', '기타 <input id="inputDiscountEtc" style="width:40px;" onkeydown="common.inputFilterNumber(event)" maxlength="3">%')
+    , new COMMON_CODE('etc', '-1', '기타 <input id="inputDiscountEtc" class="_trim" style="width:40px;" onkeydown="common.inputFilterNumber(event)" maxlength="3">%')
 ];
 
 var item_itemType = [

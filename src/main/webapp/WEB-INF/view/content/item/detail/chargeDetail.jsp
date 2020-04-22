@@ -385,7 +385,7 @@
                     <th>지급 수량 (달)</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-dal" name="dal" placeholder="지급될 달 수량." value="{{dal}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
+                            <input type="text" class="form-control _trim" id="charge-dal" name="dal" placeholder="지급될 달 수량." value="{{dal}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(달)</span>
                         </div>
                     </td>
@@ -393,7 +393,7 @@
                     <th>가격</th>
                     <td colspan="3">
                         <div class="form-inline">
-                            <input type="text" class="form-control" id="charge-item_price" name="item_price" placeholder="아이템 구매 가격." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
+                            <input type="text" class="form-control _trim" id="charge-item_price" name="item_price" placeholder="아이템 구매 가격." value="{{item_price}}" style="width: 70%;" onkeydown="common.inputFilterNumber(event)">
                             <span>(원)</span>
                         </div>
                     </td>
@@ -414,13 +414,13 @@
                 <tr>
                     <th>아이템 이미지</th>
                     <td colspan="5">
-                        <input type="text" id="charge-item_image" name="item_image" style="width:70%" value="{{item_image}}" >
+                        <input type="text" class="_trim" id="charge-item_image" name="item_image" style="width:70%" value="{{item_image}}" >
                         <input type="button" value="미리보기" onclick="getImg('charge-item_image')">
                     </td>
 
                     <th>썸네일 (공통)</th>
                     <td colspan="4">
-                        <input type="text" id="charge-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}" >
+                        <input type="text" class="_trim" id="charge-item_thumbnail" name="item_thumbnail" style="width:70%" value="{{item_thumbnail}}" >
                         <input type="button" value="미리보기" onclick="getImg('charge-item_thumbnail')">
                     </td>
                     <td colspan="1">
