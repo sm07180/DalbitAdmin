@@ -37,7 +37,7 @@ var testId_userInfo = [
 
 var testId_searchType = [
     new COMMON_CODE(null, 'searchType', '검색조건')
-    , new COMMON_CODE('all', '', '선택')
+    , new COMMON_CODE('all', '0', '전체')
     , new COMMON_CODE('emp_name', '1', '직원명')
     , new COMMON_CODE('mem_no', '2', '회원번호')
     , new COMMON_CODE('mem_id', '3', 'User ID')

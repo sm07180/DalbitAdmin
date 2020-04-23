@@ -91,6 +91,13 @@
             and mem.mem_no = level.mem_no
             <if test='searchText != null and searchText != ""'>
                 <choose>
+                    <when test='searchType == 0'>
+                        AND (test.emp_name like concat('%', #{searchText}, '%')
+                            or mem.mem_no like concat('%', #{searchText}, '%')
+                            or mem.mem_id like concat('%', #{searchText}, '%')
+                            or mem.mem_nick like concat('%', #{searchText}, '%')
+                            or mem.mem_phone like concat('%', #{searchText}, '%'))
+                    </when>
                     <when test='searchType == 1'>
                         AND test.emp_name like concat('%', #{searchText}, '%')
                     </when>

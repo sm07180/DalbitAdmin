@@ -165,6 +165,12 @@
         }
     }
 
+    $('input[id="searchText"]').keydown(function() {
+        if (event.keyCode === 13) {
+            getList();
+        };
+    });
+
     $("#bt_search").on('click', function(){
        getList();
     });
