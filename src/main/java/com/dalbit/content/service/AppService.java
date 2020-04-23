@@ -50,7 +50,7 @@ public class AppService {
      * 앱버전 리스트 등록
      */
     public String addAppVersion(AppVo appVo) {
-        appVo.setOp_name(MemberVo.getMyMemNo());
+        appVo.setOpName(MemberVo.getMyMemNo());
         int result = appDao.addAppVersion(appVo);
 
         if(appVo.getIs_use() == 1) {

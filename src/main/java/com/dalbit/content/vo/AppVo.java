@@ -15,6 +15,5 @@ public class AppVo extends PagingVo {
     private int is_force;       // 강제업데이트 여부
     private int is_use;         // 0: 사용안함, 1: 사용
     private String reg_date;    // 등록일
-    private String op_name;
 
 }
