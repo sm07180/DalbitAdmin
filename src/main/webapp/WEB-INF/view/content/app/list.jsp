@@ -268,7 +268,7 @@
             <tr>
                 <th>version</th>
                 <td>
-                    <input type="text" name="version" id="version" value="{{version}}" maxlength="10"/>
+                    <input type="text" class="_trim" name="version" id="version" value="{{version}}" maxlength="10"/>
                 </td>
             </tr>
             <tr>
