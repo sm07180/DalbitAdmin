@@ -52,4 +52,8 @@
           where idx = #{idx}
     </insert>
 
+    <delete id="callMenuDelete" parameterType="com.dalbit.administrate.vo.procedure.P_MenuDeleteInputVo">
+         delete from rd_admin.tb_admin_menu where idx = #{idx}
+    </delete>
+
 </mapper>

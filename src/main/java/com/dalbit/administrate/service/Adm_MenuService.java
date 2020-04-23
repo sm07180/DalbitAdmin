@@ -1,10 +1,7 @@
 package com.dalbit.administrate.service;
 
 import com.dalbit.administrate.dao.Adm_MenuDao;
-import com.dalbit.administrate.vo.procedure.P_MenuInfoInputVo;
-import com.dalbit.administrate.vo.procedure.P_MenuInfoOutputVo;
-import com.dalbit.administrate.vo.procedure.P_MenuInfoUpdateInputVo;
-import com.dalbit.administrate.vo.procedure.P_MenuUpdateInputVo;
+import com.dalbit.administrate.vo.procedure.*;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.MenuVo;
@@ -87,6 +84,15 @@ public class Adm_MenuService {
         adm_MenuDao.callMenuInfoUpdate(pMenuInfoUpdateInputVo);
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.수정));
+        return result;
+    }
+    /**
+     * 메뉴 삭제
+     */
+    public String getMenuDelete(P_MenuDeleteInputVo pMenuDeleteInputVo) {
+        adm_MenuDao.callMenuDelete(pMenuDeleteInputVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.삭제));
         return result;
     }
 }

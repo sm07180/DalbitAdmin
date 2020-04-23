@@ -2,6 +2,7 @@ package com.dalbit.administrate.controller.rest;
 
 import com.dalbit.administrate.dao.Adm_MenuDao;
 import com.dalbit.administrate.service.Adm_MenuService;
+import com.dalbit.administrate.vo.procedure.P_MenuDeleteInputVo;
 import com.dalbit.administrate.vo.procedure.P_MenuInfoInputVo;
 import com.dalbit.administrate.vo.procedure.P_MenuInfoUpdateInputVo;
 import com.dalbit.administrate.vo.procedure.P_MenuListOutputVo;
@@ -62,6 +63,12 @@ public class Adm_MenuRestController {
     @PostMapping("menuInfoUpdate")
     public String menuInfoUpdate(P_MenuInfoUpdateInputVo pMenuInfoUpdateInputVo) {
         String result = adm_MenuService.getMenuInfoUpdate(pMenuInfoUpdateInputVo);
+        return result;
+    }
+
+    @PostMapping("menuDelete")
+    public String menuDelete(P_MenuDeleteInputVo pMenuDeleteInputVo) {
+        String result = adm_MenuService.getMenuDelete(pMenuDeleteInputVo);
         return result;
     }
 }

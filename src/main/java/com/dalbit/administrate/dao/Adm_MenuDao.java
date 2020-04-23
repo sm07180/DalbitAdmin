@@ -15,4 +15,5 @@ public interface Adm_MenuDao {
     int callMenuUpdate(P_MenuUpdateInputVo pMenuUpdateInputVo);
     int callMenuInsert(P_MenuUpdateInputVo pMenuUpdateInputVo);
     int callMenuInfoUpdate(P_MenuInfoUpdateInputVo pMenuInfoUpdateInputVo);
+    int callMenuDelete(P_MenuDeleteInputVo pMenuDeleteInputVo);
 }
