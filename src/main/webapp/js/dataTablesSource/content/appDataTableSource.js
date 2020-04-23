@@ -17,6 +17,7 @@ var AppDataTableSource = {
             , {'title': '등록일', 'data': 'reg_date', 'render' : function(data) {
                 return common.convertToDate(data);
                 }}
+            , {'title': '등록자', 'data': 'op_name'}
         ]
         , 'comments': ''
     },
