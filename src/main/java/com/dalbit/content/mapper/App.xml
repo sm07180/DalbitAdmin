@@ -10,6 +10,7 @@
         , is_force
         , is_use
         , reg_date
+        , op_name as opName
         , @RNUM := @RNUM + 1 as rowNum
         from
         rd_admin.tb_app_version
@@ -62,9 +63,9 @@
         </selectKey>
         insert
         into
-          rd_admin.tb_app_version (idx, os, version, is_force, is_use, reg_date)
+          rd_admin.tb_app_version (idx, os, version, is_force, is_use, reg_date, op_name)
         values
-          (#{idx}, #{os}, #{version}, #{is_force}, #{is_use}, current_timestamp())
+          (#{idx}, #{os}, #{version}, #{is_force}, #{is_use}, current_timestamp(), #{opName})
     </insert>
 
     <update id="updateOs" parameterType="com.dalbit.content.vo.AppVo">
