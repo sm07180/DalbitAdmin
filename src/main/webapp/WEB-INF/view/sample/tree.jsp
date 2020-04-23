@@ -10,18 +10,22 @@
 <body>
 
 <div class="col-md-12" style="margin-bottom: 20px;">
-    <div class="col-md-6">
+    <div class="col-md-5">
         <button type="button" class="btn btn-default btn-sm" onclick="root_add();"><i class="glyphicon glyphicon-asterisk"></i> 루트 추가</button>
         <button type="button" class="btn btn-success btn-sm" onclick="demo_create();"><i class="glyphicon glyphicon-asterisk"></i> 생성</button>
         <button type="button" class="btn btn-warning btn-sm" onclick="demo_rename();"><i class="glyphicon glyphicon-pencil"></i> 이름변경</button>
         <button type="button" class="btn btn-danger btn-sm" onclick="demo_delete();"><i class="glyphicon glyphicon-remove"></i> 삭제</button>
         <button type="button" class="btn btn-primary btn-sm" onclick="demo_refresh();"><i class="glyphicon glyphicon-remove"></i> 새로고침</button>
+        <button type="button" class="btn btn-default btn-sm pull-right" onclick="menuUpdate();">메뉴적용</button>
+    </div>
+    <div class="col-md-7">
+        <button type="button" class="btn btn-default btn-sm pull-right" onclick="menuInfoUpdate();">메뉴정보수정</button>
     </div>
 </div>
 <!-- 3 setup a container element -->
 <div class="col-md-12">
-    <div class="col-md-6" id="jstree"></div>
-    <div class="col-md-6">
+    <div class="col-md-5" id="jstree"></div>
+    <div class="col-md-7">
         <form id="menuFrm"></form>
     </div>
 
@@ -31,9 +35,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 <!-- 5 include the minified jstree source -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
+
+
 <script>
 
-    console.log("1111");
     util.getAjaxData("menu", "/rest/administrate/menu/list", "", menu_success, fn_fail);
 
     function menu_success(dst_id, response) {
@@ -73,11 +79,11 @@
 
     // 7 bind to events triggered on the tree
     $('#jstree').on("changed.jstree", function (e, data) {
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        console.log(data.selected);
-        var data = new Object();
-        data.idx = data.selected;
-        util.getAjaxData("menuInfo", "/rest/administrate/menu/menuInfo", data, menu_info, fn_fail);
+        if(!common.isEmpty(data.node)){
+            var obj = {};
+            obj.idx = data.node.id;
+            util.getAjaxData("menuInfo", "/rest/administrate/menu/menuInfo", obj, menu_info, fn_fail);
+        }
     });
     // 8 interact with the tree - either way is OK
     $('button').on('click', function () {
@@ -125,6 +131,32 @@
         $("#menuFrm").html(html);
     }
 
+    function menuUpdate(){
+        console.log($('#jstree').jstree(true).get_json('#', { flat: true }));
+        var obj = {
+            menuList : JSON.stringify($('#jstree').jstree(true).get_json('#', { flat: true }))
+        };
+        console.log(obj);
+        util.getAjaxData("menuUpdate", "/rest/administrate/menu/menuUpdate", obj, updateSucces, fn_fail);
+    }
+
+    function menuInfoUpdate(){
+
+        var obj = {};
+        obj.idx = $("#idx").val();
+        obj.menu_url = $("#menu_url").val();
+        obj.icon = $("#icon").val();
+        obj.is_pop = $('input:radio[name="isPopup_on_off"]:checked').val();
+        obj.is_comming_soon = $('input:radio[name="isComming_on_off"]:checked').val();
+        obj.is_use = $('input:radio[name="isUse_on_off"]:checked').val();
+
+        console.log(obj);
+        util.getAjaxData("menuInfoUpdate", "/rest/administrate/menu/menuInfoUpdate", obj, updateSucces, fn_fail);
+    }
+
+    function updateSucces(dst_id, response) {
+        util.getAjaxData("menu", "/rest/administrate/menu/list", "", menu_success, fn_fail);
+    }
 </script>
 
 
@@ -135,10 +167,34 @@
         </colgroup>
         <tbody>
         <tr>
-            <th>최근 정보 수정 자</th>
-            <td style="text-align: left">{{lastOpName}}
-                <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
+            <th>메뉴ID</th>
+            <td>{{idx}}</td>
+        </tr>
+        <tr>
+            <th>메뉴명</th>
+            <td>{{menu_name}}</td>
+        </tr>
+        <tr>
+            <th>메뉴URL(1 depth는 빈공간으로)</th>
+            <td>
+                <input type="text" class="form-control" id="menu_url" value="{{menu_url}}">
             </td>
+        </tr>
+        <tr>
+            <th>아이콘</th>
+            <td><input type="text" class="form-control" id="icon" value="{{icon}}"></td>
+        </tr>
+        <tr>
+            <th>새창여부</th>
+            <td>{{{getCommonCodeRadio is_pop 'isPopup_on_off'}}}</td>
+        </tr>
+        <tr>
+            <th>준비여부</th>
+            <td>{{{getCommonCodeRadio is_comming_soon 'isComming_on_off'}}}</td>
+        </tr>
+        <tr>
+            <th>사용여부</th>
+            <td>{{{getCommonCodeRadio is_use 'isUse_on_off'}}}</td>
         </tr>
         </tbody>
     </table>

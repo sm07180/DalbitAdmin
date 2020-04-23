@@ -13,4 +13,43 @@
         select * from rd_admin.tb_admin_menu where idx = #{idx}
     </select>
 
+    <select id="callMenuSel" parameterType="com.dalbit.administrate.vo.procedure.P_MenuUpdateInputVo" resultType="integer">
+        select count(*) as cnt from rd_admin.tb_admin_menu where idx = #{idx}
+    </select>
+    <update id="callMenuUpdate" parameterType="com.dalbit.administrate.vo.procedure.P_MenuUpdateInputVo">
+        update rd_admin.tb_admin_menu
+           set order_no=#{orderNo}
+             , menu_name=#{menu_name}
+             , depth=#{depth}
+             <if test="parent_idx == 0">
+             , parent_idx=null
+             </if>
+             <if test="parent_idx != 0">
+             , parent_idx=#{parent_idx}
+             </if>
+             ,last_upd_date=now()
+          where idx=#{idx}
+    </update>
+
+    <insert id="callMenuInsert" parameterType="com.dalbit.administrate.vo.procedure.P_MenuUpdateInputVo">
+         insert into rd_admin.tb_admin_menu (menu_name,depth,order_no,parent_idx,is_pop,is_comming_soon,is_use,reg_date)
+        <if test="parent_idx == 0">
+              values (#{menu_name},#{depth},#{orderNo},null,0,1,0,now())
+        </if>
+        <if test="parent_idx != 0">
+              values (#{menu_name},#{depth},#{orderNo},#{parent_idx},0,1,0,now())
+        </if>
+    </insert>
+
+    <insert id="callMenuInfoUpdate" parameterType="com.dalbit.administrate.vo.procedure.P_MenuInfoUpdateInputVo">
+         update rd_admin.tb_admin_menu
+            set menu_url = #{menu_url}
+               , icon = #{icon}
+               , is_pop = #{is_pop}
+               , is_comming_soon = #{is_comming_soon}
+               , is_use = #{is_use}
+               , last_upd_date = now()
+          where idx = #{idx}
+    </insert>
+
 </mapper>
