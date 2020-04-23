@@ -37,4 +37,8 @@ public class MenuVo {
     private int is_insert;
     private int is_delete;
 
+    private String id;
+    private String parent;
+    private String text;
+
 }

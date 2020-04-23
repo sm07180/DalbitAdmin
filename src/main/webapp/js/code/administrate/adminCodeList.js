@@ -44,3 +44,21 @@ var testId_searchType = [
     , new COMMON_CODE('mem_nick', '4', 'User 닉네임')
     , new COMMON_CODE('mem_phone', '5', '연락처')
 ];
+
+var isPopup_on_off = [
+    new COMMON_CODE(null, 'isPopup_on_off', 'isPopup_on_off')
+    , new COMMON_CODE('0', '0', '유지')
+    , new COMMON_CODE('1', '1', '새창')
+];
+
+var isComming_on_off = [
+    new COMMON_CODE(null, 'isComming_on_off', 'isComming_on_off')
+    , new COMMON_CODE('1', '1', '준비중')
+    , new COMMON_CODE('0', '0', '완료')
+];
+
+var isUse_on_off = [
+    new COMMON_CODE(null, 'isUse_on_off', 'isUse_on_off')
+    , new COMMON_CODE('0', '0', '사용안함')
+    , new COMMON_CODE('1', '1', '사용')
+];
