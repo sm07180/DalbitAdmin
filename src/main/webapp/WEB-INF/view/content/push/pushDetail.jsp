@@ -502,7 +502,7 @@
             </tr>
             <tr>
                 <th>이동 링크</th>
-                <td colspan="5"><input type="text" class="form-control" name="link_url" id="push-link_url" placeholder="푸시 클릭 시 이동 URL을 입력해주세요." value="{{link_url}}"></td>
+                <td colspan="5"><input type="text" class="form-control _trim" name="link_url" id="push-link_url" placeholder="푸시 클릭 시 이동 URL을 입력해주세요." value="{{link_url}}"></td>
 
                 <th>발송여부</th>
                 <td colspan="5">

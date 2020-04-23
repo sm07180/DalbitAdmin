@@ -445,13 +445,13 @@
             <tr>
                 <th>PC (1618px x 000px)</th>
                 <td colspan="5">
-                    <input type="text" id="event-eventPCImg" name="pc_img_url" style="width:70%" value="{{pc_img_url}}">
+                    <input type="text" class="_trim" id="event-eventPCImg" name="pc_img_url" style="width:70%" value="{{pc_img_url}}">
                     <input type="button" value="미리보기" onclick="getImg('pc_img_url')">
                 </td>
 
                 <th>Mobile (1618px x 000px)</th>
                 <td colspan="5">
-                    <input type="text" id="event-eventMobileImg" name="mobile_img_url" style="width:70%" value="{{mobile_img_url}}">
+                    <input type="text" class="_trim" id="event-eventMobileImg" name="mobile_img_url" style="width:70%" value="{{mobile_img_url}}">
                     <input type="button" value="미리보기" onclick="getImg('mobile_img_url')">
                 </td>
             </tr>
@@ -468,15 +468,15 @@
             </tr>
             <tr>
                 <th>PC 링크</th>
-                <td colspan="5"><input type="text" class="form-control" id="event-eventPCLink"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{pc_link_url}}"></td>
+                <td colspan="5"><input type="text" class="form-control _trim" id="event-eventPCLink"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{pc_link_url}}"></td>
 
                 <th>Mobile 링크</th>
-                <td colspan="5"><input type="text" class="form-control" id="event-eventMobileLink" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{mobile_link_url}}"></td>
+                <td colspan="5"><input type="text" class="form-control _trim" id="event-eventMobileLink" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{mobile_link_url}}"></td>
             </tr>
             <tr>
                 <th>썸네일 (공통)</th>
                 <td colspan="4">
-                    <input type="text" id="event-thumbImg" name="thumb_img_url" style="width:70%" value="{{thumb_img_url}}">
+                    <input type="text" class="_trim" id="event-thumbImg" name="thumb_img_url" style="width:70%" value="{{thumb_img_url}}">
                     <input type="button" value="미리보기" onclick="getImg('thumb_img_url')">
                 </td>
                 <td colspan="1">

@@ -34,11 +34,12 @@
             <div class="row col-lg-12 form-inline">
                 <div id="htmlTag"></div>
                 <div class="widget widget-table">
-                    <div class="widget-content">
+                    <div class="widget-content mt10">
                         <table id="smsList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
                                 <th>No</th>
                                 <th>발신번호</th>
+                                <th>통신사</th>
                                 <th>수신번호</th>
                                 <th>발송일</th>
                                 <th>발송내용</th>
@@ -73,12 +74,12 @@
 
     $('input[id="searchText"]').keydown(function(e) {
         if(e.keyCode == 13) {
-            compare();
+            listPagingInfo.pageNo = 1;
             smsList();
         }
     });
     $("#bt_search").on('click', function() {
-        compare();
+        listPagingInfo.pageNo = 1;
         smsList();
     });
 
@@ -97,7 +98,6 @@
         });
 
         $("#smsArea").html(util.getCommonCodeSelect(-1, sms_code));
-        compare();
         smsList();
     }
 
@@ -116,7 +116,9 @@
     }
 
     function smsList() {
-        $("#pageStart").val(1);
+        compare();
+
+        $("#pageStart").val(listPagingInfo.pageNo);
         $("#pageCnt").val(listPagingInfo.pageCnt);
         util.getAjaxData("list", "/rest/customer/sms/list", $("#searchForm").serialize(), fn_success_list, fn_fail);
     }
@@ -133,6 +135,11 @@
         listPagingInfo.totalCnt = pagingInfo.totalCnt;
         dalbitLog(listPagingInfo);
         util.renderPagingNavigation("list_info_paginate", listPagingInfo);
+
+        var btn = $(".paginate_button");
+        btn.find('a').click(function() {
+            $(this).addClass("active");
+        });
 
         if(response.data.length == 0) {
             $("#list_info_paginate").hide();
@@ -174,7 +181,8 @@
     <tr>
         <td>{{cmid}}</td>
         <td>{{send_phone}}</td>
-        <td>[{{wap_info}}] {{dest_phone}}</td>
+        <td>{{wap_info}}</td>
+        <td>{{dest_phone}}</td>
         <td>{{report_time}}</td>
         <td>{{msg_body}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>

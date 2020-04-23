@@ -24,3 +24,8 @@ $(document).on('click', 'img._imageFullPop', function(){
     $("#_imgFullLayer").html(util.imageFullSize("_imgFullLayer_modal", $(this).attr('src')));
     $('#_imgFullLayer_modal').modal('show');
 });
+
+$(document).on('focusout', '._trim', function(){
+    var a = $(this).val().replace(/ /gi, '');
+    $(this).val(a);
+});
