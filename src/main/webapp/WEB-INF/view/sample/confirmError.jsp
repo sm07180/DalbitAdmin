@@ -86,12 +86,14 @@
     $('input[id="searchText"]').keydown(function(e) {
         if (e.keyCode === 13) {
             compare();
+            errorPagingInfo.pageNo = 1;
             getErrorList();
         };
     });
 
     $('#bt_search').click( function() {       //검색
         compare();
+        errorPagingInfo.pageNo = 1;
         getErrorList();
     });
 
@@ -130,6 +132,12 @@
         errorPagingInfo.totalCnt = pagingInfo.totalCnt;
         console.log(errorPagingInfo);
         util.renderPagingNavigation("list_info_paginate", errorPagingInfo);
+
+        if(response.data.length == 0) {
+            $("#list_info_paginate").hide();
+        } else {
+            $("#list_info_paginate").show();
+        }
 
     }
 

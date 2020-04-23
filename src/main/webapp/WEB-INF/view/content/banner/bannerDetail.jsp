@@ -467,13 +467,13 @@
             <tr>
                 <th>PC (1618px x 000px)</th>
                 <td colspan="5">
-                    <input type="text" id="banner-pc_img_url" name="pc_img_url" style="width:70%" value="{{pc_img_url}}" >
+                    <input type="text" class="_trim" id="banner-pc_img_url" name="pc_img_url" style="width:70%" value="{{pc_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-pc_img_url')">
                 </td>
 
                 <th>Mobile (1618px x 000px)</th>
                 <td colspan="5">
-                    <input type="text" id="banner-mobile_img_url" name="mobile_img_url" style="width:70%" value="{{mobile_img_url}}" >
+                    <input type="text" class="_trim" id="banner-mobile_img_url" name="mobile_img_url" style="width:70%" value="{{mobile_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-mobile_img_url')">
                 </td>
             </tr>
@@ -490,15 +490,15 @@
             </tr>
             <tr>
                 <th>PC 링크</th>
-                <td colspan="5"><input type="text" class="form-control" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{pc_link_url}}"></td>
+                <td colspan="5"><input type="text" class="form-control _trim" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{pc_link_url}}"></td>
 
                 <th>Mobile 링크</th>
-                <td colspan="5"><input type="text" class="form-control" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{mobile_link_url}}"></td>
+                <td colspan="5"><input type="text" class="form-control _trim" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{mobile_link_url}}"></td>
             </tr>
             <tr>
                 <th>썸네일 (공통)</th>
                 <td colspan="4">
-                    <input type="text" id="banner-thumb_img_url" name="thumb_img_url" style="width:70%" value="{{thumb_img_url}}" >
+                    <input type="text" class="_trim" id="banner-thumb_img_url" name="thumb_img_url" style="width:70%" value="{{thumb_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-thumb_img_url')">
                 </td>
                 <td colspan="1">
