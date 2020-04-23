@@ -88,6 +88,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
 
             .and()
+                .rememberMe()
+                .key("dalbitAdmin")
+                .rememberMeParameter("remember-me-new")
+                .tokenValiditySeconds(604800)
+                .userDetailsService(userDetailsService)
+
+            .and()
                 .logout()
                     .logoutUrl("/logout")
                     .addLogoutHandler(logoutHandler)

@@ -33,8 +33,10 @@
                     </div>
                 </div>
                 <label class="fancy-checkbox">
-                    <input type="checkbox">
-                    <span>Remember me</span>
+                    <label for="remember-me-new">
+                        <input type="checkbox" name="remember-me-new" id="remember-me-new" value="true" />
+                        <span>Remember me</span>
+                    </label>
                 </label>
                 <button type="button" class="btn btn-custom-primary btn-lg btn-block btn-auth" id="loginBtn">
                     <i class="fa fa-arrow-circle-o-right"></i> Login
