@@ -79,13 +79,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling().accessDeniedPage("/login")*/
 
             .and()
-                .rememberMe()
-                .rememberMeParameter("rememberMe")
-                .rememberMeCookieName("rememberMeCookie")
-                .tokenValiditySeconds(604800)
-                .userDetailsService(userDetailsService)
-
-            .and()
                 .userDetailsService(userDetailsService)
                 .authorizeRequests()
                 .antMatchers(
@@ -93,6 +86,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 ).permitAll()
                 .antMatchers("/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
+
+            .and()
+                .rememberMe()
+                .key("dalbitAdmin")
+                .rememberMeParameter("remember-me-new")
+                .tokenValiditySeconds(604800)
+                .userDetailsService(userDetailsService)
 
             .and()
                 .logout()

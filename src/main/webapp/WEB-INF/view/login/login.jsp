@@ -33,8 +33,8 @@
                     </div>
                 </div>
                 <label class="fancy-checkbox">
-                    <label for="rememberMe">
-                        <input type="checkbox" name="rememberMe" id="rememberMe" value="true" />
+                    <label for="remember-me-new">
+                        <input type="checkbox" name="remember-me-new" id="remember-me-new" value="true" />
                         <span>Remember me</span>
                     </label>
                 </label>
