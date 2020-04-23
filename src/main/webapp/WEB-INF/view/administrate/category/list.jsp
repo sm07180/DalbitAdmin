@@ -18,8 +18,12 @@
         <button type="button" class="btn btn-default btn-sm pull-right" onclick="menuUpdate();">메뉴적용</button>
     </div>
     <div class="col-md-7">
-        <button type="button" class="btn btn-default btn-sm pull-right" onclick="menuInfoUpdate();">메뉴정보수정</button>
-        <button type="button" class="btn btn-danger btn-sm pull-right" onclick="demo_delete();"><i class="glyphicon glyphicon-remove"></i> 삭제</button>
+        <div class="col-md-6 no-padding">
+            <button type="button" class="btn btn-danger btn-sm" onclick="demo_delete();"><i class="glyphicon glyphicon-remove"></i> 삭제</button>
+        </div>
+        <div class="col-md-6 no-padding">
+            <button type="button" class="btn btn-default btn-sm pull-right" onclick="menuInfoUpdate();">메뉴정보수정</button>
+        </div>
     </div>
 </div>
 <!-- 3 setup a container element -->
@@ -160,7 +164,7 @@
 
     function menuInfoUpdate(){
         var obj = {};
-        obj.idx = $("#idx").val();
+        obj.idx = $("#idx").html();
         obj.menu_url = $("#menu_url").val();
         obj.icon = $("#icon").val();
         obj.is_pop = $('input:radio[name="isPopup_on_off"]:checked').val();
@@ -184,7 +188,7 @@
         <tbody>
         <tr>
             <th>메뉴ID</th>
-            <td>{{idx}}</td>
+            <td><label id="idx">{{idx}}</label></td>
         </tr>
         <tr>
             <th>메뉴명</th>

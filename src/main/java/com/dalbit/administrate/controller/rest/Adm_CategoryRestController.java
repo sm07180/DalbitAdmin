@@ -24,7 +24,7 @@ import java.util.ArrayList;
 @Slf4j
 @RestController
 @RequestMapping("/rest/administrate/menu")
-public class Adm_MenuRestController {
+public class Adm_CategoryRestController {
 
     @Autowired
     GsonUtil gsonUtil;
