@@ -38,6 +38,15 @@
                 </span>
                 <div class="widget widget-table"  style="width:5000px; overflow: scroll">
                     <div class="widget-content">
+                        <table class="table table-bordered table-summary" id="Summary">
+                            <thead>
+                            <tr>
+                                <th>총 : <span id="total"></span> 건 </th>
+                            </tr>
+                            </thead>
+                            <tbody id="summaryDataTable">
+                            </tbody>
+                        </table>
                         <table id="errorList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
                             <th width="100px">idx</th>
@@ -127,6 +136,8 @@
         var html = templateScript(context);
 
         $("#tableBody").html(html);
+
+        $("#total").html(response.pagingVo.totalCnt);
 
         var pagingInfo = response.pagingVo;
         errorPagingInfo.totalCnt = pagingInfo.totalCnt;
