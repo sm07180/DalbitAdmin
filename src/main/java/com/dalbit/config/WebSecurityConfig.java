@@ -79,6 +79,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .exceptionHandling().accessDeniedPage("/login")*/
 
             .and()
+                .rememberMe()
+                .rememberMeParameter("rememberMe")
+                .rememberMeCookieName("rememberMeCookie")
+                .tokenValiditySeconds(604800)
+                .userDetailsService(userDetailsService)
+
+            .and()
                 .userDetailsService(userDetailsService)
                 .authorizeRequests()
                 .antMatchers(
