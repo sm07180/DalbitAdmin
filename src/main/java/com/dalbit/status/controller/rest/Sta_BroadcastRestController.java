@@ -27,14 +27,10 @@ public class Sta_BroadcastRestController {
     public String infoTotal(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
-        }else{
-            pStatVo.setStartDate(pStatVo.getStartDate().replaceAll("\\.", "-"));
         }
 
         if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
             pStatVo.setEndDate(null);
-        }else{
-            pStatVo.setEndDate(pStatVo.getEndDate().replaceAll("\\.", "-"));
         }
 
         String result = sta_BroadcastService.callBroadcastTotal(pStatVo);
