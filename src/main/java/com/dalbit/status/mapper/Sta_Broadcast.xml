@@ -3,7 +3,12 @@
 <mapper namespace="com.dalbit.status.dao.Sta_BroadcastDao" >
 
     <select id="callBroadcastTotal" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastTotalOutDetailVo">
-        /* B_Broadcast.xml - callBroadcastLive */
+        /* B_Broadcast.xml - callBroadcastTotal */
+        call rd_admin.sp_admin_stat_broadcast_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callBroadcastPlatform" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastPlatformOutDetailVo">
+        /* B_Broadcast.xml - callBroadcastPlatform */
         call rd_admin.sp_admin_stat_broadcast_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 

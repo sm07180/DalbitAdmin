@@ -38,6 +38,25 @@ public class Sta_BroadcastRestController {
     }
 
     /**
+     * 방송 플랫폼
+     * @param pStatVo
+     * @return
+     */
+    @PostMapping("info/platform")
+    public String infoPlatform(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+
+        String result = sta_BroadcastService.callBroadcastPlatform(pStatVo);
+        return result;
+    }
+
+    /**
      * 방송 고정
      */
     @PostMapping("/broadcastLive/list")

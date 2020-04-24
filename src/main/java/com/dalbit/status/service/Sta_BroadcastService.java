@@ -49,6 +49,26 @@ public class Sta_BroadcastService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
+    /**
+     * 방송 플랫폼
+     */
+    public String callBroadcastPlatform(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_BroadcastPlatformOutDetailVo> detailList = sta_BroadcastDao.callBroadcastPlatform(procedureVo);
+
+        P_BroadcastPlatformOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BroadcastPlatformOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
 
     /**
      * 방송 고정
