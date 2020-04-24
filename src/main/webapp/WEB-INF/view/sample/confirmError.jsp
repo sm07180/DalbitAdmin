@@ -38,6 +38,15 @@
                 </span>
                 <div class="widget widget-table"  style="width:5000px; overflow: scroll">
                     <div class="widget-content">
+                        <table class="table table-bordered table-summary" id="Summary">
+                            <thead>
+                            <tr>
+                                <th><span id="type"></span> : <span id="total"></span> 건 </th>
+                            </tr>
+                            </thead>
+                            <tbody id="summaryDataTable">
+                            </tbody>
+                        </table>
                         <table id="errorList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
                             <th width="100px">idx</th>
@@ -127,6 +136,22 @@
         var html = templateScript(context);
 
         $("#tableBody").html(html);
+
+        if($("#osTypeArea option:selected").val() == 1) {
+            $("#type").html('안드로이드');
+        } else if($("#osTypeArea option:selected").val() == 2) {
+            $("#type").html('IOS');
+        } else if($("#osTypeArea option:selected").val() == 'WEB') {
+            $("#type").html('WEB');
+        } else if($("#osTypeArea option:selected").val() == 'API') {
+            $("#type").html('API');
+        } else if($("#osTypeArea option:selected").val() == 'server') {
+            $("#type").html('SERVER');
+        } else {
+            $("#type").html('총');
+        }
+
+        $("#total").html(response.pagingVo.totalCnt);
 
         var pagingInfo = response.pagingVo;
         errorPagingInfo.totalCnt = pagingInfo.totalCnt;

@@ -100,11 +100,13 @@
 
     $("#bt_insert").on("click", function(){
 
+        $('#list_info .dt-body-center input[type="checkbox"]').prop('checked', false);
         if($('#insertBtn').length > 0) {
             $("#noticeForm").empty();
         } else {
             generateForm();
         }
+
     });
 
     function generateForm() {
