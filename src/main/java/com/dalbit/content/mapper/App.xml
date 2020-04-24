@@ -7,7 +7,8 @@
         idx
         , os
         , version
-        , is_force
+        , build_no
+        , upBuild_no
         , is_use
         , reg_date
         , op_name as opName
@@ -15,10 +16,11 @@
         from
         rd_admin.tb_app_version
         , (select @RNUM := 0) r
-        where is_use = 1
-        <if test = 'os != null and os != ""'>
-            and os = #{os}
-        </if>
+        <where>
+          <if test = 'os != null and os != ""'>
+            os = #{os}
+          </if>
+        </where>
         order by idx desc
     </sql>
 
@@ -45,15 +47,18 @@
         select
         os
         , version
-        , is_force
+        , build_no
+        , upBuild_no
         , is_use
         , reg_date
+        , memo
         from
         rd_admin.tb_app_version
-        where is_use = 1
+        <where>
             <if test = 'idx != null and idx != ""'>
             and idx = #{idx}
             </if>
+        </where>
     </select>
 
     <insert id="addAppVersion" parameterType="com.dalbit.content.vo.AppVo">
@@ -63,9 +68,9 @@
         </selectKey>
         insert
         into
-          rd_admin.tb_app_version (idx, os, version, is_force, is_use, reg_date, op_name)
+          rd_admin.tb_app_version (idx, os, version, build_no, upBuild_no, is_use, reg_date, op_name, memo)
         values
-          (#{idx}, #{os}, #{version}, #{is_force}, #{is_use}, current_timestamp(), #{opName})
+          (#{idx}, #{os}, #{version}, #{build_no}, #{upBuild_no}, #{is_use}, current_timestamp(), #{opName}, #{memo})
     </insert>
 
     <update id="updateOs" parameterType="com.dalbit.content.vo.AppVo">

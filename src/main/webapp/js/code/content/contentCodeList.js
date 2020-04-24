@@ -266,9 +266,3 @@ var content_isUse = [
     , new COMMON_CODE('no', 0, '사용 안 함')
     , new COMMON_CODE('yes', 1, '사용 함')
 ]
-
-var content_isForce = [
-    new COMMON_CODE(null, 'content_isForce', '강제 업데이트 여부')
-    , new COMMON_CODE('no', 0, '사용 안 함')
-    , new COMMON_CODE('yes', 1, '사용 함')
-]

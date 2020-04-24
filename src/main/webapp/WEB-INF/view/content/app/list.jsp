@@ -5,15 +5,15 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <form id="searchForm">
-                <%--<div class="row col-lg-12 form-inline">--%>
-                    <%--<div class="widget widget-table searchBoxArea">--%>
-                        <%--<div class="widget-header searchBoxRow">--%>
-                            <%--<h3 class="title"><i class="fa fa-search"></i>검색조건</h3>--%>
-                            <%--<span id="search_os_area"></span>--%>
-                            <%--<button type="button" class="btn btn-success" id="bt_search">검색</button>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i>검색조건</h3>
+                            <span id="search_os_area"></span>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                        </div>
+                    </div>
+                </div>
             </form>
             <div class="row col-lg-12 form-inline" id="insertBtn">
                 <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
@@ -62,7 +62,7 @@
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, AppDataTableSource.appInfo, $("#searchForm"));
         dtList_info.useCheckBox(true);
-        dtList_info.useIndex(false);
+        dtList_info.useIndex(true);
         dtList_info.createDataTable();
 
         $("#search_os_area").html(util.getCommonCodeSelect(-1, content_selectApp));
@@ -118,9 +118,11 @@
     function disabled() {
         if($("#bt_insert").length > 0) {
             $('input:radio[name="os"]').attr("disabled", "disabled");
-            $('input:radio[name="is_use"]').attr("disabled", "disabled");
-            $('input:radio[name="is_force"]').attr("disabled", "disabled");
             $('input:text[name="version"]').attr("disabled", "disabled");
+            $('#build_no').attr("disabled", "disabled");
+            $('#upBuild_no').attr("disabled", "disabled");
+            $('input:radio[name="is_use"]').attr("disabled", "disabled");
+            $('#memo').attr("disabled", "disabled");
         }
     }
 
@@ -163,9 +165,15 @@
             return false;
         }
 
-        var isForce = $('input:radio[name="is_force"]:checked').val();
+        var isForce = $('#build_no').val();
         if(common.isEmpty(isForce)) {
-            alert("강제 업데이트 여부를 선택해주세요.");
+            alert("build_no을 입력해주세요.");
+            return false;
+        }
+
+        var isForce = $('#upBuild_no').val();
+        if(common.isEmpty(isForce)) {
+            alert("upBuild_no 입력해주세요.");
             return false;
         }
 
@@ -264,7 +272,7 @@
                 <col width="10%"/>
             </colgroup>
             <tr>
-                <th>os</th>
+                <th>플랫폼</th>
                 <td>
                     {{{getCommonCodeRadio os 'content_radioApp' 'Y' 'os'}}}
                 </td>
@@ -276,9 +284,15 @@
                 </td>
             </tr>
             <tr>
-                <th>강제 업데이트 여부</th>
+                <th>빌드번호</th>
                 <td>
-                    {{{getCommonCodeRadio is_force 'content_isForce' 'Y' 'is_force'}}}
+                    <input type="number" class="_trim" name="build_no" id="build_no" value="{{build_no}}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                </td>
+            </tr>
+            <tr>
+                <th>최소 업데이트 빌드번호</th>
+                <td>
+                    <input type="number" class="_trim" name="upBuild_no" id="upBuild_no" value="{{upBuild_no}}" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                 </td>
             </tr>
             <tr>
@@ -291,6 +305,12 @@
                 <th>등록일</th>
                 <td id = "day">
                     {{convertToDate reg_date "YYYY.MM.DD HH:mm"}}
+                </td>
+            </tr>
+            <tr>
+                <th>운영자 메모</th>
+                <td>
+                <textarea type="textarea" class="form-control" id="memo" name="memo" style="width: 100%; height: 100px">{{memo}}</textarea>
                 </td>
             </tr>
         </table>

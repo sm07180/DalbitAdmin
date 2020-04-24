@@ -3,14 +3,12 @@ var AppDataTableSource = {
         'url': '/rest/content/app/list'
 
         , 'columns': [
-            {'title': 'idx', 'data': 'idx'}
-            , {'title': 'os', 'data': 'os', 'render' : function(data, type, row) {
-                return '<a href="javascript://" class="_appDetail" data-idx="' + row.idx + '">'  + util.getCommonCodeLabel(data, content_radioApp) + '</a>' + ' (클릭 시 상세 보기)'
+            {'title': '플랫폼', 'data': 'os', 'render' : function(data, type, row) {
+                return '<a href="javascript://" class="_appDetail" data-idx="' + row.idx + '">'  + util.getCommonCodeLabel(data, content_radioApp) + '</a>'
                 }}
             , {'title': 'version', 'data' : 'version'}
-            , {'title': '강제업데이트 여부', 'data': 'is_force', 'render' : function(data) {
-                return util.getCommonCodeLabel(data, content_isForce);
-                }}
+            , {'title': '빌드번호', 'data': 'build_no'}
+            , {'title': '최소 업데이트 빌드번호', 'data': 'upBuild_no'}
             , {'title': '사용여부', 'data': 'is_use', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, content_isUse);
                 }}
