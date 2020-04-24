@@ -15,7 +15,7 @@
                     <li><a href="#dj" role="tab" data-toggle="tab" id="tab_djDetail">DJ</a></li>
                     <li><a href="#listener" role="tab" data-toggle="tab" id="tab_listenerDetail">청취자</a></li>
                     <li><a href="#guest" role="tab" data-toggle="tab" id="tab_guestDetail">게스트</a></li>
-                    <li><a href="#gift" role="tab" data-toggle="tab" id="tab_giftDetail">선물</a></li>
+                    <li><a href="#gift" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="broadcastGift();">선물</a></li>
                     <li><a href="#giftHistory" role="tab" data-toggle="tab" id="tab_giftHistoryDetail">선물내역</a></li>
                 </ul>
                 <div class="tab-content">
