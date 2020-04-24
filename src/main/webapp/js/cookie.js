@@ -43,12 +43,24 @@ var config = function cookie(key, value, options) {
             t.setTime(+t + days * 864e+5);
         }
 
+        console.log((document.cookie = [
+            key, '=', value,
+            options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+            options.path    ? '; path=' + options.path : '',
+            options.domain  ? '; domain=' + options.domain : '',
+            options.secure  ? '; secure=' + options.secure : ''
+        ].join('')));
+
         return (document.cookie = [
             key, '=', value,
             options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
             options.path    ? '; path=' + options.path : '',
             options.domain  ? '; domain=' + options.domain : '',
-            options.secure  ? '; secure' : ''
+            options.secure  ? '; secure=' + options.secure : '',
+            options.HostOnly  ? '; HostOnly=' + options.HostOnly : '',
+            options.SameSite  ? '; SameSite=' + options.SameSite : '',
+            options.HttpOnly  ? '; HttpOnly=' + options.HttpOnly : '',
+
         ].join(''));
     }
 

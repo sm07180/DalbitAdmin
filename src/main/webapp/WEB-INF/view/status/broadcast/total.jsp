@@ -81,6 +81,74 @@
 </div>
 
 <script type="text/javascript">
+    $(function(){
+        getTotalList();
+    });
 
+    function getTotalList(){
+        util.getAjaxData("memberList", "/rest/status/broadcast/info/total", $("#searchForm").serialize(), fn_totalJoin_success);
+    }
 
+    function fn_totalJoin_success(data, response){
+        var isDataEmpty = response.data.detailList == null;
+        $("#tableBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_total').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalTtml = templateScript(totalContext);
+            $("#tableBody").append(totalTtml);
+
+            response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
+        }
+
+        var template = $('#tmp_detailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#tableBody").append(html);
+
+        if(isDataEmpty){
+            $("#tableBody td:last").remove();
+        }else{
+            $("#tableBody").append(totalTtml);
+        }
+    }
+</script>
+<script type="text/x-handlebars-template" id="tmp_total">
+    <tr class="success">
+        <td>소계</td>
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_maleCnt}}</td>
+        <td>{{addComma sum_femaleCnt}}</td>
+        <td>{{addComma sum_noneCnt}}</td>
+        <td>{{addComma sum_age10Cnt}}</td>
+        <td>{{addComma sum_age20Cnt}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_detailList">
+    {{#each this as |data|}}
+        <tr>
+            <td>
+                {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+                {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+                {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+            </td>
+            <td>{{addComma totalCnt}}</td>
+            <td>{{addComma maleCnt}}</td>
+            <td>{{addComma femaleCnt}}</td>
+            <td>{{addComma noneCnt}}</td>
+            <td>{{addComma age10Cnt}}</td>
+            <td>{{addComma age20Cnt}}</td>
+            <td>{{addComma age30Cnt}}</td>
+            <td>{{addComma age40Cnt}}</td>
+            <td>{{addComma age50Cnt}}</td>
+            <td>{{addComma age60Cnt}}</td>
+        </tr>
+    {{else}}
+        <tr>
+            <td colspan="11" class="noData">{{isEmptyData}}<td>
+        </tr>
+    {{/each}}
 </script>

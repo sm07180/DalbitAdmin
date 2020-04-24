@@ -68,7 +68,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }*/
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_TEMP"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         SecurityUserVo securityUserVo = new SecurityUserVo(
                 DalbitUtil.convertRequestParamToString(request,"memId")

@@ -28,6 +28,28 @@ public class Sta_BroadcastService {
     @Autowired
     Sta_BroadcastDao sta_BroadcastDao;
 
+
+    /**
+     * 방송 총계
+     */
+    public String callBroadcastTotal(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_BroadcastTotalOutDetailVo> detailList = sta_BroadcastDao.callBroadcastTotal(procedureVo);
+
+        P_BroadcastTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BroadcastTotalOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+
     /**
      * 방송 고정
      */

@@ -10,16 +10,25 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
-                                <span id="sp_zoneDate"></span>
-                                <div class="input-group date" id="event-div-startDate">
-                                    <span class="input-group-addon" id="iconStartDate"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" class="form-control" name="startDate" id="startDate" style="width:100px; background:white;" readonly>
+                                <span id="slctTypeArea"></span>
+
+                                <div class="input-group date" id="oneDayDatePicker">
+                                    <label for="onedayDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
                                 </div>
-                                <span> ~ </span>
-                                <div class="input-group date" id="event-div-endDate">
-                                    <span class="input-group-addon disabled" id="iconEndDate"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" class="form-control" name="endDate" id="endDate" style="width:100px; background:white;" readonly>
+
+                                <div class="input-group date" id="rangeDatepicker" style="display:none;">
+                                    <label for="displayDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input type="text" name="displayDate" id="displayDate" class="form-control" />
                                 </div>
+
+                                <input type="hidden" name="startDate" id="startDate">
+                                <input type="hidden" name="endDate" id="endDate" />
+
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
@@ -96,113 +105,159 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/status/statusCodeList.js"></script>
-
+<script type="text/javascript" src="/js/code/enter/joinCodeList.js"></script>
+<script type="text/javascript" src="/js/util/statUtil.js"></script>
 <script type="text/javascript">
+    $(function(){
+        $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
 
-    $("#sp_zoneDate").html(util.getCommonCodeRadio(0, zoneDate));
-    $(document).ready(function () {
-        broadcastStatus.init();
-        <!-- 버튼 -->
-        $('#bt_search').click( function() {       //검색
-            getList();
+        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
+            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
+            $("#displayDate").val(selectDate+ ' - ' + selectDate);
+            $("#startDate").val(selectDate);
+            $("#endDate").val(selectDate);
         });
+
+        $("#displayDate").daterangepicker( dataPickerSrc,
+            function(start, end, t1) {
+                $("#startDate").val(start.format('YYYY.MM.DD'));
+                $("#endDate").val(end.format('YYYY.MM.DD'));
+
+                $("#onedayDate").val($("#startDate").val());
+            }
+        );
+
+        var dateTime = new Date();
+        dateTime = moment(dateTime).format("YYYY.MM.DD");
+        setTimeDate(dateTime);
+
+        //가입자수 통계 현황
+        getStatJoinInfo();
+
+        //탈퇴자수 통계 현황
+        getStatWithdrawInfo();
     });
 
-    var broadcastStatus = {
-        // Datapicker
-        "dataPickerSrc": {
-            startDate: moment(),
-            endDate: moment(),
-            // dateLimit: { days: 60 },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            timePicker: false,
-            timePickerIncrement: 1,
-            timePicker12Hour: false,
-            ranges: {
-                '1일': [moment(), moment()],
-                '7일': [moment(), moment().add('days', 6)],
-                '30일': [moment(), moment().add('days', 29)]
-            },
-            opens: 'left',
-            format: 'L',
-            separator: ' to ',
-            locale: {
-                customRangeLabel: '직접선택',
+    function setTimeDate(dateTime){
+        $("#onedayDate").val(dateTime);
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("._searchDate").html(dateTime);
+    }
+
+    function setRangeDate(displayDate, startDate, endDate){
+        $("#onedayDate").val(startDate);
+        $("#startDate").val(startDate);
+        $("#endDate").val(endDate);
+        $("._searchDate").html(displayDate);
+        $("#displayDate").val(startDate + ' - ' + endDate);
+    }
+
+    $(document).on('change', 'input[name="slctType"]', function(){
+        var me = $(this);
+        if(me.val() == 0){
+            $("#oneDayDatePicker").show();
+            $("#rangeDatepicker").hide();
+
+            $("#startDate").val($("#onedayDate").val());
+            $("#endDate").val($("#onedayDate").val());
+
+            $("._searchDate").html($("#onedayDate").val());
+
+        }else{
+            $("#oneDayDatePicker").hide();
+            $("#rangeDatepicker").show();
+
+            var rangeDate = $("#displayDate").val().split(' - ')
+            if(-1 < rangeDate.indexOf(' - ')){
+                $("#startDate").val(rangeDate[0]);
+                $("#endDate").val(rangeDate[1]);
+            };
+
+            if(me.val() == 1){
+                $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년 MM월'));
+            }else{
+                $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년'));
             }
+        }
+    });
+
+    var dataPickerSrc = {
+        startDate: moment(),
+        endDate: moment(),
+        dateLimit: { days: 365 },
+        showDropdowns: true,
+        showWeekNumbers: true,
+        timePicker: false,
+        timePickerIncrement: 1,
+        timePicker12Hour: false,
+        ranges: {
+            '오늘': [moment(), moment()],
+            '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
+            '지난주': [moment().subtract('days', 6), moment()],
+            '전월': [moment().subtract('days', 29), moment()]
         },
+        opens: 'left',
+        // buttonClasses: ['btn btn-default'],
+        // applyClass: 'btn-small btn-primary',
+        // cancelClass: 'btn-small',
+        format: 'L',
+        separator: ' to ',
+        locale: {
+            customRangeLabel: '직접선택',
+        }
+    }
 
-        init() {
-            this.initDetail();
-            getList();
-        },
-        // 초기 설정
-        initDetail() {
-            // 캘린더 기능추가
-            $("#iconStartDate, #iconEndDate").daterangepicker( this.dataPickerSrc,
-                function(start, end, t1) {
-                    $("#startDate").val(start.format('YYYY-MM-DD'));
-                    $("#endDate").val(end.format('YYYY-MM-DD'));
-                }
-            );
-            // 캘린더 초기값
-            $("[name=startDate]").val(moment().format('YYYY-MM-DD'));
-            $("[name=endDate]").val(moment().format('YYYY-MM-DD'));
+    function getStatJoinInfo(){
+        //util.getAjaxData("statJoin", "/rest/enter/join/stat/join", null, fn_statJoin_success);
+    }
 
-            if($('input:radio[name="zoneDate"]:checked').val() == 0){       // 시간대별이면 종료일자 선택 못하게
-                $("#iconEndDate").off("click");
-            }
-        },
-    };
+    function fn_statJoin_success(data, response){
+        var template = $('#tmp_statJoin').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.joinInfo;
+        var html=templateScript(context);
+        $("#statJoinTableBody").append(html);
+    }
 
-    var endDate;
-    var startDate;
-    var slctType;
+    function getStatWithdrawInfo(){
+        //util.getAjaxData("statJoin", "/rest/enter/join/stat/withdraw", null, fn_statWithdraw_success);
+    }
 
-    $("input[name='zoneDate']:radio").change(function () {
-        startDate = "";
-        endDate = "";
-        slctType = this.value;
-        endDate = $("#endDate").val();
-        startDate = $("#startDate").val();
+    function fn_statWithdraw_success(data, response){
+        var template = $('#tmp_statJoin').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.withdrawInfo;
+        var html=templateScript(context);
+        $("#statWithdrawTableBody").append(html);
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        prevNext(true);
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        prevNext(false);
+    });
+
+    function prevNext(isPrev){
+        var slctType = $('input[name="slctType"]:checked').val();
+        var targetDate = statUtil.getStatTimeDate($("#onedayDate").val(), stat_searchType, slctType, isPrev);
+        var addDate = isPrev ? -1 : 1;
 
         if(slctType == 0){
-            $("#iconEndDate").addClass("disabled");
-            $("#iconEndDate").off("click");
+            setTimeDate(targetDate);
+        }else if(slctType == 1){
+            $("#startDate").val(moment($("#startDate").val()).add("months", addDate).format('YYYY.MM.DD'));
+            $("#endDate").val(moment($("#endDate").val()).add("months", addDate).format('YYYY.MM.DD'));
+            setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
         }else{
-            $("#iconEndDate").removeClass("disabled");
-            broadcastStatus.init();
+            $("#startDate").val(moment($("#startDate").val()).add("years", addDate).format('YYYY.MM.DD'));
+            $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
+            setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
         }
-        getList();
-        $("#tablist_con").find('.active').find('a').click();
-    });
-
-    function getList(){
-        util.getAjaxData("broadSumStatus", "/rest/status/broadcast/broadcastLive/list", null, fn_broadSumStatus_success);
+        $("#bt_search").click();
     }
-
-    function fn_broadSumStatus_success(dst_id, response) {
-        dalbitLog(response);
-
-        $( '#tb_broadSumStatus > tbody').empty();
-        $( '#tb_giftSumStatus > tbody').empty();
-
-        var template = $('#tmp_broadcastLive').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data.broadCastLiveInfo;
-        var html=templateScript(context);
-        $("#broadSumStatus").append(html);
-
-        var template = $('#tmp_giftLive').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data.broadCastLiveInfo;
-        var html=templateScript(context);
-        $("#giftSumStatus").append(html);
-
-    }
-
-
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_broadcastLive">

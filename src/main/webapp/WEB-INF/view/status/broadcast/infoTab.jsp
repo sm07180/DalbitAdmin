@@ -8,7 +8,7 @@
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#total" role="tab" data-toggle="tab">총계</a></li>
+                    <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_total">총계</a></li>
                     <li><a href="#platform" role="tab" data-toggle="tab" id="tab_platformDetail">플랫폼</a></li>
                     <li><a href="#airOpen" role="tab" data-toggle="tab" id="tab_airOpenDetail">방송개설</a></li>
                     <li><a href="#airTime" role="tab" data-toggle="tab" id="tab_airtimeDetail">방송시간</a></li>
@@ -35,3 +35,27 @@
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+
+<script type="text/javascript">
+    $("#tablist_con li a").on('click', function(){
+
+        var tabId = $(this).prop('id');
+        if(tabId == 'tab_total'){
+            getTotalList();
+        }else if(tabId == 'tab_gender'){
+            getGenderList();
+        }else if(tabId == 'tab_platformGender'){
+            getPlatformGenderList();
+        }else if(tabId == 'tab_platformAge'){
+            getPlatformAgeList();
+        }else if(tabId == 'tab_withdraw'){
+            getWithdrawList();
+        }
+
+        $(".searchDate").html($("#onedayDate").val());
+    });
+
+    $("#bt_search").on('click', function(){
+        $("#tablist_con li.active a").click();
+    });
+</script>
