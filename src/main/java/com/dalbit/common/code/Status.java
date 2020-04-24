@@ -442,6 +442,15 @@ public enum Status {
     메인_팬랭킹조회_요청회원_회원아님("-1", "main.fan.ranking.member.number.error", "요청회원번호가 회원 아닐 시"),
     메인_팬랭킹조회_실패("C006", "main.fan.ranking.select.fail", "팬 랭킹 조회 실패 시"),
 
+
+    // 통계 ------------------------------------------------------------------------------------
+    //방송통계 현황
+    방송통계보기_성공("0", "broadcast.status.view.success", "방송통계 보기 성공 시"),
+    방송통계보기_실패("C006", "broadcast.status.view.fail", "방송통계 보기 실패 시"),
+
+    //방송통계 현황
+    선물통계보기_성공("0", "gift.status.view.success", "선물통계 보기 성공 시"),
+    선물통계보기_실패("C006", "gift.status.view.fail", "선물통계 보기 실패 시"),
     ;
 
     final private String RESULT_SUCCESS = "success";
