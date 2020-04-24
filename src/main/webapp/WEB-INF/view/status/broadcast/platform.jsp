@@ -29,68 +29,16 @@
                 <th>시간대</th>
                 <th>소계</th>
                 <th>PC웹</th>
-                <th>모바일웹</th>
                 <th>안드로이드</th>
                 <th>아이폰</th>
 
                 <th>소계</th>
                 <th>PC웹</th>
-                <th>모바일웹</th>
                 <th>안드로이드</th>
                 <th>아이폰</th>
             </tr>
             </thead>
-            <tbody>
-            <tr class="success">
-                <th>총계</th>
-                <td>80</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-
-                <td>240</td>
-                <td>60</td>
-                <td>60</td>
-                <td>60</td>
-                <td>60</td>
-            </tr>
-
-            <%
-                for(int i=0; i<24; i++) {
-            %>
-            <tr>
-                <th><%=i%>시 ~ <%=i+1%>시</th>
-                <td>80</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-
-                <td>240</td>
-                <td>60</td>
-                <td>60</td>
-                <td>60</td>
-                <td>60</td>
-            </tr>
-            <%
-                }
-            %>
-
-            <tr class="success">
-                <th>총계</th>
-                <td>80</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-
-                <td>240</td>
-                <td>60</td>
-                <td>60</td>
-                <td>60</td>
-                <td>60</td>
-            </tr>
+            <tbody id="platformListBody">
             </tbody>
         </table>
     </div>
@@ -102,6 +50,77 @@
 </div>
 
 <script type="text/javascript">
+    $(function(){
+        getPlatformList();
+    });
+
+    function getPlatformList(){
+        util.getAjaxData("memberList", "/rest/status/broadcast/info/platform", $("#searchForm").serialize(), fn_platformList_success);
+    }
 
 
+    function fn_platformList_success(dst_id, response) {
+        dalbitLog(response);
+        var isDataEmpty = response.data.detailList == null;
+        $("#platformListBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_platform').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalTtml = templateScript(totalContext);
+            $("#platformListBody").append(totalTtml);
+
+            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
+        }
+
+        var template = $('#tmp_platformDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#platformListBody").append(html);
+
+        if(isDataEmpty){
+            $("#platformListBody td:last").remove();
+        }else{
+            $("#platformListBody").append(totalTtml);
+        }
+    }
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_platform">
+    <tr class="success">
+        <td>소계</td>
+        <td>{{addComma sum_totalCreateCnt}}</td>
+        <td>{{addComma sum_pcCnt}}</td>
+        <td>{{addComma sum_androidCnt}}</td>
+        <td>{{addComma sum_iosCnt}}</td>
+        <td>{{addComma sum_totalBroadcastingTime}}</td>
+        <td>{{addComma sum_pcTime}}</td>
+        <td>{{addComma sum_androidTime}}</td>
+        <td>{{addComma sum_iosTime}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_platformDetailList">
+    {{#each this as |data|}}
+    <tr>
+        <td>
+            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+        </td>
+        <td>{{addComma totalCreateCnt}}</td>
+        <td>{{addComma pcCnt}}</td>
+        <td>{{addComma androidCnt}}</td>
+        <td>{{addComma iosCnt}}</td>
+        <td>{{addComma totalBroadcastingTime}}</td>
+        <td>{{addComma pcTime}}</td>
+        <td>{{addComma androidTime}}</td>
+        <td>{{addComma iosTime}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="22" class="noData">{{isEmptyData}}<td>
+    </tr>
+    {{/each}}
 </script>

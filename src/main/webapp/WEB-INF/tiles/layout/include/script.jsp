@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
-<script src="https://www.google-analytics.com/analytics.js"></script>
+<%--<script src="https://www.google-analytics.com/analytics.js"></script>--%>
 <script src="/template2/assets/js/jquery/jquery-2.1.0.min.js"></script>
 <script src="/template2/assets/js/bootstrap/bootstrap.js"></script>
 <script src="/template2/assets/js/plugins/modernizr/modernizr.js"></script>

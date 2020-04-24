@@ -56,6 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     , "/js/**"
                     , "/template2/**"
                     , "/postman/**"
+                    , "**.css"
+                    , "**.js"
+                    , "**.map"
+                    , "/login"
             );
     }
 
@@ -89,8 +93,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
                 .rememberMe()
-                .key("dalbitAdmin")
+                .key("iCanRememberMe")
                 .rememberMeParameter("remember-me-new")
+                .rememberMeCookieName("remember-me")
                 .tokenValiditySeconds(604800)
                 .userDetailsService(userDetailsService)
 
