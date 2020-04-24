@@ -63,7 +63,7 @@
     });
 
     function getAirTimelList(){
-        util.getAjaxData("getAirTimelList", "/rest/status/broadcast/info/airTime", $("#searchForm").serialize(), fn_airTimeJoin_success);
+        util.getAjaxData("getAirTimelList", "/rest/status/broadcast/info/subject/time", $("#searchForm").serialize(), fn_airTimeJoin_success);
     }
 
 
@@ -90,7 +90,7 @@
         if(isDataEmpty){
             $("#airTimeListBody td:last").remove();
         }else{
-            $("#airTimeListBody").append(airTimeTtml);
+            $("#airTimeListBody").append(totalTtml);
         }
     }
 </script>

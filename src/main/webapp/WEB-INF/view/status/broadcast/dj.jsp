@@ -58,7 +58,7 @@
     });
 
     function broadcastDj(){
-        util.getAjaxData("broadcastDj", "/rest/status/broadcast/dj/list", $("#searchForm").serialize(), fn_broadcastDj_success);
+        util.getAjaxData("broadcastDj", "/rest/status/broadcast/info/dj", $("#searchForm").serialize(), fn_broadcastDj_success);
     }
 
     function fn_broadcastDj_success(dst_id, response) {
@@ -113,8 +113,6 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma date}}</td>
-        <td>{{addComma hour}}</td>
         <td>{{addComma totalCnt}}</td>
         <td>{{addComma maleCnt}}</td>
         <td>{{addComma femaleCnt}}</td>

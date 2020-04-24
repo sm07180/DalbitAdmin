@@ -63,7 +63,7 @@
     });
 
     function broadcastListener(){
-        util.getAjaxData("broadcastListener", "/rest/status/broadcast/listener/list", $("#searchForm").serialize(), fn_broadcastListener_success);
+        util.getAjaxData("broadcastListener", "/rest/status/broadcast/info/listener/subject", $("#searchForm").serialize(), fn_broadcastListener_success);
     }
 
     function fn_broadcastListener_success(dst_id, response) {
