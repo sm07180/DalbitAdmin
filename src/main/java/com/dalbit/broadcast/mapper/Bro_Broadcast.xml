@@ -27,4 +27,20 @@
           from rd_data.tb_member_withdrawal_bak
          where mem_no = #{mem_no}
     </select>
+
+    <update id="callBroadcastMemberExit" parameterType="com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo">
+        update rd_data.tb_broadcast_room_member
+		   set state = 1,
+			   last_upd_date = now()
+         where  room_no = #{room_no} and state = 0
+    </update>
+
+    <update id="callBroadcastExit" parameterType="com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo">
+        update rd_data.tb_broadcast_room
+           set state= 4,
+               end_date = now(),
+               airtime = TIMESTAMPDIFF( second, #{start_date}, NOW()),
+               last_upd_date = now()
+         where room_no = #{room_no}
+    </update>
 </mapper>
