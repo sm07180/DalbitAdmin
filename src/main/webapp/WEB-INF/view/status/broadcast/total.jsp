@@ -31,45 +31,7 @@
                 <th>선물 금액</th>
             </tr>
             </thead>
-            <tbody>
-            <tr class="success">
-                <th>총계</th>
-                <td>23</td>
-                <td>150</td>
-                <td>23</td>
-                <td>230</td>
-                <td>2</td>
-                <td>50</td>
-                <td>200,000</td>
-            </tr>
-
-            <%
-                for(int i=0; i<24; i++) {
-            %>
-            <tr>
-                <th><%=i%>시 ~ <%=i+1%>시</th>
-                <td>23</td>
-                <td>150</td>
-                <td>23</td>
-                <td>230</td>
-                <td>2</td>
-                <td>50</td>
-                <td>200,000</td>
-            </tr>
-            <%
-                }
-            %>
-
-            <tr class="success">
-                <th>총계</th>
-                <td>23</td>
-                <td>150</td>
-                <td>23</td>
-                <td>230</td>
-                <td>2</td>
-                <td>50</td>
-                <td>200,000</td>
-            </tr>
+            <tbody  id="totalListBody">
             </tbody>
         </table>
     </div>
@@ -89,66 +51,67 @@
         util.getAjaxData("memberList", "/rest/status/broadcast/info/total", $("#searchForm").serialize(), fn_totalJoin_success);
     }
 
-    function fn_totalJoin_success(data, response){
+
+    function fn_totalJoin_success(dst_id, response) {
+        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
-        $("#tableBody").empty();
+        $("#totalListBody").empty();
         if(!isDataEmpty){
             var template = $('#tmp_total').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
             var totalTtml = templateScript(totalContext);
-            $("#tableBody").append(totalTtml);
+            $("#totalListBody").append(totalTtml);
 
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
+            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
         }
 
         var template = $('#tmp_detailList').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
-        $("#tableBody").append(html);
+        $("#totalListBody").append(html);
 
         if(isDataEmpty){
-            $("#tableBody td:last").remove();
+            $("#totalListBody td:last").remove();
         }else{
-            $("#tableBody").append(totalTtml);
+            $("#totalListBody").append(totalTtml);
         }
     }
 </script>
+
 <script type="text/x-handlebars-template" id="tmp_total">
     <tr class="success">
         <td>소계</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_maleCnt}}</td>
-        <td>{{addComma sum_femaleCnt}}</td>
-        <td>{{addComma sum_noneCnt}}</td>
-        <td>{{addComma sum_age10Cnt}}</td>
-        <td>{{addComma sum_age20Cnt}}</td>
+        <td>{{addComma sum_createCnt}}</td>
+        <td>{{addComma sum_broadcastingTime}}</td>
+        <td>{{addComma sum_djCnt}}</td>
+        <td>{{addComma sum_listenerCnt}}</td>
+        <td>{{addComma sum_guestCnt}}</td>
+        <td>{{addComma sum_giftCnt}}</td>
+        <td>{{addComma sum_giftAmount}}</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_detailList">
     {{#each this as |data|}}
-        <tr>
-            <td>
-                {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-                {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
-                {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
-            </td>
-            <td>{{addComma totalCnt}}</td>
-            <td>{{addComma maleCnt}}</td>
-            <td>{{addComma femaleCnt}}</td>
-            <td>{{addComma noneCnt}}</td>
-            <td>{{addComma age10Cnt}}</td>
-            <td>{{addComma age20Cnt}}</td>
-            <td>{{addComma age30Cnt}}</td>
-            <td>{{addComma age40Cnt}}</td>
-            <td>{{addComma age50Cnt}}</td>
-            <td>{{addComma age60Cnt}}</td>
-        </tr>
+    <tr>
+        <td>
+            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+        </td>
+        <td>{{addComma createCnt}}</td>
+        <td>{{addComma broadcastingTime}}</td>
+        <td>{{addComma djCnt}}</td>
+        <td>{{addComma listenerCnt}}</td>
+        <td>{{addComma guestCnt}}</td>
+        <td>{{addComma giftCnt}}</td>
+        <td>{{addComma giftAmount}}</td>
+    </tr>
     {{else}}
-        <tr>
-            <td colspan="11" class="noData">{{isEmptyData}}<td>
-        </tr>
+    <tr>
+        <td colspan="22" class="noData">{{isEmptyData}}<td>
+    </tr>
     {{/each}}
 </script>

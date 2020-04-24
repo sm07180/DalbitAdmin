@@ -131,11 +131,8 @@
         dateTime = moment(dateTime).format("YYYY.MM.DD");
         setTimeDate(dateTime);
 
-        //가입자수 통계 현황
-        getStatJoinInfo();
-
-        //탈퇴자수 통계 현황
-        getStatWithdrawInfo();
+        //방송 통계 현황
+        getList();
     });
 
     function setTimeDate(dateTime){
@@ -180,6 +177,7 @@
                 $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년'));
             }
         }
+        $("#tablist_con li.active a").click();
     });
 
     var dataPickerSrc = {
@@ -208,28 +206,22 @@
         }
     }
 
-    function getStatJoinInfo(){
-        //util.getAjaxData("statJoin", "/rest/enter/join/stat/join", null, fn_statJoin_success);
+    function getList(){
+        util.getAjaxData("broadSumStatus", "/rest/status/broadcast/broadcastLive/list", null, fn_broadSumStatus_success);
     }
 
-    function fn_statJoin_success(data, response){
-        var template = $('#tmp_statJoin').html();
+    function fn_broadSumStatus_success(data, response){
+        var template = $('#tmp_giftLive').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data.joinInfo;
+        var context = response.data.broadCastLiveInfo;
         var html=templateScript(context);
-        $("#statJoinTableBody").append(html);
-    }
+        $("#broadSumStatus").append(html);
 
-    function getStatWithdrawInfo(){
-        //util.getAjaxData("statJoin", "/rest/enter/join/stat/withdraw", null, fn_statWithdraw_success);
-    }
-
-    function fn_statWithdraw_success(data, response){
-        var template = $('#tmp_statJoin').html();
+        var template = $('#tmp_giftLive').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data.withdrawInfo;
+        var context = response.data.broadCastLiveInfo;
         var html=templateScript(context);
-        $("#statWithdrawTableBody").append(html);
+        $("#giftSumStatus").append(html);
     }
 
     $(document).on('click', '._prevSearch', function(){

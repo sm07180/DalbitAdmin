@@ -14,9 +14,9 @@
                     <li><a href="#airTime" role="tab" data-toggle="tab" id="tab_airtimeDetail">방송시간</a></li>
                     <li><a href="#dj" role="tab" data-toggle="tab" id="tab_djDetail">DJ</a></li>
                     <li><a href="#listener" role="tab" data-toggle="tab" id="tab_listenerDetail">청취자</a></li>
-                    <li><a href="#guest" role="tab" data-toggle="tab" id="tab_guestDetail">게스트</a></li>
-                    <li><a href="#gift" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="broadcastGift();">선물</a></li>
-                    <li><a href="#giftHistory" role="tab" data-toggle="tab" id="tab_giftHistoryDetail">선물내역</a></li>
+                    <%--<li><a href="#guest" role="tab" data-toggle="tab" id="tab_guestDetail">게스트</a></li>--%>
+                    <li><a href="#gift" role="tab" data-toggle="tab" id="tab_giftDetail">선물</a></li>
+                    <%--<li><a href="#giftHistory" role="tab" data-toggle="tab" id="tab_giftHistoryDetail">선물내역</a></li>--%>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>       <!-- 총계 -->
@@ -25,9 +25,9 @@
                     <div class="tab-pane fade" id="airTime"><jsp:include page="airTime.jsp"/></div>        <!-- 방송시간 -->
                     <div class="tab-pane fade" id="dj"><jsp:include page="dj.jsp"/></div>      <!-- DJ -->
                     <div class="tab-pane fade" id="listener"><jsp:include page="listener.jsp"/></div>        <!-- 청취자 -->
-                    <div class="tab-pane fade" id="guest"><jsp:include page="guest.jsp"/></div>        <!-- 게스트 -->
+                    <%--<div class="tab-pane fade" id="guest"><jsp:include page="guest.jsp"/></div>        <!-- 게스트 -->--%>
                     <div class="tab-pane fade" id="gift"><jsp:include page="gift.jsp"/></div>        <!-- 선물 -->
-                    <div class="tab-pane fade" id="giftHistory"><jsp:include page="giftHistory.jsp"/></div>        <!-- 선물내역 -->
+                    <%--<div class="tab-pane fade" id="giftHistory"><jsp:include page="giftHistory.jsp"/></div>        <!-- 선물내역 -->--%>
                 </div>
             </div>
         </div>
@@ -38,18 +38,23 @@
 
 <script type="text/javascript">
     $("#tablist_con li a").on('click', function(){
-
         var tabId = $(this).prop('id');
         if(tabId == 'tab_total'){
             getTotalList();
-        }else if(tabId == 'tab_gender'){
-            getGenderList();
-        }else if(tabId == 'tab_platformGender'){
-            getPlatformGenderList();
-        }else if(tabId == 'tab_platformAge'){
-            getPlatformAgeList();
-        }else if(tabId == 'tab_withdraw'){
-            getWithdrawList();
+        }else if(tabId == 'tab_platformDetail'){
+            getPlatformList();
+        }else if(tabId == 'tab_airOpenDetail'){
+            getAirOpenList();
+        }else if(tabId == 'tab_airtimeDetail'){
+            getAirTimelList();
+        }else if(tabId == 'tab_djDetail'){
+            broadcastDj();
+        }else if(tabId == 'tab_listenerDetail') {
+            broadcastListener();
+        }else if(tabId == 'tab_guestDetail') {
+        }else if(tabId == 'tab_giftDetail') {
+            broadcastGift();
+        }else if(tabId == 'tab_giftHistoryDetail') {
         }
 
         $(".searchDate").html($("#onedayDate").val());

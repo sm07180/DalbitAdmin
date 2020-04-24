@@ -44,12 +44,7 @@
 <script type="text/javascript">
 
     function broadcastGift(){
-        var obj = {};
-        obj.slctType = slctType;
-        obj.startDate = startDate;
-        obj.endDate = endDate;
-
-        util.getAjaxData("broadSumStatus", "/rest/status/broadcast/broadcastGift/list", obj, fn_broadcastGift_success);
+        util.getAjaxData("broadcastGift", "/rest/status/broadcast/broadcastGift/list", $("#searchForm").serialize(), fn_broadcastGift_success);
     }
 
     function fn_broadcastGift_success(dst_id, response) {
@@ -63,7 +58,7 @@
             var totalTtml = templateScript(totalContext);
             $("#giftListBody").append(totalTtml);
 
-            response.data.detailList.slctType = $('input:radio[name="zoneDate"]:checked').val();
+            response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
         }
 
         var template = $('#tmp_giftDetailList').html();
