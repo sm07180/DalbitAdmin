@@ -51,13 +51,13 @@
                             <thead>
                             <th width="100px">idx</th>
                             <th width="200px">mem_no</th>
+                            <th width="100px">upd_date</th>
                             <th width="100px">ostype</th>
                             <th width="100px">version</th>
                             <th width="100px">build</th>
                             <th width="100px">dtype</th>
                             <th width="500px">ctype</th>
                             <th width="8000px">desc</th>
-                            <th width="100px">upd_date</th>
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
@@ -129,7 +129,6 @@
     }
 
     function fn_success(dst_id, response) {
-        dalbitLog(response);
         var template = $('#tmp_errorList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -191,13 +190,13 @@
     <tr>
         <td>{{idx}}</td>
         <td>{{mem_no}}</td>
-        <td>{{ostype}}</td>
+        <td>{{upd_date}}</td>
+        <td>{{{getCommonCodeLabel ostype 'search_osType'}}}</td>
         <td>{{version}}</td>
         <td>{{build}}</td>
         <td>{{dtype}}</td>
         <td>{{ctype}}</td>
         <td style="text-align:left">{{desc}}</td>
-        <td>{{upd_date}}</td>
     </tr>
     {{else}}
     <tr>

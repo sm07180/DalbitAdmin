@@ -13,9 +13,11 @@
                     <div>
                         <div class="row col-md-12" style="padding-bottom: 15px">
                             <div class="pull-left">
-                                • 사이트 내 닉네임 , 채팅글 , 팬보드 , 방송 제목 또는 방송 환영글 등에서 사용을 금지하는 금지어 관리 공간입니다.
-                                <br>
-                                • 4글자 이상으로 등록해주세요.
+                                - 사이트 내 닉네임 , 채팅글 , 팬보드 , 방송 제목 또는 방송 환영글 등에서 사용을 금지하는 사이트 금지어 관리 페이지입니다.
+                                <br/>
+                                - 금지어 등록 시 2글자 이상 등록이 가능합니다.
+                                <br/>
+                                - 사이트 금지어 검색은 키보드 Ctrl+F를 통해 결과 확인이 가능합니다.
                             </div>
                             <div class="pull-right">
                                 <%--<button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>--%>
