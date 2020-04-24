@@ -41,7 +41,7 @@
                         <table class="table table-bordered table-summary" id="Summary">
                             <thead>
                             <tr>
-                                <th>총 : <span id="total"></span> 건 </th>
+                                <th><span id="type"></span> : <span id="total"></span> 건 </th>
                             </tr>
                             </thead>
                             <tbody id="summaryDataTable">
@@ -136,6 +136,20 @@
         var html = templateScript(context);
 
         $("#tableBody").html(html);
+
+        if($("#osTypeArea option:selected").val() == 1) {
+            $("#type").html('안드로이드');
+        } else if($("#osTypeArea option:selected").val() == 2) {
+            $("#type").html('IOS');
+        } else if($("#osTypeArea option:selected").val() == 'WEB') {
+            $("#type").html('WEB');
+        } else if($("#osTypeArea option:selected").val() == 'API') {
+            $("#type").html('API');
+        } else if($("#osTypeArea option:selected").val() == 'server') {
+            $("#type").html('SERVER');
+        } else {
+            $("#type").html('총');
+        }
 
         $("#total").html(response.pagingVo.totalCnt);
 
