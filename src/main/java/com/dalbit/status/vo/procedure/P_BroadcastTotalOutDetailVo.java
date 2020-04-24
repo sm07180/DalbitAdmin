@@ -8,9 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class P_BroadcastTotalOutDetailVo {
-    private int date;
+    private String date;
+    private String daily;
+    private String monthly;
     private int hour;
-    private int monthly;
     private int createCnt;
     private int broadcastingTime;
     private int djCnt;
@@ -18,7 +19,6 @@ public class P_BroadcastTotalOutDetailVo {
     private int guestCnt;
     private int giftCnt;
     private int giftAmount;
-    private int daily;
 }
 
 
