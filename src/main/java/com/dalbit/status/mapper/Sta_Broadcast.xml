@@ -17,6 +17,21 @@
         call rd_admin.sp_admin_stat_broadcast_subject_create(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callBroadcastSubjectTime" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastSubjectTimeOutDetailVo">
+        /* B_Broadcast.xml - callBroadcastSubjectTime */
+        call rd_admin.sp_admin_stat_broadcast_subject_time(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callBroadcastDj" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastDjOutDetailVo">
+        /* B_Broadcast.xml - callBroadcastDj */
+        call rd_admin.sp_admin_stat_broadcast_dj(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callBroadcastListenerSubject" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastListenerSubjectOutDetailVo">
+        /* B_Broadcast.xml - callBroadcastListenerSubject */
+        call rd_admin.sp_admin_stat_broadcast_listener_subject(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
     <select id="callBroadcastLive" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastLiveOutputVo">
         /* B_Broadcast.xml - callBroadcastLive */
         call rd_admin.sp_admin_stat_broadcast_live(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})

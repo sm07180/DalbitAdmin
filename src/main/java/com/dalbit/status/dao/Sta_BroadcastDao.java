@@ -12,6 +12,9 @@ public interface Sta_BroadcastDao {
     ArrayList<P_BroadcastTotalOutDetailVo> callBroadcastTotal(ProcedureVo procedureVo);
     ArrayList<P_BroadcastPlatformOutDetailVo> callBroadcastPlatform(ProcedureVo procedureVo);
     ArrayList<P_BroadcastSubjectCreateOutDetailVo> callBroadcastSubjectCreate(ProcedureVo procedureVo);
+    ArrayList<P_BroadcastSubjectTimeOutDetailVo> callBroadcastSubjectTime(ProcedureVo procedureVo);
+    ArrayList<P_BroadcastDjOutDetailVo> callBroadcastDj(ProcedureVo procedureVo);
+    ArrayList<P_BroadcastListenerSubjectOutDetailVo> callBroadcastListenerSubject(ProcedureVo procedureVo);
     ArrayList<P_BroadcastLiveOutputVo> callBroadcastLive(ProcedureVo procedureVo);
     ArrayList<P_BroadcastGiftOutputVo> callBroadcastGift(ProcedureVo procedureVo);
 

@@ -89,6 +89,66 @@ public class Sta_BroadcastService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
+    /**
+     * 방송개설 방송주제
+     */
+    public String callBroadcastSubjectTime(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_BroadcastSubjectTimeOutDetailVo> detailList = sta_BroadcastDao.callBroadcastSubjectTime(procedureVo);
+
+        P_BroadcastSubjectTimeOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BroadcastSubjectTimeOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 방송DJ
+     */
+    public String callBroadcastDj(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_BroadcastDjOutDetailVo> detailList = sta_BroadcastDao.callBroadcastDj(procedureVo);
+
+        P_BroadcastDjOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDjOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 방송DJ
+     */
+    public String callBroadcastListenerSubject(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_BroadcastListenerSubjectOutDetailVo> detailList = sta_BroadcastDao.callBroadcastListenerSubject(procedureVo);
+
+        P_BroadcastListenerSubjectOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BroadcastListenerSubjectOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
 
     /**
      * 방송 고정
