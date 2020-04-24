@@ -191,7 +191,7 @@
         <td>{{idx}}</td>
         <td>{{mem_no}}</td>
         <td>{{upd_date}}</td>
-        <td>{{ostype}}</td>
+        <td>{{{getCommonCodeLabel ostype 'search_osType'}}}</td>
         <td>{{version}}</td>
         <td>{{build}}</td>
         <td>{{dtype}}</td>

@@ -6,4 +6,5 @@ var search_osType = [
     , new COMMON_CODE('web', 'WEB', 'WEB')
     , new COMMON_CODE('api', 'API', 'API')
     , new COMMON_CODE('server', 'server', 'SERVER')
+    , new COMMON_CODE('photo', '7', 'Photo')
 ];
