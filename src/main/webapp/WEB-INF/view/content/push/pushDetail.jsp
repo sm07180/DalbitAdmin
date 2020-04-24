@@ -529,7 +529,7 @@
                 </td>
                 -->
                 <th>푸시 타입</th>
-                <td colspan="5">{{{getCommonCodeRadio slct_push 'push_slctPush' 'N' 'slct_push'}}}</td>
+                <td colspan="5">{{{getCommonCodeRadio slct_push 'push_slctPush2' 'N' 'slct_push'}}}</td>
 
                 <th>등록일</th>
                 <td colspan="5">{{regDate}}</td>

@@ -26,10 +26,14 @@
                         <div class="widget-content">
 
                             <div class="form-group row">
-                                <div class="col-xs-4">
-                                    <input class="form-control" id="banword" type="text" placeholder="등록할 금지어를 입력해주세요." />
+                                <div class="col-md-12">
+                                    <div class="col-xs-4 no-padding">
+                                        <input class="form-control" id="banword" type="text" placeholder="등록할 금지어를 입력해주세요." />
+                                    </div>
+                                    <button type="button" id="regBtn" class="btn-success btn pull-left">등록</button>
+
+                                    <button type="button" class="btn btn-default pull-right" id="deleteBtn2"><i class="fa fa-trash-o"></i>선택삭제</button>
                                 </div>
-                                <button type="button" id="regBtn" class="btn-success btn pull-left">등록</button>
                             </div>
 
                             <table id="list" class="table table-sorting table-hover-ban table-bordered datatable ui-pg-table">
@@ -112,21 +116,11 @@
         }
     });
 
-    $("#deleteBtn").on('click', function(){
-        var checkboxs = $('input._banwordChk:checked');
-        if(0 == checkboxs.length){
-            alert('삭제할 금지어를 선택해주세요.');
-            return;
-        }
-
-        if(confirm(checkboxs.length + '개의 금칙어를 삭제하시겠습니까?')){
-
-            $('input._banwordChk:checked').each(function(){
-               $(this).parent().remove();
-            });
-
-            insertBanword('delete');
-        }
+    $("#deleteBtn").on('click', function(){         // 하단 삭제버튼
+        deleteBanword();
+    });
+    $("#deleteBtn2").on('click', function(){        //상단 삭제버튼
+        deleteBanword();
     });
 
     $('#regBtn').on('click', function(){
@@ -170,6 +164,20 @@
             , count : $('._banword span.text-danger').length
         }
         util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_list);
+    }
+
+    function deleteBanword(){
+        var checkboxs = $('input._banwordChk:checked');
+        if(0 == checkboxs.length){
+            alert('삭제할 금지어를 선택해주세요.');
+            return;
+        }
+        if(confirm(checkboxs.length + '개의 금칙어를 삭제하시겠습니까?')){
+            $('input._banwordChk:checked').each(function(){
+                $(this).parent().remove();
+            });
+            insertBanword('delete');
+        }
     }
 </script>
 

@@ -63,7 +63,7 @@ var MemberDataTableSource = {
              {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
                     return util.renderSlct(data,"30","");
                  }},
-             {'title': '회원가입일시', 'data': 'joinDateFormat', 'width':'120px'},
+             {'title': '회원가입일시', 'data': 'start_dateFormat', 'width':'120px'},
              {'title': '최근 접속 일시', 'data': 'last_connect_DateFormat', 'width':'120px'},
              {'title': '누적 접속 수', 'data': 'connectCnt', 'width':'80px', 'render': function (data) {
                      return common.addComma(data);

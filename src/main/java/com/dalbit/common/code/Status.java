@@ -44,6 +44,10 @@ public enum Status {
     회원운영자메모등록성공("0", "member.admin.memo.add.success", "회원 운영자 메모 등록 성공"),
     회원운영자메모등록실패("-1", "member.admin.memo.add.fail", "회원 운영자 메모 등록 실패"),
 
+    //회원 제재 처리
+    회원제재처리성공("0", "member.admin.report.success", "회원 제재 처리 성공"),
+    회원제재처리실패("-1", "member.admin.report.fail", "회원 제재 처리 실패"),
+
     //회원정보 메모 보기
     회원정보_메모정보보기_성공("0", "member.admin.memo.view.success", "회원 운영자 메모정보 보기 성공"),
     회원정보_메모정보보기_실패("-1", "member.admin.memo.view.fail", "회원 운영자 메모정보 정보 보기 실패"),
@@ -412,6 +416,10 @@ public enum Status {
     배너삭제_실패("-1", "no.data", "배너삭제에서 배너번호가 없을 시"),
 
 
+    이미지초기화성공("0", "reset.image.success", "이미지 초기화 성공 시"),
+    이미지초기화실패("-1", "reset.image.fail", "이미지 초기화 실패 시"),
+
+
 
 
 
@@ -434,6 +442,15 @@ public enum Status {
     메인_팬랭킹조회_요청회원_회원아님("-1", "main.fan.ranking.member.number.error", "요청회원번호가 회원 아닐 시"),
     메인_팬랭킹조회_실패("C006", "main.fan.ranking.select.fail", "팬 랭킹 조회 실패 시"),
 
+
+    // 통계 ------------------------------------------------------------------------------------
+    //방송통계 현황
+    방송통계보기_성공("0", "broadcast.status.view.success", "방송통계 보기 성공 시"),
+    방송통계보기_실패("C006", "broadcast.status.view.fail", "방송통계 보기 실패 시"),
+
+    //방송통계 현황
+    선물통계보기_성공("0", "gift.status.view.success", "선물통계 보기 성공 시"),
+    선물통계보기_실패("C006", "gift.status.view.fail", "선물통계 보기 실패 시"),
     ;
 
     final private String RESULT_SUCCESS = "success";

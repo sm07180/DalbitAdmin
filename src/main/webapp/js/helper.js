@@ -48,6 +48,11 @@ Handlebars.registerHelper("dateToNumber", function (value) {
 })
 
 
+Handlebars.registerHelper('json', function(obj) {
+    return JSON.stringify(obj);
+});
+
+
 /**
  * if
  *

@@ -1,9 +1,6 @@
 package com.dalbit.broadcast.dao;
 
-import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailInputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastDetailOutputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastEditHistOutputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo;
+import com.dalbit.broadcast.vo.procedure.*;
 import com.dalbit.common.vo.ProcedureVo;
 import org.springframework.stereotype.Repository;
 
@@ -19,4 +16,7 @@ public interface Bro_BroadcastDao {
     ArrayList<P_BroadcastEditHistOutputVo> callBroadcastEditHistory(ProcedureVo procedureVo);
     ProcedureVo callBroadcastEdit(ProcedureVo procedureVo);
     HashMap<P_BroadcastDetailOutputVo,String> callBroadcastInfo_withdrawal(String mem_no);
+
+    int callBroadcastMemberExit(P_BroadcastEditInputVo pBroadcastEditInputVo);
+    int callBroadcastExit(P_BroadcastEditInputVo pBroadcastEditInputVo);
 }

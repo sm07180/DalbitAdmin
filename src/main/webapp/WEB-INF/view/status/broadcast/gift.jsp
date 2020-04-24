@@ -30,42 +30,7 @@
                 <th>비밀선물 금액</th>
             </tr>
             </thead>
-            <tbody>
-            <tr class="success">
-                <th>총계</th>
-                <td>22</td>
-                <td>22,000</td>
-                <td>11</td>
-                <td>11,000</td>
-                <td>11</td>
-                <td>11,000</td>
-            </tr>
-
-            <%
-                for(int i=0; i<24; i++) {
-            %>
-            <tr>
-                <th><%=i%>시 ~ <%=i+1%>시</th>
-                <td>22</td>
-                <td>22,000</td>
-                <td>11</td>
-                <td>11,000</td>
-                <td>11</td>
-                <td>11,000</td>
-            </tr>
-            <%
-                }
-            %>
-
-            <tr class="success">
-                <th>총계</th>
-                <td>22</td>
-                <td>22,000</td>
-                <td>11</td>
-                <td>11,000</td>
-                <td>11</td>
-                <td>11,000</td>
-            </tr>
+            <tbody  id="giftListBody">
             </tbody>
         </table>
     </div>
@@ -78,5 +43,73 @@
 
 <script type="text/javascript">
 
+    function broadcastGift(){
+        var obj = {};
+        obj.slctType = slctType;
+        obj.startDate = startDate;
+        obj.endDate = endDate;
 
+        util.getAjaxData("broadSumStatus", "/rest/status/broadcast/broadcastGift/list", obj, fn_broadcastGift_success);
+    }
+
+    function fn_broadcastGift_success(dst_id, response) {
+        dalbitLog(response);
+        var isDataEmpty = response.data.detailList == null;
+        $("#giftListBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_giftTotal').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalTtml = templateScript(totalContext);
+            $("#giftListBody").append(totalTtml);
+
+            response.data.detailList.slctType = $('input:radio[name="zoneDate"]:checked').val();
+        }
+
+        var template = $('#tmp_giftDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#giftListBody").append(html);
+
+        if(isDataEmpty){
+            $("#giftListBody td:last").remove();
+        }else{
+            $("#giftListBody").append(totalTtml);
+        }
+    }
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_giftTotal">
+    <tr class="success">
+        <td>소계</td>
+        <td>{{addComma sum_totalGiftCnt}}</td>
+        <td>{{addComma sum_totalGiftAmount}}</td>
+        <td>{{addComma sum_normalGiftCnt}}</td>
+        <td>{{addComma sum_normalGiftAmount}}</td>
+        <td>{{addComma sum_secretGiftCnt}}</td>
+        <td>{{addComma sum_secretGiftAmount}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_giftDetailList">
+    {{#each this as |data|}}
+    <tr>
+        <td>
+            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+        </td>
+        <td>{{addComma totalGiftCnt}}</td>
+        <td>{{addComma totalGiftAmount}}</td>
+        <td>{{addComma normalGiftCnt}}</td>
+        <td>{{addComma normalGiftAmount}}</td>
+        <td>{{addComma secretGiftCnt}}</td>
+        <td>{{addComma secretGiftAmount}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="22" class="noData">{{isEmptyData}}<td>
+    </tr>
+    {{/each}}
 </script>

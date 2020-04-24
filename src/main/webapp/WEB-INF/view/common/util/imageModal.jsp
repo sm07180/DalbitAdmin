@@ -19,6 +19,10 @@
 
 <script>
     function fullSize(url) {     // 이미지 full size
+        if(url.indexOf("?") != -1){
+            url = url.substring(0, url.indexOf("?"));
+        }
+
         $("#image_full_size").prop("src", url);
     }
 </script>

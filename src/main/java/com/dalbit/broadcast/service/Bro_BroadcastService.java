@@ -217,6 +217,17 @@ public class Bro_BroadcastService {
             // 방송방 강제 종료 ------------------------------------
             if(pBroadcastEditInputVo.getForceExit().equals("1")){
 //            if(pBroadcastEditInputVo.getForceExit().equals("1") && pBroadcastEditInputVo.getSendNoti().equals("1")){
+                // 방송 시작시간
+                bro_BroadcastDao.callBroadcastInfo(procedureVo);
+
+                P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
+                pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
+
+                // 회원 방 나가기 상태
+                bro_BroadcastDao.callBroadcastMemberExit(pBroadcastEditInputVo);
+                // 방 종료 상태
+                bro_BroadcastDao.callBroadcastExit(pBroadcastEditInputVo);
+
                 HashMap<String,Object> param = new HashMap<>();
                 param.put("roomNo",pBroadcastEditInputVo.getRoom_no());
                 param.put("memNo",pBroadcastEditInputVo.getMem_no());
