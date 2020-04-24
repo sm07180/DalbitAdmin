@@ -122,6 +122,23 @@ var chat_summary = [
     ,new COMMON_CODE('','forcedCnt','강제퇴장자')
 ];
 
+var broadcast_state = [
+    new COMMON_CODE('','state','방송방상태')
+    ,new COMMON_CODE('1','1','방송중')
+    ,new COMMON_CODE('2','2','mic off')
+    ,new COMMON_CODE('3','3','통화중')
+    ,new COMMON_CODE('4','4','방송종료')
+    ,new COMMON_CODE('5','5','DJ비정상종료')
+]
+
+var broadcast_state_icon = [
+    new COMMON_CODE('','state','방송방상태')
+    ,new COMMON_CODE('1','1','<i class="fa fa-play-circle fa-2x"></i>')
+    ,new COMMON_CODE('2','2','<i class="fa fa-microphone-slash fa-2x"></i>')
+    ,new COMMON_CODE('3','3','<i class="fa fa-phone-volume fa-2x"></i>')
+    ,new COMMON_CODE('4','4','<i class="fa fa-stop-circle fa-2x"></i>')
+    ,new COMMON_CODE('5','5','<i class="fa fa-exclamation-triangle fa-2x"></i>')
+]
 
 //----------------massage---------------------
 

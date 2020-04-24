@@ -25,4 +25,7 @@ public class Cus_ImageController {
     public String list(Model model) {
         return "customer/image/list";
     }
+
+    @RequestMapping("/popup/imagePopup")
+    public String reportPopup(Model model) { return "customer/image/popup/imagePopup"; }
 }

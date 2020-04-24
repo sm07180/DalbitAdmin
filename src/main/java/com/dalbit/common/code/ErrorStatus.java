@@ -17,6 +17,8 @@ public enum ErrorStatus {
     토큰만료오류("E005", "authToken.expire.error", "JWT 토큰 만료 시 발생한 에러"),
 
     휴대폰번호검증오류("E006", "phoneNo.invalid.error", "휴대전화번호 유효성체크에서 걸린경우"),
+
+    서버처리중오류("E007", "server.error", "서버 처리중 오류가 발생한 경우"),
     ;
 
     final private String ERROR_RESULT = "fail";

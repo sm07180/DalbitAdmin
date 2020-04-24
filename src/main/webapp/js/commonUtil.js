@@ -426,7 +426,7 @@ util.imageFullSize = function(modalId ,url){
 
 util.renderPagingNavigation = function(targetId, pagingInfo){
 
-    if(0 < pagingInfo.totalCnt) {
+    if(0 <= pagingInfo.totalCnt) {
         var totalPage;
         var startPage;
         var endPage;
@@ -472,7 +472,7 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
 
     $("#"+targetId).find('.handlebarsPaging li.paginate_button').on('click', function(){
 
-        var currentPage = Number($('#list_info_paginate').find('.handlebarsPaging li.paginate_button.active').data('index'));
+        var currentPage = Number($("#"+targetId).find('.handlebarsPaging li.paginate_button.active').data('index'));
 
         var me = $(this);
         if(me.hasClass('previous')) {

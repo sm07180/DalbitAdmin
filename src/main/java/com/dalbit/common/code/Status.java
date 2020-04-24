@@ -44,6 +44,10 @@ public enum Status {
     회원운영자메모등록성공("0", "member.admin.memo.add.success", "회원 운영자 메모 등록 성공"),
     회원운영자메모등록실패("-1", "member.admin.memo.add.fail", "회원 운영자 메모 등록 실패"),
 
+    //회원 제재 처리
+    회원제재처리성공("0", "member.admin.report.success", "회원 제재 처리 성공"),
+    회원제재처리실패("-1", "member.admin.report.fail", "회원 제재 처리 실패"),
+
     //회원정보 메모 보기
     회원정보_메모정보보기_성공("0", "member.admin.memo.view.success", "회원 운영자 메모정보 보기 성공"),
     회원정보_메모정보보기_실패("-1", "member.admin.memo.view.fail", "회원 운영자 메모정보 정보 보기 실패"),
@@ -410,6 +414,10 @@ public enum Status {
     //배너 삭제
     배너삭제_성공("0", "delete.success", "배너삭제 성공 시"),
     배너삭제_실패("-1", "no.data", "배너삭제에서 배너번호가 없을 시"),
+
+
+    이미지초기화성공("0", "reset.image.success", "이미지 초기화 성공 시"),
+    이미지초기화실패("-1", "reset.image.fail", "이미지 초기화 실패 시"),
 
 
 

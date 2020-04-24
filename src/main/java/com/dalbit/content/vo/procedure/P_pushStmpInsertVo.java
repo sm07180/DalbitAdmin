@@ -40,6 +40,7 @@ public class P_pushStmpInsertVo extends BaseVo {
     private String target_mem_no;		// 타겟회원의 마이페이지 이동할 경우
     private String board_idx;			// 해당 게시판 이동할 경우
     private String sendDate;			// 발송일시
+    private String etcData;             // ETC!!!!!!!!!!!!
 
 }
 

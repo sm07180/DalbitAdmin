@@ -287,7 +287,9 @@ public class Mem_MemberService {
         //notice
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
         // 어드민 메모
-        mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+        if(!DalbitUtil.isEmpty(pMemberReportVo.getMemo())){
+            mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+        }
 
         if(pMemberReportVo.getSlctType() == 7) {
             // callMemberWithdrawal_bak_Add
@@ -303,8 +305,9 @@ public class Mem_MemberService {
 
         }
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원제재처리성공));
     }
+
 
     //-------------------------------------------------------------------
     /*자세히보기*/

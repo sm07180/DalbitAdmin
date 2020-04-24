@@ -25,12 +25,14 @@ var declaration_slctType = [
 var declaration_reason = [
     new COMMON_CODE(null, 'slctReason', '신고 구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('profile', '1', '사진 및 이미지')
-    , new COMMON_CODE('obs', '2', '음란성')
-    , new COMMON_CODE('adv', '3', '광고 및 상업성')
-    , new COMMON_CODE('abuse', '4', '욕설 및 비방성')
+    , new COMMON_CODE('background', '1', '방송방배경')
+    , new COMMON_CODE('profile', '2', '프로필사진')
+    , new COMMON_CODE('obs', '3', '음란성')
+    , new COMMON_CODE('adv', '4', '광고 및 상업성')
+    , new COMMON_CODE('abuse', '5', '욕설 및 비방성')
     , new COMMON_CODE('admin', '98', '관리자신고')
-    , new COMMON_CODE('etc', '99', '기타')
+    , new COMMON_CODE('profile', '99', '기타')
+
 ];
 
 var declaration_status = [
@@ -73,8 +75,20 @@ var declaration_image_searchType = [
     new COMMON_CODE(null, 'searchType', '검색 조건')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('memno', '1', '회원번호')
-    , new COMMON_CODE('memid', '2', 'UserID')
-    , new COMMON_CODE('memnick', '3', 'User닉네임')
-    , new COMMON_CODE('phone', '4', '연락처')
-    , new COMMON_CODE('roomNm', '5', '방송제목')
+    , new COMMON_CODE('memid', '3', 'UserID')
+    , new COMMON_CODE('memnick', '4', '닉네임')
+    , new COMMON_CODE('memphone', '5', '연락처')
+    , new COMMON_CODE('roomNm', '6', '방송제목')
+];
+
+var declaration_image_Message = [
+    new COMMON_CODE(null, 'declaration_Message', '조치메시지')
+    , new COMMON_CODE('msg1','1','상대방에게 불쾌감을 유발하는 성적 표현 및 음란성 이미지')
+    , new COMMON_CODE('msg2','2','게임물 내 도박/프리서버/유료 대리랭크를 하거나 이를 홍보하는 이미지')
+    , new COMMON_CODE('msg3','3','타인의 개인정보를 유포하는 행위')
+    , new COMMON_CODE('msg4','4','저작권침해 (게시물 복제*전송에 대한 신고의 건)')
+    , new COMMON_CODE('msg5','5','방송방 내 음란물 게시')
+    , new COMMON_CODE('msg6','6','청소년 보호정책에 위배되는 이미지')
+    , new COMMON_CODE('msg7','7','의도적이고 선정적인 이미지')
+    , new COMMON_CODE('msg99','99','기타')
 ];
