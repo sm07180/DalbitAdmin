@@ -68,6 +68,7 @@
         $("#search_os_area").html(util.getCommonCodeSelect(-1, content_selectApp));
 
         getAppList();
+
     }
 
     function getAppList() {
@@ -129,6 +130,9 @@
         $(this).hide();
         $("#bt_edit").hide();
         generateForm();
+
+        $('#list_info .dt-body-center input[type="checkbox"]').prop('checked', false);
+
         var today = new Date();
         var year = today.getFullYear();
         var month = common.lpad(today.getMonth() + 1, 2, '0');
