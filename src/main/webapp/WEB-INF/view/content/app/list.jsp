@@ -131,10 +131,10 @@
         generateForm();
         var today = new Date();
         var year = today.getFullYear();
-        var month = today.getMonth() + 1;
-        var date = today.getDate();
-        var hour = today.getHours();
-        var min = today.getMinutes();
+        var month = common.lpad(today.getMonth() + 1, 2, '0');
+        var date = common.lpad(today.getDate(), 2, '0');
+        var hour = common.lpad(today.getHours(), 2, '0');
+        var min = common.lpad(today.getMinutes(), 2, '0');
 
         var day = year + "." + month + "." + date + " " + hour + ":" + min;
         $("#day").html(day);
@@ -286,7 +286,7 @@
             <tr>
                 <th>등록일</th>
                 <td id = "day">
-                    {{convertToDate reg_date "YYYY-MM-DD HH:mm"}}
+                    {{convertToDate reg_date "YYYY.MM.DD HH:mm"}}
                 </td>
             </tr>
         </table>
