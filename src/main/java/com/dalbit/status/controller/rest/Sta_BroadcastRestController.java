@@ -81,6 +81,59 @@ public class Sta_BroadcastRestController {
     }
 
     /**
+     * 방송주제별 시간
+     * @param pStatVo
+     * @return
+     */
+    @PostMapping("info/subject/time")
+    public String infoSubjectTime(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+
+        String result = sta_BroadcastService.callBroadcastSubjectTime(pStatVo);
+        return result;
+    }
+
+     /**
+     * 방송 DJ
+     */
+    @PostMapping("info/dj")
+    public String infoDj(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+
+        String result = sta_BroadcastService.callBroadcastDj(pStatVo);
+        return result;
+    }
+
+    /**
+     * 방송 DJ
+     */
+    @PostMapping("info/listener/subject")
+    public String infoListener(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+
+        String result = sta_BroadcastService.callBroadcastListenerSubject(pStatVo);
+        return result;
+    }
+
+    /**
      * 방송 고정
      */
     @PostMapping("/broadcastLive/list")
