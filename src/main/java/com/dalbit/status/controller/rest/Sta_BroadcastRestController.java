@@ -23,6 +23,11 @@ public class Sta_BroadcastRestController {
     @Autowired
     Sta_BroadcastService sta_BroadcastService;
 
+    /**
+     * 방송 총계
+     * @param pStatVo
+     * @return
+     */
     @PostMapping("info/total")
     public String infoTotal(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
@@ -53,6 +58,25 @@ public class Sta_BroadcastRestController {
         }
 
         String result = sta_BroadcastService.callBroadcastPlatform(pStatVo);
+        return result;
+    }
+
+    /**
+     * 방송개설된 주제
+     * @param pStatVo
+     * @return
+     */
+    @PostMapping("info/subject/create")
+    public String infoSubjectCreate(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+
+        String result = sta_BroadcastService.callBroadcastSubjectCreate(pStatVo);
         return result;
     }
 

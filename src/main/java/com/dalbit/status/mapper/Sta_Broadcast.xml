@@ -9,7 +9,12 @@
 
     <select id="callBroadcastPlatform" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastPlatformOutDetailVo">
         /* B_Broadcast.xml - callBroadcastPlatform */
-        call rd_admin.sp_admin_stat_broadcast_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        call rd_admin.sp_admin_stat_broadcast_platform(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callBroadcastSubjectCreate" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastSubjectCreateOutDetailVo">
+        /* B_Broadcast.xml - callBroadcastSubjectCreate */
+        call rd_admin.sp_admin_stat_broadcast_subject_create(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callBroadcastLive" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastLiveOutputVo">
