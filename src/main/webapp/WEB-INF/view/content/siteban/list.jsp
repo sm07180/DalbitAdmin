@@ -129,8 +129,8 @@
 
         console.log('click');
         var banword = $('#banword');
-        if(banword.val().length < 4){
-            alert('4글자 이상으로 등록해주세요.');
+        if(banword.val().length < 2){
+            alert('2글자 이상으로 등록해주세요.');
             return false;
         }
 
