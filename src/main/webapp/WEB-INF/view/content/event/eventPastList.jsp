@@ -60,7 +60,7 @@
         initDataTable(){
             //=---------- Main DataTable ----------
             var dtList_info_data = function ( data ) {
-                data.search = $('#txt_search').val();                        // 검색명
+                data.searchText = $('#txt_search').val();                        // 검색명
                 data.search_event = $("select[name='search_event']").val()
                 data.state = 1;
             };
@@ -92,8 +92,7 @@
             });
 
             this.target.find("#btn_delete").on("click", function () { //삭제
-                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                fnc_pastEventList.deleteEvent("pastList");
+                fnc_eventList.deleteEvent("pastList");
             });
 
             // CheckBox 이벤트
@@ -117,19 +116,6 @@
 
             fnc_pastEventList.target.find('.dt-body-center input[type="checkbox"]').prop('checked', false);
 
-        },
-
-        // 삭제
-        deleteEvent() {
-            var checkDatas = dtList_info.getCheckedData();
-            if(checkDatas.length <= 0){
-                alert("삭제할 정보를 선택해주세요.");
-                return false;
-            }
-            if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
-                //TODO 삭제 로직 추가아아앙
-            };
-            dalbitLog(checkDatas);
         },
 
         getEventDetail_info(index){

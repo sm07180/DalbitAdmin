@@ -10,6 +10,7 @@
            from ( select if(start_datetime > now(),'대기 중','진행중') as state ,b.*
                     From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
                    where end_datetime >= now()
+                     and event_title like concat('%', #{searchText}, '%')
                    order by reg_date desc
                     limit #{pageNo}, #{pageCnt}) a
     </select>
@@ -26,6 +27,7 @@
           from ( select '마감' as state ,b.*
                    From rd_admin.tb_event_basic b, (select @rownum := #{pageNo} ) AS d
                   where end_datetime <![CDATA[<]]> now()
+                    and event_title like concat('%', #{searchText}, '%')
                   order by reg_date desc
                    limit #{pageNo}, #{pageCnt}) a
     </select>

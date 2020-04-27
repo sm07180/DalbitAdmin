@@ -59,8 +59,8 @@
         initDataTable(){
             //=---------- Main DataTable ----------
             var dtList_info_data = function ( data ) {
-                data.search = $('#txt_search').val();                        // 검색명
-                data.search_event = $("select[name='search_event']").val()
+                data.searchText = $('#txt_search').val();                        // 검색명
+                data.search_event = $("select[name='search_event']").val();
                 data.state = 0;
             };
             this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, EventDataTableSource.event);

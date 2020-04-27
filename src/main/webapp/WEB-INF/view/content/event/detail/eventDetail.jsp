@@ -138,7 +138,11 @@
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
+
+                console.log("@@@@@@@@@@@@@@@@@@@@");
+
                 var data = fnc_eventDetail.getEventDetailData();
+                data.idx = 1;
                 if(!fnc_eventDetail.isValid(data)){
                     return false;
                 }
@@ -269,6 +273,10 @@
 
 
         isValid(data){
+            if(common.isEmpty(data.loginType)){
+                alert("구분을 선택해주세요.");
+                return false;
+            }
             if (common.isEmpty(data.platform) || data.platform == "000") {
                 alert("노출 OS 구분을 선택하여 주시기 바랍니다.");
                 return false;

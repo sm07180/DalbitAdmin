@@ -321,15 +321,15 @@
             $("#noticeForm").empty();
         },
     }
-    $(document).on('click', '#insertBtn', function(){
-        if(isValid()){
+    $(document).on('click', '#insertBtn_report', function(){
+        if(isValid_report()){
             if(confirm('등록하시겠습니까?')){
                 util.getAjaxData("insert", "/rest/content/notice/insert", fnc_eventReport.generateFormData(), fnc_eventReport.fn_insert_success);
             }
         }
     });
 
-    function isValid(){
+    function isValid_report(){
         var slctType = $("#noticeForm #slctType");
         if(common.isEmpty(slctType.val())){
             alert("구분을 선택해주세요.");
@@ -431,8 +431,7 @@
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
             <span>
-                {{^noticeIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
-                {{#noticeIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
+                {{^noticeIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn_report">등록하기</button>{{/noticeIdx}}
             </span>
         </div>
         <table class="table table-bordered table-dalbit">
