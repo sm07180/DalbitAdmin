@@ -1,17 +1,12 @@
 package com.dalbit.util;
 
-import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.socket.service.SocketService;
 import com.dalbit.socket.vo.SocketVo;
-import com.google.gson.Gson;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.dalbit.util.GsonUtil;
 
 
 // reqMicOn             // 마이크 온
