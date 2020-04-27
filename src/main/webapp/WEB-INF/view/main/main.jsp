@@ -15,6 +15,7 @@
                         <thead>
                             <tr>
                                 <th colspan="5">방송</th>
+                                <th colspan="2">회원</th>
                                 <th colspan="4">캐스트</th>
                                 <th colspan="2">접속</th>
                                 <th colspan="2">결제</th>
@@ -25,6 +26,9 @@
                                 <th>청취자 수</th>
                                 <th>선물 건</th>
                                 <th>선물금액</th>
+
+                                <th>가입수</th>
+                                <th>탈퇴수</th>
 
                                 <th>건수</th>
                                 <th>조회수</th>
@@ -37,26 +41,8 @@
                                 <th>건수</th>
                                 <th>금액(원)</th>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><a href="javascript://">20</a></td>
-                                <td><a href="javascript://">20,000</a></td>
-                                <td><a href="javascript://">323</a></td>
-                                <td><a href="javascript://">14</a></td>
-                                <td><a href="javascript://">34,000</a></td>
-
-                                <td><a href="javascript://">50</a></td>
-                                <td><a href="javascript://">2,112</a></td>
-                                <td><a href="javascript://">512</a></td>
-                                <td><a href="javascript://">23,000</a></td>
-
-                                <td><a href="javascript://">20,000</a></td>
-                                <td><a href="javascript://">22,222</a></td>
-
-                                <td><a href="javascript://">600</a></td>
-                                <td><a href="javascript://">124,342,242</a></td>
-                            </tr>
+                        </thead>
+                        <tbody id="statTotalTableBody" >
                         </tbody>
                     </table>
                 </div>
@@ -117,64 +103,8 @@
                                         <th>주간</th>
                                         <th>전주대비</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>방송개설</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>방송시간</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>DJ</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>청취자</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>선물 건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>선물 금액</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>게스트</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
+                                </thead>
+                                <tbody  id="statBroadTableBody">
                                 </tbody>
                             </table>
                         </div>
@@ -289,99 +219,6 @@
                                 </tr>
                                 </thead>
                                 <tbody id="statMemberTableBody">
-                                    <%--<tr>
-                                        <th rowspan="3">성별</th>
-                                        <th>남</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>여</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>알수없음</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th rowspan="7">연령별</th>
-                                        <th>남</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-
-                                    <tr>
-                                        <th>10대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>20대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>30대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>40대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>50대</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>60대 이상</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-
-                                    <tr class="success">
-                                        <th colspan="2">합계</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>--%>
                                 </tbody>
                             </table>
                         </div>
@@ -726,10 +563,11 @@
 <script type="text/javascript">
     $(function(){
         init();
-        getMemberJoinStat();
     });
 
     function init(){
+        getTotalStat();
+        getBroadInfoStat();
         getMemberJoinStat();
     }
 
@@ -738,22 +576,73 @@
         eval(functionName)();
     });
 
+    function getTotalStat(){
+        util.getAjaxData("total", "/rest/mainStatus/total/status/list", null, fn_statTotal_success);
+    }
+    function fn_statTotal_success(dst_id, response){
+        var template = $('#tmp_statTotal').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+
+        $("#statTotalTableBody").empty().append(html);
+    }
+
     function getMemberJoinStat(){
-        util.getAjaxData("joinInfo", "/rest/enter/join/stat/join", null, fn_statMember_success);
+        util.getAjaxData("joinInfo", "/rest/mainStatus/join/status/list", null, fn_statMember_success);
     }
 
     function getMemberWithdrawStat(){
-        util.getAjaxData("withdrawInfo", "/rest/enter/join/stat/withdraw", null, fn_statMember_success);
+        util.getAjaxData("withdrawInfo", "/rest/mainStatus/join/status/withdraw", null, fn_statMember_success);
     }
 
     function fn_statMember_success(dst_id, response){
         var template = $('#tmp_statMember').html();
         var templateScript = Handlebars.compile(template);
-        var context = dst_id == 'joinInfo' ? response.data.joinInfo : response.data.withdrawInfo;
+        var context = dst_id == 'joinInfo' ? response.data.joinStatus : response.data.withdrawStatus;
         var html=templateScript(context);
 
         $("#statMemberTableBody").empty().append(html);
     }
+
+    function getBroadInfoStat(){
+        util.getAjaxData("broadInfo", "/rest/mainStatus/broad/status/info", null, fn_statBroad_success);
+    }
+
+    function fn_statBroad_success(dst_id, response){
+        dalbitLog(response);
+        var template = $('#tmp_statBroad').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+
+        $("#statBroadTableBody").empty().append(html);
+    }
+</script>
+
+
+<script type="text/x-handlebars-template" id="tmp_statTotal">
+    <tr>
+        <td><a href="javascript://">{{addComma broadcast_create_Cnt}}</a></td>
+        <td><a href="javascript://">{{addComma broadcast_air_Time}}</a></td>
+        <td><a href="javascript://">{{addComma broadcast_listener_Cnt}}</a></td>
+        <td><a href="javascript://">{{addComma broadcast_gift_Cnt}}</a></td>
+        <td><a href="javascript://">{{addComma broadcast_gift_Amount}}</a></td>
+
+        <td><a href="javascript://">{{addComma member_join_Cnt}}</a></td>
+        <td><a href="javascript://">{{addComma member_withdraw_Cnt}}</a></td>
+
+        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://">0</a></td>
+
+        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://">0</a></td>
+
+        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://">0</a></td>
+    </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_statMember">
@@ -795,70 +684,126 @@
     </tr>
 
     <tr>
-        <th rowspan="7">연령별</th>
-        <th>남</th>
-        <td>325</td>
-        <td>200</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-    </tr>
-
-    <tr>
+        <th rowspan="6">연령별</th>
         <th>10대</th>
-        <td>200분</td>
-        <td>180분</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+        <td>{{addComma now_10_Cnt}}</td>
+        <td>{{addComma yes_10_Cnt}}</td>
+        <td class="{{upAndDownClass now_10_inc_cnt}}"><i class="fa {{upAndDownIcon now_10_inc_cnt}}"></i> {{addComma now_10_inc_cnt}}</td>
+        <td>{{addComma week_10_cnt}}</td>
+        <td class="{{upAndDownClass week_10_inc_cnt}}"><i class="fa {{upAndDownIcon week_10_inc_cnt}}"></i> {{addComma week_10_inc_cnt}}</td>
     </tr>
     <tr>
         <th>20대</th>
-        <td>200분</td>
-        <td>180분</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+        <td>{{addComma now_20_Cnt}}</td>
+        <td>{{addComma yes_20_Cnt}}</td>
+        <td class="{{upAndDownClass now_20_inc_cnt}}"><i class="fa {{upAndDownIcon now_20_inc_cnt}}"></i> {{addComma now_20_inc_cnt}}</td>
+        <td>{{addComma week_20_cnt}}</td>
+        <td class="{{upAndDownClass week_20_inc_cnt}}"><i class="fa {{upAndDownIcon week_20_inc_cnt}}"></i> {{addComma week_20_inc_cnt}}</td>
     </tr>
     <tr>
         <th>30대</th>
-        <td>200분</td>
-        <td>180분</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+        <td>{{addComma now_30_Cnt}}</td>
+        <td>{{addComma yes_30_Cnt}}</td>
+        <td class="{{upAndDownClass now_30_inc_cnt}}"><i class="fa {{upAndDownIcon now_30_inc_cnt}}"></i> {{addComma now_30_inc_cnt}}</td>
+        <td>{{addComma week_30_cnt}}</td>
+        <td class="{{upAndDownClass week_30_inc_cnt}}"><i class="fa {{upAndDownIcon week_30_inc_cnt}}"></i> {{addComma week_30_inc_cnt}}</td>
     </tr>
     <tr>
         <th>40대</th>
-        <td>200분</td>
-        <td>180분</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+        <td>{{addComma now_40_Cnt}}</td>
+        <td>{{addComma yes_40_Cnt}}</td>
+        <td class="{{upAndDownClass now_40_inc_cnt}}"><i class="fa {{upAndDownIcon now_40_inc_cnt}}"></i> {{addComma now_40_inc_cnt}}</td>
+        <td>{{addComma week_40_cnt}}</td>
+        <td class="{{upAndDownClass week_40_inc_cnt}}"><i class="fa {{upAndDownIcon week_40_inc_cnt}}"></i> {{addComma week_40_inc_cnt}}</td>
     </tr>
     <tr>
         <th>50대</th>
-        <td>200분</td>
-        <td>180분</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+        <td>{{addComma now_50_Cnt}}</td>
+        <td>{{addComma yes_50_Cnt}}</td>
+        <td class="{{upAndDownClass now_50_inc_cnt}}"><i class="fa {{upAndDownIcon now_50_inc_cnt}}"></i> {{addComma now_50_inc_cnt}}</td>
+        <td>{{addComma week_50_cnt}}</td>
+        <td class="{{upAndDownClass week_50_inc_cnt}}"><i class="fa {{upAndDownIcon week_50_inc_cnt}}"></i> {{addComma week_50_inc_cnt}}</td>
     </tr>
     <tr>
         <th>60대 이상</th>
-        <td>200분</td>
-        <td>180분</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+        <td>{{addComma now_60_Cnt}}</td>
+        <td>{{addComma yes_60_Cnt}}</td>
+        <td class="{{upAndDownClass now_60_inc_cnt}}"><i class="fa {{upAndDownIcon now_60_inc_cnt}}"></i> {{addComma now_60_inc_cnt}}</td>
+        <td>{{addComma week_60_cnt}}</td>
+        <td class="{{upAndDownClass week_60_inc_cnt}}"><i class="fa {{upAndDownIcon week_60_inc_cnt}}"></i> {{addComma week_60_inc_cnt}}</td>
     </tr>
 
     <tr class="success">
         <th colspan="2">합계</th>
-        <td>200분</td>
-        <td>180분</td>
-        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-        <td>725</td>
-        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+        <td>{{addComma t_now_Cnt}}</td>
+        <td>{{addComma t_yes_Cnt}}</td>
+        <td class="{{upAndDownClass t_now_inc_cnt}}"><i class="fa {{upAndDownIcon t_now_inc_cnt}}"></i> {{addComma t_now_inc_cnt}}</td>
+        <td>{{addComma t_week_cnt}}</td>
+        <td class="{{upAndDownClass t_week_inc_cnt}}"><i class="fa {{upAndDownIcon t_week_inc_cnt}}"></i> {{addComma t_week_inc_cnt}}</td>
+    </tr>
+</script>
+
+
+
+<script type="text/x-handlebars-template" id="tmp_statBroad">
+    <tr>
+        <th>방송 개설</th>
+        <td>{{addComma create_now_cnt}}</td>
+        <td>{{addComma create_yes_cnt}}</td>
+        <td class="{{upAndDownClass create_now_inc_cnt}}"><i class="fa {{upAndDownIcon create_now_inc_cnt}}"></i> {{addComma create_now_inc_cnt}}</td>
+        <td>{{addComma create_week_cnt}}</td>
+        <td class="{{upAndDownClass create_week_inc_cnt}}"><i class="fa {{upAndDownIcon create_week_inc_cnt}}"></i> {{addComma create_week_inc_cnt}}</td>
+    </tr>
+
+    <tr>
+        <th>방송 시간</th>
+        <td>{{addComma broadcast_now_time}}</td>
+        <td>{{addComma broadcast_yes_time}}</td>
+        <td class="{{upAndDownClass broadcast_now_inc_time}}"><i class="fa {{upAndDownIcon broadcast_now_inc_time}}"></i> {{addComma broadcast_now_inc_time}}</td>
+        <td>{{addComma broadcast_week_time}}</td>
+        <td class="{{upAndDownClass broadcast_week_inc_time}}"><i class="fa {{upAndDownIcon broadcast_week_inc_time}}"></i> {{addComma broadcast_week_inc_time}}</td>
+    </tr>
+
+    <tr>
+        <th>DJ</th>
+        <td></td>
+        <td></td>
+        <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i> </td>
+        <td></td>
+        <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i> </td>
+    </tr>
+
+    <tr>
+        <th>청취자</th>
+        <td>{{addComma listener_now_cnt}}</td>
+        <td>{{addComma listener_yes_cnt}}</td>
+        <td class="{{upAndDownClass listener_now_inc_cnt}}"><i class="fa {{upAndDownIcon listener_now_inc_cnt}}"></i> {{addComma listener_now_inc_cnt}}</td>
+        <td>{{addComma listener_week_cnt}}</td>
+        <td class="{{upAndDownClass listener_week_inc_cnt}}"><i class="fa {{upAndDownIcon listener_week_inc_cnt}}"></i> {{addComma listener_week_inc_cnt}}</td>
+    </tr>
+
+    <tr>
+        <th>선물 건</th>
+        <td>{{addComma gift_now_cnt}}</td>
+        <td>{{addComma gift_yes_cnt}}</td>
+        <td class="{{upAndDownClass gift_now_inc_cnt}}"><i class="fa {{upAndDownIcon gift_now_inc_cnt}}"></i> {{addComma gift_now_inc_cnt}}</td>
+        <td>{{addComma gift_week_cnt}}</td>
+        <td class="{{upAndDownClass gift_week_inc_cnt}}"><i class="fa {{upAndDownIcon gift_week_inc_cnt}}"></i> {{addComma gift_week_inc_cnt}}</td>
+    </tr>
+    <tr>
+        <th>선물 금액</th>
+        <td>{{addComma gift_now_amt}}</td>
+        <td>{{addComma gift_yes_amt}}</td>
+        <td class="{{upAndDownClass gift_now_inc_amt}}"><i class="fa {{upAndDownIcon gift_now_inc_amt}}"></i> {{addComma gift_now_inc_amt}}</td>
+        <td>{{addComma gift_week_amt}}</td>
+        <td class="{{upAndDownClass gift_week_inc_amt}}"><i class="fa {{upAndDownIcon gift_week_inc_amt}}"></i> {{addComma gift_week_inc_amt}}</td>
+    </tr>
+    <tr>
+        <th>게스트</th>
+        <td></td>
+        <td></td>
+        <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i></td>
+        <td></td>
+        <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i></td>
     </tr>
 </script>

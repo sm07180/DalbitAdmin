@@ -219,7 +219,6 @@ public class Bro_BroadcastService {
 //            if(pBroadcastEditInputVo.getForceExit().equals("1") && pBroadcastEditInputVo.getSendNoti().equals("1")){
                 // 방송 시작시간
                 bro_BroadcastDao.callBroadcastInfo(procedureVo);
-
                 P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
                 pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
 
@@ -233,13 +232,13 @@ public class Bro_BroadcastService {
                 param.put("memNo",pBroadcastEditInputVo.getMem_no());
 
                 //option
-                param.put("ctrlRole","ctrlRole");
-                param.put("recvType","system");
-                param.put("recvPosition","top1");
-                param.put("recvLevel",2);
-                param.put("recvTime",5);
+                param.put("ctrlRole","");
+                param.put("recvType","chat");
+                param.put("recvPosition","chat");
+                param.put("recvLevel",0);
+                param.put("recvTime",0);
 
-                socketUtil.setSocket(param,"chatEnd","bjOut",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
+                socketUtil.setSocket(param,"chatEnd","roomOut",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
             }
 
 //              else if(pBroadcastEditInputVo.getForceExit().equals("0") && pBroadcastEditInputVo.getSendNoti().equals("1")){
