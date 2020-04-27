@@ -64,7 +64,9 @@
         SELECT
             EMP_NAME
             , COUNT(EMP_NAME) CNT
-        FROM rd_admin.tb_admin_test_account
+        FROM rd_admin.tb_admin_test_account test
+            , rd_data.tb_member_basic member
+        where test.mem_no = member.mem_no
         GROUP BY EMP_NAME
         ORDER BY COUNT(EMP_NAME) DESC
     </select>
