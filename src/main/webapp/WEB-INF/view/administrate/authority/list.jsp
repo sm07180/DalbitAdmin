@@ -118,6 +118,28 @@
         getMemberList();
     });
 
+    $(document).on('click', '._authChk, ._auth', function(){
+        var me = $(this);
+        if(me.prop('checked')){
+
+            var oneIdx = me.parent().parent().data('oneidx');
+            var twoIdx = me.parent().parent().data('twoidx');
+            var checkedIndex = me.parent().parent().find('input[type="checkbox"]').index(me);
+
+            //2뎁스 일 때만 1뎁스 체크 여부 확인.
+            //1뎁스가 체크가 안되었을 때 체크를 해준다.
+            if(!common.isEmpty(twoIdx)){
+                var oneDepthCheckbox = $('tr[data-oneidx="'+oneIdx+'"]:first').find('input[type="checkbox"]:eq('+checkedIndex+')');
+
+                if(me.hasClass('_authChk')){
+                    $('tr[data-oneidx="'+oneIdx+'"]:first').find('input[type="checkbox"]').prop('checked', 'checked');
+                }else{
+                    oneDepthCheckbox.prop('checked', 'checked');
+                }
+            }
+        }
+    });
+
     $('#searchText').on('keydown', function(e) {
         if (e.keyCode === 13) {
             getMemberList();
