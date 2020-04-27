@@ -259,12 +259,19 @@
         }
     });
 
+    $(document).on('click', '._empName', function(){
+        var empName = $(this);
+        $("#searchType option[value=1]").prop('selected', 'selected');
+        $("#searchText").val(empName.text());
+        $("#bt_search").click();
+    });
+
 </script>
 
 <script id="tmp_summary" type="text/x-handlebars-template">
     {{#each this}}
         <tr>
-            <td>{{emp_name}}</td>
+            <td><a href="javascript://" class="_empName" title="'{{emp_name}}'(으)로 검색">{{emp_name}}</td>
             <td>{{cnt}}개</td>
         </tr>
     {{else}}
