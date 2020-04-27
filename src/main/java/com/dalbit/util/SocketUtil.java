@@ -46,7 +46,7 @@ public class SocketUtil {
             if(message.equals("roomOut")){
 
                 HashMap<String,String> map = new HashMap<>();
-                map.put("authToken",authToken);
+                map.put("authToken","");
                 map.put("message",message);
 
                 message = gsonUtil.toJson(map);
@@ -85,7 +85,11 @@ public class SocketUtil {
             socketVo.setAuthName("");
             socketVo.setCtrlRole(DalbitUtil.getStringMap(param, "ctrlRole"));
             socketVo.setLogin(1);
-            socketVo.setRecvMemNo(DalbitUtil.getStringMap(param, "memNo"));
+            if(command.equals("chatEnd")){
+                socketVo.setRecvMemNo("roomOut");
+            }else{
+                socketVo.setRecvMemNo(DalbitUtil.getStringMap(param, "memNo"));
+            }
             socketVo.setRecvDj(1);
             socketVo.setRecvManager(1);
             socketVo.setRecvListener(1);
