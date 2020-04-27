@@ -226,11 +226,11 @@
             <version>1.0.0</version>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>oauth2-oidc-sdk</artifactId>
             <version>5.45</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.opentest4j</groupId>
