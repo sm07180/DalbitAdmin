@@ -22,4 +22,13 @@
             , count = #{count}
         WHERE idx = #{idx}
     </update>
+
+
+    <select id="excelBanword" resultType="String">
+        /* Siteban.xml - excelBanword */
+        select ban_word
+        from rd_data.tbl_banword
+        where is_use = 1
+        order by idx desc
+    </select>
 </mapper>

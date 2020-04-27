@@ -68,7 +68,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }*/
 
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         SecurityUserVo securityUserVo = new SecurityUserVo(
                 DalbitUtil.convertRequestParamToString(request,"memId")
@@ -77,9 +77,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return securityUserVo;
     }
-
-    public UserDetails callInforexAdmin(){
-        return null;
-    }
-
 }

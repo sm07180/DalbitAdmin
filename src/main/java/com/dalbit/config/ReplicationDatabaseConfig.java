@@ -37,8 +37,20 @@ public class ReplicationDatabaseConfig {
     @Value("${spring.datasource.master.url}")
     private String JDBC_MASTER_URL;
 
+    @Value("${spring.datasource.master.maximum-pool-size}")
+    private int JDBC_MASTER_MAXIMUM_POOL_SIZE;
+
+    @Value("${spring.datasource.master.minimum-idle}")
+    private int JDBC_MASTER_MINIMUM_IDLE;
+
     @Value("${spring.datasource.slave.url}")
     private String JDBC_SLAVE_URL;
+
+    @Value("${spring.datasource.master.maximum-pool-size}")
+    private int JDBC_SLAVE_MAXIMUM_POOL_SIZE;
+
+    @Value("${spring.datasource.master.minimum-idle}")
+    private int JDBC_SLAVE_MINIMUM_IDLE;
 
     @Value("${spring.datasource.username}")
     private String JDBC_USERNAME;
@@ -64,8 +76,8 @@ public class ReplicationDatabaseConfig {
         masterHikariConfig.setUsername(JDBC_USERNAME);
         masterHikariConfig.setPassword(JDBC_PASSWORD);
         masterHikariConfig.addDataSourceProperty("tcpKeepAlive", true);
-        masterHikariConfig.setMaximumPoolSize(50);
-        masterHikariConfig.setMinimumIdle(10);
+        masterHikariConfig.setMaximumPoolSize(JDBC_MASTER_MAXIMUM_POOL_SIZE);
+        masterHikariConfig.setMinimumIdle(JDBC_MASTER_MINIMUM_IDLE);
         masterHikariConfig.setConnectionTimeout(CONNECTION_TIMEOUT);
         masterHikariConfig.setIdleTimeout(IDLE_TIMEOUT);
         masterHikariConfig.setMaxLifetime(MAX_LIFETIME);
@@ -80,8 +92,8 @@ public class ReplicationDatabaseConfig {
         slaveHikariConfig.setJdbcUrl(JDBC_SLAVE_URL);
         slaveHikariConfig.setUsername(JDBC_USERNAME);
         slaveHikariConfig.setPassword(JDBC_PASSWORD);
-        slaveHikariConfig.setMaximumPoolSize(50);
-        slaveHikariConfig.setMinimumIdle(10);
+        slaveHikariConfig.setMaximumPoolSize(JDBC_SLAVE_MAXIMUM_POOL_SIZE);
+        slaveHikariConfig.setMinimumIdle(JDBC_SLAVE_MINIMUM_IDLE);
         slaveHikariConfig.setConnectionTimeout(CONNECTION_TIMEOUT);
         slaveHikariConfig.setIdleTimeout(IDLE_TIMEOUT);
         slaveHikariConfig.setMaxLifetime(MAX_LIFETIME);

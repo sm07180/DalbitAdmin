@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="widget-content">
-
+                            <form id="form">
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <div class="col-xs-4 no-padding">
@@ -37,7 +37,7 @@
                                     <button type="button" class="btn btn-default pull-right" id="deleteBtn2"><i class="fa fa-trash-o"></i>선택삭제</button>
                                 </div>
                             </div>
-
+                            </form>
                             <table id="list" class="table table-sorting table-hover-ban table-bordered datatable ui-pg-table">
                                 <%--<colgroup>
                                     <col width="70px" />
@@ -61,6 +61,9 @@
                                     <button type="button" class="btn btn-default mr-10" id="addBtn"><i class="fa fa-plus-square"></i>등록</button>
                                     <button type="button" class="btn btn-primary" id="insertBtn"><i class="fa fa-floppy-o"></i>적용</button>
                                 </div>--%>
+                                <span>
+                                    <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -166,6 +169,21 @@
             , count : $('._banword span.text-danger').length
         }
         util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_list);
+    }
+
+    $('#excelDownBtn').on('click', function() {
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("banword", $("#banword").val());
+        util.excelDownload($(this), "/rest/content/siteban/listExcel", formData, fn_success_excel, fn_fail_excel);
+    });
+
+    function fn_success_excel(dst_id, response) {
+        dalbitLog("########성공");
+    }
+
+    function fn_fail_excel() {
+        dalbitLog("########실패");
     }
 
     function deleteBanword(){
