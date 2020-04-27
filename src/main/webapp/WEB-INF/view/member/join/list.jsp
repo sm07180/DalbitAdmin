@@ -70,6 +70,8 @@
             format: "YYYY-MM-DD",
         });
 
+        sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
+        getUserInfo();
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getUserInfo();

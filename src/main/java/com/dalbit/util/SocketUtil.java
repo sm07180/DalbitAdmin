@@ -2,7 +2,6 @@ package com.dalbit.util;
 
 import com.dalbit.socket.service.SocketService;
 import com.dalbit.socket.vo.SocketVo;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,9 +38,19 @@ public class SocketUtil {
      */
     @Autowired
     SocketService socketService;
+    @Autowired
+    GsonUtil gsonUtil;
 
     public Map<String, Object> setSocket(HashMap<String,Object> param ,String command, String message, String authToken){
         if(!"".equals(param) && !"".equals(authToken)) {
+            if(message.equals("roomOut")){
+
+                HashMap<String,String> map = new HashMap<>();
+                map.put("authToken","");
+                map.put("message",message);
+
+                message = gsonUtil.toJson(map);
+            }
             SocketVo vo = getSocketVo(param, command, message);
             System.out.println(vo.toQueryString());
             return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
@@ -54,13 +63,9 @@ public class SocketUtil {
         try {
             SocketVo socketVo = new SocketVo();
 
-            socketVo.setRecvType(DalbitUtil.getStringMap(param, "recvType"));
-            socketVo.setRecvPosition(DalbitUtil.getStringMap(param, "recvPosition"));
-            socketVo.setRecvLevel(DalbitUtil.getIntMap(param, "recvLevel"));
-            socketVo.setRecvTime(DalbitUtil.getIntMap(param, "recvTime"));
             socketVo.setMessage(message);
             socketVo.setCommand(command);
-            socketVo.setMemImg("");
+            socketVo.setMemImg("null");
             if (command.equals("reqKickOut")){
                 socketVo.setMemNo(DalbitUtil.getStringMap(param, "target_memNo"));
                 socketVo.setMemNk(DalbitUtil.getStringMap(param, "target_nickName"));
@@ -72,11 +77,15 @@ public class SocketUtil {
                 }
             }
             socketVo.setFan(1);
-            socketVo.setAuth(3);
-            socketVo.setAuthName("달D");
+            socketVo.setAuth(0);
+            socketVo.setAuthName("");
             socketVo.setCtrlRole(DalbitUtil.getStringMap(param, "ctrlRole"));
+            socketVo.setRecvMemNo(DalbitUtil.getStringMap(param, "recvMemNo"));
+            socketVo.setRecvType(DalbitUtil.getStringMap(param, "recvType"));
+            socketVo.setRecvPosition(DalbitUtil.getStringMap(param, "recvPosition"));
+            socketVo.setRecvLevel(DalbitUtil.getIntMap(param, "recvLevel"));
+            socketVo.setRecvTime(DalbitUtil.getIntMap(param, "recvTime"));
             socketVo.setLogin(1);
-            socketVo.setRecvMemNo("");
             socketVo.setRecvDj(1);
             socketVo.setRecvManager(1);
             socketVo.setRecvListener(1);

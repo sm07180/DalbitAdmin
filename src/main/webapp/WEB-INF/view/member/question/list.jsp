@@ -23,9 +23,9 @@
     });
 
     var tmp_question = -1;
-    var tmp_question_type = -1;
-    var tmp_platform = -1;
-    var tmp_browser = -1;
+    var tmp_question_type = null;
+    var tmp_platform = null;
+    var tmp_browser = null;
     function getHistory_questionDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = MemberDataTableSource[tmp];
@@ -63,7 +63,6 @@
     }
 
     function sel_change_question(){
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         tmp_question = $("select[name='question']").val();
         tmp_question_type = $("select[name='question_type']").val();
         tmp_platform = $("select[name='platform']").val();
