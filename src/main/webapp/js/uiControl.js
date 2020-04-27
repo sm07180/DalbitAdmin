@@ -48,3 +48,6 @@ ui.checkBoxInit = function(tableId){
     });
 }
 
+ui.unCheck = function(tableId) {
+    $('#' + tableId + ' .dt-body-center input[type="checkbox"]').prop('checked', false);
+}

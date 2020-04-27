@@ -88,12 +88,12 @@
 
         initEvent(){
             this.target.find("#btn_insert").on("click", function () { //등록
-                fnc_eventList.insertEvent();
+                fnc_pastEventList.insertEvent();
             });
 
             this.target.find("#btn_delete").on("click", function () { //삭제
                 console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                fnc_eventList.deleteEvent("pastList");
+                fnc_pastEventList.deleteEvent("pastList");
             });
 
             // CheckBox 이벤트
@@ -109,9 +109,14 @@
 
         // 등록
         insertEvent() {
+            dalbitLog('insertEvent')
+
             $('#div_eventTabList').removeClass("hide");
             fnc_eventDetail.insertEventDetail();
             $("#tab_eventDetail").click();
+
+            fnc_pastEventList.target.find('.dt-body-center input[type="checkbox"]').prop('checked', false);
+
         },
 
         // 삭제

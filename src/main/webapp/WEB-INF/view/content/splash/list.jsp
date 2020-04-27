@@ -127,6 +127,7 @@
     function insertSplashInfo() {
         insertSplash();
         $("#tab_splashList").click();
+        ui.unCheck('list_info');
     }
 
     // 삭제

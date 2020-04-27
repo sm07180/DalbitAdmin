@@ -116,6 +116,7 @@ var fnc_pushList = {
         initSelectDataInfo();
 
         $("#tab_pushDetail").click();
+        ui.unCheck(this.targetDataTableId);
     },
 
     // 삭제

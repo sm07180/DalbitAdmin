@@ -104,9 +104,12 @@
 
         // 등록
         insertEvent() {
+
             $('#div_eventTabList').removeClass("hide");
             fnc_eventDetail.insertEventDetail();
             $("#tab_eventDetail").click();
+
+            fnc_eventList.target.find('.dt-body-center input[type="checkbox"]').prop('checked', false);
         },
 
         // 삭제

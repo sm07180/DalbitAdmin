@@ -100,7 +100,7 @@
 
     $("#bt_insert").on("click", function(){
 
-        $('#list_info .dt-body-center input[type="checkbox"]').prop('checked', false);
+        ui.unCheck('list_info');
         if($('#insertBtn').length > 0) {
             $("#noticeForm").empty();
         } else {

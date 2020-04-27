@@ -131,6 +131,7 @@ var fnc_exchangeList = {
         initSelectDataInfo();
 
         $("#tab_exchangeDetail").click();
+        ui.unCheck(this.targetDataTableId);
     },
 
     // 삭제

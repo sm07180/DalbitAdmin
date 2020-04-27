@@ -133,7 +133,7 @@
         $("#bt_edit").hide();
         generateForm();
 
-        $('#list_info .dt-body-center input[type="checkbox"]').prop('checked', false);
+        ui.unCheck('list_info');
 
         var today = new Date();
         var year = today.getFullYear();

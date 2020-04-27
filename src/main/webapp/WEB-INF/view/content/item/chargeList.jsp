@@ -134,6 +134,7 @@ var fnc_chargeList = {
         initSelectDataInfo();
 
         $("#tab_chargeDetail").click();
+        ui.unCheck(this.targetDataTableId);
     },
 
     // 삭제

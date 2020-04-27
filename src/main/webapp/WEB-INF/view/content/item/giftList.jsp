@@ -132,6 +132,7 @@ var fnc_giftList = {
         initSelectDataInfo();
 
         $("#tab_giftDetail").click();
+        ui.unCheck(this.targetDataTableId);
     },
 
     // 삭제
