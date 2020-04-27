@@ -319,10 +319,11 @@
                 meno = broadCastMessage.freezing;
                 title = broadCastMessage.freezingTitle;
             }
-            meno = meno.replace("{{name}}",ADMIN_NICKNAME)
-                .replace("{{nickName}}",detailData.dj_nickName)
-                .replace("{{message}}",entryMessage)
-                .replace("{{timestamp}}",timestamp);
+            meno = "운영정책 위반으로 방송이 강제 종료되었습니다.";
+                // meno.replace("{{name}}",ADMIN_NICKNAME)
+                // .replace("{{nickName}}",detailData.dj_nickName)
+                // .replace("{{message}}",entryMessage)
+                // .replace("{{timestamp}}",timestamp);
 
             // console.log(meno);
 
@@ -334,7 +335,7 @@
             obj.notiContents = title;
             obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
             obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
-            // console.log(mem_no);
+            console.log(mem_no);
             obj.mem_no = mem_no;
 
             util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
