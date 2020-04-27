@@ -16,13 +16,12 @@ public class LogoutHandlerImpl implements LogoutHandler {
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication){
-        log.info("로그아웃 핸들러");
         try {
-            CookieUtil.deleteCookie("JSESSIONID", "", "", 0);
-            CookieUtil.deleteCookie("ADMIN_COOKIE", "", "", 0);
-            CookieUtil.deleteCookie("gSTAFF", "", "", 0);
-            CookieUtil.deleteCookie("NAME", "", "", 0);
-            CookieUtil.deleteCookie("USER_ID", "", "", 0);
+            response.addCookie(CookieUtil.deleteCookie("JSESSIONID", "inforex.co.kr", "/", 0));
+            response.addCookie(CookieUtil.deleteCookie("ADMIN_COOKIE", "inforex.co.kr", "/", 0));
+            response.addCookie(CookieUtil.deleteCookie("gSTAFF", "inforex.co.kr", "/", 0));
+            response.addCookie(CookieUtil.deleteCookie("NAME", "inforex.co.kr", "/", 0));
+            response.addCookie(CookieUtil.deleteCookie("USER_ID", "inforex.co.kr", "/", 0));
         } catch (IOException e) {
             e.printStackTrace();
         }

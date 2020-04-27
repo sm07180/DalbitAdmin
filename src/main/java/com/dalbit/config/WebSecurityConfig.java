@@ -18,6 +18,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 
 /**
@@ -36,6 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired private LogoutHandlerImpl logoutHandler;
     @Autowired private UserDetailsServiceImpl userDetailsService;
     @Autowired private AuthenticationProvider authProvider;
+
+    private final static String REMEMBER_ME_KEY = "INFOREX_ADMIN_REMEMBER_ME";
 
     @Bean
     public DelegatingPasswordEncoder passwordEncoder() {
@@ -92,18 +95,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
 
             .and()
-                .rememberMe()
-                .key("iCanRememberMe")
+                /*.rememberMe()
+                .key(REMEMBER_ME_KEY)
                 .rememberMeParameter("remember-me-new")
-                .rememberMeCookieName("remember-me")
+                .rememberMeCookieName("rememberMe1234")
                 .tokenValiditySeconds(604800)
                 .userDetailsService(userDetailsService)
+                .authenticationSuccessHandler(authSuccessHandler)*/
+
+                .rememberMe()
+                .key(REMEMBER_ME_KEY)
+                .rememberMeServices(tokenBasedRememberMeServices())
 
             .and()
                 .logout()
                     .logoutUrl("/logout")
                     .addLogoutHandler(logoutHandler)
-                    .deleteCookies("JSESSIONID", "ADMIN_COOKIE", "gSTAFF", "NAME", "USER_ID")
+                    //.deleteCookies("JSESSIONID", "ADMIN_COOKIE", "gSTAFF", "NAME", "USER_ID")
                     .invalidateHttpSession(true)
 
             .and()
@@ -124,5 +132,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-
+    @Bean
+    public TokenBasedRememberMeServices tokenBasedRememberMeServices() {
+        TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(REMEMBER_ME_KEY, userDetailsService);
+        rememberMeServices.setAlwaysRemember(true);
+        rememberMeServices.setParameter("remember-me-new");
+        rememberMeServices.setTokenValiditySeconds(604800);
+        rememberMeServices.setCookieName(REMEMBER_ME_KEY);
+        return rememberMeServices;
+    }
 }
