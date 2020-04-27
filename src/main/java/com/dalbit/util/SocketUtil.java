@@ -63,10 +63,6 @@ public class SocketUtil {
         try {
             SocketVo socketVo = new SocketVo();
 
-            socketVo.setRecvType(DalbitUtil.getStringMap(param, "recvType"));
-            socketVo.setRecvPosition(DalbitUtil.getStringMap(param, "recvPosition"));
-            socketVo.setRecvLevel(DalbitUtil.getIntMap(param, "recvLevel"));
-            socketVo.setRecvTime(DalbitUtil.getIntMap(param, "recvTime"));
             socketVo.setMessage(message);
             socketVo.setCommand(command);
             socketVo.setMemImg("null");
@@ -84,12 +80,12 @@ public class SocketUtil {
             socketVo.setAuth(0);
             socketVo.setAuthName("");
             socketVo.setCtrlRole(DalbitUtil.getStringMap(param, "ctrlRole"));
+            socketVo.setRecvMemNo(DalbitUtil.getStringMap(param, "recvMemNo"));
+            socketVo.setRecvType(DalbitUtil.getStringMap(param, "recvType"));
+            socketVo.setRecvPosition(DalbitUtil.getStringMap(param, "recvPosition"));
+            socketVo.setRecvLevel(DalbitUtil.getIntMap(param, "recvLevel"));
+            socketVo.setRecvTime(DalbitUtil.getIntMap(param, "recvTime"));
             socketVo.setLogin(1);
-            if(command.equals("chatEnd")){
-                socketVo.setRecvMemNo("roomOut");
-            }else{
-                socketVo.setRecvMemNo(DalbitUtil.getStringMap(param, "memNo"));
-            }
             socketVo.setRecvDj(1);
             socketVo.setRecvManager(1);
             socketVo.setRecvListener(1);

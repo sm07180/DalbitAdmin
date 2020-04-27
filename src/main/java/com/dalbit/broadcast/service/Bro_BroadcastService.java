@@ -233,6 +233,7 @@ public class Bro_BroadcastService {
 
                 //option
                 param.put("ctrlRole","");
+                param.put("recvMemNo","roomOut");
                 param.put("recvType","chat");
                 param.put("recvPosition","chat");
                 param.put("recvLevel",0);

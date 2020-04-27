@@ -102,6 +102,7 @@ public class Bro_ListenerService {
             param.put("nickName",pListenForceLeaveVo.getDj_nickname());
             // option
             param.put("ctrlRole","ctrlRole");
+            param.put("revMemNo",pListenForceLeaveVo.getMem_no());     // 받는 사람
             param.put("recvType","system");
             param.put("recvPosition","top1");
             param.put("recvLevel",2);
