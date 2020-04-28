@@ -116,7 +116,7 @@
             $("#endDate").val(selectDate);
         });
 
-        $("#displayDate").daterangepicker( dataPickerSrc,
+        $("#displayDate").statsDaterangepicker(
             function(start, end, t1) {
                 $("#startDate").val(start.format('YYYY.MM.DD'));
                 $("#endDate").val(end.format('YYYY.MM.DD'));
@@ -179,32 +179,6 @@
            }
        }
     });
-
-    var dataPickerSrc = {
-        startDate: moment(),
-        endDate: moment(),
-        dateLimit: { days: 365 },
-        showDropdowns: true,
-        showWeekNumbers: true,
-        timePicker: false,
-        timePickerIncrement: 1,
-        timePicker12Hour: false,
-        ranges: {
-            '오늘': [moment(), moment()],
-            '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
-            '지난주': [moment().subtract('days', 6), moment()],
-            '전월': [moment().subtract('days', 29), moment()]
-        },
-        opens: 'left',
-        // buttonClasses: ['btn btn-default'],
-        // applyClass: 'btn-small btn-primary',
-        // cancelClass: 'btn-small',
-        format: 'L',
-        separator: ' to ',
-        locale: {
-            customRangeLabel: '직접선택',
-        }
-    }
 
     function getStatJoinInfo(){
         util.getAjaxData("statJoin", "/rest/enter/join/stat/join", null, fn_statJoin_success);
