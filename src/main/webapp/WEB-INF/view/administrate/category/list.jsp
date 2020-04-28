@@ -106,7 +106,7 @@
     });
 
     function root_add(){
-        $("#jstree").jstree('create_node', '#', {'id' : 'myId', 'text' : 'My Text'}, 'last');
+        $("#jstree").jstree('create_node', '#', {'id' : 'myId', 'text' : '메뉴명'}, 'last');
     }
 
     function demo_create() {
