@@ -21,6 +21,6 @@ public class P_FaqListDetailOutputVo extends BaseVo {
 
 //    public void setWriteDate(java.sql.Date writeDate){
 //        this.writeDate = writeDate;
-//        this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy-MM-dd HH.mm.ss");
+//        this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy-MM-dd HH:mm:ss");
 //    }
 }
