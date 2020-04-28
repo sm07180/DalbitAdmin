@@ -136,7 +136,6 @@
                         <%--<span>
                             <button class="btn btn-default print-btn pull-right mb10" type="button"><i class="fa fa-print"></i>Excel 출력</button>
                         </span>--%>
-
                     </div>
                 </div>
                 <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
@@ -166,6 +165,7 @@
             , txt_search : $("#txt_search").val()
         }
         util.getAjaxData("liveList", "/rest/menu/live/list", data, fn_succ_list);
+        util.getAjaxData("select", "/rest/content/theme/broadcast/list", "", fn_succ_select);
     }
 
     $('#bt_search').on('click', function(){
@@ -182,8 +182,19 @@
         init($(this).find('a').data('slcttype'));
     });
 
+    var detailData;
+    function fn_succ_select(dst_id, response) {
+
+        var template = $("#tmp_broadcastSubject").html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $('#searchSubjectType').html(html);
+
+        renderSubjectType();
+    }
+
     function renderSubjectType(){
-        $("#searchSubjectType").html(util.getCommonCodeSelect('', broadcastSubjectType));
 
         $('#subject_type').on('change', function(){
             init($('._tab.active').find('a').data('slcttype'));
@@ -244,4 +255,12 @@
             <td colspan="10">{{isEmptyData}}</td>
         </tr>
     {{/each}}
+</script>
+
+<script id="tmp_broadcastSubject" type="text/x-handlebars-template">
+    <select name="subject" id="subject" class="form-control">
+        {{#each this as |subject|}}
+            <option value = "{{subject.cd}}">{{subject.cdNm}}</option>
+        {{/each}}
+    </select>
 </script>
