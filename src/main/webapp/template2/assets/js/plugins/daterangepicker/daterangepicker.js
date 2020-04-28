@@ -1560,6 +1560,45 @@
         return this;
     };
 
+    $.fn.statsDaterangepicker = function(callback) {
+        var dalbitDefaultRangeOption = {
+            startDate: moment(),
+            endDate: moment(),
+            dateLimit: { days: 365 },
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: false,
+            ranges: {
+                '오늘': [moment(), moment()],
+                '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                '지난주': [moment().subtract('days', 6), moment()],
+                '전월': [moment().subtract('months', 1), moment()],
+                '전년': [moment().subtract('years', 1), moment()]
+            },
+            opens: 'left',
+            // buttonClasses: ['btn btn-default'],
+            // applyClass: 'btn-small btn-primary',
+            // cancelClass: 'btn-small',
+            format: 'L',
+            separator: ' to ',
+            locale: {
+                customRangeLabel: '직접선택',
+            }
+        }
+
+
+        var implementOptions = $.extend(true, {}, $.fn.daterangepicker.defaultOptions, dalbitDefaultRangeOption);
+        this.each(function() {
+            var el = $(this);
+            if (el.data('daterangepicker'))
+                el.data('daterangepicker').remove();
+            el.data('daterangepicker', new DateRangePicker(el, implementOptions, callback));
+        });
+        return this;
+    };
+
     return DateRangePicker;
 
 }));
