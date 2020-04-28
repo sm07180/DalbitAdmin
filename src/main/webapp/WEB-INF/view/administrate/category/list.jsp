@@ -182,7 +182,9 @@
             obj.is_comming_soon = $('input:radio[name="isComming_on_off"]:checked').val();
             obj.is_use = $('input:radio[name="isUse_on_off"]:checked').val();
 
-            getMenuDetail(obj);
+            console.log(obj);
+            // getMenuDetail(obj);
+            util.getAjaxData("menuInfoUpdate", "/rest/administrate/menu/menuInfoUpdate", obj, updateSucces, fn_fail);
         }
 
     }
