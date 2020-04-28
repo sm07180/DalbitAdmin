@@ -1,11 +1,5 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    Date nowTime = new Date();
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-%>
 
 <!-- 방송 > 방송개설 -->
 <div class="widget widget-table mb10">
@@ -15,9 +9,9 @@
         </div>
     </div>
     <div class="widget-content mt10">
-        <a href="javascript://">[이전]</a>
-        <%= sf.format(nowTime)%>
-        <a href="javascript://">[다음]</a>
+        <a href="javascript://" class="_prevSearch">[이전]</a>
+        <span class="_searchDate"></span>
+        <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
             <thead>
             <tr>
