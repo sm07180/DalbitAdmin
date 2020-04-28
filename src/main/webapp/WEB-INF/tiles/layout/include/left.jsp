@@ -49,7 +49,7 @@
                                     <c:forEach var="twoDepth" items="${menu.twoDepth}">
                                         <li class="${fn:contains(url, twoDepth.menu_url) ? 'active': ''}">
                                             <a href="${twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
-                                                <i class="fa fa-thumbs-o-up"></i><span class="text">${twoDepth.menu_name}</span>
+                                                <i class="fa ${twoDepth.icon}"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>
                                         </li>
                                     </c:forEach>
@@ -113,7 +113,7 @@
                                             data-isread="${twoDepth.is_read}" data-isinsert="${twoDepth.is_insert}" data-isdelete="${twoDepth.is_delete}"
                                         >
                                             <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
-                                                <i class="fa fa-thumbs-o-up"></i><span class="text">${twoDepth.menu_name}</span>
+                                                <i class="fa ${twoDepth.icon}"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>
                                         </li>
                                     </c:forEach>

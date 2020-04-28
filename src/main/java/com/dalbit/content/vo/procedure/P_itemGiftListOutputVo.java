@@ -51,12 +51,12 @@ public class P_itemGiftListOutputVo extends BaseVo {
 
     public void setRegDate(java.sql.Date regDate){
         this.regDate = regDate;
-        this.regDateFormat = DalbitUtil.convertDateFormat(regDate, "yyyy.MM.dd HH.mm.ss");
+        this.regDateFormat = DalbitUtil.convertDateFormat(regDate, "yyyy.MM.dd HH:mm:ss");
     }
 
     public void setLastupdDate(java.sql.Date lastupdDate){
         this.lastupdDate = lastupdDate;
-        this.lastupdDateFormat = DalbitUtil.convertDateFormat(lastupdDate, "yyyy.MM.dd HH.mm.ss");
+        this.lastupdDateFormat = DalbitUtil.convertDateFormat(lastupdDate, "yyyy.MM.dd HH:mm:ss");
     }
 
 }

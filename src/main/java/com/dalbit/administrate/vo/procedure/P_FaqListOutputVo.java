@@ -23,11 +23,11 @@ public class P_FaqListOutputVo extends BaseVo {
 
     public void setWriteDate(Date writeDate){
         this.writeDate = writeDate;
-        this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy-MM-dd HH.mm.ss");
+        this.writeDateFormat = DalbitUtil.convertDateFormat(writeDate, "yyyy-MM-dd HH:mm:ss");
     }
 
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
-        this.lastUpdateDateFormat = DalbitUtil.convertDateFormat(lastUpdateDate, "yyyy-MM-dd HH.mm.ss");
+        this.lastUpdateDateFormat = DalbitUtil.convertDateFormat(lastUpdateDate, "yyyy-MM-dd HH:mm:ss");
     }
 }

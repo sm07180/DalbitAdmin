@@ -52,7 +52,7 @@
 
         // $("#txt_birth").val(response.data.birthDate);
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "20",popup));
-        report = "../member/popup/reportPopup?memNo='" + response.data.mem_no + "'&memId='" + response.data.userId + "'&memNick='" + response.data.nickName + "'&memSex='" + response.data.memSex + "'";
+        report = "/member/member/popup/reportPopup?memNo='" + response.data.mem_no + "'&memId='" + response.data.userId + "'&memNick='" + response.data.nickName + "'&memSex='" + response.data.memSex + "'";
 
         if (response.data.memSlct != "p") {
             $("#div_socialId").empty();

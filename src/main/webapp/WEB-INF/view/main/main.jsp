@@ -632,16 +632,16 @@
         <td><a href="javascript://">{{addComma member_join_Cnt}}</a></td>
         <td><a href="javascript://">{{addComma member_withdraw_Cnt}}</a></td>
 
-        <td><a href="javascript://">0</a></td>
-        <td><a href="javascript://">0</a></td>
-        <td><a href="javascript://">0</a></td>
-        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://"></a></td>
+        <td><a href="javascript://"></a></td>
+        <td><a href="javascript://"></a></td>
+        <td><a href="javascript://"></a></td>
 
-        <td><a href="javascript://">0</a></td>
-        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://"></a></td>
+        <td><a href="javascript://"></a></td>
 
-        <td><a href="javascript://">0</a></td>
-        <td><a href="javascript://">0</a></td>
+        <td><a href="javascript://"></a></td>
+        <td><a href="javascript://"></a></td>
     </tr>
 </script>
 

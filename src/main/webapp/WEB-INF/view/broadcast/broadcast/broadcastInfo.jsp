@@ -319,7 +319,7 @@
                 meno = broadCastMessage.freezing;
                 title = broadCastMessage.freezingTitle;
             }
-            meno = "운영정책 위반으로 방송이 강제 종료되었습니다.";
+            meno = broadCastMessage.forceExitMsg;
                 // meno.replace("{{name}}",ADMIN_NICKNAME)
                 // .replace("{{nickName}}",detailData.dj_nickName)
                 // .replace("{{message}}",entryMessage)

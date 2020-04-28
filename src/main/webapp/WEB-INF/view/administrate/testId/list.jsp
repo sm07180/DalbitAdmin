@@ -264,6 +264,7 @@
         $("#searchType option[value=1]").prop('selected', 'selected');
         $("#searchText").val(empName.text());
         $("#bt_search").click();
+        ui.topScroll();
     });
 
 </script>

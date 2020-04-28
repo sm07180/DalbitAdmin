@@ -62,3 +62,20 @@ var isUse_on_off = [
     , new COMMON_CODE('0', '0', '사용안함')
     , new COMMON_CODE('1', '1', '사용')
 ];
+
+var terms_type = [
+    new COMMON_CODE(null, 'terms_type', 'terms_type')
+    , new COMMON_CODE('0', '0', '전체')
+    , new COMMON_CODE('1', '1', '이용약관')
+    , new COMMON_CODE('2', '2', '운영정책')
+    , new COMMON_CODE('3', '3', '개인정보 취급방침')
+    , new COMMON_CODE('4', '4', '청소년 보호정책')
+    , new COMMON_CODE('5', '5', '마케팅동의 정책')
+];
+
+var terms_platform = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('android', '1', 'Android')
+    , new COMMON_CODE('ios', '2', 'IOS')
+];
