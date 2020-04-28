@@ -6,26 +6,26 @@
         <div class="container-fluid">
             <!-- serachBox -->
             <form id="searchForm">
-            <div class="row col-lg-12 form-inline">
-                <input type="hidden" name="pageStart" id="pageStart">
-                <input type="hidden" name="pageCnt" id="pageCnt">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 실시간 Live</h3>
-                        <div>
-                            <select class="form-control searchType" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">User ID</option>
-                                <option value="2">User 닉네임</option>
-                                <option value="3">연락처</option>
-                                <option value="4">이름</option>
-                            </select>
-                            <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                <div class="row col-lg-12 form-inline">
+                    <input type="hidden" name="pageStart" id="pageStart">
+                    <input type="hidden" name="pageCnt" id="pageCnt">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i> 실시간 Live</h3>
+                            <div>
+                                <select class="form-control searchType" name="selectGubun">
+                                    <option value="9999" selected="selected">전체</option>
+                                    <option value="1">User ID</option>
+                                    <option value="2">User 닉네임</option>
+                                    <option value="3">연락처</option>
+                                    <option value="4">이름</option>
+                                </select>
+                                <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </form>
             <!-- //serachBox -->
 
@@ -118,18 +118,18 @@
 
                         <table id="list_info" class="table table-sorting table-hover table-bordered" style="margin-top: 10px;">
                             <thead id="tableTop">
-                                <tr>
-                                    <th>프로필 이미지</th>
-                                    <th>태그부분</th>
-                                    <th>User ID</th>
-                                    <th>User 닉네임</th>
-                                    <th>보유결제금액</th>
-                                    <th>누적 받은 별</th>
-                                    <th>누적 받은 선물</th>
-                                    <th>누적 방송 횟수</th>
-                                    <th>최초 방송 시작일</th>
-                                    <th>총 방송 진행 시간</th>
-                                </tr>
+                            <tr>
+                                <th>프로필 이미지</th>
+                                <th>태그부분</th>
+                                <th>User ID</th>
+                                <th>User 닉네임</th>
+                                <th>보유결제금액</th>
+                                <th>누적 받은 별</th>
+                                <th>누적 받은 선물</th>
+                                <th>누적 방송 횟수</th>
+                                <th>최초 방송 시작일</th>
+                                <th>총 방송 진행 시간</th>
+                            </tr>
                             </thead>
                             <tbody id="tableBody"></tbody>
                         </table>
@@ -151,8 +151,9 @@
     var livePagingInfo = new PAGING_INFO(0,1,100);
 
     $(function(){
-        renderSubjectType();
+        //renderSubjectType();
         init();
+        util.getAjaxData("select", "/rest/content/theme/broadcast/list", "", fn_succ_select);
     });
 
     function init(slctType){
@@ -163,9 +164,8 @@
             , pageCnt : livePagingInfo.pageCnt
             , selectGubun : $('select[name="selectGubun"]').val()
             , txt_search : $("#txt_search").val()
-        }
+        };
         util.getAjaxData("liveList", "/rest/menu/live/list", data, fn_succ_list);
-        util.getAjaxData("select", "/rest/content/theme/broadcast/list", "", fn_succ_select);
     }
 
     $('#bt_search').on('click', function(){
@@ -182,7 +182,6 @@
         init($(this).find('a').data('slcttype'));
     });
 
-    var detailData;
     function fn_succ_select(dst_id, response) {
 
         var template = $("#tmp_broadcastSubject").html();
@@ -197,6 +196,7 @@
     function renderSubjectType(){
 
         $('#subject_type').on('change', function(){
+            dalbitLog($('#searchSubjectType').val());
             init($('._tab.active').find('a').data('slcttype'));
         });
     }
@@ -224,43 +224,44 @@
 
 <script type="text/x-handlebars-template" id="tmp_liveList">
     {{#each this as |user|}}
-        <tr>
-            <td>
-                {{#equal image_profile ''}}
-                    <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
-                {{else}}
-                    <img src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' />
-                {{/equal}}
-            </td>
-            <td>
-                {{#equal badge_recomm '1'}} <span class ="label" style="background-color:#d9534f">추천</span><br/> {{/equal}}<br>
-                {{#equal badge_popular '1'}} <span class ="label" style="background-color:#3761d9">인기</span><br/> {{/equal}}<br>
-                {{#equal badge_newdj '1'}} <span class ="label" style="background-color:#d9c811">신입</span> {{/equal}}
-            </td>
-            <td>{{mem_id}} <br /> <br />
-                레벨 : {{level}} <br />
-                등급 : {{grade}}
-            </td>
-            <td>{{mem_nick}}</td>
-            <td>{{money}}</td>
-            <td>{{byeol}}</td>
-            <td>{{gifted_mem_no}}</td>
-            <td>{{airCount}}</td>
-            <td>{{convertToDate start_date "YYYY-MM-DD HH:mm:ss"}}</td>
-            <td>{{timeStamp airTime}}</td>
-        </tr>
+    <tr>
+        <td>
+            {{#equal image_profile ''}}
+            <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
+            {{else}}
+            <img src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' />
+            {{/equal}}
+        </td>
+        <td>
+            {{#equal badge_recomm '1'}} <span class ="label" style="background-color:#d9534f">추천</span><br/> {{/equal}}<br>
+            {{#equal badge_popular '1'}} <span class ="label" style="background-color:#3761d9">인기</span><br/> {{/equal}}<br>
+            {{#equal badge_newdj '1'}} <span class ="label" style="background-color:#d9c811">신입</span> {{/equal}}
+        </td>
+        <td>{{mem_id}} <br /> <br />
+            레벨 : {{level}} <br />
+            등급 : {{grade}}
+        </td>
+        <td>{{mem_nick}}</td>
+        <td>{{money}}</td>
+        <td>{{byeol}}</td>
+        <td>{{gifted_mem_no}}</td>
+        <td>{{airCount}}</td>
+        <td>{{convertToDate start_date "YYYY-MM-DD HH:mm:ss"}}</td>
+        <td>{{timeStamp airTime}}</td>
+    </tr>
 
     {{else}}
-        <tr>
-            <td colspan="10">{{isEmptyData}}</td>
-        </tr>
+    <tr>
+        <td colspan="10">{{isEmptyData}}</td>
+    </tr>
     {{/each}}
 </script>
 
 <script id="tmp_broadcastSubject" type="text/x-handlebars-template">
-    <select name="subject" id="subject" class="form-control">
+    <select name="subject_type" id="subject_type" class="form-control">
+        <option value="">전체</option>
         {{#each this as |subject|}}
-            <option value = "{{subject.cd}}">{{subject.cdNm}}</option>
+        <option value = "{{subject.cd}}">{{subject.cdNm}}</option>
         {{/each}}
     </select>
 </script>
