@@ -71,9 +71,11 @@ var BroadcastDataTableSource = {
     'broadcastList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송주제', 'data': 'subjectType', 'render' : function (data){
-                    return util.getCommonCodeLabel(data, subject_type);
-                }},
+            {'title': '방송주제', 'data': 'subject_name'
+                // , 'render' : function (data){
+                //     return util.getCommonCodeLabel(data, subject_type);
+                // }
+                },
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
