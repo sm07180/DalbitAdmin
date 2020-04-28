@@ -59,23 +59,47 @@
     }
 
     function termsUpdate_click(data){
-        if(confirm("수정하시겠습니까?")){
-            util.getAjaxData("insert", "/rest/administrate/terms/update", data, fn_update_success);
+        if(isValid(data)){
+            if(confirm("수정하시겠습니까?")){
+                util.getAjaxData("insert", "/rest/administrate/terms/update", data, fn_update_success);
+            }
         }
     }
     function termsInsert_click(data){
-        if(confirm("등록하시겠습니까?")){
-            util.getAjaxData("insert", "/rest/administrate/terms/insert", data, fn_update_success);
+        if(isValid(data)) {
+            if (confirm("등록하시겠습니까?")) {
+                util.getAjaxData("insert", "/rest/administrate/terms/insert", data, fn_update_success);
+            }
         }
     }
+
+    function isValid(data){
+        if(common.isEmpty(data.platform)){
+            alert("플랫폼을 선택해주세요.");
+            return false;
+        }
+        if (common.isEmpty(data.version)) {
+            alert("버전을 입력해 주시기 바랍니다.");
+            return false;
+        }
+        if (common.isEmpty(data.terms_title)) {
+            alert("약관명을 입력해 주세요.");
+            return false;
+        }
+        var editor = $("#editor");
+        if(editor.summernote('isEmpty')){
+            alert("약관 상세정보를 입력해 주세요.");
+            return false;
+        }
+        return true;
+    }
+
     function fn_update_success(data, response, params){
         dalbitLog(response);
         alert(response.message);
         dtList_info.reload();
 
-        // util.editorInit("content-notice");
-
-        $("#terms_detailFrm").empty();
+        $("#tab_termsTab").addClass('hide');
     }
 
 </script>
