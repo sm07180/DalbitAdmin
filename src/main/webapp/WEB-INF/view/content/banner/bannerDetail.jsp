@@ -184,7 +184,21 @@
         insertDetail() {
             var template = $('#tmp_bannerDetailFrm').html();
             var templateScript = Handlebars.compile(template);
-            this.target.find("#"+this.formId).html(templateScript);
+
+            var detailData = {
+                'platform':'0'
+                ,'view_type':'0'
+                ,'sex':'1'
+                ,'is_pop':'1'
+                ,'frequency_rate':'100'
+                ,'position':'0'
+                ,'is_view':'1'
+                ,'term_type':'0'
+            }
+            var context = detailData;
+            var html = templateScript(context);
+
+            this.target.find("#"+this.formId).html(html);
 
             this.initDetail();
             this.initDetailEvent();

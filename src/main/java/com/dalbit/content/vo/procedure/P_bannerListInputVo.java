@@ -8,4 +8,8 @@ import lombok.Setter;
 @Setter
 public class P_bannerListInputVo extends SearchVo {
     private int pageNo;
+
+    private String is_view;
+    private String position;
+    private String platformGroup;
 }

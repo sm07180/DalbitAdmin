@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequestMapping("/content/banner")
-public class BannerController {
+public class Con_BannerController {
 
     @GetMapping("/list")
     public String list() {

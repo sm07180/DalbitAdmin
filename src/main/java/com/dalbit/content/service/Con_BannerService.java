@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 @Slf4j
 @Service
-public class BannerService {
+public class Con_BannerService {
 
     @Autowired
     BannerDao bannerDao;

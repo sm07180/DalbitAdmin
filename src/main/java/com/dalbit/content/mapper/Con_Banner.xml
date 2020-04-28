@@ -36,6 +36,30 @@
           COUNT(*)
         FROM
           rd_admin.tb_admin_banner
+        <where>
+            <if test='is_view != null and is_view != "" and is_view != "-1" '>
+                AND is_view = #{is_view}
+            </if>
+            <if test='position != null and position != "" and position != "-1" '>
+                AND position = #{position}
+            </if>
+            <if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>
+                <choose>
+                    <when test='platformGroup == "2" '>
+                        AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))
+                    </when>
+                    <when test='platformGroup == "3" '>
+                        AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
+                    </when>
+                    <when test='platformGroup == "4" '>
+                        AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
+                    </when>
+                </choose>
+            </if>
+            <if test='searchText != null and searchText != ""'>
+                AND title like CONCAT('%',#{searchText},'%')
+            </if>
+        </where>
     </select>
 
     <select id="callContentsBannerList" parameterType="com.dalbit.content.vo.procedure.P_bannerListInputVo" resultType="com.dalbit.content.vo.procedure.P_bannerListOutputVo">
@@ -46,8 +70,27 @@
         (
             <include refid="bannerSelect"/>
             <where>
+                <if test='is_view != null and is_view != "" and is_view != "-1" '>
+                    AND is_view = #{is_view}
+                </if>
+                <if test='position != null and position != "" and position != "-1" '>
+                    AND position = #{position}
+                </if>
+                <if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>
+                    <choose>
+                        <when test='platformGroup == "2" '>
+                            AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))
+                        </when>
+                        <when test='platformGroup == "3" '>
+                            AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
+                        </when>
+                        <when test='platformGroup == "4" '>
+                            AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
+                        </when>
+                    </choose>
+                </if>
                 <if test='searchText != null and searchText != ""'>
-                        AND title like #{title}
+                        AND title like CONCAT('%',#{searchText},'%')
                 </if>
             </where>
         ) AS a,

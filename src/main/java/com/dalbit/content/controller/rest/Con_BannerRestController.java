@@ -3,7 +3,7 @@ package com.dalbit.content.controller.rest;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
-import com.dalbit.content.service.BannerService;
+import com.dalbit.content.service.Con_BannerService;
 import com.dalbit.content.vo.BannerVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 
 @Slf4j
 @RestController
 @RequestMapping("rest/content/banner")
-public class BannerRestController {
+public class Con_BannerRestController {
 
     @Autowired
-    BannerService bannerService;
+    Con_BannerService con_BannerService;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -35,7 +34,7 @@ public class BannerRestController {
      */
     @PostMapping("list")
     public String bannerList(P_bannerListInputVo pBannerListInputVo) {
-        String result = bannerService.callContentsBannerList(pBannerListInputVo);
+        String result = con_BannerService.callContentsBannerList(pBannerListInputVo);
         return result;
     }
 
@@ -44,7 +43,7 @@ public class BannerRestController {
      */
     @PostMapping("detail")
     public String bannerDetail(P_bannerDetailInputVo pBannerDetailInputVo) {
-        String result = bannerService.callContentsBannerDetail(pBannerDetailInputVo);
+        String result = con_BannerService.callContentsBannerDetail(pBannerDetailInputVo);
         return result;
     }
 
@@ -53,7 +52,7 @@ public class BannerRestController {
      */
     @PostMapping("insert")
     public String bannerInsert(P_bannerInsertVo pBannerInsertVo) {
-        String result = bannerService.callContentsBannerAdd(pBannerInsertVo);
+        String result = con_BannerService.callContentsBannerAdd(pBannerInsertVo);
         return result;
     }
 
@@ -62,7 +61,7 @@ public class BannerRestController {
      */
     @PostMapping("update")
     public String bannerUpdate(P_bannerUpdateVo pBannerUpdateVo) {
-        String result = bannerService.callContentsBannerEdit(pBannerUpdateVo);
+        String result = con_BannerService.callContentsBannerEdit(pBannerUpdateVo);
         return result;
     }
 
@@ -71,7 +70,7 @@ public class BannerRestController {
      */
     @PostMapping("delete")
     public String bannerDelete(P_bannerDeleteVo pBannerDeleteVo) {
-        String result = bannerService.callContentsBannerDelete(pBannerDeleteVo);
+        String result = con_BannerService.callContentsBannerDelete(pBannerDeleteVo);
         return result;
     }
 

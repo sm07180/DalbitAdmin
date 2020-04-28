@@ -29,31 +29,34 @@ var PushDataTableSource = {
                      return result;
 
                  }},
-             {'title': '수신대상', 'data': 'is_all', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+             {'title': '수신<br>대상', 'data': 'is_all', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                      if(data == "0"){
                          return "전체";
                      }
 
-                     if(data == "1"){
-                         return "회원 (" + row.send_cnt + ")건";
+                     if(data == "7"){
+                         return "지정 (" + row.send_cnt + ")건";
                      }
 
                      return data;
                  }},
-             {'title': '메세지 제목', 'data': 'send_title', 'width':'200px', 'render': function (data, type, row, meta) {
+             {'title': '메세지 제목', 'data': 'send_title', 'width':'500px', 'render': function (data, type, row, meta) {
                      return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
                  }},
              {'title': '발송 일시', 'data': 'send_datetimeFormat', 'width':'100px', 'render': function (data, type, row, meta) {
                      return data;
                  }},
+            /*
              {'title': '발송상태', 'data': 'status', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                      return util.getCommonCodeLabel(data, push_snedStatus);
                  }},
+            */
              {'title': '등록일자', 'data': 'reg_dateFormat', 'width':'100px', 'render': function (data, type, row, meta) {
                      return data;
                  }},
              {'title': '처리자명', 'data': 'opName', 'defaultContent': '-', 'width':'100px'},
         ]
+
         , 'comments': ' 방송 중 운영자 공지/알림/이벤트 안내 메세지등을 발송 할 수 있습니다.'
     },
 

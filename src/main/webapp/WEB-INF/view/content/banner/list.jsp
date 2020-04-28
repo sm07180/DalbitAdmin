@@ -30,11 +30,9 @@
                         <div class="row col-md-12">
                             <h3 class="title"><i class="fa fa-search"></i>배너검색</h3>
                             <div>
-                                <!--                        // 2020.03.15 기획팀 기획안으로 인한 제거
-                                <span id="search_platform_aria"></span>
+                                <span id="search_viewOn_aria"></span>
                                 <span id="search_bannerType_aria"></span>
-                                <span id="search_searchType_aria"></span>
-                                -->
+                                <span id="search_platformGroup_aria"></span>
 
                                 <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -73,9 +71,9 @@
     var endDate;
     function init() {
         //검색조건 불러오기
-        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, platform));
-        $("#search_bannerType_aria").html(util.getCommonCodeSelect(-1, banner_bannerType));
-        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, banner_searchType));
+        $("#search_platformGroup_aria").html(util.getCommonCodeSelect(-1, platformGroup));
+        $("#search_bannerType_aria").html(util.getCommonCodeSelect(-1, banner_bannerType, 'N', 'position'));
+        $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn, 'N', 'is_view'));
 
         // init DatePicker
         $('#banner-reportrange').daterangepicker({
