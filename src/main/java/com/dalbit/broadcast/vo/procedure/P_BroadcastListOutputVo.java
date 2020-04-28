@@ -14,6 +14,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     /* return result */
     private String room_no;
     private String subjectType;
+    private String subject_name;
     private String title;
     private String dj_profileImage;
     private String dj_mem_no;

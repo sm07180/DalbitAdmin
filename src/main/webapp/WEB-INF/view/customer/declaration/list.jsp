@@ -38,8 +38,11 @@
                         <table class="table table-bordered table-summary pull-right" id="declarationSummary">
                             <thead>
                                 <tr>
-                                    <th>미처리 건</th>
-                                    <th>누적 처리 건</th>
+                                    <th rowspan="2">미처리 건</th>
+                                    <th rowspan="2">누적 처리 건</th>
+                                    <th colspan="7">제재조치</th>
+                                </tr>
+                                <tr>
                                     <th>정상 건</th>
                                     <th>경고 건</th>
                                     <th>1일 건</th>
