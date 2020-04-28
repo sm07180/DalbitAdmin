@@ -11,18 +11,19 @@
 
 <div class="col-md-12" style="margin-bottom: 20px;">
     <div class="col-md-5">
-        <button type="button" class="btn btn-default btn-sm" onclick="root_add();"><i class="glyphicon glyphicon-asterisk"></i> 루트 추가</button>
+        <button type="button" class="btn btn-success btn-sm" onclick="root_add();"><i class="glyphicon glyphicon-asterisk"></i> 루트 추가</button>
         <button type="button" class="btn btn-success btn-sm" onclick="demo_create();"><i class="glyphicon glyphicon-asterisk"></i> 생성</button>
         <button type="button" class="btn btn-warning btn-sm" onclick="demo_rename();"><i class="glyphicon glyphicon-pencil"></i> 이름변경</button>
-        <button type="button" class="btn btn-primary btn-sm" onclick="demo_refresh();"><i class="glyphicon glyphicon-remove"></i> 새로고침</button>
-        <button type="button" class="btn btn-default btn-sm pull-right" onclick="menuUpdate();">메뉴적용</button>
+        <button type="button" class="btn btn-primary btn-sm" onclick="demo_refresh();"><i class="glyphicon glyphicon-refresh"></i> 새로고침</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="demo_delete();"><i class="glyphicon glyphicon-remove"></i> 삭제</button>
+        <button type="button" class="btn btn-info btn-sm pull-right" onclick="menuUpdate();">메뉴적용</button>
     </div>
     <div class="col-md-7">
         <div class="col-md-6 no-padding">
-            <button type="button" class="btn btn-danger btn-sm" onclick="demo_delete();"><i class="glyphicon glyphicon-remove"></i> 삭제</button>
+            <%--<button type="button" class="btn btn-danger btn-sm" onclick="demo_delete();"><i class="glyphicon glyphicon-remove"></i> 삭제</button>--%>
         </div>
         <div class="col-md-6 no-padding">
-            <button type="button" class="btn btn-default btn-sm pull-right" onclick="menuInfoUpdate();">메뉴정보수정</button>
+            <button type="button" class="btn btn-info btn-sm pull-right" onclick="menuInfoUpdate();">메뉴정보수정</button>
         </div>
     </div>
 </div>
@@ -35,16 +36,21 @@
 
 </div>
 
-<!-- 4 include the jQuery library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
-<!-- 5 include the minified jstree source -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script type="text/javascript" src="/js/lib/jstree.min.js"></script>
 <script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
+<script type="text/javascript">
 
+    $(function(){
+        getMenuList();
+    })
 
-<script>
+    function getMenuList(){
+        util.getAjaxData("menu", "/rest/administrate/menu/list", "", menu_success);
+    }
 
-    util.getAjaxData("menu", "/rest/administrate/menu/list", "", menu_success, fn_fail);
+    function getMenuDetail(param){
+        util.getAjaxData("menuInfo", "/rest/administrate/menu/menuInfo", param, menu_info);
+    }
 
     function menu_success(dst_id, response) {
         dalbitLog(response.data);
@@ -54,6 +60,7 @@
             menu.id = response.data[i].id;
             menu.parent = response.data[i].parent;
             menu.text = response.data[i].text;
+            menu.icon = 'fa ' + response.data[i].icon;
             menuList.push(menu);
         }
 
@@ -87,7 +94,8 @@
         if(!common.isEmpty(data.node)){
             var obj = {};
             obj.idx = data.node.id;
-            util.getAjaxData("menuInfo", "/rest/administrate/menu/menuInfo", obj, menu_info, fn_fail);
+            getMenuDetail(obj);
+            ui.topScroll();
         }
     });
     // 8 interact with the tree - either way is OK
@@ -156,26 +164,32 @@
     }
 
     function menuUpdate(){
-        var obj = {
-            menuList : JSON.stringify($('#jstree').jstree(true).get_json('#', { flat: true }))
-        };
-        util.getAjaxData("menuUpdate", "/rest/administrate/menu/menuUpdate", obj, updateSucces, fn_fail);
+        if(confirm('메뉴를 적용하시겠습니까?')){
+            var obj = {
+                menuList : JSON.stringify($('#jstree').jstree(true).get_json('#', { flat: true }))
+            };
+            util.getAjaxData("menuUpdate", "/rest/administrate/menu/menuUpdate", obj, updateSucces);
+        }
     }
 
     function menuInfoUpdate(){
-        var obj = {};
-        obj.idx = $("#idx").html();
-        obj.menu_url = $("#menu_url").val();
-        obj.icon = $("#icon").val();
-        obj.is_pop = $('input:radio[name="isPopup_on_off"]:checked').val();
-        obj.is_comming_soon = $('input:radio[name="isComming_on_off"]:checked').val();
-        obj.is_use = $('input:radio[name="isUse_on_off"]:checked').val();
+        if(confirm('메뉴정보를 수정하시겠습니까?')){
+            var obj = {};
+            obj.idx = $("#idx").html();
+            obj.menu_url = $("#menu_url").val();
+            obj.icon = $("#icon").val();
+            obj.is_pop = $('input:radio[name="isPopup_on_off"]:checked').val();
+            obj.is_comming_soon = $('input:radio[name="isComming_on_off"]:checked').val();
+            obj.is_use = $('input:radio[name="isUse_on_off"]:checked').val();
 
-        util.getAjaxData("menuInfoUpdate", "/rest/administrate/menu/menuInfoUpdate", obj, updateSucces, fn_fail);
+            getMenuDetail(obj);
+        }
+
     }
 
     function updateSucces(dst_id, response) {
-        util.getAjaxData("menu", "/rest/administrate/menu/list", "", menu_success, fn_fail);
+        alert(response.message);
+        getMenuList();
     }
 </script>
 
