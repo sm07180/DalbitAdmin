@@ -127,8 +127,7 @@
         var template = $("#live_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            header : live_summary
-            , content : json.summary
+            content : json.summary
             , length : json.recordsTotal
         };
         var html = templateScript(data);
@@ -177,7 +176,7 @@
     <table class="table table-bordered table-summary pull-right">
         <thead>
             <tr class="align-middle">
-                <th colspan="1" rowspan="2">총 방송방</th>
+                <th colspan="1" rowspan="2" style="vertical-align: middle;">총 방송방</th>
                 <th colspan="3">플랫폼별</th>
             </tr>
             <tr>
@@ -198,11 +197,13 @@
 <script id="live_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right">
         <thead>
-        <tr>
-            {{#each this.header}}
-                <th>{{this.code}}</th>
-            {{/each}}
-        </tr>
+            <tr style="height: 68px;">
+                <th style="vertical-align: middle;">총 청취자</th>
+                <th style="vertical-align: middle;">총 선물</th>
+                <th style="vertical-align: middle;">총 좋아요</th>
+                <th style="vertical-align: middle;">총 청취자<br/>부스터</th>
+                <th style="vertical-align: middle;">총 강제퇴장</th>
+            </tr>
         </thead>
         <tbody id="summaryDataTable">
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalListenerCnt}}건</td>

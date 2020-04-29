@@ -165,8 +165,8 @@ util.excelDownload = function(btn, url, data, successFunc, errorFunc) {
             }, 500)
         },
         failCallback: function (responseHtml, url) {
-            dalbitLog(responseHtml)
-            dalbitLog(url)
+            dalbitLog(responseHtml);
+            dalbitLog(url);
             setTimeout(function () {
                 // btn.button('reset');
                 util.changeLoadingBtn(btn, 'reset');

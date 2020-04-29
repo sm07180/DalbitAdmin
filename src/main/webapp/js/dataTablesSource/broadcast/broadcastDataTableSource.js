@@ -3,10 +3,10 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
             {'title': '방송주제', 'data': 'subject_name'},
-            {'title': '방송플랫폼', 'data': 'osType', 'render': function (data) {
+            {'title': '방송플랫폼', 'data': 'osType','width' : '65px', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
                 }},
-            {'title': '방송제목', 'data': 'title','width' : '200px', 'render': function (data, type, row, meta) {
+            {'title': '방송제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '프로필이미지', 'data': 'dj_profileImage', 'width' : '80px', 'render' : function(data, type, row){
@@ -36,31 +36,31 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '누적청취자', 'data': 'totalListener','width' : '70px','render': function (data){
+            {'title': '누적청취자', 'data': 'totalListener','width' : '65px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '청취자', 'data': 'liveListener','width' : '45px','render': function (data){
+            {'title': '청취자', 'data': 'liveListener','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '좋아요', 'data': 'goodCnt','width' : '45px','render': function (data){
+            {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '부스터', 'data': 'boosterCnt','width' : '45px','render': function (data){
+            {'title': '부스터', 'data': 'boosterCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '선물', 'data': 'giftCnt','width' : '45px','render': function (data){
+            {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '팬 수', 'data': 'fanCnt','width' : '45px','render': function (data){
+            {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '강제퇴장', 'data': 'forcedCnt','width' : '60px','render': function (data){
+            {'title': '강제퇴장', 'data': 'forcedCnt','width' : '50px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
