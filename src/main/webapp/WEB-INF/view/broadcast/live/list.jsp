@@ -152,7 +152,7 @@
             tmp_room_slctType = $("select[name='searchBroad_broad']").val();
             tmp_room_searchText = $('#txt_search').val();
         }
-        dtList_info.reload(live_summary_table);
+        dtList_info.reload(summary_table);
     }
 
     function fullSize_live(url) {     // 이미지 full size
