@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@ page language="java" contentType="text/html; charset=utf-8;application/vnd.word" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
 <div class="col-md-12 no-padding">
     <label>
@@ -36,6 +35,9 @@
 
         $('#bt_termsUpdate').click(function() {                   // 수정
             termsGenerate("update");
+        });
+        $('#bt_word').click(function() {                   // 워드 출력
+            wordDownload();
         });
 
     }
@@ -102,6 +104,21 @@
         $("#tab_termsTab").addClass('hide');
     }
 
+    function wordDownload(){
+        var editor = $("#editor").summernote('code');
+        var header = "<html><head><meta charset='utf-8'></head><body>";
+        var footer = "</body></html>";
+        var sourceHTML = header+editor+footer;
+
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = 'hi098123file.doc';
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+
 </script>
 
 <script id="tmp_terms_detailFrm" type="text/x-handlebars-template">
@@ -166,7 +183,7 @@
             <div class="pull-right">
                 {{^idx}}<button type="button" id="bt_termsInsert" class="btn-sm btn btn-default">약관 등록</button>{{/idx}}
                 {{#idx}}<button type="button" id="bt_termsUpdate" class="btn-sm btn btn-default">약관 수정</button>{{/idx}}
-                <button type="button" id="bt_world" class="btn-sm btn btn-default">World 출력</button>
+                <button type="button" id="bt_word" class="btn-sm btn btn-default">Word 출력</button>
             </div>
         </div>
     </div>
