@@ -140,10 +140,11 @@
 
             var checkDatas = dtList_info_detail.getCheckedData();
             for(var i=0;i<checkDatas.length;i++){
-                var memo = broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
-                                              .replace("{{nickName}}",checkDatas[i].nickName)
-                                              .replace("{{message}}",forceMessage)
-                                              .replace("{{timestamp}}",timestamp);
+                var memo = broadCastMessage.forceLeaveTitle;
+                    // broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
+                    //                           .replace("{{nickName}}",checkDatas[i].nickName)
+                    //                           .replace("{{message}}",forceMessage)
+                    //                           .replace("{{timestamp}}",timestamp);
 
                 // console.log(memo);
                 var data = new Object();

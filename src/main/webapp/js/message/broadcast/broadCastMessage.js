@@ -53,7 +53,7 @@ var broadCastMessage = {
     '\n' +
     '자세한 사유를 알고 싶으시면 1:1문의를 이용해주세요.',
 
-
+    forceLeaveTitle : '운영정책 위반으로 강제 퇴장되었습니다.',
     forceExitMsg : '운영정책 위반으로 방송이 강제 종료되었습니다.',
     notiContents : '달빛 라이브 운영자 메시지\n',
     backgroundImgReset : '운영정책 위반으로 배경이미지가 초기화됩니다.',
