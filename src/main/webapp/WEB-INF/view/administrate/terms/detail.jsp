@@ -114,7 +114,7 @@
         var fileDownload = document.createElement("a");
         document.body.appendChild(fileDownload);
         fileDownload.href = source;
-        fileDownload.download = 'hi098123file.doc';
+        fileDownload.download = '약관상세.doc';
         fileDownload.click();
         document.body.removeChild(fileDownload);
     }
