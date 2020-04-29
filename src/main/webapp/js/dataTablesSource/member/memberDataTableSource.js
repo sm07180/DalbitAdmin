@@ -392,6 +392,13 @@ var MemberDataTableSource = {
         'url': '/rest/member/member/connect'
         , 'columns': [
             {'title': '접속일시', 'data': 'connectDateFormat'},
+            {'title': '접속구분', 'data': 'connectType', 'render': function (data) {
+                    if(data == 1){
+                        return "Login";
+                    }else{
+                        return "Logout";
+                    }
+                }},
             {'title': 'App Ver', 'data': 'appVersion'},
             {'title': 'Browser', 'data': 'Browser'},
             {'title': 'Device', 'data': 'Device', 'render': function (data) {

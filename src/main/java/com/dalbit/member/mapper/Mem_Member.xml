@@ -156,8 +156,7 @@
     </select>
     <select id="callMemConnect" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberConnectOutputVo">
         /* M_Member.xml - callMemConnect */
-        <!--call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
-        call rd_admin.sp_admin_member_all_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callMemConnect_deviceToken" parameterType="com.dalbit.member.vo.procedure.P_MemberConnectInputVo" resultType="String">

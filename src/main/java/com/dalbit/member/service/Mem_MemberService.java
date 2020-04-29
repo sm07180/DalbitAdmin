@@ -364,6 +364,7 @@ public class Mem_MemberService {
                 outVo.setConnectDate(memberConnect.get(i).getConnectDate());
                 outVo.setConnectDateFormat(memberConnect.get(i).getConnectDateFormat());
                 outVo.setIp(memberConnect.get(i).getIp());
+                outVo.setConnectType(memberConnect.get(i).getConnectType());
                 list.add(outVo);
             }
         }
