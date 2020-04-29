@@ -310,27 +310,27 @@
                 common.lpad(date.getMinutes(),2,"0") + "." +
                 common.lpad(date.getSeconds(),2,"0");
 
-            var meno;
+            var memo;
             var title;
             if(editEntry == "bt_forcedExit"){
-                meno = broadCastMessage.forceExit;
+                memo = broadCastMessage.forceExit;
                 title = broadCastMessage.forceExitTitle;
             }else if(editEntry == "bt_freezing"){
-                meno = broadCastMessage.freezing;
+                memo = broadCastMessage.freezing;
                 title = broadCastMessage.freezingTitle;
             }
-            meno = broadCastMessage.forceExitMsg;
-                // meno.replace("{{name}}",ADMIN_NICKNAME)
+            memo = broadCastMessage.forceExitMsg;
+                // memo.replace("{{name}}",ADMIN_NICKNAME)
                 // .replace("{{nickName}}",detailData.dj_nickName)
                 // .replace("{{message}}",entryMessage)
                 // .replace("{{timestamp}}",timestamp);
 
-            // console.log(meno);
+            // console.log(memo);
 
             var obj = new Object();
             obj.room_no = room_no;
             obj.backgroundImage = "";
-            obj.notiMeno = meno;
+            obj.notiMemo = memo;
             obj.sendNoti = sendNoti;
             obj.notiContents = title;
             obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();

@@ -294,7 +294,7 @@ public class Bro_BroadcastService {
 //                HashMap<String,Object> tmp = new HashMap();
 //                tmp.put("bgImgRacy",5);
 //                tmp.put("bgImg",pBroadcastEditInputVo.getBackgroundImage_reset());
-//                tmp.put("welcomMsg",pBroadcastEditInputVo.getNotiMeno());
+//                tmp.put("welcomMsg",pBroadcastEditInputVo.getNotiMemo());
 //                tmp.put("title",pBroadcastEditInputVo.getNotiContents());
 //                tmp.put("roomType","01");
 //                String message =  gson.toJson(tmp);

@@ -24,7 +24,7 @@ public class P_TermsListOutputVo extends BaseVo {
     private Date last_upd_date;
     private String lastUpdDateFormat;
     private String last_op_name;
-    private String meno;
+    private String memo;
 
     public void setReg_date(Date reg_date){
         this.reg_date = reg_date;

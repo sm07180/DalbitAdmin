@@ -51,7 +51,7 @@
         data.terms_title = $("#terms_title").val();
         data.terms_content = $("#editor").summernote('code');
         data.version = $("#version").val();
-        data.meno = $("#meno").val();
+        data.memo = $("#memo").val();
 
         if(sw == "update"){
             termsUpdate_click(data);
@@ -177,7 +177,7 @@
                     <h3> 변경 요약정보 </h3>
                 </div>
                 <div>
-                    <textarea type="textarea" class="form-control" id="meno" style="height: 100px;">{{meno}}</textarea>
+                    <textarea type="textarea" class="form-control" id="memo" style="height: 100px;">{{memo}}</textarea>
                 </div>
             </div>
             <div class="pull-right">

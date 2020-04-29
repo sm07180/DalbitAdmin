@@ -19,7 +19,7 @@ public class P_BroadcastEditInputVo  extends PagingVo {
     private String forceExit;
     private String sendNoti;
     private String notiContents;
-    private String notiMeno;
+    private String notiMemo;
 
     private String state;
     private String start_date;

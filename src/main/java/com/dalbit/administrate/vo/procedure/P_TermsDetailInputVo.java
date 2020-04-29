@@ -15,6 +15,6 @@ public class P_TermsDetailInputVo {
     private String version;
     private String op_name;
     private String last_op_name;
-    private String meno;
+    private String memo;
 
 }

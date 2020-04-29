@@ -39,13 +39,13 @@
                , terms_content = #{terms_content}
                , last_upd_date = now()
                , last_op_name  = #{last_op_name}
-               , meno  = #{meno}
+               , memo  = #{memo}
           where idx = #{idx}
     </update>
 
     <insert id="callTermsInsert" parameterType="com.dalbit.administrate.vo.procedure.P_TermsDetailInputVo">
-        insert into rd_admin.tb_admin_terms (view_on,platform,terms_type,terms_title,terms_content,version,reg_date,op_name,last_upd_date,last_op_name,meno)
-              values (#{view_on},#{platform},#{terms_type},#{terms_title},#{terms_content},#{version},now(),#{op_name},null,null,#{meno})
+        insert into rd_admin.tb_admin_terms (view_on,platform,terms_type,terms_title,terms_content,version,reg_date,op_name,last_upd_date,last_op_name,memo)
+              values (#{view_on},#{platform},#{terms_type},#{terms_title},#{terms_content},#{version},now(),#{op_name},null,null,#{memo})
     </insert>
 
     <delete id="callTermsDelete" parameterType="com.dalbit.administrate.vo.procedure.P_TermsDetailInputVo">

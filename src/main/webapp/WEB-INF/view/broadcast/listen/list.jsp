@@ -140,19 +140,19 @@
 
             var checkDatas = dtList_info_detail.getCheckedData();
             for(var i=0;i<checkDatas.length;i++){
-                var meno = broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
+                var memo = broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
                                               .replace("{{nickName}}",checkDatas[i].nickName)
                                               .replace("{{message}}",forceMessage)
                                               .replace("{{timestamp}}",timestamp);
 
-                // console.log(meno);
+                // console.log(memo);
                 var data = new Object();
                 data.room_no = room_no;
                 data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
                 data.mem_nickName=checkDatas[i].nickName;       // 강퇴 대상
                 data.sendNoti = sendNoti;
                 data.notiContents = broadCastMessage.forceLeaveTitle;
-                data.notiMeno = meno;
+                data.notiMemo = memo;
                 data.dj_mem_no = mem_no;
                 data.dj_nickname = dj_nickname;
 

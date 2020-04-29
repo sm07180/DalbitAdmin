@@ -11,7 +11,7 @@ public class P_ListenForceLeaveVo {
     private String mem_nickName;
     private String sendNoti;
     private String notiContents;
-    private String notiMeno;
+    private String notiMemo;
     private String dj_mem_no;
     private String dj_nickname;
 }
