@@ -146,6 +146,8 @@
             $("#type").html('API');
         } else if($("#osTypeArea option:selected").val() == 'server') {
             $("#type").html('SERVER');
+        } else if($("#osTypeArea option:selected").val() == 7) {
+            $("#type").html('Photo');
         } else {
             $("#type").html('총');
         }
