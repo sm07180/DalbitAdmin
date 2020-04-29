@@ -86,6 +86,9 @@ var MemberDataTableSource = {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'room_no', 'visible' : false},
+            {'title': '방송플랫폼', 'data': 'os_type','width' : '65px', 'render': function (data) {
+                    return util.getCommonCodeLabel(data, os_type);
+                }},
             {'title': '방송주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
                     return util.getCommonCodeLabel(data, subject_type);
                 }},
