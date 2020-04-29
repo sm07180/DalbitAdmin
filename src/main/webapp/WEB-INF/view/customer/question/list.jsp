@@ -11,10 +11,10 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
-                            <span id="searchType"></span>
-                            <span id="question_type"></span>
-                            <span id="platform"></span>
-                            <span id="browser"></span>
+                            <span name="searchType" id="searchType"></span>
+                            <span name="question_type" id="question_type"></span>
+                            <span name="platform" id="platform"></span>
+                            <span name="browser" id="browser"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -75,43 +75,38 @@
     });
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
     $("#question_type").html(util.getCommonCodeSelect(-1, question_type));
-    $("#platform").html(util.getCommonCodeSelect(-1, platform));
-    $("#browser").html(util.getCommonCodeSelect(-1, browser));
+    $("#platform").html(util.getCommonCodeSelect(-1, search_platform));
+    $("#browser").html(util.getCommonCodeSelect(-1, search_browser));
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
+
+    var tmp_searchText;
+    var tmp_searchType;
+    var tmp_slctType = null;
+    var tmp_question_type = null;
+    var tmp_platform = null;
+    var tmp_browser = null;
 
     var dtList_info;
     var dtList_info_data = function ( data ) {
         data.searchText = $('#txt_search').val();
-        data.searchType = $("select[name='searchType']").val();
-        data.slctType = $("select[name='question_type']").val();
-        // data.slctPlatform = $("select[name='platform']").val();
-        // data.slctBrowser = $("select[name='browser']").val();
-        // data.sortSlct = ;
-        // data.sortPlatform = ;
-        // data.sortBrowser = ;
-        // data.sortState = ;
-        // data.pageNo = ;
-        // data.pageCnt = ;
+        data.searchType = tmp_searchType;
+        data.slctType = tmp_question_type;
+        data.slctPlatform = tmp_platform;
+        data.slctBrowser = tmp_browser;
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, questionDataTableSource.questList);
     dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
     dtList_info.createDataTable(qusetion_summary_table);
 
-    var tmp_searchText;
-    var tmp_searchType;
-    var tmp_slctType;
-    var tmp_platform;
-    var tmp_browser;
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchType = $("select[name='searchType']").val();
         tmp_searchText = $('#txt_search').val();
-        tmp_slctType = $("select[name='slctType']").val();
+        tmp_question_type = $("select[name='question_type']").val();
         tmp_platform = $("select[name='platform']").val();
         tmp_browser = $("select[name='browser']").val();
-
         dtList_info.reload(qusetion_summary_table);
 
         /*검색결과 영역이 접혀 있을 시 열기*/
@@ -144,9 +139,10 @@
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
+
         formData.append("searchText", tmp_searchText);
         formData.append("searchType", tmp_searchType);
-        formData.append("slctType", tmp_slctType);
+        formData.append("slctType", tmp_question_type);
         formData.append("slctPlatform", tmp_platform);
         formData.append("slctBrowser", tmp_browser);
         // util.excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel)
