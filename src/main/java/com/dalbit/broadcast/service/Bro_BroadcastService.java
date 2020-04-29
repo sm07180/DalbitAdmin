@@ -51,6 +51,26 @@ public class Bro_BroadcastService {
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastListInputVo);
         ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(procedureVo);
         P_BroadcastListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_BroadcastListOutputVo.class);
+
+        int broadCastCnt = 0;
+        int aosCnt = 0;
+        int iosCnt = 0;
+        int pcCnt = 0;
+        for(int i=0 ; i<broadList.size() ; i++){
+            ++broadCastCnt;
+            if(broadList.get(i).getOsType() == 1){
+                ++aosCnt;
+            }else if(broadList.get(i).getOsType() == 2){
+                ++iosCnt;
+            }else if(broadList.get(i).getOsType() == 3){
+                ++pcCnt;
+            }
+        }
+        summary.setTotalBroadCastCnt(broadCastCnt);
+        summary.setTotalAosCnt(aosCnt);
+        summary.setTotalIosCnt(iosCnt);
+        summary.setTotalPcCnt(pcCnt);
+
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, broadList, new PagingVo(procedureVo.getRet()),summary));

@@ -115,7 +115,8 @@ var banner_bannerType = [
     , new COMMON_CODE('store', '4', '스토어')
     , new COMMON_CODE('center', '5', '고객센터')
     , new COMMON_CODE('popup', '6', '팝업')
-    , new COMMON_CODE('floating', '7', '플로팅버튼')
+    , new COMMON_CODE('startPopup', '7', '시작팝업')
+    , new COMMON_CODE('endPopup', '8', '종료팝업')
 ];
 
 var banner_loginType = [

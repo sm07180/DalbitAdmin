@@ -2,10 +2,10 @@ var BroadcastDataTableSource = {
     'liveList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송주제', 'data': 'subject_name'
-                // ,'width' : '60px', 'render' : function (data){
-                //     return util.getCommonCodeLabel(data, subject_type);}
-                    },
+            {'title': '방송주제', 'data': 'subject_name'},
+            {'title': '방송플랫폼', 'data': 'osType', 'render': function (data) {
+                    return util.getCommonCodeLabel(data, os_type);
+                }},
             {'title': '방송제목', 'data': 'title','width' : '200px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},

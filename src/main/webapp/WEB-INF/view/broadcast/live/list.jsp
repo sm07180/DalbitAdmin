@@ -32,6 +32,7 @@
                 <div class="col-md-12 no-padding">
                     <div class="widget widget-table" id="main_table">
                         <span id="live_summaryArea"></span>
+                        <span id="platform_summaryArea"></span>
                         <div class="widget-content" style="border-top-width:0px;">
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <thead id="tableTop"></thead>
@@ -108,21 +109,31 @@
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
     dtList_info.setPageLength(10);
-    dtList_info.createDataTable(live_summary_table);
+    dtList_info.createDataTable(summary_table);
     var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#main_table").find(".footer-right").append(excelBtn);
 
-    function live_summary_table(json){
+    function summary_table(json){
         // dalbitLog(json);
+        var template = $("#platform_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#platform_summaryArea").html(html);
+
         var template = $("#live_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
             header : live_summary
             , content : json.summary
             , length : json.recordsTotal
-        }
+        };
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
+
     }
 
     var tmp_slctType;
@@ -162,8 +173,30 @@
 
 </script>
 
+<script id="platform_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right">
+        <thead>
+            <tr class="align-middle">
+                <th colspan="1" rowspan="2">총 방송방</th>
+                <th colspan="3">플랫폼별</th>
+            </tr>
+            <tr>
+                <th>IOS</th>
+                <th>AOS</th>
+                <th>PC</th>
+            </tr>
+        </thead>
+        <tbody>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalBroadCastCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}건</td>
+        </tbody>
+    </table>
+</script>
+
 <script id="live_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" id="declarationSummary">
+    <table class="table table-bordered table-summary pull-right">
         <thead>
         <tr>
             {{#each this.header}}

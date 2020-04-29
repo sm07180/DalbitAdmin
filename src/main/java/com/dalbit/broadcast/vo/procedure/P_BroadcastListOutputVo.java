@@ -38,8 +38,14 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int fanCnt;
     private int forcedCnt;
     private int storyCnt;
+    private int osType;
 
     /* total */
+    private int totalBroadCastCnt;
+    private int totalIosCnt;
+    private int totalAosCnt;
+    private int totalPcCnt;
+
     private int totalListenerCnt;
     private int totalGoodCnt;
     private int totalGiftCnt;

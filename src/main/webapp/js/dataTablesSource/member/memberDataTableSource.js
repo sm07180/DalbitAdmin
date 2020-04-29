@@ -7,7 +7,9 @@ var MemberDataTableSource = {
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
                     return util.renderSlct(data,"30","");
                 }},
-            {'title': 'OS', 'data': 'os_type', 'width':'100px'},
+            {'title': 'OS', 'data': 'os_type', 'width':'100px', 'render': function (data) {
+                    return util.getCommonCodeLabel(data, os_type);
+                }},
             {'title': '회원번호', 'data': 'mem_no', 'width':'100px'},
             {'title': '로그인ID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
@@ -31,7 +33,9 @@ var MemberDataTableSource = {
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
                     return util.renderSlct(data,"30","");
                 }},
-            {'title': 'OS', 'data': 'os_type', 'width':'100px'},
+            {'title': 'OS', 'data': 'os_type', 'width':'100px', 'render': function (data) {
+                    return util.getCommonCodeLabel(data, os_type);
+                }},
             {'title': '회원번호', 'data': 'mem_no', 'width':'100px'},
             {'title': '로그인ID', 'data': 'mem_id', 'width':'100px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
@@ -130,7 +134,9 @@ var MemberDataTableSource = {
                 }},
             {'title': '청취시작시간', 'data': 'startDateFormat', 'width':'120px'},
             {'title': '청취종료시간', 'data': 'endDateFormat', 'width':'120px'},
-            {'title': '청취진행시간', 'data': 'listentime', 'width':'120px'},
+            {'title': '청취진행시간', 'data': 'listentime', 'width':'120px', 'render': function (data) {
+                    return common.timeStamp(data);
+                }},
             {'title': '강제퇴장', 'data': 'forcedLeave', 'width':'80px'},
             {'title': '보낸 별', 'data': 'giftByeol', 'width':'80px', 'render': function (data) {
                     return common.addComma(data) + "건";
@@ -385,7 +391,9 @@ var MemberDataTableSource = {
             {'title': '접속일시', 'data': 'connectDateFormat'},
             {'title': 'App Ver', 'data': 'appVersion'},
             {'title': 'Browser', 'data': 'Browser'},
-            {'title': 'Device', 'data': 'Device'},
+            {'title': 'Device', 'data': 'Device', 'render': function (data) {
+                    return util.getCommonCodeLabel(data, os_type);
+                }},
             {'title': 'DeviceToken', 'data': 'device_token','render' : function(data){
                     return '<label class="word-break">' + data +'</label>';
                 }},

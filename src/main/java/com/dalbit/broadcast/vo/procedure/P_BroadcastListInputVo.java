@@ -18,4 +18,5 @@ public class P_BroadcastListInputVo extends PagingVo {
     private int sortStartDate;
     private int sortAirTime;
     private int pageNo;
+
 }
