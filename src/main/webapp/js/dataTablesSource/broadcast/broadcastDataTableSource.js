@@ -2,7 +2,7 @@ var BroadcastDataTableSource = {
     'liveList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송주제', 'data': 'subject_name'},
+            {'title': '방송주제', 'data': 'subject_name','width' : '65px'},
             {'title': '방송플랫폼', 'data': 'osType','width' : '65px', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
                 }},
