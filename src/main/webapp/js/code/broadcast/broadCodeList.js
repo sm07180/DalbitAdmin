@@ -83,14 +83,6 @@ var djOs = [
 
 
 // ------------------------- table -----------------------------
-var live_summary = [
-    new COMMON_CODE('', 'totalListenerCnt', '총 청취자')
-    , new COMMON_CODE('', 'totalGiftCnt', '총 선물')
-    , new COMMON_CODE('', 'totalGoodCnt', '총 좋아요')
-    , new COMMON_CODE('', 'totalBoosterCnt', '총 청취자 부스터')
-    , new COMMON_CODE('', 'totalForcedCnt', '총 강제퇴장')
-];
-
 var listen_summary = [
     new COMMON_CODE('','listenerCnt','청취자 수')
     ,new COMMON_CODE('','guest','게스트ID')
