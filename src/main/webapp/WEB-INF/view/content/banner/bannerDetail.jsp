@@ -121,6 +121,14 @@
                 }
             });
 
+            this.target.find("input[name='position']:radio").change(function () {   // 배너위치
+                var type = this.value;
+                if (type == 7) {              // 시작팝업
+                    $("input[name='is_pop']:input[value='0']").prop("checked", true)
+                }else if (type == 8) {        // 종료팝업
+                    $("input[name='is_pop']:input[value='1']").prop("checked", true)
+                }
+            });
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
