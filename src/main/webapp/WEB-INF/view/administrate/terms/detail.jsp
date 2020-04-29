@@ -100,7 +100,7 @@
         dalbitLog(response);
         alert(response.message);
         dtList_info.reload();
-
+        ui.topScroll();
         $("#tab_termsTab").addClass('hide');
     }
 

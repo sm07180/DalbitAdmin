@@ -19,10 +19,12 @@
         </div>
         <!-- //serachBox -->
         <!-- DATA TABLE -->
-        <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-            <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">회원</a></li>
-            <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
-        </ul>
+        <div class="row col-lg-12 form-inline">
+            <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
+                <li class="active"><a href="#memberList" role="tab" data-toggle="tab" onclick="memberList();">회원</a></li>
+                <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="withdrawalList();">탈퇴회원</a></li>
+            </ul>
+        </div>
         <div class="row col-lg-12 form-inline">
             <div class="widget widget-table" id="div_memberList">
                 <div class="widget-header">

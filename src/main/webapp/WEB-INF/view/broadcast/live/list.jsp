@@ -2,50 +2,44 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div id="wrapper">
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <!-- serachBox -->
-            <form id="searchForm">
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
-                        <div>
-                            <span id="searchRadio"></span>
-                            <span id="searchType_broad"></span>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                        </div>
-                    </div>
+<!-- serachBox -->
+<form id="searchForm">
+    <div class="row col-lg-12 form-inline">
+        <div class="widget widget-table searchBoxArea">
+            <div class="widget-header searchBoxRow">
+                <h3 class="title"><i class="fa fa-search"></i> 방송 검색</h3>
+                <div>
+                    <span id="searchRadio"></span>
+                    <span id="searchType_broad"></span>
+                    <label><input type="text" class="form-control" id="txt_search"></label>
+                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
                 </div>
             </div>
-            </form>
-            <!-- //serachBox -->
-            <!-- DATA TABLE -->
-            <div class="row col-lg-12 form-inline">
-                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                    <li class="active">
-                        <a href="/broadcast/live/list"><i class="fa fa-home"></i> 실시간 최신 생방송</a>
-                    </li>
-                </ul>
-                <div class="col-md-12 no-padding">
-                    <div class="widget widget-table" id="main_table">
-                        <span id="live_summaryArea"></span>
-                        <span id="platform_summaryArea"></span>
-                        <div class="widget-content" style="border-top-width:0px;">
-                            <table id="list_info" class="table table-sorting table-hover table-bordered">
-                                <thead id="tableTop"></thead>
-                                <tbody id="tableBody"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+        </div>
+    </div>
+</form>
+<!-- //serachBox -->
+<!-- DATA TABLE -->
+<div class="row col-lg-12 form-inline">
+    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+        <li class="active">
+            <a href="/broadcast/live/list"><i class="fa fa-home"></i> 실시간 최신 생방송</a>
+        </li>
+    </ul>
+    <div class="col-md-12 no-padding">
+        <div class="widget widget-table" id="main_table">
+            <span id="live_summaryArea"></span>
+            <span id="platform_summaryArea"></span>
+            <div class="widget-content" style="border-top-width:0px;">
+                <table id="list_info" class="table table-sorting table-hover table-bordered">
+                    <thead id="tableTop"></thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
             </div>
-            <!-- DATA TABLE END -->
         </div>
     </div>
 </div>
+<!-- DATA TABLE END -->
 
 <!-- 이미지 원본 보기 -->
 <div id="imageFullSize"></div>
