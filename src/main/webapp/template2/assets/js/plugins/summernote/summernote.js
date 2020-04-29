@@ -5037,7 +5037,7 @@
                             var tdHTML;
 
                             for (var idxCol = 0; idxCol < colCount; idxCol++) {
-                                tds.push('<td>' + dom.blank + '</td>');
+                                tds.push('<td style="border:1px solid black;">' + dom.blank + '</td>');
                             }
 
                             tdHTML = tds.join('');
@@ -5049,7 +5049,7 @@
                             }
 
                             trHTML = trs.join('');
-                            var $table = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<table>' + trHTML + '</table>');
+                            var $table = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()('<table style="border:1px solid black; width:100%">' + trHTML + '</table>');
 
                             if (options && options.tableClassName) {
                                 $table.addClass(options.tableClassName);
