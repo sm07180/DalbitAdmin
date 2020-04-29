@@ -152,7 +152,7 @@
                 data.mem_nickName=checkDatas[i].nickName;       // 강퇴 대상
                 data.sendNoti = sendNoti;
                 data.notiContents = broadCastMessage.forceLeaveTitle;
-                data.notiMemo = memo;
+                data.notiMeno = memo;
                 data.dj_mem_no = mem_no;
                 data.dj_nickname = dj_nickname;
 
