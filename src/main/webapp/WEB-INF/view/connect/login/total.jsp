@@ -15,15 +15,15 @@
         </div>
     </div>
     <div class="widget-content mt10">
-        <a href="javascript://">[이전]</a>
-        <%= sf.format(nowTime)%>
-        <a href="javascript://">[다음]</a>
+        <a href="javascript://" class="_prevSearch">[이전]</a>
+        <span class="_searchDate"></span>
+        <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
-            <thead>
+            <thead id="loginTotalTable">
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="4">실시간</th>
-                <th colspan="4">전일</th>
+                <%--<th colspan="4" id="th_slctType">전일</th>--%>
             </tr>
             <tr>
                 <th>소계</th>
@@ -31,57 +31,13 @@
                 <th>여성</th>
                 <th>알수없음</th>
 
-                <th>소계</th>
-                <th>남성</th>
-                <th>여성</th>
-                <th>알수없음</th>
+                <%--<th>소계</th>--%>
+                <%--<th>남성</th>--%>
+                <%--<th>여성</th>--%>
+                <%--<th>알수없음</th>--%>
             </tr>
             </thead>
-            <tbody>
-            <tr class="success">
-                <th>총계</th>
-                <td>100</td>
-                <td>40</td>
-                <td>60</td>
-                <td>0</td>
-
-                <td>100</td>
-                <td>40</td>
-                <td>60</td>
-                <td>0</td>
-            </tr>
-
-            <%
-                for(int i=0; i<24; i++) {
-            %>
-            <tr>
-                <th><%=i%>시 ~ <%=i+1%>시</th>
-                <td>10</td>
-                <td>4</td>
-                <td>6</td>
-                <td>0</td>
-
-                <td>8</td>
-                <td>3</td>
-                <td>5</td>
-                <td>0</td>
-            </tr>
-            <%
-                }
-            %>
-
-            <tr class="success">
-                <th>총계</th>
-                <td>100</td>
-                <td>40</td>
-                <td>60</td>
-                <td>0</td>
-                <td>80</td>
-                <td>30</td>
-                <td>50</td>
-                <td>0</td>
-            </tr>
-
+            <tbody id="loginTotalTableBody"></tbody>
             </tbody>
         </table>
     </div>
@@ -93,6 +49,83 @@
 </div>
 
 <script type="text/javascript">
+    $(function(){
+        getTotalList();
+    });
 
+    function getTotalList(){
+        util.getAjaxData("total", "/rest/connect/login/info/total", $("#searchForm").serialize(), fn_total_success);
+    }
 
+    function fn_total_success(data, response){
+        var isDataEmpty = response.data.detailList == null;
+        $("#loginTotalTableBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_total').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalTtml = templateScript(totalContext);
+            $("#loginTotalTableBody").append(totalTtml);
+
+            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+
+        }
+
+        var template = $('#tmp_detailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#loginTotalTableBody").append(html);
+
+        if(isDataEmpty){
+            $("#loginTotalTableBody td:last").remove();
+        }else{
+            $("#loginTotalTableBody").append(totalTtml);
+        }
+
+        if($('input[name="slctType"]:checked').val() == 0) {
+            $("#loginTotalTable").find("#th_slctType").text("전일");
+        }else if($('input[name="slctType"]:checked').val() == 1){
+            $("#loginTotalTable").find("#th_slctType").text("전월");
+        }else if($('input[name="slctType"]:checked').val() == 2){
+            $("#loginTotalTable").find("#th_slctType").text("전년");
+        }
+    }
+</script>
+<script type="text/x-handlebars-template" id="tmp_total">
+    <tr class="success">
+        <td>총계</td>
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_maleCnt}}</td>
+        <td>{{addComma sum_femaleCnt}}</td>
+        <td>{{addComma sum_noneCnt}}</td>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_detailList">
+    {{#each this as |data|}}
+    <tr>
+        <td>
+            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+            {{#equal ../slctType 1}}{{data.month}}월 {{data.day}}일{{/equal}}
+            {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}
+        </td>
+        <td>{{addComma totalCnt}}</td>
+        <td>{{addComma maleCnt}}</td>
+        <td>{{addComma femaleCnt}}</td>
+        <td>{{addComma noneCnt}}</td>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="11" class="noData">{{isEmptyData}}<td>
+    </tr>
+    {{/each}}
 </script>
