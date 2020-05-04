@@ -9,58 +9,55 @@
         </div>
     </div>
     <div class="widget-content mt10">
-        <table id="list" class="table table-sorting table-hover table-bordered datatable">
-            <div class="searchBoxArea" style="float:right;">
-                <select name="currentUser" id="currentUser" class="form-control">
-                    <option value="on">접속 순으로 보기</option>
-					<option value="join">가입 순으로 보기</option>
-					<option value="pay">결제액 높은 순으로 보기</option>
-					<option value="air">방송회수 높은 순으로 보기</option>
-					<option value="gift">선물 많이 한 순으로 보기</option>
-				</select>
+        <div class="widget widget-table" id="main_table">
+            <div class="widget-content">
+                <div class="pull-right" style="margin-top: 8px;margin-bottom: 8px;">
+                    <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
+                </div>
+                <table id="tableList" class="table table-sorting table-hover table-bordered datatable">
+                    <thead id="tableTop_detail">
+                    </thead>
+                    <tbody id="tableBody_detail">
+                    </tbody>
+                </table>
             </div>
-            <thead>
-            <tr>
-                <th>NO</th>
-                <th>접속일시</th>
-                <th>회원번호</th>
-                <th>UserID</th>
-                <th>닉네임</th>
-                <th>이름</th>
-                <th>소셜가입</th>
-                <th>접속 플랫폼</th>
-                <th>접속 IP</th>
-                <th>결제 건 수/금액</th>
-                <th>보유 달/보유 별</th>
-                <th>접속 상태</th>
-                <th>방송 상태</th>
-            </tr>
-            </thead>
-            <tbody id="tableBody">
-                <td>1</td>
-                <td>2020-03-20 11:11:11</td>
-                <td>123456</td>
-                <td><a href="javascript://" class="_openMemberPop" data-memNo="' + memNo + '">DalDalE</a></td>
-                <td>다달이</td>
-                <td>이상훈</td>
-                <td>FaceBook</td>
-                <td>안드로이드</td>
-                <td>125.125.125.125</td>
-                <td>0건/55,000원</td>
-                <td>1달/1별</td>
-                <td>Login</td>
-                <td>방송ON</td>
-            </tbody>
-        </table>
-    </div>
+        </div>
+    </span>
     <div class="widget-footer">
         <span>
-            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
         </span>
     </div>
 </div>
 
+<script type="text/javascript" src="/js/code/connect/connectCodeList.js"></script>
 <script type="text/javascript">
+    $("#currentType").html(util.getCommonCodeSelect(1, currentType,"Y"));
 
+    $(function(){
+        getCurrenList();
+
+    });
+
+    var dtList_info_detail;
+    var slctType = 1;
+    function getCurrenList(){
+        var dtList_data = function (data) {
+            data.slctType = slctType;
+            data.pageCnt = 20;
+        };
+        dtList_info_detail = new DalbitDataTable($("#tableList"), dtList_data, connectDataTableSource.current);
+        dtList_info_detail.useCheckBox(false);
+        dtList_info_detail.useIndex(true);
+        dtList_info_detail.createDataTable();
+
+    }
+
+    function currentType_sel_change(){
+        var value = $("select[name='currentType']").val();
+        console.log("value : " + value);
+        slctType = value;
+        dtList_info_detail.reload();
+    }
 
 </script>

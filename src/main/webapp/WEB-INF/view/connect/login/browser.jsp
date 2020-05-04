@@ -7,7 +7,7 @@
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
-<!-- 로그인 현황 > 브라우저 별 -->
+<!-- 로그인 현황 > 총계 -->
 <div class="widget widget-table mb10">
     <div class="widget-header">
         <div class="btn-group widget-header-toolbar">
@@ -15,98 +15,38 @@
         </div>
     </div>
     <div class="widget-content mt10">
-        <a href="javascript://">[이전]</a>
-        <%= sf.format(nowTime)%>
-        <a href="javascript://">[다음]</a>
+        <a href="javascript://" class="_prevSearch">[이전]</a>
+        <span class="_searchDate"></span>
+        <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
-            <thead>
+            <thead id="browserTable">
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="7">실시간</th>
-                <th colspan="7">전일</th>
+                <%--<th colspan="7" id="th_slctType">전일</th>--%>
             </tr>
             <tr>
                 <th>소계</th>
                 <th>안드로이드</th>
                 <th>아이폰</th>
-                <th>크롬</th>
-                <th>IE</th>
-                <th>파이어폭스</th>
-                <th>기타</th>
+                <th>PC</th>
+                <%--<th>크롬</th>--%>
+                <%--<th>IE</th>--%>
+                <%--<th>파이어폭스</th>--%>
+                <%--<th>기타</th>--%>
 
-                <th>소계</th>
-                <th>안드로이드</th>
-                <th>아이폰</th>
-                <th>크롬</th>
-                <th>IE</th>
-                <th>파이어폭스</th>
-                <th>기타</th>
+                <%--<th>소계</th>--%>
+                <%--<th>안드로이드</th>--%>
+                <%--<th>아이폰</th>--%>
+                <%--<th>PC</th>--%>
+                <%--<th>크롬</th>--%>
+                <%--<th>IE</th>--%>
+                <%--<th>파이어폭스</th>--%>
+                <%--<th>기타</th>--%>
+
             </tr>
             </thead>
-            <tbody>
-            <tr class="success">
-                <th>총계</th>
-                <td>100</td>
-                <td>10</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>10</td>
-
-                <td>80</td>
-                <td>10</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>10</td>
-                <td>0</td>
-            </tr>
-
-            <%
-                for(int i=0; i<24; i++) {
-            %>
-            <tr>
-                <th><%=i%>시 ~ <%=i+1%>시</th>
-                <td>10</td>
-                <td>1</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>1</td>
-
-                <td>8</td>
-                <td>1</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>1</td>
-                <td>0</td>
-            </tr>
-            <%
-                }
-            %>
-
-            <tr class="success">
-                <th>총계</th>
-                <td>100</td>
-                <td>10</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>10</td>
-
-                <td>80</td>
-                <td>10</td>
-                <td>20</td>
-                <td>20</td>
-                <td>20</td>
-                <td>10</td>
-                <td>0</td>
-            </tr>
-
+            <tbody id="browserTableBody"></tbody>
             </tbody>
         </table>
     </div>
@@ -118,6 +58,97 @@
 </div>
 
 <script type="text/javascript">
+    $(function(){
+        getBrowserList();
+    });
 
+    function getBrowserList(){
+        util.getAjaxData("browser", "/rest/connect/login/info/browser", $("#searchForm").serialize(), fn_browser_success);
+    }
 
+    function fn_browser_success(data, response){
+        var isDataEmpty = response.data.detailList == null;
+        $("#browserTableBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_browserTotal').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalTtml = templateScript(totalContext);
+            $("#browserTableBody").append(totalTtml);
+
+            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+
+        }
+
+        var template = $('#tmp_browserDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#browserTableBody").append(html);
+
+        if(isDataEmpty){
+            $("#browserTableBody td:last").remove();
+        }else{
+            $("#browserTableBody").append(totalTtml);
+        }
+
+        if($('input[name="slctType"]:checked').val() == 0) {
+            $("#browserTable").find("#th_slctType").text("전일");
+        }else if($('input[name="slctType"]:checked').val() == 1){
+            $("#browserTable").find("#th_slctType").text("전월");
+        }else if($('input[name="slctType"]:checked').val() == 2){
+            $("#browserTable").find("#th_slctType").text("전년");
+        }
+    }
+</script>
+<script type="text/x-handlebars-template" id="tmp_browserTotal">
+    <tr class="success">
+        <td>총계</td>
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_androidCnt}}</td>
+        <td>{{addComma sum_iosCnt}}</td>
+        <td>{{addComma sum_pcCnt}}</td>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_browserDetailList">
+    {{#each this as |data|}}
+    <tr>
+        <td>
+            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+            {{#equal ../slctType 1}}{{data.month}}월 {{data.day}}일{{/equal}}
+            {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}
+        </td>
+        <td>{{addComma totalCnt}}</td>
+        <td>{{addComma androidCnt}}</td>
+        <td>{{addComma iosCnt}}</td>
+        <td>{{addComma pcCnt}}</td>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+        <%--<td>0</td>--%>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="11" class="noData">{{isEmptyData}}<td>
+    </tr>
+    {{/each}}
 </script>
