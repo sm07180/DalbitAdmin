@@ -42,7 +42,7 @@
             <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 환전 통계 현황</h3>
+                            <h3><i class="fa fa-table"></i> 아이템 통계 현황</h3>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
