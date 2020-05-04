@@ -166,6 +166,7 @@
 
         $("#notiMemo").summernote('code', msgValue);
         $("#notiContents").val(msgTitle);
+
     }
 
     /*$(document).on('click', 'input:radio[name="declaration_sendNoti"]',function(title, content) {
@@ -206,6 +207,11 @@
                 //$('#declaration_editor').hide();
                 declarationValue.attr("disabled", "disabled");
             }
+            $('input:radio[name="opCode"]').on('change', function() {
+                if(radioValue >= 2 || radioValue <= 7) {
+                    $('input:checkbox[name="declaration_Message"]').removeAttr("checked");
+                }
+            });
         }
     }
 
