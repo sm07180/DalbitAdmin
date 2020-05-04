@@ -39,8 +39,8 @@
                             <thead>
                                 <tr>
                                     <th rowspan="2">미처리 건</th>
-                                    <th rowspan="2">누적 처리 건</th>
                                     <th colspan="7">제재조치</th>
+                                    <th rowspan="2">누적 처리 건</th>
                                 </tr>
                                 <tr>
                                     <th>정상 건</th>
@@ -202,7 +202,6 @@
     {{#data}}
     <tr>
         <td>{{addComma notOpCnt}}건</td> <%--미처리--%>
-        <td>{{addComma allOpCnt}}건</td>
         <td>{{addComma code_1_Cnt}}건</td> <%--정상--%>
         <td>{{addComma code_2_Cnt}}건</td> <%--경고--%>
         <td>{{addComma code_3_Cnt}}건</td> <%--1일 정지--%>
@@ -210,6 +209,7 @@
         <td>{{addComma code_5_Cnt}}건</td> <%--7일 정지--%>
         <td>{{addComma code_6_Cnt}}건</td> <%--강제 탈퇴 --%>
         <td>{{addComma code_7_Cnt}}건</td> <%--영구 정지--%>
+        <td>{{addComma allOpCnt}}건</td>
     </tr>
     {{/data}}
 </script>
