@@ -88,6 +88,7 @@
 
     $('#btn_insert').click(function() {                   // 수정
         new_insert();
+        ui.unCheck('list_info');
     });
     $('#btn_delete').click(function() {                   // 수정
         terms_delete();
