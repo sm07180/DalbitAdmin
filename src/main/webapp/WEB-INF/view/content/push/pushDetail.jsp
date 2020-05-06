@@ -157,7 +157,6 @@
                 fnc_pushDetail.target.find("input[name='platform']").each(function () {
                     this.checked = true;
                 });
-                alert("all");
             }else{
                 fnc_pushDetail.target.find("input[name='platform']").each(function () {
                     this.checked = false;
