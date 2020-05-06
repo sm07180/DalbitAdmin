@@ -4,6 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.customer.service.Cus_QuestionService;
 import com.dalbit.customer.vo.FaqVo;
+import com.dalbit.customer.vo.procedure.P_QuestionDeleteVo;
 import com.dalbit.customer.vo.procedure.P_QuestionDetailInputVo;
 import com.dalbit.customer.vo.procedure.P_QuestionListInputVo;
 import com.dalbit.customer.vo.procedure.P_QuestionOperateVo;
@@ -94,6 +95,14 @@ public class Cus_QuestionRestController {
     public String questionCount_target(P_QuestionListInputVo pQuestionListInputVo) {
         String result = cus_questionService.getQuestionCountTarget(pQuestionListInputVo);
         return result;
+    }
+
+    /**
+     * 회원 문의 내역 건 삭제
+     */
+    @PostMapping("delete")
+    public String delete(P_QuestionDeleteVo pQuestionDeleteVo){
+        return cus_questionService.getQuestionDelete(pQuestionDeleteVo);
     }
 
 }

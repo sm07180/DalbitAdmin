@@ -95,14 +95,23 @@ public class Cus_QuestionService {
         return cus_questionDao.getFaqSubList(faqVo);
     }
 
-
-
-
     /**
      * 회원 1:1문의 내역 건 수
      */
     public String getQuestionCountTarget(P_QuestionListInputVo pQuestionListInputVo) {
         HashMap<P_QuestionListOutputVo, String> questionList = cus_questionDao.callQuestionCountTarget(pQuestionListInputVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.문의목록조회_성공, questionList));
+    }
+
+
+    /**
+     * 회원 1:1문의 내역 건 삭제
+     */
+    public String getQuestionDelete(P_QuestionDeleteVo pQuestionDeleteVo){
+        cus_questionDao.callQuestionDelete(pQuestionDeleteVo);
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+        return result;
     }
 }
