@@ -68,8 +68,7 @@
             , rd_data.tb_member_basic member
         where test.mem_no = member.mem_no
         GROUP BY EMP_NAME
-        ORDER BY COUNT(EMP_NAME) DESC) a
-        , (select @rownum := 0 ) AS d
+        ORDER BY COUNT(EMP_NAME) DESC
     </select>
 
     <select id="getTestIdList" parameterType="com.dalbit.common.vo.SearchVo" resultType="com.dalbit.administrate.vo.TestIdListVo">
