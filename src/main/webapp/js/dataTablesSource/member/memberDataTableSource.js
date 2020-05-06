@@ -5,7 +5,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '회원가입일시', 'data': 'memJoinDateFormat', 'width':'100px'},
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
-                    return util.renderSlct(data,"30","");
+                    return util.renderSlct(data,"30");
                 }},
             {'title': 'OS', 'data': 'os_type', 'width':'100px', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
@@ -31,7 +31,7 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '회원가입일시', 'data': 'lastUpdDateFormat', 'width':'100px'},
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
-                    return util.renderSlct(data,"30","");
+                    return util.renderSlct(data,"30");
                 }},
             {'title': 'OS', 'data': 'os_type', 'width':'100px', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
@@ -65,7 +65,7 @@ var MemberDataTableSource = {
              {'title': '닉네임', 'data': 'mem_nick', 'width':'80px'},
              {'title': '연락처', 'data': 'mem_phone', 'width':'80px'},
              {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
-                    return util.renderSlct(data,"30","");
+                    return util.renderSlct(data,"30");
                  }},
              {'title': '회원가입일시', 'data': 'joinDateFormat', 'width':'120px'},
              {'title': '최근 접속 일시', 'data': 'last_connect_DateFormat', 'width':'120px'},

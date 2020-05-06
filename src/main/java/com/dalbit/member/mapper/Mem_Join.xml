@@ -34,7 +34,7 @@
                 ,count(case when mem_slct = 'g' then 1 end) as slctGoogleCnt
                 ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
-                ,count(case when mem_slct = 'e' then 1 end) as slctAppleCnt
+                ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
          From rd_data.tb_member_basic
             <if test="period != 4 and period != 3">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
@@ -77,7 +77,7 @@
                 ,count(case when mem_slct = 'g' then 1 end) as slctGoogleCnt
                 ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
-                ,count(case when mem_slct = 'e' then 1 end) as slctAppleCnt
+                ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
          From rd_data.tb_member_withdrawal_bak
             <if test="period != 4 and period != 3">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')

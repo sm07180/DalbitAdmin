@@ -44,4 +44,8 @@
             where idx > 0
               and mem_no = #{mem_no}
     </select>
+
+    <delete id="callQuestionDelete" parameterType="com.dalbit.customer.vo.procedure.P_QuestionDeleteVo">
+         delete From rd_data.tb_service_center_qna where idx =#{qnaIdx}
+    </delete>
 </mapper>

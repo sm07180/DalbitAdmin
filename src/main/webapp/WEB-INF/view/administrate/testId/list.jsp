@@ -60,7 +60,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>직원명</th>
+                                        <th>직원명 <span id="summaryTotalArea_mem"></span></th>
                                         <th>총 <span id="summaryTotalArea">0</span>개</th>
                                     </tr>
                                 </thead>
@@ -156,12 +156,15 @@
                 totalCnt += summary.cnt;
             });
             $("#summaryTotalArea").html(totalCnt);
+            $("#summaryTotalArea_mem").html("(" + response.data.length + "명)");
 
             var template = $('#tmp_summary').html();
             var templateScript = Handlebars.compile(template);
             var context = response.data;
             var html=templateScript(context);
             $("#summaryArea").html(html);
+        }else{
+            $("#summaryTotalArea_mem").html("(0명)");
         }
     }
 

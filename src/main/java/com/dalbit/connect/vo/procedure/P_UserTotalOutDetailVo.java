@@ -59,5 +59,4 @@ public class P_UserTotalOutDetailVo {
     private int total_female_cnt;
     private int total_none_cnt;
 
-    private String age;
 }

@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <span id="question_summaryArea"></span>
-                    <div class="widget-content">
+                    <div class="widget-content" id="main_table">
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                             <thead>
                             </thead>
@@ -46,7 +46,7 @@
             </div>
             <!-- DATA TABLE END -->
             <!-- TAB -->
-            <div class="no-padding mb15">
+            <div class="no-padding mb15" id="tab_qna">
                 <jsp:include page="questionTab.jsp"></jsp:include>
             </div>
             <!-- TAB END -->
@@ -99,6 +99,10 @@
     dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
     dtList_info.createDataTable(qusetion_summary_table);
+
+    var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>'
+    $("#main_table").find(".footer-left").append(questionDelBtn);
+    questionDelEventInit();
 
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
@@ -159,6 +163,45 @@
             $('#tab_customerQuestion').removeClass("show");
         }
     });
+
+    function questionDelEventInit(){
+        $("#btn_questionDelBtn").on("click", function () { //선택삭제
+            if (confirm("선택한 1:1문의를 삭제하시겠습니까?")) {
+                questionDelData();
+            }
+        });
+    }
+    function questionDelData(){
+        var checkDatas = dtList_info.getCheckedData();
+        if(checkDatas.length <= 0){
+            alert("삭제할 사연을 선택해 주십시오");
+            return;
+        }
+        var tmp_sw;
+        // 1:1 문의는 단건 삭제 한다고 함.
+        if(checkDatas[0].state == 1 ){
+            if (confirm("처리완료 건 입니다. 삭제 하시겠습니까?")) {
+                tmp_sw = true;
+            }else{
+                tmp_sw = false;
+            }
+        }else{
+            tmp_sw = true;
+        }
+        if(tmp_sw){
+            var data = new Object();
+            data.qnaIdx = checkDatas[0].qnaIdx;
+            util.getAjaxData("delete", "/rest/customer/question/delete",data, questionDel_success);
+        }else{
+            return;
+        }
+    }
+
+    function questionDel_success(dst_id, response) {
+        dtList_info.reload();
+
+        $("#tab_qna").addClass("hide");
+    }
 
     /*==================================*/
 </script>
