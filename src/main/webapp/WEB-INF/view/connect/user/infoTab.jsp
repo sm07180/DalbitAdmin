@@ -5,19 +5,28 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
-            <div class="widget-content">
-                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#total" role="tab" data-toggle="tab">총계</a></li>
-                    <li><a href="#currentUser" role="tab" data-toggle="tab" id="tab_usUserDetail">현재 접속 회원</a></li><!-- 회원검색 새 창도 열리게끔 -->
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- 총계 -->
-                    <div class="tab-pane fade" id="currentUser"><jsp:include page="currentUser.jsp"/></div>             <!-- 현재 접속 회원 -->
-                </div>
+        <div class="widget-content">
+            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
+                <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_total">총계</a></li>
+                <li><a href="#currentUser" role="tab" data-toggle="tab" id="tab_userDetail">현재 접속 회원</a></li><!-- 회원검색 새 창도 열리게끔 -->
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- 총계 -->
+                <div class="tab-pane fade" id="currentUser"><jsp:include page="currentUser.jsp"/></div>             <!-- 현재 접속 회원 -->
             </div>
         </div>
     </div>
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+
+<script type="text/javascript">
+    $("#tablist_con li a").on('click', function(){
+        var tabId = $(this).prop('id');
+        if(tabId == 'tab_total'){
+            getTotalList();
+        }else if(tabId == 'tab_userDetail'){
+            getCurrenList();
+        }
+    });
+</script>

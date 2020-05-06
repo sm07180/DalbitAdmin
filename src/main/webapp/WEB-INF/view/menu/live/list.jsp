@@ -151,7 +151,6 @@
     var livePagingInfo = new PAGING_INFO(0,1,100);
 
     $(function(){
-        //renderSubjectType();
         init();
         util.getAjaxData("select", "/rest/content/theme/broadcast/list", "", fn_succ_select);
     });
@@ -196,7 +195,6 @@
     function renderSubjectType(){
 
         $('#subject_type').on('change', function(){
-            dalbitLog($('#searchSubjectType').val());
             init($('._tab.active').find('a').data('slcttype'));
         });
     }
