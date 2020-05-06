@@ -151,6 +151,28 @@
             var detailData = getSelectDataInfo().detailData;
             console.log(detailData);
 
+
+            //OS 구분
+            if(detailData.platform == "111"){
+                fnc_pushDetail.target.find("input[name='platform']").each(function () {
+                    this.checked = true;
+                });
+                alert("all");
+            }else{
+                fnc_pushDetail.target.find("input[name='platform']").each(function () {
+                    this.checked = false;
+                });
+
+                var arrayPlatform = detailData.platform.split('');
+                for(var idx in arrayPlatform){
+                    if(arrayPlatform[idx] == 1){
+                        var value = parseInt(idx) + 1;
+                        fnc_pushDetail.target.find("input[name='platform'][value='"+ value +"']").prop("checked", true);
+                    }
+                }
+            }
+
+
             // 지정회원일 경우 추가처리
             if(detailData.is_all == "7"){
                 var selectTarget = detailData.mem_info;
@@ -285,8 +307,8 @@
             }else{
                 var platformCnt = fnc_pushDetail.target.find("input[name=platform]").length;
                 var platform = "";
-                for(var i = 0; i < platformCnt; i++){
-                    if(fnc_pushDetail.target.find("#platform"+(i+1)).is(":checked")){
+                for(var i = 1; i < platformCnt; i++){
+                    if(fnc_pushDetail.target.find("#platform"+(i)).is(":checked")){
                         platform += "1";
                     }else{
                         platform += "0";
@@ -460,9 +482,9 @@
                 <%--<td colspan="5">{{{getCommonCodeRadio -1 'push_platform'}}}</td>--%>
                 <td colspan="5">
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform-1" value="-1" checked="true"><span>전체</span> </label>
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform0" value="1" checked="true"><span>PC</span></label>
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform1" value="2" checked="true"><span>Android</span></label>
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform2" value="3" checked="true"><span>IOS</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform1" value="1" checked="true"><span>PC</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform2" value="2" checked="true"><span>Android</span></label>
+                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform3" value="3" checked="true"><span>IOS</span></label>
                 </td>
             </tr>
             <tr>
