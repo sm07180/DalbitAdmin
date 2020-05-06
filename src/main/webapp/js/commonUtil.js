@@ -356,7 +356,7 @@ util.renderSlct = function(value,size,popup){
             return '<img src="' +popup+ '../../img/icon/kakao.png" style="width: ' + size +'px;height:' + size +'px">';
         }else if (value == "n"){        // 아이콘 추가 해야됨
             return '<img src="' +popup+ '../../img/icon/naver.png" style="width: ' + size +'px;height:' + size +'px">';
-        }else if (value == "e"){        // 아이콘 추가 해야됨
+        }else if (value == "i"){        // 아이콘 추가 해야됨
             return '<img src="' +popup+ '../../img/icon/apple.png" style="width: ' + size +'px;height:' + size +'px">';
         }
     }else{
@@ -370,7 +370,7 @@ util.renderSlct = function(value,size,popup){
             return '<img src="' +popup+ '../../img/icon/kakao.png">';
         }else if (value == "n"){        // 아이콘 추가 해야됨
             return '<img src="' +popup+ '../../img/icon/naver.png">';
-        }else if (value == "e"){        // 아이콘 추가 해야됨
+        }else if (value == "i"){        // 아이콘 추가 해야됨
             return '<img src="' +popup+ '../../img/icon/apple.png">';
         }
     }

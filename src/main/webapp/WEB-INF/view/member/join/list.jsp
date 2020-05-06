@@ -86,7 +86,8 @@
         if($('input[name="joinDate"]:checked').val() == "0"){               // 월
             sDate = date.getFullYear() + common.lpad(date.getMonth(),2,"0") + common.lpad(date.getDate(),2,"0");        // 한달전
         }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
-            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-7,2,"0");      // 일주일전
+            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
+            sDate = date.getFullYear() + common.lpad(sDate.getMonth() + 1,2,"0") + common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
         }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일
             eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");      // 어제
             sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-1,2,"0");      //어제
@@ -116,6 +117,9 @@
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
             data.sDate = $("#txt_selDate").val().replace(/-/gi, "");
         }
+
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        console.log(data);
     };
     dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.joinList);
     dtList_info.useCheckBox(false);
