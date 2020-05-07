@@ -59,11 +59,10 @@
 
 <script type="text/javascript">
     $(function(){
-        getBrowserList();
     });
 
-    function getBrowserList(){
-        util.getAjaxData("browser", "/rest/connect/login/info/browser", $("#searchForm").serialize(), fn_browser_success);
+    function getBrowserList(obj){
+        util.getAjaxData("browser", "/rest/connect/login/info/browser", obj, fn_browser_success);
     }
 
     function fn_browser_success(data, response){

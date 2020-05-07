@@ -22,8 +22,8 @@
             <thead id="loginTotalTable">
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="4">실시간</th>
-                <%--<th colspan="4" id="th_slctType">전일</th>--%>
+                <th colspan="4" id="th_after">실시간</th>
+                <th colspan="4" id="th_befor">전일</th>
             </tr>
             <tr>
                 <th>소계</th>
@@ -31,10 +31,10 @@
                 <th>여성</th>
                 <th>알수없음</th>
 
-                <%--<th>소계</th>--%>
-                <%--<th>남성</th>--%>
-                <%--<th>여성</th>--%>
-                <%--<th>알수없음</th>--%>
+                <th>소계</th>
+                <th>남성</th>
+                <th>여성</th>
+                <th>알수없음</th>
             </tr>
             </thead>
             <tbody id="loginTotalTableBody"></tbody>
@@ -50,11 +50,12 @@
 
 <script type="text/javascript">
     $(function(){
-        getTotalList();
+        // getTotalList();
     });
 
-    function getTotalList(){
-        util.getAjaxData("total", "/rest/connect/login/info/total", $("#searchForm").serialize(), fn_total_success);
+    function getTotalList(obj){
+        console.log(obj);
+        util.getAjaxData("total", "/rest/connect/login/info/total", obj, fn_total_success);
     }
 
     function fn_total_success(data, response){
@@ -84,11 +85,14 @@
         }
 
         if($('input[name="slctType"]:checked').val() == 0) {
-            $("#loginTotalTable").find("#th_slctType").text("전일");
+            $("#loginTotalTable").find("#th_after").text("금일");
+            $("#loginTotalTable").find("#th_befor").text("전일");
         }else if($('input[name="slctType"]:checked').val() == 1){
-            $("#loginTotalTable").find("#th_slctType").text("전월");
+            $("#loginTotalTable").find("#th_after").text("금월");
+            $("#loginTotalTable").find("#th_befor").text("전월");
         }else if($('input[name="slctType"]:checked').val() == 2){
-            $("#loginTotalTable").find("#th_slctType").text("전년");
+            $("#loginTotalTable").find("#th_after").text("금년");
+            $("#loginTotalTable").find("#th_befor").text("전년");
         }
     }
 </script>
@@ -99,10 +103,10 @@
         <td>{{addComma sum_maleCnt}}</td>
         <td>{{addComma sum_femaleCnt}}</td>
         <td>{{addComma sum_noneCnt}}</td>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
+        <td>{{addComma sum_bTotalCnt}}</td>
+        <td>{{addComma sum_bTleCnt}}</td>
+        <td>{{addComma sum_bFemaleCnt}}</td>
+        <td>{{addComma sum_bNoneCnt}}</td>
     </tr>
 </script>
 
@@ -118,14 +122,14 @@
         <td>{{addComma maleCnt}}</td>
         <td>{{addComma femaleCnt}}</td>
         <td>{{addComma noneCnt}}</td>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
+        <td>{{addComma bTotalCnt}}</td>
+        <td>{{addComma bMaleCnt}}</td>
+        <td>{{addComma bFemaleCnt}}</td>
+        <td>{{addComma bNoneCnt}}</td>
     </tr>
     {{else}}
-    <tr>
+    <%--<tr>--%>
         <td colspan="11" class="noData">{{isEmptyData}}<td>
-    </tr>
+    <%--</tr>--%>
     {{/each}}
 </script>

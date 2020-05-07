@@ -18,4 +18,9 @@ public class P_LoginTotalOutDetailVo {
     private int maleCnt;
     private int femaleCnt;
     private int noneCnt;
+
+    private int bTotalCnt;
+    private int bMaleCnt;
+    private int bFemaleCnt;
+    private int bNoneCnt;
 }
