@@ -245,3 +245,11 @@ common.upAndDownIcon = function(value){
     }
     return result;
 }
+
+common.phoneNumHyphen = function(value) {
+    if(common.isEmpty(value)) {
+        return '-';
+    }
+    var regExp = /(\d{3})(\d{3,4})(\d{4})/
+    return value.toString().replace(regExp, '$1-$2-$3');
+}

@@ -182,9 +182,9 @@
         <td>{{cmid}}</td>
         <td>{{send_phone}}</td>
         <td>{{wap_info}}</td>
-        <td>{{dest_phone}}</td>
+        <td>{{phoneNumHyphen dest_phone}}</td>
         <td>{{report_time}}</td>
-        <td>{{msg_body}}</td>
+        <td>{{replaceHtml msg_body}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
     </tr>
     {{else}}
