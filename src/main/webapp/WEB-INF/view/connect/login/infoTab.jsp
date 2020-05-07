@@ -59,11 +59,11 @@
         }
 
         if(tabId == 'tab_total'){
-            getTotalList();
+            getTotalList(obj);
         }else if(tabId == 'tab_loAgeDetail') {
-            getAgeList();
+            getAgeList(obj);
         }else if(tabId == 'tab_loBrowserDetail') {
-            getBrowserList();
+            getBrowserList(obj);
         }
 
         $(".searchDate").html($("#onedayDate").val());

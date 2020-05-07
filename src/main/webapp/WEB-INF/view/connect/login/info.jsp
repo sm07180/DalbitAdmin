@@ -106,9 +106,9 @@
 
         //로그인 통계 현황
         getStatJoinInfo();
+
+        $("#tablist_con li.active a").click();
     });
-
-
 
     function setTimeDate(dateTime){
         $("#onedayDate").val(dateTime);

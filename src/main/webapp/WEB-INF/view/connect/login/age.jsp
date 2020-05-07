@@ -57,11 +57,10 @@
 
 <script type="text/javascript">
     $(function(){
-        getAgeList();
     });
 
-    function getAgeList(){
-        util.getAjaxData("age", "/rest/connect/login/info/age", $("#searchForm").serialize(), fn_age_success);
+    function getAgeList(obj){
+        util.getAjaxData("age", "/rest/connect/login/info/age", obj, fn_age_success);
     }
 
     function fn_age_success(data, response){
