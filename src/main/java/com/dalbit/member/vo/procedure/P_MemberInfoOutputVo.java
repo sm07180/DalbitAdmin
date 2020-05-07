@@ -49,6 +49,7 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String block_day;
     private Date block_end_date;
     private String blockEndDateFormat;
+    private int testIdCnt;
 
     public void setBlock_end_date(Date block_end_date){
         this.block_end_date = block_end_date;

@@ -4,26 +4,33 @@
 
     <select id="callJoinList" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
         select @rownum := @rownum + 1 as rowNum, c.*
-          from ( select *
-                   From rd_data.tb_member_basic
+          from ( select if(ifnull((select mem_no From rd_admin.tb_admin_test_account where mem_no= a.mem_no),0) !=0 ,'Test',null) testId
+                        ,a.*
+                   From rd_data.tb_member_basic a
                    <if test="period != 4 and period != 3">
                       where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
                    </if>
                    <if test="period == 3 or period == 4">
                        where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
                    </if>
+                    <if test="testid != -1">
+                        and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+                    </if>
                 )as c, (select @rownum := #{pageNo} ) AS d
          order by mem_join_date desc
          limit #{pageNo}, #{pageCnt}
     </select>
 
     <select id="callJoinList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
-        select count(*) totalCnt From rd_data.tb_member_basic
+        select count(*) totalCnt From rd_data.tb_member_basic a
             <if test="period != 4 and period != 3">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
             </if>
             <if test="period == 3 or period == 4">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            </if>
+            <if test="testid != -1">
+                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
             </if>
     </select>
 
@@ -35,25 +42,32 @@
                 ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
                 ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
-         From rd_data.tb_member_basic
+         From rd_data.tb_member_basic a
             <if test="period != 4 and period != 3">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
             </if>
             <if test="period == 3 or period == 4">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
             </if>
+            <if test="testid != -1">
+                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+            </if>
     </select>
 
 
     <select id="callWithdrawalList" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
         select @rownum := @rownum + 1 as rowNum, c.*
-          from ( select *
-                   From rd_data.tb_member_withdrawal_bak
+          from ( select if(ifnull((select mem_no From rd_admin.tb_admin_test_account where mem_no= a.mem_no),0) !=0 ,'Test',null) testId
+                        ,a.*
+                   From rd_data.tb_member_withdrawal_bak a
                    <if test="period != 4 and period != 3">
                       where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
                    </if>
                    <if test="period == 3 or period == 4">
                        where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+                   </if>
+                   <if test="testid != -1">
+                       and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
                    </if>
                 )as c, (select @rownum := #{pageNo} ) AS d
          order by last_upd_date desc
@@ -61,12 +75,15 @@
     </select>
 
     <select id="callWithdrawalList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
-        select count(*) totalCnt From rd_data.tb_member_withdrawal_bak
+        select count(*) totalCnt From rd_data.tb_member_withdrawal_bak a
             <if test="period != 4 and period != 3">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
             </if>
             <if test="period == 3 or period == 4">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            </if>
+            <if test="testid != -1">
+                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
             </if>
     </select>
 
@@ -78,12 +95,15 @@
                 ,count(case when mem_slct = 'k' then 1 end) as slctKakaoCnt
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
                 ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
-         From rd_data.tb_member_withdrawal_bak
+         From rd_data.tb_member_withdrawal_bak a
             <if test="period != 4 and period != 3">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
             </if>
             <if test="period == 3 or period == 4">
                 where mem_join_date >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            </if>
+            <if test="testid != -1">
+                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
             </if>
     </select>
 

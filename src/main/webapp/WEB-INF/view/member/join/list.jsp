@@ -106,7 +106,10 @@
 
     var memWithdrawal = "0";
     var dtList_info;
+
+    var _testid = -1;
     var dtList_info_data = function ( data ) {
+        data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
         data.period = $('input[name="joinDate"]:checked').val();
         if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
@@ -117,9 +120,6 @@
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
             data.sDate = $("#txt_selDate").val().replace(/-/gi, "");
         }
-
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        console.log(data);
     };
     dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.joinList);
     dtList_info.useCheckBox(false);
@@ -130,6 +130,7 @@
 
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
+        data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
         data.period = $('input[name="joinDate"]:checked').val();
         if($('input[name="joinDate"]:checked').val() != "4") {               // 선택
@@ -147,9 +148,20 @@
     dtList_info2.useInitReload(false);
     dtList_info.setPageLength(100);
     dtList_info2.createDataTable(withdrawalListSummary);
+    //
+    // var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
+    // $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+
+    var testid = '<br/><br/><br/><span id="testId"></span>';
+    $("#memberList").find(".top-left").append(testid);
+    $("#testId").html(util.getCommonCodeRadio(-1, testId));
 
     var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#memberList").find(".footer-right").append(excel);
+
+    var testid_withdrawal = '<br/><br/><span id="testId_withdrawal"></span>';
+    $("#withdrawalList").find(".top-left").append(testid_withdrawal);
+    $("#testId_withdrawal").html(util.getCommonCodeRadio(-1, testId_withdrawal));
 
     var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
@@ -179,6 +191,16 @@
         memWithdrawal = "1";
         getUserInfo();
     }
+
+    $("input[name='testId']:radio").change(function () {
+        _testid = this.value;
+        getUserInfo();
+    });
+
+    $("input[name='testId_withdrawal']:radio").change(function () {
+        _testid = this.value;
+        getUserInfo();
+    });
 
     function joinListSummary(json){
         var template = $("#joinList_tableSummary").html();

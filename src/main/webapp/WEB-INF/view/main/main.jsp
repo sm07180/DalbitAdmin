@@ -49,10 +49,15 @@
             </div>
             <!--//종합현황-->
 
-            <!--방송건수-->
+            <!--방송건수 차트-->
             <div class="widget">
                 <div class="widget-header">
-                    <h3><i class="fa fa-bar-chart-o"></i> 방송 건수</h3> <em>- 2020년 03월 20일</em>
+                    <h3><i class="fa fa-bar-chart-o"></i> 방송 건수</h3>
+                    <em>
+                        <a href="javascript://" class="_prevSearch">[이전]</a>
+                        <span class="_searchDate"></span>
+                        <a href="javascript://" class="_nextSearch">[다음]</a>
+                    </em>
                     <div class="btn-group widget-header-toolbar">
                         <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                     </div>
@@ -62,15 +67,15 @@
                     <div class="chart-nav">
                         <strong>기간 선택: </strong>
                         <ul id="sales-stat-tab">
-                            <li class="active"><a href="#week">일간</a></li>
-                            <li class=""><a href="#month">주간</a></li>
-                            <li class=""><a href="#year">월간</a></li>
+                            <li class="active"><a href="#day" id="_day" onclick="term_click('day');">일간</a></li>
+                            <li class=""><a href="#week" id="_week" onclick="term_click('week');">주간</a></li>
+                            <li class=""><a href="#month" id="_month" onclick="term_click('month');">월간</a></li>
                         </ul>
                     </div>
                     <!-- end chart tab nav -->
-                    <!-- chart placeholder-->
                     <div class="chart-content">
-                        <div class="demo-flot-chart sales-chart" data-ctype="#week" style="position: relative; padding: 0px;"><canvas class="flot-base" width="1142" height="350" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1142px; height: 350px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 13px; text-align: center;">Sun</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 984px; text-align: center;">Sun</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 151px; text-align: center;">Mon</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 1123px; text-align: center;">Mon</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 291px; text-align: center;">Tue</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 428px; text-align: center;">Wed</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 569px; text-align: center;">Thu</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 710px; text-align: center;">Fri</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 847px; text-align: center;">Sat</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 329px; left: 11px; text-align: right;">0</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 274px; left: 6px; text-align: right;">50</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 220px; left: 0px; text-align: right;">100</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 166px; left: 0px; text-align: right;">150</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 112px; left: 0px; text-align: right;">200</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 58px; left: 0px; text-align: right;">250</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 4px; left: 0px; text-align: right;">300</div></div></div><canvas class="flot-overlay" width="1142" height="350" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1142px; height: 350px;"></canvas><div class="legend"><div style="position: absolute; width: 42px; height: 30px; top: 14px; right: 15px; background-color: transparent; opacity: 0.85;"> </div><table style="position:absolute;top:14px;right:15px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid transparent;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(125,147,154);overflow:hidden"></div></div></td><td class="legendLabel">Visits</td></tr><tr><td class="legendColorBox"><div style="border:1px solid transparent;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(29,146,175);overflow:hidden"></div></div></td><td class="legendLabel">Sales</td></tr></tbody></table></div></div>
+                        <div id='lineArea'></div>
+                        <%--<div class="demo-flot-chart sales-chart" data-ctype="#week" style="position: relative; padding: 0px;"><canvas class="flot-base" width="1142" height="350" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1142px; height: 350px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 13px; text-align: center;">Sun</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 984px; text-align: center;">Sun</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 151px; text-align: center;">Mon</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 1123px; text-align: center;">Mon</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 291px; text-align: center;">Tue</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 428px; text-align: center;">Wed</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 569px; text-align: center;">Thu</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 710px; text-align: center;">Fri</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 847px; text-align: center;">Sat</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 329px; left: 11px; text-align: right;">0</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 274px; left: 6px; text-align: right;">50</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 220px; left: 0px; text-align: right;">100</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 166px; left: 0px; text-align: right;">150</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 112px; left: 0px; text-align: right;">200</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 58px; left: 0px; text-align: right;">250</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 4px; left: 0px; text-align: right;">300</div></div></div><canvas class="flot-overlay" width="1142" height="350" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1142px; height: 350px;"></canvas><div class="legend"><div style="position: absolute; width: 42px; height: 30px; top: 14px; right: 15px; background-color: transparent; opacity: 0.85;"> </div><table style="position:absolute;top:14px;right:15px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid transparent;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(125,147,154);overflow:hidden"></div></div></td><td class="legendLabel">Visits</td></tr><tr><td class="legendColorBox"><div style="border:1px solid transparent;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(29,146,175);overflow:hidden"></div></div></td><td class="legendLabel">Sales</td></tr></tbody></table></div></div>--%>
                     </div>
                     <!-- end chart placeholder-->
                     <hr class="separator">
@@ -560,15 +565,186 @@
     </div>
 </div>
 
+<script src='/js/plotly-latest.min.js'></script>
+
 <script type="text/javascript">
+    var dateTime = new Date();
+    var sDisplayDate;
+    var eDisplayDate;
+    var sDate;
+    var eDate;
+
+    var day = 0;
+    var term_tmp = "day";
     $(function(){
         init();
+        dateTime = moment(dateTime).format("YYYY.MM.DD");
+        setTimeDate(dateTime);
+        term_click(term_tmp);
     });
 
     function init(){
         getTotalStat();
         getBroadInfoStat();
         getMemberJoinStat();
+    }
+
+    function setTimeDate(dateTime){
+        $("._searchDate").html(dateTime);
+    }
+    $(document).on('click', '._prevSearch', function(){
+        apply(true);
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        apply(false);
+    });
+
+
+    function DateUtility(dateUse) { //파라미터 갯수 확인
+        if (0 === arguments.length) { //없다.
+            dateUse = new Date();
+        }
+        //복제한 date를 준다.
+        function CloneDate() {
+            return new Date(dateUse.valueOf())
+        }
+        //지정된 날짜를 리턴한다.
+        this.Today = function () {
+            return CloneDate();
+        };
+        //날짜에서 nDate만큼 더한 날짜를 리턴한다.
+        this.Day = function (nDay) {
+            var date = CloneDate();
+            date.setDate(date.getDate() + nDay);
+            return date;
+        };
+        //날짜에서 nMonth만큼 더한 월을 구한다.
+        this.Month = function (nMonth) {
+            var date = CloneDate();
+            date.setMonth(date.getMonth() + nMonth);
+            return date;
+        };
+        //날짜에서 nMonth만큼 더한 년을 구한다.
+        this.Year = function (nYear) {
+            var date = CloneDate();
+            date.setFullYear(date.getFullYear() + nYear);
+            return date;
+        };
+        //날짜에서 nMonth만큼 더한 월의 1일을 구한다.
+        this.Month_First = function (nMonth) {
+            var date = this.Month(nMonth);
+            return new Date(date.getYear(), date.getMonth(), 1);
+        };
+        //날짜에서 nMonth만큼 더한 월의 마지막날짜를 구한다.
+        this.Month_Last = function (nMonth) {
+            var date = this.Month(nMonth);
+            return new Date(date.getYear(), date.getMonth() + 1, 0);
+        }
+    };
+
+    function apply(isPrev) {
+        var dateUtil = new DateUtility(new Date());
+
+        if(!isPrev){
+            ++day;
+            // if(term_tmp == "week"){
+            //     day = day + 7;
+            // }
+        }else{
+            --day;
+            // if(term_tmp == "week"){
+            //     day = day -7;
+            // }
+        }
+
+        // if(term_tmp == "month"){         //전월
+        //     dateTime = dateUtil.Month(day).getFullYear() +"."+ common.lpad(dateUtil.Month(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Month(day).getDate(),2,0);
+        // }else if(term_tmp == "week"){    //전주
+        //     dateTime = dateUtil.Day(day-7).getFullYear() +"."+ common.lpad(dateUtil.Day(day-7).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day-7).getDate(),2,0);
+        // }else if(term_tmp == "day"){     // 전일
+        //     dateTime = dateUtil.Day(day).getFullYear() +"."+ common.lpad(dateUtil.Day(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day).getDate(),2,0);
+        // }
+
+        eDisplayDate = dateUtil.Day(day).getFullYear() +"."+ common.lpad(dateUtil.Day(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day).getDate(),2,0);
+        sDisplayDate = dateUtil.Day(day-1).getFullYear() +"."+ common.lpad(dateUtil.Day(day-1).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day-1).getDate(),2,0);
+
+        term_click(term_tmp);
+    };
+;
+    function term_click(tmp){
+        term_tmp = tmp;
+        var dateUtil = new DateUtility(new Date());
+        var time = common.lpad(dateUtil.Day(day).getHours(),2,0) + ":" + common.lpad(dateUtil.Day(day).getMinutes(),2,0) + ":" + common.lpad(dateUtil.Day(day).getSeconds(),2,0);
+        eDate = eDisplayDate + " " + time;      // 오늘날짜 + 시간
+        sDate = sDisplayDate + " " + time;      // 오늘날짜 + 시간
+
+        if(tmp == "month"){         //전월
+            setTimeDate(sDisplayDate + " ~ " + eDisplayDate);
+        }else if(tmp == "week"){    //전주
+            setTimeDate(sDisplayDate + " ~ " + eDisplayDate);
+        }else if(tmp == "day"){     // 전일
+            setTimeDate(eDisplayDate);
+        }
+        getChart();
+    };
+
+    function getChart(){
+        console.log();
+        var obj = {};
+        obj.slctDate = eDate;
+        obj.slctType = 11;
+        obj.liveType = 1;
+        obj.viewType = 1;
+
+        util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", obj, fn_chart_success);
+    }
+
+    function fn_chart_success(dst_id, response){
+        dalbitLog(response);
+        /* 라인차트 [start] */
+        var trace1 = {
+            x: [1, 2, 3, 4, 5, 6],
+            y: [1, 3, 2, 3, 1],
+            mode: 'lines',
+            name: sDisplayDate,
+            line: {
+                dash: 'solid',
+                width: 4
+            }
+        };
+        var trace2 = {
+            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+            y: [6, 8, 7, 8, 6],
+            mode: 'lines',
+            name: eDisplayDate,
+            line: {
+                dash: 'dashdot',
+                width: 4
+            }
+        };
+        var data = [trace1, trace2];
+        var layout = {
+            height: 400,
+            width: 970,
+            xaxis: {
+                range: [0.75, 15],
+                autorange: false
+            },
+            yaxis: {
+                range: [0.75, 18.5],
+                autorange: false
+            },
+            legend: {
+                y: 0.5,
+                y: 0.5,
+                traceorder: 'reversed',
+                font: {
+                    size: 13
+                }
+            }
+        };
+        Plotly.newPlot('lineArea', data, layout);
     }
 
     $('.nav-tabs li a').on('click', function(){

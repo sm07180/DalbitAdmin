@@ -135,6 +135,11 @@ public class Mem_MemberService {
             memberInfo.setCertification("본인인증: N");
         }
 
+        P_MemberInfoOutputVo testId = mem_MemberDao.callMemberTestId(pMemberInfoInputVo);
+        if(testId.getTestIdCnt() > 0){
+            memberInfo.setUserId(memberInfo.getUserId() + "_Test");
+        }
+
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberInfo));
@@ -356,6 +361,7 @@ public class Mem_MemberService {
             for (int i=0; i < memberConnect.size(); i++){
                 P_MemberConnectOutputVo outVo = new P_MemberConnectOutputVo();
                 outVo.setDevice_token(deviceToken);
+                outVo.setRowNum(memberConnect.get(i).getRowNum());
                 outVo.setDevice(memberConnect.get(i).getDevice());
                 outVo.setDeviceUUID(memberConnect.get(i).getDeviceUUID());
                 outVo.setAdID(memberConnect.get(i).getAdID());

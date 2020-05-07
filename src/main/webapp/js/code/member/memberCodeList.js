@@ -74,3 +74,15 @@ var declaration_summary = [
     ,new COMMON_CODE('','cnt','강제탈퇴')
     ,new COMMON_CODE('','cnt','영구정지')
 ];
+
+var testId = [
+    new COMMON_CODE('','testId','테스트아이디여부')
+    ,new COMMON_CODE('-1','-1','전체')
+    ,new COMMON_CODE('0','0','Test-ID 제외')
+];
+
+var testId_withdrawal = [
+    new COMMON_CODE('','testId_withdrawal','테스트아이디여부')
+    ,new COMMON_CODE('-1','-1','전체')
+    ,new COMMON_CODE('0','0','Test-ID 제외')
+];

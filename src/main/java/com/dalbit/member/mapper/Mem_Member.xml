@@ -23,6 +23,11 @@
         select comm_company from rd_data.tb_member_certification where mem_no=#{mem_no}
     </select>
 
+    <select id="callMemberTestId" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
+        /* M_Member.xml - callMemberTestId */
+        select count(*) testIdCnt from rd_admin.tb_admin_test_account where mem_no =#{mem_no}
+    </select>
+
     <select id="callMemberBlock" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberBlock */
         select block_day,block_end_date From rd_data.tb_member_basic where mem_no=#{mem_no}

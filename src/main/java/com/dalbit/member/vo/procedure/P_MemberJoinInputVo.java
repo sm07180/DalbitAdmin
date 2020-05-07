@@ -12,4 +12,5 @@ public class P_MemberJoinInputVo extends SearchVo {
     private String sDate;
     private String eDate;
     private String memWithdrawal;
+    private int testid;
 }

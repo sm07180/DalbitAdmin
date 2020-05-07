@@ -15,7 +15,11 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': 'UserID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.mem_no);
+                    if(row.testId == "" || row.testId == null){
+                        return util.memNoLink(data, row.mem_no);
+                    }else{
+                        return util.memNoLink(data +"_"+ row.testId, row.mem_no);
+                    }
                 }},
             {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
             {'title': '이름', 'data': 'mem_name', 'width':'100px'},
