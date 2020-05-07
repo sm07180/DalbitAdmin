@@ -686,11 +686,11 @@
         }else if(tmp == "day"){     // 전일
             setTimeDate(eDisplayDate);
         }
-        getChart();
+        getChart(eDate);
     };
 
-    function getChart(){
-        console.log();
+    function getChart(eDate){
+        console.log(eDate);
         var obj = {};
         obj.slctDate = eDate;
         obj.slctType = 11;

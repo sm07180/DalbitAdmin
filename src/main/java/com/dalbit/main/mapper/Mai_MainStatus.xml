@@ -14,5 +14,8 @@
     <select id="callBroadStatusInfoList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.main.vo.procedure.P_BroadStatusOutVo">
         call rd_admin.sp_admin_main_total_stat_broadcast(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <select id="callChartStatusInfoList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.main.vo.procedure.P_ChartStatusOutVo">
+        call rd_admin.sp_admin_main_total_stat_live_graph(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 
 </mapper>

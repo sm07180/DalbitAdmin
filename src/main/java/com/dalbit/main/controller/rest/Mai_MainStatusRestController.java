@@ -1,6 +1,7 @@
 package com.dalbit.main.controller.rest;
 
 import com.dalbit.main.service.Mai_MainStatusService;
+import com.dalbit.main.vo.procedure.P_ChartStatusInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class Mai_MainStatusRestController {
     @PostMapping("broad/status/info")
     public String broad(){
         String result = mai_MainStatusService.callBroadStatusInfoList();
+        return result;
+    }
+
+    @PostMapping("chart/status/info")
+    public String chart(P_ChartStatusInputVo pChartStatusInputVo){
+        String result = mai_MainStatusService.callChartStatusInfoList(pChartStatusInputVo);
         return result;
     }
 

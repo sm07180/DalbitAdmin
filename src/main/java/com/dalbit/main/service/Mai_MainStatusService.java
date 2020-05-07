@@ -4,9 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.main.dao.Mai_MainStatusDao;
-import com.dalbit.main.vo.procedure.P_BroadStatusOutVo;
-import com.dalbit.main.vo.procedure.P_JoinStatusOutVo;
-import com.dalbit.main.vo.procedure.P_TotalStatusOutVo;
+import com.dalbit.main.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -79,6 +77,18 @@ public class Mai_MainStatusService {
         main_JoinDao.callBroadStatusInfoList(procedureVo);
         P_BroadStatusOutVo broadStatus = new Gson().fromJson(procedureVo.getExt(), P_BroadStatusOutVo.class);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, broadStatus));
+    }
+
+    /**
+     * 차트 메인
+     * @param
+     * @return
+     */
+    public String callChartStatusInfoList(P_ChartStatusInputVo pChartStatusInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pChartStatusInputVo);
+        List<P_ChartStatusOutVo> chartList = main_JoinDao.callChartStatusInfoList(procedureVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, chartList));
     }
 
 }
