@@ -565,7 +565,7 @@
     </div>
 </div>
 
-<script src='/js/plotly-latest.min.js'></script>
+<script src='/js/lib/plotly-latest.min.js'></script>
 
 <script type="text/javascript">
     var dateTime = new Date();
@@ -586,7 +586,6 @@
 
         dateTime = moment(dateTime).format("YYYY.MM.DD");
         $("._searchDate").html(dateTime);
-
 
         term_click("day",true);
     }
@@ -668,13 +667,13 @@
         eDisplayDate = dateUtil.Day(day).getFullYear() +"."+ common.lpad(dateUtil.Day(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day).getDate(),2,0);
         sDisplayDate = dateUtil.Day(day-1).getFullYear() +"."+ common.lpad(dateUtil.Day(day-1).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day-1).getDate(),2,0);
 
-        term_click(term_tmp,eDisplayDate);
+        term_click(term_tmp,false);
     };
 ;
     function term_click(tmp,sw){
         term_tmp = tmp;
         var dateUtil = new DateUtility(new Date());
-        var time = common.lpad(dateUtil.Day(day).getHours(),2,0) + ":" + common.lpad(dateUtil.Day(day).getMinutes(),2,0) + ":" + common.lpad(dateUtil.Day(day).getSeconds(),2,0);
+        var time = '23:59:59';
         if(sw){
             eDate = dateTime + " " + time;      // 오늘날짜 + 시간
         }else{
@@ -694,49 +693,39 @@
 
     function getChart(eDate){
         console.log(eDate);
-        var obj = {};
-        obj.slctDate = eDate;
-        obj.slctType = 11;
-        obj.liveType = 1;
-        obj.viewType = 1;
+        var obj = {
+            slctDate : eDate
+            , slctType : 11
+            , liveType : 1
+            , viewType : 1
+        };
 
         util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", obj, fn_chart_success);
     }
 
     function fn_chart_success(dst_id, response){
-        dalbitLog(response);
         /* 라인차트 [start] */
-        var trace1 = {
-            x: [1, 2, 3, 4, 5, 6],
-            y: [1, 3, 2, 3, 1],
-            mode: 'lines',
-            name: sDisplayDate,
-            line: {
-                dash: 'solid',
-                width: 4
-            }
-        };
-        var trace2 = {
-            x: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-            y: [6, 8, 7, 8, 6],
+        var trace = {
+            x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            y: [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             mode: 'lines',
             name: eDisplayDate,
             line: {
-                dash: 'dashdot',
+                dash: 'line',
                 width: 4
             }
         };
-        var data = [trace1, trace2];
+        var data = [trace];
         var layout = {
             height: 400,
             width: 970,
             xaxis: {
-                range: [0.75, 15],
+                range: [0, 23],
                 autorange: false
             },
             yaxis: {
-                range: [0.75, 18.5],
-                autorange: false
+                //range: [0, 100],
+                autorange: true
             },
             legend: {
                 y: 0.5,
@@ -750,10 +739,10 @@
         Plotly.newPlot('lineArea', data, layout);
     }
 
-    $('.nav-tabs li a').on('click', function(){
+    /*$('.nav-tabs li a').on('click', function(){
         var functionName = $(this).data('function');
         eval(functionName)();
-    });
+    });*/
 
     function getTotalStat(){
         util.getAjaxData("total", "/rest/mainStatus/total/status/list", null, fn_statTotal_success);
@@ -789,7 +778,6 @@
     }
 
     function fn_statBroad_success(dst_id, response){
-        dalbitLog(response);
         var template = $('#tmp_statBroad').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
