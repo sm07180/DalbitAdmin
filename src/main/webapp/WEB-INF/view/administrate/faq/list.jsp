@@ -98,6 +98,7 @@
 
     $("#bt_insert").on("click", function(){
         generateForm();
+        ui.unCheck('list_info');
     });
 
     function generateForm() {

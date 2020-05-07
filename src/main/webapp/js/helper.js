@@ -174,3 +174,7 @@ Handlebars.registerHelper("upAndDownClass", function(value) {
 Handlebars.registerHelper("upAndDownIcon", function(value) {
     return common.upAndDownIcon(value);
 });
+
+Handlebars.registerHelper("phoneNumHyphen", function(value) {
+    return common.phoneNumHyphen(value);
+});

@@ -34,7 +34,7 @@
             </form>
 
             <div class="row col-lg-12 form-inline">
-                <span id="descArea"></span>
+                <label id="descArea">ㆍ이벤트명을 클릭하여 상세정보를 확인할 수 있습니다.</label>
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <div class="btn-group widget-header-toolbar">
@@ -63,9 +63,4 @@
 
 <script type="text/javascript">
 
-    $(function() {
-
-    });
-
-    $("#descArea").html("ㆍ이벤트명을 클릭하여 상세정보를 확인할 수 있습니다.");
 </script>
