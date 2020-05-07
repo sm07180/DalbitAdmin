@@ -575,23 +575,22 @@
     var eDate;
 
     var day = 0;
-    var term_tmp = "day";
     $(function(){
         init();
-        dateTime = moment(dateTime).format("YYYY.MM.DD");
-        setTimeDate(dateTime);
-        term_click(term_tmp);
     });
 
     function init(){
         getTotalStat();
         getBroadInfoStat();
         getMemberJoinStat();
+
+        dateTime = moment(dateTime).format("YYYY.MM.DD");
+        $("._searchDate").html(dateTime);
+
+
+        term_click("day",true);
     }
 
-    function setTimeDate(dateTime){
-        $("._searchDate").html(dateTime);
-    }
     $(document).on('click', '._prevSearch', function(){
         apply(true);
     });
@@ -669,22 +668,26 @@
         eDisplayDate = dateUtil.Day(day).getFullYear() +"."+ common.lpad(dateUtil.Day(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day).getDate(),2,0);
         sDisplayDate = dateUtil.Day(day-1).getFullYear() +"."+ common.lpad(dateUtil.Day(day-1).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day-1).getDate(),2,0);
 
-        term_click(term_tmp);
+        term_click(term_tmp,eDisplayDate);
     };
 ;
-    function term_click(tmp){
+    function term_click(tmp,sw){
         term_tmp = tmp;
         var dateUtil = new DateUtility(new Date());
         var time = common.lpad(dateUtil.Day(day).getHours(),2,0) + ":" + common.lpad(dateUtil.Day(day).getMinutes(),2,0) + ":" + common.lpad(dateUtil.Day(day).getSeconds(),2,0);
-        eDate = eDisplayDate + " " + time;      // 오늘날짜 + 시간
+        if(sw){
+            eDate = dateTime + " " + time;      // 오늘날짜 + 시간
+        }else{
+            eDate = eDisplayDate + " " + time;      // 오늘날짜 + 시간
+        }
         sDate = sDisplayDate + " " + time;      // 오늘날짜 + 시간
 
         if(tmp == "month"){         //전월
-            setTimeDate(sDisplayDate + " ~ " + eDisplayDate);
+            $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
         }else if(tmp == "week"){    //전주
-            setTimeDate(sDisplayDate + " ~ " + eDisplayDate);
+            $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
         }else if(tmp == "day"){     // 전일
-            setTimeDate(eDisplayDate);
+            $("._searchDate").html(eDisplayDate);
         }
         getChart(eDate);
     };
