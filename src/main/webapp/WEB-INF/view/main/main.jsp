@@ -668,7 +668,7 @@
         eDisplayDate = dateUtil.Day(day).getFullYear() +"."+ common.lpad(dateUtil.Day(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day).getDate(),2,0);
         sDisplayDate = dateUtil.Day(day-1).getFullYear() +"."+ common.lpad(dateUtil.Day(day-1).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day-1).getDate(),2,0);
 
-        term_click(term_tmp,eDisplayDate);
+        term_click(term_tmp,false);
     };
 ;
     function term_click(tmp,sw){
