@@ -13,34 +13,34 @@
                 <div class="widget-content mt10">
                     <table class="table table-condensed table-dark-header table-bordered">
                         <thead>
-                            <tr>
-                                <th colspan="5">방송</th>
-                                <th colspan="2">회원</th>
-                                <th colspan="4">캐스트</th>
-                                <th colspan="2">접속</th>
-                                <th colspan="2">결제</th>
-                            </tr>
-                            <tr>
-                                <th>건수</th>
-                                <th>시간(분)</th>
-                                <th>청취자 수</th>
-                                <th>선물 건</th>
-                                <th>선물금액</th>
+                        <tr>
+                            <th colspan="5">방송</th>
+                            <th colspan="2">회원</th>
+                            <th colspan="4">캐스트</th>
+                            <th colspan="2">접속</th>
+                            <th colspan="2">결제</th>
+                        </tr>
+                        <tr>
+                            <th>건수</th>
+                            <th>시간(분)</th>
+                            <th>청취자 수</th>
+                            <th>선물 건</th>
+                            <th>선물금액</th>
 
-                                <th>가입수</th>
-                                <th>탈퇴수</th>
+                            <th>가입수</th>
+                            <th>탈퇴수</th>
 
-                                <th>건수</th>
-                                <th>조회수</th>
-                                <th>선물 건</th>
-                                <th>선물금액</th>
+                            <th>건수</th>
+                            <th>조회수</th>
+                            <th>선물 건</th>
+                            <th>선물금액</th>
 
-                                <th>방문자수</th>
-                                <th>접속자수</th>
+                            <th>방문자수</th>
+                            <th>접속자수</th>
 
-                                <th>건수</th>
-                                <th>금액(원)</th>
-                            </tr>
+                            <th>건수</th>
+                            <th>금액(원)</th>
+                        </tr>
                         </thead>
                         <tbody id="statTotalTableBody" >
                         </tbody>
@@ -100,14 +100,14 @@
                         <div class="widget-content mt10">
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>실시간</th>
-                                        <th>전일</th>
-                                        <th>전일대비</th>
-                                        <th>주간</th>
-                                        <th>전주대비</th>
-                                    </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>실시간</th>
+                                    <th>전일</th>
+                                    <th>전일대비</th>
+                                    <th>주간</th>
+                                    <th>전주대비</th>
+                                </tr>
                                 </thead>
                                 <tbody  id="statBroadTableBody">
                                 </tbody>
@@ -330,118 +330,118 @@
                             </ul>
                             <table class="table table-bordered">
                                 <thead>
-                                    <tr>
-                                        <th colspan="2"></th>
-                                        <th>실시간</th>
-                                        <th>전일</th>
-                                        <th>전일대비</th>
-                                        <th>주간</th>
-                                        <th>전주대비</th>
-                                    </tr>
+                                <tr>
+                                    <th colspan="2"></th>
+                                    <th>실시간</th>
+                                    <th>전일</th>
+                                    <th>전일대비</th>
+                                    <th>주간</th>
+                                    <th>전주대비</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th rowspan="2">모바일</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>200분</td>
-                                        <td>180분</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">카드</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">실시간<br/>계좌이체</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">무통장<br/>입금</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th rowspan="2">인앱<br/>(Apple)</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr>
-                                        <th>금액</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <th rowspan="2">합계</th>
-                                        <th>건</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
-                                    <tr class="success">
-                                        <th>금액</th>
-                                        <td>325</td>
-                                        <td>200</td>
-                                        <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                        <td>725</td>
-                                        <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                    </tr>
+                                <tr>
+                                    <th rowspan="2">모바일</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>200분</td>
+                                    <td>180분</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">카드</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">실시간<br/>계좌이체</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">무통장<br/>입금</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">인앱<br/>(Apple)</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr>
+                                    <th>금액</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr class="success">
+                                    <th rowspan="2">합계</th>
+                                    <th>건</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
+                                <tr class="success">
+                                    <th>금액</th>
+                                    <td>325</td>
+                                    <td>200</td>
+                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
+                                    <td>725</td>
+                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -669,7 +669,7 @@
 
         term_click(term_tmp,false);
     };
-;
+
     function term_click(tmp,sw){
         term_tmp = tmp;
         var dateUtil = new DateUtility(new Date());
@@ -688,26 +688,32 @@
         }else if(tmp == "day"){     // 전일
             $("._searchDate").html(eDisplayDate);
         }
+
         getChart(eDate);
     };
 
     function getChart(eDate){
         console.log(eDate);
-        var obj = {
+        var chartParam = {
             slctDate : eDate
-            , slctType : 11
+            , slctType : 31
             , liveType : 1
             , viewType : 1
         };
 
-        util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", obj, fn_chart_success);
+        util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", chartParam, fn_chart_success);
     }
 
-    function fn_chart_success(dst_id, response){
+    function fn_chart_success(dst_id, response, param){
+        dalbitLog(param.slctType);
+        var detailData = response.data;
+
+        var chartData = getChartData(detailData, param);
+
         /* 라인차트 [start] */
         var trace = {
-            x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
-            y: [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            x: chartData.x,
+            y: chartData.y,
             mode: 'lines',
             name: eDisplayDate,
             line: {
@@ -720,16 +726,16 @@
             height: 400,
             width: 970,
             xaxis: {
-                range: [0, 23],
+                range: [0, detailData.length],
                 autorange: false
             },
             yaxis: {
-                //range: [0, 100],
-                autorange: true
+                range: [0, chartData.max_y],
+                autorange: false
             },
             legend: {
-                y: 0.5,
-                y: 0.5,
+                y: 1,
+                y: 1,
                 traceorder: 'reversed',
                 font: {
                     size: 13
@@ -739,10 +745,56 @@
         Plotly.newPlot('lineArea', data, layout);
     }
 
-    /*$('.nav-tabs li a').on('click', function(){
-        var functionName = $(this).data('function');
-        eval(functionName)();
-    });*/
+    function getChartData(detailData, param) {
+
+        //x축
+        var arrayList_x = [];
+        for(var i=0; i<detailData.length; i++) {
+            var array = {};
+            if(common.isEmpty(detailData[i].hour)) {
+                array = 0;
+            } else {
+                array = detailData[i].hour;
+            }
+            arrayList_x.push(array);
+        }
+
+        //y축
+        var arrayList_y = [];
+        var max_y = 10;  //최대값
+        for(var i=0 ; i<detailData.length; i++) {
+            var array = {};
+
+            if(param.slctType == 11) {
+                array = detailData[i].createCnt;
+            } else if(param.slctType == 12) {
+                array = detailData[i].broadcastingTime;
+            } else if(param.slctType == 13) {
+                array = detailData[i].listenerCnt;
+            } else if(param.slctType == 14) {
+                array = detailData[i].giftCnt;
+            } else if(param.slctType == 15) {
+                array = detailData[i].giftAmount;
+            } else if(param.slctType == 21) {
+                array = detailData[i].joinCnt;
+            } else {
+                array = detailData[i].withdrawalCnt;
+            }
+            arrayList_y.push(array);
+            if(max_y < array){
+                max_y = array
+            }
+        }
+        var resultData = {
+            x : arrayList_x
+            , y : arrayList_y
+            , max_y : max_y
+        };
+
+        dalbitLog(resultData);
+
+        return resultData;
+    }
 
     function getTotalStat(){
         util.getAjaxData("total", "/rest/mainStatus/total/status/list", null, fn_statTotal_success);
