@@ -12,9 +12,9 @@
               c.*
             FROM
               ( SELECT
-                  a.gubun,a.ruby,a.room_no,a.gifted_mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.itemCnt, b.item_thumbnail, secret
+                  a.gubun,a.ruby,a.room_no,a.mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.itemCnt, b.item_thumbnail, secret
                 FROM
-                  (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,gifted_mem_no,item_type, mem_userid
+                  (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,mem_no,item_type, mem_userid
                       AS userId, mem_nick AS nickName, mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
                       FROM rd_data.tb_member_broadcast_item
                       <if test="slctType == -1">    <!-- 전체 -->
