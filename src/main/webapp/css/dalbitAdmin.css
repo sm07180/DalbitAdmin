@@ -160,3 +160,9 @@ td._down {
 .table-hover-ban #tableBody tr td:hover{
     background-color: #f2f3bb;
 }
+
+._leftFixed {
+    position:fixed;
+    overflow-y: scroll;
+    top:54px;
+}

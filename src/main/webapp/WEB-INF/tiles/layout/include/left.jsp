@@ -8,7 +8,7 @@
 <c:set var="param_menu" value="${param.menu}" />
 
 <!-- left sidebar -->
-<div id="left-sidebar" class="left-sidebar ">
+<div id="left-sidebar" class="left-sidebar _leftFixed">
     <!-- main-nav -->
     <div class="sidebar-scroll" style="overflow:auto; height: 100%">
         <nav class="main-nav">
@@ -148,4 +148,16 @@
     });
 
     $('.main-menu li:first').before($('._mainMenu'));
+
+
+    $(window).scroll(function(){
+        var scrollTop = $(document).scrollTop()
+
+        var leftMenu = $('._leftFixed');
+        if (scrollTop < 44){
+            leftMenu.css('top', '54px');
+        } else {
+            leftMenu.css('top', '0px');
+        }
+    });
 </script>
