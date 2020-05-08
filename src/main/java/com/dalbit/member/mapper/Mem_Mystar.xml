@@ -21,7 +21,7 @@
                         ,(select sum(item_cnt) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as totalItemCnt
                    From rd_data.tb_member_fanstar a
                   where mem_no_fan = #{mem_no}) as a, (select @rownum := #{pageNo} ) AS d
-         order by totalItemCnt desc,reg_date desc
+         order by reg_date desc
           limit #{pageNo}, #{pageCnt}
     </select>
 
@@ -48,7 +48,7 @@
                         ,(select sum(item_cnt) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_star and gifted_mem_no = a.mem_no_fan) as totalItemCnt
                    From rd_data.tb_member_fanstar a
                   where mem_no_star = #{mem_no}) as a, (select @rownum := #{pageNo} ) AS d
-         order by totalItemCnt desc,reg_date desc
+         order by reg_date desc
           limit #{pageNo}, #{pageCnt}
     </select>
 
