@@ -25,6 +25,7 @@
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
+        dtList_info_detail.setPageLength(50);
         dtList_info_detail.createDataTable();
 
         var noteDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_noticeDel" style="margin-right: 3px;"/>'

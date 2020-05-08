@@ -8,13 +8,18 @@ import com.dalbit.customer.vo.procedure.P_QuestionDeleteVo;
 import com.dalbit.customer.vo.procedure.P_QuestionDetailInputVo;
 import com.dalbit.customer.vo.procedure.P_QuestionListInputVo;
 import com.dalbit.customer.vo.procedure.P_QuestionOperateVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.util.GsonUtil;
+import org.springframework.ui.Model;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +33,9 @@ public class Cus_QuestionRestController {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    @Autowired
+    ExcelService excelService;
 
     /**
      * 1:1 신고 목록 조회
@@ -105,4 +113,16 @@ public class Cus_QuestionRestController {
         return cus_questionService.getQuestionDelete(pQuestionDeleteVo);
     }
 
+
+    /**
+     * 문의 엑셀
+     */
+    @PostMapping("listExcel")
+    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, P_QuestionListInputVo pQuestionListInputVo) throws GlobalException {
+
+        Model resultModel = cus_questionService.getListExcel(pQuestionListInputVo, model);
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+    }
 }

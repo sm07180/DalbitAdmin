@@ -202,9 +202,9 @@ var MemberDataTableSource = {
     'giftDetail': {
         'url': '/rest/member/gift/list'
         , 'columns': [
-            {'title': '회원번호', 'data': 'gifted_mem_no'},
+            {'title': '회원번호', 'data': 'mem_no'},
             {'title': 'UserID', 'data': 'userId', 'render': function (data, type, row, meta) {
-                    return util.memNoLink(data, row.gifted_mem_no);
+                    return util.memNoLink(data, row.mem_no);
                 }},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},

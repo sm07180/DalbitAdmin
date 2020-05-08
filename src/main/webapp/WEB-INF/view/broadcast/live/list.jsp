@@ -102,7 +102,7 @@
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
-    dtList_info.setPageLength(10);
+    dtList_info.setPageLength(50);
     dtList_info.createDataTable(summary_table);
     var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#main_table").find(".footer-right").append(excelBtn);

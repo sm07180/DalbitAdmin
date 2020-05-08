@@ -39,7 +39,7 @@ var fnc_broadcastList = {
 //=------------------------------ Init / Event--------------------------------------------
     "targetId": "broadcastList",
     "formId" : "broadcastListForm",
-    "pagingInfo" : new PAGING_INFO(0, 1, 24),
+    "pagingInfo" : new PAGING_INFO(0, 1, 54),
 
     init() {
         this.target = $("#"+this.targetId);

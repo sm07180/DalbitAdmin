@@ -29,6 +29,7 @@
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
+        dtList_info_detail.setPageLength(50);
         dtList_info_detail.createDataTable(story_summary_table);
 
         var storyDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_storyDel" style="margin-right: 3px;"/>'

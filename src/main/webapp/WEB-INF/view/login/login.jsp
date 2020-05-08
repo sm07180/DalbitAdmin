@@ -17,7 +17,7 @@
                     <label for="memId" class="control-label sr-only">ID</label>
                     <div class="col-sm-12">
                         <div class="input-group">
-                            <input class="form-control _loginInput" type="text" placeholder="아이디를 입력해주세요." name="memId" id="memId" value="" autofocus>
+                            <input class="form-control _loginInput" type="text" placeholder="아이디를 입력해주세요." name="memId" id="memId" value="yoosin0513" autofocus>
                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
     }
 
     function menuSave(dst_id, data){
-        alert("로그인이 완료되었습니다.");
+        //alert("로그인이 완료되었습니다.");
         location.href="/index.html";
     }
 </script>

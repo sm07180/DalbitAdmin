@@ -45,6 +45,7 @@
         dtList_info_detail = new DalbitDataTable($("#mystar").find("#list_mystar"), dtList_info_detail_data, MemberDataTableSource.mystar);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
+        dtList_info_detail.setPageLength(50);
         dtList_info_detail.createDataTable();
 
         getHistory_myfanDetail(tmp)
@@ -58,6 +59,7 @@
         dtList_info_detail2 = new DalbitDataTable($("#myfan").find("#list_myfan"), dtList_info_detail_data, MemberDataTableSource.myfan);
         dtList_info_detail2.useCheckBox(false);
         dtList_info_detail2.useIndex(true);
+        dtList_info_detail2.setPageLength(50);
         dtList_info_detail2.createDataTable();
     }
 
