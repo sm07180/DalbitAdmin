@@ -67,9 +67,9 @@
                     <div class="chart-nav">
                         <strong>기간 선택: </strong>
                         <ul id="sales-stat-tab">
-                            <li class="active"><a href="#day" id="_day" onclick="term_click('day');">일간</a></li>
-                            <li class=""><a href="#week" id="_week" onclick="term_click('week');">주간</a></li>
-                            <li class=""><a href="#month" id="_month" onclick="term_click('month');">월간</a></li>
+                            <li class="active"><a href="#day" class="_viewType" data-viewtype="1" id="_day" onclick="apply('current', false, 'day');">일간</a></li>
+                            <li class=""><a href="#week" class="_viewType" data-viewtype="2" id="_week" onclick="apply('current', false, 'week');">주간</a></li>
+                            <li class=""><a href="#month" class="_viewType" data-viewtype="3" id="_month" onclick="apply('current', false, 'month');">월간</a></li>
                         </ul>
                     </div>
                     <!-- end chart tab nav -->
@@ -571,10 +571,17 @@
     var dateTime = new Date();
     var sDisplayDate;
     var eDisplayDate;
-    var sDate;
     var eDate;
-
+    var term_tmp;
     var day = 0;
+
+    var chartParam = {
+        slctDate : ''
+        , slctType : 11
+        , liveType : 1
+        , viewType : 1
+    };
+
     $(function(){
         init();
     });
@@ -587,17 +594,22 @@
         dateTime = moment(dateTime).format("YYYY.MM.DD");
         $("._searchDate").html(dateTime);
 
-        term_click("day",true);
+        //term_click("day",true);
+        apply('current', true, 'day');
     }
 
     $(document).on('click', '._prevSearch', function(){
-        apply(true);
+        apply('prev', false, getViewName());
     });
 
     $(document).on('click', '._nextSearch', function(){
-        apply(false);
+        apply('next', false, getViewName());
     });
 
+    function getViewName(){
+        var viewType = $('#sales-stat-tab li.active a').data('viewtype');
+        return (viewType == '1') ? 'day' : (viewType == '2') ? 'week' : 'month';
+    }
 
     function DateUtility(dateUse) { //파라미터 갯수 확인
         if (0 === arguments.length) { //없다.
@@ -641,37 +653,34 @@
         }
     };
 
-    function apply(isPrev) {
-        var dateUtil = new DateUtility(new Date());
+    function apply(searchType, sw, dateType) {
+        console.log("@@@@@@@@@@@@@@@@@@@");
+        console.log(searchType, sw, dateType);
 
-        if(!isPrev){
-            ++day;
-            // if(term_tmp == "week"){
-            //     day = day + 7;
-            // }
-        }else{
+        if(searchType == 'prev'){
             --day;
-            // if(term_tmp == "week"){
-            //     day = day -7;
-            // }
+        }else if(searchType == 'next'){
+            ++day;
         }
 
-        // if(term_tmp == "month"){         //전월
-        //     dateTime = dateUtil.Month(day).getFullYear() +"."+ common.lpad(dateUtil.Month(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Month(day).getDate(),2,0);
-        // }else if(term_tmp == "week"){    //전주
-        //     dateTime = dateUtil.Day(day-7).getFullYear() +"."+ common.lpad(dateUtil.Day(day-7).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day-7).getDate(),2,0);
-        // }else if(term_tmp == "day"){     // 전일
-        //     dateTime = dateUtil.Day(day).getFullYear() +"."+ common.lpad(dateUtil.Day(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day).getDate(),2,0);
-        // }
+        if(dateType == "month"){         //전월
+            sDisplayDate = moment(dateTime).add("months", day -1).format('YYYY.MM.DD');
+            eDisplayDate = moment(dateTime).add("months", day).format('YYYY.MM.DD');
+        }else if(dateType == "week"){    //전주
+            sDisplayDate = moment(dateTime).add("weeks", day -1).format('YYYY.MM.DD');
+            eDisplayDate = moment(dateTime).add("weeks", day).format('YYYY.MM.DD');
+        }else if(dateType == "day"){     // 전일
+            sDisplayDate = moment(dateTime).add("days", day-1).format('YYYY.MM.DD');
+            eDisplayDate = moment(dateTime).add("days", day).format('YYYY.MM.DD');
+        }
 
-        eDisplayDate = dateUtil.Day(day).getFullYear() +"."+ common.lpad(dateUtil.Day(day).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day).getDate(),2,0);
-        sDisplayDate = dateUtil.Day(day-1).getFullYear() +"."+ common.lpad(dateUtil.Day(day-1).getMonth() + 1,2,0) +"."+ common.lpad(dateUtil.Day(day-1).getDate(),2,0);
+        console.log(sDisplayDate)
+        console.log(eDisplayDate)
 
-        term_click(term_tmp,false);
+        term_click(dateType,sw);
     };
 
-    function term_click(tmp,sw){
-        term_tmp = tmp;
+    function term_click(dateType, sw){
         var dateUtil = new DateUtility(new Date());
         var time = '23:59:59';
         if(sw){
@@ -679,33 +688,42 @@
         }else{
             eDate = eDisplayDate + " " + time;      // 오늘날짜 + 시간
         }
-        sDate = sDisplayDate + " " + time;      // 오늘날짜 + 시간
 
-        if(tmp == "month"){         //전월
+        if(dateType == "month"){         //전월
             $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
-        }else if(tmp == "week"){    //전주
+        }else if(dateType == "week"){    //전주
             $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
-        }else if(tmp == "day"){     // 전일
+        }else if(dateType == "day"){     // 전일
             $("._searchDate").html(eDisplayDate);
         }
 
-        getChart(eDate);
+        chartParam.slctDate = eDate;
+        util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", chartParam, fn_chart_success);
     };
 
-    function getChart(eDate){
-        console.log(eDate);
-        var chartParam = {
-            slctDate : eDate
-            , slctType : 31
-            , liveType : 1
-            , viewType : 1
-        };
+    $(document).on('click', '._cntType', function() {
+        chartParam.slctType = $(this).data('slcttype');
+        term_click("week",true);
+    });
 
-        util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", chartParam, fn_chart_success);
-    }
+    $(document).on('click', '._viewType', function() {
+        $("#sales-stat-tab li").removeClass('active');
+        $(this).parent('li').addClass('active');
+
+        var viewType = $(this).data('viewtype');
+        chartParam.viewType = viewType;
+        if(viewType == 1) {
+            term_click("day", true);
+        } else if(viewType == 2) {
+            console.log(sDisplayDate)
+            console.log(eDisplayDate)
+            term_click("week", true);
+        } else {
+            term_click("month", true);
+        }
+    });
 
     function fn_chart_success(dst_id, response, param){
-        dalbitLog(param.slctType);
         var detailData = response.data;
 
         var chartData = getChartData(detailData, param);
@@ -749,15 +767,32 @@
 
         //x축
         var arrayList_x = [];
-        for(var i=0; i<detailData.length; i++) {
-            var array = {};
-            if(common.isEmpty(detailData[i].hour)) {
-                array = 0;
-            } else {
-                array = detailData[i].hour;
+        if(param.viewType == 1) {
+            for (var i = 0; i < detailData.length; i++) {
+                var array = {};
+
+                if (common.isEmpty(detailData[i].hour)) {
+                    array = 0;
+                } else {
+                    array = detailData[i].hour;
+                }
+                arrayList_x.push(array);
             }
-            arrayList_x.push(array);
         }
+        if(param.viewType == 2) {
+            for (var i = 0; i < detailData.length; i++) {
+                var array = {};
+
+                if (common.isEmpty(detailData[i].day)) {
+                    array = 0;
+                } else{
+                    array = detailData[i].day;
+                }
+                var arrayFormat = common.convertToDate(array, 'MM/DD');
+                arrayList_x.push(arrayFormat);
+            }
+        }
+        dalbitLog(arrayList_x);
 
         //y축
         var arrayList_y = [];
@@ -842,14 +877,14 @@
 
 <script type="text/x-handlebars-template" id="tmp_statTotal">
     <tr>
-        <td><a href="javascript://">{{addComma broadcast_create_Cnt}}</a></td>
-        <td><a href="javascript://">{{addComma broadcast_air_Time}}</a></td>
-        <td><a href="javascript://">{{addComma broadcast_listener_Cnt}}</a></td>
-        <td><a href="javascript://">{{addComma broadcast_gift_Cnt}}</a></td>
-        <td><a href="javascript://">{{addComma broadcast_gift_Amount}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="11">{{addComma broadcast_create_Cnt}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="12">{{addComma broadcast_air_Time}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="13">{{addComma broadcast_listener_Cnt}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="14">{{addComma broadcast_gift_Cnt}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="15">{{addComma broadcast_gift_Amount}}</a></td>
 
-        <td><a href="javascript://">{{addComma member_join_Cnt}}</a></td>
-        <td><a href="javascript://">{{addComma member_withdraw_Cnt}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="21">{{addComma member_join_Cnt}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="31">{{addComma member_withdraw_Cnt}}</a></td>
 
         <td><a href="javascript://"></a></td>
         <td><a href="javascript://"></a></td>
