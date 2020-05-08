@@ -82,7 +82,6 @@
 
     var tmp_searchText;
     var tmp_searchType;
-    var tmp_slctType = null;
     var tmp_question_type = null;
     var tmp_platform = null;
     var tmp_browser = null;
@@ -100,14 +99,18 @@
     dtList_info.useIndex(true);
     dtList_info.createDataTable(qusetion_summary_table);
 
-    var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>'
+    var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>';
     $("#main_table").find(".footer-left").append(questionDelBtn);
+
+    var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+    $("#main_table").find(".footer-right").append(excel);
+
     questionDelEventInit();
 
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        tmp_searchType = $("select[name='searchType']").val();
         tmp_searchText = $('#txt_search').val();
+        tmp_searchType = $("select[name='searchType']").val();
         tmp_question_type = $("select[name='question_type']").val();
         tmp_platform = $("select[name='platform']").val();
         tmp_browser = $("select[name='browser']").val();
@@ -144,16 +147,20 @@
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
 
-        formData.append("searchText", tmp_searchText);
-        formData.append("searchType", tmp_searchType);
-        formData.append("slctType", tmp_question_type);
-        formData.append("slctPlatform", tmp_platform);
-        formData.append("slctBrowser", tmp_browser);
-        // util.excelDownload($(this), "/rest/member/member/listExcel", formData, fn_success_excel)
+        // formData.append("searchText", tmp_searchText);
+        // formData.append("searchType", tmp_searchType);
+        // formData.append("slctType", tmp_question_type);
+        // formData.append("slctPlatform", tmp_platform);
+        // formData.append("slctBrowser", tmp_browser);
+        util.excelDownload($(this), "/rest/customer/question/listExcel", formData, fn_success_excel,fn_fail_excel);
+
     });
 
     function fn_success_excel(){
         console.log("fn_success_excel");
+    }
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
     }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
