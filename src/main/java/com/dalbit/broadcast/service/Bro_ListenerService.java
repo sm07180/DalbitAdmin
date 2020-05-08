@@ -115,7 +115,7 @@ public class Bro_ListenerService {
             HashMap<String,Object> tmp = new HashMap();
             tmp.put("revMemNo",pListenForceLeaveVo.getMem_no());     // 받는 사람
             tmp.put("revMemNk",pListenForceLeaveVo.getMem_nickName());
-            tmp.put("sndAuth",4);
+            tmp.put("sndAuth",3);
             tmp.put("sndMemNo",pListenForceLeaveVo.getDj_mem_no());            // 보낸 사람
             tmp.put("sndMemNk",pListenForceLeaveVo.getDj_nickname());
             String message =  gson.toJson(tmp);
