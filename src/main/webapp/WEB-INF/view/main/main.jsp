@@ -792,6 +792,23 @@
                 arrayList_x.push(arrayFormat);
             }
         }
+        if(param.viewType == 3) {
+            dalbitLog(detailData);
+            for (var i = 0; i < detailData.length; i++) {
+                var array = {};
+
+                if (common.isEmpty(detailData[i].day)) {
+                    array = 0;
+                } else{
+                    array = detailData[i].day;
+                }
+                // x축 데이터 1일~현재일까지
+
+                //
+                var arrayFormat = common.convertToDate(array, 'MM/DD');
+                arrayList_x.push(arrayFormat);
+            }
+        }
         dalbitLog(arrayList_x);
 
         //y축
@@ -817,7 +834,7 @@
             }
             arrayList_y.push(array);
             if(max_y < array){
-                max_y = array
+                max_y = array + 10;
             }
         }
         var resultData = {
