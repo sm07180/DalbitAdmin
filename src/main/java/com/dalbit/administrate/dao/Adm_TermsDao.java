@@ -17,6 +17,7 @@ public interface Adm_TermsDao {
 
     @Transactional(readOnly = true)
     int callTermsList_totalCnt(P_TermsListInputVo pTermsListInputVo);
+
     int callTermsUpdate(P_TermsDetailInputVo pTermsDetailInputVo);
     int callTermsInsert(P_TermsDetailInputVo pTermsDetailInputVo);
     int callTermsDelete(P_TermsDetailInputVo pTermsDetailInputVo);
