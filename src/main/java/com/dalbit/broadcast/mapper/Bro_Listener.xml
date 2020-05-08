@@ -19,4 +19,9 @@
         /* B_Listener.xml - callForceLeave */
         call rd_admin.sp_admin_broadcast_room_member_forced_leave(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <insert id="callForceLeave_roomBlock" parameterType="com.dalbit.broadcast.vo.procedure.P_ListenForceLeaveVo">
+        /* B_Listener.xml - callForceLeave */
+        INSERT INTO rd_data.tb_broadcast_room_block( mem_no, blocked_mem_no, last_upd_date) VALUES ( #{dj_mem_no}, #{mem_no}, NOW() );
+    </insert>
 </mapper>
