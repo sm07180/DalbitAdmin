@@ -153,7 +153,8 @@
     };
 
     function demo_refresh(){
-        $('#jstree').jstree(true).refresh();
+        getMenuList();
+        // $('#jstree').jstree(true).refresh();
     }
     function menu_info(dst_id, response) {
         var template = $('#tmp_menuFrm').html();
