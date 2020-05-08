@@ -39,7 +39,7 @@ var fnc_profileList = {
 //=------------------------------ Init / Event--------------------------------------------
     "targetId": "profileList",
     "formId" : "profileListForm",
-    "pagingInfo" : new PAGING_INFO(0, 1, 24),
+    "pagingInfo" : new PAGING_INFO(0, 1, 54),
 
     init() {
         this.target = $("#"+this.targetId);

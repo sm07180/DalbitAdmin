@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public interface Mem_GiftDao {
 
 //    ArrayList<P_MemberGiftOutputVo> callGiftHistory(ProcedureVo procedureVo);
+    ArrayList<P_MemberGiftOutputVo> callGiftHistory_all(P_MemberGiftInputVo pMemberGiftInputVo);
     ArrayList<P_MemberGiftOutputVo> callGiftHistory(P_MemberGiftInputVo pMemberGiftInputVo);
     int callGiftHistory_totalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
 

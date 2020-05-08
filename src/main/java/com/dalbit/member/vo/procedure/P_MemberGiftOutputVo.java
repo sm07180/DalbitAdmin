@@ -15,7 +15,7 @@ public class P_MemberGiftOutputVo extends SearchVo {
     private String gubun;
     private String ruby;
     private String room_no;
-    private String gifted_mem_no;
+    private String mem_no;
     private String item_type;
     private String userId;
     private String nickName;
