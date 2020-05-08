@@ -22,28 +22,19 @@
             <thead id="browserTable">
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="7">실시간</th>
-                <%--<th colspan="7" id="th_slctType">전일</th>--%>
+                <th colspan="4" id="th_after">실시간</th>
+                <th colspan="4" id="th_befor">전일</th>
             </tr>
             <tr>
                 <th>소계</th>
                 <th>안드로이드</th>
                 <th>아이폰</th>
                 <th>PC</th>
-                <%--<th>크롬</th>--%>
-                <%--<th>IE</th>--%>
-                <%--<th>파이어폭스</th>--%>
-                <%--<th>기타</th>--%>
 
-                <%--<th>소계</th>--%>
-                <%--<th>안드로이드</th>--%>
-                <%--<th>아이폰</th>--%>
-                <%--<th>PC</th>--%>
-                <%--<th>크롬</th>--%>
-                <%--<th>IE</th>--%>
-                <%--<th>파이어폭스</th>--%>
-                <%--<th>기타</th>--%>
-
+                <th>소계</th>
+                <th>안드로이드</th>
+                <th>아이폰</th>
+                <th>PC</th>
             </tr>
             </thead>
             <tbody id="browserTableBody"></tbody>
@@ -58,8 +49,6 @@
 </div>
 
 <script type="text/javascript">
-    $(function(){
-    });
 
     function getBrowserList(obj){
         util.getAjaxData("browser", "/rest/connect/login/info/browser", obj, fn_browser_success);
@@ -92,11 +81,14 @@
         }
 
         if($('input[name="slctType"]:checked').val() == 0) {
-            $("#browserTable").find("#th_slctType").text("전일");
+            $("#browserTable").find("#th_after").text("금일");
+            $("#browserTable").find("#th_befor").text("전일");
         }else if($('input[name="slctType"]:checked').val() == 1){
-            $("#browserTable").find("#th_slctType").text("전월");
+            $("#browserTable").find("#th_after").text("금월");
+            $("#browserTable").find("#th_befor").text("전월");
         }else if($('input[name="slctType"]:checked').val() == 2){
-            $("#browserTable").find("#th_slctType").text("전년");
+            $("#browserTable").find("#th_after").text("금년");
+            $("#browserTable").find("#th_befor").text("전년");
         }
     }
 </script>
@@ -107,17 +99,11 @@
         <td>{{addComma sum_androidCnt}}</td>
         <td>{{addComma sum_iosCnt}}</td>
         <td>{{addComma sum_pcCnt}}</td>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
 
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
+        <td>{{addComma sum_bTotalCnt}}</td>
+        <td>{{addComma sum_bAndroidCnt}}</td>
+        <td>{{addComma sum_bIosCnt}}</td>
+        <td>{{addComma sum_bPcCnt}}</td>
     </tr>
 </script>
 
@@ -133,21 +119,15 @@
         <td>{{addComma androidCnt}}</td>
         <td>{{addComma iosCnt}}</td>
         <td>{{addComma pcCnt}}</td>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
 
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
+        <td>{{addComma bTotalCnt}}</td>
+        <td>{{addComma bAndroidCnt}}</td>
+        <td>{{addComma bIosCnt}}</td>
+        <td>{{addComma bPcCnt}}</td>
     </tr>
     {{else}}
-    <tr>
-        <td colspan="11" class="noData">{{isEmptyData}}<td>
-    </tr>
+
+    <td colspan="10" class="noData">{{isEmptyData}}<td>
+
     {{/each}}
 </script>

@@ -19,10 +19,15 @@ public interface Men_RankDao {
     List<P_MainFanRankingVo> callMainFanRanking(ProcedureVo procedureVo);
 
     /* DJ 랭킹 */
+    @Transactional(readOnly = true)
     List<DjRankingVo> getMainDjRankingList(DjRankingVo djRankingVo);
+
+    @Transactional(readOnly = true)
     int getMainDjRankingListCnt(DjRankingVo djRankingVo);
 
     /* fan 랭킹*/
+    @Transactional(readOnly = true)
     List<FanRankingVo> getMainFanRankingList(FanRankingVo fanRankingVo);
+    @Transactional(readOnly = true)
     int getMainFanRankingListCnt(FanRankingVo fanRankingVo);
 }

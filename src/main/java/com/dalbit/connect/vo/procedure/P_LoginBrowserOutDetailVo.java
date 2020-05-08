@@ -18,4 +18,9 @@ public class P_LoginBrowserOutDetailVo {
     private int androidCnt;
     private int iosCnt;
     private int pcCnt;
+
+    private int bTotalCnt;
+    private int bAndroidCnt;
+    private int bIosCnt;
+    private int bPcCnt;
 }

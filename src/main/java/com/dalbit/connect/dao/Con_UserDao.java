@@ -4,6 +4,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.connect.vo.procedure.P_UserCurrentOutputVo;
 import com.dalbit.connect.vo.procedure.P_UserTotalOutDetailVo;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,9 @@ import java.util.List;
 @Repository
 public interface Con_UserDao {
 
+    @Transactional(readOnly = true)
     List<P_UserTotalOutDetailVo> callUserTotal(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
     ArrayList<P_UserCurrentOutputVo> callUserCurrent(ProcedureVo procedureVo);
 }

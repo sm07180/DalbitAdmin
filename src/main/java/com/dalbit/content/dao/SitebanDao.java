@@ -2,11 +2,16 @@ package com.dalbit.content.dao;
 
 import com.dalbit.content.vo.SitebanVo;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface SitebanDao {
-    public SitebanVo selectBanword();
-    public int updateBanword(SitebanVo sitebanVo);
 
+    @Transactional(readOnly = true)
+    SitebanVo selectBanword();
+
+    int updateBanword(SitebanVo sitebanVo);
+
+    @Transactional(readOnly = true)
     String excelBanword();
 }

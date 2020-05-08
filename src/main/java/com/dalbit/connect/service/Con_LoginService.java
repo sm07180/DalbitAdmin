@@ -169,12 +169,127 @@ public class Con_LoginService {
         List<P_LoginAgeOutDetailVo> detailList =  con_LoginDao.callLoginAge(procedureVo);
         P_LoginAgeOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginAgeOutVo.class);
 
-        if(Integer.parseInt(procedureVo.getRet()) <= 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd");
+
+        String EndDate = statVo.getEndDate();
+        String StartDate = statVo.getStartDate();
+
+        Date bEdate = new Date ();
+        Date bSdate = new Date ();
+        try {
+            Date eEDate = transFormat.parse(EndDate);
+            Date bSDate = transFormat.parse(StartDate);
+            Calendar eCal = Calendar.getInstance();
+            Calendar sCal = Calendar.getInstance();
+            if(statVo.getSlctType() == 0) {
+                bEdate.setTime(eEDate.getTime() - (long) 1000 * 60 * 60 * 24);
+                eCal.setTime(bEdate);
+                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH) + 1),2,"0") + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.DATE)),2,"0");
+                StartDate = EndDate;
+            }else if(statVo.getSlctType() == 1) {
+                bEdate.setTime(eEDate.getTime());
+                eCal.setTime(bEdate);
+                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH)),2,"0") + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.DATE)),2,"0");
+
+                bSdate.setTime(bSDate.getTime());
+                sCal.setTime(bSdate);
+                StartDate = String.valueOf(sCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.MONTH)),2,"0") + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.DATE)),2,"0");
+            }else if(statVo.getSlctType() == 2) {
+                bEdate.setTime(eEDate.getTime());
+                eCal.setTime(bEdate);
+                eCal.add(eCal.YEAR,-1);
+                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH) + 1),2,"0") + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.DATE)),2,"0");
+
+                bSdate.setTime(bSDate.getTime());
+                sCal.setTime(bSdate);
+                sCal.add(sCal.YEAR,-1);
+                StartDate = String.valueOf(sCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.MONTH) + 1),2,"0") + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.DATE)),2,"0");
+            }
+        }catch (ParseException e){
+            e.printStackTrace();
         }
+
+        statVo.setEndDate(EndDate);
+        statVo.setStartDate(StartDate);
+        procedureVo = new ProcedureVo(statVo);
+        List<P_LoginAgeOutDetailVo> bDetailList =  con_LoginDao.callLoginAge(procedureVo);
+        P_LoginAgeOutVo bTotalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginAgeOutVo.class);
+
+
+        log.info(procedureVo.getExt());
+
+        P_LoginAgeOutVo sumOutVo = new P_LoginAgeOutVo();
+        if(totalInfo.getSum_totalCnt() > 0) {
+            sumOutVo.setSum_totalCnt(totalInfo.getSum_totalCnt());
+            sumOutVo.setSum_age10Cnt(totalInfo.getSum_age10Cnt());
+            sumOutVo.setSum_age20Cnt(totalInfo.getSum_age20Cnt());
+            sumOutVo.setSum_age30Cnt(totalInfo.getSum_age30Cnt());
+            sumOutVo.setSum_age40Cnt(totalInfo.getSum_age40Cnt());
+            sumOutVo.setSum_age50Cnt(totalInfo.getSum_age50Cnt());
+            sumOutVo.setSum_age60Cnt(totalInfo.getSum_age60Cnt());
+            sumOutVo.setSum_bTotalCnt(bTotalInfo.getSum_totalCnt());
+            sumOutVo.setSum_bAge10Cnt(bTotalInfo.getSum_age10Cnt());
+            sumOutVo.setSum_bAge20Cnt(bTotalInfo.getSum_age20Cnt());
+            sumOutVo.setSum_bAge30Cnt(bTotalInfo.getSum_age30Cnt());
+            sumOutVo.setSum_bAge40Cnt(bTotalInfo.getSum_age40Cnt());
+            sumOutVo.setSum_bAge50Cnt(bTotalInfo.getSum_age50Cnt());
+            sumOutVo.setSum_bAge60Cnt(bTotalInfo.getSum_age60Cnt());
+        }else{
+            sumOutVo.setSum_totalCnt(0);
+            sumOutVo.setSum_age10Cnt(0);
+            sumOutVo.setSum_age20Cnt(0);
+            sumOutVo.setSum_age30Cnt(0);
+            sumOutVo.setSum_age40Cnt(0);
+            sumOutVo.setSum_age50Cnt(0);
+            sumOutVo.setSum_age60Cnt(0);
+            sumOutVo.setSum_bTotalCnt(0);
+            sumOutVo.setSum_bAge10Cnt(0);
+            sumOutVo.setSum_bAge20Cnt(0);
+            sumOutVo.setSum_bAge30Cnt(0);
+            sumOutVo.setSum_bAge40Cnt(0);
+            sumOutVo.setSum_bAge50Cnt(0);
+            sumOutVo.setSum_bAge60Cnt(0);
+        }
+
+        List list = new ArrayList();
+        for (int i=0; i < detailList.size(); i++){
+            P_LoginAgeOutDetailVo outVo = new P_LoginAgeOutDetailVo();
+            outVo.setDate(detailList.get(i).getDate());
+            outVo.setHour(detailList.get(i).getHour());
+            outVo.setYear(detailList.get(i).getYear());
+            outVo.setMonth(detailList.get(i).getMonth());
+            outVo.setDay(detailList.get(i).getDay());
+            outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+            outVo.setAge10Cnt(detailList.get(i).getAge10Cnt());
+            outVo.setAge20Cnt(detailList.get(i).getAge20Cnt());
+            outVo.setAge30Cnt(detailList.get(i).getAge30Cnt());
+            outVo.setAge40Cnt(detailList.get(i).getAge40Cnt());
+            outVo.setAge50Cnt(detailList.get(i).getAge50Cnt());
+            outVo.setAge60Cnt(detailList.get(i).getAge60Cnt());
+
+            if(i < bDetailList.size()){
+                outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
+                outVo.setBAge10Cnt(bDetailList.get(i).getAge10Cnt());
+                outVo.setBAge20Cnt(bDetailList.get(i).getAge20Cnt());
+                outVo.setBAge30Cnt(bDetailList.get(i).getAge30Cnt());
+                outVo.setBAge40Cnt(bDetailList.get(i).getAge40Cnt());
+                outVo.setBAge50Cnt(bDetailList.get(i).getAge50Cnt());
+                outVo.setBAge60Cnt(bDetailList.get(i).getAge60Cnt());
+            }else{
+                outVo.setBTotalCnt(0);
+                outVo.setBAge10Cnt(0);
+                outVo.setBAge20Cnt(0);
+                outVo.setBAge30Cnt(0);
+                outVo.setBAge40Cnt(0);
+                outVo.setBAge50Cnt(0);
+                outVo.setBAge60Cnt(0);
+            }
+            list.add(outVo);
+        }
+
         var result = new HashMap<String, Object>();
-        result.put("totalInfo", totalInfo);
-        result.put("detailList", detailList);
+        result.put("totalInfo", sumOutVo);
+        result.put("detailList", list);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
@@ -188,12 +303,106 @@ public class Con_LoginService {
         List<P_LoginBrowserOutDetailVo> detailList =  con_LoginDao.callLoginBrowser(procedureVo);
         P_LoginBrowserOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginBrowserOutVo.class);
 
-        if(Integer.parseInt(procedureVo.getRet()) <= 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd");
+
+        String EndDate = statVo.getEndDate();
+        String StartDate = statVo.getStartDate();
+
+        Date bEdate = new Date ();
+        Date bSdate = new Date ();
+        try {
+            Date eEDate = transFormat.parse(EndDate);
+            Date bSDate = transFormat.parse(StartDate);
+            Calendar eCal = Calendar.getInstance();
+            Calendar sCal = Calendar.getInstance();
+            if(statVo.getSlctType() == 0) {
+                bEdate.setTime(eEDate.getTime() - (long) 1000 * 60 * 60 * 24);
+                eCal.setTime(bEdate);
+                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH) + 1),2,"0") + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.DATE)),2,"0");
+                StartDate = EndDate;
+            }else if(statVo.getSlctType() == 1) {
+                bEdate.setTime(eEDate.getTime());
+                eCal.setTime(bEdate);
+                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH)),2,"0") + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.DATE)),2,"0");
+
+                bSdate.setTime(bSDate.getTime());
+                sCal.setTime(bSdate);
+                StartDate = String.valueOf(sCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.MONTH)),2,"0") + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.DATE)),2,"0");
+            }else if(statVo.getSlctType() == 2) {
+                bEdate.setTime(eEDate.getTime());
+                eCal.setTime(bEdate);
+                eCal.add(eCal.YEAR,-1);
+                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH) + 1),2,"0") + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.DATE)),2,"0");
+
+                bSdate.setTime(bSDate.getTime());
+                sCal.setTime(bSdate);
+                sCal.add(sCal.YEAR,-1);
+                StartDate = String.valueOf(sCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.MONTH) + 1),2,"0") + "." + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.DATE)),2,"0");
+            }
+        }catch (ParseException e){
+            e.printStackTrace();
         }
+
+        statVo.setEndDate(EndDate);
+        statVo.setStartDate(StartDate);
+        procedureVo = new ProcedureVo(statVo);
+        List<P_LoginBrowserOutDetailVo> bDetailList =  con_LoginDao.callLoginBrowser(procedureVo);
+        P_LoginBrowserOutVo bTotalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginBrowserOutVo.class);
+
+
+        log.info(procedureVo.getExt());
+
+        P_LoginBrowserOutVo sumOutVo = new P_LoginBrowserOutVo();
+        if(totalInfo.getSum_totalCnt() > 0) {
+            sumOutVo.setSum_totalCnt(totalInfo.getSum_totalCnt());
+            sumOutVo.setSum_androidCnt(totalInfo.getSum_androidCnt());
+            sumOutVo.setSum_iosCnt(totalInfo.getSum_iosCnt());
+            sumOutVo.setSum_pcCnt(totalInfo.getSum_pcCnt());
+            sumOutVo.setSum_bTotalCnt(bTotalInfo.getSum_totalCnt());
+            sumOutVo.setSum_bAndroidCnt(bTotalInfo.getSum_androidCnt());
+            sumOutVo.setSum_bIosCnt(bTotalInfo.getSum_iosCnt());
+            sumOutVo.setSum_bPcCnt(bTotalInfo.getSum_pcCnt());
+        }else{
+            sumOutVo.setSum_totalCnt(0);
+            sumOutVo.setSum_androidCnt(0);
+            sumOutVo.setSum_iosCnt(0);
+            sumOutVo.setSum_pcCnt(0);
+            sumOutVo.setSum_bTotalCnt(0);
+            sumOutVo.setSum_bAndroidCnt(0);
+            sumOutVo.setSum_bIosCnt(0);
+            sumOutVo.setSum_bPcCnt(0);
+        }
+
+        List list = new ArrayList();
+        for (int i=0; i < detailList.size(); i++){
+            P_LoginBrowserOutDetailVo outVo = new P_LoginBrowserOutDetailVo();
+            outVo.setDate(detailList.get(i).getDate());
+            outVo.setHour(detailList.get(i).getHour());
+            outVo.setYear(detailList.get(i).getYear());
+            outVo.setMonth(detailList.get(i).getMonth());
+            outVo.setDay(detailList.get(i).getDay());
+            outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+            outVo.setAndroidCnt(detailList.get(i).getAndroidCnt());
+            outVo.setIosCnt(detailList.get(i).getIosCnt());
+            outVo.setPcCnt(detailList.get(i).getPcCnt());
+
+            if(i < bDetailList.size()){
+                outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
+                outVo.setBAndroidCnt(bDetailList.get(i).getAndroidCnt());
+                outVo.setBIosCnt(bDetailList.get(i).getIosCnt());
+                outVo.setBPcCnt(bDetailList.get(i).getPcCnt());
+            }else{
+                outVo.setBTotalCnt(0);
+                outVo.setBAndroidCnt(0);
+                outVo.setBIosCnt(0);
+                outVo.setBPcCnt(0);
+            }
+            list.add(outVo);
+        }
+
         var result = new HashMap<String, Object>();
-        result.put("totalInfo", totalInfo);
-        result.put("detailList", detailList);
+        result.put("totalInfo", sumOutVo);
+        result.put("detailList", list);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }

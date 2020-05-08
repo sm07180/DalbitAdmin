@@ -10,8 +10,13 @@ import java.util.List;
 
 @Repository
 public interface Men_LiveDao {
+
     @Transactional(readOnly = true)
     List<P_RoomListVo> callBroadCastRoomList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
     List<LiveVo> getLiveList(LiveVo liveVo);
+
+    @Transactional(readOnly = true)
     int getLiveListCnt(LiveVo liveVo);
 }
