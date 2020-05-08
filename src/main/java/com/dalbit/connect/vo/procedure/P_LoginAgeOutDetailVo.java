@@ -21,4 +21,13 @@ public class P_LoginAgeOutDetailVo {
     private int age40Cnt;
     private int age50Cnt;
     private int age60Cnt;
+
+    private int bTotalCnt;
+    private int bAge10Cnt;
+    private int bAge20Cnt;
+    private int bAge30Cnt;
+    private int bAge40Cnt;
+    private int bAge50Cnt;
+    private int bAge60Cnt;
+
 }

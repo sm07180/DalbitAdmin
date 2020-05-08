@@ -22,8 +22,8 @@
             <thead id="ageTable">
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="7">실시간</th>
-                <%--<th colspan="7" id="th_slctType">전일</th>--%>
+                <th colspan="7" id="th_after">실시간</th>
+                <th colspan="7" id="th_befor">전일</th>
             </tr>
             <tr>
                 <th>소계</th>
@@ -34,13 +34,13 @@
                 <th>50대</th>
                 <th>60대이상</th>
 
-                <%--<th>소계</th>--%>
-                <%--<th>10대</th>--%>
-                <%--<th>20대</th>--%>
-                <%--<th>30대</th>--%>
-                <%--<th>40대</th>--%>
-                <%--<th>50대</th>--%>
-                <%--<th>60대이상</th>--%>
+                <th>소계</th>
+                <th>10대</th>
+                <th>20대</th>
+                <th>30대</th>
+                <th>40대</th>
+                <th>50대</th>
+                <th>60대이상</th>
 
             </tr>
             </thead>
@@ -56,8 +56,6 @@
 </div>
 
 <script type="text/javascript">
-    $(function(){
-    });
 
     function getAgeList(obj){
         util.getAjaxData("age", "/rest/connect/login/info/age", obj, fn_age_success);
@@ -90,11 +88,14 @@
         }
 
         if($('input[name="slctType"]:checked').val() == 0) {
-            $("#ageTable").find("#th_slctType").text("전일");
+            $("#ageTable").find("#th_after").text("금일");
+            $("#ageTable").find("#th_befor").text("전일");
         }else if($('input[name="slctType"]:checked').val() == 1){
-            $("#ageTable").find("#th_slctType").text("전월");
+            $("#ageTable").find("#th_after").text("금월");
+            $("#ageTable").find("#th_befor").text("전월");
         }else if($('input[name="slctType"]:checked').val() == 2){
-            $("#ageTable").find("#th_slctType").text("전년");
+            $("#ageTable").find("#th_after").text("금년");
+            $("#ageTable").find("#th_befor").text("전년");
         }
     }
 </script>
@@ -109,13 +110,13 @@
         <td>{{addComma sum_age50Cnt}}</td>
         <td>{{addComma sum_age60Cnt}}</td>
 
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
+        <td>{{addComma sum_bTotalCnt}}</td>
+        <td>{{addComma sum_bAge10Cnt}}</td>
+        <td>{{addComma sum_bAge20Cnt}}</td>
+        <td>{{addComma sum_bAge30Cnt}}</td>
+        <td>{{addComma sum_bAge40Cnt}}</td>
+        <td>{{addComma sum_bAge50Cnt}}</td>
+        <td>{{addComma sum_bAge60Cnt}}</td>
     </tr>
 </script>
 
@@ -135,17 +136,15 @@
         <td>{{addComma age50Cnt}}</td>
         <td>{{addComma age60Cnt}}</td>
 
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
-        <%--<td>0</td>--%>
+        <td>{{addComma bTotalCnt}}</td>
+        <td>{{addComma bAge10Cnt}}</td>
+        <td>{{addComma bAge20Cnt}}</td>
+        <td>{{addComma bAge30Cnt}}</td>
+        <td>{{addComma bAge40Cnt}}</td>
+        <td>{{addComma bAge50Cnt}}</td>
+        <td>{{addComma bAge60Cnt}}</td>
     </tr>
     {{else}}
-    <tr>
-        <td colspan="11" class="noData">{{isEmptyData}}<td>
-    </tr>
+    <td colspan="15" class="noData">{{isEmptyData}}<td>
     {{/each}}
 </script>
