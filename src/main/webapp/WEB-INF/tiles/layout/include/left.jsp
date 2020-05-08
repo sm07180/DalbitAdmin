@@ -131,6 +131,10 @@
 
 <script type="text/javascript">
 
+    $(function(){
+        ui.leftActiveFocus();
+    });
+
     $('._commingSoon').on('click', function(e){
         <c:if test="${fn:contains('/dev/', cfn:getActiveProfile())}">
             e.preventDefault();
@@ -160,4 +164,5 @@
             leftMenu.css('top', '0px');
         }
     });
+
 </script>

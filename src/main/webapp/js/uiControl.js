@@ -51,3 +51,7 @@ ui.checkBoxInit = function(tableId){
 ui.unCheck = function(tableId) {
     $('#' + tableId + ' .dt-body-center input[type="checkbox"]').prop('checked', false);
 }
+
+ui.leftActiveFocus = function(){
+    $('._leftFixed').scrollTop($('ul.main-menu li.active ul.sub-menu li.active').offset().top);
+}
