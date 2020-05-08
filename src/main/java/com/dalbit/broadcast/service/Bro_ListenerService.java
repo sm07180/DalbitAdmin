@@ -89,6 +89,8 @@ public class Bro_ListenerService {
         ProcedureVo procedureVo = new ProcedureVo(pListenForceLeaveVo);
         bro_ListenerDao.callForceLeave(procedureVo);
 
+        //재입장 불가능 하도록
+        bro_ListenerDao.callForceLeave_roomBlock(pListenForceLeaveVo);
         String result = "";
         if(Status.생방청취자강제퇴장_성공.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방청취자강제퇴장_성공));
