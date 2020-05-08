@@ -160,7 +160,7 @@
     }
 
     function menuSave(dst_id, data){
-        alert("로그인이 완료되었습니다.");
+        //alert("로그인이 완료되었습니다.");
         location.href="/index.html";
     }
 </script>
