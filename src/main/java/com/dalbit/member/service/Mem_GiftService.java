@@ -28,8 +28,12 @@ public class Mem_GiftService {
 
         pMemberGiftInputVo.setPageNo(pMemberGiftInputVo.getPageNo() -1);
         pMemberGiftInputVo.setPageNo(pMemberGiftInputVo.getPageNo() * pMemberGiftInputVo.getPageCnt());
-
-        ArrayList<P_MemberGiftOutputVo> giftList = mem_GiftDao.callGiftHistory(pMemberGiftInputVo);
+        ArrayList<P_MemberGiftOutputVo> giftList = null;
+        if(pMemberGiftInputVo.getSlctType() == -1){
+            giftList = mem_GiftDao.callGiftHistory_all(pMemberGiftInputVo);
+        }else{
+            giftList = mem_GiftDao.callGiftHistory(pMemberGiftInputVo);
+        }
         int memberList_totalCnt = mem_GiftDao.callGiftHistory_totalCnt(pMemberGiftInputVo);
 
         String result;
