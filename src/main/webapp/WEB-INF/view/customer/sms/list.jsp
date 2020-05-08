@@ -62,7 +62,7 @@
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
 <script type="text/javascript">
-    var listPagingInfo = new PAGING_INFO(0, 1, 20);
+    var listPagingInfo = new PAGING_INFO(0, 1, 50);
 
     $("#htmlTag").html("ㆍ서비스를 위한 문자 발송 대기/완료 상태 및 발송 내역을 확인할 수 있습니다. " +
         "<br>ㆍ대기 상태가 수일을 경과한 경우 SMS 발송 담당자에게 문의하여 주시기 바랍니다. " +

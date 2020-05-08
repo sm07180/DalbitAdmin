@@ -143,10 +143,10 @@
         }
     };
     dtList_info2 = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data2, MemberDataTableSource.withdrawalList);
-    dtList_info.useCheckBox(false);
+    dtList_info2.useCheckBox(false);
     dtList_info2.useIndex(true);
     dtList_info2.useInitReload(false);
-    dtList_info.setPageLength(100);
+    dtList_info2.setPageLength(100);
     dtList_info2.createDataTable(withdrawalListSummary);
     //
     // var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';

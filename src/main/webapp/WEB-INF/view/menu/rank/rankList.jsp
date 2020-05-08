@@ -98,7 +98,7 @@
 </div>
 
 <script type="text/javascript">
-     djRankListPagingInfo = new PAGING_INFO(0, 1, 10);
+     djRankListPagingInfo = new PAGING_INFO(0, 1, 50);
 
     $(function(){
         init();

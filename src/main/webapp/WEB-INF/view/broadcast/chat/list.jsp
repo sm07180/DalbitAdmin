@@ -35,7 +35,7 @@
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_chat_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(false);
-        dtList_info_detail.setPageLength(15);
+        dtList_info_detail.setPageLength(50);
         dtList_info_detail.createDataTable(chat_summary_table);
 
         $("#chatLeft").removeClass("col-md-6");
