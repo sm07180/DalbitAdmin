@@ -161,8 +161,9 @@ td._down {
     background-color: #f2f3bb;
 }
 
-/*._leftFixed {
+._leftFixed {
     position:fixed;
     overflow-y: scroll;
     top:54px;
-}*/
+    bottom: 0px;
+}
