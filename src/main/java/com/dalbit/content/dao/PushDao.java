@@ -4,21 +4,29 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public interface PushDao {
+
+    @Transactional(readOnly = true)
     ArrayList<P_pushListOutputVo> callContentsPushList(P_pushListInputVo pPushListInputVo);
+
+    @Transactional(readOnly = true)
     int callContentsPushListCnt(P_pushListInputVo pPushListInputVo);
+
+    @Transactional(readOnly = true)
     P_pushDetailOutputVo callContentsPushDetail(P_pushDetailInputVo pPushDetailInputVo);
+
     int callContentsPushAdd(P_pushInsertVo pPushInsertVo);
     int callContentsPushEdit(P_pushUpdateVo pPushUpdateVo);
     int callContentsPushDelete(P_pushDeleteVo pPushDeleteVo);
 
-
     ProcedureVo callStmpPushAdd(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
     List<P_MemberListOutputVo> selectMemInfo(List arrayList);
 }
