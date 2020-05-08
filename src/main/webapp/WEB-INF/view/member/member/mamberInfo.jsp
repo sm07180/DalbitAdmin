@@ -206,12 +206,12 @@
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
             }else if(tmp == "bt_resatNick"){
-                if(memberInfo_responseDate.nickName == $("#bt_resatNick").data('userid')){
+                if(memberInfo_responseDate.nickName == $("#td_userid").text()){
                     alert("이미 초기화된 닉네임 입니다. 닉네임 초기화가 불가능합니다.");
                     return;
                 }
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
-                    obj.nickName = $("#bt_resatNick").data('userid');
+                    obj.nickName = $("#td_userid").text();
                     sendNoti = 0;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.nickNameReset;
@@ -472,7 +472,7 @@
         </tr>
         <tr>
             <th>UserId</th>
-            <td colspan="3" style="text-align: left">{{userId}}</td>
+            <td colspan="3" style="text-align: left" id="td_userid">{{userId}}</td>
             <th>보유달</th>
             <td style="text-align: left">{{dal}} 개</td>
         </tr>
