@@ -6,6 +6,38 @@
         <!--/* Mem_Gift.xml - callGiftHistory */-->
     <!--</select>-->
 
+
+    <select id="callGiftHistory_all" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
+        /* Mem_Gift.xml - callGiftHistory_all */
+        select @rownum := @rownum + 1 as rowNum,
+               c.*
+          FROM
+              ( SELECT a.gubun,a.ruby,a.room_no,a.mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`
+                      , a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.itemCnt, b.item_thumbnail, secret
+                  FROM (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,item_type
+                               , gifted_mem_no as mem_no
+                               , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS userId
+                               , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS nickName
+                              , mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
+                          FROM rd_data.tb_member_broadcast_item
+                         where mem_no = #{mem_no}) AS a
+                 LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
+                 union
+                 SELECT a.gubun,a.ruby,a.room_no,a.mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`
+                      , a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.itemCnt, b.item_thumbnail, secret
+                  FROM (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,item_type
+                              , mem_no
+                              , mem_userid AS userId, mem_nick AS nickName
+                              , mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
+                          FROM rd_data.tb_member_broadcast_item
+                         where gifted_mem_no = #{mem_no}) AS a
+                 LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
+                ORDER BY giftDate DESC
+                limit #{pageNo}, #{pageCnt}
+        ) AS c, (select @rownum := #{pageNo} ) AS d
+
+    </select>
+
     <select id="callGiftHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
         /* Mem_Gift.xml - callGiftHistory */
         select @rownum := @rownum + 1 as rowNum,
@@ -14,16 +46,23 @@
               ( SELECT
                   a.gubun,a.ruby,a.room_no,a.mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`, a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.itemCnt, b.item_thumbnail, secret
                 FROM
-                  (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,mem_no,item_type, mem_userid
-                      AS userId, mem_nick AS nickName, mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
-                      FROM rd_data.tb_member_broadcast_item
-                      <if test="slctType == -1">    <!-- 전체 -->
-                        where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}) AS a
+                  (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,item_type
+                      <if test="slctType == 0">    <!-- 보낸 선물 -->
+                          , gifted_mem_no as mem_no
+                          , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS userId
+                          , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS nickName
                       </if>
-                      <if test="slctType == 0">    <!-- 보낸선물 -->
+                      <if test="slctType == 1">    <!-- 받은 선물 -->
+                          , mem_no
+                          , mem_userid AS userId, mem_nick AS nickName
+                      </if>
+
+                      , mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
+                      FROM rd_data.tb_member_broadcast_item
+                      <if test="slctType == 0">    <!-- 보낸 선물 -->
                         where mem_no = #{mem_no}) AS a
                       </if>
-                      <if test="slctType == 1">    <!-- 전체 -->
+                      <if test="slctType == 1">    <!-- 받은 선물 -->
                         where gifted_mem_no = #{mem_no}) AS a
                       </if>
                   LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
