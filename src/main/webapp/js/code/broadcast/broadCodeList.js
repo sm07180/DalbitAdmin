@@ -72,6 +72,7 @@ var state = [
     , new COMMON_CODE('0', '0', '청취중')
     , new COMMON_CODE('1', '1', '퇴장')
     , new COMMON_CODE('2', '2', '강제퇴장')
+    , new COMMON_CODE('3', '3', '접속이상')
 ];
 
 var djOs = [
@@ -124,11 +125,13 @@ var chat_summary = [
 
 var broadcast_state = [
     new COMMON_CODE('','state','방송방상태')
+    ,new COMMON_CODE('0','0','미디어서버비정상')
     ,new COMMON_CODE('1','1','방송중')
     ,new COMMON_CODE('2','2','mic off')
     ,new COMMON_CODE('3','3','통화중')
     ,new COMMON_CODE('4','4','방송종료')
     ,new COMMON_CODE('5','5','DJ비정상종료')
+    ,new COMMON_CODE('6','6','방송준비중')
 ]
 
 var broadcast_state_icon = [
