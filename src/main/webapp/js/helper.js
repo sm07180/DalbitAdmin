@@ -126,6 +126,11 @@ Handlebars.registerHelper("getCommonCodeLabelAndHidden", function(value, targetC
     return util.getCommonCodeLabelAndHidden(value, targetCode, name);
 });
 
+Handlebars.registerHelper("replaceNewLineToBr", function(value)
+{
+    return util.replaceNewLineToBr(value);
+});
+
 Handlebars.registerHelper("replaceHtml", function(value)
 {
     return common.replaceHtml(value);
