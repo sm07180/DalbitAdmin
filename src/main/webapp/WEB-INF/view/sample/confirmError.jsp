@@ -198,7 +198,7 @@
         <td>{{build}}</td>
         <td>{{dtype}}</td>
         <td>{{ctype}}</td>
-        <td style="text-align:left">{{replaceNewLineToBr desc}}</td>
+        <td style="text-align:left">{{{replaceNewLineToBr desc}}}</td>
     </tr>
     {{else}}
     <tr>
