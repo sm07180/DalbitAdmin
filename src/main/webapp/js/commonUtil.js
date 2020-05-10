@@ -337,9 +337,9 @@ util.getCommonCodeLabelAndHidden = function(code, targetCode, name) {
 },
 
 util.replaceNewLineToBr = function(text){
-    text = text.replace("\n", "<br />");
-    text = text.replace("\r", "");
-    text = text.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+    text = text.split("\\n").join("<br />");
+    text = text.split("\\r").join("");
+    text = text.split("\\t").join("&nbsp;&nbsp;&nbsp;&nbsp;");
     return text;
 },
 
