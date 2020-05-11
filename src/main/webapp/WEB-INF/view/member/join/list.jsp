@@ -96,6 +96,9 @@
         }else if($('input[name="joinDate"]:checked').val() == "4") {               // 선택
             $("#txt_selDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"))
         }
+        if($('input[name="joinDate"]:checked').val() != "4") {               // 선택
+            $("#txt_selDate").val(null);
+        }
         getUserInfo();
     });
 
