@@ -54,7 +54,7 @@
 
 <script>
     $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
-    $("#searchRoom_state").html(util.getCommonCodeSelect(-1, searchRoom_state));
+    $("#searchRoom_state").html(util.getCommonCodeSelect(1, searchRoom_state));
     $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
 
     $(document).ready(function() {
@@ -79,6 +79,7 @@
         getSearch();
     });
 
+    var tmp_room_liveType = 1;
     var dtList_info;
     var dtList_info_data = function ( data ) {
         var slctType = $('input[name="searchRadio"]:checked').val();
@@ -96,7 +97,7 @@
             data.room_searchText = $('#txt_search').val();
             data.ortStartDate =2;
         }
-        data.room_state = $("select[name='searchRoom_state']").val();
+        data.room_liveType = tmp_room_liveType;
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
     dtList_info.useCheckBox(true);
@@ -110,11 +111,9 @@
     var tmp_dj_slctType = -1;
     var tmp_dj_searchText;
     var tmp_room_slctType = -1;
-    var tmp_room_searchText;
-    var tmp_room_state = -1;
     function getSearch(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        var slctType = $('input[name="searchRadio"]:checked').val()
+        var slctType = $('input[name="searchRadio"]:checked').val();
         tmp_slctType = $('input[name="searchRadio"]:checked').val();
         if(slctType == "1"){
             tmp_dj_slctType = $("select[name='searchType_broad']").val();
@@ -123,7 +122,7 @@
             tmp_room_slctType = $("select[name='searchBroad_broad']").val();
             tmp_room_searchText = $('#txt_search').val();
         }
-        tmp_room_state = $("select[name='searchRoom_state']").val();
+        tmp_room_liveType = $("select[name='searchRoom_state']").val();
         dtList_info.reload();
         ui.toggleSearchList();
         $('#detailFrm').addClass("hid");
@@ -157,7 +156,7 @@
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_searchText", tmp_room_searchText);
-        formData.append("room_state", tmp_room_state);
+        formData.append("room_liveType", tmp_room_liveType);
         util.excelDownload($(this), "/rest/broadcast/broadcast/broadcastListExcel", formData)
     });
 

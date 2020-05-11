@@ -159,7 +159,7 @@
     }
 
     function fullSize_background(url) {     // 이미지 full size
-        $("#imageFullSize").html(util.("fullSize_background",url));
+        $("#imageFullSize").html(util.imageFullSize("fullSize_background",url));
         $('#fullSize_background').modal('show');
     }
     function modal_close(){

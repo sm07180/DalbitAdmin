@@ -24,8 +24,8 @@
 
     <!-- DATA TABLE -->
     <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
-        <li class="active"><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(0);">실시간방송</a></li>
-        <li><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(4);">종료방송</a></li>
+        <li class="active"><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(1);">실시간방송</a></li>
+        <li><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(2);">종료방송</a></li>
     </ul>
     <div class="row col-lg-12 form-inline">
         <div class="tab-content no-padding">
@@ -84,6 +84,7 @@
         getSearch();
     });
 
+    var room_liveType = 1;
     var dtList_info="";
     var dtList_info_data = function (data) {
         var slctType = $('input[name="searchRadio"]:checked').val();
@@ -101,7 +102,7 @@
             data.room_searchText = $('#txt_search').val();
             data.ortStartDate =2;
         }
-        data.room_state = tmp_state;
+        data.room_liveType = room_liveType;
     };
     dalbitLog(dtList_info_data);
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
@@ -139,7 +140,6 @@
     var tmp_dj_searchText;
     var tmp_room_slctType = -1;
     var tmp_room_searchText;
-    var tmp_state = 0;
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         var slctType = $('input[name="searchRadio"]:checked').val();
@@ -155,7 +155,8 @@
     }
 
     function liveList(tmp){
-        tmp_state = tmp;
+        console.log(tmp);
+        room_liveType = tmp;
         getSearch();
     }
 
