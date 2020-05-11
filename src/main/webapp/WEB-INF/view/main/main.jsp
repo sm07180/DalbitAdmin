@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!--종합현황-->
-            <h3><span id="dateArea"></span>종합현황</h3>
+            <h3><span id="dateArea"></span></h3>
             <div class="widget widget-table mb10">
                 <div class="widget-header">
                     <h3><i class="fa fa-bar-chart-o"></i> 숫자를 클릭하면 자세한 사항을 확인 할 수 있습니다.</h3>
@@ -592,7 +592,7 @@
         getMemberJoinStat();
 
         dateTime = moment(dateTime).format("YYYY.MM.DD");
-        var dateTime2 = moment(dateTime).format("YYYY" + "년" + "MM" + "월" + "DD" + "일 ");
+        var dateTime2 = moment(dateTime).format("YYYY" + "년" + "MM" + "월" + "DD" + "일 종합현황");
         $("._searchDate").html(dateTime);
         $("#dateArea").html(dateTime2);
         //term_click("day",true);
