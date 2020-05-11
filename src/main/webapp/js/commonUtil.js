@@ -336,6 +336,13 @@ util.getCommonCodeLabelAndHidden = function(code, targetCode, name) {
     }
 },
 
+util.replaceNewLineToBr = function(text){
+    text = text.split("\\n").join("<br />");
+    text = text.split("\\r").join("");
+    text = text.split("\\t").join("&nbsp;&nbsp;&nbsp;&nbsp;");
+    return text;
+},
+
 util.renderOnOff = function(value){
     if(value == 1){
         return ' <i class="fa fa-circle"></i>' + " ON" ;

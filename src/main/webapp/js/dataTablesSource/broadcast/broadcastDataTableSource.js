@@ -118,6 +118,10 @@ var BroadcastDataTableSource = {
                         return data + "통화중";
                     } else if (data == "5"){
                         return "DJ비정상종료";
+                    } else if (data == "6"){
+                        return "방송준비중";
+                    } else if (data == "0"){
+                        return "미디어서버접속이상";
                     }
                 }},
         ]

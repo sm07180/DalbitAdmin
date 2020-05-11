@@ -119,7 +119,7 @@
             $(this).html($(this).val());
         });
 
-        getErrorList();
+        //getErrorList(); 20.05.09 검색해야지만 노출되게 이재은
     }
 
     function getErrorList(){
@@ -198,7 +198,7 @@
         <td>{{build}}</td>
         <td>{{dtype}}</td>
         <td>{{ctype}}</td>
-        <td style="text-align:left">{{desc}}</td>
+        <td style="text-align:left">{{{replaceNewLineToBr desc}}}</td>
     </tr>
     {{else}}
     <tr>
