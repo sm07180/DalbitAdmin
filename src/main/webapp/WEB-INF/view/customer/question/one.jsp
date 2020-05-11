@@ -177,7 +177,7 @@
                     <tr>
                         <th colspan="2">문의내용</th>
                         <td colspan="6">
-                            <textarea class="form-control fit-table" rows="5">{{question_contents}}</textarea>
+                            <textarea class="form-control fit-table" rows="5">{{replaceHtml question_contents}}</textarea>
                         </td>
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>

@@ -88,6 +88,7 @@
 <script src="/js/dataTablesSource/utilDataTableSource.js"></script>
 <script src="/js/dataTablesSource/administrate/faqDataTableSource.js"></script>
 <script src="/js/dataTablesSource/administrate/termsDataTableSource.js"></script>
+<script src="/js/dataTablesSource/administrate/messageDataTableSource.js"></script>
 <script src="/js/dataTablesSource/sample/sampleDataTableSource.js"></script>
 <script src="/js/dalbitDataTableUtil.js"></script>
 <script src="/js/code/commonCode.js"></script>
