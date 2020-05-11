@@ -62,7 +62,8 @@
                             </div>
                         </div>
 
-                        <div class="dataTables_paginate paging_full_numbers col-md-12" id="list_info_paginate_top"></div>
+                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
+
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                         </table>
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
@@ -99,6 +100,8 @@
         </div>
     </div>
 </div>
+<!-- 이미지 원본 보기 -->
+<div id="imageFullSize"></div>
 
 <script type="text/javascript">
      djRankListPagingInfo = new PAGING_INFO(0, 1, 50);
@@ -162,6 +165,27 @@
         djRankListPagingInfo = pagingInfo;
         init();
     }
+     mouseOver();
+     function mouseOver(){
+         var xOffset = 10;
+         var yOffset = 30;
+
+         $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+             $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
+             $("#preview")
+                 .css("top",(e.pageY - xOffset) + "px")
+                 .css("left",(e.pageX + yOffset) + "px")
+                 .fadeIn("fast");
+         });
+         $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
+             $("#preview")
+                 .css("top",(e.pageY - xOffset) + "px")
+                 .css("left",(e.pageX + yOffset) + "px");
+         });
+         $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
+             $("#preview").remove();
+         });
+     }
 
 </script>
 
@@ -262,9 +286,9 @@
             </td>
             <td>
                 {{#equal fan.image_profile ''}}
-                    <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
+                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
                 {{else}}
-                    <img src="{{viewImage fan.image_profile}}" style='height:100px; width:auto;' />
+                    <img class="thumbnail" src="{{viewImage fan.image_profile}}" style='height:100px; width:auto;' />
                 {{/equal}}
             </td>
             <td>

@@ -41,7 +41,7 @@ public class Sta_ItemService {
         P_ItemLiveOutputVo itemLive = new Gson().fromJson(procedureVo.getExt(), P_ItemLiveOutputVo.class);
 
         var result = new HashMap<String, Object>();
-        result.put("LiveInfo", itemLive);
+        result.put("liveInfo", itemLive);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 

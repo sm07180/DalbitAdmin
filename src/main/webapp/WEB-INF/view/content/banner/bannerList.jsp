@@ -259,7 +259,7 @@ var fnc_bannerList = {
 <script id="tmp_bannerListStatisticsFrm" type="text/x-handlebars-template">
 
     <div id="div_summary" style="float:left">
-        <table class="table table-bordered table-dalbit text-center" style="width:400px;">
+        <table class="table table-sorting table-hover table-bordered dataTable no-footer" style="width:400px;">
             <colgroup>
                 <col width="8%" />
                 <col width="8%" />
