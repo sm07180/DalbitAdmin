@@ -40,9 +40,9 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     this.initDataTableSource();
 
     this.dataTableSource = {
-        dom: '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">>rt<"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">p>',
+        dom: '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">><"dataTable-top-page  col-md-12" p>rt<"dataTable-foot-page  col-md-12" p><"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">>',
         destroy: true,                                                                   //테이블 파괴가능
-        pageLength: 5,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
+        pageLength: 10,                                                                  // 한 페이지에 기본으로 보여줄 항목 수
         bPaginate: true,                                                                // 페이징 처리 여부.
         bLengthChange: true,                                                        //  페이지 표시 건수 변동 기능 사용 여부
         lengthMenu : [ [ 5, 10, 20, 30, 40 ], [ 5, 10, 20, 30, 40 ] ],                  // "bLengthChange" 리스트 항목을 구성할 옵션
@@ -389,6 +389,15 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     DalbitDataTable.prototype.useOrdering = function(isUse){
         if(common.isEmpty(isUse)){return false;}
         this.dataTableSource.ordering = isUse;
+    }
+
+    // Top Page 노출 여부 (default True)
+    DalbitDataTable.prototype.useTopPage = function(isView){
+        if(isView){
+            this.dataTableSource.dom = '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">><"dataTable-top-page col-md-12" p>rt<"dataTable-foot-page  col-md-12" p><"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">>';
+        }else{
+            this.dataTableSource.dom = '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">><"dataTable-top-page col-md-12">rt<"dataTable-foot-page  col-md-12" p><"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">>';
+        }
     }
 
 

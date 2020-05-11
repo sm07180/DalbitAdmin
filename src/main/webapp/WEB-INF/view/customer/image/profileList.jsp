@@ -15,6 +15,7 @@
                     </div>
                 </div>
 
+                <div class="dataTables_paginate paging_full_numbers" id="profileList_info_paginate_top"></div>
                 <div class="row list-group king-gallery">
                 <%--<div class="row list-group">--%>
                     <form id="profileListForm"></form>
@@ -144,6 +145,7 @@ var fnc_profileList = {
         var pagingInfo = response.pagingVo;
         fnc_profileList.pagingInfo.totalCnt = pagingInfo.totalCnt;
         console.log(fnc_profileList.pagingInfo);
+        util.renderPagingNavigation("profileList_info_paginate_top", fnc_profileList.pagingInfo);
         util.renderPagingNavigation("profileList_info_paginate", fnc_profileList.pagingInfo);
 
         fnc_profileList.initEvent();

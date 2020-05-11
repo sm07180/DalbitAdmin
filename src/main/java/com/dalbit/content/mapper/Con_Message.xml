@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.content.dao.Con_MessageDao" >
+
+    <!-- 방송방메시지 -->
+    <sql id="messageSelect">
+        SELECT
+            idx                         AS message_idx
+            ,send_cont
+            ,reg_date
+            ,op_name
+        FROM rd_admin.tb_admin_message
+    </sql>
+
+    <!-- 배너 -->
+    <select id="callContentsMessageListCnt" parameterType="com.dalbit.content.vo.procedure.P_MessageListInputVo" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM
+          rd_admin.tb_admin_message
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == -1'>
+                        AND (send_cont like concat('%', #{searchText}, '%')
+                        or op_name like concat('%', #{searchText}, '%'))
+                    </when>
+                    <when test='searchType == 1'>
+                        AND send_cont like concat('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND op_name like concat('%', #{searchText}, '%')
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <select id="callContentsMessageList" parameterType="com.dalbit.content.vo.procedure.P_MessageListInputVo" resultType="com.dalbit.content.vo.procedure.P_MessageListOutputVo">
+        select
+            @rownum := @rownum + 1 as rowNum,
+            a.*
+        FROM
+        (
+            <include refid="messageSelect"/>
+            <where>
+                <if test='searchText != null and searchText != ""'>
+                    <choose>
+                        <when test='searchType == -1'>
+                            AND (send_cont like concat('%', #{searchText}, '%')
+                            or op_name like concat('%', #{searchText}, '%'))
+                        </when>
+                        <when test='searchType == 1'>
+                            AND send_cont like concat('%', #{searchText}, '%')
+                        </when>
+                        <when test='searchType == 2'>
+                            AND op_name like concat('%', #{searchText}, '%')
+                        </when>
+                    </choose>
+                </if>
+            </where>
+        ) AS a,
+        (select @rownum := #{pageStart}) AS b
+        <trim prefix="ORDER BY">
+            a.reg_date desc
+        </trim>
+        limit  #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="callContentsMessageDetail" parameterType="com.dalbit.content.vo.procedure.P_MessageDetailInputVo" resultType="com.dalbit.content.vo.procedure.P_MessageDetailOutputVo">
+        <include refid="messageSelect"/>
+         WHERE
+            idx like #{message_idx}
+    </select>
+
+    <insert id="callContentsMessageAdd" parameterType="com.dalbit.content.vo.procedure.P_MessageInsertVo">
+          INSERT INTO rd_admin.tb_admin_message
+          (
+                send_cont
+                ,op_name
+                ,reg_date
+          )
+          VALUES
+          (
+                #{send_cont}
+                ,#{opName}
+                ,NOW()
+          )
+    </insert>
+
+</mapper>

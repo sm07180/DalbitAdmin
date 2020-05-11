@@ -35,6 +35,7 @@
                 <div id="htmlTag"></div>
                 <div class="widget widget-table">
                     <div class="widget-content mt10">
+                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
                         <table id="smsList" class="table table-sorting table-hover table-bordered datatable">
                             <thead>
                                 <th>No</th>
@@ -47,8 +48,8 @@
                             </thead>
                             <tbody id="tableBody"></tbody>
                         </table>
+                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     </div>
-                    <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     <span>
                         <button class="btn btn-default print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
                     </span>
@@ -134,6 +135,7 @@
         var pagingInfo = response.pagingVo;
         listPagingInfo.totalCnt = pagingInfo.totalCnt;
         dalbitLog(listPagingInfo);
+        util.renderPagingNavigation("list_info_paginate_top", listPagingInfo);
         util.renderPagingNavigation("list_info_paginate", listPagingInfo);
 
         var btn = $(".paginate_button");

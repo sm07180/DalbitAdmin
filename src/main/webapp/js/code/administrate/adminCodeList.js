@@ -79,3 +79,10 @@ var terms_platform = [
     , new COMMON_CODE('android', '1', 'Android')
     , new COMMON_CODE('ios', '2', 'IOS')
 ];
+
+var message_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('cont', '1', '내용')
+    , new COMMON_CODE('opName', '2', '작성자')
+];
