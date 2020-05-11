@@ -4,14 +4,14 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.security.vo.InforexLoginLayoutVo;
-import com.dalbit.util.CookieUtil;
-import com.dalbit.util.GsonUtil;
+import com.dalbit.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import sun.security.krb5.internal.crypto.Aes128;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +36,14 @@ public class AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccess
 
         HashMap map = new HashMap();
         map.put("returnUrl", "index.html");
+
+        String memId = request.getParameter("memId");
+        String memPwd = request.getParameter("memPwd");
+
+        String encCookieValue = AES.encrypt(memId+DalbitUtil.getProperty("dalbit.cookie.seperate")+memPwd, DalbitUtil.getProperty("aes.crypto.key"));
+
+        //cookie 생성
+        response.addCookie(CookieUtil.createCookie(DalbitUtil.getProperty("dalbit.cookie.name"), encCookieValue, "/", 31536000));
 
         InforexLoginLayoutVo inforexLoginLayoutVo = (InforexLoginLayoutVo)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         gsonUtil.responseJsonOutputVoToJson(response, new JsonOutputVo(Status.로그인성공, inforexLoginLayoutVo));

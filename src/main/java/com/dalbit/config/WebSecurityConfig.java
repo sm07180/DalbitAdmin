@@ -1,5 +1,6 @@
 package com.dalbit.config;
 
+import com.dalbit.security.filter.SsoAuthenticationFilter;
 import com.dalbit.security.handler.LogoutHandlerImpl;
 import com.dalbit.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices;
 
 
@@ -37,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired private LogoutHandlerImpl logoutHandler;
     @Autowired private UserDetailsServiceImpl userDetailsService;
     @Autowired private AuthenticationProvider authProvider;
+    @Autowired private SsoAuthenticationFilter ssoAuthenticationFilter;
 
     private final static String REMEMBER_ME_KEY = "INFOREX_ADMIN_REMEMBER_ME";
 
@@ -82,10 +85,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .successHandler(authSuccessHandler) //로그인 성공 시 처리
             .failureHandler(authFailureHandler) //로그인 실패 시 처리
 
+            .and()
+                .addFilterBefore(ssoAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             /*.and()
             .exceptionHandling().accessDeniedPage("/login")*/
 
-            .and()
                 .userDetailsService(userDetailsService)
                 .authorizeRequests()
                 .antMatchers(
@@ -94,18 +98,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
 
-            .and()
-                /*.rememberMe()
+            /*.and()
+                *//*.rememberMe()
                 .key(REMEMBER_ME_KEY)
                 .rememberMeParameter("remember-me-new")
                 .rememberMeCookieName("rememberMe1234")
                 .tokenValiditySeconds(604800)
                 .userDetailsService(userDetailsService)
-                .authenticationSuccessHandler(authSuccessHandler)*/
+                .authenticationSuccessHandler(authSuccessHandler)*//*
 
                 .rememberMe()
                 .key(REMEMBER_ME_KEY)
-                .rememberMeServices(tokenBasedRememberMeServices())
+                .rememberMeServices(tokenBasedRememberMeServices())*/
 
             .and()
                 .logout()
@@ -137,7 +141,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(REMEMBER_ME_KEY, userDetailsService);
         rememberMeServices.setAlwaysRemember(true);
         rememberMeServices.setParameter("remember-me-new");
-        rememberMeServices.setTokenValiditySeconds(604800);
+        rememberMeServices.setTokenValiditySeconds(31536000);
         rememberMeServices.setCookieName(REMEMBER_ME_KEY);
         return rememberMeServices;
     }

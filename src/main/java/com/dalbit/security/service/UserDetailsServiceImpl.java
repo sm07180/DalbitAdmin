@@ -1,6 +1,8 @@
 package com.dalbit.security.service;
 
 import com.dalbit.security.vo.SecurityUserVo;
+import com.dalbit.util.AES;
+import com.dalbit.util.CookieUtil;
 import com.dalbit.util.DalbitUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,12 +69,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         }*/
 
+        if(username.contains(DalbitUtil.getProperty("dalbit.cookie.seperate"))){
+            String[] cookieValues = username.split(DalbitUtil.getProperty("dalbit.cookie.seperate"));
+            username = cookieValues[0];
+        }
+
         Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         SecurityUserVo securityUserVo = new SecurityUserVo(
-                DalbitUtil.convertRequestParamToString(request,"memId")
-                , DalbitUtil.convertRequestParamToString(request, "memType")
+                username
+                , username
                 , authorities);
 
         return securityUserVo;

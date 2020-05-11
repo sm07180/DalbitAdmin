@@ -1,16 +1,7 @@
 package com.dalbit.security.service;
 
-import com.dalbit.exception.CustomUsernameNotFoundException;
-import com.dalbit.exception.GlobalException;
 import com.dalbit.security.vo.InforexLoginLayoutVo;
-import com.dalbit.security.vo.SecurityUserVo;
-import com.dalbit.util.DalbitUtil;
-import com.dalbit.util.OkHttpClientUtil;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,10 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 @Slf4j
 @Component("authProvider")

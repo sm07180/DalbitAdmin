@@ -4,6 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.exception.CustomUsernameNotFoundException;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.security.vo.InforexLoginLayoutVo;
+import com.dalbit.util.CookieUtil;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.OkHttpClientUtil;
 import com.google.gson.Gson;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,20 +27,38 @@ public class InforexAdminLoginService {
     @Autowired
     HttpServletRequest request;
 
-    public InforexLoginLayoutVo login() throws CustomUsernameNotFoundException {
-        try {
+    @Autowired
+    HttpServletResponse response;
 
-            RequestBody formBody = new FormBody.Builder()
-                .add("userid", DalbitUtil.convertRequestParamToString(request, "memId"))
-                .add("password", DalbitUtil.convertRequestParamToString(request, "memPwd"))
+    public InforexLoginLayoutVo login() throws CustomUsernameNotFoundException {
+        RequestBody formBody = new FormBody.Builder()
+            .add("userid", DalbitUtil.convertRequestParamToString(request, "memId"))
+            .add("password", DalbitUtil.convertRequestParamToString(request, "memPwd"))
+            .add("mode", "login")
+            .add("where", "dalbit")
+            .build();
+
+        return loginProcess(formBody);
+    }
+
+    public InforexLoginLayoutVo cookieLogin(String memId, String memPwd) throws CustomUsernameNotFoundException {
+        RequestBody formBody = new FormBody.Builder()
+                .add("userid", memId)
+                .add("password", memPwd)
                 .add("mode", "login")
                 .add("where", "dalbit")
                 .build();
 
+        return loginProcess(formBody);
+    }
+
+    public InforexLoginLayoutVo loginProcess(RequestBody formBody) throws CustomUsernameNotFoundException {
+        try{
+
             OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
 
-            Response response = okHttpClientUtil.sendPost(DalbitUtil.getProperty("inforex.api.login.url"), formBody);
-            String inforexLoginResult = response.body().string();
+            Response apiResponse = okHttpClientUtil.sendPost(DalbitUtil.getProperty("inforex.api.login.url"), formBody);
+            String inforexLoginResult = apiResponse.body().string();
             InforexLoginLayoutVo inforexLoginLayoutVo = new Gson().fromJson(inforexLoginResult, InforexLoginLayoutVo.class);
 
             if(DalbitUtil.isEmpty(inforexLoginLayoutVo) || DalbitUtil.isEmpty(inforexLoginLayoutVo.getSuccess())){
@@ -53,8 +73,16 @@ public class InforexAdminLoginService {
                 log.info("회원정보 : {}", inforexLoginLayoutVo.getUserInfo());
 
                 if (!DalbitUtil.isEmpty(inforexLoginLayoutVo)) {
-                    ArrayList cookieList = (ArrayList) response.headers().toMultimap().get("set-cookie");
+                    ArrayList cookieList = (ArrayList) apiResponse.headers().toMultimap().get("set-cookie");
                     inforexLoginLayoutVo.setLoginCookieVo(DalbitUtil.parseCookieList(cookieList));
+
+                    inforexLoginLayoutVo.getLoginCookieVo().stream().forEach(cookieVo -> {
+                        try {
+                            response.addCookie(CookieUtil.createCookie(cookieVo.getKey(), cookieVo.getValue(), cookieVo.getDomain(), cookieVo.getPath(), 31536000));
+                        }catch (Exception e){
+
+                        }
+                    });
                 }
             }
 
