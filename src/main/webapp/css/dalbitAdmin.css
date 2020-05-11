@@ -167,3 +167,14 @@ td._down {
     top:54px;
     bottom: 0px;
 }
+
+/* 미리보기 스타일 셋팅 */
+#preview{
+    z-index: 9999;
+    position:absolute;
+    border:0px solid #ccc;
+    background:#333;
+    padding:1px;
+    display:none;
+    color:#fff;
+}

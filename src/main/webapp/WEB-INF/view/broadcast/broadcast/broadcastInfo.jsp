@@ -53,6 +53,8 @@
         $("#bt_modalEntryNotice").on("click", function () {    //입장제한변경 팝업 알림O
             entry(this.id);
         });
+
+        mouseOver();
     });
 
     $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
@@ -157,8 +159,32 @@
     }
 
     function fullSize_background(url) {     // 이미지 full size
-        $("#imageFullSize").html(util.imageFullSize("fullSize_background",url));
+        $("#imageFullSize").html(util.("fullSize_background",url));
         $('#fullSize_background').modal('show');
+    }
+    function modal_close(){
+        $("#fullSize_background").modal('hide');
+    }
+    mouseOver();
+    function mouseOver(){
+        var xOffset = 10;
+        var yOffset = 30;
+
+        $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+            $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+        });
+        $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px");
+        });
+        $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
+            $("#preview").remove();
+        });
     }
 
     function getInfoDetail(tmp, tmp1) {
@@ -384,7 +410,7 @@
             <th rowspan="4">배경 이미지</th>
             <td rowspan="4">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
-                    <img id="image_section" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" onclick="fullSize_background(this.src);"/>
+                    <img id="image_section" class="thumbnail" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" onclick="fullSize_background(this.src);"/>
                 </form>
                 {{#equal broadcastState 'ON'}}<button type="button" id="bt_img" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">초기화</button>{{/equal}}
             </td>

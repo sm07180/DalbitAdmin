@@ -15,7 +15,7 @@ var BannerDataTableSource = {
                     }
 
                     // return '<img src="'+data+'?45x45" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
-                    return '<a href="javascript:;"><img src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" /></a>'
+                    return '<a href="javascript:;"><img class="thumbnail" src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" /></a>'
 
                 }},
             {'title': '배너 제목', 'data': 'title', 'render': function (data, type, row, meta) {

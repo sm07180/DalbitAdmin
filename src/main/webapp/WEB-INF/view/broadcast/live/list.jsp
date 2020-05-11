@@ -21,20 +21,23 @@
 <!-- //serachBox -->
 <!-- DATA TABLE -->
 <div class="row col-lg-12 form-inline">
-    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-        <li class="active">
-            <a href="/broadcast/live/list"><i class="fa fa-home"></i> 실시간 최신 생방송</a>
-        </li>
+
+    <!-- DATA TABLE -->
+    <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
+        <li class="active"><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(0);">실시간방송</a></li>
+        <li><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(4);">종료방송</a></li>
     </ul>
-    <div class="col-md-12 no-padding">
-        <div class="widget widget-table" id="main_table">
-            <span id="live_summaryArea"></span>
-            <span id="platform_summaryArea"></span>
-            <div class="widget-content" style="border-top-width:0px;">
-                <table id="list_info" class="table table-sorting table-hover table-bordered">
-                    <thead id="tableTop"></thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
+    <div class="row col-lg-12 form-inline">
+        <div class="tab-content no-padding">
+            <div class="widget widget-table" id="liveList">
+                <span id="live_summaryArea"></span>
+                <span id="platform_summaryArea"></span>
+                <div class="widget-content" style="border-top-width:0px;">
+                    <table id="list_info" class="table table-sorting table-hover table-bordered">
+                        <thead id="tableTop"></thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -52,6 +55,7 @@
 
     $(document).ready(function() {
         getSearch();
+        mouseOver();
     });
 
     $('#searchRadio').change(function() {
@@ -97,8 +101,9 @@
             data.room_searchText = $('#txt_search').val();
             data.ortStartDate =2;
         }
-        data.pageCnt=10;
+        data.room_state = tmp_state;
     };
+    dalbitLog(dtList_info_data);
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
     dtList_info.useCheckBox(false);
     dtList_info.useIndex(true);
@@ -134,6 +139,7 @@
     var tmp_dj_searchText;
     var tmp_room_slctType = -1;
     var tmp_room_searchText;
+    var tmp_state = 0;
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         var slctType = $('input[name="searchRadio"]:checked').val();
@@ -148,9 +154,38 @@
         dtList_info.reload(summary_table);
     }
 
+    function liveList(tmp){
+        tmp_state = tmp;
+        getSearch();
+    }
+
     function fullSize_live(url) {     // 이미지 full size
-        $("#imageFullSize").html(util.imageFullSize("fullSize_live",url));
+        $("#imageFullSize").html(util.imageFullSize("fullSize_live", url));
         $('#fullSize_live').modal('show');
+    }
+    function modal_close(){
+        $("#fullSize_live").modal('hide');
+    }
+    mouseOver();
+    function mouseOver(){
+        var xOffset = 10;
+        var yOffset = 30;
+
+        $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+            $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+        });
+        $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px");
+        });
+        $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
+            $("#preview").remove();
+        });
     }
     /*=============엑셀==================*/
     $('#liveexcelDownBtn').on('click', function(){

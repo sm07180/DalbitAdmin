@@ -101,6 +101,7 @@
         $('#fanboard_fullSize_profile').modal('show');
     }
 
+
     function replyList_success(dst_id, response) {
         // dalbitLog(response);
         $('#div_reply').empty();

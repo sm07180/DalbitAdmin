@@ -10,7 +10,7 @@ var BroadcastDataTableSource = {
                     return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '프로필이미지', 'data': 'dj_profileImage', 'width' : '80px', 'render' : function(data, type, row){
-                    return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
+                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
                             'onclick="fullSize_live(this.src)"/>';
                 }},
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
@@ -33,6 +33,7 @@ var BroadcastDataTableSource = {
                 }},
             {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
             {'title': '방송시작일시', 'data': 'start_date','width' : '120px'},
+            {'title': '종료시작일시', 'data': 'end_date','width' : '120px'},
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
@@ -71,15 +72,15 @@ var BroadcastDataTableSource = {
     'broadcastList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송주제', 'data': 'subject_name'
-                // , 'render' : function (data){
-                //     return util.getCommonCodeLabel(data, subject_type);
-                // }
-                },
+            {'title': '방송상태', 'data': 'state','render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, room_state);
+                }},
+            {'title': '방송주제', 'data': 'subject_name'},
             {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
             {'title': '방송시작일시', 'data': 'start_date'},
+            {'title': '방송종료일시', 'data': 'end_date'},
             {'title': '방송진행시간', 'data': 'airTime','render':function(data){
                     return common.timeStamp(data);
                 }},
@@ -108,21 +109,6 @@ var BroadcastDataTableSource = {
             {'title': '사연수', 'data': 'storyCnt','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
-                }},
-            {'title': '방송상태', 'data': 'state','render': function (data, type, row, meta) {
-                    if(data == "1"){
-                        return "방송중";
-                    } else if (data == "2"){
-                        return "mic off";
-                    } else if (data == "3"){
-                        return data + "통화중";
-                    } else if (data == "5"){
-                        return "DJ비정상종료";
-                    } else if (data == "6"){
-                        return "방송준비중";
-                    } else if (data == "0"){
-                        return "미디어서버접속이상";
-                    }
                 }},
         ]
         , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
@@ -220,7 +206,7 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail', 'render' : function(data, type, row, meta){
-                    return '<img src="'+ data+'" width="50px" height="50px"/>';
+                    return '<img class="thumbnail" src="'+ data+'" width="50px" height="50px"/>';
                 }},
             {'title': '선물 명', 'data': 'itemName'},
             {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {

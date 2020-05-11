@@ -328,6 +328,27 @@
         $("#eventDetail_fullSize").html(util.imageFullSize("eventDetailFullSize",url));
         $('#eventDetailFullSize').modal('show');
     }
+    mouseOver();
+    function mouseOver(){
+        var xOffset = 10;
+        var yOffset = 30;
+
+        $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+            $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+        });
+        $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px");
+        });
+        $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
+            $("#preview").remove();
+        });
+    }
 //=------------------------------ Modal ----------------------------------
 
 </script>
@@ -466,12 +487,12 @@
             <tr>
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="pc_img_urlViewer" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
+                    <img id="pc_img_urlViewer" class="thumbnail" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
                 </td>
 
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="mobile_img_urlViewer" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
+                    <img id="mobile_img_urlViewer" class="thumbnail" style="max-width:360px; max-height:450px;" onclick="eventDetail_fullSize(this.src);"/>
                 </td>
             </tr>
             <tr>
@@ -489,7 +510,7 @@
                 </td>
                 <td colspan="1">
                     <!--미리보기-->
-                    <img id="thumb_img_urlViewer" style="width:70px; height:70px;" onclick="eventDetail_fullSize(this.src);"/>
+                    <img id="thumb_img_urlViewer" class="thumbnail" style="width:70px; height:70px;" onclick="eventDetail_fullSize(this.src);"/>
                 </td>
 
                 <th>비고</th>

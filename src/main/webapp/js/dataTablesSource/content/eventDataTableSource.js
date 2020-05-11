@@ -9,18 +9,18 @@ var EventDataTableSource = {
                     return data;
                 var result = "";
                 if(arrCode[0] == "1")
-                    result += "/ PC(WEB) "
+                    result += "/ PC(WEB) ";
                 if(arrCode[1] == "1")
-                    result += "/ Mobile-Android "
+                    result += "/ Mobile-Android ";
                 if(arrCode[2] == "1")
-                    result += "/ Mobile-IOS "
+                    result += "/ Mobile-IOS ";
                 if(!common.isEmpty(result)){
                     result = result.substring(1);
                 }
                 return result;
             }},
             {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
-                return '<img src="' + data + '" style="width: 45px; height: 45px;" onclick="eventList_fullSize(this.src);" />'
+                return '<img class="thumbnail" src="' + data + '" style="width: 45px; height: 45px;" onclick="eventList_fullSize(this.src);" />'
             }},
             {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_eventList.getEventDetail_info('+meta.row+');">' + data + '</a>'
@@ -70,7 +70,7 @@ var EventDataTableSource = {
                     return result;
                 }},
             {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
-                    return '<img src="' + data + '" style="width: 45px; height: 45px;" onclick="eventPastList_fullSize(this.src);" />'
+                    return '<img class="thumbnail" src="' + data + '" style="width: 45px; height: 45px;" onclick="eventPastList_fullSize(this.src);" />'
                 }},
             {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_pastEventList.getEventDetail_info('+meta.row+');">' + data + '</a>'

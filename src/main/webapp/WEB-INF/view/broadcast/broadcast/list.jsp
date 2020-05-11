@@ -13,6 +13,7 @@
                     <div>
                         <span id="searchRadio"></span>
                         <span id="searchType_broad"></span>
+                        <span id="searchRoom_state"></span>
                         <label><input type="text" class="form-control" id="txt_search"></label>
                         <button type="button" class="btn btn-success" id="bt_search">검색</button>
                     </div>
@@ -53,6 +54,7 @@
 
 <script>
     $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
+    $("#searchRoom_state").html(util.getCommonCodeSelect(-1, searchRoom_state));
     $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
 
     $(document).ready(function() {
@@ -94,6 +96,7 @@
             data.room_searchText = $('#txt_search').val();
             data.ortStartDate =2;
         }
+        data.room_state = $("select[name='searchRoom_state']").val();
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.broadcastList);
     dtList_info.useCheckBox(true);
@@ -108,6 +111,7 @@
     var tmp_dj_searchText;
     var tmp_room_slctType = -1;
     var tmp_room_searchText;
+    var tmp_room_state = -1;
     function getSearch(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         var slctType = $('input[name="searchRadio"]:checked').val()
@@ -119,6 +123,7 @@
             tmp_room_slctType = $("select[name='searchBroad_broad']").val();
             tmp_room_searchText = $('#txt_search').val();
         }
+        tmp_room_state = $("select[name='searchRoom_state']").val();
         dtList_info.reload();
         ui.toggleSearchList();
         $('#detailFrm').addClass("hid");
@@ -152,6 +157,7 @@
         formData.append("dj_searchText", tmp_dj_searchText);
         formData.append("room_slctType", tmp_room_slctType);
         formData.append("room_searchText", tmp_room_searchText);
+        formData.append("room_state", tmp_room_state);
         util.excelDownload($(this), "/rest/broadcast/broadcast/broadcastListExcel", formData)
     });
 

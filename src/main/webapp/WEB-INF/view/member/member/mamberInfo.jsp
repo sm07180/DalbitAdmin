@@ -14,9 +14,7 @@
 
 <script>
     $(document).ready(function() {
-
     });
-
     $("#select_level").html(util.getCommonCodeSelect(-1, level));
     $("#select_grade").html(util.getCommonCodeSelect(-1, grade));
     $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
@@ -137,7 +135,31 @@
         $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
         $('#fullSize_profile').modal('show');
     }
+    function modal_close(){
+        $("#fullSize_profile").modal('hide');
+        $("#fanboard_fullSize_profile").modal('hide');
+    }
+    mouseOver();
+    function mouseOver(){
+        var xOffset = 10;
+        var yOffset = 30;
 
+        $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+            $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+        });
+        $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px");
+        });
+        $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
+            $("#preview").remove();
+        });
+    }
     var tmp_bt;
     function bt_click(tmp) {
         tmp_bt = tmp;
@@ -409,6 +431,7 @@
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
+
 </script>
 
 <script id="tmp_memberInfoFrm" type="text/x-handlebars-template">
@@ -422,7 +445,7 @@
             <th rowspan="5">프로필이미지</th>
             <td rowspan="5" colspan="3">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
-                    <img id="image_section" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" onclick="fullSize_profile(this.src);"/>
+                    <img id="image_section" class="thumbnail" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" onclick="fullSize_profile(this.src);"/>
                 </form>
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_img" class="btn btn-default btn-sm  pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>

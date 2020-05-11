@@ -214,7 +214,7 @@ var MemberDataTableSource = {
                     return tmp;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','render' : function (data, type, row, meta) {
-                    return '<img src="'+ data +'" width="50px" height="50px"/>';
+                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '보낸/받은/교환건수', 'data': 'itemCnt', 'render': function (data) {
@@ -284,7 +284,7 @@ var MemberDataTableSource = {
         'url': '/rest/member/fanboard/list'
         , 'columns': [
             {'title': '프로필이미지', 'data': 'profileImage', 'render' : function(data, type, row){
-                    return '<img src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
+                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
                         'onclick="fanboard_fullSize_profile(this.src)"/>';
                 }},
             {'title': '회원번호', 'data': 'writer_mem_no'},
