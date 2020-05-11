@@ -31,8 +31,8 @@ var search_platform = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
     , new COMMON_CODE('all', '', '전체')
     , new COMMON_CODE('PC', 'PC', 'PC')
-    , new COMMON_CODE('Android', 'Android', 'Android')
-    , new COMMON_CODE('IOS', 'IOS', 'IOS')
+    , new COMMON_CODE('Android-Mobile', 'Android-Mobile', 'Android')
+    , new COMMON_CODE('IOS-Mobile', 'IOS-Mobile', 'IOS')
     , new COMMON_CODE('Web-Mobile', 'Web-Mobile', 'Web-Mobile')
 ];
 
