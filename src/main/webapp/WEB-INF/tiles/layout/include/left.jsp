@@ -144,13 +144,12 @@
 
     function appendMenuData(response){
         if(common.isEmpty('${sessionScope.InforexMenuInfo}')) {
-            /*console.log(response);
+            console.log(response);
             var template = $('#tmp_inforexMenu').html();
             var templateScript = Handlebars.compile(template);
             var detailContext = response.data;
             var html = templateScript(detailContext);
-            $('ul.main-menu').append(html);*/
-            location.reload();
+            $('ul.main-menu li:eq(1)').after(html);
         }
     }
 
@@ -166,7 +165,8 @@
         'font-weight' : 'bold'
     }).append(' - 준비중');
 
-    $('._inforex').on('click', function(){
+    $(document).on('click', '._inforex', function(){
+        console.log($(this));
         ui.loadInforexAdminPage($(this));
     });
 
@@ -195,8 +195,8 @@
                     <i class="toggle-icon fa fa-angle-left"></i>
                 </a>
 
-                {{#each this as |menu2|}}
-                    {{#equal menu.depth 2}}
+                {{#each @root as |menu2|}}
+                    {{#equal menu2.depth 2}}
                         {{#equal menu.id menu2.id}}
                             <ul class="sub-menu">
                                 <li>
