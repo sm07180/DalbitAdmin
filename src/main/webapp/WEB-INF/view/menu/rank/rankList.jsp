@@ -39,34 +39,37 @@
                         <a href="#fanRankList" role="tab" data-toggle="tab" data-rank="fanRankList"><i class="fa fa-user"></i> Fan랭킹</a>
                     </li>
                 </ul>
-                <div class="widget widget-table">
-                    <div class="widget-content" style="border-top-width:0px;">
+                <div>
+                    <div>
+                        <div class="row col-lg-12 form-inline">
+                            <div class="table-comment pt10 pull-left">
+                                DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
+                            </div>
 
-                        <div class="table-comment">
-                            DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
+                            <div class="table-option pt10 pull-right">
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="rankType" value='1' checked="checked" />
+                                    <span><i></i>일간</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="rankType" value='2' />
+                                    <span><i></i>주간</span>
+                                </label>
+                                <label class="control-inline fancy-radio custom-color-green">
+                                    <input type="radio" name="rankType" value='3' />
+                                    <span><i></i>월간</span>
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="table-option">
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" name="rankType" value='1' checked="checked" />
-                                <span><i></i>일간</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" name="rankType" value='2' />
-                                <span><i></i>주간</span>
-                            </label>
-                            <label class="control-inline fancy-radio custom-color-green">
-                                <input type="radio" name="rankType" value='3' />
-                                <span><i></i>월간</span>
-                            </label>
-                        </div>
-
+                        <div class="dataTables_paginate paging_full_numbers col-md-12" id="list_info_paginate_top"></div>
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                         </table>
+                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     </div>
 
 
-                    <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate">
+                    <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate">--%>
                         <%--<ul class="pagination borderless">
                             <li class="paginate_button first" aria-controls="list_info" tabindex="0"
                                 id="list_info_first"><a href="#">처음</a></li>
@@ -88,7 +91,7 @@
                             <li class="paginate_button last" aria-controls="list_info" tabindex="0" id="list_info_last">
                                 <a href="#">마지막</a></li>
                         </ul>--%>
-                    </div>
+                    <%--</div>--%>
 
                 </div>
             </div>
@@ -130,6 +133,7 @@
 
         var pagingInfo = response.pagingVo;
         djRankListPagingInfo.totalCnt = pagingInfo.totalCnt;
+        util.renderPagingNavigation('list_info_paginate_top', djRankListPagingInfo);
         util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
     }
 

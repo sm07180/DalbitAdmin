@@ -94,10 +94,10 @@
                     </li>
                 </ul>
 
-                <div class="widget widget-table">
-                    <div class="widget-content" style="border-top-width:0px;">
+                <div>
+                    <div>
 
-                        <div class="table-comment">
+                        <div class="pt10">
                             <div>- 실시간 Live 추천/인기/신입 DJ Main 노출 수는 대표 총 2명 입니다.</div>
                         </div>
 
@@ -115,7 +115,8 @@
                                 <span><i></i>월간</span>
                             </label>
                         </div>--%>
-
+                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
+                        <div>
                         <table id="list_info" class="table table-sorting table-hover table-bordered" style="margin-top: 10px;">
                             <thead id="tableTop">
                             <tr>
@@ -133,12 +134,13 @@
                             </thead>
                             <tbody id="tableBody"></tbody>
                         </table>
+                        </div>
                         <%--<span>
                             <button class="btn btn-default print-btn pull-right mb10" type="button"><i class="fa fa-print"></i>Excel 출력</button>
                         </span>--%>
+                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     </div>
                 </div>
-                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
             </div>
             <!-- DATA TABLE END -->
 
@@ -210,12 +212,13 @@
 
         var pagingInfo = response.pagingVo;
         livePagingInfo.totalCnt = pagingInfo.totalCnt;
+        util.renderPagingNavigation("list_info_paginate_top", livePagingInfo);
         util.renderPagingNavigation("list_info_paginate", livePagingInfo);
     }
 
     function handlebarsPaging(targetId, pagingInfo){
         livePagingInfo = pagingInfo;
-        init();
+        init($('._tab.active').find('a').data('slcttype'));
     }
 
 </script>
