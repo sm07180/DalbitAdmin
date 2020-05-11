@@ -62,7 +62,8 @@
                             </div>
                         </div>
 
-                        <div class="dataTables_paginate paging_full_numbers col-md-12" id="list_info_paginate_top"></div>
+                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
+
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                         </table>
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
