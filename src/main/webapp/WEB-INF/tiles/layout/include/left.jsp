@@ -7,6 +7,7 @@
 <c:set var="param" value="${requestScope['javax.servlet.forward.query_string']}" />
 <c:set var="param_menu" value="${param.menu}" />
 
+<script type="text/javascript" src="/js/inforexApi.js"></script>
 <!-- left sidebar -->
 <div id="left-sidebar" class="left-sidebar _leftFixed">
     <!-- main-nav -->
@@ -133,7 +134,25 @@
 
     $(function(){
         ui.leftActiveFocus();
+
+        if(common.isEmpty('${sessionScope.InforexMenuInfo}')){
+            inforexApi.callInforexMenuApi();
+            //var menuAA = '${sessionScope.InforexMenuInfo}';
+
+        }
     });
+
+    function appendMenuData(response){
+        if(common.isEmpty('${sessionScope.InforexMenuInfo}')) {
+            /*console.log(response);
+            var template = $('#tmp_inforexMenu').html();
+            var templateScript = Handlebars.compile(template);
+            var detailContext = response.data;
+            var html = templateScript(detailContext);
+            $('ul.main-menu').append(html);*/
+            location.reload();
+        }
+    }
 
     $('._commingSoon').on('click', function(e){
         <c:if test="${fn:contains('/dev/', cfn:getActiveProfile())}">
@@ -165,4 +184,31 @@
         }
     });
 
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_inforexMenu">
+    {{#each this as |menu|}}
+        {{#equal menu.depth 1}}
+            <li>
+                <a href="javascript://" class="js-sub-menu-toggle">
+                    <span class="text">{{menu.name}}</span>
+                    <i class="toggle-icon fa fa-angle-left"></i>
+                </a>
+
+                {{#each this as |menu2|}}
+                    {{#equal menu.depth 2}}
+                        {{#equal menu.id menu2.id}}
+                            <ul class="sub-menu">
+                                <li>
+                                <a href="javascript://" data-url="{{menu2.url}}" class="_inforex">
+                                    <span class="text">{{menu2.name}}</span>
+                                </a>
+                                </li>
+                            </ul>
+                        {{/equal}}
+                    {{/equal}}
+                {{/each}}
+            </li>
+        {{/equal}}
+    {{/each}}
 </script>

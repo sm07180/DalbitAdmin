@@ -36,7 +36,7 @@ public class MainRestController {
         InforexMenu[] InforexMenuInfo =  new Gson().fromJson(json, InforexMenu[].class);
         session.setAttribute(DalbitUtil.getProperty("inforex.menu.key"), InforexMenuInfo);
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회));
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, InforexMenuInfo));
     }
 
 
