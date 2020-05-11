@@ -109,6 +109,8 @@
         var context = banwords;
         var html = templateScript(context);
         $("#tableBody").html(html);
+
+
     }
 
     $(document).on('click', '._banword', function(){
@@ -162,13 +164,15 @@
         });
 
         banwords = banwords.substr(0, banwords.length-1);
-
         var data = {
             idx : $("#idx").val()
             , ban_word : banwords
             , count : $('._banword span.text-danger').length
-        }
-        util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_list);
+        };
+        util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_updt);
+    }
+    function fn_succ_updt(){
+        init();
     }
 
     $('#excelDownBtn').on('click', function() {
@@ -206,7 +210,7 @@
         {{#openTr @index 7}}
             <tr>
         {{/openTr}}
-            <td class='{{#equal @last true}}last{{/equal}}'>
+            <td class='{{#equal @last true}}last{{/equal}}' style="width: 400px">
                 <input type="checkbox" class="_banwordChk" />
                 <a href="javascript://" class="_banword">{{index @index no}}.[<span class='text-danger'>{{this}}</span>]</a>
             </td>
