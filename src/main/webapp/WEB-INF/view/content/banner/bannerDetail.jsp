@@ -502,12 +502,12 @@
             <tr>
                 <td colspan="6">
                     <!--미리보기-->
-                    <a href="javascript:;"><img id="banner-pc_img_urlViewer" style="width:100%; height:100%;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
+                    <img id="banner-pc_img_urlViewer" class="thumbnail" style="width:100%; height:100%;" src="" alt="" onclick="fullSize_banner(this.src);"/></a>
                 </td>
 
                 <td colspan="6">
                     <!--미리보기-->
-                    <a href="javascript:;"><img id="banner-mobile_img_urlViewer" style="width:100%; height:100%;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
+                    <img id="banner-mobile_img_urlViewer" class="thumbnail" style="width:100%; height:100%;" src="" alt="" onclick="fullSize_banner(this.src);"/></a>
                 </td>
             </tr>
             <tr>
@@ -525,7 +525,7 @@
                 </td>
                 <td colspan="1">
                     <!--미리보기-->
-                    <a href="javascript:;"><img id="banner-thumb_img_urlViewer" style="width:70px; height:70px;" src="" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);"/></a>
+                    <img id="banner-thumb_img_urlViewer" class="thumbnail" style="width:70px; height:70px;" src="" alt="" onclick="fullSize_banner(this.src);"/></a>
                 </td>
 
                 <th>비고</th>

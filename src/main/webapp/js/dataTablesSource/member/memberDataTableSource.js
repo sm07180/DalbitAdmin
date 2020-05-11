@@ -214,7 +214,7 @@ var MemberDataTableSource = {
                     return tmp;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','render' : function (data, type, row, meta) {
-                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px"/>';
+                    return '<img src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '보낸/받은/교환건수', 'data': 'itemCnt', 'render': function (data) {

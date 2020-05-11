@@ -148,6 +148,9 @@
     </div>
 </div>
 
+<!-- 이미지 원본 보기 -->
+<div id="imageFullSize"></div>
+
 <script type="text/javascript" src="/js/code/commonCode.js"></script>
 <script type="text/javascript">
     var livePagingInfo = new PAGING_INFO(0,1,100);
@@ -221,6 +224,35 @@
         init($('._tab.active').find('a').data('slcttype'));
     }
 
+    function fullSize_profile(url) {     // 이미지 full size
+        $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
+        $('#fullSize_profile').modal('show');
+    }
+    function modal_close(){
+        $("#fullSize_profile").modal('hide');
+    }
+    mouseOver();
+    function mouseOver(){
+        var xOffset = 10;
+        var yOffset = 30;
+
+        $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+            $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px")
+                .fadeIn("fast");
+        });
+        $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
+            $("#preview")
+                .css("top",(e.pageY - xOffset) + "px")
+                .css("left",(e.pageX + yOffset) + "px");
+        });
+        $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
+            $("#preview").remove();
+        });
+    }
+
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_liveList">
@@ -228,11 +260,12 @@
     <tr>
         <td>
             {{#equal image_profile ''}}
-            <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
+            <img class="thumbnail" alt="your image" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src);"/>
             {{else}}
-            <img src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' />
+            <img class="thumbnail" alt="your image" src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src);"/>
             {{/equal}}
         </td>
+
         <td>
             {{#equal badge_recomm '1'}} <span class ="label" style="background-color:#d9534f">추천</span><br/> {{/equal}}<br>
             {{#equal badge_popular '1'}} <span class ="label" style="background-color:#3761d9">인기</span><br/> {{/equal}}<br>

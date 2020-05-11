@@ -96,8 +96,8 @@ var room_state = [
 var searchRoom_state = [
     new COMMON_CODE(null, 'searchRoom_state', '방송상태')
     , new COMMON_CODE('-1', '-1', '전체')
-    , new COMMON_CODE('0', '0', '진행중')
-    , new COMMON_CODE('4', '4', '종료')
+    , new COMMON_CODE('0', '1', '진행중')
+    , new COMMON_CODE('4', '2', '종료')
 ];
 
 

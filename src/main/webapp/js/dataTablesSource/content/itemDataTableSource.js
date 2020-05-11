@@ -37,14 +37,10 @@ var ItemDataTableSource = {
                     if(common.isEmpty(data)){
                         return "";
                     }
-
-                    // return '<img src="'+data+'?45x45" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
-                    return '<img class="thumbnail" src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
+                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px" onclick="fullSize_item(this.src)"/>';
             }},
             {'title': '아이템 명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
-                // return data;
-
             }},
             {'title': '타입', 'data': 'item_type', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     var arrCode = data.split("");
@@ -113,7 +109,7 @@ var ItemDataTableSource = {
 
                 }},
             {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript:;"><img class="thumbnail" src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" /></a>'
+                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px" onclick="fullSize_item(this.src)"/>';
 
                 }},
             {'title': '아이템명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
@@ -188,7 +184,7 @@ var ItemDataTableSource = {
                     // return data;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript:;"><img class="thumbnail" src="'  + data + '" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" /></a>'
+                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px" onclick="fullSize_item(this.src)"/>';
 
                 }},
             {'title': '아이템명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
