@@ -45,10 +45,11 @@
         initDataTableTop_select_quest(tmp);         // 상탄 selectBox
     }
     function initDataTableTop_select_quest(tmp){
-        var topTable = '<span name="search_question_top" id="search_question_top" onchange="sel_change_question()"></span>' +
-            '<span name="search_question_type_top" id="search_question_type_top" onchange="sel_change_question()"></span>' +
-            '<span name="search_platform_top" id="search_platform_top" onchange="sel_change_question()"></span>' +
-            '<span name="search_browser_top" id="search_browser_top" onchange="sel_change_question()"></span>'
+        var topTable = '';
+            // topTable += '<span name="search_question_top" id="search_question_top" onchange="sel_change_question()"></span>';
+            topTable += '<span name="search_question_type_top" id="search_question_type_top" onchange="sel_change_question()"></span>';
+            topTable += '<span name="search_platform_top" id="search_platform_top" onchange="sel_change_question()"></span>';
+            topTable += '<span name="search_browser_top" id="search_browser_top" onchange="sel_change_question()"></span>';
         ;
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#search_question_top").html(util.getCommonCodeSelect(-1, question));
