@@ -29,8 +29,14 @@
     </ul>
     <div class="tab-content no-padding">
         <div class="widget widget-table" id="liveList">
-            <span id="live_summaryArea"></span>
-            <span id="platform_summaryArea"></span>
+            <div class="col-md-6">
+                <br/>
+                <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
+            </div>
+            <div class="col-md-6 pull-right">
+                <span id="live_summaryArea"></span>
+                <span id="platform_summaryArea"></span>
+            </div>
             <div class="widget-content" style="border-top-width:0px;">
                 <table id="list_info" class="table table-sorting table-hover table-bordered">
                     <thead id="tableTop"></thead>
@@ -153,7 +159,13 @@
     }
 
     function liveList(tmp){
-        console.log(tmp);
+        if(tmp == 1){
+            $("#liveTitle").html("ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.");
+        }else if(tmp == 2){
+            $("#liveTitle").html("ㆍ종료된 방송은 방송종료일을 기준으로 최상위 누적되어 보여집니다.<br/>" +
+                                 "ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 추가됩니다.");
+        }
+
         room_liveType = tmp;
         getSearch();
     }
