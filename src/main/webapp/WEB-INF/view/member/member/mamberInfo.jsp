@@ -535,8 +535,9 @@
         <tr>
             <th>닉네임</th>
             <td colspan="3" style="text-align: left">
+                {{nickName}}
                 {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_resatNick" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
+                    <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
                 {{/equal}}
             </td>
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
