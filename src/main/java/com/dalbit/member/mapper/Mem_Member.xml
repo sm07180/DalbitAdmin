@@ -99,11 +99,12 @@
                 '','PC',#{browser},#{ip},#{opName},now(),now())
     </insert>
 
-    <select id="callMemberListen_check" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo" resultType="integer">
+    <select id="callMemberBroadCasting_check" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo" resultType="integer">
         /* M_Member.xml - callMemberEditor */
-        select count(*) as cnt from rd_data.tb_broadcast_room_member where mem_no = #{mem_no} and state = 0
-
+        /* 방송중, 방송중 대기 상태 count */
+        select count(*) as cnt from rd_data.tb_broadcast_room where mem_no = #{mem_no} and state in (1,2)
     </select>
+
     <update id="callMemberBasicReport_Edit" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberBasicReport_Edit */
         update rd_data.tb_member_basic
