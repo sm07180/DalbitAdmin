@@ -6,9 +6,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.StatVo;
 import com.dalbit.status.dao.Sta_ItemDao;
-import com.dalbit.status.vo.procedure.P_ItemLiveOutputVo;
-import com.dalbit.status.vo.procedure.P_ItemTotalOutDetailVo;
-import com.dalbit.status.vo.procedure.P_ItemTotalOutVo;
+import com.dalbit.status.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -41,7 +39,7 @@ public class Sta_ItemService {
         P_ItemLiveOutputVo itemLive = new Gson().fromJson(procedureVo.getExt(), P_ItemLiveOutputVo.class);
 
         var result = new HashMap<String, Object>();
-        result.put("LiveInfo", itemLive);
+        result.put("liveInfo", itemLive);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
@@ -52,6 +50,44 @@ public class Sta_ItemService {
         ProcedureVo procedureVo = new ProcedureVo(StatVo);
         ArrayList<P_ItemTotalOutDetailVo> detailList = sta_ItemDao.callItemTotal(procedureVo);
         P_ItemTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ItemTotalOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 성별 총계
+     */
+    public String callItemGender(StatVo StatVo){
+        ProcedureVo procedureVo = new ProcedureVo(StatVo);
+        ArrayList<P_ItemGenderOutDetailVo> detailList = sta_ItemDao.callItemGender(procedureVo);
+        P_ItemGenderOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ItemGenderOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 연령별 총계
+     */
+    public String callItemAge(StatVo StatVo){
+        ProcedureVo procedureVo = new ProcedureVo(StatVo);
+        ArrayList<P_ItemAgeOutDetailVo> detailList = sta_ItemDao.callItemAge(procedureVo);
+        P_ItemAgeOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ItemAgeOutVo.class);
 
         if(Integer.parseInt(procedureVo.getRet()) <= 0){
             return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));

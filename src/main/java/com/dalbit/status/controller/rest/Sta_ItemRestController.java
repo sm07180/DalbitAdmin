@@ -28,7 +28,7 @@ public class Sta_ItemRestController {
     /**
      * 아이템 고정
      */
-    @PostMapping("/item/live/list")
+    @PostMapping("/live/list")
     public String itemLive(){
         String result = sta_ItemService.callItemLive();
         return result;
@@ -39,7 +39,7 @@ public class Sta_ItemRestController {
      * @param StatVo
      * @return
      */
-    @PostMapping("/item/total/list")
+    @PostMapping("/total/list")
     public String itemTotal(StatVo StatVo){
         if(DalbitUtil.isEmpty(StatVo.getStartDate())){
             StatVo.setStartDate(null);

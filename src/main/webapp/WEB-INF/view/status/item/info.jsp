@@ -45,6 +45,7 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
+                                <th></th>
                                 <th>실시간</th>
                                 <th>전일</th>
                                 <th>증감</th>
@@ -145,13 +146,13 @@
     });
 
     function getInfo(){
-        util.getAjaxData("statJoin", "/rest/enter/join/stat/join", null, fn_live_success);
+        util.getAjaxData("itemLive", "/rest/status/item/live/list", null, fn_live_success);
     }
 
     function fn_live_success(data, response){
         var template = $('#tmp_live').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data.joinInfo;
+        var context = response.data.liveInfo;
         var html=templateScript(context);
         $("#liveTableBody").append(html);
     }
@@ -186,35 +187,39 @@
 
 <script type="text/x-handlebars-template" id="tmp_live">
     <tr>
-        <th>남</th>
-        <td>{{addComma m_now_Cnt}}</td>
-        <td>{{addComma m_yes_Cnt}}</td>
-        <td class="{{upAndDownClass m_now_inc_cnt}}"><i class="fa {{upAndDownIcon m_now_inc_cnt}}"></i> {{addComma m_now_inc_cnt}}</td>
-        <td>{{addComma m_week_cnt}}</td>
-        <td class="{{upAndDownClass m_week_inc_cnt}}"><i class="fa {{upAndDownIcon m_week_inc_cnt}}"></i> {{addComma m_week_inc_cnt}}</td>
+        <th>건수</th>
+        <td>{{addComma now_item_cnt}}</td>
+        <td>{{addComma yes_item_cnt}}</td>
+        <td class="{{upAndDownClass now_inc_cnt}}"><i class="fa {{upAndDownIcon now_inc_cnt}}"></i> {{addComma now_inc_cnt}}</td>
+        <td>{{addComma week_item_cnt}}</td>
+        <td>{{addComma bweek_item_cnt}}</td>
+        <td class="{{upAndDownClass week_inc_cnt}}"><i class="fa {{upAndDownIcon week_inc_cnt}}"></i> {{addComma week_inc_cnt}}</td>
+        <td>{{addComma month_item_cnt}}</td>
+        <td>{{addComma bmonth_item_cnt}}</td>
+        <td class="{{upAndDownClass month_inc_cnt}}"><i class="fa {{upAndDownIcon month_inc_cnt}}"></i> {{addComma month_inc_cnt}}</td>
     </tr>
     <tr>
-        <th>여</th>
-        <td>{{addComma f_now_Cnt}}</td>
-        <td>{{addComma f_yes_Cnt}}</td>
-        <td class="{{upAndDownClass f_now_inc_cnt}}"><i class="fa {{upAndDownIcon f_now_inc_cnt}}"></i> {{addComma f_now_inc_cnt}}</td>
-        <td>{{addComma f_week_cnt}}</td>
-        <td class="{{upAndDownClass f_week_inc_cnt}}"><i class="fa {{upAndDownIcon f_week_inc_cnt}}"></i> {{addComma f_week_inc_cnt}}</td>
+        <th>금액</th>
+        <td>{{addComma now_item_amt}}</td>
+        <td>{{addComma yes_item_amt}}</td>
+        <td class="{{upAndDownClass now_inc_amt}}"><i class="fa {{upAndDownIcon now_inc_amt}}"></i> {{addComma now_inc_amt}}</td>
+        <td>{{addComma week_item_amt}}</td>
+        <td>{{addComma bweek_item_amt}}</td>
+        <td class="{{upAndDownClass week_inc_amt}}"><i class="fa {{upAndDownIcon week_inc_amt}}"></i> {{addComma week_inc_amt}}</td>
+        <td>{{addComma month_item_amt}}</td>
+        <td>{{addComma bmonth_item_amt}}</td>
+        <td class="{{upAndDownClass month_inc_amt}}"><i class="fa {{upAndDownIcon month_inc_amt}}"></i> {{addComma month_inc_amt}}</td>
     </tr>
-    <tr>
-        <th>알수없음</th>
-        <td>{{addComma n_now_Cnt}}</td>
-        <td>{{addComma n_yes_Cnt}}</td>
-        <td class="{{upAndDownClass n_now_inc_cnt}}"><i class="fa {{upAndDownIcon n_now_inc_cnt}}"></i> {{addComma n_now_inc_cnt}}</td>
-        <td>{{addComma n_week_cnt}}</td>
-        <td class="{{upAndDownClass n_week_inc_cnt}}"><i class="fa {{upAndDownIcon n_week_inc_cnt}}"></i> {{addComma n_week_inc_cnt}}</td>
-    </tr>
-    <tr>
-        <th>총계</th>
-        <td>{{addComma t_now_Cnt}}</td>
-        <td>{{addComma t_yes_Cnt}}</td>
-        <td class="{{upAndDownClass t_now_inc_cnt}}"><i class="fa {{upAndDownIcon t_now_inc_cnt}}"></i> {{addComma t_now_inc_cnt}}</td>
-        <td>{{addComma t_week_cnt}}</td>
-        <td class="{{upAndDownClass t_week_inc_cnt}}"><i class="fa {{upAndDownIcon t_week_inc_cnt}}"></i> {{addComma t_week_inc_cnt}}</td>
-    </tr>
+    <%--<tr>
+        <th>합계</th>
+        <td>{{addComma }}</td>
+        <td>{{addComma }}</td>
+        <td class="{{upAndDownClass }}"><i class="fa {{upAndDownIcon }}"></i> {{addComma }}</td>
+        <td>{{addComma }}</td>
+        <td>{{addComma }}</td>
+        <td class="{{upAndDownClass }}"><i class="fa {{upAndDownIcon }}"></i> {{addComma }}</td>
+        <td>{{addComma }}</td>
+        <td>{{addComma }}</td>
+        <td class="{{upAndDownClass }}"><i class="fa {{upAndDownIcon }}"></i> {{addComma }}</td>
+    </tr>--%>
 </script>

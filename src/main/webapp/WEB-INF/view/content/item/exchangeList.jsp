@@ -256,36 +256,22 @@ var fnc_exchangeList = {
 <script id="tmp_exchangeListStatisticsFrm" type="text/x-handlebars-template">
 
     <div id="div_summary" style="float:left">
-        <table class="table table-bordered table-dalbit text-center" style="width:400px;">
-            <colgroup>
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-            </colgroup>
+        <table class="table table-sorting table-hover table-bordered dataTable no-footer" style="width:400px;">
             <tbody>
             <tr class="align-middle">
-                <th colspan="9">게시중 아이템</th>
-                <th colspan="3"  rowspan="2">누적 구매현황</th>
+                <th colspan="3">게시중 아이템</th>
+                <th colspan="1" rowspan="2">누적 구매현황</th>
             </tr>
             <tr>
-                <th colspan="3">PC</th>
-                <th colspan="3">Android</th>
-                <th colspan="3">IOS</th>
+                <th>PC</th>
+                <th>Android</th>
+                <th>IOS</th>
             </tr>
             <tr>
-                <td style="text-align:center;" colspan="3">{{pcCnt}}건</td>
-                <td style="text-align:center;" colspan="3">{{androidCnt}}건</td>
-                <td style="text-align:center;" colspan="3">{{iosCnt}}건</td>
-                <td style="text-align:center;" colspan="3">{{totalPurchaseCnt}}건</td>
+                <td style="text-align:center;">{{pcCnt}}건</td>
+                <td style="text-align:center;">{{androidCnt}}건</td>
+                <td style="text-align:center;">{{iosCnt}}건</td>
+                <td style="text-align:center;">{{totalPurchaseCnt}}건</td>
             </tr>
             </tbody>
         </table>

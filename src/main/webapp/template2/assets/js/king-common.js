@@ -29,7 +29,7 @@ $(document).ready(function(){
      /*	MAIN NAVIGATION
      /************************/
 
-    $('.main-menu .js-sub-menu-toggle').on('click', function(e){
+    $(document).on('click', '.main-menu .js-sub-menu-toggle', function(e){
 
         e.preventDefault();
 
@@ -39,6 +39,9 @@ $(document).ready(function(){
             $li.addClass('active');
             $li.find('ul.sub-menu')
                 .slideDown(300);
+
+            var index = $('ul.main-menu li:visible').index($li);
+            $('._leftFixed').animate({scrollTop : index * 47}, 200)
         }
         else {
             $li.find(' > a .toggle-icon').removeClass('fa-angle-down').addClass('fa-angle-left');
@@ -46,6 +49,10 @@ $(document).ready(function(){
             $li.find('ul.sub-menu')
                 .slideUp(300);
         }
+
+        var menu = $(this).parent('li');
+        console.log(menu);
+        //$('._leftFixed').scrollTop(menu.offset().top);
     });
 
     // checking for minified left sidebar

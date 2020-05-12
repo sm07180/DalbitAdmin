@@ -394,7 +394,7 @@ util.editorInit = function(type) {
     targetEditor.summernote({
         lang: 'ko-KR',
         height: '300px',
-        focus: false,
+        focus: true,
         callbacks: { // 콜백을 사용
             // 이미지를 업로드할 경우 이벤트를 발생
             onImageUpload: function (files, editor, welEditable) {

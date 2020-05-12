@@ -6,9 +6,20 @@
         /* B_Broadcast.xml - callBroadcastLive */
         call rd_admin.sp_admin_stat_item_live(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
     <select id="callItemTotal" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_ItemTotalOutDetailVo">
         /* B_Broadcast.xml - callBroadcastLive */
-        call rd_admin.sp_admin_stat_item_live(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        call rd_admin.sp_admin_stat_item_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callItemGender" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_ItemGenderOutDetailVo">
+        /* B_Broadcast.xml - callBroadcastLive */
+        call rd_admin.sp_admin_stat_item_gender(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callItemAge" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_ItemAgeOutDetailVo">
+        /* B_Broadcast.xml - callBroadcastLive */
+        call rd_admin.sp_admin_stat_item_age(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
 
