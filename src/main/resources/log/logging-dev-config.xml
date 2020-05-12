@@ -41,8 +41,6 @@
     </logger>
 
     <logger name="org.springframework.web" level="OFF" />
-    <logger name="o.s.web.servlet.DispatcherServlet" level="OFF" />
-    <logger name="org.springframework.web.servlet.DispatcherServlet " level="OFF" />
 
     <logger name="jdbc" level="OFF" />
     <logger name="jdbc.sqlonly" level="INFO" />
