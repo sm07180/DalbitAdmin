@@ -27,17 +27,15 @@
         <li class="active"><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(1);">실시간방송</a></li>
         <li><a href="#liveList" role="tab" data-toggle="tab" onclick="liveList(2);">종료방송</a></li>
     </ul>
-    <div class="row col-lg-12 form-inline">
-        <div class="tab-content no-padding">
-            <div class="widget widget-table" id="liveList">
-                <span id="live_summaryArea"></span>
-                <span id="platform_summaryArea"></span>
-                <div class="widget-content" style="border-top-width:0px;">
-                    <table id="list_info" class="table table-sorting table-hover table-bordered">
-                        <thead id="tableTop"></thead>
-                        <tbody id="tableBody"></tbody>
-                    </table>
-                </div>
+    <div class="tab-content no-padding">
+        <div class="widget widget-table" id="liveList">
+            <span id="live_summaryArea"></span>
+            <span id="platform_summaryArea"></span>
+            <div class="widget-content" style="border-top-width:0px;">
+                <table id="list_info" class="table table-sorting table-hover table-bordered">
+                    <thead id="tableTop"></thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
             </div>
         </div>
     </div>

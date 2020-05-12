@@ -127,7 +127,11 @@ var fnc_profileList = {
         }
 
         if(confirm("대상의 이미지를 초기화 하시겠습니까?")){
-            report = "/customer/image/popup/imagePopup?memNo='" + data.mem_no + "'&memId='" + data.mem_userid + "'&memNick='" + common.replaceHtml(data.mem_nick) + "'&memSex='" + data.mem_sex + "'&targetId='" + fnc_profileList.targetId + "'";
+            report = "/customer/image/popup/imagePopup?memNo='" + encodeURIComponent(data.mem_no) + "'&memId='"
+                                                                + encodeURIComponent(data.mem_userid) + "'&memNick='"
+                                                                + encodeURIComponent(common.replaceHtml(data.mem_nick)) + "'&memSex='"
+                                                                + encodeURIComponent(data.mem_sex) + "'&targetId='"
+                                                                + encodeURIComponent(fnc_profileList.targetId) + "'";
             console.log(report);
             util.windowOpen(report,"600","450","경고/정지");
         }

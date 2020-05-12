@@ -2,16 +2,15 @@ var BroadcastDataTableSource = {
     'liveList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송플랫폼', 'data': 'osType','width' : '65px', 'render': function (data) {
+            {'title': '플랫폼', 'data': 'osType','width' : '65px', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
                 }},
-            {'title': '방송주제', 'data': 'subject_name','width' : '65px'},
-            {'title': '방송제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
+            {'title': '주제', 'data': 'subject_name','width' : '65px'},
+            {'title': '제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
-            {'title': '프로필이미지', 'data': 'dj_profileImage', 'width' : '80px', 'render' : function(data, type, row){
-                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="50px" height="50px" ' +
-                            'onclick="fullSize_live(this.src)"/>';
+            {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
+                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
                 }},
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
@@ -32,12 +31,12 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
-            {'title': '방송시작일시', 'data': 'start_date','width' : '120px'},
-            {'title': '종료시작일시', 'data': 'end_date','width' : '120px'},
+            {'title': '시작일시', 'data': 'start_date','width' : '120px'},
+            {'title': '종료일시', 'data': 'end_date','width' : '120px'},
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '누적청취자', 'data': 'totalListener','width' : '65px','render': function (data){
+            {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '65px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
@@ -72,16 +71,16 @@ var BroadcastDataTableSource = {
     'broadcastList': {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
-            {'title': '방송상태', 'data': 'state','render': function (data, type, row, meta) {
+            {'title': '상태', 'data': 'state','render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, room_state);
                 }},
-            {'title': '방송주제', 'data': 'subject_name'},
-            {'title': '방송제목', 'data': 'title', 'render': function (data, type, row, meta) {
+            {'title': '주제', 'data': 'subject_name'},
+            {'title': '제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getBroadCast_info" onclick="javascript:getBroadCast_info('+meta.row+');">'+data+'</a>'
                 }},
-            {'title': '방송시작일시', 'data': 'start_date'},
-            {'title': '방송종료일시', 'data': 'end_date'},
-            {'title': '방송진행시간', 'data': 'airTime','render':function(data){
+            {'title': '시작일시', 'data': 'start_date'},
+            {'title': '종료일시', 'data': 'end_date'},
+            {'title': '진행시간', 'data': 'airTime','render':function(data){
                     return common.timeStamp(data);
                 }},
             {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {

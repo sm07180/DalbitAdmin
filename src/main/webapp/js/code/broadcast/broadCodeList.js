@@ -86,7 +86,7 @@ var room_state = [
     new COMMON_CODE(null, 'room_state', '방송상태')
     , new COMMON_CODE('0', '0', 'Ant끊김')
     , new COMMON_CODE('1', '1', '방송중(Mic On)')
-    , new COMMON_CODE('2', '2', '방송준비중(Mic off)')
+    , new COMMON_CODE('2', '2', '방송준비중(Mic Off)')
     , new COMMON_CODE('3', '3', '통화중')
     , new COMMON_CODE('4', '4', '방송종료')
     , new COMMON_CODE('5', '5', 'DJ비정상종료')
