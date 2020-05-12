@@ -50,7 +50,10 @@
 
         // $("#txt_birth").val(response.data.birthDate);
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "40"));
-        report = "/member/member/popup/reportPopup?memNo='" + encodeURIComponent(response.data.mem_no) + "'&memId='" + encodeURIComponent(response.data.userId) + "'&memNick='" + encodeURIComponent(response.data.nickName) + "'&memSex='" + encodeURIComponent(response.data.memSex) + "'";
+        report = "/member/member/popup/reportPopup?memNo='" + encodeURIComponent(response.data.mem_no) + "'&memId='"
+                                                            + encodeURIComponent(response.data.userId) + "'&memNick='"
+                                                            + encodeURIComponent(common.replaceHtml(response.data.nickName)) + "'&memSex='"
+                                                            + encodeURIComponent(response.data.memSex) + "'";
 
         if (response.data.memSlct != "p") {
             $("#div_socialId").empty();
@@ -456,7 +459,7 @@
             <td style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
         </tr>
         <tr>
-            <th>DJ등급</th>
+            <th>경험치</th>
             <td style="text-align: left">{{{getCommonCodeLabel grade 'grade'}}}</td>
         </tr>
         <tr>
@@ -557,7 +560,7 @@
                     <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                 {{/equal}}
             </td>
-            <th>소셜가입</th>
+            <th>가입방법</th>
             <td style="text-align: left"><label id="memSlct"></label></td>
         </tr>
         <tr>

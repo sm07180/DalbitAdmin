@@ -3,7 +3,7 @@ var MemberDataTableSource = {
     'joinList': {
         'url': '/rest/member/join/list'
         , 'columns': [
-            {'title': '회원가입일시', 'data': 'memJoinDateFormat', 'width':'100px'},
+            {'title': '가입일시', 'data': 'memJoinDateFormat', 'width':'100px'},
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
                     return util.renderSlct(data,"30");
                 }},
@@ -33,7 +33,7 @@ var MemberDataTableSource = {
     'withdrawalList': {
         'url': '/rest/member/join/withdrawalList'
         , 'columns': [
-            {'title': '회원가입일시', 'data': 'lastUpdDateFormat', 'width':'100px'},
+            {'title': '가입일시', 'data': 'lastUpdDateFormat', 'width':'100px'},
             {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'100px', 'render': function (data) {
                     return util.renderSlct(data,"30");
                 }},
@@ -71,7 +71,7 @@ var MemberDataTableSource = {
              {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
                     return util.renderSlct(data,"30");
                  }},
-             {'title': '회원가입일시', 'data': 'joinDateFormat', 'width':'120px'},
+             {'title': '가입일시', 'data': 'joinDateFormat', 'width':'120px'},
              {'title': '최근 접속 일시', 'data': 'last_connect_DateFormat', 'width':'120px'},
              {'title': '누적 접속 수', 'data': 'connectCnt', 'width':'80px', 'render': function (data) {
                      return common.addComma(data);
@@ -90,18 +90,18 @@ var MemberDataTableSource = {
         'url': '/rest/member/broadcast/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'room_no', 'visible' : false},
-            {'title': '방송플랫폼', 'data': 'os_type','width' : '65px', 'render': function (data) {
+            {'title': '플랫폼', 'data': 'os_type','width' : '65px', 'render': function (data) {
                     return util.getCommonCodeLabel(data, os_type);
                 }},
-            {'title': '방송주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
+            {'title': '주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
                     return util.getCommonCodeLabel(data, subject_type);
                 }},
-            {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
+            {'title': '제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
-            {'title': '방송시작시간', 'data': 'startDateFormat', 'width':'120px'},
-            {'title': '방송종료시간', 'data': 'endDateFormat', 'width':'120px'},
-            {'title': '방송진행시간', 'data': 'airtime', 'width':'100px','render' : function(data){
+            {'title': '시작시간', 'data': 'startDateFormat', 'width':'120px'},
+            {'title': '종료시간', 'data': 'endDateFormat', 'width':'120px'},
+            {'title': '진행시간', 'data': 'airtime', 'width':'100px','render' : function(data){
                     return common.timeStamp(data);
                 }},
             {'title': '청취자', 'data': 'listenerCnt', 'width':'80px', 'render': function (data) {
@@ -136,7 +136,7 @@ var MemberDataTableSource = {
             {'title': '청취방주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
                     return util.getCommonCodeLabel(data, subject_type);
                 }},
-            {'title': '청취방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
+            {'title': '방송제목', 'data': 'title', 'width':'250px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '청취시작시간', 'data': 'startDateFormat', 'width':'120px'},

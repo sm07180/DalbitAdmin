@@ -255,10 +255,10 @@ public class Mem_MemberService {
         pMemberReportVo.setOpName(MemberVo.getMyMemNo());
 
         // 신고 대상자가 방송 참여중인지
-        int check = mem_MemberDao.callMemberListen_check(pMemberReportVo);
+        int check = mem_MemberDao.callMemberBroadCasting_check(pMemberReportVo);
 
         if(check > 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.회원탈퇴_방접속중));
+            return gsonUtil.toJson(new JsonOutputVo(Status.방송중));
         }
 
         // 신고 대상자 정보

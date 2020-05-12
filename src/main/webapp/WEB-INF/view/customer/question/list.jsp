@@ -75,7 +75,7 @@
     });
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
     $("#question_type").html(util.getCommonCodeSelect(-1, question_type));
-    $("#platform").html(util.getCommonCodeSelect(-1, search_platform));
+    $("#platform").html(util.getCommonCodeSelect(-1, question_platform));
     $("#browser").html(util.getCommonCodeSelect(-1, search_browser));
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
