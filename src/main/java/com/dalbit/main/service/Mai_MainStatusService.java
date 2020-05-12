@@ -91,4 +91,15 @@ public class Mai_MainStatusService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, chartList));
     }
 
+    /**
+     * 아이템 Top5 메인
+     * @param
+     * @return
+     */
+    public String callItemStatusInfoList() {
+        ProcedureVo procedureVo = new ProcedureVo();
+        List<P_ItemTopFiveOutputVo> itemList = main_JoinDao.callItemStatusInfoList(procedureVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, itemList));
+    }
+
 }
