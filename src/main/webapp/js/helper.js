@@ -183,3 +183,7 @@ Handlebars.registerHelper("upAndDownIcon", function(value) {
 Handlebars.registerHelper("phoneNumHyphen", function(value) {
     return common.phoneNumHyphen(value);
 });
+
+Handlebars.registerHelper("redFont", function(value) {
+    return common.redFont(value);
+});

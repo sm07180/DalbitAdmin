@@ -253,3 +253,10 @@ common.phoneNumHyphen = function(value) {
     var regExp = /(\d{3})(\d{3,4})(\d{4})/
     return value.toString().replace(regExp, '$1-$2-$3');
 }
+
+common.redFont = function(value){
+    if(common.isEmpty(value) || 0 == value){
+        return value;
+    }
+    return "<span style='color:red;font-weight: bold;'>" + value + "</span>";
+}
