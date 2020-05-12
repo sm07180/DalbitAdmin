@@ -67,9 +67,9 @@
                     <div class="chart-nav">
                         <strong>기간 선택: </strong>
                         <ul id="sales-stat-tab">
-                            <li class="active"><a href="#day" class="_viewType" data-viewtype="1" id="_day" onclick="apply('current', false, 'day');">일간</a></li>
-                            <li class=""><a href="#week" class="_viewType" data-viewtype="2" id="_week" onclick="apply('current', false, 'week');">주간</a></li>
-                            <li class=""><a href="#month" class="_viewType" data-viewtype="3" id="_month" onclick="apply('current', false, 'month');">월간</a></li>
+                            <li class="active"><a href="#day" class="_viewType" data-viewtype="1" id="_day" onclick="apply('current', 'day');">일간</a></li>
+                            <li class=""><a href="#week" class="_viewType" data-viewtype="2" id="_week" onclick="apply('current', 'week');">주간</a></li>
+                            <li class=""><a href="#month" class="_viewType" data-viewtype="3" id="_month" onclick="apply('current', 'month');">월간</a></li>
                         </ul>
                     </div>
                     <!-- end chart tab nav -->
@@ -574,6 +574,8 @@
     var eDate;
     var term_tmp;
     var day = 0;
+    var week = 0;
+    var month = 0;
 
     var chartParam = {
         slctDate : ''
@@ -593,18 +595,19 @@
 
         dateTime = moment(dateTime).format("YYYY.MM.DD");
         var dateTime2 = moment(dateTime).format("YYYY" + "년" + "MM" + "월" + "DD" + "일 종합현황");
-        $("._searchDate").html(dateTime);
         $("#dateArea").html(dateTime2);
-        //term_click("day",true);
-        apply('current', true, 'day');
+
+        $("._searchDate").html(dateTime);
+
+        apply('current', 'day');
     }
 
     $(document).on('click', '._prevSearch', function(){
-        apply('prev', false, getViewName());
+        apply('prev', getViewName());
     });
 
     $(document).on('click', '._nextSearch', function(){
-        apply('next', false, getViewName());
+        apply('next', getViewName());
     });
 
     function getViewName(){
@@ -654,73 +657,75 @@
         }
     };
 
-    function apply(searchType, sw, dateType) {
-        console.log("@@@@@@@@@@@@@@@@@@@");
-        console.log(searchType, sw, dateType);
-
-        if(searchType == 'prev'){
-            --day;
-        }else if(searchType == 'next'){
-            ++day;
-        }
+    function apply(searchType, dateType) {
 
         if(dateType == "month"){         //전월
-            sDisplayDate = moment(dateTime).add("months", day -1).format('YYYY.MM.DD');
-            eDisplayDate = moment(dateTime).add("months", day).format('YYYY.MM.DD');
+
+            if(searchType == 'prev'){
+                --month;
+            }else if(searchType == 'next'){
+                ++month;
+            }
+
+            sDisplayDate = moment(dateTime).add('months', month).format('YYYY.MM.01');
+            eDisplayDate = moment(sDisplayDate).add("months", 1).add('days', -1).format('YYYY.MM.DD');
+
+            $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
+
         }else if(dateType == "week"){    //전주
-            sDisplayDate = moment(dateTime).add("weeks", day -1).format('YYYY.MM.DD');
-            eDisplayDate = moment(dateTime).add("weeks", day).format('YYYY.MM.DD');
+
+
+            if(searchType == 'prev'){
+                --week;
+            }else if(searchType == 'next'){
+                ++week;
+            }
+
+            sDisplayDate = moment(dateTime).add('days', (-moment(dateTime).day())).add('weeks', week).format('YYYY.MM.DD');
+            eDisplayDate = moment(sDisplayDate).add('days', 6).format('YYYY.MM.DD');
+
+            $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
+
         }else if(dateType == "day"){     // 전일
+
+            if(searchType == 'prev'){
+                --day;
+            }else if(searchType == 'next'){
+                ++day;
+            }
+
             sDisplayDate = moment(dateTime).add("days", day-1).format('YYYY.MM.DD');
             eDisplayDate = moment(dateTime).add("days", day).format('YYYY.MM.DD');
-        }
 
-        console.log(sDisplayDate)
-        console.log(eDisplayDate)
-
-        term_click(dateType,sw);
-    };
-
-    function term_click(dateType, sw){
-        var dateUtil = new DateUtility(new Date());
-        var time = '23:59:59';
-        if(sw){
-            eDate = dateTime + " " + time;      // 오늘날짜 + 시간
-        }else{
-            eDate = eDisplayDate + " " + time;      // 오늘날짜 + 시간
-        }
-
-        if(dateType == "month"){         //전월
-            $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
-        }else if(dateType == "week"){    //전주
-            $("._searchDate").html(sDisplayDate + " ~ " + eDisplayDate);
-        }else if(dateType == "day"){     // 전일
             $("._searchDate").html(eDisplayDate);
         }
 
-        chartParam.slctDate = eDate;
+        chartParam.slctDate = eDisplayDate + ' 23:59:59';
         util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", chartParam, fn_chart_success);
+
     };
 
     $(document).on('click', '._cntType', function() {
         chartParam.slctType = $(this).data('slcttype');
-        term_click("week",true);
+        apply('current', getViewName());
     });
 
     $(document).on('click', '._viewType', function() {
+        var day = 0;
+        var week = 0;
+        var month = 0;
+
         $("#sales-stat-tab li").removeClass('active');
         $(this).parent('li').addClass('active');
 
         var viewType = $(this).data('viewtype');
         chartParam.viewType = viewType;
         if(viewType == 1) {
-            term_click("day", true);
+            apply('current', 'day');
         } else if(viewType == 2) {
-            console.log(sDisplayDate)
-            console.log(eDisplayDate)
-            term_click("week", true);
+            apply('current', 'week');
         } else {
-            term_click("month", true);
+            apply('current', 'month');
         }
     });
 
