@@ -67,9 +67,9 @@
                     <div class="chart-nav">
                         <strong>기간 선택: </strong>
                         <ul id="sales-stat-tab">
-                            <li class="active"><a href="#day" class="_viewType" data-viewtype="1" id="_day" onclick="apply('current', 'day');">일간</a></li>
-                            <li class=""><a href="#week" class="_viewType" data-viewtype="2" id="_week" onclick="apply('current', 'week');">주간</a></li>
-                            <li class=""><a href="#month" class="_viewType" data-viewtype="3" id="_month" onclick="apply('current', 'month');">월간</a></li>
+                            <li class="active"><a href="#day" class="_viewType" data-viewtype="1" id="_day">일간</a></li>
+                            <li class=""><a href="#week" class="_viewType" data-viewtype="2" id="_week">주간</a></li>
+                            <li class=""><a href="#month" class="_viewType" data-viewtype="3" id="_month">월간</a></li>
                         </ul>
                     </div>
                     <!-- end chart tab nav -->
@@ -208,7 +208,7 @@
                             </div>
                         </div>
                         <div class="widget-content mt10">
-                            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                            <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="memberStatTab">
                                 <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab" data-function="getMemberJoinStat">회원가입</a></li>
                                 <li><a href="#reportDetail" role="tab" data-toggle="tab" data-function="getMemberWithdrawStat">탈퇴</a></li>
                             </ul>
@@ -235,7 +235,7 @@
                     <!-- 캐스트정보 -->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 캐스트정보</h3>
+                            <h3><i class="fa fa-table"></i> 캐스트정보 [ &#8251; 가 데이터 입니다.]</h3>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
@@ -314,7 +314,7 @@
                     <!-- 결제/결제취소-->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 결제/결제취소</h3>
+                            <h3><i class="fa fa-table"></i> 결제/결제취소 - [ &#8251; 가 데이터 입니다.]</h3>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
@@ -451,7 +451,7 @@
                     <!-- 실시간 인기 아이템 TOP 5 -->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 실시간 인기 아이템 TOP 5</h3>
+                            <h3><i class="fa fa-table"></i> 실시간 인기 아이템 TOP 5 [ &#8251; 가 데이터 입니다.]</h3>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
@@ -770,7 +770,7 @@
     }
 
     function getChartData(detailData, param) {
-
+        console.log(param);
         //x축
         var arrayList_x = [];
         if(param.viewType == 1) {
@@ -863,6 +863,11 @@
 
         $("#statTotalTableBody").empty().append(html);
     }
+
+    $('#memberStatTab li a').on('click', function(){
+       var functionName = $(this).data('function');
+       eval(functionName)();
+    });
 
     function getMemberJoinStat(){
         util.getAjaxData("joinInfo", "/rest/mainStatus/join/status/list", null, fn_statMember_success);
