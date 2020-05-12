@@ -13,7 +13,7 @@ public class P_MemberGiftOutputVo extends SearchVo {
 
     //output
     private String gubun;
-    private String ruby;
+    private int ruby;
     private String room_no;
     private String mem_no;
     private String item_type;
@@ -30,6 +30,8 @@ public class P_MemberGiftOutputVo extends SearchVo {
     private int secret;
 
     //summary
+    private int giftCnt;
+    private int dalCnt;
 
     public void setGiftDate(Date giftDate){
         this.giftDate = giftDate;

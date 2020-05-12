@@ -89,3 +89,18 @@ var testId_withdrawal = [
     ,new COMMON_CODE('-1','-1','전체')
     ,new COMMON_CODE('0','0','Test-ID 제외')
 ];
+
+
+// ------------------------- table -----------------------------
+var mem_total_gift_summary = [
+    new COMMON_CODE('', 'total_gift_present', '받은/보낸 건 수')
+    , new COMMON_CODE('', 'total_gift_dal', '받은보낸 달 수')
+];
+var mem_gift_summary = [
+    new COMMON_CODE('', 'gift_present', '보낸 건 수')
+    , new COMMON_CODE('', 'gift_dal', '보낸 달 수')
+];
+var mem_received_summary = [
+    new COMMON_CODE('', 'received_present', '받은 건 수')
+    , new COMMON_CODE('', 'received_dal', '받은 달 수')
+];
