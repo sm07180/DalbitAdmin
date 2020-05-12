@@ -676,8 +676,8 @@
         };
         var data = [trace];
         var layout = {
-            height: 400,
-            width: 970,
+            /*height: 400,
+            width: 970,*/
             xaxis: {
                 range: [0, detailData.length],
                 autorange: false
@@ -695,7 +695,10 @@
                 }
             }
         };
-        Plotly.newPlot('lineArea', data, layout);
+        var config = {
+            responsive: true
+        }
+        Plotly.newPlot('lineArea', data, layout, config);
     }
 
     function getChartData(detailData, param) {
