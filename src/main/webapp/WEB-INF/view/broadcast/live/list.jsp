@@ -107,6 +107,7 @@
             data.ortStartDate =2;
         }
         data.room_liveType = room_liveType;
+        data.sortStartDate = 0;
     };
     dalbitLog(dtList_info_data);
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);

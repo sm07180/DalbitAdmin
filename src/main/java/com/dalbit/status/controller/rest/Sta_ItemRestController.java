@@ -50,4 +50,38 @@ public class Sta_ItemRestController {
         String result = sta_ItemService.callItemTotal(StatVo);
         return result;
     }
+
+    /**
+     * 아이템 성별
+     * @param StatVo
+     * @return
+     */
+    @PostMapping("/gender/list")
+    public String itemGender(StatVo StatVo){
+        if(DalbitUtil.isEmpty(StatVo.getStartDate())){
+            StatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(StatVo.getEndDate())){
+            StatVo.setEndDate(null);
+        }
+        String result = sta_ItemService.callItemGender(StatVo);
+        return result;
+    }
+
+    /**
+     * 아이템 연령별
+     * @param StatVo
+     * @return
+     */
+    @PostMapping("/age/list")
+    public String itemAge(StatVo StatVo){
+        if(DalbitUtil.isEmpty(StatVo.getStartDate())){
+            StatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(StatVo.getEndDate())){
+            StatVo.setEndDate(null);
+        }
+        String result = sta_ItemService.callItemAge(StatVo);
+        return result;
+    }
 }
