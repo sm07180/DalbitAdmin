@@ -52,10 +52,11 @@
     });
 
     function getTotalList(){
-        util.getAjaxData("memberList", "/rest/enter/join/info/total", $("#searchForm").serialize(), fn_totalJoin_success);
+        util.getAjaxData("memberList", "/rest/status/item/total/list", $("#searchForm").serialize(), fn_totalJoin_success);
     }
 
     function fn_totalJoin_success(data, response){
+        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
         $("#tableBody").empty();
         if(!isDataEmpty){
@@ -84,16 +85,16 @@
 <script type="text/x-handlebars-template" id="tmp_total">
     <tr class="success">
         <td>소계</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_maleCnt}}</td>
-        <td>{{addComma sum_femaleCnt}}</td>
-        <td>{{addComma sum_noneCnt}}</td>
-        <td>{{addComma sum_age10Cnt}}</td>
-        <td>{{addComma sum_age20Cnt}}</td>
-        <td>{{addComma sum_age30Cnt}}</td>
-        <td>{{addComma sum_age40Cnt}}</td>
-        <td>{{addComma sum_age50Cnt}}</td>
-        <td>{{addComma sum_age60Cnt}}</td>
+        <td>{{addComma sum_changeCnt}}</td>
+        <td>{{addComma sum_changeAmt}}</td>
+        <td>{{addComma sum_dalgiftCnt}}</td>
+        <td>{{addComma sum_dalgiftAmt}}</td>
+        <td>{{addComma sum_subsCnt}}</td>
+        <td>{{addComma sum_subsAmt}}</td>
+        <td>{{addComma sum_broadgiftCnt}}</td>
+        <td>{{addComma sum_broadgiftAmt}}</td>
+        <td>{{addComma sum_castgiftCnt}}</td>
+        <td>{{addComma sum_castgiftAmt}}</td>
     </tr>
 </script>
 
@@ -105,20 +106,20 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma maleCnt}}</td>
-        <td>{{addComma femaleCnt}}</td>
-        <td>{{addComma noneCnt}}</td>
-        <td>{{addComma age10Cnt}}</td>
-        <td>{{addComma age20Cnt}}</td>
-        <td>{{addComma age30Cnt}}</td>
-        <td>{{addComma age40Cnt}}</td>
-        <td>{{addComma age50Cnt}}</td>
-        <td>{{addComma age60Cnt}}</td>
+        <td>{{addComma changeCnt}}</td>
+        <td>{{addComma changeAmt}}</td>
+        <td>{{addComma dalgiftCnt}}</td>
+        <td>{{addComma dalgiftAmt}}</td>
+        <td>{{addComma subsCnt}}</td>
+        <td>{{addComma subsAmt}}</td>
+        <td>{{addComma broadgiftCnt}}</td>
+        <td>{{addComma broadgiftAmt}}</td>
+        <td>{{addComma castgiftCnt}}</td>
+        <td>{{addComma castgiftAmt}}</td>
     </tr>
     {{else}}
-    <tr>
+    <%--<tr>--%>
         <td colspan="11" class="noData">{{isEmptyData}}<td>
-    </tr>
+    <%--</tr>--%>
     {{/each}}
 </script>

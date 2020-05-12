@@ -36,6 +36,9 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
+            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+                    return common.redFont(data) +'번';
+                }},
             {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '65px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
@@ -107,6 +110,9 @@ var BroadcastDataTableSource = {
             {'title': '사연수', 'data': 'storyCnt','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
+                }},
+            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+                    return common.redFont(data)+'번';;
                 }},
         ]
         , 'comments': 'ㆍ방송제목을 클릭하시면 현재 방송중인 정보를 확인 할 수 있습니다.'
