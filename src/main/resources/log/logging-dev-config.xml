@@ -52,6 +52,7 @@
     <logger name="io.lettuce" level="WARN" />
     <logger name="com.zaxxer.hikari" level="WARN" />
     <logger name="o.s.w.servlet.DispatcherServlet" level="off" />
+    <logger name="com.dalbit.common.controller.CommonController" level="OFF" />
 
     <root level="INFO">
         <appender-ref ref="FILE" />
