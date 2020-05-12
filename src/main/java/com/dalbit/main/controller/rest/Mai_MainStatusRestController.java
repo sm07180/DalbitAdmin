@@ -51,5 +51,11 @@ public class Mai_MainStatusRestController {
         return result;
     }
 
+    @PostMapping("item/status/info")
+    public String item(){
+        String result = mai_MainStatusService.callItemStatusInfoList();
+        return result;
+    }
+
 
 }
