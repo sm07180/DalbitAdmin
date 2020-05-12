@@ -451,7 +451,9 @@
                     <!-- 실시간 인기 아이템 TOP 5 -->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 실시간 인기 아이템 TOP 5 [ &#8251; 가 데이터 입니다.]</h3>
+                            <h3><i class="fa fa-table">
+                            </i> 실시간 인기 아이템 TOP 5
+                            </h3>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
