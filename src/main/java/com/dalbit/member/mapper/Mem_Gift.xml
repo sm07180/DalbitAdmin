@@ -20,7 +20,8 @@
                                , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS nickName
                               , mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
                           FROM rd_data.tb_member_broadcast_item
-                         where mem_no = #{mem_no}) AS a
+                         where mem_no = #{mem_no}
+                         ) AS a
                  LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
                  union
                  SELECT a.gubun,a.ruby,a.room_no,a.mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`
@@ -32,13 +33,6 @@
                           FROM rd_data.tb_member_broadcast_item
                          where gifted_mem_no = #{mem_no}) AS a
                  LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
-                 union
-                 select use_contents as gubun ,ruby as ruby ,null as room_no ,mem_no as mem_no ,type as item_type
-                        ,(select mem_userid FROM rd_data.tb_member_basic WHERE mem_no = a.mem_no) AS userId
-                        ,(select mem_nick FROM rd_data.tb_member_basic WHERE mem_no = a.mem_no) AS nickName
-                        ,0 as `level` ,0 as `grade` ,last_upd_date as giftDate
-                        ,null as itemImage ,null as itemName ,1 as itemCnt ,null asitem_thumbnail ,0 as secret
-                   from rd_data.tb_member_wallet_ruby as a where mem_no =#{mem_no} and `type` in (4,5)
                 ORDER BY giftDate DESC
                 limit #{pageNo}, #{pageCnt}
         ) AS c, (select @rownum := #{pageNo} ) AS d
@@ -79,6 +73,29 @@
 
     </select>
 
+
+    <select id="callGiftHistory_all_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
+      select sum(totalCnt) totalCnt
+        from (
+            SELECT count(*) totalCnt
+              FROM rd_data.tb_member_broadcast_item
+             where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
+              ) as a
+    </select>
+
+    <select id="callGiftHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
+        SELECT count(*) totalCnt FROM rd_data.tb_member_broadcast_item
+        <if test="slctType == -1">    <!-- 전체 -->
+            where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
+        </if>
+        <if test="slctType == 0">    <!-- 보낸선물 -->
+            where mem_no = #{mem_no}
+        </if>
+        <if test="slctType == 1">    <!-- 전체 -->
+            where gifted_mem_no = #{mem_no}
+        </if>
+    </select>
+
     <select id="callGiftHistory_event" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
         /* Mem_Gift.xml - callGiftHistory_event */
         select @rownum := @rownum + 1 as rowNum, c.*
@@ -100,32 +117,6 @@
           limit #{pageNo}, #{pageCnt}
         ) AS c, (select @rownum := #{pageNo} ) AS d
 
-    </select>
-    
-    <select id="callGiftHistory_all_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
-      select sum(totalCnt) totalCnt
-        from (
-            SELECT count(*) totalCnt
-              FROM rd_data.tb_member_broadcast_item
-             where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
-             union
-             select count(*) totalCnt
-              from rd_data.tb_member_wallet_ruby
-             where mem_no = #{mem_no} and `type` in (4,5)
-              ) as a
-    </select>
-
-    <select id="callGiftHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
-        SELECT count(*) totalCnt FROM rd_data.tb_member_broadcast_item
-        <if test="slctType == -1">    <!-- 전체 -->
-            where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
-        </if>
-        <if test="slctType == 0">    <!-- 보낸선물 -->
-            where mem_no = #{mem_no}
-        </if>
-        <if test="slctType == 1">    <!-- 전체 -->
-            where gifted_mem_no = #{mem_no}
-        </if>
     </select>
 
     <select id="callGiftHistory_event_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">

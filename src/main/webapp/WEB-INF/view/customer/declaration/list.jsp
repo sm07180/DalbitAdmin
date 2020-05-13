@@ -153,14 +153,6 @@
         tmp_slctReason  = $("select[name='slctReason']").val();
         tmp_slctPlatform  = $("select[name='platform']").val();
 
-
-        console.log(tmp_searchText);
-        console.log(tmp_searchType);
-        console.log(tmp_slctType);
-        console.log(tmp_slctReason);
-        console.log(tmp_slctPlatform);
-
-
         dtList_info.reload();
 
         /*검색결과 영역이 접혀 있을 시 열기*/

@@ -23,19 +23,26 @@
     $(document).ready(function() {
     });
 
-    var tmp_platform = -1;
+    var tmp_slctType = null;
     var tmp_slctReason = -1;
+    var tmp_slctPlatform = null;
     function getHistory_declarationDetail(tmp) {     // 상세보기
+
+        tmp_slctType = null;
+        tmp_slctReason = -1;
+        tmp_slctPlatform = null;
+
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         console.log("tmp : " + tmp);
         var source = MemberDataTableSource[tmp];
 
         var dtList_info_detail_data = function (data) {
             data.searchType = 1;
-            data.strPlatform = tmp_platform;
+            data.slctType = tmp_slctType;
             data.slctReason = tmp_slctReason;
             data.searchText = memNo;
-        }
+            data.strPlatform = tmp_slctPlatform;
+        };
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(true);
         dtList_info_detail.useIndex(true);
@@ -49,16 +56,22 @@
         util.getAjaxData("summary", "/rest/customer/declaration/opCount_target", obj, declaration_fn_success, fn_fail);
     }
     function initDataTableTop_select_declaration(tmp){
-        var topTable = '<span name="search_platform_aria_top" id="search_platform_aria_top" onchange="sel_change_report()"></span>' +
-                        '<span name="search_reason_aria_top" id="search_reason_aria_top" onchange="sel_change_report()"></span>';
+        var topTable = '<span id="search_slct_type_aria" onchange="sel_change_report()"></span>' +
+                        '<span name="search_reason_aria_top" id="search_reason_aria_top" onchange="sel_change_report()"></span>' +
+                        '<span name="question_platform" id="question_platform" onchange="sel_change_report()"></span>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
-        $("#search_platform_aria_top").html(util.getCommonCodeSelect(-1, search_platform));
+        $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
         $("#search_reason_aria_top").html(util.getCommonCodeSelect(-1, declaration_reason));
+        $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
     }
 
     function sel_change_report(){
-        tmp_platform = $("select[name='platform']").val();
+        tmp_slctType  = $("select[name='slctType']").val();
         tmp_slctReason = $("select[name='slctReason']").val();
+        tmp_slctPlatform  = $("#question_platform").find("select[name='platform']").val();
+
+        console.log(tmp_slctPlatform);
+
         dtList_info_detail.reload();
     }
 

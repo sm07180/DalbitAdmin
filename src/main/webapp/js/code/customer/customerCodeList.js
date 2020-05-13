@@ -2,7 +2,7 @@
 /** =------ Declaration ---------- */
 var declaration_searchType = [
     new COMMON_CODE(null, 'searchType', '검색 조건')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '-1', '검색 조건(전체)')
     , new COMMON_CODE('memno', '1', '회원번호')
     , new COMMON_CODE('memid', '2', 'UserID')
     , new COMMON_CODE('memnick', '3', 'User닉네임')
@@ -11,7 +11,7 @@ var declaration_searchType = [
 
 var declaration_slctType = [
     new COMMON_CODE(null, 'slctType', '제재 조치')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '-1', '제재 조치(전체)')
     , new COMMON_CODE('not', '0', '미처리')
     , new COMMON_CODE('continue', '1', '정상')
     , new COMMON_CODE('warning', '2', '경고')
@@ -24,7 +24,7 @@ var declaration_slctType = [
 
 var declaration_reason = [
     new COMMON_CODE(null, 'slctReason', '신고 구분')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '-1', '신고 구분(전체)')
     , new COMMON_CODE('background', '1', '방송방배경')
     , new COMMON_CODE('profile', '2', '프로필사진')
     , new COMMON_CODE('obs', '3', '음란성')
