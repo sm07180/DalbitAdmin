@@ -72,7 +72,7 @@
         }
 
         data["notiContents"] = $("#notiContents").val();  // 알림 제목
-        data["notiMemo"] = $("#notiMemo").summernote('code', msgValue);   // 알림 내용
+        data["notiMemo"] = $("#notiMemo").summernote('code');   // 알림 내용
 
         dalbitLog(data);
 
