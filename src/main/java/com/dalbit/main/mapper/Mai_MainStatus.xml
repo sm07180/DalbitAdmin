@@ -17,5 +17,7 @@
     <select id="callChartStatusInfoList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.main.vo.procedure.P_ChartStatusOutVo">
         call rd_admin.sp_admin_main_total_stat_live_graph(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
-
+    <select id="callItemStatusInfoList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.main.vo.procedure.P_ItemTopFiveOutputVo">
+        call rd_admin.sp_admin_main_total_stat_item5(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 </mapper>

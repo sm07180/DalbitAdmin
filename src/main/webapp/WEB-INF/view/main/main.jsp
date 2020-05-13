@@ -451,7 +451,9 @@
                     <!-- 실시간 인기 아이템 TOP 5 -->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 실시간 인기 아이템 TOP 5 [ &#8251; 가 데이터 입니다.]</h3>
+                            <h3><i class="fa fa-table">
+                            </i> 실시간 인기 아이템 TOP 5
+                            </h3>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
@@ -468,92 +470,7 @@
                                     <th>전주대비</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <th rowspan="2">상품명</th>
-                                    <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th>금액</th>
-                                    <td>200분</td>
-                                    <td>180분</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2">상품명</th>
-                                    <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th>금액</th>
-                                    <td>200분</td>
-                                    <td>180분</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2">상품명</th>
-                                    <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th>금액</th>
-                                    <td>200분</td>
-                                    <td>180분</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2">상품명</th>
-                                    <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th>금액</th>
-                                    <td>200분</td>
-                                    <td>180분</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th rowspan="2">상품명</th>
-                                    <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
-                                <tr>
-                                    <th>금액</th>
-                                    <td>200분</td>
-                                    <td>180분</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
-                                </tr>
+                                <tbody id = "statItemBody">
                                 </tbody>
                             </table>
                         </div>
@@ -592,6 +509,7 @@
         getTotalStat();
         getBroadInfoStat();
         getMemberJoinStat();
+        getItemInfoStat();
 
         dateTime = moment(dateTime).format("YYYY.MM.DD");
         var dateTime2 = moment(dateTime).format("YYYY" + "년" + "MM" + "월" + "DD" + "일 종합현황");
@@ -607,6 +525,17 @@
     });
 
     $(document).on('click', '._nextSearch', function(){
+
+        var dateArr = dateTime.split('.');
+        var eDateArr = eDisplayDate.split('.');
+
+        var dateArrCompare = new Date(dateArr[0], parseInt(dateArr[1])-1, dateArr[2]);
+        var eDateArrCompare = new Date(eDateArr[0], parseInt(eDateArr[1])-1, eDateArr[2]);
+
+        if(dateArrCompare <= eDateArrCompare) {
+            alert("날짜를 확인해주십시오.");
+            return false;
+        }
         apply('next', getViewName());
     });
 
@@ -747,8 +676,8 @@
         };
         var data = [trace];
         var layout = {
-            height: 400,
-            width: 970,
+            /*height: 400,
+            width: 970,*/
             xaxis: {
                 range: [0, detailData.length],
                 autorange: false
@@ -766,7 +695,10 @@
                 }
             }
         };
-        Plotly.newPlot('lineArea', data, layout);
+        var config = {
+            responsive: true
+        }
+        Plotly.newPlot('lineArea', data, layout, config);
     }
 
     function getChartData(detailData, param) {
@@ -897,6 +829,20 @@
         var html=templateScript(context);
 
         $("#statBroadTableBody").empty().append(html);
+    }
+
+    function getItemInfoStat() {
+        util.getAjaxData("itemInfo", "/rest/mainStatus/item/status/info", null, fn_itemTop_success);
+    }
+
+    function fn_itemTop_success(dst_id, response) {
+        var template = $('#tmp_statItem').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+
+        dalbitLog("#############" + response.data);
+        $('#statItemBody').html(html);
     }
 </script>
 
@@ -1086,4 +1032,30 @@
         <td></td>
         <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i></td>
     </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_statItem">
+    {{#each this}}
+    <tr>
+        <th rowspan="2">{{item_name}}[{{item_code}}]</th>
+        <th>건</th>
+        <td>{{addComma nowItemCnt}}</td>
+        <td>{{addComma yesItemCnt}}</td>
+        <td class="{{upAndDownClass incnyItemCnt}}"><i class="fa {{upAndDownIcon incnyItemCnt}}"></i>{{addComma incnyItemCnt}}</td>
+        <td>{{addComma weekItemCnt}}</td>
+        <td class="{{upAndDownClass incwbItemCnt}}"><i class="fa {{upAndDownIcon incwbItemCnt}}"></i>{{addComma incwbItemCnt}}</td>
+    </tr>
+    <tr>
+        <th>금액</th>
+        <td>{{addComma nowItemAmt}}</td>
+        <td>{{addComma yesItemAmt}}</td>
+        <td class="{{upAndDownClass incnyItemAmt}}"><i class="fa {{upAndDownIcon incnyItemAmt}}"></i>{{addComma incnyItemAmt}}</td>
+        <td>{{addComma weekItemAmt}}</td>
+        <td class="{{upAndDownClass incnwbItemAmt}}"><i class="fa {{upAndDownIcon incnwbItemAmt}}"></i>{{addComma incnwbItemAmt}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="7">{{isEmptyData}}</td>
+    </tr>
+    {{/each}}
 </script>
