@@ -20,6 +20,12 @@ $(document).on('click', '._openBroadcastPop', function(){
     util.windowOpen(url, 1500, 800, 'broadcastInfo');
 });
 
+/*방송방메시지보내기 팝업*/
+$(document).on('click', '._openAdminMessagePop', function(){
+    var url = "/broadcast/broadcast/popup/messagePopup?roomNo="+$(this).data('roomno')+"&djmemno=" + $(this).data('djmemno');
+    util.windowOpen(url, 800, 370, 'adminMessageInfo');
+});
+
 $(document).on('click', 'img._imageFullPop', function(){
     $("#_imgFullLayer").html(util.imageFullSize("_imgFullLayer_modal", $(this).attr('src')));
     $('#_imgFullLayer_modal').modal('show');

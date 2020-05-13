@@ -208,6 +208,12 @@
             alert(data.message);
             // alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
 
+            // popup일 경우 창 닫기
+            if(fnc_messageDetail.popup){
+                window.close();
+                return
+            }
+
             fnc_messageList.selectMainList(false);
 
             //하위 탭 초기화
@@ -250,12 +256,24 @@
         // 데이터 가져오기
         getDetailData(){
             var resultJson ={};
+            var targetRooms = [];
 
             var formArray = this.target.find("#" + this.formId).serializeArray();
             for (var i = 0; i < formArray.length; i++){
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
 
+
+            if(fnc_messageDetail.popup){
+                if(!common.isEmpty(fnc_messageDetail.room_no && !common.isEmpty(fnc_messageDetail.bj_mem_no))){
+                    targetRooms.push(fnc_messageDetail.room_no.toString());
+                }else{
+                    console.log("[방송방메시지발송] Popup에서 발송 요청 시 Room정보 없음.");
+                    return null;
+                }
+            }
+
+            resultJson["target_rooms"] = targetRooms.toString().replace(/,/gi , "|");
             dalbitLog(resultJson)
             return resultJson;
         },
