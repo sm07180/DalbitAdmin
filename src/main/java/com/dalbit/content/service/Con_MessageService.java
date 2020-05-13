@@ -8,6 +8,7 @@ import com.dalbit.content.dao.Con_MessageDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.OkHttpClientUtil;
 import com.google.gson.Gson;
@@ -113,15 +114,27 @@ public class Con_MessageService {
 
 
     public String sendSplashApi(P_MessageInsertVo pMessageInsertVo) throws GlobalException {
-        RequestBody formBody = new FormBody.Builder()
-                .add("message", pMessageInsertVo.getSend_cont())
-                .build();
+        RequestBody formBody;
+        String uri = "";
+
+        if(DalbitUtil.isEmpty(pMessageInsertVo.getTarget_rooms())){
+            formBody = new FormBody.Builder()
+                    .add("message", pMessageInsertVo.getSend_cont())
+                    .build();
+            uri = "/socket/sendSystemMessage";
+        }else {
+            formBody = new FormBody.Builder()
+                    .add("message", pMessageInsertVo.getSend_cont())
+                    .add("targetRooms", pMessageInsertVo.getTarget_rooms())
+                    .build();
+            uri = "/socket/sendTargetSystemMessage";
+        }
 
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
 
         try{
             for(String url : SERVER_API_URLS.split("\\,")){
-                url += "/socket/sendSystemMessage";
+                url += uri;
                 Response response = okHttpClientUtil.sendPost(url, formBody);
                 String inforexLoginResult = response.body().string();
                 log.debug(inforexLoginResult);

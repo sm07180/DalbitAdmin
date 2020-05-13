@@ -26,8 +26,7 @@
         /* Cus_Question.xml - getFaqSubList */
         select *
         from rd_data.tb_service_center_faq
-        where view_on = 1
-            and slct_type = #{slct_type}
+        where slct_type = #{slct_type}
     </select>
 
     <select id="callQuestionCountTarget" parameterType="com.dalbit.customer.vo.procedure.P_QuestionListInputVo" resultType="java.util.HashMap">
