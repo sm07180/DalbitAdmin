@@ -165,18 +165,14 @@
             obj.memo = $("#txt_adminMemo").val();
             obj.notiContents = msgTitle;
             obj.notimemo = msgValue;
-            util.getAjaxData("report", "/rest/member/member/report", obj, update_success, fn_fail);
+            util.getAjaxData("report", "/rest/member/member/report", obj, update_success);
         }return false;
 
     }
 
     function update_success(dst_id, response) {
-        dalbitLog(response);
         window.opener.getMemNo_info_reload(memNo);
         alert(response.message);
         window.close();
-    }
-    function fn_fail(data, textStatus, jqXHR){
-        console.log(data, textStatus, jqXHR);
     }
 </script>
