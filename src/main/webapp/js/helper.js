@@ -184,6 +184,6 @@ Handlebars.registerHelper("phoneNumHyphen", function(value) {
     return common.phoneNumHyphen(value);
 });
 
-Handlebars.registerHelper("redFont", function(value) {
-    return common.redFont(value);
+Handlebars.registerHelper("fontColor", function(value, minValue, fontColor) {
+    return common.fontColor(value, minValue, fontColor);
 });

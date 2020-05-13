@@ -38,6 +38,7 @@
 
 <script type="text/javascript">
     $("#tablist_con li a").on('click', function(){
+
         var tabId = $(this).prop('id');
         if(tabId == 'tab_total'){
             getTotalList();
@@ -61,6 +62,11 @@
     });
 
     $("#bt_search").on('click', function(){
+
+        if($('input[name="slctType"]:first').prop('checked')){
+            $("._searchDate").html($("#startDate").val());
+        }
+
         $("#tablist_con li.active a").click();
     });
 </script>

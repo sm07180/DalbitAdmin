@@ -254,9 +254,12 @@ common.phoneNumHyphen = function(value) {
     return value.toString().replace(regExp, '$1-$2-$3');
 }
 
-common.redFont = function(value){
-    if(common.isEmpty(value) || 0 == value){
+common.fontColor = function(value, minValue, fontColor){
+    minValue = common.isEmpty(minValue) ? 0 : minValue;
+    fontColor = common.isEmpty(fontColor) ? 'black' : fontColor;
+
+    if(common.isEmpty(value) || value <= minValue){
         return value;
     }
-    return "<span style='color:red;font-weight: bold;'>" + value + "</span>";
+    return "<span style='color:"+fontColor+";font-weight: bold;'>" + value + "</span>";
 }
