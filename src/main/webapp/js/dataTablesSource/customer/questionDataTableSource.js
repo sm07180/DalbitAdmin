@@ -27,14 +27,8 @@ var questionDataTableSource = {
             {'title': '문의제목', 'data': 'question_title','width':'250px','render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+meta.row+');">'+data+'</a>'
                 }},
-            {'title': '접수일시<br>/처리일시', 'data': 'writeDateFormat','width':'120px','render' : function(data,type,row){
-                    if(row.opDateFormat == ""){
-                        return data;
-                    }else{
-                        return data + '<br/>/' + row.opDateFormat;
-                    }
-                }},
-            // {'title': '첨부파일', 'data': 'add_file','width':'60px'},
+            {'title': '접수일시', 'data': 'writeDateFormat','width':'120px'},
+            {'title': '처리일시', 'data': 'opDateFormat','width':'120px'},
             {'title': '첨부파일', 'data': 'add_file','width':'60px', 'render' : function(data, type, row, meta){
                     var fileCnt = common.isEmpty(data) ? 0 : data.split(",").length;
                     return fileCnt +'건';
