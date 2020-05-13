@@ -25,4 +25,7 @@ public interface Bro_BroadcastDao {
 
     int callBroadcastMemberExit(P_BroadcastEditInputVo pBroadcastEditInputVo);
     int callBroadcastExit(P_BroadcastEditInputVo pBroadcastEditInputVo);
+
+    @Transactional(readOnly = true)
+    HashMap callBroadcastSimpleInfo(String roomNo);
 }
