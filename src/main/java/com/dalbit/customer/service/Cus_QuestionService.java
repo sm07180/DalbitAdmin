@@ -174,4 +174,43 @@ public class Cus_QuestionService {
 
         return model;
     }
+
+
+    /**
+     *  1:1 문의하기 처리중 상태 변경
+     */
+    public String callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo){
+        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+
+        int check = cus_questionDao.callServiceCenterQnaStateCheck(pQuestionOperateVo);
+
+        String result;
+        if(check == 1){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_실패));
+        }else{
+            cus_questionDao.callServiceCenterQnaCatch(pQuestionOperateVo);
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_성공));
+        }
+
+        return result;
+    }
+
+    /**
+     *  1:1 문의하기 처리중 상태 해제
+     */
+    public String callServiceCenterQnaChatchRelease(P_QuestionOperateVo pQuestionOperateVo){
+        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+
+        int check = cus_questionDao.callServiceCenterQnaStateCheck(pQuestionOperateVo);
+
+        String result;
+        if(check > 0){
+            cus_questionDao.callServiceCenterQnaChatchRelease(pQuestionOperateVo);
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태해제_성공));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태해제_실패));
+        }
+
+        return result;
+    }
 }

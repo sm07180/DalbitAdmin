@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<sec:authentication var="principal" property="principal" />
 
 <div class="col-md-12 no-padding">
     <label id="one_title"></label>
@@ -20,10 +21,9 @@
     });
     var memNo;
     var memId;
-    var qnaIdx;
     var slct_type;
     function quest_detail_success(data, response, params){
-        console.log("@@@@@@@@@@@@");
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         dalbitLog(params);
         dalbitLog(response);
         qnaIdx = params.qnaIdx;
@@ -47,6 +47,12 @@
         $('#bt_operate').click(function() {                   // 방송제목 변경
             operate_click();
         });
+
+        if(response.data.op_name != $(".name").text()){
+            alert("다른 사람이 처리중인 1:1 문의 건 입니다.");
+            $("#bt_operate").addClass("hide");
+            $("#bt_chatchRelease").addClass("hide");
+        }
     }
 
     function fn_getFaqGroup_success(data, response, params) {
@@ -118,6 +124,18 @@
         $('#editor').summernote('code', $('#editor').summernote('code') + button);
         $('button.btn-codeview').click();
     });
+
+    $(document).on('click', '#bt_chatchRelease', function() {       // 처리중 해제
+        var obj = {};
+        obj.qnaIdx = qnaIdx;
+        util.getAjaxData("qnaCatch", "/rest/customer/question/chatchRelease", obj, fn_chatchRelease_success);
+    });
+    function fn_chatchRelease_success(data, response, params) {
+        dalbitLog(response);
+        dtList_info.reload(question_summary_table);
+        $('#tab_customerQuestion').removeClass("show");
+    }
+
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -146,7 +164,11 @@
                         <td>{{write_date}}</td>
 
                         <th>처리상태</th>
-                        <td>{{{getCommonCodeLabel state 'state'}}}</td>
+                        <td>{{{getCommonCodeLabel state 'state'}}}
+                            {{#equal state '2'}}
+                                <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
+                            {{/equal}}
+                        </td>
                     </tr>
                     <tr>
                         <th>플랫폼</th>
@@ -244,7 +266,9 @@
                 <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
             </div>
             <div class="pull-right">
-                <button type="button" id="bt_operate" class="btn-sm btn btn-default">완료</button>
+                {{#equal state '2'}}
+                    <button type="button" id="bt_operate" class="btn-sm btn btn-default">완료</button>
+                {{/equal}}
             </div>
         </div>
     </div>

@@ -125,4 +125,19 @@ public class Cus_QuestionRestController {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
+
+    /**
+     *  1:1 문의하기 처리중 상태 변경
+     */
+    @PostMapping("qnaCatch")
+    public String qnaCatch(P_QuestionOperateVo pQuestionOperateVo) {
+        return cus_questionService.callServiceCenterQnaCatch(pQuestionOperateVo);
+    }
+    /**
+     *  1:1 문의하기 처리중 상태 해제
+     */
+    @PostMapping("chatchRelease")
+    public String chatchRelease(P_QuestionOperateVo pQuestionOperateVo) {
+        return cus_questionService.callServiceCenterQnaChatchRelease(pQuestionOperateVo);
+    }
 }

@@ -108,6 +108,8 @@
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
+
+        $('#tab_customerQuestion').removeClass("show");
     }
 
     function question_summary_table(json){
@@ -144,12 +146,26 @@
         // dtList_info.reload(question_summary_table);
     });
 
+    var qnaIdx;
+    var answer;
     function getQuestDetail(index){
-        $('#tab_customerQuestion').addClass("show");
         var data = dtList_info.getDataRow(index);
-        var obj = new Object();
-        obj.qnaIdx = data.qnaIdx;
-        obj.answer = data.answer;
+        qnaIdx = data.qnaIdx;
+        answer = data.answer;
+
+        var obj = {};
+        obj.qnaIdx = qnaIdx;
+        util.getAjaxData("qnaCatch", "/rest/customer/question/qnaCatch", obj, fn_getqnaCatch_success);
+
+    }
+    function fn_getqnaCatch_success(data, response, params) {
+        dalbitLog(response);
+        dtList_info.reload(question_summary_table);
+
+        $('#tab_customerQuestion').addClass("show");
+        var obj ={};
+        obj.qnaIdx = qnaIdx;
+        obj.answer = answer;
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 
@@ -157,9 +173,7 @@
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
-
-        // formData.append("searchText", tmp_searchText);
-        // formData.append("searchType", tmp_searchType);
+        formData.append("slctState", -1);
         util.excelDownload($(this), "/rest/customer/question/listExcel", formData, fn_success_excel,fn_fail_excel);
 
     });

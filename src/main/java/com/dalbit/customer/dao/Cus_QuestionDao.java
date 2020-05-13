@@ -2,10 +2,7 @@ package com.dalbit.customer.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.customer.vo.FaqVo;
-import com.dalbit.customer.vo.procedure.P_QuestionDeleteVo;
-import com.dalbit.customer.vo.procedure.P_QuestionDetailOutputVo;
-import com.dalbit.customer.vo.procedure.P_QuestionListInputVo;
-import com.dalbit.customer.vo.procedure.P_QuestionListOutputVo;
+import com.dalbit.customer.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,4 +31,10 @@ public interface Cus_QuestionDao {
     HashMap<P_QuestionListOutputVo,String> callQuestionCountTarget(P_QuestionListInputVo pQuestionListInputVo);
 
     int callQuestionDelete(P_QuestionDeleteVo pQuestionDeleteVo);
+
+    @Transactional(readOnly = true)
+    int callServiceCenterQnaStateCheck(P_QuestionOperateVo pQuestionOperateVo);
+
+    int callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo);
+    int callServiceCenterQnaChatchRelease(P_QuestionOperateVo pQuestionOperateVo);
 }

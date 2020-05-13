@@ -47,4 +47,20 @@
     <delete id="callQuestionDelete" parameterType="com.dalbit.customer.vo.procedure.P_QuestionDeleteVo">
          delete From rd_data.tb_service_center_qna where idx =#{qnaIdx}
     </delete>
+
+
+
+    <select id="callServiceCenterQnaStateCheck" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo" resultType="integer">
+        select count(*) as cnt
+             from rd_data.tb_service_center_qna
+            where idx = #{qnaIdx} and state = 2
+    </select>
+
+    <update id="callServiceCenterQnaCatch" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
+         update rd_data.tb_service_center_qna set state=2, op_name=#{opName} where idx =#{qnaIdx} and state = 0
+    </update>
+
+    <update id="callServiceCenterQnaChatchRelease" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
+         update rd_data.tb_service_center_qna set state=0, op_name='' where idx =#{qnaIdx} and state = 2
+    </update>
 </mapper>
