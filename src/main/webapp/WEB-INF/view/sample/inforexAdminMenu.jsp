@@ -56,7 +56,7 @@
 </xmp>
 
 
-<script type="text/javascript" src="/js/cookie.js"></script>
+<script type="text/javascript" src="/js/cookie.js?${dummyData}"></script>
 <script type="text/javascript">
 
     $('input[id="password"]').keydown(function() {

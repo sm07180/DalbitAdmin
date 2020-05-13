@@ -39,7 +39,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 <!-- 5 include the minified jstree source -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
+<script type="text/javascript" src="/js/code/administrate/adminCodeList.js?${dummyData}"></script>
 
 
 <script>

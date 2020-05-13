@@ -56,8 +56,8 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/dataTablesSource/menuDataTableSource.js"></script>
-<script type="text/javascript" src="/js/code/menu/menuCodeList.js"></script>
+<script type="text/javascript" src="/js/dataTablesSource/menuDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
     $(function(){

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="description" content="KingAdmin - Bootstrap Admin Dashboard Theme">
-<meta name="author" content="The Develovers">
+<meta name="description" content="달빛 라이브 관리자">
+<meta name="author" content="Inforex">
 
 <!-- CSS -->
 <link href="/template2/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -13,10 +13,10 @@
 <link href="/template2/assets/css/main.css" rel="stylesheet" type="text/css">
 <link href="/template2/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
 <link href="/template2/assets/css/summernote/summernote.css" rel="stylesheet" type="text/css">
-<link href="/css/daterangepicker.css" rel="stylesheet" type="text/css">
-<link href="/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css">
-<link href="/css/common_DataTable.css" rel="stylesheet" type="text/css">
-<link href="/css/dalbitAdmin.css" rel="stylesheet" type="text/css">
+<link href="/css/daterangepicker.css?${dummyData}" rel="stylesheet" type="text/css">
+<link href="/css/bootstrap-datetimepicker.css?${dummyData}" rel="stylesheet" type="text/css">
+<link href="/css/common_DataTable.css?${dummyData}" rel="stylesheet" type="text/css">
+<link href="/css/dalbitAdmin.css?${dummyData}" rel="stylesheet" type="text/css">
 
 
 <!--[if lte IE 9]>

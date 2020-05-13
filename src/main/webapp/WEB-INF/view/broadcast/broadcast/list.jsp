@@ -50,7 +50,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 
 <script>
     $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));

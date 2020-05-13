@@ -88,7 +88,7 @@
 </div> <%-- #wapper --%>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var dtList_info;
 

@@ -46,8 +46,8 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/cookie.js"></script>
-<script type="text/javascript" src="/js/inforexApi.js"></script>
+<script type="text/javascript" src="/js/cookie.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/inforexApi.js?${dummyData}"></script>
 <script type="text/javascript">
     $('#loginBtn').on('click', function(e){
         ajaxLogin();

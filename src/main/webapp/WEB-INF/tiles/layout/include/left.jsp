@@ -7,7 +7,7 @@
 <c:set var="param" value="${requestScope['javax.servlet.forward.query_string']}" />
 <c:set var="param_menu" value="${param.menu}" />
 
-<script type="text/javascript" src="/js/inforexApi.js"></script>
+<script type="text/javascript" src="/js/inforexApi.js?${dummyData}"></script>
 <!-- left sidebar -->
 <div id="left-sidebar" class="left-sidebar _leftFixed">
     <!-- main-nav -->
