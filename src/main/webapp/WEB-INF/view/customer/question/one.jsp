@@ -47,7 +47,7 @@
             operate_click();
         });
 
-        if(response.data.op_name != $(".name").text()){
+        if(response.data.state=2 && response.data.op_name != $(".name").text()){
             alert("다른 사람이 처리중인 1:1 문의 건 입니다.");
             $("#bt_operate").addClass("hide");
             $("#bt_chatchRelease").addClass("hide");
