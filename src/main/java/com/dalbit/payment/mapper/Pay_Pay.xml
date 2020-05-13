@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dalbit.member.dao.Pay_PayDao" >
+<mapper namespace="com.dalbit.payment.dao.Pay_PayDao" >
+
+    <sql id="payCondition">
+        select
+        idx
+          ,order_id
+          ,mem_no
+          ,pay_way
+          ,pay_dt_comein
+          ,pay_yn
+          ,pay_ok_date
+          ,pay_ok_time
+          ,pay_slct
+          ,pay_amt
+          ,pay_code
+          ,chrgr_yn
+          ,app_ver
+          ,first_pay_yn
+          ,card_no
+          ,card_nm
+          ,phone_no
+          ,bank_code
+          ,account_no
+          ,rcpt_dt
+          ,rcpt_nm
+          , @RNUM := @RNUM + 1 as rowNum
+        from rd_data.tb_payment_succ
+          , (select @RNUM := 0) r
+        order by pay_dt_comein desc
+    </sql>
+    <select id="getPayList" parameterType="com.dalbit.payment.vo.Pay_PayVo" resultType="com.dalbit.payment.vo.Pay_PayVo">
+        /* Pay_Pay.xml - getPayList */
+        select *
+        from (
+        <include refid="payCondition"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="getPayListCnt" parameterType="com.dalbit.payment.vo.Pay_PayVo" resultType="integer">
+        /* Pay_Pay.xml - getPayListCnt */
+        select
+          count(*)
+        from (
+        <include refid="payCondition"/>
+        ) a
+    </select>
 
 </mapper>
