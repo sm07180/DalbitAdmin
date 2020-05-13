@@ -412,4 +412,68 @@ public class Mem_MemberService {
     }
 
     //-------------------------------------------------------------------
+
+
+
+    /**
+     * 달 추가
+     */
+    public String getMemberDalAdd(P_MemberEditorVo pMemberEditorVo){
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        // 가지고 있는 dal
+        int beforDalCnt = mem_MemberDao.callMemberBeforDelCnt(pMemberEditorVo);
+        int afterDalCnt = beforDalCnt + pMemberEditorVo.getAddDalCnt();
+        // 달 set
+        pMemberEditorVo.setBeforDalCnt(beforDalCnt);
+        pMemberEditorVo.setAfterDalCnt(afterDalCnt);
+        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
+        // 달 추가
+        mem_MemberDao.callMemberAddDal(pMemberEditorVo);
+        // 달 추가 로그
+        mem_MemberDao.callMemberAddDal_history(pMemberEditorVo);
+        // 최근정보 수정일 변경
+        mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
+        // 최근 정보 수정 자 입력
+        pMemberEditorVo.setEditContents("달수 변경 : " + beforDalCnt + " >> " + pMemberEditorVo.getAddDalCnt() + " 추가 >> " + afterDalCnt);
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+        //notice
+        P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+        pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
+        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
+        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
+        mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+    }
+
+    /**
+     * 별 추가
+     */
+    public String getMemberByeolAdd(P_MemberEditorVo pMemberEditorVo){
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        // 가지고 있는 Byeol
+        int beforByeolCnt = mem_MemberDao.callMemberBeforByeolCnt(pMemberEditorVo);
+        int afterByeolCnt = beforByeolCnt + pMemberEditorVo.getAddByeolCnt();
+        // 달 set
+        pMemberEditorVo.setBeforByeolCnt(beforByeolCnt);
+        pMemberEditorVo.setAfterByeolCnt(afterByeolCnt);
+        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
+        // 달 추가
+        mem_MemberDao.callMemberAddByeol(pMemberEditorVo);
+        // 달 추가 로그
+        mem_MemberDao.callMemberAddByeol_history(pMemberEditorVo);
+        // 최근정보 수정일 변경
+        mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
+        // 최근 정보 수정 자 입력
+        pMemberEditorVo.setEditContents("별수 변경 : " + beforByeolCnt + " >> " + pMemberEditorVo.getAddByeolCnt() + " 추가 >> " + afterByeolCnt);
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+        //notice
+        P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+        pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
+        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
+        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
+        mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+    }
 }

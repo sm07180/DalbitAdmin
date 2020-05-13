@@ -76,4 +76,13 @@ public interface Mem_MemberDao {
     @Transactional(readOnly = true)
     ArrayList<P_MemberBlackListOutputVo> callMemBlackList(ProcedureVo procedureVo);
 
+    // 달 추가
+    @Transactional(readOnly = true)
+    int callMemberBeforDelCnt(P_MemberEditorVo pMemberEditorVo);
+    int callMemberAddDal(P_MemberEditorVo pMemberEditorVo);
+    int callMemberAddDal_history(P_MemberEditorVo pMemberEditorVo);
+    int callMemberBeforByeolCnt(P_MemberEditorVo pMemberEditorVo);
+    int callMemberAddByeol(P_MemberEditorVo pMemberEditorVo);
+    int callMemberAddByeol_history(P_MemberEditorVo pMemberEditorVo);
+    int callMemberEdit_date(P_MemberEditorVo pMemberEditorVo);
 }
