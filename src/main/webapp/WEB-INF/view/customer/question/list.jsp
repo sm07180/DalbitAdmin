@@ -13,6 +13,7 @@
                         <div>
                             <span name="question_searchType" id="question_searchType"></span>
                             <span name="question_selbox_type" id="question_selbox_type"></span>
+                            <span name="question_platform" id="question_platform"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -73,18 +74,21 @@
     });
     $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
     $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
+    $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 
     var tmp_searchText;
     var tmp_searchType= -1;
     var tmp_slctState =-1;
+    var tmp_slctPlatform = null;
 
     var dtList_info;
     var dtList_info_data = function ( data ) {
         data.searchText = $('#txt_search').val();
         data.searchType = tmp_searchType;
         data.slctState = tmp_slctState;
+        data.slctPlatform = tmp_slctPlatform;
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, questionDataTableSource.questList);
     dtList_info.useCheckBox(true);
@@ -103,7 +107,7 @@
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
-        tmp_searchType = tmp_searchType;
+        tmp_slctPlatform = $('#platform').val();
         dtList_info.reload(question_summary_table);
 
         /*검색결과 영역이 접혀 있을 시 열기*/
@@ -135,15 +139,14 @@
         dtList_info.reload(question_summary_table);
     }
 
-    $(".searchBoxRow").find("select").change( function() {
-        var me = $(this);
-        $(".searchBoxRow").find("select").each( function (){
-            if(me.attr("name")!==$(this).attr("name")){
-                $(this).val("-1");
-            }
-        });
-        tmp_searchType = me.val();
-        // dtList_info.reload(question_summary_table);
+    $("#question_searchType").find("select").change( function() {
+        $("#question_selbox_type").find("select").val(-1);
+        tmp_searchType = $("#question_searchType").find("select").val();
+    });
+
+    $("#question_selbox_type").find("select").change( function() {
+        $("#question_searchType").find("select").val(-1);
+        tmp_searchType = $("#question_selbox_type").find("select").val();
     });
 
     var qnaIdx;
