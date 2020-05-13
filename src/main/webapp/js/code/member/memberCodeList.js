@@ -45,9 +45,10 @@ var gift = [
     ,new COMMON_CODE('all',  '-1','전체')
     ,new COMMON_CODE('present',  '0','보낸선물')
     ,new COMMON_CODE('gift', '1','받은선물')
+    ,new COMMON_CODE('4', '4','보낸달')
+    ,new COMMON_CODE('5', '5','받은달(이벤트 포함)')
     /*
      기능 미개발로 인한 주석 (2020.05.11)
-     ,new COMMON_CODE('event', '2','이벤트-받은선물')
      ,new COMMON_CODE('change', '3','교환')
     */
 ];

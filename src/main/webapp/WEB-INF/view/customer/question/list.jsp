@@ -12,7 +12,7 @@
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
                             <span name="question_searchType" id="question_searchType"></span>
-                            <span name="question_sel_type" id="question_sel_type"></span>
+                            <span name="question_selbox_type" id="question_selbox_type"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -53,7 +53,7 @@
 </div>
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
-<script type="text/javascript" src="/js/code/customer/questionCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/questionCodeList.js?20200513_09"></script>
 
 <script>
     $(document).ready(function() {
@@ -72,7 +72,7 @@
         <!-- 버튼 끝 -->
     });
     $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
-    $("#question_sel_type").html(util.getCommonCodeSelect(-1, question_sel_type));
+    $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 

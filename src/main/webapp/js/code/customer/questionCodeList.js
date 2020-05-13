@@ -22,8 +22,8 @@ var question_searchType = [
     , new COMMON_CODE('4', '4', '연락처')
 ];
 
-var question_sel_type = [
-    new COMMON_CODE(null, 'question_type', '사용자정보구분')
+var question_selbox_type = [
+    new COMMON_CODE(null, 'question_selbox_type', '사용자정보구분')
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('5', '5', '문의 제목')
     , new COMMON_CODE('6', '6', '내용')

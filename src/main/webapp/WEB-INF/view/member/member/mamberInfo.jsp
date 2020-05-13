@@ -197,17 +197,6 @@
             }else return;
         }else{
             var sendNoti;
-            if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
-                alert("전화번호를 입력해 주십시오.");
-                return;
-            }
-            var tmp_phone = $("#txt_phon").val().replace(/-/gi, "");
-            if(tmp == "bt_resatPass" || tmp == "bt_phon"){          // 비밀번호초기화, 휴대폰 번호 변경 Check
-                if (tmp_phone.substring(0, 3) == "010" && (tmp_phone.length > 11 || tmp_phone.length < 10)) {
-                    alert("전화번호를 정확히 입력해 주십시오.");
-                    return;
-                }
-            }
             obj.mem_no = memNo;
             if(tmp == "bt_img"){                        //사진초기화
                 if(common.isEmpty(memberInfo_responseDate.profileImage)){
@@ -222,6 +211,17 @@
                     obj.notiMemo = memberMessage.profileReset;
                 }else return;
             }else if(tmp == "bt_resatPass"){
+                if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
+                    alert("전화번호를 입력해 주십시오.");
+                    return;
+                }
+                var tmp_phone = $("#txt_phon").val().replace(/-/gi, "");
+                console.log(tmp_phone);
+                if (tmp_phone.substring(0, 3) != "010" || (tmp_phone.length > 11 || tmp_phone.length < 10)) {
+                    alert("전화번호를 정확히 입력해 주십시오.");
+                    return;
+                }
+
                 //비밀번호 변경 후 문자 보내기
                 if (confirm($("#bt_resatPass").data('nickname') + memberMessage.passwordReset)) {
                     obj.passwdReset = "Reset";
@@ -242,10 +242,20 @@
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
             }else if(tmp == "bt_phon"){
+                if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
+                    alert("전화번호를 입력해 주십시오.");
+                    return;
+                }
                 if(memberInfo_responseDate.phoneNum == $("#txt_phon").val().replace(/-/gi, "")){
                     alert("동일한 전화번호 입니다. 변경할 전화번호를 입력해주세요.");
                     return;
                 }
+                var tmp_phone = $("#txt_phon").val().replace(/-/gi, "");
+                if (tmp_phone.substring(0, 3) != "010" || (tmp_phone.length > 11 || tmp_phone.length < 10)) {
+                    alert("전화번호를 정확히 입력해 주십시오.");
+                    return;
+                }
+
                 if(confirm("연락처를 변경 하시겠습니까?")) {
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 0;
@@ -500,7 +510,7 @@
             <th>UserId</th>
             <td colspan="3" style="text-align: left" id="td_userid">{{userId}}</td>
             <th>보유달</th>
-            <td style="text-align: left">{{dal}} 개</td>
+            <td style="text-align: left">{{dal}} 달</td>
         </tr>
         <tr>
             <th>로그인 아이디</th>
@@ -513,7 +523,7 @@
                 </div>
             </td>
             <th>보유별</th>
-            <td style="text-align: left">{{byeol}} 개</td>
+            <td style="text-align: left">{{byeol}} 별</td>
         </tr>
         <tr>
             <th>연락처</th>
