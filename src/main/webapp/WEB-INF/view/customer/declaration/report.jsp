@@ -26,7 +26,7 @@
     </table>
 </div>
 
-<script type="text/javascript" src="/js/message/customer/declarationMessage.js"></script>
+<script type="text/javascript" src="/js/message/customer/declarationMessage.js?${dummyData}"></script>
 
 <script type="text/javascript">
     var dtList_info_detail;

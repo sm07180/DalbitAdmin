@@ -61,7 +61,7 @@
 </div>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script>
     $(document).ready(function() {
 

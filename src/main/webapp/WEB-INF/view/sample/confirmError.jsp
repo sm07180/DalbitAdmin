@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/sample/sampleCodeList.js"></script>
+<script type="text/javascript" src="/js/code/sample/sampleCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var errorPagingInfo = new PAGING_INFO(0, 1, 500);
 

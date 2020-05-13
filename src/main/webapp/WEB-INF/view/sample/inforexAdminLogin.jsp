@@ -29,7 +29,7 @@
     </li>
 </div>
 
-<script type="text/javascript" src="/js/cookie.js"></script>
+<script type="text/javascript" src="/js/cookie.js?${dummyData}"></script>
 <%--<script type="text/javascript" src="/js/jquery.ajax-cross-origin.min.js"></script>--%>
 <script type="text/javascript">
 

@@ -151,7 +151,7 @@
 <!-- 이미지 원본 보기 -->
 <div id="imageFullSize"></div>
 
-<script type="text/javascript" src="/js/code/commonCode.js"></script>
+<script type="text/javascript" src="/js/code/commonCode.js?${dummyData}"></script>
 <script type="text/javascript">
     var livePagingInfo = new PAGING_INFO(0,1,100);
 

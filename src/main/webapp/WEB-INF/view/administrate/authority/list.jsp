@@ -112,7 +112,7 @@
 </div>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
+<script type="text/javascript" src="/js/code/administrate/adminCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         getMemberList();
