@@ -160,7 +160,7 @@
     }
     function fn_getqnaCatch_success(data, response, params) {
         dalbitLog(response);
-        dtList_info.reload(question_summary_table);
+        dtList_info.reload(question_summary_table,false);
 
         $('#tab_customerQuestion').addClass("show");
         var obj ={};
