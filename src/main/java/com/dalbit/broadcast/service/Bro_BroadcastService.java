@@ -2,9 +2,7 @@ package com.dalbit.broadcast.service;
 
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
 import com.dalbit.broadcast.vo.procedure.*;
-import com.dalbit.common.code.Code;
 import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
@@ -12,17 +10,17 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
-import com.dalbit.member.vo.procedure.P_MemberInfoInputVo;
-import com.dalbit.member.vo.procedure.P_MemberInfoOutputVo;
-import com.dalbit.member.vo.procedure.P_MemberListInputVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Response;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Slf4j
@@ -43,6 +41,15 @@ public class Bro_BroadcastService {
     SocketUtil socketUtil;
     @Autowired
     JwtUtil jwtUtil;
+
+    @Value("${server.ant.url}")
+    private String antServer;
+
+    @Value("${ant.expire.hour}")
+    private int antExpire;
+
+    @Value("${ant.app.name}")
+    private String antName;
 
     /**
      * 생방송 list 목록
@@ -312,5 +319,30 @@ public class Bro_BroadcastService {
 
         return result;
 
+    }
+
+    public void callBroadcastSimpleInfo(HttpServletRequest request){
+        String roomNo = request.getParameter("roomNo");
+        if(!DalbitUtil.isEmpty(roomNo)){
+            HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(roomNo);
+            if(broadInfo != null && !DalbitUtil.isEmpty(broadInfo.get("bjStreamId"))){
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.HOUR, antExpire);
+                long expire = cal.getTime().getTime() / 1000;
+                String params = "id=" + broadInfo.get("bjStreamId") + "&expireDate=" + expire + "&type=play";
+                OkHttpClientUtil httpUtil = new OkHttpClientUtil();
+                try{
+                    Response res = httpUtil.sendGet(antServer + "/" + antName + "/rest/broadcast/getToken?" + params);
+                    if(res != null && !DalbitUtil.isEmpty(res.body().string())){
+                        HashMap tokenMap =  new Gson().fromJson(res.body().string(), HashMap.class);
+                        if(tokenMap != null && !DalbitUtil.isEmpty(tokenMap.get("tokenId"))){
+                            broadInfo.put("bjPlayToken", tokenMap.get("tokenId"));
+                            request.setAttribute("BroadInfo", broadInfo);
+                        }
+                    }
+                }catch(Exception e){}
+
+            }
+        }
     }
 }
