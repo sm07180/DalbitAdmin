@@ -75,7 +75,7 @@
     function fn_insert_success(data, response, params){
         dalbitLog(response);
         alert(response.message);
-        dtList_info.reload(qusetion_summary_table);
+        dtList_info.reload();
 
         $("#question_detailFrm").empty();
     }
