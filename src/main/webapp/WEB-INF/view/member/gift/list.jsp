@@ -3,6 +3,7 @@
 <div class="col-lg-12 no-padding">
     <div class="widget widget-table" id="main_table">
         <div class="widget-content">
+            <span id="gift_summaryArea"></span>
             <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
                 <thead id="tableTop_detail">
                 </thead>
@@ -29,10 +30,38 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(50);
-        dtList_info_detail.createDataTable();
+        dtList_info_detail.createDataTable(gift_summary_table);
 
         initDataTableTop_select_gift(tmp);
     }
+
+    function gift_summary_table(json){
+        dalbitLog(json);
+        var template = $("#gift_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        if(slctType == -1){
+            var data = {
+                header : mem_total_gift_summary
+                , content : json.summary
+                , length : json.recordsTotal
+            };
+        }else if(slctType == 0){
+            var data = {
+                header : mem_gift_summary
+                , content : json.summary
+                , length : json.recordsTotal
+            };
+        }else if(slctType == 1){
+            var data = {
+                header : mem_received_summary
+                , content : json.summary
+                , length : json.recordsTotal
+            };
+        }
+        var html = templateScript(data);
+        $("#gift_summaryArea").html(html);
+    }
+
     function initDataTableTop_select_gift(tmp){
         var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
         $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
@@ -40,8 +69,24 @@
     }
     function gift_sel_change(){
         var value = $("#search_gift_top").find("#gift option:selected").val();
-        console.log("value : " + value);
         slctType = value;
-        dtList_info_detail.reload();
+        dtList_info_detail.reload(gift_summary_table);
     }
+</script>
+
+
+<script id="gift_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
+        <thead>
+        <tr>
+            {{#each this.header}}
+            <th>{{this.code}}</th>
+            {{/each}}
+        </tr>
+        </thead>
+        <tbody id="summaryDataTable">
+        <td>{{#equal length '0'}}0{{/equal}}{{content.giftCnt}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+        </tbody>
+    </table>
 </script>

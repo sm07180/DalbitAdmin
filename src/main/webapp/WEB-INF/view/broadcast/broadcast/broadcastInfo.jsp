@@ -430,6 +430,7 @@
         <tr>
             <th>방송강제종료</th>
             <td style="text-align: left">
+                나가기 시도 횟수 : {{{fontColor exitTryCount 1 'red'}}}번<br />
                 {{{forcedExit}}}
                 {{#equal broadcastState 'ON'}}<button type="button" id="bt_forcedExit" class="btn btn-default btn-sm pull-right">변경</button>{{/equal}}
             </td>

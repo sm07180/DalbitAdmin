@@ -5,6 +5,29 @@ var state = [
     , new COMMON_CODE('1', '1', '처리완료')
 ];
 
+var question_status = [
+    new COMMON_CODE(null, 'question_status', '처리상태')
+    , new COMMON_CODE('-1', '-1', '처리상태(전체)')
+    , new COMMON_CODE('0', '0', '미처리')
+    , new COMMON_CODE('1', '1', '처리완료')
+];
+
+
+var question_searchType = [
+    new COMMON_CODE(null, 'question_searchType', '사용자정보구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('1', '1', '회원번호')
+    , new COMMON_CODE('2', '2', 'UserID')
+    , new COMMON_CODE('3', '3', '닉네임')
+    , new COMMON_CODE('4', '4', '연락처')
+];
+
+var question_selbox_type = [
+    new COMMON_CODE(null, 'question_selbox_type', '사용자정보구분')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('5', '5', '문의 제목')
+    , new COMMON_CODE('6', '6', '내용')
+];
 
 
 // ------------------------- table -----------------------------
@@ -27,4 +50,13 @@ var question_slctType = [
     , new COMMON_CODE('event', '2', '방송')
     , new COMMON_CODE('check', '3', '결제')
     , new COMMON_CODE('update', '4', '기타')
+];
+
+var question_platform = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('PC', 'PC', 'PC')
+    , new COMMON_CODE('Android-Mobile', 'Android-Mobile', 'Android-Mobile')
+    , new COMMON_CODE('IOS-Mobile', 'IOS-Mobile', 'IOS-Mobile')
+    , new COMMON_CODE('Web-Mobile', 'Web-Mobile', 'Web-Mobile')
 ];

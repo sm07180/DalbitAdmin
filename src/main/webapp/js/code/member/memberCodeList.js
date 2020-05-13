@@ -45,9 +45,10 @@ var gift = [
     ,new COMMON_CODE('all',  '-1','전체')
     ,new COMMON_CODE('present',  '0','보낸선물')
     ,new COMMON_CODE('gift', '1','받은선물')
+    ,new COMMON_CODE('4', '4','보낸달')
+    ,new COMMON_CODE('5', '5','받은달(이벤트 포함)')
     /*
      기능 미개발로 인한 주석 (2020.05.11)
-     ,new COMMON_CODE('event', '2','이벤트-받은선물')
      ,new COMMON_CODE('change', '3','교환')
     */
 ];
@@ -88,4 +89,19 @@ var testId_withdrawal = [
     new COMMON_CODE('','testId_withdrawal','테스트아이디여부')
     ,new COMMON_CODE('-1','-1','전체')
     ,new COMMON_CODE('0','0','Test-ID 제외')
+];
+
+
+// ------------------------- table -----------------------------
+var mem_total_gift_summary = [
+    new COMMON_CODE('', 'total_gift_present', '받은/보낸 건 수')
+    , new COMMON_CODE('', 'total_gift_dal', '받은보낸 달 수')
+];
+var mem_gift_summary = [
+    new COMMON_CODE('', 'gift_present', '보낸 건 수')
+    , new COMMON_CODE('', 'gift_dal', '보낸 달 수')
+];
+var mem_received_summary = [
+    new COMMON_CODE('', 'received_present', '받은 건 수')
+    , new COMMON_CODE('', 'received_dal', '받은 달 수')
 ];

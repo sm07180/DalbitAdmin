@@ -23,6 +23,7 @@
     var qnaIdx;
     var slct_type;
     function quest_detail_success(data, response, params){
+        console.log("@@@@@@@@@@@@");
         dalbitLog(params);
         dalbitLog(response);
         qnaIdx = params.qnaIdx;
@@ -74,8 +75,12 @@
     }
     function fn_insert_success(data, response, params){
         dalbitLog(response);
-        alert(response.message);
-        dtList_info.reload(qusetion_summary_table);
+        if(response.code == "-2"){
+            alert("이미 등록되어있습니다.");
+        }else{
+            alert(response.message);
+        }
+        dtList_info.reload();
 
         $("#question_detailFrm").empty();
     }

@@ -11,10 +11,8 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                         <div>
-                            <span name="searchType" id="searchType"></span>
-                            <span name="question_type" id="question_type"></span>
-                            <span name="platform" id="platform"></span>
-                            <span name="browser" id="browser"></span>
+                            <span name="question_searchType" id="question_searchType"></span>
+                            <span name="question_selbox_type" id="question_selbox_type"></span>
                             <label><input type="text" class="form-control" id="txt_search"></label>
                             <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -73,31 +71,25 @@
         });
         <!-- 버튼 끝 -->
     });
-    $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
-    $("#question_type").html(util.getCommonCodeSelect(-1, question_type));
-    $("#platform").html(util.getCommonCodeSelect(-1, search_platform));
-    $("#browser").html(util.getCommonCodeSelect(-1, search_browser));
+    $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
+    $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 
     var tmp_searchText;
-    var tmp_searchType;
-    var tmp_question_type = null;
-    var tmp_platform = null;
-    var tmp_browser = null;
+    var tmp_searchType= -1;
+    var tmp_slctState =-1;
 
     var dtList_info;
     var dtList_info_data = function ( data ) {
         data.searchText = $('#txt_search').val();
         data.searchType = tmp_searchType;
-        data.slctType = tmp_question_type;
-        data.slctPlatform = tmp_platform;
-        data.slctBrowser = tmp_browser;
+        data.slctState = tmp_slctState;
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, questionDataTableSource.questList);
     dtList_info.useCheckBox(true);
     dtList_info.useIndex(true);
-    dtList_info.createDataTable(qusetion_summary_table);
+    dtList_info.createDataTable(question_summary_table);
 
     var questionDelBtn = '<input type="button" value="선택삭제" class="btn btn-danger btn-sm" id="btn_questionDelBtn" style="margin-right: 3px;"/>';
     $("#main_table").find(".footer-left").append(questionDelBtn);
@@ -106,21 +98,19 @@
     $("#main_table").find(".footer-right").append(excel);
 
     questionDelEventInit();
+    initDataTableTop_select_question();
 
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
-        tmp_searchType = $("select[name='searchType']").val();
-        tmp_question_type = $("select[name='question_type']").val();
-        tmp_platform = $("select[name='platform']").val();
-        tmp_browser = $("select[name='browser']").val();
-        dtList_info.reload(qusetion_summary_table);
+        tmp_searchType = tmp_searchType;
+        dtList_info.reload(question_summary_table);
 
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
     }
 
-    function qusetion_summary_table(json){
+    function question_summary_table(json){
         // console.log(json);
         var template = $("#question_tableSummary").html();
         var templateScript = Handlebars.compile(template);
@@ -132,6 +122,27 @@
         var html = templateScript(data);
         $("#question_summaryArea").html(html);
     }
+
+    function initDataTableTop_select_question(){
+        var topTable = '<br/><br/><span name="question_status" id="question_status" onchange="question_status_change()"></span>';
+        $("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+        $("#question_status").html(util.getCommonCodeSelect(-1, question_status));
+    }
+    function question_status_change(){
+        tmp_slctState = $("#question_status").find("#question_status option:selected").val();
+        dtList_info.reload(question_summary_table);
+    }
+
+    $(".searchBoxRow").find("select").change( function() {
+        var me = $(this);
+        $(".searchBoxRow").find("select").each( function (){
+            if(me.attr("name")!==$(this).attr("name")){
+                $(this).val("-1");
+            }
+        });
+        tmp_searchType = me.val();
+        // dtList_info.reload(question_summary_table);
+    });
 
     function getQuestDetail(index){
         $('#tab_customerQuestion').addClass("show");
@@ -149,9 +160,6 @@
 
         // formData.append("searchText", tmp_searchText);
         // formData.append("searchType", tmp_searchType);
-        // formData.append("slctType", tmp_question_type);
-        // formData.append("slctPlatform", tmp_platform);
-        // formData.append("slctBrowser", tmp_browser);
         util.excelDownload($(this), "/rest/customer/question/listExcel", formData, fn_success_excel,fn_fail_excel);
 
     });

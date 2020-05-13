@@ -34,10 +34,24 @@ public class Mem_GiftService {
         }else{
             giftList = mem_GiftDao.callGiftHistory(pMemberGiftInputVo);
         }
+
+        P_MemberGiftOutputVo summary = new P_MemberGiftOutputVo();
+
+        int giftCnt = 0;
+        int dalCnt = 0;
+        for(int i=0;i<giftList.size();i++){
+            giftCnt = giftCnt +  giftList.get(i).getItemCnt();
+            dalCnt = dalCnt + giftList.get(i).getRuby();
+        }
+        summary.setGiftCnt(giftCnt);
+        summary.setDalCnt(dalCnt);
+
+
+
         int memberList_totalCnt = mem_GiftDao.callGiftHistory_totalCnt(pMemberGiftInputVo);
 
         String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.환전내역보기성공, giftList, new PagingVo(memberList_totalCnt)));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.환전내역보기성공, giftList, new PagingVo(memberList_totalCnt),summary));
         return result;
     }
 }
