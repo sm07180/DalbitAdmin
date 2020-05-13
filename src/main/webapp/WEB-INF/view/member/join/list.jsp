@@ -53,7 +53,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/member/memberCodeList.js"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
 <script>
 

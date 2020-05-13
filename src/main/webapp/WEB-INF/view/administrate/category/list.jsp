@@ -37,7 +37,7 @@
 </div>
 
 <script type="text/javascript" src="/js/lib/jstree.min.js"></script>
-<script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
+<script type="text/javascript" src="/js/code/administrate/adminCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
     $(function(){

@@ -12,8 +12,8 @@
 <!-- 이미지 원본 보기 -->
 <div id="fullSize_question"></div>
 
-<script type="text/javascript" src="/js/code/customer/questionCodeList.js"></script>
-<script type="text/javascript" src="/js/handlebars/customerHelper.js"></script>
+<script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/handlebars/customerHelper.js?${dummyData}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
 

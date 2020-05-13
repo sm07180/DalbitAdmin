@@ -52,8 +52,8 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
-<script type="text/javascript" src="/js/code/customer/questionCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
 
 <script>
     $(document).ready(function() {

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
-
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 <%--<script src="https://www.google-analytics.com/analytics.js"></script>--%>
 <script src="/template2/assets/js/jquery/jquery-2.1.0.min.js"></script>
 <script src="/template2/assets/js/bootstrap/bootstrap.js"></script>
@@ -61,37 +61,37 @@
 <script src="/js/lib/jquery.fileDownload-v1.4.5.js"></script>
 <script src="/js/lib/handlebars-v4.7.2.min.js"></script>
 <%--<script src="/js/lib/moment-v2.24.0.js"></script>--%>
-<script src="/js/message/commonMessage.js"></script>
-<script src="/js/common.js"></script>
-<script src="/js/commonUtil.js"></script>
-<script src="/js/helper.js"></script>
+<script src="/js/message/commonMessage.js?${dummyData}"></script>
+<script src="/js/common.js?${dummyData}"></script>
+<script src="/js/commonUtil.js?${dummyData}"></script>
+<script src="/js/helper.js?${dummyData}"></script>
 
-<script src="/js/globalEvent.js"></script>
-<script src="/js/uiControl.js"></script>
+<script src="/js/globalEvent.js?${dummyData}"></script>
+<script src="/js/uiControl.js?${dummyData}"></script>
 
 <!-- DataTable Util -->
-<script src="/js/dataTablesSource/member/memberDataTableSource.js"></script>
-<script src="/js/dataTablesSource/broadcast/broadcastDataTableSource.js"></script>
-<script src="/js/dataTablesSource/sampleDataTableSource.js"></script>
-<script src="/js/dataTablesSource/customer/customerDataTableSource.js"></script>
-<script src="/js/dataTablesSource/customer/questionDataTableSource.js"></script>
-<script src="/js/dataTablesSource/dataTableSource.js"></script>
-<script src="/js/dataTablesSource/menuDataTableSource.js"></script>
-<script src="/js/dataTablesSource/content/pushDataTableSource.js"></script>
-<script src="/js/dataTablesSource/content/splashDataTableSource.js"></script>
-<script src="/js/dataTablesSource/content/bannerDataTableSource.js"></script>
-<script src="/js/dataTablesSource/content/eventDataTableSource.js"></script>
-<script src="/js/dataTablesSource/content/itemDataTableSource.js"></script>
-<script src="/js/dataTablesSource/content/noticeDataTableSource.js"></script>
-<script src="/js/dataTablesSource/content/appDataTableSource.js"></script>
-<script src="/js/dataTablesSource/connect/connectDataTableSource.js"></script>
-<script src="/js/dataTablesSource/utilDataTableSource.js"></script>
-<script src="/js/dataTablesSource/administrate/faqDataTableSource.js"></script>
-<script src="/js/dataTablesSource/administrate/termsDataTableSource.js"></script>
-<script src="/js/dataTablesSource/administrate/messageDataTableSource.js"></script>
-<script src="/js/dataTablesSource/sample/sampleDataTableSource.js"></script>
-<script src="/js/dalbitDataTableUtil.js"></script>
-<script src="/js/code/commonCode.js"></script>
+<script src="/js/dataTablesSource/member/memberDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/broadcast/broadcastDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/sampleDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/customer/customerDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/customer/questionDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/dataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/menuDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/content/pushDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/content/splashDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/content/bannerDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/content/eventDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/content/itemDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/content/noticeDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/content/appDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/connect/connectDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/utilDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/administrate/faqDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/administrate/termsDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/administrate/messageDataTableSource.js?${dummyData}"></script>
+<script src="/js/dataTablesSource/sample/sampleDataTableSource.js?${dummyData}"></script>
+<script src="/js/dalbitDataTableUtil.js?${dummyData}"></script>
+<script src="/js/code/commonCode.js?${dummyData}"></script>
 
 <script type="text/javascript">
     /*로그 찍기*/

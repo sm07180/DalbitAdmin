@@ -27,7 +27,7 @@
 </div>
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 
 <script>
     $(document).ready(function() {
