@@ -47,7 +47,7 @@ public class DeclarationService {
 
         String result;
 
-        if(Integer.parseInt(procedureVo.getRet()) > 0) {
+        if(declareList.size() > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_성공, declareList, new PagingVo(procedureVo.getRet())));
         } else if(Status.신고목록조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_데이터없음));

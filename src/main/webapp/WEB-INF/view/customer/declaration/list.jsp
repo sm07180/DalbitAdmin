@@ -14,6 +14,7 @@
                                 <span id="search_search_type_aria"></span>
                                 <span id="search_slct_type_aria"></span>
                                 <span id="search_reason_aria"></span>
+                                <span name="question_platform" id="question_platform"></span>
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -89,6 +90,7 @@
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var dtList_info;
 
@@ -98,15 +100,24 @@
     });
 
     /** Data Table **/
+    var tmp_searchText = null;
+    var tmp_searchType = null;
+    var tmp_slctType = null;
+    var tmp_slctReason = null;
+    var tmp_slctPlatform = null;
     function init() {
 
         util.getAjaxData("summary", "/rest/customer/declaration/opCount", "", fn_success);
 
-        var dtList_info_data = function ( data ) {
-            data.search = $('#searchText').val();
-        };
 
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList, $("#searchForm"));
+        var dtList_info_data = function ( data ) {
+            data.searchText = tmp_searchText;
+            data.searchType = tmp_searchType;
+            data.slctType = tmp_slctType;
+            data.slctReason = tmp_slctReason;
+            data.strPlatform = tmp_slctPlatform;
+        };
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, customerDataTableSource.DeclareList);
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
@@ -115,6 +126,7 @@
         $("#search_search_type_aria").html(util.getCommonCodeSelect(-1, declaration_searchType));
         $("#search_slct_type_aria").html(util.getCommonCodeSelect(-1, declaration_slctType));
         $("#search_reason_aria").html(util.getCommonCodeSelect(-1, declaration_reason));
+        $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
 
         getDeclareInfo();
 
@@ -135,6 +147,20 @@
     });
 
     function getDeclareInfo() {
+        tmp_searchText = $('#searchText').val();
+        tmp_searchType = $("select[name='searchType']").val();
+        tmp_slctType  = $("select[name='slctType']").val();
+        tmp_slctReason  = $("select[name='slctReason']").val();
+        tmp_slctPlatform  = $("select[name='platform']").val();
+
+
+        console.log(tmp_searchText);
+        console.log(tmp_searchType);
+        console.log(tmp_slctType);
+        console.log(tmp_slctReason);
+        console.log(tmp_slctPlatform);
+
+
         dtList_info.reload();
 
         /*검색결과 영역이 접혀 있을 시 열기*/
