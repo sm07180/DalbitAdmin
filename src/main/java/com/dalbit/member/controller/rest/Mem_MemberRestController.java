@@ -174,5 +174,22 @@ public class Mem_MemberRestController {
     }
 
 
+    /**
+     * 보유달 추가
+     */
+    @PostMapping("daladd")
+    public String daladd(P_MemberEditorVo pMemberEditorVo){
+        String result = mem_MemberService.getMemberDalAdd(pMemberEditorVo);
+        return result;
+    }
+    /**
+     * 보유별 추가
+     */
+    @PostMapping("byeoladd")
+    public String byeoladd(P_MemberEditorVo pMemberEditorVo){
+        String result = mem_MemberService.getMemberByeolAdd(pMemberEditorVo);
+        return result;
+    }
+
     //-------------------------------------------------------------------------
 }

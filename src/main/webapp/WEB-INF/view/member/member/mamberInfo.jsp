@@ -131,6 +131,14 @@
         $('#bt_state').click(function() {           // 상태 정상으로 변경
             stateEdit();
         });
+
+        $('#bt_dalAdd').click(function() {           // 달추가
+            dalbyeolAdd("dal");
+        });
+        $('#bt_byeolAdd').click(function() {           // 달추가
+            dalbyeolAdd("byeol");
+        });
+
         // 버튼 끝
     }
 
@@ -441,6 +449,33 @@
         }
     });
 
+    function dalbyeolAdd(tmp){
+        var data = new Object();
+        data.mem_no = memNo;
+
+        if(tmp == "dal" ){
+            data.addDalCnt = $("#txt_dalAddCnt").val();
+            util.getAjaxData("dalAdd", "/rest/member/member/daladd", data, dalbyeoladd_success, fn_fail);
+        }else if(tmp == "byeol"){
+            data.addByeolCnt = $("#txt_byeolAddCnt").val();
+            util.getAjaxData("byeoladd", "/rest/member/member/byeoladd", data, dalbyeoladd_success, fn_fail);
+        }
+    }
+
+    function dalbyeoladd_success(dst_id, response) {
+        dalbitLog(response);
+        if(response.code == "0"){
+            alert("추가 완료");
+        }else{
+            alert("추가 실패");
+        }
+        var obj = new Object();
+        obj.mem_no = memNo;
+        obj.memWithdrawal = memWithdrawal;
+        util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
+    }
+
+
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
     }
@@ -510,7 +545,12 @@
             <th>UserId</th>
             <td colspan="3" style="text-align: left" id="td_userid">{{userId}}</td>
             <th>보유달</th>
-            <td style="text-align: left">{{dal}} 달</td>
+            <td style="text-align: left">{{dal}} 달
+                {{#equal memWithdrawal '0'}}
+                    <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
+                    <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                {{/equal}}
+            </td>
         </tr>
         <tr>
             <th>로그인 아이디</th>
@@ -523,7 +563,12 @@
                 </div>
             </td>
             <th>보유별</th>
-            <td style="text-align: left">{{byeol}} 별</td>
+            <td style="text-align: left">{{byeol}} 별
+                {{#equal memWithdrawal '0'}}
+                    <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
+                    <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                {{/equal}}
+            </td>
         </tr>
         <tr>
             <th>연락처</th>

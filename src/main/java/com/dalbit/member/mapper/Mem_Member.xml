@@ -64,7 +64,7 @@
     </update>
     <insert id="callMemberEditHistoryAdd" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberEditHistoryAdd */
-        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents,state, op_name, last_upd_date ) values ( #{mem_no}, #{editContents},'2', #{opName}, now())
+        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents, op_name, last_upd_date ) values ( #{mem_no}, #{editContents}, #{opName}, now())
     </insert>
 
     <!-- 회원상태 정상 변경 -->
@@ -180,4 +180,38 @@
         <!--call rd_admin.sp_admin_member_info_black(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
         call rd_admin.sp_admin_member_all_info_black(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <!-- 달추가 -->
+    <select id="callMemberBeforDelCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo" resultType="integer">
+        /* M_Member.xml - callMemberBeforDelCnt */
+        SELECT ruby as beforDalCnt FROM rd_data.tb_member_wallet WHERE mem_no = #{mem_no}
+    </select>
+    <update id="callMemberAddDal" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberAddDal */
+        UPDATE rd_data.tb_member_wallet SET ruby = #{afterDalCnt} WHERE mem_no = #{mem_no}
+    </update>
+    <insert id="callMemberAddDal_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBasicAdd */
+        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new ) VALUES ( #{mem_no}, 5, #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt} );
+    </insert>
+
+    <!-- 별추가 -->
+    <select id="callMemberBeforByeolCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo" resultType="integer">
+        /* M_Member.xml - callMemberBeforByeolCnt */
+        SELECT gold as beforDalCnt FROM rd_data.tb_member_wallet WHERE mem_no = #{mem_no}
+    </select>
+    <update id="callMemberAddByeol" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberAddByeol */
+        UPDATE rd_data.tb_member_wallet SET gold = #{afterByeolCnt} WHERE mem_no = #{mem_no}
+    </update>
+    <insert id="callMemberAddByeol_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBasicAdd */
+        INSERT INTO rd_data.tb_member_wallet_gold( mem_no, `type`, use_contents, gold, gold_old, gold_new ) VALUES ( #{mem_no}, 5, #{use_contents}, #{addByeolCnt}, #{beforByeolCnt}, #{afterByeolCnt} );
+    </insert>
+
+    <update id="callMemberEdit_date" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberEdit_date */
+        update rd_data.tb_member_basic set last_upd_date = now() where mem_no = #{mem_no}
+    </update>
+
 </mapper>

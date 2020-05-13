@@ -19,6 +19,15 @@ public interface Mem_GiftDao {
     ArrayList<P_MemberGiftOutputVo> callGiftHistory(P_MemberGiftInputVo pMemberGiftInputVo);
 
     @Transactional(readOnly = true)
+    ArrayList<P_MemberGiftOutputVo> callGiftHistory_event(P_MemberGiftInputVo pMemberGiftInputVo);
+
+    @Transactional(readOnly = true)
+    int callGiftHistory_all_totalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
+
+    @Transactional(readOnly = true)
     int callGiftHistory_totalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
+
+    @Transactional(readOnly = true)
+    int callGiftHistory_event_totalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
 
 }

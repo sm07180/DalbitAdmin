@@ -29,10 +29,17 @@ public class Mem_GiftService {
         pMemberGiftInputVo.setPageNo(pMemberGiftInputVo.getPageNo() -1);
         pMemberGiftInputVo.setPageNo(pMemberGiftInputVo.getPageNo() * pMemberGiftInputVo.getPageCnt());
         ArrayList<P_MemberGiftOutputVo> giftList = null;
+
+        int memberList_totalCnt = 0;
         if(pMemberGiftInputVo.getSlctType() == -1){
             giftList = mem_GiftDao.callGiftHistory_all(pMemberGiftInputVo);
-        }else{
+            memberList_totalCnt = mem_GiftDao.callGiftHistory_all_totalCnt(pMemberGiftInputVo);
+        }else if(pMemberGiftInputVo.getSlctType() == 0 || pMemberGiftInputVo.getSlctType() == 1){
             giftList = mem_GiftDao.callGiftHistory(pMemberGiftInputVo);
+            memberList_totalCnt = mem_GiftDao.callGiftHistory_totalCnt(pMemberGiftInputVo);
+        }else if(pMemberGiftInputVo.getSlctType() == 4 || pMemberGiftInputVo.getSlctType() == 5){
+            giftList = mem_GiftDao.callGiftHistory_event(pMemberGiftInputVo);
+            memberList_totalCnt = mem_GiftDao.callGiftHistory_event_totalCnt(pMemberGiftInputVo);
         }
 
         P_MemberGiftOutputVo summary = new P_MemberGiftOutputVo();
@@ -48,7 +55,6 @@ public class Mem_GiftService {
 
 
 
-        int memberList_totalCnt = mem_GiftDao.callGiftHistory_totalCnt(pMemberGiftInputVo);
 
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.환전내역보기성공, giftList, new PagingVo(memberList_totalCnt),summary));
