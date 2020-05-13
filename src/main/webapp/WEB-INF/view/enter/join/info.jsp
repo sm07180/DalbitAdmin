@@ -143,13 +143,6 @@
         $("._searchDate").html(dateTime);
     }
 
-    function setRangeDate(startDate, endDate){
-        //$("#onedayDate").val(startDate);
-        $("#startDate").val(startDate);
-        $("#endDate").val(endDate);
-        //$("#displayDate").val(startDate + ' - ' + endDate);
-    }
-
     $(document).on('change', 'input[name="slctType"]', function(){
         var me = $(this);
         if(me.val() == 0){
@@ -205,23 +198,16 @@
                 $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
 
             }else if(dateType == 'prev'){
-                $("#startDate").val(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
-                $("#endDate").val($("#startDate").val());
-
-                $("._searchDate").html($("#startDate").val());
+                setDay(-1);
 
             }else{
-                $("#startDate").val(moment($("#startDate").val()).add('days', 1).format('YYYY.MM.DD'));
-                $("#endDate").val($("#startDate").val());
-
-                $("._searchDate").html($("#startDate").val());
+                setDay(1);
             }
 
         //일별
         }else if(slctType == 1){
 
             if(common.isEmpty(dateType)){
-                console.log('현재')
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
                 $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
 
@@ -229,20 +215,10 @@
                 $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
 
             }else if(dateType == 'prev'){
-                $("#startDate").val(moment($("#startDate").val()).add('months', -1).format('YYYY.MM.01'));
-                $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-
-                setRangeDate($("#startDate").val(), $("#endDate").val());
+                setMonth(-1);
 
             }else if(dateType == 'next'){
-                $("#startDate").val(moment($("#startDate").val()).add('months', 1).format('YYYY.MM.01'));
-                $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
-
-                setRangeDate($("#startDate").val(), $("#endDate").val());
+                setMonth(1);
             }
 
         //월별
@@ -256,23 +232,37 @@
                 $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
 
             }else if(dateType == 'prev'){
-                $("#startDate").val(moment($("#startDate").val()).add('years', -1).format('YYYY.01.01'));
-                $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
-
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-
-                setRangeDate($("#startDate").val(), $("#endDate").val());
+                setYear(-1);
 
             }else if(dateType == 'next'){
-                $("#startDate").val(moment($("#startDate").val()).add('years', 1).format('YYYY.01.01'));
-                $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
-
-                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
-
-                setRangeDate($("#startDate").val(), $("#endDate").val());
+                setYear(1);
             }
         }
         $("#bt_search").click();
+    }
+
+    function setDay(days){
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val($("#startDate").val());
+
+        $("._searchDate").html($("#startDate").val());
+        $("#onedayDate").val($("#startDate").val());
+    }
+
+    function setMonth(months){
+        $("#startDate").val(moment($("#startDate").val()).add('months', months).format('YYYY.MM.01'));
+        $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+
+        $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+    }
+
+    function setYear(years){
+        $("#startDate").val(moment($("#startDate").val()).add('years', years).format('YYYY.01.01'));
+        $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
+
+        $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
     }
 </script>
 
