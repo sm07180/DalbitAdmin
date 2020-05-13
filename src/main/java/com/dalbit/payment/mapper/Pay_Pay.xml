@@ -4,8 +4,7 @@
 
     <sql id="payCondition">
         select
-        idx
-          ,order_id
+          order_id
           ,mem_no
           ,pay_way
           ,pay_dt_comein
