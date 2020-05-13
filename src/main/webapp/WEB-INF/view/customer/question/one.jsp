@@ -23,7 +23,6 @@
     var memId;
     var slct_type;
     function quest_detail_success(data, response, params){
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         dalbitLog(params);
         dalbitLog(response);
         qnaIdx = params.qnaIdx;
