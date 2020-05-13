@@ -61,7 +61,7 @@
     </div> <!-- // page-wrapper -->
 </div> <!-- //wrapper -->
 
-<script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
+<script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var listPagingInfo = new PAGING_INFO(0, 1, 50);
 

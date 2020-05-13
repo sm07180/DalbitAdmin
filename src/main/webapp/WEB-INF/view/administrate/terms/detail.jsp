@@ -12,7 +12,7 @@
     <form id="terms_detailFrm"></form>
 </div>
 
-<script type="text/javascript" src="/js/handlebars/customerHelper.js"></script>
+<script type="text/javascript" src="/js/handlebars/customerHelper.js?${dummyData}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {

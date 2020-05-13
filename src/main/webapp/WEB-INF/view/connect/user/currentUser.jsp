@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/connect/connectCodeList.js"></script>
+<script type="text/javascript" src="/js/code/connect/connectCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     $("#currentType").html(util.getCommonCodeSelect(1, currentType,"Y"));
 

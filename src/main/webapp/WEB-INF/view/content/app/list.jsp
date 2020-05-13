@@ -44,7 +44,7 @@
     </div><!-- #page-wrapper -->
 </div> <!-- #wrapper -->
 
-<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var dtList_info;
     $(document).ready(function () {

@@ -37,7 +37,7 @@
 <jsp:include page="/WEB-INF/view/common/util/select_memeberList.jsp"></jsp:include>
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/administrate/adminCodeList.js"></script>
+<script type="text/javascript" src="/js/code/administrate/adminCodeList.js?${dummyData}"></script>
 
 <script>
     $(document).ready(function() {

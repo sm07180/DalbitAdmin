@@ -26,7 +26,7 @@
     </table>
 </div>
 
-<script type="text/javascript" src="/js/message/customer/declarationMessage.js"></script>
+<script type="text/javascript" src="/js/message/customer/declarationMessage.js?${dummyData}"></script>
 
 <script type="text/javascript">
     var dtList_info_detail;
@@ -72,7 +72,7 @@
         }
 
         data["notiContents"] = $("#notiContents").val();  // 알림 제목
-        data["notiMemo"] = $("#notiMemo").summernote('code', msgValue);   // 알림 내용
+        data["notiMemo"] = $("#notiMemo").summernote('code');   // 알림 내용
 
         dalbitLog(data);
 

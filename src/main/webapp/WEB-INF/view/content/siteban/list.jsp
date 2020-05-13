@@ -76,8 +76,8 @@
 <input type="hidden" name="idx" id="idx" />
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
-<script type="text/javascript" src="/js/handlebars/contentHelper.js"></script>
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/handlebars/contentHelper.js?${dummyData}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         init();

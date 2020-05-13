@@ -66,7 +66,7 @@
 <%--<jsp:include page="/WEB-INF/view/common/util/imageModal.jsp"></jsp:include>--%>
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
-<script type="text/javascript" src="/js/code/content/contentCodeList.js"></script>
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 
 <script>
     $(document).ready(function() {

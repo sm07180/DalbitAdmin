@@ -32,7 +32,7 @@
 </div>
 <!-- Modal 끝 -->
 
-<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js"></script>
+<script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
