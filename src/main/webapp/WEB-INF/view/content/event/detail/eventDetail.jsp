@@ -139,8 +139,6 @@
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
 
-                console.log("@@@@@@@@@@@@@@@@@@@@");
-
                 var data = fnc_eventDetail.getEventDetailData();
                 data.idx = 1;
                 if(!fnc_eventDetail.isValid(data)){
