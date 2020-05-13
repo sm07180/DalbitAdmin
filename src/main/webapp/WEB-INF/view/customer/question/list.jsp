@@ -53,7 +53,7 @@
 </div>
 
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js"></script>
-<script type="text/javascript" src="/js/code/customer/questionCodeList.js?20200513_09"></script>
+<script type="text/javascript" src="/js/code/customer/questionCodeList.js"></script>
 
 <script>
     $(document).ready(function() {
