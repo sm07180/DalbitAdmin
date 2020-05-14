@@ -1,11 +1,3 @@
-
-var state = [
-    new COMMON_CODE(null, 'state', '처리상태')
-    , new COMMON_CODE('0', '0', '미처리')
-    , new COMMON_CODE('1', '1', '처리완료')
-    , new COMMON_CODE('2', '2', '처리중')
-];
-
 var question_status = [
     new COMMON_CODE(null, 'question_status', '처리상태')
     , new COMMON_CODE('-1', '-1', '처리상태(전체)')
