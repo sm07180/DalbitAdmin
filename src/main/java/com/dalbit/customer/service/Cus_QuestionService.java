@@ -159,8 +159,10 @@ public class Cus_QuestionService {
             hm.put("mem9", DalbitUtil.isEmpty(list.get(i).getOpDateFormat()) ? "" :list.get(i).getOpDateFormat());
             if(list.get(i).getState() == 0){
                 hm.put("mem10", "미처리");
-            }else{
+            }else if(list.get(i).getState() == 1){
                 hm.put("mem10", "처리완료");
+            }else if(list.get(i).getState() == 2){
+                hm.put("mem10", "처리중");
             }
             hm.put("mem11", DalbitUtil.isEmpty(list.get(i).getOp_name()) ? "" : list.get(i).getOp_name());
 
