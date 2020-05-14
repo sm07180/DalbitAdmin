@@ -9,10 +9,10 @@ import java.util.ArrayList;
 @Repository
 public interface Pay_PayDao {
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     ArrayList<Pay_PayVo> getPayList(Pay_PayVo payPayVo);
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     int getPayListCnt(Pay_PayVo payPayVo);
 
 }
