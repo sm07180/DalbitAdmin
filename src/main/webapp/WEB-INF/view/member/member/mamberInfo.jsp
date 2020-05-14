@@ -465,7 +465,7 @@
     function dalbyeoladd_success(dst_id, response) {
         dalbitLog(response);
         if(response.code == "0"){
-            alert("추가 완료");
+            alert("추가 완료 되었습니다.");
         }else{
             alert("추가 실패");
         }
@@ -545,10 +545,15 @@
             <th>UserId</th>
             <td colspan="3" style="text-align: left" id="td_userid">{{userId}}</td>
             <th>보유달</th>
-            <td style="text-align: left">{{dal}} 달
+            <td style="text-align: left">
+                <span class="col-md-3 no-padding">
+                    {{dal}} 달
+                </span>
                 {{#equal memWithdrawal '0'}}
+                <span class="col-md-9 no-padding">
                     <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
                     <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                </span>
                 {{/equal}}
             </td>
         </tr>
@@ -563,10 +568,15 @@
                 </div>
             </td>
             <th>보유별</th>
-            <td style="text-align: left">{{byeol}} 별
+            <td style="text-align: left">
+                <span class="col-md-3 no-padding">
+                    {{byeol}} 별
+                </span>
                 {{#equal memWithdrawal '0'}}
+                <span class="col-md-9 no-padding">
                     <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
                     <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                </span>
                 {{/equal}}
             </td>
         </tr>
