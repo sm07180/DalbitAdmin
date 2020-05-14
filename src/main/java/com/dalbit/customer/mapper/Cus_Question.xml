@@ -63,4 +63,8 @@
     <update id="callServiceCenterQnaChatchRelease" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
          update rd_data.tb_service_center_qna set state=0, op_name='' where idx =#{qnaIdx} and state = 2
     </update>
+
+    <update id="callServiceCenterQnaChatchRelease_all" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
+        update rd_data.tb_service_center_qna set state=0, op_name='' where op_name=#{opName} and state = 2
+    </update>
 </mapper>

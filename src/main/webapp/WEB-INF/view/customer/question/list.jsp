@@ -103,7 +103,7 @@
 
     questionDelEventInit();
     initDataTableTop_select_question();
-
+    getUserInfo();
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
@@ -114,6 +114,8 @@
         ui.toggleSearchList();
 
         $('#tab_customerQuestion').removeClass("show");
+
+        util.getAjaxData("release_all", "/rest/customer/question/release_all",null);
     }
 
     function question_summary_table(json){

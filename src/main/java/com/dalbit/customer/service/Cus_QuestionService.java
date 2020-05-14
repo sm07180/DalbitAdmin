@@ -182,6 +182,8 @@ public class Cus_QuestionService {
     public String callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo){
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
 
+        cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
+
         int check = cus_questionDao.callServiceCenterQnaStateCheck(pQuestionOperateVo);
 
         String result;
@@ -210,6 +212,19 @@ public class Cus_QuestionService {
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태해제_실패));
         }
+
+        return result;
+    }
+
+    /**
+     *  1:1 문의하기 처리중 상태 전체 해제
+     */
+    public String callServiceCenterQnaChatchRelease_all(){
+        P_QuestionOperateVo pQuestionOperateVo = new P_QuestionOperateVo();
+        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+        cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태해제_성공));
 
         return result;
     }
