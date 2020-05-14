@@ -16,7 +16,7 @@ var payDataTableSource = {
                 return row.pay_yn == 'y' ? row.pay_ok_date + '<br/>' + row.pay_ok_time : '-';
                 }}
             , {'title': '금액', 'data': '', 'render': function(data, type, row) {
-                var tmp = row.pay_slct + '<br/>' + common.addComma(Number(row.pay_amt));
+                var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? row.pay_amt + '원' : row.pay_amt;
                 return tmp;
                 }}
             , {'title': '아이템정보', 'data': 'pay_code'}
@@ -24,7 +24,7 @@ var payDataTableSource = {
                 return common.addComma(data);
                 }}
             , {'title': '총 구매 금액', 'data': 'amount', 'render': function(data, type, row) {
-                return common.addComma(data);
+                return common.addComma(data) + '원';
                 }}
             , {'title': '직원여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
@@ -46,7 +46,6 @@ var payDataTableSource = {
                 var tmp = row.bank_code + '<br/>' + row.account_no;
                 return tmp;
                 }}
-            , {'title': '가상계좌번호', 'data': 'account_no'}
             , {'title': '결제완료일자', 'data': 'rcpt_dt'}
             , {'title': '결제자명', 'data': 'rcpt_nm'}
         ]
