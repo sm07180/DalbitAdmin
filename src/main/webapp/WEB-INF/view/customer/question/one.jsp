@@ -23,8 +23,8 @@
     var memId;
     var slct_type;
     function quest_detail_success(data, response, params){
-        dalbitLog(params);
-        dalbitLog(response);
+        // dalbitLog(params);
+        // dalbitLog(response);
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
@@ -163,7 +163,7 @@
                         <td>{{write_date}}</td>
 
                         <th>처리상태</th>
-                        <td>{{{getCommonCodeLabel state 'state'}}}
+                        <td>{{{getCommonCodeLabel state 'question_status'}}}
                             {{#equal state '2'}}
                                 <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
                             {{/equal}}

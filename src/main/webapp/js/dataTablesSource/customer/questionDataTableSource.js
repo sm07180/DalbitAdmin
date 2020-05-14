@@ -34,7 +34,7 @@ var questionDataTableSource = {
                     return fileCnt +'건';
                 }},
             {'title': '처리상태', 'data': 'state','width':'60px','render' : function(data){
-                    return util.getCommonCodeLabel(data, state);
+                    return util.getCommonCodeLabel(data, question_status);
                 }},
             {'title': '알림', 'data': 'memNo','width':'60px'},
             {'title': '처리자', 'data': 'op_name','width':'80px'},

@@ -6,20 +6,22 @@
         <div class="container-fluid">
 
             <!-- serachBox -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
-                        <div>
-                            <span name="question_searchType" id="question_searchType"></span>
-                            <span name="question_selbox_type" id="question_selbox_type"></span>
-                            <span name="question_platform" id="question_platform"></span>
-                            <label><input type="text" class="form-control" id="txt_search"></label>
-                            <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+            <form id="searchForm">
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
+                            <div>
+                                <span name="question_searchType" id="question_searchType"></span>
+                                <span name="question_selbox_type" id="question_selbox_type"></span>
+                                <span name="question_platform" id="question_platform"></span>
+                                <label><input type="text" class="form-control" id="txt_search"></label>
+                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <!-- //serachBox -->
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
