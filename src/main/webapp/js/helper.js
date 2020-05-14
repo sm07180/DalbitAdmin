@@ -184,6 +184,10 @@ Handlebars.registerHelper("phoneNumHyphen", function(value) {
     return common.phoneNumHyphen(value);
 });
 
+Handlebars.registerHelper("phoneNumHyphen", function(value) {
+    return common.cardNo(value);
+});
+
 Handlebars.registerHelper("fontColor", function(value, minValue, fontColor) {
     return common.fontColor(value, minValue, fontColor);
 });
