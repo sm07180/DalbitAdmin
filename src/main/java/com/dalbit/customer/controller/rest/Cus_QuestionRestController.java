@@ -140,4 +140,12 @@ public class Cus_QuestionRestController {
     public String chatchRelease(P_QuestionOperateVo pQuestionOperateVo) {
         return cus_questionService.callServiceCenterQnaChatchRelease(pQuestionOperateVo);
     }
+
+    /**
+     *  1:1 문의 처리중 상태 전체 해제
+     */
+    @PostMapping("release_all")
+    public String release_all() {
+        return cus_questionService.callServiceCenterQnaChatchRelease_all();
+    }
 }
