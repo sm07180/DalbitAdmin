@@ -19,6 +19,8 @@ public class Pay_PayVo extends PagingVo {
     private String pay_slct;        // 결제구분
     private String pay_amt;         // 결제금액
     private String pay_code;        // 결제아이템정보
+    private int count;              // 구매 횟수
+    private int amount;             // 총 구매 금액
     private String chrgr_yn;        // 직원여부
     private String app_ver;         // 어플버전
     private String first_pay_yn;    // 최초결제여부

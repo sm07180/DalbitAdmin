@@ -20,6 +20,12 @@ var payDataTableSource = {
                 return tmp;
                 }}
             , {'title': '아이템정보', 'data': 'pay_code'}
+            , {'title': '구매 횟수', 'data': 'count', 'render': function(data, type, row) {
+                return common.addComma(data);
+                }}
+            , {'title': '총 구매 금액', 'data': 'amount', 'render': function(data, type, row) {
+                return common.addComma(data);
+                }}
             , {'title': '직원여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}

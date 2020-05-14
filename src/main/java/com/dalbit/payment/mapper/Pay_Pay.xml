@@ -14,6 +14,8 @@
           ,pay_slct
           ,pay_amt
           ,pay_code
+          , (select count(mem_no) from rd_data.tb_payment_succ where mem_no = pay.mem_no) as count
+          , (select sum(pay_amt) from rd_data.tb_payment_succ where mem_no = pay.mem_no) as amount
           ,chrgr_yn
           ,app_ver
           ,first_pay_yn
@@ -25,8 +27,8 @@
           ,rcpt_dt
           ,rcpt_nm
           , @RNUM := @RNUM + 1 as rowNum
-        from rd_data.tb_payment_succ
-          , (select @RNUM := 0) r
+        from rd_data.tb_payment_succ pay
+        , (select @RNUM := 0) r
         order by pay_dt_comein desc
     </sql>
     <select id="getPayList" parameterType="com.dalbit.payment.vo.Pay_PayVo" resultType="com.dalbit.payment.vo.Pay_PayVo">
