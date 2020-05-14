@@ -59,29 +59,6 @@
                         </li>
                     </c:if>
                 </c:forEach>
-
-                <c:forEach var="menu" items='${sessionScope.InforexMenuInfo}'>
-                    <c:if test="${menu.depth eq 1}">
-                        <li>
-                            <a href="javascript://" class="js-sub-menu-toggle">
-                                <span class="text">${menu.name}</span>
-                                <i class="toggle-icon fa fa-angle-left"></i>
-                            </a>
-                            <c:forEach var="menu2" items='${sessionScope.InforexMenuInfo}'>
-                                <c:if test="${menu2.depth eq 2 && menu.id eq menu2.id}">
-                                    <ul class="sub-menu">
-                                        <li>
-                                            <a href="javascript://" data-url="${menu2.url}" class="_inforex">
-                                                <span class="text">${menu2.name}</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </c:if>
-                            </c:forEach>
-                        </li>
-                    </c:if>
-                </c:forEach>
-
                 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
                     <c:if test="${menu.menu_name ne '메인' and menu.menu_name ne '구글 Analytics'}">
                         <c:set var="isContainSubmenu" value="${0 < fn:length(menu.twoDepth)}" />
@@ -120,6 +97,27 @@
                                     </c:forEach>
                                 </ul>
                             </c:if>
+                        </li>
+                    </c:if>
+                </c:forEach>
+                <c:forEach var="menu" items='${sessionScope.InforexMenuInfo}'>
+                    <c:if test="${menu.depth eq 1}">
+                        <li>
+                            <a href="javascript://" class="js-sub-menu-toggle">
+                                <span class="text">${menu.name}</span>
+                                <i class="toggle-icon fa fa-angle-left"></i>
+                            </a>
+                            <c:forEach var="menu2" items='${sessionScope.InforexMenuInfo}'>
+                                <c:if test="${menu2.depth eq 2 && menu.id eq menu2.id}">
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a href="javascript://" data-url="${menu2.url}" class="_inforex">
+                                                <span class="text">${menu2.name}</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </c:if>
+                            </c:forEach>
                         </li>
                     </c:if>
                 </c:forEach>
