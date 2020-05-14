@@ -134,7 +134,7 @@
         tmp_searchType = $("select[name='searchType']").val();
         tmp_searchText = $('#txt_search').val();
         /*검색결과 영역이 접혀 있을 시 열기*/
-        ui.toggleSearchList()
+        ui.toggleSearchList();
         $('#tabList_top').removeClass("show");
 
     }
@@ -173,7 +173,9 @@
         }
         obj.memWithdrawal = memWithdrawal;
 
-        console.log("1");
+        $("#li_broadGift").addClass("active");
+        $("#li_chargeGift").removeClass("active");
+
         util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 

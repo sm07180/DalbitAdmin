@@ -9,7 +9,7 @@
             <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail" onclick="getHistory_broadDetail(this.id);">방송내역</a></li>
             <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="getHistory_listenDetail(this.id);">청취내역</a></li>
             <li><a href="#payDetail" role="tab" data-toggle="tab" id="tab_payDetail" onclick="getHistory_payDetail(this.id);">결제/취소내역</a></li>
-            <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="getHistory_giftDetail(this.id);">선물/교환내역</a></li>
+            <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="memberGiftList('broadGift');">내지갑</a></li>
             <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="getHistory_mystarDetail(this.id);">마이스타/팬</a></li>
             <li><a href="#noticeDetail" role="tab" data-toggle="tab" id="tab_noticeDetail" onclick="getHistory_noticeDetail(this.id);">회원공지관리</a></li>
             <li><a href="#fanboardDetail" role="tab" data-toggle="tab" id="tab_fanboardDetail" onclick="getHistory_fanbroadDetail(this.id);">팬보드관리</a></li>

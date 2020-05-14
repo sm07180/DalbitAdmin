@@ -14,7 +14,7 @@
           FROM
               ( SELECT a.gubun,a.ruby,a.room_no,a.mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`
                       , a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.itemCnt, b.item_thumbnail, secret
-                  FROM (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,item_type
+                  FROM (SELECT '보낸선물' as gubun, ruby,room_no,item_type
                                , gifted_mem_no as mem_no
                                , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS userId
                                , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS nickName
@@ -23,10 +23,10 @@
                          where mem_no = #{mem_no}
                          ) AS a
                  LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
-                 union
+                 union all
                  SELECT a.gubun,a.ruby,a.room_no,a.mem_no,a.item_type, a.userId, a.nickName, a.`level`, a.`grade`
                       , a.giftDate, b.item_image AS itemImage, b.item_name AS itemName, a.itemCnt, b.item_thumbnail, secret
-                  FROM (SELECT if(mem_no = #{mem_no}, '보낸선물', '받은선물') as gubun, ruby,room_no,item_type
+                  FROM (SELECT '받은선물' as gubun, ruby,room_no,item_type
                               , mem_no
                               , mem_userid AS userId, mem_nick AS nickName
                               , mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
@@ -36,7 +36,6 @@
                 ORDER BY giftDate DESC
                 limit #{pageNo}, #{pageCnt}
         ) AS c, (select @rownum := #{pageNo} ) AS d
-
     </select>
 
     <select id="callGiftHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
@@ -70,7 +69,6 @@
                   ORDER BY giftDate DESC
                   limit #{pageNo}, #{pageCnt}
         ) AS c, (select @rownum := #{pageNo} ) AS d
-
     </select>
 
 
@@ -85,48 +83,210 @@
 
     <select id="callGiftHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
         SELECT count(*) totalCnt FROM rd_data.tb_member_broadcast_item
-        <if test="slctType == -1">    <!-- 전체 -->
-            where mem_no = #{mem_no} or gifted_mem_no = #{mem_no}
-        </if>
         <if test="slctType == 0">    <!-- 보낸선물 -->
             where mem_no = #{mem_no}
         </if>
-        <if test="slctType == 1">    <!-- 전체 -->
+        <if test="slctType == 1">    <!-- 받은선물 -->
             where gifted_mem_no = #{mem_no}
         </if>
     </select>
 
-    <select id="callGiftHistory_event" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
-        /* Mem_Gift.xml - callGiftHistory_event */
-        select @rownum := @rownum + 1 as rowNum, c.*
-          FROM (select use_contents as gubun ,ruby as ruby ,null as room_no ,mem_no as mem_no ,type as item_type
-                       ,(select mem_userid FROM rd_data.tb_member_basic WHERE mem_no = a.mem_no) AS userId
-                       ,(select mem_nick FROM rd_data.tb_member_basic WHERE mem_no = a.mem_no) AS nickName
-                       ,0 as `level` ,0 as `grade` ,last_upd_date as giftDate
-                       ,null as itemImage ,null as itemName ,1 as itemCnt ,null asitem_thumbnail ,0 as secret
-                 from rd_data.tb_member_wallet_ruby a
-                where mem_no = #{mem_no}
-                <if test="slctType == 4">
-                  and `type`=4
-                </if>
-                <if test="slctType == 5">
-                  and `type`=5
-                </if>
-
-         ORDER BY giftDate DESC
-          limit #{pageNo}, #{pageCnt}
-        ) AS c, (select @rownum := #{pageNo} ) AS d
-
+    <select id="callGiftHistory_allGiftDalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
+        SELECT ifnull(sum(item_cnt),0) as allGiftItemCnt, ifnull(sum(ruby),0) as allGiftDalCnt FROM rd_data.tb_member_broadcast_item WHERE mem_no = #{mem_no}
+    </select>
+    <select id="callGiftHistory_allReceivedDalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
+        SELECT ifnull(sum(item_cnt),0) as allReceivedItemCnt, ifnull(sum(ruby),0) as allReceivedDalCnt  FROM rd_data.tb_member_broadcast_item WHERE gifted_mem_no = #{mem_no}
     </select>
 
-    <select id="callGiftHistory_event_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="integer">
-        select count(*) totalCnt from rd_data.tb_member_wallet_ruby where mem_no =#{mem_no}
-        <if test="slctType == 4">
-            and `type`=4
-        </if>
-        <if test="slctType == 5">
-            and `type`=5
-        </if>
+
+
+    <select id="callChargeHistory_all" parameterType="com.dalbit.member.vo.procedure.P_MemberChargeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberChargeOutputVo">
+        /* Mem_Gift.xml - callChargeHistory */
+        select @rownum := @rownum + 1 as rowNum, c.*
+          FROM (
+             select mem_no
+                    ,(select mem_userid from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_userid
+                    ,(select mem_nick from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_nick
+                    ,use_contents
+                    ,'https://image.dalbitlive.com/store/store_1.png' as image
+                    ,'달' as itemNm
+                    ,'dal' as itemType
+                    , ruby as cnt
+                    , last_upd_date as lastUpdDate
+                    , case `type` when 4 then '받은 달'
+                                  else '보낸 달' end as `type`
+               from rd_data.tb_member_wallet_ruby as a
+              where mem_no=#{mem_no}
+                <if test="slctType == -1">    <!-- 전체 -->
+                    and `type` in (4,5,7)
+                </if>
+                <if test="slctType == 0">    <!-- 보낸 달 -->
+                    and `type` in (4)
+                </if>
+                <if test="slctType == 1">    <!-- 받은 달 -->
+                    and `type` in (5,7)
+                </if>
+            union all
+              select mem_no
+                    ,(select mem_userid from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_userid
+                    ,(select mem_nick from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_nick
+                    ,use_contents
+                    ,'' as image
+                    ,'별' as itemNm
+                    ,'byeol' as itemType
+                    , gold as cnt
+                    , last_upd_date as lastUpdDate
+                    , case `type` when 4 then '받은 별'
+                                  else '보낸 별' end as `type`
+                from rd_data.tb_member_wallet_gold as a
+               where mem_no=#{mem_no}
+                <if test="slctType == -1">    <!-- 전체 -->
+                    and `type` in (4,5,7)
+                </if>
+                <if test="slctType == 0">    <!-- 보낸 달 -->
+                    and `type` in (4)
+                </if>
+                <if test="slctType == 1">    <!-- 받은 달 -->
+                    and `type` in (5,7)
+                </if>
+            ORDER BY lastUpdDate DESC
+            limit #{pageNo}, #{pageCnt}
+            ) AS c, (select @rownum := #{pageNo} ) AS d
+    </select>
+
+    <select id="callChargeHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberChargeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberChargeOutputVo">
+        /* Mem_Gift.xml - callChargeHistory */
+        select @rownum := @rownum + 1 as rowNum, c.*
+          FROM (
+            <if test="slctItem == 0">
+             select mem_no
+                    ,(select mem_userid from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_userid
+                    ,(select mem_nick from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_nick
+                    ,use_contents
+                    ,'https://image.dalbitlive.com/store/store_1.png' as image
+                    ,'달' as itemNm
+                    ,'dal' as itemType
+                    , ruby as cnt
+                    , last_upd_date as lastUpdDate
+                    , case `type` when 4 then '받은 달'
+                                  else '보낸 달' end as `type`
+               from rd_data.tb_member_wallet_ruby as a
+              where mem_no=#{mem_no}
+                <if test="slctType == -1">    <!-- 전체 -->
+                  and `type` in (4,5,7)
+                </if>
+                <if test="slctType == 0">    <!-- 보낸 달 -->
+                    and `type` in (4)
+                </if>
+                <if test="slctType == 1">    <!-- 받은 달 -->
+                    and `type` in (5,7)
+                </if>
+            </if>
+            <if test="slctItem == 1">
+              select mem_no
+                    ,(select mem_userid from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_userid
+                    ,(select mem_nick from rd_data.tb_member_basic where mem_no = a.mem_no) as mem_nick
+                    ,use_contents
+                    ,'' as image
+                    ,'별' as itemNm
+                    ,'byeol' as itemType
+                    , gold as cnt
+                    , last_upd_date as lastUpdDate
+                    , case `type` when 4 then '받은 별'
+                                  else '보낸 별' end as `type`
+                from rd_data.tb_member_wallet_gold as a
+               where mem_no=#{mem_no}
+                 <if test="slctType == -1">    <!-- 전체 -->
+                     and `type` in (4,5,7)
+                 </if>
+                 <if test="slctType == 0">    <!-- 보낸 달 -->
+                     and `type` in (4)
+                 </if>
+                 <if test="slctType == 1">    <!-- 받은 달 -->
+                     and `type` in (5,7)
+                 </if>
+            </if>
+            ORDER BY lastUpdDate DESC
+            limit #{pageNo}, #{pageCnt}
+            ) AS c, (select @rownum := #{pageNo} ) AS d
+    </select>
+
+    <select id="callChargeHistory_all_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberChargeInputVo" resultType="integer">
+        /* Mem_Gift.xml - callChargeHistory_all_totalCnt */
+        select sum(cnt) as totalCnt
+        FROM (
+            select count(*) as cnt
+              from rd_data.tb_member_wallet_ruby as a
+              where mem_no=#{mem_no}
+              <if test="slctType == -1">    <!-- 전체 -->
+                and `type` in (4,5,7)
+              </if>
+              <if test="slctType == 0">    <!-- 보낸 달 -->
+                and `type` in (4)
+              </if>
+              <if test="slctType == 1">    <!-- 받은 달 -->
+                and `type` in (5,7)
+              </if>
+             union all
+            select count(*) as cnt
+              from rd_data.tb_member_wallet_gold as a
+             where mem_no=#{mem_no}
+              <if test="slctType == -1">    <!-- 전체 -->
+                and `type` in (4,5,7)
+              </if>
+              <if test="slctType == 0">    <!-- 보낸 달 -->
+                and `type` in (4)
+              </if>
+              <if test="slctType == 1">    <!-- 받은 달 -->
+               and `type` in (5,7)
+             </if>
+        ) AS c
+    </select>
+
+
+    <select id="callChargeHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberChargeInputVo" resultType="integer">
+        /* Mem_Gift.xml - callChargeHistory_totalCnt */
+        select sum(cnt) as totalCnt
+        FROM (
+          <if test="slctItem == 0">
+            select count(*) as cnt
+              from rd_data.tb_member_wallet_ruby as a
+              where mem_no=#{mem_no}
+              <if test="slctType == -1">    <!-- 전체 -->
+                and `type` in (4,5,7)
+              </if>
+              <if test="slctType == 0">    <!-- 보낸 달 -->
+                and `type` in (4)
+              </if>
+              <if test="slctType == 1">    <!-- 받은 달 -->
+                and `type` in (5,7)
+              </if>
+          </if>
+          <if test="slctItem == 1">
+            select count(*) as cnt
+              from rd_data.tb_member_wallet_gold as a
+             where mem_no=#{mem_no}
+              <if test="slctType == -1">    <!-- 전체 -->
+                and `type` in (4,5,7)
+              </if>
+              <if test="slctType == 0">    <!-- 보낸 달 -->
+                and `type` in (4)
+              </if>
+              <if test="slctType == 1">    <!-- 받은 달 -->
+               and `type` in (5,7)
+             </if>
+          </if>
+        ) AS c
+    </select>
+
+    <select id="callChargeHistory_allDalGiftCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberChargeInputVo" resultType="integer">
+        select ifnull(sum(ruby),0) as allDalGiftCnt from rd_data.tb_member_wallet_ruby where mem_no=#{mem_no} and `type` in (4)
+    </select>
+    <select id="callChargeHistory_allDalReceivedCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberChargeInputVo" resultType="integer">
+        select ifnull(sum(ruby),0) as allDalReceivedCnt from rd_data.tb_member_wallet_ruby where mem_no=#{mem_no} and `type` in (5,7)
+    </select>
+    <select id="callChargeHistory_allByeolReceivedCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberChargeInputVo" resultType="integer">
+        select ifnull(sum(gold),0) as allByeolReceivedCnt from rd_data.tb_member_wallet_gold where mem_no=#{mem_no} and `type` in (5,7)
     </select>
 
 </mapper>

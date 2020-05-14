@@ -42,16 +42,22 @@ var pay = [
 
 var gift = [
     new COMMON_CODE(null, 'gift', '선물구분')
-    ,new COMMON_CODE('all',  '-1','전체')
+    ,new COMMON_CODE('all',  '-1','구분(전체)')
     ,new COMMON_CODE('present',  '0','보낸선물')
     ,new COMMON_CODE('gift', '1','받은선물')
-    ,new COMMON_CODE('4', '4','보낸달')
-    ,new COMMON_CODE('5', '5','받은달(이벤트 포함)')
-    /*
-     기능 미개발로 인한 주석 (2020.05.11)
-     ,new COMMON_CODE('change', '3','교환')
-    */
 ];
+var gift_dalbyeol = [
+    new COMMON_CODE(null, 'gift_dalbyeol', '아이템구분')
+    ,new COMMON_CODE('all',  '-1','아이템명(전체)')
+    ,new COMMON_CODE('dal',  '0','달')
+    ,new COMMON_CODE('byeol', '1','별')
+];
+var gift_date = [
+    new COMMON_CODE(null, 'gift_date', '날짜 구분')
+    ,new COMMON_CODE('all', '-1','전체')
+    ,new COMMON_CODE('day', '0','일별')
+    ,new COMMON_CODE('month', '1','월별')
+]
 
 var question = [
     new COMMON_CODE(null, 'question', '문의구분')
@@ -94,14 +100,26 @@ var testId_withdrawal = [
 
 // ------------------------- table -----------------------------
 var mem_total_gift_summary = [
-    new COMMON_CODE('', 'total_gift_present', '받은/보낸 건 수')
-    , new COMMON_CODE('', 'total_gift_dal', '받은보낸 달 수')
+    new COMMON_CODE('', 'total_gift_present', '누적 선물 수')
+    , new COMMON_CODE('', 'total_gift_dal', '누적 선물 달')
+    , new COMMON_CODE('', 'total_received_present', '누적 받은 선물 수')
+    , new COMMON_CODE('', 'total_received_dal', '누적 받은 선물 달')
+    // , new COMMON_CODE('', 'most_gift_mem', '보낸 선물 최다 회원')
+    // , new COMMON_CODE('', 'most_received_mem', '받은 선물 최다 회원')
 ];
 var mem_gift_summary = [
-    new COMMON_CODE('', 'gift_present', '보낸 건 수')
-    , new COMMON_CODE('', 'gift_dal', '보낸 달 수')
+    new COMMON_CODE('', 'total_charge_dal', '누적 충전 보낸 달')
+    , new COMMON_CODE('', 'total_charge_dal', '누적 충전 받은 달')
+    , new COMMON_CODE('', 'total_charge_byeol', '누적 충전 별')
+    // , new COMMON_CODE('', 'most_gift_mem', '보낸 선물 최다 회원')
+    // , new COMMON_CODE('', 'most_received_mem', '받은 선물 최다 회원')
 ];
 var mem_received_summary = [
-    new COMMON_CODE('', 'received_present', '받은 건 수')
-    , new COMMON_CODE('', 'received_dal', '받은 달 수')
+    new COMMON_CODE('', 'total_exchange', '누적 교환 수')
+    , new COMMON_CODE('', 'dal10', '달 10')
+    , new COMMON_CODE('', 'dal30', '달 30')
+    , new COMMON_CODE('', 'dal100', '달 100')
+    , new COMMON_CODE('', 'dal500', '달 500')
+    , new COMMON_CODE('', 'dal1000', '달 1,000')
+    , new COMMON_CODE('', 'dal3000', '달 3,000')
 ];

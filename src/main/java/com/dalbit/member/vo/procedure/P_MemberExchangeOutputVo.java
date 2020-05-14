@@ -9,7 +9,7 @@ import java.sql.Date;
 
 @Getter
 @Setter
-public class P_MemberGiftOutputVo extends SearchVo {
+public class P_MemberExchangeOutputVo extends SearchVo {
 
     //output
     private String gubun;
@@ -30,10 +30,8 @@ public class P_MemberGiftOutputVo extends SearchVo {
     private int secret;
 
     //summary
-    private int allGiftItemCnt;
-    private int allGiftDalCnt;
-    private int allReceivedItemCnt;
-    private int allReceivedDalCnt;
+    private int giftCnt;
+    private int dalCnt;
 
     public void setGiftDate(Date giftDate){
         this.giftDate = giftDate;

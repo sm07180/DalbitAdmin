@@ -214,18 +214,48 @@ var MemberDataTableSource = {
                     return tmp;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','render' : function (data, type, row, meta) {
-                    return '<img src="'+ data +'" width="50px" height="50px"/>';
+                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
-            {'title': '보낸/받은/교환건수', 'data': 'itemCnt', 'render': function (data) {
+            {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
                     return data + " 개"
                 }},
-            {'title': '선물/교환-달', 'data': 'ruby', 'render': function (data) {
+            {'title': '선물 달', 'data': 'ruby', 'render': function (data) {
                     return data + " 달"
                 }},
-            {'title': '선물/교환-일시', 'data': 'giftDateFormat'},
+            {'title': '선물 일시', 'data': 'giftDateFormat'},
         ]
-        , 'comments': 'ㆍ회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인할 수 있습니다.<br>ㆍ이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물'
+    },
+
+    'chargeDetail': {
+        'url': '/rest/member/gift/charge/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': 'User ID', 'data': 'mem_userid'},
+            {'title': 'User 닉네임', 'data': 'mem_nick'},
+            {'title': '구분', 'data': 'use_contents'},
+            {'title': '이미지', 'data': 'image','width':'50px','render' : function (data, type, row, meta) {
+                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px"/>';
+                }},
+            {'title': '아이템명', 'data': 'itemNm'},
+            {'title': '선물 달 수', 'data': 'cnt'},
+            {'title': '플랫폼', 'data': '','defaultContent':''},
+            {'title': '선물 일시', 'data': 'lastUpdDateFormat'},
+        ]
+    },
+
+    'exchangeDetail': {
+        'url': '/rest/member/gift/exchange/list'
+        , 'columns': [
+            {'title': '이미지', 'data': 'giftDateFormat'},
+            {'title': '보유 별', 'data': 'giftDateFormat'},
+            {'title': '교환 수', 'data': 'giftDateFormat'},
+            {'title': '남은 별', 'data': 'giftDateFormat'},
+            {'title': '교환 후 보유 달', 'data': 'giftDateFormat'},
+            {'title': '교환 시도 횟수', 'data': 'giftDateFormat'},
+            {'title': '플랫폼', 'data': 'giftDateFormat'},
+            {'title': '선물 일시', 'data': 'giftDateFormat'},
+        ]
     },
 
     'mystar': {
