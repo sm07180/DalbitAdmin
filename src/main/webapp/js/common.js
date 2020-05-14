@@ -254,6 +254,14 @@ common.phoneNumHyphen = function(value) {
     return value.toString().replace(regExp, '$1-$2-$3');
 }
 
+common.cardNo = function(value){
+    if(common.isEmpty(value)){
+        return 0;
+    }
+    var regExp = /([0-9*]{4})([0-9*]{4})([0-9*]{4})([0-9*]{4})/
+    return value.toString().replace(regExp, '$1-$2-$3-$4');
+}
+
 common.fontColor = function(value, minValue, fontColor){
     minValue = common.isEmpty(minValue) ? 0 : minValue;
     fontColor = common.isEmpty(fontColor) ? 'black' : fontColor;
