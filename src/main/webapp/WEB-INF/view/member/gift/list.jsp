@@ -29,17 +29,14 @@
     var giftList_gubun="broadGift";
     var slctType = -1;
     var slctItem = -1;
-    var slctDate = -1;
     function memberGiftList(tmp){
         slctType = -1;
         slctItem = -1;
-        slctDate = -1;
         giftList_gubun = tmp;
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.slctType = slctType;
             data.slctItem = slctItem;
-            data.slctDate = slctDate;
         };
         var tmp_summary;
         dtList_info_detail.destroy();
@@ -111,29 +108,22 @@
 
         if(giftList_gubun == "broadGift" ){
             topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
-            topTable = topTable + '<span name="radio_gift_date" id="radio_gift_date" style="padding-left: 10px;" onchange="gift_sel_change()"></span>';
         }else if(giftList_gubun == "chargeGift"){
             topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
             topTable = topTable + '<span name="search_gift_dalbyeol_top" id="search_gift_dalbyeol_top" onchange="gift_sel_change()"></span>';
-            topTable = topTable + '<span name="radio_gift_date" id="radio_gift_date" style="padding-left: 10px;" onchange="gift_sel_change()"></span>';
-        }else if(giftList_gubun == "exchangeGift"){
-            topTable = '<span name="radio_gift_date" id="radio_gift_date" style="padding-left: 10px;" onchange="gift_sel_change()"></span>';
         }
         $("#gift_main_table").find(".top-left").addClass("no-padding").append(topTable);
 
         $("#search_gift_top").html(util.getCommonCodeSelect(-1, gift));
         $("#search_gift_dalbyeol_top").html(util.getCommonCodeSelect(-1, gift_dalbyeol));
-        $("#radio_gift_date").html(util.getCommonCodeRadio(-1, gift_date));
 
     }
     function gift_sel_change(){
         slctType = $("#search_gift_top").find("#gift option:selected").val();
         slctItem = $("#search_gift_dalbyeol_top").find("#gift_dalbyeol option:selected").val();
-        slctDate = $('input[name="gift_date"]:checked').val();
 
         console.log(slctType);
         console.log(slctItem);
-        console.log(slctDate);
 
 
         if(giftList_gubun == "broadGift" ){
