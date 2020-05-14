@@ -182,6 +182,22 @@ public class Sta_BroadcastService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
+    public String callBroadcastGiftHistory(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_BroadcastGiftHistoryOutputDetailVo> broadList = sta_BroadcastDao.callBroadcastGiftHistory(procedureVo);
+
+        P_BroadcastGiftHistoryOutputVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_BroadcastGiftHistoryOutputVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", broadList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
 
 
 
