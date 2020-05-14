@@ -92,6 +92,14 @@ public enum Status {
     선물내역보기성공("0", "gift.list.view.success", "선물내역 보기 성공 시"),
     선물내역보기실패("C006", "gift.list.view.fail", "선물내역 보기 실패 시"),
 
+    //충전선물내역보기
+    충전선물내역보기_성공("0", "charge.list.view.success", "충전선물내역보기 보기 성공 시"),
+    충전선물내역보기_실패("C006", "charge.list.view.fail", "충전선물내역보기 보기 실패 시"),
+
+    //교환아이템내역보기
+    교환아이템내역보기_성공("0", "exchange.list.view.success", "교환아이템내역 보기 성공 시"),
+    교환아이템내역보기_실패("C006", "exchange.list.view.fail", "교환아이템내역 보기 실패 시"),
+
     //환전내역보기
     환전내역보기성공("0", "exchange.list.view.success", "환전내역 보기 성공 시"),
     환전내역보기실패("C006", "exchange.list.view.fail", "환전내역 보기 실패 시"),

@@ -6,8 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class P_MemberGiftInputVo extends SearchVo {
+public class P_MemberChargeInputVo extends SearchVo {
     private int pageNo;
     private String mem_no;
+    private int slctItem;
     private int slctDate;
+
 }

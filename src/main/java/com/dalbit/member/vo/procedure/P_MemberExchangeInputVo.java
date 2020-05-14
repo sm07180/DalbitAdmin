@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class P_MemberGiftInputVo extends SearchVo {
+public class P_MemberExchangeInputVo extends SearchVo {
     private int pageNo;
     private String mem_no;
     private int slctDate;

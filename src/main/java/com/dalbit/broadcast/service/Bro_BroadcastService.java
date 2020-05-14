@@ -235,6 +235,7 @@ public class Bro_BroadcastService {
      */
     public String callBroadcastEdit(P_BroadcastEditInputVo pBroadcastEditInputVo) {
         pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
+        pBroadcastEditInputVo.setMemLogin(1);
         ProcedureVo procedureVo = new ProcedureVo(pBroadcastEditInputVo);
         bro_BroadcastDao.callBroadcastEdit(procedureVo);
         String result;
@@ -244,6 +245,8 @@ public class Bro_BroadcastService {
             // 방송방 강제 종료 ------------------------------------
             if(pBroadcastEditInputVo.getForceExit().equals("1")){
 //            if(pBroadcastEditInputVo.getForceExit().equals("1") && pBroadcastEditInputVo.getSendNoti().equals("1")){
+                // 방 종료 정보 프로시져 호출
+                bro_BroadcastDao.callBroadcastRoomExit(procedureVo);
                 // 방송 시작시간
                 bro_BroadcastDao.callBroadcastInfo(procedureVo);
                 P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);

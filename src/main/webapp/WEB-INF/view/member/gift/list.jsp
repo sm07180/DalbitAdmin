@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="col-lg-12 no-padding">
-    <div class="widget widget-table" id="main_table">
+
+
+<ul class="nav nav-tabs nav-tabs-custom-colored mt5">
+    <li class="active" id="li_broadGift"><a href="#gift_main_table" role="tab" data-toggle="tab" onclick="memberGiftList('broadGift');">방송중선물</a></li>
+    <li  id="li_chargeGift"><a href="#gift_main_table" role="tab" data-toggle="tab" onclick="memberGiftList('chargeGift');">충전선물</a></li>
+    <%--<li><a href="#gift_main_table" role="tab" data-toggle="tab" onclick="memberGiftList('exchangeGift');">교환아이템</a></li>--%>
+
+</ul>
+<div class="tab-content no-padding">
+    <div class="widget widget-table" id="gift_main_table">
         <div class="widget-content">
-            <span id="gift_summaryArea"></span>
-            <table id="list_info_detail" class="table table-sorting table-hover table-bordered datatable">
+            <label id="giftTitle">ㆍ회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인할 수 있습니다.<br>ㆍ이벤트에 당첨되어 받은 선물은 "받은선물-이벤트"로 부분되어 이벤트 당첨 - 당첨선물</label>
+            <span id="table_summaryArea"></span>
+            <table id="gift_info_detail" class="table table-sorting table-hover table-bordered datatable">
                 <thead id="tableTop_detail">
                 </thead>
                 <tbody id="tableBody_detail">
@@ -17,60 +26,118 @@
     $(document).ready(function() {
     });
 
+    function memberGiftInit(tmp){
+        $("#li_broadGift").addClass("active");
+        $("#li_chargeGift").removeClass("active");
+        memberGiftList('broadGift');
+    }
+    var giftList_gubun="broadGift";
     var slctType = -1;
-    function getHistory_giftDetail(tmp) {     // 상세보기
-        // console.log("memNo : " + memNo);
-        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        var source = MemberDataTableSource[tmp];
+    var slctItem = -1;
+    function memberGiftList(tmp){
+        slctType = -1;
+        slctItem = -1;
+        giftList_gubun = tmp;
         var dtList_info_detail_data = function (data) {
             data.mem_no = memNo;
             data.slctType = slctType;
+            data.slctItem = slctItem;
+        };
+        var tmp_summary;
+        dtList_info_detail.destroy();
+        if(giftList_gubun == "broadGift" ){
+            $("#giftTitle").html("ㆍ회원이 보내고 받은 선물 내역과 달에서 별로 교환한 정보를 확인할 수 있습니다.<br>" +
+                                 "ㆍ이벤트에 당첨되어 받은 선물은 \"받은선물-이벤트\"로 부분되어 이벤트 당첨 - 당첨선물");
+            dtList_info_detail = new DalbitDataTable($("#gift_info_detail"), dtList_info_detail_data, MemberDataTableSource.giftDetail);
+            tmp_summary = gift_summary_table;
+        }else if(giftList_gubun == "chargeGift"){
+            $("#giftTitle").html("ㆍ회원이 보내고, 받은 달의 선물 내역과 운영자가 충전한 달과 별을 확인할 수 있는 정보페이지 입니다.<br>" +
+                                 "ㆍ테스트 및 오류처리를 위해 운영자는 회원상세 정보 페이지에서 달과 별을 충전할 수 있습니다.");
+            dtList_info_detail = new DalbitDataTable($("#gift_info_detail"), dtList_info_detail_data, MemberDataTableSource.chargeDetail);
+            tmp_summary = charge_summary_table;
+        }else if(giftList_gubun == "exchangeGift"){
+            $("#giftTitle").html("ㆍ회원이 교환한 아이템 내역을 확인할 수 있습니다.<br>" +
+                                 "ㆍ교환은 별에서 달로만 교환이 가능합니다.");
+            dtList_info_detail = new DalbitDataTable($("#gift_info_detail"), dtList_info_detail_data, MemberDataTableSource.exchangeDetail);
+            tmp_summary = exchange_summary_table;
         }
-        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(50);
-        dtList_info_detail.createDataTable(gift_summary_table);
+        dtList_info_detail.createDataTable(tmp_summary);
 
-        initDataTableTop_select_gift(tmp);
+        initDataTableTop_select_gift();
     }
 
     function gift_summary_table(json){
         dalbitLog(json);
         var template = $("#gift_tableSummary").html();
         var templateScript = Handlebars.compile(template);
-        if(slctType == -1){
-            var data = {
-                header : mem_total_gift_summary
-                , content : json.summary
-                , length : json.recordsTotal
-            };
-        }else if(slctType == 0){
-            var data = {
-                header : mem_gift_summary
-                , content : json.summary
-                , length : json.recordsTotal
-            };
-        }else if(slctType == 1){
-            var data = {
-                header : mem_received_summary
-                , content : json.summary
-                , length : json.recordsTotal
-            };
-        }
+        var data = {
+            header : mem_total_gift_summary
+            , content : json.summary
+            , length : json.recordsTotal
+        };
         var html = templateScript(data);
-        $("#gift_summaryArea").html(html);
+        $("#table_summaryArea").html(html);
     }
 
-    function initDataTableTop_select_gift(tmp){
-        var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
-        $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
+    function charge_summary_table(json){
+        dalbitLog(json);
+        var template = $("#charge_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            header : mem_gift_summary
+            , content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#table_summaryArea").html(html);
+    }
+
+    function exchange_summary_table(json){
+        dalbitLog(json);
+        var template = $("#exchange_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            header : mem_received_summary
+            , content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#table_summaryArea").html(html);
+    }
+
+    function initDataTableTop_select_gift(){
+        var topTable = "";
+
+        if(giftList_gubun == "broadGift" ){
+            topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
+        }else if(giftList_gubun == "chargeGift"){
+            topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
+            topTable = topTable + '<span name="search_gift_dalbyeol_top" id="search_gift_dalbyeol_top" onchange="gift_sel_change()"></span>';
+        }
+        $("#gift_main_table").find(".top-left").addClass("no-padding").append(topTable);
+
         $("#search_gift_top").html(util.getCommonCodeSelect(-1, gift));
+        $("#search_gift_dalbyeol_top").html(util.getCommonCodeSelect(-1, gift_dalbyeol));
+
     }
     function gift_sel_change(){
-        var value = $("#search_gift_top").find("#gift option:selected").val();
-        slctType = value;
-        dtList_info_detail.reload(gift_summary_table);
+        slctType = $("#search_gift_top").find("#gift option:selected").val();
+        slctItem = $("#search_gift_dalbyeol_top").find("#gift_dalbyeol option:selected").val();
+
+        console.log(slctType);
+        console.log(slctItem);
+
+
+        if(giftList_gubun == "broadGift" ){
+            dtList_info_detail.reload(gift_summary_table);
+        }else if(giftList_gubun == "chargeGift"){
+            dtList_info_detail.reload(charge_summary_table);
+        }else if(giftList_gubun == "exchangeGift"){
+            dtList_info_detail.reload(exchange_summary_table);
+        }
     }
 </script>
 
@@ -84,9 +151,56 @@
             {{/each}}
         </tr>
         </thead>
-        <tbody id="summaryDataTable">
-        <td>{{#equal length '0'}}0{{/equal}}{{content.giftCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+        <tbody>
+            <td>{{content.allGiftItemCnt}}건</td>
+            <td>{{content.allGiftDalCnt}}건</td>
+            <td>{{content.allReceivedItemCnt}}건</td>
+            <td>{{content.allReceivedDalCnt}}건</td>
+        </tbody>
+    </table>
+</script>
+
+<script id="charge_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
+        <thead>
+        <tr>
+            {{#each this.header}}
+            <th>{{this.code}}</th>
+            {{/each}}
+        </tr>
+        </thead>
+        <tbody>
+            <td>{{content.allDalGiftCnt}}건</td>
+            <td>{{content.allDalReceivedCnt}}건</td>
+            <td>{{content.allByeolReceivedCnt}}건</td>
+            <%--<td>{{#equal length '0'}}0{{/equal}}{{content.chargeDal}}건</td>--%>
+            <%--<td>{{#equal length '0'}}0{{/equal}}{{content.chargeDal}}건</td>--%>
+        </tbody>
+    </table>
+</script>
+
+<script id="exchange_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
+        <thead>
+        <tr>
+            <th rowspan="2">누적 교환 수</th>
+            <th colspan="7">각 교환 이용수</th>
+        </tr>
+        <tr>
+            {{#each this.header}}
+            <th>{{this.code}}</th>
+            {{/each}}
+        </tr>
+        </thead>
+        <tbody>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.giftCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
         </tbody>
     </table>
 </script>
