@@ -182,6 +182,16 @@ public class Sta_BroadcastService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
+    public String callBroadcastGiftHistory(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_BroadcastGiftHistoryOutputVo> broadList = sta_BroadcastDao.callBroadcastGiftHistory(procedureVo);
+
+        var result = new HashMap<String, Object>();
+        result.put("detailList", broadList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
 
 
 

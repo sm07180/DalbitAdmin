@@ -54,9 +54,9 @@ ui.unCheck = function(tableId) {
 }
 
 ui.leftActiveFocus = function(){
-    var menu = $('ul.main-menu li.active ul.sub-menu li.active');
+    /*var menu = $('ul.main-menu li.active ul.sub-menu li.active').parent();
     if(0 < menu.length){
         $('._leftFixed').scrollTop(menu.offset().top);
-    }
+    }*/
 
 }
