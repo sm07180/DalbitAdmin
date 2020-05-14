@@ -27,7 +27,9 @@ var payDataTableSource = {
                 var tmp = row.card_no + '<br/>' + row.card_nm;
                 return tmp;
                 }}
-            , {'title': '휴대폰번호', 'data': 'phone_no'}
+            , {'title': '휴대폰번호', 'data': 'phone_no', 'render': function(data) {
+                return common.phoneNumHyphen(data);
+                }}
             , {'title': '은행코드 <br/>/ 가상계좌번호', 'data': '', 'render': function(data, type, row) {
                 var tmp = row.bank_code + '<br/>' + row.account_no;
                 return tmp;
