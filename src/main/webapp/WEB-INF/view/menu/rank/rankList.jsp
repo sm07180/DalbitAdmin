@@ -161,6 +161,14 @@
         djRankListPagingInfo = pagingInfo;
         init();
     }
+
+     function fullSize_profile(url) {     // 이미지 full size
+         $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
+         $('#fullSize_profile').modal('show');
+     }
+     function modal_close(){
+         $("#fullSize_profile").modal('hide');
+     }
      mouseOver();
      function mouseOver(){
          var xOffset = 10;
@@ -218,9 +226,9 @@
             </td>
             <td>
                 {{#equal rank.image_profile ''}}
-                    <img src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
+                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
                 {{else}}
-                    <img src="{{renderImage rank.image_profile}}" style='height:100px; width:auto;' />
+                    <img class="thumbnail" src="{{renderImage rank.image_profile}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
                 {{/equal}}
             </td>
             <td>
@@ -282,9 +290,9 @@
             </td>
             <td>
                 {{#equal fan.image_profile ''}}
-                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
+                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
                 {{else}}
-                    <img class="thumbnail" src="{{viewImage fan.image_profile}}" style='height:100px; width:auto;' />
+                    <img class="thumbnail" src="{{viewImage fan.image_profile}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
                 {{/equal}}
             </td>
             <td>
