@@ -42,7 +42,7 @@
         call rd_admin.sp_admin_stat_broadcast_gift(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
-    <select id="callBroadcastGiftHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastGiftHistoryOutputVo">
+    <select id="callBroadcastGiftHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_BroadcastGiftHistoryOutputDetailVo">
         /* B_Broadcast.xml - callBroadcastGiftHistory */
         call rd_admin.sp_admin_stat_item_purchase(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
