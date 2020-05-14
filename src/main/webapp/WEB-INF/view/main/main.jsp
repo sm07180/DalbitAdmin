@@ -748,7 +748,6 @@
                 arrayList_x.push(arrayFormat);
             }
         }
-        dalbitLog(arrayList_x);
 
         //y축
         var arrayList_y = [];
