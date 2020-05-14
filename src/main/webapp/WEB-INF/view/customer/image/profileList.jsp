@@ -191,7 +191,7 @@ var fnc_profileList = {
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
             <div class="thumbnail">
-                <img class="list-group-image" style="width:100%; height:100%;" src="{{user.image_profile.url}}?360x360" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src)"/>
+                <img class="list-group-image thumbnail" style="width:100%; height:100%;" src="{{user.image_profile.url}}?360x360" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize_image('{{user.image_profile.url}}')"/>
                 <div class="caption">
                     <div class="action-buttons">
                         <a href="javascript://" class="btn btn-danger btn-xs" onclick="fnc_profileList.updateData(this)" data-info="{{json user}}"><i class="fa fa-undo"></i> 초기화</a>
