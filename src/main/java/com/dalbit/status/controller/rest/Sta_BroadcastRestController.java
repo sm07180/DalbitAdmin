@@ -152,6 +152,15 @@ public class Sta_BroadcastRestController {
     }
 
     /**
+     * 방송 선물 통계 현황
+     */
+    @PostMapping("/broadcastGiftHistory/list")
+    public String broadcastGiftHistory(P_StatVo pStatVo){
+        String result = sta_BroadcastService.callBroadcastGiftHistory(pStatVo);
+        return result;
+    }
+
+    /**
      * 방송 통계 현황
      */
     @PostMapping("/broadSumStatus/list")
