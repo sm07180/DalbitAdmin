@@ -13,13 +13,8 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 실시간 Live</h3>
                             <div>
-                                <select class="form-control searchType" name="selectGubun">
-                                    <option value="9999" selected="selected">전체</option>
-                                    <option value="1">User ID</option>
-                                    <option value="2">User 닉네임</option>
-                                    <option value="3">연락처</option>
-                                    <option value="4">이름</option>
-                                </select>
+
+                                <span id="searchArea"></span>
                                 <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -151,11 +146,12 @@
 <!-- 이미지 원본 보기 -->
 <div id="imageFullSize"></div>
 
-<script type="text/javascript" src="/js/code/commonCode.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var livePagingInfo = new PAGING_INFO(0,1,100);
 
     $(function(){
+        $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
         init();
         util.getAjaxData("select", "/rest/content/theme/broadcast/list", "", fn_succ_select);
     });
@@ -166,7 +162,7 @@
             , slctType : common.isEmpty(slctType) ? 1 : slctType
             , pageStart : livePagingInfo.pageNo
             , pageCnt : livePagingInfo.pageCnt
-            , selectGubun : $('select[name="selectGubun"]').val()
+            , selectGubun : $('#searchArea').val()
             , txt_search : $("#txt_search").val()
         };
         util.getAjaxData("liveList", "/rest/menu/live/list", data, fn_succ_list);

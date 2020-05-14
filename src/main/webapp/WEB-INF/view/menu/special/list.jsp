@@ -12,7 +12,7 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
                             <div>
-                                <span id="searchTypeArea"></span>
+                                <span id="searchArea"></span>
                                 <label><input type="text" class="form-control" id="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -27,10 +27,10 @@
 
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="active">
-                        <a href="/menu/recommend/list"><i class="fa fa-home"></i> 추천DJ</a>
+                        <a href="/menu/recommend/list"><i class="fa fa-home"></i> 스페셜 달D</a>
                     </li>
                     <li>
-                        <a href="/menu/best/list"><i class="fa fa-user"></i> 인기DJ</a>
+                        <a href="/menu/best/list"><i class="fa fa-user"></i> 스페셜 신청 달D</a>
                     </li>
                 </ul>
                 <div class="widget widget-table">
@@ -61,6 +61,7 @@
 <script type="text/javascript">
 
     $(function(){
+        $('#searchArea').html(util.getCommonCodeSelect(9999, searchType));
         init();
         getSearch();
     });
@@ -75,7 +76,7 @@
 
         var dtList_info_data = function ( data ) {
             data.search = $('#txt_search').val();                        // 검색명
-            data.gubun = $("select[name='selectGubun']").val();
+            data.gubun = $('#searchArea').val();
             data.value = '01';
         };
 

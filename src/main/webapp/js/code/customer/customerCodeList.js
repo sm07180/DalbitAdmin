@@ -64,7 +64,7 @@ var declaration_send = [
 
 var sms_code = [
   new COMMON_CODE(null, 'vxml_file', 'sms구분')
-  , new COMMON_CODE('all', '-1', '전체')
+  , new COMMON_CODE('all', '-1', 'SMS구분(전체)')
   , new COMMON_CODE('join', '0', '회원가입')
   , new COMMON_CODE('change', '1', '비밀번호 변경')
     , new COMMON_CODE('etc', '', '기타')

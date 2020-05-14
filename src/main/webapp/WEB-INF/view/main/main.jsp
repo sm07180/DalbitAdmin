@@ -843,8 +843,7 @@
         var context = response.data;
         var html=templateScript(context);
 
-        dalbitLog("#############" + response.data);
-        $('#statItemBody').html(html);
+        $('#statItemBody').empty().append(html);
     }
 </script>
 

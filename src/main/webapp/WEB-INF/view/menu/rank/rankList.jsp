@@ -13,13 +13,7 @@
                     <div class="widget-header searchBoxRow">
                         <h3 class="title"><i class="fa fa-search"></i> 추천/인기DJ 검색</h3>
                         <div>
-                            <select class="form-control searchType" name="selectGubun">
-                                <option value="9999" selected="selected">전체</option>
-                                <option value="1">회원번호</option>
-                                <option value="2">User ID</option>
-                                <option value="3">User 닉네임</option>
-                                <option value="4">연락처</option>
-                            </select>
+                            <span id="searchArea"></span>
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                             <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -103,10 +97,12 @@
 <!-- 이미지 원본 보기 -->
 <div id="imageFullSize"></div>
 
+<script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
      djRankListPagingInfo = new PAGING_INFO(0, 1, 50);
 
     $(function(){
+        $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
         init();
     });
 
@@ -117,7 +113,7 @@
             rankType : $('input:radio[name="rankType"]:checked').val()
             , pageStart : djRankListPagingInfo.pageNo
             , pageCnt : djRankListPagingInfo.pageCnt
-            , selectGubun : $('select[name="selectGubun"]').val()
+            , selectGubun : $('#searchArea').val()
             , txt_search : $("#txt_search").val()
         }
         util.getAjaxData(rank, "/rest/menu/rank/"+rank, data, fn_succ_list);
