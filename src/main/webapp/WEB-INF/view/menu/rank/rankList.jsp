@@ -224,11 +224,11 @@
                 <i class="fa fa-circle-o" style="color: blue"></i><br/><span class="text">비추천</span>
                 {{/isSmall}}
             </td>
-            <td>
+            <td style="width: 50px">
                 {{#equal rank.image_profile ''}}
-                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
                 {{else}}
-                    <img class="thumbnail" src="{{renderImage rank.image_profile}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail" src="{{renderImage rank.image_profile}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
                 {{/equal}}
             </td>
             <td>
@@ -288,11 +288,11 @@
                 <i class="fa fa-circle-o" style="color: blue"></i><br/><span class="text">비추천</span>
                 {{/isSmall}}
             </td>
-            <td>
+            <td style="width: 50px">
                 {{#equal fan.image_profile ''}}
-                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
                 {{else}}
-                    <img class="thumbnail" src="{{viewImage fan.image_profile}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail" src="{{viewImage fan.image_profile}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
                 {{/equal}}
             </td>
             <td>
