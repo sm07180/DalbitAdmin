@@ -213,8 +213,8 @@ var MemberDataTableSource = {
                     else var tmp = "X";
                     return tmp;
                 }},
-            {'title': '이미지', 'data': 'item_thumbnail','render' : function (data, type, row, meta) {
-                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px"/>';
+            {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
@@ -235,11 +235,10 @@ var MemberDataTableSource = {
             {'title': 'User 닉네임', 'data': 'mem_nick'},
             {'title': '구분', 'data': 'use_contents'},
             {'title': '이미지', 'data': 'image','width':'50px','render' : function (data, type, row, meta) {
-                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px"/>';
+                    return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemNm'},
             {'title': '선물 달 수', 'data': 'cnt'},
-            {'title': '플랫폼', 'data': '','defaultContent':''},
             {'title': '선물 일시', 'data': 'lastUpdDateFormat'},
         ]
     },

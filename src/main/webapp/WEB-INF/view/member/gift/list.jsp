@@ -26,6 +26,11 @@
     $(document).ready(function() {
     });
 
+    function memberGiftInit(tmp){
+        $("#li_broadGift").addClass("active");
+        $("#li_chargeGift").removeClass("active");
+        memberGiftList('broadGift');
+    }
     var giftList_gubun="broadGift";
     var slctType = -1;
     var slctItem = -1;
@@ -147,10 +152,10 @@
         </tr>
         </thead>
         <tbody>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.allGiftItemCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.allGiftDalCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.allReceivedItemCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.allReceivedDalCnt}}건</td>
+            <td>{{content.allGiftItemCnt}}건</td>
+            <td>{{content.allGiftDalCnt}}건</td>
+            <td>{{content.allReceivedItemCnt}}건</td>
+            <td>{{content.allReceivedDalCnt}}건</td>
         </tbody>
     </table>
 </script>
