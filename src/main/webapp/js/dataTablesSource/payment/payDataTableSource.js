@@ -23,7 +23,9 @@ var payDataTableSource = {
             , {'title': '직원여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
-            , {'title': '앱버전', 'data': 'app_ver'}
+            , {'title': '앱버전', 'data': 'app_ver', 'render': function(data, type, row) {
+                    return common.isEmpty(data) ? '-' : data;
+                }}
             , {'title': '최초여부', 'data': 'first_pay_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
