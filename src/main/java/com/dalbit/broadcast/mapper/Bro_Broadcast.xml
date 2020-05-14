@@ -44,6 +44,10 @@
          where room_no = #{room_no}
     </update>
 
+    <select id="callBroadcastRoomExit" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_data.sp_broadcast_room_exit(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
     <select id="callBroadcastSimpleInfo" parameterType="String" resultType="java.util.HashMap">
         SELECT
             a.title

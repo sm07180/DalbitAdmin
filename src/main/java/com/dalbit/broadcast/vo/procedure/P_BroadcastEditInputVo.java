@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class P_BroadcastEditInputVo  extends PagingVo {
+    private int memLogin;
     private String room_no;
     private String mem_no;
     private String backgroundImage;
