@@ -94,7 +94,7 @@
                             </div>
 
                             <div class="btn-group widget-header-toolbar">
-                                <a href="http://dalbitlocal.inforex.co.kr:8081/broadcast/live/list" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                                <a href="http://dalbit.inforex.co.kr/broadcast/live/list" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
                         </div>
                         <div class="widget-content mt10">
@@ -125,7 +125,7 @@
                             </div>
 
                             <div class="btn-group widget-header-toolbar">
-                                <a href="http://dalbitlocal.inforex.co.kr:8081/connect/connect/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                                <a href="javascript://" title="상세보기" onclick="alert('준비중입니다.'); return false;"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
                         </div>
                         <div class="widget-content mt10">
@@ -204,7 +204,7 @@
                             </div>
 
                             <div class="btn-group widget-header-toolbar">
-                                <a href="http://dalbitlocal.inforex.co.kr:8081/enter/join/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                                <a href="http://dalbit.inforex.co.kr/enter/join/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
                         </div>
                         <div class="widget-content mt10">
@@ -320,7 +320,7 @@
                             </div>
 
                             <div class="btn-group widget-header-toolbar">
-                                <a href="http://dalbitlocal.inforex.co.kr:8081/enter/pay/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                                <a href="http://dalbit.inforex.co.kr/enter/pay/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
                         </div>
                         <div class="widget-content mt10">
@@ -458,7 +458,7 @@
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
                             <div class="btn-group widget-header-toolbar">
-                                <a href="http://dalbitlocal.inforex.co.kr:8081/status/item/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                                <a href="http://dalbit.inforex.co.kr/status/item/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
                         </div>
                         <div class="widget-content mt10">
@@ -748,7 +748,6 @@
                 arrayList_x.push(arrayFormat);
             }
         }
-        dalbitLog(arrayList_x);
 
         //y축
         var arrayList_y = [];
