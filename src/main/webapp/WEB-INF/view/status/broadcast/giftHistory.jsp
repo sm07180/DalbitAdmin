@@ -52,6 +52,8 @@
             </thead>
             <tbody id="giftHistoryListArea"></tbody>
         </table>
+
+        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
     </div>
     <%--<div class="widget-footer">
         <span>
@@ -61,7 +63,12 @@
 </div>
 
 <script type="text/javascript">
+    giftHistoryListPagingInfo = new PAGING_INFO(0, 1, 100);
+
     function getGiftHistoryList(){
+
+        $("#searchForm #pageNo").val(giftHistoryListPagingInfo.pageNo);
+        $("#searchForm #pageCnt").val(giftHistoryListPagingInfo.pageCnt);
         util.getAjaxData("broadcastGiftHistory", "/rest/status/broadcast/broadcastGiftHistory/list", $("#searchForm").serialize(), fn_broadcastGiftHistory_success);
     }
 
@@ -72,6 +79,15 @@
         var html=templateScript(detailContext);
         $("#giftHistoryListArea").html(html);
 
+        var pagingInfo = response.data.totalInfo;
+        console.log(pagingInfo)
+        giftHistoryListPagingInfo.totalCnt = pagingInfo.totalCnt;
+        util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+        giftHistoryListPagingInfo = pagingInfo;
+        getGiftHistoryList();
     }
 
 </script>
@@ -100,7 +116,7 @@
         </tr>
     {{else}}
         <tr>
-            <td colspan="22" class="noData">{{isEmptyData}}<td>
+            <td colspan="10" class="noData">{{isEmptyData}}<td>
         </tr>
     {{/each}}
 </script>

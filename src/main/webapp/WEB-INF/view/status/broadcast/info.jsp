@@ -5,6 +5,10 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <form id="searchForm">
+
+                <input type="hidden" id="pageNo" name="pageNo" value="1" />
+                <input type="hidden" id="pageCnt" name="pageCnt" value="100" />
+
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">

@@ -35,7 +35,7 @@ public interface Sta_BroadcastDao {
     ArrayList<P_BroadcastGiftOutputVo> callBroadcastGift(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
-    ArrayList<P_BroadcastGiftHistoryOutputVo> callBroadcastGiftHistory(ProcedureVo procedureVo);
+    ArrayList<P_BroadcastGiftHistoryOutputDetailVo> callBroadcastGiftHistory(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
     ArrayList<P_BroadcastStatusOutputVo> callBroadcastSumStatus(ProcedureVo procedureVo);
