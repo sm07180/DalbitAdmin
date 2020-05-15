@@ -245,7 +245,7 @@
 
         $("#authArea").show();
         var scrollPosition = $("#authArea").offset();
-        $('html').animate({scrollTop: scrollPosition.top}, 50);
+        $('html').animate({scrollTop: scrollPosition.top}, 100);
     }
 
     $(document).on('click', '._memberTableRow', function(){

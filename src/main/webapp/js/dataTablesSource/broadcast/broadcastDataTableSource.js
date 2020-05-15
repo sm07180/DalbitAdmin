@@ -243,7 +243,7 @@ var BroadcastDataTableSource = {
     'chatDetail': {
         'url': '/rest/broadcast/chat/list'
         , 'columns': [
-            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'120px'},
+            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
             {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반
@@ -264,7 +264,7 @@ var BroadcastDataTableSource = {
     'targetchat': {
         'url': '/rest/broadcast/chat/targetList'
         , 'columns': [
-            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'120px'},
+            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
             {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반
