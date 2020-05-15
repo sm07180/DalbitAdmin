@@ -299,7 +299,7 @@
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2">총 가입자 수</th>
-            <th colspan="6">가입플랫폼 별 수</th>
+            <th colspan="6">가입플랫폼</th>
         </tr>
         <tr>
             <th>휴대폰</th>

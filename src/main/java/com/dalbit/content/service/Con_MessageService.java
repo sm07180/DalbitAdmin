@@ -34,8 +34,8 @@ public class Con_MessageService {
     @Autowired
     GsonUtil gsonUtil;
 
-    @Value("${server.api.urls}")
-    private String SERVER_API_URLS;
+    @Value("${server.api.url}")
+    private String SERVER_API_URL;
 
 
     /** 방송방메시지 리스트 */
@@ -133,12 +133,10 @@ public class Con_MessageService {
         OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
 
         try{
-            for(String url : SERVER_API_URLS.split("\\,")){
-                url += uri;
-                Response response = okHttpClientUtil.sendPost(url, formBody);
-                String inforexLoginResult = response.body().string();
-                log.debug(inforexLoginResult);
-            }
+            String url = SERVER_API_URL + uri;
+            Response response = okHttpClientUtil.sendPost(url, formBody);
+            String inforexLoginResult = response.body().string();
+            log.debug(inforexLoginResult);
 
             return gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지발송_성공));
         }catch (IOException | GlobalException e){

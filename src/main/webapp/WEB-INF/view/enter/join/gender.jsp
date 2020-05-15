@@ -69,8 +69,8 @@
             var template = $('#tmp_genderTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#genderTableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#genderTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
         }
@@ -84,7 +84,7 @@
         if(isDataEmpty){
             $("#genderTableBody td:last").remove();
         }else{
-            $("#genderTableBody").append(totalTtml);
+            $("#genderTableBody").append(totalHtml);
         }
     }
 </script>

@@ -28,7 +28,7 @@ public class FileMaker {
     private boolean isManualConfig;
 
     public FileMaker(final String ver, final String serverIp, final String switchIp, final int serverPort, final int recvTimeOut, final String logDir, final String KeySeq, final String Key, final String UserEncode, final String logLevel) {
-        this.propertiesName = "Mcash.properties";
+        this.propertiesName = "/mobilians/Mcash.properties";
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";

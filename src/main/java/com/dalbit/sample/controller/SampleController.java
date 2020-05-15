@@ -1,5 +1,6 @@
 package com.dalbit.sample.controller;
 
+import com.dalbit.broadcast.service.Bro_BroadcastService;
 import com.dalbit.sample.service.SampleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @Controller
 @RequestMapping("sample")
@@ -15,6 +18,9 @@ public class SampleController {
 
     @Autowired
     SampleService sampleService;
+
+    @Autowired
+    Bro_BroadcastService bro_broadcastService;
 
     @GetMapping("list")
     public String list(Model model){
@@ -100,5 +106,12 @@ public class SampleController {
 
     @GetMapping("tree")
     public String tree(){return "sample/tree";}
+
+
+    @GetMapping("player")
+    public String player(HttpServletRequest request){
+        bro_broadcastService.callBroadcastSimpleInfo(request);
+        return "sample/player";
+    }
 
 }

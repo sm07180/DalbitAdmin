@@ -61,8 +61,8 @@
             var template = $('#tmp_platform').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#platformListBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#platformListBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
         }
@@ -76,7 +76,7 @@
         if(isDataEmpty){
             $("#platformListBody td:last").remove();
         }else{
-            $("#platformListBody").append(totalTtml);
+            $("#platformListBody").append(totalHtml);
         }
     }
 </script>

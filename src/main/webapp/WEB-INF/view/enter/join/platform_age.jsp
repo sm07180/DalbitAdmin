@@ -68,8 +68,8 @@
             var template = $('#tmp_platformAgeTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            tableBody.append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            tableBody.append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
         }
@@ -83,7 +83,7 @@
         if(isDataEmpty){
             $("#platformAgeTableBody td:last").remove();
         }else{
-            tableBody.append(totalTtml);
+            tableBody.append(totalHtml);
         }
     }
 

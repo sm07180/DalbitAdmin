@@ -2,6 +2,7 @@ package com.dalbit.status.controller.rest;
 
 import com.dalbit.common.vo.StatVo;
 import com.dalbit.status.service.Sta_ItemService;
+import com.dalbit.status.vo.procedure.P_ItemBroadInputVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -82,6 +83,20 @@ public class Sta_ItemRestController {
             StatVo.setEndDate(null);
         }
         String result = sta_ItemService.callItemAge(StatVo);
+        return result;
+    }
+
+    /**
+     * 아이템 방송별
+     * @param P_ItemBroadInputVo
+     * @return
+     */
+    @PostMapping("/broad/list")
+    public String itembroad(P_ItemBroadInputVo pItemBroadInputVo){
+        if(DalbitUtil.isEmpty(pItemBroadInputVo.getStartDate())){
+            pItemBroadInputVo.setStartDate(null);
+        }
+        String result = sta_ItemService.callItemBroad(pItemBroadInputVo);
         return result;
     }
 }

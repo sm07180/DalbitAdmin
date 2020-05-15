@@ -232,11 +232,18 @@
                 {{/equal}}
             </td>
             <td>
-                {{mem_id}} <br /> <br />
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{memNo}}</a>
+                <br /> <br />
                 레벨 : {{level}} <br />
                 등급 : {{grade}}
             </td>
-            <td>{{mem_nick}}</td>
+            <td>
+                {{#equal mem_nick ''}}
+                    {{{fontColor '탈퇴회원 입니다.' 0 'red'}}}
+                {{else}}
+                    {{rank.mem_nick}}
+                {{/equal}}
+            </td>
             <td>{{money}}</td>
             <td>{{byeol}}</td>
             <td>{{gifted_mem_no}}</td>

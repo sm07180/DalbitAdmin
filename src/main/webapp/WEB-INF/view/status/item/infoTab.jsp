@@ -8,14 +8,14 @@
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#total" role="tab" data-toggle="tab">총계</a></li>
+                    <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_total">총계</a></li>
                     <li><a href="#gender" role="tab" data-toggle="tab" id="tab_genderDetail">성별</a></li>
                     <li><a href="#age" role="tab" data-toggle="tab" id="tab_ageDetail">연령별</a></li>
                     <li><a href="#broadcast" role="tab" data-toggle="tab" id="tab_broadcastDetail">방송</a></li>
-                    <li><a href="#cast" role="tab" data-toggle="tab" id="tab_castDetail">캐스트</a></li>
-                    <li><a href="#storeEtc" role="tab" data-toggle="tab" id="tab_storeEtcDetail">스토어/기타</a></li>
-                    <li><a href="#item" role="tab" data-toggle="tab" id="tab_itemDetail">아이템 전체</a></li>
-                    <li><a href="#buyHistory" role="tab" data-toggle="tab" id="tab_buyHistoryDetail">구매 내역</a></li>
+                    <%--<li><a href="#cast" role="tab" data-toggle="tab" id="tab_castDetail">캐스트</a></li>--%>
+                    <%--<li><a href="#storeEtc" role="tab" data-toggle="tab" id="tab_storeEtcDetail">스토어/기타</a></li>--%>
+                    <%--<li><a href="#item" role="tab" data-toggle="tab" id="tab_itemDetail">아이템 전체</a></li>--%>
+                    <%--<li><a href="#buyHistory" role="tab" data-toggle="tab" id="tab_buyHistoryDetail">구매 내역</a></li>--%>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- 총계 -->
@@ -33,3 +33,33 @@
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+
+<script type="text/javascript">
+    $("#tablist_con li a").on('click', function(){
+        var tabId = $(this).prop('id');
+        if(tabId == 'tab_total'){
+            getTotalList();
+        }else if(tabId == 'tab_genderDetail'){
+            getGenderList();
+        }else if(tabId == 'tab_ageDetail'){
+            getAgeList();
+        }else if(tabId == 'tab_broadcastDetail'){
+            getBroadList();
+        }else if(tabId == 'tab_castDetail'){
+        }else if(tabId == 'tab_storeEtcDetail') {
+        }else if(tabId == 'tab_itemDetail') {
+        }else if(tabId == 'tab_buyHistoryDetail') {
+        }
+
+        $(".searchDate").html($("#onedayDate").val());
+    });
+
+    $("#bt_search").on('click', function(){
+
+        if($('input[name="slctType"]:first').prop('checked')){
+            $("._searchDate").html($("#startDate").val());
+        }
+
+        $("#tablist_con li.active a").click();
+    });
+</script>

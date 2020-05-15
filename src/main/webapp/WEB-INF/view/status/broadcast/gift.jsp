@@ -49,8 +49,8 @@
             var template = $('#tmp_giftTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#giftListBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#giftListBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
         }
@@ -64,7 +64,7 @@
         if(isDataEmpty){
             $("#giftListBody td:last").remove();
         }else{
-            $("#giftListBody").append(totalTtml);
+            $("#giftListBody").append(totalHtml);
         }
     }
 </script>

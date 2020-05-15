@@ -16,16 +16,12 @@
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="2">교환</th>
-                <th colspan="2">선물</th>
-                <th colspan="2">구독</th>
-                <th colspan="2">방송 선물</th>
-                <th colspan="2">캐스트 선물</th>
+                <th colspan="2">소개</th>
+                <th colspan="2">남성</th>
+                <th colspan="2">여성</th>
+                <th colspan="2">알수없음</th>
             </tr>
-
             <tr>
-                <th>건수</th>
-                <th>금액</th>
                 <th>건수</th>
                 <th>금액</th>
                 <th>건수</th>
@@ -36,7 +32,7 @@
                 <th>금액</th>
             </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="genderTableBody"></tbody>
         </table>
     </div>
     <div class="widget-footer">
@@ -48,57 +44,55 @@
 
 <script type="text/javascript">
     $(function(){
-        getTotalList();
+        getGenderList();
     });
 
-    function getTotalList(){
-        util.getAjaxData("memberList", "/rest/status/item/gender/list", $("#searchForm").serialize(), fn_totalJoin_success);
+    function getGenderList(){
+        util.getAjaxData("memberList", "/rest/status/item/gender/list", $("#searchForm").serialize(), fn_genderJoin_success);
     }
 
-    function fn_totalJoin_success(data, response){
+    function fn_genderJoin_success(data, response){
         dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
-        $("#tableBody").empty();
+        $("#genderTableBody").empty();
         if(!isDataEmpty){
-            var template = $('#tmp_total').html();
+            var template = $('#tmp_genderTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#tableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#genderTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
         }
 
-        var template = $('#tmp_detailList').html();
+        var template = $('#tmp_genderDetailList').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
-        $("#tableBody").append(html);
+        $("#genderTableBody").append(html);
 
         if(isDataEmpty){
-            $("#tableBody td:last").remove();
+            $("#genderTableBody td:last").remove();
         }else{
-            $("#tableBody").append(totalTtml);
+            $("#genderTableBody").append(totalHtml);
         }
     }
 </script>
-<script type="text/x-handlebars-template" id="tmp_total">
+<script type="text/x-handlebars-template" id="tmp_genderTotal">
     <tr class="success">
         <td>소계</td>
-        <td>{{addComma sum_changeCnt}}</td>
-        <td>{{addComma sum_changeAmt}}</td>
-        <td>{{addComma sum_dalgiftCnt}}</td>
-        <td>{{addComma sum_dalgiftAmt}}</td>
-        <td>{{addComma sum_subsCnt}}</td>
-        <td>{{addComma sum_subsAmt}}</td>
-        <td>{{addComma sum_broadgiftCnt}}</td>
-        <td>{{addComma sum_broadgiftAmt}}</td>
-        <td>{{addComma sum_castgiftCnt}}</td>
-        <td>{{addComma sum_castgiftAmt}}</td>
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_totalAmt}}</td>
+        <td>{{addComma sum_maleCnt}}</td>
+        <td>{{addComma sum_maleAmt}}</td>
+        <td>{{addComma sum_femaleCnt}}</td>
+        <td>{{addComma sum_femaleAmt}}</td>
+        <td>{{addComma sum_noneCnt}}</td>
+        <td>{{addComma sum_noneAmt}}</td>
     </tr>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_detailList">
+<script type="text/x-handlebars-template" id="tmp_genderDetailList">
     {{#each this as |data|}}
     <tr>
         <td>
@@ -106,16 +100,14 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma changeCnt}}</td>
-        <td>{{addComma changeAmt}}</td>
-        <td>{{addComma dalgiftCnt}}</td>
-        <td>{{addComma dalgiftAmt}}</td>
-        <td>{{addComma subsCnt}}</td>
-        <td>{{addComma subsAmt}}</td>
-        <td>{{addComma broadgiftCnt}}</td>
-        <td>{{addComma broadgiftAmt}}</td>
-        <td>{{addComma castgiftCnt}}</td>
-        <td>{{addComma castgiftAmt}}</td>
+        <td>{{addComma totalCnt}}</td>
+        <td>{{addComma totalAmt}}</td>
+        <td>{{addComma maleCnt}}</td>
+        <td>{{addComma maleAmt}}</td>
+        <td>{{addComma femaleCnt}}</td>
+        <td>{{addComma femaleAmt}}</td>
+        <td>{{addComma noneCnt}}</td>
+        <td>{{addComma noneAmt}}</td>
     </tr>
     {{else}}
     <%--<tr>--%>
