@@ -96,6 +96,7 @@
         <td>{{addComma sum_castgiftCnt}}</td>
         <td>{{addComma sum_castgiftAmt}}</td>
     </tr>
+    {"sum_changeCnt": 0, "sum_changeAmt": 0, "sum_dalgiftCnt": 0, "sum_dalgiftAmt": 0, "sum_subsCnt": 0, "sum_subsAmt": 0, "sum_broadgiftCnt": 20, "sum_broadgiftAmt": 146, "sum_castgiftCnt": 0, "sum_castgiftAmt": 0}
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_detailList">

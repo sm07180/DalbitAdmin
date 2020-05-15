@@ -84,4 +84,21 @@ public class Sta_ItemRestController {
         String result = sta_ItemService.callItemAge(StatVo);
         return result;
     }
+
+    /**
+     * 아이템 방송별
+     * @param StatVo
+     * @return
+     */
+    @PostMapping("/broad/list")
+    public String itembroad(StatVo StatVo){
+        if(DalbitUtil.isEmpty(StatVo.getStartDate())){
+            StatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(StatVo.getEndDate())){
+            StatVo.setEndDate(null);
+        }
+        String result = sta_ItemService.callItemBroad(StatVo);
+        return result;
+    }
 }
