@@ -6,16 +6,16 @@
     <div class="widget-content" >
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
             <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
-            <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail" onclick="getHistory_broadDetail(this.id);">방송내역</a></li>
-            <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="getHistory_listenDetail(this.id);">청취내역</a></li>
-            <li><a href="#payDetail" role="tab" data-toggle="tab" id="tab_payDetail" onclick="getHistory_payDetail(this.id);">결제/취소내역</a></li>
-            <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="memberGiftInit('broadGift');">내지갑</a></li>
-            <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="getHistory_mystarDetail(this.id);">마이스타/팬</a></li>
-            <li><a href="#noticeDetail" role="tab" data-toggle="tab" id="tab_noticeDetail" onclick="getHistory_noticeDetail(this.id);">회원공지관리</a></li>
-            <li><a href="#fanboardDetail" role="tab" data-toggle="tab" id="tab_fanboardDetail" onclick="getHistory_fanbroadDetail(this.id);">팬보드관리</a></li>
-            <li><a href="#banwordDetail" role="tab" data-toggle="tab" id="tab_banwordDetail" onclick="getHistory_banwordDetail(this.id);">금지어관리</a></li>
-            <li><a href="#declarationDetail" role="tab" data-toggle="tab" id="tab_declarationDetail" onclick="getHistory_declarationDetail(this.id);">신고내역</a></li>
-            <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail" onclick="getHistory_questionDetail(this.id);">문의내역</a></li>
+            <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail" onclick="tab_click(this.id);">방송내역</a></li>
+            <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="tab_click(this.id);">청취내역</a></li>
+            <li><a href="#payDetail" role="tab" data-toggle="tab" id="tab_payDetail" onclick="tab_click(this.id);">결제/취소내역</a></li>
+            <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="tab_click(this.id);">내지갑</a></li>
+            <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="tab_click(this.id);">마이스타/팬</a></li>
+            <li><a href="#noticeDetail" role="tab" data-toggle="tab" id="tab_noticeDetail" onclick="tab_click(this.id);">회원공지관리</a></li>
+            <li><a href="#fanboardDetail" role="tab" data-toggle="tab" id="tab_fanboardDetail" onclick="tab_click(this.id);">팬보드관리</a></li>
+            <li><a href="#banwordDetail" role="tab" data-toggle="tab" id="tab_banwordDetail" onclick="tab_click(this.id);">금지어관리</a></li>
+            <li><a href="#declarationDetail" role="tab" data-toggle="tab" id="tab_declarationDetail" onclick="tab_click(this.id);">신고내역</a></li>
+            <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail" onclick="tab_click(this.id);">문의내역</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active " id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>     <!-- 상세 -->
@@ -44,4 +44,29 @@
     });
     var dtList_info_detail;
     var dtList_top_info;
+
+    function tab_click(tmp){
+        if(tmp == "tab_broadDetail"){
+            getHistory_broadDetail(tmp);
+        }else if(tmp == "tab_listenDetail"){
+            getHistory_listenDetail(tmp);
+        }else if(tmp == "tab_payDetail"){
+            getHistory_payDetail(tmp);
+        }else if(tmp == "tab_giftDetail"){
+            memberGiftInit("broadGift");
+        }else if(tmp == "tab_mystarDetail"){
+            getHistory_mystarDetail(tmp);
+        }else if(tmp == "tab_noticeDetail"){
+            getHistory_noticeDetail(tmp);
+        }else if(tmp == "tab_fanboardDetail"){
+            getHistory_fanbroadDetail(tmp);
+        }else if(tmp == "tab_banwordDetail"){
+            getHistory_banwordDetail(tmp);
+        }else if(tmp == "tab_declarationDetail"){
+            getHistory_declarationDetail(tmp);
+        }else if(tmp == "tab_questionDetail"){
+            getHistory_questionDetail(tmp);
+        }
+        util.scrollPostion(878);
+    }
 </script>
