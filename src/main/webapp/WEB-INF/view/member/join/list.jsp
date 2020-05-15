@@ -13,8 +13,12 @@
                     <div>
                         <span id="selJoinDate"></span>
                         <div class="input-group date" id="seldate">
-                            <input type="text" class="form-control" id="txt_selDate"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" disabled="true"></i></span>
+                            <label for="onedayDate" class="input-group-addon">
+                                <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
+                            </label>
+                            <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
                         </div>
+                        <input type="text" class="form-control" id="txt_search">
                         <button type="button" id="bt_search" class="btn btn-success">검색</button>
                     </div>
                 </div>
@@ -61,6 +65,8 @@
     var sDate;
     var eDate;
 
+    $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
+
     $(document).ready(function() {
         $("#selJoinDate").html(util.getCommonCodeRadio(3, joinDate));
 
@@ -68,20 +74,30 @@
             format: 'L',
             maxDate:new Date(),
             format: "YYYY-MM-DD",
+
         });
 
         sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
+
         getUserInfo();
+        $('input[id="txt_search"]').keydown(function() {
+            if (event.keyCode === 13) {
+                getUserInfo();
+            };
+        });
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getUserInfo();
         });
         <!-- 버튼 끝 -->
     });
+
+    $("#seldate").addClass('hide');
     $('#selJoinDate').change(function() {
         sDate = "";
         eDate = "";
 
+        $("#seldate").addClass('hide');
         eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");         // 오늘
         if($('input[name="joinDate"]:checked').val() == "0"){               // 월
             sDate = date.getFullYear() + common.lpad(date.getMonth(),2,"0") + common.lpad(date.getDate(),2,"0");        // 한달전
@@ -93,12 +109,10 @@
             sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-1,2,"0");      //어제
         }else if($('input[name="joinDate"]:checked').val() == "3"){               // 당일
             sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
-        }else if($('input[name="joinDate"]:checked').val() == "4") {               // 선택
-            $("#txt_selDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"))
+        }else if($('input[name="joinDate"]:checked').val() == "4"){               // 당일
+            $("#seldate").removeClass('hide');
         }
-        if($('input[name="joinDate"]:checked').val() != "4") {               // 선택
-            $("#txt_selDate").val(null);
-        }
+        $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
         getUserInfo();
     });
 
@@ -112,6 +126,7 @@
 
     var _testid = -1;
     var dtList_info_data = function ( data ) {
+        data.searchText = $('#txt_search').val();                        // 검색명
         data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
         data.period = $('input[name="joinDate"]:checked').val();
@@ -121,7 +136,7 @@
         }else if($('input[name="joinDate"]:checked').val() == "3" ){
             data.sDate = sDate;
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            data.sDate = $("#txt_selDate").val().replace(/-/gi, "");
+            data.sDate = $("#onedayDate").val().replace(/-/gi, "");
         }
     };
     dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.joinList);
@@ -133,6 +148,7 @@
 
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
+        data.searchText = $('#txt_search').val();                        // 검색명
         data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
         data.period = $('input[name="joinDate"]:checked').val();
@@ -142,7 +158,7 @@
         }else if($('input[name="joinDate"]:checked').val() == "3" ){
             data.sDate = sDate;
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            data.sDate = $("#txt_selDate").val().replace(/-/gi, "");
+            data.sDate = $("#onedayDate").val().replace(/-/gi, "");
         }
     };
     dtList_info2 = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data2, MemberDataTableSource.withdrawalList);
@@ -183,7 +199,7 @@
         }else if($('input[name="joinDate"]:checked').val() == "3" ){
             tmp_sDate = sDate;
         }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            tmp_sDate = $("#txt_selDate").val().replace(/-/gi, "");
+            tmp_sDate = $("#onedayDate").val().replace(/-/gi, "");
         }
     }
     function memberList(){
