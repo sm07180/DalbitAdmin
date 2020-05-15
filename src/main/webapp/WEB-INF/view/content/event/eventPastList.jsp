@@ -176,6 +176,7 @@
     function modal_close(){
         $("#eventPastListFullSize").modal('hide');
         $("#eventDetailFullSize").modal('hide');
+        $("#eventListFullSize").modal('hide');
     }
     mouseOver();
     function mouseOver(){
