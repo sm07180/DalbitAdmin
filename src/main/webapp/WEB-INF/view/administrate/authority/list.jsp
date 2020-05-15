@@ -237,13 +237,15 @@
 
         menus.each(function(){
             var menu = $(this);
-            console.log(menu.find('input[type="checkbox"]:checked').length);
+            // console.log(menu.find('input[type="checkbox"]:checked').length);
             if(3 == menu.find('input[type="checkbox"]:checked').length){
                 menu.find('._authChk').prop('checked', 'checked');
             }
         });
 
         $("#authArea").show();
+        var scrollPosition = $("#authArea").offset();
+        $('html').animate({scrollTop: scrollPosition.top}, 50);
     }
 
     $(document).on('click', '._memberTableRow', function(){
