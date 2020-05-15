@@ -17,6 +17,7 @@
     }
 
     .liveChat {
+        text-align: left;
         font-family: 'NanumSquare', sans-serif;
     }
 
@@ -98,35 +99,6 @@
     </div>
     <div class="liveChat__bgImg" style="overflow:auto; width:500px; height:800px; position: relative; background-size: contain; padding: 10px;">
         <div class="liveChat__chat" id="liveChat__chat" style="position: absolute; z-index: 2;">
-            <div class="liveChat comment ">
-                <figure></figure>
-                <div>
-                        <p><b class="dj">DJ</b>동동이임돠</p>
-                        <pre>가나다라마바사?</pre>
-                </div>
-            </div>
-            <div class="liveChat comment ">
-                <figure></figure>
-                <div>
-                    <p><b class="dj">DJ</b>동동이임돠</p>
-                    <pre>r</pre>
-                </div>
-            </div>
-            <div class="liveChat comment ">
-                <figure></figure>
-                <div>
-                    <p><b class="manager">매니저</b>동동이임돠</p>
-                    <pre>r</pre>
-                    <p class="date">2020.05.13 13:40:33</p>
-                </div>
-            </div>
-            <div class="liveChat comment ">
-                <figure></figure>
-                <div>
-                    <p><b class="dj">DJ</b>동동이임돠</p>
-                    <pre>r</pre>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -241,7 +213,6 @@
      * player 연결
      * */
     function play(){
-        webRTCAdaptor.play("549871316289693942766656", "289455789173375822465282");
         webRTCAdaptor.play(streamId, tokenId);
     }
 
@@ -297,9 +268,9 @@
             <figure></figure>
             <div>
                 <p>
+                    {{this.nickname}}
                     {{#dalbit_if auth "==" "3"}}<b class="dj">DJ</b>{{/dalbit_if}}
                     {{#dalbit_if auth "==" "1"}}<b class="manager">매니저</b>{{/dalbit_if}}
-                    {{this.nickname}}
                 </p>
                 <pre>{{this.msg}}</pre>
                 <p class="date">{{this.writeDateFormat}}</p>

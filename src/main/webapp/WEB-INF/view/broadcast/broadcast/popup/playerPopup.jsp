@@ -17,6 +17,7 @@
     }
 
     .liveChat {
+        text-align: left;
         font-family: 'NanumSquare', sans-serif;
     }
 
@@ -224,7 +225,6 @@
      * player 연결
      * */
     function play(){
-        webRTCAdaptor.play("549871316289693942766656", "289455789173375822465282");
         webRTCAdaptor.play(streamId, tokenId);
     }
 
