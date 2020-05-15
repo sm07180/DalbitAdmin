@@ -114,7 +114,11 @@
                 {{^equal item_thumbnail ''}}
                     <img src="{{data.item_thumbnail}}" width="50" height="50" />
                 {{else}}
-                    -
+                    {{#equal data.item_name '부스터'}}
+                            <img src="http://image.dalbitlive.com/ani/thumbs/broadcast_boost.png" width="50" height="50" />
+                    {{else}}
+                        -
+                    {{/equal}}
                 {{/equal}}
             </td>
             <td>{{item_name}}</td>
