@@ -10,6 +10,7 @@ public class P_ChatListInputVo extends PagingVo {
 
     /*  intput  */
     private String room_no;
+    private String chatIdx;
     private int pageNo;
 }
 

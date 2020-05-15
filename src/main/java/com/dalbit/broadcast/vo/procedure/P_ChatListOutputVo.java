@@ -18,6 +18,8 @@ public class P_ChatListOutputVo extends PagingVo {
     private String auth;
     private String nickname;
     private String msg;
+    private String chatIdx;
+    private String room_no;
 
     /* summry */
     private int chatCnt;

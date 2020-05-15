@@ -96,4 +96,15 @@ public class Bro_BroadcastRestController {
         }
         return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
     }
+
+
+    /**
+     * 방송방 플레이어 채팅 조회
+     */
+    @PostMapping("chat")
+    public String liveChar(P_ChatListInputVo pChatListInputVo) {
+        return bro_BroadcastService.callBroadcastLiveChatInfo(pChatListInputVo);
+    }
+
+
 }

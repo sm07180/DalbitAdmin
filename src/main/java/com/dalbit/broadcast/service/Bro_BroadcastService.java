@@ -324,6 +324,13 @@ public class Bro_BroadcastService {
 
     }
 
+
+
+
+
+    /**
+     * 방송방 플레이어
+     */
     public void callBroadcastSimpleInfo(HttpServletRequest request){
         String roomNo = request.getParameter("roomNo");
         if(!DalbitUtil.isEmpty(roomNo)){
@@ -335,17 +342,49 @@ public class Bro_BroadcastService {
                 String params = "id=" + broadInfo.get("bjStreamId") + "&expireDate=" + expire + "&type=play";
                 OkHttpClientUtil httpUtil = new OkHttpClientUtil();
                 try{
-                    Response res = httpUtil.sendGet(antServer + "/" + antName + "/rest/broadcast/getToken?" + params);
-                    if(res != null && !DalbitUtil.isEmpty(res.body().string())){
-                        HashMap tokenMap =  new Gson().fromJson(res.body().string(), HashMap.class);
-                        if(tokenMap != null && !DalbitUtil.isEmpty(tokenMap.get("tokenId"))){
-                            broadInfo.put("bjPlayToken", tokenMap.get("tokenId"));
-                            request.setAttribute("BroadInfo", broadInfo);
+                    String url = antServer + "/" + antName + "/rest/broadcast/getToken?" + params;
+                    log.info("[Ant] Request URL : {}", url );
+                    Response res = httpUtil.sendGet(url);
+                    if(res != null){
+                        String strResBody = res.body().string();
+                        if(!DalbitUtil.isEmpty(strResBody)) {
+                            HashMap tokenMap = new Gson().fromJson(strResBody, HashMap.class);
+                            if (tokenMap != null && !DalbitUtil.isEmpty(tokenMap.get("tokenId"))) {
+                                broadInfo.put("bjPlayToken", tokenMap.get("tokenId"));
+                                broadInfo.put("antUrl", url);
+                                request.setAttribute("BroadInfo", gsonUtil.toJson(broadInfo));
+                            }
                         }
                     }
-                }catch(Exception e){}
-
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
             }
         }
     }
+
+    /**
+     * 방송방 채팅정보
+     */
+    public String callBroadcastLiveChatInfo(P_ChatListInputVo pChatListInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pChatListInputVo);
+        String result;
+
+        try {
+            ArrayList<P_ChatListOutputVo> liveChatList = bro_BroadcastDao.callBroadcastLiveChatInfo(pChatListInputVo);
+
+            if(liveChatList != null && liveChatList.size() > 0) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지조회_성공, liveChatList));
+            }else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지조회_데이터없음));
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            result = gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지조회_에러));
+        }
+
+        return result;
+    }
+
 }
