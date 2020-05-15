@@ -25,10 +25,9 @@ public class OkHttpClientUtil {
                 .url(url)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
-            return response;
-        }
+        Response response = client.newCall(request).execute();
 
+        return response;
     }
 
     public String sendGet(String url,HttpServletRequest httpRequest, String path, String domain) throws Exception {

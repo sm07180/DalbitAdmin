@@ -29,4 +29,6 @@ public interface Bro_BroadcastDao {
 
     @Transactional(readOnly = true)
     HashMap callBroadcastSimpleInfo(String roomNo);
+    @Transactional(readOnly = true)
+    ArrayList<P_ChatListOutputVo> callBroadcastLiveChatInfo(P_ChatListInputVo pChatListInputVo);
 }

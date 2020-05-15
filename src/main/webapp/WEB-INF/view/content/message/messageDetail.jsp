@@ -211,7 +211,7 @@
             // popup일 경우 창 닫기
             if(fnc_messageDetail.popup){
                 window.close();
-                return
+                return false;
             }
 
             fnc_messageList.selectMainList(false);
