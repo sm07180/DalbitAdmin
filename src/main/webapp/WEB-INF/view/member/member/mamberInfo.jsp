@@ -71,6 +71,8 @@
         }
 
         $("#tablist_con").find('.active').find('a').click();
+
+        util.scrollPostion(878);
     }
 
     function init(){

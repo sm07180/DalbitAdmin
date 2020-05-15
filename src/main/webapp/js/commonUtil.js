@@ -500,3 +500,7 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
         ui.topScroll();
     });
 }
+
+util.scrollPostion = function(y){
+    $('html').animate({scrollTop: y}, 50);
+}
