@@ -28,7 +28,7 @@ public class FileMaker {
     private boolean isManualConfig;
 
     public FileMaker(final String ver, final String serverIp, final String switchIp, final int serverPort, final int recvTimeOut, final String logDir, final String KeySeq, final String Key, final String UserEncode, final String logLevel) {
-        this.propertiesName = "/mobilians/Mcash.properties";
+        this.propertiesName = "mobilians/Mcash.properties";
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
@@ -117,7 +117,7 @@ public class FileMaker {
     }
 
     public FileMaker() {
-        this.propertiesName = "Mcash.properties";
+        this.propertiesName = "mobilians/Mcash.properties";
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
@@ -142,7 +142,7 @@ public class FileMaker {
     }
 
     public FileMaker(final String configDirPath, final String logDir) {
-        this.propertiesName = "Mcash.properties";
+        this.propertiesName = "mobilians/Mcash.properties";
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
@@ -296,7 +296,7 @@ public class FileMaker {
         catch (Exception e) {
             this.resultcd = "9001";
             this.resultmsg = "[9001]\uc2dc\uc2a4\ud15c\uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-            System.out.println("[MCASH] Error : Mcash.properties \uacbd\ub85c \uc124\uc815 \uc624\ub958");
+            System.out.println("[MCASH] Error : mobilians/Mcash.properties \uacbd\ub85c \uc124\uc815 \uc624\ub958");
             e.printStackTrace();
             return;
         }
