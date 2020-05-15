@@ -114,6 +114,12 @@ public class Adm_AuthorityService {
                     .collect(Collectors.toList());
         }
 
+        //메뉴 권한 수
+        for(int i=0;i<memberList.size();i ++ ){
+            int authCnt = admAuthorityDao.getMemberAuthCnt(memberList.get(i).getEmp_no());
+            memberList.get(i).setAuthCnt(authCnt);
+        }
+
         return memberList;
     }
 

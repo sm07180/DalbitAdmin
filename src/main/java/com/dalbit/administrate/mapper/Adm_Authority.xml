@@ -47,4 +47,7 @@
             AND IS_USE = 1
         ORDER BY MENU.DEPTH ASC, MENU.ORDER_NO ASC, MENU.PARENT_IDX ASC
     </select>
+    <select id="getMemberAuthCnt" parameterType="string" resultType="integer">
+        select count(*) as cnt from rd_admin.tb_admin_menu_auth where emp_no = #{empNo}
+    </select>
 </mapper>
