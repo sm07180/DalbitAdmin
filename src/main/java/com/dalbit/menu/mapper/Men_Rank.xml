@@ -16,6 +16,7 @@
                 select
                     dj.rank as djRank
                     , dj.up_down as upDown
+                    , dj.mem_no as memNo
                     , prof.image_profile as image_profile
                     , mem.mem_id as mem_id
                     , lev.`level` as `level`

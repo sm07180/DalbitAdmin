@@ -15,6 +15,7 @@ public class DjRankingVo extends PagingVo {
 
     /* output */
     private int djRank;
+    private String memNo;
     private String upDown;
     private String image_profile;
     private String mem_id;
