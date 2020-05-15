@@ -17,5 +17,6 @@ public class SpecialReqVo extends PagingVo {
     private int state;
     private String op_name;
     private String last_upd_date;
+    private int specialdj_badge;
 
 }

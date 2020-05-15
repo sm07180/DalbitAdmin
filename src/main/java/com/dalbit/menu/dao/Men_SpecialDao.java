@@ -16,6 +16,16 @@ public interface Men_SpecialDao {
     int getReqSpecialListCnt(SpecialReqVo specialReqVo);
 
     @Transactional(readOnly = true)
+    SpecialReqVo getReqSpecialDetail(SpecialReqVo specialReqVo);
+
+    @Transactional(readOnly = true)
+    int reqOk(SpecialReqVo specialReqVo);
+    @Transactional(readOnly = true)
+    int reqOkUpdate(SpecialReqVo specialReqVo);
+    @Transactional(readOnly = true)
+    int profileUpdate(SpecialReqVo specialReqVo);
+
+    @Transactional(readOnly = true)
     List<SpecialVo> getSpecialList(SpecialVo specialVo);
     @Transactional(readOnly = true)
     int getSpecialListCnt(SpecialVo specialVo);

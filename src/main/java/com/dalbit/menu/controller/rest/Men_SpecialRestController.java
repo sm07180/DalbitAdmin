@@ -48,6 +48,33 @@ public class Men_SpecialRestController {
     }
 
     /**
+     * 스페셜 달D 신청 상세 목록 조회
+     */
+    @RequestMapping("reqDalDetail")
+    public String reqDalDetail(SpecialReqVo specialReqVo) {
+        String result = menSpecialService.getReqSpecialDetail(specialReqVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 승인
+     */
+    @RequestMapping("reqOk")
+    public String reqOk(SpecialReqVo specialReqVo) {
+        String result = menSpecialService.reqOk(specialReqVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 거부
+     */
+//    @RequestMapping("reqReject")
+//    public String reqReject(SpecialReqVo specialReqVo) {
+//        String result = menSpecialService.reqReject(specialReqVo);
+//        return result;
+//    }
+
+    /**
      * 스페셜 달D 목록 조회
      */
     @RequestMapping("dalList")

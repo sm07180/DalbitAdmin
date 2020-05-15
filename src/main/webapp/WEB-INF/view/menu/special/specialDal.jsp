@@ -28,7 +28,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         init();
-        request();
+        initReq();
     });
 
     function init() {
