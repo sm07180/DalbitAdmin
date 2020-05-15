@@ -36,7 +36,6 @@ Handlebars.registerHelper("convertToDate", function (date, format) {
     return moment(date).format(format);
 })
 
-
 /**
  * Date 구분자 제거
  *
@@ -94,6 +93,11 @@ Handlebars.registerHelper("dalbit_if", function(v1, operator, v2, options){
 Handlebars.registerHelper("index", function(index, no)
 {
     return common.isEmpty(index) ? no : parseInt(index) + 1;
+});
+
+Handlebars.registerHelper("indexDesc", function(totalCnt, rownum)
+{
+    return common.isEmpty(totalCnt) ? 0 : totalCnt - rownum;
 });
 
 Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn, name)
