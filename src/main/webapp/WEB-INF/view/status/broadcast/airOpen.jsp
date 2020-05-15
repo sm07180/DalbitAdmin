@@ -68,8 +68,8 @@
             var template = $('#tmp_airOpen').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#airOpenBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#airOpenBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
         }
@@ -83,7 +83,7 @@
         if(isDataEmpty){
             $("#airOpenBody td:last").remove();
         }else{
-            $("#airOpenBody").append(totalTtml);
+            $("#airOpenBody").append(totalHtml);
         }
     }
 </script>

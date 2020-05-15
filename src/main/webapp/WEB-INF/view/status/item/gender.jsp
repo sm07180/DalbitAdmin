@@ -36,7 +36,7 @@
                 <th>금액</th>
             </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="genderTableBody"></tbody>
         </table>
     </div>
     <div class="widget-footer">
@@ -48,41 +48,41 @@
 
 <script type="text/javascript">
     $(function(){
-        getTotalList();
+        getGenderList();
     });
 
-    function getTotalList(){
-        util.getAjaxData("memberList", "/rest/status/item/gender/list", $("#searchForm").serialize(), fn_totalJoin_success);
+    function getGenderList(){
+        util.getAjaxData("memberList", "/rest/status/item/gender/list", $("#searchForm").serialize(), fn_genderJoin_success);
     }
 
-    function fn_totalJoin_success(data, response){
+    function fn_genderJoin_success(data, response){
         dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
-        $("#tableBody").empty();
+        $("#genderTableBody").empty();
         if(!isDataEmpty){
-            var template = $('#tmp_total').html();
+            var template = $('#tmp_genderTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#tableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#genderTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
         }
 
-        var template = $('#tmp_detailList').html();
+        var template = $('#tmp_genderDetailList').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
-        $("#tableBody").append(html);
+        $("#genderTableBody").append(html);
 
         if(isDataEmpty){
-            $("#tableBody td:last").remove();
+            $("#genderTableBody td:last").remove();
         }else{
-            $("#tableBody").append(totalTtml);
+            $("#genderTableBody").append(totalHtml);
         }
     }
 </script>
-<script type="text/x-handlebars-template" id="tmp_total">
+<script type="text/x-handlebars-template" id="tmp_genderTotal">
     <tr class="success">
         <td>소계</td>
         <td>{{addComma sum_changeCnt}}</td>
@@ -98,7 +98,7 @@
     </tr>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_detailList">
+<script type="text/x-handlebars-template" id="tmp_genderDetailList">
     {{#each this as |data|}}
     <tr>
         <td>

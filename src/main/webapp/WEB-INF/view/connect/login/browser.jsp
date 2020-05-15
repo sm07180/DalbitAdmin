@@ -61,8 +61,8 @@
             var template = $('#tmp_browserTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#browserTableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#browserTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
 
@@ -77,7 +77,7 @@
         if(isDataEmpty){
             $("#browserTableBody td:last").remove();
         }else{
-            $("#browserTableBody").append(totalTtml);
+            $("#browserTableBody").append(totalHtml);
         }
 
         if($('input[name="slctType"]:checked').val() == 0) {
