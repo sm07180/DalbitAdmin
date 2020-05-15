@@ -33,10 +33,9 @@
                                ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''}
                                ${isSubmenuView ? 'active': ''}
                               "
-                        data-isread="${menu.is_read}" data-isinsert="${menu.is_insert}" data-isdelete="${menu.is_delete}"
                     >
 
-                        <a href="${0 < fn:length(menu.menu_url) ? 'javascript://' : menu.menu_url}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
+                        <a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
 
                             <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
                             <c:if test="${isContainSubmenu}">
