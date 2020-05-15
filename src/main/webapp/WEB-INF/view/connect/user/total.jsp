@@ -51,8 +51,8 @@
             var template = $('#tmp_userTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data;
-            var totalTtml = templateScript(totalContext);
-            $("#userTotalTableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#userTotalTableBody").append(totalHtml);
         }
 
         var template = $('#tmp_userDetailList').html();
@@ -64,7 +64,7 @@
         if(isDataEmpty){
             $("#userTotalTableBody td:last").remove();
         }else{
-            $("#userTotalTableBody").append(totalTtml);
+            $("#userTotalTableBody").append(totalHtml);
         }
     }
 </script>

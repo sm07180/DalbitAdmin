@@ -63,8 +63,8 @@
             var template = $('#tmp_total').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#tableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#tableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
         }
@@ -78,7 +78,7 @@
         if(isDataEmpty){
             $("#tableBody td:last").remove();
         }else{
-            $("#tableBody").append(totalTtml);
+            $("#tableBody").append(totalHtml);
         }
     }
 </script>
@@ -106,7 +106,7 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma changeCnt}}</td>
+        <td>{{^equal changeCnt '0'}} {{addComma changeCnt}} {{/equal}}</td>
         <td>{{addComma changeAmt}}</td>
         <td>{{addComma dalgiftCnt}}</td>
         <td>{{addComma dalgiftAmt}}</td>

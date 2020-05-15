@@ -339,7 +339,13 @@
 
 <script id="tmp_memberList" type="text/x-handlebars-template">
     {{#each this as |member|}}
+
+    {{#equal authCnt '0'}}
+        <tr style='cursor: pointer;color: red;' class="_memberTableRow">
+    {{else}}
         <tr style='cursor: pointer;' class="_memberTableRow">
+    {{/equal}}
+
             <td><input type="radio" name="empNo" id="empRadio_{{emp_no}}" class="_chk" data-empno={{emp_no}}></td>
             <td>{{index @index no}}</td>
             <td>{{staff_enter_date}}</td>

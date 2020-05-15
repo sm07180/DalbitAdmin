@@ -65,8 +65,8 @@
             var template = $('#tmp_total').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#loginTotalTableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#loginTotalTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
 
@@ -81,7 +81,7 @@
         if(isDataEmpty){
             $("#loginTotalTableBody td:last").remove();
         }else{
-            $("#loginTotalTableBody").append(totalTtml);
+            $("#loginTotalTableBody").append(totalHtml);
         }
 
         if($('input[name="slctType"]:checked').val() == 0) {

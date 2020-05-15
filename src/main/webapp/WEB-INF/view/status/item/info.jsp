@@ -72,7 +72,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="/js/code/enter/joinCodeList.?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 <script type="text/javascript">
     $(function(){

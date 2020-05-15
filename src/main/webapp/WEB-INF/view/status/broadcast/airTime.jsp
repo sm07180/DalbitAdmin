@@ -68,8 +68,8 @@
             var template = $('#tmp_airTime').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#airTimeListBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#airTimeListBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
         }
@@ -83,7 +83,7 @@
         if(isDataEmpty){
             $("#airTimeListBody td:last").remove();
         }else{
-            $("#airTimeListBody").append(totalTtml);
+            $("#airTimeListBody").append(totalHtml);
         }
     }
 </script>

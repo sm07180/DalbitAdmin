@@ -68,8 +68,8 @@
             var template = $('#tmp_ageTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#ageTableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#ageTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
 
@@ -84,7 +84,7 @@
         if(isDataEmpty){
             $("#ageTableBody td:last").remove();
         }else{
-            $("#ageTableBody").append(totalTtml);
+            $("#ageTableBody").append(totalHtml);
         }
 
         if($('input[name="slctType"]:checked').val() == 0) {

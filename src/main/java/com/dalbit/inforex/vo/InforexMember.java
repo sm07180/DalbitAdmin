@@ -25,4 +25,6 @@ public class InforexMember {
     String staff_email_etc;
     String staff_email_nate;
     String new_dept_name;
+
+    int authCnt;
 }

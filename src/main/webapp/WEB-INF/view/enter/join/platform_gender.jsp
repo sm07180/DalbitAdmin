@@ -58,8 +58,8 @@
             var template = $('#tmp_platformGenderTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#platformGenderTableBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#platformGenderTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val()
         }
@@ -73,7 +73,7 @@
         if(isDataEmpty){
             $("#platformGenderTableBody td:last").remove();
         }else{
-            $("#platformGenderTableBody").append(totalTtml);
+            $("#platformGenderTableBody").append(totalHtml);
         }
     }
 

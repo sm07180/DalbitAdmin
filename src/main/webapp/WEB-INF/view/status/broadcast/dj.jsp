@@ -63,8 +63,8 @@
             var template = $('#tmp_djTotal').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
-            var totalTtml = templateScript(totalContext);
-            $("#djListBody").append(totalTtml);
+            var totalHtml = templateScript(totalContext);
+            $("#djListBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input:radio[name="slctType"]:checked').val();
         }
@@ -78,7 +78,7 @@
         if(isDataEmpty){
             $("#djListBody td:last").remove();
         }else{
-            $("#djListBody").append(totalTtml);
+            $("#djListBody").append(totalHtml);
         }
     }
 </script>

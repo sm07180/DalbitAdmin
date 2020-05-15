@@ -14,4 +14,5 @@ public interface Adm_AuthorityDao {
     void insertMenuAuth(MenuAuthVo menuAuthVo);
     @Transactional(readOnly = true)
     List<MenuVo> getMemberAuthInfo(int empNo);
+    int getMemberAuthCnt(String empNo);
 }
