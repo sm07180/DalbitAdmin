@@ -13,16 +13,14 @@ public class P_ItemGenderOutDetailVo {
     private String daily;
     private String date;
     private String hour;
-    private int changeCnt;
-    private int changeAmt;
-    private int dalgiftCnt;
-    private int dalgiftAmt;
-    private int subsCnt;
-    private int subsAmt;
-    private int broadgiftCnt;
-    private int broadgiftAmt;
-    private int castgiftCnt;
-    private int castgiftAmt;
+    private int totalCnt;
+    private int totalAmt;
+    private int maleCnt;
+    private int maleAmt;
+    private int femaleCnt;
+    private int femaleAmt;
+    private int noneCnt;
+    private int noneAmt;
 }
 
 
