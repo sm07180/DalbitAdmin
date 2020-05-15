@@ -28,29 +28,28 @@
                     , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
                     , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
                     , dj.ranking_date as ranking_date
-                from rd_data.tb_member_basic mem
-                    , rd_data.tb_member_profile prof
-                    , rd_data.tb_member_level lev
+                from
                     <if test='rankType == "1"'>
-                    , rd_data.tb_ranking_dj_day dj
+                        rd_data.tb_ranking_dj_day dj
                     </if>
                     <if test='rankType == "2"'>
-                    , rd_data.tb_ranking_dj_week dj
+                        rd_data.tb_ranking_dj_week dj
                     </if>
                     <if test='rankType == "3"'>
-                    , rd_data.tb_ranking_dj_month dj
+                        rd_data.tb_ranking_dj_month dj
                     </if>
-                where mem.mem_no = prof.mem_no
-                    and mem.mem_no = lev.mem_no
-                    and mem.mem_no = dj.mem_no
+                    inner join rd_data.tb_member_profile prof on prof.mem_no = dj.mem_no
+                    inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
+                    left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
+                where
                     <if test='rankType == "1"'>
-                        and ranking_date = DATE(SUBDATE( NOW(), INTERVAL 1 DAY))
+                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_day)
                     </if>
                     <if test='rankType == "2"'>
-                        and ranking_date = DATE(SUBDATE( NOW(), INTERVAL (DAYOFWEEK(NOW())+6) DAY))
+                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_week)
                     </if>
                     <if test='rankType == "3"'>
-                        and ranking_date = concat(date_format(SUBDATE(NOW(), INTERVAL 1 MONTH), '%Y-%m'), '-01')
+                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_month)
                     </if>
 
                     <if test='txt_search != null and txt_search != ""'>
