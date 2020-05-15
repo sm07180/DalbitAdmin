@@ -16,16 +16,12 @@
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="2">교환</th>
-                <th colspan="2">선물</th>
-                <th colspan="2">구독</th>
-                <th colspan="2">방송 선물</th>
-                <th colspan="2">캐스트 선물</th>
+                <th colspan="2">소개</th>
+                <th colspan="2">남성</th>
+                <th colspan="2">여성</th>
+                <th colspan="2">알수없음</th>
             </tr>
-
             <tr>
-                <th>건수</th>
-                <th>금액</th>
                 <th>건수</th>
                 <th>금액</th>
                 <th>건수</th>
@@ -85,16 +81,14 @@
 <script type="text/x-handlebars-template" id="tmp_genderTotal">
     <tr class="success">
         <td>소계</td>
-        <td>{{addComma sum_changeCnt}}</td>
-        <td>{{addComma sum_changeAmt}}</td>
-        <td>{{addComma sum_dalgiftCnt}}</td>
-        <td>{{addComma sum_dalgiftAmt}}</td>
-        <td>{{addComma sum_subsCnt}}</td>
-        <td>{{addComma sum_subsAmt}}</td>
-        <td>{{addComma sum_broadgiftCnt}}</td>
-        <td>{{addComma sum_broadgiftAmt}}</td>
-        <td>{{addComma sum_castgiftCnt}}</td>
-        <td>{{addComma sum_castgiftAmt}}</td>
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_totalAmt}}</td>
+        <td>{{addComma sum_maleCnt}}</td>
+        <td>{{addComma sum_maleAmt}}</td>
+        <td>{{addComma sum_femaleCnt}}</td>
+        <td>{{addComma sum_femaleAmt}}</td>
+        <td>{{addComma sum_noneCnt}}</td>
+        <td>{{addComma sum_noneAmt}}</td>
     </tr>
 </script>
 
@@ -106,16 +100,14 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma changeCnt}}</td>
-        <td>{{addComma changeAmt}}</td>
-        <td>{{addComma dalgiftCnt}}</td>
-        <td>{{addComma dalgiftAmt}}</td>
-        <td>{{addComma subsCnt}}</td>
-        <td>{{addComma subsAmt}}</td>
-        <td>{{addComma broadgiftCnt}}</td>
-        <td>{{addComma broadgiftAmt}}</td>
-        <td>{{addComma castgiftCnt}}</td>
-        <td>{{addComma castgiftAmt}}</td>
+        <td>{{addComma totalCnt}}</td>
+        <td>{{addComma totalAmt}}</td>
+        <td>{{addComma maleCnt}}</td>
+        <td>{{addComma maleAmt}}</td>
+        <td>{{addComma femaleCnt}}</td>
+        <td>{{addComma femaleAmt}}</td>
+        <td>{{addComma noneCnt}}</td>
+        <td>{{addComma noneAmt}}</td>
     </tr>
     {{else}}
     <%--<tr>--%>

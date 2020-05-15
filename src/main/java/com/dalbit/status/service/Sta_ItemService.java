@@ -99,4 +99,23 @@ public class Sta_ItemService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
+
+    /**
+     * 방송별별 총계
+     */
+    public String callItemBroad(P_ItemBroadInputVo pItemBroadInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pItemBroadInputVo);
+        ArrayList<P_ItemBroadOutDetailVo> detailList = sta_ItemDao.callItemBroad(procedureVo);
+        P_ItemBroadOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ItemBroadOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
 }

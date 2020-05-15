@@ -1,10 +1,7 @@
 package com.dalbit.status.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.status.vo.procedure.P_ItemAgeOutDetailVo;
-import com.dalbit.status.vo.procedure.P_ItemGenderOutDetailVo;
-import com.dalbit.status.vo.procedure.P_ItemLiveOutputVo;
-import com.dalbit.status.vo.procedure.P_ItemTotalOutDetailVo;
+import com.dalbit.status.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,4 +21,7 @@ public interface Sta_ItemDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_ItemAgeOutDetailVo> callItemAge(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_ItemBroadOutDetailVo> callItemBroad(ProcedureVo procedureVo);
 }

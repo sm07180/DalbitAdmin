@@ -16,11 +16,12 @@
         width: 400px;
     }
 
-    .liveChat {
+    .liveChat__chat {
+        text-align: left;
         font-family: 'NanumSquare', sans-serif;
     }
 
-    .liveChat p {
+    .liveChat__chat p {
         color: rgb(255, 255, 255);
         font-size: 12px;
         font-weight: 600;
@@ -28,24 +29,24 @@
         transform: skew(-0.03deg);
     }
 
-    .liveChat p b.dj {
+    .liveChat__chat p b.dj {
         background: rgb(133, 86, 246);
         color: rgb(255, 255, 255);
     }
 
-    .liveChat p b.manager {
+    .liveChat__chat p b.manager {
         background: rgb(254, 172, 44);
         color: rgb(255, 255, 255);
     }
 
-    .liveChat .date{
+    .liveChat__chat .date{
         display: inline;
         padding-bottom: 9px;
         margin-bottom: 10px;
         font-size: 3px;
     }
 
-    .liveChat pre {
+    .liveChat__chat pre {
         display: inline-block;
         color: rgb(255, 255, 255);
         font-size: 12px;
@@ -63,7 +64,7 @@
         font-family: 'NanumSquare', sans-serif;
     }
 
-    .liveChat p b {
+    .liveChat__chat p b {
          display: inline-block;
          margin-right: 5px;
          font-size: 10px;
@@ -71,13 +72,16 @@
          border-radius: 20px;
      }
 
-    .liveChat p {
+    .liveChat__chat p {
         color: rgb(255, 255, 255);
     }
 
 </style>
 
 <div class="container player">
+    <div class="header clearfix">
+        <h3 class="text-muted" id="title"></h3>
+    </div>
     <div>
         <p>
             <audio id="remoteVideo" autoplay="autoplay" controls="controls"></audio>
@@ -157,7 +161,7 @@
             //some of the possible errors, NotFoundError, SecurityError,PermissionDeniedError
             console.log("error callback: " + JSON.stringify(error));
             alert("플레이어 실행 오류 발생");
-            window.close();
+            // window.close();
             return false;
         }
     });
@@ -165,8 +169,8 @@
     var broadInfo = <%=in_BroadInfo%>;
     var roomNo = "<%=in_roomNo%>";
 
-    var streamId = broadInfo.bjStreamId;
-    var tokenId = broadInfo.bjPlayToken;
+    var streamId;
+    var tokenId;
     var lastChatIdx = 0;
     var isReloadChat = false;
 
@@ -188,9 +192,11 @@
             return false;
         }
 
+        streamId = broadInfo.bjStreamId;
+        tokenId = broadInfo.bjPlayToken;
+        $("#title").html(broadInfo.title);
         $("#streamId").val(streamId);
         $("#tokenId").val(tokenId);
-        console.log(IMAGE_SERVER_URL + broadInfo.roomBgImg);
         $(".liveChat__bgImg").css("background-image", "url("+IMAGE_SERVER_URL + broadInfo.roomBgImg+")");
 
 
@@ -199,6 +205,9 @@
         },1000)
     })
 
+    window.onbeforeunload = function() {
+       alert("test");
+    };
 
 
     /**
@@ -224,7 +233,6 @@
      * player 연결
      * */
     function play(){
-        webRTCAdaptor.play("549871316289693942766656", "289455789173375822465282");
         webRTCAdaptor.play(streamId, tokenId);
     }
 
