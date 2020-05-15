@@ -10,7 +10,7 @@ import java.sql.Date;
 @Setter
 public class P_BroadcastGiftHistoryOutputDetailVo extends BaseVo {
 
-    private Date purchaseDate;
+    private String purchaseDate;
     private String mem_no;
     private String mem_userid;
     private String mem_nick;

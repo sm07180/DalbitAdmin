@@ -44,6 +44,7 @@
                 <th>닉네임</th>
                 <th>아이템<br />이미지</th>
                 <th>아이템명</th>
+                <th>아이템 수량</th>
                 <th>아이템 금액</th>
                 <%--<th>비밀선물</th>--%>
                 <%--<th>선물받은<br />회원 ID</th>
@@ -76,13 +77,18 @@
         var template = $('#tmp_giftHistoryList').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
+
+
+        if(response.data != ''){
+            var pagingInfo = response.data.totalInfo;
+            giftHistoryListPagingInfo.totalCnt = pagingInfo.totalCnt;
+            util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
+
+            detailContext.totalCnt = pagingInfo.totalCnt;
+        }
+
         var html=templateScript(detailContext);
         $("#giftHistoryListArea").html(html);
-
-        var pagingInfo = response.data.totalInfo;
-        console.log(pagingInfo)
-        giftHistoryListPagingInfo.totalCnt = pagingInfo.totalCnt;
-        util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
     }
 
     function handlebarsPaging(targetId, pagingInfo){
@@ -96,23 +102,28 @@
     {{#each this as |data|}}
         <tr>
             <td>
-                {{rowNum}}
+                {{indexDesc ../totalCnt rowNum}}
             </td>
-            <td>{{purchaseDate}}</td>
-            <td>{{mem_userid}}</td>
+            <td>{{convertToDate purchaseDate 'YYYY-MM-DD HH:MM:SS'}}</td>
+            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_userid}}</a></td>
             <td>{{mem_nick}}</td>
-            <td>{{title}}</td>
-            <td>{{gifted_mem_userid}}</td>
+            <td><a href="javascript://" class="_openBroadcastPop" data-roomno="{{room_no}}">{{title}}</a></td>
+            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}">{{gifted_mem_userid}}</a></td>
             <td>{{gifted_mem_nick}}</td>
             <td>
                 {{^equal item_thumbnail ''}}
                     <img src="{{data.item_thumbnail}}" width="50" height="50" />
                 {{else}}
-                    -
+                    {{#equal data.item_name '부스터'}}
+                            <img src="http://image.dalbitlive.com/ani/thumbs/broadcast_boost.png" width="50" height="50" />
+                    {{else}}
+                        -
+                    {{/equal}}
                 {{/equal}}
             </td>
             <td>{{item_name}}</td>
-            <td>{{addComma itemAmt}}</td>
+            <td>{{addComma itemCnt}}개</td>
+            <td>{{addComma itemAmt}}원</td>
         </tr>
     {{else}}
         <tr>
