@@ -49,7 +49,7 @@
                         ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_week)
                     </if>
                     <if test='rankType == "3"'>
-                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_day)
+                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_month)
                     </if>
 
                     <if test='txt_search != null and txt_search != ""'>
