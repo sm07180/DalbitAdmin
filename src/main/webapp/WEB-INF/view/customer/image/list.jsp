@@ -229,19 +229,19 @@
         var xOffset = 10;
         var yOffset = 30;
 
-        $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+        $(document).on("mouseover",".thumbnailImg",function(e){ //마우스 오버
             $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
             $("#preview")
                 .css("top",(e.pageY - xOffset) + "px")
                 .css("left",(e.pageX + yOffset) + "px")
                 .fadeIn("fast");
         });
-        $(document).on("mousemove",".thumbnail",function(e){ //마우스 이동
+        $(document).on("mousemove",".thumbnailImg",function(e){ //마우스 이동
             $("#preview")
                 .css("top",(e.pageY - xOffset) + "px")
                 .css("left",(e.pageX + yOffset) + "px");
         });
-        $(document).on("mouseout",".thumbnail",function(){ //마우스 아웃
+        $(document).on("mouseout",".thumbnailImg",function(){ //마우스 아웃
             $("#preview").remove();
         });
     }
