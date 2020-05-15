@@ -161,7 +161,7 @@
             //some of the possible errors, NotFoundError, SecurityError,PermissionDeniedError
             console.log("error callback: " + JSON.stringify(error));
             alert("플레이어 실행 오류 발생");
-            // window.close();
+            window.close();
             return false;
         }
     });

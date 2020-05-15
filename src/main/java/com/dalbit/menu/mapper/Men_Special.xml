@@ -4,18 +4,21 @@
 
     <sql id="reqSpecial">
         select
-          idx
-        , mem_no
-        , title
-        , reg_date
-        , contents
-        , state
-        , op_name
-        , last_upd_date
+          dj.idx as idx
+        , dj.mem_no as mem_no
+        , dj.title as title
+        , dj.reg_date as reg_date
+        , dj.contents as contents
+        , dj.state as state
+        , dj.op_name as op_name
+        , dj.last_upd_date as last_upd_date
+        , profile.specialdj_badge as specialdj_badge
         , @RNUM := @RNUM + 1 as rowNum
-        from rd_admin.tb_req_special_dj
+        from rd_admin.tb_req_special_dj dj
+            , rd_data.tb_member_profile profile
             , (select @RNUM := 0) r
-
+        where profile.mem_no = dj.mem_no
+        order by idx desc
     </sql>
 
     <select id="getReqSpecialList" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="com.dalbit.menu.vo.SpecialReqVo">
@@ -32,6 +35,43 @@
         ) a
     </select>
 
+    <select id="getReqSpecialDetail" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - getReqSpecialDetail */
+        select
+          idx
+          ,mem_no
+          , title
+          , reg_date
+          , op_name
+          , last_upd_date
+          , contents
+        from rd_admin.tb_req_special_dj
+        where idx = #{idx}
+    </select>
+
+    <insert id="reqOk" parameterType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - reqOk */
+        insert into
+          rd_admin.tb_special_dj (mem_no, reg_date, op_name)
+        values
+        (#{mem_no}, current_timestamp(), #{op_name})
+    </insert>
+
+    <update id="reqOkUpdate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - reqOkUpdate */
+      update rd_admin.tb_req_special_dj
+      set state = #{state}
+        , op_name=#{op_name}
+      where idx = #{idx}
+    </update>
+
+    <update id="profileUpdate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - profileUpdate */
+        update rd_data.tb_member_profile
+        set specialdj_badge = #{specialdj_badge}
+        where mem_no = #{mem_no}
+    </update>
+
 
     <sql id="special">
         select
@@ -40,10 +80,10 @@
         , is_force
         , `order`
         , op_name
-        , last_upd_date
         , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_special_dj
             , (select @RNUM := 0) r
+        order by reg_date desc
     </sql>
 
     <select id="getSpecialList" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">

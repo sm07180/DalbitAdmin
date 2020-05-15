@@ -14,6 +14,5 @@ public class SpecialVo extends PagingVo {
     private String is_force;
     private int order;
     private String op_name;
-    private String last_upd_date;
 
 }

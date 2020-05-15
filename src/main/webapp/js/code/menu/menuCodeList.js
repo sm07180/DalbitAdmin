@@ -18,3 +18,11 @@ var searchType = [
     , new COMMON_CODE('phone', '4', '연락처')
 ];
 
+
+/** =------ special ---------- */
+var special_state = [
+    new COMMON_CODE(null, 'stateType', '상태구분')
+    , new COMMON_CODE('wait', '1', '대기')
+    , new COMMON_CODE('ok', '2', '완료')
+    , new COMMON_CODE('reject', '3', '거부')
+]
