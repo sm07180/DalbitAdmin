@@ -29,7 +29,7 @@ $(document).on('click', '._openAdminMessagePop', function(){
 /*방송방플레이어 팝업*/
 $(document).on('click', '._openPlayerPop', function(){
     var url = "/broadcast/broadcast/popup/playerPopup?roomNo="+encodeURIComponent($(this).data('roomno'));
-    util.windowOpen(url, 560, 880, 'roomPlayer');
+    util.windowOpen(url, 560, 930, 'roomPlayer');
 });
 
 $(document).on('click', 'img._imageFullPop', function(){

@@ -16,12 +16,12 @@
         width: 400px;
     }
 
-    .liveChat {
+    .liveChat__chat {
         text-align: left;
         font-family: 'NanumSquare', sans-serif;
     }
 
-    .liveChat p {
+    .liveChat__chat p {
         color: rgb(255, 255, 255);
         font-size: 12px;
         font-weight: 600;
@@ -29,24 +29,24 @@
         transform: skew(-0.03deg);
     }
 
-    .liveChat p b.dj {
+    .liveChat__chat p b.dj {
         background: rgb(133, 86, 246);
         color: rgb(255, 255, 255);
     }
 
-    .liveChat p b.manager {
+    .liveChat__chat p b.manager {
         background: rgb(254, 172, 44);
         color: rgb(255, 255, 255);
     }
 
-    .liveChat .date{
+    .liveChat__chat .date{
         display: inline;
         padding-bottom: 9px;
         margin-bottom: 10px;
         font-size: 3px;
     }
 
-    .liveChat pre {
+    .liveChat__chat pre {
         display: inline-block;
         color: rgb(255, 255, 255);
         font-size: 12px;
@@ -64,7 +64,7 @@
         font-family: 'NanumSquare', sans-serif;
     }
 
-    .liveChat p b {
+    .liveChat__chat p b {
          display: inline-block;
          margin-right: 5px;
          font-size: 10px;
@@ -72,7 +72,7 @@
          border-radius: 20px;
      }
 
-    .liveChat p {
+    .liveChat__chat p {
         color: rgb(255, 255, 255);
     }
 
@@ -176,6 +176,8 @@
             return;
         }
 
+        streamId = broadInfo.bjStreamId;
+        tokenId = broadInfo.bjPlayToken;
         $("#title").html(broadInfo.title);
         $("#streamId").val(streamId);
         $("#tokenId").val(tokenId);
