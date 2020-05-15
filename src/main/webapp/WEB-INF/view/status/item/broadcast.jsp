@@ -27,6 +27,7 @@
             </thead>
             <tbody id="broadTableBody"></tbody>
         </table>
+        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
     </div>
     <div class="widget-footer">
         <span>
@@ -40,7 +41,12 @@
         getBroadList();
     });
 
+    giftHistoryListPagingInfo = new PAGING_INFO(0, 1, 50);
+
     function getBroadList(){
+        $("#searchForm #pageNo").val(giftHistoryListPagingInfo.pageNo);
+        $("#searchForm #pageCnt").val(giftHistoryListPagingInfo.pageCnt);
+        $("#searchForm #searchType").val(0);
         util.getAjaxData("memberList", "/rest/status/item/broad/list", $("#searchForm").serialize(), fn_broadJoin_success);
     }
 
@@ -63,6 +69,14 @@
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
         $("#broadTableBody").append(html);
+
+        if(response.data != ''){
+            var pagingInfo = response.data.totalInfo;
+            giftHistoryListPagingInfo.totalCnt = pagingInfo.totalCnt;
+            util.renderPagingNavigation('list_info_paginate', giftHistoryListPagingInfo);
+
+            detailContext.totalCnt = pagingInfo.totalCnt;
+        }
 
         if(isDataEmpty){
             $("#broadTableBody td:last").remove();

@@ -107,7 +107,8 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{^equal changeCnt '0'}} {{addComma changeCnt}} {{/equal}}</td>
+        <%--<td>{{^equal changeCnt '0'}} {{addComma changeCnt}} {{/equal}}</td>--%>
+        <td>{{addComma changeCnt}}</td>
         <td>{{addComma changeAmt}}</td>
         <td>{{addComma dalgiftCnt}}</td>
         <td>{{addComma dalgiftAmt}}</td>

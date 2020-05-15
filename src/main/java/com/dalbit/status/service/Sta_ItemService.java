@@ -103,8 +103,8 @@ public class Sta_ItemService {
     /**
      * 방송별별 총계
      */
-    public String callItemBroad(StatVo StatVo){
-        ProcedureVo procedureVo = new ProcedureVo(StatVo);
+    public String callItemBroad(P_ItemBroadInputVo pItemBroadInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pItemBroadInputVo);
         ArrayList<P_ItemBroadOutDetailVo> detailList = sta_ItemDao.callItemBroad(procedureVo);
         P_ItemBroadOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_ItemBroadOutVo.class);
 

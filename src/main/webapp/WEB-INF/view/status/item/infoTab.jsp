@@ -12,10 +12,10 @@
                     <li><a href="#gender" role="tab" data-toggle="tab" id="tab_genderDetail">성별</a></li>
                     <li><a href="#age" role="tab" data-toggle="tab" id="tab_ageDetail">연령별</a></li>
                     <li><a href="#broadcast" role="tab" data-toggle="tab" id="tab_broadcastDetail">방송</a></li>
-                    <li><a href="#cast" role="tab" data-toggle="tab" id="tab_castDetail">캐스트</a></li>
-                    <li><a href="#storeEtc" role="tab" data-toggle="tab" id="tab_storeEtcDetail">스토어/기타</a></li>
-                    <li><a href="#item" role="tab" data-toggle="tab" id="tab_itemDetail">아이템 전체</a></li>
-                    <li><a href="#buyHistory" role="tab" data-toggle="tab" id="tab_buyHistoryDetail">구매 내역</a></li>
+                    <%--<li><a href="#cast" role="tab" data-toggle="tab" id="tab_castDetail">캐스트</a></li>--%>
+                    <%--<li><a href="#storeEtc" role="tab" data-toggle="tab" id="tab_storeEtcDetail">스토어/기타</a></li>--%>
+                    <%--<li><a href="#item" role="tab" data-toggle="tab" id="tab_itemDetail">아이템 전체</a></li>--%>
+                    <%--<li><a href="#buyHistory" role="tab" data-toggle="tab" id="tab_buyHistoryDetail">구매 내역</a></li>--%>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- 총계 -->
@@ -36,23 +36,15 @@
 
 <script type="text/javascript">
     $("#tablist_con li a").on('click', function(){
-
-
-    <li><a href="#broadcast" role="tab" data-toggle="tab" id="">방송</a></li>
-        <li><a href="#cast" role="tab" data-toggle="tab" id="">캐스트</a></li>
-        <li><a href="#storeEtc" role="tab" data-toggle="tab" id="">스토어/기타</a></li>
-        <li><a href="#item" role="tab" data-toggle="tab" id="">아이템 전체</a></li>
-        <li><a href="#buyHistory" role="tab" data-toggle="tab" id="">구매 내역</a></li>
-
-
         var tabId = $(this).prop('id');
         if(tabId == 'tab_total'){
             getTotalList();
         }else if(tabId == 'tab_genderDetail'){
             getGenderList();
         }else if(tabId == 'tab_ageDetail'){
-
+            getAgeList();
         }else if(tabId == 'tab_broadcastDetail'){
+            getBroadList();
         }else if(tabId == 'tab_castDetail'){
         }else if(tabId == 'tab_storeEtcDetail') {
         }else if(tabId == 'tab_itemDetail') {
