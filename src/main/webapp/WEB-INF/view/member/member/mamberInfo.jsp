@@ -549,7 +549,7 @@
             <th>보유달</th>
             <td style="text-align: left">
                 <span class="col-md-3 no-padding">
-                    {{dal}} 달
+                    {{addComma dal}} 달
                 </span>
                 {{#equal memWithdrawal '0'}}
                 <span class="col-md-9 no-padding">
@@ -572,7 +572,7 @@
             <th>보유별</th>
             <td style="text-align: left">
                 <span class="col-md-3 no-padding">
-                    {{byeol}} 별
+                    {{addComma byeol}} 별
                 </span>
                 {{#equal memWithdrawal '0'}}
                 <span class="col-md-9 no-padding">
@@ -593,7 +593,7 @@
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
             <td style="text-align: left">
-                {{managerICnt}} 명 / {{managerMeCnt}} 명
+                {{addComma managerICnt}} 명 / {{addComma managerMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
                 {{/equal}}
@@ -609,7 +609,7 @@
             </td>
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
             <td style="text-align: left">
-                {{blackICnt}} 명 / {{blackMeCnt}} 명
+                {{addComma blackICnt}} 명 / {{addComma blackMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
                 {{/equal}}
@@ -656,7 +656,7 @@
         </tr>
         <tr>
             <th rowspan="4">운영자메모</th>
-            <td rowspan="1" colspan="3" style="text-align: left">등록: {{opMemoCnt}} 건
+            <td rowspan="1" colspan="3" style="text-align: left">등록: {{addComma opMemoCnt}} 건
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
             <th>최초방송일시</th>
