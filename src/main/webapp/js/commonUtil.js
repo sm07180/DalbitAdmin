@@ -502,5 +502,5 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
 }
 
 util.scrollPostion = function(y){
-    $('html').animate({scrollTop: y}, 50);
+    $('html').animate({scrollTop: y}, 100);
 }
