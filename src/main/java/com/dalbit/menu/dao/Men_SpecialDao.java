@@ -1,6 +1,7 @@
 package com.dalbit.menu.dao;
 
 import com.dalbit.menu.vo.SpecialReqVo;
+import com.dalbit.menu.vo.SpecialSummaryVo;
 import com.dalbit.menu.vo.SpecialVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Repository
 public interface Men_SpecialDao {
+
+    SpecialSummaryVo summary(SpecialSummaryVo specialSummaryVo);
 
     @Transactional(readOnly = true)
     List<SpecialReqVo> getReqSpecialList(SpecialReqVo specialReqVo);

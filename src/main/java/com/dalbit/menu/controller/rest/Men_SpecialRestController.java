@@ -6,6 +6,7 @@ import com.dalbit.menu.service.Men_SpecialService;
 import com.dalbit.menu.service.RecommendService;
 import com.dalbit.menu.vo.RecommendVo;
 import com.dalbit.menu.vo.SpecialReqVo;
+import com.dalbit.menu.vo.SpecialSummaryVo;
 import com.dalbit.menu.vo.SpecialVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,16 @@ public class Men_SpecialRestController {
 //        recommendVo.setOrderColumnName("recommend");
         List<RecommendVo> recommendVoList = recommendService.getRecommendList(recommendVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, recommendVoList));
+    }
+
+
+    /**
+     * 스페셜 달D 건수
+     */
+    @RequestMapping("summary")
+    public String summary(SpecialSummaryVo specialSummaryVo){
+        String result = menSpecialService.summary(specialSummaryVo);
+        return result;
     }
 
     /**
@@ -100,4 +111,5 @@ public class Men_SpecialRestController {
         String result = menSpecialService.reqCancel(specialVo, specialReqVo);
         return result;
     }
+
 }

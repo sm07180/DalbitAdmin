@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.menu.dao.Men_SpecialDao" >
 
+    <select id="summary" parameterType="com.dalbit.menu.vo.SpecialSummaryVo" resultType="com.dalbit.menu.vo.SpecialSummaryVo">
+        select
+        (select count(*) from rd_admin.tb_req_special_dj redj) as requestDal
+        , (select count(*) from rd_admin.tb_special_dj dj) as approveDal
+    </select>
+
     <sql id="reqSpecial">
         select
           dj.idx as idx

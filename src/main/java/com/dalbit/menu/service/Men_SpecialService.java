@@ -5,6 +5,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
 import com.dalbit.menu.vo.SpecialReqVo;
+import com.dalbit.menu.vo.SpecialSummaryVo;
 import com.dalbit.menu.vo.SpecialVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,15 @@ public class Men_SpecialService {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    /**
+     * 스페셜 달D 건수
+     */
+    public String summary(SpecialSummaryVo specialSummaryVo) {
+        SpecialSummaryVo count = menSpecialDao.summary(specialSummaryVo);
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, count));
+        return result;
+    }
 
     /**
      * 스페셜 달D 신청 목록 조회

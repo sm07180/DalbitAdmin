@@ -76,9 +76,12 @@
 
     $(document).on('click', '#bt_reqOk', function() {
         if(confirm("승인 완료 하시겠습니까?")) {
+
+            var checkbox = $('#reqSpecialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
+
             var data = {
-                'idx': $(this).data('idx')
-                , 'mem_no': $(this).data('memno')
+                'idx': checkbox.parent().parent().find('._reqDalDetail').data('idx')
+                , 'mem_no': checkbox.parent().parent().find('._openMemberPop').data('memno')
             };
             dalbitLog(data);
             util.getAjaxData("ok", "/rest/menu/special/reqOk", data, fn_success_ok);
@@ -93,8 +96,12 @@
 
     $(document).on('click', '#bt_reqReject', function() {
         if (confirm("승인 거부 하시겠습니까?")) {
+
+            var checkbox = $('#reqSpecialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
+
             var data = {
-                'idx': $(this).data('idx')
+                'idx': checkbox.parent().parent().find('._reqDalDetail').data('idx')
+                , 'mem_no': checkbox.parent().parent().find('._openMemberPop').data('memno')
             };
             util.getAjaxData("ok", "/rest/menu/special/reqReject", data, fn_success_reject);
         }
