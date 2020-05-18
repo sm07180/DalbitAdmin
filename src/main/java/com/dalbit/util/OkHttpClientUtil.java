@@ -88,4 +88,13 @@ public class OkHttpClientUtil {
 
     }
 
+
+    public String sendDelete(String url) throws IOException {
+        Request request = new Request.Builder().url(url).delete().build();
+
+        try (Response response = client.newCall(request).execute()) {
+            return response.body().string();
+        }
+    }
+
 }

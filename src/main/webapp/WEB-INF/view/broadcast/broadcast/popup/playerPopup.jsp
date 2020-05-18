@@ -8,7 +8,12 @@
 %>
 
 <style>
+    ::-webkit-scrollbar{
+        display: none;
+    }
+
     .player {
+        width: 500px;
         text-align: center;
     }
 
@@ -16,9 +21,32 @@
         width: 400px;
     }
 
+    .liveChat {
+        width:500px;
+        height:800px;
+        position: relative;
+        background-size: cover;
+    }
+
+    .liveChat__cover {
+        position: absolute;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
     .liveChat__chat {
         text-align: left;
         font-family: 'NanumSquare', sans-serif;
+        overflow:auto;
+        -ms-overflow-style: none;
+        padding: 10px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
     }
 
     .liveChat__chat p {
@@ -43,7 +71,8 @@
         display: inline;
         padding-bottom: 9px;
         margin-bottom: 10px;
-        font-size: 3px;
+        font-size: 4px;
+        font-weight: normal;
     }
 
     .liveChat__chat pre {
@@ -78,27 +107,32 @@
 
 </style>
 
-<div class="container player">
+<div class="player">
     <div class="header clearfix">
         <h3 class="text-muted" id="title"></h3>
     </div>
-    <div style="display:none;">
+    <div>
         <p>
             <audio id="remoteVideo" autoplay="autoplay" controls="controls"></audio>
         </p>
         <p>
-            <input type="text" class="form-control" value="" id="roomNo" placeholder="Room No">
-            <input type="text" class="form-control" value="" id="streamId" placeholder="Type stream ID">
-            <input type="text" class="form-control" value="" id="tokenId" placeholder="Type token ID">
+            <h5 class="text-muted" id="state" style="color:red;"></h5>
         </p>
         <p>
-            <button onclick="joinRoom()" class="btn btn-info" id="joinRoom">RoomJoin</button>
-            <button onclick="loadChat()" class="btn btn-info" id="callChat">Chat</button>
-            <button onclick="play()" class="btn btn-info" id="play">Play</button>
+            <input type="text" class="form-control" value="" id="roomNo" placeholder="Room No" style="display: none">
+            <input type="text" class="form-control" value="" id="streamId" placeholder="Type stream ID" style="display: none">
+            <input type="text" class="form-control" value="" id="tokenId" placeholder="Type token ID" style="display: none">
+        </p>
+        <p>
+            <button onclick="joinRoom()" class="btn btn-info" id="joinRoom" style="display: none">RoomJoin</button>
+            <button onclick="loadChat()" class="btn btn-info" id="callChat" style="display: none">Chat</button>
+            <button onclick="play()" class="btn btn-info" id="play" style="display: none">Play</button>
         </p>
     </div>
-    <div class="liveChat__bgImg" style="overflow:auto; width:500px; height:800px; position: relative; background-size: contain; padding: 10px;">
-        <div class="liveChat__chat" id="liveChat__chat" style="position: absolute; z-index: 2;">
+    <div class="liveChat no-padding">
+        <div class="liveChat__chat" id="liveChat__chat">
+        </div>
+        <div class="liveChat__cover" id="liveChat__cover">
         </div>
     </div>
 </div>
@@ -140,19 +174,22 @@
                 //joined the stream
                 console.log("play started");
                 isReloadChat = true;
-                loadChat();
             } else if (info == "play_finished") {
                 //leaved the stream
+                isReloadChat = false;
                 console.log("play finished");
                 alert("방송이 종료되었습니다.");
-                window.close();
+                // window.close();
+                $("#state").text("종료된 방송 입니다.");
                 return false;
             }
             else if (info == "closed") {
                 if (typeof description != "undefined") {
+                    isReloadChat = false;
                     console.log("Connecton closed: " + JSON.stringify(description));
                     alert("방송이 종료되었습니다.");
-                    window.close();
+                    // window.close();
+                    $("#state").text("종료된 방송 입니다.");
                     return false;
                 }
             }
@@ -161,7 +198,8 @@
             //some of the possible errors, NotFoundError, SecurityError,PermissionDeniedError
             console.log("error callback: " + JSON.stringify(error));
             alert("플레이어 실행 오류 발생");
-            window.close();
+            // window.close();
+            $("#state").text("[플레이어 실행 오류] " + JSON.stringify(error));
             return false;
         }
     });
@@ -172,7 +210,7 @@
     var streamId;
     var tokenId;
     var lastChatIdx = 0;
-    var isReloadChat = false;
+    var isReloadChat = true;
 
     $(document).ready(function(){
         if(common.isEmpty(roomNo)){
@@ -188,8 +226,9 @@
 
         if(common.isEmpty(broadInfo)){
             alert("종료된 방송입니다.");
-            window.close();
-            return false;
+            // window.close();
+            $("#state").text("종료된 방송 입니다.");
+            // return false;
         }
 
         streamId = broadInfo.bjStreamId;
@@ -197,11 +236,11 @@
         $("#title").html(broadInfo.title);
         $("#streamId").val(streamId);
         $("#tokenId").val(tokenId);
-        $(".liveChat__bgImg").css("background-image", "url("+IMAGE_SERVER_URL + broadInfo.roomBgImg+")");
+        $(".liveChat").css("background-image", "url("+IMAGE_SERVER_URL + broadInfo.roomBgImg+")");
 
 
         setTimeout(function(){
-            $("#play").click()
+            $("#play").click();
         },1000)
     })
 
@@ -233,6 +272,7 @@
      * player 연결
      * */
     function play(){
+        loadChat();
         webRTCAdaptor.play(streamId, tokenId);
     }
 
@@ -252,6 +292,7 @@
     }
 
     function fn_chat_load_success(dst_id, response, dst_params){
+        console.log(response);
         isReloadChat = true;
 
         if(response.result != "fail" && !common.isEmpty(response.data) && !response.data.length <= 0){
@@ -264,7 +305,7 @@
 
 
             $(".liveChat__chat").append(html);
-            $(".liveChat__bgImg").scrollTop($(".liveChat__bgImg")[0].scrollHeight);
+            $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
         }else{
 
         }
@@ -283,7 +324,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_liveChat">
     {{#each this as |data|}}
-        <div class="liveChat comment ">
+        <div class="liveChat__chat-comment ">
             <figure></figure>
             <div>
                 <p>

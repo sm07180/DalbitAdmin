@@ -271,6 +271,17 @@ public class Bro_BroadcastService {
                 param.put("recvTime",0);
 
                 socketUtil.setSocket(param,"chatEnd","roomOut",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
+
+                try{
+                    HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(pBroadcastEditInputVo.getRoom_no());
+                    if(broadInfo != null && !DalbitUtil.isEmpty(broadInfo.get("bjStreamId"))){
+                        OkHttpClientUtil httpUtil = new OkHttpClientUtil();
+                        httpUtil.sendDelete(antServer + "/" + antName + "/rest/v2/broadcasts/" + broadInfo.get("bjStreamId"));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
 //            }else if(pBroadcastEditInputVo.getForceExit().equals("0") && pBroadcastEditInputVo.getSendNoti().equals("1")){
             }else if(pBroadcastEditInputVo.getForceExit().equals("0")){
 
@@ -329,10 +340,10 @@ public class Bro_BroadcastService {
                 Calendar cal = Calendar.getInstance();
                 cal.add(Calendar.HOUR, antExpire);
                 long expire = cal.getTime().getTime() / 1000;
-                String params = "id=" + broadInfo.get("bjStreamId") + "&expireDate=" + expire + "&type=play";
+                String params = "expireDate=" + expire + "&type=play";
                 OkHttpClientUtil httpUtil = new OkHttpClientUtil();
                 try{
-                    String url = antServer + "/" + antName + "/rest/broadcast/getToken?" + params;
+                    String url = antServer + "/" + antName + "/rest/v2/broadcasts/" + broadInfo.get("bjStreamId") + "/token?" + params;
                     log.info("[Ant] Request URL : {}", url );
                     Response res = httpUtil.sendGet(url);
                     if(res != null){
