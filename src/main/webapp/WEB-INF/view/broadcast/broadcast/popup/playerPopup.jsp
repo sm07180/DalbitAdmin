@@ -82,19 +82,19 @@
     <div class="header clearfix">
         <h3 class="text-muted" id="title"></h3>
     </div>
-    <div>
+    <div style="display:none;">
         <p>
             <audio id="remoteVideo" autoplay="autoplay" controls="controls"></audio>
         </p>
         <p>
-            <input type="text" class="form-control" value="" id="roomNo" placeholder="Room No" style="display: none">
-            <input type="text" class="form-control" value="" id="streamId" placeholder="Type stream ID" style="display: none">
-            <input type="text" class="form-control" value="" id="tokenId" placeholder="Type token ID" style="display: none">
+            <input type="text" class="form-control" value="" id="roomNo" placeholder="Room No">
+            <input type="text" class="form-control" value="" id="streamId" placeholder="Type stream ID">
+            <input type="text" class="form-control" value="" id="tokenId" placeholder="Type token ID">
         </p>
         <p>
-            <button onclick="joinRoom()" class="btn btn-info" id="joinRoom" style="display: none">RoomJoin</button>
-            <button onclick="loadChat()" class="btn btn-info" id="callChat" style="display: none">Chat</button>
-            <button onclick="play()" class="btn btn-info" id="play" style="display: none">Play</button>
+            <button onclick="joinRoom()" class="btn btn-info" id="joinRoom">RoomJoin</button>
+            <button onclick="loadChat()" class="btn btn-info" id="callChat">Chat</button>
+            <button onclick="play()" class="btn btn-info" id="play">Play</button>
         </p>
     </div>
     <div class="liveChat__bgImg" style="overflow:auto; width:500px; height:800px; position: relative; background-size: contain; padding: 10px;">
@@ -252,7 +252,6 @@
     }
 
     function fn_chat_load_success(dst_id, response, dst_params){
-        console.log(response);
         isReloadChat = true;
 
         if(response.result != "fail" && !common.isEmpty(response.data) && !response.data.length <= 0){

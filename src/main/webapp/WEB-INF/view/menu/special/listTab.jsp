@@ -8,8 +8,8 @@
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#dal" role="tab" data-toggle="tab" id="tab_total">스페셜 달D</a></li>
-                    <li><a href="#reqDal" role="tab" data-toggle="tab" id="tab_platformDetail">스페셜 신청 달D</a></li>
+                    <li class="active"><a href="#dal" role="tab" data-toggle="tab" class="_tab">스페셜 달D</a></li>
+                    <li><a href="#reqDal" role="tab" data-toggle="tab" class="_tab">스페셜 신청 달D</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="dal"><jsp:include page="specialDal.jsp"/></div>           <!-- 스페셜 달D -->
@@ -23,5 +23,28 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
+    $(function(){
+        getList();
+    });
 
+    function getList(){
+        $('#tablist_con li.active:first a').click();
+        $('#dalList').empty();
+        $('#reqDalList').empty();
+    }
+
+    $('._tab').on('click', function(){
+
+        $('#dalList, #reqDalList').empty();
+
+        var me = $(this);
+        var tab = me.parent();
+
+        var tabIndex = $('#tablist_con li').index(tab);
+        if(tabIndex == 0){
+            init();
+        } else{
+            initReq();
+        }
+    });
 </script>

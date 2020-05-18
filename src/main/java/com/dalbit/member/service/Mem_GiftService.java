@@ -69,7 +69,7 @@ public class Mem_GiftService {
         ArrayList<P_MemberChargeOutputVo> chargeList = null;
 
         int memberList_totalCnt = 0;
-        if(pMemberChargeInputVo.getSlctItem() == -1){
+        if(pMemberChargeInputVo.getSlctType() == -1){
             chargeList = mem_GiftDao.callChargeHistory_all(pMemberChargeInputVo);
             memberList_totalCnt = mem_GiftDao.callChargeHistory_all_totalCnt(pMemberChargeInputVo);
         }else{

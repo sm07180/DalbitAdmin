@@ -29,8 +29,14 @@ var SampleDataTableSource = {
             ,{'title': '방송종료시간', 'data': 'endDate'}
             ,{'title': '방송진행시간', 'data': 'airtime'}
             ,{'title': '종료시 평균 청취자 수', 'data': 'listener'}
-            ,{'title': '받은 좋아요 수', 'data': 'good'}
-            ,{'title': '받은 아이템 수', 'data': 'gold'}
+            ,{'title': '받은 좋아요 수', 'data': 'good', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }
+            }
+            ,{'title': '받은 아이템 수', 'data': 'gold', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }
+            }
         ]
 
         ,'title': '청취기록'
@@ -46,7 +52,10 @@ var SampleDataTableSource = {
             ,{ 'title': '청취시작시간', 'data': 'startDate' }
             ,{ 'title': '청취종료시간', 'data': 'endDate' }
             ,{ 'title': '청취진행시간', 'data': 'listenTime' }
-            ,{ 'title': '받은 루비 개수', 'data': 'giftRuby' }
+            ,{ 'title': '받은 루비 개수', 'data': 'giftRuby', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }
+            }
             ,{ 'title': '청취 DJ 닉네임', 'data': 'memNick' }
         ]
 

@@ -278,6 +278,8 @@
             }
             obj.notiContents = broadCastMessage.notiContents;
             obj.sendNoti = "0";
+            obj.subjectType = broadCast_responseData.subjectType;
+            obj.beforBackgroundImage = broadCast_responseData.backgroundImage;
 
             util.getAjaxData("edit", "/rest/broadcast/broadcast/edit", obj, update_success, fn_fail);
         }
@@ -356,7 +358,7 @@
             var obj = new Object();
             obj.room_no = room_no;
             obj.backgroundImage = "";
-            obj.notiMeno = memo;
+            obj.notiMemo = memo;
             obj.sendNoti = sendNoti;
             obj.notiContents = title;
             obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();

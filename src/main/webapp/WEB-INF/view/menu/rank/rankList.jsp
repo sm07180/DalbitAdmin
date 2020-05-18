@@ -244,10 +244,10 @@
                     {{rank.mem_nick}}
                 {{/equal}}
             </td>
-            <td>{{money}}</td>
-            <td>{{byeol}}</td>
-            <td>{{gifted_mem_no}}</td>
-            <td>{{airCount}}</td>
+            <td>{{addComma money}}원</td>
+            <td>{{addComma byeol}}개</td>
+            <td>{{addComma gifted_mem_no}}개</td>
+            <td>{{addComma airCount}}번</td>
             <td>{{#equal rank.start_date ''}}
                 -
                 {{else}}
@@ -308,10 +308,10 @@
                 등급 : {{grade}}
             </td>
             <td>{{mem_nick}}</td>
-            <td>{{money}}</td>
-            <td>{{byeol}}</td>
-            <td>{{gifted_mem_no}}</td>
-            <td>{{airCount}}</td>
+            <td>{{addComma money}}원</td>
+            <td>{{addComma byeol}}개</td>
+            <td>{{addComma gifted_mem_no}}개</td>
+            <td>{{addComma airCount}}번</td>
             <td>{{#equal fan.start_date ''}}
                 -
                 {{else}}

@@ -43,9 +43,8 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '청취자', 'data': 'liveListener','width' : '40px','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "명";
+            {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data){
+                    return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
@@ -95,9 +94,8 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '청취자', 'data': 'liveListener','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "명";
+            {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','render': function (data){
+                    return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','render': function (data){
                     var tmp = common.addComma(data);
@@ -243,7 +241,7 @@ var BroadcastDataTableSource = {
     'chatDetail': {
         'url': '/rest/broadcast/chat/list'
         , 'columns': [
-            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'120px'},
+            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
             {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반
@@ -264,7 +262,7 @@ var BroadcastDataTableSource = {
     'targetchat': {
         'url': '/rest/broadcast/chat/targetList'
         , 'columns': [
-            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'120px'},
+            {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
             {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반

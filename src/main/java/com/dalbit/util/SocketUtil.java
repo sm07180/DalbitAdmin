@@ -3,6 +3,7 @@ package com.dalbit.util;
 import com.dalbit.socket.service.SocketService;
 import com.dalbit.socket.vo.SocketVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -41,6 +42,9 @@ public class SocketUtil {
     @Autowired
     GsonUtil gsonUtil;
 
+    @Value("${socket.global.room}")
+    private String SERVER_SOCKET_GLOBAL_ROOM;
+
     public Map<String, Object> setSocket(HashMap<String,Object> param ,String command, String message, String authToken){
         if(!"".equals(param) && !"".equals(authToken)) {
             if(message.equals("roomOut")){
@@ -50,10 +54,14 @@ public class SocketUtil {
                 map.put("message",message);
 
                 message = gsonUtil.toJson(map);
+                SocketVo vo = getSocketVo(param, command, message);
+                System.out.println(vo.toQueryString());
+                return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
+            }else{
+                SocketVo vo = getSocketVo(param, command, message);
+                System.out.println(vo.toQueryString());
+                return socketService.sendSocketApi(authToken, SERVER_SOCKET_GLOBAL_ROOM, vo.toQueryString());
             }
-            SocketVo vo = getSocketVo(param, command, message);
-            System.out.println(vo.toQueryString());
-            return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
         }
         return null;
     }
@@ -72,9 +80,6 @@ public class SocketUtil {
             }else{
                 socketVo.setMemNo(DalbitUtil.getStringMap(param, "memNo"));
                 socketVo.setMemNk(DalbitUtil.getStringMap(param, "memNk"));
-                if(command.equals("reqRoomChangeInfo")){
-                    socketVo.setMemImg(DalbitUtil.getStringMap(param, "memImg"));
-                }
             }
             socketVo.setFan(1);
             socketVo.setAuth(0);

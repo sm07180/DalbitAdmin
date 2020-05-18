@@ -45,5 +45,30 @@
         dtList_info.createDataTable();
     }
 
+    function cancelClick(){
+        alert("취소요청 개발 진행중");
+
+
+
+
+    }
+
+    function codeString(data) {
+        console.log(data);
+        var str;
+        if(data == 'VA'){
+            str = '가상계좌'
+        } else if (data == 'CN') {
+            str = '신용카드';
+        } else if (data == 'MC') {
+            str = '휴대폰';
+        } else if (data == 'RA') {
+            str = '계좌이체';
+        } else {
+            str = '-'
+        }
+        return str;
+    }
+
 
 </script>

@@ -209,19 +209,17 @@ var MemberDataTableSource = {
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},
             {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
-                    if(data == 1) var tmp = "O";
-                    else var tmp = "X";
-                    return tmp;
+                    return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
                     return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
-                    return data + " 개"
+                    return common.addComma(data) + " 개"
                 }},
             {'title': '선물 달', 'data': 'ruby', 'render': function (data) {
-                    return data + " 달"
+                    return common.addComma(data) + " 달"
                 }},
             {'title': '선물 일시', 'data': 'giftDateFormat'},
         ]
@@ -238,7 +236,9 @@ var MemberDataTableSource = {
                     return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemNm'},
-            {'title': '선물 달 수', 'data': 'cnt'},
+            {'title': '선물 달 수', 'data': 'cnt','render' : function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
             {'title': '선물 일시', 'data': 'lastUpdDateFormat'},
         ]
     },
@@ -248,10 +248,18 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '이미지', 'data': 'giftDateFormat'},
             {'title': '보유 별', 'data': 'giftDateFormat'},
-            {'title': '교환 수', 'data': 'giftDateFormat'},
-            {'title': '남은 별', 'data': 'giftDateFormat'},
-            {'title': '교환 후 보유 달', 'data': 'giftDateFormat'},
-            {'title': '교환 시도 횟수', 'data': 'giftDateFormat'},
+            {'title': '교환 수', 'data': 'giftDateFormat','render' : function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '남은 별', 'data': 'giftDateFormat','render' : function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '교환 후 보유 달', 'data': 'giftDateFormat','render' : function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
+            {'title': '교환 시도 횟수', 'data': 'giftDateFormat','render' : function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
             {'title': '플랫폼', 'data': 'giftDateFormat'},
             {'title': '선물 일시', 'data': 'giftDateFormat'},
         ]

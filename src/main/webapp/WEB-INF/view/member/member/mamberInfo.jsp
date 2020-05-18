@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
+<c:set var="isPointAuthMenu" value="" />
+<c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
+    <c:forEach var="twoDepth" items="${menu.twoDepth}">
+        <c:if test="${twoDepth.idx eq 52}">
+            <c:set var="isPointAuthMenu" value="${twoDepth}" />
+        </c:if>
+    </c:forEach>
+</c:forEach>
 
 <div>
     <form id="memberInfoFrm"></form>
@@ -13,7 +22,22 @@
 
 
 <script>
+
+
+
     $(document).ready(function() {
+        console.log('-----------------');
+        console.log('${isPointAuthMenu.is_read}');
+        console.log('${isPointAuthMenu.is_insert}');
+        console.log('${isPointAuthMenu.is_delete}');
+        console.log('-----------------');
+        console.log('권한 없을 떄-----------------');
+        console.log('${isPointAuthMenu.is_read eq 0}');
+        console.log(${empty isPointAuthMenu});
+
+        console.log('권한 있을 떄-----------------');
+        console.log(${isPointAuthMenu.is_read eq 1});
+        console.log('-----------------');
     });
     $("#select_level").html(util.getCommonCodeSelect(-1, level));
     $("#select_grade").html(util.getCommonCodeSelect(-1, grade));
@@ -216,7 +240,7 @@
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     obj.profileImage = "";
-                    sendNoti = 0;
+                    sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;
                 }else return;
@@ -236,7 +260,7 @@
                 if (confirm($("#bt_resatPass").data('nickname') + memberMessage.passwordReset)) {
                     obj.passwdReset = "Reset";
                     obj.phoneNum = tmp_phone;                   //0
-                    sendNoti = 0;
+                    sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
@@ -247,7 +271,7 @@
                 }
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
                     obj.nickName = $("#td_userid").text();
-                    sendNoti = 0;
+                    sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
@@ -290,17 +314,18 @@
                 }
                 if(confirm("성별을 변경 하시겠습니까?")) {
                     obj.memSex = $('input[name="memSex"]:checked').val();
-                    sendNoti = 0;
-
-                    if(memberInfo_responseDate.profileImage.indexOf("/profile_3/profile_" + memberInfo_responseDate.memSex) > -1){
-                        obj.photoUrl = IMAGE_SERVER_URL;
-                        sendNoti = 0;
-                        obj.notiContents = memberMessage.notiContents;
-                        obj.notiMemo = memberMessage.profileReset;
-                    }
+                    obj.photoUrl = IMAGE_SERVER_URL;
+                    sendNoti = 1;
+                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiMemo = memberMessage.profileReset;
                 }else return;
             }
             obj.sendNoti=sendNoti;
+            obj.beforProfileImage = memberInfo_responseDate.profileImage;
+            obj.brforNickName = memberInfo_responseDate.nickName;
+
+            console.log(obj);
+
             util.getAjaxData("editor", "/rest/member/member/editor", obj, update_success, fn_fail);
         }
     }
@@ -549,7 +574,7 @@
             <th>보유달</th>
             <td style="text-align: left">
                 <span class="col-md-3 no-padding">
-                    {{dal}} 달
+                    {{addComma dal}} 달
                 </span>
                 {{#equal memWithdrawal '0'}}
                 <span class="col-md-9 no-padding">
@@ -572,7 +597,7 @@
             <th>보유별</th>
             <td style="text-align: left">
                 <span class="col-md-3 no-padding">
-                    {{byeol}} 별
+                    {{addComma byeol}} 별
                 </span>
                 {{#equal memWithdrawal '0'}}
                 <span class="col-md-9 no-padding">
@@ -593,7 +618,7 @@
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
             <td style="text-align: left">
-                {{managerICnt}} 명 / {{managerMeCnt}} 명
+                {{addComma managerICnt}} 명 / {{addComma managerMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
                 {{/equal}}
@@ -609,7 +634,7 @@
             </td>
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
             <td style="text-align: left">
-                {{blackICnt}} 명 / {{blackMeCnt}} 명
+                {{addComma blackICnt}} 명 / {{addComma blackMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
                 {{/equal}}
@@ -656,7 +681,7 @@
         </tr>
         <tr>
             <th rowspan="4">운영자메모</th>
-            <td rowspan="1" colspan="3" style="text-align: left">등록: {{opMemoCnt}} 건
+            <td rowspan="1" colspan="3" style="text-align: left">등록: {{addComma opMemoCnt}} 건
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
             <th>최초방송일시</th>

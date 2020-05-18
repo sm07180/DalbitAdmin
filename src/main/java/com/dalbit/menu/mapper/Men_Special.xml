@@ -2,20 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.menu.dao.Men_SpecialDao" >
 
+    <select id="summary" parameterType="com.dalbit.menu.vo.SpecialSummaryVo" resultType="com.dalbit.menu.vo.SpecialSummaryVo">
+        select
+        (select count(*) from rd_admin.tb_req_special_dj redj) as requestDal
+        , (select count(*) from rd_admin.tb_special_dj dj) as approveDal
+    </select>
+
     <sql id="reqSpecial">
         select
-          idx
-        , mem_no
-        , title
-        , reg_date
-        , contents
-        , state
-        , op_name
-        , last_upd_date
+          dj.idx as idx
+        , dj.mem_no as mem_no
+        , dj.title as title
+        , dj.reg_date as reg_date
+        , dj.contents as contents
+        , dj.state as state
+        , dj.op_name as op_name
+        , dj.last_upd_date as last_upd_date
+        , profile.specialdj_badge as specialdj_badge
         , @RNUM := @RNUM + 1 as rowNum
-        from rd_admin.tb_req_special_dj
+        from rd_admin.tb_req_special_dj dj
+            , rd_data.tb_member_profile profile
             , (select @RNUM := 0) r
-
+        where profile.mem_no = dj.mem_no
+        order by idx desc
     </sql>
 
     <select id="getReqSpecialList" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="com.dalbit.menu.vo.SpecialReqVo">
@@ -32,18 +41,57 @@
         ) a
     </select>
 
+    <select id="getReqSpecialDetail" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - getReqSpecialDetail */
+        select
+          idx
+          ,mem_no
+          , title
+          , reg_date
+          , op_name
+          , last_upd_date
+          , contents
+          , state
+        from rd_admin.tb_req_special_dj
+        where idx = #{idx}
+    </select>
+
+    <insert id="reqOk" parameterType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - reqOk */
+        insert into
+          rd_admin.tb_special_dj (req_idx, mem_no, reg_date, op_name, `order`)
+        values
+        (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj))
+    </insert>
+
+    <update id="reqOkUpdate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - reqOkUpdate */
+      update rd_admin.tb_req_special_dj
+      set state = #{state}
+        , op_name=#{op_name}
+      where idx = #{idx}
+    </update>
+
+    <update id="profileUpdate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - profileUpdate */
+        update rd_data.tb_member_profile
+        set specialdj_badge = #{specialdj_badge}
+        where mem_no = #{mem_no}
+    </update>
+
 
     <sql id="special">
         select
-        mem_no
+        req_idx
+        , mem_no
         , reg_date
         , is_force
         , `order`
         , op_name
-        , last_upd_date
         , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_special_dj
             , (select @RNUM := 0) r
+        order by `order` asc, reg_date desc
     </sql>
 
     <select id="getSpecialList" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">
@@ -60,5 +108,28 @@
           ) a
     </select>
 
+    <select id="getSpecialDetail" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">
+        /* Men_Special.xml - getSpecialDetail */
+        select
+          dj.req_idx
+          , dj.mem_no
+          , dj.reg_date
+          , dj.is_force
+          , dj.op_name
+          , redj.title
+          , redj.contents
+        from
+          rd_admin.tb_special_dj dj
+          , rd_admin.tb_req_special_dj redj
+        where #{req_idx} = redj.idx
+          and dj.req_idx = redj.idx
+    </select>
+
+    <delete id="reqCancel" parameterType="com.dalbit.menu.vo.SpecialVo">
+        /* Men_Special.xml - reqCancel */
+        delete
+        from rd_admin.tb_special_dj
+        where req_idx = #{req_idx}
+    </delete>
 
 </mapper>

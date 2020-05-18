@@ -217,7 +217,7 @@
     <table class="table table-bordered table-summary pull-right">
         <thead>
             <tr class="align-middle">
-                <th colspan="1" rowspan="2" style="vertical-align: middle;">총 방송방</th>
+                <th colspan="1" rowspan="2" style="vertical-align: middle;color: red;">총 방송방</th>
                 <th colspan="3">플랫폼별</th>
             </tr>
             <tr>
@@ -227,7 +227,7 @@
             </tr>
         </thead>
         <tbody>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalBroadCastCnt}}건</td>
+            <td style="color: red;">{{#equal length '0'}}0{{/equal}}{{content.totalBroadCastCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}건</td>
@@ -239,7 +239,7 @@
     <table class="table table-bordered table-summary pull-right">
         <thead>
             <tr style="height: 68px;">
-                <th style="vertical-align: middle;">총 청취자</th>
+                <th style="vertical-align: middle;color:red;">총 청취자</th>
                 <th style="vertical-align: middle;">총 선물</th>
                 <th style="vertical-align: middle;">총 좋아요</th>
                 <th style="vertical-align: middle;">총 청취자<br/>부스터</th>
@@ -247,7 +247,7 @@
             </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalListenerCnt}}건</td>
+            <td style="color: red">{{#equal length '0'}}0{{/equal}}{{content.totalListenerCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>

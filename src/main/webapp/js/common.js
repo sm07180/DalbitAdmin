@@ -65,6 +65,9 @@ common.removeComma = function(value){
 common.convertToDate = function(date, format){
     if(this.isEmpty(date)){
         return "-";
+    }else if(date.length == 14 || 0 < Number(date)){
+        var regExp = /(\d{8})(\d{6})/;
+        date = date.toString().replace(regExp, '$1 $2');
     }
     if(this.isEmpty(format)){
         format = "YYYY.MM.DD HH:mm";

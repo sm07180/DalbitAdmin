@@ -6,10 +6,7 @@ import com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.SmsService;
-import com.dalbit.common.vo.JsonOutputVo;
-import com.dalbit.common.vo.PagingVo;
-import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.common.vo.SmsVo;
+import com.dalbit.common.vo.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
@@ -183,30 +180,32 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEditor(procedureVo);
         String result;
         if(Status.회원정보수정성공.getMessageCode().equals(procedureVo.getRet())){
-//            if(pMemberEditorVo.getSendNoti().equals("1")) {
-//                P_BroadcastListInputVo pBroadcastListInputVo = new P_BroadcastListInputVo();
-//                pBroadcastListInputVo.setDj_searchText(pMemberEditorVo.getMem_no());
-//                pBroadcastListInputVo.setSlctType(1);
-//                pBroadcastListInputVo.setDj_slctType(0);
-//                pBroadcastListInputVo.setRoom_slctType(-1);
-//
-//                ProcedureVo inner_procedureVo = new ProcedureVo(pBroadcastListInputVo);
-//                ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(inner_procedureVo);
-//
-//                //프로필, 닉네임
-//                HashMap<String, Object> param = new HashMap<>();
-//                param.put("roomNo", broadList.get(0).getRoom_no());
-//                param.put("memNo", pMemberEditorVo.getMem_no());
-//                param.put("nickName", pMemberEditorVo.getNickName());
-//                // option
-//                param.put("ctrlRole", "ctrlRole");
-//                param.put("recvType", "system");
-//                param.put("recvPosition", "top1");
-//                param.put("recvLevel", 1);
-//                param.put("recvTime", 5);
-//
-//                socketUtil.setSocket(param, "reqAlert", pMemberEditorVo.getNotiMemo(), jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
-//            }
+            if(pMemberEditorVo.getSendNoti().equals("1")) {
+
+                // option
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("memNo", pMemberEditorVo.getMem_no());
+                param.put("memNk", "");
+                param.put("ctrlRole", "ctrlRole");
+                param.put("recvType", "system");
+                param.put("recvPosition", "top1");
+                param.put("recvLevel", 1);
+                param.put("recvTime", 5);
+
+                // message set
+                Gson gson = new Gson();
+                HashMap<String,Object> tmp = new HashMap();
+                tmp.put("nk", pMemberEditorVo.getBrforNickName());
+                tmp.put("sex", pMemberEditorVo.getMemSex());
+                if(DalbitUtil.isEmpty(pMemberEditorVo.getProfileImage())){
+                    tmp.put("image", new ImageVo(pMemberEditorVo.getProfileImage(),pMemberEditorVo.getMemSex(), DalbitUtil.getProperty("server.photo.url")).getUrl());
+                }else{
+                    tmp.put("image", new ImageVo(pMemberEditorVo.getBeforProfileImage(), DalbitUtil.getProperty("server.photo.url")));
+                }
+                String message =  gson.toJson(tmp);
+
+                socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
+            }
 
             // 비밀번호 변경
             if(pMemberEditorVo.getNotiSms().equals("1")){
@@ -231,6 +230,7 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberSocialIdEditor(pMemberEditorVo);
 
         pMemberEditorVo.setEditContents("로그인ID 변경 : " + pMemberEditorVo.getBefore_socialId() + " >> " + pMemberEditorVo.getSocialId());
+        pMemberEditorVo.setType(0);
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
 
 
@@ -435,6 +435,7 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
         // 최근 정보 수정 자 입력
         pMemberEditorVo.setEditContents("달수 변경 : " + beforDalCnt + " >> " + pMemberEditorVo.getAddDalCnt() + " 추가 >> " + afterDalCnt);
+        pMemberEditorVo.setType(1);
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
@@ -466,6 +467,8 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
         // 최근 정보 수정 자 입력
         pMemberEditorVo.setEditContents("별수 변경 : " + beforByeolCnt + " >> " + pMemberEditorVo.getAddByeolCnt() + " 추가 >> " + afterByeolCnt);
+        pMemberEditorVo.setType(1);
+
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();

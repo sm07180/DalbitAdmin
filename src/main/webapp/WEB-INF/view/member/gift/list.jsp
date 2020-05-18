@@ -152,10 +152,10 @@
         </tr>
         </thead>
         <tbody>
-            <td>{{content.allGiftItemCnt}}건</td>
-            <td>{{content.allGiftDalCnt}}건</td>
-            <td>{{content.allReceivedItemCnt}}건</td>
-            <td>{{content.allReceivedDalCnt}}건</td>
+            <td>{{addComma content.allGiftItemCnt}}건</td>
+            <td>{{addComma content.allGiftDalCnt}}건</td>
+            <td>{{addComma content.allReceivedItemCnt}}건</td>
+            <td>{{addComma content.allReceivedDalCnt}}건</td>
         </tbody>
     </table>
 </script>
@@ -170,11 +170,11 @@
         </tr>
         </thead>
         <tbody>
-            <td>{{content.allDalGiftCnt}}건</td>
-            <td>{{content.allDalReceivedCnt}}건</td>
-            <td>{{content.allByeolReceivedCnt}}건</td>
-            <%--<td>{{#equal length '0'}}0{{/equal}}{{content.chargeDal}}건</td>--%>
-            <%--<td>{{#equal length '0'}}0{{/equal}}{{content.chargeDal}}건</td>--%>
+            <td>{{addComma content.allDalGiftCnt}}건</td>
+            <td>{{addComma content.allDalReceivedCnt}}건</td>
+            <td>{{addComma content.allByeolReceivedCnt}}건</td>
+            <%--<td>{{#equal length '0'}}0{{/equal}}{{addComma content.chargeDal}}건</td>--%>
+            <%--<td>{{#equal length '0'}}0{{/equal}}{{addComma content.chargeDal}}건</td>--%>
         </tbody>
     </table>
 </script>
@@ -193,14 +193,14 @@
         </tr>
         </thead>
         <tbody>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.giftCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.giftCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.dalCnt}}건</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{addComma content.dalCnt}}건</td>
         </tbody>
     </table>
 </script>

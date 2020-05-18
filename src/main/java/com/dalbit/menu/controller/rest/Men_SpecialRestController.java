@@ -6,6 +6,7 @@ import com.dalbit.menu.service.Men_SpecialService;
 import com.dalbit.menu.service.RecommendService;
 import com.dalbit.menu.vo.RecommendVo;
 import com.dalbit.menu.vo.SpecialReqVo;
+import com.dalbit.menu.vo.SpecialSummaryVo;
 import com.dalbit.menu.vo.SpecialVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -38,12 +39,49 @@ public class Men_SpecialRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, recommendVoList));
     }
 
+
+    /**
+     * 스페셜 달D 건수
+     */
+    @RequestMapping("summary")
+    public String summary(SpecialSummaryVo specialSummaryVo){
+        String result = menSpecialService.summary(specialSummaryVo);
+        return result;
+    }
+
     /**
      * 스페셜 달D 신청 목록 조회
      */
     @RequestMapping("reqDalList")
     public String reqDalList(SpecialReqVo specialReqVo){
         String result = menSpecialService.getReqSpecialList(specialReqVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 상세 목록 조회
+     */
+    @RequestMapping("reqDalDetail")
+    public String reqDalDetail(SpecialReqVo specialReqVo) {
+        String result = menSpecialService.getReqSpecialDetail(specialReqVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 승인
+     */
+    @RequestMapping("reqOk")
+    public String reqOk(SpecialReqVo specialReqVo) {
+        String result = menSpecialService.reqOk(specialReqVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 거부
+     */
+    @RequestMapping("reqReject")
+    public String reqReject(SpecialReqVo specialReqVo) {
+        String result = menSpecialService.reqReject(specialReqVo);
         return result;
     }
 
@@ -55,4 +93,23 @@ public class Men_SpecialRestController {
         String result = menSpecialService.getSpecialList(specialVo);
         return result;
     }
+
+    /**
+     * 스페셜 달D 상세 목록 조회
+     */
+    @RequestMapping("dalDetail")
+    public String getSpecialDetail(SpecialVo specialVo) {
+        String result = menSpecialService.getSpecialDetail(specialVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 승인 취소
+     */
+    @RequestMapping("reqCancel")
+    public String reqCancel(SpecialVo specialVo, SpecialReqVo specialReqVo) {
+        String result = menSpecialService.reqCancel(specialVo, specialReqVo);
+        return result;
+    }
+
 }
