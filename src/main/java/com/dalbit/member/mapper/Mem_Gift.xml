@@ -57,12 +57,11 @@
                       , mem_level AS `level`, mem_grade AS grade, last_upd_date AS giftDate, item_code, item_cnt AS itemCnt, secret
                       FROM rd_data.tb_member_broadcast_item
                       <if test="slctType == 0">    <!-- 보낸 선물 -->
-                        where mem_no = #{mem_no}) AS a
+                        where mem_no = #{mem_no} and item_type in (1,2)  <!-- 방송중 선물 -->) AS a
                       </if>
                       <if test="slctType == 1">    <!-- 받은 선물 -->
                         where gifted_mem_no = #{mem_no}) AS a
                       </if>
-                        and item_type in (1,2) <!-- 방송중 선물 -->
                   LEFT JOIN rd_data.tbl_gift_item AS b ON a.item_code = b.item_code
                   ORDER BY giftDate DESC
                   limit #{pageNo}, #{pageCnt}
@@ -105,8 +104,8 @@
           FROM (
                 <if test="slctItem == 0 or slctItem == -1">      <!-- 달 -->
                 select gifted_mem_no as mem_no
-                       , (select mem_userid from rd_data.tb_member_basic where mem_no = aa.mem_no) AS userId
-                       , (select mem_nick from rd_data.tb_member_basic where mem_no = aa.mem_no) AS nickName
+                       , (select mem_userid from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_userid
+                       , (select mem_nick from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_nick
                        , '받은 달' as use_contents
                        , 'https://image.dalbitlive.com/store/store_1.png' AS image
                        , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '받은 달' as `type`
@@ -115,8 +114,8 @@
                    and item_type='3'
                 union
                 select gifted_mem_no as mem_no
-                       , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS userId
-                       , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS nickName
+                       , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_userid
+                       , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_nick
                        , '보낸 달' as use_contents
                        , 'https://image.dalbitlive.com/store/store_1.png' AS image
                        , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '보낸 달' as `type`
@@ -196,8 +195,8 @@
                 <if test="slctType == 0">    <!-- 보낸 -->
                   <if test="slctItem == 0 or slctItem == -1">      <!-- 달 -->
                     select gifted_mem_no as mem_no
-                       , (select mem_userid from rd_data.tb_member_basic where mem_no = aa.mem_no) AS userId
-                       , (select mem_nick from rd_data.tb_member_basic where mem_no = aa.mem_no) AS nickName
+                       , (select mem_userid from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_userid
+                       , (select mem_nick from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_nick
                        , '보낸 달' as use_contents
                        , 'https://image.dalbitlive.com/store/store_1.png' AS image
                        , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '보낸 달' as `type`
@@ -225,8 +224,8 @@
                 <if test="slctType == 1">      <!-- 받은 -->
                   <if test="slctItem == 0 or slctItem == -1">      <!-- 달 -->
                     select gifted_mem_no as mem_no
-                           , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS userId
-                           , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS nickName
+                           , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_userid
+                           , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_nick
                            , '받은 달' as use_contents
                            , 'https://image.dalbitlive.com/store/store_1.png' AS image
                            , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '받은 달' as `type`
