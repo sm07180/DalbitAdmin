@@ -112,13 +112,13 @@
                         and mem.mem_no = lev.mem_no
                         and mem.mem_no = fan.mem_no
                         <if test='rankType == "1"'>
-                            and ranking_date = DATE(SUBDATE( NOW(), INTERVAL 1 DAY))
+                            and ranking_date = (select max(ranking_date) from rd_data.tb_ranking_fan_day)
                         </if>
                         <if test='rankType == "2"'>
-                            and ranking_date = DATE(SUBDATE( NOW(), INTERVAL (DAYOFWEEK(NOW())+6) DAY))
+                            and ranking_date = (select max(ranking_date) from rd_data.tb_ranking_fan_week)
                         </if>
                         <if test='rankType == "3"'>
-                            and ranking_date = concat(date_format(SUBDATE(NOW(), INTERVAL 1 MONTH), '%Y-%m'), '-01')
+                            and ranking_date = (select max(ranking_date) from rd_data.tb_ranking_fan_month)
                         </if>
 
                         <if test='txt_search != null and txt_search != ""'>
