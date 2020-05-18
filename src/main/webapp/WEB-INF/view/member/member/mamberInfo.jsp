@@ -216,7 +216,7 @@
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     obj.profileImage = "";
-                    sendNoti = 0;
+                    sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;
                 }else return;
@@ -236,7 +236,7 @@
                 if (confirm($("#bt_resatPass").data('nickname') + memberMessage.passwordReset)) {
                     obj.passwdReset = "Reset";
                     obj.phoneNum = tmp_phone;                   //0
-                    sendNoti = 0;
+                    sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
@@ -247,7 +247,7 @@
                 }
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
                     obj.nickName = $("#td_userid").text();
-                    sendNoti = 0;
+                    sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.nickNameReset;
                 }else return;
@@ -290,17 +290,18 @@
                 }
                 if(confirm("성별을 변경 하시겠습니까?")) {
                     obj.memSex = $('input[name="memSex"]:checked').val();
-                    sendNoti = 0;
-
-                    if(memberInfo_responseDate.profileImage.indexOf("/profile_3/profile_" + memberInfo_responseDate.memSex) > -1){
-                        obj.photoUrl = IMAGE_SERVER_URL;
-                        sendNoti = 0;
-                        obj.notiContents = memberMessage.notiContents;
-                        obj.notiMemo = memberMessage.profileReset;
-                    }
+                    obj.photoUrl = IMAGE_SERVER_URL;
+                    sendNoti = 1;
+                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiMemo = memberMessage.profileReset;
                 }else return;
             }
             obj.sendNoti=sendNoti;
+            obj.beforProfileImage = memberInfo_responseDate.profileImage;
+            obj.brforNickName = memberInfo_responseDate.nickName;
+
+            console.log(obj);
+
             util.getAjaxData("editor", "/rest/member/member/editor", obj, update_success, fn_fail);
         }
     }

@@ -274,7 +274,7 @@ public class Bro_BroadcastService {
 //            }else if(pBroadcastEditInputVo.getForceExit().equals("0") && pBroadcastEditInputVo.getSendNoti().equals("1")){
             }else if(pBroadcastEditInputVo.getForceExit().equals("0")){
 
-                //배경화면, 방송제목, 환영메시지
+                //option
                 HashMap<String, Object> param = new HashMap<>();
                 param.put("roomNo", pBroadcastEditInputVo.getRoom_no());
                 param.put("memNo", pBroadcastEditInputVo.getMem_no());

@@ -358,7 +358,7 @@
             var obj = new Object();
             obj.room_no = room_no;
             obj.backgroundImage = "";
-            obj.notiMeno = memo;
+            obj.notiMemo = memo;
             obj.sendNoti = sendNoti;
             obj.notiContents = title;
             obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
