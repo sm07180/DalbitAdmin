@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
+<c:set var="isPointAuthMenu" value="" />
+<c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
+    <c:forEach var="twoDepth" items="${menu.twoDepth}">
+        <c:if test="${twoDepth.idx eq 52}">
+            <c:set var="isPointAuthMenu" value="${twoDepth}" />
+        </c:if>
+    </c:forEach>
+</c:forEach>
 
 <div>
     <form id="memberInfoFrm"></form>
@@ -13,7 +22,22 @@
 
 
 <script>
+
+
+
     $(document).ready(function() {
+        console.log('-----------------');
+        console.log('${isPointAuthMenu.is_read}');
+        console.log('${isPointAuthMenu.is_insert}');
+        console.log('${isPointAuthMenu.is_delete}');
+        console.log('-----------------');
+        console.log('권한 없을 떄-----------------');
+        console.log('${isPointAuthMenu.is_read eq 0}');
+        console.log(${empty isPointAuthMenu});
+
+        console.log('권한 있을 떄-----------------');
+        console.log(${isPointAuthMenu.is_read eq 1});
+        console.log('-----------------');
     });
     $("#select_level").html(util.getCommonCodeSelect(-1, level));
     $("#select_grade").html(util.getCommonCodeSelect(-1, grade));
