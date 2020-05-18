@@ -20,14 +20,19 @@ public interface Men_SpecialDao {
 
     @Transactional(readOnly = true)
     int reqOk(SpecialReqVo specialReqVo);
-    @Transactional(readOnly = true)
+
     int reqOkUpdate(SpecialReqVo specialReqVo);
-    @Transactional(readOnly = true)
+
     int profileUpdate(SpecialReqVo specialReqVo);
 
     @Transactional(readOnly = true)
     List<SpecialVo> getSpecialList(SpecialVo specialVo);
     @Transactional(readOnly = true)
     int getSpecialListCnt(SpecialVo specialVo);
+
+    @Transactional(readOnly = true)
+    SpecialVo getSpecialDetail(SpecialVo specialVo);
+
+    int reqCancel(SpecialVo specialVo);
 
 }

@@ -4,14 +4,14 @@
 <!-- DATA TABLE -->
 <div class="row col-lg-12 form-inline">
     <div class="widget widget-table">
-        <div class="widget-header">
-            <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-            <div class="btn-group widget-header-toolbar">
-                <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                    <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                </a>
-            </div>
-        </div>
+        <%--<div class="widget-header">--%>
+            <%--<h3><i class="fa fa-desktop"></i> 검색결과</h3>--%>
+            <%--<div class="btn-group widget-header-toolbar">--%>
+                <%--<a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">--%>
+                    <%--<i class="fa fa-chevron-up" id="_searchToggleIcon"></i>--%>
+                <%--</a>--%>
+            <%--</div>--%>
+        <%--</div>--%>
         <div class="widget-content">
             <table id="reqSpecialList" class="table table-sorting table-hover table-bordered">
                 <thead>
@@ -87,19 +87,23 @@
     });
 
     function fn_success_ok(dst_id, response) {
-        dalbitLog(response.data);
+        alert('승인 완료 처리되었습니다.');
+        getList();
     }
 
     $(document).on('click', '#bt_reqReject', function() {
         if (confirm("승인 거부 하시겠습니까?")) {
-
+            var data = {
+                'idx': $(this).data('idx')
+            };
             util.getAjaxData("ok", "/rest/menu/special/reqReject", data, fn_success_reject);
         }
         return false;
     });
 
     function fn_success_reject(dst_id, response) {
-        dalbitLog(response.data);
+        alert('승인 거부 처리되었습니다.');
+        getList();
     }
 
 
@@ -118,9 +122,9 @@
                         <th>제목</th>
                         <td>{{title}}</td>
                         <th>신청일시</th>
-                        <td>{{reg_date}}</td>
+                        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                         <th>승인일시</th>
-                        <td>{{last_upd_date}}</td>
+                        <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                     </tr>
                     <tr>
                         <th>신청내용</th>
@@ -130,10 +134,8 @@
                     </tr>
                 </table>
                 <!-- 승인완료 승인거부-->
-                <%--{{#equal state '1'}}--%>
-                <button type="button" class="btn btn-danger pull-right mb15" id="bt_reqReject">승인거부</button>
-                <button type="button" class="btn btn-success pull-right mb15 mr10" id="bt_reqOk" data-idx="{{idx}}" data-memno="{{mem_no}}" data-state="{{state}}" data-sbadge="{{specialdj_badge}}">승인완료</button>
-                <%--{{/equal}}--%>
+                {{^equal state '3'}}<button type="button" class="btn btn-danger pull-right mb15" id="bt_reqReject">승인거부</button>{{/equal}}
+                {{^equal state '2'}}<button type="button" class="btn btn-success pull-right mb15 mr10" id="bt_reqOk" data-idx="{{idx}}" data-memno="{{mem_no}}">승인완료</button>{{/equal}}
             </div>
         </div>
     </div>
