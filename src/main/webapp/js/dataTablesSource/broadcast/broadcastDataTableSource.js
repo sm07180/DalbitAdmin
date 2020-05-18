@@ -94,9 +94,8 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
-            {'title': '청취자', 'data': 'liveListener','render': function (data){
-                    var tmp = common.addComma(data);
-                    return tmp + "명";
+            {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','render': function (data){
+                    return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','render': function (data){
                     var tmp = common.addComma(data);
