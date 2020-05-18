@@ -83,7 +83,7 @@
         <h3 class="text-muted" id="title"></h3>
     </div>
     <div>
-        <p>
+        <p style="display:none;">
             <audio id="remoteVideo" autoplay="autoplay" controls="controls"></audio>
         </p>
         <p>
