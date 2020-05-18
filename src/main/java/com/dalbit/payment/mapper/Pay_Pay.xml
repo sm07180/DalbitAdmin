@@ -24,6 +24,12 @@
             , pay.account_no
             , pay.rcpt_dt
             , pay.rcpt_nm
+            , pay.cancel_comein
+            , pay.cancel_date
+            , pay.cancel_time
+            , pay.cancel_state
+            , pay.fail_msg
+            , pay.op_name
             , summary.memCnt as count
             , summary.paySum as amount
             , @RNUM := @RNUM + 1 as rowNum
