@@ -64,7 +64,7 @@
     </update>
     <insert id="callMemberEditHistoryAdd" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberEditHistoryAdd */
-        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents, op_name, last_upd_date ) values ( #{mem_no}, #{editContents}, #{opName}, now())
+        insert into rd_data.tb_member_profile_edit_history( mem_no, edit_contents, op_name, last_upd_date,type ) values ( #{mem_no}, #{editContents}, #{opName}, now(),#{type})
     </insert>
 
     <!-- 회원상태 정상 변경 -->

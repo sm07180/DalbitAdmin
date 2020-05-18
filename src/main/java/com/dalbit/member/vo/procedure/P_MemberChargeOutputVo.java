@@ -13,8 +13,8 @@ public class P_MemberChargeOutputVo extends SearchVo {
 
     //output
     private String mem_no;
-    private String userId;
-    private String nickName;
+    private String mem_userid;
+    private String mem_nick;
     private String use_contents;
     private String image;
     private String itemNm;

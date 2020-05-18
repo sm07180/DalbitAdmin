@@ -230,6 +230,7 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberSocialIdEditor(pMemberEditorVo);
 
         pMemberEditorVo.setEditContents("로그인ID 변경 : " + pMemberEditorVo.getBefore_socialId() + " >> " + pMemberEditorVo.getSocialId());
+        pMemberEditorVo.setType(0);
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
 
 
@@ -434,6 +435,7 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
         // 최근 정보 수정 자 입력
         pMemberEditorVo.setEditContents("달수 변경 : " + beforDalCnt + " >> " + pMemberEditorVo.getAddDalCnt() + " 추가 >> " + afterDalCnt);
+        pMemberEditorVo.setType(1);
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
@@ -465,6 +467,8 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
         // 최근 정보 수정 자 입력
         pMemberEditorVo.setEditContents("별수 변경 : " + beforByeolCnt + " >> " + pMemberEditorVo.getAddByeolCnt() + " 추가 >> " + afterByeolCnt);
+        pMemberEditorVo.setType(1);
+
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();

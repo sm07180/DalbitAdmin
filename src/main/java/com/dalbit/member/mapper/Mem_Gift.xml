@@ -107,7 +107,7 @@
                        , (select mem_userid from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_userid
                        , (select mem_nick from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_nick
                        , '받은 달' as use_contents
-                       , 'https://image.dalbitlive.com/store/store_1.png' AS image
+                       , 'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' AS image
                        , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '받은 달' as `type`
                   from rd_data.tb_member_broadcast_item as aa
                  where gifted_mem_no=#{mem_no}
@@ -117,15 +117,15 @@
                        , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_userid
                        , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_nick
                        , '보낸 달' as use_contents
-                       , 'https://image.dalbitlive.com/store/store_1.png' AS image
+                       , 'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' AS image
                        , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '보낸 달' as `type`
                       from rd_data.tb_member_broadcast_item
                      where mem_no=#{mem_no}
                        and item_type='3'
                 union
-                select '시스템' as mem_no,'시스템' as mem_userid ,'관리자' as mem_nick
+                select '운영자' as mem_no,'운영자' as mem_userid ,'관리자' as mem_nick
                         ,use_contents
-                        ,'https://image.dalbitlive.com/store/store_1.png' as image
+                        ,'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' as image
                         ,'달' as itemNm
                         ,'dal' as itemType
                         , ruby as cnt
@@ -139,9 +139,9 @@
                   union
               </if>
               <if test="slctItem == 1 or slctItem == -1">    <!-- 별 -->
-              select'시스템' as mem_no,'시스템' as mem_userid ,'관리자' as mem_nick
+              select '운영자' as mem_no,'운영자' as mem_userid ,'관리자' as mem_nick
                     ,use_contents
-                    ,'' as image
+                    ,'https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg' as image
                     ,'별' as itemNm
                     ,'byeol' as itemType
                     , gold as cnt
@@ -198,7 +198,7 @@
                        , (select mem_userid from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_userid
                        , (select mem_nick from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_nick
                        , '보낸 달' as use_contents
-                       , 'https://image.dalbitlive.com/store/store_1.png' AS image
+                       , 'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' AS image
                        , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '보낸 달' as `type`
                     from rd_data.tb_member_broadcast_item as aa
                     where gifted_mem_no=#{mem_no}
@@ -208,9 +208,9 @@
                     union
                   </if>
                   <if test="slctItem == 1 or slctItem == -1">      <!-- 달 -->
-                     select'시스템' as mem_no,'시스템' as mem_userid ,'관리자' as mem_nick
+                     select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
                       ,use_contents
-                      ,'' as image
+                      ,'https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg' as image
                       ,'별' as itemNm
                       ,'byeol' as itemType
                       , gold as cnt
@@ -227,15 +227,15 @@
                            , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_userid
                            , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_nick
                            , '받은 달' as use_contents
-                           , 'https://image.dalbitlive.com/store/store_1.png' AS image
+                           , 'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' AS image
                            , '달' as itemNm,'dal' as itemType, item_cnt as cnt, last_upd_date AS lastUpdDate, '받은 달' as `type`
                           from rd_data.tb_member_broadcast_item
                          where mem_no=#{mem_no}
                            and item_type='3'
                     union
-                    select '시스템' as mem_no,'시스템' as mem_userid ,'관리자' as mem_nick
+                    select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
                             ,use_contents
-                            ,'https://image.dalbitlive.com/store/store_1.png' as image
+                            ,'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' as image
                             ,'달' as itemNm
                             ,'dal' as itemType
                             , ruby as cnt
@@ -249,9 +249,9 @@
                       union
                   </if>
                   <if test="slctItem == 1 or slctItem == -1">    <!-- 별 -->
-                  select'시스템' as mem_no,'시스템' as mem_userid ,'관리자' as mem_nick
+                  select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
                         ,use_contents
-                        ,'' as image
+                        ,'https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg' as image
                         ,'별' as itemNm
                         ,'byeol' as itemType
                         , gold as cnt

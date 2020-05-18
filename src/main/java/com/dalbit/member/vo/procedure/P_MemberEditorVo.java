@@ -27,6 +27,7 @@ public class P_MemberEditorVo extends BaseVo {
     private String  editContents;
     private String  beforProfileImage;
     private String  brforNickName;
+    private int  type;
 
     // 달 별 추가 Cnt
     private int beforDalCnt;
