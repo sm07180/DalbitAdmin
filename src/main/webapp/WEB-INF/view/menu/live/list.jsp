@@ -272,10 +272,10 @@
             등급 : {{grade}}
         </td>
         <td>{{mem_nick}}</td>
-        <td>{{money}}</td>
-        <td>{{byeol}}</td>
-        <td>{{gifted_mem_no}}</td>
-        <td>{{airCount}}</td>
+        <td>{{addComma money}}원</td>
+        <td>{{addComma byeol}}개</td>
+        <td>{{addComma gifted_mem_no}}개</td>
+        <td>{{addComma airCount}}번</td>
         <td>{{convertToDate start_date "YYYY-MM-DD HH:mm:ss"}}</td>
         <td>{{timeStamp airTime}}</td>
     </tr>
