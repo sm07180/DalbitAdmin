@@ -7,10 +7,12 @@ var payDataTableSource = {
              {'title': '회원번호', 'data' : 'mem_no', 'render': function(data, type, row) {
                 return '<a href="javascript://" class="_openMemberPop" data-memNo=" ' + row.mem_no + '">' + data + '</a>'
                 }}
-            , {'title': '결제수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
+            , {'title': '결제<br />수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return codeString(data);
                 }}
-            , {'title': '결제시도일', 'data': 'pay_dt_comein', 'width':'80px'}
+            , {'title': '결제시도일', 'data': 'pay_dt_comein', 'width':'80px', 'render': function(data, type, row) {
+                    return common.convertToDate(data, 'YYYY.MM.DD HH:mm:ss');
+                }}
             , {'title': '결제상태', 'data': 'pay_yn', 'width':'50px', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
@@ -21,14 +23,14 @@ var payDataTableSource = {
                 var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt.split(".")[0]) + '원' : row.pay_amt.split(".")[0];
                 return tmp;
                 }}
-            , {'title': '아이템정보', 'data': 'pay_code', 'width':'60px'}
-            , {'title': '구매 횟수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
+            , {'title': '아이템<br />정보', 'data': 'pay_code', 'width':'60px'}
+            , {'title': '구매<br />횟수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
                 return common.addComma(String(data));
                 }}
-            , {'title': '총 구매 금액', 'data': 'amount', 'width':'80px', 'render': function(data, type, row) {
+            , {'title': '총 구매<br />금액', 'data': 'amount', 'width':'80px', 'render': function(data, type, row) {
                 return common.addComma(data) + '원';
                 }}
-            , {'title': '직원여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
+            , {'title': '직원<br />여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
             /*, {'title': '앱버전', 'data': 'app_ver', 'render': function(data, type, row) {
@@ -41,14 +43,14 @@ var payDataTableSource = {
                 var tmp = !(common.isEmpty(row.card_no) || row.card_no == 0) ? common.cardNo(row.card_no) + '<br/>' + row.card_nm : '-';
                 return tmp;
                 }}
-            , {'title': '휴대폰번호', 'data': 'phone_no', 'render': function(data, type, row) {
+            , {'title': '휴대폰<br />번호', 'data': 'phone_no', 'render': function(data, type, row) {
                     return common.phoneNumHyphen(data);
                 }}
             , {'title': '은행코드 <br/>/ 가상계좌번호', 'data': '', 'render': function(data, type, row) {
                 var tmp = row.bank_code + '<br/>' + row.account_no;
                 return tmp;
                 }}
-            , {'title': '결제자명', 'data': 'rcpt_nm'}
+            , {'title': '결제자', 'data': 'rcpt_nm'}
             , {'title': '취소시도일', 'data': 'cancel_comein'}
             , {'title': '취소일시', 'data': '', 'render': function(data, type, row) {
                     return row.cancel_state == 'y' ? row.cancel_date + '<br/>' + row.cancel_time : '-';
