@@ -16,7 +16,7 @@
                                 <span name="question_selbox_type" id="question_selbox_type"></span>
                                 <span name="question_platform" id="question_platform"></span>
                                 <label><input type="text" class="form-control" id="txt_search"></label>
-                                <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
                     </div>
