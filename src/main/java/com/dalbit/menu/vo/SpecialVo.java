@@ -9,10 +9,15 @@ import lombok.Setter;
 public class SpecialVo extends PagingVo {
 
     /* output */
+    private int req_idx;
     private String mem_no;
     private String reg_date;
     private String is_force;
     private int order;
     private String op_name;
+
+    /* 추가 */
+    private String title;
+    private String contents;
 
 }

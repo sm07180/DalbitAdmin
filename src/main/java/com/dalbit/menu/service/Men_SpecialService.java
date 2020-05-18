@@ -6,7 +6,6 @@ import com.dalbit.member.vo.MemberVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
 import com.dalbit.menu.vo.SpecialReqVo;
 import com.dalbit.menu.vo.SpecialVo;
-import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +40,7 @@ public class Men_SpecialService {
     }
 
     /**
-     * 스페셜 달D 신청 상세 목록 조회
+     * 스페셜 달D 신청 상세 조회
      */
     public String getReqSpecialDetail(SpecialReqVo specialReqVo) {
         SpecialReqVo detail = menSpecialDao.getReqSpecialDetail(specialReqVo);
@@ -71,6 +70,23 @@ public class Men_SpecialService {
     }
 
     /**
+     * 스페셜 달D 신청 거부
+     */
+    @Transactional(readOnly = false)
+    public String reqReject(SpecialReqVo specialReqVo) {
+        specialReqVo.setOp_name(MemberVo.getMyMemNo());
+
+        specialReqVo.setState(3);
+        int result= menSpecialDao.reqOkUpdate(specialReqVo);
+
+        if(result > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+        }
+    }
+
+    /**
      * 스페셜 달D 목록 조회
      */
     public String getSpecialList(SpecialVo specialVo) {
@@ -82,5 +98,37 @@ public class Men_SpecialService {
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialVo.getTotalCnt(), specialVo.getPageStart(), specialVo.getPageCnt())));
 
         return result;
+    }
+
+    /**
+     * 스페셜 달D 상세 조회
+     */
+    public String getSpecialDetail(SpecialVo specialVo) {
+        SpecialVo detail = menSpecialDao.getSpecialDetail(specialVo);
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, detail));
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 승인 취소
+     */
+    @Transactional(readOnly = false)
+    public String reqCancel(SpecialVo specialVo, SpecialReqVo specialReqVo) {
+        specialVo.setOp_name(MemberVo.getMyMemNo());
+        int result = menSpecialDao.reqCancel(specialVo);
+
+        specialReqVo.setState(3);
+        specialReqVo.setIdx(specialVo.getReq_idx());
+        specialReqVo.setOp_name(MemberVo.getMyMemNo());
+        menSpecialDao.reqOkUpdate(specialReqVo);
+
+        specialReqVo.setSpecialdj_badge(0);
+        menSpecialDao.profileUpdate(specialReqVo);
+
+        if(result > 0) {
+            return gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+        } else {
+            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+        }
     }
 }

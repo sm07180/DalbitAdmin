@@ -25,4 +25,10 @@ var special_state = [
     , new COMMON_CODE('wait', '1', '대기')
     , new COMMON_CODE('ok', '2', '완료')
     , new COMMON_CODE('reject', '3', '거부')
-]
+];
+
+var special_isForce= [
+    new COMMON_CODE(null, 'isForce', '관리자 등록여부')
+    , new COMMON_CODE('no', '0', 'N')
+    , new COMMON_CODE('yes', '1', 'Y')
+];
