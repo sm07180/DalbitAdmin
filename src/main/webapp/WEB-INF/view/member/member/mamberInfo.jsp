@@ -22,22 +22,16 @@
 
 
 <script>
-
-
-
+    var pointAuthMenu = -1;
     $(document).ready(function() {
-        console.log('-----------------');
-        console.log('${isPointAuthMenu.is_read}');
-        console.log('${isPointAuthMenu.is_insert}');
-        console.log('${isPointAuthMenu.is_delete}');
-        console.log('-----------------');
-        console.log('권한 없을 떄-----------------');
-        console.log('${isPointAuthMenu.is_read eq 0}');
-        console.log(${empty isPointAuthMenu});
-
-        console.log('권한 있을 떄-----------------');
-        console.log(${isPointAuthMenu.is_read eq 1});
-        console.log('-----------------');
+        if(${not empty isPointAuthMenu}){
+            if('${isPointAuthMenu.is_read}' == "1"){        // 읽기 권한만
+                pointAuthMenu = 1;
+            }
+            if('${isPointAuthMenu.is_insert}' == "1" && '${isPointAuthMenu.is_delete}' == "1"){     // 쓰기 수정 권한
+                pointAuthMenu = 2;
+            }
+        }
     });
     $("#select_level").html(util.getCommonCodeSelect(-1, level));
     $("#select_grade").html(util.getCommonCodeSelect(-1, grade));
@@ -46,7 +40,6 @@
     var profImgDel;
     var report;
     var memberInfo_responseDate;
-    var withdrawal;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         memberInfo_responseDate = response.data;
@@ -56,14 +49,15 @@
         if (response.data.memState == 3)
             response.data["block"] = " / 정지기간: " + response.data.block_day + " / 정지종료일: " + response.data.blockEndDateFormat;
 
-        if (response.data.memState == 4)
+        if (response.data.memState == 4){
             response.data["memWithdrawal"] = "1";
-        else
+        }else{
             response.data["memWithdrawal"] = "0";
-
-        // withdrawal = response.data["memWithdrawal"];
-
+        }
         response.data["birthData"] = response.data.birthDate.substr(0, 10);
+        response.data["pointAuthMenu"] = pointAuthMenu;     // 관리자 권한
+
+        console.log(pointAuthMenu);
 
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -72,7 +66,6 @@
         $("#memberInfoFrm").html(html);
         init();
 
-        // $("#txt_birth").val(response.data.birthDate);
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "40"));
         report = "/member/member/popup/reportPopup?memNo='" + encodeURIComponent(response.data.mem_no) + "'&memId='"
                                                             + encodeURIComponent(response.data.userId) + "'&memNick='"
@@ -163,6 +156,9 @@
         });
         $('#bt_byeolAdd').click(function() {           // 달추가
             dalbyeolAdd("byeol");
+        });
+        $('#bt_pointHistory').click(function() {           // 달추가
+            // getInfoDetail(this.id,"보유달/별 수정내역");
         });
 
         // 버튼 끝
@@ -513,7 +509,7 @@
     <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
     <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
         <colgroup>
-            <col width="10%"/><col width="10%"/><col width="10%"/><col width="20%"/><col width="10%"/><col width="40%"/>
+            <col width="10%"/><col width="10%"/><col width="10%"/><col width="20%"/><col width="10%"/><col width="35%"/><col width="5%"/>
         </colgroup>
         <tbody>
         <tr>
@@ -528,15 +524,15 @@
             </td>
         <tr>
             <th>회원레벨</th>
-            <td style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
+            <td colspan="2" style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
         </tr>
         <tr>
             <th>경험치</th>
-            <td style="text-align: left">{{{getCommonCodeLabel grade 'grade'}}}</td>
+            <td colspan="2" style="text-align: left">{{{getCommonCodeLabel grade 'grade'}}}</td>
         </tr>
         <tr>
             <th>회원상태</th>
-            <td style="text-align: left">
+            <td colspan="2" style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
                 {{{block}}}
                 {{#equal memWithdrawal '0'}}
@@ -547,7 +543,7 @@
         </tr>
         <tr>
             <th>접속상태</th>
-            <td style="text-align: left">{{connectState}}
+            <td colspan="2" style="text-align: left">{{connectState}}
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
                 {{/equal}}
@@ -558,7 +554,7 @@
             <th>회원NO</th>
             <td colspan="3" style="text-align: left">{{mem_no}}</td>
             <th>방송상태</th>
-            <td style="text-align: left">{{broadcastState}}</td>
+            <td colspan="2" style="text-align: left">{{broadcastState}}</td>
         </tr>
         <tr>
             <th>회원이름</th>
@@ -566,7 +562,7 @@
             <th>내/외국인 구분</th>
             <td style="text-align: left">{{local}}</td>
             <th>청취상태</th>
-            <td style="text-align: left">{{listeningState}}</td>
+            <td colspan="2" style="text-align: left">{{listeningState}}</td>
         </tr>
         <tr>
             <th>UserId</th>
@@ -577,11 +573,16 @@
                     {{addComma dal}} 달
                 </span>
                 {{#equal memWithdrawal '0'}}
-                <span class="col-md-9 no-padding">
-                    <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
-                    <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
-                </span>
+                    {{#equal ../pointAuthMenu '2'}}
+                        <span class="col-md-9 no-padding">
+                            <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
+                            <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                        </span>
+                    {{/equal}}
                 {{/equal}}
+            </td>
+            <td rowspan="2">
+                <button type="button" id="bt_pointHistory" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         <tr>
@@ -600,10 +601,12 @@
                     {{addComma byeol}} 별
                 </span>
                 {{#equal memWithdrawal '0'}}
-                <span class="col-md-9 no-padding">
-                    <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
-                    <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
-                </span>
+                    {{#equal ../pointAuthMenu '2'}}
+                        <span class="col-md-9 no-padding">
+                            <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
+                            <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                        </span>
+                    {{/equal}}
                 {{/equal}}
             </td>
         </tr>
@@ -617,7 +620,7 @@
                 {{certification}}
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
-            <td style="text-align: left">
+            <td colspan="2" style="text-align: left">
                 {{addComma managerICnt}} 명 / {{addComma managerMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
@@ -633,7 +636,7 @@
                 {{/equal}}
             </td>
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
-            <td style="text-align: left">
+            <td colspan="2" style="text-align: left">
                 {{addComma blackICnt}} 명 / {{addComma blackMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
@@ -654,7 +657,7 @@
                 {{/equal}}
             </td>
             <th>가입방법</th>
-            <td style="text-align: left"><label id="memSlct"></label></td>
+            <td colspan="2" style="text-align: left"><label id="memSlct"></label></td>
         </tr>
         <tr>
             <th>나이</th>
@@ -667,7 +670,7 @@
                 {{/equal}}
             </td>
             <th>회원가입일시</th>
-            <td style="text-align: left">{{joinDate}}</td>
+            <td colspan="2" style="text-align: left">{{joinDate}}</td>
         </tr>
         <tr>
             <th>비밀번호</th>
@@ -677,7 +680,7 @@
                 {{/equal}}
             </td>
             <th>회원탈퇴일시</th>
-            <td style="text-align: left">{{withdrawalDate}}</td>
+            <td colspan="2" style="text-align: left">{{withdrawalDate}}</td>
         </tr>
         <tr>
             <th rowspan="4">운영자메모</th>
@@ -685,7 +688,7 @@
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
             <th>최초방송일시</th>
-            <td style="text-align: left">{{firstBroadcastDate}}</td>
+            <td colspan="2" style="text-align: left">{{firstBroadcastDate}}</td>
         </tr>
         <tr>
             <td rowspan="3" colspan="3" style="text-align: left">
@@ -694,11 +697,11 @@
             </td>
         <tr>
             <th>최근 정보 수정<br/> 처리일시</th>
-            <td style="text-align: left">{{lastOpDate}}</td>
+            <td colspan="2" style="text-align: left">{{lastOpDate}}</td>
         </tr>
         <tr>
             <th>최근 정보 수정 자</th>
-            <td style="text-align: left">{{lastOpName}}
+            <td colspan="2" style="text-align: left">{{lastOpName}}
                 <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
