@@ -8,13 +8,11 @@
 
     <select id="callMemberList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberListOutputVo">
         /* M_Member.xml - callMemberList */
-        <!--call rd_admin.sp_admin_member_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
         call rd_admin.sp_admin_member_all_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callMemberInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberInfo */
-        <!--call rd_admin.sp_admin_member_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
         call rd_admin.sp_admin_member_all_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
@@ -42,8 +40,25 @@
 
     <select id="callMemberEditHistory" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo">
         /* M_Member.xml - callMemberEditHistory */
-        <!--call rd_admin.sp_admin_member_info_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
         call rd_admin.sp_admin_member_all_info_edit_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callMemberPointHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberEditHistOutputVo">
+        /* M_Member.xml - callMemberPointHistory */
+        select @rownum := @rownum + 1 as rowNum, a.*
+          FROM (SELECT last_upd_date AS editDate,
+                       edit_contents AS editContents,
+                       op_name       AS opName
+                  FROM rd_data.tb_member_profile_edit_history
+                 where `type` = 1 and mem_no=#{mem_no}
+               ) a , (select @rownum := #{pageNo} ) AS b
+         ORDER BY a.editDate DESC
+         limit #{pageNo}, #{pageCnt}
+    </select>
+
+    <select id="callMemberPointHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberEditHistInputVo" resultType="integer">
+        /* M_Member.xml - callMemberPointHistory_totalCnt */
+       SELECT count(*) as totalCnt FROM rd_data.tb_member_profile_edit_history where `type` = 1 and mem_no=#{mem_no}
     </select>
 
     <select id="callMemberEditor" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">

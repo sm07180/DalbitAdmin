@@ -277,7 +277,7 @@
                 return;
             }
             obj.notiContents = broadCastMessage.notiContents;
-            obj.sendNoti = "0";
+            obj.sendNoti = "1";
             obj.subjectType = broadCast_responseData.subjectType;
             obj.beforBackgroundImage = broadCast_responseData.backgroundImage;
 

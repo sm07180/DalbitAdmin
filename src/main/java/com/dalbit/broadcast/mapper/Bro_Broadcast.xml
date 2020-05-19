@@ -7,6 +7,19 @@
         call rd_admin.sp_admin_broadcast_room_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="callBroadcastList_all" parameterType="String" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
+        SELECT count(*) as totalBroadCastCnt
+               ,SUM(case when os_type = 1 then 1 else 0 end) as totalAosCnt
+               ,SUM(case when os_type = 2 then 1 else 0 end) as totalIosCnt
+               ,SUM(case when os_type = 3 then 1 else 0 end) as totalPcCnt
+          from rd_data.tb_broadcast_room
+          <if test="room_liveType == 1">
+            where state != 4
+          </if>
+          <if test="room_liveType == 2">
+            where state=4
+          </if>
+    </select>
 
     <select id="callBroadcastInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastDetailOutputVo">
         call rd_admin.sp_admin_broadcast_info_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})

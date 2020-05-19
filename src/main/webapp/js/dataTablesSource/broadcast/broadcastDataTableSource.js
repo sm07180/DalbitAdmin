@@ -32,7 +32,6 @@ var BroadcastDataTableSource = {
                 }},
             {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
             {'title': '시작일시', 'data': 'start_date','width' : '120px'},
-            {'title': '종료일시', 'data': 'end_date','width' : '120px'},
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
@@ -44,6 +43,72 @@ var BroadcastDataTableSource = {
                     return tmp + "명";
                 }},
             {'title': '<lable style="color:red">청취자</lable>', 'data': 'liveListener','color': 'red','width' : '40px','render': function (data){
+                    return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
+                }},
+            {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '부스터', 'data': 'boosterCnt','width' : '40px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "건";
+                }},
+            {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
+            {'title': '강제퇴장', 'data': 'forcedCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "명";
+                }},
+        ]
+    },
+
+    'endLiveList': {
+        'url': '/rest/broadcast/broadcast/list'
+        , 'columns': [
+            {'title': '플랫폼', 'data': 'osType','width' : '65px', 'render': function (data) {
+                    return util.getCommonCodeLabel(data, os_type);
+                }},
+            {'title': '주제', 'data': 'subject_name','width' : '65px'},
+            {'title': '제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
+                    return util.roomNoLink(data, row.room_no);
+                }},
+            {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
+                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
+                }},
+            {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
+                    var tmp = "";
+                    if(row.recommBadge == "1"){
+                        tmp = '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>';
+                    }
+                    if(row.popularBadge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>';
+                    }
+                    if(row.newjdBadge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }
+                    return tmp;
+                }},
+            {'title': 'DJ ID', 'data': 'dj_userid','width' : '65px','render': function (data, type, row, meta) {
+                    var tmp = util.memNoLink(data, row.dj_mem_no);
+                    tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
+                    return tmp;
+                }},
+            {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
+            {'title': '시작일시', 'data': 'start_date','width' : '120px'},
+            {'title': '종료일시', 'data': 'end_date','width' : '120px'},
+            {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
+                    return common.timeStamp(data);
+                }},
+            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+                    return common.fontColor(data, 1, 'red') +'번';
+                }},
+            {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '65px','render': function (data){
                     return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){

@@ -10,6 +10,9 @@ var payDataTableSource = {
             , {'title': '결제<br />수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return codeString(data);
                 }}
+            , {'title': '결제<br />정보', 'data': '', 'width':'60px', 'render': function(data, type, row) {
+                    return '';
+                }}
             , {'title': '결제시도일', 'data': 'pay_dt_comein', 'width':'80px', 'render': function(data, type, row) {
                     return common.convertToDate(data, 'YYYY.MM.DD HH:mm:ss');
                 }}
@@ -33,9 +36,9 @@ var payDataTableSource = {
             , {'title': '직원<br />여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
-            /*, {'title': '앱버전', 'data': 'app_ver', 'render': function(data, type, row) {
-                    return common.isEmpty(data) ? '-' : data;
-                }}*/
+            , {'title': '플랫폼', 'data': 'os', 'render': function(data, type, row) {
+                    return osGubun(data);
+                }}
             , {'title': '최초여부', 'data': 'first_pay_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
@@ -63,7 +66,7 @@ var payDataTableSource = {
             , {'title': '처리자', 'data': 'op_name'}
             , {'title': '취소', 'data': '', 'render': function(data, type, row) {
 
-                return (row.pay_way == 'VA' || row.pay_yn == 'n') ? '-' : '<button type="button" class="btn btn-default cancelBtn" ' +
+                return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : '<button type="button" class="btn btn-default cancelBtn" ' +
                     'data-paycd="'+ row.pay_way+'" ' +
                     'data-tradeid="'+row.order_id+'" ' +
                     'data-mobilid="'+row.bill_id+'" ' +

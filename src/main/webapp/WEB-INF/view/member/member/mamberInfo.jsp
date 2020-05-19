@@ -27,9 +27,6 @@
 
 
 <script>
-
-
-
     $(document).ready(function() {
 
     });
@@ -155,6 +152,10 @@
         });
         $('#bt_byeolAdd').click(function() {           // 달추가
             dalbyeolAdd("byeol");
+        });
+
+        $('#bt_pointHistory').click(function() {           // 달추가
+            getInfoDetail(this.id,"보유달/별 수정내역");
         });
 
         // 버튼 끝
@@ -473,10 +474,18 @@
         data.mem_no = memNo;
 
         if(tmp == "dal" ){
-            data.addDalCnt = $("#txt_dalAddCnt").val();
+            if($("select[name='dalPlusMinus']").val() == 2){
+                data.addDalCnt = "-" + $("#txt_dalAddCnt").val();
+            }else{
+                data.addDalCnt = $("#txt_dalAddCnt").val();
+            }
             util.getAjaxData("dalAdd", "/rest/member/member/daladd", data, dalbyeoladd_success, fn_fail);
         }else if(tmp == "byeol"){
-            data.addByeolCnt = $("#txt_byeolAddCnt").val();
+            if($("select[name='byeolPlusMinus']").val() == 2){
+                data.addByeolCnt = "-" + $("#txt_byeolAddCnt").val();
+            }else{
+                data.addByeolCnt = $("#txt_byeolAddCnt").val();
+            }
             util.getAjaxData("byeoladd", "/rest/member/member/byeoladd", data, dalbyeoladd_success, fn_fail);
         }
     }
@@ -571,10 +580,19 @@
                 <c:if test="${insertYn eq 'Y'}">
                     {{#equal memWithdrawal '0'}}
                         <span class="col-md-9 no-padding">
+                            <select id="dalPlusMinus" name="dalPlusMinus" class="form-control searchType">
+                                <option value="1">+</option>
+                                <option value="2">-</option>
+                            </select>
                             <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
                             <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
                         </span>
                     {{/equal}}
+                </c:if>
+            </td>
+            <td rowspan="2">
+                <c:if test="${readYn eq 'Y'}">
+                    <button type="button" id="bt_pointHistory" class="btn btn-default btn-sm pull-right">자세히</button>
                 </c:if>
             </td>
         </tr>
@@ -596,6 +614,10 @@
                 <c:if test="${insertYn eq 'Y'}">
                     {{#equal memWithdrawal '0'}}
                         <span class="col-md-9 no-padding">
+                            <select id="byeolPlusMinus" name="byeolPlusMinus" class="form-control searchType">
+                                <option value="1">+</option>
+                                <option value="2">-</option>
+                            </select>
                             <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
                             <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
                         </span>

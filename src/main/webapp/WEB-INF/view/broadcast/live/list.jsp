@@ -87,36 +87,60 @@
     $('#bt_broad').on('click', function(){
         getSearch();
     });
-
+    var liveState=1;
     var room_liveType = 1;
     var dtList_info="";
-    var dtList_info_data = function (data) {
-        var slctType = $('input[name="searchRadio"]:checked').val();
-        data.slctType = slctType;
-        if(slctType == "1"){      // DJ정보
-            data.dj_slctType = $("select[name='searchType_broad']").val();
-            data.dj_searchText = $('#txt_search').val();
-            data.room_slctType = -1;
-            data.room_searchText = "";
-            data.ortStartDate =2;
-        }else {                                                              // 방송정보
-            data.dj_slctType = -1;
-            data.dj_searchText = "";
-            data.room_slctType = $("select[name='searchBroad_broad']").val();
-            data.room_searchText = $('#txt_search').val();
-            data.ortStartDate =2;
+    liveList(1);
+
+    var tmp_slctType;
+    var tmp_dj_slctType = -1;
+    var tmp_dj_searchText;
+    var tmp_room_slctType = -1;
+    var tmp_room_searchText;
+
+    function liveList(tmp){
+        liveState = tmp;
+        if(tmp == 1){
+            $("#liveTitle").html("ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.");
+        }else if(tmp == 2){
+            $("#liveTitle").html("ㆍ종료된 방송은 방송종료일을 기준으로 최상위 누적되어 보여집니다.<br/>" +
+                "ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 추가됩니다.");
         }
-        data.room_liveType = room_liveType;
-        data.sortStartDate = 0;
-    };
-    dalbitLog(dtList_info_data);
-    dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
-    dtList_info.useCheckBox(false);
-    dtList_info.useIndex(true);
-    dtList_info.setPageLength(50);
-    dtList_info.createDataTable(summary_table);
-    var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-    $("#main_table").find(".footer-right").append(excelBtn);
+        room_liveType = tmp;
+        var dtList_info_data = function (data) {
+            var slctType = $('input[name="searchRadio"]:checked').val();
+            data.slctType = slctType;
+            if(slctType == "1"){      // DJ정보
+                data.dj_slctType = $("select[name='searchType_broad']").val();
+                data.dj_searchText = $('#txt_search').val();
+                data.room_slctType = -1;
+                data.room_searchText = "";
+                data.ortStartDate =2;
+            }else {                                                              // 방송정보
+                data.dj_slctType = -1;
+                data.dj_searchText = "";
+                data.room_slctType = $("select[name='searchBroad_broad']").val();
+                data.room_searchText = $('#txt_search').val();
+                data.ortStartDate =2;
+            }
+            data.room_liveType = room_liveType;
+            data.sortStartDate = 0;
+        };
+        dalbitLog(dtList_info_data);
+        if(liveState == 1){
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
+        }else{
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.endLiveList);
+        }
+        dtList_info.useCheckBox(false);
+        dtList_info.useIndex(true);
+        dtList_info.setPageLength(50);
+        dtList_info.createDataTable(summary_table);
+        var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
+        $("#main_table").find(".footer-right").append(excelBtn);
+
+        getSearch();
+    }
 
     function summary_table(json){
         // dalbitLog(json);
@@ -129,7 +153,12 @@
         var html = templateScript(data);
         $("#platform_summaryArea").html(html);
 
-        var template = $("#live_tableSummary").html();
+        if(liveState == 1) {
+            var template = $("#live_tableSummary").html();
+        }else{
+            var template = $("#endlive_tableSummary").html();
+        }
+
         var templateScript = Handlebars.compile(template);
         var data = {
             content : json.summary
@@ -137,14 +166,8 @@
         };
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
-
     }
 
-    var tmp_slctType;
-    var tmp_dj_slctType = -1;
-    var tmp_dj_searchText;
-    var tmp_room_slctType = -1;
-    var tmp_room_searchText;
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         var slctType = $('input[name="searchRadio"]:checked').val();
@@ -157,18 +180,6 @@
             tmp_room_searchText = $('#txt_search').val();
         }
         dtList_info.reload(summary_table);
-    }
-
-    function liveList(tmp){
-        if(tmp == 1){
-            $("#liveTitle").html("ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.");
-        }else if(tmp == 2){
-            $("#liveTitle").html("ㆍ종료된 방송은 방송종료일을 기준으로 최상위 누적되어 보여집니다.<br/>" +
-                                 "ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 추가됩니다.");
-        }
-
-        room_liveType = tmp;
-        getSearch();
     }
 
     function fullSize_live(url) {     // 이미지 full size
@@ -247,11 +258,32 @@
             </tr>
         </thead>
         <tbody id="summaryDataTable">
-            <td style="color: red">{{#equal length '0'}}0{{/equal}}{{content.totalListenerCnt}}건</td>
+            <td style="color: red">{{#equal length '0'}}0{{/equal}}{{content.liveListenerCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>
             <td>{{#equal length '0'}}0{{/equal}}{{content.totalForcedCnt}}건</td>
+        </tbody>
+    </table>
+</script>
+
+<script id="endlive_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right">
+        <thead>
+        <tr style="height: 68px;">
+            <th style="vertical-align: middle;color:red;">누적 청취자</th>
+            <th style="vertical-align: middle;">총 선물</th>
+            <th style="vertical-align: middle;">총 좋아요</th>
+            <th style="vertical-align: middle;">총 청취자<br/>부스터</th>
+            <th style="vertical-align: middle;">총 강제퇴장</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td style="color: red">{{#equal length '0'}}0{{/equal}}{{content.totalListenerCnt}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.totalForcedCnt}}건</td>
         </tbody>
     </table>
 </script>

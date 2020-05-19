@@ -172,6 +172,24 @@ public class Mem_MemberService {
     }
 
     /**
+     * 회원 달/별 내역 보기
+     */
+    public String callMemberPointHistory(P_MemberEditHistInputVo pMemberEditHistInputVo){
+        pMemberEditHistInputVo.setPageNo(pMemberEditHistInputVo.getPageNo() -1);
+        pMemberEditHistInputVo.setPageNo(pMemberEditHistInputVo.getPageNo() * pMemberEditHistInputVo.getPageCnt());
+        ArrayList<P_MemberEditHistOutputVo> editList = mem_MemberDao.callMemberPointHistory(pMemberEditHistInputVo);
+        int totalCnt = mem_MemberDao.callMemberPointHistory_totalCnt(pMemberEditHistInputVo);
+        String result;
+        if (editList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원달별수정내역조회_성공, editList, new PagingVo(totalCnt)));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원달별수정내역조회_실패));
+        }
+        return result;
+
+    }
+
+    /**
      * 회원 정보 수정
      */
     public String getMemberEditor(P_MemberEditorVo pMemberEditorVo) throws GlobalException {

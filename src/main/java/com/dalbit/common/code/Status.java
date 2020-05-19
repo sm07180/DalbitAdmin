@@ -76,6 +76,10 @@ public enum Status {
     회원정보수정내역조회_성공("0", "member.editor.list.success", "회원정보 수정내역 조회 성공 시"),
     회원정보수정내역조회_실패("-1", "member.editor.list.fail", "회원정보 수정내역 조회 실패 시"),
 
+    //회원달/별 수정 내역 조회
+    회원달별수정내역조회_성공("0", "member.dal.byeol.edit.list.success", "회원달/별 수정내역 조회 성공 시"),
+    회원달별수정내역조회_실패("-1", "member.dal.byeol.edit.list.fail", "회원달/별 수정내역 조회 실패 시"),
+
     //방송기록보기
     방송기록보기성공("0", "broadcast.list.view.success", "방송기록 보기 성공 시"),
     방송기록보기실패("C006", "broadcast.list.view.fail", "방송기록 보기 실패 시"),
@@ -225,6 +229,7 @@ public enum Status {
     //1:1문의 처리중 상태 변경
     일대일문의처리중_상태변경_성공("0", "qna.catch.success", "1:1문의 처리 중 상태변경 성공 시"),
     일대일문의처리중_상태변경_실패("-1", "qna.catch.fail", "1:1문의 처리 중 상태변경 실패(이미 처리 중 상태)"),
+    일대일문의처리중_상태변경_안함("-2", "qna.catch.executives.user", "1:1문의 임원진 체크"),
     일대일문의처리중_상태변경_에러("C006", "qna.catch.error", "1:1문의 처리 중 상태변경 에러 발생 시"),
 
     //1:1문의 처리중 상태 해제
