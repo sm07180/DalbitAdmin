@@ -12,12 +12,25 @@
         <%--</div>--%>
     <%--</div>--%>
     <div class="widget-content">
-        <table id="specialList" class="table table-sorting table-hover table-bordered">
+        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>--%>
+
+        <table id="specialList" class="table table-sorting table-hover table-bordered mt15">
             <thead>
+                <tr>
+                    <th></th>
+                    <th>회원번호</th>
+                    <th>등록일</th>
+                    <th>관리자 등록여부</th>
+                    <th>순서</th>
+                    <th>등록자</th>
+                </tr>
             </thead>
-            <tbody id="tableBody">
+            <tbody id="special_tableBody">
             </tbody>
         </table>
+
+        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>--%>
+
     </div>
 </div>
 <!-- // DATA TABLE -->
@@ -30,17 +43,48 @@
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
+    var specialDjPagingInfo = new PAGING_INFO(0, 1, 10);
+
     var dtList_info;
     function init() {
-        var dtList_info_data = function(data) {
-        };
-        dtList_info = new DalbitDataTable($("#specialList"), dtList_info_data, specialDataTableSource.specialList, $("#searchForm"));
-        dtList_info.useCheckBox(true);
-        dtList_info.useIndex(false);
-        dtList_info.createDataTable();
-
+        // var dtList_info_data = function(data) {
+        // };
+        // dtList_info = new DalbitDataTable($("#specialList"), dtList_info_data, specialDataTableSource.specialList, $("#searchForm"));
+        // dtList_info.useCheckBox(true);
+        // dtList_info.useIndex(false);
+        // dtList_info.createDataTable();
+        //
         ui.checkBoxInit('specialList');
-        // $("#specialList-select-all").remove();
+        $("#specialList-select-all").remove();
+        $("#pageStart").val(specialDjPagingInfo.pageNo);
+        $("#pageCnt").val(specialDjPagingInfo.pageCnt);
+        util.getAjaxData("special", "/rest/menu/special/dalList", $("#searchForm").serialize(), fn_dalList_success);
+    }
+
+    function fn_dalList_success(dst_id, response) {
+        var template = $('#tmp_specialList').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+
+        $('#special_tableBody').html(html);
+
+        var pagingInfo = response.pagingVo;
+        specialDjPagingInfo.totalCnt = pagingInfo.totalCnt;
+        console.log(specialDjPagingInfo);
+        util.renderPagingNavigation('list_info_paginate_top', specialDjPagingInfo);
+        util.renderPagingNavigation('list_info_paginate', specialDjPagingInfo);
+
+        if(response.data.length == 0) {
+            $("#list_info_paginate").hide();
+        } else {
+            $("#list_info_paginate").show();
+        }
+    }
+
+    function handlebarsPaging(targetId, pagingInfo){
+        specialDjPagingInfo = pagingInfo;
+        init();
     }
 
     $(document).on('click', '._dalDetail', function() {
@@ -67,6 +111,8 @@
         var html = templateScript(context);
 
         $('#dalList').html(html);
+
+        $('#contents').attr("disabled", "disabled");
     }
 
     $(document).on('click', '#bt_reqCancel', function() {
@@ -88,6 +134,22 @@
 
 </script>
 
+<script id="tmp_specialList" type="text/x-handlebars-template">
+    {{#each this}}
+    <tr class="_noTr" id="row_{{sortNo}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+        <td class=" dt-body-center"><input type="checkbox"/></td>
+        <td>{{mem_no}}</td>
+        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
+        <td>{{order}}</td>
+        <td>{{op_name}}</td>
+    </tr>
+    {{else}}
+    <tr>
+        <td colspan="6">{{isEmptyData}}</td>
+    </tr>
+    {{/each}}
+</script>
 
 <script id="tmp_dalList" type="text/x-handlebars-template">
     <div class="widget widget-table">
@@ -104,7 +166,7 @@
                         <th>신청일시</th>
                         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                         <th>관리자 등록 여부</th>
-                        <td>{{is_force}}</td>
+                        <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
                     </tr>
                     <tr>
                         <th>신청내용</th>
@@ -114,9 +176,7 @@
                     </tr>
                 </table>
                 <!-- 승인완료 승인거부-->
-                <%--{{#equal state '1'}}--%>
                 <button type="button" class="btn btn-danger mb15" id="bt_reqCancel">승인취소</button>
-                <%--{{/equal}}--%>
             </div>
         </div>
     </div>

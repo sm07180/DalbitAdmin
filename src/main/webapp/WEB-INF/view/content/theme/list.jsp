@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -19,26 +18,10 @@
 <div class="main-content" style="margin-top: 3px;">
 </div>
 
-<script src="../../../js/lib/jquery.table2excel.js"></script>
+<script src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 
-<script>
-    $(document).ready(function() {
-        init();
-        initEvent();
-    });
-
-//=------------------------------ Init / Event--------------------------------------------
-
-    function init() {
-
-    }
-
-    function initEvent(){
-
-    }
-
-
+<script type="text/javascript">
 //=------------------------------ Option --------------------------------------------
 
     //Tab 선택시 호출 함수
