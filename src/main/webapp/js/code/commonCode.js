@@ -234,7 +234,7 @@ var broadcastSubjectType = [
     , new COMMON_CODE('20', '20', '외국어')
     , new COMMON_CODE('21', '21', '판매/영업')
     , new COMMON_CODE('99', '99', '기타')
-]
+];
 
 var timeHour = getTimeHour();
 

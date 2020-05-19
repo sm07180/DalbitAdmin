@@ -73,6 +73,14 @@ public class Mem_MemberRestController {
     }
 
     /**
+     * 회원 정보수정 내역 보기
+     */
+    @PostMapping("pointHist")
+    public String pointHist(P_MemberEditHistInputVo pMemberEditHistInputVo) {
+        return mem_MemberService.callMemberPointHistory(pMemberEditHistInputVo);
+    }
+
+    /**
      * 회원 정보 수정
      */
     @PostMapping("editor")

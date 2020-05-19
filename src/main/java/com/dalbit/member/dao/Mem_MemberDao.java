@@ -34,6 +34,12 @@ public interface Mem_MemberDao {
     @Transactional(readOnly = true)
     ArrayList<P_MemberEditHistOutputVo> callMemberEditHistory(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<P_MemberEditHistOutputVo> callMemberPointHistory(P_MemberEditHistInputVo pMemberEditHistInputVo);
+
+    @Transactional(readOnly = true)
+    int callMemberPointHistory_totalCnt(P_MemberEditHistInputVo pMemberEditHistInputVo);
+
     ProcedureVo callMemberEditor(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
