@@ -715,7 +715,7 @@
                 if (common.isEmpty(detailData[i].hour)) {
                     array = 0;
                 } else {
-                    array = detailData[i].hour;
+                    array = detailData[i].hour +'시';
                 }
                 arrayList_x.push(array);
             }
