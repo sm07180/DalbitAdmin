@@ -8,6 +8,10 @@ import lombok.Setter;
 @Setter
 public class SpecialVo extends PagingVo {
 
+    /* input */
+    private String txt_search;
+    private String searchType;
+
     /* output */
     private int req_idx;
     private String mem_no;
@@ -15,8 +19,6 @@ public class SpecialVo extends PagingVo {
     private String is_force;
     private int order;
     private String op_name;
-
-    /* 추가 */
     private String title;
     private String contents;
 

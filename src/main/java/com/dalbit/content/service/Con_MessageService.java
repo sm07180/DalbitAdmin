@@ -1,5 +1,6 @@
 package com.dalbit.content.service;
 
+import com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
@@ -8,6 +9,9 @@ import com.dalbit.content.dao.Con_MessageDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.menu.dao.Men_LiveDao;
+import com.dalbit.menu.vo.RoomListVo;
+import com.dalbit.menu.vo.procedure.P_RoomListVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.OkHttpClientUtil;
@@ -23,6 +27,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -30,6 +36,9 @@ public class Con_MessageService {
 
     @Autowired
     Con_MessageDao messageDao;
+
+    @Autowired
+    Men_LiveDao menLiveDao;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -71,7 +80,13 @@ public class Con_MessageService {
             P_MessageDetailOutputVo messageDetail = messageDao.callContentsMessageDetail(pMessageDetailInputVo);
 
             if (messageDetail != null) {
-                result = gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지상세조회_성공, messageDetail));
+                List<P_BroadcastListOutputVo> sendRoomsInfoList = null;
+                if(!DalbitUtil.isEmpty(messageDetail.getTarget_rooms())){
+                    List<String> arrSendRooms = Arrays.asList(messageDetail.getTarget_rooms().split("\\|"));
+                    sendRoomsInfoList = messageDao.callContentsMessageSendRoomList(arrSendRooms);
+                }
+
+                result = gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지상세조회_성공, messageDetail, null, sendRoomsInfoList));
             } else{
                 result = gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지상세조회_에러));
             }
@@ -94,6 +109,26 @@ public class Con_MessageService {
         String result;
 
         try{
+            // 방송중인 방송방 리스트 조회 및 발송 건수 셋팅
+            if(DalbitUtil.isEmpty(pMessageInsertVo.getTarget_rooms())) {       // ALL
+                RoomListVo pRoomListVo = new RoomListVo();
+                pRoomListVo.setPage(1);
+                pRoomListVo.setRecords(100);
+                ProcedureVo roomListProcedureVo = new ProcedureVo(pRoomListVo);
+                List<P_RoomListVo> roomVoList = menLiveDao.callBroadCastRoomList(roomListProcedureVo);
+
+                String targetRooms = "";
+                for (P_RoomListVo room : roomVoList) {
+                    targetRooms += room.getRoomNo() + "|";
+                }
+
+                pMessageInsertVo.setSend_cnt(roomVoList.size() + "");
+                pMessageInsertVo.setTarget_rooms(targetRooms.substring(0, targetRooms.length() - 1));
+            }else{      // Target
+                String[] array = pMessageInsertVo.getTarget_rooms().split("\\|");
+                pMessageInsertVo.setSend_cnt(array.length + "");
+            }
+
             int insertResult = messageDao.callContentsMessageAdd(pMessageInsertVo);
 
             if(insertResult > 0){

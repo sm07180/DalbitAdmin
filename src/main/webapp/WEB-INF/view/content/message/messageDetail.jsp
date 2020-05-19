@@ -55,67 +55,9 @@
         // 이벤트 적용
         initDetailEvent()
         {
-
-            //수신대상 선택
-            this.target.find("input[name='is_all']").change(function () {
-                if ($(this).val() == "7") { //지정 회원
-                    fnc_messageDetail.target.find("#btn_selectMember").prop("disabled", false);
-                    fnc_messageDetail.target.find("#div_selectTarget").show();
-                } else {
-                    fnc_messageDetail.target.find("#btn_selectMember").prop("disabled", true);
-                    fnc_messageDetail.target.find("#div_selectTarget").hide();
-                    fnc_messageDetail.target.find("#div_selectTarget").empty();
-                }
-            });
-
-
-            //OS 구분
-            this.target.find("input[name='platform']").change(function () {
-                if ($(this).val() == "-1") {
-                    if ($(this).is(":checked")) {
-                        fnc_messageDetail.target.find("input[name='platform']").each(function () {
-                            this.checked = true;
-                        });
-                    } else {
-                        fnc_messageDetail.target.find("input[name='platform']").each(function () {
-                            this.checked = false;
-                        });
-                    }
-                } else {
-                    if ($(this).is(":checked")) {
-                        var cntTotal = fnc_messageDetail.target.find("input[name='platform']").length;
-                        var cntChecked = fnc_messageDetail.target.find("input[name='platform']:checked").length;
-                        if ((cntTotal) == (cntChecked + 1)) {
-                            fnc_messageDetail.target.find("input[name='platform'][value='-1']").prop("checked", true);
-                        }
-                    } else {
-                        fnc_messageDetail.target.find("input[name='platform'][value='-1']").prop("checked", false);
-                    }
-                }
-            });
-
-
-            //발송여부 선택
-            this.target.find("input[name='is_direct']:radio").change(function () {
-                var type = this.value;
-
-                //예약 발송 일 경우 날짜 추가
-                if (type == "1") {
-                    fnc_messageDetail.target.find("#message-div-sendDate").show();
-                } else {
-                    fnc_messageDetail.target.find("#message-div-sendDate").hide();
-                }
-            });
-
-            // 지정회원 - 수신대상
-            this.target.find("#btn_selectMember").on("click", function () {
-                showPopMemberList(fnc_messageDetail.choiceMember);
-            })
-
-
-            // 등록 버튼
+            // 발송 버튼
             this.target.find("#insertBtn").on("click", function () {
-                if(!confirm("등록 하시겠습니까?")){
+                if(!confirm("발송 하시겠습니까?")){
                     return false;
                 }
 
@@ -129,7 +71,7 @@
             })
 
 
-            // 수정 버튼
+            // 재발송 버튼
             this.target.find("#updateBtn").on("click", function () {
                 if(!confirm("재발송 하시겠습니까?")){
                     return false;
@@ -167,9 +109,9 @@
         // 수정 화면
         updateDetail(){
             var detailData = getSelectDataInfo().detailData;
+            var sendTargetList = getSelectDataInfo().sendTargetList;
             detailData.rowNum = getSelectDataInfo().data.rowNum;
             dalbitLog(detailData);
-
 
             // form 띄우기
             var template = $('#tmp_messageDetailFrm').html();
@@ -177,6 +119,14 @@
             var context = detailData;
             var html = templateScript(context);
             fnc_messageDetail.target.find("#"+ fnc_messageDetail.formId).html(html);
+
+            // target RoomList 띄우기
+            var template = $('#tmp_sendTargetList').html();
+            var templateScript = Handlebars.compile(template);
+            var context = sendTargetList;
+            var html = templateScript(context);
+            fnc_messageDetail.target.find("#div_targetList").html(html);
+
 
             fnc_messageDetail.initDetail();
             fnc_messageDetail.initDetailEvent();
@@ -193,6 +143,7 @@
             }
 
             setSelectDataInfo("detailData", data.data);
+            setSelectDataInfo("sendTargetList", data.summary);
 
             fnc_messageDetail.updateDetail();
         },
@@ -281,6 +232,12 @@
 
         isValid(data) {
 
+            if (common.isEmpty(data.title)) {
+                alert("제목을 입력하여 주시기 바랍니다.");
+                fnc_messageDetail.target.find("input[name=title]").focus();
+                return false;
+            }
+
             if (common.isEmpty(data.send_cont)) {
                 alert("메시지 내용을 입력하여 주시기 바랍니다.");
                 fnc_messageDetail.target.find("input[name=send_cont]").focus();
@@ -303,9 +260,37 @@
 
 <!-- =------------------ Handlebars ---------------------------------- -->
 
+<script id="tmp_sendTargetList" type="text/x-handlebars-template">
+    <table class="table table-sorting table-hover table-bordered dataTable no-footer">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>방송 제목</th>
+                <th>DJ 닉네임</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each this}}
+                <tr>
+                    <td>{{rowNum}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.dj_nickname}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</script>
+
 <script id="tmp_messageDetailFrm" type="text/x-handlebars-template">
     <input type="hidden" name="message_idx" value="{{message_idx}}" />
     <div class="row col-lg-12">
+        <div class="row col-md-12" style="padding-bottom: 15px">
+            <div class="pull-left" style="padding-bottom:4px;">
+                ㆍ 메시지 발송 방송방 리스트
+            </div>
+            <div id="div_targetList"></div>
+        </div>
+
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
                 ㆍ 재발송 버튼으로 동일한 내용이나 수정한 내용으로 발송이 가능합니다.
@@ -332,11 +317,15 @@
             </colgroup>
             <tbody>
             <tr>
+                <th>제목<br>(Admin 관리용)</th>
+                <td colspan="8"><input type="text" class="form-control" name="title" id="title" placeholder="Admin 관리용 제목입니다." value="{{title}}"></td>
+            </tr>
+            <tr>
                 <th>메세지 내용</th>
-                <td colspan="9">
+                <td colspan="8">
                     <div>
-                        <textarea class="form-control" name="send_cont" id="message-send_cont" rows="8" cols="30" placeholder="전체 방송방에 전달할 메세지 내용을 작성해주세요." style="resize: none" maxlength="200">{{send_cont}}</textarea>
-                        <span style="color: red">* 메시지 내용은 200자(한글) 입력 가능합니다.</span>
+                        <textarea class="form-control" name="send_cont" id="message-send_cont" rows="8" cols="30" placeholder="전체 방송방에 전달할 메세지 내용을 작성해주세요." style="resize: none" maxlength="300">{{send_cont}}</textarea>
+                        <span style="color: red">* 메시지 내용은 300자(한글) 입력 가능합니다.</span>
                     </div>
                 </td>
             </tr>

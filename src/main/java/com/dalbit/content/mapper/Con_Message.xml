@@ -6,6 +6,9 @@
     <sql id="messageSelect">
         SELECT
             idx                         AS message_idx
+            ,title
+            ,send_cnt
+            ,target_rooms
             ,send_cont
             ,reg_date
             ,op_name
@@ -76,16 +79,50 @@
     <insert id="callContentsMessageAdd" parameterType="com.dalbit.content.vo.procedure.P_MessageInsertVo">
           INSERT INTO rd_admin.tb_admin_message
           (
-                send_cont
+                title
+                ,send_cont
+                ,target_rooms
+                ,send_cnt
                 ,op_name
                 ,reg_date
           )
           VALUES
           (
-                #{send_cont}
+                #{title}
+                ,#{send_cont}
+                ,#{target_rooms}
+                ,#{send_cnt}
                 ,#{opName}
                 ,NOW()
           )
     </insert>
+
+    <select id="callContentsMessageSendRoomList" parameterType="java.util.List" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
+        SELECT
+        a.*
+        , @RNUM := @RNUM + 1 as rowNum
+        FROM (
+            SELECT
+            a.room_no AS room_no
+            , a.subject_type AS subjectType
+            , (SELECT code FROM rd_data.tbl_code_define where type='subject_type' and value=a.subject_type) AS subject_name
+            , a.title AS title
+            , a.mem_no AS dj_mem_no
+            , b.mem_nick AS dj_nickname
+            , b.mem_userid AS dj_userid
+            FROM
+            rd_data.tb_broadcast_room AS a
+            INNER JOIN rd_data.tb_member_basic AS b
+            ON a.mem_no = b.mem_no
+            WHERE
+            a.room_no IN
+            <foreach collection="list" item="roomNo" index="index" open="(" separator="," close=")">
+
+                #{
+            roomNo}
+            </foreach>
+        ) AS a,
+        (select @RNUM := 0) AS r
+    </select>
 
 </mapper>

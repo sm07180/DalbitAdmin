@@ -11,7 +11,10 @@ import java.util.Date;
 @Setter
 public class P_MessageListOutputVo extends BaseVo {
     private String message_idx;          //번호
+    private String title;                //제목
     private String send_cont;       //메세지 내용
+    private String target_rooms;       //발송 방송방번호 ('|' 구분자 사용)
+    private String send_cnt;        //발송건수
     private Date reg_date;            //등록일
     private String reg_dateFormat;
     private String op_name;             //등록자
