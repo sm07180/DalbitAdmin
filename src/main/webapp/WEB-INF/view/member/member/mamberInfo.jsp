@@ -2,14 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
-<%--<c:set var="isPointAuthMenu" value="" />--%>
-<%--<c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">--%>
-    <%--<c:forEach var="twoDepth" items="${menu.twoDepth}">--%>
-        <%--<c:if test="${twoDepth.idx eq 52}">--%>
-            <%--<c:set var="isPointAuthMenu" value="${twoDepth}" />--%>
-        <%--</c:if>--%>
-    <%--</c:forEach>--%>
-<%--</c:forEach>--%>
+<c:set var="readYn" value="N" />
+<c:set var="insertYn" value="N" />
+<c:set var="deleteYn" value="N" />
+
+<c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
+    <c:forEach var="twoDepth" items="${menu.twoDepth}">
+        <c:if test="${twoDepth.idx eq 52}">
+            <c:set var="readYn" value="${twoDepth.is_read eq 0 ? 'N' : 'Y'}" />
+            <c:set var="insertYn" value="${twoDepth.is_insert eq 0 ? 'N' : 'Y'}" />
+            <c:set var="deleteYn" value="${twoDepth.is_delete eq 0 ? 'N' : 'Y'}" />
+        </c:if>
+    </c:forEach>
+</c:forEach>
 
 <div>
     <form id="memberInfoFrm"></form>
@@ -22,16 +27,11 @@
 
 
 <script>
-    // var pointAuthMenu = -1;
+
+
+
     $(document).ready(function() {
-        <%--if(${not empty isPointAuthMenu}){--%>
-            <%--if('${isPointAuthMenu.is_read}' == "1"){        // 읽기 권한만--%>
-                <%--pointAuthMenu = 1;--%>
-            <%--}--%>
-            <%--if('${isPointAuthMenu.is_insert}' == "1" && '${isPointAuthMenu.is_delete}' == "1"){     // 쓰기 수정 권한--%>
-                <%--pointAuthMenu = 2;--%>
-            <%--}--%>
-        <%--}--%>
+
     });
     $("#select_level").html(util.getCommonCodeSelect(-1, level));
     $("#select_grade").html(util.getCommonCodeSelect(-1, grade));
@@ -40,6 +40,7 @@
     var profImgDel;
     var report;
     var memberInfo_responseDate;
+    var withdrawal;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
         memberInfo_responseDate = response.data;
@@ -55,9 +56,6 @@
             response.data["memWithdrawal"] = "0";
         }
         response.data["birthData"] = response.data.birthDate.substr(0, 10);
-        // response.data["pointAuthMenu"] = pointAuthMenu;     // 관리자 권한
-
-        // console.log(pointAuthMenu);
 
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -66,6 +64,7 @@
         $("#memberInfoFrm").html(html);
         init();
 
+        // $("#txt_birth").val(response.data.birthDate);
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "40"));
         report = "/member/member/popup/reportPopup?memNo='" + encodeURIComponent(response.data.mem_no) + "'&memId='"
                                                             + encodeURIComponent(response.data.userId) + "'&memNick='"
@@ -156,9 +155,6 @@
         });
         $('#bt_byeolAdd').click(function() {           // 달추가
             dalbyeolAdd("byeol");
-        });
-        $('#bt_pointHistory').click(function() {           // 달추가
-            // getInfoDetail(this.id,"보유달/별 수정내역");
         });
 
         // 버튼 끝
@@ -572,17 +568,14 @@
                 <span class="col-md-3 no-padding">
                     {{addComma dal}} 달
                 </span>
-                {{#equal memWithdrawal '0'}}
-                    <%--{{#equal ../pointAuthMenu '2'}}--%>
+                <c:if test="${insertYn eq 'Y'}">
+                    {{#equal memWithdrawal '0'}}
                         <span class="col-md-9 no-padding">
                             <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
                             <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
                         </span>
-                    <%--{{/equal}}--%>
-                {{/equal}}
-            </td>
-            <td rowspan="2">
-                <button type="button" id="bt_pointHistory" class="btn btn-default btn-sm pull-right">자세히</button>
+                    {{/equal}}
+                </c:if>
             </td>
         </tr>
         <tr>
@@ -600,14 +593,14 @@
                 <span class="col-md-3 no-padding">
                     {{addComma byeol}} 별
                 </span>
-                {{#equal memWithdrawal '0'}}
-                    <%--{{#equal ../pointAuthMenu '2'}}--%>
+                <c:if test="${insertYn eq 'Y'}">
+                    {{#equal memWithdrawal '0'}}
                         <span class="col-md-9 no-padding">
                             <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
                             <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
                         </span>
-                    <%--{{/equal}}--%>
-                {{/equal}}
+                    {{/equal}}
+                </c:if>
             </td>
         </tr>
         <tr>
