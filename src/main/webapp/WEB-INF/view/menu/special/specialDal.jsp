@@ -2,29 +2,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- DATA TABLE -->
-<div class="row col-lg-12 form-inline">
-    <div class="widget widget-table">
-        <%--<div class="widget-header">--%>
-            <%--<h3><i class="fa fa-desktop"></i> 검색결과</h3>--%>
-            <%--<div class="btn-group widget-header-toolbar">--%>
-                <%--<a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">--%>
-                    <%--<i class="fa fa-chevron-up" id="_searchToggleIcon"></i>--%>
-                <%--</a>--%>
-            <%--</div>--%>
+<div class="widget widget-table">
+    <%--<div class="widget-header">--%>
+        <%--<h3><i class="fa fa-desktop"></i> 검색결과</h3>--%>
+        <%--<div class="btn-group widget-header-toolbar">--%>
+            <%--<a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">--%>
+                <%--<i class="fa fa-chevron-up" id="_searchToggleIcon"></i>--%>
+            <%--</a>--%>
         <%--</div>--%>
-        <div class="widget-content">
-            <table id="specialList" class="table table-sorting table-hover table-bordered">
-                <thead>
-                </thead>
-                <tbody id="tableBody">
-                </tbody>
-            </table>
-        </div>
+    <%--</div>--%>
+    <div class="widget-content">
+        <table id="specialList" class="table table-sorting table-hover table-bordered">
+            <thead>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
     </div>
 </div>
 <!-- // DATA TABLE -->
 
-<div class="row col-lg-12 form-inline mt15">
+<div class="mt15">
     <form id="dalList"></form>
 </div>
 

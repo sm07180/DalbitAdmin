@@ -33,6 +33,11 @@
         $('#reqDalList').empty();
     }
 
+    function emptySearch() {
+        $('#txt_search').val('');
+        $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
+    }
+
     $('._tab').on('click', function(){
 
         $('#dalList, #reqDalList').empty();
@@ -42,8 +47,10 @@
 
         var tabIndex = $('#tablist_con li').index(tab);
         if(tabIndex == 0){
+            emptySearch();
             init();
         } else{
+            emptySearch();
             initReq();
         }
     });
