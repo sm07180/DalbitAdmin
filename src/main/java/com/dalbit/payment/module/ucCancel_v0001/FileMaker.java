@@ -8,7 +8,7 @@ import java.util.Properties;
 public class FileMaker {
     private FileInputStream fis;
     private FileOutputStream fos;
-    private String propertiesName = "/CancelUc.properties";
+    private String propertiesName = "/mobilians/CancelUc.properties";
     private String logLevel = "";
     private String serverIp = "";
     private String fileDir = "";

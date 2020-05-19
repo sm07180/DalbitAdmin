@@ -1,7 +1,6 @@
 package com.dalbit.payment.service;
 
 import com.dalbit.common.code.CancelPhoneCode;
-import com.dalbit.common.code.Code;
 import com.dalbit.common.code.Status;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.payment.dao.Pay_CancelDao;
@@ -9,6 +8,8 @@ import com.dalbit.payment.module.cnnew_v0003.AckParam;
 import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.module.cnnew_v0003.McashManager;
 import com.dalbit.payment.module.mcCancel_v0001.MC_Cancel;
+import com.dalbit.payment.module.ucCancel_v0001.CancelUc;
+import com.dalbit.payment.vo.Pay_CancelBankVo;
 import com.dalbit.payment.vo.Pay_CancelCardVo;
 import com.dalbit.payment.vo.Pay_CancelPhoneVo;
 import com.dalbit.payment.vo.Pay_CancelVo;
@@ -71,7 +72,6 @@ public class Pay_CancelService {
         }
 
         int result = payCancelDao.sendPayCancel(cancelVo);
-
         return result;
     }
 
@@ -112,8 +112,42 @@ public class Pay_CancelService {
                 }
             }
             cancelVo.setFail_msg(resultMsg);
-
         }
+
+        int result = payCancelDao.sendPayCancel(cancelVo);
+        return result;
+    }
+
+    /**
+     *  실계좌이체 결제 취소
+     */
+    public int payCancelBank(Pay_CancelBankVo payCancelBankVo) {
+
+        String cashGb    = CommonUtil.trim("RA");
+        String recordKey = CommonUtil.trim(CommonUtil.Decode(DalbitUtil.getProperty("pay.site.url")));
+        String svcId     = CommonUtil.trim(DalbitUtil.getProperty("bank.service.id"));
+        String tradeId   = CommonUtil.trim(payCancelBankVo.getTradeid());
+        String prdtPrice = CommonUtil.trim(payCancelBankVo.getPrdtprice());
+        String mobilId   = CommonUtil.trim(payCancelBankVo.getMobilid());
+
+        CancelUc can = new CancelUc();
+        com.dalbit.payment.module.ucCancel_v0001.AckParam ap = can.cancelProc(cashGb, recordKey, svcId, tradeId, prdtPrice, mobilId);
+
+        Pay_CancelVo cancelVo = new Pay_CancelVo();
+        if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
+            cancelVo.setOrder_id(tradeId);
+            cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
+            cancelVo.setOp_name(MemberVo.getMyMemNo());
+            cancelVo.setCancel_state("y");
+            cancelVo.setFail_msg("");
+        } else {
+            cancelVo.setOrder_id(tradeId);
+            cancelVo.setCancel_dt("");
+            cancelVo.setOp_name(MemberVo.getMyMemNo());
+            cancelVo.setCancel_state(ap.getResultCd().equals("0087") ? "y" :"f");
+            cancelVo.setFail_msg(ap.getResultMsg());
+        }
+
         int result = payCancelDao.sendPayCancel(cancelVo);
         return result;
     }
