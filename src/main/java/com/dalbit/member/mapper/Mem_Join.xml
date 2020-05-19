@@ -20,7 +20,8 @@
                        or mem_name like concat('%', #{searchText}, '%')
                        or mem_userid like concat('%', #{searchText}, '%')
                        or mem_nick like concat('%', #{searchText}, '%')
-                       or mem_phone like concat('%', #{searchText}, '%'))
+                       or mem_phone like concat('%', #{searchText}, '%')
+                       or mem_id like concat('%', #{searchText}, '%'))
                 )as c, (select @rownum := #{pageNo} ) AS d
          order by mem_join_date desc
          limit #{pageNo}, #{pageCnt}
@@ -41,7 +42,8 @@
                 or mem_name like concat('%', #{searchText}, '%')
                 or mem_userid like concat('%', #{searchText}, '%')
                 or mem_nick like concat('%', #{searchText}, '%')
-                or mem_phone like concat('%', #{searchText}, '%'))
+                or mem_phone like concat('%', #{searchText}, '%')
+                or mem_id like concat('%', #{searchText}, '%'))
     </select>
 
     <select id="callJoinList_slctCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
@@ -83,7 +85,8 @@
                        or mem_name like concat('%', #{searchText}, '%')
                        or mem_userid like concat('%', #{searchText}, '%')
                        or mem_nick like concat('%', #{searchText}, '%')
-                       or mem_phone like concat('%', #{searchText}, '%'))
+                       or mem_phone like concat('%', #{searchText}, '%')
+                       or mem_id like concat('%', #{searchText}, '%'))
                 )as c, (select @rownum := #{pageNo} ) AS d
          order by last_upd_date desc
          limit #{pageNo}, #{pageCnt}
@@ -104,7 +107,8 @@
                 or mem_name like concat('%', #{searchText}, '%')
                 or mem_userid like concat('%', #{searchText}, '%')
                 or mem_nick like concat('%', #{searchText}, '%')
-                or mem_phone like concat('%', #{searchText}, '%'))
+                or mem_phone like concat('%', #{searchText}, '%')
+                or mem_id like concat('%', #{searchText}, '%'))
     </select>
 
     <select id="callWithdrawalList_slctCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
