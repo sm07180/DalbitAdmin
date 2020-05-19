@@ -63,7 +63,7 @@ var payDataTableSource = {
             , {'title': '처리자', 'data': 'op_name'}
             , {'title': '취소', 'data': '', 'render': function(data, type, row) {
 
-                return (row.pay_way == 'VA' || row.pay_yn == 'n') ? '-' : '<button type="button" class="btn btn-default cancelBtn" ' +
+                return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state == 'y') ? '-' : '<button type="button" class="btn btn-default cancelBtn" ' +
                     'data-paycd="'+ row.pay_way+'" ' +
                     'data-tradeid="'+row.order_id+'" ' +
                     'data-mobilid="'+row.bill_id+'" ' +

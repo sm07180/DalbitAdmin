@@ -5,8 +5,8 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
-            <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
+            <div class="row col-lg-12 form-inline">
+                <form id="searchForm">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
@@ -14,11 +14,11 @@
                                 <span id="searchArea"></span>
                                 <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <button type="button" class="btn btn-default pull-right" id="memSearch" name="memSearch">운영자 직접 등록</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
                 <!-- //serachBox -->
 
                 <!-- summary -->
@@ -34,7 +34,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- //summary -->
+            <!-- //summary -->
             </div>
             <!-- tab -->
             <div class="no-padding" id="listTab">
@@ -42,8 +42,11 @@
             </div>
             <!-- //tab -->
         </div>
+        </div>
     </div>
 </div>
+
+<jsp:include page="/WEB-INF/view/common/util/select_memeberList.jsp"></jsp:include>
 
 <script type="text/javascript">
 
@@ -61,14 +64,25 @@
         $("#tableBody").append(html);
     }
 
-    $('#bt_search').on('click', function() {
+    $('#bt_search').on('click', function () {
         var tab = $('#tablist_con li.active');
         var tabIndex = $('#tablist_con li').index(tab);
-
-        if(tabIndex == 0) {
+        if (tabIndex == 0) {
             init();
-        } else if(tabIndex == 1) {
+        } else if (tabIndex == 1) {
             initReq();
+        }
+    });
+
+    $('input[id="txt_search"]').keydown(function () {
+        var tab = $('#tablist_con li.active');
+        var tabIndex = $('#tablist_con li').index(tab);
+        if (event.keyCode == 13) {
+            if (tabIndex == 0) {
+                init();
+            } else if (tabIndex == 1) {
+                initReq();
+            }
         }
     });
 
