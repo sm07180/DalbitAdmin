@@ -23,7 +23,7 @@ public class FileMaker {
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
-        this.propertiesName = "MCash_Cancel.properties";
+        this.propertiesName = "mobilians/MCash_Cancel.properties";
         this.fileDir = "";
         this.fileName = "";
         if (this.propertiesLoad().equals("0000")) {
@@ -35,7 +35,7 @@ public class FileMaker {
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
-        this.propertiesName = "MCash_Cancel.properties";
+        this.propertiesName = "mobilians/MCash_Cancel.properties";
         this.fileDir = "";
         this.fileName = "";
         this.configDirPath = configDirPath;
@@ -48,7 +48,7 @@ public class FileMaker {
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
-        this.propertiesName = "MCash_Cancel.properties";
+        this.propertiesName = "mobilians/MCash_Cancel.properties";
         this.fileDir = "";
         this.fileName = "";
         this.fileDir = logFile;

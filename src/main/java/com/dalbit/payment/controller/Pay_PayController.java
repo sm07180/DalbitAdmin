@@ -17,7 +17,6 @@ public class Pay_PayController {
     }
 
 
-
     @GetMapping("cancel/card")
     public String cancelCard() {
         return "payment/cancel/card/cn_cancel_req";
@@ -27,4 +26,5 @@ public class Pay_PayController {
     public String cancelCardResult() {
         return "payment/cancel/card/cn_cancel_result";
     }
+
 }
