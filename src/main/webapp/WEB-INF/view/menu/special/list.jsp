@@ -5,20 +5,20 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table searchBoxArea">
-                    <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
-                        <div>
-                            <span id="searchArea"></span>
-                            <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+            <form id="searchForm">
+                <div class="row col-lg-12 form-inline">
+                    <div class="widget widget-table searchBoxArea">
+                        <div class="widget-header searchBoxRow">
+                            <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
+                            <div>
+                                <span id="searchArea"></span>
+                                <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
+                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <form id="searchForm">
-                </form>
+            </form>
                 <!-- //serachBox -->
 
                 <!-- summary -->
@@ -62,16 +62,15 @@
     }
 
     $('#bt_search').on('click', function() {
-        var me = $(this);
-        var tab = me.parent();
-
+        var tab = $('#tablist_con li.active');
         var tabIndex = $('#tablist_con li').index(tab);
-        dalbitLog(tabIndex);
-        // util.getAjaxData("search", "/rest/menu/special/search", $('#searchForm').serialize(), fn_search_success);
+
+        if(tabIndex == 0) {
+            init();
+        } else if(tabIndex == 1) {
+            initReq();
+        }
     });
-
-
-
 
 </script>
 
