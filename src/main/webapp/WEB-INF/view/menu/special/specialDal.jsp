@@ -31,16 +31,12 @@
 <script type="text/javascript" src="/js/dataTablesSource/menu/specialDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
-    /*$(document).ready(function() {
-        init();
-        initReq();
-    });*/
 
     var dtList_info;
     function init() {
         var dtList_info_data = function(data) {
         };
-        dtList_info = new DalbitDataTable($("#specialList"), dtList_info_data, specialDataTableSource.specialList);
+        dtList_info = new DalbitDataTable($("#specialList"), dtList_info_data, specialDataTableSource.specialList, $("#searchForm"));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(false);
         dtList_info.createDataTable();

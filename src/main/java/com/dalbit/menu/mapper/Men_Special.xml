@@ -19,11 +19,39 @@
         , dj.op_name as op_name
         , dj.last_upd_date as last_upd_date
         , profile.specialdj_badge as specialdj_badge
+        , basic.mem_id
+        , basic.mem_nick
+        , basic.mem_phone
         , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_req_special_dj dj
             , rd_data.tb_member_profile profile
+            , rd_data.tb_member_basic basic
             , (select @RNUM := 0) r
-        where profile.mem_no = dj.mem_no
+        where basic.mem_no = dj.mem_no
+        and profile.mem_no = dj.mem_no
+        and basic.mem_no = profile.mem_no
+        <if test='txt_search != null and txt_search != ""'>
+          <choose>
+              <when test='searchType == "1"'>
+                  and dj.mem_no like concat('%', #{txt_search}, '%')
+              </when>
+              <when test='searchType == "2"'>
+                  and basic.mem_id like concat('%', #{txt_search}, '%')
+              </when>
+              <when test='searchType == "3"'>
+                  and basic.mem_nick like concat('%', #{txt_search}, '%')
+              </when>
+              <when test='searchType == "4"'>
+                  and basic.mem_phone like concat('%', #{txt_search}, '%')
+              </when>
+              <otherwise>
+                  and (dj.mem_no like concat('%', #{txt_search}, '%')
+                  or basic.mem_id like concat('%', #{txt_search}, '%')
+                  or basic.mem_nick like concat('%', #{txt_search}, '%')
+                  or basic.mem_phone like concat('%', #{txt_search}, '%'))
+              </otherwise>
+          </choose>
+        </if>
         order by idx desc
     </sql>
 
@@ -82,15 +110,39 @@
 
     <sql id="special">
         select
-        req_idx
-        , mem_no
-        , reg_date
-        , is_force
-        , `order`
-        , op_name
+        dj.req_idx as req_idx
+        , dj.mem_no as mem_no
+        , dj.reg_date as reg_date
+        , dj.is_force as is_force
+        , dj.`order` as `order`
+        , dj.op_name as op_name
         , @RNUM := @RNUM + 1 as rowNum
-        from rd_admin.tb_special_dj
+        from rd_admin.tb_special_dj dj
+            , rd_data.tb_member_basic basic
             , (select @RNUM := 0) r
+        where dj.mem_no = basic.mem_no
+        <if test='txt_search != null and txt_search != ""'>
+            <choose>
+                <when test='searchType == "1"'>
+                    and dj.mem_no like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "2"'>
+                    and basic.mem_id like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "3"'>
+                    and basic.mem_nick like concat('%', #{txt_search}, '%')
+                </when>
+                <when test='searchType == "4"'>
+                    and basic.mem_phone like concat('%', #{txt_search}, '%')
+                </when>
+                <otherwise>
+                    and (dj.mem_no like concat('%', #{txt_search}, '%')
+                    or basic.mem_id like concat('%', #{txt_search}, '%')
+                    or basic.mem_nick like concat('%', #{txt_search}, '%')
+                    or basic.mem_phone like concat('%', #{txt_search}, '%'))
+                </otherwise>
+            </choose>
+        </if>
         order by `order` asc, reg_date desc
     </sql>
 
