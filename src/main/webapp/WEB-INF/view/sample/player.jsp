@@ -8,7 +8,12 @@
 %>
 
 <style>
+    ::-webkit-scrollbar{
+        display: none;
+    }
+
     .player {
+        width: 600px;
         text-align: center;
     }
 
@@ -16,9 +21,32 @@
         width: 400px;
     }
 
+    .liveChat {
+        width:500px;
+        height:800px;
+        position: relative;
+        background-size: cover;
+    }
+
+    .liveChat__cover {
+        position: absolute;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        z-index: 1;
+    }
+
     .liveChat__chat {
         text-align: left;
         font-family: 'NanumSquare', sans-serif;
+        overflow:auto;
+        -ms-overflow-style: none;
+        padding: 10px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
     }
 
     .liveChat__chat p {
@@ -43,7 +71,8 @@
         display: inline;
         padding-bottom: 9px;
         margin-bottom: 10px;
-        font-size: 3px;
+        font-size: 4px;
+        font-weight: normal;
     }
 
     .liveChat__chat pre {
@@ -97,8 +126,10 @@
             <button onclick="play()" class="btn btn-info" id="play">Play</button>
         </p>
     </div>
-    <div class="liveChat__bgImg" style="overflow:auto; width:500px; height:800px; position: relative; background-size: contain; padding: 10px;">
-        <div class="liveChat__chat" id="liveChat__chat" style="position: absolute; z-index: 2;">
+    <div class="liveChat no-padding">
+        <div class="liveChat__chat" id="liveChat__chat">
+        </div>
+        <div class="liveChat__cover" id="liveChat__cover">
         </div>
     </div>
 </div>
@@ -162,8 +193,8 @@
     var broadInfo = <%=in_BroadInfo%>;
     var roomNo = "<%=in_roomNo%>";
 
-    var streamId = broadInfo.bjStreamId;
-    var tokenId = broadInfo.bjPlayToken;
+    var streamId;
+    var tokenId;
     var lastChatIdx = 0;
     var isReloadChat = false;
 
@@ -182,7 +213,7 @@
         $("#streamId").val(streamId);
         $("#tokenId").val(tokenId);
         console.log(IMAGE_SERVER_URL + broadInfo.roomBgImg);
-        $(".liveChat__bgImg").css("background-image", "url("+IMAGE_SERVER_URL + broadInfo.roomBgImg+")");
+        $(".liveChat").css("background-image", "url("+IMAGE_SERVER_URL + broadInfo.roomBgImg+")");
 
 
         setTimeout(function(){
@@ -247,7 +278,7 @@
 
 
             $(".liveChat__chat").append(html);
-            $(".liveChat__bgImg").scrollTop($(".liveChat__bgImg")[0].scrollHeight);
+            $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
         }else{
 
         }
@@ -266,13 +297,13 @@
 
 <script type="text/x-handlebars-template" id="tmp_liveChat">
     {{#each this as |data|}}
-        <div class="liveChat comment ">
+        <div class="liveChat__chat-comment ">
             <figure></figure>
             <div>
                 <p>
-                    {{this.nickname}}
                     {{#dalbit_if auth "==" "3"}}<b class="dj">DJ</b>{{/dalbit_if}}
                     {{#dalbit_if auth "==" "1"}}<b class="manager">매니저</b>{{/dalbit_if}}
+                    {{this.nickname}}
                 </p>
                 <pre>{{this.msg}}</pre>
                 <p class="date">{{this.writeDateFormat}}</p>

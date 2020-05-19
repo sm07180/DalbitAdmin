@@ -23,13 +23,13 @@ $(document).on('click', '._openBroadcastPop', function(){
 /*방송방메시지보내기 팝업*/
 $(document).on('click', '._openAdminMessagePop', function(){
     var url = "/broadcast/broadcast/popup/messagePopup?roomNo="+encodeURIComponent($(this).data('roomno'))+"&djmemno=" + encodeURIComponent($(this).data('djmemno'));
-    util.windowOpen(url, 800, 370, 'adminMessageInfo');
+    util.windowOpen(url, 800, 435, 'adminMessageInfo');
 });
 
 /*방송방플레이어 팝업*/
 $(document).on('click', '._openPlayerPop', function(){
     var url = "/broadcast/broadcast/popup/playerPopup?roomNo="+encodeURIComponent($(this).data('roomno'));
-    util.windowOpen(url, 560, 930, 'roomPlayer');
+    util.windowOpen(url, 530, 980, 'roomPlayer');
 });
 
 $(document).on('click', 'img._imageFullPop', function(){
