@@ -3,6 +3,7 @@ package com.dalbit.payment.controller.rest;
 import com.dalbit.payment.dao.Pay_CancelDao;
 import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.service.Pay_CancelService;
+import com.dalbit.payment.vo.Pay_CancelBankVo;
 import com.dalbit.payment.vo.Pay_CancelCardVo;
 import com.dalbit.payment.vo.Pay_CancelPhoneVo;
 import com.dalbit.util.GsonUtil;
@@ -45,6 +46,16 @@ public class Pay_CancelRestController {
     public int payCancelPhone(Pay_CancelPhoneVo payCancelPhoneVo) throws IOException {
 
         int result = payCancelService.payCancelPhone(payCancelPhoneVo);
+        return result;
+    }
+
+    /**
+     *  실계좌이체 결제 취소
+     */
+    @PostMapping("bank")
+    public int payBankPhone(Pay_CancelBankVo payCancelBankVo) throws IOException {
+
+        int result = payCancelService.payCancelBank(payCancelBankVo);
         return result;
     }
 
