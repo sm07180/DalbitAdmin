@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.payment.dao.Pay_CancelDao" >
+
+
+    <update id="sendPayCancel" parameterType="com.dalbit.payment.vo.Pay_CancelVo">
+        UPDATE rd_data.tb_payment_succ pay
+        SET cancel_state = #{cancel_state}
+            , cancel_dt = #{cancel_dt}
+            , fail_msg = #{fail_msg}
+            , op_name = #{op_name}
+        WHERE order_id = #{order_id}
+    </update>
+
+</mapper>

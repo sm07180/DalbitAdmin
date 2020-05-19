@@ -31,5 +31,11 @@ public class Pay_PayVo extends PagingVo {
     private String account_no;      // 가상계좌번호
     private String rcpt_dt;         // 결제완료일자
     private String rcpt_nm;         // 결제자명
+    private String cancel_state;
+    private String cancel_dt;
+    private String bill_id;
+    private String fail_msg;
+    private String op_name;
+    private String store_id;
 
 }

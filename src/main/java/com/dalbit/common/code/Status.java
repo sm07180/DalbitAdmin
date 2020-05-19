@@ -481,7 +481,15 @@ public enum Status {
     //방송통계 현황
     선물통계보기_성공("0", "gift.status.view.success", "선물통계 보기 성공 시"),
     선물통계보기_실패("C006", "gift.status.view.fail", "선물통계 보기 실패 시"),
+
+
+
+    /* 결제취소 */
+    결제취소성공("0000", "pay.cancel.success", "결제취소 성공 시"),
+    결제취소실패("C006", "pay.cancel.fail", "결제취소 실패 시"),
+
     ;
+
 
     final private String RESULT_SUCCESS = "success";
     final private String RESULT_FAIL = "fail";

@@ -45,16 +45,37 @@
         dtList_info.createDataTable();
     }
 
-    function cancelClick(){
-        alert("취소요청 개발 진행중");
+    /* 취소버튼 클릭 */
+    function cancelClick(cancelData){
 
+        var restUrl='';
+        if(cancelData.paycd == 'CN'){
+            restUrl='card'
+        }else if(cancelData.paycd == 'RA'){
+            restUrl='bank'
+        }else if(cancelData.paycd == 'MC'){
+            restUrl='phone'
+        }else {
+            alert("결제수단 오류 확인필요");
+        }
 
-
-
+        var data = {
+            prdtprice : cancelData.prdtprice
+            , mobilid : cancelData.mobilid
+            , tradeid : cancelData.tradeid
+            , mrchid : cancelData.storeid
+        }
+        util.getAjaxData("cancel", "/rest/payment/pay/cancel/"+restUrl, data, payCancelSuccess);
     }
 
+    /* 취소버튼 클릭 */
+    function payCancelSuccess(response){
+        dalbitLog(response);
+        init();
+    }
+
+
     function codeString(data) {
-        console.log(data);
         var str;
         if(data == 'VA'){
             str = '가상계좌'
