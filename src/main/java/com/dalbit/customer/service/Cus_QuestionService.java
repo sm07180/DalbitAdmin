@@ -183,14 +183,19 @@ public class Cus_QuestionService {
      */
     public String callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo){
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+        int check = 0;
+        if(DalbitUtil.executivesUser().indexOf(MemberVo.getMyMemNo()) > 0){
+            check = 2;
+        }else {
+            cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
 
-        cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
-
-        int check = cus_questionDao.callServiceCenterQnaStateCheck(pQuestionOperateVo);
-
+            check = cus_questionDao.callServiceCenterQnaStateCheck(pQuestionOperateVo);
+        }
         String result;
         if(check == 1){
             result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_실패));
+        }else if (check == 2){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_안함));
         }else{
             cus_questionDao.callServiceCenterQnaCatch(pQuestionOperateVo);
             result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_성공));

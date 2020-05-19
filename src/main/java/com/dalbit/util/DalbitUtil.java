@@ -727,6 +727,11 @@ public class DalbitUtil {
         return result;
     }
 
+    public static String executivesUser(){
+        String name = "박진,고병권";
+        return name;
+    }
+
     /**
      *  날짜 Pattern 형식에 맞춰 현재날짜 계산
      */

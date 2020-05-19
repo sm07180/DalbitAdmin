@@ -60,24 +60,13 @@ public class Bro_BroadcastService {
         ArrayList<P_BroadcastListOutputVo> broadList = bro_BroadcastDao.callBroadcastList(procedureVo);
         P_BroadcastListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_BroadcastListOutputVo.class);
 
-        int broadCastCnt = 0;
-        int aosCnt = 0;
-        int iosCnt = 0;
-        int pcCnt = 0;
-        for(int i=0 ; i<broadList.size() ; i++){
-            ++broadCastCnt;
-            if(broadList.get(i).getOsType() == 1){
-                ++aosCnt;
-            }else if(broadList.get(i).getOsType() == 2){
-                ++iosCnt;
-            }else if(broadList.get(i).getOsType() == 3){
-                ++pcCnt;
-            }
-        }
-        summary.setTotalBroadCastCnt(broadCastCnt);
-        summary.setTotalAosCnt(aosCnt);
-        summary.setTotalIosCnt(iosCnt);
-        summary.setTotalPcCnt(pcCnt);
+
+        // 종료된 총 방송방 정보 조회
+        ArrayList<P_BroadcastListOutputVo> osCntList = bro_BroadcastDao.callBroadcastList_all(pBroadcastListInputVo);
+        summary.setTotalBroadCastCnt(osCntList.get(0).getTotalBroadCastCnt());
+        summary.setTotalAosCnt(osCntList.get(0).getTotalAosCnt());
+        summary.setTotalIosCnt(osCntList.get(0).getTotalIosCnt());
+        summary.setTotalPcCnt(osCntList.get(0).getTotalPcCnt());
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {

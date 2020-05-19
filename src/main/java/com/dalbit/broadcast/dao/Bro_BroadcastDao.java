@@ -5,6 +5,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,6 +14,9 @@ public interface Bro_BroadcastDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_BroadcastListOutputVo> callBroadcastList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_BroadcastListOutputVo> callBroadcastList_all(P_BroadcastListInputVo pBroadcastListInputVo);
 
     @Transactional(readOnly = true)
     P_BroadcastDetailOutputVo callBroadcastInfo(ProcedureVo procedureVo);

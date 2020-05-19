@@ -50,6 +50,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int totalPcCnt;
 
     private int totalListenerCnt;
+    private int liveListenerCnt;
     private int totalGoodCnt;
     private int totalGiftCnt;
     private int totalBoosterCnt;
