@@ -30,6 +30,8 @@
             , pay.fail_msg
             , pay.op_name
             , pay.bill_id
+            , pay.os
+            , pay.dal_cnt
             , summary.memCnt as count
             , summary.paySum as amount
             , @RNUM := @RNUM + 1 as rowNum
