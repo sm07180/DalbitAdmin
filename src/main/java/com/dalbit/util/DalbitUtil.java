@@ -728,7 +728,7 @@ public class DalbitUtil {
     }
 
     public static String executivesUser(){
-        String name = "박진,고병권";
+        String name = "박진";
         return name;
     }
 
