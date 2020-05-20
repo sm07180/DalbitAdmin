@@ -27,9 +27,6 @@ var payDataTableSource = {
             , {'title': '결제시도일', 'data': 'pay_dt_comein', 'width':'80px', 'render': function(data, type, row) {
                     return common.convertToDate(data, 'YYYY.MM.DD HH:mm:ss');
                 }}
-            , {'title': '결제상태', 'data': 'pay_yn', 'width':'50px', 'render': function(data, type, row) {
-                    return data.toUpperCase();
-                }}
             , {'title': '완료일시', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     return row.pay_yn == 'y' ? row.pay_ok_date + '<br/>' + row.pay_ok_time : '-';
                 }}
@@ -50,9 +47,9 @@ var payDataTableSource = {
             , {'title': '플랫폼', 'data': 'os', 'render': function(data, type, row) {
                     return osGubun(data);
                 }}
-            , {'title': '최초여부', 'data': 'first_pay_yn', 'render': function(data, type, row) {
+            /*, {'title': '최초여부', 'data': 'first_pay_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
-                }}
+                }}*/
             /*, {'title': '카드번호 <br/>/ 카드사명', 'data': '','render': function(data, type, row) {
                     var tmp = !(common.isEmpty(row.card_no) || row.card_no == 0) ? common.cardNo(row.card_no) + '<br/>' + row.card_nm : '-';
                     return tmp;
@@ -67,9 +64,7 @@ var payDataTableSource = {
             /*, {'title': '결제자', 'data': 'rcpt_nm', 'render': function(data, type, row) {
                     return data;
                 }}*/
-            , {'title': '취소상태', 'data': 'cancel_state', 'render': function(data, type, row) {
-                    return data.toUpperCase();
-                }}
+
             , {'title': '취소일시', 'data': '', 'render': function(data, type, row) {
                     return row.cancel_state == 'y' ? row.cancel_dt : '-';
                 }}
@@ -77,6 +72,12 @@ var payDataTableSource = {
                     return !common.isEmpty(row.fail_msg) ? row.fail_msg : '-';
                 }}
             , {'title': '처리자', 'data': 'op_name'}
+            , {'title': '결제상태', 'data': 'pay_yn', 'width':'50px', 'render': function(data, type, row) {
+                    return '<label style="color: #ee0648">'+data.toUpperCase()+'</label>';
+                }}
+            , {'title': '취소상태', 'data': 'cancel_state', 'render': function(data, type, row) {
+                    return '<label style="color: #0b38aa">'+data.toUpperCase()+'</label>';
+                }}
             , {'title': '취소', 'data': '', 'render': function(data, type, row) {
 
                 return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : '<button type="button" class="btn btn-default cancelBtn" ' +
@@ -89,6 +90,7 @@ var payDataTableSource = {
                     'data-dalcnt="'+row.dal_cnt+'" ' +
                     'onclick="cancelClick($(this).data())">취소</button>'
             }}
+
         ]
         , 'comments': ''
     },
