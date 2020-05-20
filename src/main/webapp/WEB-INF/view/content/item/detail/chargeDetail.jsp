@@ -13,8 +13,6 @@
     $(document).ready(function () {
         fnc_chargeDetail.init();
     });
-
-
     var fnc_chargeDetail = {
 //=------------------------------ Init / Event / UI--------------------------------------------
         "targetId": "chargeDetail",
@@ -171,6 +169,9 @@
             setSelectDataInfo("detailData", data.data);
 
             fnc_chargeDetail.updateDetail();
+
+            var scrollPosition = $("#tab_chargeDetail").offset();
+            util.scrollPostion(scrollPosition.top);
         },
 
 
@@ -312,8 +313,6 @@
 
     }
 //=------------------------------ Modal ----------------------------------
-
-
 
 </script>
 

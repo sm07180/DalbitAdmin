@@ -159,6 +159,9 @@
             setSelectDataInfo("detailData", data.data);
 
             fnc_exchangeDetail.updateDetail();
+
+            var scrollPosition = $("#tab_exchangeDetail").offset();
+            util.scrollPostion(scrollPosition.top);
         },
 
 

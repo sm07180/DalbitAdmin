@@ -244,6 +244,9 @@
             setSelectDataInfo("detailData", data.data);
 
             fnc_bannerDetail.updateDetail();
+
+            var scrollPosition = $("#tab_bannerDetail").offset();
+            util.scrollPostion(scrollPosition.top);
         },
 
 

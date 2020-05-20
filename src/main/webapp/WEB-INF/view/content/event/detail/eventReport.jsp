@@ -68,6 +68,9 @@
             this.initDataTable();
             this.initEvent();
             // this.getEventReportSubData();
+
+            var scrollPosition = $("#tab_eventReport").offset();
+            util.scrollPostion(scrollPosition.top);
         },
 
 
