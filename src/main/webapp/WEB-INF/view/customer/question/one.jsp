@@ -15,6 +15,8 @@
 
 <script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/customerHelper.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/message/customer/questionMessage.js?${dummyData}"></script>
+
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -30,6 +32,11 @@
         response.data["answer"] = params.answer;
         var add_file_cnt = response.data.add_file.split(",");
         response.data["add_file_cnt"] = common.isEmpty(response.data.add_file) ? 0 : add_file_cnt.length;
+
+        // 답변 내용이 없을 때 기본 설정 내용으로 해달라는 요청...
+        if(response.data.answer == ""){
+            response.data["answer"] = questionMessage.defaultAnswer;
+        }
 
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
