@@ -10,8 +10,6 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
-                            <input type="hidden" name="pageStart" id="pageStart">
-                            <input type="hidden" name="pageCnt" id="pageCnt">
                             <div>
                                 <span id="searchArea"></span>
                                 <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
