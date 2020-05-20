@@ -200,7 +200,7 @@
         /* Men_Special.xml - reqCancel */
         delete
         from rd_admin.tb_special_dj
-        where req_idx = #{req_idx}
+        where mem_no = #{mem_no}
     </delete>
 
     <update id="updateOrder" parameterType="com.dalbit.menu.vo.SpecialDjOrderVo">
