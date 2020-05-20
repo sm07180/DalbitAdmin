@@ -152,7 +152,7 @@
         from (
         <include refid="special"/>
         ) a
-        limit  #{pageStart}, #{pageCnt}
+        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
     <select id="getSpecialListCnt" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="integer">

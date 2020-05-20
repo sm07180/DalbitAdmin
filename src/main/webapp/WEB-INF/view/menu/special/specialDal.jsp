@@ -12,7 +12,7 @@
         <%--</div>--%>
     <%--</div>--%>
     <div class="widget-content">
-        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>--%>
+        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
 
         <table id="specialList" class="table table-sorting table-hover table-bordered mt15">
             <thead>
@@ -29,7 +29,7 @@
             </tbody>
         </table>
 
-        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>--%>
+        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
 
     </div>
 </div>
@@ -56,9 +56,14 @@
         //
         ui.checkBoxInit('specialList');
         $("#specialList-select-all").remove();
-        $("#pageStart").val(specialDjPagingInfo.pageNo);
-        $("#pageCnt").val(specialDjPagingInfo.pageCnt);
-        util.getAjaxData("special", "/rest/menu/special/dalList", $("#searchForm").serialize(), fn_dalList_success);
+        var data = {
+            txt_search : $('#txt_search').val()
+            , searchType : $('#searchArea').val()
+            , pageStart : specialDjPagingInfo.pageNo
+            , pageCnt : specialDjPagingInfo.pageCnt
+        };
+
+        util.getAjaxData("special", "/rest/menu/special/dalList", data, fn_dalList_success);
     }
 
     function fn_dalList_success(dst_id, response) {
@@ -77,8 +82,10 @@
 
         if(response.data.length == 0) {
             $("#list_info_paginate").hide();
+            $("#list_info_paginate_top").hide();
         } else {
             $("#list_info_paginate").show();
+            $("#list_info_paginate_top").show();
         }
     }
 
@@ -132,13 +139,37 @@
         getList();
     }
 
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+        event.preventDefault();
+
+        var data = event.dataTransfer.getData("text");
+        var idx = data.split("_")[1];
+        var targetIdx = $('#specialList').find(event.target).parent("tr").attr("id").split("_")[1];
+
+        if(parseInt(targetIdx) < parseInt(idx)){
+            $('#specialList').find(event.target).parent("tr").before($('#specialList').find("#"+data));
+        }else{
+            $('#specialList').find(event.target).parent("tr").after($('#specialList').find("#"+data));
+        }
+    }
+
 </script>
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
     {{#each this}}
-    <tr class="_noTr" id="row_{{sortNo}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+    <tr class="_noTr" id="idx_{{order}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
         <td class=" dt-body-center"><input type="checkbox"/></td>
-        <td>{{mem_no}}</td>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
+            <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
+        </td>
         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
         <td>{{order}}</td>

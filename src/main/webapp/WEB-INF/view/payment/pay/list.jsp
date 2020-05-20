@@ -48,24 +48,27 @@
     /* 취소버튼 클릭 */
     function cancelClick(cancelData){
 
-        var restUrl='';
-        if(cancelData.paycd == 'CN'){
-            restUrl='card'
-        }else if(cancelData.paycd == 'RA'){
-            restUrl='bank'
-        }else if(cancelData.paycd == 'MC'){
-            restUrl='phone'
-        }else {
-            alert("결제수단 오류 확인필요");
-        }
+        var result = confirm("회원아이디? 님의 "+ common.addComma(cancelData.prdtprice) +"원에 대한 결제를 취소하시겠습니까?")
+        if(result){
+            var restUrl='';
+            if(cancelData.paycd == 'CN'){
+                restUrl='card'
+            }else if(cancelData.paycd == 'RA'){
+                restUrl='bank'
+            }else if(cancelData.paycd == 'MC'){
+                restUrl='phone'
+            }else {
+                alert("결제수단 오류 확인필요");
+            }
 
-        var data = {
-            prdtprice : cancelData.prdtprice
-            , mobilid : cancelData.mobilid
-            , tradeid : cancelData.tradeid
-            , mrchid : cancelData.storeid
+            var data = {
+                prdtprice : cancelData.prdtprice
+                , mobilid : cancelData.mobilid
+                , tradeid : cancelData.tradeid
+                , mrchid : cancelData.storeid
+            }
+            util.getAjaxData("cancel", "/rest/payment/pay/cancel/"+restUrl, data, payCancelSuccess);
         }
-        util.getAjaxData("cancel", "/rest/payment/pay/cancel/"+restUrl, data, payCancelSuccess);
     }
 
     /* 취소버튼 클릭 */
