@@ -2,6 +2,7 @@ package com.dalbit.payment.service;
 
 import com.dalbit.common.code.CancelPhoneCode;
 import com.dalbit.common.code.Status;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.payment.dao.Pay_CancelDao;
 import com.dalbit.payment.module.cnnew_v0003.AckParam;
@@ -35,44 +36,51 @@ public class Pay_CancelService {
     /**
      *  신용카드 결제 취소
      */
-    public int payCancelCard(Pay_CancelCardVo payCancelCardVo) throws IOException, ParseException {
+    public int payCancelCard(Pay_CancelCardVo payCancelCardVo) throws GlobalException{
 
-        String mode			= "CN07";   //거래모드
-        String recordKey	= CommonUtil.Decode(DalbitUtil.getProperty("pay.site.url"));    //사이트URL
-        String svcId		= CommonUtil.Decode(DalbitUtil.getProperty("card.service.id")); //서비스아이디
-        String tradeId		= CommonUtil.Decode(payCancelCardVo.getTradeid());              //거래번호(달빛)
-        String mobilId		= CommonUtil.Decode(payCancelCardVo.getMobilid());              //거래번호(모빌리언스)
-        String prdtPrice	= CommonUtil.Decode(payCancelCardVo.getPrdtprice());            //취소금액
-        String partCancelYn	= CommonUtil.Decode(payCancelCardVo.getPartCancelYn());         //부분취소여부
+        int result = 0;
 
-        McashManager mm = new McashManager();
-        AckParam ap = mm.McashApprv(
-                mode,			/* 거래모드 */
-                recordKey,		/* 사이트URL */
-                svcId,			/* 서비스아이디 */
-                mobilId,		/* 모빌리언스거래번호 */
-                tradeId,		/* 가맹점거래번호 */
-                prdtPrice,		/* 상품금액 */
-                "",		/* 자동결제키 */
-                partCancelYn	/* 부분취소여부 */
-        );
+        try{
+            String mode			= "CN07";   //거래모드
+            String recordKey	= CommonUtil.Decode(DalbitUtil.getProperty("pay.site.url"));    //사이트URL
+            String svcId		= CommonUtil.Decode(DalbitUtil.getProperty("card.service.id")); //서비스아이디
+            String tradeId		= CommonUtil.Decode(payCancelCardVo.getTradeid());              //거래번호(달빛)
+            String mobilId		= CommonUtil.Decode(payCancelCardVo.getMobilid());              //거래번호(모빌리언스)
+            String prdtPrice	= CommonUtil.Decode(payCancelCardVo.getPrdtprice());            //취소금액
+            String partCancelYn	= CommonUtil.Decode(payCancelCardVo.getPartCancelYn());         //부분취소여부
 
-        Pay_CancelVo cancelVo = new Pay_CancelVo();
-        if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
-            cancelVo.setOrder_id(ap.getTradeId());
-            cancelVo.setCancel_dt(DalbitUtil.stringToDate(ap.getSignDate()));
-            cancelVo.setFail_msg("");
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state("y");
-        } else {
-            cancelVo.setOrder_id(ap.getTradeId());
-            cancelVo.setCancel_dt("");
-            cancelVo.setFail_msg(ap.getResultMsg());
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state(ap.getResultCd().equals("M231") ? "y" :"f");
+            McashManager mm = new McashManager();
+            AckParam ap = mm.McashApprv(
+                    mode,			/* 거래모드 */
+                    recordKey,		/* 사이트URL */
+                    svcId,			/* 서비스아이디 */
+                    mobilId,		/* 모빌리언스거래번호 */
+                    tradeId,		/* 가맹점거래번호 */
+                    prdtPrice,		/* 상품금액 */
+                    "",		/* 자동결제키 */
+                    partCancelYn	/* 부분취소여부 */
+            );
+
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+            if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
+                cancelVo.setOrder_id(ap.getTradeId());
+                cancelVo.setCancel_dt(DalbitUtil.stringToDate(ap.getSignDate()));
+                cancelVo.setFail_msg("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+            } else {
+                cancelVo.setOrder_id(ap.getTradeId());
+                cancelVo.setCancel_dt("");
+                cancelVo.setFail_msg(ap.getResultMsg());
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state(ap.getResultCd().equals("M231") ? "y" :"f");
+            }
+
+            result = payCancelDao.sendPayCancel(cancelVo);
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
         }
 
-        int result = payCancelDao.sendPayCancel(cancelVo);
         return result;
     }
 
