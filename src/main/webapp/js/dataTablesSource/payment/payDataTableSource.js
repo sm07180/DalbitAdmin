@@ -86,6 +86,7 @@ var payDataTableSource = {
                     'data-prdtprice="'+row.pay_amt.split(".")[0]+'" ' +
                     'data-storeid="'+row.store_id+'" ' +
                     'data-memno="'+row.mem_no+'" ' +
+                    'data-dalcnt="'+row.dal_cnt+'" ' +
                     'onclick="cancelClick($(this).data())">취소</button>'
             }}
         ]

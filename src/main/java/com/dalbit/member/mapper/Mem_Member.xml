@@ -221,6 +221,7 @@
         /* M_Member.xml - callMemberAddDal */
         UPDATE rd_data.tb_member_wallet SET ruby = #{afterDalCnt} WHERE mem_no = #{mem_no}
     </update>
+
     <insert id="callMemberAddDal_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
         INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new ) VALUES ( #{mem_no}, 7, #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt} );
@@ -244,5 +245,10 @@
         /* M_Member.xml - callMemberEdit_date */
         update rd_data.tb_member_basic set last_upd_date = now() where mem_no = #{mem_no}
     </update>
+
+    <insert id="callMemberMinusDal_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBasicAdd */
+        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new ) VALUES ( #{mem_no}, 8, #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt} );
+    </insert>
 
 </mapper>

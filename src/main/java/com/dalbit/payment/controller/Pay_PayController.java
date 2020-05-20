@@ -16,15 +16,4 @@ public class Pay_PayController {
         return "payment/pay/list";
     }
 
-
-    @GetMapping("cancel/card")
-    public String cancelCard() {
-        return "payment/cancel/card/cn_cancel_req";
-    }
-
-    @PostMapping("cancel/card/result")
-    public String cancelCardResult() {
-        return "payment/cancel/card/cn_cancel_result";
-    }
-
 }

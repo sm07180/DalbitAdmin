@@ -492,6 +492,8 @@ public enum Status {
     /* 결제취소 */
     결제취소성공("0000", "pay.cancel.success", "결제취소 성공 시"),
     결제취소실패("C006", "pay.cancel.fail", "결제취소 실패 시"),
+    보유달부족("C005", "pay.cancel.dal.update", "보유 달 부족 시")
+
 
     ;
 

@@ -66,7 +66,10 @@
                 , mobilid : cancelData.mobilid
                 , tradeid : cancelData.tradeid
                 , mrchid : cancelData.storeid
+                , memno : cancelData.memno
+                , dalcnt : cancelData.dalcnt
             }
+
             util.getAjaxData("cancel", "/rest/payment/pay/cancel/"+restUrl, data, payCancelSuccess);
         }
     }

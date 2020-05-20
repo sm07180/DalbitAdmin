@@ -33,6 +33,7 @@ public class P_MemberEditorVo extends BaseVo {
     private int beforDalCnt;
     private int afterDalCnt;
     private int addDalCnt;
+    private int minusDalCnt;
     private int beforByeolCnt;
     private int afterByeolCnt;
     private int addByeolCnt;
