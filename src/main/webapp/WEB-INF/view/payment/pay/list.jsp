@@ -97,9 +97,9 @@
     function osGubun(data) {
         var os;
         if(data == 1){
-            os = 'IOS'
+            os = 'AOS'
         } else if (data == 2) {
-            os = 'AOS';
+            os = 'IOS';
         } else if (data == 3) {
             os = 'PC';
         } else {

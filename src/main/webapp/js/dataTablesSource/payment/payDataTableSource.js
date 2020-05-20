@@ -22,7 +22,6 @@ var payDataTableSource = {
                         info = '-'
                     }
 
-
                     return info;
                 }}
             , {'title': '결제시도일', 'data': 'pay_dt_comein', 'width':'80px', 'render': function(data, type, row) {
