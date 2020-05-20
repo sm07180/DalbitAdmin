@@ -2,8 +2,11 @@ package com.dalbit.payment.service;
 
 import com.dalbit.common.code.CancelPhoneCode;
 import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberEditorVo;
 import com.dalbit.payment.dao.Pay_CancelDao;
 import com.dalbit.payment.module.cnnew_v0003.AckParam;
 import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
@@ -29,6 +32,9 @@ public class Pay_CancelService {
 
     @Autowired
     Pay_CancelDao payCancelDao;
+
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -76,7 +82,14 @@ public class Pay_CancelService {
                 cancelVo.setCancel_state(ap.getResultCd().equals("M231") ? "y" :"f");
             }
 
+            //취소 업데이트
             result = payCancelDao.sendPayCancel(cancelVo);
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelCardVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelCardVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
+
         }catch (Exception e){
             throw new GlobalException(Status.비즈니스로직오류);
         }
@@ -88,76 +101,128 @@ public class Pay_CancelService {
     /**
      *  휴대폰 결제 취소
      */
-    public int payCancelPhone(Pay_CancelPhoneVo payCancelPhoneVo) throws IOException {
+    public int payCancelPhone(Pay_CancelPhoneVo payCancelPhoneVo) throws GlobalException{
 
-        String mrchId    = payCancelPhoneVo.getMrchid();
-        String svcId     = DalbitUtil.getProperty("phone.service.id");
-        String tradeId   = payCancelPhoneVo.getTradeid();
-        String prdtPrice = payCancelPhoneVo.getPrdtprice();
-        String mobilId   = payCancelPhoneVo.getMobilid();
+        int result = 0;
 
-        MC_Cancel cancel = new MC_Cancel();
-        String res_cd = cancel.cancel_attempt(mrchId, svcId, tradeId, prdtPrice, mobilId);
+        try{
+            String mrchId    = payCancelPhoneVo.getMrchid();
+            String svcId     = DalbitUtil.getProperty("phone.service.id");
+            String tradeId   = payCancelPhoneVo.getTradeid();
+            String prdtPrice = payCancelPhoneVo.getPrdtprice();
+            String mobilId   = payCancelPhoneVo.getMobilid();
 
-        Pay_CancelVo cancelVo = new Pay_CancelVo();
-        if(res_cd.equals(Status.결제취소성공.getMessageCode())){
-            cancelVo.setOrder_id(tradeId);
-            cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state("y");
-            cancelVo.setFail_msg("");
-        } else {
-            cancelVo.setOrder_id(tradeId);
-            cancelVo.setCancel_dt("");
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state(res_cd.equals(CancelPhoneCode.이미취소된자료.getCode()) ? "y" :"f");
+            MC_Cancel cancel = new MC_Cancel();
+            String res_cd = cancel.cancel_attempt(mrchId, svcId, tradeId, prdtPrice, mobilId);
 
-            String resultMsg = "";
-            for (CancelPhoneCode code : CancelPhoneCode.values()) {
-                if(res_cd.equals(code.getCode())){
-                    resultMsg = code.getDesc();
-                } else {
-                    resultMsg = "알수없음";
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+            if(res_cd.equals(Status.결제취소성공.getMessageCode())){
+                cancelVo.setOrder_id(tradeId);
+                cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+                cancelVo.setFail_msg("");
+            } else {
+                cancelVo.setOrder_id(tradeId);
+                cancelVo.setCancel_dt("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state(res_cd.equals(CancelPhoneCode.이미취소된자료.getCode()) ? "y" :"f");
+
+                String resultMsg = "";
+                for (CancelPhoneCode code : CancelPhoneCode.values()) {
+                    if(res_cd.equals(code.getCode())){
+                        resultMsg = code.getDesc();
+                    } else {
+                        resultMsg = "알수없음";
+                    }
                 }
+                cancelVo.setFail_msg(resultMsg);
             }
-            cancelVo.setFail_msg(resultMsg);
+
+            //취소 업데이트
+            result = payCancelDao.sendPayCancel(cancelVo);
+
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
         }
 
-        int result = payCancelDao.sendPayCancel(cancelVo);
         return result;
     }
 
     /**
      *  실계좌이체 결제 취소
      */
-    public int payCancelBank(Pay_CancelBankVo payCancelBankVo) {
+    public int payCancelBank(Pay_CancelBankVo payCancelBankVo) throws GlobalException{
 
-        String cashGb    = CommonUtil.trim("RA");
-        String recordKey = CommonUtil.trim(CommonUtil.Decode(DalbitUtil.getProperty("pay.site.url")));
-        String svcId     = CommonUtil.trim(DalbitUtil.getProperty("bank.service.id"));
-        String tradeId   = CommonUtil.trim(payCancelBankVo.getTradeid());
-        String prdtPrice = CommonUtil.trim(payCancelBankVo.getPrdtprice());
-        String mobilId   = CommonUtil.trim(payCancelBankVo.getMobilid());
+        int result = 0;
 
-        CancelUc can = new CancelUc();
-        com.dalbit.payment.module.ucCancel_v0001.AckParam ap = can.cancelProc(cashGb, recordKey, svcId, tradeId, prdtPrice, mobilId);
+        try{
+            String cashGb    = CommonUtil.trim("RA");
+            String recordKey = CommonUtil.trim(CommonUtil.Decode(DalbitUtil.getProperty("pay.site.url")));
+            String svcId     = CommonUtil.trim(DalbitUtil.getProperty("bank.service.id"));
+            String tradeId   = CommonUtil.trim(payCancelBankVo.getTradeid());
+            String prdtPrice = CommonUtil.trim(payCancelBankVo.getPrdtprice());
+            String mobilId   = CommonUtil.trim(payCancelBankVo.getMobilid());
 
-        Pay_CancelVo cancelVo = new Pay_CancelVo();
-        if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
-            cancelVo.setOrder_id(tradeId);
-            cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state("y");
-            cancelVo.setFail_msg("");
-        } else {
-            cancelVo.setOrder_id(tradeId);
-            cancelVo.setCancel_dt("");
-            cancelVo.setOp_name(MemberVo.getMyMemNo());
-            cancelVo.setCancel_state(ap.getResultCd().equals("0087") ? "y" :"f");
-            cancelVo.setFail_msg(ap.getResultMsg());
+            CancelUc can = new CancelUc();
+            com.dalbit.payment.module.ucCancel_v0001.AckParam ap = can.cancelProc(cashGb, recordKey, svcId, tradeId, prdtPrice, mobilId);
+
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+            if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
+                cancelVo.setOrder_id(tradeId);
+                cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+                cancelVo.setFail_msg("");
+            } else {
+                cancelVo.setOrder_id(tradeId);
+                cancelVo.setCancel_dt("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state(ap.getResultCd().equals("0087") ? "y" :"f");
+                cancelVo.setFail_msg(ap.getResultMsg());
+            }
+
+            //취소 업데이트
+            result = payCancelDao.sendPayCancel(cancelVo);
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelBankVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelBankVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
+
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
         }
 
-        int result = payCancelDao.sendPayCancel(cancelVo);
         return result;
     }
+
+
+    /**
+     * 결제 취소 달 차감
+     */
+    public String getMemberDalMinus(P_MemberEditorVo pMemberEditorVo) {
+
+        // 가지고 있는 dal
+        int beforDalCnt = mem_MemberDao.callMemberBeforDelCnt(pMemberEditorVo);
+        int afterDalCnt = beforDalCnt - pMemberEditorVo.getMinusDalCnt();
+
+        // 보유한 달 보다 차감되는 달이 많을 경우
+        if(beforDalCnt < pMemberEditorVo.getMinusDalCnt()){
+            return gsonUtil.toJson(new JsonOutputVo(Status.보유달부족));
+        }
+
+        // 달 set
+        pMemberEditorVo.setBeforDalCnt(beforDalCnt);
+        pMemberEditorVo.setAfterDalCnt(afterDalCnt);
+        pMemberEditorVo.setUse_contents("결제취소 : 달 " + pMemberEditorVo.getMinusDalCnt() + " 차감");
+
+        // 달 차감
+        mem_MemberDao.callMemberAddDal(pMemberEditorVo);
+        // 달 차감 로그
+        mem_MemberDao.callMemberMinusDal_history(pMemberEditorVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
+    }
+
 }
