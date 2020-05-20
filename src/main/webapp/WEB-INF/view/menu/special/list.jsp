@@ -66,27 +66,27 @@
         $("#tableBody").append(html);
     }
 
-    var tab = $('#tablist_con li.active');
-    var tabIndex = $('#tablist_con li').index(tab);
-
     $('#bt_search').on('click', function () {
-        tabClick();
-    });
-
-    $('input[id="txt_search"]').keydown(function () {
-        if (event.keyCode == 13) {
-            tabClick();
-        }
-    });
-
-    function tabClick() {
+        var tab = $('#tablist_con li.active');
+        var tabIndex = $('#tablist_con li').index(tab);
         if (tabIndex == 0) {
-            specialDjPagingInfo.pageNo = 1;
             init();
         } else if (tabIndex == 1) {
             initReq();
         }
-    }
+    });
+
+    $('input[id="txt_search"]').keydown(function () {
+        var tab = $('#tablist_con li.active');
+        var tabIndex = $('#tablist_con li').index(tab);
+        if (event.keyCode == 13) {
+            if (tabIndex == 0) {
+                init();
+            } else if (tabIndex == 1) {
+                initReq();
+            }
+        }
+    });
 
     $('#memSearch').on('click', function() {
        showPopMemberList(choiceMember);
