@@ -601,7 +601,10 @@
             <th>방송상태</th>
             <td colspan="2" style="text-align: left">
                 {{{icon_broadcastState}}}
-                {{{roomNoLink title room_no}}}
+                {{#equal broadcastState 'ON'}}
+                 - 방송제목 : {{{roomNoLink ../title ../room_no}}}
+                {{/equal}}
+
             </td>
         </tr>
         <tr>
@@ -612,7 +615,9 @@
             <th>청취상태</th>
             <td colspan="2" style="text-align: left">
                 {{{icon_listeningState}}}
-                {{{roomNoLink listen_title listen_room_no}}}
+                {{#equal listeningState 'ON'}}
+                 - 방송제목 : {{{roomNoLink ../listen_title ../listen_room_no}}}
+                {{/equal}}
             </td>
         </tr>
         <tr>
