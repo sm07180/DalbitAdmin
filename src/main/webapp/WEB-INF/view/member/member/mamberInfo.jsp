@@ -30,8 +30,6 @@
     $(document).ready(function() {
 
     });
-    $("#select_level").html(util.getCommonCodeSelect(-1, level));
-    $("#select_grade").html(util.getCommonCodeSelect(-1, grade));
     $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
 
     var profImgDel;
@@ -53,6 +51,16 @@
             response.data["memWithdrawal"] = "0";
         }
         response.data["birthData"] = response.data.birthDate.substr(0, 10);
+        if(response.data.broadcastState == "ON")
+            response.data["icon_broadcastState"] = '<i class="fa fa-circle" style="color: #ff0000;font-size:20px;"></i> ' + response.data.broadcastState;
+        else
+            response.data["icon_broadcastState"] = '<i class="fa fa-circle" style="color: #000000;font-size:20px;"></i> ' + response.data.broadcastState;
+
+        if(response.data.listeningState == "ON")
+            response.data["icon_listeningState"] = '<i class="fa fa-volume-up" style="color: #a037d9;font-size:20px;"></i> ' + response.data.listeningState;
+        else
+            response.data["icon_listeningState"] = '<i class="fa fa-volume-off" style="color: #000000;font-size:20px;"></i> ' + response.data.listeningState;
+
 
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -147,14 +155,14 @@
             stateEdit();
         });
 
-        $('#bt_dalAdd').click(function() {           // 달추가
+        $('#bt_dalAdd').click(function() {           // 달변경
             dalbyeolAdd("dal");
         });
-        $('#bt_byeolAdd').click(function() {           // 달추가
+        $('#bt_byeolAdd').click(function() {           // 달변경
             dalbyeolAdd("byeol");
         });
 
-        $('#bt_pointHistory').click(function() {           // 달추가
+        $('#bt_pointHistory').click(function() {           // 달/별 변경 자세히보기
             getInfoDetail(this.id,"보유달/별 수정내역");
         });
 
@@ -233,6 +241,7 @@
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     obj.memSex = $('input[name="memSex"]:checked').val();
                     obj.profileImage = "";
+                    obj.profileImageReset = 1;
                     sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;
@@ -474,28 +483,59 @@
         data.mem_no = memNo;
 
         if(tmp == "dal" ){
+            if($("#sp_dalPointEdit").find("select[name='pointEditStory']").val() == "-1"){
+                alert("달 변경 사유를 선택해 주세요.");
+                return;
+            }
+            if($("#txt_dalAddCnt").val() == ""){
+                alert("달 수 를 입력해주세요");
+                return;
+            }
             if($("select[name='dalPlusMinus']").val() == 2){
+                if(memberInfo_responseDate.dal < $("#txt_dalAddCnt").val()){
+                    alert("적용할 수 없는 수치입니다.");
+                    return;
+                }
                 data.addDalCnt = "-" + $("#txt_dalAddCnt").val();
             }else{
                 data.addDalCnt = $("#txt_dalAddCnt").val();
             }
-            util.getAjaxData("dalAdd", "/rest/member/member/daladd", data, dalbyeoladd_success, fn_fail);
+            if(confirm($("#txt_dalAddCnt").val() + "달을 변경하시겠습니까?")) {
+                data.pointEditStroy=$("#sp_dalPointEdit").find("#pointEditStory option:checked").text();
+                util.getAjaxData("dalAdd", "/rest/member/member/daladd", data, dalbyeoladd_success, fn_fail);
+            } else return;
         }else if(tmp == "byeol"){
+            if($("#sp_byeollPointEdit").find("select[name='pointEditStory']").val() == "-1"){
+                alert("달 변경 사유를 선택해 주세요.");
+                return;
+            }
+            if($("#txt_byeolAddCnt").val() == ""){
+                alert("별 수 를 입력해주세요");
+                return;
+            }
             if($("select[name='byeolPlusMinus']").val() == 2){
+                if(memberInfo_responseDate.byeol < $("#txt_byeolAddCnt").val()){
+                    alert("적용할 수 없는 수치입니다.");
+                    return;
+                }
                 data.addByeolCnt = "-" + $("#txt_byeolAddCnt").val();
             }else{
                 data.addByeolCnt = $("#txt_byeolAddCnt").val();
             }
-            util.getAjaxData("byeoladd", "/rest/member/member/byeoladd", data, dalbyeoladd_success, fn_fail);
+            if(confirm($("#txt_byeolAddCnt").val() + "별을 변경하시겠습니까?")) {
+                data.pointEditStroy=$("#sp_byeolPointEdit").find("#pointEditStory option:checked").text();
+                util.getAjaxData("byeoladd", "/rest/member/member/byeoladd", data, dalbyeoladd_success, fn_fail);
+
+            }else return;
         }
     }
 
     function dalbyeoladd_success(dst_id, response) {
         dalbitLog(response);
         if(response.code == "0"){
-            alert("추가 완료 되었습니다.");
+            alert("지급이 정상 처리 되었습니다.");
         }else{
-            alert("추가 실패");
+            alert("지급 실패");
         }
         var obj = new Object();
         obj.mem_no = memNo;
@@ -559,7 +599,10 @@
             <th>회원NO</th>
             <td colspan="3" style="text-align: left">{{mem_no}}</td>
             <th>방송상태</th>
-            <td colspan="2" style="text-align: left">{{broadcastState}}</td>
+            <td colspan="2" style="text-align: left">
+                {{{icon_broadcastState}}}
+                {{{roomNoLink title room_no}}}
+            </td>
         </tr>
         <tr>
             <th>회원이름</th>
@@ -567,7 +610,10 @@
             <th>내/외국인 구분</th>
             <td style="text-align: left">{{local}}</td>
             <th>청취상태</th>
-            <td colspan="2" style="text-align: left">{{listeningState}}</td>
+            <td colspan="2" style="text-align: left">
+                {{{icon_listeningState}}}
+                {{{roomNoLink listen_title listen_room_no}}}
+            </td>
         </tr>
         <tr>
             <th>UserId</th>
@@ -579,13 +625,14 @@
                 </span>
                 <c:if test="${insertYn eq 'Y'}">
                     {{#equal memWithdrawal '0'}}
-                        <span class="col-md-9 no-padding">
+                        <span class="col-md-9 no-padding" id="sp_dalPointEdit">
                             <select id="dalPlusMinus" name="dalPlusMinus" class="form-control searchType">
                                 <option value="1">+</option>
                                 <option value="2">-</option>
                             </select>
                             <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
-                            <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                            {{{getCommonCodeSelect pointEditStory 'pointEditStory'}}}
+                            <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">변경</button>
                         </span>
                     {{/equal}}
                 </c:if>
@@ -613,13 +660,14 @@
                 </span>
                 <c:if test="${insertYn eq 'Y'}">
                     {{#equal memWithdrawal '0'}}
-                        <span class="col-md-9 no-padding">
+                        <span class="col-md-9 no-padding" id="sp_byeolPointEdit">
                             <select id="byeolPlusMinus" name="byeolPlusMinus" class="form-control searchType">
                                 <option value="1">+</option>
                                 <option value="2">-</option>
                             </select>
                             <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
-                            <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">추가</button>
+                            {{{getCommonCodeSelect pointEditStory 'pointEditStory'}}}
+                            <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">변경</button>
                         </span>
                     {{/equal}}
                 </c:if>

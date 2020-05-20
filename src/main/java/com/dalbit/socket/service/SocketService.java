@@ -39,6 +39,7 @@ public class SocketService {
         params = StringUtils.defaultIfEmpty(params, "").trim();
 
         String request_uri = "https://" + SERVER_SOCKET_IP + ":" + SERVER_SOCKET_PORT + SERVER_SOCKET_URL + roomNo;
+        System.out.println(request_uri);
 
         try{
             url = new URL(request_uri);

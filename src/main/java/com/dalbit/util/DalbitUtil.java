@@ -740,4 +740,13 @@ public class DalbitUtil {
         Calendar cal = Calendar.getInstance();
         return formatter.format(cal.getTime());
     }
+
+    /**
+     * 1000 단위 콤마
+     */
+    public static String comma(int number){
+        String str = String.format("%,d", number);
+        return str;
+    }
+
 }

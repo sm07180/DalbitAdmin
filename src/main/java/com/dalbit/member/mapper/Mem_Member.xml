@@ -26,6 +26,22 @@
         select count(*) testIdCnt from rd_admin.tb_admin_test_account where mem_no =#{mem_no}
     </select>
 
+    <select id="callMemberRoom" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
+        /* M_Member.xml - callMemberRoom */
+        select room_no,title from rd_data.tb_broadcast_room where state != 4 and mem_no =#{mem_no}
+    </select>
+
+    <select id="callMemberRoomListen" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
+        /* M_Member.xml - callMemberRoomListen */
+        select room_no as listen_room_no
+              ,(select title from rd_data.tb_broadcast_room where state != 4 and room_no = a.room_no) as listen_title
+          from rd_data.tb_broadcast_room_member a
+         where a.mem_no=#{mem_no}
+           and a.state=0 and auth= !3
+         order by last_upd_date desc
+         limit 1;
+    </select>
+
     <select id="callMemberBlock" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberBlock */
         select block_day,block_end_date From rd_data.tb_member_basic where mem_no=#{mem_no}

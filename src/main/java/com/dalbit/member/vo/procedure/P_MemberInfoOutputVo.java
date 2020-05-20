@@ -51,6 +51,13 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String blockEndDateFormat;
     private int testIdCnt;
 
+    // 방송중인 방
+    private String room_no;
+    private String title;
+    // 청취중인 방
+    private String listen_room_no;
+    private String listen_title;
+
     public void setBlock_end_date(Date block_end_date){
         this.block_end_date = block_end_date;
         this.blockEndDateFormat = DalbitUtil.convertDateFormat(block_end_date, "yyyy.MM.dd HH:mm:ss");

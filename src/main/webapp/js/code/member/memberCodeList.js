@@ -97,6 +97,15 @@ var testId_withdrawal = [
     ,new COMMON_CODE('0','0','Test-ID 제외')
 ];
 
+var pointEditStory = [
+    new COMMON_CODE('','pointEditStory','달/별수정사유')
+    ,new COMMON_CODE('-1','-1','지급사유 선택')
+    ,new COMMON_CODE('0','0','소실금액 복구')
+    ,new COMMON_CODE('1','1','직원 테스트')
+    ,new COMMON_CODE('2','2','이벤트 지급')
+];
+
+
 
 // ------------------------- table -----------------------------
 var mem_total_gift_summary = [

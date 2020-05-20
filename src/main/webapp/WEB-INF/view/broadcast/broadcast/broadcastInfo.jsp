@@ -122,6 +122,10 @@
         if(editEntry != "adminMemoAdd" ){
             $("#editHistFrm").removeClass("show");
         }
+
+        var scrollPosition = $("#tabList_top").offset();
+        util.scrollPostion(scrollPosition.top);
+
     }
 
     function btn_init(){

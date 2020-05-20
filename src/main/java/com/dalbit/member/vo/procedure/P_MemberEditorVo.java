@@ -28,6 +28,7 @@ public class P_MemberEditorVo extends BaseVo {
     private String  beforProfileImage;
     private String  brforNickName;
     private int  type;
+    private int  profileImageReset;
 
     // 달 별 추가 Cnt
     private int beforDalCnt;
@@ -37,6 +38,7 @@ public class P_MemberEditorVo extends BaseVo {
     private int afterByeolCnt;
     private int addByeolCnt;
     private String use_contents;
+    private String pointEditStroy;
 
 }
 

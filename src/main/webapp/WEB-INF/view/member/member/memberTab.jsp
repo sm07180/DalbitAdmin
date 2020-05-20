@@ -67,6 +67,8 @@
         }else if(tmp == "tab_questionDetail"){
             getHistory_questionDetail(tmp);
         }
-        util.scrollPostion(878);
+
+        var scrollPosition = $("#tabList_top").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 </script>

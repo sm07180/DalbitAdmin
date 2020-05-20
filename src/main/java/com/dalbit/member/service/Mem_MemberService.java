@@ -137,6 +137,20 @@ public class Mem_MemberService {
             memberInfo.setUserId(memberInfo.getUserId() + "_Test");
         }
 
+        // 방송중인 방번호
+        P_MemberInfoOutputVo room = mem_MemberDao.callMemberRoom(pMemberInfoInputVo);
+        if(!DalbitUtil.isEmpty(room)) {
+            memberInfo.setRoom_no(room.getRoom_no());
+            memberInfo.setTitle(room.getTitle());
+        }
+
+        // 청취중인 방번호
+        P_MemberInfoOutputVo listen = mem_MemberDao.callMemberRoomListen(pMemberInfoInputVo);
+        if(!DalbitUtil.isEmpty(listen)) {
+            memberInfo.setListen_room_no(listen.getListen_room_no());
+            memberInfo.setListen_title(listen.getListen_title());
+        }
+
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberInfo));
@@ -205,21 +219,21 @@ public class Mem_MemberService {
                 param.put("memNo", pMemberEditorVo.getMem_no());
                 param.put("memNk", "");
                 param.put("ctrlRole", "ctrlRole");
-                param.put("recvType", "system");
-                param.put("recvPosition", "top1");
-                param.put("recvLevel", 1);
-                param.put("recvTime", 5);
+                param.put("recvType", "chat");
+                param.put("recvPosition", "chat");
+                param.put("recvLevel", 0);
+                param.put("recvTime", 0);
 
                 // message set
                 Gson gson = new Gson();
                 HashMap<String,Object> tmp = new HashMap();
-                tmp.put("nk", pMemberEditorVo.getBrforNickName());
-                tmp.put("sex", pMemberEditorVo.getMemSex());
-                if(DalbitUtil.isEmpty(pMemberEditorVo.getProfileImage())){
-                    tmp.put("image", new ImageVo(pMemberEditorVo.getProfileImage(),pMemberEditorVo.getMemSex(), DalbitUtil.getProperty("server.photo.url")).getUrl());
+                if(pMemberEditorVo.getProfileImageReset() == 1){
+                    tmp.put("image", new ImageVo("",pMemberEditorVo.getMemSex(), DalbitUtil.getProperty("server.photo.url")).getUrl().replace(DalbitUtil.getProperty("server.photo.url"),""));
                 }else{
-                    tmp.put("image", new ImageVo(pMemberEditorVo.getBeforProfileImage(), DalbitUtil.getProperty("server.photo.url")));
+                    tmp.put("image", pMemberEditorVo.getBeforProfileImage());
                 }
+                tmp.put("sex", pMemberEditorVo.getMemSex());
+                tmp.put("nk", pMemberEditorVo.getBrforNickName());
                 String message =  gson.toJson(tmp);
 
                 socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
@@ -452,7 +466,8 @@ public class Mem_MemberService {
         // 최근정보 수정일 변경
         mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
         // 최근 정보 수정 자 입력
-        pMemberEditorVo.setEditContents("달수 변경 : " + beforDalCnt + " >> " + pMemberEditorVo.getAddDalCnt() + " 추가 >> " + afterDalCnt);
+        pMemberEditorVo.setEditContents("달수 변경 : " + DalbitUtil.comma(beforDalCnt) + " >> " + DalbitUtil.comma(pMemberEditorVo.getAddDalCnt())
+                                         + " 변경 >> " + DalbitUtil.comma(afterDalCnt) + " | " + pMemberEditorVo.getPointEditStroy());
         pMemberEditorVo.setType(1);
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
         //notice
@@ -484,7 +499,8 @@ public class Mem_MemberService {
         // 최근정보 수정일 변경
         mem_MemberDao.callMemberEdit_date(pMemberEditorVo);
         // 최근 정보 수정 자 입력
-        pMemberEditorVo.setEditContents("별수 변경 : " + beforByeolCnt + " >> " + pMemberEditorVo.getAddByeolCnt() + " 추가 >> " + afterByeolCnt);
+        pMemberEditorVo.setEditContents("별수 변경 : " + DalbitUtil.comma(beforByeolCnt) + " >> " + DalbitUtil.comma(pMemberEditorVo.getAddByeolCnt())
+                                        + " 변경 >> " + DalbitUtil.comma(afterByeolCnt) + " | " + pMemberEditorVo.getPointEditStroy());
         pMemberEditorVo.setType(1);
 
         mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
