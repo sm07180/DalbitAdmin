@@ -91,6 +91,8 @@
             str = '휴대폰';
         } else if (data == 'RA') {
             str = '계좌이체';
+        } else if (data == 'InApp') {
+            str = 'Apple';
         } else {
             str = '-'
         }
