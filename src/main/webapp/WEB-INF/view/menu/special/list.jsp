@@ -10,11 +10,15 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
+                            <input type="hidden" name="pageStart" id="pageStart">
+                            <input type="hidden" name="pageCnt" id="pageCnt">
                             <div>
                                 <span id="searchArea"></span>
                                 <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <button type="button" class="btn btn-default pull-right" id="memSearch" name="memSearch">운영자 직접 등록</button>
+                                <div class="pull-right" id="div_selectTarget" style="padding-left: 30px;">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +50,7 @@
     </div>
 </div>
 
-<jsp:include page="/WEB-INF/view/common/util/select_memeberList.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/view/common/util/select_specialList.jsp"></jsp:include>
 
 <script type="text/javascript">
 
@@ -64,28 +68,47 @@
         $("#tableBody").append(html);
     }
 
+    var tab = $('#tablist_con li.active');
+    var tabIndex = $('#tablist_con li').index(tab);
+
     $('#bt_search').on('click', function () {
-        var tab = $('#tablist_con li.active');
-        var tabIndex = $('#tablist_con li').index(tab);
+        tabClick();
+    });
+
+    $('input[id="txt_search"]').keydown(function () {
+        if (event.keyCode == 13) {
+            tabClick();
+        }
+    });
+
+    function tabClick() {
         if (tabIndex == 0) {
+            specialDjPagingInfo.pageNo = 1;
             init();
         } else if (tabIndex == 1) {
             initReq();
         }
+    }
+
+    $('#memSearch').on('click', function() {
+       showPopMemberList(choiceMember);
     });
 
-    $('input[id="txt_search"]').keydown(function () {
-        var tab = $('#tablist_con li.active');
-        var tabIndex = $('#tablist_con li').index(tab);
-        if (event.keyCode == 13) {
-            if (tabIndex == 0) {
-                init();
-            } else if (tabIndex == 1) {
-                initReq();
-            }
+    function choiceMember(data) {
+        if(confirm('스페셜 DJ로 등록하시겠습니까?')){
+            var obj = {
+                mem_no : data.mem_no
+                , is_force : 1
+            };
+            util.getAjaxData("ok", "/rest/menu/special/reqOk", obj, fn_success_ok);
         }
-    });
+        return false;
+    }
 
+    function fn_success_ok(dst_id, response) {
+        alert(response.message);
+        getList();
+    }
 </script>
 
 <script id="tmp_summary" type="text/x-handlebars-template">

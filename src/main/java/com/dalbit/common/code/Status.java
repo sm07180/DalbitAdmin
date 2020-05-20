@@ -454,7 +454,7 @@ public enum Status {
     이미지초기화성공("0", "reset.image.success", "이미지 초기화 성공 시"),
     이미지초기화실패("-1", "reset.image.fail", "이미지 초기화 실패 시"),
 
-
+    스페셜DJ_중복("-1", "specialDj.fail.exist", "스페셜DJ 등록 시 이미 등록된 상태일 때"),
 
 
 

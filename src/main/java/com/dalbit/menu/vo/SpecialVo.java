@@ -16,7 +16,7 @@ public class SpecialVo extends PagingVo {
     private int req_idx;
     private String mem_no;
     private String reg_date;
-    private String is_force;
+    private int is_force;
     private int order;
     private String op_name;
     private String title;
