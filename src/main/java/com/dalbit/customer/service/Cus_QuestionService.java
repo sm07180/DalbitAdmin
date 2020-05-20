@@ -183,8 +183,8 @@ public class Cus_QuestionService {
      */
     public String callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo){
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
-        int check = 0;
-        if(DalbitUtil.executivesUser().indexOf(MemberVo.getMyMemNo()) > 0){
+        int check;
+        if(DalbitUtil.exceptionUser().indexOf(MemberVo.getMyMemNo()) > -1){
             check = 2;
         }else {
             cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
