@@ -17,10 +17,12 @@ var payDataTableSource = {
                     } else if(row.pay_way == 'CN'){
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
-                        info = row.pay_info_no + '<br/>' + row.pay_info_nm;
+                        info = row.pay_info_no + '<br/>' + bankCodeToString(row.pay_info_nm);
                     } else {
                         info = '-'
                     }
+
+
                     return info;
                 }}
             , {'title': '결제시도일', 'data': 'pay_dt_comein', 'width':'80px', 'render': function(data, type, row) {
@@ -63,12 +65,14 @@ var payDataTableSource = {
                     var tmp = row.bank_code + '<br/>' + row.account_no;
                     return tmp;
                 }}*/
-            , {'title': '결제자', 'data': 'rcpt_nm'}
-            , {'title': '취소일시', 'data': '', 'render': function(data, type, row) {
-                    return row.cancel_state == 'y' ? row.cancel_dt : '-';
-                }}
+            /*, {'title': '결제자', 'data': 'rcpt_nm', 'render': function(data, type, row) {
+                    return data;
+                }}*/
             , {'title': '취소상태', 'data': 'cancel_state', 'render': function(data, type, row) {
                     return data.toUpperCase();
+                }}
+            , {'title': '취소일시', 'data': '', 'render': function(data, type, row) {
+                    return row.cancel_state == 'y' ? row.cancel_dt : '-';
                 }}
             , {'title': '취소실패사유', 'data': 'fail_msg', 'render': function(data, type, row) {
                     return !common.isEmpty(row.fail_msg) ? row.fail_msg : '-';
