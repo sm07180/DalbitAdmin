@@ -408,7 +408,7 @@
                                     <td>0원</td>
                                     <td>0원</td>
                                 </tr>
-                                <tr class="_pay" data-payway="inApp" data-type="cnt">
+                                <tr class="_pay" data-payway="InApp" data-type="cnt">
                                     <th rowspan="2">인앱<br/>(Apple)</th>
                                     <th>건</th>
                                     <td>0건</td>
@@ -417,7 +417,7 @@
                                     <td>0건</td>
                                     <td>0건</td>
                                 </tr>
-                                <tr class="_pay" data-payway="inApp" data-type="amt">
+                                <tr class="_pay" data-payway="InApp" data-type="amt">
                                     <th>금액</th>
                                     <td>0원</td>
                                     <td>0원</td>
