@@ -117,7 +117,7 @@
                     <!-- //방송정보 -->
 
                     <!-- 접속정보 -->
-                    <div class="widget widget-table mb10">
+                    <%--<div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 접속정보</h3>
                             <div class="btn-group widget-header-toolbar">
@@ -192,7 +192,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div>--%>
                     <!-- //접속정보 -->
 
                     <!-- 회원가입/탈퇴 -->
