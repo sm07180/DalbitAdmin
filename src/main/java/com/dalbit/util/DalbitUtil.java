@@ -749,4 +749,13 @@ public class DalbitUtil {
         return str;
     }
 
+
+    /**
+     *  카드취소날짜 yyyy-MM-dd HH:mm:ss 변환
+     */
+    public static String stringToDate(String str) throws ParseException {
+        Date date  = new SimpleDateFormat("yyyyMMddHHmmss").parse(str);
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return fmt.format(date);
+    }
 }

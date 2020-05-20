@@ -48,7 +48,7 @@
     /* 취소버튼 클릭 */
     function cancelClick(cancelData){
 
-        var result = confirm("회원아이디? 님의 "+ common.addComma(cancelData.prdtprice) +"원에 대한 결제를 취소하시겠습니까?")
+        var result = confirm(cancelData.memno+"님의 "+ common.addComma(cancelData.prdtprice) +"원에 대한 결제를 취소하시겠습니까?")
         if(result){
             var restUrl='';
             if(cancelData.paycd == 'CN'){
