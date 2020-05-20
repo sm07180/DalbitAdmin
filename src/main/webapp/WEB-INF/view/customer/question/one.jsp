@@ -215,11 +215,11 @@
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
                         <td colspan="3">
-                            <%--{{#equal add_file ''}}--%>
-                            <%-- - --%>
-                            <%--{{else}}--%>
-                            <img src="{{renderImage add_file}}" width="auto" height="100px" class="_imageFullPop" />
-                            <%--{{/equal}}--%>
+                            {{#equal add_file ''}}
+                             -
+                            {{else}}
+                                <img src="{{renderImage ../add_file}}" width="auto" height="100px" class="_imageFullPop" />
+                            {{/equal}}
                         </td>
                     </tr>
 
