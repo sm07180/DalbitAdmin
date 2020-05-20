@@ -113,17 +113,31 @@
 
     <sql id="special">
         select
-        dj.req_idx as req_idx
-        , dj.mem_no as mem_no
-        , dj.reg_date as reg_date
-        , dj.is_force as is_force
-        , dj.`order` as `order`
-        , dj.op_name as op_name
-        , @RNUM := @RNUM + 1 as rowNum
-        from rd_admin.tb_special_dj dj
-            , rd_data.tb_member_basic basic
-            , (select @RNUM := 0) r
+            @RNUM := @RNUM + 1 as rowNum,
+            dj.req_idx         as req_idx,
+            dj.mem_no          as mem_no,
+            dj.reg_date        as reg_date,
+            dj.is_force        as is_force,
+            dj.`order`         as `order`,
+            dj.op_name         as op_name,
+            basic.mem_id       as mem_id,
+            basic.mem_nick     as mem_nick,
+            lev.level          as `level`,
+            lev.grade          as grade,
+            pro.image_profile  as image_profile,
+            (select count(*) from rd_data.tb_broadcast_room_member where auth = 3 and state = 1 and mem_no = dj.mem_no) onAir,
+            (select count(*) from rd_data.tb_member_fanstar where mem_no_star = dj.mem_no) fanCnt,
+            (select sum(airtime) from rd_data.tb_broadcast_room  where mem_no = dj.mem_no) airTime,
+            (select sum(gift_ruby) from rd_data.tb_member_broadcast_listening where dj_mem_no = dj.mem_no) giftedRuby,
+            (select count(*) from rd_data.tb_broadcast_room_good where dj_mem_no = dj.mem_no) likeCnt
+        from rd_admin.tb_special_dj dj,
+            rd_data.tb_member_basic basic,
+            rd_data.tb_member_profile pro,
+            rd_data.tb_member_level lev,
+            (select @RNUM := 0) r
         where dj.mem_no = basic.mem_no
+            and basic.mem_no = pro.mem_no
+            and basic.mem_no = lev.mem_no
         <if test='txt_search != null and txt_search != ""'>
             <choose>
                 <when test='searchType == "1"'>
