@@ -18,6 +18,6 @@ public class P_ItemTopFiveOutputVo {
     private String weekItemCnt;
     private String weekItemAmt;
     private String incwbItemCnt;
-    private String incnwbItemAmt;
+    private String incwbItemAmt;
 
 }
