@@ -195,3 +195,11 @@ Handlebars.registerHelper("phoneNumHyphen", function(value) {
 Handlebars.registerHelper("fontColor", function(value, minValue, fontColor) {
     return common.fontColor(value, minValue, fontColor);
 });
+
+Handlebars.registerHelper("memNoLink", function(display, value) {
+    return util.memNoLink(display,value);
+});
+
+Handlebars.registerHelper("roomNoLink", function(display, value) {
+    return util.roomNoLink(display,value);
+});
