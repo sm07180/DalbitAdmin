@@ -81,7 +81,7 @@
     }
 
     var dtList_modal_info_detail;
-    var source = UtilDataTableSource.modalSpecialList;       //callback : setModalMemeberData()
+    var source = specialDataTableSource.modalSpecialList;       //callback : setModalMemeberData()
     var dtList_info_detail_data = function (data) {
         data.searchType = $("#"+targetId).find("select[name='searchType']").val();          // 검색구분
         data.searchText = $("#"+targetId).find('#txt_search').val();                        // 검색명

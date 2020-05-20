@@ -21,5 +21,5 @@ public class SpecialVo extends PagingVo {
     private String op_name;
     private String title;
     private String contents;
-
+    private String request_date;
 }

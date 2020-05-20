@@ -125,12 +125,16 @@
                 <table class="table table-bordered table-dalbit">
                     <input type="hidden" name="idx" data-idx="{{idx}}"/>
                     <tr>
-                        <th>제목</th>
-                        <td>{{title}}</td>
                         <th>신청일시</th>
                         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                         <th>승인일시</th>
                         <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                        <th>이름</th>
+                        <td>{{mem_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td colspan="5">{{title}}</td>
                     </tr>
                     <tr>
                         <th>신청내용</th>

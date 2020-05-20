@@ -44,7 +44,7 @@ public class Pay_CancelRestController {
      *  휴대폰 결제 취소
      */
     @PostMapping("phone")
-    public int payCancelPhone(Pay_CancelPhoneVo payCancelPhoneVo) throws IOException {
+    public int payCancelPhone(Pay_CancelPhoneVo payCancelPhoneVo) throws GlobalException {
 
         int result = payCancelService.payCancelPhone(payCancelPhoneVo);
         return result;
@@ -54,7 +54,7 @@ public class Pay_CancelRestController {
      *  실계좌이체 결제 취소
      */
     @PostMapping("bank")
-    public int payBankPhone(Pay_CancelBankVo payCancelBankVo) throws IOException {
+    public int payBankPhone(Pay_CancelBankVo payCancelBankVo) throws GlobalException {
 
         int result = payCancelService.payCancelBank(payCancelBankVo);
         return result;

@@ -4,16 +4,22 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
+import com.dalbit.menu.vo.SpecialDjOrderVo;
 import com.dalbit.menu.vo.SpecialReqVo;
 import com.dalbit.menu.vo.SpecialSummaryVo;
 import com.dalbit.menu.vo.SpecialVo;
 import com.dalbit.util.GsonUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dalbit.common.code.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -79,9 +85,9 @@ public class Men_SpecialService {
         menSpecialDao.profileUpdate(specialReqVo);
 
         if(result > 0) {
-            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_성공));
         } else {
-            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_실패));
         }
     }
 
@@ -96,9 +102,9 @@ public class Men_SpecialService {
         int result= menSpecialDao.reqOkUpdate(specialReqVo);
 
         if(result > 0) {
-            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인거부_성공));
         } else {
-            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인거부_실패));
         }
     }
 
@@ -142,9 +148,29 @@ public class Men_SpecialService {
         menSpecialDao.profileUpdate(specialReqVo);
 
         if(result > 0) {
-            return gsonUtil.toJson(new JsonOutputVo(Status.삭제));
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인취소_성공));
         } else {
-            return gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인취소_실패));
+        }
+    }
+
+    /**
+     * 스페셜 달D 순위 변경 업데이트
+     */
+    public String updateOrder(SpecialDjOrderVo specialDjOrderVo) {
+
+        try{
+            String jsonData = specialDjOrderVo.getOrderJsonData();
+            SpecialDjOrderVo[] SpecialDjOrderVoArray = new Gson().fromJson(jsonData, SpecialDjOrderVo[].class);
+
+            Arrays.stream(SpecialDjOrderVoArray).forEach(orderInfo -> {
+                menSpecialDao.updateOrder(orderInfo);
+            });
+
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ순위변경_성공));
+
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ순위변경_실패));
         }
     }
 }

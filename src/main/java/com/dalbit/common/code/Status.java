@@ -454,9 +454,20 @@ public enum Status {
     이미지초기화성공("0", "reset.image.success", "이미지 초기화 성공 시"),
     이미지초기화실패("-1", "reset.image.fail", "이미지 초기화 실패 시"),
 
+    //스페셜DJ
+    스페셜DJ승인완료_성공("0", "operate.success", "스페셜DJ 승인처리 성공 시"),
+    스페셜DJ승인완료_실패("C006", "server.error", "스페셜DJ 승인처리 실패 시"),
+
+    스페셜DJ승인거부_성공("0", "operate.success", "스페셜DJ 승인거부 성공 시"),
+    스페셜DJ승인거부_실패("C006", "server.error", "스페셜DJ 승인거부 실패 시"),
+
+    스페셜DJ승인취소_성공("0", "operate.success", "스페셜DJ 승인취소 성공 시"),
+    스페셜DJ승인취소_실패("C006", "server.error", "스페셜DJ 승인취소 실패 시"),
+
     스페셜DJ_중복("-1", "specialDj.fail.exist", "스페셜DJ 등록 시 이미 등록된 상태일 때"),
 
-
+    스페셜DJ순위변경_성공("0", "update.success", "스페셜DJ 순위변경 성공 시"),
+    스페셜DJ순위변경_실패("C006", "server.error", "스페셜DJ 순위변경 실패 시"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
@@ -492,6 +503,8 @@ public enum Status {
     /* 결제취소 */
     결제취소성공("0000", "pay.cancel.success", "결제취소 성공 시"),
     결제취소실패("C006", "pay.cancel.fail", "결제취소 실패 시"),
+    보유달부족("C005", "pay.cancel.dal.update", "보유 달 부족 시")
+
 
     ;
 

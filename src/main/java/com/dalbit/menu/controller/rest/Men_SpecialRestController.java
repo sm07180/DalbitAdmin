@@ -4,13 +4,11 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.menu.service.Men_SpecialService;
 import com.dalbit.menu.service.RecommendService;
-import com.dalbit.menu.vo.RecommendVo;
-import com.dalbit.menu.vo.SpecialReqVo;
-import com.dalbit.menu.vo.SpecialSummaryVo;
-import com.dalbit.menu.vo.SpecialVo;
+import com.dalbit.menu.vo.*;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,7 +41,7 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 건수
      */
-    @RequestMapping("summary")
+    @PostMapping("summary")
     public String summary(SpecialSummaryVo specialSummaryVo){
         String result = menSpecialService.summary(specialSummaryVo);
         return result;
@@ -52,7 +50,7 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 신청 목록 조회
      */
-    @RequestMapping("reqDalList")
+    @PostMapping("reqDalList")
     public String reqDalList(SpecialReqVo specialReqVo){
         String result = menSpecialService.getReqSpecialList(specialReqVo);
         return result;
@@ -61,7 +59,7 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 신청 상세 목록 조회
      */
-    @RequestMapping("reqDalDetail")
+    @PostMapping("reqDalDetail")
     public String reqDalDetail(SpecialReqVo specialReqVo) {
         String result = menSpecialService.getReqSpecialDetail(specialReqVo);
         return result;
@@ -70,7 +68,7 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 신청 승인
      */
-    @RequestMapping("reqOk")
+    @PostMapping("reqOk")
     public String reqOk(SpecialReqVo specialReqVo) {
         String result = menSpecialService.reqOk(specialReqVo);
         return result;
@@ -79,7 +77,7 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 신청 거부
      */
-    @RequestMapping("reqReject")
+    @PostMapping("reqReject")
     public String reqReject(SpecialReqVo specialReqVo) {
         String result = menSpecialService.reqReject(specialReqVo);
         return result;
@@ -88,7 +86,7 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 목록 조회
      */
-    @RequestMapping("dalList")
+    @PostMapping("dalList")
     public String dalList(SpecialVo specialVo){
         String result = menSpecialService.getSpecialList(specialVo);
         return result;
@@ -97,7 +95,7 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 상세 목록 조회
      */
-    @RequestMapping("dalDetail")
+    @PostMapping("dalDetail")
     public String getSpecialDetail(SpecialVo specialVo) {
         String result = menSpecialService.getSpecialDetail(specialVo);
         return result;
@@ -106,9 +104,18 @@ public class Men_SpecialRestController {
     /**
      * 스페셜 달D 승인 취소
      */
-    @RequestMapping("reqCancel")
+    @PostMapping("reqCancel")
     public String reqCancel(SpecialVo specialVo, SpecialReqVo specialReqVo) {
         String result = menSpecialService.reqCancel(specialVo, specialReqVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 순위 변경 업데이트
+     */
+    @PostMapping("updateOrder")
+    public String updateOrder(SpecialDjOrderVo specialDjOrderVo) {
+        String result = menSpecialService.updateOrder(specialDjOrderVo);
         return result;
     }
 

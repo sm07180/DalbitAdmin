@@ -727,7 +727,7 @@ public class DalbitUtil {
         return result;
     }
 
-    public static String executivesUser(){
+    public static String exceptionUser(){
         String name = "박진";
         return name;
     }

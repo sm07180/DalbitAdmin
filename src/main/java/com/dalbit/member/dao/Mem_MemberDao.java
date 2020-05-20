@@ -97,4 +97,6 @@ public interface Mem_MemberDao {
     int callMemberAddByeol(P_MemberEditorVo pMemberEditorVo);
     int callMemberAddByeol_history(P_MemberEditorVo pMemberEditorVo);
     int callMemberEdit_date(P_MemberEditorVo pMemberEditorVo);
+
+    int callMemberMinusDal_history(P_MemberEditorVo pMemberEditorVo);
 }

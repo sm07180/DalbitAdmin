@@ -227,13 +227,13 @@ public class Mem_MemberService {
                 // message set
                 Gson gson = new Gson();
                 HashMap<String,Object> tmp = new HashMap();
-                if(pMemberEditorVo.getProfileImageReset() == 1){
+                if(pMemberEditorVo.getProfileImage().equals("")){
                     tmp.put("image", new ImageVo("",pMemberEditorVo.getMemSex(), DalbitUtil.getProperty("server.photo.url")).getUrl().replace(DalbitUtil.getProperty("server.photo.url"),""));
                 }else{
                     tmp.put("image", pMemberEditorVo.getBeforProfileImage());
                 }
                 tmp.put("sex", pMemberEditorVo.getMemSex());
-                tmp.put("nk", pMemberEditorVo.getBrforNickName());
+                tmp.put("nk", pMemberEditorVo.getNickName());
                 String message =  gson.toJson(tmp);
 
                 socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
@@ -245,7 +245,7 @@ public class Mem_MemberService {
             }
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정성공));
         } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정실패));
+                result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정실패));
         }
         return result;
     }

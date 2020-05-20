@@ -1197,7 +1197,7 @@
         <td>{{addComma yesItemAmt}}</td>
         <td class="{{upAndDownClass incnyItemAmt}}"><i class="fa {{upAndDownIcon incnyItemAmt}}"></i>{{addComma incnyItemAmt}}</td>
         <td>{{addComma weekItemAmt}}</td>
-        <td class="{{upAndDownClass incnwbItemAmt}}"><i class="fa {{upAndDownIcon incnwbItemAmt}}"></i>{{addComma incnwbItemAmt}}</td>
+        <td class="{{upAndDownClass incnwbItemAmt}}"><i class="fa {{upAndDownIcon incnwbItemAmt}}"></i>{{addComma incwbItemAmt}}</td>
     </tr>
     {{else}}
     <tr>

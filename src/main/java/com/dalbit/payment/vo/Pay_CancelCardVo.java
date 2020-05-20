@@ -12,6 +12,8 @@ public class Pay_CancelCardVo {
     private String mobilid;         // 거래번호
     private String prdtprice;       // 결제수단
     private String partCancelYn=""; // 부분취소여부
+    private String memno;
+    private int dalcnt;
 
 
 }
