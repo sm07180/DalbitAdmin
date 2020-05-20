@@ -51,6 +51,22 @@
         fnc_broadcastList.init();
     });
 
+    $(document).on('click', '._down', function () {
+        var targetTr = $(this).closest('tr');
+        var nextTr = targetTr.next();
+        targetTr.insertAfter(nextTr);
+        fnc_broadcastList.resetNo();
+        fnc_broadcastList.btnSet();
+    });
+
+    $(document).on('click', '._up', function () {
+        var targetTr = $(this).closest('tr');
+        var prevTr = targetTr.prev();
+        targetTr.insertBefore(prevTr);
+        fnc_broadcastList.resetNo();
+        fnc_broadcastList.btnSet();
+    });
+
     var fnc_broadcastList = {
         "targetId": "broadcastList",
 
@@ -63,21 +79,6 @@
         },
 
         initEvent() {
-            this.target.off('click').on('click', '._down', function () {
-                var targetTr = $(this).closest('tr');
-                var nextTr = targetTr.next();
-                targetTr.insertAfter(nextTr);
-                fnc_broadcastList.resetNo();
-                fnc_broadcastList.btnSet();
-            });
-
-            this.target.off('click').on('click', '._up', function () {
-                var targetTr = $(this).closest('tr');
-                var prevTr = targetTr.prev();
-                targetTr.insertBefore(prevTr);
-                fnc_broadcastList.resetNo();
-                fnc_broadcastList.btnSet();
-            });
 
             this.target.find('#deleteBtn').off('click').on('click', function () {
                 var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
@@ -136,7 +137,7 @@
                     codeVoArr: JSON.stringify(fnc_broadcastList.getArrCodeData())
                 }
 
-                util.getAjaxData("list", "/rest/content/theme/broadcast/submit", editData, fnc_broadcastList.fn_submit_success, fnc_broadcastList.fn_fail);
+                util.getAjaxData("list", "/rest/content/theme/broadcast/submit", editData, fnc_broadcastList.fn_submit_success);
 
             });
 
@@ -145,8 +146,6 @@
 
         fn_success(dst_id, response)
         {
-            dalbitLog(response);
-
             var template = fnc_broadcastList.target.find('#tmp_list').html();
             var templateScript = Handlebars.compile(template);
             var html = templateScript(response);
@@ -158,18 +157,10 @@
 
         fn_submit_success(dst_id, response)
         {
-            dalbitLog(response);
-
             alert(response.message);
 
             fnc_broadcastList.init();
         },
-
-        fn_fail(data, textStatus, jqXHR) {
-            dalbitLog(data, textStatus, jqXHR);
-        },
-
-
 
         resetNo() {
             this.target.find('._noTd').each(function (index) {

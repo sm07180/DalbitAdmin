@@ -48,6 +48,7 @@
         var tabIndex = $('#tablist_con li').index(tab);
         if(tabIndex == 0){
             emptySearch();
+            specialDjPagingInfo.pageNo = 1;
             init();
         } else{
             emptySearch();

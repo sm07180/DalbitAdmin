@@ -59,7 +59,8 @@ public class Pay_CancelService {
         Pay_CancelVo cancelVo = new Pay_CancelVo();
         if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
             cancelVo.setOrder_id(ap.getTradeId());
-            cancelVo.setCancel_dt(ap.getSignDate());
+            /*cancelVo.setCancel_dt(ap.getSignDate());*/
+            cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
             cancelVo.setFail_msg("");
             cancelVo.setOp_name(MemberVo.getMyMemNo());
             cancelVo.setCancel_state("y");

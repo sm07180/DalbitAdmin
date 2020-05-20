@@ -30,6 +30,22 @@
             , pay.fail_msg
             , pay.op_name
             , pay.bill_id
+            , pay.os
+            , pay.dal_cnt
+            ,CASE
+                WHEN pay.pay_way = 'CN'
+                THEN pay.card_no
+                WHEN pay.pay_way = 'MC'
+                THEN pay.phone_no
+                WHEN pay.pay_way = 'VA'
+                THEN pay.account_no
+            END AS pay_info_no
+            ,CASE
+                WHEN pay.pay_way = 'CN'
+                THEN pay.card_nm
+                WHEN pay.pay_way = 'VA'
+                THEN pay.bank_code
+            END AS pay_info_nm
             , summary.memCnt as count
             , summary.paySum as amount
             , @RNUM := @RNUM + 1 as rowNum

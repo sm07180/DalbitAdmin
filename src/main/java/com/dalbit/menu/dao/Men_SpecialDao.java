@@ -19,6 +19,9 @@ public interface Men_SpecialDao {
     int getReqSpecialListCnt(SpecialReqVo specialReqVo);
 
     @Transactional(readOnly = true)
+    int checkSpecialDjCnt(SpecialReqVo specialReqVo);
+
+    @Transactional(readOnly = true)
     SpecialReqVo getReqSpecialDetail(SpecialReqVo specialReqVo);
 
     @Transactional(readOnly = true)

@@ -63,6 +63,12 @@ public class Men_SpecialService {
      */
     @Transactional(readOnly = false)
     public String reqOk(SpecialReqVo specialReqVo) {
+
+        int existCnt = menSpecialDao.checkSpecialDjCnt(specialReqVo);
+        if(0 < existCnt){
+            return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ_중복));
+        }
+
         specialReqVo.setOp_name(MemberVo.getMyMemNo());
         int result = menSpecialDao.reqOk(specialReqVo);
 

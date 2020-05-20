@@ -259,7 +259,7 @@ common.phoneNumHyphen = function(value) {
 
 common.cardNo = function(value){
     if(common.isEmpty(value)){
-        return 0;
+        return '-';
     }
     var regExp = /([0-9*]{4})([0-9*]{4})([0-9*]{4})([0-9*]{4})/
     return value.toString().replace(regExp, '$1-$2-$3-$4');

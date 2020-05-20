@@ -73,13 +73,14 @@
     }
 
     $(document).on('click', '#bt_reqOk', function() {
-        if(confirm("승인 완료 하시겠습니까?")) {
+        if(confirm("스페셜 DJ로 등록하시겠습니까?")) {
 
             var checkbox = $('#reqSpecialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
 
             var data = {
                 'idx': checkbox.parent().parent().find('._reqDalDetail').data('idx')
                 , 'mem_no': checkbox.parent().parent().find('._openMemberPop').data('memno')
+                , is_force : 0
             };
             dalbitLog(data);
             util.getAjaxData("ok", "/rest/menu/special/reqOk", data, fn_success_ok);
@@ -88,7 +89,7 @@
     });
 
     function fn_success_ok(dst_id, response) {
-        alert('승인 완료 처리되었습니다.');
+        alert(response.message);
         getList();
     }
 

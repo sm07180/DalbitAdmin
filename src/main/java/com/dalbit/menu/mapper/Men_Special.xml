@@ -87,9 +87,9 @@
     <insert id="reqOk" parameterType="com.dalbit.menu.vo.SpecialReqVo">
         /* Men_Special.xml - reqOk */
         insert into
-          rd_admin.tb_special_dj (req_idx, mem_no, reg_date, op_name, `order`)
+          rd_admin.tb_special_dj (req_idx, mem_no, reg_date, op_name, is_force, `order`)
         values
-        (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj))
+        (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, #{is_force}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj))
     </insert>
 
     <update id="reqOkUpdate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
@@ -148,7 +148,11 @@
 
     <select id="getSpecialList" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">
         /* Men_Special.xml - getSpecialList */
+        select *
+        from (
         <include refid="special"/>
+        ) a
+        limit  #{pageStart}, #{pageCnt}
     </select>
 
     <select id="getSpecialListCnt" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="integer">
@@ -158,6 +162,16 @@
           from (
               <include refid="special"/>
           ) a
+    </select>
+
+    <select id="checkSpecialDjCnt" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="integer">
+        /* Men_Special.xml - getSpecialListCnt */
+        select
+        count(*)
+        from (
+        <include refid="special"/>
+        ) a
+        where a.mem_no = #{mem_no}
     </select>
 
     <select id="getSpecialDetail" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">
