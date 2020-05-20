@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 @Slf4j
 @Service
@@ -34,7 +35,7 @@ public class Pay_CancelService {
     /**
      *  신용카드 결제 취소
      */
-    public int payCancelCard(Pay_CancelCardVo payCancelCardVo) throws IOException {
+    public int payCancelCard(Pay_CancelCardVo payCancelCardVo) throws IOException, ParseException {
 
         String mode			= "CN07";   //거래모드
         String recordKey	= CommonUtil.Decode(DalbitUtil.getProperty("pay.site.url"));    //사이트URL
@@ -59,8 +60,7 @@ public class Pay_CancelService {
         Pay_CancelVo cancelVo = new Pay_CancelVo();
         if(ap.getResultCd().equals(Status.결제취소성공.getMessageCode())){
             cancelVo.setOrder_id(ap.getTradeId());
-            /*cancelVo.setCancel_dt(ap.getSignDate());*/
-            cancelVo.setCancel_dt(DalbitUtil.getDate("yyyy-MM-dd")+" "+DalbitUtil.getDate("HH:mm:ss"));
+            cancelVo.setCancel_dt(DalbitUtil.stringToDate(ap.getSignDate()));
             cancelVo.setFail_msg("");
             cancelVo.setOp_name(MemberVo.getMyMemNo());
             cancelVo.setCancel_state("y");
