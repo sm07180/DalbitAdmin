@@ -339,7 +339,7 @@
     function fn_setAuth_success(data, response, params){
         dalbitLog(response);
         alert(response.message);
-        $('#authArea').hide();
+        getMemberList();
         ui.topScroll();
     }
 </script>
@@ -347,11 +347,11 @@
 <script id="tmp_memberList" type="text/x-handlebars-template">
     {{#each this as |member|}}
 
-    <%--{{#equal authCnt '0'}}--%>
-        <%--<tr style='cursor: pointer;color: blue;' class="_memberTableRow">--%>
-    <%--{{else}}--%>
+    {{#equal authCnt '0'}}
+        <tr style='cursor: pointer;color: blue;' class="_memberTableRow">
+    {{else}}
         <tr style='cursor: pointer;' class="_memberTableRow">
-    <%--{{/equal}}--%>
+    {{/equal}}
 
             <td><input type="radio" name="empNo" id="empRadio_{{emp_no}}" class="_chk" data-empno={{emp_no}}></td>
             <td>{{index @index no}}</td>

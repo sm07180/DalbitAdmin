@@ -1,6 +1,8 @@
 package com.dalbit.main.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.main.vo.PayStatusInputVo;
+import com.dalbit.main.vo.PayStatusOutputVo;
 import com.dalbit.main.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,4 +29,16 @@ public interface Mai_MainStatusDao {
 
     @Transactional(readOnly = true)
     List<P_ItemTopFiveOutputVo> callItemStatusInfoList(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    List<PayStatusOutputVo> getPayDayStatusInfoList(PayStatusInputVo payStatusInputVo);
+
+    @Transactional(readOnly = true)
+    List<PayStatusOutputVo> getPayDayStatusWeekInfoList(PayStatusInputVo payStatusInputVo);
+
+    @Transactional(readOnly = true)
+    List<PayStatusOutputVo> getPayCalcelDayStatusInfoList(PayStatusInputVo payStatusInputVo);
+
+    @Transactional(readOnly = true)
+    List<PayStatusOutputVo> getPayCalcelWeekStatusInfoList(PayStatusInputVo payStatusInputVo);
 }

@@ -227,6 +227,9 @@
                 if(arrPlatform[2] == "1")
                     $("input[name='platform'][value='3']").prop("checked", true);
             }
+
+            var scrollPosition = $("#tab_eventDetail").offset();
+            util.scrollPostion(scrollPosition.top);
         },
 
 //=------------------------------ Data Handler ----------------------------------

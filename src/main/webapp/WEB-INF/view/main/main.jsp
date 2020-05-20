@@ -16,8 +16,8 @@
                         <tr>
                             <th colspan="5">방송</th>
                             <th colspan="2">회원</th>
-                            <th colspan="4">캐스트</th>
-                            <th colspan="2">접속</th>
+                            <%--<th colspan="4">캐스트</th>
+                            <th colspan="2">접속</th>--%>
                             <th colspan="2">결제</th>
                         </tr>
                         <tr>
@@ -30,13 +30,13 @@
                             <th>가입수</th>
                             <th>탈퇴수</th>
 
-                            <th>건수</th>
+                            <%--<th>건수</th>
                             <th>조회수</th>
                             <th>선물 건</th>
                             <th>선물금액</th>
 
                             <th>방문자수</th>
-                            <th>접속자수</th>
+                            <th>접속자수</th>--%>
 
                             <th>건수</th>
                             <th>금액(원)</th>
@@ -117,7 +117,7 @@
                     <!-- //방송정보 -->
 
                     <!-- 접속정보 -->
-                    <div class="widget widget-table mb10">
+                    <%--<div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 접속정보</h3>
                             <div class="btn-group widget-header-toolbar">
@@ -192,7 +192,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+                    </div>--%>
                     <!-- //접속정보 -->
 
                     <!-- 회원가입/탈퇴 -->
@@ -314,19 +314,19 @@
                     <!-- 결제/결제취소-->
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 결제/결제취소 - [ &#8251; 가 데이터 입니다.]</h3>
+                            <h3><i class="fa fa-table"></i> 결제/결제취소</h3>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
                             </div>
 
                             <div class="btn-group widget-header-toolbar">
-                                <a href="http://dalbit.inforex.co.kr/enter/pay/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
+                                <a href="/payment/pay/list" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
                         </div>
                         <div class="widget-content mt10">
                             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-                                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">결제</a></li>
-                                <li><a href="#reportDetail" role="tab" data-toggle="tab">결제취소</a></li>
+                                <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab" class="_payTab" data-name="pay">결제</a></li>
+                                <li><a href="#reportDetail" role="tab" data-toggle="tab" class="_payTab" data-name="cancel">결제취소</a></li>
                             </ul>
                             <table class="table table-bordered">
                                 <thead>
@@ -340,107 +340,107 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
+                                <tr class="_pay" data-payway="MC" data-type="cnt">
                                     <th rowspan="2">모바일</th>
                                     <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="MC" data-type="amt">
                                     <th>금액</th>
-                                    <td>200분</td>
-                                    <td>180분</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="CN" data-type="cnt">
                                     <th rowspan="2">카드</th>
                                     <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="CN" data-type="amt">
                                     <th>금액</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="RA" data-type="cnt">
                                     <th rowspan="2">실시간<br/>계좌이체</th>
                                     <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="RA" data-type="amt">
                                     <th>금액</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
                                 </tr>
-                                <tr>
-                                    <th rowspan="2">무통장<br/>입금</th>
+                                <tr class="_pay" data-payway="VA" data-type="cnt">
+                                    <th rowspan="2">가상계좌</th>
                                     <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="VA" data-type="amt">
                                     <th>금액</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="InApp" data-type="cnt">
                                     <th rowspan="2">인앱<br/>(Apple)</th>
                                     <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
                                 </tr>
-                                <tr>
+                                <tr class="_pay" data-payway="InApp" data-type="amt">
                                     <th>금액</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
                                 </tr>
-                                <tr class="success">
+                                <tr class="success _pay" data-payway="total" data-type="cnt">
                                     <th rowspan="2">합계</th>
                                     <th>건</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
+                                    <td>0건</td>
                                 </tr>
-                                <tr class="success">
+                                <tr class="success _pay" data-payway="total" data-type="amt">
                                     <th>금액</th>
-                                    <td>325</td>
-                                    <td>200</td>
-                                    <td class="_up"><i class="fa fa-caret-up"></i> 24</td>
-                                    <td>725</td>
-                                    <td class="_down"><i class="fa fa-caret-down"></i> 20</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
+                                    <td>0원</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -513,6 +513,7 @@
         getBroadInfoStat();
         getMemberJoinStat();
         getItemInfoStat();
+        getPayInfoStat();
 
         dateTime = moment(dateTime).format("YYYY.MM.DD");
         var dateTime2 = moment(dateTime).format("YYYY" + "년" + "MM" + "월" + "DD" + "일 종합현황");
@@ -845,30 +846,174 @@
 
         $('#statItemBody').empty().append(html);
     }
+
+    $('._payTab').on('click', function(){
+        var me = $(this);
+        var tabName = me.data('name');
+        if(tabName == 'pay'){
+            getPayInfoStat();
+        }else{
+            getPayCancelInfoStat();
+        }
+    });
+
+    function getPayDate(){
+        var dateFormat = 'YYYY-MM-DD';
+        var today = moment(new Date()).format(dateFormat);
+        var thisWeekStartDay = moment(today).add('days', (-moment(today).day())).format(dateFormat);
+        var prevWeekStartDay = moment(thisWeekStartDay).add('weeks', -1).format(dateFormat);
+
+        return data = {
+            today : today
+            , yesterday : moment(today).add('days', -1).format(dateFormat)
+            , thisWeekStartDay : thisWeekStartDay
+            , thisWeekEndDay : moment(thisWeekStartDay).add('days', 6).format(dateFormat)
+            , prevWeekStartDay : prevWeekStartDay
+            , prevWeekEndDay : moment(prevWeekStartDay).add('days', 6).format(dateFormat)
+        }
+    }
+
+    function getPayInfoStat(){
+        util.getAjaxData("itemInfo", "/rest/mainStatus/pay/status/info", getPayDate(), fn_pay_success);
+    }
+
+    function getPayCancelInfoStat(){
+        util.getAjaxData("itemInfo", "/rest/mainStatus/payCancel/status/info", getPayDate(), fn_pay_success);
+    }
+
+    function fn_pay_success(dst_id, response){
+
+        var todayTotalCnt = 0;
+        var todayTotalAmt = 0;
+        //실시간
+        response.data.todayList.forEach(function(info){
+            $('._pay[data-payway='+info.pay_way+'][data-type="cnt"] td:eq(0)').html(common.addComma(info.pay_cnt) + '건');
+            $('._pay[data-payway='+info.pay_way+'][data-type="amt"] td:eq(0)').html(common.addComma(info.pay_amt) + '원');
+
+            todayTotalCnt += info.pay_cnt;
+            todayTotalAmt += info.pay_amt;
+        });
+
+        $('._pay[data-payway="total"][data-type="cnt"] td:eq(0)').html(common.addComma(todayTotalCnt) + '건');
+        $('._pay[data-payway="total"][data-type="amt"] td:eq(0)').html(common.addComma(todayTotalAmt) + '원');
+        $('._pay_total_cnt').html(todayTotalCnt + '건');
+        $('._pay_total_amt').html(common.addComma(todayTotalAmt) + '원');
+
+
+        var yesterdayTotalCnt = 0;
+        var yesterdayTotalAmt = 0;
+        //전일
+        response.data.yesterdayList.forEach(function(info){
+            $('._pay[data-payway='+info.pay_way+'][data-type="cnt"] td:eq(1)').html(common.addComma(info.pay_cnt) + '건');
+            $('._pay[data-payway='+info.pay_way+'][data-type="amt"] td:eq(1)').html(common.addComma(info.pay_amt) + '원');
+
+            yesterdayTotalCnt += info.pay_cnt;
+            yesterdayTotalAmt += info.pay_amt;
+        });
+
+        $('._pay[data-payway="total"][data-type="cnt"] td:eq(1)').html(common.addComma(yesterdayTotalCnt) + '건');
+        $('._pay[data-payway="total"][data-type="amt"] td:eq(1)').html(common.addComma(yesterdayTotalAmt) + '원');
+
+
+        var dayTotalCnt = 0;
+        var dayTotalAmt = 0;
+        //전일대비
+        response.data.todayList.forEach(function(todayInfo){
+            response.data.yesterdayList.forEach(function(yesterdayInfo){
+                if(todayInfo.pay_way == yesterdayInfo.pay_way){
+                    var cnt = todayInfo.pay_cnt - yesterdayInfo.pay_cnt;
+                    var cnt_target = $('._pay[data-payway='+todayInfo.pay_way+'][data-type="cnt"] td:eq(2)');
+                    setPayUpdown(cnt_target, cnt, false);
+
+                    var amt_target = $('._pay[data-payway='+todayInfo.pay_way+'][data-type="amt"] td:eq(2)');
+                    var amt = todayInfo.pay_amt - yesterdayInfo.pay_amt;
+                    setPayUpdown(amt_target, amt, true);
+
+                    dayTotalCnt += cnt;
+                    dayTotalAmt += amt;
+                }
+            });
+        });
+
+        setPayUpdown($('._pay[data-payway="total"][data-type="cnt"] td:eq(2)'), dayTotalCnt, false);
+        setPayUpdown($('._pay[data-payway="total"][data-type="amt"] td:eq(2)'), dayTotalAmt, true);
+
+
+        var thisWeekTotalCnt = 0;
+        var thisWeekTotalAmt = 0;
+        //주간
+        response.data.thisWeekList.forEach(function(info){
+            $('._pay[data-payway='+info.pay_way+'][data-type="cnt"] td:eq(3)').html(common.addComma(info.pay_cnt) + '건');
+            $('._pay[data-payway='+info.pay_way+'][data-type="amt"] td:eq(3)').html(common.addComma(info.pay_amt) + '원');
+
+            thisWeekTotalCnt += info.pay_cnt;
+            thisWeekTotalAmt += info.pay_amt;
+        });
+
+        $('._pay[data-payway="total"][data-type="cnt"] td:eq(3)').html(common.addComma(yesterdayTotalCnt) + '건');
+        $('._pay[data-payway="total"][data-type="amt"] td:eq(3)').html(common.addComma(yesterdayTotalAmt) + '원');
+
+        var weekTotalCnt = 0;
+        var weekTotalAmt = 0;
+        //전주대비
+        response.data.thisWeekList.forEach(function(thisWeekInfo){
+            response.data.prevWeekList.forEach(function(prevWeekInfo){
+                if(thisWeekInfo.pay_way == prevWeekInfo.pay_way){
+                    var cnt = thisWeekInfo.pay_cnt - prevWeekInfo.pay_cnt;
+                    var cnt_target = $('._pay[data-payway='+thisWeekInfo.pay_way+'][data-type="cnt"] td:eq(4)');
+                    setPayUpdown(cnt_target, cnt, false);
+
+                    var amt = thisWeekInfo.pay_amt - prevWeekInfo.pay_amt;
+                    var amt_target = $('._pay[data-payway='+thisWeekInfo.pay_way+'][data-type="amt"] td:eq(4)');
+                    setPayUpdown(amt_target, amt, true);
+
+                    weekTotalCnt += cnt;
+                    weekTotalAmt += amt;
+                }
+            });
+        });
+
+        setPayUpdown($('._pay[data-payway="total"][data-type="cnt"] td:eq(4)'), weekTotalCnt, false);
+        setPayUpdown($('._pay[data-payway="total"][data-type="amt"] td:eq(4)'), weekTotalAmt, true);
+    }
+
+    function setPayUpdown(element, value, isAmt){
+        element.removeClass('_up, _down');
+
+        var icon = '';
+        if(0 < value){
+            element.addClass('_up');
+            icon = '<i class="fa fa-caret-up"></i> ';
+        }else if(value < 0){
+            element.addClass('_down');
+            icon = '<i class="fa fa-caret-down"></i> ';
+        }
+        element.html(icon + common.addComma(value) + (isAmt ? '원' : '건'));
+    }
 </script>
 
 
 <script type="text/x-handlebars-template" id="tmp_statTotal">
     <tr>
-        <td><a href="javascript://" class="_cntType" data-slcttype="11">{{addComma broadcast_create_Cnt}}</a></td>
-        <td><a href="javascript://" class="_cntType" data-slcttype="12">{{addComma broadcast_air_Time}}</a></td>
-        <td><a href="javascript://" class="_cntType" data-slcttype="13">{{addComma broadcast_listener_Cnt}}</a></td>
-        <td><a href="javascript://" class="_cntType" data-slcttype="14">{{addComma broadcast_gift_Cnt}}</a></td>
-        <td><a href="javascript://" class="_cntType" data-slcttype="15">{{addComma broadcast_gift_Amount}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="11">{{addComma broadcast_create_Cnt}}건</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="12">{{addComma broadcast_air_Time}}분</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="13">{{addComma broadcast_listener_Cnt}}건</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="14">{{addComma broadcast_gift_Cnt}}건</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="15">{{addComma broadcast_gift_Amount}}원</a></td>
 
-        <td><a href="javascript://" class="_cntType" data-slcttype="21">{{addComma member_join_Cnt}}</a></td>
-        <td><a href="javascript://" class="_cntType" data-slcttype="31">{{addComma member_withdraw_Cnt}}</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="21">{{addComma member_join_Cnt}}건</a></td>
+        <td><a href="javascript://" class="_cntType" data-slcttype="31">{{addComma member_withdraw_Cnt}}건</a></td>
 
+        <!--<td><a href="javascript://"></a></td>
         <td><a href="javascript://"></a></td>
-        <td><a href="javascript://"></a></td>
-        <td><a href="javascript://"></a></td>
-        <td><a href="javascript://"></a></td>
-
         <td><a href="javascript://"></a></td>
         <td><a href="javascript://"></a></td>
 
         <td><a href="javascript://"></a></td>
-        <td><a href="javascript://"></a></td>
+        <td><a href="javascript://"></a></td>-->
+
+        <td><a href="javascript://" class="_pay_total_cnt"></a></td>
+        <td><a href="javascript://" class="_pay_total_amt"></a></td>
     </tr>
 </script>
 
@@ -991,14 +1136,14 @@
         <td class="{{upAndDownClass broadcast_week_inc_time}}"><i class="fa {{upAndDownIcon broadcast_week_inc_time}}"></i> {{addComma broadcast_week_inc_time}}</td>
     </tr>
 
-    <tr>
+    <!--<tr>
         <th>DJ</th>
         <td></td>
         <td></td>
         <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i> </td>
         <td></td>
         <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i> </td>
-    </tr>
+    </tr>-->
 
     <tr>
         <th>청취자</th>
@@ -1025,14 +1170,14 @@
         <td>{{addComma gift_week_amt}}</td>
         <td class="{{upAndDownClass gift_week_inc_amt}}"><i class="fa {{upAndDownIcon gift_week_inc_amt}}"></i> {{addComma gift_week_inc_amt}}</td>
     </tr>
-    <tr>
+    <!--<tr>
         <th>게스트</th>
         <td></td>
         <td></td>
         <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i></td>
         <td></td>
         <td class="{{upAndDownClass 0}}"><i class="fa {{upAndDownIcon 0}}"></i></td>
-    </tr>
+    </tr>-->
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_statItem">
@@ -1052,7 +1197,7 @@
         <td>{{addComma yesItemAmt}}</td>
         <td class="{{upAndDownClass incnyItemAmt}}"><i class="fa {{upAndDownIcon incnyItemAmt}}"></i>{{addComma incnyItemAmt}}</td>
         <td>{{addComma weekItemAmt}}</td>
-        <td class="{{upAndDownClass incnwbItemAmt}}"><i class="fa {{upAndDownIcon incnwbItemAmt}}"></i>{{addComma incnwbItemAmt}}</td>
+        <td class="{{upAndDownClass incnwbItemAmt}}"><i class="fa {{upAndDownIcon incnwbItemAmt}}"></i>{{addComma incwbItemAmt}}</td>
     </tr>
     {{else}}
     <tr>

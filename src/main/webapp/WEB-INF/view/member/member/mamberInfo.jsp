@@ -239,12 +239,13 @@
                     return;
                 }
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
-                    obj.memSex = $('input[name="memSex"]:checked').val();
-                    obj.profileImage = "";
-                    obj.profileImageReset = 1;
                     sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;
+                    // sockat set
+                    obj.profileImage = "";
+                    obj.memSex = $('input[name="memSex"]:checked').val();
+                    obj.beforNickName = memberInfo_responseDate.nickName;
                 }else return;
             }else if(tmp == "bt_resatPass"){
                 if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
@@ -272,10 +273,14 @@
                     return;
                 }
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
-                    obj.nickName = $("#td_userid").text();
                     sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.nickNameReset;
+
+                    // sockat set
+                    obj.profileImage = memberInfo_responseDate.profileImage;
+                    obj.memSex = $('input[name="memSex"]:checked').val();
+                    obj.nickName = $("#td_userid").text();
                 }else return;
             }else if(tmp == "bt_phon"){
                 if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
@@ -315,18 +320,19 @@
                     return false;
                 }
                 if(confirm("성별을 변경 하시겠습니까?")) {
-                    obj.memSex = $('input[name="memSex"]:checked').val();
                     obj.photoUrl = IMAGE_SERVER_URL;
                     sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;
+
+                    // sockat set
+                    obj.profileImage = memberInfo_responseDate.profileImage;
+                    obj.memSex = $('input[name="memSex"]:checked').val();
+                    obj.beforNickName = memberInfo_responseDate.nickName;
                 }else return;
             }
-            obj.sendNoti=sendNoti;
             obj.beforProfileImage = memberInfo_responseDate.profileImage;
-            obj.brforNickName = memberInfo_responseDate.nickName;
-
-            console.log(obj);
+            obj.sendNoti=sendNoti;
 
             util.getAjaxData("editor", "/rest/member/member/editor", obj, update_success, fn_fail);
         }

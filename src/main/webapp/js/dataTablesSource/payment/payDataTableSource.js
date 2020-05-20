@@ -36,7 +36,7 @@ var payDataTableSource = {
                 }}
             , {'title': '아이템<br />정보', 'data': 'pay_code', 'width':'60px'}
             , {'title': '구매<br />횟수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
-                    return common.addComma(String(data));
+                return common.addComma(String(data)) + '번';
                 }}
             , {'title': '총 구매<br />금액', 'data': 'amount', 'width':'80px', 'render': function(data, type, row) {
                     return common.addComma(data) + '원';
@@ -66,7 +66,7 @@ var payDataTableSource = {
                 }}*/
 
             , {'title': '취소일시', 'data': '', 'render': function(data, type, row) {
-                    return row.cancel_state == 'y' ? row.cancel_dt : '-';
+                    return row.cancel_state == 'y' ? common.convertToDate(row.cancel_dt) : '-';
                 }}
             , {'title': '취소실패사유', 'data': 'fail_msg', 'render': function(data, type, row) {
                     return !common.isEmpty(row.fail_msg) ? row.fail_msg : '-';

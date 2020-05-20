@@ -11,6 +11,15 @@
             <%--</a>--%>
         <%--</div>--%>
     <%--</div>--%>
+        <div class="row col-md-12 mt15">
+            <div class="pull-left ml5">
+                ㆍ 매달 최소 10일, 20시간 이상 방송한 달D입니다. <br/>
+                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다.
+            </div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary mr5" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
+            </div>
+        </div>
     <div class="widget-content">
         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
 
@@ -18,10 +27,11 @@
             <thead>
                 <tr>
                     <th></th>
+                    <th>No</th>
                     <th>회원번호</th>
                     <th>등록일</th>
                     <th>관리자 등록여부</th>
-                    <th>순서</th>
+                    <th style="display:none;">순서</th>
                     <th>등록자</th>
                 </tr>
             </thead>
@@ -43,7 +53,7 @@
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
-    var specialDjPagingInfo = new PAGING_INFO(0, 1, 10);
+    var specialDjPagingInfo = new PAGING_INFO(0, 1, 99999);
 
     var dtList_info;
     function init() {
@@ -64,6 +74,7 @@
         };
 
         util.getAjaxData("special", "/rest/menu/special/dalList", data, fn_dalList_success);
+
     }
 
     function fn_dalList_success(dst_id, response) {
@@ -87,6 +98,10 @@
             $("#list_info_paginate").show();
             $("#list_info_paginate_top").show();
         }
+
+        // drag and drop, No setting
+        resetNo();
+
     }
 
     function handlebarsPaging(targetId, pagingInfo){
@@ -95,8 +110,12 @@
     }
 
     $(document).on('click', '._dalDetail', function() {
+
+        var me = $(this);
+
         var obj = {
-            req_idx : $(this).data('reqidx')
+            req_idx : me.data('reqidx')
+            , mem_no : me.parent().find('._openMemberPop').data('memno')
         };
         util.getAjaxData("detail", "/rest/menu/special/dalDetail", obj, fn_success_dalDetail);
     });
@@ -124,18 +143,19 @@
 
     $(document).on('click', '#bt_reqCancel', function() {
         if(confirm("승인 취소 하시겠습니까?")) {
-            var obj = new Object;
-            var data = dtList_info.getDataRow();
-            obj.req_idx = data.req_idx;
-            obj.mem_no = data.mem_no;
+           var checkbox = $('#specialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
+           var data = {
+               'req_idx' : checkbox.parent().parent().find('._dalDetail').data('reqidx')
+               , 'mem_no' : checkbox.parent().parent().find('._openMemberPop').data('memno')
+           };
             dalbitLog(data);
-            util.getAjaxData("cancel", "/rest/menu/special/reqCancel", obj, fn_success_cancel);
+            util.getAjaxData("cancel", "/rest/menu/special/reqCancel", data, fn_success_cancel);
         }
         return false;
     });
 
     function fn_success_cancel(dst_id, response) {
-        alert('승인 취소 처리되었습니다.');
+        alert(response.message);
         getList();
     }
 
@@ -159,20 +179,62 @@
         }else{
             $('#specialList').find(event.target).parent("tr").after($('#specialList').find("#"+data));
         }
+
+        resetNo();
+    }
+
+    function resetNo(){
+        $('#specialList').find('._noTd').each(function (index) {
+            var html = '<input type="hidden" name="sortNo" value="'+(index+1)+'">';
+            html += (index+1);
+            $(this).html(html);
+        });
+
+        $('#specialList').find('._noTr').each(function (index) {
+            $(this).attr("id", "row_" + (index + 1));
+        });
+    }
+
+    $('#bt_edit').on('click', function() {
+        var orderDataArr = new Array();
+        $('._noTr').each(function(i) {
+            var mem_no = $(this).find('._openMemberPop').data('memno');
+            var order = i + 1;
+            var data = {
+                mem_no : mem_no
+                , order : order
+            };
+            orderDataArr.push(data);
+        });
+
+        var param = {
+            orderJsonData : JSON.stringify(orderDataArr)
+        };
+
+        dalbitLog(param);
+        util.getAjaxData("updateOrder", "/rest/menu/special/updateOrder", param, fn_updateOrder_success);
+    });
+
+    function fn_updateOrder_success(dst_id, response) {
+        alert(response.message);
+        init();
     }
 
 </script>
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
     {{#each this}}
-    <tr class="_noTr" id="idx_{{order}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
+    <tr class="_noTr" id="row_{{order}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
         <td class=" dt-body-center"><input type="checkbox"/></td>
+        <td class="_noTd">
+            <input type="hidden" name="sortNo" value="{{sortNo}}"/>
+        </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
         </td>
         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
-        <td>{{order}}</td>
+        <td style="display:none;">{{order}}</td>
         <td>{{op_name}}</td>
     </tr>
     {{else}}
@@ -192,16 +254,24 @@
                 <table class="table table-bordered table-dalbit">
                     <input type="hidden" name="reqIdx" data-idx="{{req_idx}}"/>
                     <tr>
-                        <th>제목</th>
-                        <td>{{title}}</td>
                         <th>신청일시</th>
+                        <td>{{convertToDate request_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                        <th>승인일시</th>
                         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                         <th>관리자 등록 여부</th>
-                        <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
+                        <td>
+                            {{#equal is_force '0'}}N{{/equal}}
+                            {{^equal is_force '0'}}Y{{/equal}}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>제목</th>
+                        <td colspan="5">{{title}}</td>
                     </tr>
                     <tr>
                         <th>신청내용</th>
-                        <td colspan="6" style="height:300px">
+                        <td colspan="5" style="height:300px">
                             <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%">{{contents}}</textarea>
                         </td>
                     </tr>

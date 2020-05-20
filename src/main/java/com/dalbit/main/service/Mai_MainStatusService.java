@@ -4,7 +4,10 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.main.dao.Mai_MainStatusDao;
+import com.dalbit.main.vo.PayStatusInputVo;
+import com.dalbit.main.vo.PayStatusOutputVo;
 import com.dalbit.main.vo.procedure.*;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -13,6 +16,7 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -100,6 +104,40 @@ public class Mai_MainStatusService {
         ProcedureVo procedureVo = new ProcedureVo();
         List<P_ItemTopFiveOutputVo> itemList = main_JoinDao.callItemStatusInfoList(procedureVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, itemList));
+    }
+
+    public String getPayDayStatusInfoList(PayStatusInputVo payStatusInputVo){
+
+        List<PayStatusOutputVo> todayList = main_JoinDao.getPayDayStatusInfoList(new PayStatusInputVo(payStatusInputVo.getToday()));
+        List<PayStatusOutputVo> yesterdayList = main_JoinDao.getPayDayStatusInfoList(new PayStatusInputVo(payStatusInputVo.getYesterday()));
+
+        List<PayStatusOutputVo> thisWeekList = main_JoinDao.getPayDayStatusWeekInfoList(new PayStatusInputVo(payStatusInputVo.getThisWeekStartDay(), payStatusInputVo.getThisWeekEndDay()));
+        List<PayStatusOutputVo> prevWeekList = main_JoinDao.getPayDayStatusWeekInfoList(new PayStatusInputVo(payStatusInputVo.getPrevWeekStartDay(), payStatusInputVo.getPrevWeekEndDay()));
+
+        var map = new HashMap<String, Object>();
+        map.put("todayList", todayList);
+        map.put("yesterdayList", yesterdayList);
+        map.put("thisWeekList", thisWeekList);
+        map.put("prevWeekList", prevWeekList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, map));
+    }
+
+    public String getPayCancelDayStatusInfoList(PayStatusInputVo payStatusInputVo){
+
+        List<PayStatusOutputVo> todayList = main_JoinDao.getPayCalcelDayStatusInfoList(new PayStatusInputVo(payStatusInputVo.getToday()));
+        List<PayStatusOutputVo> yesterdayList = main_JoinDao.getPayCalcelDayStatusInfoList(new PayStatusInputVo(payStatusInputVo.getYesterday()));
+
+        List<PayStatusOutputVo> thisWeekList = main_JoinDao.getPayCalcelWeekStatusInfoList(new PayStatusInputVo(payStatusInputVo.getThisWeekStartDay(), payStatusInputVo.getThisWeekEndDay()));
+        List<PayStatusOutputVo> prevWeekList = main_JoinDao.getPayCalcelWeekStatusInfoList(new PayStatusInputVo(payStatusInputVo.getPrevWeekStartDay(), payStatusInputVo.getPrevWeekEndDay()));
+
+        var map = new HashMap<String, Object>();
+        map.put("todayList", todayList);
+        map.put("yesterdayList", yesterdayList);
+        map.put("thisWeekList", thisWeekList);
+        map.put("prevWeekList", prevWeekList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, map));
     }
 
 }

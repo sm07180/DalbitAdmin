@@ -12,6 +12,8 @@
         select
           dj.idx as idx
         , dj.mem_no as mem_no
+        , dj.mem_name as mem_name
+        , dj.mem_phone as mem_phone
         , dj.title as title
         , dj.reg_date as reg_date
         , dj.contents as contents
@@ -21,7 +23,6 @@
         , profile.specialdj_badge as specialdj_badge
         , basic.mem_id
         , basic.mem_nick
-        , basic.mem_phone
         , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_req_special_dj dj
             , rd_data.tb_member_profile profile
@@ -42,13 +43,13 @@
                   and basic.mem_nick like concat('%', #{txt_search}, '%')
               </when>
               <when test='searchType == "4"'>
-                  and basic.mem_phone like concat('%', #{txt_search}, '%')
+                  and dj.mem_phone like concat('%', #{txt_search}, '%')
               </when>
               <otherwise>
                   and (dj.mem_no like concat('%', #{txt_search}, '%')
                   or basic.mem_id like concat('%', #{txt_search}, '%')
                   or basic.mem_nick like concat('%', #{txt_search}, '%')
-                  or basic.mem_phone like concat('%', #{txt_search}, '%'))
+                  or dj.mem_phone like concat('%', #{txt_search}, '%'))
               </otherwise>
           </choose>
         </if>
@@ -73,7 +74,9 @@
         /* Men_Special.xml - getReqSpecialDetail */
         select
           idx
-          ,mem_no
+          , mem_no
+          , mem_name
+          , mem_phone
           , title
           , reg_date
           , op_name
@@ -177,25 +180,33 @@
     <select id="getSpecialDetail" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">
         /* Men_Special.xml - getSpecialDetail */
         select
-          dj.req_idx
-          , dj.mem_no
-          , dj.reg_date
-          , dj.is_force
-          , dj.op_name
-          , redj.title
-          , redj.contents
+          dj.req_idx as req_idx
+          , dj.mem_no as mem_no
+          , dj.reg_date as reg_date
+          , dj.is_force as is_force
+          , dj.op_name as op_name
+          , redj.title as title
+          , redj.contents as contents
+          , redj.reg_date as request_date
         from
           rd_admin.tb_special_dj dj
-          , rd_admin.tb_req_special_dj redj
-        where #{req_idx} = redj.idx
-          and dj.req_idx = redj.idx
+          left join rd_admin.tb_req_special_dj redj on #{req_idx} = redj.idx and dj.req_idx = redj.idx and dj.mem_no = #{mem_no}
+        where dj.mem_no = #{mem_no}
+
+
     </select>
 
     <delete id="reqCancel" parameterType="com.dalbit.menu.vo.SpecialVo">
         /* Men_Special.xml - reqCancel */
         delete
         from rd_admin.tb_special_dj
-        where req_idx = #{req_idx}
+        where mem_no = #{mem_no}
     </delete>
 
+    <update id="updateOrder" parameterType="com.dalbit.menu.vo.SpecialDjOrderVo">
+        /* Men_Special.xml - updateOrder */
+        update rd_admin.tb_special_dj
+        set `order` = #{order}
+        where mem_no = #{mem_no}
+    </update>
 </mapper>

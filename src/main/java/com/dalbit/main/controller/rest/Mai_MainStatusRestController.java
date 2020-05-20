@@ -1,6 +1,7 @@
 package com.dalbit.main.controller.rest;
 
 import com.dalbit.main.service.Mai_MainStatusService;
+import com.dalbit.main.vo.PayStatusInputVo;
 import com.dalbit.main.vo.procedure.P_ChartStatusInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -57,5 +58,15 @@ public class Mai_MainStatusRestController {
         return result;
     }
 
+    @PostMapping("pay/status/info")
+    public String pay(PayStatusInputVo payStatusInputVo){
+        String result = mai_MainStatusService.getPayDayStatusInfoList(payStatusInputVo);
+        return result;
+    }
 
+    @PostMapping("payCancel/status/info")
+    public String payCancel(PayStatusInputVo payStatusInputVo){
+        String result = mai_MainStatusService.getPayCancelDayStatusInfoList(payStatusInputVo);
+        return result;
+    }
 }

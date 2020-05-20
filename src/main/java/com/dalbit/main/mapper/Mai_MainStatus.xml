@@ -20,4 +20,112 @@
     <select id="callItemStatusInfoList" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.main.vo.procedure.P_ItemTopFiveOutputVo">
         call rd_admin.sp_admin_main_total_stat_item5(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+
+    <select id="getPayDayStatusInfoList" parameterType="com.dalbit.main.vo.PayStatusInputVo" resultType="com.dalbit.main.vo.PayStatusOutputVo">
+        select pay_code.pay_way
+             , ifnull(succ.pay_cnt, 0) pay_cnt
+             , ifnull(succ.pay_amt, 0) pay_amt
+        from (
+                 select 'CN' as pay_way
+                 union all
+                 select 'InApp'
+                 union all
+                 select 'MC'
+                 union all
+                 select 'RA'
+                 union all
+                 select 'VA'
+             )pay_code
+                 left join(
+            select pay_way
+                 , count(pay_way) pay_cnt
+                 , sum(pay_amt) pay_amt
+            from rd_data.tb_payment_succ
+            where pay_yn = 'y'
+              and pay_ok_date = #{searchDate}
+            group by pay_way
+        )succ on pay_code.pay_way = succ.pay_way
+    </select>
+
+    <select id="getPayDayStatusWeekInfoList" parameterType="com.dalbit.main.vo.PayStatusInputVo" resultType="com.dalbit.main.vo.PayStatusOutputVo">
+        select pay_code.pay_way
+             , ifnull(succ.pay_cnt, 0) pay_cnt
+             , ifnull(succ.pay_amt, 0) pay_amt
+        from (
+                 select 'CN' as pay_way
+                 union all
+                 select 'InApp'
+                 union all
+                 select 'MC'
+                 union all
+                 select 'RA'
+                 union all
+                 select 'VA'
+             )pay_code
+                 left join(
+            select pay_way
+                 , count(pay_way) pay_cnt
+                 , sum(pay_amt) pay_amt
+            from rd_data.tb_payment_succ
+            where pay_yn = 'y'
+              and #{searchStartDate} <![CDATA[<=]]> pay_ok_date
+              and pay_ok_date <![CDATA[<=]]> #{searchEndDate}
+            group by pay_way
+        )succ on pay_code.pay_way = succ.pay_way
+    </select>
+
+    <select id="getPayCalcelDayStatusInfoList" parameterType="com.dalbit.main.vo.PayStatusInputVo" resultType="com.dalbit.main.vo.PayStatusOutputVo">
+        select pay_code.pay_way
+             , ifnull(succ.pay_cnt, 0) pay_cnt
+             , ifnull(succ.pay_amt, 0) pay_amt
+        from (
+                 select 'CN' as pay_way
+                 union all
+                 select 'InApp'
+                 union all
+                 select 'MC'
+                 union all
+                 select 'RA'
+                 union all
+                 select 'VA'
+             )pay_code
+                 left join(
+            select pay_way
+                 , count(pay_way) pay_cnt
+                 , sum(pay_amt) pay_amt
+            from rd_data.tb_payment_succ
+            where DATE_FORMAT(cancel_dt, '%Y-%m-%d') = #{searchDate}
+              and pay_yn = 'y'
+              and cancel_state = 'y'
+            group by pay_way
+        )succ on pay_code.pay_way = succ.pay_way
+    </select>
+
+    <select id="getPayCalcelWeekStatusInfoList" parameterType="com.dalbit.main.vo.PayStatusInputVo" resultType="com.dalbit.main.vo.PayStatusOutputVo">
+        select pay_code.pay_way
+             , ifnull(succ.pay_cnt, 0) pay_cnt
+             , ifnull(succ.pay_amt, 0) pay_amt
+        from (
+                 select 'CN' as pay_way
+                 union all
+                 select 'InApp'
+                 union all
+                 select 'MC'
+                 union all
+                 select 'RA'
+                 union all
+                 select 'VA'
+             )pay_code
+                 left join(
+            select pay_way
+                 , count(pay_way) pay_cnt
+                 , sum(pay_amt) pay_amt
+            from rd_data.tb_payment_succ
+            where #{searchStartDate} <![CDATA[<=]]> DATE_FORMAT(cancel_dt, '%Y-%m-%d')
+              and DATE_FORMAT(cancel_dt, '%Y-%m-%d') <![CDATA[<=]]> #{searchEndDate}
+              and pay_yn = 'y'
+              and cancel_state = 'y'
+            group by pay_way
+        )succ on pay_code.pay_way = succ.pay_way
+    </select>
 </mapper>
