@@ -107,9 +107,9 @@ public class Men_SpecialService {
      */
     public String getSpecialList(SpecialVo specialVo) {
         specialVo.setOp_name(MemberVo.getMyMemNo());
-        List<SpecialVo> list = menSpecialDao.getSpecialList(specialVo);
         int getSpecialListCnt = menSpecialDao.getSpecialListCnt(specialVo);
         specialVo.setTotalCnt(getSpecialListCnt);
+        List<SpecialVo> list = menSpecialDao.getSpecialList(specialVo);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialVo.getTotalCnt(), specialVo.getPageStart(), specialVo.getPageCnt())));
 

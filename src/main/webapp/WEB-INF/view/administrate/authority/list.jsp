@@ -174,7 +174,6 @@
 
     function fn_memberList_success(data, response, params){
         dalbitLog(response);
-
         var template = $('#tmp_memberList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -195,7 +194,15 @@
 
     function fn_menuInfo_success(data, response, params){
         dalbitLog(response);
-
+        for(var i = 0 ;i<response.data.menuInfo.length;i++){
+            if(response.data.menuInfo[i].idx == 12){
+                for(var j = 0 ;j<response.data.menuInfo[i].twoDepth.length;j++){
+                    if(response.data.menuInfo[i].twoDepth[j].idx == 52) {
+                        response.data.menuInfo[i].twoDepth[j]["menu_name"] = response.data.menuInfo[i].twoDepth[j].menu_name + '<br/>' + "(달/별 변경권한 부여)";
+                    }
+                }
+            }
+        }
         var template = $('#tmp_menuList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -388,7 +395,7 @@
         </tr>
         {{#each menu.twoDepth as |two|}}
             <tr data-oneidx='{{two.parent_idx}}' data-twoidx='{{two.idx}}'>
-                <td>{{two.menu_name}}</td>
+                <td>{{{two.menu_name}}}</td>
                 <td><input type="checkbox" class="_authChk" data-type='row' /></td>
                 <td><input type="checkbox" name="read" class="_read _auth" /></td>
                 <td><input type="checkbox" name="insert" class="_insert _auth" /></td>
