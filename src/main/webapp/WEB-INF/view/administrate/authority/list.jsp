@@ -209,7 +209,6 @@
         var html=templateScript(context);
         $("#menuInfo").html(html);
 
-
         var menus = $("#menuInfo tr");
         response.data.authInfo.forEach(function(auth){
             menus.each(function(){
@@ -396,7 +395,7 @@
         </tr>
         {{#each menu.twoDepth as |two|}}
             <tr data-oneidx='{{two.parent_idx}}' data-twoidx='{{two.idx}}'>
-                <td>{{two.menu_name}}</td>
+                <td>{{{two.menu_name}}}</td>
                 <td><input type="checkbox" class="_authChk" data-type='row' /></td>
                 <td><input type="checkbox" name="read" class="_read _auth" /></td>
                 <td><input type="checkbox" name="insert" class="_insert _auth" /></td>
