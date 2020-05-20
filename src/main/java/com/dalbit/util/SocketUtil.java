@@ -47,13 +47,17 @@ public class SocketUtil {
 
     public Map<String, Object> setSocket(HashMap<String,Object> param ,String command, String message, String authToken){
         if(!"".equals(param) && !"".equals(authToken)) {
-            if(message.equals("roomOut")){
+            if(command.equals("chatEnd")){
 
                 HashMap<String,String> map = new HashMap<>();
                 map.put("authToken","");
                 map.put("message",message);
 
                 message = gsonUtil.toJson(map);
+                SocketVo vo = getSocketVo(param, command, message);
+                System.out.println(vo.toQueryString());
+                return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
+            }else if(command.equals("reqKickOut")) {
                 SocketVo vo = getSocketVo(param, command, message);
                 System.out.println(vo.toQueryString());
                 return socketService.sendSocketApi(authToken, DalbitUtil.getStringMap(param, "roomNo"), vo.toQueryString());
