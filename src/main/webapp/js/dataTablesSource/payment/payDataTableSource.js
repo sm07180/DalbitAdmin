@@ -10,8 +10,18 @@ var payDataTableSource = {
             , {'title': '결제<br />수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return codeString(data);
                 }}
-            , {'title': '결제<br />정보', 'data': '', 'width':'60px', 'render': function(data, type, row) {
-                    return '';
+            , {'title': '결제<br />정보', 'data': 'data', 'width':'60px', 'render': function(data, type, row) {
+                    var info="";
+                    if(row.pay_way == 'MC'){
+                        info = common.phoneNumHyphen(row.pay_info_no);
+                    } else if(row.pay_way == 'CN'){
+                        info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
+                    } else if(row.pay_way == 'VA'){
+                        info = row.pay_info_no + '<br/>' + row.pay_info_nm;
+                    } else {
+                        info = '-'
+                    }
+                    return info;
                 }}
             , {'title': '결제시도일', 'data': 'pay_dt_comein', 'width':'80px', 'render': function(data, type, row) {
                     return common.convertToDate(data, 'YYYY.MM.DD HH:mm:ss');
@@ -42,17 +52,17 @@ var payDataTableSource = {
             , {'title': '최초여부', 'data': 'first_pay_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
-            , {'title': '카드번호 <br/>/ 카드사명', 'data': '','render': function(data, type, row) {
+            /*, {'title': '카드번호 <br/>/ 카드사명', 'data': '','render': function(data, type, row) {
                     var tmp = !(common.isEmpty(row.card_no) || row.card_no == 0) ? common.cardNo(row.card_no) + '<br/>' + row.card_nm : '-';
                     return tmp;
                 }}
             , {'title': '휴대폰<br />번호', 'data': 'phone_no', 'render': function(data, type, row) {
                     return common.phoneNumHyphen(data);
-                }}
-            , {'title': '은행코드 <br/>/ 가상계좌번호', 'data': '', 'render': function(data, type, row) {
+                }}*/
+            /*, {'title': '은행코드 <br/>/ 가상계좌번호', 'data': '', 'render': function(data, type, row) {
                     var tmp = row.bank_code + '<br/>' + row.account_no;
                     return tmp;
-                }}
+                }}*/
             , {'title': '결제자', 'data': 'rcpt_nm'}
             , {'title': '취소일시', 'data': '', 'render': function(data, type, row) {
                     return row.cancel_state == 'y' ? row.cancel_dt : '-';

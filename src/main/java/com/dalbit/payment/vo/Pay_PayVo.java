@@ -39,5 +39,7 @@ public class Pay_PayVo extends PagingVo {
     private String store_id;
     private int os;
     private int dal_cnt;
+    private String pay_info_no;
+    private String pay_info_nm;
 
 }
