@@ -433,7 +433,7 @@ util.imageFullSize = function(modalId ,url){
         html+=      '</div>';
         html+= '</div>';
     return html;
-}
+},
 
 util.renderPagingNavigation = function(targetId, pagingInfo){
 
@@ -499,8 +499,16 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
 
         ui.topScroll();
     });
-}
+},
 
 util.scrollPostion = function(y){
     $('html').animate({scrollTop: y}, 100);
+},
+
+util.renderOnAir = function(value) {
+    if(value == 0){
+        return ' <i class="fa fa-circle-o"></i>' + " OFF" ;
+    }else{
+        return ' <i class="fa fa-circle"></i>' + " ON" ;
+    }
 }

@@ -14,7 +14,7 @@
                                 <span id="searchArea"></span>
                                 <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                <button type="button" class="btn btn-default pull-right" id="memSearch" name="memSearch">운영자 직접 등록</button>
+                                <button type="button" class="btn btn-primary pull-right" id="memSearch" name="memSearch"><i class="fa fa-search"></i>운영자 직접 등록</button>
                                 <div class="pull-right" id="div_selectTarget" style="padding-left: 30px;">
                                 </div>
                             </div>

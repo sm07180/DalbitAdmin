@@ -28,11 +28,18 @@
                 <tr>
                     <th></th>
                     <th>No</th>
-                    <th>회원번호</th>
-                    <th>등록일</th>
+                    <th>방송상태</th>
+                    <th>프로필이미지</th>
+                    <th>UserID</th>
+                    <th>User닉네임</th>
+                    <th>보유팬<br/>(1000명)</th>
+                    <th>누적 방송시간<br/>(360시간)</th>
+                    <th>누적 받은 별<br/>(100,000개)</th>
+                    <th>받은 좋아요<br/>(300,000개)</th>
+                    <th>최근 3개월 내 방송일<br/>(60일)</th>
+                    <th>정지기록<br/>(없음)</th>
                     <th>관리자 등록여부</th>
                     <th style="display:none;">순서</th>
-                    <th>등록자</th>
                 </tr>
             </thead>
             <tbody id="special_tableBody">
@@ -43,6 +50,7 @@
 
     </div>
 </div>
+<div id="#imageFullSize"></div>
 <!-- // DATA TABLE -->
 
 <div class="mt15">
@@ -131,6 +139,7 @@
     });
 
     function fn_success_dalDetail(dst_id, response) {
+        dalbitLog("######" + response.data.is_force);
         var template = $('#tmp_dalList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -220,6 +229,14 @@
         init();
     }
 
+    function fullSize_background(url) {
+        $("#imageFullSize").html(util.imageFullSize("fullSize_background", url));
+        $('#fullSize_background').modal('show');
+    }
+
+    function modal_close(){
+        $("#fullSize_background").modal('hide');
+    }
 </script>
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
@@ -229,13 +246,28 @@
         <td class="_noTd">
             <input type="hidden" name="sortNo" value="{{sortNo}}"/>
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
+        <td>{{{renderOnAir onAir}}}</td>
+        <td>
+            <form method="post" enctype="multipart/form-data">
+                <img class="thumbnail" src="{{renderImage image_profile}}" alt="your image" style="width: 100px;height: 100px" onclick="fullSize_background(this.src);"/>
+            </form>
+        </td>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_id}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
         </td>
-        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td>{{mem_nick}}</td>
+        <td>{{addComma fanCnt}} 명</td>
+        <td>{{timeStamp airTime}}</td>
+        <td>{{addComma giftedRuby}} 개</td>
+        <td>{{addComma likeCnt}} 개</td>
+        <td>{{addComma broadcastCnt}} 일</td>
+        <td>
+            {{#equal reportCnt '0'}}없음{{/equal}}
+            {{^equal reportCnt '0'}}{{addComma reportCnt}} 회{{/equal}}
+        </td>
         <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
         <td style="display:none;">{{order}}</td>
-        <td>{{op_name}}</td>
+        <%--<td>{{op_name}}</td>--%>
     </tr>
     {{else}}
     <tr>

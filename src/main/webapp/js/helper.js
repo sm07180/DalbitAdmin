@@ -203,3 +203,7 @@ Handlebars.registerHelper("memNoLink", function(display, value) {
 Handlebars.registerHelper("roomNoLink", function(display, value) {
     return util.roomNoLink(display,value);
 });
+
+Handlebars.registerHelper("renderOnAir", function(value) {
+   return util.renderOnAir(value);
+});
