@@ -280,10 +280,7 @@
         <td>{{addComma giftedRuby}} 개</td>
         <td>{{addComma likeCnt}} 개</td>
         <td>{{addComma broadcastCnt}} 일</td>
-        <td>
-            {{#equal reportCnt '0'}}없음{{/equal}}
-            {{^equal reportCnt '0'}}{{addComma reportCnt}} 회{{/equal}}
-        </td>
+        <td>{{addComma reportCnt}} 회</td>
         <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
         <td style="display:none;">{{order}}</td>
         <%--<td>{{op_name}}</td>--%>
