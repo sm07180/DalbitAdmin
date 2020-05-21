@@ -90,24 +90,33 @@ public class PushService {
     public String callContentsPushAdd(P_pushInsertVo pPushInsertVo){
         pPushInsertVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pPushInsertVo, true);
-        String result;
+        String result = null;
 
         try{
+
             int insertResult = pushDao.callContentsPushAdd(pPushInsertVo);
 
-            if(insertResult > 0){
-                //TODO 전체 발송은 따로 처리 필요 (프로시져 아직 안나옴)
-                HashMap resultHash = null;
-                // 지정 일 경우 푸시 발송
-                if(pPushInsertVo.getIs_all().equals("7")){
-                    resultHash = callSendPush(pPushInsertVo);
+            if(!pPushInsertVo.getIs_all().equals("11")){
+
+                if(insertResult > 0){
+                    //TODO 전체 발송은 따로 처리 필요 (프로시져 아직 안나옴)
+                    HashMap resultHash = null;
+                    // 지정 일 경우 푸시 발송
+                    if(pPushInsertVo.getIs_all().equals("7")){
+                        resultHash = callSendPush(pPushInsertVo);
+                    }
+
+                    result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공, resultHash));
+
+                }else{
+                    result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_에러));
                 }
-
-                result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공, resultHash));
-
-            }else{
-                result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_에러));
+            }else if(pPushInsertVo.getIs_all().equals("11")){
+                pPushInsertVo.setSlct_push("11");
+                callSendAllPush(pPushInsertVo);
+                result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공));
             }
+
 
         }catch (Exception e){
             e.printStackTrace();
@@ -213,6 +222,21 @@ public class PushService {
         resultMap.put("sucCnt", sucCnt);
         resultMap.put("failCnt", failCnt);
 
+        return resultMap;
+    }
+
+    public HashMap callSendAllPush(P_pushInsertVo pPushInsertVo){
+        HashMap resultMap = new HashMap();
+
+        ProcedureVo procedureVo = new ProcedureVo(pPushInsertVo);
+
+        pushDao.callStmpPushAdd(procedureVo);
+
+        if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+            log.debug("[ALL_PUSH_SEND] 전체 푸시 발송 성공");
+        } else {
+            log.debug("[ERROR] 전체 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt());
+        }
         return resultMap;
     }
 
