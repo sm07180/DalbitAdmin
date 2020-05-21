@@ -30,7 +30,7 @@
                             <th>승인 달D</th>
                         </tr>
                         </thead>
-                        <tbody id="tableBody">
+                        <tbody id="summaryTableBody">
                         </tbody>
                     </table>
                 </div>
@@ -52,8 +52,12 @@
 
     $(document).ready(function() {
         $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
-        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_summary_success);
+        getSummary();
     });
+
+    function getSummary(){
+        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_summary_success);
+    }
 
     function fn_summary_success(dst_id, response){
         var template = $('#tmp_summary').html();
@@ -61,7 +65,7 @@
         var context = response;
         var html = templateScript(context);
 
-        $("#tableBody").append(html);
+        $("#summaryTableBody").empty().append(html);
     }
 
     $('#bt_search').on('click', function () {
