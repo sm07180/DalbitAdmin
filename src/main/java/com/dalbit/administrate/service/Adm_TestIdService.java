@@ -53,6 +53,10 @@ public class Adm_TestIdService {
 
     public int insertTestId(TestIdVo testIdVo){
         int result = admTestIdDao.insertTestId(testIdVo);
+
+        // 내부직원 테스트 여부 1 update
+        testIdVo.setInner(1);
+        result = admTestIdDao.updateInner(testIdVo);
         return result;
     }
 
@@ -68,5 +72,10 @@ public class Adm_TestIdService {
 
     public void deleteTestId(String[] memNos){
         admTestIdDao.deleteTestId(memNos);
-    }
+        // 내부직원 테스트 여부 0 update
+        TestIdVo testIdVo = new TestIdVo();
+        testIdVo.setMem_no(memNos[0]);
+        testIdVo.setInner(0);
+        admTestIdDao.updateInner(testIdVo);
+       }
 }

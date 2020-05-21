@@ -27,4 +27,6 @@ public interface Adm_TestIdDao {
     List<TestIdListVo> getTestIdList(SearchVo searchVo);
 
     void deleteTestId(String[] memNos);
+
+    int updateInner(TestIdVo testIdVo);
 }

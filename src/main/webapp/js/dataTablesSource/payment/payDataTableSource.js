@@ -4,13 +4,13 @@ var payDataTableSource = {
 
         , 'columns': [
             /*{'title': '주문번호', 'data': 'order_id'}*/
-             {'title': '회원번호', 'data' : 'mem_no', 'render': function(data, type, row) {
+             {'title': '회원번호', 'data' : 'mem_no', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo=" ' + row.mem_no + '">' + data + '</a>'
                 }}
             , {'title': '결제<br />수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return codeString(data);
                 }}
-            , {'title': '결제<br />정보', 'data': 'data', 'width':'60px', 'render': function(data, type, row) {
+            , {'title': '결제<br />정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -65,17 +65,17 @@ var payDataTableSource = {
                     return data;
                 }}*/
 
-            , {'title': '취소일시', 'data': '', 'render': function(data, type, row) {
+            , {'title': '취소일시', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     return row.cancel_state == 'y' ? common.convertToDate(row.cancel_dt) : '-';
                 }}
             , {'title': '취소실패사유', 'data': 'fail_msg', 'render': function(data, type, row) {
                     return !common.isEmpty(row.fail_msg) ? row.fail_msg : '-';
                 }}
             , {'title': '처리자', 'data': 'op_name'}
-            , {'title': '결제상태', 'data': 'pay_yn', 'width':'50px', 'render': function(data, type, row) {
+            , {'title': '결제<br />상태', 'data': 'pay_yn', 'width':'30px', 'render': function(data, type, row) {
                     return '<label style="color: #ee0648">'+data.toUpperCase()+'</label>';
                 }}
-            , {'title': '취소상태', 'data': 'cancel_state', 'render': function(data, type, row) {
+            , {'title': '취소<br />상태', 'data': 'cancel_state', 'width':'30px', 'render': function(data, type, row) {
                     return '<label style="color: #0b38aa">'+data.toUpperCase()+'</label>';
                 }}
             , {'title': '취소', 'data': '', 'render': function(data, type, row) {

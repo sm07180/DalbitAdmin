@@ -4,7 +4,7 @@
 
     <select id="callJoinList" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
         select @rownum := @rownum + 1 as rowNum, c.*
-          from ( select if(ifnull((select mem_no From rd_admin.tb_admin_test_account where mem_no= a.mem_no),0) !=0 ,'Test',null) testId
+          from ( select if(a.inner = 1 ,'Test',null) testId
                         ,a.*
                    From rd_data.tb_member_basic a
                    <if test="period != 4 and period != 3">
@@ -14,7 +14,7 @@
                        where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
                    </if>
                     <if test="testid != -1">
-                        and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+                        and a.inner = 0
                     </if>
                     and (mem_no like concat('%', #{searchText}, '%')
                        or mem_name like concat('%', #{searchText}, '%')
@@ -36,7 +36,7 @@
                 where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
             </if>
             <if test="testid != -1">
-                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+                and a.inner = 0
             </if>
             and (mem_no like concat('%', #{searchText}, '%')
                 or mem_name like concat('%', #{searchText}, '%')
@@ -62,14 +62,14 @@
                 where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
             </if>
             <if test="testid != -1">
-                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+                and a.inner = 0
             </if>
     </select>
 
 
     <select id="callWithdrawalList" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberJoinOutputVo">
         select @rownum := @rownum + 1 as rowNum, c.*
-          from ( select if(ifnull((select mem_no From rd_admin.tb_admin_test_account where mem_no= a.mem_no),0) !=0 ,'Test',null) testId
+          from ( select if(a.inner = 1 ,'Test',null) testId
                         ,a.*
                    From rd_data.tb_member_withdrawal_bak a
                    <if test="period != 4 and period != 3">
@@ -79,7 +79,7 @@
                        where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
                    </if>
                    <if test="testid != -1">
-                       and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+                       and a.inner = 0
                    </if>
                    and (mem_no like concat('%', #{searchText}, '%')
                        or mem_name like concat('%', #{searchText}, '%')
@@ -101,7 +101,7 @@
                 where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
             </if>
             <if test="testid != -1">
-                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+                and a.inner = 0
             </if>
             and (mem_no like concat('%', #{searchText}, '%')
                 or mem_name like concat('%', #{searchText}, '%')
@@ -127,7 +127,7 @@
                 where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
             </if>
             <if test="testid != -1">
-                and a.mem_no not in ( select mem_no from rd_admin.tb_admin_test_account)
+                and a.inner = 0
             </if>
     </select>
 
