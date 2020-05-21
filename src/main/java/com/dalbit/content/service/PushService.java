@@ -105,7 +105,6 @@ public class PushService {
             if(!pPushInsertVo.getIs_all().equals("11")){
 
                 if(insertResult > 0){
-                    //TODO 전체 발송은 따로 처리 필요 (프로시져 아직 안나옴)
                     HashMap resultHash = null;
                     // 지정 일 경우 푸시 발송
                     if(pPushInsertVo.getIs_all().equals("7")){

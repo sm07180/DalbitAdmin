@@ -250,7 +250,7 @@
                 return false;
             }
 
-            if(common.isEmpty(data.data.sucCnt)){
+            if(common.isEmpty(data.data)){
                 alert(data.message);
             }else{
                 alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
