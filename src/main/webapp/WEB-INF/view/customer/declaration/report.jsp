@@ -306,7 +306,7 @@
 
                     <th rowspan="2">제재 조치</th>
                     <td rowspan="2" colspan="3">
-                        {{{getCommonCodeRadio op_code 'declaration_slctType' 'Y' 'opCode'}}}
+                        {{{getCommonCodeRadio op_code 'declaration_opCode' 'Y' 'opCode'}}}
                     </td>
                 </tr>
                 <tr>

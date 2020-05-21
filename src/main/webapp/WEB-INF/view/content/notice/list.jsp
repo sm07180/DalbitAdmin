@@ -22,7 +22,7 @@
             </form>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
-                <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
+                <button type="button" class="btn btn-default pull-right mb5" id="bt_insert">등록</button>
             </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
