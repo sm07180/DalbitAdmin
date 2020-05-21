@@ -129,7 +129,17 @@
             (select count(*) from rd_data.tb_member_fanstar where mem_no_star = dj.mem_no) fanCnt,
             (select sum(airtime) from rd_data.tb_broadcast_room  where mem_no = dj.mem_no) airTime,
             (select sum(gift_ruby) from rd_data.tb_member_broadcast_listening where dj_mem_no = dj.mem_no) giftedRuby,
-            (select count(*) from rd_data.tb_broadcast_room_good where dj_mem_no = dj.mem_no) likeCnt
+            (select count(*) from rd_data.tb_broadcast_room_good where dj_mem_no = dj.mem_no) likeCnt,
+            (select count(*)
+                from (
+                    select distinct date_format(start_date, '%Y%m%d'), dj.mem_no
+                    from rd_data.tb_broadcast_room room
+                    , rd_admin.tb_special_dj dj
+                    where SUBDATE(NOW(), INTERVAL 3 MONTH) <![CDATA[<=]]> start_date
+                    and room.mem_no = dj.mem_no
+                )a where mem_no = dj.mem_no
+            ) broadcastCnt,
+            (select count(*) from rd_data.tb_member_report where op_code in (3,4,5,6) and reported_mem_no = dj.mem_no) reportCnt
         from rd_admin.tb_special_dj dj,
             rd_data.tb_member_basic basic,
             rd_data.tb_member_profile pro,
