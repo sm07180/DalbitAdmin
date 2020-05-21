@@ -55,7 +55,9 @@
 
 <div class="mt15">
     <form id="dalList"></form>
+    <form id="sampleDalList"></form>
 </div>
+
 
 <script type="text/javascript" src="/js/dataTablesSource/menu/specialDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
@@ -63,8 +65,8 @@
 
     var specialDjPagingInfo = new PAGING_INFO(0, 1, 99999);
 
-    var dtList_info;
     function init() {
+        // var dtList_info;
         // var dtList_info_data = function(data) {
         // };
         // dtList_info = new DalbitDataTable($("#specialList"), dtList_info_data, specialDataTableSource.specialList, $("#searchForm"));
@@ -135,22 +137,38 @@
             $(this).parent().parent().find('._dalDetail').click();
         } else {
             $('#dalList').empty();
+            $('#sampleDalList').empty();
         }
     });
 
     function fn_success_dalDetail(dst_id, response) {
-        dalbitLog("######" + response.data.is_force);
-        var template = $('#tmp_dalList').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
 
-        $('#dalList').html(html);
+        if(response.data.is_force == 0) {
+            var template = $('#tmp_dalList').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response.data;
+            var html = templateScript(context);
 
-        $('#contents').attr("disabled", "disabled");
+            $('#dalList').html(html);
+            $('#sampleDalList').hide();
+            $('#dalList').show();
+            document.getElementById('dalList').scrollIntoView();
+            $('#contents').attr("disabled", "disabled");
+
+        } else if(response.data.is_force == 1) {
+            var template = $('#tmp_sampleDalList').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response.data;
+            var html = templateScript(context);
+            $('#sampleDalList').html(html);
+            $('#dalList').hide();
+            $('#sampleDalList').show();
+            document.getElementById('sampleDalList').scrollIntoView();
+            $('#sampleDalList').focus();
+        }
     }
 
-    $(document).on('click', '#bt_reqCancel', function() {
+    $(document).on('click', '#bt_reqCancel, #bt_reqCancel_2', function() {
         if(confirm("승인 취소 하시겠습니까?")) {
            var checkbox = $('#specialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
            var data = {
@@ -310,6 +328,32 @@
                 </table>
                 <!-- 승인완료 승인거부-->
                 <button type="button" class="btn btn-danger mb15" id="bt_reqCancel">승인취소</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="tmp_sampleDalList" type="text/x-handlebars-template">
+    <div class="widget widget-table">
+        <div class="widget-header">
+            <h3><i class="fa fa-desktop"></i> 스페셜 달D 세부사항</h3>
+        </div>
+        <div class="widget-content mt15">
+            <div class="row col-lg-12 form-inline">
+                <table class="table table-bordered table-dalbit">
+                    <input type="hidden" name="reqIdx" data-idx="{{req_idx}}"/>
+                    <tr>
+                        <th>등록일시</th>
+                        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                        <th>관리자 등록 여부</th>
+                        <td>
+                            {{#equal is_force '0'}}N{{/equal}}
+                            {{^equal is_force '0'}}Y{{/equal}}
+                        </td>
+                    </tr>
+                </table>
+                <!-- 승인완료 승인거부-->
+                <button type="button" class="btn btn-danger mb15" id="bt_reqCancel_2">승인취소</button>
             </div>
         </div>
     </div>

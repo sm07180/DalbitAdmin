@@ -30,7 +30,9 @@
     function getList(){
         $('#tablist_con li.active:first a').click();
         $('#dalList').empty();
+        $('#sampleDalList').empty();
         $('#reqDalList').empty();
+        ui.topScroll();
     }
 
     function emptySearch() {
@@ -40,7 +42,7 @@
 
     $('._tab').on('click', function(){
 
-        $('#dalList, #reqDalList').empty();
+        $('#dalList, #sampleDalList, #reqDalList').empty();
 
         var me = $(this);
         var tab = me.parent();
