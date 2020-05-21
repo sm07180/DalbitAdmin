@@ -59,6 +59,11 @@
         )
     </insert>
 
+    <update id="updateInner" parameterType="com.dalbit.administrate.vo.TestIdVo">
+        update rd_data.tb_member_basic set `inner`=#{inner} where mem_no=#{mem_no}
+    </update>
+
+
     <select id="getTestIdSummary" resultType="com.dalbit.administrate.vo.TestIdVo">
         /* Adm_TestId.xml - getTestIdSummary */
         SELECT

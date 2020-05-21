@@ -12,6 +12,7 @@ public class TestIdVo {
     private int emp_no;
     private String emp_name;
     private int relation;
+    private int inner;
 
     private int userInfo;
     private String userInfoValue;
