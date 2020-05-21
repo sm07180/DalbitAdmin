@@ -26,8 +26,8 @@
                     <table class="table table-bordered table-summary">
                         <thead>
                         <tr>
-                            <th>총 신청 달D</th>
                             <th>승인 달D</th>
+                            <th>총 신청 달D</th>
                         </tr>
                         </thead>
                         <tbody id="summaryTableBody">
@@ -116,8 +116,8 @@
 <script id="tmp_summary" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
         <td>{{addComma approveDal}}건</td> <%-- 승인 달D --%>
+        <td>{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
     </tr>
     {{/data}}
 </script>

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.dalbit.common.code.*;
 import org.springframework.transaction.annotation.Transactional;
+import springfox.documentation.spring.web.json.Json;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -95,12 +96,14 @@ public class Men_SpecialService {
      * 스페셜 달D 신청 거부
      */
     @Transactional(readOnly = false)
-    public String reqReject(SpecialReqVo specialReqVo) {
+    public String reqReject(SpecialReqVo specialReqVo, SpecialVo specialVo) {
         specialReqVo.setOp_name(MemberVo.getMyMemNo());
 
-        specialReqVo.setState(3);
-        int result= menSpecialDao.reqOkUpdate(specialReqVo);
+        menSpecialDao.reqCancel(specialVo);
 
+        specialReqVo.setState(3);
+
+        int result= menSpecialDao.reqOkUpdate(specialReqVo);
         if(result > 0) {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인거부_성공));
         } else {
