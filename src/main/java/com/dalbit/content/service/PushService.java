@@ -1,9 +1,12 @@
 package com.dalbit.content.service;
 
+import com.dalbit.administrate.dao.Adm_TestIdDao;
+import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.common.vo.SearchVo;
 import com.dalbit.content.dao.PushDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
@@ -25,6 +28,9 @@ public class PushService {
 
     @Autowired
     PushDao pushDao;
+
+    @Autowired
+    Adm_TestIdDao admTestIdDao;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -207,6 +213,25 @@ public class PushService {
                     }
                 }
             }
+        }else if(pPushInsertVo.getIs_all().equals("99")){
+            SearchVo searchVo = new SearchVo();
+             List<TestIdListVo> testIdList = admTestIdDao.getTestIdList(searchVo);
+
+            for(TestIdListVo target : testIdList){
+                P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target.getMem_no(), pPushInsertVo);
+                ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
+
+                pushDao.callStmpPushAdd(procedureVo);
+
+                if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+                    log.debug("[PUSH_SEND] 푸시 발송 성공  (" + target + ")");
+                    sucCnt++;
+                } else {
+                    log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + target + ")");
+                    failCnt++;
+                }
+            }
+
         }else{  // 전체 발송
             P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo("11584609037895", pPushInsertVo);
             ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);

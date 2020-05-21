@@ -34,6 +34,10 @@ var PushDataTableSource = {
                          return "전체";
                      }
 
+                     if(data == "99"){
+                         return "테스트";
+                     }
+
                      if(data == "7"){
                          return "지정 (" + row.send_cnt + ")건";
                      }

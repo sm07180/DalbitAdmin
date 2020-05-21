@@ -109,30 +109,6 @@
 
             });
 
-            //OS 구분
-            this.target.find("input[name='platform']").change(function () {
-                if ($(this).attr("id").indexOf("-1") > -1) {
-                    if ($(this).is(":checked")) {
-                        fnc_bannerDetail.target.find("input[name='platform']").each(function () {
-                            this.checked = true;
-                        });
-                    } else {
-                        fnc_bannerDetail.target.find("input[name='platform']").each(function () {
-                            this.checked = false;
-                        });
-                    }
-                } else {
-                    if ($(this).is(":checked")) {
-                        var cntTotal = fnc_bannerDetail.target.find("input[name='platform']").length;
-                        var cntChecked = fnc_bannerDetail.target.find("input[name='platform']:checked").length;
-                        if ((cntTotal) == (cntChecked + 1)) {
-                            fnc_bannerDetail.target.find("input[name='platform'][id='platform-1']").prop("checked", true);
-                        }
-                    } else {
-                        fnc_bannerDetail.target.find("input[name='platform'][id='platform-1']").prop("checked", false);
-                    }
-                }
-            });
 
             //노출 기간
             this.target.find("input[name='term_type']:radio").change(function () {
@@ -191,25 +167,6 @@
         initUpdateUI(){
             var detailData = getSelectDataInfo().detailData;
             console.log(detailData);
-
-            //OS 구분
-            if(detailData.platform == "111"){
-                fnc_bannerDetail.target.find("input[name='platform']").each(function () {
-                    this.checked = true;
-                });
-            }else{
-                fnc_bannerDetail.target.find("input[name='platform']").each(function () {
-                    this.checked = false;
-                });
-
-                var arrayPlatform = detailData.platform.split('');
-                for(var idx in arrayPlatform){
-                    if(arrayPlatform[idx] == 1){
-                        var value = parseInt(idx) + 1;
-                        fnc_bannerDetail.target.find("input[name='platform'][id='platform"+ value +"']").prop("checked", true);
-                    }
-                }
-            }
 
             if(detailData.term_type == "1"){
                 fnc_bannerDetail.target.find("#banner-div-exposure").show();
@@ -349,22 +306,6 @@
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
 
-            //platform
-            if(fnc_bannerDetail.target.find("#platform-1").is(":checked")){
-                resultJson['platform'] = "111";
-            }else{
-                var platformCnt = fnc_bannerDetail.target.find("input[name=platform]").length;
-                var platform = "";
-                for(var i = 1; i < platformCnt; i++){
-                    if(fnc_bannerDetail.target.find("#platform"+(i)).is(":checked")){
-                        platform += "1";
-                    }else{
-                        platform += "0";
-                    }
-                }
-                resultJson['platform'] = platform;
-            }
-
             //예약발송 일경우 Date 처리
             if(this.target.find("input[name='term_type']:radio:checked").val() == "1"){
                 var startDiv = fnc_bannerDetail.target.find("#banner-div-startDate");
@@ -442,7 +383,7 @@
         },
 
     }
-//=------------------------------ Modal ----------------------------------
+    //=------------------------------ Modal ----------------------------------
 
 
 
@@ -499,7 +440,7 @@
             </tr>
             <tr>
                 <th>플랫폼</th>
-                <td colspan="2">{{{getCommonCodeCheck platform 'content_platform2'}}}</td>
+                <td colspan="2">{{{getCommonCodeRadio platform 'content_platform4'}}}</td>
 
                 <th>구분</th>
                 <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
