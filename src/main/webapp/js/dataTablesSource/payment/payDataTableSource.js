@@ -39,11 +39,11 @@ var payDataTableSource = {
                     return common.addComma(data);
                 }}
             , {'title': '취소 시<br/>차감 달', 'data': 'dal_cnt', 'width':'55px', 'render': function(data, type, row) {
-                    return row.pay_yn == 'y' ? '- '+common.addComma(data) : '-';
+                    return row.pay_yn == 'y' ? common.addComma(data) : '-';
                 }}
-            , {'title': '취소 후<br/>남은 달', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
+            /*, {'title': '취소 후<br/>남은 달', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
                     return row.cancel_state == 'y' ? common.addComma(row.tot_dal_cnt - row.dal_cnt ) : '-';
-                }}
+                }}*/
             , {'title': '직원<br/>여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
