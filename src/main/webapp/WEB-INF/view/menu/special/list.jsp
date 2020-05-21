@@ -26,11 +26,11 @@
                     <table class="table table-bordered table-summary">
                         <thead>
                         <tr>
-                            <th>총 신청 달D</th>
                             <th>승인 달D</th>
+                            <th>총 신청 달D</th>
                         </tr>
                         </thead>
-                        <tbody id="tableBody">
+                        <tbody id="summaryTableBody">
                         </tbody>
                     </table>
                 </div>
@@ -52,8 +52,12 @@
 
     $(document).ready(function() {
         $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
-        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_summary_success);
+        getSummary();
     });
+
+    function getSummary(){
+        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_summary_success);
+    }
 
     function fn_summary_success(dst_id, response){
         var template = $('#tmp_summary').html();
@@ -61,7 +65,7 @@
         var context = response;
         var html = templateScript(context);
 
-        $("#tableBody").append(html);
+        $("#summaryTableBody").empty().append(html);
     }
 
     $('#bt_search').on('click', function () {
@@ -112,8 +116,8 @@
 <script id="tmp_summary" type="text/x-handlebars-template">
     {{#data}}
     <tr>
-        <td>{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
         <td>{{addComma approveDal}}건</td> <%-- 승인 달D --%>
+        <td>{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
     </tr>
     {{/data}}
 </script>

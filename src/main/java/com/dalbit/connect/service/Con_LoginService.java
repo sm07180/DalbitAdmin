@@ -11,7 +11,6 @@ import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
-import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;

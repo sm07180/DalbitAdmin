@@ -1,7 +1,7 @@
 package com.dalbit.payment.controller.rest;
 
 import com.dalbit.payment.service.Pay_PayService;
-import com.dalbit.payment.vo.Pay_PayVo;
+import com.dalbit.payment.vo.Pay_PayInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ public class Pay_PayRestController {
      *  결제 목록 조회
      */
     @PostMapping("list")
-    public String list(Pay_PayVo payPayVo) {
-        String result = payPayService.getPayList(payPayVo);
+    public String list(Pay_PayInputVo pay_PayInputVo) {
+        String result = payPayService.getPayList(pay_PayInputVo);
         return result;
     }
 
