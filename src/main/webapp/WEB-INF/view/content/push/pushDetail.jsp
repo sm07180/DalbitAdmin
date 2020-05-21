@@ -250,7 +250,11 @@
                 return false;
             }
 
-            alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+            if(common.isEmpty(data.data.sucCnt)){
+                alert(data.message);
+            }else{
+                alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+            }
 
             fnc_pushList.selectMainList(false);
 
