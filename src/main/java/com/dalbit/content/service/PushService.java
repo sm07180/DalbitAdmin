@@ -117,8 +117,9 @@ public class PushService {
                     result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_에러));
                 }
             }else if(pPushInsertVo.getIs_all().equals("11")){
-                pPushInsertVo.setSlct_push("11");
-                callSendAllPush(pPushInsertVo);
+                P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(null, pPushInsertVo);
+
+                callSendAllPush(pPushStmpInsertVo);
                 result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공));
             }
 
@@ -266,10 +267,10 @@ public class PushService {
         return resultMap;
     }
 
-    public HashMap callSendAllPush(P_pushInsertVo pPushInsertVo){
+    public HashMap callSendAllPush(P_pushStmpInsertVo pPushStmpInsertVo){
         HashMap resultMap = new HashMap();
 
-        ProcedureVo procedureVo = new ProcedureVo(pPushInsertVo);
+        ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
         pushDao.callStmpPushAdd(procedureVo);
 
