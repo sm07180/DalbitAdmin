@@ -41,22 +41,19 @@ var payDataTableSource = {
             , {'title': '취소 시<br/>차감 달', 'data': 'dal_cnt', 'width':'55px', 'render': function(data, type, row) {
                     return row.pay_yn == 'y' ? common.addComma(data) : '-';
                 }}
-            /*, {'title': '취소 후<br/>남은 달', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
-                    return row.cancel_state == 'y' ? common.addComma(row.tot_dal_cnt - row.dal_cnt ) : '-';
-                }}*/
-            , {'title': '직원<br/>여부', 'data': 'chrgr_yn', 'render': function(data, type, row) {
+            , {'title': '직원<br/>여부', 'data': 'chrgr_yn', 'width':'30px', 'render': function(data, type, row) {
                     return data.toUpperCase();
                 }}
-            , {'title': '플랫폼', 'data': 'os', 'render': function(data, type, row) {
+            , {'title': '플랫폼', 'data': 'os', 'width':'40px', 'render': function(data, type, row) {
                     return osGubun(data);
                 }}
             , {'title': '취소일시', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     return row.cancel_state == 'y' ? row.cancel_dt : '-';
                 }}
-            , {'title': '취소실패사유', 'data': 'fail_msg', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '취소실패사유', 'data': 'fail_msg', 'width':'250px', 'render': function(data, type, row) {
                     return !common.isEmpty(row.fail_msg) ? row.fail_msg : '-';
                 }}
-            , {'title': '처리자', 'data': 'op_name'}
+            , {'title': '처리자', 'data': 'op_name', 'width':'80px'}
             , {'title': '결제<br />상태', 'data': 'pay_yn', 'width':'30px', 'render': function(data, type, row) {
                     return '<label style="color: #ee0648; font-weight: bold">'+data.toUpperCase()+'</label>';
                 }}
@@ -73,32 +70,9 @@ var payDataTableSource = {
                     'data-storeid="'+row.store_id+'" ' +
                     'data-memno="'+row.mem_no+'" ' +
                     'data-dalcnt="'+row.dal_cnt+'" ' +
+                    'data-memnick="'+row.mem_nick+'" ' +
                     'onclick="cancelClick($(this).data())">취소</button>'
             }}
-            /*, {'title': '최초여부', 'data': 'first_pay_yn', 'render': function(data, type, row) {
-                    return data.toUpperCase();
-                }}*/
-            /*, {'title': '카드번호 <br/>/ 카드사명', 'data': '','render': function(data, type, row) {
-                    var tmp = !(common.isEmpty(row.card_no) || row.card_no == 0) ? common.cardNo(row.card_no) + '<br/>' + row.card_nm : '-';
-                    return tmp;
-                }}
-            , {'title': '휴대폰<br />번호', 'data': 'phone_no', 'render': function(data, type, row) {
-                    return common.phoneNumHyphen(data);
-                }}*/
-            /*, {'title': '은행코드 <br/>/ 가상계좌번호', 'data': '', 'render': function(data, type, row) {
-                    var tmp = row.bank_code + '<br/>' + row.account_no;
-                    return tmp;
-                }}*/
-            /*, {'title': '결제자', 'data': 'rcpt_nm', 'render': function(data, type, row) {
-                    return data;
-                }}*/
-            /*, {'title': '구매수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
-                return common.addComma(String(data)) + '번';
-                }}
-            , {'title': '총 금액', 'data': 'amount', 'width':'80px', 'render': function(data, type, row) {
-                    return common.addComma(data) + '원';
-                }}*/
-
         ]
         , 'comments': ''
     },
