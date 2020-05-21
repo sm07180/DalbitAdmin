@@ -53,8 +53,6 @@
         $("#bt_modalEntryNotice").on("click", function () {    //입장제한변경 팝업 알림O
             entry(this.id);
         });
-
-        mouseOver();
     });
 
     $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
