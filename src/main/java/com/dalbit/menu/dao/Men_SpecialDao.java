@@ -35,6 +35,7 @@ public interface Men_SpecialDao {
 
     @Transactional(readOnly = true)
     List<SpecialVo> getSpecialList(SpecialVo specialVo);
+
     @Transactional(readOnly = true)
     int getSpecialListCnt(SpecialVo specialVo);
 

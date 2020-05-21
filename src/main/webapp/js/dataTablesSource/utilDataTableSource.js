@@ -18,8 +18,61 @@ var UtilDataTableSource = {
             {'title': '닉네임', 'data': 'mem_nick','width':'100px'},
             {'title': '연락처', 'data': 'mem_phone','width':'50px'},
             {'title': '수신대상등록하기', 'data': '','defaultContent': '', 'render': function (data, type, row, meta) {
-                    return '<a onclick="javascript:setModalMemeberData('+meta.row+')" data-dismiss="modal">' + "[등록하기]" + '</a>'
+                    return '<a onclick="javascript:setModalMemberData('+meta.row+')" data-dismiss="modal">' + "[등록하기]" + '</a>'
                 },'width':'60px'},
         ]
-    }
+    },
+
+    'modalBroadcastLiveList': {
+        'url': '/rest/broadcast/broadcast/list'
+        , 'columns': [
+            {
+                'title': '플랫폼', 'data': 'osType', 'width': '65px', 'render': function (data) {
+                    return util.getCommonCodeLabel(data, os_type);
+                }
+            },
+            {'title': '주제', 'data': 'subject_name', 'width': '65px'},
+            {
+                'title': '제목', 'data': 'title', 'width': '150px', 'render': function (data, type, row, meta) {
+                    var tmp = "<div style='display: inline-flex; align-items: center'>";
+
+                    tmp += "<div class='pr10 pull-left'>"
+                    if (row.recommBadge == "1") {
+                        tmp = tmp + '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>';
+                    }
+                    if (row.popularBadge == "1") {
+                        tmp = tmp + '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>';
+                    }
+                    if (row.newjdBadge == "1") {
+                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }
+                    tmp += "</div>"
+                    tmp += util.roomNoLink(data, row.room_no);
+
+                    tmp += "</div>";
+                    return tmp;
+
+                    // return util.roomNoLink(data, row.room_no);
+                }
+            },
+            {
+                'title': 'DJ ID', 'data': 'dj_userid', 'width': '65px', 'render': function (data, type, row, meta) {
+                    var tmp = util.memNoLink(data, row.dj_mem_no);
+                    tmp = tmp + '<br/>' + row.dj_level + " / " + row.dj_grade;
+                    return tmp;
+                }
+            },
+            {'title': 'User 닉네임', 'data': 'dj_nickname', 'width': '75px'},
+            {'title': '시작일시', 'data': 'start_date', 'width': '120px'},
+            {
+                'title': '진행시간', 'data': 'airTime', 'width': '65px', 'render': function (data) {
+                    return common.timeStamp(data);
+                }
+            },
+            {'title': '등록', 'data': '','defaultContent': '', 'render': function (data, type, row, meta) {
+                    return '<a onclick="javascript:setModalBroadcastLiveData('+meta.row+')" data-dismiss="modal">' + "[등록하기]" + '</a>'
+                },'width':'60px'
+            }
+        ]
+    },
 };

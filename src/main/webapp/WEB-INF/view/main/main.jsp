@@ -231,7 +231,7 @@
                     <!-- //회원가입/탈퇴-->
                 </div>
 
-                <%--<div class="col-lg-6">--%>
+                <div class="col-lg-6">
                     <%--<!-- 캐스트정보 -->--%>
                     <%--<div class="widget widget-table mb10">--%>
                         <%--<div class="widget-header">--%>
@@ -479,11 +479,11 @@
                         </div>
                     </div>
                     <!-- //실시간 인기 아이템 TOP 5-->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                </div> <!-- //col-lg-6-->
+            </div> <!-- //row-->
+        </div> <!-- //container-fluid -->
+    </div> <!-- //page-wrapper -->
+</div> <!-- //wrapper -->
 
 <script src='/js/lib/plotly-latest.min.js'></script>
 

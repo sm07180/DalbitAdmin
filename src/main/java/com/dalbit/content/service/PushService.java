@@ -1,9 +1,12 @@
 package com.dalbit.content.service;
 
+import com.dalbit.administrate.dao.Adm_TestIdDao;
+import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.common.vo.SearchVo;
 import com.dalbit.content.dao.PushDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
@@ -25,6 +28,9 @@ public class PushService {
 
     @Autowired
     PushDao pushDao;
+
+    @Autowired
+    Adm_TestIdDao admTestIdDao;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -199,17 +205,38 @@ public class PushService {
         int sucCnt=0;
         int failCnt=0;
 
-        if(mem_nos != null && mem_nos.length() > 0){
-            String[] arryMem_no = mem_nos.split("\\|");
+        // 지정 일 경우 푸시 발송
+        if(pPushInsertVo.getIs_all().equals("7")){
+            if(mem_nos != null && mem_nos.length() > 0){
+                String[] arryMem_no = mem_nos.split("\\|");
 
-            for(String target : arryMem_no){
-                P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
+                for(String target : arryMem_no){
+                    P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
+                    ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
+
+                    pushDao.callStmpPushAdd(procedureVo);
+
+                    if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+                        log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
+                        sucCnt++;
+                    } else {
+                        log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + target + ")");
+                        failCnt++;
+                    }
+                }
+            }
+        }else if(pPushInsertVo.getIs_all().equals("99")){
+            SearchVo searchVo = new SearchVo();
+             List<TestIdListVo> testIdList = admTestIdDao.getTestIdList(searchVo);
+
+            for(TestIdListVo target : testIdList){
+                P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target.getMem_no(), pPushInsertVo);
                 ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
                 pushDao.callStmpPushAdd(procedureVo);
 
                 if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
-                    log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
+                    log.debug("[PUSH_SEND] 푸시 발송 성공  (" + target + ")");
                     sucCnt++;
                 } else {
                     log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + target + ")");
@@ -217,7 +244,22 @@ public class PushService {
                 }
             }
 
+        }else{  // 전체 발송
+            P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo("11584609037895", pPushInsertVo);
+            ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
+
+            pushDao.callStmpPushAdd(procedureVo);
+
+            if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+                log.debug("[PUSH_SEND] 푸시 발송 성공 (" + MemberVo.getUserInfo().getEmp_no() + ")");
+                sucCnt++;
+            } else {
+                log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + MemberVo.getUserInfo().getEmp_no() + ")");
+                failCnt++;
+            }
         }
+
+
 
         resultMap.put("sucCnt", sucCnt);
         resultMap.put("failCnt", failCnt);

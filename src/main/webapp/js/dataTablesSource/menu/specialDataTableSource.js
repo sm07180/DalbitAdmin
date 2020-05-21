@@ -12,7 +12,7 @@ var specialDataTableSource = {
                 return '<div style="width:40px;">' + data + '</div>'
                 }}
             , {'title': '연락처', 'data': 'mem_phone', 'render': function(data){
-                return '<div style="width:40px;">' + data + '</div>'
+                return '<div style="width:60px;">' + common.phoneNumHyphen(data) + '</div>'
                 }}
             , {'title': '제목', 'data': 'title', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_reqDalDetail" data-idx="' + row.idx + '">' + data + '</a>'

@@ -188,7 +188,7 @@ Handlebars.registerHelper("phoneNumHyphen", function(value) {
     return common.phoneNumHyphen(value);
 });
 
-Handlebars.registerHelper("phoneNumHyphen", function(value) {
+Handlebars.registerHelper("cardNo", function(value) {
     return common.cardNo(value);
 });
 
