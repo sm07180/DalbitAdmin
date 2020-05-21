@@ -133,7 +133,7 @@ public class Mem_MemberService {
         }
 
         P_MemberInfoOutputVo testId = mem_MemberDao.callMemberTestId(pMemberInfoInputVo);
-        if(testId.getTestIdCnt() > 0){
+        if(testId.getInner() == 1){
             memberInfo.setUserId(memberInfo.getUserId() + "_Test");
         }
 

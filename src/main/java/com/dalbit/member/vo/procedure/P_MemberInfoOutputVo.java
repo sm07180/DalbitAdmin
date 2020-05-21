@@ -49,7 +49,7 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String block_day;
     private Date block_end_date;
     private String blockEndDateFormat;
-    private int testIdCnt;
+    private int inner;
 
     // 방송중인 방
     private String room_no;
