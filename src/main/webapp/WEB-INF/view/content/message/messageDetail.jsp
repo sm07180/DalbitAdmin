@@ -266,6 +266,7 @@
             <tr>
                 <th>No.</th>
                 <th>방송 제목</th>
+                <th>DJ 아이디</th>
                 <th>DJ 닉네임</th>
             </tr>
         </thead>
@@ -273,7 +274,13 @@
             {{#each this}}
                 <tr>
                     <td>{{rowNum}}</td>
-                    <td>{{this.title}}</td>
+                    <td>
+                        <a href="javascript://" class="_openBroadcastPop" data-roomNo="{{this.room_no}}">{{this.title}}</a>
+                    </td>
+                    <td>
+                        <a href="javascript://" class="_openMemberPop" data-memNo="{{this.dj_mem_no}}">{{this.dj_mem_no}}</a>
+                        <p class="no-margin">{{this.dj_level}} / {{this.dj_grade}}</p>
+                    </td>
                     <td>{{this.dj_nickname}}</td>
                 </tr>
             {{/each}}
@@ -284,14 +291,14 @@
 <script id="tmp_messageDetailFrm" type="text/x-handlebars-template">
     <input type="hidden" name="message_idx" value="{{message_idx}}" />
     <div class="row col-lg-12">
-        <div class="row col-md-12" style="padding-bottom: 15px">
+        <div class="col-md-12 no-padding" style="padding-bottom: 15px">
             <div class="pull-left" style="padding-bottom:4px;">
-                ㆍ 메시지 발송 방송방 리스트
+                <h5><b>[메시지 발송 방송방 리스트]</b></h5>
             </div>
-            <div id="div_targetList"></div>
+            <div class="pb10" id="div_targetList"></div>
         </div>
 
-        <div class="row col-md-12" style="padding-bottom: 15px">
+        <div class="col-md-12 pl0 pr0" style="padding-bottom: 15px">
             <div class="pull-left">
                 ㆍ 재발송 버튼으로 동일한 내용이나 수정한 내용으로 발송이 가능합니다.
             </div>

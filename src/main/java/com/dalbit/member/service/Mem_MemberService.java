@@ -62,6 +62,8 @@ public class Mem_MemberService {
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberList, new PagingVo(procedureVo.getRet())));
+        }else if(Integer.parseInt(procedureVo.getRet()) == 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_데이터없음));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_실패));
         }

@@ -83,6 +83,7 @@ var terms_platform = [
 var message_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('cont', '1', '내용')
-    , new COMMON_CODE('opName', '2', '작성자')
+    , new COMMON_CODE('title', '1', '제목')
+    , new COMMON_CODE('cont', '2', '내용')
+    , new COMMON_CODE('opName', '3', '작성자')
 ];

@@ -98,10 +98,7 @@ public class PushService {
             if(insertResult > 0){
                 //TODO 전체 발송은 따로 처리 필요 (프로시져 아직 안나옴)
                 HashMap resultHash = null;
-                // 지정 일 경우 푸시 발송
-                if(pPushInsertVo.getIs_all().equals("7")){
-                    resultHash = callSendPush(pPushInsertVo);
-                }
+                resultHash = callSendPush(pPushInsertVo);
 
                 result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_성공, resultHash));
 
@@ -190,25 +187,42 @@ public class PushService {
         int sucCnt=0;
         int failCnt=0;
 
-        if(mem_nos != null && mem_nos.length() > 0){
-            String[] arryMem_no = mem_nos.split("\\|");
+        // 지정 일 경우 푸시 발송
+        if(pPushInsertVo.getIs_all().equals("7")){
+            if(mem_nos != null && mem_nos.length() > 0){
+                String[] arryMem_no = mem_nos.split("\\|");
 
-            for(String target : arryMem_no){
-                P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
-                ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
+                for(String target : arryMem_no){
+                    P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
+                    ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
-                pushDao.callStmpPushAdd(procedureVo);
+                    pushDao.callStmpPushAdd(procedureVo);
 
-                if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
-                    log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
-                    sucCnt++;
-                } else {
-                    log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + target + ")");
-                    failCnt++;
+                    if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+                        log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
+                        sucCnt++;
+                    } else {
+                        log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + target + ")");
+                        failCnt++;
+                    }
                 }
             }
+        }else{  // 전체 발송
+            P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo("11584609037895", pPushInsertVo);
+            ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
+            pushDao.callStmpPushAdd(procedureVo);
+
+            if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+                log.debug("[PUSH_SEND] 푸시 발송 성공 (" + MemberVo.getUserInfo().getEmp_no() + ")");
+                sucCnt++;
+            } else {
+                log.debug("[ERROR] 푸시 발송 실패 / 실패코드 : " + procedureVo.getRet() + " : "+ procedureVo.getExt() + "(" + MemberVo.getUserInfo().getEmp_no() + ")");
+                failCnt++;
+            }
         }
+
+
 
         resultMap.put("sucCnt", sucCnt);
         resultMap.put("failCnt", failCnt);

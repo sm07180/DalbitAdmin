@@ -80,6 +80,8 @@ public class Con_MessageService {
             P_MessageDetailOutputVo messageDetail = messageDao.callContentsMessageDetail(pMessageDetailInputVo);
 
             if (messageDetail != null) {
+
+                // 발송 방송방 정보 조회
                 List<P_BroadcastListOutputVo> sendRoomsInfoList = null;
                 if(!DalbitUtil.isEmpty(messageDetail.getTarget_rooms())){
                     List<String> arrSendRooms = Arrays.asList(messageDetail.getTarget_rooms().split("\\|"));

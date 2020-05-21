@@ -23,5 +23,9 @@ public class P_pushInsertVo extends BaseVo {
     private String reg_date;          //등록일
     private String op_name;         //등록자
     private String link_url;         //이동 링크
+
+    private String room_no;				// DJ방생성시 방송방 번호
+    private String target_mem_no;		// 타겟회원의 마이페이지 이동할 경우
+    private String board_idx;			// 해당 게시판 이동할 경우
 }
 
