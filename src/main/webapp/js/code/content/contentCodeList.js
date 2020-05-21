@@ -63,18 +63,18 @@ var push_slctPush = [
 
 var push_slctPush2 = [
     new COMMON_CODE(null, 'slctPush', '푸시타입')
-    , new COMMON_CODE('room', '1', '방송방')       // [room_no]
+    , new COMMON_CODE('room', '1', '방송방')       								// [room_no]
     , new COMMON_CODE('main', '2', '메인')
-    , new COMMON_CODE('incast', '4', '등록 된 캐스트')
+//    , new COMMON_CODE('incast', '4', '등록 된 캐스트')
     , new COMMON_CODE('spdj', '5', '스페셜 DJ 선정 페이지')
-    , new COMMON_CODE('event', '6', '이벤트 페이지>해당 이벤트')           // [board_idx]
-    , new COMMON_CODE('notice', '7', ' 공지사항 페이지')                       // [board_idx]
-    , new COMMON_CODE('fan', '31', '마이페이지>팬 보드')
-    , new COMMON_CODE('wallet', '32', '마이페이지>내 지갑')
-    , new COMMON_CODE('cast', '33', '마이페이지>캐스트>캐스트 정보 변경 페이지')
-    , new COMMON_CODE('noti', '34', '마이페이지>알림>해당 알림 글')
-    , new COMMON_CODE('mypage', '35', '마이페이지')
-    , new COMMON_CODE('djpage', '36', '레벨 업 DJ 마이페이지')              // [mem_no]
+    , new COMMON_CODE('event', '6', '이벤트 페이지')           					// [board_idx]
+    , new COMMON_CODE('notice', '7', '공지사항 페이지')                       	// [board_idx]
+    , new COMMON_CODE('fan', '31', '팬보드/댓글')								// [mem_no]
+    , new COMMON_CODE('wallet', '32', '마이페이지>내지갑>달')						// [mem_no]
+//    , new COMMON_CODE('cast', '33', '마이페이지>캐스트>캐스트 정보 변경 페이지')
+    , new COMMON_CODE('noti', '34', '알림')
+    , new COMMON_CODE('mypage', '35', '대상 마이페이지')							// [mem_no]
+    , new COMMON_CODE('djpage', '36', '레벨업 대상 마이페이지')              		// [mem_no]
 ];
 
 var push_sendType = [
@@ -117,6 +117,7 @@ var banner_bannerType = [
     , new COMMON_CODE('popup', '6', '팝업')
     , new COMMON_CODE('startPopup', '7', '시작팝업')
     , new COMMON_CODE('endPopup', '8', '종료팝업')
+    , new COMMON_CODE('mainRankBottom', '9', '메인랭킹 밑')
 ];
 
 var banner_loginType = [
@@ -228,7 +229,7 @@ var content_platform1 = [
 
 var content_platform2 = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
-    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('pc', '1', 'PC')
     , new COMMON_CODE('android', '2', 'Android')
     , new COMMON_CODE('ios', '3', 'IOS')

@@ -78,8 +78,8 @@ public class Men_SpecialRestController {
      * 스페셜 달D 신청 거부
      */
     @PostMapping("reqReject")
-    public String reqReject(SpecialReqVo specialReqVo) {
-        String result = menSpecialService.reqReject(specialReqVo);
+    public String reqReject(SpecialReqVo specialReqVo, SpecialVo specialVo) {
+        String result = menSpecialService.reqReject(specialReqVo, specialVo);
         return result;
     }
 

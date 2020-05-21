@@ -26,10 +26,14 @@
     });
 
     function getList(){
+
+        getSummary();
+
         $('#tablist_con li.active:first a').click();
         $('#dalList').empty();
         $('#sampleDalList').empty();
         $('#reqDalList').empty();
+
         ui.topScroll();
     }
 
@@ -39,7 +43,6 @@
     }
 
     $('._tab').on('click', function(){
-
         $('#dalList, #sampleDalList, #reqDalList').empty();
 
         var me = $(this);
