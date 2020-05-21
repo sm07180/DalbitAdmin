@@ -180,7 +180,7 @@ public class Con_LoginService {
                 outVo.setDay(Integer.toString(i + 1));
                 outVo.setMonth(SelectMonth);
                 for (int j = 0; j < detailList.size(); j++) {
-                    if(detailList.size() > i) {
+                    if(detailList.size() >= i) {
                         if (Integer.parseInt(detailList.get(j).getDay()) == i + 1) {
                             outVo.setTotalCnt(detailList.get(j).getTotalCnt());
                             outVo.setMaleCnt(detailList.get(j).getMaleCnt());
@@ -199,7 +199,7 @@ public class Con_LoginService {
                     }
                 }
                 for (int j = 0; j < bDetailList.size(); j++) {
-                    if(bDetailList.size() > i){
+                    if(bDetailList.size() >= i){
                         if (Integer.parseInt(bDetailList.get(j).getDay()) == i + 1) {
                             outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
                             outVo.setBMaleCnt(bDetailList.get(j).getMaleCnt());
@@ -394,15 +394,15 @@ public class Con_LoginService {
                 outVo.setDay(Integer.toString(i + 1));
                 outVo.setMonth(SelectMonth);
                 for (int j = 0; j < detailList.size(); j++) {
-                    if(detailList.size() > i) {
+                    if(detailList.size() >= i) {
                         if (Integer.parseInt(detailList.get(j).getDay()) == i + 1) {
-                            outVo.setTotalCnt(detailList.get(i).getTotalCnt());
-                            outVo.setAge10Cnt(detailList.get(i).getAge10Cnt());
-                            outVo.setAge20Cnt(detailList.get(i).getAge20Cnt());
-                            outVo.setAge30Cnt(detailList.get(i).getAge30Cnt());
-                            outVo.setAge40Cnt(detailList.get(i).getAge40Cnt());
-                            outVo.setAge50Cnt(detailList.get(i).getAge50Cnt());
-                            outVo.setAge60Cnt(detailList.get(i).getAge60Cnt());
+                            outVo.setTotalCnt(detailList.get(j).getTotalCnt());
+                            outVo.setAge10Cnt(detailList.get(j).getAge10Cnt());
+                            outVo.setAge20Cnt(detailList.get(j).getAge20Cnt());
+                            outVo.setAge30Cnt(detailList.get(j).getAge30Cnt());
+                            outVo.setAge40Cnt(detailList.get(j).getAge40Cnt());
+                            outVo.setAge50Cnt(detailList.get(j).getAge50Cnt());
+                            outVo.setAge60Cnt(detailList.get(j).getAge60Cnt());
                             detailListSw = true;
                             break;
                         }
@@ -419,15 +419,15 @@ public class Con_LoginService {
                     }
                 }
                 for (int j = 0; j < bDetailList.size(); j++) {
-                    if(bDetailList.size() > i){
+                    if(bDetailList.size() >= i){
                         if (Integer.parseInt(bDetailList.get(j).getDay()) == i + 1) {
-                            outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
-                            outVo.setBAge10Cnt(bDetailList.get(i).getAge10Cnt());
-                            outVo.setBAge20Cnt(bDetailList.get(i).getAge20Cnt());
-                            outVo.setBAge30Cnt(bDetailList.get(i).getAge30Cnt());
-                            outVo.setBAge40Cnt(bDetailList.get(i).getAge40Cnt());
-                            outVo.setBAge50Cnt(bDetailList.get(i).getAge50Cnt());
-                            outVo.setBAge60Cnt(bDetailList.get(i).getAge60Cnt());
+                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
+                            outVo.setBAge10Cnt(bDetailList.get(j).getAge10Cnt());
+                            outVo.setBAge20Cnt(bDetailList.get(j).getAge20Cnt());
+                            outVo.setBAge30Cnt(bDetailList.get(j).getAge30Cnt());
+                            outVo.setBAge40Cnt(bDetailList.get(j).getAge40Cnt());
+                            outVo.setBAge50Cnt(bDetailList.get(j).getAge50Cnt());
+                            outVo.setBAge60Cnt(bDetailList.get(j).getAge60Cnt());
                             bDetailListSw = true;
                             break;
                         }
@@ -604,12 +604,12 @@ public class Con_LoginService {
                 outVo.setDay(Integer.toString(i + 1));
                 outVo.setMonth(SelectMonth);
                 for (int j = 0; j < detailList.size(); j++) {
-                    if(detailList.size() > i) {
+                    if(detailList.size() >= i) {
                         if (Integer.parseInt(detailList.get(j).getDay()) == i + 1) {
-                            outVo.setTotalCnt(detailList.get(i).getTotalCnt());
-                            outVo.setAndroidCnt(detailList.get(i).getAndroidCnt());
-                            outVo.setIosCnt(detailList.get(i).getIosCnt());
-                            outVo.setPcCnt(detailList.get(i).getPcCnt());
+                            outVo.setTotalCnt(detailList.get(j).getTotalCnt());
+                            outVo.setAndroidCnt(detailList.get(j).getAndroidCnt());
+                            outVo.setIosCnt(detailList.get(j).getIosCnt());
+                            outVo.setPcCnt(detailList.get(j).getPcCnt());
                             detailListSw = true;
                             break;
                         }
@@ -623,12 +623,12 @@ public class Con_LoginService {
                     }
                 }
                 for (int j = 0; j < bDetailList.size(); j++) {
-                    if(bDetailList.size() > i){
+                    if(bDetailList.size() >= i){
                         if (Integer.parseInt(bDetailList.get(j).getDay()) == i + 1) {
-                            outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
-                            outVo.setBAndroidCnt(bDetailList.get(i).getAndroidCnt());
-                            outVo.setBIosCnt(bDetailList.get(i).getIosCnt());
-                            outVo.setBPcCnt(bDetailList.get(i).getPcCnt());
+                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
+                            outVo.setBAndroidCnt(bDetailList.get(j).getAndroidCnt());
+                            outVo.setBIosCnt(bDetailList.get(j).getIosCnt());
+                            outVo.setBPcCnt(bDetailList.get(j).getPcCnt());
                             bDetailListSw = true;
                             break;
                         }
