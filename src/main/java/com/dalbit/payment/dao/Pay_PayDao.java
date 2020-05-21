@@ -1,6 +1,7 @@
 package com.dalbit.payment.dao;
 
-import com.dalbit.payment.vo.Pay_PayVo;
+import com.dalbit.payment.vo.Pay_PayInputVo;
+import com.dalbit.payment.vo.Pay_PayOutputVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,9 +11,9 @@ import java.util.ArrayList;
 public interface Pay_PayDao {
 
     @Transactional(readOnly=true)
-    ArrayList<Pay_PayVo> getPayList(Pay_PayVo payPayVo);
+    ArrayList<Pay_PayOutputVo> getPayList(Pay_PayInputVo pay_PayInputVo);
 
     @Transactional(readOnly=true)
-    int getPayListCnt(Pay_PayVo payPayVo);
+    int getPayListCnt(Pay_PayInputVo pay_PayInputVo);
 
 }

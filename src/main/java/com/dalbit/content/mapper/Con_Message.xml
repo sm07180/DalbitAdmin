@@ -50,13 +50,19 @@
                 <if test='searchText != null and searchText != ""'>
                     <choose>
                         <when test='searchType == -1'>
-                            AND (send_cont like concat('%', #{searchText}, '%')
-                            or op_name like concat('%', #{searchText}, '%'))
+                            AND (
+                                title like concat('%', #{searchText}, '%')
+                                or send_cont like concat('%', #{searchText}, '%')
+                                or op_name like concat('%', #{searchText}, '%')
+                            )
                         </when>
                         <when test='searchType == 1'>
-                            AND send_cont like concat('%', #{searchText}, '%')
+                            AND title like concat('%', #{searchText}, '%')
                         </when>
                         <when test='searchType == 2'>
+                            AND send_cont like concat('%', #{searchText}, '%')
+                        </when>
+                        <when test='searchType == 3'>
                             AND op_name like concat('%', #{searchText}, '%')
                         </when>
                     </choose>
@@ -103,24 +109,32 @@
         , @RNUM := @RNUM + 1 as rowNum
         FROM (
             SELECT
-            a.room_no AS room_no
-            , a.subject_type AS subjectType
-            , (SELECT code FROM rd_data.tbl_code_define where type='subject_type' and value=a.subject_type) AS subject_name
-            , a.title AS title
-            , a.mem_no AS dj_mem_no
-            , b.mem_nick AS dj_nickname
-            , b.mem_userid AS dj_userid
+                a.room_no AS room_no
+                , a.subject_type AS subjectType
+                , (SELECT code FROM rd_data.tbl_code_define where type='subject_type' and value=a.subject_type) AS subject_name
+                , a.title AS title
+                , a.mem_no AS dj_mem_no
+                , b.mem_nick AS dj_nickname
+                , b.mem_userid AS dj_userid
+                , c.level AS dj_level
+                , c.grade AS dj_grade
             FROM
-            rd_data.tb_broadcast_room AS a
-            INNER JOIN rd_data.tb_member_basic AS b
-            ON a.mem_no = b.mem_no
+              rd_data.tb_broadcast_room AS a
+            INNER JOIN
+              rd_data.tb_member_basic AS b
+            ON
+              a.mem_no = b.mem_no
+            INNER JOIN
+              rd_data.tb_member_level AS c
+            ON
+              a.mem_no = c.mem_no
             WHERE
-            a.room_no IN
-            <foreach collection="list" item="roomNo" index="index" open="(" separator="," close=")">
+              a.room_no IN
+                <foreach collection="list" item="roomNo" index="index" open="(" separator="," close=")">
 
-                #{
-            roomNo}
-            </foreach>
+                    #{
+                roomNo}
+                </foreach>
         ) AS a,
         (select @RNUM := 0) AS r
     </select>

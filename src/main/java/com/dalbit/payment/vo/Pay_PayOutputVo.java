@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Pay_PayVo extends PagingVo {
+public class Pay_PayOutputVo extends PagingVo {
 
     /* Pay_PayVo output */
     private String order_id;        // 주문번호

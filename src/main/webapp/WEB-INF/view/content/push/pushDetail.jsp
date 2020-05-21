@@ -493,7 +493,7 @@
                 <th rowspan="2">수신대상 선택</th>
                 <td colspan="5" rowspan="2">
                     <div>
-                        <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control" disabled><span><i></i>전체</span> </label>
+                        <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>전체</span> </label>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>생방송</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="2" checked="true"><span>여자</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="3" checked="true"><span>남자</span></label>--%>

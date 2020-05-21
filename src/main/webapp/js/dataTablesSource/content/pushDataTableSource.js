@@ -11,15 +11,15 @@ var PushDataTableSource = {
 
                      var result = "";
                      if(arrCode[0] == "1"){
-                         result += "/ PC(WEB) "
+                         // result += "/ PC(WEB) "
                      }
 
                      if(arrCode[1] == "1"){
-                         result += "/ Mobile-Android "
+                         result += "/ Android "
                      }
 
                      if(arrCode[2] == "1"){
-                         result += "/ Mobile-IOS "
+                         result += "/ IOS "
                      }
 
                      if(!common.isEmpty(result)){
@@ -30,7 +30,7 @@ var PushDataTableSource = {
 
                  }},
              {'title': '수신<br>대상', 'data': 'is_all', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                     if(data == "0"){
+                     if(data == "11"){
                          return "전체";
                      }
 
@@ -40,7 +40,7 @@ var PushDataTableSource = {
 
                      return data;
                  }},
-             {'title': '메세지 제목', 'data': 'send_title', 'width':'500px', 'render': function (data, type, row, meta) {
+             {'title': '메세지 제목', 'data': 'send_title', 'width':'50%', 'render': function (data, type, row, meta) {
                      return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
                  }},
              {'title': '발송 일시', 'data': 'send_datetimeFormat', 'width':'100px', 'render': function (data, type, row, meta) {
@@ -50,10 +50,11 @@ var PushDataTableSource = {
              {'title': '발송상태', 'data': 'status', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                      return util.getCommonCodeLabel(data, push_snedStatus);
                  }},
-            */
+
              {'title': '등록일자', 'data': 'reg_dateFormat', 'width':'100px', 'render': function (data, type, row, meta) {
                      return data;
                  }},
+             */
              {'title': '처리자명', 'data': 'opName', 'defaultContent': '-', 'width':'100px'},
         ]
 
