@@ -49,8 +49,8 @@
                                     <th>1일 건</th>
                                     <th>3일 건</th>
                                     <th>7일 건</th>
-                                    <th>강제탈퇴 건</th>
                                     <th>영구정지 건</th>
+                                    <th>강제탈퇴 건</th>
                                 </tr>
                             </thead>
                             <tbody id="summaryDataTable">
@@ -225,8 +225,8 @@
         <td>{{addComma code_3_Cnt}}건</td> <%--1일 정지--%>
         <td>{{addComma code_4_Cnt}}건</td> <%--3일 정지--%>
         <td>{{addComma code_5_Cnt}}건</td> <%--7일 정지--%>
-        <td>{{addComma code_6_Cnt}}건</td> <%--강제 탈퇴 --%>
-        <td>{{addComma code_7_Cnt}}건</td> <%--영구 정지--%>
+        <td>{{addComma code_6_Cnt}}건</td> <%--영구 정지 --%>
+        <td>{{addComma code_7_Cnt}}건</td> <%--강제 탈퇴--%>
         <td>{{addComma allOpCnt}}건</td>
     </tr>
     {{/data}}

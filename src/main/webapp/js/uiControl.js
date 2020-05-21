@@ -37,6 +37,11 @@ ui.topScroll = function(){
     $('html').animate({scrollTop : 0}, 100);
 }
 
+/* 원하는 element로 이동 */
+ui.scrollIntoView = function(elementId) {
+    document.getElementById(elementId).scrollIntoView();
+}
+
 ui.checkBoxInit = function(tableId){
 
     $("#"+tableId+"-select-all").remove();
