@@ -188,7 +188,7 @@ Handlebars.registerHelper("phoneNumHyphen", function(value) {
     return common.phoneNumHyphen(value);
 });
 
-Handlebars.registerHelper("phoneNumHyphen", function(value) {
+Handlebars.registerHelper("cardNo", function(value) {
     return common.cardNo(value);
 });
 
@@ -202,4 +202,8 @@ Handlebars.registerHelper("memNoLink", function(display, value) {
 
 Handlebars.registerHelper("roomNoLink", function(display, value) {
     return util.roomNoLink(display,value);
+});
+
+Handlebars.registerHelper("renderOnAir", function(value) {
+   return util.renderOnAir(value);
 });

@@ -30,6 +30,24 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="_layerTitle">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p id="_layerBody">Modal dialog content...</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
+                                <button type="button" class="btn btn-custom-primary"><i class="fa fa-check-circle"></i> 저장</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

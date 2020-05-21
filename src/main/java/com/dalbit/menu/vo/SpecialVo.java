@@ -19,6 +19,20 @@ public class SpecialVo extends PagingVo {
     private int is_force;
     private int order;
     private String op_name;
+
+    private String mem_id;
+    private String mem_nick;
+    private int level;
+    private String grade;
+    private String image_profile;
+    private int onAir;
+    private String fanCnt;
+    private int airTime;
+    private int giftedRuby;
+    private int likeCnt;
+    private int broadcastCnt;
+    private int reportCnt;
+
     private String title;
     private String contents;
     private String request_date;

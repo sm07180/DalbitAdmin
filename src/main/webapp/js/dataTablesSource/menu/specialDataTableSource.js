@@ -6,20 +6,26 @@ var specialDataTableSource = {
                 return '<a href="javascript://" class="_openMemberPop" data-memno="' + row.mem_no + '">' + data + '</a>'
                 }}
             , {'title': '신청일', 'data': 'reg_date', 'render': function(data, type, row) {
-                return common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss');
+                return '<div style="width:70px;">' + common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss'); + '</div>'
                 }}
-            , {'title': '이름', 'data': 'mem_name'}
-            , {'title': '연락처', 'data': 'mem_phone'}
+            , {'title': '이름', 'data': 'mem_name', 'render': function(data) {
+                return '<div style="width:40px;">' + data + '</div>'
+                }}
+            , {'title': '연락처', 'data': 'mem_phone', 'render': function(data){
+                return '<div style="width:40px;">' + data + '</div>'
+                }}
             , {'title': '제목', 'data': 'title', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_reqDalDetail" data-idx="' + row.idx + '">' + data + '</a>'
                 }}
             , {'title': '내용', 'data': 'contents'}
             , {'title': '상태', 'data': 'state', 'render': function(data) {
-                return util.getCommonCodeLabel(data, special_state);
+                return '<div style="width:40px;">' + util.getCommonCodeLabel(data, special_state); + '</div>'
                 }}
-            , {'title': '처리자', 'data': 'op_name'}
+            , {'title': '처리자', 'data': 'op_name', 'render': function(data) {
+                    return '<div style="width:40px;">' + data + '</div>'
+                }}
             , {'title': '처리 일시', 'data': 'last_upd_date', 'render': function(data, type, row) {
-                    return common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss');
+                    return '<div style="width:70px;">' + common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss'); + '</div>'
                 }}
         ]
         // , 'comments': ''

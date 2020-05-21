@@ -12,42 +12,53 @@
         <%--</div>--%>
     <%--</div>--%>
         <div class="row col-md-12 mt15">
-            <div class="pull-left ml5">
+            <div class="pull-left ml5 mb15">
                 ㆍ 매달 최소 10일, 20시간 이상 방송한 달D입니다. <br/>
-                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다.
+                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다. <br/>
+                ㆍ ()안의 내용은 스페셜 DJ 기준입니다. <br/>
             </div>
             <div class="pull-right">
-                <button type="button" class="btn btn-primary mr5" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
+                <button type="button" class="btn btn-primary mb15" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
             </div>
         </div>
     <div class="widget-content">
-        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
+        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>--%>
 
         <table id="specialList" class="table table-sorting table-hover table-bordered mt15">
             <thead>
                 <tr>
                     <th></th>
                     <th>No</th>
-                    <th>회원번호</th>
-                    <th>등록일</th>
+                    <th>방송상태</th>
+                    <th>프로필이미지</th>
+                    <th>UserID</th>
+                    <th>User닉네임</th>
+                    <th>보유팬<br/>(1000명 이상)</th>
+                    <th>누적 방송시간<br/>(360시간 이상)</th>
+                    <th>누적 받은 별<br/>(100,000개 이상)</th>
+                    <th>받은 좋아요<br/>(300,000개 이상)</th>
+                    <th>최근 3개월 내 방송일<br/>(60일 이상)</th>
+                    <th>정지기록<br/>(없음)</th>
                     <th>관리자 등록여부</th>
                     <th style="display:none;">순서</th>
-                    <th>등록자</th>
                 </tr>
             </thead>
             <tbody id="special_tableBody">
             </tbody>
         </table>
 
-        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>--%>
 
     </div>
 </div>
+<div id="#imageFullSize"></div>
 <!-- // DATA TABLE -->
 
 <div class="mt15">
     <form id="dalList"></form>
+    <form id="sampleDalList"></form>
 </div>
+
 
 <script type="text/javascript" src="/js/dataTablesSource/menu/specialDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
@@ -55,8 +66,8 @@
 
     var specialDjPagingInfo = new PAGING_INFO(0, 1, 99999);
 
-    var dtList_info;
     function init() {
+        // var dtList_info;
         // var dtList_info_data = function(data) {
         // };
         // dtList_info = new DalbitDataTable($("#specialList"), dtList_info_data, specialDataTableSource.specialList, $("#searchForm"));
@@ -127,21 +138,38 @@
             $(this).parent().parent().find('._dalDetail').click();
         } else {
             $('#dalList').empty();
+            $('#sampleDalList').empty();
         }
     });
 
     function fn_success_dalDetail(dst_id, response) {
-        var template = $('#tmp_dalList').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html = templateScript(context);
 
-        $('#dalList').html(html);
+        if(response.data.is_force == 0) {
+            var template = $('#tmp_dalList').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response.data;
+            var html = templateScript(context);
 
-        $('#contents').attr("disabled", "disabled");
+            $('#dalList').html(html);
+            $('#sampleDalList').hide();
+            $('#dalList').show();
+            ui.scrollIntoView('dalList');
+            $('#contents').attr("disabled", "disabled");
+
+        } else if(response.data.is_force == 1) {
+            var template = $('#tmp_sampleDalList').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response.data;
+            var html = templateScript(context);
+            $('#sampleDalList').html(html);
+            $('#dalList').hide();
+            $('#sampleDalList').show();
+            ui.scrollIntoView('sampleDalList');
+            $('#sampleDalList').focus();
+        }
     }
 
-    $(document).on('click', '#bt_reqCancel', function() {
+    $(document).on('click', '#bt_reqCancel, #bt_reqCancel_2', function() {
         if(confirm("승인 취소 하시겠습니까?")) {
            var checkbox = $('#specialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
            var data = {
@@ -220,6 +248,14 @@
         init();
     }
 
+    function fullSize_background(url) {
+        $("#imageFullSize").html(util.imageFullSize("fullSize_background", url));
+        $('#fullSize_background').modal('show');
+    }
+
+    function modal_close(){
+        $("#fullSize_background").modal('hide');
+    }
 </script>
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
@@ -229,13 +265,28 @@
         <td class="_noTd">
             <input type="hidden" name="sortNo" value="{{sortNo}}"/>
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
+        <td>{{{renderOnAir onAir}}}</td>
+        <td>
+            <form method="post" enctype="multipart/form-data">
+                <img class="thumbnail" src="{{renderImage image_profile}}" alt="your image" style="width: 100px;height: 100px" onclick="fullSize_background(this.src);"/>
+            </form>
+        </td>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_id}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
         </td>
-        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+        <td>{{mem_nick}}</td>
+        <td>{{addComma fanCnt}} 명</td>
+        <td>{{timeStamp airTime}}</td>
+        <td>{{addComma giftedRuby}} 개</td>
+        <td>{{addComma likeCnt}} 개</td>
+        <td>{{addComma broadcastCnt}} 일</td>
+        <td>
+            {{#equal reportCnt '0'}}없음{{/equal}}
+            {{^equal reportCnt '0'}}{{addComma reportCnt}} 회{{/equal}}
+        </td>
         <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
         <td style="display:none;">{{order}}</td>
-        <td>{{op_name}}</td>
+        <%--<td>{{op_name}}</td>--%>
     </tr>
     {{else}}
     <tr>
@@ -278,6 +329,32 @@
                 </table>
                 <!-- 승인완료 승인거부-->
                 <button type="button" class="btn btn-danger mb15" id="bt_reqCancel">승인취소</button>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="tmp_sampleDalList" type="text/x-handlebars-template">
+    <div class="widget widget-table">
+        <div class="widget-header">
+            <h3><i class="fa fa-desktop"></i> 스페셜 달D 세부사항</h3>
+        </div>
+        <div class="widget-content mt15">
+            <div class="row col-lg-12 form-inline">
+                <table class="table table-bordered table-dalbit">
+                    <input type="hidden" name="reqIdx" data-idx="{{req_idx}}"/>
+                    <tr>
+                        <th>등록일시</th>
+                        <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                        <th>관리자 등록 여부</th>
+                        <td>
+                            {{#equal is_force '0'}}N{{/equal}}
+                            {{^equal is_force '0'}}Y{{/equal}}
+                        </td>
+                    </tr>
+                </table>
+                <!-- 승인완료 승인거부-->
+                <button type="button" class="btn btn-danger mb15" id="bt_reqCancel_2">승인취소</button>
             </div>
         </div>
     </div>
