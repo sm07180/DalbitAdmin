@@ -23,7 +23,7 @@
 
     <select id="callMemberTestId" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberTestId */
-        select count(*) testIdCnt from rd_admin.tb_admin_test_account where mem_no =#{mem_no}
+        select `inner` from rd_data.tb_member_basic where mem_no =#{mem_no}
     </select>
 
     <select id="callMemberRoom" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
