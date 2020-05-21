@@ -70,7 +70,7 @@ common.convertToDate = function(date, format){
         date = date.toString().replace(regExp, '$1 $2');
     }
     if(this.isEmpty(format)){
-        format = "YYYY.MM.DD HH:mm";
+        format = "YYYY.MM.DD HH:mm:ss";
     }
     return moment(date).format(format);
 }

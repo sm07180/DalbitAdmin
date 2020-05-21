@@ -39,6 +39,8 @@
                 THEN pay.phone_no
                 WHEN pay.pay_way = 'VA'
                 THEN pay.account_no
+                WHEN pay.pay_way = 'InApp'
+                THEN pay.bill_id
             END AS pay_info_no
             ,CASE
                 WHEN pay.pay_way = 'CN'
