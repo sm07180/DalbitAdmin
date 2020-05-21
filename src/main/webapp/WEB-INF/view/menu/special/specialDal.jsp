@@ -12,16 +12,17 @@
         <%--</div>--%>
     <%--</div>--%>
         <div class="row col-md-12 mt15">
-            <div class="pull-left ml5">
+            <div class="pull-left ml5 mb15">
                 ㆍ 매달 최소 10일, 20시간 이상 방송한 달D입니다. <br/>
-                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다.
+                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다. <br/>
+                ㆍ ()안의 내용은 스페셜 DJ 기준입니다. <br/>
             </div>
             <div class="pull-right">
-                <button type="button" class="btn btn-primary mr5" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
+                <button type="button" class="btn btn-primary mb15" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
             </div>
         </div>
     <div class="widget-content">
-        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
+        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>--%>
 
         <table id="specialList" class="table table-sorting table-hover table-bordered mt15">
             <thead>
@@ -32,11 +33,11 @@
                     <th>프로필이미지</th>
                     <th>UserID</th>
                     <th>User닉네임</th>
-                    <th>보유팬<br/>(1000명)</th>
-                    <th>누적 방송시간<br/>(360시간)</th>
-                    <th>누적 받은 별<br/>(100,000개)</th>
-                    <th>받은 좋아요<br/>(300,000개)</th>
-                    <th>최근 3개월 내 방송일<br/>(60일)</th>
+                    <th>보유팬<br/>(1000명 이상)</th>
+                    <th>누적 방송시간<br/>(360시간 이상)</th>
+                    <th>누적 받은 별<br/>(100,000개 이상)</th>
+                    <th>받은 좋아요<br/>(300,000개 이상)</th>
+                    <th>최근 3개월 내 방송일<br/>(60일 이상)</th>
                     <th>정지기록<br/>(없음)</th>
                     <th>관리자 등록여부</th>
                     <th style="display:none;">순서</th>
@@ -46,7 +47,7 @@
             </tbody>
         </table>
 
-        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+        <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>--%>
 
     </div>
 </div>
@@ -152,7 +153,7 @@
             $('#dalList').html(html);
             $('#sampleDalList').hide();
             $('#dalList').show();
-            document.getElementById('dalList').scrollIntoView();
+            ui.scrollIntoView('dalList');
             $('#contents').attr("disabled", "disabled");
 
         } else if(response.data.is_force == 1) {
@@ -163,7 +164,7 @@
             $('#sampleDalList').html(html);
             $('#dalList').hide();
             $('#sampleDalList').show();
-            document.getElementById('sampleDalList').scrollIntoView();
+            ui.scrollIntoView('sampleDalList');
             $('#sampleDalList').focus();
         }
     }

@@ -4,8 +4,9 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <!-- serachBox -->
             <div class="row col-lg-12 form-inline">
+
+                <!-- serachBox -->
                 <form id="searchForm">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
@@ -15,8 +16,6 @@
                                 <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <button type="button" class="btn btn-primary pull-right" id="memSearch" name="memSearch"><i class="fa fa-search"></i>운영자 직접 등록</button>
-                                <div class="pull-right" id="div_selectTarget" style="padding-left: 30px;">
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -36,17 +35,18 @@
                         </tbody>
                     </table>
                 </div>
-            <!-- //summary -->
-            </div>
-            <!-- tab -->
-            <div class="no-padding" id="listTab">
-                <jsp:include page="listTab.jsp"/>
-            </div>
-            <!-- //tab -->
-        </div>
-        </div>
-    </div>
-</div>
+                <!-- //summary -->
+
+                <!-- tab -->
+                <div class="no-padding" id="listTab">
+                    <jsp:include page="listTab.jsp"/>
+                </div>
+                <!-- //tab -->
+
+            </div> <!-- row col-lg-12 form-inline -->
+        </div> <!-- //container-fluid -->
+    </div> <!-- //page-wrapper -->
+</div> <!-- //wrapper-->
 
 <jsp:include page="/WEB-INF/view/common/util/select_specialList.jsp"></jsp:include>
 
