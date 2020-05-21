@@ -4,11 +4,10 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-            <div class="row col-lg-12 form-inline">
 
                 <!-- serachBox -->
                 <form id="searchForm">
-                    <div class="widget widget-table searchBoxArea">
+                    <div class="widget widget-table searchBoxArea form-inline">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
                             <div>
@@ -43,7 +42,6 @@
                 </div>
                 <!-- //tab -->
 
-            </div> <!-- row col-lg-12 form-inline -->
         </div> <!-- //container-fluid -->
     </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper-->
@@ -67,6 +65,7 @@
     }
 
     $('#bt_search').on('click', function () {
+        $('#dalList, #sampleDalList, #reqDalList').empty();
         var tab = $('#tablist_con li.active');
         var tabIndex = $('#tablist_con li').index(tab);
         if (tabIndex == 0) {
@@ -80,6 +79,7 @@
         var tab = $('#tablist_con li.active');
         var tabIndex = $('#tablist_con li').index(tab);
         if (event.keyCode == 13) {
+            $('#dalList, #sampleDalList, #reqDalList').empty();
             if (tabIndex == 0) {
                 init();
             } else if (tabIndex == 1) {

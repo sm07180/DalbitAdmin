@@ -16,7 +16,7 @@
                 </div>
             </form>
             <div class="row col-lg-12 form-inline" id="insertBtn">
-                <button type="button" class="btn btn-default pull-right" id="bt_insert">등록</button>
+                <button type="button" class="btn btn-default pull-right mb5" id="bt_insert">등록</button>
             </div>
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
@@ -76,8 +76,6 @@
         ui.toggleSearchList();
     }
 
-    var obj = new Object();
-
     function fn_detail_success(dst_id, response) {
         dalbitLog(response);
         var template = $("#tmp_appList").html();
@@ -85,7 +83,6 @@
         var context = response.data;
         var html = templateScript(context);
 
-        obj = response.data;
         $("#appList").html(html);
         disabled();
     }
@@ -102,7 +99,6 @@
         if($("#bt_edit").removeClass("hide")) {
             $("#bt_edit").show();
         }
-        $("#day").html(obj.reg_date);
     });
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function () {
