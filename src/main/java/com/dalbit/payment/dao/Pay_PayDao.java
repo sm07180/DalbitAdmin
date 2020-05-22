@@ -15,5 +15,6 @@ public interface Pay_PayDao {
 
     @Transactional(readOnly=true)
     int getPayListCnt(Pay_PayInputVo pay_PayInputVo);
+    Pay_PayOutputVo getPaySummary(Pay_PayInputVo pay_PayInputVo);
 
 }

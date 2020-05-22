@@ -25,25 +25,7 @@
                     </div>
 
                     <div class="pull-right mt15">
-                        <table class="table table-sorting table-hover table-bordered">
-                            <thead>
-                            <tr>
-                                <th colspan="2">총 결제완료</th>
-                                <th colspan="2">총 결제취소</th>
-                                <th colspan="2">총 처리불가</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>10건</td>
-                                <td>20,000원</td>
-                                <td>1건</td>
-                                <td>4,000원</td>
-                                <td>3건</td>
-                                <td>6,000원</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                        <span id="pay_summaryArea"></span>
                     </div>
 
                     <table id="list_info" class="table table-sorting table-hover table-bordered">
@@ -68,21 +50,24 @@
 
     var tmp_searchPayStatus = -1;
     var tmp_ostype = -1;
+    var txt_search = "";
+    var tmp_period = "";
+    var tmp_joinDate = "";
 
     $(document).ready(function() {
     });
 
-    init();
-    function init() {
+
+    function getPayList() {
         var dtList_info_data = function(data) {
-            data.searchText = $('#txt_search').val();                        // 검색명
-            data.period = $('input[name="joinDate"]:checked').val();
-            if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
+            data.searchText = txt_search;                        // 검색명
+            data.period = tmp_period;
+            if(tmp_joinDate == "0" || tmp_joinDate == "1" || tmp_joinDate == "2") {               // 선택
                 data.sDate = sDate;
                 data.eDate = eDate;
-            }else if($('input[name="joinDate"]:checked').val() == "3" ){
+            }else if(tmp_joinDate == "3" ){
                 data.sDate = sDate;
-            }else if($('input[name="joinDate"]:checked').val() == "4" ){
+            }else if(tmp_joinDate == "4" ){
                 data.sDate = $("#onedayDate").val().replace(/-/gi, "");
             }
             data.ostype = tmp_ostype;
@@ -92,23 +77,22 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
-        dtList_info.createDataTable();
+        dtList_info.createDataTable(pay_listSummary);
 
         $("#payStateArea").html(util.getCommonCodeSelect('', payStatus));
         $("#payPlatformArea").html(util.getCommonCodeSelect('', payPlatform));
     }
 
-    function getPayListInfo() {                 // 검색
-        tmp_period = $('input[name="joinDate"]:checked').val();
-        if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
-            tmp_sDate = sDate;
-            tmp_eDate = eDate;
-        }else if($('input[name="joinDate"]:checked').val() == "3" ){
-            tmp_sDate = sDate;
-        }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            tmp_sDate = $("#onedayDate").val().replace(/-/gi, "");
-        }
-        dtList_info.reload();
+    function pay_listSummary(json){
+        console.log(json);
+        var template = $("#pay_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#pay_summaryArea").html(html);
     }
 
     /* 취소버튼 클릭 */
@@ -148,15 +132,11 @@
 
     function sel_change_payStateArea(){
         tmp_searchPayStatus = $("select[name='searchPayStatus']").val();
-        console.log("----------------------------");
-        console.log(tmp_searchPayStatus);
-        dtList_info.reload();
+        dtList_info.reload(pay_listSummary);
     }
     function sel_change_payPlatformArea(){
         tmp_ostype = $("select[name='ostype']").val();
-        console.log("----------------------------");
-        console.log(tmp_ostype);
-        dtList_info.reload();
+        dtList_info.reload(pay_listSummary);
     }
 
     function codeString(data) {
@@ -225,4 +205,25 @@
         return str;
     }
 
+</script>
+
+
+<script id="pay_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right">
+        <thead>
+        <tr>
+            <th colspan="2">총 결제완료</th>
+            <th colspan="2">총 결제취소</th>
+            <th colspan="2">총 취소실패</th>
+        </tr>
+        </thead>
+        <tbody>
+            <td>{{addComma content.totalPayCnt}}건</td>
+            <td>{{addComma content.totalPayAmt}}원</td>
+            <td>{{addComma content.totalPayCancelCnt}}건</td>
+            <td>{{addComma content.totalPayCancelAmt}}원</td>
+            <td>{{addComma content.totalPayCancelCannotCnt}}건</td>
+            <td>{{addComma content.totalPayCancelCannotAmt}}원</td>
+        </tbody>
+    </table>
 </script>

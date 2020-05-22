@@ -37,6 +37,7 @@
             , MENU.ICON
             , MENU.IS_POP
             , MENU.IS_COMMING_SOON
+            , MENU.MOBILE_YN
             , AUTH.IS_READ
             , AUTH.IS_INSERT
             , AUTH.IS_DELETE

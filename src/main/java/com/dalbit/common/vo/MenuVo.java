@@ -30,6 +30,7 @@ public class MenuVo {
     private int is_pop;
     private int is_comming_soon;
     private int is_use;
+    private String mobile_yn;
     private Date reg_date;
     private Date last_upd_date;
 

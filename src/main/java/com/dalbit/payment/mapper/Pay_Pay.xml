@@ -63,6 +63,7 @@
             , (select @rownum := #{pageStart}) r
         order by pay_dt_comein desc
     </sql>
+
     <select id="getPayList" parameterType="com.dalbit.payment.vo.Pay_PayInputVo" resultType="com.dalbit.payment.vo.Pay_PayOutputVo">
         /* Pay_Pay.xml - getPayList */
         select @rownum := @rownum + 1 as rowNum,a.*
@@ -73,7 +74,7 @@
         or mem_no like concat('%', #{searchText}, '%')
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
-        <if test="period != 4 and period != 3">
+        <if test="period == 0 or period == 1 or period == 2">
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
@@ -108,7 +109,45 @@
         or mem_no like concat('%', #{searchText}, '%')
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
-        <if test="period != 4 and period != 3">
+        <if test="period == 0 or period == 1 or period == 2">
+            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+        </if>
+        <if test="period == 3 or period == 4">
+            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+        </if>
+        <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
+            <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
+                and pay_yn ='Y'
+            </if>
+            <if test="searchPayStatus == 2"> <!-- 취소 완료 -->
+                and cancel_state = 'Y'
+            </if>
+            <if test="searchPayStatus == 3"> <!-- 취소 불가 -->
+                and cancel_state = 'F'
+            </if>
+        </if>
+        <if test="ostype != -1">
+            and os = #{ostype}
+        </if>
+    </select>
+
+
+    <select id="getPaySummary" parameterType="com.dalbit.payment.vo.Pay_PayInputVo" resultType="com.dalbit.payment.vo.Pay_PayOutputVo">
+        /* Pay_Pay.xml - getPaySummary */
+        select count(case when pay_yn = 'Y' then 1 end) as totalPayCnt
+                ,sum(case when pay_yn = 'Y' then pay_amt end) as totalPayAmt
+                ,count(case when cancel_state = 'Y' then 1 end) as totalPayCancelCnt
+                ,sum(case when cancel_state = 'Y' then pay_amt end) as totalPayCancelAmt
+                ,count(case when cancel_state = 'F' then 1 end) as totalPayCancelCannotCnt
+                ,sum(case when cancel_state = 'F' then pay_amt end) as totalPayCancelCannotAmt
+        from (
+        <include refid="payCondition"/>
+        ) a
+        where (mem_nick like concat('%', #{searchText}, '%')
+        or mem_no like concat('%', #{searchText}, '%')
+        or mem_id like concat('%', #{searchText}, '%')
+        or mem_phone like concat('%', #{searchText}, '%'))
+        <if test="period == 0 or period == 1 or period == 2">
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">

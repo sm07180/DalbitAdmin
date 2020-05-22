@@ -33,7 +33,11 @@ public class Pay_PayService {
         List<Pay_PayOutputVo> list = payPayDao.getPayList(pay_PayInputVo);
 
         int getPayListCnt = payPayDao.getPayListCnt(pay_PayInputVo);
-        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(getPayListCnt)));
+
+        //summary
+        Pay_PayOutputVo summary = payPayDao.getPaySummary(pay_PayInputVo);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(getPayListCnt),summary));
 
         return result;
     }

@@ -16,45 +16,49 @@
             <ul class="main-menu">
 
                 <c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
-                    <c:set var="isContainSubmenu" value="${0 < fn:length(menu.twoDepth)}" />
-                    <c:set var="isSubmenuView" value="false" />
 
-                    <c:if test="${url.equals(menu.menu_url)}">
-                        <c:set var="isSubmenuView" value="true" />
-                    </c:if>
-                    <c:forEach var="subMenu" items="${menu.twoDepth}">
-                        <c:if test="${url.equals(subMenu.menu_url)}">
+                    <c:if test="${menu.mobile_yn eq 'N'}">
+
+                        <c:set var="isContainSubmenu" value="${0 < fn:length(menu.twoDepth)}" />
+                        <c:set var="isSubmenuView" value="false" />
+
+                        <c:if test="${url.equals(menu.menu_url)}">
                             <c:set var="isSubmenuView" value="true" />
                         </c:if>
-                    </c:forEach>
-
-                    <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''}
-                               ${isContainSubmenu ? '' : 'page'}
-                               ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''}
-                               ${isSubmenuView ? 'active': ''}
-                              "
-                    >
-
-                        <a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
-
-                            <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
-                            <c:if test="${isContainSubmenu}">
-                                <i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'left'}"></i>
+                        <c:forEach var="subMenu" items="${menu.twoDepth}">
+                            <c:if test="${url.equals(subMenu.menu_url)}">
+                                <c:set var="isSubmenuView" value="true" />
                             </c:if>
-                        </a>
+                        </c:forEach>
 
-                        <c:if test="${isContainSubmenu}">
-                            <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': ''}">
-                                <c:forEach var="twoDepth" items="${menu.twoDepth}">
-                                    <li class="${not empty url and url.equals(twoDepth.menu_url) ? 'active': ''}">
-                                        <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
-                                            <i class="fa ${twoDepth.icon}"></i><span class="text">${twoDepth.menu_name}</span>
-                                        </a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </c:if>
-                    </li>
+                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''}
+                                   ${isContainSubmenu ? '' : 'page'}
+                                   ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''}
+                                   ${isSubmenuView ? 'active': ''}
+                                  "
+                        >
+
+                            <a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
+
+                                <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
+                                <c:if test="${isContainSubmenu}">
+                                    <i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'left'}"></i>
+                                </c:if>
+                            </a>
+
+                            <c:if test="${isContainSubmenu}">
+                                <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': ''}">
+                                    <c:forEach var="twoDepth" items="${menu.twoDepth}">
+                                        <li class="${not empty url and url.equals(twoDepth.menu_url) ? 'active': ''}">
+                                            <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
+                                                <i class="fa ${twoDepth.icon}"></i><span class="text">${twoDepth.menu_name}</span>
+                                            </a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </c:if>
+                        </li>
+                    </c:if>
                 </c:forEach>
 
                 <c:forEach var="menu" items='${sessionScope.InforexMenuInfo}'>
