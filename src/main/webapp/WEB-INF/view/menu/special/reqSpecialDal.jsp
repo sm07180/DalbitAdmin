@@ -67,6 +67,7 @@
         var html = templateScript(context);
 
         $('#reqDalList').html(html);
+        ui.scrollIntoView('reqDalList');
 
         $('#contents').attr("disabled", "disabled");
 
