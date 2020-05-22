@@ -36,7 +36,7 @@ var payDataTableSource = {
                     return tmp;
                 }}
             , {'title': '취소 시<br/>차감 달', 'data': 'dal_cnt', 'width':'55px', 'render': function(data, type, row) {
-                    return row.pay_yn == 'y' ? common.addComma(data) : '-';
+                    return (row.pay_yn == 'y' && row.cancel_state == 'n')  ? common.addComma(data) : '-';
                 }}
             , {'title': '보유 달', 'data': 'tot_dal_cnt', 'width':'55px', 'render': function(data, type, row) {
                     return common.addComma(data);
