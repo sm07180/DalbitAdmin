@@ -4,23 +4,24 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-            <div class="top-left pull-left dataTable-div">
-                <div class="comments pt10 pb15">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
-                <div class="col-md-12 no-padding">
-                    <label id="payStateArea" onchange="sel_change_payStateArea();"></label>
-                    <label id="payPlatformArea" onchange="sel_change_payPlatformArea();"></label>
-                </div>
+        <div class="top-left pull-left dataTable-div">
+            <div class="comments pt10 pb15">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
+            <div class="col-md-12 no-padding">
+                <label id="payStateArea" onchange="sel_change_payStateArea();"></label>
+                <label id="payPlatformArea" onchange="sel_change_payPlatformArea();"></label>
             </div>
+        </div>
 
-            <div class="pull-right">
-                <span id="pay_summaryArea"></span>
-            </div>
+        <div class="pull-right">
+            <span id="pay_summaryArea"></span>
+        </div>
 
-            <table id="list_info" class="table table-sorting table-hover table-bordered">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
+        <table id="list_info" class="table table-sorting table-hover table-bordered">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
         <!-- // DATA TABLE -->
+    </div>
 </div> <!-- //wrapper -->
 
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
