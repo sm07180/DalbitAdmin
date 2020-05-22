@@ -57,16 +57,25 @@
         {
 
             //수신대상 선택
-            /*this.target.find("input[name='is_all']").change(function () {
+            this.target.find("input[name='is_all']").change(function () {
                 if ($(this).val() == "7") { //지정 회원
                     fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", false);
                     fnc_pushDetail.target.find("#div_selectTarget").show();
+
+                    // 플랫폼 선택
+                    fnc_pushDetail.target.find("input[name='platform']").prop("disabled", true);
+                    fnc_pushDetail.target.find("input[name='platform']").prop("checked", true);
+
                 } else {
                     fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
                     fnc_pushDetail.target.find("#div_selectTarget").hide();
                     fnc_pushDetail.target.find("#div_selectTarget").empty();
+
+                    fnc_pushDetail.target.find("input[name='platform']").prop("disabled", false);
+                    // 예약발송 선택
+                    fnc_pushDetail.target.find("input[name='is_direct'][value='1']").click();
                 }
-            });*/
+            });
 
 
             //OS 구분
@@ -102,16 +111,71 @@
                 //예약 발송 일 경우 날짜 추가
                 if (type == "1") {
                     fnc_pushDetail.target.find("#push-div-sendDate").show();
+
+                    var sendDate = moment();
+
+                    // 캘린더 초기값
+                    fnc_pushDetail.target.find("#push-div-sendDate").find("#push-sendDate").val(sendDate.format('YYYY.MM.DD'));
+
+                    // 시간 Select CSS 적용
+                    fnc_pushDetail.target.find("#push-div-sendDate").find("#timeHour").val(sendDate.hour().toString().length == 1?("0"+sendDate.hour()):sendDate.hour());
+                    fnc_pushDetail.target.find("#push-div-sendDate").find("#timeMinute").val(sendDate.minute().toString().length == 1?("0"+sendDate.minute()):sendDate.minute());
+
                 } else {
                     fnc_pushDetail.target.find("#push-div-sendDate").hide();
+
+                }
+            });
+
+            //푸시 타입 선택
+            this.target.find("input[name=slct_push]:radio").change(function () {
+                var type = this.value;
+                if(type == "1"){ //room_no
+                    fnc_pushDetail.target.find("#label_targetType").text("방송방 번호:");
+                    fnc_pushDetail.target.find("#input_targetLink").show();
+                    fnc_pushDetail.target.find("#input_targetLink").val("");
+                    fnc_pushDetail.target.find("#input_targetLink").attr("disabled", true);
+                    fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
+
+                }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+                    fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
+                    fnc_pushDetail.target.find("#input_targetLink").show();
+                    fnc_pushDetail.target.find("#input_targetLink").val("");
+                    fnc_pushDetail.target.find("#input_targetLink").attr("disabled", true);
+                    fnc_pushDetail.target.find("#btn_selectMember_link").show();
+                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+
+                }else if(type == "6" || type == "7"){ //board_idx
+                    fnc_pushDetail.target.find("#label_targetType").text("공지 번호:");
+                    fnc_pushDetail.target.find("#input_targetLink").show();
+                    fnc_pushDetail.target.find("#input_targetLink").val("");
+                    fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
+                    fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+                }else{
+                    fnc_pushDetail.target.find("#label_targetType").text("");
+                    fnc_pushDetail.target.find("#input_targetLink").hide();
+                    fnc_pushDetail.target.find("#input_targetLink").val("");
+                    fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
                 }
             });
 
             // 지정회원 - 수신대상
             this.target.find("#btn_selectMember").on("click", function () {
                 showPopMemberList(fnc_pushDetail.choiceMember);
-            })
+            });
 
+            // 이동대상지정 - 회원 조회 팝업
+            this.target.find("#btn_selectMember_link").on("click", function(){
+                showPopMemberList(fnc_pushDetail.choiceMember_link);
+            });
+
+            // 이동대상지정 - 방송방 조회 팝업
+            this.target.find("#btn_selectBroadcastLive_link").on("click", function(){
+                showPopBroadcastLiveList(fnc_pushDetail.choiceBroadcastLive_link);
+            });
 
             // 등록 버튼
             this.target.find("#insertBtn").on("click", function () {
@@ -172,6 +236,38 @@
             }
 
 
+            //수신대상선택
+            fnc_pushDetail.target.find("input[name=is_all][value='"+ detailData.is_all +"']").prop("checked", true);
+
+            var type = detailData.slct_push;
+            if(type == "1"){ //room_no
+                fnc_pushDetail.target.find("#label_targetType").text("방송방 번호:");
+                fnc_pushDetail.target.find("#input_targetLink").show();
+                fnc_pushDetail.target.find("#input_targetLink").attr("disabled", true);
+                fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
+
+            }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+                fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
+                fnc_pushDetail.target.find("#input_targetLink").show();
+                fnc_pushDetail.target.find("#input_targetLink").attr("disabled", true);
+                fnc_pushDetail.target.find("#btn_selectMember_link").show();
+                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+
+            }else if(type == "6" || type == "7"){ //board_idx
+                fnc_pushDetail.target.find("#label_targetType").text("공지 번호:");
+                fnc_pushDetail.target.find("#input_targetLink").show();
+                fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
+                fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+            }else{
+                fnc_pushDetail.target.find("#label_targetType").text("");
+                fnc_pushDetail.target.find("#input_targetLink").hide();
+                fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+            }
+
+
             // 지정회원일 경우 추가처리
             if(detailData.is_all == "7"){
                 var selectTarget = detailData.mem_info;
@@ -187,15 +283,15 @@
                 fnc_pushDetail.target.find("#push-div-sendDate").show();
 
                 var sendDate = moment(detailData.send_datetime);
-
-                // 캘린더 초기값
-                fnc_pushDetail.target.find("#push-div-sendDate").find("#push-sendDate").val(sendDate.format('YYYY.MM.DD'));
-
-                // 시간 Select CSS 적용
-                fnc_pushDetail.target.find("#push-div-sendDate").find("#timeHour").val(sendDate.hour().toString().length == 1?("0"+sendDate.hour()):sendDate.hour());
-                fnc_pushDetail.target.find("#push-div-sendDate").find("#timeMinute").val(sendDate.minute().toString().length == 1?("0"+sendDate.minute()):sendDate.minute());
-
+            }else{
+                var sendDate = moment();
             }
+            // 캘린더 초기값
+            fnc_pushDetail.target.find("#push-div-sendDate").find("#push-sendDate").val(sendDate.format('YYYY.MM.DD'));
+
+            // 시간 Select CSS 적용
+            fnc_pushDetail.target.find("#push-div-sendDate").find("#timeHour").val(sendDate.hour().toString().length == 1?("0"+sendDate.hour()):sendDate.hour());
+            fnc_pushDetail.target.find("#push-div-sendDate").find("#timeMinute").val(sendDate.minute().toString().length == 1?("0"+sendDate.minute()):sendDate.minute());
         },
 
 
@@ -250,10 +346,18 @@
                 return false;
             }
 
-            if(common.isEmpty(data.data)){
-                alert(data.message);
+            if(data.data.is_all == "11"){    //전체발송
+                if(Number(data.sucCnt) > "0") {
+                    alert(data.message);
+                }
             }else{
-                alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+                alert(
+                    data.message +
+                    '\n- 성공 : ' + data.data.sucCnt + '건' +
+                    (data.data.notMemNoCnt != "0" ? '\n- mem_no 미존재 : ' + data.data.notMemNoCnt + '건' : '') +
+                    (data.data.notTokenCnt != "0" ? '\n- token 미존재 : ' + data.data.notTokenCnt + '건' : '') +
+                    (data.data.failCnt != "0" ? '\n- 실패 : ' + data.data.failCnt + '건' : '')
+                );
             }
 
             fnc_pushList.selectMainList(false);
@@ -273,10 +377,18 @@
                 return false;
             }
 
-            if(common.isEmpty(data.data)){
-                alert(data.message);
+            if(data.data.is_all == "11"){    //전체발송
+                if(Number(data.sucCnt) > "0") {
+                    alert(data.message);
+                }
             }else{
-                alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+                alert(
+                    data.message +
+                    '\n- 성공 : ' + data.data.sucCnt + '건' +
+                    (data.data.notMemNoCnt != "0" ? '\n- mem_no 미존재 : ' + data.data.notMemNoCnt + '건' : '') +
+                    (data.data.notTokenCnt != "0" ? '\n- token 미존재 : ' + data.data.notTokenCnt + '건' : '') +
+                    (data.data.failCnt != "0" ? '\n- 실패 : ' + data.data.failCnt + '건' : '')
+                );
             }
 
             fnc_pushList.selectMainList(false);
@@ -313,9 +425,9 @@
                 resultJson['platform'] = "111";
             }else{
                 var platformCnt = fnc_pushDetail.target.find("input[name=platform]").length;
-                var platform = "";
+                var platform = "1";
                 for(var i = 1; i < platformCnt; i++){
-                    if(fnc_pushDetail.target.find("#platform"+(i)).is(":checked")){
+                    if(fnc_pushDetail.target.find("#platform"+(i+1)).is(":checked")){
                         platform += "1";
                     }else{
                         platform += "0";
@@ -340,8 +452,31 @@
 
                 resultJson['mem_nos'] = selectTarget.toString().replace(/,/gi , "|");
             }
-
             resultJson['send_cnt'] = send_cnt;
+
+
+            //푸시 타입 선택
+            var type = fnc_pushDetail.target.find("input[name=slct_push]:radio:checked").val()
+            if(type == "1"){ //room_no
+                resultJson['room_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
+                resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
+
+            }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+                resultJson['target_mem_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
+                resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
+
+            }else if(type == "6" || type == "7"){ //board_idx
+                resultJson['board_idx'] = fnc_pushDetail.target.find("#input_targetLink").val();
+                resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").val();
+            }
+
+
+            // 발송상태
+            resultJson['status'] = 0;
+            resultJson['msg_type'] = 0;
+
+            // 푸시디자인
+            resultJson['image_type'] = 1;
 
             dalbitLog(resultJson)
             return resultJson;
@@ -349,7 +484,8 @@
 
 
         isValid(data) {
-            if (common.isEmpty(data.platform) || data.platform == "000") {
+
+            if (common.isEmpty(data.platform) || data.platform == "100") {
                 alert("노출 OS 구분을 선택하여 주시기 바랍니다.");
                 fnc_pushDetail.target.find("input[name=platform]").focus();
                 return false;
@@ -381,11 +517,13 @@
                 }
             }
 
+            /*
             if (common.isEmpty(data.msg_type)) {
                 alert("메세지 구분을 선택하여 주시기 바랍니다.");
                 fnc_pushDetail.target.find("input[name=msg_type]").focus();
                 return false;
             }
+            */
 
             if (common.isEmpty(data.is_direct)) {
                 alert("발송 구분을 선택하여 주시기 바랍니다.");
@@ -396,9 +534,9 @@
             if (data.is_direct == "1") {
                 var sendDate = common.stringToDateTime(data.send_datetime);
                 if(sendDate < moment()){
-                   if(!confirm("예약발송 시간이 현재 시간보다 이전 시간 입니다.\n그래도 예약발송을 진행 하시겠습니까?")){
-                       return false;
-                   }
+                    if(!confirm("예약발송 시간이 현재 시간보다 이전 시간 입니다.\n그래도 예약발송을 진행 하시겠습니까?")){
+                        return false;
+                    }
                 }
             }
 
@@ -406,6 +544,28 @@
                 alert("푸시 타입을 선택하여 주시기 바랍니다.");
                 fnc_pushDetail.target.find("input[name=slct_push]").focus();
                 return false;
+            }
+
+            //푸시 타입 선택
+            var type = data.slct_push;
+            if(type == "1"){ //room_no
+                if (common.isEmpty(data.room_no)) {
+                    alert("방송방을 선택하여 주시기 바랍니다.");
+                    fnc_pushDetail.target.find("#input_targetLink").focus();
+                    return false;
+                }
+            }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+                if (common.isEmpty(data.target_mem_no)) {
+                    alert("회원을 선택하여 주시기 바랍니다.");
+                    fnc_pushDetail.target.find("#input_targetLink").focus();
+                    return false;
+                }
+            }else if(type == "6" || type == "7"){ //board_idx
+                if (common.isEmpty(data.board_idx)) {
+                    alert("게시물 번호를 입력하여 주시기 바랍니다.");
+                    fnc_pushDetail.target.find("#input_targetLink").focus();
+                    return false;
+                }
             }
 
 
@@ -417,6 +577,7 @@
 
         // [수신대상 선택 - 지정회원] 회원 추가
         choiceMember(data) {
+            console.log(data);
             var html = '<p id="' + data.mem_no + '">' + data.mem_nick + '(' +data.mem_userid+ ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
 
             if(fnc_pushDetail.target.find("#div_selectTarget").find("p").length >= 20){
@@ -432,6 +593,27 @@
             dom.parent("p").remove();
         },
 
+
+
+        // 이동대상지정 - 방송방
+        choiceBroadcastLive_link(data) {
+            console.log(data);
+            var html = '<p id="' + data.room_no + '">' + data.title + '<a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
+
+            fnc_pushDetail.target.find("#input_targetLink").val(data.room_no);
+            fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", data.room_no);
+        },
+
+
+        // 이동대상지정 - 회원
+        choiceMember_link(data) {
+            console.log(data);
+            var html = '<p id="' + data.mem_no + '">' + data.mem_nick + '(' +data.mem_userid+ ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
+
+            fnc_pushDetail.target.find("#input_targetLink").val(data.mem_no);
+            fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", data.mem_no);
+        },
+
     }
 </script>
 
@@ -444,7 +626,7 @@
 
 <script id="tmp_pushDetailFrm" type="text/x-handlebars-template">
     <input type="hidden" name="push_idx" value="{{push_idx}}" />
-    <div class="row col-lg-12">
+    <div class="row col-md-12">
         <div class="row col-md-12" style="padding-bottom: 15px">
             <div class="pull-left">
                 ㆍ <b>*</b> 는 필수 입력사항 입니다. <br>
@@ -475,6 +657,7 @@
                 <th>No</th>
                 <td>{{rowNum}}</td>
 
+                <!--
                 <th>발송상태</th>
                 <td colspan="3">
                     {{^push_idx}}
@@ -484,22 +667,26 @@
                         {{{getCommonCodeLabelAndHidden ../status 'push_snedStatus' 'status'}}}
                     {{/push_idx}}
                 </td>
+                 -->
 
                 <th>노출 OS구분</th>
                 <%--<td colspan="5">{{{getCommonCodeRadio -1 'push_platform'}}}</td>--%>
-                <td colspan="5">
+                <td colspan="6">
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform-1" value="-1" checked="true"><span>전체</span> </label>
-                    <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform1" value="1" checked="true"><span>PC</span></label>
+                    <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform1" value="1" checked="true"><span>PC</span></label>--%>
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform2" value="2" checked="true"><span>Android</span></label>
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform3" value="3" checked="true"><span>IOS</span></label>
                 </td>
+
+                <th>발송일시</th>
+                <td colspan="2">{{send_datetime}}</td>
             </tr>
             <tr>
                 <th>메세지 제목</th>
-                <td colspan="5"><input type="text" class="form-control" name="send_title" id="push-send_title" placeholder="제목을 입력해주세요." value="{{send_title}}"></td>
+                <td colspan="5" style="width:50%;"><input type="text" class="form-control" name="send_title" id="push-send_title" placeholder="제목을 입력해주세요." value="{{send_title}}"></td>
 
                 <th rowspan="2">수신대상 선택</th>
-                <td colspan="5" rowspan="2">
+                <td colspan="5" style="width:50%;" rowspan="2">
                     <div>
                         <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>전체</span> </label>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>생방송</span></label>--%>
@@ -509,7 +696,7 @@
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="5" checked="true"><span>비로그인</span></label>--%>
                         <label class="control-inline fancy-radio custom-color-green"><input type="radio" id="is_all99" name="is_all" value="99" class="form-control"><span><i></i>테스트 계정</span></label>
                         <div>
-                            <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="7" id="is_all7" name="is_all" class="form-control" checked="checked"><span><i></i>지정 회원 </span></label>
+                            <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="7" id="is_all7" name="is_all" class="form-control"><span><i></i>지정 회원 </span></label>
                             <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember"/>
                         </div>
                     </div>
@@ -518,21 +705,34 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="2">메세지 내용</th>
-                <td colspan="5" rowspan="2">
+                <th>메세지 내용</th>
+                <td colspan="5">
                     <div>
                         <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40">{{send_cont}}</textarea>
                         <span style="color: red">* 메시지 내용은 10자~40자(한글) 입력 가능합니다.</span>
                     </div>
                 </td>
             </tr>
+            <!--
             <tr>
-                <th>메세지 구분</th>
-                <td colspan="5">{{{getCommonCodeRadio msg_type 'push_messageType' 'N' 'msg_type'}}}</td>
+            <th>메세지 구분</th>
+            <td colspan="5">{{{getCommonCodeRadio msg_type 'push_messageType' 'N' 'msg_type'}}}</td>
             </tr>
+            -->
             <tr>
-                <th>이동 링크</th>
-                <td colspan="5"><input type="text" class="form-control _trim" name="link_url" id="push-link_url" placeholder="푸시 클릭 시 이동 URL을 입력해주세요." value="{{link_url}}"></td>
+                <th>이동대상지정</th>
+                <td colspan="5">
+                    <div>
+                        <label id="label_targetType"></label>
+                        <input type="text" id="input_targetLink" value="{{target_info}}" data-targetinfo="{{target_info}}" style="display:none;">
+                        <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember_link" style="display:none;"/>
+                        <input type="button" value="라이브방송방검색" class="btn btn-success btn-xs" id="btn_selectBroadcastLive_link" style="display:none;"/>
+                    </div>
+
+                    <div style="padding-left: 30px;">
+
+                    </div>
+                </td>
 
                 <th>발송여부</th>
                 <td colspan="5">
@@ -552,17 +752,14 @@
                 <!--
                 <th>메세지 포함 이미지</th>
                 <td colspan="5">
-                    <div>
-                        <input type="file" id="push-inputImg">
-                        <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
-                    </div>
+                <div>
+                <input type="file" id="push-inputImg">
+                <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
+                </div>
                 </td>
                 -->
-                <th>푸시 타입</th>
-                <td colspan="5">{{{getCommonCodeRadio slct_push 'push_slctPush2' 'N' 'slct_push'}}}</td>
-
-                <th>등록일</th>
-                <td colspan="5">{{regDate}}</td>
+                <th>푸시 타입<br>(이동경로)</th>
+                <td colspan="11">{{{getCommonCodeRadio slct_push 'push_slctPush2' 'N' 'slct_push'}}}</td>
             </tr>
             </tbody>
         </table>

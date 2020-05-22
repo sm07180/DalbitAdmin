@@ -63,12 +63,12 @@
     $(document).ready(function () {
         $("#"+broadcastModalId).find('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
-                getModalUserInfo();
+                getModalRoomInfo();
             };
         });
         <!-- 버튼 -->
         $("#"+broadcastModalId).find('#bt_search').click( function() {       //검색
-            getModalUserInfo();
+            getModalRoomInfo();
         });
         <!-- 버튼 끝 -->
 
@@ -127,7 +127,7 @@
         callbackFn(data);
     }
 
-    function getModalUserInfo() {                 // 검색
+    function getModalRoomInfo() {                 // 검색
         dtList_modal_info_broadcast_live.reload();
     }
     function bt_x(){

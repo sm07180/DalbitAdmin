@@ -26,6 +26,8 @@ public class P_pushDetailOutputVo extends BaseVo {
     private String reg_date;          //등록일
     private String op_name;         //등록자
     private String link_url;         //이동 링크
+    private String target_info;
+    private String image_type;
 
     private List<P_MemberListOutputVo> mem_info;        //수신대상정보
 }

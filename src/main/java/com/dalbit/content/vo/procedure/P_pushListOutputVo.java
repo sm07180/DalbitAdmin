@@ -28,6 +28,8 @@ public class P_pushListOutputVo extends BaseVo {
     private String reg_dateFormat;          //등록일
     private String op_name;         //등록자
     private String link_url;         //이동 링크
+    private String target_info;
+    private int image_type;
 
     public void setReg_date(java.sql.Date reg_date){
         this.reg_date = reg_date;

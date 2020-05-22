@@ -21,6 +21,8 @@
             ,reg_date         AS reg_date
             ,op_name          AS opName
             ,link_url          AS link_url
+            ,target_info          AS target_info
+            ,image_type          AS image_type
         FROM
             rd_admin.tb_admin_push
     </sql>
@@ -91,6 +93,8 @@
                 ,reg_date
                 ,op_name
                 ,link_url
+                ,target_info
+                ,image_type
           )
           VALUES
           (
@@ -116,6 +120,8 @@
                 ,NOW()
                 ,#{opName}
                 ,#{link_url}
+                ,#{target_info}
+                ,#{image_type}
           )
     </insert>
 

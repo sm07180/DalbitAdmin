@@ -18,8 +18,19 @@ public class P_pushStmpInsertVo extends BaseVo {
         this.setMem_no(mem_no);
         this.setTitle(pPushInsertVo.getSend_title());
         this.setContents(pPushInsertVo.getSend_cont());
+        this.setRoom_no(pPushInsertVo.getRoom_no());
+        this.setBoard_idx(pPushInsertVo.getBoard_idx());
+        this.setTarget_mem_no(pPushInsertVo.getTarget_mem_no());
+        this.setImage_type(pPushInsertVo.getImage_type());
         this.setSlctPush(pPushInsertVo.getIs_all());
         this.setPush_type(pPushInsertVo.getSlct_push());
+
+        if(pPushInsertVo.getPlatform().equals("110")){
+            this.setSlctOs("a");
+        }else if(pPushInsertVo.getPlatform().equals("101")){
+            this.setSlctOs("b");
+        }
+
         try{
             Date date = new SimpleDateFormat("yyyyMMddHHmm").parse(pPushInsertVo.getSend_datetime());
             String sendDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").format(date);
@@ -41,6 +52,8 @@ public class P_pushStmpInsertVo extends BaseVo {
     private String board_idx;			// 해당 게시판 이동할 경우
     private String sendDate;			// 발송일시
     private String etcData;             // ETC!!!!!!!!!!!!
+    private String image_type;
+    private String slctOs;        //OS 구분  (a: Android, b:IOS)
 
 }
 
