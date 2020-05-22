@@ -2,6 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
+<style>
+    .back-to-top-css {
+        cursor: pointer;
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        display: none;
+    }
+</style>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -109,6 +118,10 @@
             </div>
         </div>
     </div>
+
+    <a id="back-to-top" href="#" class="btn btn-primary btn-sm back-to-top-css" role="button" title="Move Top" data-toggle="tooltip" data-placement="left">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+    </a>
 </div>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
@@ -116,7 +129,28 @@
 <script type="text/javascript">
     $(document).ready(function() {
         getMemberList();
+
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 400);
+            return false;
+        });
+
+        $('#back-to-top').tooltip('show');
+
     });
+
+
 
     $(document).on('click', '._authChk, ._auth', function(){
         var me = $(this);
