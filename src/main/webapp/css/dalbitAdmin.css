@@ -186,3 +186,6 @@ td._down {
     right: 10px;
     display: none;
 }
+.font-bold{
+    font-weight: bold;
+}

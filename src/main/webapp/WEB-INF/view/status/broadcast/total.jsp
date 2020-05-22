@@ -75,7 +75,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_total">
-    <tr class="success">
+    <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_createCnt}}</td>
         <td>{{addComma sum_broadcastingTime}}</td>
@@ -90,7 +90,7 @@
 <script type="text/x-handlebars-template" id="tmp_detailList">
     {{#each this as |data|}}
     <tr>
-        <td>
+        <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}

@@ -386,7 +386,7 @@
 
 <script id="tmp_menuList" type="text/x-handlebars-template">
     {{#each menuInfo as |menu|}}
-        <tr data-oneidx='{{menu.idx}}'>
+        <tr data-oneidx='{{menu.idx}}' class="font-bold">
             <td rowspan="{{index menu.twoDepth.length}}">{{menu.menu_name}}</td>
             <td></td>
             <td><input type="checkbox" class="_authChk" data-type='all' /></td>
