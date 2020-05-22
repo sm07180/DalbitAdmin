@@ -320,33 +320,39 @@
 
     function update_success(dst_id, response) {
         dalbitLog(response);
-        if (tmp_bt == "bt_img") {                        //사진변경
-            alert("프로필 이미지가 초기화 되었습니다.");
-        } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
-            if(response == 0){
-                alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
-                return;
+
+        if(response.code == 0){
+            if (tmp_bt == "bt_img") {                        //사진변경
+                alert("프로필 이미지가 초기화 되었습니다.");
+            } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
+                if(response == 0){
+                    alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
+                    return;
+                }
+                alert("연락처가 변경되었습니다.");
+            } else if (tmp_bt == "bt_resatNick") {            // 닉네임 변경
+                alert("닉네임이 변경되었습니다.");
+            } else if (tmp_bt == "bt_birth") {                //생일 변경
+                alert("생년월일이 변경되었습니다.");
+            } else if (tmp_bt == "bt_gender") {               //성별 변경
+                alert("성별이 변경되었습니다.");
+            } else if (tmp_bt == "bt_resatPass") {            //비밀번호 초기화
+                if(response == 0){
+                    alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
+                    return;
+                }
+                alert("비밀번호가 초기화 되었습니다.");
+            } else if (tmp_bt == "bt_socialId") {            //비밀번호 초기화
+                if(response.code == "1"){
+                    alert(response.message);
+                }else{
+                    alert("로그인 아이디가 변경되었습니다.");
+                }
             }
-            alert("연락처가 변경되었습니다.");
-        } else if (tmp_bt == "bt_resatNick") {            // 닉네임 변경
-            alert("닉네임이 변경되었습니다.");
-        } else if (tmp_bt == "bt_birth") {                //생일 변경
-            alert("생년월일이 변경되었습니다.");
-        } else if (tmp_bt == "bt_gender") {               //성별 변경
-            alert("성별이 변경되었습니다.");
-        } else if (tmp_bt == "bt_resatPass") {            //비밀번호 초기화
-            if(response == 0){
-                alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
-                return;
-            }
-            alert("비밀번호가 초기화 되었습니다.");
-        } else if (tmp_bt == "bt_socialId") {            //비밀번호 초기화
-            if(response.code == "1"){
-                alert(response.message);
-            }else{
-                alert("로그인 아이디가 변경되었습니다.");
-            }
+        }else{
+            alert(response.message);
         }
+
 
         if (dst_id == "adminMemoAdd") {
             dtList_info_detail.reload();
@@ -521,7 +527,7 @@
         if(response.code == "0"){
             alert("지급이 정상 처리 되었습니다.");
         }else{
-            alert("지급 실패");
+            alert(response.message);
         }
         var obj = new Object();
         obj.mem_no = memNo;
