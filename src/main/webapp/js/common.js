@@ -273,4 +273,24 @@ common.fontColor = function(value, minValue, fontColor){
         return value;
     }
     return "<span style='color:"+fontColor+";font-weight: bold;'>" + value + "</span>";
-}
+};
+
+common.scrollTop = function(){
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 50) {
+            $('#back-to-top').fadeIn();
+        } else {
+            $('#back-to-top').fadeOut();
+        }
+    });
+    // scroll body to 0px on click
+    $('#back-to-top').click(function () {
+        $('#back-to-top').tooltip('hide');
+        $('body,html').animate({
+            scrollTop: 0
+        }, 400);
+        return false;
+    });
+
+    $('#back-to-top').tooltip('show');
+};
