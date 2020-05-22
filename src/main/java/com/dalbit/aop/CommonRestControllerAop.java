@@ -103,7 +103,7 @@ public class CommonRestControllerAop {
     };
 
     private final String[] INSERT_MODIFY_URLS = {
-        "edit" , "insert", "update" , "operate"
+        "edit" , "insert", "update" , "operate", "forceLeave",
     };
 
     private final String[] DELETE_URLS = {
