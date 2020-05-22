@@ -19,7 +19,7 @@ public class SpecialVo extends PagingVo {
     private int is_force;
     private int order;
     private String op_name;
-
+    private String mem_phone;
     private String mem_id;
     private String mem_nick;
     private int level;

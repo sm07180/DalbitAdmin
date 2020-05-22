@@ -122,6 +122,7 @@
             dj.op_name         as op_name,
             basic.mem_id       as mem_id,
             basic.mem_nick     as mem_nick,
+            redj.mem_phone     as mem_phone,
             lev.level          as `level`,
             lev.grade          as grade,
             pro.image_profile  as image_profile,
@@ -140,14 +141,13 @@
                 )a where mem_no = dj.mem_no
             ) broadcastCnt,
             (select count(*) from rd_data.tb_member_report where op_code in (3,4,5,6) and reported_mem_no = dj.mem_no) reportCnt
-        from rd_admin.tb_special_dj dj,
-            rd_data.tb_member_basic basic,
-            rd_data.tb_member_profile pro,
-            rd_data.tb_member_level lev,
-            (select @RNUM := 0) r
-        where dj.mem_no = basic.mem_no
-            and basic.mem_no = pro.mem_no
-            and basic.mem_no = lev.mem_no
+        from rd_admin.tb_special_dj dj
+            inner join rd_data.tb_member_basic basic on dj.mem_no = basic.mem_no
+            inner join rd_data.tb_member_profile pro on dj.mem_no = pro.mem_no
+            inner join rd_data.tb_member_level lev on dj.mem_no = lev.mem_no
+            left join rd_admin.tb_req_special_dj redj on dj.mem_no = redj.mem_no and dj.req_idx = redj.idx
+            , (select @RNUM := 0) r
+        where 1 = 1
         <if test='txt_search != null and txt_search != ""'>
             <choose>
                 <when test='searchType == "1"'>
@@ -160,13 +160,13 @@
                     and basic.mem_nick like concat('%', #{txt_search}, '%')
                 </when>
                 <when test='searchType == "4"'>
-                    and basic.mem_phone like concat('%', #{txt_search}, '%')
+                    and redj.mem_phone like concat('%', #{txt_search}, '%')
                 </when>
                 <otherwise>
                     and (dj.mem_no like concat('%', #{txt_search}, '%')
                     or basic.mem_id like concat('%', #{txt_search}, '%')
                     or basic.mem_nick like concat('%', #{txt_search}, '%')
-                    or basic.mem_phone like concat('%', #{txt_search}, '%'))
+                    or redj.mem_phone like concat('%', #{txt_search}, '%'))
                 </otherwise>
             </choose>
         </if>

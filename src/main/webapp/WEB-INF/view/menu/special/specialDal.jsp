@@ -79,7 +79,7 @@
         $("#specialList-select-all").remove();
         var data = {
             txt_search : $('#txt_search').val()
-            , searchType : $('#searchArea').val()
+            , searchType : $('#searchType').val()
             , pageStart : specialDjPagingInfo.pageNo
             , pageCnt : specialDjPagingInfo.pageCnt
         };
