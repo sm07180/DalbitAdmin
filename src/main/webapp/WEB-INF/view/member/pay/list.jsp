@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="col-lg-12 no-padding">
-    <div>
-        <jsp:include page="../../payment/pay/payList.jsp"/>
-    </div>
+
+<div>
+    <jsp:include page="../../payment/pay/payList.jsp"/>
 </div>
 <script>
     $(document).ready(function() {

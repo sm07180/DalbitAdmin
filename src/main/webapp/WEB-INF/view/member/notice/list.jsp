@@ -56,7 +56,7 @@
 
     function noticeDel_success(dst_id, response){
         dalbitLog(response);
-        alert("공지 삭제 완료");
+        alert(response.message);
         dtList_info_detail.reload();
     }
 

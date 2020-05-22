@@ -355,8 +355,13 @@
 
     function update_success(dst_id, response) {
         dalbitLog(response);
+
         $('#entryModal').modal('hide');
         $('#entry_message').val("");
+
+        if(response.code != 0){
+            alert(response.message);
+        }
 
         if (dst_id == "adminMemoAdd") {
             editEntry = dst_id;

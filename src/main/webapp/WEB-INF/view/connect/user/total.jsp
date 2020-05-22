@@ -69,7 +69,7 @@
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_userTotal">
-    <tr class="success">
+    <tr class="success font-bold">
         <td>총계</td>
         <td>{{addComma total_cnt}}</td>
         <td>{{addComma total_male_cnt}}</td>
@@ -80,77 +80,77 @@
 
 <script type="text/x-handlebars-template" id="tmp_userDetailList">
     <tr>
-        <td>10대</td>
+        <td class="font-bold">10대</td>
         <td>{{addComma age10_total_cnt}}</td>
         <td>{{addComma age10_male_cnt}}</td>
         <td>{{addComma age10_female_cnt}}</td>
         <td>{{addComma age10_none_cnt}}</td>
     </tr>
     <tr>
-        <td>20~24세</td>
+        <td class="font-bold">20~24세</td>
         <td>{{addComma age2024_total_cnt}}</td>
         <td>{{addComma age2024_male_cnt}}</td>
         <td>{{addComma age2024_female_cnt}}</td>
         <td>{{addComma age2024_none_cnt}}</td>
     </tr>
     <tr>
-        <td>25~29세</td>
+        <td class="font-bold">25~29세</td>
         <td>{{addComma age2529_total_cnt}}</td>
         <td>{{addComma age2529_male_cnt}}</td>
         <td>{{addComma age2529_female_cnt}}</td>
         <td>{{addComma age2529_none_cnt}}</td>
     </tr>
     <tr>
-        <td>30~34세</td>
+        <td class="font-bold">30~34세</td>
         <td>{{addComma age3034_total_cnt}}</td>
         <td>{{addComma age3034_male_cnt}}</td>
         <td>{{addComma age3034_female_cnt}}</td>
         <td>{{addComma age3034_none_cnt}}</td>
     </tr>
     <tr>
-        <td>35~39세</td>
+        <td class="font-bold">35~39세</td>
         <td>{{addComma age3539_total_cnt}}</td>
         <td>{{addComma age3539_male_cnt}}</td>
         <td>{{addComma age3539_female_cnt}}</td>
         <td>{{addComma age3539_none_cnt}}</td>
     </tr>
     <tr>
-        <td>40~44세</td>
+        <td class="font-bold">40~44세</td>
         <td>{{addComma age4044_total_cnt}}</td>
         <td>{{addComma age4044_male_cnt}}</td>
         <td>{{addComma age4044_female_cnt}}</td>
         <td>{{addComma age4044_none_cnt}}</td>
     </tr>
     <tr>
-        <td>45~49세</td>
+        <td class="font-bold">45~49세</td>
         <td>{{addComma age4549_total_cnt}}</td>
         <td>{{addComma age4549_male_cnt}}</td>
         <td>{{addComma age4549_female_cnt}}</td>
         <td>{{addComma age4549_none_cnt}}</td>
     </tr>
     <tr>
-        <td>50~54세</td>
+        <td class="font-bold">50~54세</td>
         <td>{{addComma age5054_total_cnt}}</td>
         <td>{{addComma age5054_male_cnt}}</td>
         <td>{{addComma age5054_female_cnt}}</td>
         <td>{{addComma age5054_none_cnt}}</td>
     </tr>
     <tr>
-        <td>50~59세</td>
+        <td class="font-bold">50~59세</td>
         <td>{{addComma age5459_total_cnt}}</td>
         <td>{{addComma age5459_male_cnt}}</td>
         <td>{{addComma age5459_female_cnt}}</td>
         <td>{{addComma age5459_none_cnt}}</td>
     </tr>
     <tr>
-        <td>60~64세</td>
+        <td class="font-bold">60~64세</td>
         <td>{{addComma age6064_total_cnt}}</td>
         <td>{{addComma age6064_male_cnt}}</td>
         <td>{{addComma age6064_female_cnt}}</td>
         <td>{{addComma age6064_none_cnt}}</td>
     </tr>
     <tr>
-        <td>60세 이상</td>
+        <td class="font-bold">60세 이상</td>
         <td>{{addComma age65_total_cnt}}</td>
         <td>{{addComma age65_male_cnt}}</td>
         <td>{{addComma age65_female_cnt}}</td>
