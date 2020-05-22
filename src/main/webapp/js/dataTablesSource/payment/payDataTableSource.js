@@ -35,11 +35,11 @@ var payDataTableSource = {
                     var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt.split(".")[0]) + '원' : row.pay_amt.split(".")[0];
                     return tmp;
                 }}
-            , {'title': '보유 달', 'data': 'tot_dal_cnt', 'width':'55px', 'render': function(data, type, row) {
-                    return common.addComma(data);
-                }}
             , {'title': '취소 시<br/>차감 달', 'data': 'dal_cnt', 'width':'55px', 'render': function(data, type, row) {
                     return row.pay_yn == 'y' ? common.addComma(data) : '-';
+                }}
+            , {'title': '보유 달', 'data': 'tot_dal_cnt', 'width':'55px', 'render': function(data, type, row) {
+                    return common.addComma(data);
                 }}
             , {'title': '직원<br/>여부', 'data': 'chrgr_yn', 'width':'30px', 'render': function(data, type, row) {
                     return data.toUpperCase();
@@ -62,16 +62,18 @@ var payDataTableSource = {
                 }}
             , {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
 
-                return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (row.tot_dal_cnt < row.dal_cnt) ? "보유 달 부족" : '<button type="button" class="btn btn-default cancelBtn" ' +
-                    'data-paycd="'+ row.pay_way+'" ' +
-                    'data-tradeid="'+row.order_id+'" ' +
-                    'data-mobilid="'+row.bill_id+'" ' +
-                    'data-prdtprice="'+row.pay_amt.split(".")[0]+'" ' +
-                    'data-storeid="'+row.store_id+'" ' +
-                    'data-memno="'+row.mem_no+'" ' +
-                    'data-dalcnt="'+row.dal_cnt+'" ' +
-                    'data-memnick="'+row.mem_nick+'" ' +
-                    'onclick="cancelClick($(this).data())">취소</button>'
+                return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (0 < row.dal_cnt) ? "보유 달 부족" :
+                        '<button type="button" class="btn btn-default cancelBtn" ' +
+                                'data-paycd="'+ row.pay_way+'" ' +
+                                'data-tradeid="'+row.order_id+'" ' +
+                                'data-mobilid="'+row.bill_id+'" ' +
+                                'data-prdtprice="'+row.pay_amt.split(".")[0]+'" ' +
+                                'data-storeid="'+row.store_id+'" ' +
+                                'data-memno="'+row.mem_no+'" ' +
+                                'data-dalcnt="'+row.dal_cnt+'" ' +
+                                'data-memnick="'+row.mem_nick+'" ' +
+                                'onclick="cancelClick($(this).data())"> 취소' +
+                         '</button>'
             }}
         ]
         , 'comments': ''

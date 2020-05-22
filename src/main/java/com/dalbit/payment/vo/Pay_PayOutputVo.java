@@ -44,4 +44,12 @@ public class Pay_PayOutputVo extends PagingVo {
     private String mem_nick;
     private int tot_dal_cnt;
 
+    //summary
+    private int totalPayCnt;
+    private int totalPayAmt;
+    private int totalPayCancelCnt;
+    private int totalPayCancelAmt;
+    private int totalPayCancelCannotCnt;
+    private int totalPayCancelCannotAmt;
+
 }
