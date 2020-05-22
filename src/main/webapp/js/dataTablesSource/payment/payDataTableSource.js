@@ -36,7 +36,7 @@ var payDataTableSource = {
                     return tmp;
                 }}
             , {'title': '취소 시<br/>차감 달', 'data': 'dal_cnt', 'width':'55px', 'render': function(data, type, row) {
-                    return row.pay_yn == 'y' ? common.addComma(data) : '-';
+                    return (row.pay_yn == 'y' && row.cancel_state == 'n')  ? common.addComma(data) : '-';
                 }}
             , {'title': '보유 달', 'data': 'tot_dal_cnt', 'width':'55px', 'render': function(data, type, row) {
                     return common.addComma(data);
@@ -62,7 +62,7 @@ var payDataTableSource = {
                 }}
             , {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
 
-                return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (0 < row.dal_cnt) ? "보유 달 부족" :
+                return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (row.tot_dal_cnt < row.dal_cnt) ? "보유 달 부족" :
                         '<button type="button" class="btn btn-default cancelBtn" ' +
                                 'data-paycd="'+ row.pay_way+'" ' +
                                 'data-tradeid="'+row.order_id+'" ' +
