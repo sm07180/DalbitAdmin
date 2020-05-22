@@ -708,8 +708,8 @@
                 <th>메세지 내용</th>
                 <td colspan="5">
                     <div>
-                        <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40">{{send_cont}}</textarea>
-                        <span style="color: red">* 메시지 내용은 10자~40자(한글) 입력 가능합니다.</span>
+                        <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="150">{{send_cont}}</textarea>
+                        <span style="color: red">* 메시지 내용은 10자~150자(한글) 입력 가능합니다.</span>
                     </div>
                 </td>
             </tr>
