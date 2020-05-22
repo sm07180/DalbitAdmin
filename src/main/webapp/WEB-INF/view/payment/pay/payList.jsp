@@ -4,39 +4,23 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <!-- DATA TABLE -->
-        <div class="row col-lg-12 form-inline">
-            <div class="widget widget-table">
-                <div class="widget-header">
-                    <h3><i class="fa fa-desktop"></i>결제 내역</h3>
-                    <div class="btn-group widget-header-toolbar">
-                        <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                            <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="widget-content">
-
-                    <div class="top-left pull-left dataTable-div">
-                        <div class="comments pt10 pb15">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
-                        <div>
-                            <span id="payStateArea" onchange="sel_change_payStateArea();"></span>
-                            <span id="payPlatformArea" onchange="sel_change_payPlatformArea();"></span>
-                        </div>
-                    </div>
-
-                    <div class="pull-right mt15">
-                        <span id="pay_summaryArea"></span>
-                    </div>
-
-                    <table id="list_info" class="table table-sorting table-hover table-bordered">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
+            <div class="top-left pull-left dataTable-div">
+                <div class="comments pt10 pb15">ㆍ회원이 요청한 결제 취소 건을 처리하고, 취소 처리상태를 확인 할 수 있습니다.</div>
+                <div class="col-md-12 no-padding">
+                    <label id="payStateArea" onchange="sel_change_payStateArea();"></label>
+                    <label id="payPlatformArea" onchange="sel_change_payPlatformArea();"></label>
                 </div>
             </div>
-        </div>
+
+            <div class="pull-right">
+                <span id="pay_summaryArea"></span>
+            </div>
+
+            <table id="list_info" class="table table-sorting table-hover table-bordered">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
         <!-- // DATA TABLE -->
-    </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper -->
 
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
@@ -79,8 +63,8 @@
         dtList_info.useIndex(true);
         dtList_info.createDataTable(pay_listSummary);
 
-        $("#payStateArea").html(util.getCommonCodeSelect('', payStatus));
-        $("#payPlatformArea").html(util.getCommonCodeSelect('', payPlatform));
+        $("#payStateArea").html(util.getCommonCodeSelect('-1', payStatus));
+        $("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
     }
 
     function pay_listSummary(json){
@@ -209,7 +193,7 @@
 
 
 <script id="pay_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
+    <table class="table table-bordered table-summary pull-right" style="margin-right:0px">
         <thead>
         <tr>
             <th colspan="2">총 결제완료</th>
