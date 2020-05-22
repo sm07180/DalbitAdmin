@@ -100,7 +100,7 @@
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_ageTotal">
-    <tr class="success">
+    <tr class="success font-bold">
         <td>총계</td>
         <td>{{addComma sum_totalCnt}}</td>
         <td>{{addComma sum_age10Cnt}}</td>
@@ -123,7 +123,7 @@
 <script type="text/x-handlebars-template" id="tmp_ageDetailList">
     {{#each this as |data|}}
     <tr>
-        <td>
+        <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
             {{#equal ../slctType 1}}{{data.month}}월 {{data.day}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}

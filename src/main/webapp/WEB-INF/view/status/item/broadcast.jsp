@@ -86,7 +86,7 @@
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_broadTotal">
-    <tr class="success">
+    <tr class="success font-bold">
         <td>소계</td>
         <td></td>
         <td></td>
@@ -101,7 +101,7 @@
 <script type="text/x-handlebars-template" id="tmp_broadDetailList">
     {{#each this as |data|}}
     <tr>
-        <td>{{rowNum}}</td>
+        <td class="font-bold">{{rowNum}}</td>
         <td><img src="{{data.item_thumbnail}}" width="50" height="50" /></td>
         <td>{{item_name}}</td>
         <td>{{sale_price}}</td>
