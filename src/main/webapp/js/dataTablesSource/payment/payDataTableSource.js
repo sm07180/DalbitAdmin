@@ -63,7 +63,7 @@ var payDataTableSource = {
             , {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
 
                 return (row.pay_way == 'VA' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (row.tot_dal_cnt < row.dal_cnt) ? "보유 달 부족" :
-                        '<button type="button" class="btn btn-default cancelBtn" ' +
+                        /*'<button type="button" class="btn btn-default cancelBtn" ' +
                                 'data-paycd="'+ row.pay_way+'" ' +
                                 'data-tradeid="'+row.order_id+'" ' +
                                 'data-mobilid="'+row.bill_id+'" ' +
@@ -73,7 +73,8 @@ var payDataTableSource = {
                                 'data-dalcnt="'+row.dal_cnt+'" ' +
                                 'data-memnick="'+row.mem_nick+'" ' +
                                 'onclick="cancelClick($(this).data())"> 취소' +
-                         '</button>'
+                         '</button>'*/
+                    '-'
             }}
         ]
         , 'comments': ''
