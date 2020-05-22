@@ -43,7 +43,6 @@
     $("#selJoinDate").html(util.getCommonCodeRadio(3, joinDate));
     $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
     sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
-    getPayListInfo();
 
     $('#seldate').datetimepicker({
         format: 'L',
@@ -54,12 +53,12 @@
 
     $('input[id="txt_search"]').keydown(function() {
         if (event.keyCode === 13) {
-            getPayListInfo();
+            getPaySearch();
         };
     });
 
     $('#bt_search').click( function() {       //검색
-        getPayListInfo();
+        getPaySearch();
     });
 
     $("#seldate").addClass('hide');
@@ -83,7 +82,32 @@
             $("#seldate").removeClass('hide');
         }
         $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
-        getPayListInfo();
+        getPaySearch();
     });
+
+    init();
+    function init(){
+        txt_search = $('#txt_search').val();
+        tmp_period = $('input[name="joinDate"]:checked').val();
+        tmp_joinDate = $('input[name="joinDate"]:checked').val();
+        getPayList();
+    }
+
+    function getPaySearch(){
+        txt_search = $('#txt_search').val();
+        tmp_period = $('input[name="joinDate"]:checked').val();
+        tmp_joinDate = $('input[name="joinDate"]:checked').val();
+        if(tmp_joinDate != "4" && tmp_joinDate != "3") {               // 선택
+            tmp_sDate = sDate;
+            tmp_eDate = eDate;
+        }else if(tmp_joinDate == "3" ){
+            tmp_sDate = sDate;
+        }else if(tmp_joinDate == "4" ){
+            tmp_sDate = $("#onedayDate").val().replace(/-/gi, "");
+        }
+        dtList_info.reload(pay_listSummary);
+    }
+
+
 
 </script>

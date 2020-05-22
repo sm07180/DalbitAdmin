@@ -2,15 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="col-lg-12 no-padding">
     <div>
-        <jsp:include page="../../payment/pay/list.jsp"/>
+        <jsp:include page="../../payment/pay/payList.jsp"/>
     </div>
 </div>
 <script>
     $(document).ready(function() {
+
     });
 
     function getHistory_payDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+        txt_search = memNo;
+        tmp_period = 99;
+        getPayList();
     }
 
 </script>

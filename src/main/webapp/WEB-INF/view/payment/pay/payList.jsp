@@ -50,21 +50,24 @@
 
     var tmp_searchPayStatus = -1;
     var tmp_ostype = -1;
+    var txt_search = "";
+    var tmp_period = "";
+    var tmp_joinDate = "";
 
     $(document).ready(function() {
     });
 
-    init();
-    function init() {
+
+    function getPayList() {
         var dtList_info_data = function(data) {
-            data.searchText = $('#txt_search').val();                        // 검색명
-            data.period = $('input[name="joinDate"]:checked').val();
-            if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
+            data.searchText = txt_search;                        // 검색명
+            data.period = tmp_period;
+            if(tmp_joinDate == "0" || tmp_joinDate == "1" || tmp_joinDate == "2") {               // 선택
                 data.sDate = sDate;
                 data.eDate = eDate;
-            }else if($('input[name="joinDate"]:checked').val() == "3" ){
+            }else if(tmp_joinDate == "3" ){
                 data.sDate = sDate;
-            }else if($('input[name="joinDate"]:checked').val() == "4" ){
+            }else if(tmp_joinDate == "4" ){
                 data.sDate = $("#onedayDate").val().replace(/-/gi, "");
             }
             data.ostype = tmp_ostype;
@@ -81,29 +84,15 @@
     }
 
     function pay_listSummary(json){
-        console.log("--------------------------------------------------");
         console.log(json);
         var template = $("#pay_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
             content : json.summary
             , length : json.recordsTotal
-        }
+        };
         var html = templateScript(data);
         $("#pay_summaryArea").html(html);
-    }
-
-    function getPayListInfo() {                 // 검색
-        tmp_period = $('input[name="joinDate"]:checked').val();
-        if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
-            tmp_sDate = sDate;
-            tmp_eDate = eDate;
-        }else if($('input[name="joinDate"]:checked').val() == "3" ){
-            tmp_sDate = sDate;
-        }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            tmp_sDate = $("#onedayDate").val().replace(/-/gi, "");
-        }
-        dtList_info.reload(pay_listSummary);
     }
 
     /* 취소버튼 클릭 */
@@ -143,11 +132,11 @@
 
     function sel_change_payStateArea(){
         tmp_searchPayStatus = $("select[name='searchPayStatus']").val();
-        getPayListInfo();
+        dtList_info.reload(pay_listSummary);
     }
     function sel_change_payPlatformArea(){
         tmp_ostype = $("select[name='ostype']").val();
-        getPayListInfo();
+        dtList_info.reload(pay_listSummary);
     }
 
     function codeString(data) {

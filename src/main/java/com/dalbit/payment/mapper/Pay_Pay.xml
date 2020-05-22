@@ -74,7 +74,7 @@
         or mem_no like concat('%', #{searchText}, '%')
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
-        <if test="period != 4 and period != 3">
+        <if test="period == 0 or period == 1 or period == 2">
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
@@ -109,7 +109,7 @@
         or mem_no like concat('%', #{searchText}, '%')
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
-        <if test="period != 4 and period != 3">
+        <if test="period == 0 or period == 1 or period == 2">
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
@@ -147,7 +147,7 @@
         or mem_no like concat('%', #{searchText}, '%')
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
-        <if test="period != 4 and period != 3">
+        <if test="period == 0 or period == 1 or period == 2">
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
