@@ -30,5 +30,5 @@ public class P_bannerUpdateVo extends BaseVo {
     private String op_name;             //등록자
     private String lastUpdDate;       //수정일
     private String lastOpName;        //수정자
-    private String platform;			// 플랫폼(0:전체, 1:PC, 2:Mobile)
+    private String platform;			// 플랫폼(111: PC/AOS/IOS)
 }

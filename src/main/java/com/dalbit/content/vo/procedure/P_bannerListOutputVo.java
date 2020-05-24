@@ -33,7 +33,7 @@ public class P_bannerListOutputVo extends BaseVo {
     private Date lastUpdDate;       //수정일
     private String lastUpdDateFormat;
     private String lastOpName;        //수정자
-    private String platform;			// 플랫폼(0:전체, 1:PC, 2:Mobile)
+    private String platform;			// 플랫폼(111: PC/AOS/IOS)
 
     //Summary
     private int pcCnt;                           //pc게시 건수
