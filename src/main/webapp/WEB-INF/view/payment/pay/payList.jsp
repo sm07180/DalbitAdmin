@@ -83,9 +83,6 @@
     /* 취소버튼 클릭 */
     function cancelClick(cancelData){
 
-        alert("준비중입니다!!!");
-        return false;
-
         var result = confirm(cancelData.memnick+"님의 "+ common.addComma(cancelData.prdtprice) +"원에 대한 결제를 취소하시겠습니까?")
         if(result){
             var restUrl='';
