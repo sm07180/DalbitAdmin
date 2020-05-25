@@ -51,146 +51,145 @@
         fnc_castList.init();
     });
 
-    var fnc_castList = {
-        "targetId": "castList",
+    var fnc_castList = {};
+    fnc_castList.targetId= "castList";
 
-        init() {
-            this.target = $("#" + this.targetId);
+    fnc_castList.init= function() {
+        fnc_castList.target = $("#" + fnc_castList.targetId);
 
-            util.getAjaxData("list", "/rest/content/theme/cast", "", fnc_castList.fn_success, fnc_castList.fn_fail);
+        util.getAjaxData("list", "/rest/content/theme/cast", "", fnc_castList.fn_success, fnc_castList.fn_fail);
 
-            this.initEvent();
-        },
+        fnc_castList.initEvent();
+    };
 
-        initEvent() {
-            this.target.on('click', '._down', function () {
-                var targetTr = $(this).closest('tr');
-                var nextTr = targetTr.next();
-                targetTr.insertAfter(nextTr);
-                fnc_castList.resetNo();
-                fnc_castList.btnSet();
-            });
+    fnc_castList.initEvent= function() {
+        fnc_castList.target.on('click', '._down', function () {
+            var targetTr = $(this).closest('tr');
+            var nextTr = targetTr.next();
+            targetTr.insertAfter(nextTr);
+            fnc_castList.resetNo();
+            fnc_castList.btnSet();
+        });
 
-            this.target.on('click', '._up', function () {
-                var targetTr = $(this).closest('tr');
-                var prevTr = targetTr.prev();
-                targetTr.insertBefore(prevTr);
-                fnc_castList.resetNo();
-                fnc_castList.btnSet();
-            });
+        fnc_castList.target.on('click', '._up', function () {
+            var targetTr = $(this).closest('tr');
+            var prevTr = targetTr.prev();
+            targetTr.insertBefore(prevTr);
+            fnc_castList.resetNo();
+            fnc_castList.btnSet();
+        });
 
-            this.target.find('#deleteBtn').on('click', function () {
+        fnc_castList.target.find('#deleteBtn').on('click', function () {
+            var checked = fnc_castList.target.find('#tableBody').find('._check:checked');
+
+            if (0 == checked.length) {
+                alert("삭제할 방송 주제를 선택해주세요.");
+                return;
+            }
+            if (confirm('삭제하시겠습니까?')) {
                 var checked = fnc_castList.target.find('#tableBody').find('._check:checked');
+                checked.closest('tr').remove();
+                fnc_castList.resetNo();
+            }
+        });
 
-                if (0 == checked.length) {
-                    alert("삭제할 방송 주제를 선택해주세요.");
-                    return;
-                }
-                if (confirm('삭제하시겠습니까?')) {
-                    var checked = fnc_castList.target.find('#tableBody').find('._check:checked');
-                    checked.closest('tr').remove();
-                    fnc_castList.resetNo();
-                }
+        fnc_castList.target.find("#updateBtn").on('click', function () {
+            var checked = fnc_castList.target.find('#tableBody').find('._check:checked');
+            if (0 == checked.length) {
+                alert("수정할 방송 주제를 선택해주세요.");
+                return;
+            }
+
+            checked.each(function () {
+                $(this).closest('tr').find('._cdNm').prop('readonly', false);
+                /*if(!isEmpty(input.val())){
+                    $("#tableBody").find('._cdNm').prop('readonly', false);
+                }*/
             });
 
-            this.target.find("#updateBtn").on('click', function () {
-                var checked = fnc_castList.target.find('#tableBody').find('._check:checked');
-                if (0 == checked.length) {
-                    alert("수정할 방송 주제를 선택해주세요.");
-                    return;
-                }
+            fnc_castList.target.find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
+        });
 
-                checked.each(function () {
-                    $(this).closest('tr').find('._cdNm').prop('readonly', false);
-                    /*if(!isEmpty(input.val())){
-                        $("#tableBody").find('._cdNm').prop('readonly', false);
-                    }*/
-                });
-
-                fnc_castList.target.find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
-            });
-
-            this.target.find("#addBtn").on('click', function () {
-                var newData = {
-                    no: fnc_castList.target.find('._noTd').length + 1,
-                    cdNm: '',
-                    isOn: true,
-                    readonly: false
-                }
-
-                var template = fnc_castList.target.find('#tmp_list').html();
-                var templateScript = Handlebars.compile(template);
-                var html = templateScript({data: newData});
-
-                fnc_castList.target.find("#tableBody").append(html);
-
-                fnc_castList.btnSet();
-            });
-        },
-
-        fn_success(dst_id, response)
-        {
-            dalbitLog(response);
+        fnc_castList.target.find("#addBtn").on('click', function () {
+            var newData = {
+                no: fnc_castList.target.find('._noTd').length + 1,
+                cdNm: '',
+                isOn: true,
+                readonly: false
+            }
 
             var template = fnc_castList.target.find('#tmp_list').html();
             var templateScript = Handlebars.compile(template);
-            var html = templateScript(response);
+            var html = templateScript({data: newData});
 
             fnc_castList.target.find("#tableBody").append(html);
 
             fnc_castList.btnSet();
-        },
+        });
+    };
 
-        fn_fail(data, textStatus, jqXHR) {
-            dalbitLog(data, textStatus, jqXHR);
-        },
+    fnc_castList.fn_success= function(dst_id, response)
+    {
+        dalbitLog(response);
 
+        var template = fnc_castList.target.find('#tmp_list').html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript(response);
 
+        fnc_castList.target.find("#tableBody").append(html);
 
-        resetNo() {
-            this.target.find('._noTd').each(function (index) {
-                $(this).html(index + 1);
-            });
+        fnc_castList.btnSet();
+    };
 
-            this.target.find('._noTr').each(function (index) {
-                $(this).attr("id", "row_" + index + 1);
-            });
-        },
-
-        btnSet() {
-            this.target.find('.btn._down').prop('disabled', false);
-            this.target.find('.btn._down:last').prop('disabled', true);
-
-            this.target.find('.btn._up').prop('disabled', false);
-            this.target.find('.btn._up:first').prop('disabled', true);
-        },
+    fnc_castList.fn_fail= function(data, textStatus, jqXHR) {
+        dalbitLog(data, textStatus, jqXHR);
+    };
 
 
-        allowDrop(ev) {
-            ev.preventDefault();
-        },
 
-        drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        },
+    fnc_castList.resetNo= function() {
+        fnc_castList.target.find('._noTd').each(function (index) {
+            $(this).html(index + 1);
+        });
 
-        drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            var idx = data.split("_")[1];
-            var targetIdx = fnc_castList.target.find(ev.target).parent("tr").attr("id").split("_")[1];
+        fnc_castList.target.find('._noTr').each(function (index) {
+            $(this).attr("id", "row_" + index + 1);
+        });
+    };
 
-            if(parseInt(targetIdx) < parseInt(idx)){
-                fnc_castList.target.find(ev.target).parent("tr").before(fnc_castList.target.find("#"+data));
-            }else{
-                fnc_castList.target.find(ev.target).parent("tr").after(fnc_castList.target.find("#"+data));
-            }
+    fnc_castList.btnSet= function() {
+        fnc_castList.target.find('.btn._down').prop('disabled', false);
+        fnc_castList.target.find('.btn._down:last').prop('disabled', true);
 
-            fnc_castList.resetNo();
-            fnc_castList.btnSet();
+        fnc_castList.target.find('.btn._up').prop('disabled', false);
+        fnc_castList.target.find('.btn._up:first').prop('disabled', true);
+    };
+
+
+    fnc_castList.allowDrop= function(ev) {
+        ev.preventDefault();
+    };
+
+    fnc_castList.drag= function(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    };
+
+    fnc_castList.drop= function(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var idx = data.split("_")[1];
+        var targetIdx = fnc_castList.target.find(ev.target).parent("tr").attr("id").split("_")[1];
+
+        if(parseInt(targetIdx) < parseInt(idx)){
+            fnc_castList.target.find(ev.target).parent("tr").before(fnc_castList.target.find("#"+data));
+        }else{
+            fnc_castList.target.find(ev.target).parent("tr").after(fnc_castList.target.find("#"+data));
         }
 
-    }
+        fnc_castList.resetNo();
+        fnc_castList.btnSet();
+    };
+
 </script>
 
 <script id="tmp_list" type="text/x-handlebars-template">

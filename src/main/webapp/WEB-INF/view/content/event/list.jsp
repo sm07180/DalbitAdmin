@@ -135,6 +135,10 @@
     var choiceDataInfo = null;
     function initSelectDataInfo() {
         choiceDataInfo = {};
+        console.log("ttt");
+        console.log(choiceDataInfo);
+        console.log(getSelectDataInfo());
+        console.log("ttt");
     }
 
     function setSelectDataInfo(key, data){

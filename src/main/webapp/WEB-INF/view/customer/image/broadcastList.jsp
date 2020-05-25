@@ -34,57 +34,57 @@
         fnc_broadcastList.init();
     });
 
-var fnc_broadcastList = {
+var fnc_broadcastList = {};
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "broadcastList",
-    "formId" : "broadcastListForm",
-    "pagingInfo" : new PAGING_INFO(0, 1, 54),
+    fnc_broadcastList.targetId= "broadcastList";
+    fnc_broadcastList.formId= "broadcastListForm";
+    fnc_broadcastList.pagingInfo= new PAGING_INFO(0, 1, 54);
 
-    init() {
-        this.target = $("#"+this.targetId);
-        this.targetDataTableId = "list_info_"+this.targetId;
-        this.target.find("#list_info").attr("id", this.targetDataTableId);
-        this.targetDataTable = this.target.find("#"+this.targetDataTableId);
-        this.divDataTable = this.targetDataTable.parent("div");
+    fnc_broadcastList.init= function() {
+        fnc_broadcastList.target = $("#"+fnc_broadcastList.targetId);
+        fnc_broadcastList.targetDataTableId = "list_info_"+fnc_broadcastList.targetId;
+        fnc_broadcastList.target.find("#list_info").attr("id", fnc_broadcastList.targetDataTableId);
+        fnc_broadcastList.targetDataTable = fnc_broadcastList.target.find("#"+fnc_broadcastList.targetDataTableId);
+        fnc_broadcastList.divDataTable = fnc_broadcastList.targetDataTable.parent("div");
 
 
         fnc_broadcastList.initDataTable();
-    },
+    };
 
 
-    initDataTable() {
+    fnc_broadcastList.initDataTable= function() {
         console.log(fnc_broadcastList.pagingInfo)
 
         $("#pageStart").val(fnc_broadcastList.pagingInfo.pageNo);
         $("#pageCnt").val(fnc_broadcastList.pagingInfo.pageCnt);
 
         util.getAjaxData(fnc_broadcastList.targetId, "/rest/customer/image/broadcast/list", $("#searchForm").serialize(), fnc_broadcastList.fn_select_success, fnc_broadcastList.fn_fail);
-    },
+    };
 
 
     // DataTable Button
-    initDataTableButton() {
-    },
+    fnc_broadcastList.initDataTableButton= function() {
+    };
 
 
 
-    initEvent(){
-    },
+    fnc_broadcastList.initEvent= function(){
+    };
 
 
 //=------------------------------ Option --------------------------------------------
 
     // 등록
-    insertEvent() {
+    fnc_broadcastList.insertEvent= function() {
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
         $("#tab_broadcastDetail").click();
-    },
+    };
 
     // 삭제
-    deleteEvent() {
+    fnc_broadcastList.deleteEvent= function() {
         var checkDatas = fnc_broadcastList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -113,10 +113,10 @@ var fnc_broadcastList = {
 
             util.getAjaxData(fnc_broadcastList.targetId, "/rest/content/item/broadcast/delete",data, fnc_broadcastList.fn_delete_success, fnc_broadcastList.fn_fail);
         };
-    },
+    };
 
     // 수정
-    updateData(dom) {
+    fnc_broadcastList.updateData= function(dom) {
         var data = $(dom).data("info");
         console.log(data);
 
@@ -135,9 +135,9 @@ var fnc_broadcastList = {
             console.log(report);
             util.windowOpen(report,"600","450","방송방 배경 초기화");
         }
-    },
+    };
 
-    fn_select_success(dst_id, response, dst_params){
+    fnc_broadcastList.fn_select_success= function(dst_id, response, dst_params){
         console.log(response.data)
         // form 띄우기
         var template = $('#tmp_broadcastSelectFrm').html();
@@ -153,31 +153,31 @@ var fnc_broadcastList = {
         util.renderPagingNavigation("broadcastList_info_paginate", fnc_broadcastList.pagingInfo);
 
         fnc_broadcastList.initEvent();
-    },
+    };
 
 
     // 삭제 성공 시
-    fn_update_success(dst_id, data, dst_params){
+    fnc_broadcastList.fn_update_success= function(dst_id, data, dst_params){
         alert(data.message);
 
         // reload
         fnc_broadcastList.selectMainList();
-    },
+    };
 
 
     // Ajax 실패
-    fn_fail(data, textStatus, jqXHR){
+    fnc_broadcastList.fn_fail= function(data, textStatus, jqXHR){
         alert(data.message);
 
         console.log(data, textStatus, jqXHR);
-    },
+    };
 
 
     // 검색
-    selectMainList(){
+    fnc_broadcastList.selectMainList= function(){
         fnc_broadcastList.initDataTable();
-    },
-}
+    };
+
 </script>
 
 

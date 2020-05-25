@@ -67,182 +67,181 @@
         fnc_broadcastList.btnSet();
     });
 
-    var fnc_broadcastList = {
-        "targetId": "broadcastList",
+    var fnc_broadcastList = {};
+    fnc_broadcastList.targetId= "broadcastList";
 
-        init() {
-            this.target = $("#" + this.targetId);
+    fnc_broadcastList.init= function() {
+        fnc_broadcastList.target = $("#" + fnc_broadcastList.targetId);
 
-            util.getAjaxData("list", "/rest/content/theme/broadcast/list", "", fnc_broadcastList.fn_success, fnc_broadcastList.fn_fail);
+        util.getAjaxData("list", "/rest/content/theme/broadcast/list", "", fnc_broadcastList.fn_success, fnc_broadcastList.fn_fail);
 
-            this.initEvent();
-        },
+        fnc_broadcastList.initEvent();
+    };
 
-        initEvent() {
+    fnc_broadcastList.initEvent= function() {
 
-            this.target.find('#deleteBtn').off('click').on('click', function () {
+        fnc_broadcastList.target.find('#deleteBtn').off('click').on('click', function () {
+            var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
+
+            if (0 == checked.length) {
+                alert("삭제할 방송 주제를 선택해주세요.");
+                return;
+            }
+            if (confirm('삭제하시겠습니까?')) {
                 var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
+                checked.closest('tr').remove();
+                fnc_broadcastList.resetNo();
+            }
+        });
 
-                if (0 == checked.length) {
-                    alert("삭제할 방송 주제를 선택해주세요.");
-                    return;
-                }
-                if (confirm('삭제하시겠습니까?')) {
-                    var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
-                    checked.closest('tr').remove();
-                    fnc_broadcastList.resetNo();
-                }
-            });
-
-            this.target.find("#updateBtn").off('click').on('click', function () {
-                var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
-                if (0 == checked.length) {
-                    alert("수정할 방송 주제를 선택해주세요.");
-                    return;
-                }
-
-                checked.each(function () {
-                    $(this).closest('tr').find('._cdNm').prop('readonly', false);
-                    /*if(!isEmpty(input.val())){
-                        $("#tableBody").find('._cdNm').prop('readonly', false);
-                    }*/
-                });
-
-                fnc_broadcastList.target.find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
-            });
-
-            this.target.find("#addBtn").off('click').on('click', function () {
-                var newData = {
-                    sortNo: fnc_broadcastList.target.find('._noTd').length + 1,
-                    cd: fnc_broadcastList.createCodeValue(),
-                    cdNm: '',
-                    isUse: 0,
-                    isOn: true,
-                    readonly: false
-                }
-
-                var template = fnc_broadcastList.target.find('#tmp_list').html();
-                var templateScript = Handlebars.compile(template);
-                var html = templateScript({data: newData});
-
-                fnc_broadcastList.target.find("#tableBody").append(html);
-
-                fnc_broadcastList.btnSet();
-            });
-
-            this.target.find("#submitBtn").off('click').on('click', function () {
-
-                var editData = {
-                    codeType: "subject_type",
-                    codeVoArr: JSON.stringify(fnc_broadcastList.getArrCodeData())
-                }
-
-                util.getAjaxData("list", "/rest/content/theme/broadcast/submit", editData, fnc_broadcastList.fn_submit_success);
-
-            });
-
-        },
-
-
-        fn_success(dst_id, response)
-        {
-            var template = fnc_broadcastList.target.find('#tmp_list').html();
-            var templateScript = Handlebars.compile(template);
-            var html = templateScript(response);
-
-            fnc_broadcastList.target.find("#tableBody").html(html);
-
-            fnc_broadcastList.btnSet();
-        },
-
-        fn_submit_success(dst_id, response)
-        {
-            alert(response.message);
-
-            fnc_broadcastList.init();
-        },
-
-        resetNo() {
-            this.target.find('._noTd').each(function (index) {
-                var html = '<input type="hidden" name="sortNo" value="'+(index+1)+'">';
-                html += (index+1);
-                $(this).html(html);
-            });
-
-            this.target.find('._noTr').each(function (index) {
-                $(this).attr("id", "row_" + (index + 1));
-            });
-        },
-
-        btnSet() {
-            this.target.find('.btn._down').prop('disabled', false);
-            this.target.find('.btn._down:last').prop('disabled', true);
-
-            this.target.find('.btn._up').prop('disabled', false);
-            this.target.find('.btn._up:first').prop('disabled', true);
-        },
-
-
-        allowDrop(ev) {
-            ev.preventDefault();
-        },
-
-        drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        },
-
-        drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            var idx = data.split("_")[1];
-            var targetIdx = fnc_broadcastList.target.find(ev.target).parent("tr").attr("id").split("_")[1];
-
-            if(parseInt(targetIdx) < parseInt(idx)){
-                fnc_broadcastList.target.find(ev.target).parent("tr").before(fnc_broadcastList.target.find("#"+data));
-            }else{
-                fnc_broadcastList.target.find(ev.target).parent("tr").after(fnc_broadcastList.target.find("#"+data));
+        fnc_broadcastList.target.find("#updateBtn").off('click').on('click', function () {
+            var checked = fnc_broadcastList.target.find('#tableBody').find('._check:checked');
+            if (0 == checked.length) {
+                alert("수정할 방송 주제를 선택해주세요.");
+                return;
             }
 
+            checked.each(function () {
+                $(this).closest('tr').find('._cdNm').prop('readonly', false);
+                /*if(!isEmpty(input.val())){
+                    $("#tableBody").find('._cdNm').prop('readonly', false);
+                }*/
+            });
 
-            fnc_broadcastList.resetNo();
+            fnc_broadcastList.target.find('#tableBody').find('._check:checked:eq(0)').closest('tr').find('._cdNm').focus();
+        });
+
+        fnc_broadcastList.target.find("#addBtn").off('click').on('click', function () {
+            var newData = {
+                sortNo: fnc_broadcastList.target.find('._noTd').length + 1,
+                cd: fnc_broadcastList.createCodeValue(),
+                cdNm: '',
+                isUse: 0,
+                isOn: true,
+                readonly: false
+            }
+
+            var template = fnc_broadcastList.target.find('#tmp_list').html();
+            var templateScript = Handlebars.compile(template);
+            var html = templateScript({data: newData});
+
+            fnc_broadcastList.target.find("#tableBody").append(html);
+
             fnc_broadcastList.btnSet();
-        },
+        });
 
-        // 수정데이터 셋팅
-        getArrCodeData(){
-            var arrCode = [];
+        fnc_broadcastList.target.find("#submitBtn").off('click').on('click', function () {
 
-            fnc_broadcastList.target.find("#tableBody").find("tr").each(function(){
-                var code = {
-                    cd : $(this).find('[name="cd"]').val(),
-                    cdNm: $(this).find('[name="cdNm"]').val(),
-                    sortNo: $(this).find('[name="sortNo"]').val(),
-                    isUse: $(this).find('[name="isUse"]').is(":checked")? "1" : "0"
-                }
+            var editData = {
+                codeType: "subject_type",
+                codeVoArr: JSON.stringify(fnc_broadcastList.getArrCodeData())
+            }
 
-                if(!common.isEmpty(code.cdNm)){
-                    arrCode.push(code);
-                }
-            });
+            util.getAjaxData("list", "/rest/content/theme/broadcast/submit", editData, fnc_broadcastList.fn_submit_success);
 
-            console.log(arrCode);
-            return arrCode;
-        },
+        });
 
-        createCodeValue(){
-            var newCodeValue = 0;
+    };
 
-            //TODO 나중에 수정 필요 가능성 큼. (코드가 숫자, 99까지밖에 안됨.)
-            fnc_broadcastList.target.find("[name=cd]").each(function(){
-                var codeValue = $(this).val();
-                if(codeValue != "99" && codeValue > newCodeValue){
-                    newCodeValue = codeValue;
-                }
-            });
 
-            return parseInt(newCodeValue) + 1;
+    fnc_broadcastList.fn_success= function(dst_id, response)
+    {
+        var template = fnc_broadcastList.target.find('#tmp_list').html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript(response);
+
+        fnc_broadcastList.target.find("#tableBody").html(html);
+
+        fnc_broadcastList.btnSet();
+    };
+
+    fnc_broadcastList.fn_submit_success= function(dst_id, response)
+    {
+        alert(response.message);
+
+        fnc_broadcastList.init();
+    };
+
+    fnc_broadcastList.resetNo= function() {
+        fnc_broadcastList.target.find('._noTd').each(function (index) {
+            var html = '<input type="hidden" name="sortNo" value="'+(index+1)+'">';
+            html += (index+1);
+            $(this).html(html);
+        });
+
+        fnc_broadcastList.target.find('._noTr').each(function (index) {
+            $(this).attr("id", "row_" + (index + 1));
+        });
+    };
+
+    fnc_broadcastList.btnSet= function() {
+        fnc_broadcastList.target.find('.btn._down').prop('disabled', false);
+        fnc_broadcastList.target.find('.btn._down:last').prop('disabled', true);
+
+        fnc_broadcastList.target.find('.btn._up').prop('disabled', false);
+        fnc_broadcastList.target.find('.btn._up:first').prop('disabled', true);
+    };
+
+
+    fnc_broadcastList.allowDrop= function(ev) {
+        ev.preventDefault();
+    };
+
+    fnc_broadcastList.drag= function(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    };
+
+    fnc_broadcastList.drop= function(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var idx = data.split("_")[1];
+        var targetIdx = fnc_broadcastList.target.find(ev.target).parent("tr").attr("id").split("_")[1];
+
+        if(parseInt(targetIdx) < parseInt(idx)){
+            fnc_broadcastList.target.find(ev.target).parent("tr").before(fnc_broadcastList.target.find("#"+data));
+        }else{
+            fnc_broadcastList.target.find(ev.target).parent("tr").after(fnc_broadcastList.target.find("#"+data));
         }
-    }
+
+
+        fnc_broadcastList.resetNo();
+        fnc_broadcastList.btnSet();
+    };
+
+    // 수정데이터 셋팅
+    fnc_broadcastList.getArrCodeData= function(){
+        var arrCode = [];
+
+        fnc_broadcastList.target.find("#tableBody").find("tr").each(function(){
+            var code = {
+                cd : $(this).find('[name="cd"]').val(),
+                cdNm: $(this).find('[name="cdNm"]').val(),
+                sortNo: $(this).find('[name="sortNo"]').val(),
+                isUse: $(this).find('[name="isUse"]').is(":checked")? "1" : "0"
+            }
+
+            if(!common.isEmpty(code.cdNm)){
+                arrCode.push(code);
+            }
+        });
+
+        console.log(arrCode);
+        return arrCode;
+    };
+
+    fnc_broadcastList.createCodeValue= function(){
+        var newCodeValue = 0;
+
+        //TODO 나중에 수정 필요 가능성 큼. (코드가 숫자, 99까지밖에 안됨.)
+        fnc_broadcastList.target.find("[name=cd]").each(function(){
+            var codeValue = $(this).val();
+            if(codeValue != "99" && codeValue > newCodeValue){
+                newCodeValue = codeValue;
+            }
+        });
+
+        return parseInt(newCodeValue) + 1;
+    };
 </script>
 
 <script id="tmp_list" type="text/x-handlebars-template">

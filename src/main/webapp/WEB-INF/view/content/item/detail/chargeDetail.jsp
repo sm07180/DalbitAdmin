@@ -13,305 +13,304 @@
     $(document).ready(function () {
         fnc_chargeDetail.init();
     });
-    var fnc_chargeDetail = {
+    var fnc_chargeDetail = {};
 //=------------------------------ Init / Event / UI--------------------------------------------
-        "targetId": "chargeDetail",
-        "formId" : "chargeDetailForm",
+    fnc_chargeDetail.targetId= "chargeDetail";
+    fnc_chargeDetail.formId= "chargeDetailForm";
 
-        init() {
-            this.target = $("#"+this.targetId);
-            this.target.find("#targetForm").attr("id", this.targetId + "Form");
-            this.formId = this.targetId + "Form";
+    fnc_chargeDetail.init= function() {
+        fnc_chargeDetail.target = $("#"+fnc_chargeDetail.targetId);
+        fnc_chargeDetail.target.find("#targetForm").attr("id", fnc_chargeDetail.targetId + "Form");
+        fnc_chargeDetail.formId = fnc_chargeDetail.targetId + "Form";
 
-            if(common.isEmpty(getSelectDataInfo())){
-                fnc_chargeDetail.insertDetail();
+        if(common.isEmpty(getSelectDataInfo())){
+            fnc_chargeDetail.insertDetail();
+        }else{
+            console.log(getSelectDataInfo());
+
+            var data = new Object();
+            data.item_code = getSelectDataInfo().data.item_code;
+
+            util.getAjaxData(fnc_chargeDetail.targetId, "/rest/content/item/charge/detail",data, fnc_chargeDetail.fn_detail_success, fnc_chargeDetail.fn_fail);
+        }
+
+        // this.initDetail();
+        // this.initDetailEvent();
+    };
+
+
+    // 초기 설정
+    fnc_chargeDetail.initDetail= function() {
+
+    };
+
+    // 이벤트 적용
+    fnc_chargeDetail.initDetailEvent= function(){
+
+        //플랫폼 IOS일 경우 코드 수기 입력
+        fnc_chargeDetail.target.find("input[name='platform']:radio").change(function () {
+            var type = this.value;
+
+            if(type == "001"){
+                fnc_chargeDetail.target.find("input[name=item_code]").show();
             }else{
-                console.log(getSelectDataInfo());
+                fnc_chargeDetail.target.find("input[name=item_code]").hide();
+                fnc_chargeDetail.target.find("input[name=item_code]").val("");
+            }
+        });
 
-                var data = new Object();
-                data.item_code = getSelectDataInfo().data.item_code;
 
-                util.getAjaxData(fnc_chargeDetail.targetId, "/rest/content/item/charge/detail",data, fnc_chargeDetail.fn_detail_success, fnc_chargeDetail.fn_fail);
+        // 등록 버튼
+        fnc_chargeDetail.target.find("#insertBtn").on("click", function () {
+            if(!confirm("등록 하시겠습니까?")){
+                return false;
             }
 
-            // this.initDetail();
-            // this.initDetailEvent();
-        },
+            var data = fnc_chargeDetail.getDetailData();
+
+            if(!fnc_chargeDetail.isValid(data)){
+                return false;
+            }
+
+            util.getAjaxData("insert", "/rest/content/item/charge/insert", data, fnc_chargeDetail.fn_insert_success, fnc_chargeDetail.fn_fail);
+        })
 
 
-        // 초기 설정
-        initDetail() {
+        // 수정 버튼
+        fnc_chargeDetail.target.find("#updateBtn").on("click", function () {
+            if(!confirm("수정 하시겠습니까?")){
+                return false;
+            }
 
-        },
+            var data = fnc_chargeDetail.getDetailData();
 
-        // 이벤트 적용
-        initDetailEvent(){
+            if(!fnc_chargeDetail.isValid(data)){
+                return false;
+            }
 
-            //플랫폼 IOS일 경우 코드 수기 입력
-            this.target.find("input[name='platform']:radio").change(function () {
-                var type = this.value;
+            util.getAjaxData("upldate", "/rest/content/item/charge/update", data, fnc_chargeDetail.fn_update_success, fnc_chargeDetail.fn_fail);
+        })
+    };
 
-                if(type == "001"){
-                    fnc_chargeDetail.target.find("input[name=item_code]").show();
-                }else{
+
+    //수정 데이터 조회 후 UI 처리
+    fnc_chargeDetail.initUpdateUI= function(){
+        var detailData = getSelectDataInfo().detailData;
+
+        console.log(detailData);
+
+        //platform
+        var platformCode = detailData.platform.split("");
+        for(var i = 0; i < platformCode.length; i++){
+            if(platformCode[i] == "1"){
+                if(i == 0 || i == 1)    // 110
+                {
+                    fnc_chargeDetail.target.find("#platform1").attr("checked", true);
                     fnc_chargeDetail.target.find("input[name=item_code]").hide();
-                    fnc_chargeDetail.target.find("input[name=item_code]").val("");
-                }
-            });
-
-
-            // 등록 버튼
-            this.target.find("#insertBtn").on("click", function () {
-                if(!confirm("등록 하시겠습니까?")){
-                    return false;
                 }
 
-                var data = fnc_chargeDetail.getDetailData();
-
-                if(!fnc_chargeDetail.isValid(data)){
-                    return false;
-                }
-
-                util.getAjaxData("insert", "/rest/content/item/charge/insert", data, fnc_chargeDetail.fn_insert_success, fnc_chargeDetail.fn_fail);
-            })
-
-
-            // 수정 버튼
-            this.target.find("#updateBtn").on("click", function () {
-                if(!confirm("수정 하시겠습니까?")){
-                    return false;
-                }
-
-                var data = fnc_chargeDetail.getDetailData();
-
-                if(!fnc_chargeDetail.isValid(data)){
-                    return false;
-                }
-
-                util.getAjaxData("upldate", "/rest/content/item/charge/update", data, fnc_chargeDetail.fn_update_success, fnc_chargeDetail.fn_fail);
-            })
-        },
-
-
-        //수정 데이터 조회 후 UI 처리
-        initUpdateUI(){
-            var detailData = getSelectDataInfo().detailData;
-
-            console.log(detailData);
-
-            //platform
-            var platformCode = detailData.platform.split("");
-            for(var i = 0; i < platformCode.length; i++){
-                if(platformCode[i] == "1"){
-                    if(i == 0 || i == 1)    // 110
-                    {
-                        fnc_chargeDetail.target.find("#platform1").attr("checked", true);
-                        fnc_chargeDetail.target.find("input[name=item_code]").hide();
-                    }
-
-                    if(i == 2){             //001
-                        fnc_chargeDetail.target.find("#platform2").attr("checked", true);
-                        fnc_chargeDetail.target.find("input[name=item_code]").show();
-                    }
+                if(i == 2){             //001
+                    fnc_chargeDetail.target.find("#platform2").attr("checked", true);
+                    fnc_chargeDetail.target.find("input[name=item_code]").show();
                 }
             }
+        }
 
 
-            //item_type
-            var item_typeCode = detailData.item_type.split("");
-            for(var i = 0; i < item_typeCode.length; i++){
-                if(item_typeCode[i] == "1"){
-                    fnc_chargeDetail.target.find("#item_type"+(i+1)).attr("checked", true);
-                }
+        //item_type
+        var item_typeCode = detailData.item_type.split("");
+        for(var i = 0; i < item_typeCode.length; i++){
+            if(item_typeCode[i] == "1"){
+                fnc_chargeDetail.target.find("#item_type"+(i+1)).attr("checked", true);
             }
-        },
+        }
+    };
 
 
-        // 등록 화면
-        insertDetail() {
-            var template = $('#tmp_chargeDetailFrm').html();
-            var templateScript = Handlebars.compile(template);
-            this.target.find("#"+this.formId).html(templateScript);
+    // 등록 화면
+    fnc_chargeDetail.insertDetail= function() {
+        var template = $('#tmp_chargeDetailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        fnc_chargeDetail.target.find("#"+this.formId).html(templateScript);
 
-            this.initDetail();
-            this.initDetailEvent();
-        },
-
-
-        // 수정 화면
-        updateDetail(){
-            var detailData = getSelectDataInfo().detailData;
-            detailData.rowNum = getSelectDataInfo().data.rowNum;
-            dalbitLog(detailData);
+        fnc_chargeDetail.initDetail();
+        fnc_chargeDetail.initDetailEvent();
+    };
 
 
-            // form 띄우기
-            var template = $('#tmp_chargeDetailFrm').html();
-            var templateScript = Handlebars.compile(template);
-            var context = detailData;
-            var html = templateScript(context);
-            fnc_chargeDetail.target.find("#"+ fnc_chargeDetail.formId).html(html);
+    // 수정 화면
+    fnc_chargeDetail.updateDetail= function(){
+        var detailData = getSelectDataInfo().detailData;
+        detailData.rowNum = getSelectDataInfo().data.rowNum;
+        dalbitLog(detailData);
 
-            fnc_chargeDetail.initDetail();
-            fnc_chargeDetail.initDetailEvent();
-            fnc_chargeDetail.initUpdateUI();
-        },
+
+        // form 띄우기
+        var template = $('#tmp_chargeDetailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = detailData;
+        var html = templateScript(context);
+        fnc_chargeDetail.target.find("#"+ fnc_chargeDetail.formId).html(html);
+
+        fnc_chargeDetail.initDetail();
+        fnc_chargeDetail.initDetailEvent();
+        fnc_chargeDetail.initUpdateUI();
+    };
 
 //=------------------------------ Option --------------------------------------------
 
-        // 상세 목록 조회 성공 시
-        fn_detail_success(dst_id, data, dst_params){
-            if(data.result == "fail"){
-                alert(data.message);
-                return false;
-            }
-
-            setSelectDataInfo("detailData", data.data);
-
-            fnc_chargeDetail.updateDetail();
-
-            var scrollPosition = $("#tab_chargeDetail").offset();
-            util.scrollPostion(scrollPosition.top);
-        },
-
-
-        // 등록 성공 시
-        fn_insert_success(dst_id, data, dst_params){
-            if(data.result == "fail"){
-                alert(data.message);
-                return false;
-            }
-
+    // 상세 목록 조회 성공 시
+    fnc_chargeDetail.fn_detail_success= function(dst_id, data, dst_params){
+        if(data.result == "fail"){
             alert(data.message);
+            return false;
+        }
 
-            fnc_chargeList.selectMainList(false);
+        setSelectDataInfo("detailData", data.data);
 
-            //하위 탭 초기화
-            initContentTab();
-            //상단 이동
-            $('html').animate({scrollTop : 0}, 100);
-            $("#"+fnc_chargeDetail.formId).empty();
-        },
+        fnc_chargeDetail.updateDetail();
+
+        var scrollPosition = $("#tab_chargeDetail").offset();
+        util.scrollPostion(scrollPosition.top);
+    };
 
 
-        // 수정 성공 시
-        fn_update_success(dst_id, data, dst_params){
-            if(data.result == "fail"){
-                alert(data.message);
-                return false;
-            }
-
+    // 등록 성공 시
+    fnc_chargeDetail.fn_insert_success= function(dst_id, data, dst_params){
+        if(data.result == "fail"){
             alert(data.message);
+            return false;
+        }
 
-            fnc_chargeList.selectMainList(false);
+        alert(data.message);
 
-            //하위 탭 초기화
-            initContentTab();
-            //상단 이동
-            $('html').animate({scrollTop : 0}, 100);
-            $("#"+fnc_chargeDetail.formId).empty();
-        },
+        fnc_chargeList.selectMainList(false);
+
+        //하위 탭 초기화
+        initContentTab();
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#"+fnc_chargeDetail.formId).empty();
+    };
 
 
-        // Ajax 실패
-        fn_fail(data, textStatus, jqXHR){
+    // 수정 성공 시
+    fnc_chargeDetail.fn_update_success= function(dst_id, data, dst_params){
+        if(data.result == "fail"){
             alert(data.message);
+            return false;
+        }
 
-            console.log(data, textStatus, jqXHR);
-        },
+        alert(data.message);
+
+        fnc_chargeList.selectMainList(false);
+
+        //하위 탭 초기화
+        initContentTab();
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#"+fnc_chargeDetail.formId).empty();
+    };
+
+
+    // Ajax 실패
+    fnc_chargeDetail.fn_fail= function(data, textStatus, jqXHR){
+        alert(data.message);
+
+        console.log(data, textStatus, jqXHR);
+    };
 
 //=------------------------------ Data Handler ----------------------------------
 
-        // 데이터 가져오기
-        getDetailData(){
-            var resultJson ={};
+    // 데이터 가져오기
+    fnc_chargeDetail.getDetailData= function(){
+        var resultJson ={};
 
-            var formArray = this.target.find("#" + this.formId).serializeArray();
-            for (var i = 0; i < formArray.length; i++){
-                resultJson[formArray[i]['name']] = formArray[i]['value'];
+        var formArray = fnc_chargeDetail.target.find("#" + this.formId).serializeArray();
+        for (var i = 0; i < formArray.length; i++){
+            resultJson[formArray[i]['name']] = formArray[i]['value'];
+        }
+
+        //item_type
+        var item_typeCnt = fnc_chargeDetail.target.find("input[name=item_type]").length;
+        var item_type = "";
+        for(var i = 0; i < item_typeCnt; i++){
+            if(fnc_chargeDetail.target.find("#item_type"+(i+1)).is(":checked")){
+                item_type += "1";
+            }else{
+                item_type += "0";
             }
+        }
+        resultJson['item_type'] = item_type;
 
-            //item_type
-            var item_typeCnt = fnc_chargeDetail.target.find("input[name=item_type]").length;
-            var item_type = "";
-            for(var i = 0; i < item_typeCnt; i++){
-                if(fnc_chargeDetail.target.find("#item_type"+(i+1)).is(":checked")){
-                    item_type += "1";
-                }else{
-                    item_type += "0";
-                }
-            }
-            resultJson['item_type'] = item_type;
-
-            //discount_rate
-            var discount_rate = fnc_chargeDetail.target.find("input[name=discount_rate]:checked");
-            if(discount_rate.val() == "-1"){
-                resultJson['discount_rate'] = fnc_chargeDetail.target.find("#inputDiscountEtc").val();
-            }
+        //discount_rate
+        var discount_rate = fnc_chargeDetail.target.find("input[name=discount_rate]:checked");
+        if(discount_rate.val() == "-1"){
+            resultJson['discount_rate'] = fnc_chargeDetail.target.find("#inputDiscountEtc").val();
+        }
 
 
-            //item_price_ios TODO 알아봐야함...
-            resultJson['item_price_ios'] = 0;
+        //item_price_ios TODO 알아봐야함...
+        resultJson['item_price_ios'] = 0;
 
-            dalbitLog(resultJson);
-            return resultJson;
-        },
+        dalbitLog(resultJson);
+        return resultJson;
+    };
 
 
-        isValid(data){
+    fnc_chargeDetail.isValid= function(data){
 
-            if(common.isEmpty(data.platform) || data.platform == "000"){
-                alert("플랫폼을 선택하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=platform]").focus();
-                return false;
-            }
+        if(common.isEmpty(data.platform) || data.platform == "000"){
+            alert("플랫폼을 선택하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=platform]").focus();
+            return false;
+        }
 
-            if(data.platform == "001" && common.isEmpty(data.item_code)){
-                alert("아이템 코드를 입력하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=item_code]").focus();
-                return false;
-            }
+        if(data.platform == "001" && common.isEmpty(data.item_code)){
+            alert("아이템 코드를 입력하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=item_code]").focus();
+            return false;
+        }
 
-            if(common.isEmpty(data.item_name)){
-                alert("아이템 명을 입력하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=item_name]").focus();
-                return false;
-            }
+        if(common.isEmpty(data.item_name)){
+            alert("아이템 명을 입력하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=item_name]").focus();
+            return false;
+        }
 
-            if(common.isEmpty(data.dal)){
-                alert("지급 수량(달)을 입력하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=dal]").focus();
-                return false;
-            }
+        if(common.isEmpty(data.dal)){
+            alert("지급 수량(달)을 입력하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=dal]").focus();
+            return false;
+        }
 
-            if(common.isEmpty(data.item_price)){
-                alert("아이템 가격을 입력하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=item_price]").focus();
-                return false;
-            }
+        if(common.isEmpty(data.item_price)){
+            alert("아이템 가격을 입력하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=item_price]").focus();
+            return false;
+        }
 
-            if(common.isEmpty(data.discount_rate) || (data.discount_rate < 0 || data.discount_rate > 100)){
-                alert("아이템 할인율을 확인하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=discount_rate]").focus();
-                return false;
-            }
+        if(common.isEmpty(data.discount_rate) || (data.discount_rate < 0 || data.discount_rate > 100)){
+            alert("아이템 할인율을 확인하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=discount_rate]").focus();
+            return false;
+        }
 
-            if(common.isEmpty(data.view_yn)){
-                alert("게시 여부를 확인하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=view_yn]").focus();
-                return false;
-            }
+        if(common.isEmpty(data.view_yn)){
+            alert("게시 여부를 확인하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=view_yn]").focus();
+            return false;
+        }
 
-            if(common.isEmpty(data.main_yn)){
-                alert("메인 노출 여부를 확인하여 주시기 바랍니다.");
-                fnc_chargeDetail.target.find("input[name=main_yn]").focus();
-                return false;
-            }
+        if(common.isEmpty(data.main_yn)){
+            alert("메인 노출 여부를 확인하여 주시기 바랍니다.");
+            fnc_chargeDetail.target.find("input[name=main_yn]").focus();
+            return false;
+        }
 
-            return true;
-        },
+        return true;
+    };
 
-    }
 //=------------------------------ Modal ----------------------------------
 
 </script>

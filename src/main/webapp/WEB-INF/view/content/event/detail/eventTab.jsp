@@ -21,5 +21,8 @@
         var targetFnc = eval("fnc_"+targetName);
 
         targetFnc.init();
+
+        var scrollPosition = $("#tab_"+targetFnc.targetId).offset();
+        util.scrollPostion(scrollPosition.top);
     }
 </script>
