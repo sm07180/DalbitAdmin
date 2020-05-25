@@ -74,7 +74,7 @@ public class Mem_MemberService {
      * 회원 엑셀
      */
     public Model getListExcel(P_MemberListInputVo pMemberListInputVo, Model model) {
-        pMemberListInputVo.setPageCnt(100000);
+        pMemberListInputVo.setPageCnt(60000);
         ProcedureVo procedureVo = new ProcedureVo(pMemberListInputVo);
 
         List<P_MemberListOutputVo> list = mem_MemberDao.callMemberList(procedureVo);
