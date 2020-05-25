@@ -217,6 +217,10 @@
     }
 
     function fullSize_image(url) {     // 이미지 full size
+        if(common.isEmpty(url)){
+            return;
+        }
+
         console.log(url);
         $("#imageFullSize").html(util.imageFullSize("fullSize_image",url));
         $('#fullSize_image').modal('show');

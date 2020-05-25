@@ -71,6 +71,10 @@ ui.imageLayerView = function(){
     var yOffset = 30;
 
     $(document).on("mouseover",".thumbnail",function(e){ //마우스 오버
+        if(common.isEmpty($(this).attr("src"))){
+            return;
+        }
+
         $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
         $("#preview")
             .css("top",(e.pageY - xOffset) + "px")
