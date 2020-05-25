@@ -3,6 +3,7 @@
 <mapper namespace="com.dalbit.menu.dao.Men_SpecialDao" >
 
     <select id="summary" parameterType="com.dalbit.menu.vo.SpecialSummaryVo" resultType="com.dalbit.menu.vo.SpecialSummaryVo">
+    /* Men_Special.xml - summary */
         select
         (select count(*) from rd_admin.tb_req_special_dj redj) as requestDal
         , (select count(*) from rd_admin.tb_special_dj dj) as approveDal
@@ -58,9 +59,10 @@
 
     <select id="getReqSpecialList" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="com.dalbit.menu.vo.SpecialReqVo">
         /* Men_Special.xml - getReqSpecialList */
-        select *
+        select
+          *
         from (
-        <include refid="reqSpecial"/>
+            <include refid="reqSpecial"/>
         ) a
         limit #{pageStart}, #{pageCnt}
     </select>
@@ -220,8 +222,6 @@
           rd_admin.tb_special_dj dj
           left join rd_admin.tb_req_special_dj redj on #{req_idx} = redj.idx and dj.req_idx = redj.idx and dj.mem_no = #{mem_no}
         where dj.mem_no = #{mem_no}
-
-
     </select>
 
     <delete id="reqCancel" parameterType="com.dalbit.menu.vo.SpecialVo">
