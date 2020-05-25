@@ -51,6 +51,7 @@
                     <thead id="tableTop"></thead>
                     <tbody id="tableBody"></tbody>
                 </table>
+                <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
             </div>
         </div>
     </div>
@@ -191,8 +192,6 @@
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
         dtList_info.createDataTable(summary_table);
-        var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-        $("#liveList").find(".footer-right").append(excelBtn);
 
         getSearch();
     }
