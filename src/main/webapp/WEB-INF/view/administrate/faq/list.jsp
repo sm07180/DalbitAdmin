@@ -191,6 +191,19 @@
             }
         }
     });
+    $(document).on('click', '#deleteBtn', function(){
+        $('.note-editable').empty();
+    });
+
+    function mobileBtnClick(tmp){
+        if($("#mobileBtn").text() == "모바일형태"){
+            $("#mobileBtn").text("PC형태");
+            $('#div_editor').css({ width: 360});
+        }else{
+            $("#mobileBtn").text("모바일형태");
+            $('#div_editor').css({ width: ''});
+        }
+    }
 
     function fn_insert_success(dst_id, response) {
         dalbitLog(response);
@@ -214,7 +227,7 @@
             });
             var data = {
                 faqIdxs : faqIdxs
-            }
+            };
             dalbitLog(data);
 
             util.getAjaxData("delete", "/rest/administrate/faq/delete", data, fn_delete_success);
@@ -272,6 +285,7 @@
         console.log("fn_fail_excel");
     }
     /*----------- 엑셀 ---------=*/
+
 </script>
 
 <script id="tmp_faqFrm" type="text/x-handlebars-template">
@@ -279,9 +293,11 @@
     <div class="row col-lg-12 form-inline mt15">
         <div class="col-md-12 no-padding">
             <label id="faq_detatil_title">ㆍ선택한 FAQ 정보를 확인/수정/삭제를 할 수 있습니다.</label>
-            <span>
-                {{^faqIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
-                {{#faqIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
+            <span class="pull-right">
+                <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
+                <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
+                {{^faqIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/faqIdx}}
+                {{#faqIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/faqIdx}}
             </span>
         </div>
     </div>
@@ -329,11 +345,11 @@
         </table>
     </div>
     <div class="row col-lg-12 form-inline">
-        <div class="widget">
+        <div class="widget" id="div_editor">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 답변 </h3>
             </div>
-            <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
+            <div class="_editor" id="editor" name="editor" onkeypress="contentsCheck();">{{{replaceHtml answer}}}</div>
         </div>
     </div>
 </script>
