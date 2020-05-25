@@ -1,5 +1,7 @@
 package com.dalbit.payment.module.mcCancel_v0001;
 
+import com.dalbit.util.DalbitUtil;
+
 import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,11 +21,13 @@ public class FileMaker {
     private int recvTimeOut;
     private String configDirPath;
 
+    private final String PROPERTY_NAME = "mobilians/"+DalbitUtil.getActiveProfile()+"/MCash_Cancel.properties"; //local, dev
+
     public FileMaker() {
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
-        this.propertiesName = "/mobilians/MCash_Cancel.properties";
+        this.propertiesName = PROPERTY_NAME;
         this.fileDir = "";
         this.fileName = "";
         if (this.propertiesLoad().equals("0000")) {
@@ -35,7 +39,7 @@ public class FileMaker {
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
-        this.propertiesName = "/mobilians/MCash_Cancel.properties";
+        this.propertiesName = PROPERTY_NAME;
         this.fileDir = "";
         this.fileName = "";
         this.configDirPath = configDirPath;
@@ -48,7 +52,7 @@ public class FileMaker {
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
-        this.propertiesName = "/mobilians/MCash_Cancel.properties";
+        this.propertiesName = PROPERTY_NAME;
         this.fileDir = "";
         this.fileName = "";
         this.fileDir = logFile;
@@ -96,7 +100,7 @@ public class FileMaker {
                         break Label_0122;
                     }
                     catch (Exception e) {
-                        System.err.println("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH");
+                        System.err.println("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH - 1");
                         this.writeln("Can't read the properties file.");
                         return "9999";
                     }
@@ -116,7 +120,7 @@ public class FileMaker {
             return "0000";
         }
         catch (Exception e) {
-            System.err.println("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH");
+            System.err.println("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH - 2");
             this.writeln("Can't read the properties file.");
             return "9999";
         }

@@ -1,5 +1,7 @@
 package com.dalbit.payment.module.cnnew_v0003;
 
+import com.dalbit.util.DalbitUtil;
+
 import java.io.*;
 import java.util.Date;
 import java.util.Properties;
@@ -26,9 +28,10 @@ public class FileMaker {
     private String CipherKey;
     private String UserEncode;
     private boolean isManualConfig;
+    private final String PROPERTY_NAME = "mobilians/"+ DalbitUtil.getActiveProfile()+"/Mcash.properties"; //local, dev
 
     public FileMaker(final String ver, final String serverIp, final String switchIp, final int serverPort, final int recvTimeOut, final String logDir, final String KeySeq, final String Key, final String UserEncode, final String logLevel) {
-        this.propertiesName = "/mobilians/Mcash.properties";
+        this.propertiesName = PROPERTY_NAME;
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
@@ -117,7 +120,7 @@ public class FileMaker {
     }
 
     public FileMaker() {
-        this.propertiesName = "/mobilians/Mcash.properties";
+        this.propertiesName = PROPERTY_NAME;
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";
@@ -142,7 +145,7 @@ public class FileMaker {
     }
 
     public FileMaker(final String configDirPath, final String logDir) {
-        this.propertiesName = "/mobilians/Mcash.properties";
+        this.propertiesName = PROPERTY_NAME;
         this.logLevel = "";
         this.serverIp = "";
         this.switchIp = "";

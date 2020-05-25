@@ -75,6 +75,12 @@ public class Pay_CancelService {
                 cancelVo.setOp_name(MemberVo.getMyMemNo());
                 cancelVo.setCancel_state("y");
             } else {
+
+                log.info("=====================================");
+                log.info("신용카드 취소코드: {}", ap.getResultCd());
+                log.info("Fail Msg: {}", ap.getResultMsg());
+                log.info("=====================================");
+
                 cancelVo.setOrder_id(ap.getTradeId());
                 cancelVo.setCancel_dt("");
                 cancelVo.setFail_msg(ap.getResultMsg());
@@ -123,6 +129,11 @@ public class Pay_CancelService {
                 cancelVo.setCancel_state("y");
                 cancelVo.setFail_msg("");
             } else {
+
+                log.info("=====================================");
+                log.info("휴대폰 취소코드: {}", res_cd);
+                log.info("=====================================");
+
                 cancelVo.setOrder_id(tradeId);
                 cancelVo.setCancel_dt("");
                 cancelVo.setOp_name(MemberVo.getMyMemNo());
@@ -175,6 +186,11 @@ public class Pay_CancelService {
                 cancelVo.setCancel_state("y");
                 cancelVo.setFail_msg("");
             } else {
+                log.info("=====================================");
+                log.info("실계좌이체 취소코드: {}", ap.getResultCd());
+                log.info("Fail Msg: {}", ap.getResultMsg());
+                log.info("=====================================");
+
                 cancelVo.setOrder_id(tradeId);
                 cancelVo.setCancel_dt("");
                 cancelVo.setOp_name(MemberVo.getMyMemNo());
