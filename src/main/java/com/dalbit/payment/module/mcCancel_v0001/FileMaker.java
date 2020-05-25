@@ -21,7 +21,7 @@ public class FileMaker {
     private int recvTimeOut;
     private String configDirPath;
 
-    private final String PROPERTY_NAME = "mobilians/"+DalbitUtil.getActiveProfile()+"/MCash_Cancel.properties"; //local, dev, real
+    private final String PROPERTY_NAME = "mobilians/"+DalbitUtil.getActiveProfile()+"/MCash_Cancel.properties"; //local, dev
 
     public FileMaker() {
         this.logLevel = "";
