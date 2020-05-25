@@ -336,6 +336,9 @@
             setSelectDataInfo("detailData", data.data);
 
             fnc_pushDetail.updateDetail();
+
+            var scrollPosition = $("#tab_pushDetail").offset();
+            util.scrollPostion(scrollPosition.top);
         },
 
 
