@@ -40,6 +40,7 @@
                     <th>최근 3개월 내 방송일<br/>(60일 이상)</th>
                     <th>정지기록<br/>(없음)</th>
                     <th>관리자 등록여부</th>
+                    <th>등록자</th>
                     <th style="display:none;">순서</th>
                 </tr>
             </thead>
@@ -295,7 +296,7 @@
         <td>{{addComma reportCnt}} 회</td>
         <td>{{{getCommonCodeLabel is_force 'special_isForce'}}}</td>
         <td style="display:none;">{{order}}</td>
-        <%--<td>{{op_name}}</td>--%>
+        <td>{{op_name}}</td>
     </tr>
     {{else}}
     <tr>
