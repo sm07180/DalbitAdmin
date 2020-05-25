@@ -1,14 +1,18 @@
 package com.dalbit.payment.module.ucCancel_v0001;
 
+import com.dalbit.util.DalbitUtil;
+
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
 public class FileMaker {
+    private final String PROPERTY_NAME = "mobilians/"+ DalbitUtil.getActiveProfile()+"/CancelUc.properties"; //local, dev
+
     private FileInputStream fis;
     private FileOutputStream fos;
-    private String propertiesName = "/mobilians/CancelUc.properties";
+    private String propertiesName = PROPERTY_NAME;
     private String logLevel = "";
     private String serverIp = "";
     private String fileDir = "";
@@ -20,6 +24,7 @@ public class FileMaker {
     private String serverEncode = "";
     private String clientEncode = "";
     private int serverPort;
+
 
     public FileMaker() {
         this.propertiesLoad();
