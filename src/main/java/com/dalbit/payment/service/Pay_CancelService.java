@@ -141,6 +141,9 @@ public class Pay_CancelService {
 
                 String resultMsg = "";
                 for (CancelPhoneCode code : CancelPhoneCode.values()) {
+                    log.info("코드일치여부: {}", res_cd.equals(code.getCode()));
+                    log.info("실패 메시지 코드: {}", code.getCode());
+
                     if(res_cd.equals(code.getCode())){
                         resultMsg = code.getDesc();
                     } else {
