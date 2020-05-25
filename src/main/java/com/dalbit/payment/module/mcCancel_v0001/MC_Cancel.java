@@ -1,11 +1,14 @@
 package com.dalbit.payment.module.mcCancel_v0001;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 
+@Slf4j
 public class MC_Cancel {
 
     private Socket sk;
@@ -161,7 +164,7 @@ public class MC_Cancel {
 
                         return;
                     } catch (Exception var4) {
-                        System.out.println("connect fail");
+                        log.error("connect fail");
                         this.fm.writeln("== CONNECT FAIL == " + this.serverIp + ": " + this.serverPort);
                         this.result_cd = "101";
                     }

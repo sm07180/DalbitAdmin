@@ -1,12 +1,14 @@
 package com.dalbit.payment.module.mcCancel_v0001;
 
 import com.dalbit.util.DalbitUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Properties;
 
+@Slf4j
 public class FileMaker {
 
     private FileInputStream fis;
@@ -76,7 +78,7 @@ public class FileMaker {
             rtnCd = "0000";
         }
         catch (IOException ex) {
-            System.out.println("Mobilians Mcash Error ==> Can't make the log file");
+            log.error("Mobilians Mcash Error ==> Can't make the log file");
             this.writeln("Mobilians Mcash Error ==> Can't make the log file");
             rtnCd = "225";
         }
@@ -100,15 +102,15 @@ public class FileMaker {
                         break Label_0122;
                     }
                     catch (Exception e) {
-                        System.err.println("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH - 1");
+                        log.error("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH - 1");
                         this.writeln("Can't read the properties file.");
                         return "9999";
                     }
                 }
-                System.out.println("default properties load...." + this.propertiesName);
+                log.error("default properties load...." + this.propertiesName);
                 is = this.getClass().getClassLoader().getResourceAsStream(this.propertiesName);
                 dbProps.load(is);
-                System.out.println(dbProps);
+                //log.error(dbProps);
             }
             this.fileDir = dbProps.getProperty("LogFile", "");
             this.fileName = String.valueOf(this.fileDir) + this.makeFileName();
@@ -120,7 +122,7 @@ public class FileMaker {
             return "0000";
         }
         catch (Exception e) {
-            System.err.println("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH - 2");
+            log.error("Can't read the properties file. Make sure Mcash.properties is in the CLASSPATH - 2");
             this.writeln("Can't read the properties file.");
             return "9999";
         }
@@ -149,7 +151,7 @@ public class FileMaker {
             this.fos.write(tmp.getBytes());
         }
         catch (Exception ex) {
-            System.err.println("Mobilians Mcash Error ==> Can't write the log file");
+            log.error("Mobilians Mcash Error ==> Can't write the log file");
         }
     }
 
@@ -159,7 +161,7 @@ public class FileMaker {
             this.fos.write(tmp.getBytes());
         }
         catch (Exception ex) {
-            System.err.println("Mobilians Mcash Error ==> Can't write the log file");
+            log.error("Mobilians Mcash Error ==> Can't write the log file");
         }
     }
 
@@ -169,7 +171,7 @@ public class FileMaker {
             this.fos.write(tmp.getBytes());
         }
         catch (Exception ex) {
-            System.err.println("Mobilians Mcash Error ==> Can't write the log file");
+            log.error("Mobilians Mcash Error ==> Can't write the log file");
         }
     }
 
@@ -198,7 +200,7 @@ public class FileMaker {
             }
         }
         catch (IOException ex) {
-            System.err.println("Mobilians Mcash Error ==> Can't close the log file");
+            log.error("Mobilians Mcash Error ==> Can't close the log file");
         }
         try {
             if (this.fos != null) {
@@ -206,7 +208,7 @@ public class FileMaker {
             }
         }
         catch (IOException ex) {
-            System.err.println("Mobilians Mcash Error ==> Can't close the log file");
+            log.error("Mobilians Mcash Error ==> Can't close the log file");
         }
     }
 

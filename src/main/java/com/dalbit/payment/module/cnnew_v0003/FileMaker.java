@@ -1,11 +1,13 @@
 package com.dalbit.payment.module.cnnew_v0003;
 
 import com.dalbit.util.DalbitUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.Date;
 import java.util.Properties;
 
+@Slf4j
 public class FileMaker {
 
     private String propertiesName;
@@ -68,37 +70,37 @@ public class FileMaker {
         if (this.fileName.equals("")) {
             this.resultcd = "9002";
             this.resultmsg = "[9002]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4. LogFile \uba85\uce6d\uc124\uc815 \uc624\ub958";
-            System.out.println("[MCASH] Error : LogFile \uc124\uc815 \uc624\ub958 - [" + this.fileName + "]");
+            log.error("[MCASH] Error : LogFile \uc124\uc815 \uc624\ub958 - [" + this.fileName + "]");
             return;
         }
         if (this.serverIp.equals("")) {
             this.resultcd = "9003";
             this.resultmsg = "[9003]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-            System.out.println("[MCASH] Error : SERVER_IP \uc124\uc815 \uc624\ub958 - [" + this.serverIp + "]");
+            log.error("[MCASH] Error : SERVER_IP \uc124\uc815 \uc624\ub958 - [" + this.serverIp + "]");
             return;
         }
         if (this.switchIp.equals("")) {
             this.resultcd = "9003";
             this.resultmsg = "[9003]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4. SWITCH_IP \uc124\uc815 \uc624\ub958";
-            System.out.println("[MCASH] Error : SWITCH_IP \uc124\uc815 \uc624\ub958 - [" + this.switchIp + "]");
+            log.error("[MCASH] Error : SWITCH_IP \uc124\uc815 \uc624\ub958 - [" + this.switchIp + "]");
             return;
         }
         if (this.serverPort == 0) {
             this.resultcd = "9003";
             this.resultmsg = "[9003]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4. SERVER_PORT \uc124\uc815 \uc624\ub958";
-            System.out.println("[MCASH] Error : SERVER_PORT \uc124\uc815 \uc624\ub958 - [" + this.serverPort + "]");
+            log.error("[MCASH] Error : SERVER_PORT \uc124\uc815 \uc624\ub958 - [" + this.serverPort + "]");
             return;
         }
         if (this.Ver.length() != 4) {
             this.resultcd = "9004";
             this.resultmsg = "[9004]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-            System.out.println("[MCASH] Error : VER \uc124\uc815 \uc624\ub958 - [" + this.Ver + "]");
+            log.error("[MCASH] Error : VER \uc124\uc815 \uc624\ub958 - [" + this.Ver + "]");
             return;
         }
         if (!this.KeySeq.equals("0") && !this.KeySeq.equals("1") && !this.KeySeq.equals("2")) {
             this.resultcd = "9005";
             this.resultmsg = "[9005]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-            System.out.println("[MCASH] Error : CURKEY \uc124\uc815 \uc624\ub958 - [" + this.KeySeq + "]");
+            log.error("[MCASH] Error : CURKEY \uc124\uc815 \uc624\ub958 - [" + this.KeySeq + "]");
             return;
         }
         if (this.KeySeq.equals("1")) {
@@ -106,7 +108,7 @@ public class FileMaker {
             if (this.Key1.equals("") || this.Key1.length() != 8) {
                 this.resultcd = "9005";
                 this.resultmsg = "[9005]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                System.out.println("[MCASH] Error : KEY1 \uc124\uc815 \uc624\ub958 - [" + this.Key1 + "]");
+                log.error("[MCASH] Error : KEY1 \uc124\uc815 \uc624\ub958 - [" + this.Key1 + "]");
             }
         }
         else if (this.KeySeq.equals("2")) {
@@ -114,7 +116,7 @@ public class FileMaker {
             if (this.Key2.equals("") || this.Key2.length() != 8) {
                 this.resultcd = "9005";
                 this.resultmsg = "[9005]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                System.out.println("[MCASH] Error : KEY2 \uc124\uc815 \uc624\ub958" + this.Key2 + "]");
+                log.error("[MCASH] Error : KEY2 \uc124\uc815 \uc624\ub958" + this.Key2 + "]");
             }
         }
     }
@@ -187,7 +189,7 @@ public class FileMaker {
             return this.resultcd = "0000";
         }
         catch (IOException ex) {
-            System.err.println("[MCASH] Error : \ub514\ub809\ud1a0\ub9ac, \ud30c\uc77c \uc0dd\uc131 \uc624\ub958 - [" + this.fileName + "]" + ex.toString());
+            log.error("[MCASH] Error : \ub514\ub809\ud1a0\ub9ac, \ud30c\uc77c \uc0dd\uc131 \uc624\ub958 - [" + this.fileName + "]" + ex.toString());
             this.resultcd = "9002";
             this.resultmsg = "[9002]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4. \ud30c\uc77c \uc0dd\uc131 \uc624\ub958. \ub514\ub809\ud1a0\ub9ac \uc720\ubb34 \ub610\ub294  \ub514\ub809\ud1a0\ub9ac \uad8c\ud55c \uc624\ub958";
             return "9002";
@@ -213,11 +215,11 @@ public class FileMaker {
                     catch (Exception e) {
                         this.resultcd = "9003";
                         this.resultmsg = "[9003]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                        System.out.println("[MCASH] Error : \ud658\uacbd \uc124\uc815 \ud30c\uc77c \uc77d\uae30 \uc624\ub958 - [" + configDirPath + "]");
+                        log.error("[MCASH] Error : \ud658\uacbd \uc124\uc815 \ud30c\uc77c \uc77d\uae30 \uc624\ub958 - [" + configDirPath + "]");
                         return;
                     }
                 }
-                System.out.println(">>>>>>>>" + this.propertiesName);
+                log.error(">>>>>>>>" + this.propertiesName);
                 is = this.getClass().getClassLoader().getResourceAsStream(this.propertiesName);
                 dbProps.load(is);
                 is.close();
@@ -228,14 +230,14 @@ public class FileMaker {
             if (this.serverIp.equals("")) {
                 this.resultcd = "9003";
                 this.resultmsg = "[9003]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                System.out.println("[MCASH] Error : SERVER_IP \uc124\uc815 \uc624\ub958 - [" + this.serverIp + "]");
+                log.error("[MCASH] Error : SERVER_IP \uc124\uc815 \uc624\ub958 - [" + this.serverIp + "]");
                 return;
             }
             this.switchIp = dbProps.getProperty("SWITCH_IP", "");
             if (this.switchIp.equals("")) {
                 this.resultcd = "9003";
                 this.resultmsg = "[9003]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4. SWITCH_IP \uc124\uc815 \uc624\ub958";
-                System.out.println("[MCASH] Error : SWITCH_IP \uc124\uc815 \uc624\ub958 - [" + this.switchIp + "]");
+                log.error("[MCASH] Error : SWITCH_IP \uc124\uc815 \uc624\ub958 - [" + this.switchIp + "]");
                 return;
             }
             try {
@@ -247,7 +249,7 @@ public class FileMaker {
             if (this.serverPort == 0) {
                 this.resultcd = "9003";
                 this.resultmsg = "[9003]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4. SERVER_PORT \uc124\uc815 \uc624\ub958";
-                System.out.println("[MCASH] Error : SERVER_PORT \uc124\uc815 \uc624\ub958 - [" + this.serverPort + "]");
+                log.error("[MCASH] Error : SERVER_PORT \uc124\uc815 \uc624\ub958 - [" + this.serverPort + "]");
                 return;
             }
             try {
@@ -260,14 +262,14 @@ public class FileMaker {
             if (this.Ver.length() != 4) {
                 this.resultcd = "9004";
                 this.resultmsg = "[9004]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                System.out.println("[MCASH] Error : VER \uc124\uc815 \uc624\ub958 - [" + this.Ver + "]");
+                log.error("[MCASH] Error : VER \uc124\uc815 \uc624\ub958 - [" + this.Ver + "]");
                 return;
             }
             this.KeySeq = "0";
             if (!this.KeySeq.equals("0") && !this.KeySeq.equals("1") && !this.KeySeq.equals("2")) {
                 this.resultcd = "9005";
                 this.resultmsg = "[9005]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                System.out.println("[MCASH] Error : CURKEY \uc124\uc815 \uc624\ub958 - [" + this.KeySeq + "]");
+                log.error("[MCASH] Error : CURKEY \uc124\uc815 \uc624\ub958 - [" + this.KeySeq + "]");
                 return;
             }
             if (this.KeySeq.equals("1")) {
@@ -275,7 +277,7 @@ public class FileMaker {
                 if (this.Key1.equals("") || this.Key1.length() != 8) {
                     this.resultcd = "9005";
                     this.resultmsg = "[9005]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                    System.out.println("[MCASH] Error : KEY1 \uc124\uc815 \uc624\ub958 - [" + this.Key1 + "]");
+                    log.error("[MCASH] Error : KEY1 \uc124\uc815 \uc624\ub958 - [" + this.Key1 + "]");
                     return;
                 }
             }
@@ -284,7 +286,7 @@ public class FileMaker {
                 if (this.Key2.equals("") || this.Key2.length() != 8) {
                     this.resultcd = "9005";
                     this.resultmsg = "[9005]\uc2dc\uc2a4\ud15c \uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-                    System.out.println("[MCASH] Error : KEY2 \uc124\uc815 \uc624\ub958" + this.Key2 + "]");
+                    log.error("[MCASH] Error : KEY2 \uc124\uc815 \uc624\ub958" + this.Key2 + "]");
                     return;
                 }
             }
@@ -299,7 +301,7 @@ public class FileMaker {
         catch (Exception e) {
             this.resultcd = "9001";
             this.resultmsg = "[9001]\uc2dc\uc2a4\ud15c\uc124\uc815 \uc624\ub958\uc785\ub2c8\ub2e4.";
-            System.out.println("[MCASH] Error : /mobilians/Mcash.properties \uacbd\ub85c \uc124\uc815 \uc624\ub958");
+            log.error("[MCASH] Error : /mobilians/Mcash.properties \uacbd\ub85c \uc124\uc815 \uc624\ub958");
             e.printStackTrace();
             return;
         }
@@ -327,7 +329,7 @@ public class FileMaker {
             }
         }
         catch (Exception ex) {
-            System.err.println("[MCASH] Error : Can't write the log file");
+            log.error("[MCASH] Error : Can't write the log file - write");
         }
     }
 
@@ -339,7 +341,7 @@ public class FileMaker {
             }
         }
         catch (Exception ex) {
-            System.err.println("[MCASH] Error : Can't write the log file");
+            log.error("[MCASH] Error : Can't write the log file - writeln");
         }
     }
 
@@ -350,11 +352,11 @@ public class FileMaker {
                 this.osw.write(tmp);
             }
             else {
-                System.out.println(tmp);
+                log.error(tmp);
             }
         }
         catch (Exception ex) {
-            System.err.println("[MCASH] Error : Can't write the log file");
+            log.error("[MCASH] Error : Can't write the log file - errorln");
         }
     }
 
@@ -382,7 +384,7 @@ public class FileMaker {
             }
         }
         catch (IOException ex) {
-            System.err.println("[MCASH] Error : Can't close the log file");
+            log.error("[MCASH] Error : Can't close the log file - 1");
         }
         try {
             if (this.osw != null) {
@@ -390,7 +392,7 @@ public class FileMaker {
             }
         }
         catch (IOException ex) {
-            System.err.println("[MCASH] Error : Can't close the log file");
+            log.error("[MCASH] Error : Can't close the log file - 2");
         }
     }
 

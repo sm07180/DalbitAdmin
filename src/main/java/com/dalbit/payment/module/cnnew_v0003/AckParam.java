@@ -1,7 +1,10 @@
 package com.dalbit.payment.module.cnnew_v0003;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.Serializable;
 
+@Slf4j
 public class AckParam implements Serializable {
     private String mode;
     private String recordKey;
@@ -1034,7 +1037,7 @@ public class AckParam implements Serializable {
         }
         catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("MCASH-Error = setSocketStr(UserEncode) " + ex.toString());
+            log.error("MCASH-Error = setSocketStr(UserEncode) " + ex.toString());
             this.resultCd = "-1";
             this.resultMsg = "SYSTEM ERROR";
             return "-1";
