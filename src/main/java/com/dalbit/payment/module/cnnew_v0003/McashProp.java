@@ -1,9 +1,12 @@
 package com.dalbit.payment.module.cnnew_v0003;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 
+@Slf4j
 public class McashProp {
     public static Properties msgProp = new Properties();
 
@@ -12,7 +15,7 @@ public class McashProp {
             Properties msgp = new Properties();
             InputStream is = McashProp.class.getResourceAsStream("MessageMap.prop");
             msgp.load(is);
-            System.out.println(msgp);
+            //log.error(msgp);
             Enumeration en = msgp.keys();
             String key = "";
             String value = "";
@@ -25,7 +28,7 @@ public class McashProp {
 
             is.close();
         } catch (Exception var5) {
-            System.out.println(" server msg load error " + var5);
+            log.error(" server msg load error " + var5);
         }
 
     }
@@ -50,7 +53,8 @@ public class McashProp {
 
             return sv[0].substring(0, sv[0].indexOf("|"));
         } catch (Exception var6) {
-            System.out.println(var6);
+            var6.getStackTrace();
+            log.error(msg);
             return msg;
         }
     }

@@ -1,8 +1,11 @@
 package com.dalbit.payment.module.ucCancel_v0001;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.net.Socket;
 
+@Slf4j
 public class ConnectSocket {
     private Socket sk;
     private BufferedWriter bw;
@@ -19,7 +22,8 @@ public class ConnectSocket {
             this.resultcd = "0000";
         } catch (Exception var4) {
             this.resultcd = "9902";
-            System.out.println(var4.toString());
+            var4.printStackTrace();
+            log.error(var4.toString());
         }
 
     }
@@ -113,7 +117,7 @@ public class ConnectSocket {
             this.resultcd = "0000";
         } catch (Exception var2) {
             this.resultcd = "9999";
-            System.err.println("Mobilians CancelUc Error ==> Can't close the connection");
+            log.error("Mobilians CancelUc Error ==> Can't close the connection");
         }
 
     }

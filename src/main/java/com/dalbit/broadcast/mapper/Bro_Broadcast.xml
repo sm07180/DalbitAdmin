@@ -7,7 +7,7 @@
         call rd_admin.sp_admin_broadcast_room_search(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
-    <select id="callBroadcastList_all" parameterType="String" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
+    <select id="callBroadcastList_all" parameterType="com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
         SELECT count(*) as totalBroadCastCnt
                ,SUM(case when os_type = 1 then 1 else 0 end) as totalAosCnt
                ,SUM(case when os_type = 2 then 1 else 0 end) as totalIosCnt
@@ -18,6 +18,12 @@
           </if>
           <if test="room_liveType == 2">
             where state=4
+          </if>
+          <if test="endDate != null">
+              and DATE_FORMAT(start_date, '%Y-%m-%d') >= #{startDate} and DATE_FORMAT(start_date, '%Y-%m-%d')  <![CDATA[<=]]>  #{endDate}
+          </if>
+          <if test="endDate == null">
+              and DATE_FORMAT(start_date, '%Y-%m-%d') >= #{startDate}
           </if>
     </select>
 

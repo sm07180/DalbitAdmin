@@ -20,4 +20,7 @@ public class P_BroadcastListInputVo extends PagingVo {
     private int pageNo;
     private int room_liveType;
 
+    private String startDate;
+    private String endDate;
+
 }

@@ -135,8 +135,10 @@ public class Mem_MemberService {
         }
 
         P_MemberInfoOutputVo testId = mem_MemberDao.callMemberTestId(pMemberInfoInputVo);
-        if(testId.getInner() == 1){
-            memberInfo.setUserId(memberInfo.getUserId() + "_Test");
+        if(!DalbitUtil.isEmpty(testId)) {
+            if (testId.getInner() == 1) {
+                memberInfo.setUserId(memberInfo.getUserId() + "_Test");
+            }
         }
 
         // 방송중인 방번호
