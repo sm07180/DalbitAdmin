@@ -125,8 +125,10 @@
     var dtList_info;
 
     var _testid = -1;
+    var tmp_searchText;
+
     var dtList_info_data = function ( data ) {
-        data.searchText = $('#txt_search').val();                        // 검색명
+        data.searchText = tmp_searchText;                        // 검색명
         data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
         data.period = $('input[name="joinDate"]:checked').val();
@@ -186,6 +188,8 @@
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
     function getUserInfo() {                 // 검색
+
+        tmp_searchText = $('#txt_search').val();
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
         }else{
@@ -247,6 +251,9 @@
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
+        formData.append("searchText", tmp_searchText);
+        formData.append("testid", _testid);
+        formData.append("memWithdrawal", memWithdrawal);
         formData.append("period", tmp_period);
         formData.append("sDate", tmp_sDate);
         formData.append("eDate", tmp_eDate);
@@ -256,6 +263,9 @@
     $('#withdrawal_excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
+        formData.append("searchText", tmp_searchText);
+        formData.append("testid", _testid);
+        formData.append("memWithdrawal", memWithdrawal);
         formData.append("period", tmp_period);
         formData.append("sDate", tmp_sDate);
         formData.append("eDate", tmp_eDate);
