@@ -67,7 +67,7 @@
         dtList_info.useIndex(true);
         dtList_info.createDataTable(pay_listSummary);
 
-        $("#payStateArea").html(util.getCommonCodeSelect('-1', payStatus));
+        $("#payStateArea").html(util.getCommonCodeSelect('1', payStatus));
         $("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
         $("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
     }
