@@ -288,7 +288,7 @@
                 <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
                 {{#equal state '2'}}
                 <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
-                    <button type="button" id="bt_operate" class="btn-sm btn btn-default">완료</button>
+                    <button type="button" id="bt_operate" class="btn btn-default">완료</button>
                 {{/equal}}
             </div>
         </div>

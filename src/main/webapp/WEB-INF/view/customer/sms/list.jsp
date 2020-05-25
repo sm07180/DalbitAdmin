@@ -32,7 +32,7 @@
 
             <!-- data table -->
             <div class="row col-lg-12 form-inline">
-                <div id="htmlTag"></div>
+                <div class="mb15" id="htmlTag"></div>
                 <div class="widget widget-table">
                     <div class="widget-content mt10">
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
@@ -127,6 +127,11 @@
     function fn_success_list(dst_id, response) {
         var template = $("#tmp_smsList").html();
         var templateScript = Handlebars.compile(template);
+
+        if(!common.isEmpty(response.data)){
+            response.data.totalCnt = response.pagingVo.totalCnt + 1;
+        }
+
         var context = response.data;
         var html = templateScript(context);
 
@@ -179,10 +184,10 @@
 </script>
 
 <script id="tmp_smsList" type="text/x-handlebars-template">
-    {{#each this}}
+    {{#each this as |data|}}
     <tr>
-        <td>{{cmid}}</td>
-        <td>{{send_phone}}</td>
+        <td>{{indexDesc ../totalCnt rowNum}}</td>
+        <td>{{data.send_phone}}</td>
         <td>{{wap_info}}</td>
         <td>{{phoneNumHyphen dest_phone}}</td>
         <td>{{report_time}}</td>
