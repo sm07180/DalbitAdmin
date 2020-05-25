@@ -140,14 +140,18 @@ public class Pay_CancelService {
                 cancelVo.setCancel_state(res_cd.equals(CancelPhoneCode.이미취소된자료.getCode()) ? "y" :"f");
 
                 String resultMsg = "";
+                boolean checked = false;
                 for (CancelPhoneCode code : CancelPhoneCode.values()) {
-                    log.info("코드일치여부: {}", res_cd.equals(code.getCode()));
-                    log.info("실패 메시지 코드: {}", code.getCode());
-
-                    if(res_cd.equals(code.getCode())){
-                        resultMsg = code.getDesc();
-                    } else {
-                        resultMsg = "알수없음";
+                    /*log.info("코드일치여부: {}", res_cd.equals(code.getCode()));
+                    log.info("실패 메시지 코드: {}", code.getCode());*/
+                    if(!checked) {
+                        if (res_cd.equals(code.getCode())) {
+                            resultMsg = code.getDesc();
+                            checked = true;
+                        } else {
+                            resultMsg = "알수없음";
+                            checked = false;
+                        }
                     }
                 }
                 cancelVo.setFail_msg(resultMsg);
