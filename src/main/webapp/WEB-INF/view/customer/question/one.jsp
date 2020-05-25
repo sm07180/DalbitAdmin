@@ -142,6 +142,19 @@
         $('#tab_customerQuestion').removeClass("show");
     }
 
+    $(document).on('click', '#deleteBtn', function(){
+        $('.note-editable').empty();
+    });
+    function mobileBtnClick(tmp){
+        if($("#mobileBtn").text() == "모바일형태"){
+            $("#mobileBtn").text("PC형태");
+            $('#div_editor').css({ width: 360});
+        }else{
+            $("#mobileBtn").text("모바일형태");
+            $('#div_editor').css({ width: ''});
+        }
+    }
+
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -265,14 +278,16 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="widget mt10">
+            <div class="widget mt10" id="div_editor">
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 답변 </h3>
                 </div>
                 <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
             </div>
             <div class="pull-right">
+                <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
                 {{#equal state '2'}}
+                <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
                     <button type="button" id="bt_operate" class="btn-sm btn btn-default">완료</button>
                 {{/equal}}
             </div>
