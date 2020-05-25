@@ -65,7 +65,6 @@ public class Mem_JoinService {
     public Model getJoinListExcel(P_MemberJoinInputVo pMemberJoinInputVo, Model model) {
         pMemberJoinInputVo.setPageNo(0);
         pMemberJoinInputVo.setPageCnt(60000);
-        pMemberJoinInputVo.getSearchText();
         ArrayList<P_MemberJoinOutputVo> list = mem_JoinDao.callJoinList(pMemberJoinInputVo);
         String[] headers = null;
         headers = new String[]{"No", "회원가입일시", "가입플랫폼", "OS", "회원번호", "로그인ID", "UserID", "닉네임", "이름", "연락처", "IP"};
