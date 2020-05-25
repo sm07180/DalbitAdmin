@@ -65,6 +65,7 @@ public class Mem_JoinService {
     public Model getJoinListExcel(P_MemberJoinInputVo pMemberJoinInputVo, Model model) {
         pMemberJoinInputVo.setPageNo(0);
         pMemberJoinInputVo.setPageCnt(100000);
+        pMemberJoinInputVo.getSearchText();
         ArrayList<P_MemberJoinOutputVo> list = mem_JoinDao.callJoinList(pMemberJoinInputVo);
         String[] headers = null;
         headers = new String[]{"No", "회원가입일시", "가입플랫폼", "OS", "회원번호", "로그인ID", "UserID", "닉네임", "이름", "연락처", "IP"};
@@ -91,7 +92,7 @@ public class Mem_JoinService {
         SXSSFWorkbook workbook = excelService.excelDownload("목록",vo);
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "실시간 최신 생방송 목록");
+        model.addAttribute("workbookName", "가입 정보 목록");
 
         return model;
     }
@@ -128,7 +129,7 @@ public class Mem_JoinService {
         SXSSFWorkbook workbook = excelService.excelDownload("목록",vo);
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
-        model.addAttribute("workbookName", "실시간 최신 생방송 목록");
+        model.addAttribute("workbookName", "탈퇴 정보 목록");
 
         return model;
     }
