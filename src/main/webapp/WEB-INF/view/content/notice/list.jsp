@@ -286,6 +286,21 @@
     $(document).on('click', '._notice', function() {
        alert("준비중입니다.");
     });
+
+    $(document).on('click', '#deleteBtn', function(){
+        $('.note-editable').empty();
+    });
+
+    function mobileBtnClick(tmp){
+        if($("#mobileBtn").text() == "모바일형태"){
+            $("#mobileBtn").text("PC형태");
+            $('#div_editor').css({ width: 360});
+        }else{
+            $("#mobileBtn").text("모바일형태");
+            $('#div_editor').css({ width: ''});
+        }
+    }
+
 </script>
 
 <script id="tmp_noticeFrm" type="text/x-handlebars-template">
@@ -293,9 +308,11 @@
     <div class="row col-lg-12 mt15">
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ선택한 공지사항을 자세히 확인하고 수정할 수 있습니다.<br> ㆍ공지내용 수정 또는 등록 후 게시상태를 ON으로 선택한 후 등록을 완료하여야 공지 내용이 게시됩니다.</label>
-            <span>
-                {{^noticeIdx}}<button class="btn btn-default pull-right" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
-                {{#noticeIdx}}<button class="btn btn-default pull-right" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
+            <span class="pull-right">
+                <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
+                <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
+                {{^noticeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
+                {{#noticeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
             </span>
         </div>
         <table class="table table-bordered table-dalbit">
@@ -354,7 +371,7 @@
         </table>
     </div>
     <div class="row col-lg-12 form-inline">
-        <div class="widget">
+        <div class="widget" id="div_editor">
             <div class="widget-header">
                 <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
