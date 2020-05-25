@@ -85,9 +85,10 @@
         };
 
         util.getAjaxData("special", "/rest/menu/special/dalList", data, fn_dalList_success);
-
+        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_compareSummary);
     }
 
+    var totalCnt;
     function fn_dalList_success(dst_id, response) {
         var template = $('#tmp_specialList').html();
         var templateScript = Handlebars.compile(template);
@@ -98,6 +99,7 @@
 
         var pagingInfo = response.pagingVo;
         specialDjPagingInfo.totalCnt = pagingInfo.totalCnt;
+        totalCnt = specialDjPagingInfo.totalCnt;
         console.log(specialDjPagingInfo);
         util.renderPagingNavigation('list_info_paginate_top', specialDjPagingInfo);
         util.renderPagingNavigation('list_info_paginate', specialDjPagingInfo);
@@ -114,6 +116,13 @@
         resetNo();
 
     }
+
+    var approveDal;
+    function fn_compareSummary(dst_id, response) {
+        approveDal = response.data.approveDal;
+    }
+
+
 
     function handlebarsPaging(targetId, pagingInfo){
         specialDjPagingInfo = pagingInfo;
@@ -224,6 +233,10 @@
     }
 
     $('#bt_edit').on('click', function() {
+        if(approveDal > totalCnt) {
+            alert('순위 변경은 스페셜 DJ 전체목록에서 가능합니다.');
+            return false;
+        }
         var orderDataArr = new Array();
         $('._noTr').each(function(i) {
             var mem_no = $(this).find('._openMemberPop').data('memno');
@@ -239,7 +252,6 @@
             orderJsonData : JSON.stringify(orderDataArr)
         };
 
-        dalbitLog(param);
         util.getAjaxData("updateOrder", "/rest/menu/special/updateOrder", param, fn_updateOrder_success);
     });
 
