@@ -153,9 +153,9 @@
         </thead>
         <tbody>
             <td>{{addComma content.allGiftItemCnt}}건</td>
-            <td>{{addComma content.allGiftDalCnt}}건</td>
+            <td>{{addComma content.allGiftDalCnt}}개</td>
             <td>{{addComma content.allReceivedItemCnt}}건</td>
-            <td>{{addComma content.allReceivedDalCnt}}건</td>
+            <td>{{addComma content.allReceivedDalCnt}}개</td>
         </tbody>
     </table>
 </script>
@@ -171,10 +171,8 @@
         </thead>
         <tbody>
             <td>{{addComma content.allDalGiftCnt}}건</td>
-            <td>{{addComma content.allDalReceivedCnt}}건</td>
-            <td>{{addComma content.allByeolReceivedCnt}}건</td>
-            <%--<td>{{#equal length '0'}}0{{/equal}}{{addComma content.chargeDal}}건</td>--%>
-            <%--<td>{{#equal length '0'}}0{{/equal}}{{addComma content.chargeDal}}건</td>--%>
+            <td>{{addComma content.allDalReceivedCnt}}개</td>
+            <td>{{addComma content.allByeolReceivedCnt}}개</td>
         </tbody>
     </table>
 </script>

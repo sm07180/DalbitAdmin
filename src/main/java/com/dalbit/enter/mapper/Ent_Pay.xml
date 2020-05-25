@@ -2,5 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.enter.dao.Ent_PayDao" >
 
+    <select id="callStatPayInfo" resultType="com.dalbit.enter.vo.procedure.P_PayInfoOutVo">
+        select sum(pay_amt) totalPayAmt
+              ,sum(ifnull(if(pay_way = 'VA',pay_amt,0)),0) totalVaAmt
+              ,sum(ifnull(if(pay_way = 'CN',pay_amt,0)),0) totalCnAmt
+              ,sum(ifnull(if(pay_way = 'MC',pay_amt,0)) totalMCAmt
+              ,sum(ifnull(if(pay_way = 'RA',pay_amt,0)) totalRAAmt
+              ,sum(ifnull(if(pay_way = 'InApp',pay_amt,0)) totalAppleAmt
+          from rd_data.tb_payment_succ
+         where DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(now(), '%Y%m%d');
+    </select>
 
 </mapper>

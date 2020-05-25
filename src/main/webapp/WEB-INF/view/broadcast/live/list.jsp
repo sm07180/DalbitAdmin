@@ -12,13 +12,13 @@
                     <span id="searchRadio"></span>
                     <span id="searchType_broad"></span>
 
-                    <%--<span id="selJoinDate"></span>--%>
-                    <%--<div class="input-group date" id="seldate">--%>
-                        <%--<label for="onedayDate" class="input-group-addon">--%>
-                            <%--<span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>--%>
-                        <%--</label>--%>
-                        <%--<input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">--%>
-                    <%--</div>--%>
+                    <span id="selJoinDate" style="padding-left: 10px"></span>
+                    <div class="input-group date" id="seldate">
+                        <label for="onedayDate" class="input-group-addon">
+                            <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
+                        </label>
+                        <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
+                    </div>
 
                     <label><input type="text" class="form-control" id="txt_search"></label>
                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -74,6 +74,12 @@
     var eDate;
 
     $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
+    $('#seldate').datetimepicker({
+        format: 'L',
+        maxDate:new Date(),
+        format: "YYYY-MM-DD",
+    });
+    sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
 
     $(document).ready(function() {
         getSearch();
@@ -110,19 +116,25 @@
     $('#selJoinDate').change(function() {
         sDate = "";
         eDate = "";
-
         $("#seldate").addClass('hide');
-        eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");         // 오늘
+
+
         if($('input[name="joinDate"]:checked').val() == "0"){               // 월
-            sDate = date.getFullYear() + common.lpad(date.getMonth(),2,"0") + common.lpad(date.getDate(),2,"0");        // 한달전
+            sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth(),2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        // 한달전
+            eDate = new Date(Date.parse(date) + 1 * 1000 * 60 * 60 * 24);           // 하루 + (프로시져에서 안해주신데요..)
+            eDate = eDate.getFullYear()  +"-"+ common.lpad(eDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(eDate.getDate(),2,"0");         // 오늘
+
         }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
             sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
-            sDate = date.getFullYear() + common.lpad(sDate.getMonth() + 1,2,"0") + common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            sDate = sDate.getFullYear()  +"-"+ common.lpad(sDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            eDate = new Date(Date.parse(date) + 1 * 1000 * 60 * 60 * 24);           // 하루 + (프로시져에서 안해주신데요..)
+            eDate = eDate.getFullYear()  +"-"+ common.lpad(eDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(eDate.getDate(),2,"0");         // 오늘
+
         }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일
-            eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");      // 어제
-            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-1,2,"0");      //어제
+            eDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");      // 어제
+            sDate = date.getFullYear()  +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate()-1,2,"0");      //어제
         }else if($('input[name="joinDate"]:checked').val() == "3"){               // 당일
-            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
+            sDate = date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0")  +"-"+ common.lpad(date.getDate(),2,"0");        //오늘
         }else if($('input[name="joinDate"]:checked').val() == "4"){               // 당일
             $("#seldate").removeClass('hide');
         }
@@ -170,16 +182,14 @@
             }
             data.room_liveType = room_liveType;
             data.sortStartDate = 0;
-
-            // data.period = $('input[name="joinDate"]:checked').val();
-            // if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
-            //     data.sDate = sDate;
-            //     data.eDate = eDate;
-            // }else if($('input[name="joinDate"]:checked').val() == "3" ){
-            //     data.sDate = sDate;
-            // }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            //     data.sDate = $("#onedayDate").val().replace(/-/gi, "");
-            // }
+            if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
+                data.startDate = sDate;
+                data.endDate = eDate;
+            }else if($('input[name="joinDate"]:checked').val() == "3" ){
+                data.startDate = sDate;
+            }else if($('input[name="joinDate"]:checked').val() == "4" ){
+                data.startDate = $("#onedayDate").val().replace(/-/gi, "");
+            }
 
         };
         dalbitLog(dtList_info_data);
