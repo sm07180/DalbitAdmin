@@ -16,6 +16,9 @@ public class ConnectSocket {
     private String resultcd = "";
     private OutputStream os = null;
 
+    public ConnectSocket() {
+    }
+
     public void Connect(String serverIp, int serverPort) {
         try {
             this.sk = new Socket(serverIp, serverPort);
