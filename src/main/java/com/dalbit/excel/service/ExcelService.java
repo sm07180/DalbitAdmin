@@ -120,9 +120,11 @@ public class ExcelService {
 
 
 
-
     public SXSSFWorkbook excelDownload(String sheetName, ExcelVo vo) {
         SXSSFWorkbook workbook = new SXSSFWorkbook();
+        XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+        XSSFDataFormat format = (XSSFDataFormat) workbook.createDataFormat();
+
         String[] headers = vo.getHeaders();
         int[] headerWidths = vo.getHeaderWidths();
         int hSize = headers != null ? headers.length : 0;
@@ -155,7 +157,7 @@ public class ExcelService {
             bodyRow = sheet.createRow(i+1);
 
             for(int idx=0; idx < body.length; idx++){
-                createBodyCell(workbook, bodyRow, idx, body[idx]);
+                createBodyCell(style, format, bodyRow, idx, body[idx]);
             }
         }
 
@@ -166,17 +168,14 @@ public class ExcelService {
 
 
 
-    public void createBodyCell(SXSSFWorkbook workbook, Row row, int idxCell, Object value){
-        XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
-        XSSFDataFormat format = (XSSFDataFormat) workbook.createDataFormat();
-
+    public void createBodyCell(XSSFCellStyle style, XSSFDataFormat format, Row row, int idxCell, Object value){
         Cell cell = row.createCell(idxCell);
 
         if(value instanceof String){
             style.setDataFormat(format.getFormat("@"));
             cell.setCellStyle(style);
 
-            cell.setCellValue(value.toString());
+            cell.setCellValue(value.toString().length() > 32767 ? value.toString().substring(0, 32767): value.toString());
         }
         else if(value instanceof Integer){
             style.setDataFormat(format.getFormat("0"));
