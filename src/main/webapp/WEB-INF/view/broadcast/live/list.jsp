@@ -11,6 +11,15 @@
                 <div>
                     <span id="searchRadio"></span>
                     <span id="searchType_broad"></span>
+
+                    <%--<span id="selJoinDate"></span>--%>
+                    <%--<div class="input-group date" id="seldate">--%>
+                        <%--<label for="onedayDate" class="input-group-addon">--%>
+                            <%--<span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>--%>
+                        <%--</label>--%>
+                        <%--<input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">--%>
+                    <%--</div>--%>
+
                     <label><input type="text" class="form-control" id="txt_search"></label>
                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
                 </div>
@@ -42,6 +51,7 @@
                     <thead id="tableTop"></thead>
                     <tbody id="tableBody"></tbody>
                 </table>
+                <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
             </div>
         </div>
     </div>
@@ -52,10 +62,18 @@
 <div id="imageFullSize"></div>
 
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
 <script>
     $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
     $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
+    $("#selJoinDate").html(util.getCommonCodeRadio(3, joinDate));
+
+    var date = new Date();
+    var sDate;
+    var eDate;
+
+    $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
 
     $(document).ready(function() {
         getSearch();
@@ -86,6 +104,33 @@
     $('#bt_broad').on('click', function(){
         getSearch();
     });
+
+
+    $("#seldate").addClass('hide');
+    $('#selJoinDate').change(function() {
+        sDate = "";
+        eDate = "";
+
+        $("#seldate").addClass('hide');
+        eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");         // 오늘
+        if($('input[name="joinDate"]:checked').val() == "0"){               // 월
+            sDate = date.getFullYear() + common.lpad(date.getMonth(),2,"0") + common.lpad(date.getDate(),2,"0");        // 한달전
+        }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
+            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
+            sDate = date.getFullYear() + common.lpad(sDate.getMonth() + 1,2,"0") + common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+        }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일
+            eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");      // 어제
+            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate()-1,2,"0");      //어제
+        }else if($('input[name="joinDate"]:checked').val() == "3"){               // 당일
+            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
+        }else if($('input[name="joinDate"]:checked').val() == "4"){               // 당일
+            $("#seldate").removeClass('hide');
+        }
+        $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
+        getSearch();
+    });
+
+
     var liveState=1;
     var room_liveType = 1;
     var dtList_info="";
@@ -96,6 +141,7 @@
     var tmp_dj_searchText;
     var tmp_room_slctType = -1;
     var tmp_room_searchText;
+    var tmp_searchText = "";
 
     function liveList(tmp){
         liveState = tmp;
@@ -111,7 +157,7 @@
             data.slctType = slctType;
             if(slctType == "1"){      // DJ정보
                 data.dj_slctType = $("select[name='searchType_broad']").val();
-                data.dj_searchText = $('#txt_search').val();
+                data.dj_searchText = tmp_searchText;
                 data.room_slctType = -1;
                 data.room_searchText = "";
                 data.ortStartDate =2;
@@ -119,11 +165,22 @@
                 data.dj_slctType = -1;
                 data.dj_searchText = "";
                 data.room_slctType = $("select[name='searchBroad_broad']").val();
-                data.room_searchText = $('#txt_search').val();
+                data.room_searchText = tmp_searchText;
                 data.ortStartDate =2;
             }
             data.room_liveType = room_liveType;
             data.sortStartDate = 0;
+
+            // data.period = $('input[name="joinDate"]:checked').val();
+            // if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
+            //     data.sDate = sDate;
+            //     data.eDate = eDate;
+            // }else if($('input[name="joinDate"]:checked').val() == "3" ){
+            //     data.sDate = sDate;
+            // }else if($('input[name="joinDate"]:checked').val() == "4" ){
+            //     data.sDate = $("#onedayDate").val().replace(/-/gi, "");
+            // }
+
         };
         dalbitLog(dtList_info_data);
         if(liveState == 1){
@@ -135,8 +192,6 @@
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
         dtList_info.createDataTable(summary_table);
-        var excelBtn = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="liveexcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
-        $("#main_table").find(".footer-right").append(excelBtn);
 
         getSearch();
     }
@@ -169,6 +224,7 @@
 
     function getSearch(){
         /* 엑셀저장을 위해 조회조건 임시저장 */
+        tmp_searchText = $('#txt_search').val();
         var slctType = $('input[name="searchRadio"]:checked').val();
         tmp_slctType = slctType;
         if(slctType == "1"){
@@ -191,13 +247,24 @@
 
     /*=============엑셀==================*/
     $('#liveexcelDownBtn').on('click', function(){
+
+        console.log("1");
         var formElement = document.querySelector("form");
+        console.log("2");
         var formData = new FormData(formElement);
+        console.log("3");
         formData.append("slctType", tmp_slctType);
+        console.log("4");
         formData.append("dj_slctType", tmp_dj_slctType);
+        console.log("5");
         formData.append("dj_searchText", tmp_dj_searchText);
+        console.log("6");
         formData.append("room_slctType", tmp_room_slctType);
-        formData.append("room_searchText", tmp_room_searchText);
+        console.log("7");
+        formData.append("room_liveType", room_liveType);
+        // formData.append("sDate", sDate);
+        // formData.append("eDate", eDate);
+        console.log("8");
         util.excelDownload($(this), "/rest/broadcast/broadcast/liveListExcel", formData)
     });
 
