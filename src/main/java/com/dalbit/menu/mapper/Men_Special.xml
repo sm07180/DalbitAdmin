@@ -58,7 +58,11 @@
 
     <select id="getReqSpecialList" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="com.dalbit.menu.vo.SpecialReqVo">
         /* Men_Special.xml - getReqSpecialList */
+        select *
+        from (
         <include refid="reqSpecial"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="getReqSpecialListCnt" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="integer">
