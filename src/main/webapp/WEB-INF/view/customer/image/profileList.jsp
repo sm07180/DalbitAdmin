@@ -190,7 +190,7 @@ var fnc_profileList = {
                 <label>NO.{{user.rowNum}}</label>
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
-            <div class="thumbnail">
+            <div class="thumbnail" src="{{user.image_profile.url}}?360x360">
                 <img class="list-group-image thumbnailImg" style="width:100%; height:100%;" src="{{user.image_profile.url}}?360x360" alt="" data-toggle="modal" data-target="#imgModal" onclick="fullSize_image('{{user.image_profile.url}}')"/>
                 <div class="caption">
                     <div class="action-buttons">

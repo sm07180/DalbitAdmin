@@ -15,5 +15,6 @@ public class Pay_PayInputVo extends SearchVo {
     private String eDate;
     private int searchPayStatus;
     private int ostype;
+    private String innerType;
 
 }

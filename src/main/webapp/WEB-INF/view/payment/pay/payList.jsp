@@ -9,6 +9,7 @@
             <div class="col-md-12 no-padding">
                 <label id="payStateArea" onchange="sel_change_payStateArea();"></label>
                 <label id="payPlatformArea" onchange="sel_change_payPlatformArea();"></label>
+                <label id="payInnerArea" onchange="sel_change_payInnerArea();" style="border: 1px solid #632beb"></label>
             </div>
         </div>
 
@@ -38,6 +39,7 @@
     var txt_search = "";
     var tmp_period = "";
     var tmp_joinDate = "";
+    var tmp_innerType = '0';
 
     $(document).ready(function() {
     });
@@ -57,6 +59,7 @@
             }
             data.ostype = tmp_ostype;
             data.searchPayStatus = tmp_searchPayStatus;
+            data.innerType = tmp_innerType;
 
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
@@ -66,6 +69,7 @@
 
         $("#payStateArea").html(util.getCommonCodeSelect('-1', payStatus));
         $("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
+        $("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
     }
 
     function pay_listSummary(json){
@@ -83,7 +87,8 @@
     /* 취소버튼 클릭 */
     function cancelClick(cancelData){
 
-        var result = confirm(cancelData.memnick+"님의 "+ common.addComma(cancelData.prdtprice) +"원에 대한 결제를 취소하시겠습니까?")
+        var result = confirm(cancelData.memnick+"님의 "+ common.addComma(cancelData.prdtprice) +"원에 대한 결제를 취소하시겠습니까?");
+
         if(result){
             var restUrl='';
             if(cancelData.paycd == 'CN'){
@@ -121,6 +126,11 @@
     }
     function sel_change_payPlatformArea(){
         tmp_ostype = $("select[name='ostype']").val();
+        dtList_info.reload(pay_listSummary);
+    }
+
+    function sel_change_payInnerArea(){
+        tmp_innerType = $("select[name='innerType']").val();
         dtList_info.reload(pay_listSummary);
     }
 

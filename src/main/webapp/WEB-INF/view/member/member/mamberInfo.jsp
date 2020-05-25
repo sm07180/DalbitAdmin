@@ -38,6 +38,10 @@
     var withdrawal;
     function info_sel_success(dst_id, response) {
         dalbitLog(response);
+        if(response.result == "fail"){
+            alert("회원정보 없음");
+            return;
+        }
         memberInfo_responseDate = response.data;
         profImgDel = "false";
         memNo = response.data.mem_no;
