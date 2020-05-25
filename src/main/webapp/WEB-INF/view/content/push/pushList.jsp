@@ -36,41 +36,41 @@
         fnc_pushList.init();
     });
 
-var fnc_pushList = {
+var fnc_pushList = {};
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "pushList",
+    fnc_pushList.targetId= "pushList";
 
-    init() {
-        this.target = $("#" + this.targetId);
-        this.targetDataTableId = "list_info_" + this.targetId;
-        this.target.find("#list_info").attr("id", this.targetDataTableId);
-        this.targetDataTable = this.target.find("#" + this.targetDataTableId);
-        this.divDataTable = this.targetDataTable.parent("div");
+    fnc_pushList.init = function() {
+        fnc_pushList.target = $("#" + fnc_pushList.targetId);
+        fnc_pushList.targetDataTableId = "list_info_" + fnc_pushList.targetId;
+        fnc_pushList.target.find("#list_info").attr("id", fnc_pushList.targetDataTableId);
+        fnc_pushList.targetDataTable = fnc_pushList.target.find("#" + fnc_pushList.targetDataTableId);
+        this.divDataTable = fnc_pushList.targetDataTable.parent("div");
 
         this.initDataTable();
         this.initEvent();
-    },
+    };
 
 
-    "dtList_info":"",
-    initDataTable() {
+    fnc_pushList.dtList_info="";
+    fnc_pushList.initDataTable= function() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function (data) {
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, PushDataTableSource.pushList, $("#searchForm"));
+        this.dtList_info = new DalbitDataTable(fnc_pushList.targetDataTable, dtList_info_data, PushDataTableSource.pushList, $("#searchForm"));
         this.dtList_info.useCheckBox(true);
         this.dtList_info.useIndex(true);
         this.dtList_info.createDataTable();
         //---------- Main DataTable ----------=
 
         this.initDataTableButton();
-    },
+    };
 
 
     // DataTable Button
-    initDataTableButton() {
+    fnc_pushList.initDataTableButton= function() {
         var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
@@ -78,21 +78,21 @@ var fnc_pushList = {
         this.divDataTable.find(".footer-left").append(delBtn);
         this.divDataTable.find(".top-right").append(addBtn);
         this.divDataTable.find(".footer-right").append(excelBtn);
-    },
+    };
 
 
 
-    initEvent(){
-        this.target.find("#btn_insert").on("click", function () { //등록
+    fnc_pushList.initEvent= function(){
+        fnc_pushList.target.find("#btn_insert").on("click", function () { //등록
             fnc_pushList.insertEvent();
         })
 
-        this.target.find("#btn_delete").on("click", function () { //삭제
+        fnc_pushList.target.find("#btn_delete").on("click", function () { //삭제
             fnc_pushList.deleteEvent();
         })
 
         // Detail 선택 이벤트
-        this.target.on('click', '._getNoticeDetail', function(){
+        fnc_pushList.target.on('click', '._getNoticeDetail', function(){
             var code = $(this).data('idx');
             var data = fnc_pushList.dtList_info.getDataRow(code);
 
@@ -100,27 +100,27 @@ var fnc_pushList = {
         });
 
         // CheckBox 이벤트
-        this.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
+        fnc_pushList.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
             if($(this).prop('checked')){
                 $(this).parent().parent().find('._getNoticeDetail').click();
             }
         });
-    },
+    };
 
 
 //=------------------------------ Option --------------------------------------------
 
     // 등록
-    insertEvent() {
+    fnc_pushList.insertEvent= function() {
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
         $("#tab_pushDetail").click();
-        ui.unCheck(this.targetDataTableId);
-    },
+        ui.unCheck(fnc_pushList.targetDataTableId);
+    };
 
     // 삭제
-    deleteEvent() {
+    fnc_pushList.deleteEvent= function() {
         var checkDatas = fnc_pushList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -154,10 +154,10 @@ var fnc_pushList = {
 
             util.getAjaxData(fnc_pushList.targetId, "/rest/content/push/delete",data, fnc_pushList.fn_delete_success, fnc_pushList.fn_fail);
         };
-    },
+    };
 
     // 수정
-    updateData(data) {
+    fnc_pushList.updateData= function(data) {
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo("data", data);
 
@@ -170,10 +170,10 @@ var fnc_pushList = {
 
         // targetFnc.updateDetail();
         $("#tab_" + selectTabId).click();
-    },
+    };
 
     // 삭제 성공 시
-    fn_delete_success(dst_id, data, dst_params){
+    fnc_pushList.fn_delete_success= function(dst_id, data, dst_params){
         alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
 
         // reload
@@ -182,26 +182,26 @@ var fnc_pushList = {
         //상단 이동
         $('html').animate({scrollTop : 0}, 100);
         $("#"+fnc_pushDetail.formId).empty();
-    },
+    };
 
 
     // Ajax 실패
-    fn_fail(data, textStatus, jqXHR){
+    fnc_pushList.fn_fail= function(data, textStatus, jqXHR){
         alert(data.message);
 
         console.log(data, textStatus, jqXHR);
-    },
+    };
 
 
     // 검색
-    selectMainList(isResetPaging){
+    fnc_pushList.selectMainList= function(isResetPaging){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
         this.dtList_info.reload(null, isResetPaging);
 
-    },
+    };
 
     // /*=---------- 엑셀 ----------*/
     // $('#excelDownBtn').on('click', function(){
@@ -238,5 +238,5 @@ var fnc_pushList = {
     //     console.log("fn_fail_excel");
     // }
     /*----------- 엑셀 ---------=*/
-}
+
 </script>

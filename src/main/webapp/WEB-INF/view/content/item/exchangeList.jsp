@@ -37,41 +37,41 @@
         fnc_exchangeList.init();
     });
 
-var fnc_exchangeList = {
+var fnc_exchangeList = {};
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "exchangeList",
+    fnc_exchangeList.targetId= "exchangeList";
 
-    init() {
-        this.target = $("#"+this.targetId);
-        this.targetDataTableId = "list_info_"+this.targetId;
-        this.target.find("#list_info").attr("id", this.targetDataTableId);
-        this.targetDataTable = this.target.find("#"+this.targetDataTableId);
-        this.divDataTable = this.targetDataTable.parent("div");
-
-
-        this.initDataTable();
-    },
+    fnc_exchangeList.init= function() {
+        fnc_exchangeList.target = $("#"+fnc_exchangeList.targetId);
+        fnc_exchangeList.targetDataTableId = "list_info_"+fnc_exchangeList.targetId;
+        fnc_exchangeList.target.find("#list_info").attr("id", fnc_exchangeList.targetDataTableId);
+        fnc_exchangeList.targetDataTable = fnc_exchangeList.target.find("#"+fnc_exchangeList.targetDataTableId);
+        fnc_exchangeList.divDataTable = fnc_exchangeList.targetDataTable.parent("div");
 
 
-    "dtList_info":"",
-    initDataTable(){
+        fnc_exchangeList.initDataTable();
+    };
+
+
+    fnc_exchangeList.dtList_info ="";
+    fnc_exchangeList.initDataTable= function(){
         //=---------- Main DataTable ----------
         var dtList_info_data = function ( data ) {
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.exchange, $("#searchForm"));
-        this.dtList_info.useCheckBox(true);
-        this.dtList_info.useIndex(true);
-        this.dtList_info.createDataTable(this.initSummary);
+        fnc_exchangeList.dtList_info = new DalbitDataTable(fnc_exchangeList.targetDataTable, dtList_info_data, ItemDataTableSource.exchange, $("#searchForm"));
+        fnc_exchangeList.dtList_info.useCheckBox(true);
+        fnc_exchangeList.dtList_info.useIndex(true);
+        fnc_exchangeList.dtList_info.createDataTable(this.initSummary);
 
         //---------- Main DataTable ----------=
 
         fnc_exchangeList.initDataTableButton();
         fnc_exchangeList.initEvent();
-    },
+    };
 
-    initSummary(json) {
+    fnc_exchangeList.initSummary= function(json) {
         //------------- 우측 상단 통계 -----------------------------------
         var template = $('#tmp_exchangeListStatisticsFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -81,33 +81,33 @@ var fnc_exchangeList = {
         fnc_exchangeList.divDataTable = fnc_exchangeList.targetDataTable.parent("div");
         fnc_exchangeList.target.find("#div_summary").remove();
         fnc_exchangeList.divDataTable.find(".top-right").prepend(html);
-    },
+    };
 
 
     // DataTable Button
-    initDataTableButton() {
+    fnc_exchangeList.initDataTableButton= function() {
         var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
-        this.divDataTable.find(".footer-left").append(delBtn);
-        this.divDataTable.find(".top-right").append(addBtn);
-        this.divDataTable.find(".footer-right").append(excelBtn);
-    },
+        fnc_exchangeList.divDataTable.find(".footer-left").append(delBtn);
+        fnc_exchangeList.divDataTable.find(".top-right").append(addBtn);
+        fnc_exchangeList.divDataTable.find(".footer-right").append(excelBtn);
+    };
 
 
 
-    initEvent(){
-        this.target.find("#btn_insert").on("click", function () { //등록
+    fnc_exchangeList.initEvent= function(){
+        fnc_exchangeList.target.find("#btn_insert").on("click", function () { //등록
             fnc_exchangeList.insertEvent();
         })
 
-        this.target.find("#btn_delete").on("click", function () { //삭제
+        fnc_exchangeList.target.find("#btn_delete").on("click", function () { //삭제
             fnc_exchangeList.deleteEvent();
         })
 
         // Detail 선택 이벤트
-        this.target.on('click', '._getNoticeDetail', function(){
+        fnc_exchangeList.target.on('click', '._getNoticeDetail', function(){
             var code = $(this).data('idx');
             var data = fnc_exchangeList.dtList_info.getDataRow(code);
 
@@ -115,27 +115,27 @@ var fnc_exchangeList = {
         });
 
         // CheckBox 이벤트
-        this.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
+        fnc_exchangeList.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
             if($(this).prop('checked')){
                 $(this).parent().parent().find('._getNoticeDetail').click();
             }
         });
-    },
+    };
 
 
 //=------------------------------ Option --------------------------------------------
 
     // 등록
-    insertEvent() {
+    fnc_exchangeList.insertEvent= function() {
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
         $("#tab_exchangeDetail").click();
-        ui.unCheck(this.targetDataTableId);
-    },
+        ui.unCheck(fnc_exchangeList.targetDataTableId);
+    };
 
     // 삭제
-    deleteEvent() {
+    fnc_exchangeList.deleteEvent= function() {
         var checkDatas = fnc_exchangeList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -163,10 +163,10 @@ var fnc_exchangeList = {
 
             util.getAjaxData(fnc_exchangeList.targetId, "/rest/content/item/exchange/delete",data, fnc_exchangeList.fn_delete_success, fnc_exchangeList.fn_fail);
         };
-    },
+    };
 
     // 수정
-    updateData(data) {
+    fnc_exchangeList.updateData= function(data) {
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo("data", data);
 
@@ -180,10 +180,10 @@ var fnc_exchangeList = {
 
         // targetFnc.updateDetail();
         $("#tab_" + selectTabId).click();
-    },
+    };
 
     // 삭제 성공 시
-    fn_delete_success(dst_id, data, dst_params){
+    fnc_exchangeList.fn_delete_success= function(dst_id, data, dst_params){
         alert(data.message);
 
         // reload
@@ -192,25 +192,25 @@ var fnc_exchangeList = {
         //상단 이동
         $('html').animate({scrollTop : 0}, 100);
         $("#"+fnc_exchangeDetail.formId).empty();
-    },
+    };
 
 
     // Ajax 실패
-    fn_fail(data, textStatus, jqXHR){
+    fnc_exchangeList.fn_fail= function(data, textStatus, jqXHR){
         alert(data.message);
 
         console.log(data, textStatus, jqXHR);
-    },
+    };
 
 
     // 검색
-    selectMainList(isResetPaging){
+    fnc_exchangeList.selectMainList= function(isResetPaging){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
-        this.dtList_info.reload(this.initSummary, isResetPaging);
-    },
+        fnc_exchangeList.dtList_info.reload(this.initSummary, isResetPaging);
+    };
 
         // /*=---------- 엑셀 ----------*/
         // $('#excelDownBtn').on('click', function(){
@@ -247,7 +247,6 @@ var fnc_exchangeList = {
         //     console.log("fn_fail_excel");
         // }
         /*----------- 엑셀 ---------=*/
-}
 </script>
 
 

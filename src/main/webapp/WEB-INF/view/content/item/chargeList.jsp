@@ -37,43 +37,43 @@
         fnc_chargeList.init();
     });
 
-var fnc_chargeList = {
+var fnc_chargeList = {};
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "chargeList",
+    fnc_chargeList.targetId= "chargeList";
 
-    init() {
-        this.target = $("#"+this.targetId);
-        this.targetDataTableId = "list_info_"+this.targetId;
-        this.target.find("#list_info").attr("id", this.targetDataTableId);
-        this.targetDataTable = this.target.find("#"+this.targetDataTableId);
-        this.divDataTable = this.targetDataTable.parent("div");
-
-
-        this.initDataTable();
-    },
+    fnc_chargeList.init= function() {
+        fnc_chargeList.target = $("#"+fnc_chargeList.targetId);
+        fnc_chargeList.targetDataTableId = "list_info_"+fnc_chargeList.targetId;
+        fnc_chargeList.target.find("#list_info").attr("id", fnc_chargeList.targetDataTableId);
+        fnc_chargeList.targetDataTable = fnc_chargeList.target.find("#"+fnc_chargeList.targetDataTableId);
+        fnc_chargeList.divDataTable = fnc_chargeList.targetDataTable.parent("div");
 
 
-    "dtList_info":"",
-    "dtList_statistics_info":"",
-    initDataTable() {
+        fnc_chargeList.initDataTable();
+    };
+
+
+    fnc_chargeList.dtList_info= "";
+    fnc_chargeList.dtList_statistics_info= "";
+    fnc_chargeList.initDataTable= function() {
         //=---------- Main DataTable ----------
         var dtList_info_data = function ( data ) {
         };
 
-        this.dtList_info = new DalbitDataTable(this.targetDataTable, dtList_info_data, ItemDataTableSource.charge, $("#searchForm"));
-        this.dtList_info.useCheckBox(true);
-        this.dtList_info.useIndex(true);
-        this.dtList_info.createDataTable(this.initSummary);
+        fnc_chargeList.dtList_info = new DalbitDataTable(fnc_chargeList.targetDataTable, dtList_info_data, ItemDataTableSource.charge, $("#searchForm"));
+        fnc_chargeList.dtList_info.useCheckBox(true);
+        fnc_chargeList.dtList_info.useIndex(true);
+        fnc_chargeList.dtList_info.createDataTable(this.initSummary);
 
         //---------- Main DataTable ----------=
 
         fnc_chargeList.initDataTableButton();
         fnc_chargeList.initEvent();
-    },
+    };
 
 
-    initSummary(json) {
+    fnc_chargeList.initSummary= function(json) {
         //------------- 우측 상단 통계 -----------------------------------
         var template = $('#tmp_chargeListStatisticsFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -83,34 +83,34 @@ var fnc_chargeList = {
         fnc_chargeList.divDataTable = fnc_chargeList.targetDataTable.parent("div");
         fnc_chargeList.target.find("#div_summary").remove();
         fnc_chargeList.divDataTable.find(".top-right").prepend(html);
-    },
+    };
 
 
     // DataTable Button
-    initDataTableButton() {
+    fnc_chargeList.initDataTableButton= function() {
         var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
-        this.divDataTable.find(".footer-left").append(delBtn);
-        this.divDataTable.find(".top-right").append(addBtn);
-        this.divDataTable.find(".footer-right").append(excelBtn);
-    },
+        fnc_chargeList.divDataTable.find(".footer-left").append(delBtn);
+        fnc_chargeList.divDataTable.find(".top-right").append(addBtn);
+        fnc_chargeList.divDataTable.find(".footer-right").append(excelBtn);
+    };
 
 
 
-    initEvent(){
-        this.target.find("#btn_insert").on("click", function () { //등록
+    fnc_chargeList.initEvent= function(){
+        fnc_chargeList.target.find("#btn_insert").on("click", function () { //등록
             fnc_chargeList.insertEvent();
         })
 
-        this.target.find("#btn_delete").on("click", function () { //삭제
+        fnc_chargeList.target.find("#btn_delete").on("click", function () { //삭제
             fnc_chargeList.deleteEvent();
         })
 
 
         // Detail 선택 이벤트
-        this.target.on('click', '._getNoticeDetail', function(){
+        fnc_chargeList.target.on('click', '._getNoticeDetail', function(){
             var code = $(this).data('idx');
             var data = fnc_chargeList.dtList_info.getDataRow(code);
 
@@ -118,27 +118,27 @@ var fnc_chargeList = {
         });
 
         // CheckBox 이벤트
-        this.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
+        fnc_chargeList.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
             if($(this).prop('checked')){
                 $(this).parent().parent().find('._getNoticeDetail').click();
             }
         });
-    },
+    };
 
 
 //=------------------------------ Option --------------------------------------------
 
     // 등록
-    insertEvent() {
+    fnc_chargeList.insertEvent= function() {
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
         $("#tab_chargeDetail").click();
-        ui.unCheck(this.targetDataTableId);
-    },
+        ui.unCheck(fnc_chargeList.targetDataTableId);
+    };
 
     // 삭제
-    deleteEvent() {
+    fnc_chargeList.deleteEvent= function() {
         var checkDatas = fnc_chargeList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -167,10 +167,10 @@ var fnc_chargeList = {
 
             util.getAjaxData(fnc_chargeList.targetId, "/rest/content/item/charge/delete",data, fnc_chargeList.fn_delete_success, fnc_chargeList.fn_fail);
         };
-    },
+    };
 
     // 수정
-    updateData(data) {
+    fnc_chargeList.updateData= function(data) {
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo("data", data);
 
@@ -183,10 +183,10 @@ var fnc_chargeList = {
 
         // targetFnc.updateDetail();
         $("#tab_" + selectTabId).click();
-    },
+    };
 
     // 삭제 성공 시
-    fn_delete_success(dst_id, data, dst_params){
+    fnc_chargeList.fn_delete_success= function(dst_id, data, dst_params){
         alert(data.message);
 
         // reload
@@ -195,29 +195,29 @@ var fnc_chargeList = {
         //상단 이동
         $('html').animate({scrollTop : 0}, 100);
         $("#"+fnc_chargeDetail.formId).empty();
-    },
+    };
 
 
     // Ajax 실패
-    fn_fail(data, textStatus, jqXHR){
+    fnc_chargeList.fn_fail= function(data, textStatus, jqXHR){
         alert(data.message);
 
         console.log(data, textStatus, jqXHR);
-    },
+    };
 
 
 
 
     // 검색
-    selectMainList(isResetPaging){
+    fnc_chargeList.selectMainList= function(isResetPaging){
         /* 엑셀저장을 위해 조회조건 임시저장 */
         // tmp_search = $('#txt_search').val();
         // tmp_gubun = $("select[name='selectGubun']").val();
 
         // Summary를 위한 재생성
-        this.dtList_info.reload(this.initSummary, isResetPaging);
+        fnc_chargeList.dtList_info.reload(this.initSummary, isResetPaging);
 
-    },
+    };
 
         // /*=---------- 엑셀 ----------*/
         // $('#excelDownBtn').on('click', function(){
@@ -254,7 +254,7 @@ var fnc_chargeList = {
         //     console.log("fn_fail_excel");
         // }
         /*----------- 엑셀 ---------=*/
-}
+
 </script>
 
 

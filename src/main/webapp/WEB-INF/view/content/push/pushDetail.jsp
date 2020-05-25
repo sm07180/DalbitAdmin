@@ -15,15 +15,15 @@
     });
 
 
-    var fnc_pushDetail = {
+    var fnc_pushDetail = {};
 //=------------------------------ Init / Event / UI--------------------------------------------
-        "targetId": "pushDetail",
-        "formId" : "pushDetailForm",
+    fnc_pushDetail.targetId= "pushDetail";
+    fnc_pushDetail.formId= "pushDetailForm";
 
-        init() {
-            this.target = $("#"+this.targetId);
-            this.target.find("#targetForm").attr("id", this.targetId + "Form");
-            this.formId = this.targetId + "Form";
+    fnc_pushDetail.init= function() {
+            fnc_pushDetail.target = $("#"+fnc_pushDetail.targetId);
+            fnc_pushDetail.target.find("#targetForm").attr("id", fnc_pushDetail.targetId + "Form");
+            this.formId = fnc_pushDetail.targetId + "Form";
 
             if(common.isEmpty(getSelectDataInfo())){
                 fnc_pushDetail.insertDetail();
@@ -36,28 +36,27 @@
 
             // this.initDetail();
             // this.initDetailEvent();
-        },
+    };
 
 
         // 초기 설정
-        initDetail() {
+    fnc_pushDetail.initDetail= function() {
             // 캘린더
-            this.target.find('.input-group.date').datetimepicker({
+            fnc_pushDetail.target.find('.input-group.date').datetimepicker({
                 format: 'L'
                 , date: new Date()
             });
 
             // 시간 Select CSS 적용
-            this.target.find("#timeHour").attr("class", "select-time");
-            this.target.find("#timeMinute").attr("class", "select-time");
-        },
+            fnc_pushDetail.target.find("#timeHour").attr("class", "select-time");
+            fnc_pushDetail.target.find("#timeMinute").attr("class", "select-time");
+    };
 
         // 이벤트 적용
-        initDetailEvent()
-        {
+    fnc_pushDetail.initDetailEvent= function() {
 
             //수신대상 선택
-            this.target.find("input[name='is_all']").change(function () {
+            fnc_pushDetail.target.find("input[name='is_all']").change(function () {
                 if ($(this).val() == "7") { //지정 회원
                     fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", false);
                     fnc_pushDetail.target.find("#div_selectTarget").show();
@@ -79,7 +78,7 @@
 
 
             //OS 구분
-            this.target.find("input[name='platform']").change(function () {
+            fnc_pushDetail.target.find("input[name='platform']").change(function () {
                 if ($(this).val() == "-1") {
                     if ($(this).is(":checked")) {
                         fnc_pushDetail.target.find("input[name='platform']").each(function () {
@@ -105,7 +104,7 @@
 
 
             //발송여부 선택
-            this.target.find("input[name='is_direct']:radio").change(function () {
+            fnc_pushDetail.target.find("input[name='is_direct']:radio").change(function () {
                 var type = this.value;
 
                 //예약 발송 일 경우 날짜 추가
@@ -128,7 +127,7 @@
             });
 
             //푸시 타입 선택
-            this.target.find("input[name=slct_push]:radio").change(function () {
+            fnc_pushDetail.target.find("input[name=slct_push]:radio").change(function () {
                 var type = this.value;
                 if(type == "1"){ //room_no
                     fnc_pushDetail.target.find("#label_targetType").text("방송방 번호:");
@@ -163,22 +162,22 @@
             });
 
             // 지정회원 - 수신대상
-            this.target.find("#btn_selectMember").on("click", function () {
+            fnc_pushDetail.target.find("#btn_selectMember").on("click", function () {
                 showPopMemberList(fnc_pushDetail.choiceMember);
             });
 
             // 이동대상지정 - 회원 조회 팝업
-            this.target.find("#btn_selectMember_link").on("click", function(){
+            fnc_pushDetail.target.find("#btn_selectMember_link").on("click", function(){
                 showPopMemberList(fnc_pushDetail.choiceMember_link);
             });
 
             // 이동대상지정 - 방송방 조회 팝업
-            this.target.find("#btn_selectBroadcastLive_link").on("click", function(){
+            fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").on("click", function(){
                 showPopBroadcastLiveList(fnc_pushDetail.choiceBroadcastLive_link);
             });
 
             // 등록 버튼
-            this.target.find("#insertBtn").on("click", function () {
+            fnc_pushDetail.target.find("#insertBtn").on("click", function () {
                 if(!confirm("등록 하시겠습니까?")){
                     return false;
                 }
@@ -194,7 +193,7 @@
 
 
             // 수정 버튼
-            this.target.find("#updateBtn").on("click", function () {
+            fnc_pushDetail.target.find("#updateBtn").on("click", function () {
                 if(!confirm("재발송 하시겠습니까?")){
                     return false;
                 }
@@ -207,11 +206,11 @@
 
                 util.getAjaxData("upldate", "/rest/content/push/insert", data, fnc_pushDetail.fn_update_success, fnc_pushDetail.fn_fail);
             })
-        },
+    };
 
 
         //수정 데이터 조회 후 UI 처리
-        initUpdateUI(){
+    fnc_pushDetail.initUpdateUI= function(){
             var detailData = getSelectDataInfo().detailData;
             console.log(detailData);
 
@@ -292,21 +291,24 @@
             // 시간 Select CSS 적용
             fnc_pushDetail.target.find("#push-div-sendDate").find("#timeHour").val(sendDate.hour().toString().length == 1?("0"+sendDate.hour()):sendDate.hour());
             fnc_pushDetail.target.find("#push-div-sendDate").find("#timeMinute").val(sendDate.minute().toString().length == 1?("0"+sendDate.minute()):sendDate.minute());
-        },
+    };
 
 
         // 등록 화면
-        insertDetail() {
+    fnc_pushDetail.insertDetail= function() {
             var template = $('#tmp_pushDetailFrm').html();
             var templateScript = Handlebars.compile(template);
-            this.target.find("#"+this.formId).html(templateScript);
+            fnc_pushDetail.target.find("#"+this.formId).html(templateScript);
 
-            this.initDetail();
-            this.initDetailEvent();
-        },
+            fnc_pushDetail.initDetail();
+            fnc_pushDetail.initDetailEvent();
+
+            var scrollPosition = $("#tab_"+fnc_pushDetail.targetId).offset();
+            util.scrollPostion(scrollPosition.top);
+    };
 
         // 수정 화면
-        updateDetail(){
+    fnc_pushDetail.updateDetail= function(){
             var detailData = getSelectDataInfo().detailData;
             detailData.rowNum = getSelectDataInfo().data.rowNum;
             dalbitLog(detailData);
@@ -322,12 +324,15 @@
             fnc_pushDetail.initDetail();
             fnc_pushDetail.initDetailEvent();
             fnc_pushDetail.initUpdateUI();
-        },
+
+            var scrollPosition = $("#tab_"+fnc_pushDetail.targetId).offset();
+            util.scrollPostion(scrollPosition.top);
+    };
 
 //=------------------------------ Option --------------------------------------------
 
         // 상세 목록 조회 성공 시
-        fn_detail_success(dst_id, data, dst_params){
+    fnc_pushDetail.fn_detail_success= function(dst_id, data, dst_params){
             if(data.result == "fail"){
                 alert(data.message);
                 return false;
@@ -336,14 +341,11 @@
             setSelectDataInfo("detailData", data.data);
 
             fnc_pushDetail.updateDetail();
-
-            var scrollPosition = $("#tab_pushDetail").offset();
-            util.scrollPostion(scrollPosition.top);
-        },
+    };
 
 
         // 등록 성공 시
-        fn_insert_success(dst_id, data, dst_params){
+    fnc_pushDetail.fn_insert_success= function(dst_id, data, dst_params){
             if(data.result == "fail"){
                 alert(data.message);
                 return false;
@@ -370,11 +372,11 @@
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_pushDetail.formId).empty();
-        },
+    };
 
 
         // 수정 성공 시
-        fn_update_success(dst_id, data, dst_params){
+    fnc_pushDetail.fn_update_success= function(dst_id, data, dst_params){
             if(data.result == "fail"){
                 alert(data.message);
                 return false;
@@ -401,23 +403,23 @@
             //상단 이동
             $('html').animate({scrollTop : 0}, 100);
             $("#"+fnc_pushDetail.formId).empty();
-        },
+    };
 
 
         // Ajax 실패
-        fn_fail(data, textStatus, jqXHR){
+    fnc_pushDetail.fn_fail= function(data, textStatus, jqXHR){
             alert(data.message);
 
             console.log(data, textStatus, jqXHR);
-        },
+    };
 
 //=------------------------------ Data Handler ----------------------------------
 
         // 데이터 가져오기
-        getDetailData(){
+    fnc_pushDetail.getDetailData= function(){
             var resultJson ={};
 
-            var formArray = this.target.find("#" + this.formId).serializeArray();
+            var formArray = fnc_pushDetail.target.find("#" + this.formId).serializeArray();
             for (var i = 0; i < formArray.length; i++){
                 resultJson[formArray[i]['name']] = formArray[i]['value'];
             }
@@ -483,10 +485,10 @@
 
             dalbitLog(resultJson)
             return resultJson;
-        },
+    };
 
 
-        isValid(data) {
+    fnc_pushDetail.isValid= function(data) {
 
             if (common.isEmpty(data.platform) || data.platform == "100") {
                 alert("노출 OS 구분을 선택하여 주시기 바랍니다.");
@@ -573,13 +575,13 @@
 
 
             return true;
-        },
+    };
 
 
 //=------------------------------ Modal ----------------------------------
 
         // [수신대상 선택 - 지정회원] 회원 추가
-        choiceMember(data) {
+    fnc_pushDetail.choiceMember= function(data) {
             console.log(data);
             var html = '<p id="' + data.mem_no + '">' + data.mem_nick + '(' +data.mem_userid+ ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
 
@@ -589,35 +591,33 @@
             }
 
             fnc_pushDetail.target.find("#div_selectTarget").append(html);
-        },
+    };
 
         // [수신대상 선택 - 지정회원] 회원 삭제
-        delMember(dom) {
+    fnc_pushDetail.delMember= function(dom) {
             dom.parent("p").remove();
-        },
+    };
 
 
 
         // 이동대상지정 - 방송방
-        choiceBroadcastLive_link(data) {
+    fnc_pushDetail.choiceBroadcastLive_link= function(data) {
             console.log(data);
             var html = '<p id="' + data.room_no + '">' + data.title + '<a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
 
             fnc_pushDetail.target.find("#input_targetLink").val(data.room_no);
             fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", data.room_no);
-        },
+    };
 
 
         // 이동대상지정 - 회원
-        choiceMember_link(data) {
+    fnc_pushDetail.choiceMember_link= function(data) {
             console.log(data);
             var html = '<p id="' + data.mem_no + '">' + data.mem_nick + '(' +data.mem_userid+ ') <a style="cursor: pointer;" onclick="fnc_pushDetail.delMember($(this))">[X]</a></p>'
 
             fnc_pushDetail.target.find("#input_targetLink").val(data.mem_no);
             fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", data.mem_no);
-        },
-
-    }
+    };
 </script>
 
 
