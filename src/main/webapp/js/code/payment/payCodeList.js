@@ -13,3 +13,10 @@ var payPlatform = [
     , new COMMON_CODE('ios', '2', 'IOS')
     , new COMMON_CODE('web', '3', 'WEB')
 ]
+
+var innerType = [
+    new COMMON_CODE(null, 'innerType', '직원여부')
+    , new COMMON_CODE('all', '-1', '회원 (전체)')
+    , new COMMON_CODE('N', '0', '회원')
+    , new COMMON_CODE('Y', '1', '직원')
+]
