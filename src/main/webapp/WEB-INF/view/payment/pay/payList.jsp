@@ -119,7 +119,8 @@
     /* 취소버튼 클릭 */
     function payCancelSuccess(response){
         dalbitLog(response);
-        init();
+        alert("결제취소가 완료되었습니다.");
+        dtList_info.reload(pay_listSummary);
     }
 
     function sel_change_payStateArea(){

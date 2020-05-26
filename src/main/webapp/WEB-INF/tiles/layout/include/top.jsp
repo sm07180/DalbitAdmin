@@ -58,3 +58,5 @@
     <!-- /container -->
 </div>
 <!-- /top -->
+
+<div class="modal"></div>
