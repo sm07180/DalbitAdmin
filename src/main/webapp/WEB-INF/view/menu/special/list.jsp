@@ -4,17 +4,18 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
-
                 <!-- serachBox -->
                 <form id="searchForm">
-                    <div class="widget widget-table searchBoxArea form-inline">
-                        <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
-                            <div>
-                                <span id="searchArea"></span>
-                                <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                <button type="button" class="btn btn-primary pull-right" id="memSearch" name="memSearch"><i class="fa fa-search"></i>운영자 직접 등록</button>
+                    <div class="row col-lg-12 form-inline">
+                        <div class="widget widget-table searchBoxArea">
+                            <div class="widget-header searchBoxRow">
+                                <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
+                                <div>
+                                    <span id="searchArea"></span>
+                                    <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
+                                    <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                    <button type="button" class="btn btn-primary pull-right" id="memSearch" name="memSearch"><i class="fa fa-search"></i>운영자 직접 등록</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -22,7 +23,7 @@
                 <!-- //serachBox -->
 
                 <!-- summary -->
-                <div class="widget-content">
+                <div class="row col-lg-12 form-inline">
                     <table class="table table-bordered table-summary pull-right">
                         <thead>
                             <th>승인 달D</th>
@@ -34,14 +35,14 @@
                 </div>
                 <!-- //summary -->
 
-
-
+                <!-- tab -->
+            <div class="row col-lg-12 form-inline">
+                <div class="no-padding" id="listTab">
+                    <jsp:include page="listTab.jsp"/>
+                </div>
+            </div>
+                <!-- //tab -->
         </div> <!-- //container-fluid -->
-        <!-- tab -->
-        <div class="no-padding" id="listTab">
-            <jsp:include page="listTab.jsp"/>
-        </div>
-        <!-- //tab -->
     </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper-->
 
