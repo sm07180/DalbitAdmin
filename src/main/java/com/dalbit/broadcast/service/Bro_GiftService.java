@@ -48,6 +48,7 @@ public class Bro_GiftService {
             for (int i = 0; i < GiftList.size(); i++) {
                 P_GiftListOutputVo outVo = new P_GiftListOutputVo();
                 outVo.setRowNum(GiftList.get(i).getRowNum());
+                outVo.setMem_no(GiftList.get(i).getMem_no());
                 outVo.setUserId(GiftList.get(i).getUserId());
                 outVo.setNickName(GiftList.get(i).getNickName());
                 outVo.setLevel(GiftList.get(i).getLevel());
