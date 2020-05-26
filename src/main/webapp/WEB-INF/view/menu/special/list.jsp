@@ -23,12 +23,10 @@
 
                 <!-- summary -->
                 <div class="widget-content">
-                    <table class="table table-bordered table-summary">
+                    <table class="table table-bordered table-summary pull-right">
                         <thead>
-                        <tr>
                             <th>승인 달D</th>
-                            <th>총 신청 달D</th>
-                        </tr>
+                            <th style="color: #ff0000;">총 신청 달D</th>
                         </thead>
                         <tbody id="summaryTableBody">
                         </tbody>
@@ -36,13 +34,14 @@
                 </div>
                 <!-- //summary -->
 
-                <!-- tab -->
-                <div class="no-padding" id="listTab">
-                    <jsp:include page="listTab.jsp"/>
-                </div>
-                <!-- //tab -->
+
 
         </div> <!-- //container-fluid -->
+        <!-- tab -->
+        <div class="no-padding" id="listTab">
+            <jsp:include page="listTab.jsp"/>
+        </div>
+        <!-- //tab -->
     </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper-->
 
@@ -111,13 +110,43 @@
         alert(response.message);
         getList();
     }
+
+
+    function sendPush(mem_no){
+        if(common.isEmpty(mem_no)){
+            console.log("[PUSH] 발송 mem_no 미존재!");
+            return false;
+        }
+
+        var data = {
+            mem_nos: mem_no
+            ,send_cnt: 0
+            ,send_title: "스페셜 DJ로 선정되었어요."
+            ,send_cont: "스페셜 DJ로 선정되었습니다. 다양한 혜택을 경험해보세요."
+            // ,board_idx: "102"
+            ,slct_push: "7"
+            ,is_all: "7"
+            ,platform: "111"
+            ,status: 0
+            ,msg_type: 0
+            ,image_type: 1
+            ,is_direct: 0
+        };
+        dalbitLog(data);
+
+        util.getAjaxData("insert", "/rest/content/push/insert", data, function(dst_id, data, dst_params){
+            console.log("[PUSH SEND RESULT]");
+            console.log(data.message);
+        });
+    }
+
 </script>
 
 <script id="tmp_summary" type="text/x-handlebars-template">
     {{#data}}
     <tr>
         <td>{{addComma approveDal}}건</td> <%-- 승인 달D --%>
-        <td>{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
+        <td style="color: #ff0000;">{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
     </tr>
     {{/data}}
 </script>

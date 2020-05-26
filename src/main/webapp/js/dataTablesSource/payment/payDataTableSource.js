@@ -32,7 +32,7 @@ var payDataTableSource = {
                 }}
             , {'title': '결제<br />아이템', 'data': 'pay_code', 'width':'60px'}
             , {'title': '금액', 'data': '', 'width':'80px', 'render': function(data, type, row) {
-                    var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt.split(".")[0]) + '원' : row.pay_amt.split(".")[0];
+                    var tmp = row.pay_slct + '<br/>' + (row.pay_slct == 'KRW') ? common.addComma(row.pay_amt) + '원' : row.pay_amt;
                     return tmp;
                 }}
             , {'title': '취소 시<br/>차감 달', 'data': 'dal_cnt', 'width':'55px', 'render': function(data, type, row) {
@@ -67,7 +67,7 @@ var payDataTableSource = {
                                 'data-paycd="'+ row.pay_way+'" ' +
                                 'data-tradeid="'+row.order_id+'" ' +
                                 'data-mobilid="'+row.bill_id+'" ' +
-                                'data-prdtprice="'+row.pay_amt.split(".")[0]+'" ' +
+                                'data-prdtprice="'+row.pay_amt+'" ' +
                                 'data-storeid="'+row.store_id+'" ' +
                                 'data-memno="'+row.mem_no+'" ' +
                                 'data-dalcnt="'+row.dal_cnt+'" ' +

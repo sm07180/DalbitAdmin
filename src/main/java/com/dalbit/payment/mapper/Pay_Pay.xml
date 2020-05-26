@@ -12,7 +12,7 @@
             , pay.pay_ok_date
             , pay.pay_ok_time
             , pay.pay_slct
-            , pay.pay_amt
+            , floor(pay.pay_amt) as pay_amt
             , pay.pay_code
             , member.inner as chrgr_yn
             , pay.app_ver

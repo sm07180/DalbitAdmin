@@ -20,6 +20,7 @@ public interface Cus_QuestionDao {
     P_QuestionDetailOutputVo callServiceCenterQnaDetail(ProcedureVo procedureVo);
 
     ProcedureVo callServiceCenterQnaOperate(ProcedureVo procedureVo);
+    int callServiceCenterQnaUpdate(P_QuestionOperateVo pQuestionOperateVo);
 
     @Transactional(readOnly = true)
     List<FaqVo> getFaqGroupList();

@@ -371,7 +371,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         }
     }
 
-    // DataTable 최초 생성시 데이터 로드 여부
+    // DataTable 최초 생성시 데이터 로드 여부   // true(default) : 최초검색O, false : 최초검색X
     DalbitDataTable.prototype.useInitReload = function(isUse){
         if(isUse){
             delete this.dataTableSource.deferLoading;

@@ -3,21 +3,27 @@ package com.dalbit.menu.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
 import com.dalbit.menu.vo.SpecialDjOrderVo;
 import com.dalbit.menu.vo.SpecialReqVo;
 import com.dalbit.menu.vo.SpecialSummaryVo;
 import com.dalbit.menu.vo.SpecialVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -28,6 +34,9 @@ public class Men_SpecialService {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    @Autowired
+    ExcelService excelService;
 
     /**
      * 스페셜 달D 건수
@@ -50,6 +59,43 @@ public class Men_SpecialService {
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialReqVo.getTotalCnt(), specialReqVo.getPageStart(), specialReqVo.getPageCnt())));
 
         return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 목록 엑셀
+     */
+    public Model getListExcel(SpecialReqVo specialReqVo, Model model) {
+        specialReqVo.setPageCnt(1000000);
+
+        List<SpecialReqVo> list = menSpecialDao.getReqSpecialList(specialReqVo);
+
+        String[] headers = {"No", "회원번호", "신청일", "이름", "연락처", "제목", "내용", "상태", "처리자", "처리일시"};
+        int[] headerWidths = {3000, 5000, 6000, 5000, 5000, 5000, 5000, 3000, 3000, 6000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("no", list.size()-i);
+            hm.put("mem_no", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("reg_date", DalbitUtil.isEmpty(list.get(i).getReg_date()) ? "" : list.get(i).getReg_date());
+            hm.put("mem_name", DalbitUtil.isEmpty(list.get(i).getMem_name()) ? "" : list.get(i).getMem_name());
+            hm.put("mem_phone", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getMem_phone());
+            hm.put("title", DalbitUtil.isEmpty(list.get(i).getTitle()) ? "" : list.get(i).getTitle());
+            hm.put("contents", DalbitUtil.isEmpty(list.get(i).getContents()) ? "" : list.get(i).getContents());
+            hm.put("state", DalbitUtil.isEmpty(list.get(i).getState()) ? "" : list.get(i).getState());
+            hm.put("op_name", DalbitUtil.isEmpty(list.get(i).getOp_name()) ? "" : list.get(i).getOp_name());
+            hm.put("last_upd_date" , DalbitUtil.isEmpty(list.get(i).getLast_upd_date()) ? "" : list.get(i).getLast_upd_date());
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("스페셜DJ 신청 목록",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "스페셜DJ 신청 목록");
+
+        return model;
     }
 
     /**
@@ -82,6 +128,8 @@ public class Men_SpecialService {
         menSpecialDao.profileUpdate(specialReqVo);
 
         if(result > 0) {
+            // 스페셜 DJ 선정 PUSH 발송
+            sendPushReqOK(specialReqVo.getMem_no());
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_성공));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_실패));
@@ -171,5 +219,32 @@ public class Men_SpecialService {
         }catch (Exception e){
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ순위변경_실패));
         }
+    }
+
+    @Autowired
+    PushService pushService;
+
+    public String sendPushReqOK(String mem_no){
+
+        P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+
+        pPushInsertVo.setMem_nos(mem_no);
+        pPushInsertVo.setSend_cnt("1");
+        pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
+        pPushInsertVo.setSend_cont("스페셜 DJ로 선정되었습니다. 다양한 혜택을 경험해보세요.");
+        //TODO 스페셜DJ 공지 번호 입력 필요!!
+//        pPushInsertVo.setBoard_idx("3");
+        pPushInsertVo.setSlct_push("7");
+        pPushInsertVo.setIs_all("7");
+        pPushInsertVo.setPlatform("111");
+        pPushInsertVo.setStatus("0");
+        pPushInsertVo.setMsg_type("0");
+        pPushInsertVo.setImage_type("1");
+        pPushInsertVo.setIs_direct("0");
+
+        String pushResult = pushService.callContentsPushAdd(pPushInsertVo);
+        log.info("[PUSH SEND RESULT] : {}" , pushResult);
+
+        return pushResult;
     }
 }

@@ -87,7 +87,7 @@
             ) AS a,
             (select @rownum := 0) AS b
             <trim prefix="ORDER BY">
-                a.last_upd_date asc
+                a.last_upd_date desc
             </trim>
         ) b
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}

@@ -208,7 +208,7 @@ var MemberDataTableSource = {
                 }},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '구분', 'data': 'gubun'},
-            {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
+            {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
                     return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {

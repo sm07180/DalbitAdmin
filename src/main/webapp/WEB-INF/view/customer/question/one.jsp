@@ -50,8 +50,11 @@
         util.editorInit("customer-question");
         util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", null, fn_getFaqGroup_success);
 
-        $('#bt_operate').click(function() {                   // 방송제목 변경
+        $('#bt_operate').click(function() {                   // 1:1 문의 등록
             operate_click();
+        });
+        $('#bt_update').click(function() {                   // 1:1 문의 수정
+            update_click();
         });
 
         if(response.data.state == 2 && response.data.op_name != $(".name").text()){
@@ -96,6 +99,24 @@
 
         $("#question_detailFrm").empty();
     }
+
+    function update_click(){
+        var data = {};
+        data["qnaIdx"] = qnaIdx;
+        data["answer"] = $("#editor").summernote('code');
+        // dalbitLog(data);
+        if(confirm("수정하시겠습니까?")){
+            util.getAjaxData("insert", "/rest/customer/question/update", data, fn_update_success);
+        }
+    }
+    function fn_update_success(data, response, params){
+        dalbitLog(response);
+        alert(response.message);
+        dtList_info.reload();
+
+        $("#question_detailFrm").empty();
+    }
+
 
     $(document).on('change', '#faqGroup', function() {
         var faqData = {
@@ -286,9 +307,12 @@
             </div>
             <div class="pull-right">
                 <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
-                {{#equal state '2'}}
                 <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
+                {{#equal state '2'}}
                     <button type="button" id="bt_operate" class="btn btn-default">완료</button>
+                {{/equal}}
+                {{^equal state '2'}}
+                    <button type="button" id="bt_update" class="btn btn-default">수정</button>
                 {{/equal}}
             </div>
         </div>

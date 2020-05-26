@@ -32,6 +32,7 @@
     });
     $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
 
+    var memWithdrawal = "0";
     var profImgDel;
     var report;
     var memberInfo_responseDate;

@@ -23,7 +23,19 @@
                        or mem_phone like concat('%', #{searchText}, '%')
                        or mem_id like concat('%', #{searchText}, '%'))
                 )as c, (select @rownum := #{pageNo} ) AS d
-         order by mem_join_date desc
+
+        <if test="memJoinDateSort == 0"> order by mem_join_date desc </if>
+        <if test="memJoinDateSort == 1"> order by mem_join_date asc </if>
+        <if test="memNickSort == 0"> order by mem_nick desc </if>
+        <if test="memNickSort == 1"> order by mem_nick asc </if>
+        <if test="memLoginIdSort == 0"> order by mem_id desc </if>
+        <if test="memLoginIdSort == 1"> order by mem_id asc </if>
+        <if test="memIpSort == 0"> order by ip desc </if>
+        <if test="memIpSort == 1"> order by ip asc </if>
+        <if test="memJoinDateSort == -1 and memNickSort == -1 and memLoginIdSort == -1 and memIpSort == -1">
+          order by mem_join_date desc
+        </if>
+
          limit #{pageNo}, #{pageCnt}
     </select>
 
@@ -88,7 +100,19 @@
                        or mem_phone like concat('%', #{searchText}, '%')
                        or mem_id like concat('%', #{searchText}, '%'))
                 )as c, (select @rownum := #{pageNo} ) AS d
-         order by last_upd_date desc
+
+        <if test="memJoinDateSort_withdrawal == 0"> order by mem_join_date desc </if>
+        <if test="memJoinDateSort_withdrawal == 1"> order by mem_join_date asc </if>
+        <if test="memNickSort_withdrawal == 0"> order by mem_nick desc </if>
+        <if test="memNickSort_withdrawal == 1"> order by mem_nick asc </if>
+        <if test="memLoginIdSort_withdrawal == 0"> order by mem_id desc </if>
+        <if test="memLoginIdSort_withdrawal == 1"> order by mem_id asc </if>
+        <if test="memIpSort_withdrawal == 0"> order by ip desc </if>
+        <if test="memIpSort_withdrawal == 1"> order by ip asc </if>
+        <if test="memJoinDateSort_withdrawal == -1 and memNickSort_withdrawal == -1 and memLoginIdSort_withdrawal == -1 and memIpSort_withdrawal == -1">
+            order by mem_join_date desc
+        </if>
+
          limit #{pageNo}, #{pageCnt}
     </select>
 

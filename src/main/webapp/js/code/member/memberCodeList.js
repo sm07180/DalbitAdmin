@@ -105,17 +105,39 @@ var pointEditStory = [
     ,new COMMON_CODE('2','2','이벤트 지급')
 ];
 
+var memJoinDateSort = [
+    new COMMON_CODE('','memJoinDateSort','가입일시정렬')
+    ,new COMMON_CODE('-1','-1','가입일시')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+var memNickSort = [
+    new COMMON_CODE('','memNickSort','닉네임정렬')
+    ,new COMMON_CODE('-1','-1','닉네임')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+var memLoginIdSort = [
+    new COMMON_CODE('','memLoginIdSort','로그인ID정렬')
+    ,new COMMON_CODE('-1','-1','로그인ID')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+var memIpSort = [
+    new COMMON_CODE('','memIpSort','IP정렬')
+    ,new COMMON_CODE('-1','-1','IP')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+
+
 
 
 // ------------------------- table -----------------------------
-var mem_total_gift_summary = [
-    new COMMON_CODE('', 'total_gift_present', '누적 선물 수')
-    , new COMMON_CODE('', 'total_gift_dal', '누적 선물 달')
-    , new COMMON_CODE('', 'total_received_present', '누적 받은 선물 수')
-    , new COMMON_CODE('', 'total_received_dal', '누적 받은 선물 달')
-    // , new COMMON_CODE('', 'most_gift_mem', '보낸 선물 최다 회원')
-    // , new COMMON_CODE('', 'most_received_mem', '받은 선물 최다 회원')
-];
 var mem_gift_summary = [
     new COMMON_CODE('', 'total_charge_dal', '누적 충전 보낸 달')
     , new COMMON_CODE('', 'total_charge_dal', '누적 충전 받은 달')
