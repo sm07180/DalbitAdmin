@@ -11,25 +11,41 @@
             <%--</a>--%>
         <%--</div>--%>
     <%--</div>--%>
-        <div class="row col-md-12 mt15">
-            <div class="pull-left ml5 mb15">
+        <div class="row col-lg-12 mt15">
+            <div class="pull-left ml5">
                 ㆍ 매달 최소 10일, 20시간 이상 방송한 달D입니다. <br/>
                 ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다. <br/>
             </div>
+
+            <!-- summary -->
+            <div class="pull-right no-padding">
+                <table class="table table-bordered table-summary">
+                    <thead>
+                    <th>승인 달D</th>
+                    <th style="color: #ff0000;">총 신청 달D</th>
+                    </thead>
+                    <tbody id="reqSummaryTableBody">
+                    </tbody>
+                </table>
+            </div>
+            <!-- //summary -->
+
         </div>
-    <div class="widget-content">
-        <table id="reqSpecialList" class="table table-sorting table-hover table-bordered">
-            <thead>
-            </thead>
-            <tbody id="tableBody">
-            </tbody>
-        </table>
-    </div>
-    <div class="widget-footer">
-        <span>
-            <button type="button" class="btn btn-default print-btn" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
-        </span>
-    </div>
+
+        <div class="widget-content">
+            <table id="reqSpecialList" class="table table-sorting table-hover table-bordered">
+                <thead>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="widget-footer">
+            <span>
+                <button type="button" class="btn btn-default print-btn" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+            </span>
+        </div>
 </div>
 <!-- // DATA TABLE -->
 
@@ -43,6 +59,8 @@
 
 
     function initReq() {
+        reqGetSummary();
+
         var dtList_info;
         var dtList_info_data = function(data) {
         };
@@ -52,6 +70,19 @@
         dtList_info.createDataTable();
 
         ui.checkBoxInit('reqSpecialList');
+    }
+
+    function reqGetSummary(){
+        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_reqSummary_success);
+    }
+
+    function fn_reqSummary_success(dst_id, response){
+        var template = $('#tmp_summary').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response;
+        var html = templateScript(context);
+
+        $("#reqSummaryTableBody").empty().append(html);
     }
 
     $(document).on('click', '._reqDalDetail', function() {

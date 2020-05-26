@@ -14,7 +14,6 @@
                                     <span id="searchArea"></span>
                                     <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                                    <button type="button" class="btn btn-primary pull-right" id="memSearch" name="memSearch"><i class="fa fa-search"></i>운영자 직접 등록</button>
                                 </div>
                             </div>
                         </div>
@@ -22,25 +21,14 @@
                 </form>
                 <!-- //serachBox -->
 
-                <!-- summary -->
-                <div class="row col-lg-12 form-inline">
-                    <table class="table table-bordered table-summary pull-right">
-                        <thead>
-                            <th>승인 달D</th>
-                            <th style="color: #ff0000;">총 신청 달D</th>
-                        </thead>
-                        <tbody id="summaryTableBody">
-                        </tbody>
-                    </table>
-                </div>
-                <!-- //summary -->
+
 
                 <!-- tab -->
-            <div class="row col-lg-12 form-inline">
-                <div class="no-padding" id="listTab">
-                    <jsp:include page="listTab.jsp"/>
+                <div class="row col-lg-12 form-inline">
+                    <div class="no-padding" id="listTab">
+                        <jsp:include page="listTab.jsp"/>
+                    </div>
                 </div>
-            </div>
                 <!-- //tab -->
         </div> <!-- //container-fluid -->
     </div> <!-- //page-wrapper -->
@@ -52,21 +40,7 @@
 
     $(document).ready(function() {
         $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
-        getSummary();
     });
-
-    function getSummary(){
-        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_summary_success);
-    }
-
-    function fn_summary_success(dst_id, response){
-        var template = $('#tmp_summary').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response;
-        var html = templateScript(context);
-
-        $("#summaryTableBody").empty().append(html);
-    }
 
     $('#bt_search').on('click', function () {
         $('#dalList, #sampleDalList, #reqDalList').empty();
@@ -90,10 +64,6 @@
                 initReq();
             }
         }
-    });
-
-    $('#memSearch').on('click', function() {
-       showPopMemberList(choiceMember);
     });
 
     function choiceMember(data) {
