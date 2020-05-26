@@ -300,7 +300,7 @@
     </tr>
     {{else}}
     <tr>
-        <td colspan="13">{{isEmptyData}}</td>
+        <td colspan="14">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
