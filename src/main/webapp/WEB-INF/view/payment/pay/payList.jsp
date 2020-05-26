@@ -21,6 +21,7 @@
             <thead></thead>
             <tbody></tbody>
         </table>
+        <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
         <!-- // DATA TABLE -->
     </div>
 </div> <!-- //wrapper -->
@@ -200,6 +201,24 @@
         }
         return str;
     }
+
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("searchText", txt_search);
+        formData.append("period", tmp_period);
+        formData.append("sDate", sDate);
+        formData.append("eDate", eDate);
+        formData.append("ostype", tmp_ostype);
+        formData.append("searchPayStatus", tmp_searchPayStatus);
+        formData.append("innerType", tmp_innerType);
+
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+
+    });
+
 
 </script>
 
