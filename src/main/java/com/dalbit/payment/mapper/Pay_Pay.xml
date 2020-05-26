@@ -100,6 +100,9 @@
         <if test="innerType != -1">
             and chrgr_yn = #{innerType}
         </if>
+        <if test="payWay != 'all'">
+            and pay_way = #{payWay}
+        </if>
 
         limit #{pageStart}, #{pageCnt}
     </select>
@@ -140,6 +143,9 @@
         </if>
         <if test="innerType != -1">
             and chrgr_yn = #{innerType}
+        </if>
+        <if test="payWay != 'all'">
+            and pay_way = #{payWay}
         </if>
     </select>
 
@@ -184,6 +190,9 @@
         </if>
         <if test="innerType != -1">
             and chrgr_yn = #{innerType}
+        </if>
+        <if test="payWay != 'all'">
+            and pay_way = #{payWay}
         </if>
     </select>
 
