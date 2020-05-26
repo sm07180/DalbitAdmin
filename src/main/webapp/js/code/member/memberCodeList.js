@@ -138,14 +138,6 @@ var memIpSort = [
 
 
 // ------------------------- table -----------------------------
-var mem_total_gift_summary = [
-    new COMMON_CODE('', 'total_gift_present', '누적 선물 수')
-    , new COMMON_CODE('', 'total_gift_dal', '누적 선물 달')
-    , new COMMON_CODE('', 'total_received_present', '누적 받은 선물 수')
-    , new COMMON_CODE('', 'total_received_dal', '누적 받은 선물 달')
-    // , new COMMON_CODE('', 'most_gift_mem', '보낸 선물 최다 회원')
-    // , new COMMON_CODE('', 'most_received_mem', '받은 선물 최다 회원')
-];
 var mem_gift_summary = [
     new COMMON_CODE('', 'total_charge_dal', '누적 충전 보낸 달')
     , new COMMON_CODE('', 'total_charge_dal', '누적 충전 받은 달')
