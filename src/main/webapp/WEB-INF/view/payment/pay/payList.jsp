@@ -69,6 +69,7 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
+        dtList_info.setPageLength(50);
         dtList_info.createDataTable(pay_listSummary);
         dtList_info.reload();
 
