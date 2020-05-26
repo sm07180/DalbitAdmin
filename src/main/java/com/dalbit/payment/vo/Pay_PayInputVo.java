@@ -16,5 +16,6 @@ public class Pay_PayInputVo extends SearchVo {
     private int searchPayStatus;
     private int ostype;
     private String innerType;
+    private String payWay;
 
 }

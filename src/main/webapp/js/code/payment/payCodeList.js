@@ -20,3 +20,12 @@ var innerType = [
     , new COMMON_CODE('N', '0', '회원')
     , new COMMON_CODE('Y', '1', '직원')
 ]
+
+var payWay = [
+    new COMMON_CODE(null, 'payWay', '결제수단')
+    , new COMMON_CODE('all', 'all', '결제수단 (전체)')
+    , new COMMON_CODE('CN', 'CN', '신용카드')
+    , new COMMON_CODE('MC', 'MC', '휴대폰')
+    , new COMMON_CODE('VA', 'VA', '가상계좌')
+    , new COMMON_CODE('InApp', 'InApp', '인앱(IOS)')
+]
