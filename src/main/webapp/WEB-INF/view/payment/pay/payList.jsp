@@ -34,7 +34,7 @@
     var eDate;
     var dtList_info;
 
-    var tmp_searchPayStatus = -1;
+    var tmp_searchPayStatus = 1; //결제완료 디폴트 호출
     var tmp_ostype = -1;
     var txt_search = "";
     var tmp_period = "";
@@ -66,6 +66,7 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.createDataTable(pay_listSummary);
+        dtList_info.reload();
 
         $("#payStateArea").html(util.getCommonCodeSelect('1', payStatus));
         $("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));

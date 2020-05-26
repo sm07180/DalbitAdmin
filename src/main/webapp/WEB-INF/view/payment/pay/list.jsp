@@ -86,6 +86,7 @@
     });
 
     init();
+
     function init(){
         txt_search = $('#txt_search').val();
         tmp_period = $('input[name="joinDate"]:checked').val();
