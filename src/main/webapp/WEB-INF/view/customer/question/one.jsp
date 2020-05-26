@@ -44,6 +44,11 @@
         response.data["answer"] = params.answer;
         var add_file_cnt = response.data.add_file.split(",");
         response.data["add_file_cnt"] = common.isEmpty(response.data.add_file) ? 0 : add_file_cnt.length;
+        if(response.data.state == "2" && response.data.op_name == $('.name').text()){
+            response.data["editAuth"] = "Y";
+        }else{
+            response.data["editAuth"] = "N";
+        }
 
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -148,10 +153,8 @@
     });
 
     $(document).on('click', '.bt_baro', function() {
-
         dalbitLog($(this).text() + ' 바로가기');
         $('button.btn-codeview').click();
-
 
         // 버튼 만드는 처리
         var button = '<p><button><a href=' + $(this).data('url') + '>' + $(this).text() + ' 바로가기' + '</a></button><p>';
@@ -182,7 +185,6 @@
             $('#div_editor').css({ width: ''});
         }
     }
-
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -213,11 +215,11 @@
                         <th>처리상태</th>
                         <td>{{{getCommonCodeLabel state 'question_status'}}}
                             <c:if test="${insertYn eq 'Y'}">
-                                <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
+                                <button type="button" id="bt_chatchRelease1" class="btn-sm btn btn-default">해제</button>
                             </c:if>
                             <c:if test="${insertYn eq 'N'}">
-                                {{#equal state '2'}}
-                                    <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
+                                {{#equal editAuth 'Y'}}
+                                    <button type="button" id="bt_chatchRelease2" class="btn-sm btn btn-default">해제</button>
                                 {{/equal}}
                             </c:if>
                         </td>
