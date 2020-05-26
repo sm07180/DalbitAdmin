@@ -220,3 +220,7 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
         "%": common.addComma(lvalue % rvalue)
     }[operator];
 });
+
+Handlebars.registerHelper("getMemStateName", function(state) {
+    return common.getMemStateName(state);
+});

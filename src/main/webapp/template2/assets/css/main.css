@@ -12632,7 +12632,7 @@ ul.main-menu {
 ul.main-menu > li a {
     display: block;
     position: relative;
-    padding: 13px 0 13px 15px;
+    padding: 0px 0 5px 0px;
     font-size: 14px;
     color: #555;
     background-color: #FFFFFF;
