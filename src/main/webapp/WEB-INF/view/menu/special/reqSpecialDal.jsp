@@ -11,6 +11,12 @@
             <%--</a>--%>
         <%--</div>--%>
     <%--</div>--%>
+        <div class="row col-md-12 mt15">
+            <div class="pull-left ml5 mb15">
+                ㆍ 매달 최소 10일, 20시간 이상 방송한 달D입니다. <br/>
+                ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다. <br/>
+            </div>
+        </div>
     <div class="widget-content">
         <table id="reqSpecialList" class="table table-sorting table-hover table-bordered">
             <thead>
@@ -18,6 +24,11 @@
             <tbody id="tableBody">
             </tbody>
         </table>
+    </div>
+    <div class="widget-footer">
+        <span>
+            <button type="button" class="btn btn-default print-btn" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+        </span>
     </div>
 </div>
 <!-- // DATA TABLE -->
@@ -85,7 +96,6 @@
             };
             dalbitLog(data);
             util.getAjaxData("ok", "/rest/menu/special/reqOk", data, fn_success_ok);
-            sendPush(checkbox.parent().parent().find('._openMemberPop').data('memno'));
         }
         return false;
     });
@@ -114,6 +124,15 @@
         getList();
     }
 
+    // /*=---------- 엑셀 ----------*/
+    $('#excelDownBtn').on('click', function() {
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+
+        formData.append("searchText", $("#searchText").val());
+
+        util.excelDownload($(this), "/rest/menu/special/reqDalListExcel", formData);
+    });
 
 </script>
 

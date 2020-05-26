@@ -2,6 +2,8 @@ package com.dalbit.menu.controller.rest;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.menu.service.Men_SpecialService;
 import com.dalbit.menu.service.RecommendService;
 import com.dalbit.menu.vo.*;
@@ -11,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Slf4j
@@ -27,6 +32,9 @@ public class Men_SpecialRestController {
 
     @Autowired
     Men_SpecialService menSpecialService;
+
+    @Autowired
+    ExcelService excelService;
 
     @RequestMapping("list")
     public String list(){
@@ -54,6 +62,19 @@ public class Men_SpecialRestController {
     public String reqDalList(SpecialReqVo specialReqVo){
         String result = menSpecialService.getReqSpecialList(specialReqVo);
         return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 목록 엑셀
+     */
+    @PostMapping("reqDalListExcel")
+    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, SpecialReqVo specialReqVo) throws GlobalException {
+
+        Model resultModel = menSpecialService.getListExcel(specialReqVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
+
     }
 
     /**
