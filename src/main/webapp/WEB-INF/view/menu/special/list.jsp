@@ -23,12 +23,10 @@
 
                 <!-- summary -->
                 <div class="widget-content">
-                    <table class="table table-bordered table-summary">
+                    <table class="table table-bordered table-summary pull-right">
                         <thead>
-                        <tr>
                             <th>승인 달D</th>
-                            <th>총 신청 달D</th>
-                        </tr>
+                            <th style="color: #ff0000;">총 신청 달D</th>
                         </thead>
                         <tbody id="summaryTableBody">
                         </tbody>
@@ -36,13 +34,14 @@
                 </div>
                 <!-- //summary -->
 
-                <!-- tab -->
-                <div class="no-padding" id="listTab">
-                    <jsp:include page="listTab.jsp"/>
-                </div>
-                <!-- //tab -->
+
 
         </div> <!-- //container-fluid -->
+        <!-- tab -->
+        <div class="no-padding" id="listTab">
+            <jsp:include page="listTab.jsp"/>
+        </div>
+        <!-- //tab -->
     </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper-->
 
@@ -147,7 +146,7 @@
     {{#data}}
     <tr>
         <td>{{addComma approveDal}}건</td> <%-- 승인 달D --%>
-        <td>{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
+        <td style="color: #ff0000;">{{addComma requestDal}}건</td> <%-- 총 신청 달D--%>
     </tr>
     {{/data}}
 </script>
