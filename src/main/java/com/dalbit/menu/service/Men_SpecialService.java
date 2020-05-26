@@ -69,8 +69,8 @@ public class Men_SpecialService {
 
         List<SpecialReqVo> list = menSpecialDao.getReqSpecialList(specialReqVo);
 
-        String[] headers = {"No", "회원번호", "신청일", "이름", "연락처", "상태", "처리자", "처리일시"};
-        int[] headerWidths = {3000, 5000, 5000, 5000, 5000, 3000, 3000, 6000};
+        String[] headers = {"No", "회원번호", "신청일", "이름", "연락처", "제목", "내용", "상태", "처리자", "처리일시"};
+        int[] headerWidths = {3000, 5000, 6000, 5000, 5000, 5000, 5000, 3000, 3000, 6000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i=0; i<list.size(); i++) {
@@ -81,6 +81,8 @@ public class Men_SpecialService {
             hm.put("reg_date", DalbitUtil.isEmpty(list.get(i).getReg_date()) ? "" : list.get(i).getReg_date());
             hm.put("mem_name", DalbitUtil.isEmpty(list.get(i).getMem_name()) ? "" : list.get(i).getMem_name());
             hm.put("mem_phone", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getMem_phone());
+            hm.put("title", DalbitUtil.isEmpty(list.get(i).getTitle()) ? "" : list.get(i).getTitle());
+            hm.put("contents", DalbitUtil.isEmpty(list.get(i).getContents()) ? "" : list.get(i).getContents());
             hm.put("state", DalbitUtil.isEmpty(list.get(i).getState()) ? "" : list.get(i).getState());
             hm.put("op_name", DalbitUtil.isEmpty(list.get(i).getOp_name()) ? "" : list.get(i).getOp_name());
             hm.put("last_upd_date" , DalbitUtil.isEmpty(list.get(i).getLast_upd_date()) ? "" : list.get(i).getLast_upd_date());
