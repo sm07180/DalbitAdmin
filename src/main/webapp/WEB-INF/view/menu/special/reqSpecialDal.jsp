@@ -85,6 +85,7 @@
             };
             dalbitLog(data);
             util.getAjaxData("ok", "/rest/menu/special/reqOk", data, fn_success_ok);
+            sendPush(checkbox.parent().parent().find('._openMemberPop').data('memno'));
         }
         return false;
     });
