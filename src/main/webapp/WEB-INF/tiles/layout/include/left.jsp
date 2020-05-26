@@ -31,7 +31,7 @@
                             </c:if>
                         </c:forEach>
 
-                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''}
+                        <li class="menu1 ${menu.menu_url eq '/main' ? '_mainMenu' : ''}
                                    ${isContainSubmenu ? '' : 'page'}
                                    ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''}
                                    ${isSubmenuView ? 'active': ''}
@@ -42,12 +42,14 @@
 
                                 <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
                                 <c:if test="${isContainSubmenu}">
-                                    <i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'left'}"></i>
+                                    <%--<i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'left'}"></i>--%>
+                                    <i class="toggle-icon fa fa-angle-${isSubmenuView ? 'down': 'down'}"></i>
                                 </c:if>
                             </a>
 
                             <c:if test="${isContainSubmenu}">
-                                <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': ''}">
+                                <%--<ul class="sub-menu" style="${isSubmenuView ? 'display:block;': ''}">--%>
+                                <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': 'display:block;'}">
                                     <c:forEach var="twoDepth" items="${menu.twoDepth}">
                                         <li class="${not empty url and url.equals(twoDepth.menu_url) ? 'active': ''}">
                                             <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">

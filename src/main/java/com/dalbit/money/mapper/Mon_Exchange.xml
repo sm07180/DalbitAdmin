@@ -38,11 +38,10 @@
         from rd_data.tb_member_exchange exchange
             inner join rd_data.tb_member_profile profile on exchange.mem_no = profile.mem_no
             inner join rd_data.tb_member_wallet wallet on exchange.mem_no = wallet.mem_no
-             rd_data.tb_member_basic basic
+            left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
             , (select @RNUM := 0) r
-        where exchange.mem_no = basic.mem_no
-            and exchange.mem_no = wallet.mem_no
-            and profile.specialdj_badge = #{isSpecial}
+        where profile.specialdj_badge = #{isSpecial}
+            and concat(#{search_year}, #{search_month}) = DATE_FORMAT(reg_date, '%Y%m')
         order by exchange.reg_date desc
     </sql>
 

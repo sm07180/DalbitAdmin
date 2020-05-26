@@ -12632,7 +12632,7 @@ ul.main-menu {
 ul.main-menu > li a {
     display: block;
     position: relative;
-    padding: 13px 0 13px 15px;
+    padding: 0px 0 5px 0px;
     font-size: 14px;
     color: #555;
     background-color: #FFFFFF;
@@ -12656,7 +12656,7 @@ ul.main-menu > li .toggle-icon {
     width: 10px;
     position: absolute;
     right: 10px;
-    top: 16px;
+    top: 11px;
     text-shadow: none; }
 ul.main-menu .sub-menu {
     position: relative;
@@ -12679,11 +12679,22 @@ ul.main-menu > li > a,
 .content-wrapper {
     background-color: #dfdfdf;
     border-top: 1px #FFFFFF solid;
+    padding: 7px 0 7px 15px;
+    /*font-weight: 700;*/
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out; }
+
+ul.sub-menu > li > a {
+    font-weight: normal;
+    padding: 5px 0 5px 33px !important;
+}
+
+ul.sub-menu > li a span {
+    font-weight: normal !important; ;
+}
 
 .left-sidebar {
     -webkit-transition: all 0.3s ease-in-out;

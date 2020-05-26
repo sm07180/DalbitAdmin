@@ -17,6 +17,22 @@
                 ㆍ 기간 정지 3회 이상 혹은 영구 정지 시 박탈처리 합니다. <br/>
                 ㆍ ()안의 내용은 스페셜 DJ 기준입니다. <br/>
             </div>
+
+            <!-- summary & 운영자 등록 버튼 -->
+            <div class="pull-right ml5 mb15">
+                <table class="table table-bordered table-summary pull-right">
+                    <thead>
+                    <th>승인 달D</th>
+                    <th style="color: #ff0000;">총 신청 달D</th>
+                    </thead>
+                    <tbody id="summaryTableBody">
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary pull-right mt10 mr15" id="memSearch" name="memSearch"><i class="fa fa-search"></i>운영자 직접 등록</button>
+            </div>
+            <!-- //summary -->
+        </div>
+        <div class="row col-md-12 mt15">
             <div class="pull-right">
                 <button type="button" class="btn btn-primary mb15" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
             </div>
@@ -68,14 +84,8 @@
     var specialDjPagingInfo = new PAGING_INFO(0, 1, 99999);
 
     function init() {
-        // var dtList_info;
-        // var dtList_info_data = function(data) {
-        // };
-        // dtList_info = new DalbitDataTable($("#specialList"), dtList_info_data, specialDataTableSource.specialList, $("#searchForm"));
-        // dtList_info.useCheckBox(true);
-        // dtList_info.useIndex(false);
-        // dtList_info.createDataTable();
-        //
+        getSummary();
+
         ui.checkBoxInit('specialList');
         $("#specialList-select-all").remove();
         var data = {
@@ -87,6 +97,19 @@
 
         util.getAjaxData("special", "/rest/menu/special/dalList", data, fn_dalList_success);
         util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_compareSummary);
+    }
+
+    function getSummary(){
+        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_summary_success);
+    }
+
+    function fn_summary_success(dst_id, response){
+        var template = $('#tmp_summary').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response;
+        var html = templateScript(context);
+
+        $("#summaryTableBody").empty().append(html);
     }
 
     var totalCnt;
@@ -273,6 +296,11 @@
     function modal_close(){
         $("#fullSize_background").modal('hide');
     }
+
+
+    $('#memSearch').on('click', function() {
+        showPopMemberList(choiceMember);
+    });
 </script>
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
