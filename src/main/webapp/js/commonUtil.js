@@ -49,6 +49,9 @@ util.windowOpen = function(data, width, height, name){
 
     /*ajax 호출 모듈*/
 util.getAjaxData = function(dst_id, dst_url, dst_params, successFunc, errorFunc, option) {
+
+    $('body').addClass('loading');
+
     var commonUtil = this;
     var isEmptyOption = common.isEmpty(option)
 
@@ -69,12 +72,16 @@ util.getAjaxData = function(dst_id, dst_url, dst_params, successFunc, errorFunc,
         },
         crossDomain: true
     }).done(function (data) {
+        $('body').removeClass('loading');
+
         if (successFunc != null){
             dalbitLog("[ajax 통신 결과]url : " + dst_url);
             dalbitLog(data);
+
             successFunc(dst_id, data, dst_params);
         }
     }).fail(function (data, textStatus, jqXHR) {
+        $('body').removeClass('loading');
         try {
             if (errorFunc != null) {
                 errorFunc(data, textStatus, jqXHR);

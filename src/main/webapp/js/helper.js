@@ -207,3 +207,16 @@ Handlebars.registerHelper("roomNoLink", function(display, value) {
 Handlebars.registerHelper("renderOnAir", function(value) {
    return util.renderOnAir(value);
 });
+
+Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+    lvalue = parseFloat(lvalue);
+    rvalue = parseFloat(rvalue);
+
+    return {
+        "+": common.addComma(lvalue + rvalue),
+        "-": common.addComma(lvalue - rvalue),
+        "*": common.addComma(lvalue * rvalue),
+        "/": common.addComma(lvalue / rvalue),
+        "%": common.addComma(lvalue % rvalue)
+    }[operator];
+});
