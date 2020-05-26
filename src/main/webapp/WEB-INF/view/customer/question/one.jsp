@@ -215,8 +215,11 @@
                         <th>처리상태</th>
                         <td>{{{getCommonCodeLabel state 'question_status'}}}
                             <c:if test="${insertYn eq 'Y'}">
-                                <button type="button" id="bt_chatchRelease1" class="btn-sm btn btn-default">해제</button>
+                                {{#equal state '2'}}
+                                    <button type="button" id="bt_chatchRelease1" class="btn-sm btn btn-default">해제</button>
+                                {{/equal}}
                             </c:if>
+
                             <c:if test="${insertYn eq 'N'}">
                                 {{#equal editAuth 'Y'}}
                                     <button type="button" id="bt_chatchRelease2" class="btn-sm btn btn-default">해제</button>
@@ -252,9 +255,7 @@
 
                         <th>문의자 이메일</th>
                         <td colspan="3">{{email}}</td>
-
                     </tr>
-
                     <tr>
                         <th colspan="2">문의내용</th>
                         <td colspan="6">
