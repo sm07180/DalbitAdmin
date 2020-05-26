@@ -15,242 +15,246 @@
     });
 
 
-    var fnc_messageDetail = {
+    var fnc_messageDetail = {}
 //=------------------------------ Init / Event / UI--------------------------------------------
-        "targetId": "messageDetail",
-        "formId" : "messageDetailForm",
+    fnc_messageDetail.targetId= "messageDetail";
+    fnc_messageDetail.formId= "messageDetailForm";
 
-        init() {
-            this.target = $("#"+this.targetId);
-            this.target.find("#targetForm").attr("id", this.targetId + "Form");
-            this.formId = this.targetId + "Form";
+    fnc_messageDetail.init= function() {
+        fnc_messageDetail.target = $("#"+fnc_messageDetail.targetId);
+        fnc_messageDetail.target.find("#targetForm").attr("id", fnc_messageDetail.targetId + "Form");
+        fnc_messageDetail.formId = fnc_messageDetail.targetId + "Form";
 
-            if(common.isEmpty(getSelectDataInfo())){
-                fnc_messageDetail.insertDetail();
-            }else{
-                var data = new Object();
-                data.message_idx = getSelectDataInfo().data.message_idx;
+        if(common.isEmpty(getSelectDataInfo())){
+            fnc_messageDetail.insertDetail();
+        }else{
+            var data = new Object();
+            data.message_idx = getSelectDataInfo().data.message_idx;
 
-                util.getAjaxData(fnc_messageDetail.targetId, "/rest/content/message/detail",data, fnc_messageDetail.fn_detail_success, fnc_messageDetail.fn_fail);
+            util.getAjaxData(fnc_messageDetail.targetId, "/rest/content/message/detail",data, fnc_messageDetail.fn_detail_success, fnc_messageDetail.fn_fail);
+        }
+
+        // this.initDetail();
+        // this.initDetailEvent();
+    };
+
+
+    // 초기 설정
+    fnc_messageDetail.initDetail= function() {
+        // 캘린더
+        fnc_messageDetail.target.find('.input-group.date').datetimepicker({
+            format: 'L'
+            , date: new Date()
+        });
+
+        // 시간 Select CSS 적용
+        fnc_messageDetail.target.find("#timeHour").attr("class", "select-time");
+        fnc_messageDetail.target.find("#timeMinute").attr("class", "select-time");
+    };
+
+    // 이벤트 적용
+    fnc_messageDetail.initDetailEvent= function()
+    {
+        // 발송 버튼
+        fnc_messageDetail.target.find("#insertBtn").on("click", function () {
+            if(!confirm("발송 하시겠습니까?")){
+                return false;
             }
 
-            // this.initDetail();
-            // this.initDetailEvent();
-        },
+            var data = fnc_messageDetail.getDetailData();
+
+            if(!fnc_messageDetail.isValid(data)){
+                return false;
+            }
+
+            util.getAjaxData("insert", "/rest/content/message/insert", data, fnc_messageDetail.fn_insert_success, fnc_messageDetail.fn_fail);
+        })
 
 
-        // 초기 설정
-        initDetail() {
-            // 캘린더
-            this.target.find('.input-group.date').datetimepicker({
-                format: 'L'
-                , date: new Date()
-            });
+        // 재발송 버튼
+        fnc_messageDetail.target.find("#updateBtn").on("click", function () {
+            if(!confirm("재발송 하시겠습니까?")){
+                return false;
+            }
 
-            // 시간 Select CSS 적용
-            this.target.find("#timeHour").attr("class", "select-time");
-            this.target.find("#timeMinute").attr("class", "select-time");
-        },
+            var data = fnc_messageDetail.getDetailData();
 
-        // 이벤트 적용
-        initDetailEvent()
-        {
-            // 발송 버튼
-            this.target.find("#insertBtn").on("click", function () {
-                if(!confirm("발송 하시겠습니까?")){
-                    return false;
-                }
+            if(!fnc_messageDetail.isValid(data)){
+                return false;
+            }
 
-                var data = fnc_messageDetail.getDetailData();
-
-                if(!fnc_messageDetail.isValid(data)){
-                    return false;
-                }
-
-                util.getAjaxData("insert", "/rest/content/message/insert", data, fnc_messageDetail.fn_insert_success, fnc_messageDetail.fn_fail);
-            })
+            util.getAjaxData("upldate", "/rest/content/message/insert", data, fnc_messageDetail.fn_update_success, fnc_messageDetail.fn_fail);
+        })
+    };
 
 
-            // 재발송 버튼
-            this.target.find("#updateBtn").on("click", function () {
-                if(!confirm("재발송 하시겠습니까?")){
-                    return false;
-                }
+    //수정 데이터 조회 후 UI 처리
+    fnc_messageDetail.initUpdateUI= function(){
+        var detailData = getSelectDataInfo().detailData;
+        console.log(detailData);
 
-                var data = fnc_messageDetail.getDetailData();
-
-                if(!fnc_messageDetail.isValid(data)){
-                    return false;
-                }
-
-                util.getAjaxData("upldate", "/rest/content/message/insert", data, fnc_messageDetail.fn_update_success, fnc_messageDetail.fn_fail);
-            })
-        },
+    };
 
 
-        //수정 데이터 조회 후 UI 처리
-        initUpdateUI(){
-            var detailData = getSelectDataInfo().detailData;
-            console.log(detailData);
+    // 등록 화면
+    fnc_messageDetail.insertDetail= function() {
+        var template = $('#tmp_messageDetailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        fnc_messageDetail.target.find("#" + this.formId).html(templateScript);
 
-        },
+        fnc_messageDetail.initDetail();
+        fnc_messageDetail.initDetailEvent();
 
+        var scrollPosition = $("#tab_"+fnc_messageDetail.targetId).offset();
+        util.scrollPostion(scrollPosition.top);
+    };
 
-        // 등록 화면
-        insertDetail() {
-            var template = $('#tmp_messageDetailFrm').html();
-            var templateScript = Handlebars.compile(template);
-            this.target.find("#"+this.formId).html(templateScript);
+    // 수정 화면
+    fnc_messageDetail.updateDetail= function(){
+        var detailData = getSelectDataInfo().detailData;
+        var sendTargetList = getSelectDataInfo().sendTargetList;
+        detailData.rowNum = getSelectDataInfo().data.rowNum;
+        dalbitLog(detailData);
 
-            this.initDetail();
-            this.initDetailEvent();
-        },
+        // form 띄우기
+        var template = $('#tmp_messageDetailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        var context = detailData;
+        var html = templateScript(context);
+        fnc_messageDetail.target.find("#"+ fnc_messageDetail.formId).html(html);
 
-        // 수정 화면
-        updateDetail(){
-            var detailData = getSelectDataInfo().detailData;
-            var sendTargetList = getSelectDataInfo().sendTargetList;
-            detailData.rowNum = getSelectDataInfo().data.rowNum;
-            dalbitLog(detailData);
-
-            // form 띄우기
-            var template = $('#tmp_messageDetailFrm').html();
-            var templateScript = Handlebars.compile(template);
-            var context = detailData;
-            var html = templateScript(context);
-            fnc_messageDetail.target.find("#"+ fnc_messageDetail.formId).html(html);
-
-            // target RoomList 띄우기
-            var template = $('#tmp_sendTargetList').html();
-            var templateScript = Handlebars.compile(template);
-            var context = sendTargetList;
-            var html = templateScript(context);
-            fnc_messageDetail.target.find("#div_targetList").html(html);
+        // target RoomList 띄우기
+        var template = $('#tmp_sendTargetList').html();
+        var templateScript = Handlebars.compile(template);
+        var context = sendTargetList;
+        var html = templateScript(context);
+        fnc_messageDetail.target.find("#div_targetList").html(html);
 
 
-            fnc_messageDetail.initDetail();
-            fnc_messageDetail.initDetailEvent();
-            fnc_messageDetail.initUpdateUI();
-        },
+        fnc_messageDetail.initDetail();
+        fnc_messageDetail.initDetailEvent();
+        fnc_messageDetail.initUpdateUI();
+
+        var scrollPosition = $("#tab_"+fnc_messageDetail.targetId).offset();
+        util.scrollPostion(scrollPosition.top);
+    };
 
 //=------------------------------ Option --------------------------------------------
 
-        // 상세 목록 조회 성공 시
-        fn_detail_success(dst_id, data, dst_params){
-            if(data.result == "fail"){
-                alert(data.message);
-                return false;
-            }
-
-            setSelectDataInfo("detailData", data.data);
-            setSelectDataInfo("sendTargetList", data.summary);
-
-            fnc_messageDetail.updateDetail();
-        },
-
-
-        // 등록 성공 시
-        fn_insert_success(dst_id, data, dst_params){
-            if(data.result == "fail"){
-                alert(data.message);
-                return false;
-            }
-
+    // 상세 목록 조회 성공 시
+    fnc_messageDetail.fn_detail_success= function(dst_id, data, dst_params){
+        if(data.result == "fail"){
             alert(data.message);
-            // alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+            return false;
+        }
 
-            // popup일 경우 창 닫기
-            if(fnc_messageDetail.popup){
-                window.close();
-                return false;
-            }
+        setSelectDataInfo("detailData", data.data);
+        setSelectDataInfo("sendTargetList", data.summary);
 
-            fnc_messageList.selectMainList(false);
-
-            //하위 탭 초기화
-            initContentTab();
-            //상단 이동
-            $('html').animate({scrollTop : 0}, 100);
-            $("#"+fnc_messageDetail.formId).empty();
-        },
+        fnc_messageDetail.updateDetail();
+    };
 
 
-        // 수정 성공 시
-        fn_update_success(dst_id, data, dst_params){
-            if(data.result == "fail"){
-                alert(data.message);
-                return false;
-            }
-
+    // 등록 성공 시
+    fnc_messageDetail.fn_insert_success= function(dst_id, data, dst_params){
+        if(data.result == "fail"){
             alert(data.message);
-            // alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+            return false;
+        }
 
-            fnc_messageList.selectMainList(false);
+        alert(data.message);
+        // alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
 
-            //하위 탭 초기화
-            initContentTab();
-            //상단 이동
-            $('html').animate({scrollTop : 0}, 100);
-            $("#"+fnc_messageDetail.formId).empty();
-        },
+        // popup일 경우 창 닫기
+        if(fnc_messageDetail.popup){
+            window.close();
+            return false;
+        }
+
+        fnc_messageList.selectMainList(false);
+
+        //하위 탭 초기화
+        initContentTab();
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#"+fnc_messageDetail.formId).empty();
+    };
 
 
-        // Ajax 실패
-        fn_fail(data, textStatus, jqXHR){
+    // 수정 성공 시
+    fnc_messageDetail.fn_update_success= function(dst_id, data, dst_params){
+        if(data.result == "fail"){
             alert(data.message);
+            return false;
+        }
 
-            console.log(data, textStatus, jqXHR);
-        },
+        alert(data.message);
+        // alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+
+        fnc_messageList.selectMainList(false);
+
+        //하위 탭 초기화
+        initContentTab();
+        //상단 이동
+        $('html').animate({scrollTop : 0}, 100);
+        $("#"+fnc_messageDetail.formId).empty();
+    };
+
+
+    // Ajax 실패
+    fnc_messageDetail.fn_fail= function(data, textStatus, jqXHR){
+        alert(data.message);
+
+        console.log(data, textStatus, jqXHR);
+    };
 
 //=------------------------------ Data Handler ----------------------------------
 
-        // 데이터 가져오기
-        getDetailData(){
-            var resultJson ={};
-            var targetRooms = [];
+    // 데이터 가져오기
+    fnc_messageDetail.getDetailData= function(){
+        var resultJson ={};
+        var targetRooms = [];
 
-            var formArray = this.target.find("#" + this.formId).serializeArray();
-            for (var i = 0; i < formArray.length; i++){
-                resultJson[formArray[i]['name']] = formArray[i]['value'];
+        var formArray = fnc_messageDetail.target.find("#" + this.formId).serializeArray();
+        for (var i = 0; i < formArray.length; i++){
+            resultJson[formArray[i]['name']] = formArray[i]['value'];
+        }
+
+
+        if(fnc_messageDetail.popup){
+            if(!common.isEmpty(fnc_messageDetail.room_no && !common.isEmpty(fnc_messageDetail.bj_mem_no))){
+                targetRooms.push(fnc_messageDetail.room_no.toString());
+            }else{
+                console.log("[방송방메시지발송] Popup에서 발송 요청 시 Room정보 없음.");
+                return null;
             }
+        }
+
+        resultJson["target_rooms"] = targetRooms.toString().replace(/,/gi , "|");
+        dalbitLog(resultJson)
+        return resultJson;
+    };
 
 
-            if(fnc_messageDetail.popup){
-                if(!common.isEmpty(fnc_messageDetail.room_no && !common.isEmpty(fnc_messageDetail.bj_mem_no))){
-                    targetRooms.push(fnc_messageDetail.room_no.toString());
-                }else{
-                    console.log("[방송방메시지발송] Popup에서 발송 요청 시 Room정보 없음.");
-                    return null;
-                }
-            }
+    fnc_messageDetail.isValid= function(data) {
 
-            resultJson["target_rooms"] = targetRooms.toString().replace(/,/gi , "|");
-            dalbitLog(resultJson)
-            return resultJson;
-        },
+        if (common.isEmpty(data.title)) {
+            alert("제목을 입력하여 주시기 바랍니다.");
+            fnc_messageDetail.target.find("input[name=title]").focus();
+            return false;
+        }
 
+        if (common.isEmpty(data.send_cont)) {
+            alert("메시지 내용을 입력하여 주시기 바랍니다.");
+            fnc_messageDetail.target.find("input[name=send_cont]").focus();
+            return false;
+        }
 
-        isValid(data) {
-
-            if (common.isEmpty(data.title)) {
-                alert("제목을 입력하여 주시기 바랍니다.");
-                fnc_messageDetail.target.find("input[name=title]").focus();
-                return false;
-            }
-
-            if (common.isEmpty(data.send_cont)) {
-                alert("메시지 내용을 입력하여 주시기 바랍니다.");
-                fnc_messageDetail.target.find("input[name=send_cont]").focus();
-                return false;
-            }
-
-            return true;
-        },
+        return true;
+    };
 
 
 //=------------------------------ Modal ----------------------------------
-
-    }
 </script>
 
 

@@ -74,7 +74,6 @@
             format: 'L',
             maxDate:new Date(),
             format: "YYYY-MM-DD",
-
         });
 
         sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
@@ -127,10 +126,24 @@
     var _testid = -1;
     var tmp_searchText;
 
+    var _memJoinDateSort = -1;
+    var _memNickSort = -1;
+    var _memLoginIdSort = -1;
+    var _memIpSort = -1;
+    var _memJoinDateSort_withdrawal = -1;
+    var _memNickSort_withdrawal = -1;
+    var _memLoginIdSort_withdrawal = -1;
+    var _memIpSort_withdrawal = -1;
+
     var dtList_info_data = function ( data ) {
         data.searchText = tmp_searchText;                        // 검색명
         data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
+        data.memJoinDateSort = _memJoinDateSort;
+        data.memNickSort = _memNickSort;
+        data.memLoginIdSort = _memLoginIdSort;
+        data.memIpSort = _memIpSort;
+
         data.period = $('input[name="joinDate"]:checked').val();
         if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
             data.sDate = sDate;
@@ -153,6 +166,10 @@
         data.searchText = $('#txt_search').val();                        // 검색명
         data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
+        data.memJoinDateSort_withdrawal = _memJoinDateSort_withdrawal;
+        data.memNickSort_withdrawal = _memNickSort_withdrawal;
+        data.memLoginIdSort_withdrawal = _memLoginIdSort_withdrawal;
+        data.memIpSort_withdrawal = _memIpSort_withdrawal;
         data.period = $('input[name="joinDate"]:checked').val();
         if($('input[name="joinDate"]:checked').val() != "4") {               // 선택
             data.sDate = sDate;
@@ -173,22 +190,38 @@
     // var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
     // $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
 
-    var testid = '<br/><br/><br/><span id="testId"></span>';
+    var testid = '<br/><br/><br/><div class="searchBoxRow"><span id="testId"></span>' +
+                '<span id="memJoinDateSort" onchange="joinSort();"></span>' +
+                '<span id="memNickSort" onchange="joinSort();"></span>' +
+                '<span id="memLoginIdSort" onchange="joinSort();"></span>' +
+                '<span id="memIpSort" onchange="joinSort();"></span></div>';
     $("#memberList").find(".top-left").append(testid);
     $("#testId").html(util.getCommonCodeRadio(-1, testId));
+    $("#memJoinDateSort").html(util.getCommonCodeSelect(-1, memJoinDateSort));
+    $("#memNickSort").html(util.getCommonCodeSelect(-1, memNickSort));
+    $("#memLoginIdSort").html(util.getCommonCodeSelect(-1, memLoginIdSort));
+    $("#memIpSort").html(util.getCommonCodeSelect(-1, memIpSort));
+
 
     var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#memberList").find(".footer-right").append(excel);
 
-    var testid_withdrawal = '<br/><br/><span id="testId_withdrawal"></span>';
+    var testid_withdrawal = '<br/><br/><div class="searchBoxRow"><span id="testId_withdrawal"></span>' +
+                            '<span id="memJoinDateSort_withdrawal" onchange="withdrawalSort();"></span>' +
+                            '<span id="memNickSort_withdrawal" onchange="withdrawalSort();"></span>' +
+                            '<span id="memLoginIdSort_withdrawal" onchange="withdrawalSort();"></span>' +
+                            '<span id="memIpSort_withdrawal" onchange="withdrawalSort();"></span></div>';
     $("#withdrawalList").find(".top-left").append(testid_withdrawal);
     $("#testId_withdrawal").html(util.getCommonCodeRadio(-1, testId_withdrawal));
+    $("#memJoinDateSort_withdrawal").html(util.getCommonCodeSelect(-1, memJoinDateSort));
+    $("#memNickSort_withdrawal").html(util.getCommonCodeSelect(-1, memNickSort));
+    $("#memLoginIdSort_withdrawal").html(util.getCommonCodeSelect(-1, memLoginIdSort));
+    $("#memIpSort_withdrawal").html(util.getCommonCodeSelect(-1, memIpSort));
 
     var withdrawal_excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="withdrawal_excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
     function getUserInfo() {                 // 검색
-
         tmp_searchText = $('#txt_search').val();
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
@@ -215,15 +248,43 @@
         getUserInfo();
     }
 
+    // 가입 --------------------
     $("input[name='testId']:radio").change(function () {
         _testid = this.value;
         getUserInfo();
     });
+    function joinSort(){
+        _memJoinDateSort = $("#memJoinDateSort").find("select[name='memJoinDateSort']").val();
+        _memNickSort = $("#memNickSort").find("select[name='memNickSort']").val();
+        _memLoginIdSort = $("#memLoginIdSort").find("select[name='memLoginIdSort']").val();
+        _memIpSort = $("#memIpSort").find("select[name='memIpSort']").val();
 
+        getUserInfo();
+    };
+
+    $(".searchBoxRow").find("select").change( function() {
+        var me = $(this);
+        $(".searchBoxRow").find("select").each( function (){
+            if(me.attr("name")!==$(this).attr("name")){
+                $(this).val("-1");
+            }
+        });
+    });
+
+    // 탈퇴 -------------------
     $("input[name='testId_withdrawal']:radio").change(function () {
         _testid = this.value;
         getUserInfo();
     });
+
+    function withdrawalSort(){
+        _memJoinDateSort_withdrawal = $("#memJoinDateSort_withdrawal").find("select[name='memJoinDateSort']").val();
+        _memNickSort_withdrawal = $("#memNickSort_withdrawal").find("select[name='memNickSort']").val();
+        _memLoginIdSort_withdrawal = $("#memLoginIdSort_withdrawal").find("select[name='memLoginIdSort']").val();
+        _memIpSort_withdrawal = $("#memIpSort_withdrawal").find("select[name='memIpSort']").val();
+
+        getUserInfo();
+    }
 
     function joinListSummary(json){
         var template = $("#joinList_tableSummary").html();
@@ -277,7 +338,7 @@
 
 <!-- summary -->
 <script id="joinList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2">총 가입자 수</th>
@@ -305,7 +366,7 @@
 </script>
 
 <script id="withdrawalList_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
+    <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
         <thead>
         <tr class="align-middle">
             <th colspan="2" rowspan="2">총 가입자 수</th>

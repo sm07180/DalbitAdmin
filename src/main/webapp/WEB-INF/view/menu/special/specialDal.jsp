@@ -262,6 +262,10 @@
     }
 
     function fullSize_background(url) {
+        if(common.isEmpty(url)){
+            return;
+        }
+
         $("#imageFullSize").html(util.imageFullSize("fullSize_background", url));
         $('#fullSize_background').modal('show');
     }

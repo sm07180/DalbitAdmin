@@ -29,6 +29,10 @@ public interface Mem_GiftDao {
     ArrayList<P_MemberGiftOutputVo> callGiftHistory_allGiftDalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
     @Transactional(readOnly = true)
     ArrayList<P_MemberGiftOutputVo> callGiftHistory_allReceivedDalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
+    @Transactional(readOnly = true)
+    ArrayList<P_MemberGiftOutputVo> callGiftHistory_allGiftSecretDalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
+    @Transactional(readOnly = true)
+    ArrayList<P_MemberGiftOutputVo> callGiftHistory_allReceivedSecretDalCnt(P_MemberGiftInputVo pMemberGiftInputVo);
 
 
     @Transactional(readOnly = true)

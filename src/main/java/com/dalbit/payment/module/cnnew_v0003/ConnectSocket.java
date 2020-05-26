@@ -13,103 +13,106 @@ public class ConnectSocket {
     private OutputStreamWriter osw;
     private BufferedReader br;
     private InputStreamReader inr;
-    private String result;
-    private String resultcd;
-    private String configPath;
+    private String result = "";
+    private String resultcd = "";
+    private String configPath = "";
 
-    public ConnectSocket(final String configPath) {
-        this.result = "";
-        this.resultcd = "";
-        this.configPath = "";
+    public ConnectSocket(String configPath) {
         this.configPath = configPath;
     }
 
-    public void Connect(final String fmServerIP, final String fmswitchIp, final int fmServerPort, final int recvTimeOut, final String logDir) {
+    public void Connect(String fmServerIP, String fmswitchIp, int fmServerPort, int recvTimeOut, String logDir) {
         try {
-            final FileMaker fm = new FileMaker(this.configPath, logDir);
+            FileMaker fm = new FileMaker(this.configPath, logDir);
             int count = 2;
-            while (count > 0) {
+
+            while(count > 0) {
                 try {
                     this.socketAddress = new InetSocketAddress(fmServerIP, fmServerPort);
-                    (this.sk = new Socket()).connect(this.socketAddress, 3000);
+                    this.sk = new Socket();
+                    this.sk.connect(this.socketAddress, 3000);
                     this.resultcd = "0000";
                     fm.writeln("INFO : connect ok Serverip[" + fmServerIP + "] Port[" + fmServerPort + "]");
                     fm.close();
                     if (recvTimeOut > 0) {
                         this.sk.setSoTimeout(recvTimeOut);
                     }
-                }
-                catch (Exception e) {
+
+                    return;
+                } catch (Exception var11) {
                     if (count == 1) {
                         try {
                             this.socketAddress = new InetSocketAddress(fmswitchIp, fmServerPort);
-                            (this.sk = new Socket()).connect(this.socketAddress, 3000);
+                            this.sk = new Socket();
+                            this.sk.connect(this.socketAddress, 3000);
                             this.resultcd = "0000";
                             fm.writeln("INFO : connect ok Serverip[" + fmswitchIp + "] Port[" + fmServerPort + "]");
                             fm.close();
                             if (recvTimeOut > 0) {
                                 this.sk.setSoTimeout(recvTimeOut);
                             }
+
                             return;
-                        }
-                        catch (Exception ex2) {
+                        } catch (Exception var10) {
                             this.resultcd = "9902";
                         }
                     }
+
                     --count;
                 }
             }
-        }
-        catch (Exception ex3) {
+        } catch (Exception var12) {
             this.resultcd = "9902";
         }
+
     }
 
-    public void setSocket(final String tmp) {
+    public void setSocket(String tmp) {
         try {
             this.osw = new OutputStreamWriter(this.sk.getOutputStream());
-            (this.bw = new BufferedWriter(this.osw)).write(tmp);
+            this.bw = new BufferedWriter(this.osw);
+            this.bw.write(tmp);
             this.bw.newLine();
             this.bw.flush();
             this.resultcd = "0000";
-        }
-        catch (Exception ex2) {
+        } catch (Exception var3) {
             this.resultcd = "9903";
         }
+
     }
 
-    public void setSocket(final String tmp, final String EncodeMethod, final String logDir) {
+    public void setSocket(String tmp, String EncodeMethod, String logDir) {
         try {
-            final FileMaker fm = new FileMaker(this.configPath, logDir);
+            FileMaker fm = new FileMaker(this.configPath, logDir);
             fm.writeln("DEBUG : SEND setSocket length[" + tmp.getBytes().length + "] PACKET[" + tmp.toString() + "]");
             this.osw = new OutputStreamWriter(this.sk.getOutputStream(), EncodeMethod);
-            (this.bw = new BufferedWriter(this.osw)).write(tmp);
+            this.bw = new BufferedWriter(this.osw);
+            this.bw.write(tmp);
             this.bw.newLine();
             this.bw.flush();
             this.resultcd = "0000";
             fm.close();
-        }
-        catch (Exception ex2) {
+        } catch (Exception var5) {
             this.resultcd = "9903";
         }
+
     }
 
-    public void getSocket(final String EncodeMethod, final String logDir) {
+    public void getSocket(String EncodeMethod, String logDir) {
         try {
             this.inr = new InputStreamReader(this.sk.getInputStream(), EncodeMethod);
             this.br = new BufferedReader(this.inr);
             this.result = this.br.readLine();
-            final FileMaker fm = new FileMaker(this.configPath, logDir);
+            FileMaker fm = new FileMaker(this.configPath, logDir);
             fm.writeln("DEBUG : RECV getSocket length[" + this.result.getBytes(EncodeMethod).length + "] PACKET[" + this.result.toString() + "]");
             this.resultcd = "0000";
             fm.close();
-        }
-        catch (SocketTimeoutException se) {
+        } catch (SocketTimeoutException var4) {
             this.resultcd = "9905";
-        }
-        catch (IOException ex) {
+        } catch (IOException var5) {
             this.resultcd = "9904";
         }
+
     }
 
     public void close() {
@@ -117,23 +120,28 @@ public class ConnectSocket {
             if (this.osw != null) {
                 this.osw.close();
             }
+
             if (this.bw != null) {
                 this.bw.close();
             }
+
             if (this.br != null) {
                 this.br.close();
             }
+
             if (this.inr != null) {
                 this.inr.close();
             }
+
             if (this.sk != null) {
                 this.sk.close();
             }
+
             this.resultcd = "0000";
-        }
-        catch (Exception ex) {
+        } catch (Exception var2) {
             this.resultcd = "9999";
         }
+
     }
 
     public String getResult() {

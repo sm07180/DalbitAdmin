@@ -21,7 +21,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th>연령대</th>
                 <th>방문자 수</th>
                 <th>평균 방문시간(분)</th>
                 <th>접속자 수</th>

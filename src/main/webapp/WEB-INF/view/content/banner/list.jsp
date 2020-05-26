@@ -237,6 +237,10 @@
     }
 
     function fullSize_banner(url) {     // 이미지 full size
+        if(common.isEmpty(url)){
+            return;
+        }
+
         $("#imageFullSize").html(util.imageFullSize("fullSize_banner",url));
         $('#fullSize_banner').modal('show');
     }

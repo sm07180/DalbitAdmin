@@ -758,4 +758,43 @@ public class DalbitUtil {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return fmt.format(date);
     }
+
+
+    /**
+     * 결제수단 변환
+     */
+    public static String getPayWayConvert(String str){
+        if(str.equals("VA") ){
+            str = "가상계좌";
+        } else if (str.equals("CN")) {
+            str = "신용카드";
+        } else if (str.equals("MC")) {
+            str = "휴대폰";
+        } else if (str.equals("RA")) {
+            str = "계좌이체";
+        } else if (str.equals("InApp")) {
+            str = "Apple";
+        } else {
+            str = "-";
+        }
+        return str;
+    }
+
+
+    /**
+     * 플랫폼 변환
+     */
+    public static String getPlatformConvert(int os){
+        String platform="";
+        if(os == 1){
+            platform = "AOS";
+        } else if (os == 2) {
+            platform = "IOS";
+        } else if (os == 3) {
+            platform = "PC";
+        } else {
+            platform = "-";
+        }
+        return platform;
+    }
 }

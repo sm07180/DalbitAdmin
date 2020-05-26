@@ -74,8 +74,7 @@
         var template = $("#gift_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            header : mem_total_gift_summary
-            , content : json.summary
+            content : json.summary
             , length : json.recordsTotal
         };
         var html = templateScript(data);
@@ -144,19 +143,18 @@
 
 <script id="gift_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;">
-        <thead>
         <tr>
-            {{#each this.header}}
-            <th>{{this.code}}</th>
-            {{/each}}
+            <th rowspan="2">보낸 선물</th>
+            <th>누적 건 수(공개/비공개)</th>
+            <th>누적 달(공개/비공개)</th>
+            <th rowspan="2">받은 선물</th>
+            <th>누적 건 수(공개/비공개)</th>
+            <th>누적 달(공개/비공개)</th>
         </tr>
-        </thead>
-        <tbody>
-            <td>{{addComma content.allGiftItemCnt}}건</td>
-            <td>{{addComma content.allGiftDalCnt}}건</td>
-            <td>{{addComma content.allReceivedItemCnt}}건</td>
-            <td>{{addComma content.allReceivedDalCnt}}건</td>
-        </tbody>
+        <td>{{addComma content.allGiftItemCnt}} / {{addComma content.allGiftSecretItemCnt}} 건</td>
+        <td>{{addComma content.allGiftDalCnt}} / {{addComma content.allGiftSecretDalCnt}} 개</td>
+        <td>{{addComma content.allReceivedItemCnt}} / {{addComma content.allReceivedSecretItemCnt}} 건</td>
+        <td>{{addComma content.allReceivedDalCnt}} / {{addComma content.allReceivedSecretDalCnt}} 개</td>
     </table>
 </script>
 
@@ -171,10 +169,8 @@
         </thead>
         <tbody>
             <td>{{addComma content.allDalGiftCnt}}건</td>
-            <td>{{addComma content.allDalReceivedCnt}}건</td>
-            <td>{{addComma content.allByeolReceivedCnt}}건</td>
-            <%--<td>{{#equal length '0'}}0{{/equal}}{{addComma content.chargeDal}}건</td>--%>
-            <%--<td>{{#equal length '0'}}0{{/equal}}{{addComma content.chargeDal}}건</td>--%>
+            <td>{{addComma content.allDalReceivedCnt}}개</td>
+            <td>{{addComma content.allByeolReceivedCnt}}개</td>
         </tbody>
     </table>
 </script>

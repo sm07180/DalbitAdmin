@@ -35,57 +35,57 @@
         fnc_profileList.init();
     });
 
-var fnc_profileList = {
+var fnc_profileList = {};
 
 //=------------------------------ Init / Event--------------------------------------------
-    "targetId": "profileList",
-    "formId" : "profileListForm",
-    "pagingInfo" : new PAGING_INFO(0, 1, 54),
+    fnc_profileList.targetId= "profileList";
+    fnc_profileList.formId= "profileListForm";
+    fnc_profileList.pagingInfo= new PAGING_INFO(0, 1, 54);
 
-    init() {
-        this.target = $("#"+this.targetId);
-        this.targetDataTableId = "list_info_"+this.targetId;
-        this.target.find("#list_info").attr("id", this.targetDataTableId);
-        this.targetDataTable = this.target.find("#"+this.targetDataTableId);
-        this.divDataTable = this.targetDataTable.parent("div");
+    fnc_profileList.init= function() {
+        fnc_profileList.target = $("#"+fnc_profileList.targetId);
+        fnc_profileList.targetDataTableId = "list_info_"+fnc_profileList.targetId;
+        fnc_profileList.target.find("#list_info").attr("id", fnc_profileList.targetDataTableId);
+        fnc_profileList.targetDataTable = fnc_profileList.target.find("#"+fnc_profileList.targetDataTableId);
+        fnc_profileList.divDataTable = fnc_profileList.targetDataTable.parent("div");
 
 
         fnc_profileList.initDataTable();
-    },
+    };
 
 
-    initDataTable() {
+    fnc_profileList.initDataTable= function() {
         console.log(fnc_profileList.pagingInfo)
 
         $("#pageStart").val(fnc_profileList.pagingInfo.pageNo);
         $("#pageCnt").val(fnc_profileList.pagingInfo.pageCnt);
 
         util.getAjaxData(fnc_profileList.targetId, "/rest/customer/image/profile/list", $("#searchForm").serialize(), fnc_profileList.fn_select_success, fnc_profileList.fn_fail);
-    },
+    };
 
 
     // DataTable Button
-    initDataTableButton() {
-    },
+    fnc_profileList.initDataTableButton= function() {
+    };
 
 
 
-    initEvent(){
-    },
+    fnc_profileList.initEvent= function(){
+    };
 
 
 //=------------------------------ Option --------------------------------------------
 
     // 등록
-    insertEvent() {
+    fnc_profileList.insertEvent= function() {
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
         $("#tab_profileDetail").click();
-    },
+    };
 
     // 삭제
-    deleteEvent() {
+    fnc_profileList.deleteEvent= function() {
         var checkDatas = fnc_profileList.dtList_info.getCheckedData();
 
         if(checkDatas.length <= 0){
@@ -114,10 +114,10 @@ var fnc_profileList = {
 
             util.getAjaxData(fnc_profileList.targetId, "/rest/content/item/profile/delete",data, fnc_profileList.fn_delete_success, fnc_profileList.fn_fail);
         };
-    },
+    };
 
     // 수정
-    updateData(dom) {
+    fnc_profileList.updateData= function(dom) {
         var data = $(dom).data("info");
         console.log(data);
 
@@ -135,9 +135,9 @@ var fnc_profileList = {
             console.log(report);
             util.windowOpen(report,"600","450","경고/정지");
         }
-    },
+    };
 
-    fn_select_success(dst_id, response, dst_params){
+    fnc_profileList.fn_select_success= function(dst_id, response, dst_params){
         console.log(response.data)
         // form 띄우기
         var template = $('#tmp_profileSelectFrm').html();
@@ -153,31 +153,30 @@ var fnc_profileList = {
         util.renderPagingNavigation("profileList_info_paginate", fnc_profileList.pagingInfo);
 
         fnc_profileList.initEvent();
-    },
+    };
 
 
     // 삭제 성공 시
-    fn_update_success(dst_id, data, dst_params){
+    fnc_profileList.fn_update_success= function(dst_id, data, dst_params){
         alert(data.message);
 
         // reload
         fnc_profileList.selectMainList();
-    },
+    };
 
 
     // Ajax 실패
-    fn_fail(data, textStatus, jqXHR){
+        fnc_profileList.fn_fail= function(data, textStatus, jqXHR){
         alert(data.message);
 
         console.log(data, textStatus, jqXHR);
-    },
+    };
 
 
     // 검색
-    selectMainList(){
+    fnc_profileList.selectMainList= function(){
         fnc_profileList.initDataTable();
-    },
-}
+    };
 </script>
 
 

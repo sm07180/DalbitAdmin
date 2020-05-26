@@ -21,6 +21,7 @@
             <thead></thead>
             <tbody></tbody>
         </table>
+        <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
         <!-- // DATA TABLE -->
     </div>
 </div> <!-- //wrapper -->
@@ -34,7 +35,7 @@
     var eDate;
     var dtList_info;
 
-    var tmp_searchPayStatus = -1;
+    var tmp_searchPayStatus = 1; //결제완료 디폴트 호출
     var tmp_ostype = -1;
     var txt_search = "";
     var tmp_period = "";
@@ -66,8 +67,9 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.createDataTable(pay_listSummary);
+        dtList_info.reload();
 
-        $("#payStateArea").html(util.getCommonCodeSelect('-1', payStatus));
+        $("#payStateArea").html(util.getCommonCodeSelect('1', payStatus));
         $("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
         $("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
     }
@@ -199,6 +201,24 @@
         }
         return str;
     }
+
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("searchText", txt_search);
+        formData.append("period", tmp_period);
+        formData.append("sDate", sDate);
+        formData.append("eDate", eDate);
+        formData.append("ostype", tmp_ostype);
+        formData.append("searchPayStatus", tmp_searchPayStatus);
+        formData.append("innerType", tmp_innerType);
+
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+
+    });
+
 
 </script>
 

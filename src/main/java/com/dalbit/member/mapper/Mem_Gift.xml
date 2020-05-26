@@ -90,10 +90,16 @@
     </select>
 
     <select id="callGiftHistory_allGiftDalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
-        SELECT ifnull(sum(item_cnt),0) as allGiftItemCnt, ifnull(sum(ruby),0) as allGiftDalCnt FROM rd_data.tb_member_broadcast_item WHERE mem_no = #{mem_no} and item_type in (1,2)
+        SELECT ifnull(sum(item_cnt),0) as allGiftItemCnt, ifnull(sum(ruby),0) as allGiftDalCnt FROM rd_data.tb_member_broadcast_item WHERE mem_no = #{mem_no} and item_type in (1,2) and secret = 0
     </select>
     <select id="callGiftHistory_allReceivedDalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
-        SELECT ifnull(sum(item_cnt),0) as allReceivedItemCnt, ifnull(sum(ruby),0) as allReceivedDalCnt  FROM rd_data.tb_member_broadcast_item WHERE gifted_mem_no = #{mem_no} and item_type in (1,2)
+        SELECT ifnull(sum(item_cnt),0) as allReceivedItemCnt, ifnull(sum(ruby),0) as allReceivedDalCnt  FROM rd_data.tb_member_broadcast_item WHERE gifted_mem_no = #{mem_no} and item_type in (1,2) and secret = 0
+    </select>
+    <select id="callGiftHistory_allGiftSecretDalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
+        SELECT ifnull(sum(item_cnt),0) as allGiftSecretItemCnt, ifnull(sum(ruby),0) as allGiftSecretDalCnt FROM rd_data.tb_member_broadcast_item WHERE mem_no = #{mem_no} and item_type in (1,2) and secret = 1
+    </select>
+    <select id="callGiftHistory_allReceivedSecretDalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberGiftInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberGiftOutputVo">
+        SELECT ifnull(sum(item_cnt),0) as allReceivedSecretItemCnt, ifnull(sum(ruby),0) as allReceivedSecretDalCnt  FROM rd_data.tb_member_broadcast_item WHERE gifted_mem_no = #{mem_no} and item_type in (1,2) and secret = 1
     </select>
 
 

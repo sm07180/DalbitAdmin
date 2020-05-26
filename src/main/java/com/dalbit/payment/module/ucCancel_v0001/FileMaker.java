@@ -1,12 +1,14 @@
 package com.dalbit.payment.module.ucCancel_v0001;
 
 import com.dalbit.util.DalbitUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
+@Slf4j
 public class FileMaker {
     private final String PROPERTY_NAME = "mobilians/"+ DalbitUtil.getActiveProfile()+"/CancelUc.properties"; //local, dev
 
@@ -45,7 +47,7 @@ public class FileMaker {
             if (this.fileDir.equals("")) {
                 this.resultCd = "9002";
                 this.resultMsg = "[9002]시스템 설정(LOG_FILE) 오류입니다.";
-                System.err.println("Error : LOG_FILE 설정 오류 - [" + this.fileDir + "]");
+                log.error("Error : LOG_FILE 설정 오류 - [" + this.fileDir + "]");
                 return;
             }
 
@@ -53,7 +55,7 @@ public class FileMaker {
             if (this.fileName.equals("")) {
                 this.resultCd = "9002";
                 this.resultMsg = "[9002]시스템 설정(LOG_FILE) 오류입니다.";
-                System.err.println("Error : LOG_FILE 설정 오류 - [" + this.fileName + "]");
+                log.error("Error : LOG_FILE 설정 오류 - [" + this.fileName + "]");
                 return;
             }
 
@@ -61,7 +63,7 @@ public class FileMaker {
             if (this.serverIp.equals("")) {
                 this.resultCd = "9006";
                 this.resultMsg = "[9006]시스템 설정(SERVER_IP) 오류입니다.";
-                System.err.println("Error : SERVER_IP 설정 오류 - [" + this.serverIp + "]");
+                log.error("Error : SERVER_IP 설정 오류 - [" + this.serverIp + "]");
                 return;
             }
 
@@ -74,7 +76,7 @@ public class FileMaker {
             if (this.serverPort == 0) {
                 this.resultCd = "9006";
                 this.resultMsg = "[9006]시스템 설정(SERVER_PORT) 오류입니다.";
-                System.err.println("Error : SERVER_PORT 설정 오류 - [" + this.serverPort + "]");
+                log.error("Error : SERVER_PORT 설정 오류 - [" + this.serverPort + "]");
                 return;
             }
 
@@ -83,7 +85,7 @@ public class FileMaker {
             if ("".equals(this.serverEncode)) {
                 this.resultCd = "9007";
                 this.resultMsg = "[9007]시스템 설정(SERVER_ENCODE) 오류입니다.";
-                System.err.println("Error : SERVER_ENCODE 설정 오류 - [" + this.serverEncode + "]");
+                log.error("Error : SERVER_ENCODE 설정 오류 - [" + this.serverEncode + "]");
                 return;
             }
 
@@ -91,7 +93,7 @@ public class FileMaker {
             if ("".equals(this.clientEncode)) {
                 this.resultCd = "9008";
                 this.resultMsg = "[9008]시스템 설정(CLIENT_ENCODE) 오류입니다.";
-                System.err.println("Error : CLIENT_ENCODE 설정 오류 - [" + this.clientEncode + "]");
+                log.error("Error : CLIENT_ENCODE 설정 오류 - [" + this.clientEncode + "]");
                 return;
             }
 
@@ -99,14 +101,14 @@ public class FileMaker {
             if (this.ver.length() != 4) {
                 this.resultCd = "9009";
                 this.resultMsg = "[9009]시스템 설정(VER) 오류입니다.";
-                System.out.println("Error : VER 설정 오류 - [" + this.ver + "]");
+                log.error("Error : VER 설정 오류 - [" + this.ver + "]");
                 return;
             }
         } catch (Exception var5) {
             this.status = "B";
             this.resultCd = "9013";
             this.resultMsg = "[9013] CancelUc.properties not found";
-            System.err.println("[9013] CancelUc.properties not found");
+            log.error("[9013] CancelUc.properties not found");
             return;
         }
 
@@ -132,7 +134,7 @@ public class FileMaker {
         } catch (IOException var2) {
             this.resultCd = "9225";
             this.resultMsg = "Mobilians CancelUc Error ==> Can't make the log file";
-            System.err.println("Mobilians CancelUc Error ==> Can't make the log file");
+            log.error("Mobilians CancelUc Error ==> Can't make the log file");
         }
 
     }
@@ -143,7 +145,7 @@ public class FileMaker {
                 this.fos.write(tmp.getBytes());
             }
         } catch (Exception var3) {
-            System.err.println("Mobilians CancelUc Error ==> Can't write the log file");
+            log.error("Mobilians CancelUc Error ==> Can't write the log file");
         }
 
     }
@@ -156,7 +158,7 @@ public class FileMaker {
                 this.fos.write(tmp.getBytes());
             }
         } catch (Exception var3) {
-            System.err.println("Mobilians CancelUc Error ==> Can't write the log file");
+            log.error("Mobilians CancelUc Error ==> Can't write the log file");
         }
 
     }
@@ -169,7 +171,7 @@ public class FileMaker {
                 this.fos.write(tmp.getBytes());
             }
         } catch (Exception var3) {
-            System.err.println("Mobilians CancelUc Error ==> Can't write the log file");
+            log.error("Mobilians CancelUc Error ==> Can't write the log file");
         }
 
     }
@@ -189,7 +191,7 @@ public class FileMaker {
                 this.fis.close();
             }
         } catch (IOException var3) {
-            System.err.println("Mobilians CancelUc Error ==> Can't close the log file");
+            log.error("Mobilians CancelUc Error ==> Can't close the log file");
         }
 
         try {
@@ -197,7 +199,7 @@ public class FileMaker {
                 this.fos.close();
             }
         } catch (IOException var2) {
-            System.err.println("Mobilians CancelUc Error ==> Can't close the log file");
+            log.error("Mobilians CancelUc Error ==> Can't close the log file");
         }
 
     }
