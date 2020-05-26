@@ -76,7 +76,7 @@ public class Pay_PayService {
             hm.put("col1", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
             hm.put("col2", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
             hm.put("col3", DalbitUtil.isEmpty(payWay) ? "" : payWay);
-            hm.put("col4", DalbitUtil.isEmpty(list.get(i).getPay_info_no()) ? "" : list.get(i).getPay_info_no() + " " + list.get(i).getPay_info_nm());
+            hm.put("col4", DalbitUtil.isEmpty(list.get(i).getPay_info_no()) ? "" : list.get(i).getPay_info_no() + " " + (DalbitUtil.isEmpty(list.get(i).getPay_info_nm()) ? "" : list.get(i).getPay_info_nm()));
             hm.put("col5", DalbitUtil.isEmpty(list.get(i).getPay_dt_comein()) ? "" : list.get(i).getPay_dt_comein());
             hm.put("col6", DalbitUtil.isEmpty(list.get(i).getPay_ok_date()) ? "" : list.get(i).getPay_ok_date() + " " + list.get(i).getPay_ok_time());
             hm.put("col7", DalbitUtil.isEmpty(list.get(i).getPay_code()) ? "" : list.get(i).getPay_code());
