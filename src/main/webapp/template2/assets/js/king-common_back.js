@@ -129,14 +129,14 @@ $(document).ready(function(){
     }
 
     // main responsive nav toggle
-    /*$('.main-nav-toggle').clickToggle(
+    $('.main-nav-toggle').clickToggle(
         function() {
             $('.left-sidebar').slideDown(300)
         },
         function() {
             $('.left-sidebar').slideUp(300);
         }
-    );*/
+    );
 
     // slimscroll left navigation
     if( $('body.sidebar-fixed').length > 0 ) {
@@ -196,7 +196,7 @@ $(document).ready(function(){
     // widget toggle expand
     var affectedElement = $('.widget-content');
 
-    /*$('.widget .btn-toggle-expand').clickToggle(
+    $('.widget .btn-toggle-expand').clickToggle(
         function(e) {
             e.preventDefault();
 
@@ -224,10 +224,10 @@ $(document).ready(function(){
 
             $(this).find('i.fa-chevron-up').toggleClass('fa-chevron-down');
         }
-    );*/
+    );
 
     // widget focus
-    /*$('.widget .btn-focus').clickToggle(
+    $('.widget .btn-focus').clickToggle(
         function(e) {
             e.preventDefault();
             $(this).find('i.fa-eye').toggleClass('fa-eye-slash');
@@ -249,16 +249,16 @@ $(document).ready(function(){
                 $theWidget.removeClass('widget-focus-enabled');
             });
         }
-    );*/
+    );
 
     /************************
      /*	BOOTSTRAP TOOLTIP
      /************************/
 
-    /*$('body').tooltip({
+    $('body').tooltip({
         selector: "[data-toggle=tooltip]",
         container: "body"
-    });*/
+    });
 
 
     /************************
@@ -275,16 +275,16 @@ $(document).ready(function(){
      /*	BOOTSTRAP POPOVER
      /************************/
 
-    /*$('.btn-help').popover({
+    $('.btn-help').popover({
         container: 'body',
         placement: 'top',
         html: true,
         trigger: 'hover',
         title: '<i class="fa fa-book"></i> Quick Help',
         content: "Help summary goes here. Options can be passed via data attributes <code>data-</code> or JavaScript. You can change the popover trigger to 'click' instead of 'hover'."
-    });*/
+    });
 
-    /*$('.demo-popover1 #popover-title').popover({
+    $('.demo-popover1 #popover-title').popover({
         html: true,
         title: '<i class="fa fa-cogs"></i> Popover Title',
         content: 'This popover has title and support HTML content. Quickly implement process-centric networks rather than compelling potentialities. Objectively reinvent competitive technologies after high standards in process improvements. Phosfluorescently cultivate 24/365.'
@@ -297,7 +297,7 @@ $(document).ready(function(){
         content: 'Activate the popover on hover. Objectively enable optimal opportunities without market positioning expertise. Assertively optimize multidisciplinary benefits rather than holistic experiences. Credibly underwhelm real-time paradigms with.'
     });
 
-    $('.demo-popover2 .btn').popover();*/
+    $('.demo-popover2 .btn').popover();
 
 
     /*****************************
@@ -465,8 +465,8 @@ $(document).ready(function(){
                 element: "#tour-searchbox",
                 title: "Bootstrap Tour",
                 content: "<p>Hello there, this tour can <strong>guide new user</strong> or show new feature/update on your website. " +
-                "Oh and why don't you try search <em>'sales'</em> here to see Widget Live Search on action.</p>" +
-                "<p><em>To navigate the site please follow the tour first or click \"End tour\".</em></p>",
+                    "Oh and why don't you try search <em>'sales'</em> here to see Widget Live Search on action.</p>" +
+                    "<p><em>To navigate the site please follow the tour first or click \"End tour\".</em></p>",
                 placement: "bottom"
             },
             {
@@ -496,15 +496,15 @@ $(document).ready(function(){
             }
         ],
         template: "<div class='popover tour'> " +
-        "<div class='arrow'></div> " +
-        "<h3 class='popover-title'></h3>" +
-        "<div class='popover-content'></div>" +
-        "<div class='popover-navigation'>" +
-        "<button class='btn btn-default' data-role='prev'>« Prev</button>" +
-        "<button class='btn btn-primary' data-role='next'>Next »</button>" +
-        "<button class='btn btn-default' data-role='end'>End tour</button>" +
-        "</div>" +
-        "</div>",
+            "<div class='arrow'></div> " +
+            "<h3 class='popover-title'></h3>" +
+            "<div class='popover-content'></div>" +
+            "<div class='popover-navigation'>" +
+            "<button class='btn btn-default' data-role='prev'>« Prev</button>" +
+            "<button class='btn btn-primary' data-role='next'>Next »</button>" +
+            "<button class='btn btn-default' data-role='end'>End tour</button>" +
+            "</div>" +
+            "</div>",
         onEnd: function(tour) {
             $('#start-tour').prop('disabled', false);
         }
