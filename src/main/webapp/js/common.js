@@ -294,3 +294,19 @@ common.scrollTop = function(){
 
     $('#back-to-top').tooltip('show');
 };
+
+common.getMemStateName = function(state){
+    if(common.isEmpty(state)){
+        return state;
+    }
+
+    if(state == '1'){
+        return '정상'
+    }else if(state == '2'){
+        return '경고'
+    }else if(state == '3'){
+        return '정지'
+    }else if(state == '5'){
+        return '영구정지'
+    }
+}
