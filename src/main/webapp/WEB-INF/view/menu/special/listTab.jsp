@@ -10,7 +10,7 @@
                <li class="active"><a href="#dal" role="tab" data-toggle="tab" class="_tab">스페셜 달D</a></li>
                <li><a href="#reqDal" role="tab" data-toggle="tab" class="_tab">스페셜 신청 달D</a></li>
            </ul>
-           <div class="tab-content">
+           <div class="tab-content no-padding">
                <div class="tab-pane fade in active" id="dal"><jsp:include page="specialDal.jsp"/></div>           <!-- 스페셜 달D -->
                <div class="tab-pane fade" id="reqDal"><jsp:include page="reqSpecialDal.jsp"/></div>               <!-- 스페셜 신청 달D -->
            </div>

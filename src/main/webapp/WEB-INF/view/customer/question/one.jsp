@@ -1,7 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 
-<sec:authentication var="principal" property="principal" />
+<c:set var="readYn" value="N" />
+<c:set var="insertYn" value="N" />
+<c:set var="deleteYn" value="N" />
+
+<c:forEach var="menu" items="${cfn:getMenuList()}" varStatus="status">
+    <c:forEach var="twoDepth" items="${menu.twoDepth}">
+        <c:if test="${twoDepth.idx eq 52}">
+            <c:set var="readYn" value="${twoDepth.is_read eq 0 ? 'N' : 'Y'}" />
+            <c:set var="insertYn" value="${twoDepth.is_insert eq 0 ? 'N' : 'Y'}" />
+            <c:set var="deleteYn" value="${twoDepth.is_delete eq 0 ? 'N' : 'Y'}" />
+        </c:if>
+    </c:forEach>
+</c:forEach>
 
 <div class="col-md-12 no-padding">
     <label id="one_title"></label>
@@ -205,9 +218,14 @@
 
                         <th>처리상태</th>
                         <td>{{{getCommonCodeLabel state 'question_status'}}}
-                            {{#equal state '2'}}
+                            <c:if test="${insertYn eq 'Y'}">
                                 <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
-                            {{/equal}}
+                            </c:if>
+                            <c:if test="${insertYn eq 'N'}">
+                                {{#equal state '2'}}
+                                    <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
+                                {{/equal}}
+                            </c:if>
                         </td>
                     </tr>
                     <tr>
