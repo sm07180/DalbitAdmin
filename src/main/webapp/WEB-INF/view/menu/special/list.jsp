@@ -3,9 +3,10 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
+        <div class="container-fluid">
                 <!-- serachBox -->
                 <form id="searchForm">
-                    <div class="col-lg-12 form-inline no-padding">
+                    <div class="row col-lg-12 form-inline">
                         <div class="widget widget-table searchBoxArea">
                             <div class="widget-header searchBoxRow">
                                 <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
@@ -22,7 +23,7 @@
                 <!-- //serachBox -->
 
                 <!-- summary -->
-                <div class="widget-content">
+                <div class="row col-lg-12 form-inline">
                     <table class="table table-bordered table-summary pull-right">
                         <thead>
                             <th>승인 달D</th>
@@ -34,15 +35,14 @@
                 </div>
                 <!-- //summary -->
 
-
-
-                </div> <!-- //container-fluid -->
                 <!-- tab -->
+            <div class="row col-lg-12 form-inline">
                 <div class="no-padding" id="listTab">
                     <jsp:include page="listTab.jsp"/>
                 </div>
+            </div>
                 <!-- //tab -->
-        </div>
+        </div> <!-- //container-fluid -->
     </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper-->
 
