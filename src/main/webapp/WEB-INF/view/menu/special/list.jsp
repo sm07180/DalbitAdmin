@@ -103,6 +103,7 @@
                 , is_force : 1
             };
             util.getAjaxData("ok", "/rest/menu/special/reqOk", obj, fn_success_ok);
+            sendPush(data.mem_no);
         }
         return false;
     }
@@ -111,6 +112,36 @@
         alert(response.message);
         getList();
     }
+
+
+    function sendPush(mem_no){
+        if(common.isEmpty(mem_no)){
+            console.log("[PUSH] 발송 mem_no 미존재!");
+            return false;
+        }
+
+        var data = {
+            mem_nos: mem_no
+            ,send_cnt: 0
+            ,send_title: "스페셜 DJ로 선정되었어요."
+            ,send_cont: "스페셜 DJ로 선정되었습니다. 다양한 혜택을 경험해보세요."
+            ,board_idx: "102"
+            ,slct_push: "7"
+            ,is_all: "7"
+            ,platform: "111"
+            ,status: 0
+            ,msg_type: 0
+            ,image_type: 1
+            ,is_direct: 0
+        };
+        dalbitLog(data);
+
+        util.getAjaxData("insert", "/rest/content/push/insert", data, function(dst_id, data, dst_params){
+            console.log("[PUSH SEND RESULT]");
+            console.log(data.message);
+        });
+    }
+
 </script>
 
 <script id="tmp_summary" type="text/x-handlebars-template">
