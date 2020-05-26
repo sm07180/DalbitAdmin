@@ -12692,7 +12692,7 @@ ul.sub-menu > li > a {
     padding: 5px 0 5px 33px !important;
 }
 
-ul.sub-menu > li > span {
+ul.sub-menu > li a span {
     font-weight: normal !important; ;
 }
 
