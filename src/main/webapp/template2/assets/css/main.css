@@ -12679,11 +12679,17 @@ ul.main-menu > li > a,
 .content-wrapper {
     background-color: #dfdfdf;
     border-top: 1px #FFFFFF solid;
+    padding: 7px 0 7px 15px;
+    font-weight: 700;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out; }
+
+ul.sub-menu > li > a {
+    font-weight: 500;
+}
 
 .left-sidebar {
     -webkit-transition: all 0.3s ease-in-out;
