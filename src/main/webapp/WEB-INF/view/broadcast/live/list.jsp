@@ -42,7 +42,7 @@
                 <br/>
                 <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
             </div>
-            <div class="col-md-6 pull-right">
+            <div class="col-md-6 pull-right no-padding">
                 <span id="live_summaryArea"></span>
                 <span id="platform_summaryArea"></span>
             </div>
