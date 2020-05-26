@@ -3,6 +3,8 @@ package com.dalbit.menu.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
 import com.dalbit.menu.vo.SpecialDjOrderVo;
@@ -82,6 +84,8 @@ public class Men_SpecialService {
         menSpecialDao.profileUpdate(specialReqVo);
 
         if(result > 0) {
+            // 스페셜 DJ 선정 PUSH 발송
+            sendPushReqOK(specialReqVo.getMem_no());
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_성공));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_실패));
@@ -171,5 +175,32 @@ public class Men_SpecialService {
         }catch (Exception e){
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ순위변경_실패));
         }
+    }
+
+    @Autowired
+    PushService pushService;
+
+    public String sendPushReqOK(String mem_no){
+
+        P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+
+        pPushInsertVo.setMem_nos(mem_no);
+        pPushInsertVo.setSend_cnt("1");
+        pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
+        pPushInsertVo.setSend_cont("스페셜 DJ로 선정되었습니다. 다양한 혜택을 경험해보세요.");
+        //TODO 스페셜DJ 공지 번호 입력 필요!!
+//        pPushInsertVo.setBoard_idx("3");
+        pPushInsertVo.setSlct_push("7");
+        pPushInsertVo.setIs_all("7");
+        pPushInsertVo.setPlatform("111");
+        pPushInsertVo.setStatus("0");
+        pPushInsertVo.setMsg_type("0");
+        pPushInsertVo.setImage_type("1");
+        pPushInsertVo.setIs_direct("0");
+
+        String pushResult = pushService.callContentsPushAdd(pPushInsertVo);
+        log.info("[PUSH SEND RESULT] : {}" , pushResult);
+
+        return pushResult;
     }
 }
