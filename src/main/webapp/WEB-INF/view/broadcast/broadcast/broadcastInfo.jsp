@@ -325,27 +325,26 @@
 
             var memo;
             var title;
+            var memoDetail;
             if(editEntry == "bt_forcedExit"){
-                memo = broadCastMessage.forceExit;
+                memoDetail = broadCastMessage.forceExit;
                 title = broadCastMessage.forceExitTitle;
             }else if(editEntry == "bt_freezing"){
-                memo = broadCastMessage.freezing;
+                memoDetail = broadCastMessage.freezing;
                 title = broadCastMessage.freezingTitle;
             }
             memo = broadCastMessage.forceExitMsg;
-                // memo.replace("{{name}}",ADMIN_NICKNAME)
-                // .replace("{{nickName}}",detailData.dj_nickName)
-                // .replace("{{message}}",entryMessage)
-                // .replace("{{timestamp}}",timestamp);
-
-            // console.log(memo);
+            memoDetail = memoDetail.replace("{{name}}",ADMIN_NICKNAME)
+                        .replace("{{nickName}}",detailData.dj_nickName)
+                        .replace("{{message}}",entryMessage)
+                        .replace("{{timestamp}}",timestamp);
 
             var obj = new Object();
             obj.room_no = room_no;
             obj.backgroundImage = "";
-            obj.notiMemo = memo;
+            obj.notiContents = memo;        // 종 알림 내용
+            obj.notiMemo = memoDetail;      // 팝업 내용
             obj.sendNoti = sendNoti;
-            obj.notiContents = title;
             obj.forceExit = $('input:radio[name="forcedExit"]:checked').val();
             obj.freezeMsg = $('input:radio[name="freezing"]:checked').val();
             console.log(mem_no);
