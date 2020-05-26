@@ -12688,7 +12688,12 @@ ul.main-menu > li > a,
     transition: all 0.3s ease-in-out; }
 
 ul.sub-menu > li > a {
-    font-weight: 500;
+    font-weight: normal;
+    padding: 5px 0 5px 0 !important;
+}
+
+ul.sub-menu > li > span {
+    font-weight: normal;
 }
 
 .left-sidebar {
