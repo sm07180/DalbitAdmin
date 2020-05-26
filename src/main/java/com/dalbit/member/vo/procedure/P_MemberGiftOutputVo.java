@@ -30,10 +30,16 @@ public class P_MemberGiftOutputVo extends SearchVo {
     private int secret;
 
     //summary
+    // 공개 보낸 선물
     private int allGiftItemCnt;
     private int allGiftDalCnt;
     private int allReceivedItemCnt;
     private int allReceivedDalCnt;
+    // 비공개 보낸 선물
+    private int allGiftSecretItemCnt;
+    private int allGiftSecretDalCnt;
+    private int allReceivedSecretItemCnt;
+    private int allReceivedSecretDalCnt;
 
     public void setGiftDate(Date giftDate){
         this.giftDate = giftDate;

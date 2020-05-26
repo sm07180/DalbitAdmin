@@ -55,6 +55,18 @@ public class Mem_GiftService {
             summary.setAllReceivedDalCnt(ReceivedDalCnt.get(0).getAllReceivedDalCnt());
         }
 
+        ArrayList<P_MemberGiftOutputVo> allGiftSceretDalCnt = mem_GiftDao.callGiftHistory_allGiftSecretDalCnt(pMemberGiftInputVo);
+        ArrayList<P_MemberGiftOutputVo> ReceivedSceretDalCnt = mem_GiftDao.callGiftHistory_allReceivedSecretDalCnt(pMemberGiftInputVo);
+
+        if(!DalbitUtil.isEmpty(allGiftSceretDalCnt)){
+            summary.setAllGiftSecretItemCnt(allGiftSceretDalCnt.get(0).getAllGiftSecretItemCnt());
+            summary.setAllGiftSecretDalCnt(allGiftSceretDalCnt.get(0).getAllGiftSecretDalCnt());
+        }
+        if(!DalbitUtil.isEmpty(ReceivedSceretDalCnt)){
+            summary.setAllReceivedSecretItemCnt(ReceivedSceretDalCnt.get(0).getAllReceivedSecretItemCnt());
+            summary.setAllReceivedSecretDalCnt(ReceivedSceretDalCnt.get(0).getAllReceivedSecretDalCnt());
+        }
+
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.선물내역보기성공, giftList, new PagingVo(memberList_totalCnt),summary));
         return result;
