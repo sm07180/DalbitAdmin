@@ -36,7 +36,6 @@
 
                                 <input class="hide" name="startDate" id="startDate" style="width: 100px">
                                 <input class="hide" name="endDate" id="endDate" style="width: 100px">
-
                                 <%--<input name="startDate" id="startDate" style="width: 100px">--%>
                                 <%--<input name="endDate" id="endDate" style="width: 100px">--%>
 
@@ -110,29 +109,32 @@
         $('#displayDate').datepicker({
             minViewMode: 'months',
             format: 'yyyy.mm',
+            keyboardNavigation: false,
+            forceParse: false,
             autoclose: true,
+            language: 'kr',
         });
+
         $("#displayDate").on('change', function () {
             var monthLastDate = new Date($("#displayDate").val().substr(0,4),$("#displayDate").val().substr(5,6),-1);
             $("#startDate").val($("#displayDate").val() + '.01');
             $("#endDate").val($("#displayDate").val() + "." +  (monthLastDate.getDate() + 1));
-            $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
-            $("#onedayDate").val($("#startDate").val());
-            $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년 MM월'));
+            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
         });
 
         // 년 선택 --------------------------------
         $('#yearDate').datepicker({
             minViewMode: 'years',
             format: 'yyyy',
+            keyboardNavigation: false,
+            forceParse: false,
             autoclose: true,
+            language: 'kr',
         });
         $("#yearDate").on('change', function () {
             $("#startDate").val($("#yearDate").val() + '.01.01');
             $("#endDate").val($("#yearDate").val() + ".12.31");
-            $("#yearDate").val($("#startDate").val() + " - " + $("#endDate").val());
-            $("#onedayDate").val($("#startDate").val());
-            $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년'));
+            $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
 
         //로그인 통계 현황
@@ -153,8 +155,8 @@
         $("#startDate").val(startDate);
         $("#endDate").val(endDate);
         $("._searchDate").html(displayDate);
-        $("#displayDate").val(startDate + ' - ' + endDate);
-        $("#yearDate").val(startDate + ' - ' + endDate);
+        $("#displayDate").val(startDate.substr(0,7));
+        $("#yearDate").val(startDate.substr(0,4));
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
@@ -178,14 +180,14 @@
                 var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
                 $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
                 $("#endDate").val($("#onedayDate").val().substr(0,8) + (monthLastDate.getDate() + 1));
-                $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+                $("#displayDate").val($("#onedayDate").val().substr(0,7));
 
                 var rangeDate = $("#displayDate").val().split(' - ');
                 if(-1 < rangeDate.indexOf(' - ')){
                     $("#startDate").val(rangeDate[0]);
                     $("#endDate").val(rangeDate[1]);
                 };
-                $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년 MM월'));
+                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
             }else{
                 // 월별 ----------------------------------
                 $("#oneDayDatePicker").hide();
@@ -195,9 +197,8 @@
                 var yearDate = new Date();
                 $("#startDate").val(yearDate.getFullYear() + '.01.01');
                 $("#endDate").val(yearDate.getFullYear() + ".12.31");
-                $("#yearDate").val($("#startDate").val() + " - " + $("#endDate").val());
-                $("#onedayDate").val($("#startDate").val());
-                $("._searchDate").html(moment($("#onedayDate").val()).format('YYYY년'));
+                $("#yearDate").val(yearDate.getFullYear());
+                $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
             }
         }
         $("#tablist_con li.active a").click();
@@ -225,7 +226,7 @@
 
     function prevNext(isPrev){
         var slctType = $('input[name="slctType"]:checked').val();
-        var targetDate = statUtil.getStatTimeDate($("#onedayDate").val(), stat_searchType, slctType, isPrev);
+        var targetDate = statUtil.getStatTimeDate($("#startDate").val(), stat_searchType, slctType, isPrev);
         var addDate = isPrev ? -1 : 1;
 
         if(slctType == 0){
