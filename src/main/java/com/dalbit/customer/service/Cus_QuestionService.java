@@ -92,6 +92,23 @@ public class Cus_QuestionService {
         return result;
     }
 
+    /**
+     *  1:1 문의하기 수정하기
+     */
+    public String callServiceCenterQnaUpdate(P_QuestionOperateVo pQuestionOperateVo){
+        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+        int updateResult = cus_questionDao.callServiceCenterQnaUpdate(pQuestionOperateVo);
+
+        String result;
+        if(updateResult == 1) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의수정_성공));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_에러));
+        }
+
+        return result;
+    }
+
     public List<FaqVo> getFaqGroupList(){
         return cus_questionDao.getFaqGroupList();
     }
