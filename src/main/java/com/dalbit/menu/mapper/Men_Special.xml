@@ -5,8 +5,16 @@
     <select id="summary" parameterType="com.dalbit.menu.vo.SpecialSummaryVo" resultType="com.dalbit.menu.vo.SpecialSummaryVo">
     /* Men_Special.xml - summary */
         select
-        (select count(*) from rd_admin.tb_req_special_dj redj) as requestDal
-        , (select count(*) from rd_admin.tb_special_dj dj) as approveDal
+        (select
+              count(*)
+            from rd_admin.tb_req_special_dj redj
+            inner join rd_data.tb_member_basic mem
+            on redj.mem_no = mem.mem_no) as requestDal
+        , (select
+              count(*)
+            from rd_admin.tb_special_dj dj
+            inner join rd_data.tb_member_basic mem
+            on dj.mem_no = mem.mem_no) as approveDal
     </select>
 
     <sql id="reqSpecial">
