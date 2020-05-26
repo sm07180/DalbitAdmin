@@ -14,6 +14,10 @@
         call rd_admin.sp_admin_service_center_qna_operate(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <update id="callServiceCenterQnaUpdate" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
+        update rd_data.tb_service_center_qna set answer=#{answer},op_date=now(),op_name=#{opName} where idx = #{qnaIdx}
+    </update>
+
     <select id="getFaqGroupList" resultType="com.dalbit.customer.vo.FaqVo">
         /* Cus_Question.xml - getFaqGroupList */
         select slct_type

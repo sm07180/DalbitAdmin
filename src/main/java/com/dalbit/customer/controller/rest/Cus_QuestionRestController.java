@@ -63,6 +63,13 @@ public class Cus_QuestionRestController {
     public String operate(P_QuestionOperateVo pQuestionOperateVo) {
         return cus_questionService.callServiceCenterQnaOperate(pQuestionOperateVo);
     }
+    /**
+     *  1:1 문의하기 수정하기
+     */
+    @PostMapping("update")
+    public String update(P_QuestionOperateVo pQuestionOperateVo) {
+        return cus_questionService.callServiceCenterQnaUpdate(pQuestionOperateVo);
+    }
 
     @PostMapping("getFaqGroupList")
     public String getFaqGroupList(FaqVo faqVo){

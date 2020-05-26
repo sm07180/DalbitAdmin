@@ -105,6 +105,36 @@ var pointEditStory = [
     ,new COMMON_CODE('2','2','이벤트 지급')
 ];
 
+var memJoinDateSort = [
+    new COMMON_CODE('','memJoinDateSort','가입일시정렬')
+    ,new COMMON_CODE('-1','-1','가입일시')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+var memNickSort = [
+    new COMMON_CODE('','memNickSort','닉네임정렬')
+    ,new COMMON_CODE('-1','-1','닉네임')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+var memLoginIdSort = [
+    new COMMON_CODE('','memLoginIdSort','로그인ID정렬')
+    ,new COMMON_CODE('-1','-1','로그인ID')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+var memIpSort = [
+    new COMMON_CODE('','memIpSort','IP정렬')
+    ,new COMMON_CODE('-1','-1','IP')
+    ,new COMMON_CODE('0','0','오름차순')
+    ,new COMMON_CODE('1','1','내림차순')
+];
+
+
+
 
 
 // ------------------------- table -----------------------------

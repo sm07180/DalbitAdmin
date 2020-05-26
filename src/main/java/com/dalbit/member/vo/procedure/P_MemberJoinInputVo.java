@@ -13,4 +13,15 @@ public class P_MemberJoinInputVo extends SearchVo {
     private String eDate;
     private String memWithdrawal;
     private int testid;
+
+    // order by ------------------------
+    private int memJoinDateSort;
+    private int memNickSort;
+    private int memLoginIdSort;
+    private int memIpSort;
+
+    private int memJoinDateSort_withdrawal;
+    private int memNickSort_withdrawal;
+    private int memLoginIdSort_withdrawal;
+    private int memIpSort_withdrawal;
 }
