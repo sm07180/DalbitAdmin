@@ -46,7 +46,9 @@
 
 .word-break{width: 100%;word-break: break-all;}
 
-
+li.menu1{
+    font-weight:bold
+}
 /*left 통계현황*/
 .main-nav .main-menu li.page.active a{
     background-color: #8556F6 !important;

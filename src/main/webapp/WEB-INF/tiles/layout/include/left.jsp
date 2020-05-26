@@ -31,7 +31,7 @@
                             </c:if>
                         </c:forEach>
 
-                        <li class="${menu.menu_url eq '/main' ? '_mainMenu' : ''}
+                        <li class="menu1 ${menu.menu_url eq '/main' ? '_mainMenu' : ''}
                                    ${isContainSubmenu ? '' : 'page'}
                                    ${menu.is_comming_soon eq 1 ? '_commingSoon' : ''}
                                    ${isSubmenuView ? 'active': ''}
