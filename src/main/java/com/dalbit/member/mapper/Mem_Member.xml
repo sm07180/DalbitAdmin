@@ -39,7 +39,7 @@
               ,(select title from rd_data.tb_broadcast_room where state != 4 and room_no = a.room_no) as listen_title
           from rd_data.tb_broadcast_room_member a
          where a.mem_no=#{mem_no}
-           and a.state=0 and auth= !3
+           and a.state=0 and auth != 3
          order by last_upd_date desc
          limit 1;
     </select>
