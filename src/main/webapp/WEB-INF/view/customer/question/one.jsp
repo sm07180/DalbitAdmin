@@ -50,7 +50,7 @@
         }else{
             response.data["editAuth"] = "N";
         }
-
+        response.data["question_contents"] = response.data.question_contents.replace(/\\n/gi, "\r\n");
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -75,8 +75,10 @@
             $("#bt_operate").addClass("hide");
             $("#bt_chatchRelease").addClass("hide");
         }
-    }
 
+        //textarea resize
+        resize(document.getElementById("question_contents"));
+    }
     function fn_getFaqGroup_success(data, response, params) {
         dalbitLog(response);
         var template = $("#tmp_question_faqGroup").html();
@@ -186,6 +188,11 @@
             $('#div_editor').css({ width: ''});
         }
     }
+
+    function resize(obj) {
+        obj.style.height = "114px";
+        obj.style.height = (12+obj.scrollHeight)+"px";
+    }
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -260,7 +267,7 @@
                     <tr>
                         <th colspan="2">문의내용</th>
                         <td colspan="6">
-                            <textarea class="form-control fit-table" rows="5">{{replaceHtml question_contents}}</textarea>
+                            <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="resize(this)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
                         </td>
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
