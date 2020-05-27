@@ -163,7 +163,7 @@
         $('button.btn-codeview').click();
     });
 
-    $(document).on('click', '#bt_chatchRelease', function() {       // 처리중 해제
+    $(document).on('click', '.bt_chatchRelease', function() {       // 처리중 해제
         var obj = {};
         obj.qnaIdx = qnaIdx;
         util.getAjaxData("qnaCatch", "/rest/customer/question/chatchRelease", obj, fn_chatchRelease_success);
@@ -217,13 +217,13 @@
                         <td>{{{getCommonCodeLabel state 'question_status'}}}
                             <c:if test="${insertYn eq 'Y'}">
                                 {{#equal state '2'}}
-                                    <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
+                                    <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
                                 {{/equal}}
                             </c:if>
 
                             <c:if test="${insertYn eq 'N'}">
                                 {{#equal editAuth 'Y'}}
-                                    <button type="button" id="bt_chatchRelease" class="btn-sm btn btn-default">해제</button>
+                                    <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
                                 {{/equal}}
                             </c:if>
                         </td>
