@@ -7,8 +7,8 @@
             <!-- serachBox -->
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
-                    <input type="hidden" name="pageStart" id="pageStart">
-                    <input type="hidden" name="pageCnt" id="pageCnt">
+                    <%--<input type="hidden" name="pageStart" id="pageStart">
+                    <input type="hidden" name="pageCnt" id="pageCnt">--%>
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 환전 검색</h3>
@@ -54,6 +54,8 @@
                                     <li>[SMS발송]이 완료된 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</li>
                                     <li>환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</li>
                                 </ul>
+
+                                <button class="btn btn-sm btn-success print-btn pull-left" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
                             </div>
 
                             <div class="col-lg-7">
@@ -148,8 +150,8 @@
 </div>
 
 <!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
-
+<%--<div id="imageFullSize"></div>--%>
+<script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 <script type="text/javascript">
@@ -231,13 +233,34 @@
         getList();
     }
 
-    function fullSize_profile(url) {     // 이미지 full size
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("isSpecial", getParameter().isSpecial);
+        formData.append("search_year", getParameter().search_year);
+        formData.append("search_month", getParameter().search_month);
+        formData.append("search_state", getParameter().search_state);
+        formData.append("search_type", getParameter().search_type);
+        formData.append("search_value", getParameter().search_value);
+
+        util.excelDownload($(this), "/rest/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    function fn_success_excel() {
+        dalbitLog("excel down 성공");
+    }
+
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+
+    /*function fullSize_profile(url) {     // 이미지 full size
         $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
         $('#fullSize_profile').modal('show');
     }
     function modal_close(){
         $("#fullSize_profile").modal('hide');
-    }
+    }*/
 
 </script>
 
@@ -264,7 +287,7 @@
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{stateName data.state}}</td>
         <td>{{data.op_name}}</td>
-        <td><button type="button" class="btn btn-success btn-sm" id="bt_search">보기</button></td>
+        <td><button type="button" class="btn btn-primary btn-sm" id="bt_search">보기</button></td>
     </tr>
 
     {{else}}

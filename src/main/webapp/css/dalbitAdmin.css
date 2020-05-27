@@ -192,7 +192,7 @@ td._down {
     font-weight: bold;
 }
 
-.modal {
+.dalbit_modal {
     display:    none;
     position:   fixed;
     z-index:    1000;
@@ -205,9 +205,9 @@ td._down {
     50% 50%
     no-repeat;
 }
-body.loading {
+body.dalbit_module_loading {
     overflow: hidden;
 }
-body.loading .modal {
+body.dalbit_module_loading .dalbit_modal {
     display: block;
 }
