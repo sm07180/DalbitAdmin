@@ -57,7 +57,7 @@
             , mem_phone
             , ruby as tot_dal_cnt
         from rd_data.tb_payment_succ pay
-            left join (select mem_no, count(mem_no) memCnt, sum(pay_amt) paySum from rd_data.tb_payment_succ group by mem_no) summary on pay.mem_no = summary.mem_no
+            left join (select mem_no, count(mem_no) memCnt, sum(pay_amt) paySum from rd_data.tb_payment_succ where pay_yn = 'Y' group by mem_no) summary on pay.mem_no = summary.mem_no
             left join (select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner` from rd_data.tb_member_basic union select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner` from rd_data.tb_member_withdrawal_bak) member on pay.mem_no = member.mem_no
             left join (select mem_no, ruby from rd_data.tb_member_wallet) wallet on pay.mem_no = wallet.mem_no
             , (select @rownum := #{pageStart}) r
@@ -81,7 +81,7 @@
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') = STR_TO_DATE(#{sDate}, '%Y%m%d')
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -125,7 +125,7 @@
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') = STR_TO_DATE(#{sDate}, '%Y%m%d')
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -172,7 +172,7 @@
             and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') = STR_TO_DATE(#{sDate}, '%Y%m%d')
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->

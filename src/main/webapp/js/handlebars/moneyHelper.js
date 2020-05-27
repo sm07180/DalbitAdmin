@@ -24,3 +24,13 @@ Handlebars.registerHelper("stateName", function (state) {
     }
     
 });
+
+Handlebars.registerHelper("convertJumin", function (value) {
+
+    if(common.isEmpty(value)) {
+        return '-';
+    }
+    var regExp = /(\d{6})(\d{7})/
+    return value.toString().replace(regExp, '$1-$2');
+
+});

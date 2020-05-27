@@ -155,10 +155,12 @@
 
     var qnaIdx;
     var answer;
+    var rowNum;
     function getQuestDetail(index){
         var data = dtList_info.getDataRow(index);
         qnaIdx = data.qnaIdx;
         answer = data.answer;
+        rowNum = data.rowNum;
 
         var obj = {};
         obj.qnaIdx = qnaIdx;
@@ -173,6 +175,7 @@
         var obj ={};
         obj.qnaIdx = qnaIdx;
         obj.answer = answer;
+        obj.rowNum = rowNum;
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 

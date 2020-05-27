@@ -9,6 +9,7 @@
                basic.mem_name,
                basic.mem_nick,
                basic.mem_state,
+               exchange.idx,
                exchange.byeol,
                exchange.cash_basic,
                exchange.withholding_tax,
@@ -38,10 +39,52 @@
         from rd_data.tb_member_exchange exchange
             inner join rd_data.tb_member_profile profile on exchange.mem_no = profile.mem_no
             inner join rd_data.tb_member_wallet wallet on exchange.mem_no = wallet.mem_no
+            left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no and special.select_year = #{search_year} and special.select_month = #{search_month}
             left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
             , (select @RNUM := 0) r
-        where profile.specialdj_badge = #{isSpecial}
-            and concat(#{search_year}, #{search_month}) = DATE_FORMAT(reg_date, '%Y%m')
+        where concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+
+            <if test='search_value != null and search_value != ""'>
+                <choose>
+                    <when test="search_type == 'mem_no'">
+                        and exchange.mem_no like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <when test="search_type == 'user_id'">
+                        and basic.mem_id like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <when test="search_type == 'mem_nick'">
+                        and basic.mem_nick like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <when test="search_type == 'mem_phone'">
+                        and exchange.phone_no like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <otherwise>
+                        and (
+                            exchange.mem_no like CONCAT('%',#{search_value},'%')
+                            or basic.mem_id like CONCAT('%',#{search_value},'%')
+                            or basic.mem_nick like CONCAT('%',#{search_value},'%')
+                            or exchange.phone_no like CONCAT('%',#{search_value},'%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+
+
+            <if test='search_state != null and search_state != ""'>
+                and exchange.state = #{search_state}
+            </if>
+
+            <if test='idx != null and idx != 0'>
+                and exchange.idx = #{idx}
+            </if>
         order by exchange.reg_date desc
     </sql>
 
@@ -54,6 +97,7 @@
             , mem_name
             , mem_nick
             , mem_state
+            , idx
             , byeol
             , cash_basic
             , withholding_tax
@@ -106,5 +150,136 @@
             <include refid="baseExchange" />
         ) a
     </select>
+
+    <select id="selectExchangeDetail" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        select *
+        from (
+            <include refid="baseExchange" />
+        ) a
+    </select>
+
+    <select id="selectSummaryInfo" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="int">
+        /* Mon_Exchange.xml - selectSummaryInfo */
+        select ifnull(sum(cnt), 0) cnt
+        from (
+            select 1 cnt
+            from rd_data.tb_member_exchange exchange
+                left join rd_admin.tb_special_dj special
+                on exchange.mem_no = special.mem_no
+                    and special.select_year = #{search_year}
+                    and special.select_month = #{search_month}
+            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+            group by exchange.mem_no
+         )a
+
+        union all
+        -- 신청 별 수
+        select ifnull(sum(byeol), 0) byeol
+        from rd_data.tb_member_exchange exchange
+            left join rd_admin.tb_special_dj special
+                on exchange.mem_no = special.mem_no
+                    and special.select_year = #{search_year}
+                    and special.select_month = #{search_month}
+        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        <choose>
+            <when test="isSpecial == 0">
+                and special.mem_no is null
+            </when>
+            <when test="isSpecial == 1">
+                and special.mem_no is not null
+            </when>
+        </choose>
+            /*and exchange.state = 1*/
+
+        union all
+        -- 신청완료금액
+        select ifnull(sum(cash_basic), 0) cash_basic
+        from rd_data.tb_member_exchange exchange
+            left join rd_admin.tb_special_dj special
+                on exchange.mem_no = special.mem_no
+                    and special.select_year = #{search_year}
+                    and special.select_month = #{search_month}
+        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            and exchange.state = 1
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+        union all
+        -- 불가 별 수
+        select ifnull(sum(byeol), 0) byeol
+        from rd_data.tb_member_exchange exchange
+            left join rd_admin.tb_special_dj special
+                on exchange.mem_no = special.mem_no
+                    and special.select_year = #{search_year}
+                    and special.select_month = #{search_month}
+        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            and exchange.state = 2
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+
+        union all
+        -- 불가처리 금액
+        select ifnull(sum(cash_basic), 0) cash_basic
+        from rd_data.tb_member_exchange exchange
+            left join rd_admin.tb_special_dj special
+                on exchange.mem_no = special.mem_no
+                    and special.select_year = #{search_year}
+                    and special.select_month = #{search_month}
+        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            and exchange.state = 2
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+    </select>
+
+    <sql id="baseUpdateColumn">
+        bank_code = #{bank_code}
+        , account_name = #{account_name}
+        , social_no = #{social_no}
+        , address_1 = #{address_1}
+        , address_2 = #{address_2}
+        , op_msg = #{op_msg}
+        , op_name = #{op_name}
+        , last_upd_date = now()
+    </sql>
+
+    <update id="updateExchangeDetail" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        /* Mon_Exchange.xml - updateExchangeDetail */
+        update rd_data.tb_member_exchange
+        set <include refid="baseUpdateColumn" />
+        where idx = #{idx}
+    </update>
+
+    <update id="updateExchangeComplete" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        /* Mon_Exchange.xml - updateExchangeComplete */
+        update rd_data.tb_member_exchange
+        set <include refid="baseUpdateColumn" />
+            , state = #{state}
+        where idx = #{idx}
+    </update>
 
 </mapper>

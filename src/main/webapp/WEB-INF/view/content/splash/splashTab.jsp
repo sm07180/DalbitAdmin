@@ -2,7 +2,7 @@
 
 <div id="wrapper">
     <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
-        <li><a href="#splashList" role="tab" data-toggle="tab" id="tab_splashList">스플래시 메세지</a></li>
+        <li><a href="#splashList" role="tab" data-toggle="tab" id="tab_splashList">스플래시 메시지</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane fade" id="splashList"><jsp:include page="/WEB-INF/view/content/splash/splashDetail.jsp"/></div>     <!-- 상세 -->

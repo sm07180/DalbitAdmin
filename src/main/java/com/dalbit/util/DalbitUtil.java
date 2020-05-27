@@ -6,6 +6,7 @@ import com.dalbit.common.vo.LocationVo;
 import com.dalbit.common.vo.MenuVo;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
+import jdk.nashorn.internal.runtime.regexp.RegExp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -675,6 +676,14 @@ public class DalbitUtil {
 
     public static List<MenuVo> getMenuList(){
         return admAuthorityService.getLnbMemberAuthInfo(MemberVo.getUserInfo().getEmp_no());
+    }
+
+    public static String convertPhoneNo(String phoneNo){
+        return phoneNo.replaceFirst("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3");
+    }
+
+    public static String convertJuminNo(String phoneNo){
+        return phoneNo.replaceFirst("(\\d{6})(\\d{7})", "$1-$2");
     }
 
     /**

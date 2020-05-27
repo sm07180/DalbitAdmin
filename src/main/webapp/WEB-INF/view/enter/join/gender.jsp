@@ -18,17 +18,9 @@
                 <th rowspan="2">시간대</th>
                 <th colspan="7">가입자(남성)</th>
                 <th colspan="7">가입자(여성)</th>
-                <th colspan="7">알 수 없음</th>
+                <th rowspan="2">알 수 없음</th>
             </tr>
             <tr>
-                <th>소계</th>
-                <th>10대</th>
-                <th>20대</th>
-                <th>30대</th>
-                <th>40대</th>
-                <th>50대</th>
-                <th>60대 이상</th>
-
                 <th>소계</th>
                 <th>10대</th>
                 <th>20대</th>
@@ -107,12 +99,6 @@
         <td>{{addComma sum_age50FCnt}}</td>
         <td>{{addComma sum_age60FCnt}}</td>
         <td>{{addComma sum_totalNCnt}}</td>
-        <td>{{addComma sum_age10NCnt}}</td>
-        <td>{{addComma sum_age20NCnt}}</td>
-        <td>{{addComma sum_age30NCnt}}</td>
-        <td>{{addComma sum_age40NCnt}}</td>
-        <td>{{addComma sum_age50NCnt}}</td>
-        <td>{{addComma sum_age60NCnt}}</td>
     </tr>
 </script>
 
@@ -139,12 +125,6 @@
             <td>{{addComma age50FCnt}}</td>
             <td>{{addComma age60FCnt}}</td>
             <td>{{addComma totalNCnt}}</td>
-            <td>{{addComma age10NCnt}}</td>
-            <td>{{addComma age20NCnt}}</td>
-            <td>{{addComma age30NCnt}}</td>
-            <td>{{addComma age40NCnt}}</td>
-            <td>{{addComma age50NCnt}}</td>
-            <td>{{addComma age60NCnt}}</td>
         </tr>
     {{else}}
         <tr>

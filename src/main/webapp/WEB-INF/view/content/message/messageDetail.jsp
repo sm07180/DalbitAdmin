@@ -328,14 +328,14 @@
             </colgroup>
             <tbody>
             <tr>
-                <th>제목<br>(Admin 관리용)</th>
-                <td colspan="8"><input type="text" class="form-control" name="title" id="title" placeholder="Admin 관리용 제목입니다." value="{{title}}"></td>
+                <th style="width:16%">제목<br>(Admin 관리용)</th>
+                <td style="width:84%" colspan="8"><input type="text" class="form-control" name="title" id="title" placeholder="Admin 관리용 제목입니다." value="{{title}}"></td>
             </tr>
             <tr>
-                <th>메세지 내용</th>
-                <td colspan="8">
+                <th style="width:16%">메시지 내용</th>
+                <td style="width:84%" colspan="8">
                     <div>
-                        <textarea class="form-control" name="send_cont" id="message-send_cont" rows="8" cols="30" placeholder="전체 방송방에 전달할 메세지 내용을 작성해주세요." style="resize: none" maxlength="300">{{send_cont}}</textarea>
+                        <textarea class="form-control" name="send_cont" id="message-send_cont" rows="8" cols="30" placeholder="전체 방송방에 전달할 메시지 내용을 작성해주세요." style="resize: none" maxlength="300">{{send_cont}}</textarea>
                         <span style="color: red">* 메시지 내용은 300자(한글) 입력 가능합니다.</span>
                     </div>
                 </td>

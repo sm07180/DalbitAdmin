@@ -12,14 +12,14 @@ var payPlatform = [
     , new COMMON_CODE('android', '1', 'AOS')
     , new COMMON_CODE('ios', '2', 'IOS')
     , new COMMON_CODE('web', '3', 'WEB')
-]
+];
 
 var innerType = [
     new COMMON_CODE(null, 'innerType', '직원여부')
     , new COMMON_CODE('all', '-1', '회원 (전체)')
     , new COMMON_CODE('N', '0', '회원')
     , new COMMON_CODE('Y', '1', '직원')
-]
+];
 
 var payWay = [
     new COMMON_CODE(null, 'payWay', '결제수단')
@@ -28,4 +28,21 @@ var payWay = [
     , new COMMON_CODE('MC', 'MC', '휴대폰')
     , new COMMON_CODE('VA', 'VA', '가상계좌')
     , new COMMON_CODE('InApp', 'InApp', '인앱(IOS)')
-]
+];
+
+var bankList = [
+    new COMMON_CODE('003','003','기업은행')
+    , new COMMON_CODE('004','004','국민은행')
+    , new COMMON_CODE('020','020','우리은행')
+    , new COMMON_CODE('026','026','신한은행')
+    , new COMMON_CODE('081','081','하나은행')
+    , new COMMON_CODE('011','011','농협')
+    , new COMMON_CODE('071','071','우체국')
+    , new COMMON_CODE('023','023','SC제일은행')
+    , new COMMON_CODE('027','027','한국씨티은행')
+    , new COMMON_CODE('007','007','수협은행')
+    , new COMMON_CODE('032','032','부산은행')
+    , new COMMON_CODE('034','034','광주은행')
+    , new COMMON_CODE('039','039','경남은행')
+    , new COMMON_CODE('031','031','대구은행')
+];

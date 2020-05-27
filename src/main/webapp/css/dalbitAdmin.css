@@ -192,7 +192,7 @@ td._down {
     font-weight: bold;
 }
 
-.modal {
+.dalbit_modal {
     display:    none;
     position:   fixed;
     z-index:    1000;
@@ -205,9 +205,34 @@ td._down {
     50% 50%
     no-repeat;
 }
-body.loading {
+body.dalbit_module_loading {
     overflow: hidden;
 }
-body.loading .modal {
+body.dalbit_module_loading .dalbit_modal {
     display: block;
+}
+
+div._modalLayer div{
+    /*margin: 5px 5px 5px 5px;*/
+    padding: 5px 5px 5px 5px
+}
+
+div._modalLayer div._lable{
+    background-color: #d6e6ff
+}
+
+div._modalLayer table tr th{
+    width:100px;
+}
+
+div._modalLayer table tr td{
+    text-align: left;
+}
+
+._fullWidth {
+    width:100% !important;
+}
+
+#exchangeForm > div > div > div.modal-footer {
+    border-top: 0px;
 }

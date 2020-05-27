@@ -160,13 +160,25 @@
         $("#declarationForm").empty();
     }
 
-    $(document).on('click', '._getDeclarationDetail', function() {
-        $('#report_tab').addClass("show");
-        var data = {
-            'reportIdx' : $(this).data('idx')
-        };
-        util.getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
-    });
+    // $(document).on('click', '._getDeclarationDetail', function() {
+    //     $('#report_tab').addClass("show");
+    //
+    //     console.log($(this).data('rowNum'));
+    //     var data = {
+    //         'reportIdx' : $(this).data('idx')
+    //     };
+    //     util.getAjaxData("detail", "/rest/customer/declaration/detail", data, fn_detail_success);
+    // });
+
+    function getDeclarationDetail(index){
+        var data = dtList_info.getDataRow(index);
+
+        var obj = {};
+        obj.reportIdx = data.reportIdx;
+        obj.rowNum = data.rowNum;
+
+        util.getAjaxData("detail", "/rest/customer/declaration/detail", obj, fn_detail_success);
+    }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function() {
         if($(this).prop('checked')){

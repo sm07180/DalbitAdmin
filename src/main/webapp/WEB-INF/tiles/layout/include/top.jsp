@@ -59,4 +59,4 @@
 </div>
 <!-- /top -->
 
-<div class="modal"></div>
+<div class="dalbit_modal"></div>

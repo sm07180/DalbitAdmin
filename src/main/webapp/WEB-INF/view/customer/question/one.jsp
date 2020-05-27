@@ -42,6 +42,7 @@
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
+        response.data["rowNum"] = params.rowNum;
         var add_file_cnt = response.data.add_file.split(",");
         response.data["add_file_cnt"] = common.isEmpty(response.data.add_file) ? 0 : add_file_cnt.length;
         if(response.data.state == "2" && response.data.op_name == $('.name').text()){
@@ -49,7 +50,7 @@
         }else{
             response.data["editAuth"] = "N";
         }
-
+        response.data["question_contents"] = response.data.question_contents.replace(/\\n/gi, "\r\n");
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -74,8 +75,10 @@
             $("#bt_operate").addClass("hide");
             $("#bt_chatchRelease").addClass("hide");
         }
-    }
 
+        //textarea resize
+        resize(document.getElementById("question_contents"));
+    }
     function fn_getFaqGroup_success(data, response, params) {
         dalbitLog(response);
         var template = $("#tmp_question_faqGroup").html();
@@ -162,7 +165,7 @@
         $('button.btn-codeview').click();
     });
 
-    $(document).on('click', '#bt_chatchRelease', function() {       // 처리중 해제
+    $(document).on('click', '.bt_chatchRelease', function() {       // 처리중 해제
         var obj = {};
         obj.qnaIdx = qnaIdx;
         util.getAjaxData("qnaCatch", "/rest/customer/question/chatchRelease", obj, fn_chatchRelease_success);
@@ -185,6 +188,11 @@
             $('#div_editor').css({ width: ''});
         }
     }
+
+    function resize(obj) {
+        obj.style.height = "114px";
+        obj.style.height = (12+obj.scrollHeight)+"px";
+    }
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -198,7 +206,7 @@
                 <tbody>
                     <tr>
                         <th rowspan="2">No</th>
-                        <td rowspan="2">{{qnaIdx}}</td>
+                        <td rowspan="2">{{rowNum}}</td>
 
                         <th>문의유형</th>
                         <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>
@@ -216,13 +224,13 @@
                         <td>{{{getCommonCodeLabel state 'question_status'}}}
                             <c:if test="${insertYn eq 'Y'}">
                                 {{#equal state '2'}}
-                                    <button type="button" id="bt_chatchRelease1" class="btn-sm btn btn-default">해제</button>
+                                    <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
                                 {{/equal}}
                             </c:if>
 
                             <c:if test="${insertYn eq 'N'}">
                                 {{#equal editAuth 'Y'}}
-                                    <button type="button" id="bt_chatchRelease2" class="btn-sm btn btn-default">해제</button>
+                                    <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
                                 {{/equal}}
                             </c:if>
                         </td>
@@ -259,7 +267,7 @@
                     <tr>
                         <th colspan="2">문의내용</th>
                         <td colspan="6">
-                            <textarea class="form-control fit-table" rows="5">{{replaceHtml question_contents}}</textarea>
+                            <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="resize(this)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
                         </td>
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>

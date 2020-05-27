@@ -19,7 +19,7 @@
                 <th rowspan="2">소계</th>
                 <th colspan="6">안드로이드</th>
                 <th colspan="6">아이폰</th>
-                <th colspan="6">PC웹</th>
+                <th colspan="6">PC</th>
             </tr>
             <tr>
                 <th>10대</th>

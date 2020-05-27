@@ -111,12 +111,14 @@
         util.editorInit("administrate-faq");
     }
 
-    $(document).on('click', '._getFaqDetail', function(){
-        var data = {
-            'faqIdx' : $(this).data('idx')
-        };
-        util.getAjaxData("detail", "/rest/administrate/faq/detail", data, fn_detail_success);
-    });
+    function getFaqDetail(index){
+        var data = dtList_info.getDataRow(index);
+
+        var obj = {};
+        obj.faqIdx = data.faqIdx;
+        obj.rowNum = data.rowNum;
+        util.getAjaxData("detail", "/rest/administrate/faq/detail", obj, fn_detail_success);
+    }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
@@ -124,10 +126,11 @@
         }
     });
 
-    function fn_detail_success(dst_id, response) {
+    function fn_detail_success(dst_id, response, params) {
         dalbitLog('fn_detail_success');
         dalbitLog(response);
         // form 띄우기
+        response.data["rowNum"] = params.rowNum;
         var template = $('#tmp_faqFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -318,7 +321,7 @@
             <tbody>
             <tr class="align-middle">
                 <th rowspan="2">No</th>
-                <td rowspan="2" id="no">{{faqIdx}}</td>
+                <td rowspan="2" id="no">{{rowNum}}</td>
 
                 <th>구분</th>
                 <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y' 'slctType'}}}</td>

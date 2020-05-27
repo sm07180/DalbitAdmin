@@ -309,7 +309,7 @@
                 <td colspan="5">{{date}}</td>
             </tr>
             <tr>
-                <th>메세지 제목</th>
+                <th>메시지 제목</th>
                 <td colspan="5"><input type="text" class="form-control" id="splash-msgTitle" placeholder="관리를 위한 제목을 입력해주세요."></td>
 
                 <th rowspan="2">게시기간</th>
@@ -337,7 +337,7 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="2">메세지 내용</th>
+                <th rowspan="2">메시지 내용</th>
                 <td colspan="5" rowspan="2">
                     <div>
                         <textarea class="form-control" name="splash-msg" id="splash-msg" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="40"></textarea>

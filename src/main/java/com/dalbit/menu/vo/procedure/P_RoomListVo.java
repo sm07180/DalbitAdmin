@@ -22,7 +22,7 @@ public class P_RoomListVo {
     private String subject_type;            //방주제
     private String title;                   //방제목
     private Object image_background;        //방배경이미지
-    private String msg_welcom;              //환영메세지
+    private String msg_welcom;              //환영메시지
     private int type_entry;                 //입장제한
     private String notice;                  //공지사항
     private int state;                      //방상태

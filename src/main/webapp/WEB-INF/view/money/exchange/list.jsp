@@ -1,21 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
             <!-- serachBox -->
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
-                    <input type="hidden" name="pageStart" id="pageStart">
-                    <input type="hidden" name="pageCnt" id="pageCnt">
+                    <%--<input type="hidden" name="pageStart" id="pageStart">
+                    <input type="hidden" name="pageCnt" id="pageCnt">--%>
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 환전 검색</h3>
                             <div>
                                 <span id="searchYearArea"></span>
                                 <span id="searchMonthArea"></span>
-                                <span id="searchTypeArea"></span>
+                                <span id="searchStateArea"></span>
+                                <span id="searchTypeArea" class="ml10"></span>
                                 <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
@@ -53,6 +54,8 @@
                                     <li>[SMS발송]이 완료된 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</li>
                                     <li>환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</li>
                                 </ul>
+
+                                <button class="btn btn-sm btn-success print-btn pull-left" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
                             </div>
 
                             <div class="col-lg-7">
@@ -69,13 +72,13 @@
                                         <th>불가 처리금액</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tb_user_summary">
                                     <tr>
-                                        <td>100명</td>
-                                        <td>100,000별</td>
-                                        <td>97,600원</td>
-                                        <td>200,000별</td>
-                                        <td>188,000원</td>
+                                        <td><span>0</span>명</td>
+                                        <td><span>0</span>별</td>
+                                        <td><span>0</span>원</td>
+                                        <td><span>0</span>별</td>
+                                        <td><span>0</span>원</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -93,14 +96,14 @@
                                         <th>불가 처리금액</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>100명</td>
-                                        <td>100,000별</td>
-                                        <td>97,600원</td>
-                                        <td>200,000별</td>
-                                        <td>188,000원</td>
-                                    </tr>
+                                    <tbody id="tb_special_summary">
+                                        <tr>
+                                            <td><span>0</span>명</td>
+                                            <td><span>0</span>별</td>
+                                            <td><span>0</span>원</td>
+                                            <td><span>0</span>별</td>
+                                            <td><span>0</span>원</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -146,9 +149,71 @@
     </div>
 </div>
 
-<!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">레이어팝업오픈버튼</button>
 
+<div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
+
+<%--<select name="bank_code">
+    <option value="39">경남은행</option>
+    <option value="34">광주은행</option>
+    <option value="4" selected="">국민은행</option>
+    <option value="3">기업은행</option>
+    <option value="11">농협</option>
+    <option value="31">대구은행</option>
+    <option value="55">도이치은행</option>
+    <option value="32">부산은행</option>
+    <option value="61">비엔피파리바은행</option>
+    <option value="64">산림조합중앙회</option>
+    <option value="2">산업은행</option>
+    <option value="50">저축은행</option>
+    <option value="45">새마을금고중앙회</option>
+    <option value="8">수출입은행</option>
+    <option value="7">수협은행</option>
+    <option value="88">신한은행</option>
+    <option value="48">신협</option>
+    <option value="20">우리은행</option>
+    <option value="71">우체국</option>
+    <option value="37">전북은행</option>
+    <option value="35">제주은행</option>
+    <option value="67">중국건설은행</option>
+    <option value="62">중국공상은행</option>
+    <option value="90">카카오뱅크</option>
+    <option value="89">케이뱅크</option>
+    <option value="294">펀드온라인코리아</option>
+    <option value="27">한국씨티은행</option>
+    <option value="60">BOA은행</option>
+    <option value="54">HSBC은행</option>
+    <option value="57">제이피모간체이스은행</option>
+    <option value="81">하나은행</option>
+    <option value="23">SC제일은행</option>
+    <option value="247">NH투자증권</option>
+    <option value="261">교보증권</option>
+    <option value="267">대신증권</option>
+    <option value="287">메리츠종합금융증권</option>
+    <option value="238">미래에셋대우</option>
+    <option value="290">부국증권</option>
+    <option value="240">삼성증권</option>
+    <option value="291">신영증권</option>
+    <option value="278">신한금융투자</option>
+    <option value="209">유안타증권</option>
+    <option value="280">유진투자증권</option>
+    <option value="265">이베스트투자증권</option>
+    <option value="292">케이프투자증권</option>
+    <option value="264">키움증권</option>
+    <option value="270">하나금융투자</option>
+    <option value="262">하이투자증권</option>
+    <option value="243">한국투자증권</option>
+    <option value="269">한화투자증권</option>
+    <option value="263">현대차증권</option>
+    <option value="279">DB금융투자</option>
+    <option value="218">KB증권</option>
+    <option value="227">KTB투자증권</option>
+    <option value="266">SK증권</option>
+</select>--%>
+
+<!-- 이미지 원본 보기 -->
+<%--<div id="imageFullSize"></div>--%>
+<script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 <script type="text/javascript">
@@ -158,29 +223,53 @@
         $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
         $("#searchMonthArea").html(util.getCommonCodeSelect(moment(new Date()).format('MM'), search_exchange_months));
         $("#searchTypeArea").html(util.getCommonCodeSelect('', search_exchange_type));
+        $("#searchStateArea").html(util.getCommonCodeSelect('', search_exchange_state));
         getList();
     });
 
-    function getList(){
-        var data = {
+    function getParameter(){
+        return data = {
             isSpecial : $('._tab.active a').data('specialdj')
             , search_year : $("#search_year").val()
             , search_month : $("#search_month").val()
+            , search_state : $("#search_state").val()
             , search_type : $("#search_type").val()
             , search_value : $("#search_value").val()
+
         };
-        util.getAjaxData("select", "/rest/money/exchange/list", data, fn_succ_list);
+    }
+
+    function getSummary(){
+        util.getAjaxData("select", "/rest/money/exchange/summary", getParameter(), fn_succ_summary);
+    }
+
+    function fn_succ_summary(dst_id, response){
+        //var target = ;
+        response.data.specialSummaryList.forEach(function(data, i){
+            $('#tb_special_summary tr td:eq('+i+') span').html(common.addComma(data));
+        });
+
+        response.data.generalSummaryList.forEach(function(data, i){
+            $('#tb_user_summary tr td:eq('+i+') span').html(common.addComma(data));
+        });
+
+
+    }
+
+    function getList(){
+        getSummary();
+        util.getAjaxData("select", "/rest/money/exchange/list", getParameter(), fn_succ_list);
     }
 
     $('#bt_search').on('click', function(){
         getList();
     });
 
-/*    $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
+    $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
         if(e.keyCode == 13) {
-            init($('._tab.active').find('a').data('slcttype'));
+            getList();
         };
-    });*/
+    });
 
     $('._tab').on('click', function(){
         $('._tab').removeClass('active');
@@ -189,7 +278,7 @@
         getList();
     });
 
-    function fn_succ_list(data, response, params) {
+    function fn_succ_list(dst_id, response) {
         var template = $('#tmp_exchangeList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -206,13 +295,107 @@
         getList();
     }
 
-    function fullSize_profile(url) {     // 이미지 full size
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("isSpecial", getParameter().isSpecial);
+        formData.append("search_year", getParameter().search_year);
+        formData.append("search_month", getParameter().search_month);
+        formData.append("search_state", 0);
+        formData.append("search_type", getParameter().search_type);
+        formData.append("search_value", getParameter().search_value);
+
+        util.excelDownload($(this), "/rest/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    function fn_success_excel(response) {
+        console.log(response);
+    }
+
+    function fn_fail_excel(response){
+        alert('미처리 데이터가 없습니다.')
+    }
+
+    /*function fullSize_profile(url) {     // 이미지 full size
         $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
         $('#fullSize_profile').modal('show');
     }
     function modal_close(){
         $("#fullSize_profile").modal('hide');
+    }*/
+
+    $(document).on('click', '._layerOpen', function(title, content){
+
+        var detailData = getParameter();
+        detailData.idx = $(this).data('exchangeidx');
+
+        util.getAjaxData("select", "/rest/money/exchange/detail", detailData, fn_succ_detail);
+    });
+
+    function fn_succ_detail(dist_id, response){
+        var template = $('#tmp_layer_detail').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#detailView").html(html);
+
+        showModal();
     }
+
+    function showModal(){
+        $("#showModal").click();
+    }
+
+    function closeModal(){
+        $("#layerCloseBtn").click();
+    }
+
+    $(document).on('click', '._updateBtn', function(){
+        if(confirm('수정하시겠습니까?')){
+
+            var account_name = $("#account_name");
+            if(common.isEmpty(account_name)){
+                alert('예금주명을 입력해주세요.');
+                account_name.focus();
+                return
+            }
+
+            var data = $("#exchangeForm").serialize();
+            util.getAjaxData("update", "/rest/money/exchange/update", $("#exchangeForm").serialize(), fn_succ_update);
+        }
+    });
+
+    function fn_succ_update(dist_id, response){
+        alert(response.message);
+        closeModal();
+    }
+
+    $(document).on('click', '._completeBtn', function(){
+        if(confirm('완료처리하시겠습니까?')){
+            var data = $("#exchangeForm").serialize();
+            data += '&state=1';
+            util.getAjaxData("complete", "/rest/money/exchange/complete", data, fn_succ_complete);
+        }
+    });
+
+    $(document).on('click', '._rejectBtn', function(){
+        if(confirm('불가처리 하시겠습니까?')){
+            var data = $("#exchangeForm").serialize();
+            data += '&state=2';
+            util.getAjaxData("reject", "/rest/money/exchange/complete", data, fn_succ_complete);
+        }
+    });
+
+    function fn_succ_complete(dist_id, response){
+        if(dist_id == 'complete'){
+            alert('완료처리 되었습니다.');
+        }else if(dist_id == 'reject'){
+            alert('불가처리 되었습니다.');
+        }
+        closeModal();
+        getList();
+    }
+
 
 </script>
 
@@ -231,15 +414,15 @@
         <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
-        <td>{{addComma data.byeol}}개</td>
-        <td>{{addComma data.gold}}개</td>
-        <td>{{math data.gold '-' data.byeol}}개</td>
+        <td>{{addComma data.byeol}}별</td>
+        <td>{{addComma data.gold}}별</td>
+        <td>{{math data.gold '-' data.byeol}}별</td>
         <td>{{addComma data.exchangeCnt}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{stateName data.state}}</td>
         <td>{{data.op_name}}</td>
-        <td><button type="button" class="btn btn-success btn-sm" id="bt_search">보기</button></td>
+        <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx={{data.idx}}>보기</button></td>
     </tr>
 
     {{else}}
@@ -247,4 +430,143 @@
         <td colspan="17">{{isEmptyData}}</td>
     </tr>
     {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_layer_detail">
+    <form id="exchangeForm">
+        <input type="hidden" name="idx" value="{{detail.idx}}" />
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
+                    <h4 class="modal-title" id="_layerTitle">상세보기</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12 form-inline block _modalLayer">
+                        <table id="list_info" class="table table-sorting table-hover table-bordered">
+                            <tbody id="tableBody">
+                                <tr>
+                                    <th>
+                                        신청금액
+                                    </th>
+                                    <td>
+                                        {{addComma detail.cash_basic}}원
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        은행명
+                                    </th>
+                                    <td>
+                                        {{{getCommonCodeSelectForName detail.bank_code 'inforex_bank_code' 'Y' ''}}}
+                                        / {{detail.bank_code}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        예금주
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
+                                        / {{detail.account_name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        주민번호
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control" id="social_no" name="social_no" maxlength="25" value="{{detail.social_no}}" />
+                                        / {{convertJumin detail.social_no}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        주소
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control _fullWidth" id="address_1" name="address_1" value="{{detail.address_1}}" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        상세주소
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control _fullWidth" id="address_2" name="address_2" value="{{detail.address_2}}" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        전화번호
+                                    </th>
+                                    <td>
+                                        {{phoneNumHyphen detail.phone_no}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        접수서류
+                                    </th>
+                                    <td>
+                                        <div class="col-lg-6" style="border:solid 1px black">
+                                            <a href="javascript://">
+                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file1}}" class="_fullWidth _openImagePop" />
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-6" style="border:solid 1px black">
+                                            <a href="javascript://">
+                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file2}}" class="_fullWidth _openImagePop" />
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        신청일자
+                                    </th>
+                                    <td>
+                                        {{convertToDate detail.reg_date 'YYYY-MM-DD HH:mm:ss'}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        완료일자
+                                    </th>
+                                    <td>
+                                        {{#equal detail.op_date ''}}
+                                            -
+                                        {{else}}
+                                            {{convertToDate detail.op_date 'YYYY-MM-DD HH:mm:ss'}}
+                                        {{/equal}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        메모
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control _fullWidth" id="op_msg" name="op_msg" maxlength="1000" value="{{detail.op_msg}}" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
+                    <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
+                    <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
+                    <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </script>
