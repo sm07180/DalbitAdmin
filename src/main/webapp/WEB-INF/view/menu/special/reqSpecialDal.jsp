@@ -43,7 +43,7 @@
 
         <div class="widget-footer">
             <span>
-                <button type="button" class="btn btn-default print-btn" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                <button type="button" class="btn btn-default print-btn pull-right" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
             </span>
         </div>
 </div>

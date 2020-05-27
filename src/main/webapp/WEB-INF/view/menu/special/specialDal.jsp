@@ -28,15 +28,12 @@
                     <tbody id="summaryTableBody">
                     </tbody>
                 </table>
+                <button type="button" class="btn btn-primary pull-right mt10 mr15" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
                 <button type="button" class="btn btn-primary pull-right mt10 mr15" id="memSearch" name="memSearch"><i class="fa fa-search"></i>운영자 직접 등록</button>
             </div>
             <!-- //summary -->
         </div>
-        <div class="row col-md-12 mt15">
-            <div class="pull-right">
-                <button type="button" class="btn btn-primary mb15" id="bt_edit" ><i class="fa fa-floppy-o"></i>적용</button>
-            </div>
-        </div>
+
     <div class="widget-content">
         <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>--%>
 
