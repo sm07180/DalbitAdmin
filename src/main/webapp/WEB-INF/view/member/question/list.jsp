@@ -23,6 +23,7 @@
     });
 
     var tmp_slctPlatform = null;
+    var tmp_slctState = -1;
     function getHistory_questionDetail(tmp) {     // 상세보기
         util.getAjaxData("release_all", "/rest/customer/question/release_all",null);
 
@@ -32,6 +33,7 @@
             data.searchText = memNo;
             data.searchType = 1;
             data.slctPlatform = tmp_slctPlatform;
+            data.slctState = tmp_slctState;
         };
         dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);

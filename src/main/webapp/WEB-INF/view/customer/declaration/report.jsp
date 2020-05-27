@@ -44,8 +44,11 @@
     $("#chatRight").addClass("hide");
 
     var detailData;
-    function fn_detail_success(dst_id, response) {
+    function fn_detail_success(dst_id, response, params) {
         dalbitLog(response);
+
+        response.data["rowNum"] = params.rowNum;
+
         var template = $('#tmp_declarationFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -62,6 +65,7 @@
         }
 
         declarationCheck(response.data.status);
+        // rownum
     }
 
     function declarationFormData() {
@@ -265,7 +269,7 @@
                 <tbody>
                 <tr class="align-middle">
                     <th rowspan="2">No</th>
-                    <td rowspan="2">{{reportIdx}}</td>
+                    <td rowspan="2">{{rowNum}}</td>
 
                     <th>신고사유</th>
                     <td>{{{getCommonCodeLabel report_reason 'declaration_reason'}}}</td>
