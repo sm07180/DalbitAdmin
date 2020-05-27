@@ -227,6 +227,7 @@
         formData.append("ostype", tmp_ostype);
         formData.append("searchPayStatus", tmp_searchPayStatus);
         formData.append("innerType", tmp_innerType);
+        formData.append("payWay", tmp_payWay);
 
         util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
 
