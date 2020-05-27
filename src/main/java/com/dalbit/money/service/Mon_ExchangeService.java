@@ -26,7 +26,7 @@ public class Mon_ExchangeService {
     @Autowired
     GsonUtil gsonUtil;
 
-    public String selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo) throws GlobalException{
+    public String selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo){
 
         int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
         ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
@@ -38,5 +38,19 @@ public class Mon_ExchangeService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }
 
+    public String selectExchangeSummary(Mon_ExchangeInputVo monExchangeInputVo){
+
+        monExchangeInputVo.setIsSpecial(1);
+        ArrayList<Integer> specialSummaryList = monExchangeDao.selectSummaryInfo(monExchangeInputVo);
+
+        monExchangeInputVo.setIsSpecial(0);
+        ArrayList<Integer> generalSummaryList = monExchangeDao.selectSummaryInfo(monExchangeInputVo);
+
+        var resultMap = new HashMap<>();
+        resultMap.put("specialSummaryList", specialSummaryList);
+        resultMap.put("generalSummaryList", generalSummaryList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+    }
 
 }

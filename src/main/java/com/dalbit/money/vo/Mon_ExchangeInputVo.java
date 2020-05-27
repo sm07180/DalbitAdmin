@@ -12,5 +12,6 @@ public class Mon_ExchangeInputVo {
     private String search_month;
     private String search_type;
     private String search_value;
+    private String search_state;
 
 }

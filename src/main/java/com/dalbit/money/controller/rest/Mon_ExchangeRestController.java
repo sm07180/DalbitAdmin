@@ -23,4 +23,10 @@ public class Mon_ExchangeRestController {
         String result = monExchangeService.selectExchangeList(monExchangeInputVo);
         return result;
     }
+
+    @PostMapping("summary")
+    public String summary(Mon_ExchangeInputVo monExchangeInputVo) throws GlobalException {
+        String result = monExchangeService.selectExchangeSummary(monExchangeInputVo);
+        return result;
+    }
 }

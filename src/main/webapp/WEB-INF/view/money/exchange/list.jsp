@@ -15,7 +15,8 @@
                             <div>
                                 <span id="searchYearArea"></span>
                                 <span id="searchMonthArea"></span>
-                                <span id="searchTypeArea"></span>
+                                <span id="searchStateArea"></span>
+                                <span id="searchTypeArea" class="ml10"></span>
                                 <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
@@ -69,13 +70,13 @@
                                         <th>불가 처리금액</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="tb_user_summary">
                                     <tr>
-                                        <td>100명</td>
-                                        <td>100,000별</td>
-                                        <td>97,600원</td>
-                                        <td>200,000별</td>
-                                        <td>188,000원</td>
+                                        <td><span>0</span>명</td>
+                                        <td><span>0</span>별</td>
+                                        <td><span>0</span>원</td>
+                                        <td><span>0</span>별</td>
+                                        <td><span>0</span>원</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -93,14 +94,14 @@
                                         <th>불가 처리금액</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>100명</td>
-                                        <td>100,000별</td>
-                                        <td>97,600원</td>
-                                        <td>200,000별</td>
-                                        <td>188,000원</td>
-                                    </tr>
+                                    <tbody id="tb_special_summary">
+                                        <tr>
+                                            <td><span>0</span>명</td>
+                                            <td><span>0</span>별</td>
+                                            <td><span>0</span>원</td>
+                                            <td><span>0</span>별</td>
+                                            <td><span>0</span>원</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -158,29 +159,53 @@
         $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
         $("#searchMonthArea").html(util.getCommonCodeSelect(moment(new Date()).format('MM'), search_exchange_months));
         $("#searchTypeArea").html(util.getCommonCodeSelect('', search_exchange_type));
+        $("#searchStateArea").html(util.getCommonCodeSelect('', search_exchange_state));
         getList();
     });
 
-    function getList(){
-        var data = {
+    function getParameter(){
+        return data = {
             isSpecial : $('._tab.active a').data('specialdj')
             , search_year : $("#search_year").val()
             , search_month : $("#search_month").val()
+            , search_state : $("#search_state").val()
             , search_type : $("#search_type").val()
             , search_value : $("#search_value").val()
+
         };
-        util.getAjaxData("select", "/rest/money/exchange/list", data, fn_succ_list);
+    }
+
+    function getSummary(){
+        util.getAjaxData("select", "/rest/money/exchange/summary", getParameter(), fn_succ_summary);
+    }
+
+    function fn_succ_summary(dst_id, response){
+        //var target = ;
+        response.data.specialSummaryList.forEach(function(data, i){
+            $('#tb_special_summary tr td:eq('+i+') span').html(common.addComma(data));
+        });
+
+        response.data.generalSummaryList.forEach(function(data, i){
+            $('#tb_user_summary tr td:eq('+i+') span').html(common.addComma(data));
+        });
+
+
+    }
+
+    function getList(){
+        getSummary();
+        util.getAjaxData("select", "/rest/money/exchange/list", getParameter(), fn_succ_list);
     }
 
     $('#bt_search').on('click', function(){
         getList();
     });
 
-/*    $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
+    $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
         if(e.keyCode == 13) {
-            init($('._tab.active').find('a').data('slcttype'));
+            getList();
         };
-    });*/
+    });
 
     $('._tab').on('click', function(){
         $('._tab').removeClass('active');
@@ -189,7 +214,7 @@
         getList();
     });
 
-    function fn_succ_list(data, response, params) {
+    function fn_succ_list(dst_id, response, params) {
         var template = $('#tmp_exchangeList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -231,9 +256,9 @@
         <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
-        <td>{{addComma data.byeol}}개</td>
-        <td>{{addComma data.gold}}개</td>
-        <td>{{math data.gold '-' data.byeol}}개</td>
+        <td>{{addComma data.byeol}}별</td>
+        <td>{{addComma data.gold}}별</td>
+        <td>{{math data.gold '-' data.byeol}}별</td>
         <td>{{addComma data.exchangeCnt}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
