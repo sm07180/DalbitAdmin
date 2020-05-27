@@ -2,15 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.enter.dao.Ent_PayDao" >
 
-    <select id="callStatPayInfo" resultType="com.dalbit.enter.vo.procedure.P_PayInfoOutVo">
-        select sum(pay_amt) totalPayAmt
-              ,sum(ifnull(if(pay_way = 'VA',pay_amt,0)),0) totalVaAmt
-              ,sum(ifnull(if(pay_way = 'CN',pay_amt,0)),0) totalCnAmt
-              ,sum(ifnull(if(pay_way = 'MC',pay_amt,0)) totalMCAmt
-              ,sum(ifnull(if(pay_way = 'RA',pay_amt,0)) totalRAAmt
-              ,sum(ifnull(if(pay_way = 'InApp',pay_amt,0)) totalAppleAmt
-          from rd_data.tb_payment_succ
-         where DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(now(), '%Y%m%d');
+    <select id="callPayInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.enter.vo.procedure.P_PayInfoOutVo">
+        call rd_admin.sp_admin_stat_member_payment_live(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callPayTotal" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.enter.vo.procedure.P_PayTotalOutDetailVo">
+        call rd_admin.sp_admin_stat_member_payment_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callPayAge" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.enter.vo.procedure.P_PayAgeOutDetailVo">
+        call rd_admin.sp_admin_stat_member_payment_mem(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callPayWay" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.enter.vo.procedure.P_PayWayOutDetailVo">
+        call rd_admin.sp_admin_stat_member_payment_payway(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callPayCode" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.enter.vo.procedure.P_PayCodeOutDetailVo">
+        call rd_admin.sp_admin_stat_member_payment_paycode(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
+    <select id="callPayCancel" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.enter.vo.procedure.P_PayCancelOutDetailVo">
+        call rd_admin.sp_admin_stat_member_payment_cancel(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
 </mapper>

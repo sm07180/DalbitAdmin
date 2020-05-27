@@ -16,9 +16,15 @@
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="2">소계</th>
+                <th colspan="2">총계</th>
                 <th colspan="2">남성</th>
                 <th colspan="2">여성</th>
+                <th colspan="2">10대</th>
+                <th colspan="2">20대</th>
+                <th colspan="2">30대</th>
+                <th colspan="2">40대</th>
+                <th colspan="2">50대</th>
+                <th colspan="2">60대이상</th>
             </tr>
             <tr>
                 <th>건</th>
@@ -27,9 +33,21 @@
                 <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
             </tr>
             </thead>
-            <tbody id="cancelTableBody"></tbody>
+            <tbody id="ageTableBody"></tbody>
         </table>
     </div>
     <div class="widget-footer">
@@ -41,40 +59,40 @@
 
 <script type="text/javascript">
     $(function(){
-        getPayCancelList ();
+        getPayAgeList ();
     });
 
-    function getPayCancelList (){
-        util.getAjaxData("cancel", "/rest/enter/pay/pay/cancel", $("#searchForm").serialize(), fn_cancelPay_success);
+    function getPayAgeList (){
+        util.getAjaxData("age", "/rest/enter/pay/pay/age", $("#searchForm").serialize(), fn_agePay_success);
     }
 
-    function fn_cancelPay_success(data, response){
+    function fn_agePay_success(data, response){
         var isDataEmpty = response.data.detailList == null;
-        $("#cancelTableBody").empty();
+        $("#ageTableBody").empty();
         if(!isDataEmpty){
-            var template = $('#tmp_cancel').html();
+            var template = $('#tmp_age').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
             var totalHtml = templateScript(totalContext);
-            $("#cancelTableBody").append(totalHtml);
+            $("#ageTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
         }
 
-        var template = $('#tmp_cancelDetailList').html();
+        var template = $('#tmp_ageDetailList').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
-        $("#cancelTableBody").append(html);
+        $("#ageTableBody").append(html);
 
         if(isDataEmpty){
-            $("#cancelTableBody td:last").remove();
+            $("#ageTableBody td:last").remove();
         }else{
-            $("#cancelTableBody").append(totalHtml);
+            $("#ageTableBody").append(totalHtml);
         }
     }
 </script>
-<script type="text/x-handlebars-template" id="tmp_cancel">
+<script type="text/x-handlebars-template" id="tmp_age">
     <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_totalCnt}}</td>
@@ -83,10 +101,22 @@
         <td>{{addComma sum_maleAmt}}</td>
         <td>{{addComma sum_femaleCnt}}</td>
         <td>{{addComma sum_femaleAmt}}</td>
+        <td>{{addComma sum_age10Cnt}}</td>
+        <td>{{addComma sum_age10Amt}}</td>
+        <td>{{addComma sum_age20Cnt}}</td>
+        <td>{{addComma sum_age20Amt}}</td>
+        <td>{{addComma sum_age30Cnt}}</td>
+        <td>{{addComma sum_age30Amt}}</td>
+        <td>{{addComma sum_age40Cnt}}</td>
+        <td>{{addComma sum_age40Amt}}</td>
+        <td>{{addComma sum_age50Cnt}}</td>
+        <td>{{addComma sum_age50Amt}}</td>
+        <td>{{addComma sum_age60Cnt}}</td>
+        <td>{{addComma sum_age60Amt}}</td>
     </tr>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_cancelDetailList">
+<script type="text/x-handlebars-template" id="tmp_ageDetailList">
     {{#each this as |data|}}
     <tr>
         <td class="font-bold">
@@ -100,6 +130,18 @@
         <td>{{addComma maleAmt}}</td>
         <td>{{addComma femaleCnt}}</td>
         <td>{{addComma femaleAmt}}</td>
+        <td>{{addComma age10Cnt}}</td>
+        <td>{{addComma age10Amt}}</td>
+        <td>{{addComma age20Cnt}}</td>
+        <td>{{addComma age20Amt}}</td>
+        <td>{{addComma age30Cnt}}</td>
+        <td>{{addComma age30Amt}}</td>
+        <td>{{addComma age40Cnt}}</td>
+        <td>{{addComma age40Amt}}</td>
+        <td>{{addComma age50Cnt}}</td>
+        <td>{{addComma age50Amt}}</td>
+        <td>{{addComma age60Cnt}}</td>
+        <td>{{addComma age60Amt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>

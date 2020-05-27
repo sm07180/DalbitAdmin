@@ -139,36 +139,26 @@
             if(common.isEmpty(dateType)){
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-
                 $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
-
             }else if(dateType == 'prev'){
                 setDay(-1);
-
             }else{
                 setDay(1);
             }
-
             //일별
         }else if(slctType == 1){
-
             if(common.isEmpty(dateType)){
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
                 $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-
                 $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
                 $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-
             }else if(dateType == 'prev'){
                 setMonth(-1);
-
             }else if(dateType == 'next'){
                 setMonth(1);
             }
-
             //월별
         }else{
-
             if(common.isEmpty(dateType)){
                 $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
                 $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
@@ -212,7 +202,7 @@
 </script>
 
 <script id="tmp_payTableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right:0px">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>결제수단</th>
@@ -225,14 +215,21 @@
                 <th>네이버페이</th>
                 <th>페이코</th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
-                <td>{{addComma content.totalPayCnt}}건</td>
-                <td>{{addComma content.totalPayAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCnt}}건</td>
-                <td>{{addComma content.totalPayCancelAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCannotCnt}}건</td>
-                <td>{{addComma content.totalPayCancelCannotAmt}}원</td>
+                <td>결제금액(건수)</td>
+                <td>{{addComma content.total_amt}}({{addComma content.total_cnt}})</td>
+                <td>{{addComma content.mc_amt}}({{addComma content.mc_cnt}})</td>
+                <td>{{addComma content.cn_amt}}({{addComma content.cn_cnt}})</td>
+                <td>{{addComma content.inapp_amt}}({{addComma content.inapp_cnt}})</td>
+                <td>{{addComma content.ra_amt}}({{addComma content.ra_cnt}})</td>
+                <td>{{addComma content.va_amt}}({{addComma content.va_cnt}})</td>
+                <td>0(0)</td>
+                <td>0(0)</td>
             </tr>
+        </tbody>
+        <thead>
             <tr>
                 <th>결제회원</th>
                 <th>남성</th>
@@ -244,48 +241,67 @@
                 <th>50대</th>
                 <th>60대 이상</th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
-                <td>{{addComma content.totalPayCnt}}건</td>
-                <td>{{addComma content.totalPayAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCnt}}건</td>
-                <td>{{addComma content.totalPayCancelAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCannotCnt}}건</td>
-                <td>{{addComma content.totalPayCancelCannotAmt}}원</td>
+                <td>결제금액(건수)</td>
+                <td>{{addComma content.male_amt}}({{addComma content.male_cnt}})</td>
+                <td>{{addComma content.female_amt}}({{addComma content.female_cnt}})</td>
+                <td>{{addComma content.age10_amt}}({{addComma content.age10_cnt}})</td>
+                <td>{{addComma content.age20_amt}}({{addComma content.age20_cnt}})</td>
+                <td>{{addComma content.age30_amt}}({{addComma content.age30_cnt}})</td>
+                <td>{{addComma content.age40_amt}}({{addComma content.age40_cnt}})</td>
+                <td>{{addComma content.age50_amt}}({{addComma content.age50_cnt}})</td>
+                <td>{{addComma content.age60_amt}}({{addComma content.age60_cnt}})</td>
             </tr>
+        </tbody>
+        <thead>
             <tr>
-                <th>결제상품(Web, 안드로이드)</th>
+                <th colspan="2">결제상품(Web, 안드로이드)</th>
                 <th>달 50</th>
                 <th>달 100</th>
                 <th>달 500</th>
                 <th>달 1,000</th>
                 <th>달 2,000</th>
                 <th>달 3,000</th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
-                <td>{{addComma content.totalPayCnt}}건</td>
-                <td>{{addComma content.totalPayAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCnt}}건</td>
-                <td>{{addComma content.totalPayCancelAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCannotCnt}}건</td>
-                <td>{{addComma content.totalPayCancelCannotAmt}}원</td>
+                <td colspan="2">결제금액(건수)</td>
+                <td>{{addComma content.code01_amt}}({{addComma content.code01_cnt}})</td>
+                <td>{{addComma content.code02_amt}}({{addComma content.code02_cnt}})</td>
+                <td>{{addComma content.code03_amt}}({{addComma content.code03_cnt}})</td>
+                <td>{{addComma content.code04_amt}}({{addComma content.code04_cnt}})</td>
+                <td>{{addComma content.code05_amt}}({{addComma content.code05_cnt}})</td>
+                <td>{{addComma content.code06_amt}}({{addComma content.code06_cnt}})</td>
+                <td></td>
             </tr>
+        </tbody>
+        <thead>
             <tr>
-                <th>결제상품(아이폰)</th>
+                <th colspan="2">결제상품(아이폰)</th>
                 <th>달 49</th>
                 <th>달 100</th>
                 <th>달 300</th>
                 <th>달 420</th>
                 <th>달 920</th>
                 <th>달 2,350</th>
-            </tr>
-            <tr>
-                <td>{{addComma content.totalPayCnt}}건</td>
-                <td>{{addComma content.totalPayAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCnt}}건</td>
-                <td>{{addComma content.totalPayCancelAmt}}원</td>
-                <td>{{addComma content.totalPayCancelCannotCnt}}건</td>
-                <td>{{addComma content.totalPayCancelCannotAmt}}원</td>
+                <th></th>
             </tr>
         </thead>
+        <tbody>
+            <tr>
+                <td colspan="2">결제금액(건수)</td>
+                <td>{{addComma content.code07_amt}}({{addComma content.code07_cnt}})</td>
+                <td>{{addComma content.code08_amt}}({{addComma content.code08_cnt}})</td>
+                <td>{{addComma content.code09_amt}}({{addComma content.code09_cnt}})</td>
+                <td>{{addComma content.code10_amt}}({{addComma content.code10_cnt}})</td>
+                <td>{{addComma content.code11_amt}}({{addComma content.code11_cnt}})</td>
+                <td>{{addComma content.code12_amt}}({{addComma content.code12_cnt}})</td>
+                <td></td>
+            </tr>
+        </tbody>
     </table>
 
