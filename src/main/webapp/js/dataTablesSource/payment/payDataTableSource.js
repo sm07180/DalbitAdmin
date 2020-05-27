@@ -50,10 +50,12 @@ var payDataTableSource = {
             , {'title': '취소일시', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     return row.cancel_state == 'y' ? row.cancel_dt : '-';
                 }}
-            , {'title': '취소실패사유', 'data': 'fail_msg', 'width':'250px', 'render': function(data, type, row) {
+            , {'title': '취소실패사유', 'data': 'fail_msg', 'width':'80px', 'render': function(data, type, row) {
                     return !common.isEmpty(row.fail_msg) ? row.fail_msg : '-';
                 }}
-            , {'title': '처리자', 'data': 'op_name', 'width':'80px'}
+            , {'title': '처리자', 'data': 'op_name', 'width':'80px', 'render': function(data, type, row) {
+                    return !common.isEmpty(row.op_name) ? row.op_name : '-';
+                }}
             , {'title': '결제<br />상태', 'data': 'pay_yn', 'width':'30px', 'render': function(data, type, row) {
                     return '<label style="color: #ee0648; font-weight: bold">'+data.toUpperCase()+'</label>';
                 }}
@@ -76,6 +78,7 @@ var payDataTableSource = {
                          '</button>'
                     '-'
             }}
+
         ]
         , 'comments': ''
     },

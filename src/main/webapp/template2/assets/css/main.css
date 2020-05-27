@@ -12656,7 +12656,7 @@ ul.main-menu > li .toggle-icon {
     width: 10px;
     position: absolute;
     right: 10px;
-    top: 16px;
+    top: 11px;
     text-shadow: none; }
 ul.main-menu .sub-menu {
     position: relative;
@@ -12688,7 +12688,12 @@ ul.main-menu > li > a,
     transition: all 0.3s ease-in-out; }
 
 ul.sub-menu > li > a {
-    font-weight: 500;
+    font-weight: normal;
+    padding: 5px 0 5px 33px !important;
+}
+
+ul.sub-menu > li a span {
+    font-weight: normal !important; ;
 }
 
 .left-sidebar {

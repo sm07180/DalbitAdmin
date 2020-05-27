@@ -142,19 +142,20 @@
             var checkDatas = dtList_info_detail.getCheckedData();
             for(var i=0;i<checkDatas.length;i++){
                 var memo = broadCastMessage.forceLeaveTitle;
-                    // broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
-                    //                           .replace("{{nickName}}",checkDatas[i].nickName)
-                    //                           .replace("{{message}}",forceMessage)
-                    //                           .replace("{{timestamp}}",timestamp);
+                var memoDetail = broadCastMessage.forceLeave.replace("{{name}}",ADMIN_NICKNAME)
+                                                          .replace("{{nickName}}",checkDatas[i].nickName)
+                                                          .replace("{{message}}",forceMessage)
+                                                          .replace("{{timestamp}}",timestamp);
 
-                // console.log(memo);
+                console.log(memo);
+                console.log(memoDetail);
                 var data = new Object();
                 data.room_no = room_no;
                 data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
                 data.mem_nickName=checkDatas[i].nickName;       // 강퇴 대상
                 data.sendNoti = sendNoti;
-                data.notiContents = broadCastMessage.forceLeaveTitle;
-                data.notiMemo = memo;
+                data.notiContents = memo;
+                data.notiMemo = memoDetail;
                 data.dj_mem_no = mem_no;
                 data.dj_nickname = dj_nickname;
 
