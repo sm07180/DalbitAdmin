@@ -12,4 +12,6 @@ public interface Mon_ExchangeDao {
 
     int selectExchangeCnt(Mon_ExchangeInputVo monExchangeInputVo);
     ArrayList<Mon_ExchangeOutputVo> selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo);
+
+    ArrayList<Integer> selectSummaryInfo(Mon_ExchangeInputVo monExchangeInputVo);
 }
