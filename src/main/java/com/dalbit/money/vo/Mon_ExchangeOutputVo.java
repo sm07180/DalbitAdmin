@@ -1,11 +1,12 @@
 package com.dalbit.money.vo;
 
+import com.dalbit.common.vo.BaseVo;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Mon_ExchangeOutputVo {
+public class Mon_ExchangeOutputVo{
 
     private int rowNum;
     private String mem_no;
@@ -13,6 +14,7 @@ public class Mon_ExchangeOutputVo {
     private String mem_name;
     private String mem_nick;
     private int mem_state;
+    private int idx;
     private int byeol;
     private int cash_basic;
     private int withholding_tax;

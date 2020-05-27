@@ -4,8 +4,10 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.money.service.Mon_ExchangeService;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
+import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,10 @@ public class Mon_ExchangeRestController {
     public String listExcel(HttpServletRequest request, HttpServletResponse response, Mon_ExchangeInputVo monExchangeInputVo, Model model) throws GlobalException {
         Model resultModel = monExchangeService.getListExcel(monExchangeInputVo, model);
 
+        int listSize = (int) resultModel.getAttribute("listSize");
+        if(0 == listSize){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
@@ -49,6 +55,26 @@ public class Mon_ExchangeRestController {
     @PostMapping("summary")
     public String summary(Mon_ExchangeInputVo monExchangeInputVo) throws GlobalException {
         String result = monExchangeService.selectExchangeSummary(monExchangeInputVo);
+        return result;
+    }
+
+    @PostMapping("detail")
+    public String detail(Mon_ExchangeInputVo monExchangeInputVo) throws GlobalException {
+        String result = monExchangeService.selectExchangeDetail(monExchangeInputVo);
+        return result;
+    }
+
+    @PostMapping("update")
+    public String update(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
+        monExchangeOutputVo.setOp_name(MemberVo.getMyMemNo());
+        String result = monExchangeService.updateExchangeDetail(monExchangeOutputVo);
+        return result;
+    }
+
+    @PostMapping("complete")
+    public String complete(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
+        monExchangeOutputVo.setOp_name(MemberVo.getMyMemNo());
+        String result = monExchangeService.updateExchangeComplete(monExchangeOutputVo);
         return result;
     }
 }

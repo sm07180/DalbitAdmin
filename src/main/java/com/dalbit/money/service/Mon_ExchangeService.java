@@ -127,8 +127,31 @@ public class Mon_ExchangeService {
         model.addAttribute("locale", Locale.KOREA);
         model.addAttribute("workbook", workbook);
         model.addAttribute("workbookName", "환전 목록");
+        model.addAttribute("listSize", exchangeList.size());
 
         return model;
+    }
+
+    public String selectExchangeDetail(Mon_ExchangeInputVo monExchangeInputVo){
+
+        Mon_ExchangeOutputVo monExchangeOutputVo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
+
+        var resultMap = new HashMap<>();
+        resultMap.put("detail", monExchangeOutputVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+    }
+
+    public String updateExchangeDetail(Mon_ExchangeOutputVo monExchangeOutputVo){
+
+        monExchangeDao.updateExchangeDetail(monExchangeOutputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+    }
+
+    public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo){
+
+        monExchangeDao.updateExchangeComplete(monExchangeOutputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 
 }

@@ -164,27 +164,29 @@ util.excelDownload = function(btn, url, data, successFunc, errorFunc) {
     $.fileDownload(url, {
         httpMethod: "POST",
         data: sendData,
-        successCallback: function (url) {
-            dalbitLog(url);
+        successCallback: function (url, data) {
+            console.log("[exceldown 통신 결과]url : " + url);
+            console.log(data);
             setTimeout(function () {
                 // btn.button('reset');
                 util.changeLoadingBtn(btn, 'reset');
             }, 500)
         },
-        failCallback: function (responseHtml, url) {
-            dalbitLog(responseHtml);
-            dalbitLog(url);
+        failCallback: function (responseHtml, url, data) {
+            console.log(responseHtml);
+            console.log(url);
+            console.log(data);
             setTimeout(function () {
                 // btn.button('reset');
                 util.changeLoadingBtn(btn, 'reset');
             }, 500)
         }
     })
-        .done(function () {
-            if (successFunc != null) successFunc();
+        .done(function (data) {
+            if (successFunc != null) successFunc(data);
         })
-        .fail(function () {
-            if (errorFunc != null) errorFunc();
+        .fail(function (data) {
+            if (errorFunc != null) errorFunc(data);
         });
 },
 
@@ -222,6 +224,27 @@ util.getCommonCodeSelect = function(code, targetCode, isExcludeAllYn, name) {
                 }
 
                 html += '<option value="' + value.value + '" ' + (value.value == code ? 'selected="selected"' : '') + '>' + value.code + '</option>';
+            }
+        });
+        html += '</select>'
+        return html;
+    }
+},
+
+util.getCommonCodeSelectForName = function(codeName, targetCode, isExcludeAllYn, name) {
+    targetCode = eval(targetCode);
+    if (!common.isEmpty(targetCode)) {
+
+        var header = targetCode[0];
+        var selectName = common.isEmpty(name) ? header.value : name;
+        var html = '<select id="' + selectName + '" name="' + selectName + '" class="form-control searchType">';
+        targetCode.forEach(function (value) {
+            if (!common.isEmpty(value.type)) {
+
+                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                    return;
+                }
+                html += '<option value="' + value.value + '" ' + (value.code == codeName ? 'selected="selected"' : '') + '>' + value.code + '</option>';
             }
         });
         html += '</select>'

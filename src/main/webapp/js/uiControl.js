@@ -91,3 +91,12 @@ ui.imageLayerView = function(){
     });
 }
 ui.imageLayerView();
+
+$(document).on('click', '._openImagePop', function(){
+    /*util.imagePopup($(this));*/
+    var url = $(this).prop('src');
+    var title = $(this).prop('src');
+    var option = ''//"width=" + (obj.width + 20) + ", height=" + (obj.height + 20) + ",fullscreen=yes";
+
+    window.open(url, title, option);
+});
