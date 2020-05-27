@@ -14,7 +14,7 @@ import java.util.HashMap;
  * Socket 파라메터 정의
  *
  * command : 명령값
- * message : 메세지내용
+ * message : 메시지내용
  * memNo : 보낸이(회원번호)
  * fan : 보낸이 팬여부(0,1)
  * auth : 보낸이 등급(0:청취자,1:매니져,2:게스트,3:DJ)
@@ -22,13 +22,13 @@ import java.util.HashMap;
  * ctrlRole : 보낸이 권한(string)
  * login : 보낸이 로그인상태(1,0)
  * recvMemNo : 받는이(공백 또는 회원번호,구분)
- * recvDj : Dj메세지수신여부(1,0)
- * recvManager : Manager메세지수신여부(0,1)
- * recvListener : Listener메세지수신여부(0,1)
- * recvType : 메세지구분(system,chat)
- * recvPosition : 메세지표시영역(top1, top2, top3, chat)
- * recvLevel : 메세지레이어번호(0(채팅),1~4)
- * recvTime : 메세지노출시간(초)
+ * recvDj : Dj메시지수신여부(1,0)
+ * recvManager : Manager메시지수신여부(0,1)
+ * recvListener : Listener메시지수신여부(0,1)
+ * recvType : 메시지구분(system,chat)
+ * recvPosition : 메시지표시영역(top1, top2, top3, chat)
+ * recvLevel : 메시지레이어번호(0(채팅),1~4)
+ * recvTime : 메시지노출시간(초)
  */
 @Setter @Getter @ToString
 public class SocketVo {

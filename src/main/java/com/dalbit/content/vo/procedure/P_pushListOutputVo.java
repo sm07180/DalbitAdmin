@@ -13,8 +13,8 @@ public class P_pushListOutputVo extends BaseVo {
     private int push_idx;                //푸시번호
     private String platform;        //플랫폼
     private int status;             //방송상태
-    private String send_title;      //메세지 제목
-    private String send_cont;       //메세지 내용
+    private String send_title;      //메시지 제목
+    private String send_cont;       //메시지 내용
     private String send_url;        //이미지URL
     private int is_all;             //수신대상전체여부
     private String mem_nos;         //회원번호s

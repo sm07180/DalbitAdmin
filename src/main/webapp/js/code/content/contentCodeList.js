@@ -22,8 +22,8 @@ var notice_slctType = [
 var push_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('title', '1', '메세지 제목')
-    , new COMMON_CODE('content', '2', '메세지 내용')
+    , new COMMON_CODE('title', '1', '메시지 제목')
+    , new COMMON_CODE('content', '2', '메시지 내용')
 ];
 
 var push_snedStatus = [
@@ -42,7 +42,7 @@ var push_platform = [
 ];
 
 var push_messageType = [
-    new COMMON_CODE(null, 'messageType', '메세지 구분')
+    new COMMON_CODE(null, 'messageType', '메시지 구분')
     , new COMMON_CODE('notice', '0', '일반공지')
     , new COMMON_CODE('notice', '1', '긴급공지')
     , new COMMON_CODE('event', '2', '이벤트')
@@ -101,8 +101,8 @@ var search_event = [
 var banner_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('title', '1', '메세지 제목')
-    , new COMMON_CODE('content', '2', '메세지 내용')
+    , new COMMON_CODE('title', '1', '메시지 제목')
+    , new COMMON_CODE('content', '2', '메시지 내용')
 ];
 
 var banner_bannerType = [

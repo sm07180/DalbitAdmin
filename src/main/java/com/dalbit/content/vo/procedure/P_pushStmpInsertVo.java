@@ -1,6 +1,7 @@
 package com.dalbit.content.vo.procedure;
 
 import com.dalbit.common.vo.BaseVo;
+import com.dalbit.util.DalbitUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +21,7 @@ public class P_pushStmpInsertVo extends BaseVo {
         this.setContents(pPushInsertVo.getSend_cont());
         this.setRoom_no(pPushInsertVo.getRoom_no());
         this.setBoard_idx(pPushInsertVo.getBoard_idx());
-        this.setTarget_mem_no(pPushInsertVo.getTarget_mem_no());
+        this.setTarget_mem_no(DalbitUtil.isEmpty(pPushInsertVo.getTarget_mem_no()) ? mem_no : pPushInsertVo.getTarget_mem_no());
         this.setImage_type(pPushInsertVo.getImage_type());
         this.setSlctPush(pPushInsertVo.getIs_all());
         this.setPush_type(pPushInsertVo.getSlct_push());
