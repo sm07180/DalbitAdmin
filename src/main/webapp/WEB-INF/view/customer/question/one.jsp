@@ -42,6 +42,7 @@
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
+        response.data["rowNum"] = params.rowNum;
         var add_file_cnt = response.data.add_file.split(",");
         response.data["add_file_cnt"] = common.isEmpty(response.data.add_file) ? 0 : add_file_cnt.length;
         if(response.data.state == "2" && response.data.op_name == $('.name').text()){
@@ -198,7 +199,7 @@
                 <tbody>
                     <tr>
                         <th rowspan="2">No</th>
-                        <td rowspan="2">{{qnaIdx}}</td>
+                        <td rowspan="2">{{rowNum}}</td>
 
                         <th>문의유형</th>
                         <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>

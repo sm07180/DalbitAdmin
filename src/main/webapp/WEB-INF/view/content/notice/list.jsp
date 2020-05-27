@@ -117,12 +117,14 @@
         util.editorInit("content-notice");
     }
 
-    $(document).on('click', '._getNoticeDetail', function(){
-        var data = {
-            'noticeIdx' : $(this).data('idx')
-        };
-        util.getAjaxData("detail", "/rest/content/notice/detail", data, fn_detail_success);
-    });
+    function getNoticeDetail(index){
+        var data = dtList_info.getDataRow(index);
+
+        var obj = {};
+        obj.noticeIdx = data.noticeIdx;
+        obj.rowNum = data.rowNum;
+        util.getAjaxData("detail", "/rest/content/notice/detail", obj, fn_detail_success);
+    }
 
     $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
@@ -134,7 +136,8 @@
         }
     });
 
-    function fn_detail_success(dst_id, response) {
+    function fn_detail_success(dst_id, response, params) {
+        response.data["rowNum"] = params.rowNum;
         var template = $('#tmp_noticeFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -333,7 +336,7 @@
             <tbody>
                 <tr class="align-middle">
                     <th>No</th>
-                    <td>{{noticeIdx}}</td>
+                    <td>{{rowNum}}</td>
 
                     <th>구분</th>
                     <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
