@@ -42,7 +42,7 @@
         }else if(tabId == 'tab_payCode'){
             getPayCodeList();
         }else if(tabId == 'tab_payHistory'){
-            // getPayHistoryList();
+            getPayHistoryList();
         }else if(tabId == 'tab_payCancel'){
             getPayCancelList();
         }

@@ -18,46 +18,10 @@
         <a href="javascript://">[이전]</a>
         <%= sf.format(nowTime)%>
         <a href="javascript://">[다음]</a>
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="list_info">
             <thead>
-            <tr>
-                <th>No</th>
-                <th>결제 일시</th>
-                <th>결제 번호</th>
-                <th>결제 회원ID </th>
-                <th>닉네임</th>
-                <th>결제 수단</th>
-                <th>결제 금액</th>
-                <th>결제 금액(V.A.T별도)</th>
-                <th>성공 여부</th>
-                <th>누적 건수</th>
-                <th>누적 금액</th>
-                <th>취소 여부</th>
-                <th>취소 일시</th>
-            </tr>
             </thead>
             <tbody>
-            <%
-                for(int i=1; i<21; i++) {
-            %>
-            <tr>
-                <th><%=i%></th>
-                <td>2020-02-24 00:01:30</td>
-                <td>150,2020022401200</td>
-                <td>tlscjswlrrjwu</td>
-                <td>닉네임</td>
-                <td>휴대폰</td>
-                <td>5,500</td>
-                <td>5,000</td>
-                <td>Y</td>
-                <td>233</td>
-                <td>5,222,000</td>
-                <td>결제 취소</td>
-                <td>2020-02-25 00:01:30</td>
-            </tr>
-            <%
-                }
-            %>
             </tbody>
         </table>
     </div>
@@ -68,7 +32,36 @@
     </div>
 </div>
 
+<script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
+
 <script type="text/javascript">
 
+    var dtList_info;
+    function getPayHistoryList() {
+        var sDate = $("#startDate").val().replace(/\./gi,'');
+        var eDate = $("#endDate").val().replace(/\./gi,'');
+
+        var dtList_info_data = function(data) {
+            data.searchText = "";                        // 검색명
+            if( $('input[name="slctType"]:checked').val() == 0){
+                data.period = 4;
+                data.sDate = sDate;
+            }else{
+                data.period = 0;
+                data.sDate = sDate;
+                data.eDate = eDate;
+            }
+            data.ostype = -1;
+            data.searchPayStatus = -1;
+            data.innerType = -1;
+            data.payWay = "all";
+        };
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payHistory);
+        dtList_info.useCheckBox(false);
+        dtList_info.useIndex(true);
+        dtList_info.setPageLength(50);
+        dtList_info.createDataTable();
+        dtList_info.reload();
+    }
 
 </script>
