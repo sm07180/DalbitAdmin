@@ -50,7 +50,7 @@ var forcedExit = [
 
 var searchType_broad = [
     new COMMON_CODE(null, 'searchType_broad', '사용자정보구분')
-    , new COMMON_CODE('all', '0', '전체   ▼')
+    , new COMMON_CODE('all', '0', '전체')
     , new COMMON_CODE('memno', '1', '회원번호')
     , new COMMON_CODE('memid', '2', 'UserID')
     , new COMMON_CODE('memnick', '3', '닉네임')
@@ -60,7 +60,7 @@ var searchType_broad = [
 
 var searchBroad_broad = [
     new COMMON_CODE(null, 'searchBroad_broad', '방송정보검색')
-    , new COMMON_CODE('all', '-1', '전체 ▼')
+    , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('broadTitle', '1', '방송제목')
     , new COMMON_CODE('welcomMsg', '2', '인사말')
     , new COMMON_CODE('broadNotie', '3', '방송중공지')
