@@ -137,7 +137,7 @@
                     fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                     fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
 
-                }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+                }else if(type == "31" || type == "35" || type == "36"){ //mem_no
                     fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
                     fnc_pushDetail.target.find("#input_targetLink").show();
                     fnc_pushDetail.target.find("#input_targetLink").val("");
@@ -145,8 +145,8 @@
                     fnc_pushDetail.target.find("#btn_selectMember_link").show();
                     fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
 
-                }else if(type == "6" || type == "7"){ //board_idx
-                    fnc_pushDetail.target.find("#label_targetType").text("공지 번호:");
+                }else if(type == "5" || type == "6" || type == "7"){ //board_idx
+                    fnc_pushDetail.target.find("#label_targetType").text("게시 번호:");
                     fnc_pushDetail.target.find("#input_targetLink").show();
                     fnc_pushDetail.target.find("#input_targetLink").val("");
                     fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
@@ -246,15 +246,15 @@
                 fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                 fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
 
-            }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+            }else if(type == "31" || type == "35" || type == "36"){ //mem_no
                 fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
                 fnc_pushDetail.target.find("#input_targetLink").show();
                 fnc_pushDetail.target.find("#input_targetLink").attr("disabled", true);
                 fnc_pushDetail.target.find("#btn_selectMember_link").show();
                 fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
 
-            }else if(type == "6" || type == "7"){ //board_idx
-                fnc_pushDetail.target.find("#label_targetType").text("공지 번호:");
+            }else if(type == "5" || type == "6" || type == "7"){ //board_idx
+                fnc_pushDetail.target.find("#label_targetType").text("게시 번호:");
                 fnc_pushDetail.target.find("#input_targetLink").show();
                 fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
                 fnc_pushDetail.target.find("#btn_selectMember_link").hide();
@@ -466,11 +466,11 @@
                 resultJson['room_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
 
-            }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+            }else if(type == "31" || type == "35" || type == "36"){ //mem_no
                 resultJson['target_mem_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
 
-            }else if(type == "6" || type == "7"){ //board_idx
+            }else if(type == "5" || type == "6" || type == "7"){ //board_idx
                 resultJson['board_idx'] = fnc_pushDetail.target.find("#input_targetLink").val();
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").val();
             }
@@ -524,7 +524,7 @@
 
             /*
             if (common.isEmpty(data.msg_type)) {
-                alert("메세지 구분을 선택하여 주시기 바랍니다.");
+                alert("메시지 구분을 선택하여 주시기 바랍니다.");
                 fnc_pushDetail.target.find("input[name=msg_type]").focus();
                 return false;
             }
@@ -559,13 +559,13 @@
                     fnc_pushDetail.target.find("#input_targetLink").focus();
                     return false;
                 }
-            }else if(type == "31" || type == "32" || type == "35"){ //mem_no
+            }else if(type == "31" || type == "35" || type == "36"){ //mem_no
                 if (common.isEmpty(data.target_mem_no)) {
                     alert("회원을 선택하여 주시기 바랍니다.");
                     fnc_pushDetail.target.find("#input_targetLink").focus();
                     return false;
                 }
-            }else if(type == "6" || type == "7"){ //board_idx
+            }else if(type == "5" || type == "6" || type == "7"){ //board_idx
                 if (common.isEmpty(data.board_idx)) {
                     alert("게시물 번호를 입력하여 주시기 바랍니다.");
                     fnc_pushDetail.target.find("#input_targetLink").focus();
@@ -685,7 +685,7 @@
                 <td colspan="2">{{send_datetime}}</td>
             </tr>
             <tr>
-                <th>메세지 제목</th>
+                <th>메시지 제목</th>
                 <td colspan="5" style="width:50%;"><input type="text" class="form-control" name="send_title" id="push-send_title" placeholder="제목을 입력해주세요." value="{{send_title}}"></td>
 
                 <th rowspan="2">수신대상 선택</th>
@@ -708,7 +708,7 @@
                 </td>
             </tr>
             <tr>
-                <th>메세지 내용</th>
+                <th>메시지 내용</th>
                 <td colspan="5">
                     <div>
                         <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="150">{{send_cont}}</textarea>
@@ -718,7 +718,7 @@
             </tr>
             <!--
             <tr>
-            <th>메세지 구분</th>
+            <th>메시지 구분</th>
             <td colspan="5">{{{getCommonCodeRadio msg_type 'push_messageType' 'N' 'msg_type'}}}</td>
             </tr>
             -->
@@ -753,7 +753,7 @@
             </tr>
             <tr>
                 <!--
-                <th>메세지 포함 이미지</th>
+                <th>메시지 포함 이미지</th>
                 <td colspan="5">
                 <div>
                 <input type="file" id="push-inputImg">

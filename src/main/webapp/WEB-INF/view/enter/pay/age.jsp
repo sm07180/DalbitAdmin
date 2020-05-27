@@ -19,6 +19,7 @@
                 <th colspan="2">총계</th>
                 <th colspan="2">남성</th>
                 <th colspan="2">여성</th>
+                <th colspan="2">알수없음</th>
                 <th colspan="2">10대</th>
                 <th colspan="2">20대</th>
                 <th colspan="2">30대</th>
@@ -27,6 +28,8 @@
                 <th colspan="2">60대이상</th>
             </tr>
             <tr>
+                <th>건</th>
+                <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
                 <th>건</th>
@@ -101,6 +104,8 @@
         <td>{{addComma sum_maleAmt}}</td>
         <td>{{addComma sum_femaleCnt}}</td>
         <td>{{addComma sum_femaleAmt}}</td>
+        <td>{{addComma sum_noneCnt}}</td>
+        <td>{{addComma sum_noneAmt}}</td>
         <td>{{addComma sum_age10Cnt}}</td>
         <td>{{addComma sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
@@ -130,6 +135,8 @@
         <td>{{addComma maleAmt}}</td>
         <td>{{addComma femaleCnt}}</td>
         <td>{{addComma femaleAmt}}</td>
+        <td>{{addComma noneCnt}}</td>
+        <td>{{addComma noneAmt}}</td>
         <td>{{addComma age10Cnt}}</td>
         <td>{{addComma age10Amt}}</td>
         <td>{{addComma age20Cnt}}</td>
