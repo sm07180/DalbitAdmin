@@ -63,9 +63,11 @@
         }else{
             $('#bt_declaration').removeClass("hide");
         }
-
         declarationCheck(response.data.status);
-        // rownum
+
+        // scroll 처리
+        var scrollPosition = $("#report_tab").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     function declarationFormData() {

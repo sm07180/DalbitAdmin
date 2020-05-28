@@ -146,6 +146,10 @@
 
         // uploadType 추가
         util.editorInit("content-notice");
+
+        // scroll 처리
+        var scrollPosition = $("#notice_title").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     function isValid(){
