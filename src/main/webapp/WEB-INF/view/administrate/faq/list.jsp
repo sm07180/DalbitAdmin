@@ -110,10 +110,10 @@
         // uploadType 추가
         util.editorInit("administrate-faq");
     }
-
+    var faqIdx;
     function getFaqDetail(index){
         var data = dtList_info.getDataRow(index);
-
+        faqIdx = data.faqIdx;
         var obj = {};
         obj.faqIdx = data.faqIdx;
         obj.rowNum = data.rowNum;
@@ -127,8 +127,6 @@
     });
 
     function fn_detail_success(dst_id, response, params) {
-        dalbitLog('fn_detail_success');
-        dalbitLog(response);
         // form 띄우기
         response.data["rowNum"] = params.rowNum;
         var template = $('#tmp_faqFrm').html();
@@ -230,7 +228,7 @@
         if(confirm(checked.length + "개의 FAQ를 삭제하시겠습니까?")){
             var faqIdxs = '';
             checked.each(function(){
-                faqIdxs += $(this).parent().parent().find('._getFaqDetail').data('idx') + ",";
+                faqIdxs += faqIdx + ",";
             });
             var data = {
                 faqIdxs : faqIdxs
