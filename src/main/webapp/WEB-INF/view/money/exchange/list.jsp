@@ -469,6 +469,7 @@
                                     </th>
                                     <td>
                                         <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
+                                        [{{convertJumin detail.social_no}}]
                                     </td>
                                 </tr>
 
@@ -507,12 +508,12 @@
                                     <td>
                                         <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
-                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file1}}" class="_fullWidth _openImagePop" />
+                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file1}}" class="_fullWidth _openImagePop thumbnail" />
                                             </a>
                                         </div>
                                         <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
-                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file2}}" class="_fullWidth _openImagePop" />
+                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file2}}" class="_fullWidth _openImagePop thumbnail" />
                                             </a>
                                         </div>
                                     </td>
