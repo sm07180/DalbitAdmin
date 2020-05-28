@@ -121,6 +121,7 @@
         var templateScript = Handlebars.compile(template);
         var context = response.data.info;
         var html=templateScript(context);
+        console.log(context);
         $("#statPayTableBody").append(html);
     }
 
@@ -224,12 +225,12 @@
         <tbody>
             <tr>
                 <td>결제금액(건수)</td>
-                <td style="color: red">{{addComma content.total_amt}}({{addComma content.total_cnt}})</td>
-                <td>{{addComma content.mc_amt}}({{addComma content.mc_cnt}})</td>
-                <td>{{addComma content.cn_amt}}({{addComma content.cn_cnt}})</td>
-                <td>{{addComma content.inapp_amt}}({{addComma content.inapp_cnt}})</td>
-                <td>{{addComma content.ra_amt}}({{addComma content.ra_cnt}})</td>
-                <td>{{addComma content.va_amt}}({{addComma content.va_cnt}})</td>
+                <td style="color: red">{{addComma total_amt}}({{addComma total_cnt}})</td>
+                <td>{{addComma mc_amt}}({{addComma mc_cnt}})</td>
+                <td>{{addComma cn_amt}}({{addComma cn_cnt}})</td>
+                <td>{{addComma inapp_amt}}({{addComma inapp_cnt}})</td>
+                <td>{{addComma ra_amt}}({{addComma ra_cnt}})</td>
+                <td>{{addComma va_amt}}({{addComma va_cnt}})</td>
                 <td>0(0)</td>
                 <td>0(0)</td>
                 <td style="border-top: white"></td>
@@ -251,14 +252,14 @@
         <tbody>
             <tr>
                 <td colspan="2">결제금액(건수)</td>
-                <td>{{addComma content.male_amt}}({{addComma content.male_cnt}})</td>
-                <td>{{addComma content.female_amt}}({{addComma content.female_cnt}})</td>
-                <td>{{addComma content.age10_amt}}({{addComma content.age10_cnt}})</td>
-                <td>{{addComma content.age20_amt}}({{addComma content.age20_cnt}})</td>
-                <td>{{addComma content.age30_amt}}({{addComma content.age30_cnt}})</td>
-                <td>{{addComma content.age40_amt}}({{addComma content.age40_cnt}})</td>
-                <td>{{addComma content.age50_amt}}({{addComma content.age50_cnt}})</td>
-                <td>{{addComma content.age60_amt}}({{addComma content.age60_cnt}})</td>
+                <td>{{addComma male_amt}}({{addComma male_cnt}})</td>
+                <td>{{addComma female_amt}}({{addComma female_cnt}})</td>
+                <td>{{addComma age10_amt}}({{addComma age10_cnt}})</td>
+                <td>{{addComma age20_amt}}({{addComma age20_cnt}})</td>
+                <td>{{addComma age30_amt}}({{addComma age30_cnt}})</td>
+                <td>{{addComma age40_amt}}({{addComma age40_cnt}})</td>
+                <td>{{addComma age50_amt}}({{addComma age50_cnt}})</td>
+                <td>{{addComma age60_amt}}({{addComma age60_cnt}})</td>
             </tr>
         </tbody>
         <thead>
@@ -277,12 +278,12 @@
         <tbody>
             <tr>
                 <td colspan="2">결제금액(건수)</td>
-                <td>{{addComma content.code01_amt}}({{addComma content.code01_cnt}})</td>
-                <td>{{addComma content.code02_amt}}({{addComma content.code02_cnt}})</td>
-                <td>{{addComma content.code03_amt}}({{addComma content.code03_cnt}})</td>
-                <td>{{addComma content.code04_amt}}({{addComma content.code04_cnt}})</td>
-                <td>{{addComma content.code05_amt}}({{addComma content.code05_cnt}})</td>
-                <td>{{addComma content.code06_amt}}({{addComma content.code06_cnt}})</td>
+                <td>{{addComma code01_amt}}({{addComma code01_cnt}})</td>
+                <td>{{addComma code02_amt}}({{addComma code02_cnt}})</td>
+                <td>{{addComma code03_amt}}({{addComma code03_cnt}})</td>
+                <td>{{addComma code04_amt}}({{addComma code04_cnt}})</td>
+                <td>{{addComma code05_amt}}({{addComma code05_cnt}})</td>
+                <td>{{addComma code06_amt}}({{addComma code06_cnt}})</td>
                 <td style="border-color: white;"></td>
                 <td style="border-color: white;"></td>
             </tr>
@@ -303,12 +304,12 @@
         <tbody>
             <tr>
                 <td colspan="2">결제금액(건수)</td>
-                <td>{{addComma content.code07_amt}}({{addComma content.code07_cnt}})</td>
-                <td>{{addComma content.code08_amt}}({{addComma content.code08_cnt}})</td>
-                <td>{{addComma content.code09_amt}}({{addComma content.code09_cnt}})</td>
-                <td>{{addComma content.code10_amt}}({{addComma content.code10_cnt}})</td>
-                <td>{{addComma content.code11_amt}}({{addComma content.code11_cnt}})</td>
-                <td>{{addComma content.code12_amt}}({{addComma content.code12_cnt}})</td>
+                <td>{{addComma code07_amt}}({{addComma code07_cnt}})</td>
+                <td>{{addComma code08_amt}}({{addComma code08_cnt}})</td>
+                <td>{{addComma code09_amt}}({{addComma code09_cnt}})</td>
+                <td>{{addComma code10_amt}}({{addComma code10_cnt}})</td>
+                <td>{{addComma code11_amt}}({{addComma code11_cnt}})</td>
+                <td>{{addComma code12_amt}}({{addComma code12_cnt}})</td>
                 <td style="border-color: white;"></td>
                 <td style="border-color: white;"></td>
             </tr>
