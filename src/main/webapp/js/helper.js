@@ -154,11 +154,11 @@ Handlebars.registerHelper("getOnOffSwitch", function(value){
 });
 
 Handlebars.registerHelper("renderProfileImage", function(value,gender){
-    return common.profileImage(IMAGE_SERVER_URL,value,gender);
+    return common.profileImage(PHOTO_SERVER_URL,value,gender);
 });
 
 Handlebars.registerHelper("renderImage", function(value){
-    return IMAGE_SERVER_URL + value;
+    return PHOTO_SERVER_URL + value;
 });
 
 Handlebars.registerHelper("timeStamp", function(value) {

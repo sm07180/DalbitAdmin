@@ -236,7 +236,7 @@
         $("#title").html(broadInfo.title);
         $("#streamId").val(streamId);
         $("#tokenId").val(tokenId);
-        $(".liveChat").css("background-image", "url("+IMAGE_SERVER_URL + broadInfo.roomBgImg+")");
+        $(".liveChat").css("background-image", "url("+PHOTO_SERVER_URL + broadInfo.roomBgImg+")");
 
 
         setTimeout(function(){

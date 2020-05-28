@@ -130,7 +130,7 @@
             $('#userId' + i).text(response.data[i].userId);
             $('#writeDateFormat' + i).text(response.data[i].writeDateFormat);
             $('#contents' + i).text(response.data[i].contents);
-            $('#image_section' + i).prop("src" ,common.profileImage(IMAGE_SERVER_URL,response.data[i].profileImage,memSex));
+            $('#image_section' + i).prop("src" ,common.profileImage(PHOTO_SERVER_URL,response.data[i].profileImage,memSex));
 
             $('#fanboardModal').modal("show");
         }
