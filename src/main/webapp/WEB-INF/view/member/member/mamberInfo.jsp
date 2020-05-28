@@ -381,7 +381,7 @@
     }
     function reportPopup(){
         console.log(report);
-        util.windowOpen(report,"1000","750","경고/정지");
+        util.windowOpen(report,"750","700","경고/정지");
     }
 
     function fnChkByte(obj) {
