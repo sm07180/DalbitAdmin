@@ -162,7 +162,7 @@
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 <script type="text/javascript">
-    var exchangePagingInfo = new PAGING_INFO(0,1,30);
+    var exchangePagingInfo = new PAGING_INFO(0,1,50);
 
     $(function(){
         $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
@@ -180,7 +180,8 @@
             , search_state : $("#search_state").val()
             , search_type : $("#search_type").val()
             , search_value : $("#search_value").val()
-
+            , pageStart : exchangePagingInfo.pageNo
+            , pageCnt : exchangePagingInfo.pageCnt
         };
     }
 
@@ -208,11 +209,13 @@
     }
 
     $('#bt_search').on('click', function(){
+        exchangePagingInfo.pageNo = 1;
         getList();
     });
 
     $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
         if(e.keyCode == 13) {
+            exchangePagingInfo.pageNo = 1;
             getList();
         };
     });
@@ -221,6 +224,7 @@
         $('._tab').removeClass('active');
         $(this).addClass('active');
 
+        exchangePagingInfo.pageNo = 1;
         getList();
     });
 
@@ -384,7 +388,7 @@
     {{#each this.exchangeList as |data|}}
     <tr>
         <td>
-            {{math ../exchangeCnt "-" @index}}
+            {{indexDesc ../exchangeCnt data.rowNum}}
         </td>
         <td>
             {{getMemStateName data.mem_state}}

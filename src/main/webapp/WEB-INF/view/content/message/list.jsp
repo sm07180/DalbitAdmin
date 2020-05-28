@@ -28,11 +28,14 @@
     </div>
 </div>
 <div class="main-content" style="margin-top: 3px;">
+    <%-- popup으로 인한 주석
     <!-- TAB -->
         <div name="main-content-div" id="messageListContent">
             <jsp:include page="messageTab.jsp"></jsp:include>
         </div>  <!-- 푸시 -->
     <!-- TAB END -->
+
+    --%>
 </div>
 <jsp:include page="/WEB-INF/view/common/util/select_memeberList.jsp"></jsp:include>
 

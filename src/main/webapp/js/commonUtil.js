@@ -541,4 +541,14 @@ util.renderOnAir = function(value) {
     }else{
         return ' <i class="fa fa-circle"></i>' + " ON" ;
     }
+},
+
+util.textareaResize = function(obj, initHeight){
+    var height = obj.scrollHeight;
+    if(!common.isEmpty(initHeight)){
+        height = initHeight;
+    }
+
+    obj.style.height = height + "px";
+    obj.style.height = (12+obj.scrollHeight)+"px";
 }

@@ -39,6 +39,8 @@ public class Mon_ExchangeService {
     public String selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo){
 
         int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
+
+        monExchangeInputVo.setTotalCnt(exchangeCnt);
         ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
 
         var resultMap = new HashMap<>();

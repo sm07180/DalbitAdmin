@@ -14,5 +14,7 @@ public class P_MessageInsertVo extends BaseVo {
     private String reg_date;            //등록일
     private String op_name;             //등록자
 
+    private String send_all;           //전체 발송 여부  (0: 전체, 1:target)
+
 }
 

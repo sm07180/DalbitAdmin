@@ -97,7 +97,7 @@ Handlebars.registerHelper("index", function(index, no)
 
 Handlebars.registerHelper("indexDesc", function(totalCnt, rownum)
 {
-    return common.isEmpty(totalCnt) ? 0 : totalCnt - rownum;
+    return common.isEmpty(totalCnt) ? 0 : totalCnt - rownum + 1;
 });
 
 Handlebars.registerHelper("getCommonCodeSelect", function(value, targetCode, isExcludeAllYn, name)
@@ -228,4 +228,15 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
 
 Handlebars.registerHelper("getMemStateName", function(state) {
     return common.getMemStateName(state);
+});
+
+
+Handlebars.registerHelper("evalJS_isEmpty", function(varName, options) {
+    var v = eval(varName);
+
+    if(common.isEmpty(v)){
+        return options.fn(this);
+    }else{
+        return options.inverse(this);
+    }
 });

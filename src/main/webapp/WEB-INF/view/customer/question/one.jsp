@@ -261,7 +261,7 @@
                     <tr>
                         <th colspan="2">문의내용</th>
                         <td colspan="6">
-                            <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="resize(this)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
+                            <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="util.textareaResize(this, 114)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
                         </td>
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>

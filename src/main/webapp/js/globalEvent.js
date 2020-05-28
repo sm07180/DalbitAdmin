@@ -22,7 +22,7 @@ $(document).on('click', '._openBroadcastPop', function(){
 
 /*방송방메시지보내기 팝업*/
 $(document).on('click', '._openAdminMessagePop', function(){
-    var url = "/broadcast/broadcast/popup/messagePopup?roomNo="+encodeURIComponent($(this).data('roomno'))+"&djmemno=" + encodeURIComponent($(this).data('djmemno'));
+    var url = "/content/message/popup/messagePopup?roomNo="+encodeURIComponent($(this).data('roomno'))+"&djmemno=" + encodeURIComponent($(this).data('djmemno'));
     util.windowOpen(url, 800, 435, 'adminMessageInfo');
 });
 
