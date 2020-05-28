@@ -19,6 +19,11 @@
         <span class="_searchDate"></span>
         <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
+            <colgroup>
+                <col width="12%"/><col width="6%"/><col width="6%"/><col width="6%"/><col width="6%"/>
+                <col width="6%"/><col width="6%"/><col width="8%"/><col width="6%"/><col width="6%"/>
+                <col width="6%"/><col width="6%"/><col width="6%"/><col width="6%"/><col width="8%"/>
+            </colgroup>
             <thead id="ageTable">
             <tr>
                 <th rowspan="2">시간대</th>

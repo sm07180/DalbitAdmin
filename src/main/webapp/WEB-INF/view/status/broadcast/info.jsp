@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper" class="col-lg-8">
-        <div class="container-fluid">
+    <div id="page-wrapper">
+        <div class="container-fluid col-lg-8 no-padding">
             <form id="searchForm">
                 <input type="hidden" id="pageNo" name="pageNo" value="1" />
                 <input type="hidden" id="pageCnt" name="pageCnt" value="100" />
@@ -50,6 +50,10 @@
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered" id="tb_broadSumStatus">
+                                <colgroup>
+                                    <col width="20%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/>
+                                    <col width="16%"/>
+                                </colgroup>
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -79,6 +83,10 @@
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered" id="tb_giftSumStatus">
+                                <colgroup>
+                                    <col width="20%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/>
+                                    <col width="16%"/>
+                                </colgroup>
                                 <thead>
                                 <tr>
                                     <th></th>
@@ -98,12 +106,12 @@
                 </div>
             </div>
 
+        </div>
             <!-- tab -->
             <div class="no-padding" id="infoTab">
                 <jsp:include page="infoTab.jsp"/>
             </div>
             <!-- //tab -->
-        </div>
     </div>
 </div>
 

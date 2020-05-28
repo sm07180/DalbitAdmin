@@ -13,11 +13,15 @@
         <span class="_searchDate"></span>
         <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
+            <colgroup>
+                <col width="11.2%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
+                <col width="11.1%"/><col width="11.1%"/><col width="11.1%"/><col width="11.1%"/>
+            </colgroup>
             <thead>
             <tr>
                 <th></th>
-                <th colspan="5">방송개설</th>
-                <th colspan="5">방송시간</th>
+                <th colspan="4">방송개설</th>
+                <th colspan="4">방송시간</th>
             </tr>
             <tr>
                 <th>시간대</th>
@@ -113,8 +117,8 @@
         <td>{{addComma iosTime}}</td>
     </tr>
     {{else}}
-    <tr>
-        <td colspan="22" class="noData">{{isEmptyData}}<td>
-    </tr>
+    <%--<tr>--%>
+        <%--<td colspan="22" class="noData">{{isEmptyData}}<td>--%>
+    <%--</tr>--%>
     {{/each}}
 </script>

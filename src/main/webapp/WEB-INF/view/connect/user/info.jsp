@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper" class="col-lg-8">
-        <div id="container-fluid">
+    <div id="page-wrapper">
+        <div id="container-fluid" class="col-lg-8 no-padding">
             <!-- 접속 관련 통계 데이터-->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table mb10">
@@ -17,6 +17,10 @@
                     </div>
                     <div class="widget-content mt10">
                         <button type="button" class="fa fa-refresh" onclick="getLoginLiveInfo();"></button>
+                        <colgroup>
+                            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                        </colgroup>
                         <table class="table table-bordered">
                             <thead>
                             <tr>
@@ -36,15 +40,11 @@
                         </table>
                     </div>
                 </div>
-                <!-- // 접속 관련 통계 데이터 -->
-                <!-- tab -->
-                <div class="no-padding" id="infoTab">
-                    <jsp:include page="infoTab.jsp"/>
-                </div>
-                <!-- //tab -->
-
             </div> <!-- // container-fluid -->
         </div> <!-- // page-wrapper -->
+        <div class="no-padding col-lg-12" id="infoTab">
+            <jsp:include page="infoTab.jsp"/>
+        </div>
     </div> <!-- // wrapper -->
 </div>
 

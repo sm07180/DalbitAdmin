@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper" class="col-lg-8">
+    <div id="page-wrapper" class="col-lg-8 no-padding">
         <div class="container-fluid">
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
+                <div class="row form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
@@ -36,7 +36,7 @@
                 </div>
             </form>
 
-            <div class="row col-lg-12 form-inline">
+            <div class="row form-inline">
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
@@ -60,14 +60,13 @@
                     </div>
                 </div>
             </div>
-
-            <!-- tab -->
-            <div class="no-padding" id="infoTab">
-                <jsp:include page="infoTab.jsp"/>
-            </div>
-            <!-- //tab -->
         </div>
     </div>
+    <!-- tab -->
+    <div class="no-padding" id="infoTab">
+        <jsp:include page="infoTab.jsp"/>
+    </div>
+    <!-- //tab -->
 </div>
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>

@@ -13,6 +13,10 @@
         <span class="_searchDate"></span>
         <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
+            <colgroup>
+                <col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/>
+                <col width="12.5%"/><col width="12.5%"/><col width="12.5%"/>
+            </colgroup>
             <thead>
             <tr>
                 <th>시간대</th>
