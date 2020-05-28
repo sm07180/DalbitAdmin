@@ -93,6 +93,7 @@
         var detailData = getSelectDataInfo().detailData;
         console.log(detailData);
 
+        util.textareaResize(document.getElementById("message-send_cont"));
     };
 
 
@@ -167,6 +168,7 @@
 
         // popup일 경우 창 닫기
         if(fnc_messageDetail.popup){
+            opener.fnc_messageList.selectMainList(false);
             window.close();
             return false;
         }
@@ -190,6 +192,13 @@
 
         alert(data.message);
         // alert(data.message +'\n- 성공 : ' + data.data.sucCnt + '건\n- 실패 : ' + data.data.failCnt +'건');
+
+        // popup일 경우 창 닫기
+        if(fnc_messageDetail.popup){
+            opener.fnc_messageList.selectMainList(false);
+            window.close();
+            return false;
+        }
 
         fnc_messageList.selectMainList(false);
 
@@ -220,14 +229,11 @@
             resultJson[formArray[i]['name']] = formArray[i]['value'];
         }
 
-
-        if(fnc_messageDetail.popup){
-            if(!common.isEmpty(fnc_messageDetail.room_no && !common.isEmpty(fnc_messageDetail.bj_mem_no))){
-                targetRooms.push(fnc_messageDetail.room_no.toString());
-            }else{
-                console.log("[방송방메시지발송] Popup에서 발송 요청 시 Room정보 없음.");
-                return null;
-            }
+        if(!common.isEmpty(fnc_messageDetail.room_no && !common.isEmpty(fnc_messageDetail.bj_mem_no))){
+            targetRooms.push(fnc_messageDetail.room_no.toString());
+            resultJson["send_all"] = "1";
+        }else{
+            resultJson["send_all"] = "0";
         }
 
         resultJson["target_rooms"] = targetRooms.toString().replace(/,/gi , "|");
@@ -295,16 +301,17 @@
 <script id="tmp_messageDetailFrm" type="text/x-handlebars-template">
     <input type="hidden" name="message_idx" value="{{message_idx}}" />
     <div class="row col-lg-12">
-        <div class="col-md-12 no-padding" style="padding-bottom: 15px">
-            <div class="pull-left" style="padding-bottom:4px;">
-                <h5><b>[메시지 발송 방송방 리스트]</b></h5>
-            </div>
-            <div class="pb10" id="div_targetList"></div>
-        </div>
-
-        <div class="col-md-12 pl0 pr0" style="padding-bottom: 15px">
-            <div class="pull-left">
-                ㆍ 재발송 버튼으로 동일한 내용이나 수정한 내용으로 발송이 가능합니다.
+        <div class="col-md-12 no-padding">
+            <div class="pull-left pb15">
+                {{#evalJS_isEmpty 'fnc_messageDetail.room_no'}}
+                    {{^message_idx}}ㆍ 방송방 메시지 발송 시 <span style="color:red;">'현재 Live 방송 중인 모든방'</span>에 발송됩니다.{{/message_idx}}
+                    {{#message_idx}}
+                    ㆍ 재발송 버튼으로 동일한 내용이나 수정한 내용으로 발송이 가능 합니다.<br>
+                    ㆍ 재발송 시 하위 '[메시지 발송 방송방 리스트]'가 아닌 <span style="color:red;">'현재 Live 방송 중인 모든방'</span>에 발송됩니다.
+                    {{/message_idx}}
+                {{else}}
+                    ㆍ 발송 버튼으로 입력한 내용을 <span style="color:red;">'해당 방송방'</span>에 운영자 메시지로 발송이 가능 합니다.
+                {{/evalJS_isEmpty}}
             </div>
             <div class="pull-right">
                 {{^message_idx}}<button class="btn btn-default" type="button" id="insertBtn">발송</button>{{/message_idx}}
@@ -329,18 +336,29 @@
             <tbody>
             <tr>
                 <th style="width:16%">제목<br>(Admin 관리용)</th>
-                <td style="width:84%" colspan="8"><input type="text" class="form-control" name="title" id="title" placeholder="Admin 관리용 제목입니다." value="{{title}}"></td>
+                <td style="width:84%" colspan="8"><input type="text" class="form-control" name="title" id="title" placeholder="Admin 관리용 제목입니다." value="{{replaceHtml title}}"></td>
             </tr>
             <tr>
                 <th style="width:16%">메시지 내용</th>
                 <td style="width:84%" colspan="8">
                     <div>
-                        <textarea class="form-control" name="send_cont" id="message-send_cont" rows="8" cols="30" placeholder="전체 방송방에 전달할 메시지 내용을 작성해주세요." style="resize: none" maxlength="300">{{send_cont}}</textarea>
+                        <textarea class="form-control" name="send_cont" id="message-send_cont" rows="8" cols="30" oninput="util.textareaResize(this)" placeholder="전체 방송방에 전달할 메시지 내용을 작성해주세요." style="resize: none" maxlength="300">{{replaceHtml send_cont}}</textarea>
                         <span style="color: red">* 메시지 내용은 300자(한글) 입력 가능합니다.</span>
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
+
+        {{#message_idx}}
+            <div class="col-md-12 no-padding" style="padding-bottom: 15px">
+                <div class="pull-left" style="padding-bottom:4px;">
+                    <h5><b>[메시지 발송 방송방 리스트]</b></h5><br>
+                    ㆍ 메시지를 발송한 방송방 리스트 입니다. <br>
+                    ㆍ 재발송 시에는
+                </div>
+                <div class="dataTables_wrapper pb10" id="div_targetList"></div>
+            </div>
+        {{/message_idx}}
     </div>
 </script>
