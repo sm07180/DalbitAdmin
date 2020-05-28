@@ -79,8 +79,8 @@
     var specialDjPagingInfo = new PAGING_INFO(0, 1, 99999);
 
     function init() {
-        specialList();
         getSummary();
+        specialList();
     }
 
     function getParam() {
@@ -95,7 +95,6 @@
     }
 
     function specialList() {
-        getSummary();
         util.getAjaxData("special", "/rest/menu/special/dalList", getParam(), fn_dalList_success);
         util.getAjaxData("summary", "/rest/menu/special/summary", getParam(), fn_compareSummary);
     }
@@ -165,6 +164,8 @@
         var obj = {
             req_idx : me.data('reqidx')
             , mem_no : me.parent().find('._openMemberPop').data('memno')
+            , select_year: $('#select_year').val()
+            , select_month: $('#select_month').val()
         };
         util.getAjaxData("detail", "/rest/menu/special/dalDetail", obj, fn_success_dalDetail);
     });
@@ -181,7 +182,6 @@
     });
 
     function fn_success_dalDetail(dst_id, response) {
-
         if(response.data.is_force == 0) {
             var template = $('#tmp_dalList').html();
             var templateScript = Handlebars.compile(template);
@@ -418,7 +418,7 @@
                         <td>{{select_month}}월</td>
                     </tr>
                 </table>
-                <!-- 승인완료 승인거부-->
+                <!-- 승인취소-->
                 <button type="button" class="btn btn-danger mb15" id="bt_reqCancel_2">승인취소</button>
             </div>
         </div>
