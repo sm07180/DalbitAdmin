@@ -129,7 +129,7 @@
         var templateScript = Handlebars.compile(template);
 
         if(!common.isEmpty(response.data)){
-            response.data.totalCnt = response.pagingVo.totalCnt + 1;
+            response.data.totalCnt = response.pagingVo.totalCnt;
         }
 
         var context = response.data;

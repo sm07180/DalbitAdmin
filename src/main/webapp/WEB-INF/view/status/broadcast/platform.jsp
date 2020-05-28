@@ -38,7 +38,7 @@
     </div>
     <div class="widget-footer">
         <span>
-            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
         </span>
     </div>
 </div>

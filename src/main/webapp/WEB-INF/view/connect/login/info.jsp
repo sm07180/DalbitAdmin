@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper">
+    <div id="page-wrapper" class="col-lg-8">
         <div id="container-fluid">
             <!-- searchBox -->
             <form id="searchForm">
@@ -88,7 +88,6 @@
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
-    <script src="/js/lib/jquery.mtz.monthpicker.js"></script>
 
 <script type="text/javascript">
     var dateTime = new Date();
