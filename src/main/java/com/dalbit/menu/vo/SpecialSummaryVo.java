@@ -8,6 +8,10 @@ import lombok.Setter;
 @Setter
 public class SpecialSummaryVo extends PagingVo {
 
+    /* input */
+    private String select_year;
+    private String select_month;
+
     /* output */
     private int requestDal;
     private int approveDal;

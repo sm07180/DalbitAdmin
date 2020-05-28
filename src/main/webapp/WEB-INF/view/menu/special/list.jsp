@@ -11,6 +11,8 @@
                             <div class="widget-header searchBoxRow">
                                 <h3 class="title"><i class="fa fa-search"></i> DJ 검색</h3>
                                 <div>
+                                    <span id="searchYearArea"></span>
+                                    <span id="searchMonthArea"></span>
                                     <span id="searchArea"></span>
                                     <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                     <button type="button" class="btn btn-success" id="bt_search">검색</button>
@@ -20,8 +22,6 @@
                     </div>
                 </form>
                 <!-- //serachBox -->
-
-
 
                 <!-- tab -->
                 <div class="row col-lg-12 form-inline">
@@ -35,11 +35,15 @@
 </div> <!-- //wrapper-->
 
 <jsp:include page="/WEB-INF/view/common/util/select_specialList.jsp"></jsp:include>
-
+<script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
     $(document).ready(function() {
+        $('#searchYearArea').html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), special_selectYears));
+        $('#searchMonthArea').html(util.getCommonCodeSelect(moment(new Date()).format('MM'), special_selectMonths));
+
         $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
+        init();
     });
 
     $('#bt_search').on('click', function () {

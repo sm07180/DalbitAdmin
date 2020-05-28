@@ -9,12 +9,22 @@
               count(*)
             from rd_admin.tb_req_special_dj redj
             inner join rd_data.tb_member_basic mem
-            on redj.mem_no = mem.mem_no) as requestDal
+            on redj.mem_no = mem.mem_no
+            ) as requestDal
         , (select
               count(*)
             from rd_admin.tb_special_dj dj
             inner join rd_data.tb_member_basic mem
-            on dj.mem_no = mem.mem_no) as approveDal
+            on dj.mem_no = mem.mem_no
+                <where>
+                    <if test='select_year != null and select_year != ""' >
+                        dj.select_year = #{select_year}
+                    </if>
+                    <if test='select_month != null and select_month != ""' >
+                        and dj.select_month = #{select_month}
+                    </if>
+                </where>
+        ) as approveDal
     </select>
 
     <sql id="reqSpecial">
@@ -140,6 +150,8 @@
             lev.level          as `level`,
             lev.grade          as grade,
             pro.image_profile  as image_profile,
+            dj.select_year        as select_year,
+            dj.select_month       as select_month,
             (select count(*) from rd_data.tb_broadcast_room_member where auth = 3 and state = 1 and mem_no = dj.mem_no) onAir,
             (select count(*) from rd_data.tb_member_fanstar where mem_no_star = dj.mem_no) fanCnt,
             (select sum(airtime) from rd_data.tb_broadcast_room  where mem_no = dj.mem_no) airTime,
@@ -161,7 +173,14 @@
             inner join rd_data.tb_member_level lev on dj.mem_no = lev.mem_no
             left join rd_admin.tb_req_special_dj redj on dj.mem_no = redj.mem_no and dj.req_idx = redj.idx
             , (select @RNUM := 0) r
-        where 1 = 1
+        <where>
+            <if test='select_year != null and select_year != ""' >
+                dj.select_year = #{select_year}
+            </if>
+            <if test='select_month != null and select_month != ""' >
+                and dj.select_month = #{select_month}
+            </if>
+        </where>
         <if test='txt_search != null and txt_search != ""'>
             <choose>
                 <when test='searchType == "1"'>
@@ -226,6 +245,8 @@
           , redj.title as title
           , redj.contents as contents
           , redj.reg_date as request_date
+          , dj.select_year as select_year
+          , dj.select_month as select_month
         from
           rd_admin.tb_special_dj dj
           left join rd_admin.tb_req_special_dj redj on #{req_idx} = redj.idx and dj.req_idx = redj.idx and dj.mem_no = #{mem_no}
