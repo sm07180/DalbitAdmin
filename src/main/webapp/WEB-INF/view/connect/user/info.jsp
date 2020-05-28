@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper">
+    <div id="page-wrapper" class="col-lg-8">
         <div id="container-fluid">
             <!-- 접속 관련 통계 데이터-->
             <div class="row col-lg-12 form-inline">

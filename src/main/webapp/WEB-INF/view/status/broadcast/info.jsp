@@ -2,13 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper">
+    <div id="page-wrapper" class="col-lg-8">
         <div class="container-fluid">
             <form id="searchForm">
-
                 <input type="hidden" id="pageNo" name="pageNo" value="1" />
                 <input type="hidden" id="pageCnt" name="pageCnt" value="100" />
-
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
