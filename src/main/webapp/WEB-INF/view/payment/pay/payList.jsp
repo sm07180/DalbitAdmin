@@ -69,7 +69,7 @@
         if(tmp == "payment"){
             dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
         }else{
-            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payHistory);
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.memPayHistory);
         }
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
