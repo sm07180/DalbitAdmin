@@ -43,7 +43,7 @@
                     <th></th>
                     <th>No</th>
                     <th>방송상태</th>
-                    <th>프로필이미지</th>
+                    <th>프로필</th>
                     <th>UserID</th>
                     <th>User닉네임</th>
                     <th>보유팬<br/>(1000명 이상)</th>
@@ -316,11 +316,11 @@
             <input type="hidden" name="sortNo" value="{{sortNo}}"/>
         </td>
         <td>{{{renderOnAir onAir}}}</td>
-        <td >
+        <td style="width: 65px;height:65px;">
             {{#equal data.image_profile ''}}
-                <img class="thumbnail" src="https://devphoto2.dalbitlive.com/profile_3/profile.jpg" style="width: 65px;height:65px" onclick="fullSize_background(this.src);"/>
+                <img class="thumbnail" src="https://devphoto2.dalbitlive.com/profile_3/profile.jpg" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
             {{else}}
-                <img class="thumbnail" src="{{renderImage data.image_profile}}" style="width: 65px;height:65px" onclick="fullSize_background(this.src);"/>
+                <img class="thumbnail" src="{{renderImage data.image_profile}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
             {{/equal}}
 
         </td>
