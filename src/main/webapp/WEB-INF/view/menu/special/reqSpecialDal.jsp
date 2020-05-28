@@ -107,6 +107,10 @@
     });
 
     function fn_success_detail(dst_id, response) {
+
+        response.data.select_year = moment(new Date()).format('YYYY');
+        response.data.select_month = moment(new Date()).format('MM');
+
         var template = $('#tmp_reqDalList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -206,7 +210,7 @@
                     </tr>
                     <tr>
                         <th>신청내용</th>
-                        <td colspan="6" style="height:300px">
+                        <td colspan="5" style="height:300px">
                             <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%">{{contents}}</textarea>
                         </td>
                     </tr>

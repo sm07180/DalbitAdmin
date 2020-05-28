@@ -34,7 +34,7 @@
             <!-- //summary -->
         </div>
 
-    <div class="widget-content">
+    <div class="widget-content" style="border-top-width:0px;">
         <%--<div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>--%>
 
         <table id="specialList" class="table table-sorting table-hover table-bordered mt15">
@@ -309,17 +309,20 @@
 </script>
 
 <script id="tmp_specialList" type="text/x-handlebars-template">
-    {{#each this}}
+    {{#each this as |data|}}
     <tr class="_noTr" id="row_{{order}}" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)">
         <td class=" dt-body-center"><input type="checkbox"/></td>
         <td class="_noTd">
             <input type="hidden" name="sortNo" value="{{sortNo}}"/>
         </td>
         <td>{{{renderOnAir onAir}}}</td>
-        <td>
-            <form method="post" enctype="multipart/form-data">
-                <img class="thumbnail" src="{{renderImage image_profile}}" alt="your image" style="width: 100px;height: 100px" onclick="fullSize_background(this.src);"/>
-            </form>
+        <td >
+            {{#equal data.image_profile ''}}
+                <img class="thumbnail" src="https://devphoto2.dalbitlive.com/profile_3/profile.jpg" style="width: 65px;height:65px" onclick="fullSize_background(this.src);"/>
+            {{else}}
+                <img class="thumbnail" src="{{renderImage data.image_profile}}" style="width: 65px;height:65px" onclick="fullSize_background(this.src);"/>
+            {{/equal}}
+
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_id}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
