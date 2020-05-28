@@ -124,18 +124,26 @@ div.block{
 }
 
 table.table-dalbit {
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 table.table-dalbit tbody tr th {
     background-color: #DCE6F2;
     text-align: center;
-    font-size: 13px;
+
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 1.7px;
 }
 
 table.table-dalbit tbody tr td {
     background-color: #FFFFFF;
     text-align: left;
+
+    font-size: 12.5px;
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 1.7px;
 }
 
 table.table-dalbit tbody tr td .fit-table {

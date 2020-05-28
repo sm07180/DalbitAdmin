@@ -404,9 +404,11 @@
             <th rowspan="4">배경 이미지</th>
             <td rowspan="4">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
-                    <img id="image_section" class="thumbnail" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" onclick="fullSize_background(this.src);"/>
+                    <img id="image_section" class="thumbnail col-md-10 no-padding" src="{{renderImage backgroundImage}}" alt="your image" style="width: 134px;height: 134px" onclick="fullSize_background(this.src);"/>
+                    {{#equal broadcastState 'ON'}}
+                        <button type="button" id="bt_img" class="btn btn-default btn-sm" style="margin-left: 10px" data-memno="{{mem_no}}">초기화</button>
+                    {{/equal}}
                 </form>
-                {{#equal broadcastState 'ON'}}<button type="button" id="bt_img" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}">초기화</button>{{/equal}}
             </td>
         <tr>
             <th>입장제한</th>

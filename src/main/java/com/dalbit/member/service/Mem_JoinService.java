@@ -73,11 +73,33 @@ public class Mem_JoinService {
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
+            String osType = "";
+            if(list.get(i).getOs_type() == 1){          //안드
+                osType = "Android";
+            }else if(list.get(i).getOs_type() == 2){    //ios
+                osType = "IOS";
+            }else{      //pc
+                osType = "PC";
+            }
+            String memSlct = "";
+            if(list.get(i).getMem_slct().equals("p")){              // 폰
+                memSlct = "Phone";
+            }else if(list.get(i).getMem_slct().equals("f")){        //페북
+                memSlct = "FaceBook";
+            }else if(list.get(i).getMem_slct().equals("g")){        //구글
+                memSlct = "Google";
+            }else if(list.get(i).getMem_slct().equals("k")){        //카톡
+                memSlct = "KAKAO";
+            }else if(list.get(i).getMem_slct().equals("n")){        //네이버
+                memSlct = "NAVER";
+            }else if(list.get(i).getMem_slct().equals("i")){        //아이폰
+                memSlct = "IOS";
+            }
 
             hm.put("no", list.size()-i);
             hm.put("mem1", DalbitUtil.isEmpty(list.get(i).getMemJoinDateFormat()) ? "" : list.get(i).getMemJoinDateFormat());
-            hm.put("mem2",  DalbitUtil.isEmpty(list.get(i).getMem_slct())          ? "" : list.get(i).getMem_slct());
-            hm.put("mem3", DalbitUtil.isEmpty(list.get(i).getOs_type())            ? "" : list.get(i).getOs_type());
+            hm.put("mem2",  memSlct);
+            hm.put("mem3", osType);
             hm.put("mem4",  DalbitUtil.isEmpty(list.get(i).getMem_no())            ? "" : list.get(i).getMem_no());
             hm.put("mem5",  DalbitUtil.isEmpty(list.get(i).getMem_id())            ? "" : list.get(i).getMem_id());
             hm.put("mem6",  DalbitUtil.isEmpty(list.get(i).getMem_userid())        ? "" : list.get(i).getMem_userid());
@@ -110,11 +132,33 @@ public class Mem_JoinService {
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
             HashMap hm = new LinkedHashMap();
+            String osType = "";
+            if(list.get(i).getOs_type() == 1){          //안드
+                osType = "Android";
+            }else if(list.get(i).getOs_type() == 2){    //ios
+                osType = "IOS";
+            }else if(list.get(i).getOs_type() == 3){    //ios
+                osType = "PC";
+            }
+            String memSlct = "";
+            if(list.get(i).getMem_slct().equals("p")){              // 폰
+                memSlct = "Phone";
+            }else if(list.get(i).getMem_slct().equals("f")){        //페북
+                memSlct = "FaceBook";
+            }else if(list.get(i).getMem_slct().equals("g")){        //구글
+                memSlct = "Google";
+            }else if(list.get(i).getMem_slct().equals("k")){        //카톡
+                memSlct = "KAKAO";
+            }else if(list.get(i).getMem_slct().equals("n")){        //네이버
+                memSlct = "NAVER";
+            }else if(list.get(i).getMem_slct().equals("i")){        //아이폰
+                memSlct = "IOS";
+            }
 
             hm.put("no", list.size()-i);
-            hm.put("mem1", DalbitUtil.isEmpty(list.get(i).getLastUpdDateFormat())  ? "" : list.get(i).getLastUpdDateFormat());
-            hm.put("mem2",  DalbitUtil.isEmpty(list.get(i).getMem_slct())          ? "" : list.get(i).getMem_slct());
-            hm.put("mem3", DalbitUtil.isEmpty(list.get(i).getOs_type())            ? "" : list.get(i).getOs_type());
+            hm.put("mem1",  DalbitUtil.isEmpty(list.get(i).getMemJoinDateFormat()) ? "" : list.get(i).getMemJoinDateFormat());
+            hm.put("mem2",  memSlct);
+            hm.put("mem3",  osType);
             hm.put("mem4",  DalbitUtil.isEmpty(list.get(i).getMem_no())            ? "" : list.get(i).getMem_no());
             hm.put("mem5",  DalbitUtil.isEmpty(list.get(i).getMem_id())            ? "" : list.get(i).getMem_id());
             hm.put("mem6",  DalbitUtil.isEmpty(list.get(i).getMem_userid())        ? "" : list.get(i).getMem_userid());
