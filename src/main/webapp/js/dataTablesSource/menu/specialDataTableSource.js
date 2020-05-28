@@ -8,7 +8,7 @@ var specialDataTableSource = {
             , {'title': '프로필', 'width': '65px', 'data': 'image_profile', 'render': function(data, type, row) {
                     var image = 'https://devphoto2.dalbitlive.com/profile_3/profile.jpg';
                     if(!data == ''){
-                        image = IMAGE_SERVER_URL + data;
+                        image = PHOTO_SERVER_URL + data;
                     }
                     return '<img class="thumbnail" src="'+ image +'" style="width: 65px;height: 65px" onclick="fullSize_background(this.src);"/>';
                 }}

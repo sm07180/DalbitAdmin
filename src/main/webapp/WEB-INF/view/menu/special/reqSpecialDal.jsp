@@ -121,6 +121,10 @@
 
         $('#contents').attr("disabled", "disabled");
 
+        if(response.data.state == 2 || response.data.state == 3) {
+            $('select[name=reqSelectYear]').attr("disabled", "disabled");
+            $('select[name=reqSelectMonth]').attr("disabled", "disabled");
+        }
     }
 
     $(document).on('click', '#bt_reqOk', function() {
