@@ -22,7 +22,6 @@
         /* Cus_Question.xml - getFaqGroupList */
         select slct_type
         from rd_data.tb_service_center_faq
-        where view_on = 1
         group by slct_type
     </select>
 
