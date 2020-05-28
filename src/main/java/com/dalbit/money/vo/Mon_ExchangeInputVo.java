@@ -17,4 +17,8 @@ public class Mon_ExchangeInputVo extends PagingVo {
     private String search_value;
     private String search_state;
 
+    private String idxs;
+    private String[] idxArr;
+    private int state;
+
 }

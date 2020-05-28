@@ -244,3 +244,13 @@ div._modalLayer table tr td{
 #exchangeForm > div > div > div.modal-footer {
     border-top: 0px;
 }
+
+.exchange_complete_txt {
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+.exchange_reject_txt {
+    padding-right: 20px;
+    font-weight: bold;
+}
