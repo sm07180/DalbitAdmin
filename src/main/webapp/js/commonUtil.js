@@ -532,7 +532,7 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
 },
 
 util.scrollPostion = function(y){
-    $('html').animate({scrollTop: y}, 100);
+    $('html').animate({scrollTop: y}, 400);
 },
 
 util.renderOnAir = function(value) {
