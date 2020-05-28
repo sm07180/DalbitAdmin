@@ -424,18 +424,18 @@ util.editorInit = function(type) {
     targetEditor.summernote({
         lang: 'ko-KR',
         height: '300px',
-        focus: true,
+        focus: false,
         callbacks: { // 콜백을 사용
             // 이미지를 업로드할 경우 이벤트를 발생
             onImageUpload: function (files, editor, welEditable) {
-                console.log("[onImageUpload]")
+                //console.log("[onImageUpload]")
 
                 var formData = new FormData();
                 formData.append("file", files[0]);
                 formData.append("uploadType", type);    //ex) type : notice-detail
                 util.fileUpdate(IMAGE_SERVER_URL + "/upload", formData, function (data) {
                     var json = jQuery.parseJSON(data);
-                    console.log(json);
+                    //console.log(json);
                     if (json.code != "0") {
                         alert(json.message);
                         return;
