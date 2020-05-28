@@ -78,6 +78,9 @@
 
         //textarea resize
         resize(document.getElementById("question_contents"));
+
+        var scrollPosition = $(".tab-content").offset();
+        util.scrollPostion(scrollPosition.top);
     }
     function fn_getFaqGroup_success(data, response, params) {
         dalbitLog(response);

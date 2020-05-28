@@ -139,6 +139,10 @@
 
         // uploadType 추가
         util.editorInit("administrate-faq");
+
+        // scroll 처리
+        var scrollPosition = $("#faq_detatil_title").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     function isValid(){

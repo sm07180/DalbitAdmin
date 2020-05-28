@@ -124,18 +124,26 @@ div.block{
 }
 
 table.table-dalbit {
-    font-size: 13px;
+    font-size: 12.5px;
 }
 
 table.table-dalbit tbody tr th {
     background-color: #DCE6F2;
     text-align: center;
-    font-size: 13px;
+
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 3px;
 }
 
 table.table-dalbit tbody tr td {
     background-color: #FFFFFF;
     text-align: left;
+
+    font-size: 12.5px;
+    height: 30px;
+    font-size: 12.5px !important;
+    padding:3px;
 }
 
 table.table-dalbit tbody tr td .fit-table {
@@ -235,4 +243,14 @@ div._modalLayer table tr td{
 
 #exchangeForm > div > div > div.modal-footer {
     border-top: 0px;
+}
+
+.exchange_complete_txt {
+    padding-right: 20px;
+    font-weight: bold;
+}
+
+.exchange_reject_txt {
+    padding-right: 20px;
+    font-weight: bold;
 }

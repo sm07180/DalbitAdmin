@@ -215,7 +215,7 @@ public class Cus_QuestionService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_안함));
         }else{
             cus_questionDao.callServiceCenterQnaCatch(pQuestionOperateVo);
-            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_성공));
+            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태변경_성공, pQuestionOperateVo));
         }
 
         return result;

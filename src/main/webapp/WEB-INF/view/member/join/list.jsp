@@ -318,6 +318,11 @@
         formData.append("period", tmp_period);
         formData.append("sDate", tmp_sDate);
         formData.append("eDate", tmp_eDate);
+        formData.append("memJoinDateSort", _memJoinDateSort);
+        formData.append("memNickSort", _memNickSort);
+        formData.append("memLoginIdSort", _memLoginIdSort);
+        formData.append("memIpSort", _memIpSort);
+
         util.excelDownload($(this), "/rest/member/join/listExcel", formData);
     });
 
@@ -330,6 +335,10 @@
         formData.append("period", tmp_period);
         formData.append("sDate", tmp_sDate);
         formData.append("eDate", tmp_eDate);
+        formData.append("memJoinDateSort_withdrawal", _memJoinDateSort_withdrawal);
+        formData.append("memNickSort_withdrawal", _memNickSort_withdrawal);
+        formData.append("memLoginIdSort_withdrawal", _memLoginIdSort_withdrawal);
+        formData.append("memIpSort_withdrawal", _memIpSort_withdrawal);
         util.excelDownload($(this), "/rest/member/join/withdrawalListExcel", formData);
     });
     /*==================================*/

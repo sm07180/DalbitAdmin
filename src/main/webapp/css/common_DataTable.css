@@ -53,11 +53,19 @@ div.dataTables_paginate li.disabled {
 /*DataTable Header Align*/
 table th {
     text-align: center;
+    font-size: 12.5px;
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 1.7px;
 }
 
 /*DataTable Row Align*/
 table td {
     text-align: center;
+    font-size: 12.5px;
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 1.7px;
 }
 
 /*DataTable Column Align Right*/
@@ -80,10 +88,30 @@ table td.text-center {
     align-items: stretch;
 }
 
-
-
 .select-time {
     width: 45px;
     height: 34px;
     margin-left: 3px;
+}
+
+
+
+
+.dataTables_wrapper {
+    font-size: 12.5px;
+}
+
+.dataTables_wrapper .dataTable .thumbnail {
+    margin: 0px;
+}
+
+.dataTables_wrapper .dataTable th{
+    font-size: 12.5px !important;
+    padding: 5px;
+}
+
+.dataTables_wrapper .dataTable td{
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 1.7px;
 }
