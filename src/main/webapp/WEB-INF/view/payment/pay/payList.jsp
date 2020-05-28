@@ -48,7 +48,7 @@
     });
 
 
-    function getPayList() {
+    function getPayList(tmp) {
         var dtList_info_data = function(data) {
             data.searchText = txt_search;                        // 검색명
             data.period = tmp_period;
@@ -66,7 +66,11 @@
             data.payWay = tmp_payWay;
 
         };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
+        if(tmp == "payment"){
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
+        }else{
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payHistory);
+        }
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);

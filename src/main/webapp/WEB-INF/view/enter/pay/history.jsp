@@ -37,10 +37,11 @@
 <script type="text/javascript">
 
     var dtList_info;
+    var sDate;
+    var eDate;
     function getPayHistoryList() {
-        var sDate = $("#startDate").val().replace(/\./gi,'');
-        var eDate = $("#endDate").val().replace(/\./gi,'');
-
+        sDate = $("#startDate").val().replace(/\./gi,'');
+        eDate = $("#endDate").val().replace(/\./gi,'');
         var dtList_info_data = function(data) {
             data.searchText = "";                        // 검색명
             if( $('input[name="slctType"]:checked').val() == 0){
@@ -63,5 +64,27 @@
         dtList_info.createDataTable();
         dtList_info.reload();
     }
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("searchText", "");
+        if( $('input[name="slctType"]:checked').val() == 0){
+            formData.append("period", 4);
+            formData.append("sDate", sDate);
+        }else{
+            formData.append("period", 0);
+            formData.append("sDate", sDate);
+            formData.append("eDate", eDate);
+        }
+        formData.append("ostype", -1);
+        formData.append("searchPayStatus", -1);
+        formData.append("innerType", -1);
+        formData.append("payWay", "all");
+
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+
+    });
 
 </script>

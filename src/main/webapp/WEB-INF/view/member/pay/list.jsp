@@ -13,7 +13,7 @@
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         txt_search = memNo;
         tmp_period = 99;
-        getPayList();
+        getPayList("memPayHistory");
     }
 
 </script>
