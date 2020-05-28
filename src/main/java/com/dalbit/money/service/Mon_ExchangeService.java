@@ -97,13 +97,13 @@ public class Mon_ExchangeService {
             hm.put("cashReal", cashReal);
 
             int incomeTax = 0;
-            if(0 < exchangeVo.getCash_basic() || taxStart <= exchangeVo.getCash_basic()){
+            if(0 < exchangeVo.getCash_basic() && taxStart <= exchangeVo.getCash_basic()){
                 incomeTax = (int) (exchangeVo.getCash_basic() * 0.003) * 10;
             }
             hm.put("incomeTax", incomeTax);
 
             int juminTax = 0;
-            if(0 < incomeTax || juminTax <= exchangeVo.getCash_basic()){
+            if(0 < incomeTax && juminTax <= exchangeVo.getCash_basic()){
                 juminTax = (int) (incomeTax * 0.01) * 10;
             }
             hm.put("juminTax", juminTax);
