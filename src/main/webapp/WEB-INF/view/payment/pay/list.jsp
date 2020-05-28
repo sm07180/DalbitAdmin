@@ -91,7 +91,7 @@
         txt_search = $('#txt_search').val();
         tmp_period = $('input[name="joinDate"]:checked').val();
         tmp_joinDate = $('input[name="joinDate"]:checked').val();
-        getPayList();
+        getPayList("payment");
     }
 
     function getPaySearch(){

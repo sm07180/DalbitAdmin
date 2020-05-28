@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class Mon_ExchangeInputVo extends PagingVo {
 
+    private Integer idx;
     private int isSpecial;
     private String search_year;
     private String search_month;

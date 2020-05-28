@@ -48,7 +48,7 @@
     });
 
 
-    function getPayList() {
+    function getPayList(tmp) {
         var dtList_info_data = function(data) {
             data.searchText = txt_search;                        // 검색명
             data.period = tmp_period;
@@ -66,7 +66,11 @@
             data.payWay = tmp_payWay;
 
         };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
+        if(tmp == "payment"){
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
+        }else{
+            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.memPayHistory);
+        }
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
@@ -147,75 +151,6 @@
         tmp_payWay = $("select[name='payWay']").val();
         dtList_info.reload(pay_listSummary);
     }
-
-
-    function codeString(data) {
-        var str;
-        if(data == 'VA'){
-            str = '가상계좌'
-        } else if (data == 'CN') {
-            str = '신용카드';
-        } else if (data == 'MC') {
-            str = '휴대폰';
-        } else if (data == 'RA') {
-            str = '계좌이체';
-        } else if (data == 'InApp') {
-            str = 'Apple';
-        } else {
-            str = '-'
-        }
-        return str;
-    }
-
-    function osGubun(data) {
-        var os;
-        if(data == 1){
-            os = 'AOS'
-        } else if (data == 2) {
-            os = 'IOS';
-        } else if (data == 3) {
-            os = 'PC';
-        } else {
-            str = '-'
-        }
-        return os;
-    }
-
-    function bankCodeToString(data) {
-        var str='';
-        if(data == '003'){
-            str = '기업은행';
-        } else if(data == '004'){
-            str = '국민은행';
-        } else if(data == '020'){
-            str = '우리은행';
-        }else if(data == '026'){
-            str = '신한은행';
-        }else if(data == '081'){
-            str = '하나은행';
-        }else if(data == '011'){
-            str = '농협';
-        }else if(data == '071'){
-            str = '우체국';
-        }else if(data == '023'){
-            str = 'SC제일은행';
-        }else if(data == '027'){
-            str = '한국씨티은행';
-        }else if(data == '007'){
-            str = '수협은행';
-        }else if(data == '032'){
-            str = '부산은행';
-        }else if(data == '034'){
-            str = '광주은행';
-        }else if(data == '039'){
-            str = '경남은행';
-        }else if(data == '031'){
-            str = '대구은행';
-        }
-        return str;
-    }
-
-
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
         var formElement = document.querySelector("form");
