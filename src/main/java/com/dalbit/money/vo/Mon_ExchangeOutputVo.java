@@ -14,6 +14,7 @@ public class Mon_ExchangeOutputVo{
     private String mem_name;
     private String mem_nick;
     private int mem_state;
+    private String mem_phone;
     private int idx;
     private int byeol;
     private int cash_basic;

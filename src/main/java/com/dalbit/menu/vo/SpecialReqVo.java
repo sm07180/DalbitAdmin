@@ -12,6 +12,8 @@ public class SpecialReqVo extends PagingVo {
     private String txt_search;
     private String searchType;
     private int is_force;
+    private String select_year;
+    private String select_month;
 
     /* output */
     private int idx;

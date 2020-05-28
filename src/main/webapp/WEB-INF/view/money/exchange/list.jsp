@@ -443,8 +443,15 @@
                                         은행명
                                     </th>
                                     <td>
-                                        {{{getCommonCodeSelectForName detail.bank_code 'inforex_bank_code' 'Y' ''}}}
-                                        / {{detail.bank_code}}
+                                        {{{getCommonCodeSelect detail.bank_code 'inforex_bank_code' 'Y' ''}}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        계좌번호
+                                    </th>
+                                    <td>
+                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_no}}" />
                                     </td>
                                 </tr>
                                 <tr>
@@ -453,7 +460,7 @@
                                     </th>
                                     <td>
                                         <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
-                                        / {{detail.account_name}}
+                                        / {{detail.mem_name}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -461,8 +468,8 @@
                                         주민번호
                                     </th>
                                     <td>
-                                        <input type="text" class="form-control" id="social_no" name="social_no" maxlength="25" value="{{detail.social_no}}" />
-                                        / {{convertJumin detail.social_no}}
+                                        <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
+                                        [{{convertJumin detail.social_no}}]
                                     </td>
                                 </tr>
 
@@ -490,6 +497,7 @@
                                     </th>
                                     <td>
                                         {{phoneNumHyphen detail.phone_no}}
+                                        / {{phoneNumHyphen detail.mem_phone}}
                                     </td>
                                 </tr>
 
@@ -500,12 +508,12 @@
                                     <td>
                                         <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
-                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file1}}" class="_fullWidth _openImagePop" />
+                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file1}}" class="_fullWidth _openImagePop thumbnail" />
                                             </a>
                                         </div>
                                         <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
-                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file2}}" class="_fullWidth _openImagePop" />
+                                                <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file2}}" class="_fullWidth _openImagePop thumbnail" />
                                             </a>
                                         </div>
                                     </td>
