@@ -73,31 +73,39 @@
     <form id="sampleDalList"></form>
 </div>
 
-
-<script type="text/javascript" src="/js/dataTablesSource/menu/specialDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
     var specialDjPagingInfo = new PAGING_INFO(0, 1, 99999);
 
     function init() {
+        specialList();
         getSummary();
+    }
 
-        ui.checkBoxInit('specialList');
-        $("#specialList-select-all").remove();
-        var data = {
-            txt_search : $('#txt_search').val()
-            , searchType : $('#searchType').val()
-            , pageStart : specialDjPagingInfo.pageNo
-            , pageCnt : specialDjPagingInfo.pageCnt
+    function getParam() {
+        return data = {
+            select_year: $('#select_year').val()
+            , select_month: $('#select_month').val()
+            , txt_search: $('#txt_search').val()
+            , searchType: $('#searchType').val()
+            , pageStart: specialDjPagingInfo.pageNo
+            , pageCnt: specialDjPagingInfo.pageCnt
         };
+    }
 
-        util.getAjaxData("special", "/rest/menu/special/dalList", data, fn_dalList_success);
-        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_compareSummary);
+    function specialList() {
+        getSummary();
+        util.getAjaxData("special", "/rest/menu/special/dalList", getParam(), fn_dalList_success);
+        util.getAjaxData("summary", "/rest/menu/special/summary", getParam(), fn_compareSummary);
     }
 
     function getSummary(){
-        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_summary_success);
+        var data = {
+            select_year: $('#select_year').val()
+            , select_month: $('#select_month').val()
+        };
+        util.getAjaxData("summary", "/rest/menu/special/summary", data, fn_summary_success);
     }
 
     function fn_summary_success(dst_id, response){
@@ -365,6 +373,12 @@
                             <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%">{{contents}}</textarea>
                         </td>
                     </tr>
+                    <tr>
+                        <th>스페셜DJ 선정 연도</th>
+                        <td colspan="2">{{select_year}}년</td>
+                        <th>선정 월</th>
+                        <td colspan="2">{{select_month}}월</td>
+                    </tr>
                 </table>
                 <!-- 승인완료 승인거부-->
                 <button type="button" class="btn btn-danger mb15" id="bt_reqCancel">승인취소</button>
@@ -382,6 +396,12 @@
             <div class="row col-lg-12 form-inline">
                 <table class="table table-bordered table-dalbit">
                     <input type="hidden" name="reqIdx" data-idx="{{req_idx}}"/>
+                    <colgroup>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                    </colgroup>
                     <tr>
                         <th>등록일시</th>
                         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
@@ -390,6 +410,12 @@
                             {{#equal is_force '0'}}N{{/equal}}
                             {{^equal is_force '0'}}Y{{/equal}}
                         </td>
+                    </tr>
+                    <tr>
+                        <th>스페셜DJ 선정 연도</th>
+                        <td >{{select_year}}년</td>
+                        <th>선정 월</th>
+                        <td>{{select_month}}월</td>
                     </tr>
                 </table>
                 <!-- 승인완료 승인거부-->

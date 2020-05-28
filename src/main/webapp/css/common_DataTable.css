@@ -53,11 +53,19 @@ div.dataTables_paginate li.disabled {
 /*DataTable Header Align*/
 table th {
     text-align: center;
+    font-size: 12.5px;
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 1.7px;
 }
 
 /*DataTable Row Align*/
 table td {
     text-align: center;
+    font-size: 12.5px;
+    height: 30px;
+    font-size: 12.5px !important;
+    padding: 1.7px;
 }
 
 /*DataTable Column Align Right*/

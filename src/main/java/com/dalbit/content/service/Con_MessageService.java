@@ -112,7 +112,7 @@ public class Con_MessageService {
 
         try{
             // 방송중인 방송방 리스트 조회 및 발송 건수 셋팅
-            if(DalbitUtil.isEmpty(pMessageInsertVo.getTarget_rooms())) {       // ALL
+            if(!DalbitUtil.isEmpty(pMessageInsertVo.getSend_all()) && pMessageInsertVo.getSend_all().equals("0")) {       // ALL
                 RoomListVo pRoomListVo = new RoomListVo();
                 pRoomListVo.setPage(1);
                 pRoomListVo.setRecords(100);
@@ -129,6 +129,10 @@ public class Con_MessageService {
             }else{      // Target
                 String[] array = pMessageInsertVo.getTarget_rooms().split("\\|");
                 pMessageInsertVo.setSend_cnt(array.length + "");
+            }
+
+            if(pMessageInsertVo.getSend_cnt().equals("0")){
+                return gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지발송_타겟미지정));
             }
 
             int insertResult = messageDao.callContentsMessageAdd(pMessageInsertVo);

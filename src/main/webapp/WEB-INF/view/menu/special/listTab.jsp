@@ -29,7 +29,7 @@
 
         getSummary();
 
-        $('#tablist_con li.active:first a').click();
+        // $('#tablist_con li.active:first a').click();
         $('#dalList').empty();
         $('#sampleDalList').empty();
         $('#reqDalList').empty();

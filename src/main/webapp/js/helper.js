@@ -229,3 +229,14 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
 Handlebars.registerHelper("getMemStateName", function(state) {
     return common.getMemStateName(state);
 });
+
+
+Handlebars.registerHelper("evalJS_isEmpty", function(varName, options) {
+    var v = eval(varName);
+
+    if(common.isEmpty(v)){
+        return options.fn(this);
+    }else{
+        return options.inverse(this);
+    }
+});

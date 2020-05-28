@@ -112,8 +112,13 @@ var fnc_messageList = {}
         //등록을 위한 데이터 초기화
         initSelectDataInfo();
 
+        var url = "/content/message/popup/messagePopup?roomNo="+encodeURIComponent($(this).data('roomno'))+"&djmemno=" + encodeURIComponent($(this).data('djmemno'));
+        util.windowOpen(url, 800, 435, 'adminMessageInfo');
+
+        /* popup으로 인한 주석
         $("#tab_messageDetail").click();
         ui.unCheck(fnc_messageList.targetDataTableId);
+        */
     };
 
     // 삭제
@@ -158,6 +163,10 @@ var fnc_messageList = {}
         // 정보전달을 위한 값 셋팅
         setSelectDataInfo("data", data);
 
+        var url = "/content/message/popup/messagePopup?roomNo="+encodeURIComponent($(this).data('roomno'))+"&djmemno=" + encodeURIComponent($(this).data('djmemno'));
+        util.windowOpen(url, 800, 715, 'adminMessageInfo');
+
+        /* popup 으로 인한 주석
         var selectTabId = "messageDetail";
         if(fnc_messageList.target.find("#contentTab").find(".active").length != 0){
             selectTabId = $("#contentTab").find(".active").find("a").prop("id").split("_")[1];
@@ -167,6 +176,7 @@ var fnc_messageList = {}
 
         // targetFnc.updateDetail();
         $("#tab_" + selectTabId).click();
+         */
     };
 
     // Ajax 실패

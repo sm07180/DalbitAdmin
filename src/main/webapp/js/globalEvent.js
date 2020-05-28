@@ -11,18 +11,18 @@ $(document).on('click', '._openPop', function(){
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
     var url = "/member/member/popup/memberPopup?memNo="+encodeURIComponent($(this).data('memno'));
-    util.windowOpen(url, 1500, 850, 'memberInfo' + $(this).data('memno'));
+    util.windowOpen(url, 1400, 800, 'memberInfo' + $(this).data('memno'));
 });
 
 /*방송정보보기 팝업*/
 $(document).on('click', '._openBroadcastPop', function(){
     var url = "/broadcast/broadcast/popup/broadcastPopup?roomNo="+encodeURIComponent($(this).data('roomno'));
-    util.windowOpen(url, 1500, 800, 'broadcastInfo' + $(this).data('roomno'));
+    util.windowOpen(url, 1250, 700, 'broadcastInfo' + $(this).data('roomno'));
 });
 
 /*방송방메시지보내기 팝업*/
 $(document).on('click', '._openAdminMessagePop', function(){
-    var url = "/broadcast/broadcast/popup/messagePopup?roomNo="+encodeURIComponent($(this).data('roomno'))+"&djmemno=" + encodeURIComponent($(this).data('djmemno'));
+    var url = "/content/message/popup/messagePopup?roomNo="+encodeURIComponent($(this).data('roomno'))+"&djmemno=" + encodeURIComponent($(this).data('djmemno'));
     util.windowOpen(url, 800, 435, 'adminMessageInfo');
 });
 

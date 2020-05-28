@@ -37,8 +37,6 @@
     var memId;
     var slct_type;
     function quest_detail_success(data, response, params){
-        // dalbitLog(params);
-        // dalbitLog(response);
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
@@ -75,7 +73,6 @@
             $("#bt_operate").addClass("hide");
             $("#bt_chatchRelease").addClass("hide");
         }
-
         //textarea resize
         resize(document.getElementById("question_contents"));
 
@@ -92,16 +89,13 @@
 
         fn_sublist_success(data, response);
     }
-
     function memInfo(memId, memNo){
         return util.memNoLink(memId, memNo);
     }
-
     function operate_click(){
         var data = {};
         data["qnaIdx"] = qnaIdx;
         data["answer"] = $("#editor").summernote('code');
-        // dalbitLog(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
         }
@@ -114,7 +108,6 @@
             alert(response.message);
         }
         dtList_info.reload();
-
         $("#question_detailFrm").empty();
     }
 
@@ -122,13 +115,11 @@
         var data = {};
         data["qnaIdx"] = qnaIdx;
         data["answer"] = $("#editor").summernote('code');
-        // dalbitLog(data);
         if(confirm("수정하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/update", data, fn_update_success);
         }
     }
     function fn_update_success(data, response, params){
-        dalbitLog(response);
         alert(response.message);
         dtList_info.reload();
 
@@ -139,7 +130,7 @@
     $(document).on('change', '#faqGroup', function() {
         var faqData = {
             slct_type : $('select[name="faqGroup"]').find('option:selected').val()
-        }
+        };
         dalbitLog(faqData);
         util.getAjaxData("getSub", "/rest/customer/question/getFaqSubList", faqData, fn_sublist_success);
     });
@@ -270,7 +261,7 @@
                     <tr>
                         <th colspan="2">문의내용</th>
                         <td colspan="6">
-                            <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="resize(this)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
+                            <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="util.textareaResize(this, 114)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
                         </td>
 
                         <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
@@ -298,30 +289,6 @@
                             <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/setting">사진등록</button>
                             <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/customer/faq">방송방법</button>
                         </td>
-                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
-                                <%--<input type="radio" id="moon" name="inline-radio" value='1' checked="checked" data-url="https://www.dalibitlive.com/"/>--%>
-                                <%--<span><i></i>달결제</span>--%>
-                            <%--</label>--%>
-                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
-                                <%--<input type="radio" id="star" name="inline-radio" value='2' data-url="https://www.dalibitlive.com/"/>--%>
-                                <%--<span><i></i>별환전</span>--%>
-                            <%--</label>--%>
-                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
-                                <%--<input type="radio" id="wallet" name="inline-radio" value='3' data-url="https://www.dalibitlive.com/" />--%>
-                                <%--<span><i></i>내지갑</span>--%>
-                            <%--</label>--%>
-                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
-                                <%--<input type="radio" id="profile" name="inline-radio" value='4' data-url="https://www.dalibitlive.com/"/>--%>
-                                <%--<span><i></i>사진등록</span>--%>
-                            <%--</label>--%>
-                            <%--<label class="control-inline fancy-radio custom-color-green">--%>
-                                <%--<input type="radio" id="broadRoot" name="inline-radio" value='5' data-url="https://www.dalibitlive.com/"/>--%>
-                                <%--<span><i></i>방송방법</span>--%>
-                            <%--</label>--%>
-                        <%--</td>
-                        <td>
-                                <button type="button" id="bt_baro" class="btn-sm btn btn-default">적용</button>
-                        </td>--%>
                     </tr>
                 </tbody>
             </table>
