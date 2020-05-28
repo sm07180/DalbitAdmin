@@ -9,9 +9,9 @@
         </div>
     </div>
     <div class="widget-content mt10">
-        <a href="javascript://" class="_prevSearch">[이전]</a>
+        <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
-        <a href="javascript://" class="_nextSearch">[다음]</a>
+        <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
                 <col width="10%"/><col width="7%"/><col width="8%"/><col width="7%"/><col width="8%"/>

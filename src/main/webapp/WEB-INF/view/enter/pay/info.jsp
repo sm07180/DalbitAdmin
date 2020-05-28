@@ -30,6 +30,9 @@
                                 <input type="hidden" name="endDate" id="endDate" />
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
                     </div>
@@ -72,6 +75,11 @@
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 <script type="text/javascript">
+
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    setTimeDate(dateTime);
+
     $(function(){
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
 
@@ -90,11 +98,6 @@
                 $("#onedayDate").val($("#startDate").val());
             }
         );
-
-        var dateTime = new Date();
-        dateTime = moment(dateTime).format("YYYY.MM.DD");
-        setTimeDate(dateTime);
-
         //결제/환불 통계 현황
         getStatPayInfo();
     });
@@ -146,6 +149,11 @@
 
     $(document).on('click', '._nextSearch', function(){
         searchDate('next');
+    });
+
+    $(document).on('click', '._todaySearch', function(){
+        setTimeDate(dateTime);
+        $("#bt_search").click();
     });
 
     function searchDate(dateType){

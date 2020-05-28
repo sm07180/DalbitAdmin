@@ -43,6 +43,7 @@
         , profile.specialdj_badge as specialdj_badge
         , basic.mem_id as mem_id
         , basic.mem_nick as mem_nick
+        , profile.image_profile  as image_profile
         , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_req_special_dj dj
             , rd_data.tb_member_profile profile
