@@ -475,13 +475,12 @@
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").val();
             }
 
-
             // 발송상태
             resultJson['status'] = 0;
             resultJson['msg_type'] = 0;
 
             // 푸시디자인
-            resultJson['image_type'] = 1;
+            resultJson['image_type'] = "1";
 
             dalbitLog(resultJson)
             return resultJson;
@@ -753,7 +752,7 @@
             </tr>
             <tr>
                 <!--
-                <th>메시지 포함 이미지</th>
+                <th>메세지 포함 이미지</th>
                 <td colspan="5">
                 <div>
                 <input type="file" id="push-inputImg">

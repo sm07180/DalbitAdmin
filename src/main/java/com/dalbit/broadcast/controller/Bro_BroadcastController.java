@@ -32,9 +32,6 @@ public class Bro_BroadcastController {
     @RequestMapping("popup/broadcastPopup")
     public String broadcastPopup(Model model) { return "broadcast/broadcast/popup/broadcastPopup"; }
 
-    @RequestMapping("popup/messagePopup")
-    public String messagePopup(Model model) { return "broadcast/broadcast/popup/messagePopup"; }
-
     @RequestMapping("popup/playerPopup")
     public String playerPopup(HttpServletRequest request) {
         bro_broadcastService.callBroadcastSimpleInfo(request);

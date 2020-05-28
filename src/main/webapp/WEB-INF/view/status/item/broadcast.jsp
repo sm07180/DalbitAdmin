@@ -13,6 +13,10 @@
         <span class="_searchDate"></span>
         <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
+            <colgroup>
+                <col width="6.2%"/><col width="13.4%"/><col width="13.4%"/><col width="13.4%"/><col width="13.4%"/>
+                <col width="13.4%"/><col width="13.4%"/><col width="13.4%"/>
+            </colgroup>
             <thead>
             <tr>
                 <th>No</th>

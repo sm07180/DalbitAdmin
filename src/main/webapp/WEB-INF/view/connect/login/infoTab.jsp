@@ -10,12 +10,12 @@
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                 <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_total">총계</a></li>
                 <li><a href="#age" role="tab" data-toggle="tab" id="tab_loAgeDetail">연령대별</a></li>
-                <li><a href="#browser" role="tab" data-toggle="tab" id="tab_loBrowserDetail">브라우저별</a></li>
+                <li><a href="#browserType" role="tab" data-toggle="tab" id="tab_loBrowserDetail">브라우저별</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- 총계 -->
                 <div class="tab-pane fade" id="age"><jsp:include page="age.jsp"/></div>             <!-- 연령대별 -->
-                <div class="tab-pane fade" id="browser"><jsp:include page="browser.jsp"/></div>         <!-- 브라우저별 -->
+                <div class="tab-pane fade" id="browserType"><jsp:include page="browser.jsp"/></div>         <!-- 브라우저별 -->
             </div>
         </div>
     </div>
