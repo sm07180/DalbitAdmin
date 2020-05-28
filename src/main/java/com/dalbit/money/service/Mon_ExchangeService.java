@@ -154,4 +154,10 @@ public class Mon_ExchangeService {
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 
+    public String updateExchangeMultiComplete(Mon_ExchangeInputVo monExchangeInputVo){
+
+        monExchangeDao.updateExchangeMultiComplete(monExchangeInputVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+    }
+
 }

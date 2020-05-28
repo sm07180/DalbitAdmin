@@ -77,4 +77,15 @@ public class Mon_ExchangeRestController {
         String result = monExchangeService.updateExchangeComplete(monExchangeOutputVo);
         return result;
     }
+
+    @PostMapping("multiComplete")
+    public String multiComplete(Mon_ExchangeInputVo monExchangeInputVo) throws GlobalException {
+        monExchangeInputVo.setOpName(MemberVo.getMyMemNo());
+        monExchangeInputVo.setState(1);
+
+        String[] intArr = monExchangeInputVo.getIdxs().split("@");
+        monExchangeInputVo.setIdxArr(intArr);
+        String result = monExchangeService.updateExchangeMultiComplete(monExchangeInputVo);
+        return result;
+    }
 }

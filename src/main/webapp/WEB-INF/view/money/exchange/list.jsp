@@ -55,7 +55,10 @@
                                     <li>환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</li>
                                 </ul>
 
-                                <button class="btn btn-sm btn-success print-btn pull-left" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                                <div>
+                                    <button class="btn btn-sm btn-success print-btn no-margin" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
+                                    <button class="btn btn-sm btn-primary print-btn" type="button" id="completeBtn"><i class="fa fa-check-square"></i> 선택 완료처리</button>
+                                </div>
                             </div>
 
                             <div class="col-lg-7">
@@ -116,7 +119,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>상태</th>
-                                    <%--<th>체크</th>--%>
+                                    <th><input type="checkbox" id="allChk"></th>
                                     <th>아이디</th>
                                     <th>닉네임</th>
                                     <th>이름</th>
@@ -152,64 +155,6 @@
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">레이어팝업오픈버튼</button>
 
 <div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
-
-<%--<select name="bank_code">
-    <option value="39">경남은행</option>
-    <option value="34">광주은행</option>
-    <option value="4" selected="">국민은행</option>
-    <option value="3">기업은행</option>
-    <option value="11">농협</option>
-    <option value="31">대구은행</option>
-    <option value="55">도이치은행</option>
-    <option value="32">부산은행</option>
-    <option value="61">비엔피파리바은행</option>
-    <option value="64">산림조합중앙회</option>
-    <option value="2">산업은행</option>
-    <option value="50">저축은행</option>
-    <option value="45">새마을금고중앙회</option>
-    <option value="8">수출입은행</option>
-    <option value="7">수협은행</option>
-    <option value="88">신한은행</option>
-    <option value="48">신협</option>
-    <option value="20">우리은행</option>
-    <option value="71">우체국</option>
-    <option value="37">전북은행</option>
-    <option value="35">제주은행</option>
-    <option value="67">중국건설은행</option>
-    <option value="62">중국공상은행</option>
-    <option value="90">카카오뱅크</option>
-    <option value="89">케이뱅크</option>
-    <option value="294">펀드온라인코리아</option>
-    <option value="27">한국씨티은행</option>
-    <option value="60">BOA은행</option>
-    <option value="54">HSBC은행</option>
-    <option value="57">제이피모간체이스은행</option>
-    <option value="81">하나은행</option>
-    <option value="23">SC제일은행</option>
-    <option value="247">NH투자증권</option>
-    <option value="261">교보증권</option>
-    <option value="267">대신증권</option>
-    <option value="287">메리츠종합금융증권</option>
-    <option value="238">미래에셋대우</option>
-    <option value="290">부국증권</option>
-    <option value="240">삼성증권</option>
-    <option value="291">신영증권</option>
-    <option value="278">신한금융투자</option>
-    <option value="209">유안타증권</option>
-    <option value="280">유진투자증권</option>
-    <option value="265">이베스트투자증권</option>
-    <option value="292">케이프투자증권</option>
-    <option value="264">키움증권</option>
-    <option value="270">하나금융투자</option>
-    <option value="262">하이투자증권</option>
-    <option value="243">한국투자증권</option>
-    <option value="269">한화투자증권</option>
-    <option value="263">현대차증권</option>
-    <option value="279">DB금융투자</option>
-    <option value="218">KB증권</option>
-    <option value="227">KTB투자증권</option>
-    <option value="266">SK증권</option>
-</select>--%>
 
 <!-- 이미지 원본 보기 -->
 <%--<div id="imageFullSize"></div>--%>
@@ -257,6 +202,7 @@
     }
 
     function getList(){
+        $("#allChk").removeAttr('checked');
         getSummary();
         util.getAjaxData("select", "/rest/money/exchange/list", getParameter(), fn_succ_list);
     }
@@ -396,6 +342,41 @@
         getList();
     }
 
+    $('#allChk').on('click', function(){
+
+        if(0 == $('._chk:enabled').length){
+            alert('선택할 회원이 없습니다.');
+            return false;
+        }
+
+        if($(this).prop('checked')){
+            $('._chk:enabled').prop('checked', 'checked');
+        }else{
+            $('._chk').removeAttr('checked');
+        }
+
+    });
+
+    $("#completeBtn").on('click', function(){
+        var checks = $('._chk:checked');
+        if(0 == checks.length){
+            alert('선택된 회원이 없습니다.');
+            return false;
+        }
+
+        if(confirm(checks.length + '건을 완료처리 하시겠습니까?')){
+            var idxs = '';
+            $('._chk:checked').each(function(){
+                idxs += $(this).data('exchangeidx')+ '@';
+            });
+
+            var data = {
+                idxs : idxs
+            }
+            util.getAjaxData("complete", "/rest/money/exchange/multiComplete", data, fn_succ_complete);
+        }
+    });
+
 
 </script>
 
@@ -408,7 +389,7 @@
         <td>
             {{getMemStateName data.mem_state}}
         </td>
-        <!--<td><input type="checkbox" /></td>-->
+        <td><input type="checkbox" class="_chk" data-exchangeidx='{{data.idx}}' {{^equal data.state '0'}}disabled{{/equal}} /></td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_id}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{data.mem_name}}</td>
@@ -422,7 +403,7 @@
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{stateName data.state}}</td>
         <td>{{data.op_name}}</td>
-        <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx={{data.idx}}>보기</button></td>
+        <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
     </tr>
 
     {{else}}
@@ -562,9 +543,21 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
-                    <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
-                    <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
-                    <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
+
+                    {{#equal detail.state '0'}}
+                        <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
+                        <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
+                        <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
+                    {{/equal}}
+
+                    {{#equal detail.state '1'}}
+                        <span class="exchange_complete_txt">완료되었습니다.</span>
+                    {{/equal}}
+
+                    {{#equal detail.state '2'}}
+                        <span class="exchange_reject_txt">불가처리 되었습니다.</span>
+                    {{/equal}}
+
                 </div>
             </div>
         </div>

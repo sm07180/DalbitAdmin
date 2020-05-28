@@ -27,4 +27,6 @@ public interface Mon_ExchangeDao {
 
     int updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo);
 
+    int updateExchangeMultiComplete(Mon_ExchangeInputVo monExchangeInputVo);
+
 }
