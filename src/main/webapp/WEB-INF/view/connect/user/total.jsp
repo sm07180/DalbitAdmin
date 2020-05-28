@@ -12,6 +12,9 @@
     </div>
     <div class="widget-content mt10">
         <table class="table table-bordered">
+            <colgroup>
+                <col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+            </colgroup>
             <thead id="userTotalTable">
             <tr>
                 <th rowspan="2">시간대</th>

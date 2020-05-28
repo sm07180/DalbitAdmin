@@ -10,6 +10,7 @@
             from rd_admin.tb_req_special_dj redj
             inner join rd_data.tb_member_basic mem
             on redj.mem_no = mem.mem_no
+                and concat(#{select_year}, #{select_month}) = DATE_FORMAT(redj.reg_date, '%Y%m')
             ) as requestDal
         , (select
               count(*)
@@ -40,16 +41,17 @@
         , dj.op_name as op_name
         , dj.last_upd_date as last_upd_date
         , profile.specialdj_badge as specialdj_badge
-        , basic.mem_id
-        , basic.mem_nick
+        , basic.mem_id as mem_id
+        , basic.mem_nick as mem_nick
         , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_req_special_dj dj
             , rd_data.tb_member_profile profile
             , rd_data.tb_member_basic basic
             , (select @RNUM := 0) r
         where basic.mem_no = dj.mem_no
-        and profile.mem_no = dj.mem_no
-        and basic.mem_no = profile.mem_no
+            and profile.mem_no = dj.mem_no
+            and basic.mem_no = profile.mem_no
+            and concat(#{select_year}, #{select_month}) = DATE_FORMAT(dj.reg_date, '%Y%m')
         <if test='txt_search != null and txt_search != ""'>
           <choose>
               <when test='searchType == "1"'>
@@ -114,9 +116,9 @@
     <insert id="reqOk" parameterType="com.dalbit.menu.vo.SpecialReqVo">
         /* Men_Special.xml - reqOk */
         insert into
-          rd_admin.tb_special_dj (req_idx, mem_no, reg_date, op_name, is_force, `order`)
+          rd_admin.tb_special_dj (req_idx, mem_no, reg_date, op_name, is_force, `order`, select_year, select_month)
         values
-        (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, #{is_force}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj))
+        (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, #{is_force}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj), #{select_year}, #{select_month})
     </insert>
 
     <update id="reqOkUpdate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
@@ -232,6 +234,8 @@
         <include refid="special"/>
         ) a
         where a.mem_no = #{mem_no}
+          and a.select_year = #{select_year}
+          and a.select_month = #{select_month}
     </select>
 
     <select id="getSpecialDetail" parameterType="com.dalbit.menu.vo.SpecialVo" resultType="com.dalbit.menu.vo.SpecialVo">
@@ -251,6 +255,8 @@
           rd_admin.tb_special_dj dj
           left join rd_admin.tb_req_special_dj redj on #{req_idx} = redj.idx and dj.req_idx = redj.idx and dj.mem_no = #{mem_no}
         where dj.mem_no = #{mem_no}
+          and dj.select_year = #{select_year}
+          and dj.select_month = #{select_month}
     </select>
 
     <delete id="reqCancel" parameterType="com.dalbit.menu.vo.SpecialVo">

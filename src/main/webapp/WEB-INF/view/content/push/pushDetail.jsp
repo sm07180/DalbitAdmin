@@ -480,7 +480,7 @@
             resultJson['msg_type'] = 0;
 
             // 푸시디자인
-            resultJson['image_type'] = "A-1";
+            resultJson['image_type'] = "1";
 
             dalbitLog(resultJson)
             return resultJson;

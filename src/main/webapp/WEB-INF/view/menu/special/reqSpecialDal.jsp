@@ -73,7 +73,11 @@
     }
 
     function reqGetSummary(){
-        util.getAjaxData("summary", "/rest/menu/special/summary", null, fn_reqSummary_success);
+        var data = {
+            select_year: $('#select_year').val()
+            , select_month: $('#select_month').val()
+        };
+        util.getAjaxData("summary", "/rest/menu/special/summary", data, fn_reqSummary_success);
     }
 
     function fn_reqSummary_success(dst_id, response){
@@ -124,6 +128,8 @@
                 'idx': checkbox.parent().parent().find('._reqDalDetail').data('idx')
                 , 'mem_no': checkbox.parent().parent().find('._openMemberPop').data('memno')
                 , is_force : 0
+                , select_year : $('select[name=reqSelectYear]').val()
+                , select_month : $('select[name=reqSelectMonth]').val()
             };
             dalbitLog(data);
             util.getAjaxData("ok", "/rest/menu/special/reqOk", data, fn_success_ok);
@@ -134,6 +140,7 @@
     function fn_success_ok(dst_id, response) {
         alert(response.message);
         getList();
+        initReq();
     }
 
     $(document).on('click', '#bt_reqReject', function() {
@@ -151,8 +158,9 @@
     });
 
     function fn_success_reject(dst_id, response) {
-        alert('승인 거부 처리되었습니다.');
+        alert(response.message);
         getList();
+        initReq();
     }
 
     // /*=---------- 엑셀 ----------*/
@@ -176,6 +184,14 @@
             <div class="row col-lg-12 form-inline">
                 <table class="table table-bordered table-dalbit">
                     <input type="hidden" name="idx" data-idx="{{idx}}"/>
+                    <colgroup>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="20%"/>
+                        <col width="10%"/>
+                        <col width="10%"/>
+                    </colgroup>
                     <tr>
                         <th>신청일시</th>
                         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
@@ -193,6 +209,18 @@
                         <td colspan="6" style="height:300px">
                             <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%">{{contents}}</textarea>
                         </td>
+                    </tr>
+                    <colgroup>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                        <col width="25%"/>
+                    </colgroup>
+                    <tr>
+                        <th>스페셜DJ 선정 연도</th>
+                        <td colspan="2" id="reqSelectYear">{{{getCommonCodeSelect select_year 'special_selectYears' 'Y' 'reqSelectYear'}}}</td>
+                        <th>선정 월</th>
+                        <td colspan="2" id="reqSelectMonth">{{{getCommonCodeSelect select_month 'special_selectMonths' 'Y' 'reqSelectMonth'}}}</td>
                     </tr>
                 </table>
                 <!-- 승인완료 승인거부-->

@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper">
+    <div id="page-wrapper" class="col-lg-8 no-padding">
         <div class="container-fluid">
             <form id="searchForm">
-                <div class="row col-lg-12 form-inline">
+                <div class="row form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
@@ -36,7 +36,7 @@
                 </div>
             </form>
 
-            <div class="row col-lg-12 form-inline">
+            <div class="row form-inline">
                 <div class="col-lg-6 pl0 pr5">
                     <!-- 가입자수 -->
                     <div class="widget widget-table mb10">
@@ -48,6 +48,10 @@
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered">
+                                <colgroup>
+                                    <col width="25%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/>
+                                    <col width="15%"/>
+                                </colgroup>
                                 <thead>
                                     <tr>
                                         <th>가입자수</th>
@@ -76,6 +80,10 @@
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered">
+                                <colgroup>
+                                    <col width="25%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="15%"/>
+                                    <col width="15%"/>
+                                </colgroup>
                                 <thead>
                                 <tr>
                                     <th>탈퇴자수</th>
@@ -93,14 +101,13 @@
                     <!-- //탈퇴자수 -->
                 </div>
             </div>
-
-            <!-- tab -->
-            <div class="no-padding" id="infoTab">
-                <jsp:include page="infoTab.jsp"/>
-            </div>
-            <!-- //tab -->
         </div>
     </div>
+    <!-- tab -->
+    <div class="no-padding" id="infoTab">
+        <jsp:include page="infoTab.jsp"/>
+    </div>
+    <!-- //tab -->
 </div>
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>

@@ -33,6 +33,11 @@
         <span class="_searchDate"></span>
         <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
+            <colgroup>
+                <col width="2%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/>
+                <col width="9.8%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/>
+                <col width="9.8%"/>
+            </colgroup>
             <thead>
             <tr>
                 <th>NO</th>

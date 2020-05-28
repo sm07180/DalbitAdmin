@@ -13,6 +13,10 @@
         <span class="_searchDate"></span>
         <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
+            <colgroup>
+                <col width="14.8%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/><col width="14.2%"/>
+                <col width="14.2%"/><col width="14.2%"/>
+            </colgroup>
             <thead>
             <tr>
                 <th>시간대</th>
@@ -30,7 +34,7 @@
     </div>
     <div class="widget-footer">
         <span>
-            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
         </span>
     </div>
 </div>

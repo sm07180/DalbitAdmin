@@ -3,7 +3,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div id="container-fluid">
+        <div id="container-fluid" class="col-lg-8 no-padding">
             <!-- searchBox -->
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
@@ -57,6 +57,10 @@
                     </div>
                     <div class="widget-content mt10">
                         <table class="table table-bordered">
+                            <colgroup>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                            </colgroup>
                             <thead>
                             <tr>
                                 <th></th>
@@ -75,20 +79,19 @@
                         </table>
                     </div>
                 </div>
-            <!-- // 접속 관련 통계 데이터 -->
-            <!-- tab -->
-            <div class="no-padding" id="infoTab">
-                <jsp:include page="infoTab.jsp"/>
             </div>
-            <!-- //tab -->
-
+            <!-- // 접속 관련 통계 데이터 -->
         </div> <!-- // container-fluid -->
+        <!-- tab -->
+        <div class="no-padding col-lg-12" id="infoTab">
+            <jsp:include page="infoTab.jsp"/>
+        </div>
+        <!-- //tab -->
     </div> <!-- // page-wrapper -->
 </div> <!-- // wrapper -->
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
-    <script src="/js/lib/jquery.mtz.monthpicker.js"></script>
 
 <script type="text/javascript">
     var dateTime = new Date();

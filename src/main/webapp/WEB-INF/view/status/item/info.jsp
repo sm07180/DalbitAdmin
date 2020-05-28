@@ -3,7 +3,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid">
+        <div class="container-fluid col-lg-8 no-padding">
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
@@ -43,6 +43,10 @@
                     </div>
                     <div class="widget-content mt10">
                         <table class="table table-bordered">
+                            <colgroup>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                            </colgroup>
                             <thead>
                             <tr>
                                 <th></th>
@@ -62,13 +66,12 @@
                     </div>
                 </div>
             </div>
-
-            <!-- tab -->
-            <div class="no-padding" id="infoTab">
-                <jsp:include page="infoTab.jsp"/>
-            </div>
-            <!-- //tab -->
         </div>
+        <!-- tab -->
+        <div class="no-padding" id="infoTab">
+            <jsp:include page="infoTab.jsp"/>
+        </div>
+        <!-- //tab -->
     </div>
 </div>
 

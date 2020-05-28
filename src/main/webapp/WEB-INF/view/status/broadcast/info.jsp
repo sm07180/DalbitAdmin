@@ -3,12 +3,10 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid">
+        <div class="container-fluid col-lg-8 no-padding">
             <form id="searchForm">
-
                 <input type="hidden" id="pageNo" name="pageNo" value="1" />
                 <input type="hidden" id="pageCnt" name="pageCnt" value="100" />
-
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
@@ -52,6 +50,10 @@
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered" id="tb_broadSumStatus">
+                                <colgroup>
+                                    <col width="20%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/>
+                                    <col width="16%"/>
+                                </colgroup>
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -81,6 +83,10 @@
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered" id="tb_giftSumStatus">
+                                <colgroup>
+                                    <col width="20%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/>
+                                    <col width="16%"/>
+                                </colgroup>
                                 <thead>
                                 <tr>
                                     <th></th>
@@ -100,12 +106,12 @@
                 </div>
             </div>
 
+        </div>
             <!-- tab -->
             <div class="no-padding" id="infoTab">
                 <jsp:include page="infoTab.jsp"/>
             </div>
             <!-- //tab -->
-        </div>
     </div>
 </div>
 
