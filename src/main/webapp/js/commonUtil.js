@@ -457,7 +457,7 @@ util.imageFullSize = function(modalId ,url){
         html+=                  '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>';
         html+=              '</div>';
         html+=              '<div class="modal-body no-padding">';
-        html+=                  '<img id="image_full_size" src="'+ url + '" alt="your image" style="max-width: 1000px;max-height: 1000px;" onclick=modal_close();>';
+        html+=                  '<img id="image_full_size" src="'+ url + '" alt="your image" style="max-width: 1000px;max-height: 1000px;" onclick=util.fullSize_modal_close();>';
         html+=              '</div>';
         html+=          '</div>';
         html+=      '</div>';
