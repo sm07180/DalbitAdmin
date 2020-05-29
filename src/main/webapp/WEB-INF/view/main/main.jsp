@@ -58,9 +58,6 @@
                         <span class="_searchDate"></span>
                         <a href="javascript://" class="_nextSearch">[다음]</a>
                     </em>
-                    <div class="btn-group widget-header-toolbar">
-                        <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                    </div>
                 </div>
                 <div class="widget-content">
                     <!-- chart tab nav -->
@@ -90,10 +87,6 @@
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 방송정보</h3>
                             <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-
-                            <div class="btn-group widget-header-toolbar">
                                 <a href="http://dalbit.inforex.co.kr/broadcast/live/list" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
                         </div>
@@ -120,10 +113,6 @@
                     <%--<div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 접속정보</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-
                             <div class="btn-group widget-header-toolbar">
                                 <a href="javascript://" title="상세보기" onclick="alert('준비중입니다.'); return false;"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
@@ -199,9 +188,6 @@
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 회원가입/탈퇴</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
 
                             <div class="btn-group widget-header-toolbar">
                                 <a href="http://dalbit.inforex.co.kr/enter/join/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
@@ -236,10 +222,6 @@
                     <%--<div class="widget widget-table mb10">--%>
                         <%--<div class="widget-header">--%>
                             <%--<h3><i class="fa fa-table"></i> 캐스트정보 [ &#8251; 가 데이터 입니다.]</h3>--%>
-                            <%--<div class="btn-group widget-header-toolbar">--%>
-                                <%--<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>--%>
-                            <%--</div>--%>
-
                             <%--<div class="btn-group widget-header-toolbar">--%>
                                 <%--<a href="javascript://" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>--%>
                             <%--</div>--%>
@@ -315,10 +297,6 @@
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 결제/결제취소</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
-
                             <div class="btn-group widget-header-toolbar">
                                 <a href="/payment/pay/list" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>
@@ -454,9 +432,6 @@
                             <h3><i class="fa fa-table">
                             </i> 실시간 인기 아이템 TOP 5
                             </h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
                             <div class="btn-group widget-header-toolbar">
                                 <a href="http://dalbit.inforex.co.kr/status/item/info" title="상세보기"><h3><i class="fa fa-search-plus"></i> 상세보기</h3></a>
                             </div>

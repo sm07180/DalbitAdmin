@@ -28,11 +28,6 @@
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 1:1 문의</h3>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                            </a>
-                        </div>
                     </div>
                     <span id="question_summaryArea"></span>
                     <div class="widget-content" id="main_table">

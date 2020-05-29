@@ -3,11 +3,6 @@
 
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget widget-table mb10">
-    <div class="widget-header">
-        <div class="btn-group widget-header-toolbar">
-            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-        </div>
-    </div>
     <div class="widget-content mt10">
         <div class="widget widget-table" id="main_table">
             <div class="widget-content">

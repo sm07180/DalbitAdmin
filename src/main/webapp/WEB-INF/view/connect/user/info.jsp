@@ -9,11 +9,6 @@
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
-                        <%--<div >--%>
-                        <%--</div>--%>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                        </div>
                     </div>
                     <div class="widget-content mt10">
                         <button type="button" class="fa fa-refresh" onclick="getLoginLiveInfo();"></button>

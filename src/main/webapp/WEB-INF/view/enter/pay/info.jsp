@@ -43,9 +43,6 @@
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                        </div>
                     </div>
                     <div class="widget-content mt10">
                         <table class="table table-condensed table-dark-header table-bordered">
@@ -122,7 +119,7 @@
     });
 
     function getStatPayInfo(){
-        util.getAjaxData("statPayInfo", "/rest/enter/pay/pay/info", null, fn_statPayInfo_success1);
+        util.getAjaxData("statPayInfo", "/rest/enter/pay/info", null, fn_statPayInfo_success1);
     }
     function fn_statPayInfo_success1(data, response){
         var template = $('#tmp_payTableSummary1').html();

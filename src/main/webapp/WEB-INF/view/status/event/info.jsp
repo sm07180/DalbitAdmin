@@ -36,11 +36,6 @@
             <div class="row col-lg-12 form-inline">
                 <label id="descArea">ㆍ이벤트명을 클릭하여 상세정보를 확인할 수 있습니다.</label>
                 <div class="widget widget-table mb10">
-                    <div class="widget-header">
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                        </div>
-                    </div>
                     <div class="widget-content mt10">
                         <table class="table table-condensed table-dark-header table-bordered">
                             <thead>

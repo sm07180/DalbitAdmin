@@ -133,7 +133,7 @@
 
 
     $(window).scroll(function(){
-        var scrollTop = $(document).scrollTop()
+        var scrollTop = $(document).scrollTop();
 
         var leftMenu = $('._leftFixed');
         if (scrollTop < $('.clearfix').height()){

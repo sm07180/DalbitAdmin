@@ -29,11 +29,6 @@
             <div class="widget widget-table" id="div_memberList">
                 <div class="widget-header">
                     <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-                    <div class="btn-group widget-header-toolbar">
-                        <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                            <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                        </a>
-                    </div>
                 </div>
                 <div class="tab-content no-padding">
                     <div class="tab-pane fade in active " id="memberList">       <!-- 회원 -->
@@ -158,6 +153,7 @@
 
 
     function getMemNo_info(index){
+        console.log(dtList_info.getDataRow(index));
         tmp_bt = "";
         $('#tabList_top').addClass("show");
         var obj = new Object();

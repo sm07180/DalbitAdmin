@@ -25,14 +25,14 @@ public class Ent_PayRestController {
     @Autowired
     Ent_PayService ent_PayService;
 
-    @PostMapping("pay/info")
+    @PostMapping("info")
     public String payInfo(){
         String result = ent_PayService.callPayInfo();
         return result;
     }
 
     // 결제 현황 총계
-    @PostMapping("pay/total")
+    @PostMapping("total")
     public String payTotal(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
@@ -45,7 +45,7 @@ public class Ent_PayRestController {
     }
 
     // 결제 현황 연령별
-    @PostMapping("pay/age")
+    @PostMapping("age")
     public String payAge(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
@@ -58,7 +58,7 @@ public class Ent_PayRestController {
     }
 
     // 결제 현황 결제 수단 별
-    @PostMapping("pay/way")
+    @PostMapping("way")
     public String payWay(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
@@ -71,7 +71,7 @@ public class Ent_PayRestController {
     }
 
     // 결제 현황 결제 상품 별
-    @PostMapping("pay/code")
+    @PostMapping("code")
     public String payCode(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
@@ -84,7 +84,7 @@ public class Ent_PayRestController {
     }
 
     // 결제 현황 취소
-    @PostMapping("pay/cancel")
+    @PostMapping("cancel")
     public String payCancel(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);

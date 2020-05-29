@@ -42,9 +42,6 @@
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 가입자수 통계 현황</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered">
@@ -74,9 +71,6 @@
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 탈퇴자수 통계 현황</h3>
-                            <div class="btn-group widget-header-toolbar">
-                                <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-                            </div>
                         </div>
                         <div class="widget-content mt10">
                             <table class="table table-bordered">

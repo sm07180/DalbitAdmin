@@ -3,11 +3,6 @@
 
 <!-- 회원가입 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-header">
-        <div class="btn-group widget-header-toolbar">
-            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-        </div>
-    </div>
     <div class="widget-content mt10">
         <a href="javascript://" class="_prevSearch">[이전]</a>
         <span class="_searchDate"></span>
