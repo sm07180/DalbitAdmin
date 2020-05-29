@@ -348,7 +348,7 @@
 <script id="tmp_dalList" type="text/x-handlebars-template">
     <div class="widget widget-table">
         <div class="widget-header">
-            <h3><i class="fa fa-desktop"></i> 스페셜 달D 세부사항</h3>
+            <h3><i class="fa fa-desktop"></i> 스페셜 DJ 세부사항</h3>
         </div>
         <div class="widget-content mt15">
             <div class="row col-lg-12 form-inline">
@@ -393,7 +393,7 @@
 <script id="tmp_sampleDalList" type="text/x-handlebars-template">
     <div class="widget widget-table">
         <div class="widget-header">
-            <h3><i class="fa fa-desktop"></i> 스페셜 달D 세부사항</h3>
+            <h3><i class="fa fa-desktop"></i> 스페셜 DJ 세부사항</h3>
         </div>
         <div class="widget-content mt15">
             <div class="row col-lg-12 form-inline">

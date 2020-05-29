@@ -52,7 +52,8 @@
         where basic.mem_no = dj.mem_no
             and profile.mem_no = dj.mem_no
             and basic.mem_no = profile.mem_no
-            and concat(#{select_year}, #{select_month}) = DATE_FORMAT(dj.reg_date, '%Y%m')
+            and dj.state <![CDATA[<>]]> 2
+        and concat(#{select_year}, #{select_month}) = DATE_FORMAT(dj.reg_date, '%Y%m')
         <if test='txt_search != null and txt_search != ""'>
           <choose>
               <when test='searchType == "1"'>
