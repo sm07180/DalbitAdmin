@@ -157,7 +157,7 @@
             pro.image_profile  as image_profile,
             dj.select_year        as select_year,
             dj.select_month       as select_month,
-            (select count(*) from rd_data.tb_broadcast_room_member where auth = 3 and state = 1 and mem_no = dj.mem_no) onAir,
+            (select count(room.mem_no) from rd_data.tb_broadcast_room room where room.mem_no = dj.mem_no and room.state <![CDATA[<>]]> 4) onAir,
             (select count(*) from rd_data.tb_member_fanstar where mem_no_star = dj.mem_no) fanCnt,
             (select sum(airtime) from rd_data.tb_broadcast_room  where mem_no = dj.mem_no) airTime,
             (select sum(gift_ruby) from rd_data.tb_member_broadcast_listening where dj_mem_no = dj.mem_no) giftedRuby,

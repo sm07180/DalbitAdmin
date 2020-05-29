@@ -395,25 +395,23 @@
                 <table class="table table-bordered table-dalbit">
                     <input type="hidden" name="reqIdx" data-idx="{{req_idx}}"/>
                     <colgroup>
-                        <col width="25%"/>
-                        <col width="25%"/>
-                        <col width="25%"/>
-                        <col width="25%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
+                        <col width="15%"/>
                     </colgroup>
                     <tr>
                         <th>등록일시</th>
                         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                        <th>스페셜DJ 선정 년/월</th>
+                        <td >{{select_year}}년 {{select_month}}월</td>
                         <th>관리자 등록 여부</th>
                         <td>
                             {{#equal is_force '0'}}N{{/equal}}
                             {{^equal is_force '0'}}Y{{/equal}}
                         </td>
-                    </tr>
-                    <tr>
-                        <th>스페셜DJ 선정 연도</th>
-                        <td >{{select_year}}년</td>
-                        <th>선정 월</th>
-                        <td>{{select_month}}월</td>
                     </tr>
                 </table>
                 <!-- 승인취소-->

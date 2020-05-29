@@ -71,7 +71,7 @@
     });
 
     function choiceMember(data) {
-        if(confirm('스페셜 DJ로 등록하시겠습니까?')){
+        if(confirm($('#select_month').val() + '월의 스페셜 DJ로 등록하시겠습니까?')){
             var obj = {
                 mem_no : data.mem_no
                 , is_force : 1
@@ -82,12 +82,6 @@
         }
         return false;
     }
-
-    function fn_success_ok(dst_id, response) {
-        alert(response.message);
-        getList();
-    }
-
 
     function sendPush(mem_no){
         if(common.isEmpty(mem_no)){

@@ -127,7 +127,7 @@
     }
 
     $(document).on('click', '#bt_reqOk', function() {
-        if(confirm("스페셜 DJ로 등록하시겠습니까?")) {
+        if(confirm($('select[name=reqSelectMonth]').val() + "월의 스페셜 DJ로 등록하시겠습니까?")) {
 
             var checkbox = $('#reqSpecialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
 
