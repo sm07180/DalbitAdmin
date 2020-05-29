@@ -465,6 +465,18 @@ util.imageFullSize = function(modalId ,url){
     return html;
 },
 
+util.fullSize_background = function(url){
+    if(common.isEmpty(url)){
+        return;
+    }
+    $("#imageFullSize").html(util.imageFullSize("fullSize_background", url));
+    $('#fullSize_background').modal('show');
+},
+
+util.fullSize_modal_close = function(){
+    $("#fullSize_background").modal('hide');
+}
+
 util.renderPagingNavigation = function(targetId, pagingInfo){
 
     if(0 <= pagingInfo.totalCnt) {

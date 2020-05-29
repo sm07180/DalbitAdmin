@@ -57,9 +57,6 @@
     <!-- TAB END -->
 </div>
 
-<!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
-
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 
@@ -235,17 +232,4 @@
             alert("이미지 URL이 정상적이지 않습니다.\n입력 URL :" + imgURL);
         }
     }
-
-    function fullSize_banner(url) {     // 이미지 full size
-        if(common.isEmpty(url)){
-            return;
-        }
-
-        $("#imageFullSize").html(util.imageFullSize("fullSize_banner",url));
-        $('#fullSize_banner').modal('show');
-    }
-    function modal_close(){
-        $("#fullSize_banner").modal('hide');
-    }
-
 </script>

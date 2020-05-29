@@ -321,8 +321,7 @@ var MemberDataTableSource = {
         'url': '/rest/member/fanboard/list'
         , 'columns': [
             {'title': '프로필이미지', 'data': 'profileImage', 'render' : function(data, type, row){
-                    return '<img class="thumbnail" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
-                        'onclick="fanboard_fullSize_profile(this.src)"/>';
+                    return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" />';
                 }},
             {'title': '회원번호', 'data': 'writer_mem_no'},
             {'title': '팬ID', 'data': 'userId', 'render': function (data, type, row, meta) {

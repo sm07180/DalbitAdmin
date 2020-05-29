@@ -156,8 +156,6 @@
 
 <div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
 
-<!-- 이미지 원본 보기 -->
-<%--<div id="imageFullSize"></div>--%>
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
@@ -265,14 +263,6 @@
     function fn_fail_excel(response){
         alert('미처리 데이터가 없습니다.')
     }
-
-    /*function fullSize_profile(url) {     // 이미지 full size
-        $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
-        $('#fullSize_profile').modal('show');
-    }
-    function modal_close(){
-        $("#fullSize_profile").modal('hide');
-    }*/
 
     $(document).on('click', '._layerOpen', function(title, content){
 

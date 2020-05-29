@@ -70,7 +70,7 @@ var EventDataTableSource = {
                     return result;
                 }},
             {'title': '이미지', 'data': 'thumb_img_url', 'render': function (data, type, row, meta) {
-                    return '<img class="thumbnail" src="' + data + '" style="width: 45px; height: 45px;" onclick="eventPastList_fullSize(this.src);" />'
+                    return '<img class="thumbnail fullSize_background" src="' + data + '" style="width: 45px; height: 45px;" />'
                 }},
             {'title': '이벤트 제목', 'data': 'event_title', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getEventDetail" onclick="javascript:fnc_pastEventList.getEventDetail_info('+meta.row+');">' + data + '</a>'

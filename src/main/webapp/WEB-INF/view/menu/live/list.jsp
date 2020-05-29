@@ -138,9 +138,6 @@
     </div>
 </div>
 
-<!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
-
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
     var livePagingInfo = new PAGING_INFO(0,1,100);
@@ -215,18 +212,6 @@
         init($('._tab.active').find('a').data('slcttype'));
     }
 
-    function fullSize_profile(url) {     // 이미지 full size
-        if(common.isEmpty(url)){
-            return;
-        }
-
-        $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
-        $('#fullSize_profile').modal('show');
-    }
-    function modal_close(){
-        $("#fullSize_profile").modal('hide');
-    }
-
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_liveList">
@@ -234,9 +219,9 @@
     <tr>
         <td>
             {{#equal image_profile ''}}
-            <img class="thumbnail" alt="your image" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src);"/>
+            <img class="thumbnail fullSize_background" alt="your image" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
             {{else}}
-            <img class="thumbnail" alt="your image" src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' onclick="fullSize_profile(this.src);"/>
+            <img class="thumbnail fullSize_background" alt="your image" src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' />
             {{/equal}}
         </td>
 

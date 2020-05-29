@@ -97,11 +97,6 @@
             util.getAjaxData("info", "/rest/member/fanboard/replyList", obj, replyList_success, fn_fail);
         }
     }
-    function fanboard_fullSize_profile(url) {     // 이미지 full size
-        $("#imageFullSize_fanboard").html(util.imageFullSize("fanboard_fullSize_profile",url));
-        $('#fanboard_fullSize_profile').modal('show');
-    }
-
 
     function replyList_success(dst_id, response) {
         // dalbitLog(response);

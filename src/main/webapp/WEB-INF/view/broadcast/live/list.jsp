@@ -58,9 +58,6 @@
 </div>
 <!-- DATA TABLE END -->
 
-<!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
-
 <script type="text/javascript" src="/js/code/broadcast/broadCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
@@ -245,18 +242,6 @@
             tmp_room_searchText = $('#txt_search').val();
         }
         dtList_info.reload(summary_table);
-    }
-
-    function fullSize_live(url) {     // 이미지 full size
-        if(common.isEmpty(url)){
-            return;
-        }
-
-        $("#imageFullSize").html(util.imageFullSize("fullSize_live", url));
-        $('#fullSize_live').modal('show');
-    }
-    function modal_close(){
-        $("#fullSize_live").modal('hide');
     }
 
     /*=============엑셀==================*/

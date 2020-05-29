@@ -60,3 +60,4 @@
 <!-- /top -->
 
 <div class="dalbit_modal"></div>
+<div id="imageFullSize"></div>

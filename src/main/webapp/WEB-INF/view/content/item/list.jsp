@@ -60,9 +60,6 @@
     <!-- TAB END -->
 </div>
 
-<!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
-
 <%--<jsp:include page="/WEB-INF/view/common/util/imageModal.jsp"></jsp:include>--%>
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
@@ -229,18 +226,6 @@
         if(imgURL.length > 0){
             alert("이미지 URL이 정상적이지 않습니다.\n입력 URL :" + imgURL);
         }
-    }
-
-    function fullSize_item(url) {     // 이미지 full size
-        if(common.isEmpty(url)){
-            return;
-        }
-
-        $("#imageFullSize").html(util.imageFullSize("fullSize_item",url));
-        $('#fullSize_item').modal('show');
-    }
-    function modal_close(){
-        $("#fullSize_item").modal('hide');
     }
 
 </script>

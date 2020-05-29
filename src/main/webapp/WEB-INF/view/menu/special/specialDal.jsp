@@ -138,7 +138,6 @@
         // drag and drop, No setting
         resetNo();
 
-        $('#specialList').DataTable().destroy();
     }
 
     var approveDal;
@@ -314,10 +313,11 @@
         <td>{{{renderOnAir onAir}}}</td>
         <td style="width: 65px;height:65px;">
             {{#equal data.image_profile ''}}
-                <img class="thumbnail" src="{{renderImage '/profile_3/profile.jpg'}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
+                <img class="thumbnail" src="https://devphoto2.dalbitlive.com/profile_3/profile.jpg" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
             {{else}}
                 <img class="thumbnail" src="{{renderImage data.image_profile}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
             {{/equal}}
+
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_id}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
@@ -343,7 +343,7 @@
 <script id="tmp_dalList" type="text/x-handlebars-template">
     <div class="widget widget-table">
         <div class="widget-header">
-            <h3><i class="fa fa-desktop"></i> 스페셜 DJ 세부사항</h3>
+            <h3><i class="fa fa-desktop"></i> 스페셜 달D 세부사항</h3>
         </div>
         <div class="widget-content mt15">
             <div class="row col-lg-12 form-inline">
@@ -388,7 +388,7 @@
 <script id="tmp_sampleDalList" type="text/x-handlebars-template">
     <div class="widget widget-table">
         <div class="widget-header">
-            <h3><i class="fa fa-desktop"></i> 스페셜 DJ 세부사항</h3>
+            <h3><i class="fa fa-desktop"></i> 스페셜 달D 세부사항</h3>
         </div>
         <div class="widget-content mt15">
             <div class="row col-lg-12 form-inline">

@@ -20,8 +20,6 @@
     <form id="memberInfoFrm"></form>
 </div>
 
-<!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
 <!-- detail -->
 <form id="member_detailFrm" class="hide"></form>
 
@@ -173,19 +171,6 @@
         });
 
         // 버튼 끝
-    }
-
-    function fullSize_profile(url) {     // 이미지 full size
-        if(common.isEmpty(url)){
-            return;
-        }
-
-        $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
-        $('#fullSize_profile').modal('show');
-    }
-    function modal_close(){
-        $("#fullSize_profile").modal('hide');
-        $("#fanboard_fullSize_profile").modal('hide');
     }
 
     var tmp_bt;
@@ -563,7 +548,7 @@
             <th rowspan="5">프로필이미지</th>
             <td rowspan="5" colspan="3" style="border: white">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
-                    <img id="image_section" class="thumbnail col-md-10 no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" onclick="fullSize_profile(this.src);"/>
+                    <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
                     {{#equal memWithdrawal '0'}}
                         <button type="button" id="bt_img" class="btn btn-default btn-sm" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
                     {{/equal}}

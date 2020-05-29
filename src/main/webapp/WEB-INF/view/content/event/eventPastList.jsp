@@ -24,8 +24,6 @@
     </div>
 </div>
 
-<div id="eventPastList_fullSize"></div>
-
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 
@@ -164,7 +162,7 @@
         // }
         /*----------- 엑셀 ---------=*/
 
-    function eventPastList_fullSize(url) {     // 이미지 full size
+    /*function eventPastList_fullSize(url) {     // 이미지 full size
         $("#eventPastList_fullSize").html(util.imageFullSize("eventPastListFullSize",url));
         $('#eventPastListFullSize').modal('show');
     }
@@ -173,6 +171,6 @@
         $("#eventPastListFullSize").modal('hide');
         $("#eventDetailFullSize").modal('hide');
         $("#eventListFullSize").modal('hide');
-    }
+    }*/
 
 </script>

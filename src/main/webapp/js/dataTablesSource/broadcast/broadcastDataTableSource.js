@@ -10,7 +10,7 @@ var BroadcastDataTableSource = {
                     return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
-                    return '<img class="thumbnail" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
+                    return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" />';
                 }},
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
@@ -79,7 +79,7 @@ var BroadcastDataTableSource = {
                     return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
-                    return '<img class="thumbnail" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
+                    return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" />';
                 }},
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";

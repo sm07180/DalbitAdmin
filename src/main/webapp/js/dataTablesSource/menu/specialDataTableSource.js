@@ -10,7 +10,7 @@ var specialDataTableSource = {
                     if(!data == ''){
                         image = PHOTO_SERVER_URL + data;
                     }
-                    return '<img class="thumbnail" src="'+ image +'" style="width: 65px;height: 65px" onclick="fullSize_background(this.src);"/>';
+                    return '<img class="thumbnail fullSize_background" src="'+ image +'" style="width: 65px;height: 65px" />';
                 }}
             , {'title': '닉네임', 'width': '10%', 'data': 'mem_nick'}
             , {'title': '신청일', 'data': 'reg_date', 'width': '10%', 'render': function(data, type, row) {
