@@ -34,3 +34,11 @@ Handlebars.registerHelper("convertJumin", function (value) {
     return value.toString().replace(regExp, '$1-$2');
 
 });
+
+Handlebars.registerHelper("workdayCheck", function (limitDay, regDate, opt) {
+
+    if(limitDay == ''){
+        return opt.fn(this);
+    }
+    return moment(regDate).format('YYYYMMDD') < limitDay ? opt.fn(this) : opt.inverse(this);
+});

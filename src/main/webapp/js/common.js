@@ -184,7 +184,7 @@ common.isEmptyData = function(){
 }
 
 common.isSmall = function(value, target, opt){
-    return 0 < target - value ? opt.fn(this) : opt.inverse(this);;
+    return 0 < target - value ? opt.fn(this) : opt.inverse(this);
 }
 
 //input 숫자 입력만 가능

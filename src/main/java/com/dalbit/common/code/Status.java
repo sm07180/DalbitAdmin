@@ -476,6 +476,12 @@ public enum Status {
 
     스페셜DJ순위변경_성공("0", "update.success", "스페셜DJ 순위변경 성공 시"),
     스페셜DJ순위변경_실패("C006", "server.error", "스페셜DJ 순위변경 실패 시"),
+    
+    환전_취소_성공("0", "exchange.cancel.success", "환전 취소 완료 시"),
+    환전_취소_없는환전번호("-1", "exchange.cancel.no.idx", "idx 값이 잘못 넘어온 경우"),
+    환전_취소_취소상태아님("-2", "exchange.cancel.not.state", "취소 가능 상태가 아님(state)"),
+    환전_취소_회원번호없음("-3", "exchange.cancel.no.member", "idx에 회원번호가 없을 시"),
+    환전_취소_이미완료("-4", "exchange.cancel.already", "이미 완료된 환전인 경우"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트

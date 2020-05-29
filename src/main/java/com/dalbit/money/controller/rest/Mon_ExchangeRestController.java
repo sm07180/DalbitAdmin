@@ -42,6 +42,8 @@ public class Mon_ExchangeRestController {
 
     @PostMapping("listExcel")
     public String listExcel(HttpServletRequest request, HttpServletResponse response, Mon_ExchangeInputVo monExchangeInputVo, Model model) throws GlobalException {
+
+        monExchangeInputVo.setExcelYn("Y");
         Model resultModel = monExchangeService.getListExcel(monExchangeInputVo, model);
 
         int listSize = (int) resultModel.getAttribute("listSize");

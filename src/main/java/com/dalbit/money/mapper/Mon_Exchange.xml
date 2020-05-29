@@ -86,6 +86,10 @@
             <if test='idx != null and idx != 0'>
                 and exchange.idx = #{idx}
             </if>
+
+            <if test='excelYn == "Y" and limitDay != ""'>
+                and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<]]> #{limitDay}
+            </if>
         order by exchange.reg_date desc
     </sql>
 
@@ -143,7 +147,11 @@
             where state = 1
             group by mem_no
         ) summary on a.mem_no = summary.memNo
-        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+
+        <if test='excelYn != "Y"'>
+            where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+        </if>
+
     </select>
 
     <select id="selectExchangeCnt" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="int">
@@ -296,5 +304,9 @@
                 #{idx}
             </foreach>
     </update>
+
+    <select id="callExchangeCancel" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_data.sp_member_exchange_cancel(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 
 </mapper>
