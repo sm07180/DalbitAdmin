@@ -117,7 +117,7 @@ var banner_bannerType = [
     , new COMMON_CODE('popup', '6', '팝업')
     , new COMMON_CODE('startPopup', '7', '시작팝업')
     , new COMMON_CODE('endPopup', '8', '종료팝업')
-    , new COMMON_CODE('mainRankBottom', '9', '메인랭킹 밑')
+    , new COMMON_CODE('mainRankBottom', '9', 'Main Center')
 ];
 
 var banner_loginType = [
