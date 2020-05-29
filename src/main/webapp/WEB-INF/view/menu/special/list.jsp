@@ -38,12 +38,12 @@
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
-    $(document).ready(function() {
+    $(function() {
         $('#searchYearArea').html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), special_selectYears));
         $('#searchMonthArea').html(util.getCommonCodeSelect(moment(new Date()).format('MM'), special_selectMonths));
-
         $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
-        init();
+
+        getList();
     });
 
     $('#bt_search').on('click', function () {
