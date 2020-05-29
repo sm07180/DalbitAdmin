@@ -98,7 +98,8 @@
 
         $("#tablist_con").find('.active').find('a').click();
 
-        util.scrollPostion(878);
+        var scrollPosition = $("#tabList_top").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     function init(){
