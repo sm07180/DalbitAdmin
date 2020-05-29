@@ -21,20 +21,18 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
-    $(function(){
-        getList();
-    });
 
     function getList(){
 
-        getSummary();
-
-        // $('#tablist_con li.active:first a').click();
         $('#dalList').empty();
         $('#sampleDalList').empty();
         $('#reqDalList').empty();
 
         ui.topScroll();
+
+        var index = $("#tablist_con li").index(("#tablist_con li.active"));
+        index == 0 ? init() : initReq()
+
     }
 
     function emptySearch() {

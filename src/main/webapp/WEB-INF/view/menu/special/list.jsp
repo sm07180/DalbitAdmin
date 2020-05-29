@@ -38,12 +38,12 @@
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
-    $(document).ready(function() {
+    $(function() {
         $('#searchYearArea').html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), special_selectYears));
         $('#searchMonthArea').html(util.getCommonCodeSelect(moment(new Date()).format('MM'), special_selectMonths));
-
         $('#searchArea').html(util.getCommonCodeSelect(-1, special_searchType));
-        init();
+
+        getList();
     });
 
     $('#bt_search').on('click', function () {
@@ -75,6 +75,8 @@
             var obj = {
                 mem_no : data.mem_no
                 , is_force : 1
+                , select_year : $('#select_year').val()
+                , select_month : $('#select_month').val()
             };
             util.getAjaxData("ok", "/rest/menu/special/reqOk", obj, fn_success_ok);
         }

@@ -55,7 +55,10 @@
 
     function initReq() {
         reqGetSummary();
+        reqSpecialList();
+    }
 
+    function reqSpecialList() {
         var dtList_info;
         var dtList_info_data = function(data) {
         };
@@ -65,6 +68,7 @@
         dtList_info.createDataTable();
 
         ui.checkBoxInit('reqSpecialList');
+        dtList_info.reload();
     }
 
     function reqGetSummary(){
@@ -134,7 +138,6 @@
                 , select_year : $('select[name=reqSelectYear]').val()
                 , select_month : $('select[name=reqSelectMonth]').val()
             };
-            dalbitLog(data);
             util.getAjaxData("ok", "/rest/menu/special/reqOk", data, fn_success_ok);
         }
         return false;
@@ -163,7 +166,7 @@
     function fn_success_reject(dst_id, response) {
         alert(response.message);
         getList();
-        initReq();
+        reqSpecialList();
     }
 
     // /*=---------- 엑셀 ----------*/

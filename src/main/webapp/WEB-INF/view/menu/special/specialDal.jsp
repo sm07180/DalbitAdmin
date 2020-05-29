@@ -138,6 +138,7 @@
         // drag and drop, No setting
         resetNo();
 
+        $('#specialList').DataTable().destroy();
     }
 
     var approveDal;
