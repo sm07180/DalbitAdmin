@@ -203,7 +203,7 @@
     }
 
     $(document).on('click', '#bt_reqCancel, #bt_reqCancel_2', function() {
-        if(confirm("승인 취소 하시겠습니까?")) {
+        if(confirm("스페셜 DJ에서 일반 DJ로 승인 취소하시겠습니까?")) {
            var checkbox = $('#specialList > tbody > tr > td.dt-body-center > input[type=checkbox]:checked');
            var data = {
                'req_idx' : checkbox.parent().parent().find('._dalDetail').data('reqidx')
@@ -378,8 +378,8 @@
                         <td colspan="2">{{select_month}}월</td>
                     </tr>
                 </table>
-                <!-- 승인완료 승인거부-->
-                <button type="button" class="btn btn-danger mb15" id="bt_reqCancel">승인취소</button>
+                <!-- 승인취소 -->
+                <button type="button" class="btn btn-danger btn-sm mb15" id="bt_reqCancel">승인취소</button>
             </div>
         </div>
     </div>
@@ -415,7 +415,7 @@
                     </tr>
                 </table>
                 <!-- 승인취소-->
-                <button type="button" class="btn btn-danger mb15" id="bt_reqCancel_2">승인취소</button>
+                <button type="button" class="btn btn-danger btn-sm mb15" id="bt_reqCancel_2">승인취소</button>
             </div>
         </div>
     </div>

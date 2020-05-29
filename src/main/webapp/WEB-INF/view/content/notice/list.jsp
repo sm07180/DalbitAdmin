@@ -22,7 +22,7 @@
             </form>
             <!-- //serachBox -->
             <div class="row col-lg-12 form-inline" id="insertBtnDiv">
-                <button type="button" class="btn btn-default pull-right mb5" id="bt_insert">등록</button>
+                <button type="button" class="btn btn-default btn-sm pull-right mb5" id="bt_insert">등록</button>
             </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
@@ -40,10 +40,10 @@
                     </div>
                     <div class="widget-footer">
                         <span>
-                            <button type="button" class="btn btn-danger" id="bt_delete">선택삭제</button>
+                            <button type="button" class="btn btn-danger btn-sm" id="bt_delete">선택삭제</button>
                         </span>
                         <span>
-                            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                            <button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
                         </span>
                     </div>
                 </div>

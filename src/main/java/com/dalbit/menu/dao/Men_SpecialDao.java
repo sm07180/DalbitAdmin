@@ -25,7 +25,6 @@ public interface Men_SpecialDao {
     @Transactional(readOnly = true)
     SpecialReqVo getReqSpecialDetail(SpecialReqVo specialReqVo);
 
-    @Transactional(readOnly = true)
     int reqOk(SpecialReqVo specialReqVo);
 
     int reqOkUpdate(SpecialReqVo specialReqVo);
