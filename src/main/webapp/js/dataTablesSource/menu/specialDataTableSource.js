@@ -5,6 +5,14 @@ var specialDataTableSource = {
             {'title': '회원번호', 'data': 'mem_no', 'width' : '10%', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + row.mem_no + '">' + data + '</a>'
                 }}
+            , {'title': '프로필', 'width': '65px', 'data': 'image_profile', 'render': function(data, type, row) {
+                    var image = 'https://devphoto2.dalbitlive.com/profile_3/profile.jpg';
+                    if(!data == ''){
+                        image = PHOTO_SERVER_URL + data;
+                    }
+                    return '<img class="thumbnail" src="'+ image +'" style="width: 65px;height: 65px" onclick="fullSize_background(this.src);"/>';
+                }}
+            , {'title': '닉네임', 'width': '10%', 'data': 'mem_nick'}
             , {'title': '신청일', 'data': 'reg_date', 'width': '10%', 'render': function(data, type, row) {
                     return common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss');
                 }}
@@ -19,8 +27,8 @@ var specialDataTableSource = {
             , {'title': '상태', 'data': 'state',  'width': '10%','render': function(data) {
                     return util.getCommonCodeLabel(data, special_state);
                 }}
-            , {'title': '처리자', 'width': '10%', 'data': 'op_name'}
-            , {'title': '처리 일시', 'data': 'last_upd_date', 'width': '10%', 'render': function(data, type, row) {
+            , {'title': '처리자', 'width': '5%', 'data': 'op_name'}
+            , {'title': '처리 일시', 'data': 'last_upd_date', 'width': '15%', 'render': function(data, type, row) {
                     return common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss');
                 }}
         ]

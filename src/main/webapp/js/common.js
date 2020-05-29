@@ -155,16 +155,16 @@ common.timeStamp = function(time){
     return time ;
 }
 
-common.profileImage = function(IMAGE_SERVER_URL, path, gender){
+common.profileImage = function(PHOTO_SERVER_URL, path, gender){
     var image;
     if(common.isEmpty(path)){
         if (gender == "n") {
-            image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "_200327.png";
+            image = PHOTO_SERVER_URL + "/profile_3/profile_" + gender + "_200327.png";
         } else {
-            image = IMAGE_SERVER_URL + "/profile_3/profile_" + gender + "_200327.jpg";
+            image = PHOTO_SERVER_URL + "/profile_3/profile_" + gender + "_200327.jpg";
         }
     }else{
-        image = IMAGE_SERVER_URL + path;
+        image = PHOTO_SERVER_URL + path;
     }
     return image ;
 }
@@ -176,7 +176,7 @@ common.replaceEnter = function(text){
 }
 
 common.viewImage = function(path){
-    return IMAGE_SERVER_URL + path;
+    return PHOTO_SERVER_URL + path;
 }
 
 common.isEmptyData = function(){

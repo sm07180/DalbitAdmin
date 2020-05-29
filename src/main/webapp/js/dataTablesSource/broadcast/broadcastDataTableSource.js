@@ -10,7 +10,7 @@ var BroadcastDataTableSource = {
                     return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
-                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
+                    return '<img class="thumbnail" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
                 }},
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
@@ -35,7 +35,7 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+            {'title': '나가기 횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
                     return common.fontColor(data, 1, 'red') +'번';
                 }},
             {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '65px','render': function (data){
@@ -79,7 +79,7 @@ var BroadcastDataTableSource = {
                     return util.roomNoLink(data, row.room_no);
                 }},
             {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
-                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
+                    return '<img class="thumbnail" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" onclick="fullSize_live(this.src)"/>';
                 }},
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
@@ -105,7 +105,7 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+            {'title': '나가기 횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
                     return common.fontColor(data, 1, 'red') +'번';
                 }},
             {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '65px','render': function (data){
@@ -174,7 +174,7 @@ var BroadcastDataTableSource = {
                     var tmp = common.addComma(data);
                     return tmp + "건";
                 }},
-            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+            {'title': '나가기 횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
                     return common.fontColor(data, 1, 'red')+'번';
                 }},
         ]

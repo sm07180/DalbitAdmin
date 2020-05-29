@@ -310,7 +310,7 @@
                     return false;
                 }
                 if(confirm("성별을 변경 하시겠습니까?")) {
-                    obj.photoUrl = IMAGE_SERVER_URL;
+                    obj.photoUrl = PHOTO_SERVER_URL;
                     sendNoti = 1;
                     obj.notiContents = memberMessage.notiContents;
                     obj.notiMemo = memberMessage.profileReset;

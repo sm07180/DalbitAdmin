@@ -321,7 +321,7 @@ var MemberDataTableSource = {
         'url': '/rest/member/fanboard/list'
         , 'columns': [
             {'title': '프로필이미지', 'data': 'profileImage', 'render' : function(data, type, row){
-                    return '<img class="thumbnail" src="'+ common.profileImage(IMAGE_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
+                    return '<img class="thumbnail" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.memSex) +'" width="50px" height="50px" ' +
                         'onclick="fanboard_fullSize_profile(this.src)"/>';
                 }},
             {'title': '회원번호', 'data': 'writer_mem_no'},
