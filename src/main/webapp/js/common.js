@@ -310,3 +310,12 @@ common.getMemStateName = function(state){
         return '영구정지'
     }
 }
+
+// array sum
+common.getListSum = function(value){
+    var sumResult=0;
+    for(var i=0;i<value.length;i++){
+        sumResult += value[i];
+    }
+    return sumResult;
+};
