@@ -76,6 +76,8 @@ ui.imageLayerView = function(){
         }
 
         $("body").append("<p id='preview'><img src='"+ $(this).attr("src") +"' width='400px' /></p>"); //이미지
+
+        console.log(e);
         $("#preview")
             .css("top",(e.pageY - xOffset) + "px")
             .css("left",(e.pageX + yOffset) + "px")
@@ -91,6 +93,12 @@ ui.imageLayerView = function(){
     });
 }
 ui.imageLayerView();
+
+
+$(document).on("click",".fullSize_background",function(){ //마우스 오버
+    util.fullSize_background($(this).prop('src'));
+});
+
 
 $(document).on('click', '._openImagePop', function(){
     /*util.imagePopup($(this));*/

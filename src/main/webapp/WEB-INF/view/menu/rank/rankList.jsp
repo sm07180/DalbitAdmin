@@ -94,9 +94,6 @@
         </div>
     </div>
 </div>
-<!-- 이미지 원본 보기 -->
-<div id="imageFullSize"></div>
-
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
      djRankListPagingInfo = new PAGING_INFO(0, 1, 50);
@@ -161,18 +158,6 @@
         djRankListPagingInfo = pagingInfo;
         init();
     }
-
-     function fullSize_profile(url) {     // 이미지 full size
-         if(common.isEmpty(url)){
-             return;
-         }
-
-         $("#imageFullSize").html(util.imageFullSize("fullSize_profile",url));
-         $('#fullSize_profile').modal('show');
-     }
-     function modal_close(){
-         $("#fullSize_profile").modal('hide');
-     }
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_djRankList">
@@ -208,9 +193,9 @@
             </td>
             <td style="width: 50px">
                 {{#equal rank.image_profile ''}}
-                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail fullSize_background" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' />
                 {{else}}
-                    <img class="thumbnail" src="{{renderImage rank.image_profile}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail fullSize_background" src="{{renderImage rank.image_profile}}" style='height:50px; width:50px;' />
                 {{/equal}}
             </td>
             <td>
@@ -279,9 +264,9 @@
             </td>
             <td style="width: 50px">
                 {{#equal fan.image_profile ''}}
-                    <img class="thumbnail" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail fullSize_background" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' />
                 {{else}}
-                    <img class="thumbnail" src="{{viewImage fan.image_profile}}" style='height:50px; width:50px;' onclick="fullSize_profile(this.src)"/>
+                    <img class="thumbnail fullSize_background" src="{{viewImage fan.image_profile}}" style='height:50px; width:50px;' />
                 {{/equal}}
             </td>
             <td>

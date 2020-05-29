@@ -569,12 +569,12 @@
             <tr>
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="banner-pc_img_urlViewer" class="thumbnail" style="width:100%; height:100%;" src="" alt="" onclick="fullSize_banner(this.src);"/></a>
+                    <img id="banner-pc_img_urlViewer fullSize_background" class="thumbnail" style="width:100%; height:100%;" src="" alt="" /></a>
                 </td>
 
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="banner-mobile_img_urlViewer" class="thumbnail" style="width:100%; height:100%;" src="" alt="" onclick="fullSize_banner(this.src);"/></a>
+                    <img id="banner-mobile_img_urlViewer fullSize_background" class="thumbnail" style="width:100%; height:100%;" src="" alt="" /></a>
                 </td>
             </tr>
             <tr>
@@ -592,7 +592,7 @@
                 </td>
                 <td colspan="1">
                     <!--미리보기-->
-                    <img id="banner-thumb_img_urlViewer" class="thumbnail" style="width:70px; height:70px;" src="" alt="" onclick="fullSize_banner(this.src);"/></a>
+                    <img id="banner-thumb_img_urlViewer fullSize_background" class="thumbnail" style="width:70px; height:70px;" src="" alt="" /></a>
                 </td>
 
                 <th>비고</th>

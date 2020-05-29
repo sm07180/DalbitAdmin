@@ -45,11 +45,7 @@
 </div>
 
 
-<!-- 원본 이미지 보기 -->
-<div id="imageFullSize"></div>
-
-<div class="main-content" style="margin-top: 3px;">
-</div>
+<div class="main-content" style="margin-top: 3px;"></div>
 
 <script src="../../../js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
@@ -215,20 +211,6 @@
 
         targetFnc.initDataTable();
     }
-
-    function fullSize_image(url) {     // 이미지 full size
-        if(common.isEmpty(url)){
-            return;
-        }
-
-        console.log(url);
-        $("#imageFullSize").html(util.imageFullSize("fullSize_image",url));
-        $('#fullSize_image').modal('show');
-    }
-    function modal_close(){
-        $("#fullSize_image").modal('hide');
-    }
-
 
     // thumbnail 명칭 겹쳐서 thumbnailImg 로 세팅
     var xOffset = 10;

@@ -37,7 +37,7 @@ var ItemDataTableSource = {
                     if(common.isEmpty(data)){
                         return "";
                     }
-                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px" onclick="fullSize_item(this.src)"/>';
+                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" height="50px" />';
             }},
             {'title': '아이템 명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_getNoticeDetail" data-idx="'+meta.row+'">' + data + '</a>'
@@ -109,7 +109,7 @@ var ItemDataTableSource = {
 
                 }},
             {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px" onclick="fullSize_item(this.src)"/>';
+                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" height="50px" />';
 
                 }},
             {'title': '아이템명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
@@ -184,7 +184,7 @@ var ItemDataTableSource = {
                     // return data;
                 }},
             {'title': '이미지', 'data': 'item_thumbnail', 'defaultContent': '-', 'render': function (data, type, row, meta) {
-                    return '<img class="thumbnail" src="'+ data +'" width="50px" height="50px" onclick="fullSize_item(this.src)"/>';
+                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" height="50px" />';
 
                 }},
             {'title': '아이템명', 'data': 'item_name', 'defaultContent': '-', 'render': function (data, type, row, meta) {
