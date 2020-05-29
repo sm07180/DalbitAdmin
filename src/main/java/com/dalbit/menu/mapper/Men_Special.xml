@@ -11,6 +11,7 @@
             inner join rd_data.tb_member_basic mem
             on redj.mem_no = mem.mem_no
                 and concat(#{select_year}, #{select_month}) = DATE_FORMAT(redj.reg_date, '%Y%m')
+            where redj.state <![CDATA[<>]]> 2
             ) as requestDal
         , (select
               count(*)
