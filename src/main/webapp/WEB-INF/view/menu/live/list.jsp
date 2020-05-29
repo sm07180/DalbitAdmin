@@ -28,11 +28,6 @@
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 검색결과</h3>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                            </a>
-                        </div>
                     </div>
                     <div class="widget-content">
                         <table id="search_info" class="table table-sorting table-hover table-bordered dataTable no-footer"

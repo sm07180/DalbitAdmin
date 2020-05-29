@@ -61,11 +61,6 @@
                 <div class="widget widget-table">
                     <div class="widget-header">
                         <h3><i class="fa fa-desktop"></i> 기타문의(전화/이메일)</h3>
-                        <div class="btn-group widget-header-toolbar">
-                            <a href="#" title="열기/닫기" class="btn-borderless btn-toggle-expand">
-                                <i class="fa fa-chevron-up" id="_searchToggleIcon"></i>
-                            </a>
-                        </div>
                     </div>
                     <div class="widget-content">
                         <table id="list_info" class="table table-sorting table-hover table-bordered">

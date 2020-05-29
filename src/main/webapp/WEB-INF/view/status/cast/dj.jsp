@@ -9,11 +9,6 @@
 
 <!-- 캐스트 > DJ -->
 <div class="widget widget-table mb10">
-    <div class="widget-header">
-        <div class="btn-group widget-header-toolbar">
-            <a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand"><i class="fa fa-chevron-up"></i></a>
-        </div>
-    </div>
     <div class="widget-content mt10">
         <a href="javascript://">[이전]</a>
         <%= sf.format(nowTime)%>
