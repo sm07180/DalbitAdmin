@@ -7,7 +7,9 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.procedure.P_pushInsertVo;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
 import com.dalbit.menu.vo.SpecialDjOrderVo;
 import com.dalbit.menu.vo.SpecialReqVo;
@@ -31,6 +33,12 @@ public class Men_SpecialService {
 
     @Autowired
     Men_SpecialDao menSpecialDao;
+
+    @Autowired
+    PushService pushService;
+
+    @Autowired
+    Mem_MemberDao memMemberDao;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -129,6 +137,9 @@ public class Men_SpecialService {
         menSpecialDao.profileUpdate(specialReqVo);
 
         if(result > 0) {
+            // 스페셜 DJ 선정 Noti 발송
+            sendNotiReqOK(specialReqVo.getMem_no());
+
             // 스페셜 DJ 선정 PUSH 발송
             sendPushReqOK(specialReqVo.getMem_no());
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_성공));
@@ -222,8 +233,7 @@ public class Men_SpecialService {
         }
     }
 
-    @Autowired
-    PushService pushService;
+
 
     public String sendPushReqOK(String mem_no){
 
@@ -232,7 +242,7 @@ public class Men_SpecialService {
         pPushInsertVo.setMem_nos(mem_no);
         pPushInsertVo.setSend_cnt("1");
         pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
-        pPushInsertVo.setSend_cont("스페셜 DJ로 선정되었습니다. 다양한 혜택을 경험해보세요.");
+        pPushInsertVo.setSend_cont("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
         //TODO 스페셜DJ 공지 번호 입력 필요!!
 //        pPushInsertVo.setBoard_idx("3");
         pPushInsertVo.setSlct_push("7");
@@ -247,5 +257,19 @@ public class Men_SpecialService {
         log.info("[PUSH SEND RESULT] : {}" , pushResult);
 
         return pushResult;
+    }
+
+    public int sendNotiReqOK(String mem_no){
+        P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+        pMemberReportVo.setReported_mem_no(mem_no);
+        pMemberReportVo.setSlctType(7);
+        pMemberReportVo.setNotiContents("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
+        pMemberReportVo.setNotimemo("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
+
+        int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
+        log.info("[PUSH SEND RESULT] : {}" , notiResult);
+
+        return notiResult;
     }
 }

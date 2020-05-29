@@ -504,7 +504,7 @@
             </tr>
             <tr>
                 <th>플랫폼</th>
-                <td colspan="2">{{{getCommonCodeCheck platform 'content_platform2'}}}</td>
+                <td colspan="2">{{{getCommonCodeHorizontalCheck platform 'content_platform2'}}}</td>
 
                 <th>구분</th>
                 <td colspan="2">{{{getCommonCodeRadio view_type 'banner_loginType' 'N' 'view_type'}}}</td>
