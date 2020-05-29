@@ -75,6 +75,8 @@
             var obj = {
                 mem_no : data.mem_no
                 , is_force : 1
+                , select_year : $('#select_year').val()
+                , select_month : $('#select_month').val()
             };
             util.getAjaxData("ok", "/rest/menu/special/reqOk", obj, fn_success_ok);
         }
