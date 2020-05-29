@@ -102,7 +102,10 @@ table td.text-center {
 }
 
 .dataTables_wrapper .dataTable .thumbnail {
+    display: inline-block;
     margin: 0px;
+    padding: 0px;
+    border-radius: 2px;
 }
 
 .dataTables_wrapper .dataTable th{
@@ -111,6 +114,7 @@ table td.text-center {
 }
 
 .dataTables_wrapper .dataTable td{
+    text-align: center;
     height: 30px;
     font-size: 12.5px !important;
     padding: 1.7px;

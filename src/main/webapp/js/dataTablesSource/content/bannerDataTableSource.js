@@ -32,9 +32,9 @@ var BannerDataTableSource = {
             {'title': '이미지등록여부', 'data': '', 'render': function (data, type, row, meta) {
                 var text = "";
                 if(common.isEmpty(row.pc_img_url)){
-                    text += "PC : X<br />";
+                    text += "PC : X / ";
                 }else{
-                    text += "PC : O<br />";
+                    text += "PC : O / ";
                 }
 
                 if(common.isEmpty(row.mobile_img_url)){
