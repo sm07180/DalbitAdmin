@@ -37,6 +37,11 @@
 <script type="text/javascript">
 
     var dtList_info_cancel;
+
+    var tmp_ostype_cansel = -1;
+    var tmp_innerType_cansel = 0;
+    var tmp_payWay_cansel = "all";
+
     function getPayCancelList() {
         var sDate;
         var eDate;
@@ -52,10 +57,11 @@
                 data.sDate = sDate;
                 data.eDate = eDate;
             }
-            data.ostype = $("#div_canselY").find("select[name='ostype']").val();
+
+            data.ostype = tmp_ostype_cansel;
             data.searchPayStatus = 2;
-            data.innerType = $("#div_canselY").find("select[name='innerType']").val();
-            data.payWay = $("#div_canselY").find("select[name='payWay']").val();
+            data.innerType = tmp_innerType_cansel;
+            data.payWay = tmp_payWay_cansel;
         };
         dtList_info_cancel = new DalbitDataTable($("#div_canselY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory_cancel);
         dtList_info_cancel.useCheckBox(false);
@@ -70,6 +76,9 @@
     }
 
     function sel_change_pay(){
+        tmp_ostype_cansel = $("#div_canselY").find("select[name='ostype']").val();
+        tmp_innerType_cansel= $("#div_canselY").find("select[name='innerType']").val();
+        tmp_payWay_cansel = $("#div_canselY").find("select[name='payWay']").val();
         dtList_info_cancel.reload();
     }
 
