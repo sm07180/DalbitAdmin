@@ -73,8 +73,8 @@ public class Mon_ExchangeService {
 
         String[] headers = {
             "No", "아이디", "이름", "예금주", "금액", "스페셜DJ혜택",
-            "소득세",/* "주민세",*/ "수수료", "실지급액",  "주민번호",
-            "연락처", "은행명", "계좌번호", "주소", "상세주소"
+            "소득세", "주민세", "수수료", "실지급액",  "주민번호",
+            "연락처", "은행명", "계좌번호", "주소"
         };
         int[] headerWidths = {
             1000, 4000, 3000, 3000, 3000,
@@ -95,21 +95,28 @@ public class Mon_ExchangeService {
             hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_id()) ? "" : exchangeVo.getMem_id());
             hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
-            hm.put("cashBasic", DalbitUtil.isEmpty(exchangeVo.getCash_basic()) ? 0 : exchangeVo.getCash_basic());
+
+            int cashBasic = DalbitUtil.isEmpty(exchangeVo.getCash_basic()) ? 0 : exchangeVo.getCash_basic();
+            hm.put("cashBasic", cashBasic);
             hm.put("benefit", exchangeVo.getBenefit());
 
-            //이거 없음(주민세)
-            //hm.put("incomeTax", incomeTax);
+            int cashSum = cashBasic + exchangeVo.getBenefit();
+            int free1 = (int) (cashSum * 0.003) * 10;
+            hm.put("withholding_tax", free1);
 
-            hm.put("withholding_tax", exchangeVo.getWithholding_tax());
+            int free2 = (int) (free1 * 0.01) * 10;
+            hm.put("incomeTax", free2);
+
             hm.put("transfer_fee", exchangeVo.getTransfer_fee());
             hm.put("exchangeCash", exchangeVo.getCash_real());
             hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(exchangeVo.getSocial_no()));
             hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
             hm.put("bankCode", DalbitUtil.isEmpty(exchangeVo.getBank_code()) ? "" : exchangeVo.getBank_code());
             hm.put("accountNo", DalbitUtil.isEmpty(exchangeVo.getAccount_no()) ? "" : exchangeVo.getAccount_no());
-            hm.put("address1", DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1());
-            hm.put("address2", DalbitUtil.isEmpty(exchangeVo.getAddress_2()) ? "" : exchangeVo.getAddress_2());
+
+            String address = DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1();
+            address += DalbitUtil.isEmpty(exchangeVo.getAddress_2()) ? "" : " "+ exchangeVo.getAddress_2();
+            hm.put("address", address);
 
             bodies.add(hm.values().toArray());
         }
