@@ -124,6 +124,8 @@ public class DeclarationService {
      */
     public String callServiceCenterReportOperate(P_DeclarationOperateVo pDeclarationOperateVo) {
         pDeclarationOperateVo.setOpName(MemberVo.getMyMemNo());
+        String notiMemo = pDeclarationOperateVo.getNotiMemo().replace("<br>", "\n");
+        pDeclarationOperateVo.setNotiMemo(notiMemo);
 
         ProcedureVo procedureVo = new ProcedureVo(pDeclarationOperateVo);
 
