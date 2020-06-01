@@ -506,13 +506,13 @@
         </tr>
         <tr>
             <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
-            <td style="color: red;">{{addComma code01_amt}}</td>
-            <td style="color: red;">{{addComma code02_amt}}</td>
-            <td style="color: red;">{{addComma code03_amt}}</td>
-            <td style="color: red;">{{addComma code04_amt}}</td>
-            <td style="color: red;">{{addComma code05_amt}}</td>
-            <td style="color: red;">{{addComma code06_amt}}</td>
-            <td style="color: red;">{{addComma android_total_amt}}</td>
+            <td style="color: red;">{{vatMinus code01_amt}}</td>
+            <td style="color: red;">{{vatMinus code02_amt}}</td>
+            <td style="color: red;">{{vatMinus code03_amt}}</td>
+            <td style="color: red;">{{vatMinus code04_amt}}</td>
+            <td style="color: red;">{{vatMinus code05_amt}}</td>
+            <td style="color: red;">{{vatMinus code06_amt}}</td>
+            <td style="color: red;">{{vatMinus android_total_amt}}</td>
             <td style="border-bottom: hidden;"></td>
             <th style="color: red;"><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
             <td style="color: red;">{{vatMinus code07_amt}}</td>
