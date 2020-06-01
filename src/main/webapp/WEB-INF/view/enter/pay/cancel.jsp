@@ -14,9 +14,9 @@
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <br/>
-        <label id="payPlatformArea" onchange="sel_change_pay();"></label>
-        <label id="payWayArea" onchange="sel_change_pay();"></label>
-        <label id="payInnerArea" onchange="sel_change_pay();" style="border: 1px solid #632beb"></label>
+        <label id="payPlatformArea" onchange="sel_change_pay_cancel();"></label>
+        <label id="payWayArea" onchange="sel_change_pay_cancel();"></label>
+        <label id="payInnerArea" onchange="sel_change_pay_cancel();" style="border: 1px solid #632beb"></label>
 
         <table class="table table-bordered" id="list_info">
             <thead>
@@ -75,7 +75,7 @@
         $("#div_canselY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
     }
 
-    function sel_change_pay(){
+    function sel_change_pay_cancel(){
         tmp_ostype_cansel = $("#div_canselY").find("select[name='ostype']").val();
         tmp_innerType_cansel= $("#div_canselY").find("select[name='innerType']").val();
         tmp_payWay_cansel = $("#div_canselY").find("select[name='payWay']").val();
