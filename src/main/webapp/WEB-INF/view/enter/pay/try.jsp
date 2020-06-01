@@ -47,10 +47,10 @@
 
 <script type="text/javascript">
     $(function(){
-        getPayWayList ();
+        getPayTryList ();
     });
 
-    function getPayWayList (){
+    function getPayTryList (){
         util.getAjaxData("way", "/rest/enter/pay/way", $("#searchForm").serialize(), fn_wayPay_success);
     }
 

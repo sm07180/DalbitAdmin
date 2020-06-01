@@ -995,7 +995,7 @@
 <script type="text/x-handlebars-template" id="tmp_statMember">
     <tr>
         <th rowspan="4">성별</th>
-        <th>남</th>
+        <th><label style="color: blue">남</label></th>
         <td>{{addComma m_now_Cnt}}</td>
         <td>{{addComma m_yes_Cnt}}</td>
         <td class="{{upAndDownClass m_now_inc_cnt}}"><i class="fa {{upAndDownIcon m_now_inc_cnt}}"></i> {{addComma m_now_inc_cnt}}</td>
@@ -1004,7 +1004,7 @@
     </tr>
 
     <tr>
-        <th>여</th>
+        <th><label style="color: red">여</label></th>
         <td>{{addComma f_now_Cnt}}</td>
         <td>{{addComma f_yes_Cnt}}</td>
         <td class="{{upAndDownClass f_now_inc_cnt}}"><i class="fa {{upAndDownIcon f_now_inc_cnt}}"></i> {{addComma f_now_inc_cnt}}</td>

@@ -22,8 +22,8 @@
             </tr>
 
             <tr>
-                <th>남성</th>
-                <th>여성</th>
+                <th><label class="font-bold" style="color: blue">남성</label></th>
+                <th><label class="font-bold" style="color: red">여성</label></th>
                 <th>알 수 없음</th>
 
                 <th>10대</th>

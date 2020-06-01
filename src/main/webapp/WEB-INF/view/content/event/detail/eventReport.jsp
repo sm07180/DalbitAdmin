@@ -416,10 +416,10 @@
                 <th colspan="2">당첨자</th>
             </tr>
             <tr>
-                <th>남</th>
-                <th>여</th>
-                <th>남</th>
-                <th>여</th>
+                <th><label style="color: blue">남</label></th>
+                <th><label style="color: red">여</label></th>
+                <th><label style="color: blue">남</label></th>
+                <th><label style="color: red">여</label></th>
             </tr>
         </thead>
         <tbody id="summaryDataTable">

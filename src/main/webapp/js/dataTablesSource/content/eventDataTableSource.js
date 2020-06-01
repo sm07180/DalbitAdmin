@@ -37,10 +37,10 @@ var EventDataTableSource = {
             {'title': '총 응모자', 'data': 'mem_cnt', 'render': function (data) {
                     return data + " 명";
                 }},
-            {'title': '남', 'data': 'male_cnt', 'render': function (data) {
+            {'title': '<label style="color: blue">남</lable>', 'data': 'male_cnt', 'render': function (data) {
                     return data + " 명";
                 }},
-            {'title': '여', 'data': 'female_cnt', 'render': function (data) {
+            {'title': '<label style="color: red">여</label>', 'data': 'female_cnt', 'render': function (data) {
                     return data + " 명";
                 }},
             {'title': '등록자명', 'data': 'op_name'}
@@ -87,7 +87,7 @@ var EventDataTableSource = {
             {'title': '총 응모자', 'data': 'mem_cnt', 'render': function (data) {
                     return data + " 명";
                 }},
-            {'title': '남', 'data': 'male_cnt', 'render': function (data) {
+            {'title': '<label style="color: blue">남</label>', 'data': 'male_cnt', 'render': function (data) {
                     return data + " 명";
                 }},
             {'title': '여', 'data': 'female_cnt', 'render': function (data) {

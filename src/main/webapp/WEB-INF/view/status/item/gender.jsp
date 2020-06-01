@@ -16,8 +16,8 @@
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">소개</th>
-                <th colspan="2">남성</th>
-                <th colspan="2">여성</th>
+                <th colspan="2"><label style="color: blue">남성</label></th>
+                <th colspan="2"><label style="color: red">여성</label></th>
                 <th colspan="2">알수없음</th>
             </tr>
             <tr>

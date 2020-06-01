@@ -17,8 +17,8 @@
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="7">가입자(남성)</th>
-                <th colspan="7">가입자(여성)</th>
+                <th colspan="7"><label style="color: blue">가입자(남성)</label></th>
+                <th colspan="7"><label style="color: red">가입자(여성)</label></th>
                 <th rowspan="2">알 수 없음</th>
             </tr>
             <tr>

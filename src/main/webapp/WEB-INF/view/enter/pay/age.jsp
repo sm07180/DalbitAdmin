@@ -9,19 +9,27 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="6%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
-                <col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
-                <col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
-                <col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/><col width="4.7%"/>
-                <col width="4.7%"/>
+                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="1%"/>
+                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
             </colgroup>
             <thead>
             <tr>
+                <th colspan="9">성별</th>
+                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
+                <th colspan="15">연령대별</th>
+            </tr>
+            <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2">남성</th>
-                <th colspan="2">여성</th>
+                <th colspan="2"><label style="color: blue">남성</label></th>
+                <th colspan="2"><label style="color: red">여성</label></th>
                 <th colspan="2">알수없음</th>
+                <th rowspan="2" style="background-color: white; border-bottom: hidden;"></th>
+                <th rowspan="2">시간대</th>
+                <th colspan="2">총계</th>
                 <th colspan="2">10대</th>
                 <th colspan="2">20대</th>
                 <th colspan="2">30대</th>
@@ -30,14 +38,16 @@
                 <th colspan="2">60대이상</th>
             </tr>
             <tr>
+                <th>건(비율)</th>
+                <th>금액(비율)</th>
                 <th>건</th>
                 <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
-                <th>건</th>
-                <th>금액</th>
+                <th>건(비율)</th>
+                <th>금액(비율)</th>
                 <th>건</th>
                 <th>금액</th>
                 <th>건</th>
@@ -100,14 +110,18 @@
 <script type="text/x-handlebars-template" id="tmp_age">
     <tr class="success font-bold">
         <td>소계</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalAmt}}</td>
-        <td>{{addComma sum_maleCnt}}</td>
-        <td>{{addComma sum_maleAmt}}</td>
-        <td>{{addComma sum_femaleCnt}}</td>
-        <td>{{addComma sum_femaleAmt}}</td>
+        <td>{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}})</td>
+        <td>{{addComma sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}})</td>
+        <td style="color: blue;">{{addComma sum_maleCnt}}</td>
+        <td style="color: blue;">{{addComma sum_maleAmt}}</td>
+        <td style="color: red;">{{addComma sum_femaleCnt}}</td>
+        <td style="color: red;">{{addComma sum_femaleAmt}}</td>
         <td>{{addComma sum_noneCnt}}</td>
         <td>{{addComma sum_noneAmt}}</td>
+        <td style="background-color: white;border-bottom: hidden;"></td>
+        <td>소계</td>
+        <td>{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}})</td>
+        <td>{{addComma sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}})</td>
         <td>{{addComma sum_age10Cnt}}</td>
         <td>{{addComma sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
@@ -131,14 +145,22 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalAmt}}</td>
-        <td>{{addComma maleCnt}}</td>
-        <td>{{addComma maleAmt}}</td>
-        <td>{{addComma femaleCnt}}</td>
-        <td>{{addComma femaleAmt}}</td>
+        <td>{{addComma totalCnt}}({{average totalCnt sum_totalCnt}})</td>
+        <td>{{addComma totalAmt}}({{average totalAmt sum_totalAmt}})</td>
+        <td style="color: blue;">{{addComma maleCnt}}</td>
+        <td style="color: blue;">{{addComma maleAmt}}</td>
+        <td style="color: red;">{{addComma femaleCnt}}</td>
+        <td style="color: red;">{{addComma femaleAmt}}</td>
         <td>{{addComma noneCnt}}</td>
         <td>{{addComma noneAmt}}</td>
+        <td style="border-bottom: hidden;"></td>
+        <td class="font-bold">
+            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+        </td>
+        <td>{{addComma totalCnt}}({{average totalCnt sum_totalCnt}})</td>
+        <td>{{addComma totalAmt}}({{average totalAmt sum_totalAmt}})</td>
         <td>{{addComma age10Cnt}}</td>
         <td>{{addComma age10Amt}}</td>
         <td>{{addComma age20Cnt}}</td>

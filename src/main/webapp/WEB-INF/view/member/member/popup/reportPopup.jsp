@@ -95,9 +95,9 @@
     $('#td_memId').html(memId);
     $('#td_memNick').html(memNick);
     if(memSex == "m")
-        $('#td_memSex').html("남");
+        $('#td_memSex').html("<label style=\"color: blue\">남</label>");
     else if(memSex == "f")
-        $('#td_memSex').html("여");
+        $('#td_memSex').html("<label style=\"color: red\">여</lable>");
     else
         $('#td_memSex').html("알수없음");
 
