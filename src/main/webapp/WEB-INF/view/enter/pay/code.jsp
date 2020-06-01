@@ -249,7 +249,7 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma android_total_cnt}}({{average android_total_cnt sum_android_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{android_total_amt}}({{average android_total_amt sum_android_total_amt}}%)</td>
+        <td style="font-weight: bold">{{addComma android_total_amt}}({{average android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma code01Cnt}}</td>
         <td>{{addComma code01Amt}}</td>
         <td>{{addComma code02Cnt}}</td>
@@ -269,7 +269,7 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma ios_total_cnt}}({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{ios_total_amt}}({{average ios_total_amt sum_ios_total_amt}}%)</td>
+        <td style="font-weight: bold">{{addComma ios_total_amt}}({{average ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma code07Cnt}}</td>
         <td>{{addComma code07Amt}}</td>
         <td>{{addComma code08Cnt}}</td>
