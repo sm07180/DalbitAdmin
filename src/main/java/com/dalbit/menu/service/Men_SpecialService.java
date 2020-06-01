@@ -129,6 +129,7 @@ public class Men_SpecialService {
 
         specialReqVo.setOp_name(MemberVo.getMyMemNo());
         int result = menSpecialDao.reqOk(specialReqVo);
+        menSpecialDao.opLastUpdDate(specialReqVo);
 
         specialReqVo.setState(2);
         menSpecialDao.reqOkUpdate(specialReqVo);

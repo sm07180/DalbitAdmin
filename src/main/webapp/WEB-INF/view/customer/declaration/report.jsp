@@ -246,7 +246,7 @@
         <div id="page-wrapper">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                 <li class="active"><a href="#reportDetail" role="tab" data-toggle="tab">신고처리</a></li>
-                {{#equal status 0}}<button type="button" class="btn btn-default print-btn pull-right" id="bt_declaration">처리완료</button>{{/equal}}
+                {{#equal status 0}}<button type="button" class="btn btn-default btn-sm print-btn pull-right" id="bt_declaration">처리완료</button>{{/equal}}
             </ul>
             <div class="col-lg-12 no-padding">
                 <label id="report_title"></label>

@@ -51,7 +51,7 @@
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     </div>
                     <span>
-                        <button class="btn btn-default print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                        <button class="btn btn-default btn-sm print-btn pull-right mr10" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
                     </span>
                 </div>
             </div>

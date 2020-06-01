@@ -10,13 +10,13 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i>검색조건</h3>
                             <span id="search_os_area"></span>
-                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            <button type="button" class="btn btn-success btn-sm" id="bt_search">검색</button>
                         </div>
                     </div>
                 </div>
             </form>
             <div class="row col-lg-12 form-inline" id="insertBtn">
-                <button type="button" class="btn btn-default pull-right mb5" id="bt_insert">등록</button>
+                <button type="button" class="btn btn-default btn-sm pull-right mb5" id="bt_insert">등록</button>
             </div>
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
@@ -258,7 +258,7 @@
     <div class="row col-lg-12 mt15">
         <div class="col-md-12 no-padding">
             <span>
-                {{^idx}}<button class="btn btn-default pull-right mb15" type="button" id="insertAppBtn">등록하기</button>{{/idx}}
+                {{^idx}}<button class="btn btn-default btn-sm pull-right mb15" type="button" id="insertAppBtn">등록하기</button>{{/idx}}
                 <%--{{#idx}}<button class="btn btn-default pull-right mb15 hide" type="button" id="updateAppBtn">수정완료</button>{{/idx}}--%>
             </span>
         </div>

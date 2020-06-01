@@ -38,7 +38,7 @@
 
         <div class="widget-footer">
             <span>
-                <button type="button" class="btn btn-default print-btn pull-right" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+                <button type="button" class="btn btn-default btn-sm print-btn pull-right" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
             </span>
         </div>
 </div>
@@ -230,8 +230,8 @@
                     </tr>
                 </table>
                 <!-- 승인완료 승인거부-->
-                {{^equal state '3'}}<button type="button" class="btn btn-danger pull-right mb15" id="bt_reqReject">승인거부</button>{{/equal}}
-                {{^equal state '2'}}<button type="button" class="btn btn-success pull-right mb15 mr10" id="bt_reqOk" data-idx="{{idx}}" data-memno="{{mem_no}}">승인완료</button>{{/equal}}
+                {{^equal state '3'}}<button type="button" class="btn btn-danger btn-sm pull-right mb15" id="bt_reqReject">승인거부</button>{{/equal}}
+                {{^equal state '2'}}<button type="button" class="btn btn-success btn-sm pull-right mb15 mr10" id="bt_reqOk" data-idx="{{idx}}" data-memno="{{mem_no}}">승인완료</button>{{/equal}}
             </div>
         </div>
     </div>

@@ -12,6 +12,7 @@ import com.dalbit.exception.GlobalException;
 import com.dalbit.money.dao.Mon_ExchangeDao;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
+import com.dalbit.money.vo.procedure.P_ExchangeCancelInputVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -71,13 +72,13 @@ public class Mon_ExchangeService {
         ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
 
         String[] headers = {
-            "No", "아이디", "이름", "예금주", "금액",
+            "No", "아이디", "이름", "예금주", "금액", "스페셜DJ혜택",
             "소득세", "주민세", "수수료", "실지급액",  "주민번호",
-            "연락처", "은행명", "계좌번호", "주소", "상세주소"
+            "연락처", "은행명", "계좌번호", "주소"
         };
         int[] headerWidths = {
             1000, 4000, 3000, 3000, 3000,
-            2000, 2000, 2000, 3000, 4000,
+            4000, /*2000,*/ 2000, 2000, 3000, 4000,
             3500, 3000, 5000, 10000, 10000
         };
 
@@ -95,32 +96,22 @@ public class Mon_ExchangeService {
             hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
 
-            int cashReal = DalbitUtil.isEmpty(exchangeVo.getCash_basic()) ? 0 : exchangeVo.getCash_basic();
-            hm.put("cashReal", cashReal);
+            hm.put("cashBasic", exchangeVo.getCash_basic());
+            hm.put("benefit", exchangeVo.getBenefit());
 
-            int incomeTax = 0;
-            if(0 < exchangeVo.getCash_basic() && taxStart <= exchangeVo.getCash_basic()){
-                incomeTax = (int) (exchangeVo.getCash_basic() * 0.003) * 10;
-            }
-            hm.put("incomeTax", incomeTax);
+            hm.put("income_tax", exchangeVo.getIncome_tax());
+            hm.put("resident_tax", exchangeVo.getResident_tax());
 
-            int juminTax = 0;
-            if(0 < incomeTax && juminTax <= exchangeVo.getCash_basic()){
-                juminTax = (int) (incomeTax * 0.01) * 10;
-            }
-            hm.put("juminTax", juminTax);
-
-            hm.put("fees", fees);
-
-            int exchangeCash = (cashReal - (incomeTax + juminTax)) - fees;
-            hm.put("exchangeCash", exchangeCash);
-
+            hm.put("transfer_fee", exchangeVo.getTransfer_fee());
+            hm.put("exchangeCash", exchangeVo.getCash_real());
             hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(exchangeVo.getSocial_no()));
             hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
             hm.put("bankCode", DalbitUtil.isEmpty(exchangeVo.getBank_code()) ? "" : exchangeVo.getBank_code());
             hm.put("accountNo", DalbitUtil.isEmpty(exchangeVo.getAccount_no()) ? "" : exchangeVo.getAccount_no());
-            hm.put("address1", DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1());
-            hm.put("address2", DalbitUtil.isEmpty(exchangeVo.getAddress_2()) ? "" : exchangeVo.getAddress_2());
+
+            String address = DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1();
+            address += DalbitUtil.isEmpty(exchangeVo.getAddress_2()) ? "" : " "+ exchangeVo.getAddress_2();
+            hm.put("address", address);
 
             bodies.add(hm.values().toArray());
         }
@@ -153,6 +144,27 @@ public class Mon_ExchangeService {
     public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo){
 
         monExchangeDao.updateExchangeComplete(monExchangeOutputVo);
+
+        if(monExchangeOutputVo.getState().equals("2")){
+            P_ExchangeCancelInputVo pExchangeCancelInputVo = new P_ExchangeCancelInputVo();
+            pExchangeCancelInputVo.setExchangeIdx(monExchangeOutputVo.getIdx());
+            var procedureVo = new ProcedureVo(pExchangeCancelInputVo);
+            monExchangeDao.callExchangeCancel(procedureVo);
+
+            if(procedureVo.getRet().equals(Status.환전_취소_없는환전번호.getMessageCode())){
+                return gsonUtil.toJson(new JsonOutputVo(Status.환전_취소_없는환전번호));
+
+            }else if(procedureVo.getRet().equals(Status.환전_취소_취소상태아님.getMessageCode())){
+                return gsonUtil.toJson(new JsonOutputVo(Status.환전_취소_취소상태아님));
+
+            }else if(procedureVo.getRet().equals(Status.환전_취소_회원번호없음.getMessageCode())){
+                return gsonUtil.toJson(new JsonOutputVo(Status.환전_취소_회원번호없음));
+
+            }else if(procedureVo.getRet().equals(Status.환전_취소_이미완료.getMessageCode())){
+                return gsonUtil.toJson(new JsonOutputVo(Status.환전_취소_이미완료));
+            }
+        }
+
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 

@@ -1,5 +1,6 @@
 package com.dalbit.money.dao;
 
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.payment.vo.Pay_CancelVo;
@@ -28,5 +29,7 @@ public interface Mon_ExchangeDao {
     int updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo);
 
     int updateExchangeMultiComplete(Mon_ExchangeInputVo monExchangeInputVo);
+
+    ProcedureVo callExchangeCancel(ProcedureVo procedureVo);
 
 }

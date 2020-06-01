@@ -18,9 +18,10 @@ public class Mon_ExchangeOutputVo{
     private int idx;
     private int byeol;
     private int cash_basic;
-    private int withholding_tax;
+    private int income_tax;
+    private int resident_tax;
     private int transfer_fee;
-    private String benefit;
+    private int benefit;
     private int cash_real;
     private String account_name;
     private String bank_code;

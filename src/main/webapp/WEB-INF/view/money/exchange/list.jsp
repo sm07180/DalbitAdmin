@@ -125,9 +125,11 @@
                                     <th>이름</th>
                                     <th>예금주</th>
                                     <th>환전신청금액</th>
+                                    <th>스페셜DJ혜택</th>
+                                    <th>환전실수령액</th>
                                     <th>신청 별 수</th>
                                     <th>현재 별 수</th>
-                                    <th>환전 후 별 수</th>
+                                    <%--<th>환전 후 별 수</th>--%>
                                     <th>환전횟수</th>
                                     <th>신청일자</th>
                                     <th>처리일자</th>
@@ -161,6 +163,7 @@
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 <script type="text/javascript">
     var exchangePagingInfo = new PAGING_INFO(0,1,50);
+    var limitDay = moment(new Date()).format('YYYYMMDD');
 
     $(function(){
         $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
@@ -180,6 +183,7 @@
             , search_value : $("#search_value").val()
             , pageStart : exchangePagingInfo.pageNo
             , pageCnt : exchangePagingInfo.pageCnt
+            , limitDay : limitDay
         };
     }
 
@@ -227,6 +231,23 @@
     });
 
     function fn_succ_list(dst_id, response) {
+        if(getParameter().isSpecial == 0){
+            var curDay = moment().day();
+            var prevDay = 0;
+            if(curDay == 0){
+                prevDay = -3
+            }else if(curDay == 3 || curDay == 6){
+                prevDay = -2
+            }else if(curDay == 2 || curDay ==5){
+                prevDay = -1
+            }
+            limitDay = moment(new Date()).add('days', prevDay).format('YYYYMMDD');
+        }else{
+            limitDay = moment(new Date()).format('YYYYMMDD');
+        }
+
+        response.data.limitDay = limitDay;
+
         var template = $('#tmp_exchangeList').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -236,6 +257,8 @@
         exchangePagingInfo.totalCnt = response.data.exchangeCnt;
         util.renderPagingNavigation("list_info_paginate_top", exchangePagingInfo);
         util.renderPagingNavigation("list_info_paginate", exchangePagingInfo);
+
+
     }
 
     function handlebarsPaging(targetId, pagingInfo){
@@ -252,6 +275,7 @@
         formData.append("search_state", 0);
         formData.append("search_type", getParameter().search_type);
         formData.append("search_value", getParameter().search_value);
+        formData.append("limitDay", getParameter().limitDay);
 
         util.excelDownload($(this), "/rest/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
     });
@@ -319,7 +343,7 @@
     });
 
     $(document).on('click', '._rejectBtn', function(){
-        if(confirm('불가처리 하시겠습니까?')){
+        if(confirm('불가처리 하시겠습니까?\n불가처리 시 환전 신청한 별 수가 반환됩니다.')){
             var data = $("#exchangeForm").serialize();
             data += '&state=2';
             util.getAjaxData("reject", "/rest/money/exchange/complete", data, fn_succ_complete);
@@ -330,7 +354,7 @@
         if(dist_id == 'complete'){
             alert('완료처리 되었습니다.');
         }else if(dist_id == 'reject'){
-            alert('불가처리 되었습니다.');
+            alert(response.message);
         }
         closeModal();
         getList();
@@ -383,15 +407,26 @@
         <td>
             {{getMemStateName data.mem_state}}
         </td>
-        <td><input type="checkbox" class="_chk" data-exchangeidx='{{data.idx}}' {{^equal data.state '0'}}disabled{{/equal}} /></td>
+        <td>
+            {{#workdayCheck ../limitDay data.reg_date}}
+            <input type="checkbox" class="_chk"
+                   data-exchangeidx='{{data.idx}}'
+                   data-regdate="{{convertToDate data.reg_date 'YYYYMMDD'}}"
+                   {{^equal data.state '0'}}disabled{{/equal}} />
+            {{else}}
+                {{{fontColor '대기' 1 'gray'}}}
+            {{/workdayCheck}}
+        </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_id}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
+        <td>{{addComma data.benefit}}원</td>
+        <td>{{addComma data.cash_real}}원</td>
         <td>{{addComma data.byeol}}별</td>
         <td>{{addComma data.gold}}별</td>
-        <td>{{math data.gold '-' data.byeol}}별</td>
+        <!--<td>{{math data.gold '-' data.byeol}}별</td>-->
         <td>{{addComma data.exchangeCnt}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
@@ -402,7 +437,7 @@
 
     {{else}}
     <tr>
-        <td colspan="17">{{isEmptyData}}</td>
+        <td colspan="18">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
