@@ -332,6 +332,7 @@
     function fn_succ_update(dist_id, response){
         alert(response.message);
         closeModal();
+        getList();
     }
 
     $(document).on('click', '._completeBtn', function(){
