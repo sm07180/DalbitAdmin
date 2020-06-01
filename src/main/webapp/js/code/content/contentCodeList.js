@@ -154,6 +154,11 @@ var event_searchType = [
     , new COMMON_CODE('title', '1', '제목')
 ];
 
+var event_isReply = [
+    new COMMON_CODE(null, 'is_reply', '댓글사용여부')
+    , new COMMON_CODE('no', '0', '사용안함')
+    , new COMMON_CODE('yes', '1', '사용')
+];
 
 /** =------ Item ---------- */
 var item_searchType = [

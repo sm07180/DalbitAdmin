@@ -16,6 +16,7 @@ public class P_EventListOutputVo extends BaseVo {
     private int event_slct;
     private int is_pop;
     private int is_view;
+    private int is_reply;
     private String state;
     private String pc_img_url;
     private String pc_link_url;
