@@ -207,8 +207,8 @@
 <script type="text/x-handlebars-template" id="tmp_code">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="color:red;font-weight: bold">{{sum_android_total_cnt}}({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
-        <td style="color:red;font-weight: bold">{{sum_android_total_amt}}({{average sum_android_total_amt sum_android_total_amt}}%)</td>
+        <td style="color:red;font-weight: bold">{{addComma sum_android_total_cnt}}({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
+        <td style="color:red;font-weight: bold">{{addComma sum_android_total_amt}}({{average sum_android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma sum_code01Cnt}}</td>
         <td>{{addComma sum_code01Amt}}</td>
         <td>{{addComma sum_code02Cnt}}</td>
@@ -223,8 +223,8 @@
         <td>{{addComma sum_code06Amt}}</td>
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td>소계</td>
-        <td style="color:red;font-weight: bold">{{sum_ios_total_cnt}}({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="color:red;font-weight: bold">{{sum_ios_total_amt}}({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
+        <td style="color:red;font-weight: bold">{{addComma sum_ios_total_cnt}}({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
+        <td style="color:red;font-weight: bold">{{addComma sum_ios_total_amt}}({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma sum_code07Cnt}}</td>
         <td>{{addComma sum_code07Amt}}</td>
         <td>{{addComma sum_code08Cnt}}</td>
@@ -248,7 +248,7 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{android_total_cnt}}({{average android_total_cnt sum_android_total_cnt}}%)</td>
+        <td>{{addComma android_total_cnt}}({{average android_total_cnt sum_android_total_cnt}}%)</td>
         <td style="font-weight: bold">{{android_total_amt}}({{average android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma code01Cnt}}</td>
         <td>{{addComma code01Amt}}</td>
@@ -268,7 +268,7 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{ios_total_cnt}}({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
+        <td>{{addComma ios_total_cnt}}({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
         <td style="font-weight: bold">{{ios_total_amt}}({{average ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma code07Cnt}}</td>
         <td>{{addComma code07Amt}}</td>

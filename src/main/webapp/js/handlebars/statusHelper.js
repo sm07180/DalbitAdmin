@@ -17,6 +17,7 @@ Handlebars.registerHelper("average", function(lvalue,rvalue) {
     if(rvalue == 0 || common.isEmpty(rvalue)){
         return 0;
     }
-    var tmp = rvalue/lvalue;
+    console.log(rvalue + " / " + lvalue);
+    var tmp = (rvalue/lvalue) * 100;
     return tmp.toFixed(1);
 });
