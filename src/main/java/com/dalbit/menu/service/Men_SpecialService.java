@@ -244,7 +244,7 @@ public class Men_SpecialService {
         pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
         pPushInsertVo.setSend_cont("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
         //TODO 스페셜DJ 공지 번호 입력 필요!!
-//        pPushInsertVo.setBoard_idx("3");
+        pPushInsertVo.setBoard_idx("22");
         pPushInsertVo.setSlct_push("7");
         pPushInsertVo.setIs_all("7");
         pPushInsertVo.setPlatform("111");
