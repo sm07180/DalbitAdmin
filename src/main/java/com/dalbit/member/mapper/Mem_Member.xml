@@ -44,6 +44,11 @@
          limit 1;
     </select>
 
+    <select id="callMemberInfo_badge" parameterType="String" resultType="java.util.HashMap">
+        select if(recomm_badge = 1, 1, 0) as recomm_badge, if(newdj_badge = 1, 1, 0) as newdj_badge, if(specialdj_badge = 1, 1, 0) as specialdj_badge
+           from rd_data.tb_member_profile where mem_no=#{mem_no}
+    </select>
+
     <select id="callMemberBlock" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberBlock */
         select block_day,block_end_date From rd_data.tb_member_basic where mem_no=#{mem_no}

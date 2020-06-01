@@ -11,6 +11,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberInfoOutputVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -184,6 +185,15 @@ public class Bro_BroadcastService {
                 broadcastDetail.setDj_memSex(withdrawal.get("dj_memSex"));
             }
         }
+
+        // 회원 배찌
+        HashMap<P_MemberInfoOutputVo,String> djBadge = mem_MemberDao.callMemberInfo_badge(broadcastDetail.getDj_mem_no());
+        if(!DalbitUtil.isEmpty(djBadge)) {
+            broadcastDetail.setRecomm_badge(String.valueOf(djBadge.get("recomm_badge")) );
+            broadcastDetail.setNewdj_badge(String.valueOf(djBadge.get("newdj_badge")));
+            broadcastDetail.setSpecialdj_badge(String.valueOf(djBadge.get("specialdj_badge")));
+        }
+
 
         String result;
         if(Status.방송방상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {

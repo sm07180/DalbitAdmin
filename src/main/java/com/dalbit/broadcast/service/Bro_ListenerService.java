@@ -9,6 +9,8 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.procedure.P_MemberInfoOutputVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +35,8 @@ public class Bro_ListenerService {
     SocketUtil socketUtil;
     @Autowired
     JwtUtil jwtUtil;
-
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
     /**
      * 생방송 청취자 목록 조회
      */
@@ -45,6 +48,13 @@ public class Bro_ListenerService {
         if(!DalbitUtil.isEmpty(broadList)){
             for (int i=0; i < broadList.size(); i++){
                 P_ListenListOutputVo outVo = new P_ListenListOutputVo();
+                // 회원 배찌
+                HashMap<P_MemberInfoOutputVo,String> djBadge = mem_MemberDao.callMemberInfo_badge(broadList.get(i).getMem_no());
+                if(!DalbitUtil.isEmpty(djBadge)) {
+                    outVo.setRecomm_badge(String.valueOf(djBadge.get("recomm_badge")) );
+                    outVo.setNewdj_badge(String.valueOf(djBadge.get("newdj_badge")));
+                    outVo.setSpecialdj_badge(String.valueOf(djBadge.get("specialdj_badge")));
+                }
                 outVo.setRowNum(broadList.get(i).getRowNum());
                 outVo.setAuth(broadList.get(i).getAuth());
                 outVo.setState(broadList.get(i).getState());

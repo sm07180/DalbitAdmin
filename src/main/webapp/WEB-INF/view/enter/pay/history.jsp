@@ -37,6 +37,11 @@
 <script type="text/javascript">
 
     var dtList_info;
+
+    var tmp_ostype = -1;
+    var tmp_innerType = 0;
+    var tmp_payWay = "all";
+
     function getPayHistoryList() {
         var sDate;
         var eDate;
@@ -52,10 +57,10 @@
                 data.sDate = sDate;
                 data.eDate = eDate;
             }
-            data.ostype = $("#div_payY").find("select[name='ostype']").val();
+            data.ostype = tmp_ostype;
             data.searchPayStatus = 1;
-            data.innerType = $("#div_payY").find("select[name='innerType']").val();
-            data.payWay = $("#div_payY").find("select[name='payWay']").val();
+            data.innerType = tmp_innerType;
+            data.payWay = tmp_payWay ;
         };
         dtList_info = new DalbitDataTable($("#div_payY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory);
         dtList_info.useCheckBox(false);
@@ -65,11 +70,14 @@
         dtList_info.reload();
 
         $("#div_payY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
-        $("#div_payY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));
         $("#div_payY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
+        $("#div_payY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));
     }
 
     function sel_change_pay(){
+        tmp_ostype = $("#div_payY").find("select[name='ostype']").val();
+        tmp_innerType = $("#div_payY").find("select[name='innerType']").val();
+        tmp_payWay = $("#div_payY").find("select[name='payWay']").val();
         dtList_info.reload();
     }
 

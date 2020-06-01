@@ -13,7 +13,8 @@
                exchange.idx,
                exchange.byeol,
                exchange.cash_basic,
-               exchange.withholding_tax,
+               exchange.income_tax,
+               exchange.resident_tax,
                exchange.transfer_fee,
                exchange.benefit,
                exchange.cash_real,
@@ -90,6 +91,10 @@
             <if test='excelYn == "Y" and limitDay != ""'>
                 and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<]]> #{limitDay}
             </if>
+
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
         order by exchange.reg_date desc
     </sql>
 
@@ -106,7 +111,8 @@
             , idx
             , byeol
             , cash_basic
-            , withholding_tax
+            , income_tax
+            , resident_tax
             , transfer_fee
             , benefit
             , cash_real
@@ -180,6 +186,8 @@
                 on exchange.mem_no = special.mem_no
                     and special.select_year = #{search_year}
                     and special.select_month = #{search_month}
+                left join rd_data.tb_member_basic basic
+                on exchange.mem_no = basic.mem_no
             where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
             <choose>
                 <when test="isSpecial == 0">
@@ -189,6 +197,9 @@
                     and special.mem_no is not null
                 </when>
             </choose>
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
             group by exchange.mem_no
          )a
 
@@ -200,6 +211,8 @@
                 on exchange.mem_no = special.mem_no
                     and special.select_year = #{search_year}
                     and special.select_month = #{search_month}
+            left join rd_data.tb_member_basic basic
+            on exchange.mem_no = basic.mem_no
         where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
         <choose>
             <when test="isSpecial == 0">
@@ -209,6 +222,9 @@
                 and special.mem_no is not null
             </when>
         </choose>
+        <if test='search_testId == 1'>
+            and basic.inner = 0
+        </if>
             /*and exchange.state = 1*/
 
         union all
@@ -219,6 +235,8 @@
                 on exchange.mem_no = special.mem_no
                     and special.select_year = #{search_year}
                     and special.select_month = #{search_month}
+            left join rd_data.tb_member_basic basic
+            on exchange.mem_no = basic.mem_no
         where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
             and exchange.state = 1
             <choose>
@@ -229,6 +247,9 @@
                     and special.mem_no is not null
                 </when>
             </choose>
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
         union all
         -- 불가 별 수
         select ifnull(sum(byeol), 0) byeol
@@ -237,6 +258,8 @@
                 on exchange.mem_no = special.mem_no
                     and special.select_year = #{search_year}
                     and special.select_month = #{search_month}
+            left join rd_data.tb_member_basic basic
+            on exchange.mem_no = basic.mem_no
         where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
             and exchange.state = 2
             <choose>
@@ -247,6 +270,9 @@
                     and special.mem_no is not null
                 </when>
             </choose>
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
 
         union all
         -- 불가처리 금액
@@ -256,6 +282,8 @@
                 on exchange.mem_no = special.mem_no
                     and special.select_year = #{search_year}
                     and special.select_month = #{search_month}
+            left join rd_data.tb_member_basic basic
+            on exchange.mem_no = basic.mem_no
         where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
             and exchange.state = 2
             <choose>
@@ -266,11 +294,15 @@
                     and special.mem_no is not null
                 </when>
             </choose>
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
     </select>
 
     <sql id="baseUpdateColumn">
         bank_code = #{bank_code}
         , account_name = #{account_name}
+        , account_no = #{account_no}
         , social_no = #{social_no}
         , address_1 = #{address_1}
         , address_2 = #{address_2}

@@ -140,9 +140,14 @@
     });
 
     function getStatPayInfo(){
-        util.getAjaxData("statPayInfo", "/rest/enter/pay/info", null, fn_statPayInfo_success1);
+        util.getAjaxData("statPayInfo", "/rest/enter/pay/info", $("#searchForm").serialize(), fn_statPayInfo_success1);
     }
     function fn_statPayInfo_success1(data, response){
+        $("#statPayTableBody1").empty();
+        $("#statPayTableBody2").empty();
+        $("#statPayTableBody3").empty();
+        $("#PayTotalTableBody").empty();
+
         // WEB/안드로이드 총 계/합
         var android_total_cnt = [
             response.data.info.code01_cnt,
@@ -262,6 +267,7 @@
                 setYear(1);
             }
         }
+        getStatPayInfo();
         $("#bt_search").click();
     }
 
@@ -506,13 +512,13 @@
         </tr>
         <tr>
             <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
-            <td style="color: red;">{{addComma code01_amt}}</td>
-            <td style="color: red;">{{addComma code02_amt}}</td>
-            <td style="color: red;">{{addComma code03_amt}}</td>
-            <td style="color: red;">{{addComma code04_amt}}</td>
-            <td style="color: red;">{{addComma code05_amt}}</td>
-            <td style="color: red;">{{addComma code06_amt}}</td>
-            <td style="color: red;">{{addComma android_total_amt}}</td>
+            <td style="color: red;">{{vatMinus code01_amt}}</td>
+            <td style="color: red;">{{vatMinus code02_amt}}</td>
+            <td style="color: red;">{{vatMinus code03_amt}}</td>
+            <td style="color: red;">{{vatMinus code04_amt}}</td>
+            <td style="color: red;">{{vatMinus code05_amt}}</td>
+            <td style="color: red;">{{vatMinus code06_amt}}</td>
+            <td style="color: red;">{{vatMinus android_total_amt}}</td>
             <td style="border-bottom: hidden;"></td>
             <th style="color: red;"><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
             <td style="color: red;">{{vatMinus code07_amt}}</td>

@@ -55,6 +55,10 @@
     }
 
     function fn_wayPay_success(data, response){
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i]["sum_totalCnt"] = response.data.totalInfo.sum_totalCnt;
+            response.data.detailList[i]["sum_totalAmt"] = response.data.totalInfo.sum_totalAmt;
+        }
         var isDataEmpty = response.data.detailList == null;
         $("#wayTableBody").empty();
         if(!isDataEmpty){
@@ -83,8 +87,8 @@
 <script type="text/x-handlebars-template" id="tmp_way">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="font-weight:bold;color: red;">{{sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold;color: red;">{{sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}}%)</td>
+        <td style="font-weight:bold;color: red;">{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}}%)</td>
+        <td style="font-weight:bold;color: red;">{{addComma sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}}%)</td>
         <td>{{addComma sum_mcCnt}}</td>
         <td>{{addComma sum_mcAmt}}</td>
         <td>{{addComma sum_cnCnt}}</td>
@@ -104,8 +108,8 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{totalCnt}}({{average totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold">{{totalAmt}}({{average totalAmt sum_totalAmt}}%)</td>
+        <td>{{addComma totalCnt}}({{average totalCnt sum_totalCnt}}%)</td>
+        <td style="font-weight:bold">{{addComma totalAmt}}({{average totalAmt sum_totalAmt}}%)</td>
         <td>{{addComma mcCnt}}</td>
         <td>{{addComma mcAmt}}</td>
         <td>{{addComma cnCnt}}</td>
