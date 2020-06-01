@@ -100,7 +100,7 @@
             ,platform: "111"
             ,status: 0
             ,msg_type: 0
-            ,image_type: 1
+            ,image_type: 101
             ,is_direct: 0
         };
         dalbitLog(data);

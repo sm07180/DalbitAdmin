@@ -259,7 +259,7 @@ public class Men_SpecialService {
         pPushInsertVo.setPlatform("111");
         pPushInsertVo.setStatus("0");
         pPushInsertVo.setMsg_type("0");
-        pPushInsertVo.setImage_type("1");
+        pPushInsertVo.setImage_type("101");
         pPushInsertVo.setIs_direct("0");
 
         String pushResult = pushService.callContentsPushAdd(pPushInsertVo);
