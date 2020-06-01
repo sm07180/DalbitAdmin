@@ -103,6 +103,7 @@ var pointEditStory = [
     ,new COMMON_CODE('0','0','소실금액 복구')
     ,new COMMON_CODE('1','1','직원 테스트')
     ,new COMMON_CODE('2','2','이벤트 지급')
+    ,new COMMON_CODE('3','3','스페셜DJ 혜택')
 ];
 
 var memJoinDateSort = [
