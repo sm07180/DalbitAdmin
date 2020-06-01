@@ -21,7 +21,7 @@ var BroadcastDataTableSource = {
                         tmp = tmp + '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>';
                     }
                     if(row.newjdBadge == "1"){
-                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span><br/>';
                     }
                     if(row.specialdj_badge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
@@ -191,17 +191,27 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/listener/list'
         , 'columns': [
             {'title': '구분', 'data': 'state', 'width':'80px', 'render': function (data, type, row, meta) {
+                    var tmp = "";
+                    if(row.recomm_badge == "1"){
+                        tmp = '<span class ="label" style="background-color:#d943c1">' + "추천" + '</span><br/>';
+                    }
+                    if(row.newdj_badge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span><br/>';
+                    }
+                    if(row.specialdj_badge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
+                    }
                     if(data == "1") {
-                        return '<lable style="color:#d98000">퇴장</lable>';
+                        return '<lable style="color:#d98000">퇴장</lable><br/>' + tmp;
                     }else if(data == "2"){
-                        return '<lable style="color:#ff1600">강제퇴장자</lable>';
+                        return '<lable style="color:#ff1600">강제퇴장자</lable><br/>' + tmp;
                     }else if(data == "0"){
                         if(row.auth == "0"){
-                        return '<lable style="color:#080004">청취자</lable>';
+                        return '<lable style="color:#080004">청취자</lable><br/>' + tmp;
                         }else if(row.auth == "1"){
-                            return '<lable style="color:#00ff32">매니저</lable>';
+                            return '<lable style="color:#00ff32">매니저</lable><br/>' + tmp;
                         }else if(row.auth == "2"){
-                            return '<lable style="color:#0036ff">게스트</lable>';
+                            return '<lable style="color:#0036ff">게스트</lable><br/>' + tmp;
                         }
                     }
                 }},

@@ -155,6 +155,14 @@ public class Mem_MemberService {
             memberInfo.setListen_title(listen.getListen_title());
         }
 
+        // 회원 배찌
+        HashMap<P_MemberInfoOutputVo,String> djBadge = mem_MemberDao.callMemberInfo_badge(pMemberInfoInputVo.getMem_no());
+        if(!DalbitUtil.isEmpty(djBadge)) {
+            memberInfo.setRecomm_badge(String.valueOf(djBadge.get("recomm_badge")) );
+            memberInfo.setNewdj_badge(String.valueOf(djBadge.get("newdj_badge")));
+            memberInfo.setSpecialdj_badge(String.valueOf(djBadge.get("specialdj_badge")));
+        }
+
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberInfo));

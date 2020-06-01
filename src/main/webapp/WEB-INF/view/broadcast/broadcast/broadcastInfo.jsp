@@ -109,6 +109,12 @@
 
         response.data["dj_userIdLink"] = util.memNoLink(response.data.dj_userId, response.data.dj_mem_no);
 
+        var tmp_badge = "";
+        if(response.data.recomm_badge == "1") tmp_badge = '<span class ="label" style="background-color:#d943c1">' + "추천" + '</span>';
+        if(response.data.newdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+        if(response.data.specialdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
+        response.data["dj_badge"] = tmp_badge;
+
         dalbitLog(response);
         var template = $('#tmp_broadcast_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -462,7 +468,9 @@
             <th>DJ ID</th>
             <td style="text-align: left">
                {{{dj_userIdLink}}}
-                {{#equal dj_userId ''}}-{{/equal}}
+               {{^equal dj_badge ''}}
+                   <label class="pull-right"> DJ타입 | {{{../dj_badge}}} </label>
+               {{/equal}}
             </td>
             <th>방송 시작일</th>
             <td style="text-align: left">{{startDate}}</td>

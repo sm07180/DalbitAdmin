@@ -39,6 +39,11 @@ public class P_ListenListOutputVo extends PagingVo {
     private int totalBoosterCnt;
     private int totalGiftCnt;
 
+    // 회원 배찌
+    private String recomm_badge;
+    private String newdj_badge;
+    private String specialdj_badge;
+
     public void setStart_date(Date start_date){
         this.start_date = start_date;
         this.startDateFormat = DalbitUtil.convertDateFormat(start_date, "yyyy.MM.dd HH:mm:ss");
