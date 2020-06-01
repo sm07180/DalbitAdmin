@@ -452,6 +452,10 @@
                 <td colspan="2">{{{getCommonCodeRadio is_view 'content_viewOn'}}}</td>
             </tr>
             <tr>
+                <th>댓글사용여부</th>
+                <td colspan="2">{{{getCommonCodeRadio is_reply 'event_isReply'}}}</td>
+            </tr>
+            <tr>
                 <th colspan="12">배너 이미지</th>
             </tr>
             <tr>
