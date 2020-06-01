@@ -106,7 +106,8 @@ public class Mon_ExchangeService {
             hm.put("exchangeCash", exchangeVo.getCash_real());
             hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(exchangeVo.getSocial_no()));
             hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
-            hm.put("bankCode", DalbitUtil.isEmpty(exchangeVo.getBank_code()) ? "" : exchangeVo.getBank_code());
+
+            hm.put("bankName", getBankName(exchangeVo.getBank_code()));
             hm.put("accountNo", DalbitUtil.isEmpty(exchangeVo.getAccount_no()) ? "" : exchangeVo.getAccount_no());
 
             String address = DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1();
@@ -123,6 +124,123 @@ public class Mon_ExchangeService {
         model.addAttribute("listSize", exchangeList.size());
 
         return model;
+    }
+
+    public String getBankName(String bankCode){
+        if (bankCode.equals("39")){
+            return "경남은행";
+        } else if (bankCode.equals("34")) {
+            return "광주은행";
+        } else if (bankCode.equals("4")) {
+            return "국민은행";
+        } else if (bankCode.equals("3")) {
+            return "기업은행";
+        } else if (bankCode.equals("11")) {
+            return "농협";
+        } else if (bankCode.equals("31")) {
+            return "대구은행";
+        } else if (bankCode.equals("55")) {
+            return "도이치은행";
+        } else if (bankCode.equals("32")) {
+            return "부산은행";
+        } else if (bankCode.equals("61")) {
+            return "비엔피파리바은행";
+        } else if (bankCode.equals("64")) {
+            return "산림조합중앙회";
+        } else if (bankCode.equals("2")) {
+            return "산업은행";
+        } else if (bankCode.equals("50")) {
+            return "저축은행";
+        } else if (bankCode.equals("45")) {
+            return "새마을금고중앙회";
+        } else if (bankCode.equals("8")) {
+            return "수출입은행";
+        } else if (bankCode.equals("7")) {
+            return "수협은행";
+        } else if (bankCode.equals("88")) {
+            return "신한은행";
+        } else if (bankCode.equals("48")) {
+            return "신협";
+        } else if (bankCode.equals("20")) {
+            return "우리은행";
+        } else if (bankCode.equals("71")) {
+            return "우체국";
+        } else if (bankCode.equals("37")) {
+            return "전북은행";
+        } else if (bankCode.equals("35")) {
+            return "제주은행";
+        } else if (bankCode.equals("67")) {
+            return "중국건설은행";
+        } else if (bankCode.equals("62")) {
+            return "중국공상은행";
+        } else if (bankCode.equals("90")) {
+            return "카카오뱅크";
+        } else if (bankCode.equals("89")) {
+            return "케이뱅크";
+        } else if (bankCode.equals("294")) {
+            return "펀드온라인코리아";
+        } else if (bankCode.equals("27")) {
+            return "한국씨티은행";
+        } else if (bankCode.equals("60")) {
+            return "BOA은행";
+        } else if (bankCode.equals("54")) {
+            return "HSBC은행";
+        } else if (bankCode.equals("57")) {
+            return "제이피모간체이스은행";
+        } else if (bankCode.equals("81")) {
+            return "하나은행";
+        } else if (bankCode.equals("23")) {
+            return "SC제일은행";
+        } else if (bankCode.equals("247")) {
+            return "NH투자증권";
+        } else if (bankCode.equals("261")) {
+            return "교보증권";
+        } else if (bankCode.equals("267")) {
+            return "대신증권";
+        } else if (bankCode.equals("287")) {
+            return "메리츠종합금융증권";
+        } else if (bankCode.equals("238")) {
+            return "미래에셋대우";
+        } else if (bankCode.equals("290")) {
+            return "부국증권";
+        } else if (bankCode.equals("240")) {
+            return "삼성증권";
+        } else if (bankCode.equals("291")) {
+            return "신영증권";
+        } else if (bankCode.equals("278")) {
+            return "신한금융투자";
+        } else if (bankCode.equals("209")) {
+            return "유안타증권";
+        } else if (bankCode.equals("280")) {
+            return "유진투자증권";
+        } else if (bankCode.equals("265")) {
+            return "이베스트투자증권";
+        } else if (bankCode.equals("292")) {
+            return "케이프투자증권";
+        } else if (bankCode.equals("264")) {
+            return "키움증권";
+        } else if (bankCode.equals("270")) {
+            return "하나금융투자";
+        } else if (bankCode.equals("262")) {
+            return "하이투자증권";
+        } else if (bankCode.equals("243")) {
+            return "한국투자증권";
+        } else if (bankCode.equals("269")) {
+            return "한화투자증권";
+        } else if (bankCode.equals("263")) {
+            return "현대차증권";
+        } else if (bankCode.equals("279")) {
+            return "DB금융투자";
+        } else if (bankCode.equals("218")) {
+            return "KB증권";
+        } else if (bankCode.equals("227")) {
+            return "KTB투자증권";
+        } else if (bankCode.equals("266")) {
+            return "SK증권";
+        } else {
+            return bankCode;
+        }
+
     }
 
     public String selectExchangeDetail(Mon_ExchangeInputVo monExchangeInputVo){
