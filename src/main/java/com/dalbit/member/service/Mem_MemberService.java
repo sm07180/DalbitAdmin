@@ -470,7 +470,7 @@ public class Mem_MemberService {
         // 달 set
         pMemberEditorVo.setBeforDalCnt(beforDalCnt);
         pMemberEditorVo.setAfterDalCnt(afterDalCnt);
-        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
+        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddDalCnt() + " - " +  pMemberEditorVo.getPointEditStroy());
         // 달 추가
         mem_MemberDao.callMemberAddDal(pMemberEditorVo);
         // 달 추가 로그
@@ -485,8 +485,8 @@ public class Mem_MemberService {
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
-        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
+        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
@@ -503,7 +503,7 @@ public class Mem_MemberService {
         // 달 set
         pMemberEditorVo.setBeforByeolCnt(beforByeolCnt);
         pMemberEditorVo.setAfterByeolCnt(afterByeolCnt);
-        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
+        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         // 달 추가
         mem_MemberDao.callMemberAddByeol(pMemberEditorVo);
         // 달 추가 로그
@@ -519,8 +519,8 @@ public class Mem_MemberService {
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
-        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
+        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
