@@ -32,6 +32,9 @@ public interface Mem_MemberDao {
     P_MemberInfoOutputVo callMemberRoomListen(P_MemberInfoInputVo pMemberInfoInputVo);
 
     @Transactional(readOnly = true)
+    HashMap<P_MemberInfoOutputVo,String> callMemberInfo_badge(String mem_no);
+
+    @Transactional(readOnly = true)
     P_MemberInfoOutputVo callMemberBlock(P_MemberInfoInputVo pMemberInfoInputVo);
 
     @Transactional(readOnly = true)

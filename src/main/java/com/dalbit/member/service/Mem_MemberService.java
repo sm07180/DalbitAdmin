@@ -155,6 +155,14 @@ public class Mem_MemberService {
             memberInfo.setListen_title(listen.getListen_title());
         }
 
+        // 회원 배찌
+        HashMap<P_MemberInfoOutputVo,String> djBadge = mem_MemberDao.callMemberInfo_badge(pMemberInfoInputVo.getMem_no());
+        if(!DalbitUtil.isEmpty(djBadge)) {
+            memberInfo.setRecomm_badge(String.valueOf(djBadge.get("recomm_badge")) );
+            memberInfo.setNewdj_badge(String.valueOf(djBadge.get("newdj_badge")));
+            memberInfo.setSpecialdj_badge(String.valueOf(djBadge.get("specialdj_badge")));
+        }
+
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberInfo));
@@ -462,7 +470,7 @@ public class Mem_MemberService {
         // 달 set
         pMemberEditorVo.setBeforDalCnt(beforDalCnt);
         pMemberEditorVo.setAfterDalCnt(afterDalCnt);
-        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
+        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddDalCnt() + " - " +  pMemberEditorVo.getPointEditStroy());
         // 달 추가
         mem_MemberDao.callMemberAddDal(pMemberEditorVo);
         // 달 추가 로그
@@ -477,8 +485,8 @@ public class Mem_MemberService {
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
-        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + "달-운영자 지급");
+        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
@@ -495,7 +503,7 @@ public class Mem_MemberService {
         // 달 set
         pMemberEditorVo.setBeforByeolCnt(beforByeolCnt);
         pMemberEditorVo.setAfterByeolCnt(afterByeolCnt);
-        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
+        pMemberEditorVo.setUse_contents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         // 달 추가
         mem_MemberDao.callMemberAddByeol(pMemberEditorVo);
         // 달 추가 로그
@@ -511,8 +519,8 @@ public class Mem_MemberService {
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
-        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + "별-운영자 지급");
+        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));

@@ -140,9 +140,14 @@
     });
 
     function getStatPayInfo(){
-        util.getAjaxData("statPayInfo", "/rest/enter/pay/info", null, fn_statPayInfo_success1);
+        util.getAjaxData("statPayInfo", "/rest/enter/pay/info", $("#searchForm").serialize(), fn_statPayInfo_success1);
     }
     function fn_statPayInfo_success1(data, response){
+        $("#statPayTableBody1").empty();
+        $("#statPayTableBody2").empty();
+        $("#statPayTableBody3").empty();
+        $("#PayTotalTableBody").empty();
+
         // WEB/안드로이드 총 계/합
         var android_total_cnt = [
             response.data.info.code01_cnt,
@@ -262,6 +267,7 @@
                 setYear(1);
             }
         }
+        getStatPayInfo();
         $("#bt_search").click();
     }
 

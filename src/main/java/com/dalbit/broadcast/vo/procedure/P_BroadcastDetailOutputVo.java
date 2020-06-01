@@ -37,4 +37,8 @@ public class P_BroadcastDetailOutputVo extends BaseVo {
     private String lastOpDate;
     private String lastOpName;
 
+    private String recomm_badge;
+    private String newdj_badge;
+    private String specialdj_badge;
+
 }

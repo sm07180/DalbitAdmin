@@ -82,6 +82,12 @@
     }
 
     function fn_agePay_success(data, response){
+
+        for(var i=0;i<response.data.detailList.length;i++){
+            response.data.detailList[i]["sum_totalCnt"] = response.data.totalInfo.sum_totalCnt;
+            response.data.detailList[i]["sum_totalAmt"] = response.data.totalInfo.sum_totalAmt;
+        }
+
         var isDataEmpty = response.data.detailList == null;
         $("#ageTableBody").empty();
         if(!isDataEmpty){

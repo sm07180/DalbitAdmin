@@ -49,6 +49,25 @@
         z-index: 2;
     }
 
+    .liveChat__btn {
+        position: absolute;
+        width: 100%;
+        bottom: 15px;
+        z-index: 10;
+    }
+
+    .liveChat__btn button{
+        border-radius: 10px;
+        border: 0px;
+        background-color: white;
+        padding: 1px 10px 1px 10px;
+        font-weight: bold;
+    }
+
+    .liveChat__btn button:focus {
+        outline: 0;
+    }
+
     .liveChat__chat p {
         color: rgb(255, 255, 255);
         font-size: 12px;
@@ -134,7 +153,9 @@
         </div>
         <div class="liveChat__cover" id="liveChat__cover">
         </div>
-    </div>
+        <div class="liveChat__btn" id="liveChat__btn" style="display: none;">
+            <button id="btn_scroll_down" onclick="fnScrollDown()">아래로 이동 <i class="fa fa-angle-double-down"></i></button>
+        </div>
 </div>
 
 
@@ -303,9 +324,18 @@
             var context = response.data;
             var html=templateScript(context);
 
+            var scrollTop = $(".liveChat__chat").scrollTop();
+            var innerH = $(".liveChat__chat").innerHeight();
+            var scrollH = $(".liveChat__chat")[0].scrollHeight;
+
 
             $(".liveChat__chat").append(html);
-            $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
+
+            if((scrollTop + innerH) >= scrollH){    //스크롤 최하단에서는 자동 스크롤 이동
+                $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
+            }else{
+                $(".liveChat__btn").show();
+            }
         }else{
 
         }
@@ -318,6 +348,26 @@
         },5000)
     }
 
+
+    $(".liveChat__chat").on('scroll',function () {
+        var scrollTop = $(".liveChat__chat").scrollTop();
+        var innerH = $(".liveChat__chat").innerHeight();
+        var scrollH = $(".liveChat__chat")[0].scrollHeight;
+
+        if((scrollTop + innerH) < scrollH){    //스크롤 최하단에서는 자동 스크롤 이동
+            $(".liveChat__btn").show();
+        }else{
+            $(".liveChat__btn").hide();
+        }
+    });
+
+    /**
+     * 스크롤 다운
+     * */
+    function fnScrollDown(){
+        $(".liveChat__chat").scrollTop($(".liveChat__chat")[0].scrollHeight);
+        $(".liveChat__btn").hide();
+    }
 
 
 </script>

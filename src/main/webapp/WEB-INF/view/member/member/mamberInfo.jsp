@@ -64,6 +64,11 @@
         else
             response.data["icon_listeningState"] = '<i class="fa fa-volume-off" style="color: #000000;font-size:20px;"></i> ' + response.data.listeningState;
 
+        var tmp_badge = "";
+        if(response.data.recomm_badge == "1") tmp_badge = '<span class ="label" style="background-color:#d943c1">' + "추천" + '</span>';
+        if(response.data.newdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+        if(response.data.specialdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
+        response.data["dj_badge"] = tmp_badge;
 
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -609,7 +614,12 @@
         </tr>
         <tr>
             <th>UserId</th>
-            <td colspan="3" style="text-align: left" id="td_userid">{{userId}}</td>
+            <td colspan="3" style="text-align: left" id="td_userid">
+                {{userId}}
+                {{^equal dj_badge ''}}
+                <label class="pull-right"> DJ타입 | {{{../dj_badge}}} </label>
+                {{/equal}}
+            </td>
             <th>보유달</th>
             <td style="text-align: left">
                 <span class="col-md-3 no-padding">
