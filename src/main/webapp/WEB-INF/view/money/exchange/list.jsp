@@ -16,15 +16,16 @@
                                 <span id="searchYearArea"></span>
                                 <span id="searchMonthArea"></span>
                                 <span id="searchStateArea"></span>
+
                                 <span id="searchTypeArea" class="ml10"></span>
                                 <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
 
-                                <%--<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>
+                                <%--<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>--%>
                                 <label class="control-inline fancy-checkbox custom-color-green">
-                                    <input type="checkbox" name="platform" id="platform-1" value="-1" checked="true">
-                                    <span>스페셜 DJ 포함</span>
-                                </label>--%>
+                                    <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                    <span>테스트 아이디 제외</span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -160,16 +161,20 @@
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 <script type="text/javascript">
     var exchangePagingInfo = new PAGING_INFO(0,1,50);
     var limitDay = moment(new Date()).format('YYYYMMDD');
 
     $(function(){
+
         $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
         $("#searchMonthArea").html(util.getCommonCodeSelect(moment(new Date()).format('MM'), search_exchange_months));
         $("#searchTypeArea").html(util.getCommonCodeSelect('', search_exchange_type));
         $("#searchStateArea").html(util.getCommonCodeSelect('', search_exchange_state));
+
+        $('#searchTestIdArea').html(util.getCommonCodeRadio(-1, testId));
         getList();
     });
 
@@ -181,6 +186,7 @@
             , search_state : $("#search_state").val()
             , search_type : $("#search_type").val()
             , search_value : $("#search_value").val()
+            , search_testId : $('input[name="search_testId"]').prop('checked') ? 1 : 0
             , pageStart : exchangePagingInfo.pageNo
             , pageCnt : exchangePagingInfo.pageCnt
             , limitDay : limitDay
@@ -230,6 +236,11 @@
         getList();
     });
 
+    $('input[name="search_testId"]').on('change', function(){
+        exchangePagingInfo.pageNo = 1;
+        getList();
+    });
+
     function fn_succ_list(dst_id, response) {
         if(getParameter().isSpecial == 0){
             var curDay = moment().day();
@@ -273,6 +284,7 @@
         formData.append("search_year", getParameter().search_year);
         formData.append("search_month", getParameter().search_month);
         formData.append("search_state", 0);
+        formData.append("search_testId", getParameter().search_testId);
         formData.append("search_type", getParameter().search_type);
         formData.append("search_value", getParameter().search_value);
         formData.append("limitDay", getParameter().limitDay);
