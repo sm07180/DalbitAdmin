@@ -15,13 +15,16 @@ var BroadcastDataTableSource = {
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     if(row.recommBadge == "1"){
-                        tmp = '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>';
+                        tmp = '<span class ="label" style="background-color:#d943c1">' + "추천" + '</span><br/>';
                     }
                     if(row.popularBadge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>';
                     }
                     if(row.newjdBadge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }
+                    if(row.specialdj_badge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
                     }
                     return tmp;
                 }},
@@ -84,13 +87,16 @@ var BroadcastDataTableSource = {
             {'title': '테그부분', 'data': 'tag','width' : '60px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     if(row.recommBadge == "1"){
-                        tmp = '<span class ="label" style="background-color:#d9534f">' + "추천" + '</span><br/>';
+                        tmp = '<span class ="label" style="background-color:#d943c1">' + "추천" + '</span><br/>';
                     }
                     if(row.popularBadge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>';
                     }
                     if(row.newjdBadge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                    }
+                    if(row.specialdj_badge == "1"){
+                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
                     }
                     return tmp;
                 }},
