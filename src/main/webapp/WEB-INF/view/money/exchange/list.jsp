@@ -476,7 +476,7 @@
                                         계좌번호
                                     </th>
                                     <td>
-                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_no}}" />
+                                        <input type="text" class="form-control" id="account_no" name="account_no" maxlength="25" value="{{detail.account_no}}" />
                                     </td>
                                 </tr>
                                 <tr>
