@@ -104,8 +104,8 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{totalCnt}}({{average totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold">{{totalAmt}}({{average totalAmt sum_totalAmt}}%)</td>
+        <td>{{addComma totalCnt}}({{average totalCnt sum_totalCnt}}%)</td>
+        <td style="font-weight:bold">{{addComma totalAmt}}({{average totalAmt sum_totalAmt}}%)</td>
         <td>{{addComma mcCnt}}</td>
         <td>{{addComma mcAmt}}</td>
         <td>{{addComma cnCnt}}</td>
