@@ -93,7 +93,7 @@ var BroadcastDataTableSource = {
                         tmp = tmp + '<span class ="label" style="background-color:#3761d9">' + "인기" + '</span><br/>';
                     }
                     if(row.newjdBadge == "1"){
-                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span>';
+                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span><br/>';
                     }
                     if(row.specialdj_badge == "1"){
                         tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
