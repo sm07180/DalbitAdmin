@@ -13,7 +13,8 @@
                exchange.idx,
                exchange.byeol,
                exchange.cash_basic,
-               exchange.withholding_tax,
+               exchange.income_tax,
+               exchange.resident_tax,
                exchange.transfer_fee,
                exchange.benefit,
                exchange.cash_real,
@@ -106,7 +107,8 @@
             , idx
             , byeol
             , cash_basic
-            , withholding_tax
+            , income_tax
+            , resident_tax
             , transfer_fee
             , benefit
             , cash_real
