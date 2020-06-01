@@ -124,11 +124,19 @@
         (#{idx}, #{mem_no}, current_timestamp(), #{op_name}, #{is_force}, (select ifnull(max(`order`), 0 ) + 1 from rd_admin.tb_special_dj dj), #{select_year}, #{select_month})
     </insert>
 
+    <insert id="opLastUpdDate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
+        /* Men_Special.xml - insertDate*/
+        update rd_admin.tb_req_special_dj
+        set last_upd_date = now()
+        where mem_no = #{mem_no}
+    </insert>
+
     <update id="reqOkUpdate" parameterType="com.dalbit.menu.vo.SpecialReqVo">
         /* Men_Special.xml - reqOkUpdate */
       update rd_admin.tb_req_special_dj
       set state = #{state}
         , op_name=#{op_name}
+        , last_upd_date = now()
       where idx = #{idx}
     </update>
 
