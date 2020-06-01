@@ -9,10 +9,15 @@
 
 <!-- 결제/환불 > 결제내역 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10">
+    <div class="widget-content mt10" id="div_payY">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
+        <br/>
+        <label id="payPlatformArea" onchange="sel_change_pay();"></label>
+        <label id="payWayArea" onchange="sel_change_pay();"></label>
+        <label id="payInnerArea" onchange="sel_change_pay();" style="border: 1px solid #632beb"></label>
+
         <table class="table table-bordered" id="list_info">
             <thead>
             </thead>
@@ -32,9 +37,9 @@
 <script type="text/javascript">
 
     var dtList_info;
-    var sDate;
-    var eDate;
     function getPayHistoryList() {
+        var sDate;
+        var eDate;
         sDate = $("#startDate").val().replace(/\./gi,'');
         eDate = $("#endDate").val().replace(/\./gi,'');
         var dtList_info_data = function(data) {
@@ -47,16 +52,24 @@
                 data.sDate = sDate;
                 data.eDate = eDate;
             }
-            data.ostype = -1;
-            data.searchPayStatus = -1;
-            data.innerType = -1;
-            data.payWay = "all";
+            data.ostype = $("#div_payY").find("select[name='ostype']").val();
+            data.searchPayStatus = 1;
+            data.innerType = $("#div_payY").find("select[name='innerType']").val();
+            data.payWay = $("#div_payY").find("select[name='payWay']").val();
         };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payHistory);
+        dtList_info = new DalbitDataTable($("#div_payY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
         dtList_info.createDataTable();
+        dtList_info.reload();
+
+        $("#div_payY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
+        $("#div_payY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));
+        $("#div_payY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
+    }
+
+    function sel_change_pay(){
         dtList_info.reload();
     }
 
@@ -73,10 +86,10 @@
             formData.append("sDate", sDate);
             formData.append("eDate", eDate);
         }
-        formData.append("ostype", -1);
+        formData.append("ostype", $("#div_payY").find("select[name='ostype']").val());
         formData.append("searchPayStatus", -1);
-        formData.append("innerType", -1);
-        formData.append("payWay", "all");
+        formData.append("innerType", $("#div_payY").find("select[name='innerType']").val());
+        formData.append("payWay", $("#div_payY").find("select[name='payWay']").val());
 
         util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
 
