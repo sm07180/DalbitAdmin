@@ -332,6 +332,7 @@
     function fn_succ_update(dist_id, response){
         alert(response.message);
         closeModal();
+        getList();
     }
 
     $(document).on('click', '._completeBtn', function(){
@@ -476,7 +477,7 @@
                                         계좌번호
                                     </th>
                                     <td>
-                                        <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_no}}" />
+                                        <input type="text" class="form-control" id="account_no" name="account_no" maxlength="25" value="{{detail.account_no}}" />
                                     </td>
                                 </tr>
                                 <tr>
