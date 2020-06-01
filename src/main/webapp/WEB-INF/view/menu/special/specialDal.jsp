@@ -208,6 +208,8 @@
            var data = {
                'req_idx' : checkbox.parent().parent().find('._dalDetail').data('reqidx')
                , 'mem_no' : checkbox.parent().parent().find('._openMemberPop').data('memno')
+               , select_year: $('#select_year').val()
+               , select_month: $('#select_month').val()
            };
             dalbitLog(data);
             util.getAjaxData("cancel", "/rest/menu/special/reqCancel", data, fn_success_cancel);

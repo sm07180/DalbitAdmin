@@ -134,8 +134,12 @@ public class Men_SpecialService {
         specialReqVo.setState(2);
         menSpecialDao.reqOkUpdate(specialReqVo);
 
-        specialReqVo.setSpecialdj_badge(1);
-        menSpecialDao.profileUpdate(specialReqVo);
+        String curYearMonth = DalbitUtil.getDate("yyyyMM");
+        String paramYearMonth = specialReqVo.getSelect_year()+specialReqVo.getSelect_month();
+        if(curYearMonth.equals(paramYearMonth)){
+            specialReqVo.setSpecialdj_badge(1);
+            menSpecialDao.profileUpdate(specialReqVo);
+        }
 
         if(result > 0) {
             // 스페셜 DJ 선정 Noti 발송
@@ -204,8 +208,12 @@ public class Men_SpecialService {
         specialReqVo.setOp_name(MemberVo.getMyMemNo());
         menSpecialDao.reqOkUpdate(specialReqVo);
 
-        specialReqVo.setSpecialdj_badge(0);
-        menSpecialDao.profileUpdate(specialReqVo);
+        String curYearMonth = DalbitUtil.getDate("yyyyMM");
+        String paramYearMonth = specialReqVo.getSelect_year()+specialReqVo.getSelect_month();
+        if(curYearMonth.equals(paramYearMonth)){
+            specialReqVo.setSpecialdj_badge(0);
+            menSpecialDao.profileUpdate(specialReqVo);
+        }
 
         if(result > 0) {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인취소_성공));

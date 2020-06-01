@@ -272,8 +272,8 @@ var fnc_bannerList = {};
             <tr class="align-middle">
                 <th colspan="3">ON 배너</th>
                 <th colspan="3">ON 배너 클릭</th>
-                <th colspan="3">남</th>
-                <th colspan="3">여</th>
+                <th colspan="3"><label style="color: blue">남</label></th>
+                <th colspan="3"><label style="color: red">여</label></th>
             </tr>
             <tr>
                 <td style="text-align:center;" colspan="3">{{banner_col1}}건</td>

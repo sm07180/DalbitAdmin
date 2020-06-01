@@ -1,106 +1,98 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    Date nowTime = new Date();
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+%>
 
-<!-- 결제환불 > 총계 -->
+<!-- 결제/환불 > 결제내역 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10">
+    <div class="widget-content mt10" id="div_canselY">
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
-        <table class="table table-bordered">
-            <colgroup>
-                <col width="16%"/><col width="14%"/><col width="14%"/><col width="14%"/><col width="14%"/>
-                <col width="14%"/><col width="14%"/>
-            </colgroup>
+        <br/>
+        <label id="payPlatformArea" onchange="sel_change_pay();"></label>
+        <label id="payWayArea" onchange="sel_change_pay();"></label>
+        <label id="payInnerArea" onchange="sel_change_pay();" style="border: 1px solid #632beb"></label>
+
+        <table class="table table-bordered" id="list_info">
             <thead>
-            <tr>
-                <th rowspan="2">시간대</th>
-                <th colspan="2">소계</th>
-                <th colspan="2">남성</th>
-                <th colspan="2">여성</th>
-            </tr>
-            <tr>
-                <th>건</th>
-                <th>금액</th>
-                <th>건</th>
-                <th>금액</th>
-                <th>건</th>
-                <th>금액</th>
-            </tr>
             </thead>
-            <tbody id="cancelTableBody"></tbody>
+            <tbody>
+            </tbody>
         </table>
     </div>
     <div class="widget-footer">
         <span>
-            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
+            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
         </span>
     </div>
 </div>
 
+<script type="text/javascript" src="/js/code/payment/payCodeList.js?${dummyData}"></script>
+
 <script type="text/javascript">
-    $(function(){
-        getPayCancelList ();
+
+    var dtList_info_cancel;
+    function getPayCancelList() {
+        var sDate;
+        var eDate;
+        sDate = $("#startDate").val().replace(/\./gi,'');
+        eDate = $("#endDate").val().replace(/\./gi,'');
+        var dtList_info_data = function(data) {
+            data.searchText = "";                        // 검색명
+            if( $('input[name="slctType"]:checked').val() == 0){
+                data.period = 4;
+                data.sDate = sDate;
+            }else{
+                data.period = 0;
+                data.sDate = sDate;
+                data.eDate = eDate;
+            }
+            data.ostype = $("#div_canselY").find("select[name='ostype']").val();
+            data.searchPayStatus = 2;
+            data.innerType = $("#div_canselY").find("select[name='innerType']").val();
+            data.payWay = $("#div_canselY").find("select[name='payWay']").val();
+        };
+        dtList_info_cancel = new DalbitDataTable($("#div_canselY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory_cancel);
+        dtList_info_cancel.useCheckBox(false);
+        dtList_info_cancel.useIndex(true);
+        dtList_info_cancel.setPageLength(50);
+        dtList_info_cancel.createDataTable();
+        dtList_info_cancel.reload();
+
+        $("#div_canselY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
+        $("#div_canselY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));
+        $("#div_canselY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
+    }
+
+    function sel_change_pay(){
+        dtList_info_cancel.reload();
+    }
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("searchText", "");
+        if( $('input[name="slctType"]:checked').val() == 0){
+            formData.append("period", 4);
+            formData.append("sDate", sDate);
+        }else{
+            formData.append("period", 0);
+            formData.append("sDate", sDate);
+            formData.append("eDate", eDate);
+        }
+        formData.append("ostype", $("#div_canselY").find("select[name='ostype']").val());
+        formData.append("searchPayStatus", -1);
+        formData.append("innerType", $("#div_canselY").find("select[name='innerType']").val());
+        formData.append("payWay", $("#div_canselY").find("select[name='payWay']").val());
+
+        util.excelDownload($(this), "/rest/payment/pay/listExcel", formData);
+
     });
 
-    function getPayCancelList (){
-        util.getAjaxData("cancel", "/rest/enter/pay/cancel", $("#searchForm").serialize(), fn_cancelPay_success);
-    }
-
-    function fn_cancelPay_success(data, response){
-        var isDataEmpty = response.data.detailList == null;
-        $("#cancelTableBody").empty();
-        if(!isDataEmpty){
-            var template = $('#tmp_cancel').html();
-            var templateScript = Handlebars.compile(template);
-            var totalContext = response.data.totalInfo;
-            var totalHtml = templateScript(totalContext);
-            $("#cancelTableBody").append(totalHtml);
-
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
-        }
-
-        var template = $('#tmp_cancelDetailList').html();
-        var templateScript = Handlebars.compile(template);
-        var detailContext = response.data.detailList;
-        var html=templateScript(detailContext);
-        $("#cancelTableBody").append(html);
-
-        if(isDataEmpty){
-            $("#cancelTableBody td:last").remove();
-        }else{
-            $("#cancelTableBody").append(totalHtml);
-        }
-    }
-</script>
-<script type="text/x-handlebars-template" id="tmp_cancel">
-    <tr class="success font-bold">
-        <td>소계</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_totalAmt}}</td>
-        <td>{{addComma sum_maleCnt}}</td>
-        <td>{{addComma sum_maleAmt}}</td>
-        <td>{{addComma sum_femaleCnt}}</td>
-        <td>{{addComma sum_femaleAmt}}</td>
-    </tr>
-</script>
-
-<script type="text/x-handlebars-template" id="tmp_cancelDetailList">
-    {{#each this as |data|}}
-    <tr>
-        <td class="font-bold">
-            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
-            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
-        </td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma totalAmt}}</td>
-        <td>{{addComma maleCnt}}</td>
-        <td>{{addComma maleAmt}}</td>
-        <td>{{addComma femaleCnt}}</td>
-        <td>{{addComma femaleAmt}}</td>
-    </tr>
-    {{else}}
-    <td colspan="11" class="noData">{{isEmptyData}}<td>
-        {{/each}}
 </script>

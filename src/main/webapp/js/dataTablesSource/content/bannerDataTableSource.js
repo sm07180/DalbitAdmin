@@ -56,8 +56,8 @@ var BannerDataTableSource = {
                 }},
             {'title': '노출', 'data': 'banner_col10', 'defaultContent': '0'},
             {'title': '클릭', 'data': 'banner_col11', 'defaultContent': '0'},
-            {'title': '남', 'data': 'banner_col12', 'defaultContent': '0'},
-            {'title': '여', 'data': 'banner_col13', 'defaultContent': '0'},
+            {'title': '<label style="color: blue">남</label>', 'data': 'banner_col12', 'defaultContent': '0'},
+            {'title': '<label style="color: red">여</label>', 'data': 'banner_col13', 'defaultContent': '0'},
             {'title': '등록자명', 'data': 'opName', 'defaultContent': '-'},
 
         ]
@@ -73,10 +73,10 @@ var BannerDataTableSource = {
             {'title': 'ON 배너 클릭', 'data': 'banner_col2', 'defaultContent': '0', 'width':'100px', 'render': function (data, type, row, meta) {
                 return data + '건 (00%)'
             }},
-            {'title': '남', 'data': 'banner_col3', 'defaultContent': '0', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': '<label style="color: blue">남</label>', 'data': 'banner_col3', 'defaultContent': '0', 'width':'100px', 'render': function (data, type, row, meta) {
                 return data + '명'
             }},
-            {'title': '여', 'data': 'banner_col5', 'defaultContent': '0', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': '<label style="color: red">여</label>', 'data': 'banner_col5', 'defaultContent': '0', 'width':'100px', 'render': function (data, type, row, meta) {
                 return data + '명'
             }}
         ]

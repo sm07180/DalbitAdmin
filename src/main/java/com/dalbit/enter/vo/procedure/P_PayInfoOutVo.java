@@ -25,6 +25,8 @@ public class P_PayInfoOutVo {
     private int male_amt;
     private int female_cnt;
     private int female_amt;
+    private int none_cnt;
+    private int none_amt;
     private int age10_cnt;
     private int age10_amt;
     private int age20_cnt;

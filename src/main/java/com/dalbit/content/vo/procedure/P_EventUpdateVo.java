@@ -18,6 +18,7 @@ public class P_EventUpdateVo extends BaseVo {
     private String loginType;
     private String viewType;
     private String viewYn;
+    private String is_reply;
     private String pc_img_url;
     private String pc_link_url;
     private String mobile_img_url;

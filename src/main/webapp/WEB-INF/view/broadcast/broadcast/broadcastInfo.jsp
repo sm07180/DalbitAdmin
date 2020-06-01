@@ -106,6 +106,9 @@
             response.data["freezing"] = "방송종료";
             response.data["forcedExit"] = "방송종료";
         }
+
+        response.data["dj_userIdLink"] = util.memNoLink(response.data.dj_userId, response.data.dj_mem_no);
+
         dalbitLog(response);
         var template = $('#tmp_broadcast_detailFrm').html();
         var templateScript = Handlebars.compile(template);
@@ -458,7 +461,7 @@
         <tr>
             <th>DJ ID</th>
             <td style="text-align: left">
-                {{dj_userId}}
+               {{{dj_userIdLink}}}
                 {{#equal dj_userId ''}}-{{/equal}}
             </td>
             <th>방송 시작일</th>
