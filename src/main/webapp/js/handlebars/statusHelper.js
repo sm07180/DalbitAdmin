@@ -14,15 +14,12 @@ Handlebars.registerHelper("payRate", function(lvalue,rvalue) {
 });
 
 Handlebars.registerHelper("average", function(lvalue,rvalue) {
-    console.log(lvalue + " / " + rvalue);
     if(rvalue == 0 || common.isEmpty(rvalue)){
         return 0;
     }
     if(lvalue == 0 || common.isEmpty(lvalue)){
         return 0;
     }
-
-    console.log(rvalue + " / " + lvalue);
-    var tmp = (rvalue/lvalue) * 100;
+    var tmp = (lvalue/rvalue) * 100;
     return tmp.toFixed(1);
 });
