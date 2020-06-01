@@ -346,18 +346,19 @@
 <script id="tmp_payTableSummary2" type="text/x-handlebars-template">
     <table class="table table-bordered mb0">
         <colgroup>
-            <col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="1%"/>
             <col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
-            <col width="7%"/><col width="8%"/><col width="8%"/>
+            <col width="1%"/><col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+            <col width="7%"/><col width="7%"/><col width="8%"/><col width="8%"/>
         </colgroup>
         <thead>
         <tr>
             <th><label class="font-bold" style="color: blue;">※결제 성별</label></th>
             <th><label class="font-bold" style="color: blue">남성</label></th>
-            <th><label class="font-bold" style="color: blue">여성</label></th>
+            <th><label class="font-bold" style="color: red">여성</label></th>
+            <th>알수없음</th>
             <th>총 합</th>
             <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-            <th><label class="font-bold" style="color: blue;">※결제 연렬대 별</label></th>
+            <th><label class="font-bold" style="color: blue;">※결제 연령대 별</label></th>
             <th>10대</th>
             <th>20대</th>
             <th>30대</th>
@@ -370,8 +371,9 @@
         <tbody>
         <tr>
             <th>결제 건 수</th>
-            <td>{{addComma male_cnt}}</td>
-            <td>{{addComma female_cnt}}</td>
+            <td><label class="font-bold" style="color: blue">{{addComma male_cnt}}</label></td>
+            <td><label class="font-bold" style="color: red">{{addComma female_cnt}}</label></td>
+            <td>{{addComma none_cnt}}</td>
             <td>{{addComma total_cnt}}</td>
             <td style="border-bottom: hidden;"></td>
             <th>결제 건 수</th>
@@ -385,8 +387,9 @@
         </tr>
         <tr>
             <th>부과세 포함 금액</th>
-            <td>{{addComma male_amt}}</td>
-            <td>{{addComma female_amt}}</td>
+            <td><label class="font-bold" style="color: blue">{{addComma male_amt}}</label></td>
+            <td><label class="font-bold" style="color: red">{{addComma female_amt}}</label></td>
+            <td>{{addComma none_amt}}</td>
             <td>{{addComma total_amt}}</td>
             <td style="border-bottom: hidden;"></td>
             <th>부과세 포함 금액</th>
@@ -402,6 +405,7 @@
             <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
             <td style="color: red;">{{vatMinus male_amt}}</td>
             <td style="color: red;">{{vatMinus female_amt}}</td>
+            <td style="color: red;">{{vatMinus none_amt}}</td>
             <td style="color: red;">{{vatMinus total_amt}}</td>
             <td style="border-bottom: hidden;"></td>
             <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
@@ -415,8 +419,9 @@
         </tr>
         <tr>
             <th>결제 비율</th>
-            <td>({{payRate male_cnt total_cnt}}%)<br><label style="color: red;">{{payRate male_amt total_amt}}%</label></td>
-            <td>({{payRate female_cnt total_cnt}}%)<br><label style="color: red;">{{payRate female_amt total_amt}}%</label></td>
+            <td><label class="font-bold" style="color: blue">({{payRate male_cnt total_cnt}}%)</label><br><label style="color: red;">{{payRate male_amt total_amt}}%</label></td>
+            <td><label class="font-bold" style="color: red">({{payRate female_cnt total_cnt}}%)</label><br><label style="color: red;">{{payRate female_amt total_amt}}%</label></td>
+            <td>({{payRate none_cnt none_cnt}}%)<br><label style="color: red;">{{payRate none_amt total_amt}}%</label></td>
             <td>({{payRate total_cnt total_cnt}}%)<br><label style="color: red;">{{payRate total_amt total_amt}}%</label></td>
             <td style="border-bottom: hidden;"></td>
             <th>결제 비율</th>
