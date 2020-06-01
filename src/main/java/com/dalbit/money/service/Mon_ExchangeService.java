@@ -96,16 +96,11 @@ public class Mon_ExchangeService {
             hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
 
-            int cashBasic = DalbitUtil.isEmpty(exchangeVo.getCash_basic()) ? 0 : exchangeVo.getCash_basic();
-            hm.put("cashBasic", cashBasic);
+            hm.put("cashBasic", exchangeVo.getCash_basic());
             hm.put("benefit", exchangeVo.getBenefit());
 
-            int cashSum = cashBasic + exchangeVo.getBenefit();
-            int free1 = (int) (cashSum * 0.003) * 10;
-            hm.put("withholding_tax", free1);
-
-            int free2 = (int) (free1 * 0.01) * 10;
-            hm.put("incomeTax", free2);
+            hm.put("income_tax", exchangeVo.getIncome_tax());
+            hm.put("resident_tax", exchangeVo.getResident_tax());
 
             hm.put("transfer_fee", exchangeVo.getTransfer_fee());
             hm.put("exchangeCash", exchangeVo.getCash_real());

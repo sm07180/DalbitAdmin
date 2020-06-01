@@ -27,6 +27,8 @@ public interface Men_SpecialDao {
 
     int reqOk(SpecialReqVo specialReqVo);
 
+    int opLastUpdDate(SpecialReqVo specialReqVo);
+
     int reqOkUpdate(SpecialReqVo specialReqVo);
 
     int profileUpdate(SpecialReqVo specialReqVo);
