@@ -291,6 +291,7 @@
 
         util.excelDownload($(this), "/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
 
+        util.changeLoadingBtn($("#excelDownBtn"), 'reset');
     });
 
     function fn_success_excel(response) {
