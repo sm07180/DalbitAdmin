@@ -110,4 +110,24 @@
         ) AS a
         ORDER BY chatIdx ASC;
     </select>
+
+    <select id="callBroadcastListDjType" parameterType="com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo" resultType="com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo">
+        select ifnull(SUM(case when recomm_badge = 1 then 1 else 0 end),0) as recommDjCnt
+               , ifnull(SUM(case when newdj_badge = 0 then 1 else 0 end),0) as normalDjCnt
+               , ifnull(SUM(case when newdj_badge = 1 then 1 else 0 end),0) as newDjCnt
+               , ifnull(SUM(case when specialdj_badge = 1 then 1 else 0 end),0) as specialDjCnt
+         from rd_data.tb_member_profile a join rd_data.tb_broadcast_room b on a.mem_no = b.mem_no
+        <if test="room_liveType == 1">
+            and b.state != 4
+        </if>
+        <if test="room_liveType == 2">
+            and b.state=4
+        </if>
+        <if test="endDate != null">
+            and DATE_FORMAT(b.start_date, '%Y-%m-%d') >= #{startDate} and DATE_FORMAT(b.start_date, '%Y-%m-%d')  <![CDATA[<=]]>  #{endDate}
+        </if>
+        <if test="endDate == null">
+            and DATE_FORMAT(b.start_date, '%Y-%m-%d') >= #{startDate}
+        </if>
+    </select>
 </mapper>
