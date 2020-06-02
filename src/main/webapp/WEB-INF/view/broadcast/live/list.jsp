@@ -44,6 +44,7 @@
             </div>
             <div class="col-md-6 pull-right no-padding">
                 <span id="live_summaryArea"></span>
+                <span id="dj_typeSummaryArea"></span>
                 <span id="platform_summaryArea"></span>
             </div>
             <div class="widget-content" style="border-top-width:0px;">
@@ -185,7 +186,7 @@
             }else if($('input[name="joinDate"]:checked').val() == "3" ){
                 data.startDate = sDate;
             }else if($('input[name="joinDate"]:checked').val() == "4" ){
-                data.startDate = $("#onedayDate").val().replace(/-/gi, "");
+                data.startDate = $("#onedayDate").val();
             }
 
         };
@@ -227,6 +228,16 @@
         };
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
+
+
+        var template = $("#dj_typeTableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#dj_typeSummaryArea").html(html);
     }
 
     function getSearch(){
@@ -246,24 +257,15 @@
 
     /*=============엑셀==================*/
     $('#liveexcelDownBtn').on('click', function(){
-
-        console.log("1");
         var formElement = document.querySelector("form");
-        console.log("2");
         var formData = new FormData(formElement);
-        console.log("3");
         formData.append("slctType", tmp_slctType);
-        console.log("4");
         formData.append("dj_slctType", tmp_dj_slctType);
-        console.log("5");
         formData.append("dj_searchText", tmp_dj_searchText);
-        console.log("6");
         formData.append("room_slctType", tmp_room_slctType);
-        console.log("7");
         formData.append("room_liveType", room_liveType);
         // formData.append("sDate", sDate);
         // formData.append("eDate", eDate);
-        console.log("8");
         util.excelDownload($(this), "/rest/broadcast/broadcast/liveListExcel", formData)
     });
 
@@ -329,6 +331,26 @@
         <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
         <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>
         <td>{{#equal length '0'}}0{{/equal}}{{content.totalForcedCnt}}건</td>
+        </tbody>
+    </table>
+</script>
+
+<script id="dj_typeTableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right">
+        <thead>
+        <tr>
+            <th colspan="3">DJ구분</th>
+        </tr>
+        <tr>
+            <th>일반</th>
+            <th>신입</th>
+            <th>스페셜DJ</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}}명</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.specialDjCnt}}명</td>
         </tbody>
     </table>
 </script>

@@ -26,21 +26,21 @@
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2">5,500원</th>
-                <th colspan="2">11,000원</th>
-                <th colspan="2">55,000원</th>
-                <th colspan="2">110,000원</th>
-                <th colspan="2">220,000원</th>
-                <th colspan="2">330,000원</th>
+                <th colspan="2">5,500원 <img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"></th>
+                <th colspan="2">11,000원 <img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"></th>
+                <th colspan="2">55,000원 <img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"></th>
+                <th colspan="2">110,000원 <img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"></th>
+                <th colspan="2">220,000원 <img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"></th>
+                <th colspan="2">330,000원 <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"></th>
                 <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2">5,900원</th>
-                <th colspan="2">12,000원</th>
-                <th colspan="2">36,000원</th>
-                <th colspan="2">50,000원</th>
-                <th colspan="2">109,000원</th>
-                <th colspan="2">299,000원</th>
+                <th colspan="2">5,900원 <img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"></th>
+                <th colspan="2">12,000원 <img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"></th>
+                <th colspan="2">36,000원 <img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"></th>
+                <th colspan="2">50,000원 <img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> </th>
+                <th colspan="2">109,000원 <img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"></th>
+                <th colspan="2">299,000원 <img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"></th>
             </tr>
             <tr>
                 <th>건<br/>(비율)</th>
@@ -207,8 +207,8 @@
 <script type="text/x-handlebars-template" id="tmp_code">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="color:red;font-weight: bold">{{addComma sum_android_total_cnt}}({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
-        <td style="color:red;font-weight: bold">{{addComma sum_android_total_amt}}({{average sum_android_total_amt sum_android_total_amt}}%)</td>
+        <td style="color:red;font-weight: bold;color: orange">{{addComma sum_android_total_cnt}}({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
+        <td style="color:red;font-weight: bold;color: orange">{{addComma sum_android_total_amt}}({{average sum_android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma sum_code01Cnt}}</td>
         <td>{{addComma sum_code01Amt}}</td>
         <td>{{addComma sum_code02Cnt}}</td>
@@ -223,8 +223,8 @@
         <td>{{addComma sum_code06Amt}}</td>
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td>소계</td>
-        <td style="color:red;font-weight: bold">{{addComma sum_ios_total_cnt}}({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="color:red;font-weight: bold">{{addComma sum_ios_total_amt}}({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
+        <td style="color:orange;font-weight: bold">{{addComma sum_ios_total_cnt}}({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
+        <td style="color:orange;font-weight: bold">{{addComma sum_ios_total_amt}}({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma sum_code07Cnt}}</td>
         <td>{{addComma sum_code07Amt}}</td>
         <td>{{addComma sum_code08Cnt}}</td>

@@ -19,6 +19,9 @@ public interface Bro_BroadcastDao {
     ArrayList<P_BroadcastListOutputVo> callBroadcastList_all(P_BroadcastListInputVo pBroadcastListInputVo);
 
     @Transactional(readOnly = true)
+    ArrayList<P_BroadcastListOutputVo> callBroadcastListDjType(P_BroadcastListInputVo pBroadcastListInputVo);
+
+    @Transactional(readOnly = true)
     P_BroadcastDetailOutputVo callBroadcastInfo(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)

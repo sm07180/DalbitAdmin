@@ -14,10 +14,9 @@ public class P_QuestionPlatformOutDetailVo extends SearchVo {
     private String hour;
     private String daily;
     private String monthly;
-    private int totalCnt;
+    private int pcCnt;
     private int androidCnt;
     private int iosCnt;
-    private int pcCnt;
 }
 
 

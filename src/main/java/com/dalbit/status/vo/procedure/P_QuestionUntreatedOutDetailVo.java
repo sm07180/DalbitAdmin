@@ -14,7 +14,6 @@ public class P_QuestionUntreatedOutDetailVo extends SearchVo {
     private String hour;
     private String daily;
     private String monthly;
-    private int totalCnt;
     private int type01Cnt;
     private int type02Cnt;
     private int type03Cnt;

@@ -7,14 +7,18 @@
     SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
-<!-- 1:1문의 > 유형별 -->
+<!-- 로그인 현황 > 총계 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <a href="javascript://">[이전]</a>
-        <%= sf.format(nowTime)%>
-        <a href="javascript://">[다음]</a>
+        <a href="javascript://" class="_prevSearch">[이전]</a>
+        <span class="_searchDate"></span>
+        <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
-            <thead>
+            <colgroup>
+                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+            </colgroup>
+            <thead id="totalTable">
             <tr>
                 <th>시간대</th>
                 <th>소계</th>
@@ -28,62 +32,88 @@
                 <th>기타</th>
             </tr>
             </thead>
-            <tbody>
-            <tr class="success">
-                <th>총계</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-
-            <%
-                for(int i=0; i<24; i++) {
-            %>
-            <tr>
-                <th><%=i%>시 ~ <%=i+1%>시</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <%
-                }
-            %>
-
-            <tr class="success">
-                <th>총계</th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            <tbody id="slctTableBody"></tbody>
             </tbody>
         </table>
     </div>
     <div class="widget-footer">
         <span>
-            <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
+            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
         </span>
     </div>
 </div>
 
 <script type="text/javascript">
+    $(function(){
+        getSlctList();
+    });
 
+    function getSlctList(){
+        util.getAjaxData("slct", "/rest/status/question/slct", $("#searchForm").serialize(), fn_slct_success);
+    }
 
+    function fn_slct_success(data, response){
+        dalbitLog(response);
+        var isDataEmpty = response.data.detailList == null;
+        $("#slctTableBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_slct').html();
+            var templateScript = Handlebars.compile(template);
+            var context = response.data.totalInfo;
+            var totalHtml = templateScript(context);
+            $("#slctTableBody").append(totalHtml);
+            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+        }
+
+        var template = $('#tmp_detailList_slct').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.detailList;
+        var html=templateScript(context);
+        $("#slctTableBody").append(html);
+
+        if(isDataEmpty){
+            $("#slctTableBody td:last").remove();
+        }else{
+            $("#slctTableBody").append(totalHtml);
+        }
+    }
+</script>
+<script type="text/x-handlebars-template" id="tmp_slct">
+    <tr class="success font-bold">
+        <td>총계</td>
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_type01Cnt}}</td>
+        <td>{{addComma sum_type02Cnt}}</td>
+        <td>{{addComma sum_type03Cnt}}</td>
+        <td>{{addComma sum_type04Cnt}}</td>
+        <td>{{addComma sum_type05Cnt}}</td>
+        <td>{{addComma sum_type06Cnt}}</td>
+        <td>{{addComma sum_type07Cnt}}</td>
+        <td>{{addComma sum_type99Cnt}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_detailList_slct">
+    {{#each this as |data|}}
+    <tr>
+        <td class="font-bold">
+            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+        </td>
+        <td>{{addComma totalCnt}}</td>
+        <td>{{addComma type01Cnt}}</td>
+        <td>{{addComma type02Cnt}}</td>
+        <td>{{addComma type03Cnt}}</td>
+        <td>{{addComma type04Cnt}}</td>
+        <td>{{addComma type05Cnt}}</td>
+        <td>{{addComma type06Cnt}}</td>
+        <td>{{addComma type07Cnt}}</td>
+        <td>{{addComma type99Cnt}}</td>
+    </tr>
+    {{else}}
+    <%--<tr>--%>
+        <td colspan="11" class="noData">{{isEmptyData}}<td>
+    <%--</tr>--%>
+    {{/each}}
 </script>

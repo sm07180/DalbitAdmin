@@ -3,7 +3,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid col-lg-8 no-padding">
+        <div class="container-fluid col-lg-9 no-padding">
             <form id="searchForm">
                 <input type="hidden" id="pageNo" name="pageNo" value="1" />
                 <input type="hidden" id="pageCnt" name="pageCnt" value="100" />

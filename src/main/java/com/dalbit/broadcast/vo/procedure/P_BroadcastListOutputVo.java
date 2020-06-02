@@ -57,6 +57,12 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int totalBoosterCnt;
     private int totalForcedCnt;
 
+    //DJ 구분 수
+    private int recommDjCnt;
+    private int normalDjCnt;
+    private int newDjCnt;
+    private int specialDjCnt;
+
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;

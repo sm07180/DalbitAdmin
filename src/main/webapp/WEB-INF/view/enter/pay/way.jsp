@@ -17,10 +17,10 @@
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2">휴대폰</th>
-                <th colspan="2">카드</th>
-                <th colspan="2">인앱결제(아이폰)</th>
-                <th colspan="2">가상계좌아체</th>
+                <th colspan="2">휴대폰 <i class="fa fa-tablet"></i></th>
+                <th colspan="2">카드 <i class="fa fa-credit-card"></i></th>
+                <th colspan="2">인앱결제(아이폰) <i class="fa fa-apple"></i></th>
+                <th colspan="2">가상계좌아체 <i class="fa fa-money"></i></th>
             </tr>
             <tr>
                 <th>건(비율)</th>
@@ -87,8 +87,8 @@
 <script type="text/x-handlebars-template" id="tmp_way">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="font-weight:bold;color: red;">{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold;color: red;">{{addComma sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}}%)</td>
+        <td style="font-weight:bold;color: orange;">{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}}%)</td>
+        <td style="font-weight:bold;color: orange;"><b>{{addComma sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_mcCnt}}</td>
         <td>{{addComma sum_mcAmt}}</td>
         <td>{{addComma sum_cnCnt}}</td>

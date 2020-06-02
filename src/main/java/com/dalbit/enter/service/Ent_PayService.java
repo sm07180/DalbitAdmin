@@ -34,8 +34,8 @@ public class Ent_PayService {
      * 결제/환불 고정
      * @return
      */
-    public String callPayInfo(){
-        ProcedureVo procedureVo = new ProcedureVo();
+    public String callPayInfo(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
         ent_PayDao.callPayInfo(procedureVo);
 
         P_PayInfoOutVo info = new Gson().fromJson(procedureVo.getExt(), P_PayInfoOutVo.class);
