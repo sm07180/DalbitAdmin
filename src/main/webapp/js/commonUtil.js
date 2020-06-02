@@ -164,6 +164,9 @@ util.excelDownload = function(btn, url, data, successFunc, errorFunc) {
     $.fileDownload(url, {
         httpMethod: "POST",
         data: sendData,
+        processData: false,
+        contentType: false,
+        cache: false,
         successCallback: function (url, data) {
             console.log("[exceldown 통신 결과]url : " + url);
             console.log(data);
@@ -189,6 +192,34 @@ util.excelDownload = function(btn, url, data, successFunc, errorFunc) {
             if (errorFunc != null) errorFunc(data);
         });
 },
+
+
+    /**
+     *  var formElement = document.querySelector("form");
+     *  var formJson = util.formArrayToJson($(formElement));
+     *
+     * */
+util.formArrayToJson = function(domForm){
+    var obj = null;
+
+    try {
+        // this[0].tagName이 form tag일 경우
+        if(domForm[0].tagName && domForm[0].tagName.toUpperCase() == "FORM" ) {
+            var arr = domForm.serializeArray();
+            if(arr){
+                obj = {};
+                jQuery.each(arr, function() {
+                // obj의 key값은 arr의 name, obj의 value는 value값
+                    obj[this.name] = this.value;
+                });
+            }
+        }
+    }catch(e) {
+        alert(e.message);
+    }finally  {}
+    return obj;
+},
+
 
 /* 이미지 팝업 */
 util.imagePopup = function(obj) {
@@ -556,11 +587,13 @@ util.renderOnAir = function(value) {
 },
 
 util.textareaResize = function(obj, initHeight){
-    var height = obj.scrollHeight;
+    var height = obj.style.height.replace("px", "");
     if(!common.isEmpty(initHeight)){
         height = initHeight;
     }
 
     obj.style.height = height + "px";
-    obj.style.height = (12+obj.scrollHeight)+"px";
+    if(height <= obj.scrollHeight){
+        obj.style.height = (12+obj.scrollHeight)+"px";
+    }
 }
