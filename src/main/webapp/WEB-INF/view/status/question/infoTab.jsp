@@ -30,7 +30,7 @@
 <script type="text/javascript">
     $("#tablist_con li a").on('click', function(){
         var tabId = $(this).prop('id');
-        if(tabId == 'tablist_con'){
+        if(tabId == 'tab_totalDetail'){
             getTotalList();
         }else if(tabId == 'tab_typeDetail'){
             getSlctList();

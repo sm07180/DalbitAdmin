@@ -89,8 +89,8 @@
     <tr>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.month}}월 {{data.day}}일{{/equal}}
-            {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}</td>
         <td>{{addComma pcCnt}}</td>
