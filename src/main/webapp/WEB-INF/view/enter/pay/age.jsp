@@ -24,8 +24,8 @@
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2"><label style="color: blue">남성 <i class="fa fa-male"></i> </label></th>
-                <th colspan="2"><label style="color: red">여성 <i class="fa fa-female"></i></label></th>
+                <th colspan="2"><label style="color: blue"><i class="fa fa-male"></i> 남성</label></th>
+                <th colspan="2"><label style="color: red"><i class="fa fa-female"></i> 여성</label></th>
                 <th colspan="2">알수없음</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;"></th>
                 <th rowspan="2">시간대</th>
@@ -116,8 +116,8 @@
 <script type="text/x-handlebars-template" id="tmp_age">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="color:orange;"><b>{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}})</b></td>
-        <td style="color:orange;"><b>{{addComma sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}})</b></td>
+        <td style="color:green;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
+        <td style="color:green;"><b>{{addComma sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td style="color: blue;">{{addComma sum_maleCnt}}</td>
         <td style="color: blue;">{{addComma sum_maleAmt}}</td>
         <td style="color: red;">{{addComma sum_femaleCnt}}</td>
@@ -126,8 +126,8 @@
         <td>{{addComma sum_noneAmt}}</td>
         <td style="background-color: white;border-bottom: hidden;"></td>
         <td>소계</td>
-        <td style="color:orange;"><b>{{addComma sum_totalCnt}}({{average sum_totalCnt sum_totalCnt}})</b></td>
-        <td style="color:orange;"><b>{{addComma sum_totalAmt}}({{average sum_totalAmt sum_totalAmt}})</b></td>
+        <td style="color:green;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
+        <td style="color:green;"><b>{{addComma sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_age10Cnt}}</td>
         <td>{{addComma sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
@@ -151,8 +151,8 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalCnt}}({{average totalCnt sum_totalCnt}})</td>
-        <td><b>{{addComma totalAmt}}({{average totalAmt sum_totalAmt}})</b></td>
+        <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
+        <td><b>{{addComma totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
         <td style="color: blue;">{{addComma maleCnt}}</td>
         <td style="color: blue;">{{addComma maleAmt}}</td>
         <td style="color: red;">{{addComma femaleCnt}}</td>
@@ -165,8 +165,8 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalCnt}}({{average totalCnt sum_totalCnt}})</td>
-        <td><b>{{addComma totalAmt}}({{average totalAmt sum_totalAmt}})</b></td>
+        <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
+        <td><b>{{addComma totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma age10Cnt}}</td>
         <td>{{addComma age10Amt}}</td>
         <td>{{addComma age20Cnt}}</td>
