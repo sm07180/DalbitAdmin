@@ -289,7 +289,8 @@
         formData.append("search_value", getParameter().search_value);
         formData.append("limitDay", getParameter().limitDay);
 
-        util.excelDownload($(this), "/rest/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
+
     });
 
     function fn_success_excel(response) {
@@ -297,7 +298,7 @@
     }
 
     function fn_fail_excel(response){
-        alert('미처리 데이터가 없습니다.')
+        alert('현재 환전 처리일이 아니거나, 처리되지 않은 신청 건이 없습니다.');
     }
 
     $(document).on('click', '._layerOpen', function(title, content){
