@@ -300,6 +300,19 @@
         $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
     }
+
+    function click_way(){
+        $("#tablist_con li:eq(2) a").tab("show");   // 수단
+        getPayWayList();
+    }
+    function click_age(){
+        $("#tablist_con li:eq(1) a").tab("show");   // 회원별
+        getPayAgeList();
+    }
+    function click_code(){
+        $("#tablist_con li:eq(3) a").tab("show");   // 상품별
+        getPayCodeList();
+    }
 </script>
 
 <script id="tmp_payTableSummary1" type="text/x-handlebars-template">
@@ -310,7 +323,7 @@
         </colgroup>
         <thead>
         <tr>
-            <th><u>※결제 방법 별</u></th>
+            <th><u onclick="click_way();">※결제 방법 별</u></th>
             <th>휴대폰</th>
             <th>카드</th>
             <th>가상계좌이체</th>
@@ -364,13 +377,13 @@
         </colgroup>
         <thead>
         <tr>
-            <th><u>※결제 성별</u></th>
+            <th><u onclick="click_age();">※결제 성별</u></th>
             <th><label class="font-bold" style="color: blue">남성</label></th>
             <th><label class="font-bold" style="color: red">여성</label></th>
             <th>알수없음</th>
             <th style="color: green;">총 합</th>
             <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-            <th><u>※결제 연령대 별</u></th>
+            <th><u onclick="click_age();">※결제 연령대 별</u></th>
             <th>10대</th>
             <th>20대</th>
             <th>30대</th>
@@ -460,7 +473,7 @@
         </colgroup>
         <tbody>
         <tr>
-            <th><u>※아이템별<br>Web, 안드로이드</u></th>
+            <th><u onclick="click_code();">※아이템별<br>Web, 안드로이드</u></th>
             <th>달 50</th>
             <th>달 100</th>
             <th>달 500</th>
@@ -469,7 +482,7 @@
             <th>달 3,000</th>
             <th>총합</th>
             <td style="border-bottom: hidden;border-top: hidden;"></td>
-            <th><u>※아이템별<br>아이폰</u></th>
+            <th><u onclick="click_code();">※아이템별<br>아이폰</u></th>
             <th>달 49</th>
             <th>달 100</th>
             <th>달 300</th>
