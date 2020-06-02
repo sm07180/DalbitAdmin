@@ -581,7 +581,7 @@
         </tr>
         <tr style="color: green;">
             <td><b>{{total_cnt}} 건</b></td>
-            <td><b>{{total_amt}} 원</b></td>
+            <td><b>{{addComma total_amt}} 원</b></td>
         </tr>
         <tr>
             <th colspan="2">총 결제 건/(부과세 제외) 매출</th>
