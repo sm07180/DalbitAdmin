@@ -19,7 +19,7 @@
 
     <select id="callQuestionUntreated" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_QuestionUntreatedOutDetailVo">
         /* Sta_Question.xml - callQuestionUntreated */
-        call rd_admin.sp_admin_stat_qna_Untreated(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+        call rd_admin.sp_admin_stat_qna_nop(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
     <select id="callQuestionInfo" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.status.vo.procedure.P_QuestionInfoOutVo">

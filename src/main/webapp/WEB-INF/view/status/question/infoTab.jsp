@@ -8,10 +8,11 @@
         <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
-                    <li class="active"><a href="#total" role="tab" data-toggle="tab">총계</a></li>
+                    <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_totalDetail">총계</a></li>
                     <li><a href="#type" role="tab" data-toggle="tab" id="tab_typeDetail">유형별</a></li>
                     <li><a href="#platform" role="tab" data-toggle="tab" id="tab_platformDetail">플랫폼별</a></li>
                     <li><a href="#untreated" role="tab" data-toggle="tab" id="tab_untreatedDetail">미처리</a></li>
+                    <li><a href="/customer/question/list" id="tab_qunlist" title="1:1문의내역 페이지로 이동합니다.">1:1문의내역</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>       <!-- 총계 -->
@@ -25,3 +26,29 @@
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
+
+<script type="text/javascript">
+    $("#tablist_con li a").on('click', function(){
+        var tabId = $(this).prop('id');
+        if(tabId == 'tablist_con'){
+            getTotalList();
+        }else if(tabId == 'tab_typeDetail'){
+            getSlctList();
+        }else if(tabId == 'tab_platformDetail'){
+            getPlatformList();
+        }else if(tabId == 'tab_untreatedDetail'){
+            getUntreatedList();
+        }
+
+        $(".searchDate").html($("#onedayDate").val());
+    });
+
+    $("#bt_search").on('click', function(){
+
+        if($('input[name="slctType"]:first').prop('checked')){
+            $("._searchDate").html($("#startDate").val());
+        }
+
+        $("#tablist_con li.active a").click();
+    });
+</script>
