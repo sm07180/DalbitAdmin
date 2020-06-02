@@ -345,11 +345,11 @@
         </tr>
         <tr>
             <th><label class="font-bold">결제 비율</label></th>
-            <td>({{payRate mc_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate mc_amt total_amt}}%</label></td>
-            <td>({{payRate cn_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate cn_amt total_amt}}%</label></td>
-            <td>({{payRate va_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate va_amt total_amt}}%</label></td>
-            <td>({{payRate inapp_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate inapp_amt total_amt}}%</label></td>
-            <td>({{payRate total_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate total_amt total_amt}}%</label></td>
+            <td>({{payRate mc_cnt total_cnt}}%)<br/><b>{{payRate mc_amt total_amt}}%</b></td>
+            <td>({{payRate cn_cnt total_cnt}}%)<br/><b>{{payRate cn_amt total_amt}}%</b></td>
+            <td>({{payRate va_cnt total_cnt}}%)<br/><b>{{payRate va_amt total_amt}}%</b></td>
+            <td>({{payRate inapp_cnt total_cnt}}%)<br/><b>{{payRate inapp_amt total_amt}}%</b></td>
+            <td style="color: green">({{payRate total_cnt total_cnt}}%)<br/><b>{{payRate total_amt total_amt}}%</b></td>
         </tr>
         </tbody>
     </table>
