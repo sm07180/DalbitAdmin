@@ -283,11 +283,15 @@
 
                         <th>바로가기버튼</th>
                         <td colspan="4">
-                            <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" data-url=" https://www.dalbitlive.com/store">달결제</button>
-                            <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/wallet">별환전</button>
-                            <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/wallet">내지갑</button>
+                            <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" data-url=" https://m.dalbitlive.com/store">달결제</button>
+                            <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" data-url="https://m.dalbitlive.com/money_exchange">별환전</button>
+                            <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" data-url="https://m.dalbitlive.com/mypage/{{mem_no}}/wallet">내지갑</button>
                             <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/mypage/setting">사진등록</button>
                             <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" data-url="https://www.dalbitlive.com/customer/faq">방송방법</button>
+                            <button type="button" id="bt_myinfo" class="btn-sm btn btn-default bt_baro" data-url="https://m.dalbitlive.com/private">내정보관리</button>
+                            <button type="button" id="bt_pcSetting" class="btn-sm btn btn-default bt_baro" data-url="https://www.youtube.com/watch?v=EegzDQ_dZAc target='_blank'">PC 방송 기본장비 설정하기</button>
+                            <button type="button" id="bt_pcBroad" class="btn-sm btn btn-default bt_baro" data-url="https://www.youtube.com/watch?v=-wAeaNZLEws&t=4s target='_blank'">PC방송하기</button>
+                            <button type="button" id="bt_mobileBroad" class="btn-sm btn btn-default bt_baro" data-url="https://www.youtube.com/watch?v=IKo_tNDPpB0&t=1s target='_blank'">모바일 방송하기</button>
                         </td>
                     </tr>
                 </tbody>
