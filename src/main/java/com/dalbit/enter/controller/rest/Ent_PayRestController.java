@@ -26,8 +26,14 @@ public class Ent_PayRestController {
     Ent_PayService ent_PayService;
 
     @PostMapping("info")
-    public String payInfo(){
-        String result = ent_PayService.callPayInfo();
+    public String payInfo(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = ent_PayService.callPayInfo(pStatVo);
         return result;
     }
 

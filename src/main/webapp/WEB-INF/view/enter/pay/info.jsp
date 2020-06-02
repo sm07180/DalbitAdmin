@@ -140,7 +140,13 @@
     });
 
     function getStatPayInfo(){
-        util.getAjaxData("statPayInfo", "/rest/enter/pay/info", $("#searchForm").serialize(), fn_statPayInfo_success1);
+        var data = {};
+        data.slctType = $('input[name="slctType"]:checked').val();
+        data.startDate = $("#startDate").val();
+        if($('input[name="slctType"]:checked').val() != "0"){
+            data.endDate = $("#endDate").val();
+        }
+        util.getAjaxData("statPayInfo", "/rest/enter/pay/info", data, fn_statPayInfo_success1);
     }
     function fn_statPayInfo_success1(data, response){
         $("#statPayTableBody1").empty();
@@ -304,12 +310,12 @@
         </colgroup>
         <thead>
         <tr>
-            <th><label class="font-bold" style="color: blue;">※결제 방법 별</label></th>
+            <th><u>※결제 방법 별</u></th>
             <th>휴대폰</th>
             <th>카드</th>
             <th>가상계좌이체</th>
             <th>인앱결제(아이폰)</th>
-            <th style="color: red">총합</th>
+            <th style="color: green;font-weight: bold">총합</th>
         </tr>
         </thead>
         <tbody>
@@ -319,7 +325,7 @@
             <td>{{addComma cn_cnt}}</td>
             <td>{{addComma va_cnt}}</td>
             <td>{{addComma inapp_cnt}}</td>
-            <td style="color: red">{{addComma total_cnt}}</td>
+            <td style="color: green">{{addComma total_cnt}}</td>
         </tr>
         <tr>
             <th>부과세 포함 금액</th>
@@ -327,23 +333,23 @@
             <td>{{addComma cn_amt}}</td>
             <td>{{addComma va_amt}}</td>
             <td>{{addComma inapp_amt}}</td>
-            <td style="color: red">{{addComma total_amt}}</td>
+            <td style="color: green">{{addComma total_amt}}</td>
         </tr>
         <tr>
-            <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
-            <td style="color: red;">{{vatMinus mc_amt}}</td>
-            <td style="color: red;">{{vatMinus cn_amt}}</td>
-            <td style="color: red;">{{vatMinus va_amt}}</td>
-            <td style="color: red;">{{vatMinus inapp_amt}}</td>
-            <td style="color: red;">{{vatMinus total_amt}}</td>
+            <th><label class="font-bold" style="color: green;">부과세 제외 금액</label></th>
+            <td style="color: green;">{{vatMinus mc_amt}}</td>
+            <td style="color: green;">{{vatMinus cn_amt}}</td>
+            <td style="color: green;">{{vatMinus va_amt}}</td>
+            <td style="color: green;">{{vatMinus inapp_amt}}</td>
+            <td style="color: orange;font-weight: bold">{{vatMinus total_amt}}</td>
         </tr>
         <tr>
             <th><label class="font-bold">결제 비율</label></th>
-            <td>({{payRate mc_cnt total_cnt}}%)<br><label style="color: red;">{{payRate mc_amt total_amt}}%</label></td>
-            <td>({{payRate cn_cnt total_cnt}}%)<br/><label style="color: red;">{{payRate cn_amt total_amt}}%</label></td>
-            <td>({{payRate va_cnt total_cnt}}%)<br/><label style="color: red;">{{payRate va_amt total_amt}}%</label></td>
-            <td>({{payRate inapp_cnt total_cnt}}%)<br/><label style="color: red;">{{payRate inapp_amt total_amt}}%</label></td>
-            <td>({{payRate total_cnt total_cnt}}%)<br/><label style="color: red;">{{payRate total_amt total_amt}}%</label></td>
+            <td>({{payRate mc_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate mc_amt total_amt}}%</label></td>
+            <td>({{payRate cn_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate cn_amt total_amt}}%</label></td>
+            <td>({{payRate va_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate va_amt total_amt}}%</label></td>
+            <td>({{payRate inapp_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate inapp_amt total_amt}}%</label></td>
+            <td>({{payRate total_cnt total_cnt}}%)<br/><label style="font-weight: bold">{{payRate total_amt total_amt}}%</label></td>
         </tr>
         </tbody>
     </table>
@@ -358,20 +364,20 @@
         </colgroup>
         <thead>
         <tr>
-            <th><label class="font-bold" style="color: blue;">※결제 성별</label></th>
+            <th><u>※결제 성별</u></th>
             <th><label class="font-bold" style="color: blue">남성</label></th>
             <th><label class="font-bold" style="color: red">여성</label></th>
             <th>알수없음</th>
-            <th>총 합</th>
+            <th style="color: green;">총 합</th>
             <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-            <th><label class="font-bold" style="color: blue;">※결제 연령대 별</label></th>
+            <th><u>※결제 연령대 별</u></th>
             <th>10대</th>
             <th>20대</th>
             <th>30대</th>
             <th>40대</th>
             <th>50대</th>
             <th>60대 이상</th>
-            <th>총 합</th>
+            <th style="color: green;">총 합</th>
         </tr>
         </thead>
         <tbody>
@@ -381,7 +387,7 @@
             <td><label class="font-bold" style="color: red">{{addComma female_cnt}}</label></td>
             <td>{{addComma none_cnt}}</td>
             <td>{{addComma total_cnt}}</td>
-            <td style="border-bottom: hidden;"></td>
+            <td style="border-bottom: hidden;color: green;"></td>
             <th>결제 건 수</th>
             <td>{{addComma age10_cnt}}</td>
             <td>{{addComma age20_cnt}}</td>
@@ -389,14 +395,14 @@
             <td>{{addComma age40_cnt}}</td>
             <td>{{addComma age50_cnt}}</td>
             <td>{{addComma age60_cnt}}</td>
-            <td>{{addComma total_cnt}}</td>
+            <td style="color: green;">{{addComma total_cnt}}</td>
         </tr>
         <tr>
             <th>부과세 포함 금액</th>
             <td><label class="font-bold" style="color: blue">{{addComma male_amt}}</label></td>
             <td><label class="font-bold" style="color: red">{{addComma female_amt}}</label></td>
             <td>{{addComma none_amt}}</td>
-            <td>{{addComma total_amt}}</td>
+            <td style="color: green;">{{addComma total_amt}}</td>
             <td style="border-bottom: hidden;"></td>
             <th>부과세 포함 금액</th>
             <td>{{addComma age10_amt}}</td>
@@ -405,39 +411,39 @@
             <td>{{addComma age40_amt}}</td>
             <td>{{addComma age50_amt}}</td>
             <td>{{addComma age60_amt}}</td>
-            <td>{{addComma total_amt}}</td>
+            <td style="color: green;">{{addComma total_amt}}</td>
         </tr>
         <tr>
-            <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
-            <td style="color: red;">{{vatMinus male_amt}}</td>
+            <th><label class="font-bold" style="color: green;">부과세 제외 금액</label></th>
+            <td style="color: blue;">{{vatMinus male_amt}}</td>
             <td style="color: red;">{{vatMinus female_amt}}</td>
-            <td style="color: red;">{{vatMinus none_amt}}</td>
-            <td style="color: red;">{{vatMinus total_amt}}</td>
+            <td>{{vatMinus none_amt}}</td>
+            <td style="color: orange;font-weight: bold">{{vatMinus total_amt}}</td>
             <td style="border-bottom: hidden;"></td>
-            <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
-            <td style="color: red;">{{vatMinus age10_amt}}</td>
-            <td style="color: red;">{{vatMinus age20_amt}}</td>
-            <td style="color: red;">{{vatMinus age30_amt}}</td>
-            <td style="color: red;">{{vatMinus age40_amt}}</td>
-            <td style="color: red;">{{vatMinus age50_amt}}</td>
-            <td style="color: red;">{{vatMinus age60_amt}}</td>
-            <td style="color: red;">{{vatMinus total_amt}}</td>
+            <th><label class="font-bold" style="color: green;">부과세 제외 금액</label></th>
+            <td style="color: green;">{{vatMinus age10_amt}}</td>
+            <td style="color: green;">{{vatMinus age20_amt}}</td>
+            <td style="color: green;">{{vatMinus age30_amt}}</td>
+            <td style="color: green;">{{vatMinus age40_amt}}</td>
+            <td style="color: green;">{{vatMinus age50_amt}}</td>
+            <td style="color: green;">{{vatMinus age60_amt}}</td>
+            <td style="color: orange;">{{vatMinus total_amt}}</td>
         </tr>
         <tr>
             <th>결제 비율</th>
-            <td><label class="font-bold" style="color: blue">({{payRate male_cnt total_cnt}}%)</label><br><label style="color: red;">{{payRate male_amt total_amt}}%</label></td>
-            <td><label class="font-bold" style="color: red">({{payRate female_cnt total_cnt}}%)</label><br><label style="color: red;">{{payRate female_amt total_amt}}%</label></td>
-            <td>({{payRate none_cnt none_cnt}}%)<br><label style="color: red;">{{payRate none_amt total_amt}}%</label></td>
-            <td>({{payRate total_cnt total_cnt}}%)<br><label style="color: red;">{{payRate total_amt total_amt}}%</label></td>
+            <td><label class="font-bold" style="color: blue">({{payRate male_cnt total_cnt}}%)<br><b>{{payRate male_amt total_amt}}%</b></label></td>
+            <td><label class="font-bold" style="color: red">({{payRate female_cnt total_cnt}}%)<br><b>{{payRate female_amt total_amt}}%</b></label></td>
+            <td><label>({{payRate none_cnt none_cnt}}%)<br><b>{{payRate none_amt total_amt}}%</b></label></td>
+            <td><label style="color: green;">({{payRate total_cnt total_cnt}}%)<br><b>{{payRate total_amt total_amt}}%</b></label></td>
             <td style="border-bottom: hidden;"></td>
             <th>결제 비율</th>
-            <td>({{payRate age10_cnt total_cnt}}%)<br><label style="color: red;">{{payRate age10_amt total_amt}}%</label></td>
-            <td>({{payRate age20_cnt total_cnt}}%)<br><label style="color: red;">{{payRate age20_amt total_amt}}%</label></td>
-            <td>({{payRate age30_cnt total_cnt}}%)<br><label style="color: red;">{{payRate age30_amt total_amt}}%</label></td>
-            <td>({{payRate age40_cnt total_cnt}}%)<br><label style="color: red;">{{payRate age40_amt total_amt}}%</label></td>
-            <td>({{payRate age50_cnt total_cnt}}%)<br><label style="color: red;">{{payRate age50_amt total_amt}}%</label></td>
-            <td>({{payRate age60_cnt total_cnt}}%)<br><label style="color: red;">{{payRate age60_amt total_amt}}%</label></td>
-            <td>({{payRate total_cnt total_cnt}}%)<br><label style="color: red;">{{payRate total_amt total_amt}}%</label></td>
+            <td>({{payRate age10_cnt total_cnt}}%)<br><b>{{payRate age10_amt total_amt}}%</b></td>
+            <td>({{payRate age20_cnt total_cnt}}%)<br><b>{{payRate age20_amt total_amt}}%</b></td>
+            <td>({{payRate age30_cnt total_cnt}}%)<br><b>{{payRate age30_amt total_amt}}%</b></td>
+            <td>({{payRate age40_cnt total_cnt}}%)<br><b>{{payRate age40_amt total_amt}}%</b></td>
+            <td>({{payRate age50_cnt total_cnt}}%)<br><b>{{payRate age50_amt total_amt}}%</b></td>
+            <td>({{payRate age60_cnt total_cnt}}%)<br><b>{{payRate age60_amt total_amt}}%</b></td>
+            <td><label style="color: green;">({{payRate total_cnt total_cnt}}%)<br><b>{{payRate total_amt total_amt}}%</b></label></td>
         </tr>
         </tbody>
     </table>
@@ -454,7 +460,7 @@
         </colgroup>
         <tbody>
         <tr>
-            <th><label class="font-bold" style="color: blue;">※아이템별</label><br>Web, 안드로이드</th>
+            <th><u>※아이템별<br>Web, 안드로이드</u></th>
             <th>달 50</th>
             <th>달 100</th>
             <th>달 500</th>
@@ -463,7 +469,7 @@
             <th>달 3,000</th>
             <th>총합</th>
             <td style="border-bottom: hidden;border-top: hidden;"></td>
-            <th><label class="font-bold" style="color: blue;">※아이템별</label><br>아이폰</th>
+            <th><u>※아이템별<br>아이폰</u></th>
             <th>달 49</th>
             <th>달 100</th>
             <th>달 300</th>
@@ -480,7 +486,7 @@
             <td>{{addComma code04_cnt}}</td>
             <td>{{addComma code05_cnt}}</td>
             <td>{{addComma code06_cnt}}</td>
-            <td>{{addComma android_total_cnt}}</td>
+            <td style="color: green;"><b>{{addComma android_total_cnt}}</b></td>
             <td style="border-bottom: hidden;"></td>
             <th>결제 건 수</th>
             <td>{{addComma code07_cnt}}</td>
@@ -489,7 +495,7 @@
             <td>{{addComma code10_cnt}}</td>
             <td>{{addComma code11_cnt}}</td>
             <td>{{addComma code12_cnt}}</td>
-            <td>{{addComma ios_total_cnt}}</td>
+            <td style="color: green;"><b>{{addComma ios_total_cnt}}</b></td>
         </tr>
         <tr>
             <th>부과세 포함 금액</th>
@@ -499,7 +505,7 @@
             <td>{{addComma code04_amt}}</td>
             <td>{{addComma code05_amt}}</td>
             <td>{{addComma code06_amt}}</td>
-            <td>{{addComma android_total_amt}}</td>
+            <td style="color: green;"><b>{{addComma android_total_amt}}</b></td>
             <td style="border-bottom: hidden;"></td>
             <th>부과세 포함 금액</th>
             <td>{{addComma code07_amt}}</td>
@@ -508,45 +514,45 @@
             <td>{{addComma code10_amt}}</td>
             <td>{{addComma code11_amt}}</td>
             <td>{{addComma code12_amt}}</td>
-            <td>{{addComma ios_total_cnt}}</td>
+            <td style="color: green;"><b>{{addComma ios_total_cnt}}</b></td>
         </tr>
-        <tr>
-            <th><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
-            <td style="color: red;">{{vatMinus code01_amt}}</td>
-            <td style="color: red;">{{vatMinus code02_amt}}</td>
-            <td style="color: red;">{{vatMinus code03_amt}}</td>
-            <td style="color: red;">{{vatMinus code04_amt}}</td>
-            <td style="color: red;">{{vatMinus code05_amt}}</td>
-            <td style="color: red;">{{vatMinus code06_amt}}</td>
-            <td style="color: red;">{{vatMinus android_total_amt}}</td>
+        <tr style="color: green;">
+            <th><label class="font-bold">부과세 제외 금액</label></th>
+            <td>{{vatMinus code01_amt}}</td>
+            <td>{{vatMinus code02_amt}}</td>
+            <td>{{vatMinus code03_amt}}</td>
+            <td>{{vatMinus code04_amt}}</td>
+            <td>{{vatMinus code05_amt}}</td>
+            <td>{{vatMinus code06_amt}}</td>
+            <td style="color: orange;font-weight: bold">{{vatMinus android_total_amt}}</td>
             <td style="border-bottom: hidden;"></td>
-            <th style="color: red;"><label class="font-bold" style="color: red;">부과세 제외 금액</label></th>
-            <td style="color: red;">{{vatMinus code07_amt}}</td>
-            <td style="color: red;">{{vatMinus code08_amt}}</td>
-            <td style="color: red;">{{vatMinus code09_amt}}</td>
-            <td style="color: red;">{{vatMinus code10_amt}}</td>
-            <td style="color: red;">{{vatMinus code11_amt}}</td>
-            <td style="color: red;">{{vatMinus code12_amt}}</td>
-            <td style="color: red;">{{vatMinus ios_total_amt}}</td>
+            <th><label class="font-bold">부과세 제외 금액</label></th>
+            <td>{{vatMinus code07_amt}}</td>
+            <td>{{vatMinus code08_amt}}</td>
+            <td>{{vatMinus code09_amt}}</td>
+            <td>{{vatMinus code10_amt}}</td>
+            <td>{{vatMinus code11_amt}}</td>
+            <td>{{vatMinus code12_amt}}</td>
+            <td style="color: orange;font-weight: bold">{{vatMinus ios_total_amt}}</td>
         </tr>
         <tr>
             <th>결제 비율</th>
-            <td>({{payRate code01_cnt android_total_cnt}}%)<br><label style="color: red;">{{payRate code01_amt android_total_amt}}%</label></td>
-            <td>({{payRate code02_cnt android_total_cnt}}%)<br><label style="color: red;">{{payRate code02_amt android_total_amt}}%</label></td>
-            <td>({{payRate code03_cnt android_total_cnt}}%)<br><label style="color: red;">{{payRate code03_amt android_total_amt}}%</label></td>
-            <td>({{payRate code04_cnt android_total_cnt}}%)<br><label style="color: red;">{{payRate code04_amt android_total_amt}}%</label></td>
-            <td>({{payRate code05_cnt android_total_cnt}}%)<br><label style="color: red;">{{payRate code05_amt android_total_amt}}%</label></td>
-            <td>({{payRate code06_cnt android_total_cnt}}%)<br><label style="color: red;">{{payRate code06_amt android_total_amt}}%</label></td>
-            <td>({{payRate android_total_cnt android_total_cnt}}%)<br><label style="color: red;">{{payRate android_total_amt android_total_amt}}%</label></td>
+            <td>({{payRate code01_cnt android_total_cnt}}%)<br><b>{{payRate code01_amt android_total_amt}}%</b></td>
+            <td>({{payRate code02_cnt android_total_cnt}}%)<br><b>{{payRate code02_amt android_total_amt}}%</b></td>
+            <td>({{payRate code03_cnt android_total_cnt}}%)<br><b>{{payRate code03_amt android_total_amt}}%</b></td>
+            <td>({{payRate code04_cnt android_total_cnt}}%)<br><b>{{payRate code04_amt android_total_amt}}%</b></td>
+            <td>({{payRate code05_cnt android_total_cnt}}%)<br><b>{{payRate code05_amt android_total_amt}}%</b></td>
+            <td>({{payRate code06_cnt android_total_cnt}}%)<br><b>{{payRate code06_amt android_total_amt}}%</b></td>
+            <td><label style="color: green;">({{payRate android_total_cnt android_total_cnt}}%)<br><b>{{payRate android_total_amt android_total_amt}}%</b></label></td>
             <td style="border-bottom: hidden;"></td>
             <th>결제 비율</th>
-            <td>({{payRate code07_cnt ios_total_cnt}}%)<br><label style="color: red;">{{payRate code07_amt ios_total_amt}}%</label></td>
-            <td>({{payRate code08_cnt ios_total_cnt}}%)<br><label style="color: red;">{{payRate code08_amt ios_total_amt}}%</label></td>
-            <td>({{payRate code09_cnt ios_total_cnt}}%)<br><label style="color: red;">{{payRate code09_amt ios_total_amt}}%</label></td>
-            <td>({{payRate code10_cnt ios_total_cnt}}%)<br><label style="color: red;">{{payRate code10_amt ios_total_amt}}%</label></td>
-            <td>({{payRate code11_cnt ios_total_cnt}}%)<br><label style="color: red;">{{payRate code11_amt ios_total_amt}}%</label></td>
-            <td>({{payRate code12_cnt ios_total_cnt}}%)<br><label style="color: red;">{{payRate code12_amt ios_total_amt}}%</label></td>
-            <td>({{payRate ios_total_cnt ios_total_cnt}}%)<br><label style="color: red;">{{payRate ios_total_amt ios_total_amt}}%</label></td>
+            <td>({{payRate code07_cnt ios_total_cnt}}%)<br><b>{{payRate code07_amt ios_total_amt}}%</b></td>
+            <td>({{payRate code08_cnt ios_total_cnt}}%)<br><b>{{payRate code08_amt ios_total_amt}}%</b></td>
+            <td>({{payRate code09_cnt ios_total_cnt}}%)<br><b>{{payRate code09_amt ios_total_amt}}%</b></td>
+            <td>({{payRate code10_cnt ios_total_cnt}}%)<br><b>{{payRate code10_amt ios_total_amt}}%</b></td>
+            <td>({{payRate code11_cnt ios_total_cnt}}%)<br><b>{{payRate code11_amt ios_total_amt}}%</b></td>
+            <td>({{payRate code12_cnt ios_total_cnt}}%)<br><b>{{payRate code12_amt ios_total_amt}}%</b></td>
+            <td><label style="color: green;">({{payRate ios_total_cnt ios_total_cnt}}%)<br><b>{{payRate ios_total_amt ios_total_amt}}%</b></label></td>
         </tr>
         </tbody>
     </table>
@@ -561,8 +567,8 @@
             <th colspan="2">총 결제건/(부과세 제외) 매출</th>
         </tr>
         <tr>
-            <td style="color: red;">{{total_cnt}} 건</td>
-            <td style="color: red;">{{vatMinus total_amt}} 원</td>
+            <td style="color: orange;font-weight: bold">{{total_cnt}} 건</td>
+            <td style="color: orange;font-weight: bold">{{vatMinus total_amt}} 원</td>
         </tr>
     </table>
 </script>
