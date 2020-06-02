@@ -348,9 +348,9 @@
         </tr>
         </thead>
         <tbody>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.specialDjCnt}}건</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}}명</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
+        <td>{{#equal length '0'}}0{{/equal}}{{content.specialDjCnt}}명</td>
         </tbody>
     </table>
 </script>
