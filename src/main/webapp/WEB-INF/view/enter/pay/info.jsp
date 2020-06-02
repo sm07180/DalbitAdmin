@@ -514,7 +514,7 @@
             <td>{{addComma code10_amt}}</td>
             <td>{{addComma code11_amt}}</td>
             <td>{{addComma code12_amt}}</td>
-            <td style="color: green;"><b>{{addComma ios_total_cnt}}</b></td>
+            <td style="color: green;"><b>{{addComma ios_total_amt}}</b></td>
         </tr>
         <tr style="color: green;">
             <th><label class="font-bold">부과세 제외 금액</label></th>
