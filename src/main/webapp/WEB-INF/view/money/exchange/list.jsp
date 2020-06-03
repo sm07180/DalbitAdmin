@@ -48,11 +48,11 @@
                     <div class="row col-lg-12">
 
                         <div>
-                            <div class="pt10 col-lg-5">
+                            <div class="pt10 col-lg-4">
                                 <ul>
                                     <li>환전완료 정보를 확인하고, 처리 불가 회원에 대한 응대를 할 수 있습니다.</li>
                                     <li>경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</li>
-                                    <li>[SMS발송]이 완료된 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</li>
+                                    <li>[SMS발송] 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</li>
                                     <li>환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</li>
                                 </ul>
 
@@ -62,23 +62,27 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-7">
+                            <div class="col-lg-8">
                                 <table class="table table-bordered table-summary pull-right">
                                     <thead>
                                     <tr>
-                                        <th colspan="5">일반회원</th>
+                                        <th colspan="7">일반회원</th>
                                     </tr>
                                     <tr>
-                                        <th>신청인원</th>
+                                        <th>신청 인원</th>
                                         <th>신청 별 수</th>
-                                        <th>신청 완료금액</th>
+                                        <th>신청 금액</th>
+                                        <th>완료 별 수</th>
+                                        <th>완료 금액</th>
                                         <th>불가 별 수</th>
-                                        <th>불가 처리금액</th>
+                                        <th>불가 처리 금액</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tb_user_summary">
                                     <tr>
                                         <td><span>0</span>명</td>
+                                        <td><span>0</span>별</td>
+                                        <td><span>0</span>원</td>
                                         <td><span>0</span>별</td>
                                         <td><span>0</span>원</td>
                                         <td><span>0</span>별</td>
@@ -90,19 +94,23 @@
                                 <table class="table table-bordered table-summary pull-right">
                                     <thead>
                                     <tr>
-                                        <th colspan="5">스페셜DJ</th>
+                                        <th colspan="7">스페셜DJ</th>
                                     </tr>
                                     <tr>
-                                        <th>신청인원</th>
+                                        <th>신청 인원</th>
                                         <th>신청 별 수</th>
-                                        <th>신청 완료금액</th>
+                                        <th>신청 금액</th>
+                                        <th>완료 별 수</th>
+                                        <th>완료 금액</th>
                                         <th>불가 별 수</th>
-                                        <th>불가 처리금액</th>
+                                        <th>불가 처리 금액</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tb_special_summary">
                                         <tr>
                                             <td><span>0</span>명</td>
+                                            <td><span>0</span>별</td>
+                                            <td><span>0</span>원</td>
                                             <td><span>0</span>별</td>
                                             <td><span>0</span>원</td>
                                             <td><span>0</span>별</td>
