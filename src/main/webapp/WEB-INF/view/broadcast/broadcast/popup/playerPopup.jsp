@@ -161,6 +161,9 @@
 
 <script>
     var pc_config = null;
+    var broadInfo = <%=in_BroadInfo%>;
+    var roomNo = "<%=in_roomNo%>";
+
 
     var sdpConstraints = {
         OfferToReceiveAudio : true,
@@ -172,7 +175,8 @@
         audio : false
     };
 
-    var websocketURL = ANT_SERVER_URL + "/" + ANT_APP_NAME + "/websocket";
+    console.debug(broadInfo)
+    var websocketURL = broadInfo.antUrl + "/" + ANT_APP_NAME + "/websocket";
 
     if (websocketURL.startsWith("https")) {
         websocketURL = websocketURL.replace("https:", "wss:");
@@ -224,9 +228,6 @@
             return false;
         }
     });
-
-    var broadInfo = <%=in_BroadInfo%>;
-    var roomNo = "<%=in_roomNo%>";
 
     var streamId;
     var tokenId;

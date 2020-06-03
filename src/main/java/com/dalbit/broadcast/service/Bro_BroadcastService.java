@@ -360,7 +360,7 @@ public class Bro_BroadcastService {
                             HashMap tokenMap = new Gson().fromJson(strResBody, HashMap.class);
                             if (tokenMap != null && !DalbitUtil.isEmpty(tokenMap.get("tokenId"))) {
                                 broadInfo.put("bjPlayToken", tokenMap.get("tokenId"));
-                                broadInfo.put("antUrl", url);
+                                broadInfo.put("antUrl", DalbitUtil.getProperty("server.ant.edge.url"));
                                 request.setAttribute("BroadInfo", gsonUtil.toJson(broadInfo));
                             }
                         }
