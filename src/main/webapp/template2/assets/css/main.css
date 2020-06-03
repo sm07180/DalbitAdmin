@@ -12923,7 +12923,7 @@ body.ontop-nav .top-bar .navbar-toggle:hover, body.ontop-nav .top-bar .navbar-to
 /*	Main Content
 /*------------------------------------------------*/
 .content-wrapper {
-    padding: 15px 30px;
+    /*padding: 15px 30px;*/
     /*margin-left: 230px;*/
     position: relative; }
 
