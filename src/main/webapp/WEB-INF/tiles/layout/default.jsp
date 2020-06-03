@@ -27,17 +27,6 @@
 <!-- /wrapper -->
 
 <tiles:insertAttribute name="setting"/>
-
-<script type="text/javascript">
-    $(window).scroll(function() {
-        //temp.iframeBodyAutoResize();
-    });
-
-    window.onload = function() {
-        var scrollHeight = document.getElementById("body").scrollHeight;
-        window.parent.postMessage({"scrollHeight" : scrollHeight }, '*');
-    };
-</script>
 </body>
 </html>
 
