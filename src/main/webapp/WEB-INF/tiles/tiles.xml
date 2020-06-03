@@ -4,6 +4,20 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
+    <definition name="indexPage" template="/WEB-INF/tiles/layout/index.jsp">
+        <put-attribute name="header" value="/WEB-INF/tiles/layout/include/header.jsp" />
+        <put-attribute name="top" value="/WEB-INF/tiles/layout/include/top.jsp" />
+        <put-attribute name="left" value="/WEB-INF/tiles/layout/include/left.jsp" />
+        <put-attribute name="gnb" value="/WEB-INF/tiles/layout/include/gnb.jsp" />
+        <put-attribute name="script" value="/WEB-INF/tiles/layout/include/script.jsp" />
+        <put-attribute name="setting" value="/WEB-INF/tiles/layout/include/setting.jsp" />
+        <put-attribute name="body" value="" />
+    </definition>
+
+    <definition name="index" extends="indexPage">
+        <put-attribute name="body" value="/WEB-INF/view/index.jsp" />
+    </definition>
+
     <definition name="onlyBody" template="/WEB-INF/tiles/layout/onlyBody.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/layout/include/header.jsp" />
         <put-attribute name="script" value="/WEB-INF/tiles/layout/include/script.jsp" />
@@ -18,11 +32,10 @@
         <put-attribute name="body" value="/WEB-INF/view/{1}/{2}/popup/{3}.jsp" />
     </definition>
 
-
     <definition name="base" template="/WEB-INF/tiles/layout/default.jsp">
         <put-attribute name="header" value="/WEB-INF/tiles/layout/include/header.jsp" />
-        <put-attribute name="top" value="/WEB-INF/tiles/layout/include/top.jsp" />
-        <put-attribute name="left" value="/WEB-INF/tiles/layout/include/left.jsp" />
+        <!--<put-attribute name="top" value="/WEB-INF/tiles/layout/include/top.jsp" />
+        <put-attribute name="left" value="/WEB-INF/tiles/layout/include/left.jsp" />-->
         <put-attribute name="gnb" value="/WEB-INF/tiles/layout/include/gnb.jsp" />
         <put-attribute name="script" value="/WEB-INF/tiles/layout/include/script.jsp" />
         <put-attribute name="setting" value="/WEB-INF/tiles/layout/include/setting.jsp" />

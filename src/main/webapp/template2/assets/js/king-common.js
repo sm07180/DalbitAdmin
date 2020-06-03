@@ -41,7 +41,7 @@ $(document).ready(function(){
                 .slideDown(300);
 
             var index = $('ul.main-menu li:visible').index($li);
-            $('._leftFixed').animate({scrollTop : index * 47}, 200)
+            //$('._leftFixed').animate({scrollTop : index * 47}, 200)
         }
         else {
             $li.find(' > a .toggle-icon').removeClass('fa-angle-down').addClass('fa-angle-left');

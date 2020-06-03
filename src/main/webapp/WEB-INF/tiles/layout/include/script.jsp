@@ -101,6 +101,7 @@
             console.log(data);
         }
     }
+    var ADMIN_SERVER_URL = '${cfn:getProperty("server.adm.url")}';
     var PHOTO_SERVER_URL = '${cfn:getProperty("server.photo.url")}';
     var IMAGE_SERVER_URL = '${cfn:getProperty("server.img.url")}';
     var ANT_SERVER_URL = '${cfn:getProperty("server.ant.url")}';

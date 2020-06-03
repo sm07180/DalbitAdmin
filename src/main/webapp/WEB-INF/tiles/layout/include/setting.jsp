@@ -26,3 +26,6 @@
     </form>
 </div>--%>
 <!-- END STYLE SWITCHER -->
+
+<!-- 이미지 원본 보기 -->
+<div id="_imgFullLayer"></div>

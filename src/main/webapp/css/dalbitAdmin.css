@@ -172,7 +172,7 @@ td._down {
 }
 
 ._leftFixed {
-    position:fixed;
+    /*position:fixed;*/
     overflow-y: scroll;
     top:54px;
     bottom: 0px;
