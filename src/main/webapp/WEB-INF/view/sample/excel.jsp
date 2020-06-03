@@ -20,32 +20,40 @@
                 var btn = $(this);
 
                 // btn.button('loading');
-                changeLoadingBtn(btn, 'loading');
+                util.changeLoadingBtn(btn, 'loading');
 
                 setTimeout( function() {
                     // btn.button('reset');
-                    changeLoadingBtn(btn, 'reset');
+                    util.changeLoadingBtn(btn, 'reset');
                 }, 1000 );
             });
 
 
             $("#excelDownLoad").click(function(){
-                var formElement = document.querySelector("form");
-                var formData = new FormData(formElement);
+                // var formElement = document.querySelector("form");
+                var formData = new FormData();
                 formData.append("test001", "test001");
                 formData.append("test002", 1234);
                 formData.append("test003", "test003");
 
-                excelDownload($(this), "/excel/member", formData, fn_success_excel, fn_fail_excel)
+                var formData = {};
+                formData["test001"] = "test001";
+                formData["test002"] = 1234;
+                formData["test003"] = "test001";
+
+
+                util.excelDownload($(this), "/excel/member", formData, fn_success_excel, fn_fail_excel)
             })
         });
 
 
-        function fn_success_excel(){
-            alert("fn_success_excel");
+        function fn_success_excel(data){
+            console.log(data)
+            // alert("fn_success_excel");
         }
 
-        function fn_fail_excel(){
+        function fn_fail_excel(e){
+            alert(e);
             alert("fn_fail_excel");
         }
     </script>

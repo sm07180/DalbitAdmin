@@ -178,34 +178,34 @@ public class ExcelService {
             cell.setCellValue(value.toString().length() > 32767 ? value.toString().substring(0, 32767): value.toString());
         }
         else if(value instanceof Integer){
-            style.setDataFormat(format.getFormat("0"));
-            cell.setCellStyle(style);
-
             cell.setCellValue(new Double((int) value));
+
+            style.setDataFormat(format.getFormat("#,##0"));
+            cell.setCellStyle(style);
         }
         else if(value instanceof Long){
-            style.setDataFormat(format.getFormat("0"));
-            cell.setCellStyle(style);
-
             cell.setCellValue(new Double((Long) value));
+
+            style.setDataFormat(format.getFormat("#,##0"));
+            cell.setCellStyle(style);
         }
         else if(value instanceof Double){
-            style.setDataFormat(format.getFormat("0"));
-            cell.setCellStyle(style);
-
             cell.setCellValue((Double) value);
+
+            style.setDataFormat(format.getFormat("#,##0"));
+            cell.setCellStyle(style);
         }
         else if(value instanceof Calendar){
+            cell.setCellValue((Calendar) value);
+
             style.setDataFormat(format.getFormat("yyyy-mm-dd"));
             cell.setCellStyle(style);
-
-            cell.setCellValue((Calendar) value);
         }
         else if(value instanceof Date){
+            cell.setCellValue((Date) value);
+
             style.setDataFormat(format.getFormat("yyyy-mm-dd"));
             cell.setCellStyle(style);
-
-            cell.setCellValue((Date) value);
         }
         else if(value instanceof Boolean){
             cell.setCellValue((boolean) value);

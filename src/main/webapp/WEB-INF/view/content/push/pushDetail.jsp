@@ -480,7 +480,11 @@
             resultJson['msg_type'] = 0;
 
             // 푸시디자인
-            resultJson['image_type'] = "101";
+            if(type == "5" || type == "6"){
+                resultJson['image_type'] = "102";
+            }else{
+                resultJson['image_type'] = "101";
+            }
 
             dalbitLog(resultJson)
             return resultJson;
@@ -688,7 +692,7 @@
                 <td colspan="5" style="width:50%;"><input type="text" class="form-control" name="send_title" id="push-send_title" placeholder="제목을 입력해주세요." value="{{send_title}}"></td>
 
                 <th rowspan="2">수신대상 선택</th>
-                <td colspan="5" style="width:50%;" rowspan="2">
+                <td rowspan="2" colspan="5" style="width:50%;">
                     <div>
                         <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>전체</span> </label>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>생방송</span></label>--%>
@@ -707,8 +711,8 @@
                 </td>
             </tr>
             <tr>
-                <th>메시지 내용</th>
-                <td colspan="5">
+                <th rowspan="2">메시지 내용</th>
+                <td rowspan="2" colspan="5">
                     <div>
                         <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" placeholder="방송 시스템에 적용되는 내용을 작성해주세요." style="resize: none" maxlength="150">{{send_cont}}</textarea>
                         <span style="color: red">* 메시지 내용은 10자~150자(한글) 입력 가능합니다.</span>
@@ -722,6 +726,34 @@
             </tr>
             -->
             <tr>
+                <th>발송여부</th>
+                <td colspan="5">
+                    <div>
+                        {{{getCommonCodeRadio is_direct 'push_sendType' 'N' 'is_direct'}}}
+                    </div>
+                    <div class="input-group date" id="push-div-sendDate" style="display:none;">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input type="text" class="form-control" id="push-sendDate" style="width:100px; height:35px;">
+                        {{{getCommonCodeSelect 00 'timeHour'}}}
+                        <span> : </span>
+                        {{{getCommonCodeSelect 00 'timeMinute'}}}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>이동대상지정</th>
+                <td colspan="11">
+                    <div>
+                        <label id="label_targetType"></label>
+                        <input type="text" id="input_targetLink" value="{{target_info}}" data-targetinfo="{{target_info}}" style="display:none;">
+                        <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember_link" style="display:none;"/>
+                        <input type="button" value="라이브방송방검색" class="btn btn-success btn-xs" id="btn_selectBroadcastLive_link" style="display:none;"/>
+                    </div>
+                    <div style="padding-left: 30px;">
+                    </div>
+                </td>
+
+                <!--  ==================================== 이미지 사용 O
                 <th>이동대상지정</th>
                 <td colspan="5">
                     <div>
@@ -736,30 +768,19 @@
                     </div>
                 </td>
 
-                <th>발송여부</th>
-                <td colspan="5">
-                    <div>
-                        {{{getCommonCodeRadio is_direct 'push_sendType' 'N' 'is_direct'}}}
-                    </div>
-                    <div class="input-group date" id="push-div-sendDate" style="display:none;">
-                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input type="text" class="form-control" id="push-sendDate" style="width:100px">
-                        {{{getCommonCodeSelect 00 'timeHour'}}}
-                        <span> : </span>
-                        {{{getCommonCodeSelect 00 'timeMinute'}}}
-                    </div>
+                <th>푸시 이미지</th>
+                <td colspan="4">
+                    <input type="text" class="_trim" id="push-send_url" name="send_url" style="width:70%" value="{{send_url}}" >
+                    <input type="button" value="미리보기" onclick="getImg('push-send_url')">
+                    <br><span style="color: red"> * Photo 서버에 업로드된 파일만 등록 가능합니다.</span>
+                </td>
+                -->
+                <td colspan="1">
+                    <!--미리보기-->
+                    <img id="push-send_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px;" src="" alt="" /></a>
                 </td>
             </tr>
             <tr>
-                <!--
-                <th>메세지 포함 이미지</th>
-                <td colspan="5">
-                <div>
-                <input type="file" id="push-inputImg">
-                <p class="help-block"><em>Valid file type: .jpg, .png, .txt, .pdf. File size max: 1 MB</em></p>
-                </div>
-                </td>
-                -->
                 <th>푸시 타입<br>(이동경로)</th>
                 <td colspan="11">{{{getCommonCodeRadio slct_push 'push_slctPush2' 'N' 'slct_push'}}}</td>
             </tr>
