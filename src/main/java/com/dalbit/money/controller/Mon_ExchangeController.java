@@ -2,6 +2,7 @@ package com.dalbit.money.controller;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.view.ExcelExportView;
+import com.dalbit.common.view.MessageView;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.money.dao.Mon_ExchangeDao;
@@ -47,7 +48,10 @@ public class Mon_ExchangeController {
         monExchangeInputVo.setExcelYn("Y");
         List<Object[]> body = monExchangeService.getExcelData(monExchangeInputVo, model);
 
-        var resultMap = new HashMap<>();
+        if(body.size() == 0){
+            mv.setView(new MessageView("데이터가 없습니다.","",""));
+            return mv;
+        }
 
         String[] colums = null;
         String fileName = "";

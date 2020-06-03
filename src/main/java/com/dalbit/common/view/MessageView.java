@@ -1,23 +1,24 @@
 package com.dalbit.common.view;
 
-import java.io.PrintWriter;
-import java.util.Map;
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.util.GsonUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.view.AbstractView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.view.AbstractView;
-
+@Slf4j
 public class MessageView extends AbstractView{
-	
-	private static final Logger logger = LoggerFactory.getLogger(MessageView.class);
 	
 	String message;
 	String script;
 	String location;
-	
+
 	public MessageView(){
 		setContents();
 	}
@@ -52,7 +53,7 @@ public class MessageView extends AbstractView{
 			
 			sb.append("</script>");
 			sb.append("</html>");
-			
+
 			out = response.getWriter();
 			out.println(sb.toString());
 			out.flush();
