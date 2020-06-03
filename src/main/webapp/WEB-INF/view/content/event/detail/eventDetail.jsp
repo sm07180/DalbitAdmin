@@ -456,7 +456,7 @@
                 <td colspan="2">{{{getCommonCodeRadio is_reply 'event_isReply'}}}</td>
             </tr>
             <tr>
-                <th colspan="12">배너 이미지</th>
+                <th colspan="12">이벤트 이미지</th>
             </tr>
             <tr>
                 <th>PC (1618px x 000px)</th>

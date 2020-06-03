@@ -48,11 +48,11 @@
                     <div class="row col-lg-12">
 
                         <div>
-                            <div class="pt10 col-lg-5">
+                            <div class="pt10 col-lg-4">
                                 <ul>
                                     <li>환전완료 정보를 확인하고, 처리 불가 회원에 대한 응대를 할 수 있습니다.</li>
                                     <li>경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</li>
-                                    <li>[SMS발송]이 완료된 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</li>
+                                    <li>[SMS발송] 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</li>
                                     <li>환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</li>
                                 </ul>
 
@@ -62,23 +62,27 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-7">
+                            <div class="col-lg-8">
                                 <table class="table table-bordered table-summary pull-right">
                                     <thead>
                                     <tr>
-                                        <th colspan="5">일반회원</th>
+                                        <th colspan="7">일반회원</th>
                                     </tr>
                                     <tr>
-                                        <th>신청인원</th>
+                                        <th>신청 인원</th>
                                         <th>신청 별 수</th>
-                                        <th>신청 완료금액</th>
+                                        <th>신청 금액</th>
+                                        <th>완료 별 수</th>
+                                        <th>완료 금액</th>
                                         <th>불가 별 수</th>
-                                        <th>불가 처리금액</th>
+                                        <th>불가 처리 금액</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tb_user_summary">
                                     <tr>
                                         <td><span>0</span>명</td>
+                                        <td><span>0</span>별</td>
+                                        <td><span>0</span>원</td>
                                         <td><span>0</span>별</td>
                                         <td><span>0</span>원</td>
                                         <td><span>0</span>별</td>
@@ -90,19 +94,23 @@
                                 <table class="table table-bordered table-summary pull-right">
                                     <thead>
                                     <tr>
-                                        <th colspan="5">스페셜DJ</th>
+                                        <th colspan="7">스페셜DJ</th>
                                     </tr>
                                     <tr>
-                                        <th>신청인원</th>
+                                        <th>신청 인원</th>
                                         <th>신청 별 수</th>
-                                        <th>신청 완료금액</th>
+                                        <th>신청 금액</th>
+                                        <th>완료 별 수</th>
+                                        <th>완료 금액</th>
                                         <th>불가 별 수</th>
-                                        <th>불가 처리금액</th>
+                                        <th>불가 처리 금액</th>
                                     </tr>
                                     </thead>
                                     <tbody id="tb_special_summary">
                                         <tr>
                                             <td><span>0</span>명</td>
+                                            <td><span>0</span>별</td>
+                                            <td><span>0</span>원</td>
                                             <td><span>0</span>별</td>
                                             <td><span>0</span>원</td>
                                             <td><span>0</span>별</td>
@@ -158,6 +166,8 @@
 <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">레이어팝업오픈버튼</button>
 
 <div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
+
+<form name="excelForm" id="excelForm"></form>
 
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
@@ -278,7 +288,7 @@
     }
 
     $('#excelDownBtn').on('click', function(){
-        var formElement = document.querySelector("form");
+        /*var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("isSpecial", getParameter().isSpecial);
         formData.append("search_year", getParameter().search_year);
@@ -289,7 +299,26 @@
         formData.append("search_value", getParameter().search_value);
         formData.append("limitDay", getParameter().limitDay);
 
-        util.excelDownload($(this), "/rest/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
+        util.excelDownload($(this), "/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
+
+        util.changeLoadingBtn($("#excelDownBtn"), 'reset');*/
+        var hidden = '<input type="hidden" name="{name}" value="{value}">';
+
+        var hiddenData = '';
+        hiddenData += hidden.replace('{name}', 'isSpecial').replace('{value}', getParameter().isSpecial);
+        hiddenData += hidden.replace('{name}', 'search_year').replace('{value}', getParameter().search_year);
+        hiddenData += hidden.replace('{name}', 'search_month').replace('{value}', getParameter().search_month);
+        hiddenData += hidden.replace('{name}', 'search_state').replace('{value}', 0);
+        hiddenData += hidden.replace('{name}', 'search_testId').replace('{value}', getParameter().search_testId);
+        hiddenData += hidden.replace('{name}', 'search_type').replace('{value}', getParameter().search_type);
+        hiddenData += hidden.replace('{name}', 'search_value').replace('{value}', getParameter().search_value);
+        hiddenData += hidden.replace('{name}', 'limitDay').replace('{value}', getParameter().limitDay);
+
+        $("#excelForm").html(hiddenData).attr({
+            method : 'post'
+           , action : '/money/exchange/listExcel'
+            , target : '_blank'
+        }).submit();
     });
 
     function fn_success_excel(response) {
@@ -297,7 +326,7 @@
     }
 
     function fn_fail_excel(response){
-        alert('미처리 데이터가 없습니다.')
+        alert('현재 환전 처리일이 아니거나, 처리되지 않은 신청 건이 없습니다.');
     }
 
     $(document).on('click', '._layerOpen', function(title, content){

@@ -185,6 +185,7 @@ public class Mon_ExchangeService {
         model.addAttribute("workbook", workbook);
         model.addAttribute("workbookName", "환전 목록");
         model.addAttribute("listSize", exchangeList.size());
+        model.addAttribute("body", excelVo.getBodies());
 
         return model;
     }
@@ -355,4 +356,84 @@ public class Mon_ExchangeService {
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 
+    public List<Object[]> getExcelData(Mon_ExchangeInputVo monExchangeInputVo, Model model){
+        ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
+
+        int cashBasicTotal = 0;
+        int benefitTotal = 0;
+        int incomeTaxTotal = 0;
+        int residentTaxTotal = 0;
+        int transferFeeTotal = 0;
+        int exchangeCashTotal = 0;
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i = 0; i < exchangeList.size(); i++){
+            var exchangeVo = exchangeList.get(i);
+
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("no", i+1);
+            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_id()) ? "" : exchangeVo.getMem_id());
+            hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
+            hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
+
+            hm.put("cashBasic", exchangeVo.getCash_basic());
+            cashBasicTotal += exchangeVo.getCash_basic();
+
+            if(monExchangeInputVo.getIsSpecial() == 1){
+                hm.put("benefit", exchangeVo.getBenefit());
+                benefitTotal += exchangeVo.getBenefit();
+
+                hm.put("cashSum", exchangeVo.getCash_basic() + exchangeVo.getBenefit());
+            }
+
+            hm.put("income_tax", exchangeVo.getIncome_tax());
+            incomeTaxTotal += exchangeVo.getIncome_tax();
+
+            hm.put("resident_tax", exchangeVo.getResident_tax());
+            residentTaxTotal += exchangeVo.getResident_tax();
+
+            hm.put("transfer_fee", exchangeVo.getTransfer_fee());
+            transferFeeTotal += exchangeVo.getTransfer_fee();
+
+            hm.put("exchangeCash", exchangeVo.getCash_real());
+            exchangeCashTotal += exchangeVo.getCash_real();
+
+            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(exchangeVo.getSocial_no()));
+            hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
+
+            hm.put("bankName", getBankName(exchangeVo.getBank_code()));
+            hm.put("accountNo", DalbitUtil.isEmpty(exchangeVo.getAccount_no()) ? "" : exchangeVo.getAccount_no());
+
+            String address = DalbitUtil.isEmpty(exchangeVo.getAddress_1()) ? "" : exchangeVo.getAddress_1();
+            address += DalbitUtil.isEmpty(exchangeVo.getAddress_2()) ? "" : " "+ exchangeVo.getAddress_2();
+            hm.put("address", address);
+
+            bodies.add(hm.values().toArray());
+        }
+
+        if(0 < exchangeList.size()){
+            HashMap totalMap = new LinkedHashMap();
+            totalMap.put("no", "");
+            totalMap.put("id", "합계");
+            totalMap.put("name", "");
+            totalMap.put("accountName", "");
+            totalMap.put("cashBasic", cashBasicTotal);
+            totalMap.put("benefit", benefitTotal);
+            totalMap.put("cashSum", cashBasicTotal + benefitTotal);
+            totalMap.put("income_tax", incomeTaxTotal);
+            totalMap.put("resident_tax", residentTaxTotal);
+            totalMap.put("transfer_fee", transferFeeTotal);
+            totalMap.put("exchangeCash", exchangeCashTotal);
+            totalMap.put("socialNo", "");
+            totalMap.put("phoneNo", "");
+            totalMap.put("bankName", "");
+            totalMap.put("accountNo", "");
+            totalMap.put("address", "");
+
+            bodies.add(totalMap.values().toArray());
+        }
+
+        return bodies;
+    }
 }

@@ -25,6 +25,7 @@ public class P_pushStmpInsertVo extends BaseVo {
         this.setImage_type(pPushInsertVo.getImage_type());
         this.setSlctPush(pPushInsertVo.getIs_all());
         this.setPush_type(pPushInsertVo.getSlct_push());
+        this.setImageUrl(pPushInsertVo.getSend_url());
 
         if(pPushInsertVo.getPlatform().equals("110")){
             this.setSlctOs("a");

@@ -164,9 +164,6 @@ util.excelDownload = function(btn, url, data, successFunc, errorFunc) {
     $.fileDownload(url, {
         httpMethod: "POST",
         data: sendData,
-        processData: false,
-        contentType: false,
-        cache: false,
         successCallback: function (url, data) {
             console.log("[exceldown 통신 결과]url : " + url);
             console.log(data);
@@ -192,7 +189,6 @@ util.excelDownload = function(btn, url, data, successFunc, errorFunc) {
             if (errorFunc != null) errorFunc(data);
         });
 },
-
 
     /**
      *  var formElement = document.querySelector("form");
