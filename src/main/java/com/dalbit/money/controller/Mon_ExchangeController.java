@@ -49,7 +49,7 @@ public class Mon_ExchangeController {
         List<Object[]> body = monExchangeService.getExcelData(monExchangeInputVo, model);
 
         if(body.size() == 0){
-            mv.setView(new MessageView("데이터가 없습니다.","",""));
+            mv.setView(new MessageView("현재 환전 처리일이 아니거나, 처리되지 않은 신청 건이 없습니다.","window.close()",""));
             return mv;
         }
 

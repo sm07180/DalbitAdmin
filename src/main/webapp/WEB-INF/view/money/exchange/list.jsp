@@ -159,6 +159,8 @@
 
 <div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
 
+<form name="excelForm" id="excelForm"></form>
+
 <script type="text/javascript" src="/js/lib/jquery.table2excel.js"></script>
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
@@ -278,7 +280,7 @@
     }
 
     $('#excelDownBtn').on('click', function(){
-        var formElement = document.querySelector("form");
+        /*var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("isSpecial", getParameter().isSpecial);
         formData.append("search_year", getParameter().search_year);
@@ -291,7 +293,24 @@
 
         util.excelDownload($(this), "/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
 
-        util.changeLoadingBtn($("#excelDownBtn"), 'reset');
+        util.changeLoadingBtn($("#excelDownBtn"), 'reset');*/
+        var hidden = '<input type="hidden" name="{name}" value="{value}">';
+
+        var hiddenData = '';
+        hiddenData += hidden.replace('{name}', 'isSpecial').replace('{value}', getParameter().isSpecial);
+        hiddenData += hidden.replace('{name}', 'search_year').replace('{value}', getParameter().search_year);
+        hiddenData += hidden.replace('{name}', 'search_month').replace('{value}', getParameter().search_month);
+        hiddenData += hidden.replace('{name}', 'search_state').replace('{value}', 0);
+        hiddenData += hidden.replace('{name}', 'search_testId').replace('{value}', getParameter().search_testId);
+        hiddenData += hidden.replace('{name}', 'search_type').replace('{value}', getParameter().search_type);
+        hiddenData += hidden.replace('{name}', 'search_value').replace('{value}', getParameter().search_value);
+        hiddenData += hidden.replace('{name}', 'limitDay').replace('{value}', getParameter().limitDay);
+
+        $("#excelForm").html(hiddenData).attr({
+            method : 'post'
+           , action : '/money/exchange/listExcel'
+            , target : '_blank'
+        }).submit();
     });
 
     function fn_success_excel(response) {
