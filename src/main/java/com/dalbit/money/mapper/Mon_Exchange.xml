@@ -189,6 +189,7 @@
                 left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
             where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            and exchange.state = 0
             <choose>
                 <when test="isSpecial == 0">
                     and special.mem_no is null
@@ -214,6 +215,7 @@
             left join rd_data.tb_member_basic basic
             on exchange.mem_no = basic.mem_no
         where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        and exchange.state = 0
         <choose>
             <when test="isSpecial == 0">
                 and special.mem_no is null
@@ -226,6 +228,54 @@
             and basic.inner = 0
         </if>
             /*and exchange.state = 1*/
+
+        union all
+        -- 신청금액
+        select ifnull(sum(cash_basic), 0) cash_basic
+        from rd_data.tb_member_exchange exchange
+        left join rd_admin.tb_special_dj special
+        on exchange.mem_no = special.mem_no
+        and special.select_year = #{search_year}
+        and special.select_month = #{search_month}
+        left join rd_data.tb_member_basic basic
+        on exchange.mem_no = basic.mem_no
+        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        and exchange.state = 0
+        <choose>
+            <when test="isSpecial == 0">
+                and special.mem_no is null
+            </when>
+            <when test="isSpecial == 1">
+                and special.mem_no is not null
+            </when>
+        </choose>
+        <if test='search_testId == 1'>
+            and basic.inner = 0
+        </if>
+
+        union all
+        -- 신청완료 별 수
+        select ifnull(sum(byeol), 0) byeol
+        from rd_data.tb_member_exchange exchange
+        left join rd_admin.tb_special_dj special
+        on exchange.mem_no = special.mem_no
+        and special.select_year = #{search_year}
+        and special.select_month = #{search_month}
+        left join rd_data.tb_member_basic basic
+        on exchange.mem_no = basic.mem_no
+        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        and exchange.state = 1
+        <choose>
+            <when test="isSpecial == 0">
+                and special.mem_no is null
+            </when>
+            <when test="isSpecial == 1">
+                and special.mem_no is not null
+            </when>
+        </choose>
+        <if test='search_testId == 1'>
+            and basic.inner = 0
+        </if>
 
         union all
         -- 신청완료금액
