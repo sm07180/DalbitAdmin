@@ -11,10 +11,12 @@ import com.dalbit.content.dao.PushDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,6 +36,16 @@ public class PushService {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    @Value("${server.photo.url}")
+    String SERVER_PHOTO_URL;
+
+    @Value("${push.logo.img.101}")
+    String PUSH_LOGO_IMG_101;
+    @Value("${push.logo.img.102}")
+    String PUSH_LOGO_IMG_102;
+    @Value("${push.logo.img.103}")
+    String PUSH_LOGO_IMG_103;
 
 
     /** 푸시  리스트 */
@@ -99,6 +111,18 @@ public class PushService {
         String result = null;
 
         try{
+            if(DalbitUtil.isEmpty(pPushInsertVo.getSend_url())){
+                if(!DalbitUtil.isEmpty(pPushInsertVo.getImage_type())){
+                    if(pPushInsertVo.getImage_type().equals("102")){
+                        pPushInsertVo.setSend_url(PUSH_LOGO_IMG_102);
+                    }else if(pPushInsertVo.getImage_type().equals("103")){
+                        pPushInsertVo.setSend_url(PUSH_LOGO_IMG_103);
+                    }else{
+                        pPushInsertVo.setSend_url(PUSH_LOGO_IMG_101);
+                    }
+                }
+            }
+
             int insertResult = pushDao.callContentsPushAdd(pPushInsertVo);
 
             if(insertResult > 0){
@@ -194,6 +218,8 @@ public class PushService {
         int notMemNoCnt=0;
         int failCnt=0;
 
+        pPushInsertVo.setSend_url(pPushInsertVo.getSend_url().replace(SERVER_PHOTO_URL, ""));
+
         if(pPushInsertVo.getIs_all().equals("7")){        // 지정 일 경우 푸시 발송
             if(mem_nos != null && mem_nos.length() > 0){
                 String[] arryMem_no = mem_nos.split("\\|");
@@ -202,7 +228,7 @@ public class PushService {
                     P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
                     ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
-                    pushDao.callStmpPushAdd(procedureVo);
+                      pushDao.callStmpPushAdd(procedureVo);
 
                     if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
                         log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
