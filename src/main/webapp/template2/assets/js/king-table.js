@@ -67,11 +67,11 @@ $(document).ready(function(){
 	}
 
 	// simple scrolling datatable
-	$('#datatable-basic-scrolling').dataTable({
+	/*$('#datatable-basic-scrolling').dataTable({
 		scrollY: "300px",
 		scrollCollapse: true,
 		paging: false
-	});
+	});*/
 
 
 	//*******************************************
