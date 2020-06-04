@@ -4,6 +4,8 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.customer.dao.Cus_QuestionDao;
 import com.dalbit.customer.vo.FaqVo;
 import com.dalbit.customer.vo.procedure.*;
@@ -25,6 +27,8 @@ import java.util.*;
 @Service
 public class Cus_QuestionService {
 
+    @Autowired
+    PushService pushService;
     @Autowired
     Cus_QuestionDao cus_questionDao;
     @Autowired
@@ -86,6 +90,22 @@ public class Cus_QuestionService {
 
         String result;
         if(Status.일대일문의처리_성공.getMessageCode().equals(procedureVo.getRet())) {
+
+            try{    // PUSH 발송
+                cus_questionDao.callServiceCenterQnaDetail(procedureVo);
+                P_QuestionDetailOutputVo questionDetail = new Gson().fromJson(procedureVo.getExt(), P_QuestionDetailOutputVo.class);
+
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(questionDetail.getMem_no());
+                pPushInsertVo.setSlct_push("34");
+                pPushInsertVo.setSend_title("1:1문의 답변이 등록되었어요!");
+                pPushInsertVo.setSend_cont("등록한 1:1문의에 답변이 등록되었습니다.");
+                pPushInsertVo.setImage_type("101");
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 일대일문의처리]");
+            }
+
             result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_성공));
         } else if(Status.일대일문의처리_문의번호없음.getMessageCode().equals((procedureVo.getRet()))) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_문의번호없음));

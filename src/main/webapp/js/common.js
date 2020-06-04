@@ -330,3 +330,15 @@ common.average = function(lvalue, rvalue) {
     var tmp = (lvalue / rvalue) * 100;
     return tmp.toFixed(1);
 };
+
+common.sexIcon = function(sex){
+    var sex_lowercase = sex.toLowerCase();
+
+    if(sex_lowercase == 'm'){
+        return '<label class="font-bold" style="color: blue"><i class="fa fa-male"></i> 남성</label>';
+    }else if(sex_lowercase == 'f'){
+        return '<label class="font-bold" style="color: red"><i class="fa fa-female"></i> 여성</label>';
+    }else{
+        return '알수없음';
+    }
+}

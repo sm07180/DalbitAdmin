@@ -55,7 +55,7 @@
         var html=templateScript(context);
         $("#declarationForm").html(html);
         $('#report_title').html("ㆍ신고시 캡쳐내용은 라이브 방송방 신고 시점을 기준으로 5분 이내의 채팅 내역 정보입니다. 신중히 확인 한 후 조치바랍니다.");
-        util.editorInit("customer-declaration");
+        util.editorInit("declaration");
         detailData = response.data;
 
         if(response.data.status == "1"){
@@ -294,6 +294,7 @@
                     {{#equal status '0'}}<td>미처리</td>{{/equal}}
                 </tr>
                 <tr>
+
                     <th>플랫폼</th>
                     <td>{{platform}}</td>
 
@@ -306,57 +307,89 @@
                         {{#equal op_name ''}}-{{/equal}}
                     </td>
                 </tr>
-                <tr class="align-middle">
-                    <th rowspan="1" colspan="4">신고자</th>
-                    <th rowspan="1" colspan="4">대상자</th>
+            </tbody>
+        </table>
 
-                    <th rowspan="2">제재 조치</th>
-                    <td rowspan="2" colspan="3">
-                        {{{getCommonCodeRadio op_code 'declaration_opCode' 'Y' 'opCode'}}}
-                    </td>
-                </tr>
-                <tr>
-                    <td>{{mem_id}}</td>
-                    <td>레벨 : {{level}}<br />등급 : {{grade}}</td>
-                    <td>{{mem_nick}}</td>
-                    <td>{{memSex}}</td>
+        <table class="table table-bordered table-dalbit">
+            <colgroup>
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="6%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+                <col width="5%" />
+            </colgroup>
+            <tbody>
+            <tr class="align-middle">
+                <th rowspan="1" colspan="4">신고자</th>
+                <th rowspan="1" colspan="4">대상자</th>
 
-                    <td>{{reported_mem_id}}</td>
-                    <td>레벨 : {{reported_level}}<br />등급 : {{reported_grade}}</td>
-                    <td>{{reported_mem_nick}}</td>
-                    <td>{{reported_memSex}}</td>
-                </tr>
-                <tr>
-                    <th colspan="2">누적 결제 수<br />/금액</th>
-                    <td colspan="2">{{addComma payCount}}개 <br />{{addComma payAmount}}원</td>
+                <th>알림</th>
+                <td colspan="3">{{{getCommonCodeRadio 0 'declaration_send'}}}</td>
 
-                    <th colspan="2">누적 결제 수<br />/금액</th>
-                    <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
+            </tr>
 
-                    <th rowspan="2">조치 선택</th>
-                    <td rowspan="2" colspan="3" id="message">
-                        {{{getCommonCodeCheck message 'declaration_Message'}}}
-                    </td>
-                </tr>
-                <tr>
-                    <th colspan="2">누적 선물 수<br />/금액</th>
-                    <td colspan="2">{{addComma giftCount}}개 <br />{{addComma giftAmount}}원</td>
+            <tr>
+                <td>{{mem_id}}</td>
+                <td>레벨 : {{level}}<br />등급 : {{grade}}</td>
+                <td>{{mem_nick}}</td>
+                <td>{{{sexIcon memSex}}}</td>
 
-                    <th colspan="2">누적 선물 수<br />/금액</th>
-                    <td colspan="2">{{addComma reported_giftCount}}개 <br />{{addComma reported_giftAmount}}원</td>
-                </tr>
-                <tr>
-                    <th colspan="2">총 신고</th>
-                    <td colspan="2">프로시저에 없음</td>
+                <td>{{reported_mem_id}}</td>
+                <td>레벨 : {{reported_level}}<br />등급 : {{reported_grade}}</td>
+                <td>{{reported_mem_nick}}</td>
+                <td>{{{sexIcon reported_memSex}}}</td>
 
-                    <th colspan="2">총 신고/조치</th>
-                    <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
+                <th>제재 조치</th>
+                <td colspan="3">
+                    {{{getCommonCodeRadio op_code 'declaration_opCode' 'Y' 'opCode'}}}
+                </td>
+            </tr>
 
-                    <th>알림 보내기</th>
-                    <td colspan="3">{{{getCommonCodeRadio 0 'declaration_send'}}}</td>
-                </tr>
-                </tbody>
-            </table>
+            <tr>
+                <th colspan="2">누적 결제 수<br />/금액</th>
+                <td colspan="2">{{addComma payCount}}개 <br />{{addComma payAmount}}원</td>
+
+                <th colspan="2">누적 결제 수<br />/금액</th>
+                <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
+
+                <th rowspan="5">조치 선택</th>
+                <td rowspan="5" colspan="3" id="message">
+                    {{{getCommonCodeCheck message 'declaration_Message'}}}
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">누적 선물 수<br />/금액</th>
+                <td colspan="2">{{addComma giftCount}}개 <br />{{addComma giftAmount}}원</td>
+
+                <th colspan="2">누적 선물 수<br />/금액</th>
+                <td colspan="2">{{addComma reported_giftCount}}개 <br />{{addComma reported_giftAmount}}원</td>
+            </tr>
+            <tr>
+                <th colspan="2">총 신고</th>
+                <td colspan="2">프로시저에 없음</td>
+
+                <th colspan="2">총 신고/조치</th>
+                <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
+
+
+            </tr>
+
+            <tr>
+                <th colspan="2">기타 신고 메시지</th>
+                <td colspan="3">{{etc}}</td>
+
+
+            </tr>
+
+            </tbody>
+        </table>
 
             <%-- 에디터 --%>
             <div class="widget" id="declaration_editor">

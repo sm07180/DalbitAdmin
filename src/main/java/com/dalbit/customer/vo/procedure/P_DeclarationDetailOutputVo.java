@@ -9,6 +9,7 @@ import lombok.Setter;
 public class P_DeclarationDetailOutputVo extends BaseVo {
     private int reportIdx;
     private int report_reason;
+    private String etc;
     private String platform;
     private String browser;
     private String ipAddress;

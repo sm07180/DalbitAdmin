@@ -51,10 +51,10 @@
     <insert id="callEventInsert" parameterType="com.dalbit.content.vo.procedure.P_EventUpdateVo">
         /* Con_Event.xml - callEventInsert */
         insert into rd_admin.tb_event_basic
-          (event_title,start_datetime,end_datetime,view_start_datetime,view_end_datetime,platform,event_slct,is_pop,is_view,is_reply
+          (event_title,start_datetime,end_datetime,view_start_datetime,view_end_datetime,platform,event_slct,is_pop,is_view,is_reply,
            pc_img_url,pc_link_url,mobile_img_url,mobile_link_url,thumb_img_url,`desc`,reg_date,op_name,last_upd_date,last_op_name)
         value
-          (#{event_title},STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_end_datetime},'%Y%m%d %H%i%S'),#{platform},#{loginType},#{viewType},#{viewYn},#{is_reply}
+          (#{event_title},STR_TO_DATE(#{start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{end_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_start_datetime},'%Y%m%d %H%i%S'),STR_TO_DATE(#{view_end_datetime},'%Y%m%d %H%i%S'),#{platform},#{loginType},#{viewType},#{viewYn},#{is_reply},
            #{pc_img_url},#{pc_link_url},#{mobile_img_url},#{mobile_link_url},#{thumb_img_url},#{desc},now(),#{opName},now(),#{opName})
     </insert>
 
