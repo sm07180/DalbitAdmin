@@ -58,7 +58,7 @@
         memNo = response.data.mem_no;
         memId = response.data.mem_userid;
 
-        util.editorInit("customer-question");
+        util.editorInit("question");
         util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", null, fn_getFaqGroup_success);
 
         $('#bt_operate').click(function() {                   // 1:1 문의 등록
