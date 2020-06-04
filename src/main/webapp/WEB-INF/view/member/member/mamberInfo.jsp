@@ -248,7 +248,7 @@
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
             }else if(tmp == "bt_resatNick"){
-                if(memberInfo_responseDate.nickName == $("#td_userid").text()){
+                if(memberInfo_responseDate.nickName == $("#td_userid").data("userid")){
                     alert("이미 초기화된 닉네임 입니다. 닉네임 초기화가 불가능합니다.");
                     return;
                 }
@@ -260,7 +260,7 @@
                     // sockat set
                     obj.profileImage = memberInfo_responseDate.profileImage;
                     obj.memSex = $('input[name="memSex"]:checked').val();
-                    obj.nickName = $("#td_userid").text();
+                    obj.nickName = $("#td_userid").data("userid");
                 }else return;
             }else if(tmp == "bt_phon"){
                 if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
@@ -614,7 +614,7 @@
         </tr>
         <tr>
             <th>UserId</th>
-            <td colspan="3" style="text-align: left" id="td_userid">
+            <td colspan="3" style="text-align: left" id="td_userid" data-userid="{{userId}}">
                 {{userId}}
                 {{^equal dj_badge ''}}
                 <label class="pull-right"> DJ타입 | {{{../dj_badge}}} </label>
