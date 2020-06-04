@@ -24,7 +24,7 @@ ui.loadInforexAdminPage = function(menu){
     var html = '<iframe src="'+$(menu).data('url')+'" style="';
         html += 'width: ' + ($("#main-content-wrapper").width() - marginLeft) + 'px;';
         html += 'margin-left: ' + marginLeft + 'px;';
-        html += 'height: ' + $("#left-sidebar").height() + 'px;';
+        html += 'height: ' + ($("#left-sidebar").height() - 40) + 'px;';
         html += 'border: 0px;">';
         html += '</iframe>';
 
