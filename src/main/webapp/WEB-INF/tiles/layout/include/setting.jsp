@@ -29,3 +29,6 @@
 
 <!-- 이미지 원본 보기 -->
 <div id="_imgFullLayer"></div>
+
+<!-- 엑셀 다운로드 용 iframe -->
+<iframe id="iframe_excel_download" name="iframe_excel_download" style="display:none;"></iframe>
