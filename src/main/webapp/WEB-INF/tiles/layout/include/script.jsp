@@ -107,4 +107,8 @@
     var ANT_SERVER_URL = '${cfn:getProperty("server.ant.url")}';
     var ANT_APP_NAME = '${cfn:getProperty("ant.app.name")}';
     var ADMIN_NICKNAME = '달빛지기';
+
+    var LOGIN_USER_NAME = '${principal.getUserInfo().getName()}';
+    var LOGIN_USER_ID = '${principal.getUserInfo().getUserid()}';
+
 </script>
