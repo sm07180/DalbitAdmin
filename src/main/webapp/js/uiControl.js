@@ -45,7 +45,7 @@ ui.loadBaseAdminPage = function(menu){
         return false;
     }
 
-    if(!url.startsWith("http")){
+    if(!0 == url.indexOf("http")){
         url = ADMIN_SERVER_URL + $(menu).data('url');
     }
 
