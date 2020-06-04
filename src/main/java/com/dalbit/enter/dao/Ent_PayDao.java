@@ -28,4 +28,7 @@ public interface Ent_PayDao {
 
     @Transactional(readOnly = true)
     List<P_PayCancelOutDetailVo> callPayCancel(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
+    List<P_PayTryOutDetailVo> callPayTry(ProcedureVo procedureVo);
 }

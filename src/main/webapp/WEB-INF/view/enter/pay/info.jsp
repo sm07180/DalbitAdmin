@@ -31,8 +31,6 @@
 
                                 <%--<input name="startDate" id="startDate">--%>
                                 <%--<input name="endDate" id="endDate" />--%>
-
-
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
@@ -120,6 +118,15 @@
                 $("#onedayDate").val($("#startDate").val());
             }
         );
+
+        $("#input_date_6").text(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD'));
+        $("#input_date_5").text(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD'));
+        $("#input_date_4").text(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD'));
+        $("#input_date_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD'));
+        $("#input_date_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD'));
+        $("#input_date_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
+        $("#input_date_0").text(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD'));
+
         //결제/환불 통계 현황
         getStatPayInfo();
     });
@@ -140,6 +147,33 @@
             $("#oneDayDatePicker").hide();
             $("#rangeDatepicker").show();
         }
+
+        if(me.val() == "0"){
+            $("#input_date_6").val(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD'));
+            $("#input_date_5").val(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD'));
+            $("#input_date_4").val(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD'));
+            $("#input_date_3").val(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD'));
+            $("#input_date_2").val(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD'));
+            $("#input_date_1").val(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
+            $("#input_date_0").val(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD'));
+        }else if(me.val() == "1"){
+            $("#input_date_6").val(moment($("#startDate").val()).add('months', -6).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -5).add('days', -1).format('YYYY.MM.DD'));
+            $("#input_date_5").val(moment($("#startDate").val()).add('months', -5).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -4).add('days', -1).format('YYYY.MM.DD'));
+            $("#input_date_4").val(moment($("#startDate").val()).add('months', -4).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -3).add('days', -1).format('YYYY.MM.DD'));
+            $("#input_date_3").val(moment($("#startDate").val()).add('months', -3).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -2).add('days', -1).format('YYYY.MM.DD'));
+            $("#input_date_2").val(moment($("#startDate").val()).add('months', -2).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -1).add('days', -1).format('YYYY.MM.DD'));
+            $("#input_date_1").val(moment($("#startDate").val()).add('months', -1).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', 0).add('days', -1).format('YYYY.MM.DD'));
+            $("#input_date_0").val(moment($("#startDate").val()).add('months', 0).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+        }else if(me.val() == "2"){
+            $("#input_date_6").val(moment($("#startDate").val()).add('years', -6).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -5).add('days', -1).format('YYYY.12.31'));
+            $("#input_date_5").val(moment($("#startDate").val()).add('years', -5).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -4).add('days', -1).format('YYYY.12.31'));
+            $("#input_date_4").val(moment($("#startDate").val()).add('years', -4).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -3).add('days', -1).format('YYYY.12.31'));
+            $("#input_date_3").val(moment($("#startDate").val()).add('years', -3).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -2).add('days', -1).format('YYYY.12.31'));
+            $("#input_date_2").val(moment($("#startDate").val()).add('years', -2).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -1).add('days', -1).format('YYYY.12.31'));
+            $("#input_date_1").val(moment($("#startDate").val()).add('years', -1).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', 0).add('days', -1).format('YYYY.12.31'));
+            $("#input_date_0").val(moment($("#startDate").val()).add('years', 0).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
+        }
+
         searchDate();
     });
 
@@ -221,6 +255,9 @@
         var context = response.data.info;
         var html=templateScript(context);
         $("#PayTotalTableBody").append(html);
+
+
+        getPayTotalList();
     }
 
     $(document).on('click', '._prevSearch', function(){
@@ -346,7 +383,7 @@
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr  style="color: green">
-            <th>부과세 포함 금액</th>
+            <th>부가세 포함 금액</th>
             <td>{{addComma mc_amt}}</td>
             <td>{{addComma cn_amt}}</td>
             <td>{{addComma va_amt}}</td>
@@ -354,7 +391,7 @@
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
         <tr style="color: orange">
-            <th><b>부과세 제외 금액</b></th>
+            <th><b>부가세 제외 금액</b></th>
             <td>{{vatMinus mc_amt}}</td>
             <td>{{vatMinus cn_amt}}</td>
             <td>{{vatMinus va_amt}}</td>
@@ -416,13 +453,13 @@
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr style="color: green;">
-            <th>부과세 포함 금액</th>
+            <th>부가세 포함 금액</th>
             <td><label style="color: blue">{{addComma male_amt}}</label></td>
             <td><label style="color: red">{{addComma female_amt}}</label></td>
             <td>{{addComma none_amt}}</td>
             <td><b>{{addComma total_amt}}</b></td>
             <td style="border-bottom: hidden;"></td>
-            <th>부과세 포함 금액</th>
+            <th>부가세 포함 금액</th>
             <td>{{addComma age10_amt}}</td>
             <td>{{addComma age20_amt}}</td>
             <td>{{addComma age30_amt}}</td>
@@ -432,13 +469,13 @@
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
         <tr style="color: orange;">
-            <th><b>부과세 제외 금액</b></th>
+            <th><b>부가세 제외 금액</b></th>
             <td style="color: blue;">{{vatMinus male_amt}}</td>
             <td style="color: red;">{{vatMinus female_amt}}</td>
             <td>{{vatMinus none_amt}}</td>
             <td><b>{{vatMinus total_amt}}</b></td>
             <td style="border-bottom: hidden;"></td>
-            <th>부과세 제외 금액</th>
+            <th>부가세 제외 금액</th>
             <td>{{vatMinus age10_amt}}</td>
             <td>{{vatMinus age20_amt}}</td>
             <td>{{vatMinus age30_amt}}</td>
@@ -516,7 +553,7 @@
             <td><b>{{addComma ios_total_cnt}}</b></td>
         </tr>
         <tr  style="color: green;">
-            <th>부과세 포함 금액</th>
+            <th>부가세 포함 금액</th>
             <td>{{addComma code01_amt}}</td>
             <td>{{addComma code02_amt}}</td>
             <td>{{addComma code03_amt}}</td>
@@ -525,7 +562,7 @@
             <td>{{addComma code06_amt}}</td>
             <td><b>{{addComma android_total_amt}}</b></td>
             <td style="border-bottom: hidden;"></td>
-            <th>부과세 포함 금액</th>
+            <th>부가세 포함 금액</th>
             <td>{{addComma code07_amt}}</td>
             <td>{{addComma code08_amt}}</td>
             <td>{{addComma code09_amt}}</td>
@@ -535,7 +572,7 @@
             <td><b>{{addComma ios_total_amt}}</b></td>
         </tr>
         <tr style="color: orange;">
-            <th><label class="font-bold">부과세 제외 금액</label></th>
+            <th><label class="font-bold">부가세 제외 금액</label></th>
             <td>{{vatMinus code01_amt}}</td>
             <td>{{vatMinus code02_amt}}</td>
             <td>{{vatMinus code03_amt}}</td>
@@ -544,7 +581,7 @@
             <td>{{vatMinus code06_amt}}</td>
             <td><b>{{vatMinus android_total_amt}}</b></td>
             <td style="border-bottom: hidden;"></td>
-            <th>부과세 제외 금액</th>
+            <th>부가세 제외 금액</th>
             <td>{{vatMinus code07_amt}}</td>
             <td>{{vatMinus code08_amt}}</td>
             <td>{{vatMinus code09_amt}}</td>
@@ -582,14 +619,14 @@
             <col width="35%"/><col width="65%"/>
         </colgroup>
         <tr>
-            <th colspan="2">총 결제 건/(부과세 포함) 매출</th>
+            <th colspan="2">총 결제 건/(부가세 포함) 매출</th>
         </tr>
         <tr style="color: green;">
             <td><b>{{total_cnt}} 건</b></td>
             <td><b>{{addComma total_amt}} 원</b></td>
         </tr>
         <tr>
-            <th colspan="2">총 결제 건/(부과세 제외) 매출</th>
+            <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
         </tr>
         <tr  style="color: orange;">
             <td><b>{{total_cnt}} 건</b></td>
