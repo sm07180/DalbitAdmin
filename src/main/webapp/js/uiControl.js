@@ -18,13 +18,11 @@ ui.toogleSearchListFooter = function(searchCnt){
 ui.loadInforexAdminPage = function(menu){
 
     //left menu
-    var marginLeft = 210;
-
-    $("#main-content-wrapper").width() - 210;
+    var marginLeft = 240;
 
     //iframe 세팅
     var html = '<iframe src="'+$(menu).data('url')+'" style="';
-        html += 'width: ' + $("#main-content-wrapper").width() - marginLeft;
+        html += 'width: ' + ($("#main-content-wrapper").width() - marginLeft) + 'px;';
         html += 'margin-left: ' + marginLeft + 'px;';
         html += 'height: ' + $("#left-sidebar").height() + 'px;';
         html += 'border: 0px;">';
