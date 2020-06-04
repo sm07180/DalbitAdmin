@@ -66,8 +66,8 @@ var declaration_Message = [
 
 var declaration_send = [
     new COMMON_CODE(null, 'declaration_sendNoti', '보내기 구분')
-    , new COMMON_CODE('yes', '1', '알림 발송함')
-    , new COMMON_CODE('no', '0', '알림 발송 안함')
+    , new COMMON_CODE('yes', '1', '알림 ON')
+    , new COMMON_CODE('no', '0', '알림 OFF')
 ];
 
 /** =------ Sms ---------- */

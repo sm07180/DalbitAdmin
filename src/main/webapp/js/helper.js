@@ -240,3 +240,7 @@ Handlebars.registerHelper("evalJS_isEmpty", function(varName, options) {
         return options.inverse(this);
     }
 });
+
+Handlebars.registerHelper("sexIcon", function(sex) {
+    return common.sexIcon(sex);
+});
