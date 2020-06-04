@@ -154,8 +154,12 @@ public class Mon_ExchangeService {
             totalMap.put("name", "");
             totalMap.put("accountName", "");
             totalMap.put("cashBasic", cashBasicTotal);
-            totalMap.put("benefit", benefitTotal);
-            totalMap.put("cashSum", cashBasicTotal + benefitTotal);
+
+            if(monExchangeInputVo.getIsSpecial() == 1) {
+                totalMap.put("benefit", benefitTotal);
+                totalMap.put("cashSum", cashBasicTotal + benefitTotal);
+            }
+
             totalMap.put("income_tax", incomeTaxTotal);
             totalMap.put("resident_tax", residentTaxTotal);
             totalMap.put("transfer_fee", transferFeeTotal);
