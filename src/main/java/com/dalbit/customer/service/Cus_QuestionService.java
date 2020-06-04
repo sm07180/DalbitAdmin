@@ -38,6 +38,12 @@ public class Cus_QuestionService {
         ArrayList<P_QuestionListOutputVo> questionList = cus_questionDao.callQuestionList(procedureVo);
         P_QuestionListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_QuestionListOutputVo.class);
 
+        for(int i=0;i<questionList.size();i ++ ){
+            P_QuestionListOutputVo outVo = cus_questionDao.getQuestionCount(questionList.get(i).getMem_no());
+            questionList.get(i).setTotalQnaCnt(outVo.getTotalQnaCnt());
+            questionList.get(i).setTotalOpCnt(outVo.getTotalOpCnt());
+        }
+
         String result;
 
         if(Integer.parseInt(procedureVo.getRet()) > 0) {

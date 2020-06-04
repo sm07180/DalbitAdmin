@@ -17,6 +17,9 @@ public interface Cus_QuestionDao {
     ArrayList<P_QuestionListOutputVo> callQuestionList(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
+    P_QuestionListOutputVo getQuestionCount(String mem_no);
+
+    @Transactional(readOnly = true)
     P_QuestionDetailOutputVo callServiceCenterQnaDetail(ProcedureVo procedureVo);
 
     ProcedureVo callServiceCenterQnaOperate(ProcedureVo procedureVo);

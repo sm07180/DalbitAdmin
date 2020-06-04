@@ -6,6 +6,14 @@
         call rd_admin.sp_admin_service_center_qna_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="getQuestionCount" parameterType="string" resultType="com.dalbit.customer.vo.procedure.P_QuestionListOutputVo">
+        /* Cus_Question.xml - getQuestionCount */
+        select count(*) totalQnaCnt
+                ,SUM( if( state = 1, 1, 0)) as totalOpCnt
+          from rd_data.tb_service_center_qna
+         where mem_no=#{mem_no};
+    </select>
+
     <select id="callServiceCenterQnaDetail" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.customer.vo.procedure.P_QuestionDetailOutputVo">
         call rd_admin.sp_admin_service_center_qna_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
@@ -24,6 +32,7 @@
         from rd_data.tb_service_center_faq
         group by slct_type
     </select>
+
 
     <select id="getFaqSubList" parameterType="com.dalbit.customer.vo.FaqVo" resultType="com.dalbit.customer.vo.FaqVo">
         /* Cus_Question.xml - getFaqSubList */
