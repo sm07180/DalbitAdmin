@@ -125,7 +125,7 @@
         }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
             sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
             sDate = sDate.getFullYear()  +"-"+ common.lpad(sDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
-            eDate = new Date(Date.parse(date) + 1 * 1000 * 60 * 60 * 24);           // 하루 + (프로시져에서 안해주신데요..)
+            eDate = new Date(Date.parse(date) + 1 * 1000 * 60 * 60 * 24);           // 하루
             eDate = eDate.getFullYear()  +"-"+ common.lpad(eDate.getMonth() + 1,2,"0")  +"-"+ common.lpad(eDate.getDate(),2,"0");         // 오늘
 
         }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일

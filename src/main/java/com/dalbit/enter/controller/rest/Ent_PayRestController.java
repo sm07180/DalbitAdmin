@@ -1,6 +1,8 @@
 package com.dalbit.enter.controller.rest;
 
 import com.dalbit.enter.service.Ent_PayService;
+import com.dalbit.enter.vo.procedure.P_PayTotalInPutVo;
+import com.dalbit.enter.vo.procedure.P_PayTryInPutVo;
 import com.dalbit.enter.vo.procedure.P_StatVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -39,14 +41,8 @@ public class Ent_PayRestController {
 
     // 결제 현황 총계
     @PostMapping("total")
-    public String payTotal(P_StatVo pStatVo){
-        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
-            pStatVo.setStartDate(null);
-        }
-        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
-            pStatVo.setEndDate(null);
-        }
-        String result = ent_PayService.callPayTotal(pStatVo);
+    public String payTotal(P_PayTotalInPutVo pPayTotalInPutVo){
+        String result = ent_PayService.callPayTotal(pPayTotalInPutVo);
         return result;
     }
 
@@ -99,6 +95,13 @@ public class Ent_PayRestController {
             pStatVo.setEndDate(null);
         }
         String result = ent_PayService.callPayCancel(pStatVo);
+        return result;
+    }
+
+    // 결제 현황 총계
+    @PostMapping("try")
+    public String payTry(P_PayTryInPutVo pPayTryInPutVo){
+        String result = ent_PayService.callPayTry(pPayTryInPutVo);
         return result;
     }
 }

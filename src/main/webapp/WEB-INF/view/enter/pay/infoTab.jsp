@@ -13,7 +13,7 @@
                 <li><a href="#product" role="tab" data-toggle="tab" id="tab_payCode">결제 상품별</a></li>
                 <li><a href="#history" role="tab" data-toggle="tab" id="tab_payHistory">결제 내역</a></li>
                 <li><a href="#cancel" role="tab" data-toggle="tab" id="tab_payCancel">결제 취소</a></li>
-                <%--<li><a href="#try" role="tab" data-toggle="tab" id="tab_payTry">결제 성공/시도</a></li>--%>
+                <li><a href="#try" role="tab" data-toggle="tab" id="tab_payTry">결제 성공/시도</a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>              <!-- 총계 -->
@@ -22,7 +22,7 @@
                 <div class="tab-pane fade" id="product"><jsp:include page="code.jsp"/></div>          <!-- 결제 상품별 -->
                 <div class="tab-pane fade" id="history"><jsp:include page="history.jsp"/></div>          <!-- 결제 내역 -->
                 <div class="tab-pane fade" id="cancel"><jsp:include page="cancel.jsp"/></div>            <!-- 결제 취소 -->
-                <%--<div class="tab-pane fade" id="try"><jsp:include page="try.jsp"/></div>            <!-- 결제 취소 -->--%>
+                <div class="tab-pane fade" id="try"><jsp:include page="try.jsp"/></div>            <!-- 결제 취소 -->
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
     $("#tablist_con li a").on('click', function(){
         var tabId = $(this).prop('id');
         if(tabId == 'tab_payTotal'){
-            getTotalList();
+            getPayTotalList();
         }else if(tabId == 'tab_payAge'){
             getPayAgeList();
         }else if(tabId == 'tab_payWay'){
@@ -45,8 +45,8 @@
             getPayHistoryList();
         }else if(tabId == 'tab_payCancel'){
             getPayCancelList();
-        // }else if(tabId == 'tab_payTry'){
-            // getPayTryList();
+        }else if(tabId == 'tab_payTry'){
+            getPayTryList();
         }
         $(".searchDate").html($("#onedayDate").val());
     });

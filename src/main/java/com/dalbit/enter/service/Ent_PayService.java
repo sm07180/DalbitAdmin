@@ -6,6 +6,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.enter.dao.Ent_PayDao;
 import com.dalbit.enter.vo.procedure.*;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -47,21 +48,164 @@ public class Ent_PayService {
 
     /**
      * 결제/취소현황 총계
-     * @param pStatVo
+     * @param pPayTotalInPutVo
      * @return
      */
-    public String callPayTotal(P_StatVo pStatVo){
-        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
-        List<P_PayTotalOutDetailVo> detailList =  ent_PayDao.callPayTotal(procedureVo);
-        P_PayTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_PayTotalOutVo.class);
-        if(Integer.parseInt(procedureVo.getRet()) <= 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+    public String callPayTotal(P_PayTotalInPutVo pPayTotalInPutVo){
+
+        ArrayList resultList = new ArrayList();
+        String[] dateList = pPayTotalInPutVo.getDateList().split("@");
+
+        int slctType_date = 0;
+        P_PayTotalOutDetailVo[] sum = null;
+        if(pPayTotalInPutVo.getSlctType() == 0) {
+            sum = new P_PayTotalOutDetailVo[24];
+            slctType_date = 24;
+        }else if(pPayTotalInPutVo.getSlctType() == 1) {
+            sum = new P_PayTotalOutDetailVo[32];
+            slctType_date = 32;
+        }else if(pPayTotalInPutVo.getSlctType() == 2) {
+            sum = new P_PayTotalOutDetailVo[13];
+            slctType_date = 13;
+        }
+        P_PayTotalOutVo sum_Total = new P_PayTotalOutVo();
+
+        for(int i=0;i<dateList.length;i++){
+            if(dateList[i].indexOf("-") > -1){
+                pPayTotalInPutVo.setStartDate(dateList[i].split("-")[0]);
+                pPayTotalInPutVo.setEndDate(dateList[i].split("-")[1]);
+            }else{
+                pPayTotalInPutVo.setStartDate(dateList[i]);
+                pPayTotalInPutVo.setEndDate(null);
+            }
+
+            ProcedureVo procedureVo = new ProcedureVo(pPayTotalInPutVo);
+            List<P_PayTotalOutDetailVo> detailList =  ent_PayDao.callPayTotal(procedureVo);
+            P_PayTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_PayTotalOutVo.class);
+
+            boolean zeroSw = false;
+            if(detailList.size() < slctType_date){
+                int detailList_size = detailList.size();
+                for (int j = 0; j < slctType_date; j++) {
+                    P_PayTotalOutDetailVo outVo = new P_PayTotalOutDetailVo();
+                    for (int k = 0; k < detailList_size; k++){
+                        if(pPayTotalInPutVo.getSlctType() == 0) {
+                            if (detailList.get(k).getHour() == j) {
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pPayTotalInPutVo.getSlctType() == 1) {
+                            if (Integer.parseInt(detailList.get(k).getDaily().split("-")[2]) == j) {
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pPayTotalInPutVo.getSlctType() == 2) {
+                            if (detailList.get(k).getMonthly() == j) {
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
+                        }
+                    }
+                    if(!zeroSw){
+                        outVo.setDay(j);
+                        outVo.setHour(j);
+                        outVo.setMonthly(j);
+                        outVo.setSuccCnt(0);
+                        outVo.setSuccAmt(0);
+                        outVo.setAccumAmt(0);
+
+                        detailList.add(outVo);
+                    }
+                }
+            }
+
+            var result = new HashMap<String, Object>();
+            result.put("totalInfo", totalInfo);
+            result.put("detailList", detailList);
+
+            resultList.add(result);
+
+            for(int j=0; j < detailList.size();j++){
+                if(DalbitUtil.isEmpty(sum[j])){
+                    sum[j] = new P_PayTotalOutDetailVo();
+                }
+                if(pPayTotalInPutVo.getSlctType() == 0) {
+                    sum[j].setHour(j);
+                    sum[j].setDay(j);
+                    sum[j].setSuccCnt(sum[j].getSuccCnt() + detailList.get(j).getSuccCnt());
+                    sum[j].setSuccAmt(sum[j].getSuccAmt() + detailList.get(j).getSuccAmt());
+                    sum[j].setAccumAmt(sum[j].getAccumAmt() + detailList.get(j).getAccumAmt());
+                }else if(pPayTotalInPutVo.getSlctType() == 1) {
+                    zeroSw = false;
+                    int tmp_k = 0;
+                    for (int k = 0; k < 32; k++) {
+                        if(DalbitUtil.isEmpty(sum[k])){
+                            sum[k] = new P_PayTotalOutDetailVo();
+                            sum[k].setHour(k);
+                            sum[k].setDay(k);
+                        }
+                        if(!DalbitUtil.isEmpty(detailList.get(j).getDaily())) {
+                            if (Integer.parseInt(detailList.get(j).getDaily().split("-")[2]) == k) {
+                                tmp_k = k;
+                                zeroSw = true;
+                                break;
+                            }
+                        }else{
+                            break;
+                        }
+                    }
+                    if(zeroSw) {
+                        sum[tmp_k].setSuccCnt(sum[tmp_k].getSuccCnt() + detailList.get(j).getSuccCnt());
+                        sum[tmp_k].setSuccAmt(sum[tmp_k].getSuccAmt() + detailList.get(j).getSuccAmt());
+                        sum[tmp_k].setAccumAmt(sum[tmp_k].getAccumAmt() + detailList.get(j).getAccumAmt());
+                    }
+                }else if(pPayTotalInPutVo.getSlctType() == 2) {
+                    zeroSw = false;
+                    int tmp_k = 0;
+                    for (int k = 0; k < 12; k++) {
+                        if(!DalbitUtil.isEmpty(detailList.get(j).getMonthly())) {
+                            if (detailList.get(j).getMonthly() == k) {
+                                tmp_k = k;
+                                zeroSw = true;
+                                break;
+                            }
+                        }else{
+                            break;
+                        }
+                    }
+                    if(zeroSw) {
+                        sum[tmp_k].setHour(tmp_k);
+                        sum[tmp_k].setDay(tmp_k);
+                        sum[tmp_k].setMonthly(tmp_k);
+                        sum[tmp_k].setSuccCnt(sum[tmp_k].getSuccCnt() + detailList.get(j).getSuccCnt());
+                        sum[tmp_k].setSuccAmt(sum[tmp_k].getSuccAmt() + detailList.get(j).getSuccAmt());
+                        sum[tmp_k].setAccumAmt(sum[tmp_k].getAccumAmt() + detailList.get(j).getAccumAmt());
+                    }else{
+                        sum[j].setHour(j);
+                        sum[j].setDay(j);
+                        sum[j].setMonthly(j);
+                        sum[j].setSuccCnt(0);
+                        sum[j].setSuccAmt(0);
+                        sum[j].setAccumAmt(0);
+                    }
+                }
+            }
+
+            sum_Total.setSum_succCnt(sum_Total.getSum_succCnt() + totalInfo.getSum_succCnt());
+            sum_Total.setSum_succAmt(sum_Total.getSum_succAmt() + totalInfo.getSum_succAmt());
+            sum_Total.setSum_firstCnt(sum_Total.getSum_firstCnt() + totalInfo.getSum_firstCnt());
+            sum_Total.setSum_firstAmt(sum_Total.getSum_firstAmt() + totalInfo.getSum_firstAmt());
+            sum_Total.setSum_reCnt(sum_Total.getSum_reCnt() + totalInfo.getSum_reCnt());
+            sum_Total.setSum_reAmt(sum_Total.getSum_reAmt() + totalInfo.getSum_reAmt());
         }
         var result = new HashMap<String, Object>();
-        result.put("totalInfo", totalInfo);
-        result.put("detailList", detailList);
+        result.put("totalInfo", sum_Total);
+        result.put("detailList", sum);
+        resultList.add(result);
 
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
     }
 
     /**
@@ -138,5 +282,167 @@ public class Ent_PayService {
         result.put("detailList", detailList);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 결제/취소현황 총계
+     * @param pPayTryInPutVo
+     * @return
+     */
+    public String callPayTry(P_PayTryInPutVo pPayTryInPutVo){
+
+        ArrayList resultList = new ArrayList();
+        String[] dateList = pPayTryInPutVo.getDateList().split("@");
+
+        int slctType_date = 0;
+        P_PayTryOutDetailVo[] sum = null;
+        if(pPayTryInPutVo.getSlctType() == 0) {
+            sum = new P_PayTryOutDetailVo[24];
+            slctType_date = 24;
+        }else if(pPayTryInPutVo.getSlctType() == 1) {
+            sum = new P_PayTryOutDetailVo[32];
+            slctType_date = 32;
+        }else if(pPayTryInPutVo.getSlctType() == 2) {
+            sum = new P_PayTryOutDetailVo[13];
+            slctType_date = 13;
+        }
+        P_PayTryOutVo sum_Total = new P_PayTryOutVo();
+
+        for(int i=0;i<dateList.length;i++){
+            if(dateList[i].indexOf("-") > -1){
+                pPayTryInPutVo.setStartDate(dateList[i].split("-")[0]);
+                pPayTryInPutVo.setEndDate(dateList[i].split("-")[1]);
+            }else{
+                pPayTryInPutVo.setStartDate(dateList[i]);
+                pPayTryInPutVo.setEndDate(null);
+            }
+
+            ProcedureVo procedureVo = new ProcedureVo(pPayTryInPutVo);
+            List<P_PayTryOutDetailVo> detailList =  ent_PayDao.callPayTry(procedureVo);
+            P_PayTryOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_PayTryOutVo.class);
+
+            boolean zeroSw = false;
+            if(detailList.size() < slctType_date){
+                int detailList_size = detailList.size();
+                for (int j = 0; j < slctType_date; j++) {
+                    P_PayTryOutDetailVo outVo = new P_PayTryOutDetailVo();
+                    for (int k = 0; k < detailList_size; k++){
+                        if(pPayTryInPutVo.getSlctType() == 0) {
+                            if (detailList.get(k).getHour() == j) {
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pPayTryInPutVo.getSlctType() == 1) {
+                            if (Integer.parseInt(detailList.get(k).getDaily().split("-")[2]) == j) {
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pPayTryInPutVo.getSlctType() == 2) {
+                            if (detailList.get(k).getMonthly() == j) {
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
+                        }
+                    }
+                    if(!zeroSw){
+                        outVo.setDay(j);
+                        outVo.setHour(j);
+                        outVo.setMonthly(j);
+                        outVo.setSuccCnt(0);
+                        outVo.setTryCnt(0);
+                        outVo.setSuccRate(0);
+
+                        detailList.add(outVo);
+                    }
+                }
+            }
+
+            for(int j=0; j < detailList.size();j++){
+                if(DalbitUtil.isEmpty(sum[j])){
+                    sum[j] = new P_PayTryOutDetailVo();
+                }
+                if(pPayTryInPutVo.getSlctType() == 0) {
+                    sum[j].setHour(j);
+                    sum[j].setDay(j);
+                    sum[j].setSuccCnt(sum[j].getSuccCnt() + detailList.get(j).getSuccCnt());
+                    sum[j].setTryCnt(sum[j].getTryCnt() + detailList.get(j).getTryCnt());
+                    sum[j].setSuccRate((sum[j].getSuccRate() + detailList.get(j).getSuccRate()));
+                }else if(pPayTryInPutVo.getSlctType() == 1) {
+                    zeroSw = false;
+                    int tmp_k = 0;
+                    for (int k = 0; k < 32; k++) {
+                        if(!DalbitUtil.isEmpty(detailList.get(j).getDaily())) {
+                            if (Integer.parseInt(detailList.get(j).getDaily().split("-")[2]) == k) {
+                                tmp_k = k;
+                                zeroSw = true;
+                                break;
+                            }
+                        }else{
+                            break;
+                        }
+                    }
+                    if(zeroSw) {
+                        sum[tmp_k].setHour(tmp_k);
+                        sum[tmp_k].setDay(tmp_k);
+                        sum[tmp_k].setSuccCnt(sum[tmp_k].getSuccCnt() + detailList.get(j).getSuccCnt());
+                        sum[tmp_k].setTryCnt(sum[tmp_k].getTryCnt() + detailList.get(j).getTryCnt());
+                        sum[tmp_k].setSuccRate((sum[tmp_k].getSuccRate() + detailList.get(j).getSuccRate()));
+                    }else{
+                        sum[j].setHour(j);
+                        sum[j].setDay(j);
+                        sum[j].setSuccCnt(0);
+                        sum[j].setTryCnt(0);
+                        sum[j].setSuccRate(0);
+                    }
+                }else if(pPayTryInPutVo.getSlctType() == 2) {
+                    zeroSw = false;
+                    int tmp_k = 0;
+                    for (int k = 0; k < 32; k++) {
+                        if(!DalbitUtil.isEmpty(detailList.get(j).getMonthly())) {
+                            if (detailList.get(j).getMonthly() == k) {
+                                tmp_k = k;
+                                zeroSw = true;
+                                break;
+                            }
+                        }else{
+                            break;
+                        }
+                    }
+                    if(zeroSw) {
+                        sum[tmp_k].setHour(tmp_k);
+                        sum[tmp_k].setDay(tmp_k);
+                        sum[tmp_k].setMonthly(tmp_k);
+                        sum[tmp_k].setSuccCnt(sum[tmp_k].getSuccCnt() + detailList.get(j).getSuccCnt());
+                        sum[tmp_k].setTryCnt(sum[tmp_k].getTryCnt() + detailList.get(j).getTryCnt());
+                        sum[tmp_k].setSuccRate((sum[tmp_k].getSuccRate() + detailList.get(j).getSuccRate()));
+                    }else{
+                        sum[j].setHour(j);
+                        sum[j].setDay(j);
+                        sum[j].setMonthly(j);
+                        sum[j].setSuccCnt(0);
+                        sum[j].setTryCnt(0);
+                        sum[j].setSuccRate(0);
+                    }
+                }
+            }
+
+            sum_Total.setSum_succCnt(sum_Total.getSum_succCnt() + totalInfo.getSum_succCnt());
+            sum_Total.setSum_tryCnt(sum_Total.getSum_tryCnt() + totalInfo.getSum_tryCnt());
+            sum_Total.setSum_succRate(sum_Total.getSum_succRate() + totalInfo.getSum_succRate());
+
+            var result = new HashMap<String, Object>();
+            result.put("totalInfo", totalInfo);
+            result.put("detailList", detailList);
+
+            resultList.add(result);
+        }
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", sum_Total);
+        result.put("detailList", sum);
+        resultList.add(result);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
     }
 }
