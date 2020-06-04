@@ -1,10 +1,14 @@
 package com.dalbit.money.service;
 
+import com.dalbit.common.code.Code;
 import com.dalbit.common.code.Status;
+import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.common.vo.SmsVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.money.dao.Mon_ExchangeDao;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
@@ -32,6 +36,9 @@ public class Mon_ExchangeService {
 
     @Autowired
     GsonUtil gsonUtil;
+
+    @Autowired
+    SmsService smsService;
 
     public String selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo){
 
@@ -327,11 +334,18 @@ public class Mon_ExchangeService {
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 
-    public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo){
+    public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
 
         monExchangeDao.updateExchangeComplete(monExchangeOutputVo);
+        if(monExchangeOutputVo.getState().equals("1")) {
+            var message = new StringBuffer();
+            message.append("[달빛라이브] 회원님께서 신청하신 환전요청 건이 승인이 완료되어 요청금액이 입금되었습니다.");
+            //message.append("\n\n※ 마이페이지>내지갑에서도 내역을 확인할 수 있습니다.");
 
-        if(monExchangeOutputVo.getState().equals("2")){
+            smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
+            //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
+
+        }else if(monExchangeOutputVo.getState().equals("2")){
             P_ExchangeCancelInputVo pExchangeCancelInputVo = new P_ExchangeCancelInputVo();
             pExchangeCancelInputVo.setExchangeIdx(monExchangeOutputVo.getIdx());
             var procedureVo = new ProcedureVo(pExchangeCancelInputVo);
@@ -349,6 +363,15 @@ public class Mon_ExchangeService {
             }else if(procedureVo.getRet().equals(Status.환전_취소_이미완료.getMessageCode())){
                 return gsonUtil.toJson(new JsonOutputVo(Status.환전_취소_이미완료));
             }
+
+
+            var message = new StringBuffer();
+            message.append("[달빛라이브] 회원님께서 신청하신 환전요청 정보가 부적합하여 정상처리가 되지않았습니다.\n");
+            //message.append("신청정보를 다시 확인하시고, 재신청하여 주시기 바랍니다.\n\n");
+            //message.append("※ 궁금한 사항은 1:1문의로 연락해 주시기바랍니다.\n");
+
+            smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
+            //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));

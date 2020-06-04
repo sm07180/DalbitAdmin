@@ -563,6 +563,7 @@
                                         전화번호
                                     </th>
                                     <td>
+                                        <input type="hidden" name="phone_no" value="{{phoneNumHyphen detail.phone_no}}" />
                                         {{phoneNumHyphen detail.phone_no}}
                                         / {{phoneNumHyphen detail.mem_phone}}
                                     </td>

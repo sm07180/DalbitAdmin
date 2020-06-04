@@ -28,6 +28,14 @@ public enum Code {
     인포렉스_부서코드("inforex.deptCode.key", "inforex.api.deptCode.url"),
     인포렉스_직책코드("inforex.dutyCode.key", "inforex.api.dutyCode.url"),
     인포렉스_임직원목록("inforex.memberList.key", "inforex.api.memberList.url"),
+    
+    
+    SMS발송_회원가입("0", "회원가입"),
+    SMS발송_비밀번호변경("1", "비밀번호변경"),
+    SMS발송_환전완료("2", "환전완료"),
+    SMS발송_환전불가("3", "환전불가"),
+
+    
 
    ;
 
