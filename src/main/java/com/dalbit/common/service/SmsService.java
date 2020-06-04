@@ -41,7 +41,7 @@ public class SmsService {
         }
         smsVo.setSendPhoneNo(DalbitUtil.getProperty("sms.send.phone.no"));
         smsVo.setUmId(DalbitUtil.getProperty("sms.umid"));
-        smsVo.setMsgType("1");
+        smsVo.setMsgType("5");
         smsVo.setVxmlFile(smsVo.getVxmlFile());
 
         smsDao.sendSms(smsVo);
