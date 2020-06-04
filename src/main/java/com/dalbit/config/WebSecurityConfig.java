@@ -73,7 +73,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-            .csrf().disable() // 기본값이 on인 csrf 취약점 보안을 해제한다. on으로 설정해도 되나 설정할경우 웹페이지에서 추가처리가 필요함.
+            .headers()
+                .frameOptions().sameOrigin()
+
+            .and()
+
+                .csrf().disable() // 기본값이 on인 csrf 취약점 보안을 해제한다. on으로 설정해도 되나 설정할경우 웹페이지에서 추가처리가 필요함.
             .formLogin() // 권한없이 페이지 접근하면 로그인 페이지로 이동한다.
             .loginPage("/login")
             .loginProcessingUrl("/login/authenticate")

@@ -37,14 +37,12 @@ var declaration_opCode = [
 var declaration_reason = [
     new COMMON_CODE(null, 'slctReason', '신고 구분')
     , new COMMON_CODE('all', '-1', '신고 구분(전체)')
-    , new COMMON_CODE('background', '1', '방송방배경')
-    , new COMMON_CODE('profile', '2', '프로필사진')
-    , new COMMON_CODE('obs', '3', '음란성')
-    , new COMMON_CODE('adv', '4', '광고 및 상업성')
-    , new COMMON_CODE('abuse', '5', '욕설 및 비방성')
+    , new COMMON_CODE('profile', '1', '프로필사진')
+    , new COMMON_CODE('obs', '2', '음란성')
+    , new COMMON_CODE('adv', '3', '광고 및 상업성')
+    , new COMMON_CODE('abuse', '4', '욕설 및 비방성')
+    , new COMMON_CODE('etc', '5', '기타')
     , new COMMON_CODE('admin', '98', '관리자신고')
-    , new COMMON_CODE('profile', '99', '기타')
-
 ];
 
 var declaration_status = [

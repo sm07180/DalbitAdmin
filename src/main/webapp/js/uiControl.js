@@ -17,10 +17,14 @@ ui.toogleSearchListFooter = function(searchCnt){
 /*인포렉스 메뉴를 클릭 했을 시*/
 ui.loadInforexAdminPage = function(menu){
 
+    //left menu
+    var marginLeft = 240;
+
     //iframe 세팅
     var html = '<iframe src="'+$(menu).data('url')+'" style="';
-        html += 'width: 100%;';
-        html += 'height: ' + $("#left-sidebar").height() + 'px;';
+        html += 'width: ' + ($("#main-content-wrapper").width() - marginLeft) + 'px;';
+        html += 'margin-left: ' + marginLeft + 'px;';
+        html += 'height: ' + ($("#left-sidebar").height() - 40) + 'px;';
         html += 'border: 0px;">';
         html += '</iframe>';
 
@@ -30,6 +34,57 @@ ui.loadInforexAdminPage = function(menu){
     //이전 메뉴 비활성화/ 클릭한 메뉴 활성화 처리
     $('ul.sub-menu li.active, .main-menu li.page.active').removeClass('active');
     $(menu).parent().addClass('active');
+}
+
+ui.loadBaseAdminPage = function(menu){
+
+    var url = $(menu).data('url');
+    if(url == ''){
+        return false;
+    }
+
+    if(!0 == url.indexOf("http")){
+        url = ADMIN_SERVER_URL + $(menu).data('url');
+    }
+
+    //left menu
+    var marginLeft = 210;
+
+    //iframe 세팅
+    var html = '<iframe src="'+$(menu).data('url')+'" onload="ui.iframeBodyAutoResize(this)" style="';
+    html += 'width: ' + ($("#main-content-wrapper").width() - marginLeft) + 'px;';
+    html += 'margin-left: ' + marginLeft + 'px;';
+    html += 'height: ' + ($("#left-sidebar").height() - 40) + 'px;';
+    html += 'border: 0px;" id="iframePageContent">';
+    html += '</iframe>';
+
+    //$('#page-wrapper').empty().append(html);
+    $('#main-content-wrapper').empty().append(html);
+
+    //이전 메뉴 비활성화/ 클릭한 메뉴 활성화 처리
+    $('ul.sub-menu li.active, .main-menu li.page.active').removeClass('active');
+    $(menu).parent().addClass('active');
+}
+
+ui.iframeBodyAutoResize = function(iframe){
+
+    /*var iframeHeight=
+    (iframe).contentWindow.document.body.scrollHeight;
+    (iframe).height=iframeHeight+20;
+
+    console.log(iframeHeight);*/
+    //$('body').height(iframeHeight + 20);
+
+    var the_height= document.getElementById('iframePageContent').contentWindow.document.body.scrollHeight + 1000;
+
+    //change the height of the iframe
+    document.getElementById('iframePageContent').height= the_height;
+
+    //document.getElementById('the_iframe').scrolling = "no";
+    document.getElementById('iframePageContent').style.overflow = "hidden";
+
+    console.log('iframeBodyAutoResize');
+
 }
 
 ui.topScroll = function(){

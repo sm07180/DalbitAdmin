@@ -3,6 +3,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 <c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
+
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
 <%--<script src="https://www.google-analytics.com/analytics.js"></script>--%>
 <script src="/template2/assets/js/jquery/jquery-2.1.0.min.js"></script>
 <script src="/template2/assets/js/bootstrap/bootstrap.js"></script>
@@ -101,9 +104,14 @@
             console.log(data);
         }
     }
+    var ADMIN_SERVER_URL = '${cfn:getProperty("server.adm.url")}';
     var PHOTO_SERVER_URL = '${cfn:getProperty("server.photo.url")}';
     var IMAGE_SERVER_URL = '${cfn:getProperty("server.img.url")}';
     var ANT_SERVER_URL = '${cfn:getProperty("server.ant.url")}';
     var ANT_APP_NAME = '${cfn:getProperty("ant.app.name")}';
     var ADMIN_NICKNAME = '달빛지기';
+
+    var LOGIN_USER_NAME = '${principal.getUserInfo().getName()}';
+    var LOGIN_USER_ID = '${principal.getUserInfo().getUserid()}';
+
 </script>

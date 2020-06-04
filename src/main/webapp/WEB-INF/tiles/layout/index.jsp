@@ -11,6 +11,9 @@
 
 <!-- WRAPPER -->
 <div class="wrapper">
+    <tiles:insertAttribute name="top"/>
+
+    <tiles:insertAttribute name="left"/>
 
     <div id="main-content-wrapper" class="content-wrapper ">
     <!-- top 버튼 -->
@@ -21,12 +24,22 @@
     </div>
         <%--<tiles:insertAttribute name="gnb"/>--%>
 
-        <tiles:insertAttribute name="body"/>
+        <%--<tiles:insertAttribute name="body"/>--%>
     </div>
 </div>
 <!-- /wrapper -->
 
 <tiles:insertAttribute name="setting"/>
+<script type="text/javascript">
+    $('._dalbit:first').click();
+
+    window.onload = function() {
+        window.addEventListener("message", function(e) {
+            console.log('message');
+            document.getElementById("iframePageContent").height = e.data.scrollHeight;
+        });
+    };
+</script>
 </body>
 </html>
 

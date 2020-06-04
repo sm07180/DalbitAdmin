@@ -319,3 +319,14 @@ common.getListSum = function(value){
     }
     return sumResult;
 };
+
+common.average = function(lvalue, rvalue) {
+    if (rvalue == 0 || common.isEmpty(rvalue)) {
+        return 0;
+    }
+    if (lvalue == 0 || common.isEmpty(lvalue)) {
+        return 0;
+    }
+    var tmp = (lvalue / rvalue) * 100;
+    return tmp.toFixed(1);
+};

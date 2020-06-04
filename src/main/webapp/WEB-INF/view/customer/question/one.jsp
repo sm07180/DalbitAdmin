@@ -43,7 +43,7 @@
         response.data["rowNum"] = params.rowNum;
         var add_file_cnt = response.data.add_file.split(",");
         response.data["add_file_cnt"] = common.isEmpty(response.data.add_file) ? 0 : add_file_cnt.length;
-        if(response.data.state == "2" && response.data.op_name == $('.name').text()){
+        if(response.data.state == "2" && response.data.op_name == LOGIN_USER_NAME){
             response.data["editAuth"] = "Y";
         }else{
             response.data["editAuth"] = "N";
@@ -68,7 +68,7 @@
             update_click();
         });
 
-        if(response.data.state == 2 && response.data.op_name != $(".name").text()){
+        if(response.data.state == 2 && response.data.op_name != LOGIN_USER_NAME){
             alert("다른 사람이 처리중인 1:1 문의 건 입니다.");
             $("#bt_operate").addClass("hide");
             $("#bt_chatchRelease").addClass("hide");

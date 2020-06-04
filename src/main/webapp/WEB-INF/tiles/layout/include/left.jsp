@@ -11,7 +11,7 @@
 <!-- left sidebar -->
 <div id="left-sidebar" class="left-sidebar _leftFixed">
     <!-- main-nav -->
-    <div class="sidebar-scroll" style="height: 100%">
+    <div class="sidebar-scroll" style="overflow:auto;">
         <nav class="main-nav">
             <ul class="main-menu">
 
@@ -38,7 +38,10 @@
                                   "
                         >
 
-                            <a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">
+                            <%--<a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">--%>
+                            <a href="javascript://" data-url="${0 < fn:length(menu.menu_url) ? menu.menu_url: ''}"
+                               target="${menu.is_pop eq 1 ? '_black' : ''}"
+                               class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''} _dalbit">
 
                                 <i class="fa ${menu.icon}"></i><span class="text">${menu.menu_name}</span>
                                 <c:if test="${isContainSubmenu}">
@@ -52,7 +55,8 @@
                                 <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': 'display:block;'}">
                                     <c:forEach var="twoDepth" items="${menu.twoDepth}">
                                         <li class="${not empty url and url.equals(twoDepth.menu_url) ? 'active': ''}">
-                                            <a href="${0 == fn:length(twoDepth.menu_url) ? 'javascript://' : twoDepth.menu_url}" class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''}">
+                                            <a href="javascript://" data-url="${0 == fn:length(twoDepth.menu_url) ? '' : twoDepth.menu_url}"
+                                               class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''} _dalbit">
                                                 <i class="fa ${twoDepth.icon}"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>
                                         </li>
@@ -129,10 +133,14 @@
         ui.loadInforexAdminPage($(this));
     });
 
+    $(document).on('click', '._dalbit', function(){
+        ui.loadBaseAdminPage($(this));
+    });
+
     $('.main-menu li:first').before($('._mainMenu'));
 
 
-    $(window).scroll(function(){
+    /*$(window).scroll(function(){
         var scrollTop = $(document).scrollTop();
 
         var leftMenu = $('._leftFixed');
@@ -141,7 +149,7 @@
         } else {
             leftMenu.css('top', '0px');
         }
-    });
+    });*/
 
 </script>
 

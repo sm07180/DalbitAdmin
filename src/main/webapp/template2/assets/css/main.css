@@ -12923,9 +12923,10 @@ body.ontop-nav .top-bar .navbar-toggle:hover, body.ontop-nav .top-bar .navbar-to
 /*	Main Content
 /*------------------------------------------------*/
 .content-wrapper {
-    padding: 15px 30px;
-    margin-left: 230px;
+    padding: 10px 20px 0px 20px;
+    /*margin-left: 230px;*/
     position: relative; }
+
 .content-wrapper.expanded {
     width: 100%;
     padding-left: 70px;
@@ -13096,7 +13097,8 @@ body.sidebar-float .content-wrapper {
 
 .content-wrapper {
     background-color: #FFFFFF;
-    border-left: 1px solid #e4e4e4; }
+    /*border-left: 1px solid #e4e4e4;*/
+}
 
 .main-content {
     padding-bottom: 30px; }

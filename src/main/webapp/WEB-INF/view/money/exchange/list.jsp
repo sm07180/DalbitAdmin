@@ -317,7 +317,7 @@
         $("#excelForm").html(hiddenData).attr({
             method : 'post'
            , action : '/money/exchange/listExcel'
-            , target : '_blank'
+            , target : 'iframe_excel_download'
         }).submit();
     });
 

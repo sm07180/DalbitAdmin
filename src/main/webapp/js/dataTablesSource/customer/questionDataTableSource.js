@@ -30,6 +30,13 @@ var questionDataTableSource = {
                         return data;
                     }            
                 }},
+            {'title': '문의', 'data': 'totalQnaCnt','width':'60px','render':function (data,type,row,meta){
+                    return common.addComma(data) + " 건";
+                }},
+            {'title': '처리', 'data': 'totalOpCnt','width':'60px','render':function (data,type,row,meta){
+                    return common.addComma(data) + " 건";
+                }},
+
             {'title': '문의제목', 'data': 'question_title','width':'250px','render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+meta.row+');">'+data+'</a>'
                 }},

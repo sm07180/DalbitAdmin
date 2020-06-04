@@ -10,10 +10,10 @@ import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
-@RequestMapping("/main")
-public class MainController {
-    @GetMapping("")
+public class IndexController {
+
+    @GetMapping("index")
     public String list(HttpServletRequest request, HttpSession httpSession) {
-        return "main/main";
+        return "index";
     }
 }
