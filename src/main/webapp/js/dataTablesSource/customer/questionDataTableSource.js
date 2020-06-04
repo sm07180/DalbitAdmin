@@ -30,10 +30,10 @@ var questionDataTableSource = {
                         return data;
                     }            
                 }},
-            {'title': '총 문의 건', 'data': 'totalQnaCnt','width':'60px','render':function (data,type,row,meta){
+            {'title': '문의', 'data': 'totalQnaCnt','width':'60px','render':function (data,type,row,meta){
                     return common.addComma(data) + " 건";
                 }},
-            {'title': '총 처리 건', 'data': 'totalOpCnt','width':'60px','render':function (data,type,row,meta){
+            {'title': '처리', 'data': 'totalOpCnt','width':'60px','render':function (data,type,row,meta){
                     return common.addComma(data) + " 건";
                 }},
 
