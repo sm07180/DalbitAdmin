@@ -2,11 +2,11 @@ package com.dalbit.member.service;
 
 
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastListInputVo;
-import com.dalbit.broadcast.vo.procedure.P_BroadcastListOutputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.*;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
@@ -18,10 +18,10 @@ import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.util.*;
 
@@ -45,6 +45,9 @@ public class Mem_MemberService {
     JwtUtil jwtUtil;
     @Autowired
     SmsService smsService;
+
+    @Autowired
+    PushService pushService;
 
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
@@ -249,6 +252,19 @@ public class Mem_MemberService {
                 String message =  gson.toJson(tmp);
 
                 socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
+
+
+                try{    // PUSH 발송
+                    P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                    pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
+                    pPushInsertVo.setSlct_push("35");
+                    pPushInsertVo.setSend_title(pMemberEditorVo.getNotiContents());
+                    pPushInsertVo.setSend_cont(pMemberEditorVo.getNotiMemo());
+                    pPushInsertVo.setImage_type("101");
+                    pushService.sendPushReqOK(pPushInsertVo);
+                }catch (Exception e){
+                    log.error("[PUSH 발송 실패 - 회원 정보 수정]");
+                }
             }
 
             // 비밀번호 변경
@@ -289,6 +305,19 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberBasicAdd(pMemberEditorVo);
         mem_MemberDao.callMemberWithdrawal_bak_del(pMemberEditorVo);
         mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
+
+        try{    // PUSH 발송
+            P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+            pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
+            pPushInsertVo.setSlct_push("34");
+            pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+            pPushInsertVo.setSend_cont("이용정지가 해제되었습니다.");
+            pPushInsertVo.setImage_type("101");
+            pushService.sendPushReqOK(pPushInsertVo);
+        }catch (Exception e){
+            log.error("[PUSH 발송 실패 - 회원 경고/정지 해지]");
+        }
+
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
     }
 
@@ -324,13 +353,17 @@ public class Mem_MemberService {
         pMemberReportVo.setReported_grade(memberInfo.getGrade());
         mem_MemberDao.callMemberReport(pMemberReportVo);
 
+        int blockDay = 0;
         //회원정보 변경 3-1  4-3    5-7
         if(pMemberReportVo.getSlctType() == 3){
             pMemberReportVo.setBlockDay(1);
+            blockDay = 1;
         }else if(pMemberReportVo.getSlctType() == 4){
             pMemberReportVo.setBlockDay(3);
+            blockDay = 3;
         }else if(pMemberReportVo.getSlctType() == 5){
             pMemberReportVo.setBlockDay(7);
+            blockDay = 7;
         }
         mem_MemberDao.callMemberBasicReport_Edit(pMemberReportVo);
         //notice
@@ -351,7 +384,27 @@ public class Mem_MemberService {
             mem_MemberDao.callMemberWithdrawal_fanDel(pMemberReportVo);
             // 해당 회원번호로 등록된 스타목록 삭제
             mem_MemberDao.callMemberWithdrawal_starDel(pMemberReportVo);
+            blockDay = -1;
+        }
 
+        if(blockDay != -1){
+            try{    // PUSH 발송
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
+                pPushInsertVo.setSlct_push("34");
+                pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setImage_type("101");
+
+                if(blockDay == 0){  // 경고
+                    pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
+                }else{  // 정지
+                    pPushInsertVo.setSend_cont("운영정책 위반으로 "+ blockDay +"일 서비스 이용이 정지됩니다.");
+                }
+
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 회원 경고/정지]");
+            }
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원제재처리성공));
