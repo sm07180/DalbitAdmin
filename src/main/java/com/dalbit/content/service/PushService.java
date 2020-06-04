@@ -332,4 +332,30 @@ public class PushService {
 
         return result;
     }
+
+
+
+
+
+    public String sendPushReqOK(P_pushInsertVo pPushInsertVo){
+//        pPushInsertVo.setMem_nos(mem_no);
+//        pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
+//        pPushInsertVo.setSend_cont("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
+//        pPushInsertVo.setBoard_idx("22");
+//        pPushInsertVo.setImage_type("101");
+//        pPushInsertVo.setSlct_push("7");
+
+        pPushInsertVo.setSend_cnt("1");
+        pPushInsertVo.setIs_all("7");
+        pPushInsertVo.setPlatform("111");
+        pPushInsertVo.setStatus("0");
+        pPushInsertVo.setMsg_type("0");
+        pPushInsertVo.setIs_direct("0");
+
+        String pushResult = callContentsPushAdd(pPushInsertVo);
+        log.info("[PUSH SEND RESULT] : {}" , pushResult);
+
+        return pushResult;
+    }
+
 }

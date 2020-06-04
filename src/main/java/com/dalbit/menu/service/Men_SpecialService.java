@@ -146,7 +146,7 @@ public class Men_SpecialService {
             sendNotiReqOK(specialReqVo.getMem_no());
 
             // 스페셜 DJ 선정 PUSH 발송
-            sendPushReqOK(specialReqVo.getMem_no());
+            sendPushReqOK(specialReqVo.getMem_no(), 1);
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_성공));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_실패));
@@ -166,6 +166,9 @@ public class Men_SpecialService {
 
         int result= menSpecialDao.reqOkUpdate(specialReqVo);
         if(result > 0) {
+            // 스페셜 DJ 선정 PUSH 발송
+            sendPushReqOK(specialReqVo.getMem_no(), 2);
+
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인거부_성공));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인거부_실패));
@@ -244,7 +247,7 @@ public class Men_SpecialService {
 
 
 
-    public String sendPushReqOK(String mem_no){
+    public String sendPushReqOK(String mem_no, int type){
 
         P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
 
@@ -261,6 +264,14 @@ public class Men_SpecialService {
         pPushInsertVo.setMsg_type("0");
         pPushInsertVo.setImage_type("101");
         pPushInsertVo.setIs_direct("0");
+
+        if(type == 1){
+            pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
+            pPushInsertVo.setSend_cont("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
+        }else{
+            pPushInsertVo.setSend_title("스페셜 DJ가 해제되었어요.");
+            pPushInsertVo.setSend_cont("안타깝지만 스페셜 DJ가 해제되었습니다. 다음에 다시 도전해보세요.");
+        }
 
         String pushResult = pushService.callContentsPushAdd(pPushInsertVo);
         log.info("[PUSH SEND RESULT] : {}" , pushResult);
