@@ -270,8 +270,8 @@
                 </colgroup>
                 <tbody>
                 <tr class="align-middle">
-                    <th rowspan="2">No</th>
-                    <td rowspan="2">{{rowNum}}</td>
+                    <th rowspan="3">No</th>
+                    <td rowspan="3">{{rowNum}}</td>
 
                     <th>신고사유</th>
                     <td>{{{getCommonCodeLabel report_reason 'declaration_reason'}}}</td>
@@ -294,6 +294,7 @@
                     {{#equal status '0'}}<td>미처리</td>{{/equal}}
                 </tr>
                 <tr>
+
                     <th>플랫폼</th>
                     <td>{{platform}}</td>
 
@@ -306,6 +307,11 @@
                         {{#equal op_name ''}}-{{/equal}}
                     </td>
                 </tr>
+
+                <tr>
+                    <th>관리자 기타 메시지</th>
+                    <td colspan="9">{{etc}}</td>
+                </tr>
                 <tr class="align-middle">
                     <th rowspan="1" colspan="4">신고자</th>
                     <th rowspan="1" colspan="4">대상자</th>
@@ -315,6 +321,7 @@
                         {{{getCommonCodeRadio op_code 'declaration_opCode' 'Y' 'opCode'}}}
                     </td>
                 </tr>
+
                 <tr>
                     <td>{{mem_id}}</td>
                     <td>레벨 : {{level}}<br />등급 : {{grade}}</td>
@@ -326,6 +333,7 @@
                     <td>{{reported_mem_nick}}</td>
                     <td>{{reported_memSex}}</td>
                 </tr>
+
                 <tr>
                     <th colspan="2">누적 결제 수<br />/금액</th>
                     <td colspan="2">{{addComma payCount}}개 <br />{{addComma payAmount}}원</td>
