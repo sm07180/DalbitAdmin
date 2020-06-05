@@ -271,6 +271,9 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': '보낸 User 닉네임', 'data': 'mem_nick','width' : '150px'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '좋아요 보낸 일시', 'data': 'goodDate','width' : '150px'},
             {'title': '누적 부스터', 'data': 'accumCnt','width' : '150px', 'render': function (data) {
                     var tmp = common.addComma(data);
@@ -294,6 +297,9 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': '보낸 User 닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '보낸 일시', 'data': 'giftDateFormat'},
             {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
                     if(data == 1) var tmp = "O";
@@ -323,6 +329,9 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': '사연 보낸 청취자 닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '보낸 일시', 'data': 'writeDateFormat'},
             {'title': '사연 내용', 'data': 'contents', 'render': function (data, type, row, meta) {
                     return data.replace(/\\n/gi,"<br/>");

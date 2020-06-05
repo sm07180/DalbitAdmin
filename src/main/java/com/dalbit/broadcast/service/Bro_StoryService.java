@@ -10,6 +10,9 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.MemberVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -29,6 +32,8 @@ public class Bro_StoryService {
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     /**
      * 생방송 선물 목록 조회
@@ -37,6 +42,13 @@ public class Bro_StoryService {
         ProcedureVo procedureVo = new ProcedureVo(pStoryListInputVo);
         ArrayList<P_StoryListOutputVo> StoryList = bro_StoryDao.callStoryList(procedureVo);
         P_StoryListOutputVo summary = new Gson().fromJson(procedureVo.getExt(), P_StoryListOutputVo.class);
+
+        for(int i=0;i<StoryList.size();i++){
+            MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(StoryList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                StoryList.get(i).setMem_sex(memInfoOutVo.getMem_sex());
+            }
+        }
 
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
