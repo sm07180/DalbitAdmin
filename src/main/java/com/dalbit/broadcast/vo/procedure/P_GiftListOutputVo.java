@@ -14,6 +14,8 @@ public class P_GiftListOutputVo extends PagingVo {
     /* return result */
     private String userId;
     private String nickName;
+    private String mem_sex;
+
     private int level;
     private String grade;
     private Date giftDate;
@@ -31,7 +33,7 @@ public class P_GiftListOutputVo extends PagingVo {
     private int male;
     private int female;
     private int none;
-    
+
     public void setGiftDate(Date giftDate){
         this.giftDate = giftDate;
         this.giftDateFormat = DalbitUtil.convertDateFormat(giftDate, "yyyy.MM.dd HH:mm:ss");

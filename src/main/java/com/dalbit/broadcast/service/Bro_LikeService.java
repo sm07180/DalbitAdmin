@@ -8,6 +8,8 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -29,6 +31,8 @@ public class Bro_LikeService {
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     /**
      * 생방송 청취자 목록 조회
@@ -59,6 +63,13 @@ public class Bro_LikeService {
                         outVo.setMem_nick(withdrawal.get(0).getMem_nick());
                     }
                 }
+
+                MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(likeList.get(i).getMem_no());
+                if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                    likeList.get(i).setMem_sex(memInfoOutVo.getMem_sex());
+                }
+                outVo.setMem_sex(likeList.get(0).getMem_sex());
+
                 list.add(outVo);
             }
         }

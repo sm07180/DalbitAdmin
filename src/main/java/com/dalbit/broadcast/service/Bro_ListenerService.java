@@ -10,6 +10,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberInfoOutputVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
@@ -77,6 +78,13 @@ public class Bro_ListenerService {
                         outVo.setNickName("비회원");
                     }
                 }
+
+                MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(broadList.get(i).getMem_no());
+                if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                    broadList.get(i).setMem_sex(memInfoOutVo.getMem_sex());
+                }
+                outVo.setMem_sex(broadList.get(i).getMem_sex());
+
                 list.add(outVo);
             }
         }

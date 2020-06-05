@@ -227,8 +227,8 @@
                             </div>
                             <label class="col-md-2">성별</label>
                             <div class="col-md-4">
-                                <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked>남자</label>
-                                <label class="radio-inline"><input type="radio" name="radio_gender" value="g">여자</label>
+                                <label class="radio-inline"><input type="radio" name="radio_gender" value="m" checked><label class="_sex_male"></label></label>
+                                <label class="radio-inline"><input type="radio" name="radio_gender" value="g"><label class="_sex_female"></label></label>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -20,6 +20,7 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String socialId;
     private String phoneNum;
     private String nickName;
+    private String mem_sex;
     private String birthDate;
     private int age;
     private String memSex;

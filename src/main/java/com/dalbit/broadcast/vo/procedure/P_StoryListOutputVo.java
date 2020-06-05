@@ -16,6 +16,7 @@ public class P_StoryListOutputVo extends PagingVo {
     private String mem_no;
     private String userId;
     private String nickName;
+    private String mem_sex;
     private int level;
     private String grade;
     private Date writeDate;
