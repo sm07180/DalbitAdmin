@@ -74,7 +74,7 @@
 
                                     <thead>
                                         <tr>
-                                            <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#04CF2C" data-fontcolor="white">일반회원</th>
+                                            <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#66a449" data-fontcolor="white">일반회원</th>
                                         </tr>
                                         <tr>
                                             <th>상태</th>
@@ -85,28 +85,28 @@
                                     </thead>
                                     <tbody id="tb_user_summary">
                                         <tr>
-                                            <td>미처리</td>
+                                            <th>미처리</th>
                                             <td><span class="_summary_user_0">0</span>건</td>
                                             <td><span class="_summary_user_1">0</span>원</td>
                                             <td><span class="_summary_user_2">0</span>별</td>
                                         </tr>
                                         <tr>
-                                            <td>처리완료</td>
+                                            <th>처리완료</th>
                                             <td><span class="_summary_user_3">0</span>건</td>
                                             <td><span class="_summary_user_4">0</span>원</td>
                                             <td><span class="_summary_user_5">0</span>별</td>
                                         </tr>
                                         <tr>
-                                            <td>처리불가</td>
+                                            <th>처리불가</th>
                                             <td><span class="_summary_user_6">0</span>건</td>
                                             <td><span class="_summary_user_7">0</span>원</td>
                                             <td><span class="_summary_user_8">0</span>별</td>
                                         </tr>
-                                        <tr class="_bgColor _fontColor" data-bgcolor="#5E87F8" data-fontcolor="white">
-                                            <td>합계</td>
-                                            <td><span class="_summary_total_user_cnt">0</span>건</td>
-                                            <td><span class="_summary_total_user_amount">0</span>원</td>
-                                            <td><span class="_summary_total_user_star">0</span>별</td>
+                                        <tr class="_fontColor" data-fontcolor="#ff5600">
+                                            <th>총계</th>
+                                            <th><span class="_summary_total_user_cnt">0</span>건</th>
+                                            <th><span class="_summary_total_user_amount">0</span>원</th>
+                                            <th><span class="_summary_total_user_star">0</span>별</th>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -133,28 +133,28 @@
                                     </thead>
                                     <tbody id="tb_special_summary">
                                         <tr>
-                                            <td>미처리</td>
+                                            <th>미처리</th>
                                             <td><span class="_summary_special_0">0</span>건</td>
                                             <td><span class="_summary_special_1">0</span>원</td>
                                             <td><span class="_summary_special_2">0</span>별</td>
                                         </tr>
                                         <tr>
-                                            <td>처리완료</td>
+                                            <th>처리완료</th>
                                             <td><span class="_summary_special_3">0</span>건</td>
                                             <td><span class="_summary_special_4">0</span>원</td>
                                             <td><span class="_summary_special_5">0</span>별</td>
                                         </tr>
                                         <tr>
-                                            <td>처리불가</td>
+                                            <th>처리불가</th>
                                             <td><span class="_summary_special_6">0</span>건</td>
                                             <td><span class="_summary_special_7">0</span>원</td>
                                             <td><span class="_summary_special_8">0</span>별</td>
                                         </tr>
-                                        <tr class="_bgColor _fontColor" data-bgcolor="#5E87F8" data-fontcolor="white">
-                                            <td>합계</td>
-                                            <td><span class="_summary_total_special_cnt">0</span>건</td>
-                                            <td><span class="_summary_total_special_amount">0</span>원</td>
-                                            <td><span class="_summary_total_special_star">0</span>별</td>
+                                        <tr class="_fontColor" data-fontcolor="#ff5600">
+                                            <th>총계</th>
+                                            <th><span class="_summary_total_special_cnt">0</span>건</th>
+                                            <th><span class="_summary_total_special_amount">0</span>원</th>
+                                            <th><span class="_summary_total_special_star">0</span>별</th>
                                         </tr>
                                     </tbody>
                                 </table>
