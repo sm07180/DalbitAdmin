@@ -6,6 +6,13 @@
         call rd_admin.sp_admin_service_center_report_list(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="getReportCount" parameterType="string" resultType="com.dalbit.customer.vo.procedure.P_DeclarationListOutputVo">
+        /* Cus_Declaration.xml - getReportCount */
+        select count(*) as totalReportedCnt
+               ,SUM( if( status = 2, 1, 0)) as totalOpCnt
+        from rd_data.tb_member_report where reported_mem_no =#{reported_mem_no}
+    </select>
+
     <select id="callServiceCenterReportDetail" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.customer.vo.procedure.P_DeclarationDetailOutputVo">
         call rd_admin.sp_admin_service_center_report_detail(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>

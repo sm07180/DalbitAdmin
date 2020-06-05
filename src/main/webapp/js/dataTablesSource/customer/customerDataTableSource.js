@@ -26,6 +26,12 @@ var customerDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="'+row.reported_mem_no+'">' + data + '</a>'}
                     , 'defaultContent': '-'}
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_nick'}
+            ,{'title': '신고', 'data': 'totalReportedCnt','width':'60px','render':function (data,type,row,meta){
+                    return common.addComma(data) + " 건";
+                }}
+            ,{'title': '처리', 'data': 'totalOpCnt','width':'60px','render':function (data,type,row,meta){
+                    return common.addComma(data) + " 건";
+                }}
             ,{'title': '접수 일시', 'data': 'regDateFormat'}
             ,{'title': '처리 일시', 'data': 'opDateFormat', 'defaultContent':'-'}
             ,{'title': '처리 상태', 'data': 'op_code', 'name': 'slctType', 'render' : function(data) {

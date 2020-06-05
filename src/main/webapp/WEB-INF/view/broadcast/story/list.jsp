@@ -42,8 +42,7 @@
         var template = $("#story_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
-            header : story_summary
-            , content : json.summary
+            content : json.summary
             , length : json.recordsTotal
         }
         var html = templateScript(data);
@@ -83,9 +82,10 @@
     <table class="table table-bordered table-summary pull-right">
         <thead>
         <tr>
-            {{#each this.header}}
-            <th>{{this.code}}</th>
-            {{/each}}
+            <th>방송 중 사연</th>
+            <th><label style="color: blue"><b>남자</b></label></th>
+            <th><label style="color: red"><b>여자</b></label></th>
+            <th>미지정</th>
         </tr>
         </thead>
         <tbody id="summaryDataTable">
