@@ -481,7 +481,7 @@ public enum Status {
     환전_취소_없는환전번호("-1", "exchange.cancel.no.idx", "idx 값이 잘못 넘어온 경우"),
     환전_취소_취소상태아님("-2", "exchange.cancel.not.state", "취소 가능 상태가 아님(state)"),
     환전_취소_회원번호없음("-3", "exchange.cancel.no.member", "idx에 회원번호가 없을 시"),
-    환전_취소_이미완료("-4", "exchange.cancel.already", "이미 완료된 환전인 경우"),
+    환전_취소_이미완료("-4", "exchange.cancel.already", "이미 취소 완료된 환전인 경우"),
 
     //---- 여기 밑으로는 API STATUS 복사 --------------
     //방송리스트
