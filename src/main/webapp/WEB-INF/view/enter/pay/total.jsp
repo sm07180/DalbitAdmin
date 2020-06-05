@@ -406,22 +406,22 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyTotalDetailList">
-    <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">총합</td>
+    <tr class="_tr_{{this}} font-bold" style="color: #ff5600;">
+        <td style="background-color: #dae3f3">총합</td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">첫구매</td>
+        <td class="font-bold" style="background-color: #f2f2f2">첫구매</td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">재구매</td>
+        <td class="font-bold" style="background-color: #f2f2f2">재구매</td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden"></td>
@@ -440,22 +440,22 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyTotalDetailList2">
-    <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">총합</td>
+    <tr class="_tr_{{this}} font-bold" style="color: #ff5600;">
+        <td style="background-color: #dae3f3">총합</td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">첫구매</td>
+        <td class="font-bold" style="background-color: #f2f2f2">첫구매</td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
     <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #dae3f3">재구매</td>
+        <td class="font-bold" style="background-color: #f2f2f2">재구매</td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
