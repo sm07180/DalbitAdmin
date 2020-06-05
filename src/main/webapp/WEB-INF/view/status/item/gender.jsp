@@ -22,13 +22,13 @@
             </tr>
             <tr>
                 <th>건수</th>
-                <th>금액</th>
+                <th>달수</th>
                 <th>건수</th>
-                <th>금액</th>
+                <th>달수</th>
                 <th>건수</th>
-                <th>금액</th>
+                <th>달수</th>
                 <th>건수</th>
-                <th>금액</th>
+                <th>달수</th>
             </tr>
             </thead>
             <tbody id="genderTableBody"></tbody>

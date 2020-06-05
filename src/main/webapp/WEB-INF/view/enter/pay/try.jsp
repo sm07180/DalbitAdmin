@@ -9,48 +9,55 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
-                <col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                <col width="3%"/><col width="3%"/><col width="3%"/><col width="3%"/><col width="0.1%"/>
+                <col width="3%"/><col width="3%"/><col width="3%"/><col width="0.1%"/><col width="3%"/>
+                <col width="3%"/><col width="3%"/><col width="0.1%"/><col width="3%"/><col width="3%"/>
+                <col width="3%"/><col width="0.1%"/><col width="3%"/><col width="3%"/><col width="3%"/>
+                <col width="0.1%"/><col width="3%"/><col width="3%"/><col width="3%"/><col width="0.1%"/>
+                <col width="3%"/><col width="3%"/><col width="3%"/><col width="0.1%"/><col width="3%"/>
+                <col width="3%"/><col width="3%"/>
             </colgroup>
             <thead>
             <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
-                <th class="_tryDate" colspan="3" id="th_6"></th>
-                <th class="_tryDate" colspan="3" id="th_5"></th>
-                <th class="_tryDate" colspan="3" id="th_4"></th>
-                <th class="_tryDate" colspan="3" id="th_3"></th>
-                <th class="_tryDate" colspan="3" id="th_2"></th>
-                <th class="_tryDate" colspan="3" id="th_1"></th>
-                <th class="_tryDate" colspan="3" id="th_0" style="background-color: #ffe699"></th>
+                <th class="_tryDate" colspan="3" id="th_6"></th><td class="_noBorder"></td>
+                <th class="_tryDate" colspan="3" id="th_5"></th><td class="_noBorder"></td>
+                <th class="_tryDate" colspan="3" id="th_4"></th><td class="_noBorder"></td>
+                <th class="_tryDate" colspan="3" id="th_3"></th><td class="_noBorder"></td>
+                <th class="_tryDate" colspan="3" id="th_2"></th><td class="_noBorder"></td>
+                <th class="_tryDate" colspan="3" id="th_1"></th><td class="_noBorder"></td>
+                <th class="_tryDate" colspan="3" id="th_0" style="background-color: #ffe699"></th><td class="_noBorder"></td>
                 <th colspan="3">평균</th>
             </tr>
             <tr style="background-color: #dae3f3">
                 <th>성공</th>
                 <th>시도</th>
                 <th>성공률</th>
+                <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
                 <th>성공률</th>
+                <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
                 <th>성공률</th>
+                <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
                 <th>성공률</th>
+                <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
                 <th>성공률</th>
+                <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
                 <th>성공률</th>
-
+                <td class="_noBorder"></td>
                 <th style="background-color: #fff2cc">성공</th>
                 <th style="background-color: #fff2cc">시도</th>
                 <th style="background-color: #fff2cc">성공률</th>
-
+                <td class="_noBorder"></td>
                 <th>성공</th>
                 <th>시도</th>
                 <th>성공률</th>
@@ -187,13 +194,13 @@
                         $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
                         $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
                     } else if (index == 7) {
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 3 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 3 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 3 + 3) + ")").html(tmp + "%");
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
                     } else {
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 3 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 3 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 3 + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").html(detail.succRate + "%");
                     }
                 } else if($('input[name="slctType"]:checked').val() == "1"){
                     if (index == 0) {
@@ -201,13 +208,13 @@
                         $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
                         $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
                     } else if (index == 7) {
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 3 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 3 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 3 + 3) + ")").html(tmp + "%");
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
                     } else {
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 3 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 3 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 3 + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 3) + ")").html(detail.succRate + "%");
                     }
                 } else if($('input[name="slctType"]:checked').val() == "2"){
                     if (index == 0) {
@@ -215,13 +222,13 @@
                         $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
                         $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
                     } else if (index == 7) {
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 3 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 3 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 3 + 3) + ")").html(tmp + "%");
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
                     } else {
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 3 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 3 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 3 + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 3) + ")").html(detail.succRate + "%");
                     }
                 }
             });
@@ -235,13 +242,13 @@
                     $("#tryTableBody tr:eq(24) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     $("#tryTableBody tr:eq(24) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
                 }else{
-                    $("#tryTableBody tr:eq(24) td:eq(" + (i * 3 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(24) td:eq(" + (i * 3 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
+                    $("#tryTableBody tr:eq(24) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
+                    $("#tryTableBody tr:eq(24) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     var tmp = common.average((totalInfo.sum_succCnt/7),(totalInfo.sum_tryCnt/7));
                     if(tmp == 0){
                         tmp = tmp + ".0";
                     }
-                    $("#tryTableBody tr:eq(24) td:eq(" + (i * 3 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(24) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
                 }
             } else if($('input[name="slctType"]:checked').val() == "1"){
                 if(i == 0){
@@ -249,8 +256,8 @@
                     $("#tryTableBody tr:eq(31) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     $("#tryTableBody tr:eq(31) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
                 }else{
-                    $("#tryTableBody tr:eq(31) td:eq(" + (i * 3 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(31) td:eq(" + (i * 3 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
+                    $("#tryTableBody tr:eq(31) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
+                    $("#tryTableBody tr:eq(31) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     var tmp = common.average((totalInfo.sum_succCnt/7),(totalInfo.sum_tryCnt/7));
                     if(tmp == 0){
                         tmp = tmp + ".0";
@@ -263,13 +270,13 @@
                     $("#tryTableBody tr:eq(12) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     $("#tryTableBody tr:eq(12) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
                 }else{
-                    $("#tryTableBody tr:eq(12) td:eq(" + (i * 3 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(12) td:eq(" + (i * 3 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
+                    $("#tryTableBody tr:eq(12) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
+                    $("#tryTableBody tr:eq(12) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     var tmp = common.average((totalInfo.sum_succCnt/7),(totalInfo.sum_tryCnt/7));
                     if(tmp == 0){
                         tmp = tmp + ".0";
                     }
-                    $("#tryTableBody tr:eq(12) td:eq(" + (i * 3 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(12) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
                 }
             }
         }
@@ -280,25 +287,25 @@
     {{#each this.slctType_date}}
         <tr class="_tr_{{this}}">
             <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-            <td>0</td><td>0</td><td>0%</td>
-            <td>0</td><td>0</td><td>0%</td>
-            <td>0</td><td>0</td><td>0%</td>
-            <td>0</td><td>0</td><td>0%</td>
-            <td>0</td><td>0</td><td>0%</td>
-            <td>0</td><td>0</td><td>0%</td>
-            <td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0%</td>
+            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
             <td>0</td><td>0</td><td>0.0%</td>
         </tr>
     {{/each}}
     <tr class="_tr_total font-bold" style="background-color: #b4c7e7">
         <td>합계</td>
-        <td>0</td><td>0</td><td>0</td>
-        <td>0</td><td>0</td><td>0</td>
-        <td>0</td><td>0</td><td>0</td>
-        <td>0</td><td>0</td><td>0</td>
-        <td>0</td><td>0</td><td>0</td>
-        <td>0</td><td>0</td><td>0</td>
-        <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0.0</td>
     </tr>
 </script>

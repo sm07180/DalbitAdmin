@@ -23,7 +23,7 @@
                 <th>청취자</th>
                 <th>게스트</th>
                 <th>선물 건수</th>
-                <th>선물 금액</th>
+                <th>선물 달수</th>
             </tr>
             </thead>
             <tbody  id="totalListBody">

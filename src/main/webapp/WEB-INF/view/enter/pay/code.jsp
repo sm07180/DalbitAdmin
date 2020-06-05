@@ -207,36 +207,36 @@
 <script type="text/x-handlebars-template" id="tmp_code">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="color:red;font-weight: bold;color: green">{{addComma sum_android_total_cnt}}<br/>({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
-        <td style="color:red;font-weight: bold;color: green">{{addComma sum_android_total_amt}}<br/>({{average sum_android_total_amt sum_android_total_amt}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma sum_android_total_cnt}}<br/>({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus sum_android_total_amt}}<br/>({{average sum_android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma sum_code01Cnt}}</td>
-        <td>{{addComma sum_code01Amt}}</td>
+        <td>{{vatMinus sum_code01Amt}}</td>
         <td>{{addComma sum_code02Cnt}}</td>
-        <td>{{addComma sum_code02Amt}}</td>
+        <td>{{vatMinus sum_code02Amt}}</td>
         <td>{{addComma sum_code03Cnt}}</td>
-        <td>{{addComma sum_code03Amt}}</td>
+        <td>{{vatMinus sum_code03Amt}}</td>
         <td>{{addComma sum_code04Cnt}}</td>
-        <td>{{addComma sum_code04Amt}}</td>
+        <td>{{vatMinus sum_code04Amt}}</td>
         <td>{{addComma sum_code05Cnt}}</td>
-        <td>{{addComma sum_code05Amt}}</td>
+        <td>{{vatMinus sum_code05Amt}}</td>
         <td>{{addComma sum_code06Cnt}}</td>
-        <td>{{addComma sum_code06Amt}}</td>
+        <td>{{vatMinus sum_code06Amt}}</td>
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td>소계</td>
-        <td style="color:green;font-weight: bold">{{addComma sum_ios_total_cnt}}<br/>({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="color:green;font-weight: bold">{{addComma sum_ios_total_amt}}<br/>({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
+        <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}<br/>({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
+        <td style="color:#ff5600;font-weight: bold">{{vatMinus sum_ios_total_amt}}<br/>({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma sum_code07Cnt}}</td>
-        <td>{{addComma sum_code07Amt}}</td>
+        <td>{{vatMinus sum_code07Amt}}</td>
         <td>{{addComma sum_code08Cnt}}</td>
-        <td>{{addComma sum_code08Amt}}</td>
+        <td>{{vatMinus sum_code08Amt}}</td>
         <td>{{addComma sum_code09Cnt}}</td>
-        <td>{{addComma sum_code09Amt}}</td>
+        <td>{{vatMinus sum_code09Amt}}</td>
         <td>{{addComma sum_code10Cnt}}</td>
-        <td>{{addComma sum_code10Amt}}</td>
+        <td>{{vatMinus sum_code10Amt}}</td>
         <td>{{addComma sum_code11Cnt}}</td>
-        <td>{{addComma sum_code11Amt}}</td>
+        <td>{{vatMinus sum_code11Amt}}</td>
         <td>{{addComma sum_code12Cnt}}</td>
-        <td>{{addComma sum_code12Amt}}</td>
+        <td>{{vatMinus sum_code12Amt}}</td>
     </tr>
 </script>
 
@@ -249,19 +249,19 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma android_total_cnt}}<br/>({{average android_total_cnt sum_android_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{addComma android_total_amt}}<br/>({{average android_total_amt sum_android_total_amt}}%)</td>
+        <td style="font-weight: bold">{{vatMinus android_total_amt}}<br/>({{average android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma code01Cnt}}</td>
-        <td>{{addComma code01Amt}}</td>
+        <td>{{vatMinus code01Amt}}</td>
         <td>{{addComma code02Cnt}}</td>
-        <td>{{addComma code02Amt}}</td>
+        <td>{{vatMinus code02Amt}}</td>
         <td>{{addComma code03Cnt}}</td>
-        <td>{{addComma code03Amt}}</td>
+        <td>{{vatMinus code03Amt}}</td>
         <td>{{addComma code04Cnt}}</td>
-        <td>{{addComma code04Amt}}</td>
+        <td>{{vatMinus code04Amt}}</td>
         <td>{{addComma code05Cnt}}</td>
-        <td>{{addComma code05Amt}}</td>
+        <td>{{vatMinus code05Amt}}</td>
         <td>{{addComma code06Cnt}}</td>
-        <td>{{addComma code06Amt}}</td>
+        <td>{{vatMinus code06Amt}}</td>
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
@@ -269,19 +269,19 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma ios_total_cnt}}<br/>({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{addComma ios_total_amt}}<br/>({{average ios_total_amt sum_ios_total_amt}}%)</td>
+        <td style="font-weight: bold">{{vatMinus ios_total_amt}}<br/>({{average ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma code07Cnt}}</td>
-        <td>{{addComma code07Amt}}</td>
+        <td>{{vatMinus code07Amt}}</td>
         <td>{{addComma code08Cnt}}</td>
-        <td>{{addComma code08Amt}}</td>
+        <td>{{vatMinus code08Amt}}</td>
         <td>{{addComma code09Cnt}}</td>
-        <td>{{addComma code09Amt}}</td>
+        <td>{{vatMinus code09Amt}}</td>
         <td>{{addComma code10Cnt}}</td>
-        <td>{{addComma code10Amt}}</td>
+        <td>{{vatMinus code10Amt}}</td>
         <td>{{addComma code11Cnt}}</td>
-        <td>{{addComma code11Amt}}</td>
+        <td>{{vatMinus code11Amt}}</td>
         <td>{{addComma code12Cnt}}</td>
-        <td>{{addComma code12Amt}}</td>
+        <td>{{vatMinus code12Amt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>

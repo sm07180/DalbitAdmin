@@ -47,4 +47,13 @@
             $(this).css('color', fontcolor);
         }
     });
+    $('._noBorder').each(function () {
+        var noborderwidth = $(this).data('noborderwidth');
+        $(this).css("background-color", 'white')
+            .css("border-bottom", "hidden")
+            .css("border-top", "hidden");
+        if (noborderwidth != null && noborderwidth != '') {
+            $(this).css("width", noborderwidth);
+        }
+    });
 </script>
