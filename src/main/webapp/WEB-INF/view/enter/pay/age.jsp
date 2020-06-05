@@ -116,8 +116,8 @@
 <script type="text/x-handlebars-template" id="tmp_age">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="color:green;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
-        <td style="color:green;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td style="color: blue;">{{addComma sum_maleCnt}}</td>
         <td style="color: blue;">{{vatMinus sum_maleAmt}}</td>
         <td style="color: red;">{{addComma sum_femaleCnt}}</td>
@@ -126,8 +126,8 @@
         <td>{{vatMinus sum_noneAmt}}</td>
         <td style="background-color: white;border-bottom: hidden;"></td>
         <td>소계</td>
-        <td style="color:green;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
-        <td style="color:green;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
+        <td style="color:#ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_age10Cnt}}</td>
         <td>{{vatMinus sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>

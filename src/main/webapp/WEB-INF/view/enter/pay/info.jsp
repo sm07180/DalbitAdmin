@@ -382,7 +382,7 @@
             <td>{{addComma inapp_cnt}}</td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
-        <tr  style="color: green">
+        <tr  style="color: #66a449">
             <th>부가세 포함 금액</th>
             <td>{{addComma mc_amt}}</td>
             <td>{{addComma cn_amt}}</td>
@@ -390,7 +390,8 @@
             <td>{{addComma inapp_amt}}</td>
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
-        <tr style="color: orange">
+
+        <tr style="color: #ff5600">
             <th><b>부가세 제외 금액</b></th>
             <td>{{vatMinus mc_amt}}</td>
             <td>{{vatMinus cn_amt}}</td>
@@ -452,7 +453,7 @@
             <td>{{addComma age60_cnt}}</td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
-        <tr style="color: green;">
+        <tr style="color: #66a449;">
             <th>부가세 포함 금액</th>
             <td><label style="color: blue">{{addComma male_amt}}</label></td>
             <td><label style="color: red">{{addComma female_amt}}</label></td>
@@ -468,7 +469,7 @@
             <td>{{addComma age60_amt}}</td>
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
-        <tr style="color: orange;">
+        <tr style="color: #ff5600;">
             <th><b>부가세 제외 금액</b></th>
             <td style="color: blue;">{{vatMinus male_amt}}</td>
             <td style="color: red;">{{vatMinus female_amt}}</td>
@@ -552,7 +553,7 @@
             <td>{{addComma code12_cnt}}</td>
             <td><b>{{addComma ios_total_cnt}}</b></td>
         </tr>
-        <tr  style="color: green;">
+        <tr  style="color: #66a449;">
             <th>부가세 포함 금액</th>
             <td>{{addComma code01_amt}}</td>
             <td>{{addComma code02_amt}}</td>
@@ -571,7 +572,7 @@
             <td>{{addComma code12_amt}}</td>
             <td><b>{{addComma ios_total_amt}}</b></td>
         </tr>
-        <tr style="color: orange;">
+        <tr style="color: #ff5600;">
             <th><label class="font-bold">부가세 제외 금액</label></th>
             <td>{{vatMinus code01_amt}}</td>
             <td>{{vatMinus code02_amt}}</td>
@@ -621,14 +622,14 @@
         <tr>
             <th colspan="2">총 결제 건/(부가세 포함) 매출</th>
         </tr>
-        <tr style="color: green;">
+        <tr style="color: #66a449;">
             <td><b>{{total_cnt}} 건</b></td>
             <td><b>{{addComma total_amt}} 원</b></td>
         </tr>
         <tr>
             <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
         </tr>
-        <tr  style="color: orange;">
+        <tr  style="color: #ff5600;">
             <td><b>{{total_cnt}} 건</b></td>
             <td><b>{{vatMinus total_amt}} 원</b></td>
         </tr>
