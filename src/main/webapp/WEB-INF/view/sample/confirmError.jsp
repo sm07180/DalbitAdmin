@@ -22,6 +22,7 @@
                                     <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
                                 </div>
                                 <span id="osTypeArea"></span>
+                                <span id="searchTypeArea"></span>
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="description 검색창"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -108,6 +109,8 @@
 
     function init() {
         $("#osTypeArea").html(util.getCommonCodeSelect(-1, search_osType));
+        $("#searchTypeArea").html(util.getCommonCodeSelect(-1, search_searchType));
+
 
         $('#txt_startSel').datepicker("setDate", new Date());
         $('#txt_endSel').datepicker("setDate", new Date());
@@ -202,7 +205,7 @@
     </tr>
     {{else}}
     <tr>
-        <td colspan="7">{{isEmptyData}}</td>
+        <td colspan="8">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>

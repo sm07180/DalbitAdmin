@@ -43,7 +43,23 @@
                 and ostype = #{ostype}
             </if>
             <if test='searchText != null and searchText != ""'>
-                and upper(`desc`) like concat ('%', upper(#{searchText}), '%')
+                <choose>
+                    <when test='searchType == "mem_no"'>
+                        and mem_no like  concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == "description"'>
+                        and upper(`desc`) like concat ('%', upper(#{searchText}), '%')
+                    </when>
+                    <when test='searchType == "ctype"'>
+                        and upper(ctype) like concat ('%', upper(#{searchText}), '%')
+                    </when>
+                    <otherwise>
+                        and (mem_no like concat ('%', #{searchText}, '%')
+                            or upper(`desc`) like concat ('%', upper(#{searchText}), '%')
+                            or upper(ctype) like concat ('%', upper(#{searchText}), '%')
+                        )
+                    </otherwise>
+                </choose>
             </if>
         </where>
     </sql>
