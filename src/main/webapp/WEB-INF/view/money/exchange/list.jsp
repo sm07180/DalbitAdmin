@@ -48,7 +48,7 @@
                     <div class="row col-lg-12">
 
                         <div>
-                            <div class="pt10 col-lg-4">
+                            <div class="pt10 col-lg-6">
                                 <ul>
                                     <li>환전완료 정보를 확인하고, 처리 불가 회원에 대한 응대를 할 수 있습니다.</li>
                                     <li>경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</li>
@@ -62,59 +62,83 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-8">
+                            <div class="col-lg-6">
                                 <table class="table table-bordered table-summary pull-right">
                                     <thead>
-                                    <tr>
-                                        <th colspan="7">일반회원</th>
-                                    </tr>
-                                    <tr>
-                                        <th>신청 인원</th>
-                                        <th>신청 별 수</th>
-                                        <th>신청 금액</th>
-                                        <th>완료 별 수</th>
-                                        <th>완료 금액</th>
-                                        <th>불가 별 수</th>
-                                        <th>불가 처리 금액</th>
-                                    </tr>
+                                        <tr>
+                                            <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#04CF2C" data-fontcolor="white">일반회원</th>
+                                        </tr>
+                                        <tr>
+                                            <th>상태</th>
+                                            <th>건 수</th>
+                                            <th>금액</th>
+                                            <th>요청 별</th>
+                                        </tr>
                                     </thead>
                                     <tbody id="tb_user_summary">
-                                    <tr>
-                                        <td><span>0</span>명</td>
-                                        <td><span>0</span>별</td>
-                                        <td><span>0</span>원</td>
-                                        <td><span>0</span>별</td>
-                                        <td><span>0</span>원</td>
-                                        <td><span>0</span>별</td>
-                                        <td><span>0</span>원</td>
-                                    </tr>
+                                        <tr>
+                                            <td>미처리</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
+                                        </tr>
+                                        <tr>
+                                            <td>처리완료</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
+                                        </tr>
+                                        <tr>
+                                            <td>처리불가</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
+                                        </tr>
+                                        <tr>
+                                            <td>합계</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
+                                        </tr>
                                     </tbody>
                                 </table>
 
                                 <table class="table table-bordered table-summary pull-right">
                                     <thead>
-                                    <tr>
-                                        <th colspan="7">스페셜DJ</th>
-                                    </tr>
-                                    <tr>
-                                        <th>신청 인원</th>
-                                        <th>신청 별 수</th>
-                                        <th>신청 금액</th>
-                                        <th>완료 별 수</th>
-                                        <th>완료 금액</th>
-                                        <th>불가 별 수</th>
-                                        <th>불가 처리 금액</th>
-                                    </tr>
+                                        <tr>
+                                            <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#ffa100" data-fontcolor="white">스페셜DJ</th>
+                                        </tr>
+                                        <tr>
+                                            <th>상태</th>
+                                            <th>건 수</th>
+                                            <th>금액</th>
+                                            <th>요청 별</th>
+                                        </tr>
                                     </thead>
                                     <tbody id="tb_special_summary">
                                         <tr>
-                                            <td><span>0</span>명</td>
-                                            <td><span>0</span>별</td>
-                                            <td><span>0</span>원</td>
-                                            <td><span>0</span>별</td>
-                                            <td><span>0</span>원</td>
-                                            <td><span>0</span>별</td>
-                                            <td><span>0</span>원</td>
+                                            <td>미처리</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
+                                        </tr>
+                                        <tr>
+                                            <td>처리완료</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
+                                        </tr>
+                                        <tr>
+                                            <td>처리불가</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
+                                        </tr>
+                                        <tr>
+                                            <td>합계</td>
+                                            <td>00건</td>
+                                            <td>0건</td>
+                                            <td>0건</td>
                                         </tr>
                                     </tbody>
                                 </table>
