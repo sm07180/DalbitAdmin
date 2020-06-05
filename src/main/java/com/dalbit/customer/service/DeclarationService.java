@@ -45,6 +45,12 @@ public class DeclarationService {
 
         ArrayList<P_DeclarationListOutputVo> declareList = declarationDao.callServiceCenterReportList(procedureVo);
 
+        for(int i=0;i<declareList.size();i ++ ){
+            P_DeclarationListOutputVo outVo = declarationDao.getReportCount(declareList.get(i).getReported_mem_no());
+            declareList.get(i).setTotalReportedCnt(outVo.getTotalReportedCnt());
+            declareList.get(i).setTotalOpCnt(outVo.getTotalOpCnt());
+        }
+
         String result;
 
         if(declareList.size() > 0) {

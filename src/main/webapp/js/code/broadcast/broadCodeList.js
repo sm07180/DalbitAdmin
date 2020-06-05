@@ -117,21 +117,6 @@ var like_summary = [
     ,new COMMON_CODE('','boosterCnt','청취자 부스터')
 ];
 
-var gift_summary = [
-    new COMMON_CODE('','giftCnt','방송 중 선물')
-    ,new COMMON_CODE('','male','<label style="color: blue">남자</label>')
-    ,new COMMON_CODE('','female','<label style="color: red">여자</label>')
-    ,new COMMON_CODE('','none','미지정')
-];
-
-var story_summary = [
-    new COMMON_CODE('','storyCnt','방송 중 사연')
-    ,new COMMON_CODE('','male','<label style="color: blue">남자</label>')
-    ,new COMMON_CODE('','female','<label style="color: red">여자</label>')
-    ,new COMMON_CODE('','none','미지정')
-];
-
-
 var chat_summary = [
     new COMMON_CODE('','chatCnt','채팅참여자')
     ,new COMMON_CODE('','djCnt','달D')

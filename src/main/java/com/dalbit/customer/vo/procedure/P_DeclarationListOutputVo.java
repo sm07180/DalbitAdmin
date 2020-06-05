@@ -30,6 +30,9 @@ public class P_DeclarationListOutputVo extends BaseVo {
     private String opDateFormat;
     private String regDateFormat;
 
+    private int totalReportedCnt;
+    private int totalOpCnt;
+
     public void setRegDate(Date regDate) {
         this.regDate = regDate;
         this.regDateFormat = DalbitUtil.convertDateFormat(regDate, "yyyy.MM.dd HH:mm:ss");
