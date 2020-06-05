@@ -529,8 +529,10 @@ public class Mem_MemberService {
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
-        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+//        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+//        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+        pMemberReportVo.setNotiContents("운영자에게 선물이 도착했습니다.");
+        pMemberReportVo.setNotimemo("운영자에게 선물이 도착했습니다.");
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
 
@@ -580,8 +582,10 @@ public class Mem_MemberService {
         //notice
         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
         pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
-        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+//        pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+//        pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
+        pMemberReportVo.setNotiContents("운영자에게 선물이 도착했습니다.");
+        pMemberReportVo.setNotimemo("운영자에게 선물이 도착했습니다.");
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
         if(pMemberEditorVo.getAddByeolCnt() > 0){
