@@ -7,10 +7,13 @@ var payDataTableSource = {
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
+            ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }}
             , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -97,10 +100,13 @@ var payDataTableSource = {
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
+            ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }}
             , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -168,10 +174,13 @@ var payDataTableSource = {
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
+            ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }}
             , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -229,10 +238,13 @@ var payDataTableSource = {
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
+            ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }}
             , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);

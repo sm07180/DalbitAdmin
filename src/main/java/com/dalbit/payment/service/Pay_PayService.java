@@ -1,12 +1,12 @@
 package com.dalbit.payment.service;
 
+import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
-import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
-import com.dalbit.member.vo.procedure.P_MemberListInputVo;
-import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.payment.dao.Pay_PayDao;
 import com.dalbit.payment.vo.Pay_PayInputVo;
 import com.dalbit.payment.vo.Pay_PayOutputVo;
@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.dalbit.common.code.*;
 import org.springframework.ui.Model;
 
 import java.util.*;
@@ -33,6 +32,8 @@ public class Pay_PayService {
 
     @Autowired
     ExcelService excelService;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     /**
      *  결제 목록 조회
@@ -47,6 +48,13 @@ public class Pay_PayService {
 
         //summary
         Pay_PayOutputVo summary = payPayDao.getPaySummary(pay_PayInputVo);
+
+        for(int i=0;i<list.size();i++){
+            MemberVo outVo = mem_MemberDao.getMemberInfo(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                list.get(i).setMem_sex(outVo.getMem_sex());
+            }
+        }
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(getPayListCnt),summary));
 

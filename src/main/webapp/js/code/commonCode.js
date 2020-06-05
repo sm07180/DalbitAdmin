@@ -71,15 +71,15 @@ var progressStatus = [
 var gender = [
     new COMMON_CODE(null, 'gender', '성별구분')
     , new COMMON_CODE('all', '1', '전체')
-    , new COMMON_CODE('man', '2', '<label style="color: blue">남자</label>')
-    , new COMMON_CODE('female', '3', '<label style="color: red">여자</label>')
+    , new COMMON_CODE('man', '2', '<label class="font-bold" style="color: blue">남성</label>')
+    , new COMMON_CODE('female', '3', '<label class="font-bold" style="color: red">여성</label>')
     // , new COMMON_CODE('unknown', '-1', '알수없음')
 ];
 
 var memSex = [
     new COMMON_CODE(null, 'memSex', '성별구분')
-    , new COMMON_CODE('man', 'm', '<label style="color: blue">남자</label>')
-    , new COMMON_CODE('female', 'f', '<label style="color: red">여자</label>')
+    , new COMMON_CODE('man', 'm', '<label class="font-bold" style="color: blue">남성</label>')
+    , new COMMON_CODE('female', 'f', '<label class="font-bold" style="color: red">여성</label>')
     , new COMMON_CODE('unknown', 'n', '알수없음')
 ];
 

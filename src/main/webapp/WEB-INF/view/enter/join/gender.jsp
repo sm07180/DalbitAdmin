@@ -17,8 +17,8 @@
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
-                <th colspan="7"><label style="color: blue">가입자(남성)</label></th>
-                <th colspan="7"><label style="color: red">가입자(여성)</label></th>
+                <th class="_sex_male" colspan="7"></th>
+                <th class="_sex_female" colspan="7"></th>
                 <th rowspan="2">알 수 없음</th>
             </tr>
             <tr>
@@ -85,20 +85,20 @@
 <script type="text/x-handlebars-template" id="tmp_genderTotal">
     <tr class="success font-bold">
         <td>소계</td>
-        <td>{{addComma sum_totalMCnt}}</td>
-        <td>{{addComma sum_age10MCnt}}</td>
-        <td>{{addComma sum_age20MCnt}}</td>
-        <td>{{addComma sum_age30MCnt}}</td>
-        <td>{{addComma sum_age40MCnt}}</td>
-        <td>{{addComma sum_age50MCnt}}</td>
-        <td>{{addComma sum_age60MCnt}}</td>
-        <td>{{addComma sum_totalFCnt}}</td>
-        <td>{{addComma sum_age10FCnt}}</td>
-        <td>{{addComma sum_age20FCnt}}</td>
-        <td>{{addComma sum_age30FCnt}}</td>
-        <td>{{addComma sum_age40FCnt}}</td>
-        <td>{{addComma sum_age50FCnt}}</td>
-        <td>{{addComma sum_age60FCnt}}</td>
+        <td style="color: blue">{{addComma sum_totalMCnt}}</td>
+        <td style="color: blue">{{addComma sum_age10MCnt}}</td>
+        <td style="color: blue">{{addComma sum_age20MCnt}}</td>
+        <td style="color: blue">{{addComma sum_age30MCnt}}</td>
+        <td style="color: blue">{{addComma sum_age40MCnt}}</td>
+        <td style="color: blue">{{addComma sum_age50MCnt}}</td>
+        <td style="color: blue">{{addComma sum_age60MCnt}}</td>
+        <td style="color: red">{{addComma sum_totalFCnt}}</td>
+        <td style="color: red">{{addComma sum_age10FCnt}}</td>
+        <td style="color: red">{{addComma sum_age20FCnt}}</td>
+        <td style="color: red">{{addComma sum_age30FCnt}}</td>
+        <td style="color: red">{{addComma sum_age40FCnt}}</td>
+        <td style="color: red">{{addComma sum_age50FCnt}}</td>
+        <td style="color: red">{{addComma sum_age60FCnt}}</td>
         <td>{{addComma sum_totalNCnt}}</td>
     </tr>
 </script>
@@ -111,20 +111,20 @@
                 {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
                 {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
             </td>
-            <td>{{addComma totalMCnt}}</td>
-            <td>{{addComma age10MCnt}}</td>
-            <td>{{addComma age20MCnt}}</td>
-            <td>{{addComma age30MCnt}}</td>
-            <td>{{addComma age40MCnt}}</td>
-            <td>{{addComma age50MCnt}}</td>
-            <td>{{addComma age60MCnt}}</td>
-            <td>{{addComma totalFCnt}}</td>
-            <td>{{addComma age10FCnt}}</td>
-            <td>{{addComma age20FCnt}}</td>
-            <td>{{addComma age30FCnt}}</td>
-            <td>{{addComma age40FCnt}}</td>
-            <td>{{addComma age50FCnt}}</td>
-            <td>{{addComma age60FCnt}}</td>
+            <td style="color: blue">{{addComma totalMCnt}}</td>
+            <td style="color: blue">{{addComma age10MCnt}}</td>
+            <td style="color: blue">{{addComma age20MCnt}}</td>
+            <td style="color: blue">{{addComma age30MCnt}}</td>
+            <td style="color: blue">{{addComma age40MCnt}}</td>
+            <td style="color: blue">{{addComma age50MCnt}}</td>
+            <td style="color: blue">{{addComma age60MCnt}}</td>
+            <td style="color: red">{{addComma totalFCnt}}</td>
+            <td style="color: red">{{addComma age10FCnt}}</td>
+            <td style="color: red">{{addComma age20FCnt}}</td>
+            <td style="color: red">{{addComma age30FCnt}}</td>
+            <td style="color: red">{{addComma age40FCnt}}</td>
+            <td style="color: red">{{addComma age50FCnt}}</td>
+            <td style="color: red">{{addComma age60FCnt}}</td>
             <td>{{addComma totalNCnt}}</td>
         </tr>
     {{else}}

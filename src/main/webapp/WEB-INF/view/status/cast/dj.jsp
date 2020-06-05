@@ -23,8 +23,8 @@
             </tr>
 
             <tr>
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male"></th>
+                <th class="_sex_female">{{{sexIcon 'f'}}}</th>
                 <th>알 수 없음</th>
 
                 <th>10대</th>

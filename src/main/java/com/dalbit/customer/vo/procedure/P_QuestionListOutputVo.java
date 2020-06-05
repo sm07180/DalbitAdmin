@@ -15,6 +15,7 @@ public class P_QuestionListOutputVo extends BaseVo {
     private String mem_no;
     private String mem_userid;
     private String mem_nick;
+    private String mem_sex;
     private String mem_phone;
     private int mem_level;
     private String mem_grade;

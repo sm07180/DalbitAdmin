@@ -19,6 +19,7 @@ public class P_MemberGiftOutputVo extends SearchVo {
     private String item_type;
     private String userId;
     private String nickName;
+    private String mem_sex;
     private int level;
     private String grade;
     private Date giftDate;

@@ -420,8 +420,8 @@
         <thead>
         <tr>
             <th><u onclick="click_age();">※결제 성별</u></th>
-            <th><label class="font-bold" style="color: blue"><i class="fa fa-male"></i> 남성</label></th>
-            <th><label class="font-bold" style="color: red"><i class="fa fa-female"></i> 여성</label></th>
+            <th class="_sex_male"></th>
+            <th class="_sex_female"></th>
             <th>알수없음</th>
             <th>총 합</th>
             <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>

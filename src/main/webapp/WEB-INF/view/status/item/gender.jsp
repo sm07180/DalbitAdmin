@@ -16,8 +16,8 @@
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">소개</th>
-                <th colspan="2"><label style="color: blue">남성</label></th>
-                <th colspan="2"><label style="color: red">여성</label></th>
+                <th colspan="2" class="_sex_male"></th>
+                <th colspan="2" class="_sex_female"></th>
                 <th colspan="2">알수없음</th>
             </tr>
             <tr>
@@ -82,10 +82,10 @@
         <td>소계</td>
         <td>{{addComma sum_totalCnt}}</td>
         <td>{{addComma sum_totalAmt}}</td>
-        <td>{{addComma sum_maleCnt}}</td>
-        <td>{{addComma sum_maleAmt}}</td>
-        <td>{{addComma sum_femaleCnt}}</td>
-        <td>{{addComma sum_femaleAmt}}</td>
+        <td style="color: blue">{{addComma sum_maleCnt}}</td>
+        <td style="color: blue">{{addComma sum_maleAmt}}</td>
+        <td style="color: red">{{addComma sum_femaleCnt}}</td>
+        <td style="color: red">{{addComma sum_femaleAmt}}</td>
         <td>{{addComma sum_noneCnt}}</td>
         <td>{{addComma sum_noneAmt}}</td>
     </tr>
@@ -101,10 +101,10 @@
         </td>
         <td>{{addComma totalCnt}}</td>
         <td>{{addComma totalAmt}}</td>
-        <td>{{addComma maleCnt}}</td>
-        <td>{{addComma maleAmt}}</td>
-        <td>{{addComma femaleCnt}}</td>
-        <td>{{addComma femaleAmt}}</td>
+        <td style="color: blue">{{addComma maleCnt}}</td>
+        <td style="color: blue">{{addComma maleAmt}}</td>
+        <td style="color: red">{{addComma femaleCnt}}</td>
+        <td style="color: red">{{addComma femaleAmt}}</td>
         <td>{{addComma noneCnt}}</td>
         <td>{{addComma noneAmt}}</td>
     </tr>

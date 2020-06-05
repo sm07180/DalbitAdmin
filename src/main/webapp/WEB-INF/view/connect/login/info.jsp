@@ -247,7 +247,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_loginLive">
     <tr>
-        <th><label class="font-bold" style="color: blue">남성</label></th>
+        <th>{{{sexIcon 'm'}}}</th>
         <td>{{addComma m_now_cnt}}</td>
         <td>{{addComma m_yes_cnt}}</td>
         <td class="{{upAndDownClass m_now_inc_cnt}}"><i class="fa {{upAndDownIcon m_now_inc_cnt}}"></i> {{addComma m_now_inc_cnt}}</td>
@@ -259,7 +259,7 @@
         <td class="{{upAndDownClass m_month_inc_cnt}}"><i class="fa {{upAndDownIcon m_month_inc_cnt}}"></i> {{addComma m_month_inc_cnt}}</td>
     </tr>
     <tr>
-        <th><label class="font-bold" style="color: red">여성</label></th>
+        <th>{{{sexIcon 'f'}}}</th>
         <td>{{addComma f_now_cnt}}</td>
         <td>{{addComma f_yes_cnt}}</td>
         <td class="{{upAndDownClass f_now_inc_cnt}}"><i class="fa {{upAndDownIcon f_now_inc_cnt}}"></i> {{addComma f_now_inc_cnt}}</td>

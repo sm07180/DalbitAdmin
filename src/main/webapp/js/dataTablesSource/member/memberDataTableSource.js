@@ -22,6 +22,9 @@ var MemberDataTableSource = {
                     }
                 }},
             {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '이름', 'data': 'mem_name', 'width':'100px'},
             {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
             {'title': 'IP', 'data': 'ip', 'width':'100px'},
@@ -48,6 +51,9 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': '닉네임', 'data': 'mem_nick', 'width':'100px'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '이름', 'data': 'mem_name', 'width':'100px'},
             {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
             {'title': 'IP', 'data': 'ip', 'width':'100px'},
@@ -67,6 +73,9 @@ var MemberDataTableSource = {
                     return '<a href="javascript://" class="getMemberDetail" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
                 }},
              {'title': '닉네임', 'data': 'mem_nick', 'width':'80px'},
+             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
              {'title': '연락처', 'data': 'mem_phone', 'width':'80px'},
              {'title': '가입플랫폼', 'data': 'mem_slct', 'width':'80px', 'render': function (data) {
                     return util.renderSlct(data,"30");
@@ -133,6 +142,9 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.dj_mem_no);
                 }},
             {'title': 'DJ닉네임', 'data': 'dj_nickName', 'width':'100px'},
+            {'title': '성별', 'data': 'dj_mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '청취방주제', 'data': 'subject_type', 'width':'100px','render' : function(data){
                     return util.getCommonCodeLabel(data, subject_type);
                 }},
@@ -207,6 +219,9 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '구분', 'data': 'gubun'},
             {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
                     return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
@@ -231,6 +246,9 @@ var MemberDataTableSource = {
             {'title': '회원번호', 'data': 'mem_no'},
             {'title': 'User ID', 'data': 'mem_userid'},
             {'title': 'User 닉네임', 'data': 'mem_nick'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '구분', 'data': 'use_contents'},
             {'title': '이미지', 'data': 'image','width':'50px','render' : function (data, type, row, meta) {
                     return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
@@ -272,6 +290,9 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no_star);
                 }},
             {'title': 'MyStar 닉네임', 'data': 'mem_no_start_nick'},
+            {'title': '성별', 'data': 'star_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '아이템보낸 건 수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
                     return common.addComma(data) + "건";
                 }},
@@ -289,6 +310,9 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no_fan);
                 }},
             {'title': 'Fan 닉네임', 'data': 'mem_no_fan_nick'},
+            {'title': '성별', 'data': 'fan_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '아이템보낸 건 수', 'data': 'accumCnt', 'width':'120px', 'render': function (data) {
                     return common.addComma(data) + "건";
                 }},
@@ -328,6 +352,9 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.writer_mem_no);
                 }},
             {'title': '팬닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'memSex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '등록일시', 'data': 'writeDateFormat'},
             {'title': '작성내용', 'data': 'contents','width' : '400px'},
             {'title': '상태', 'data': 'STATUS', 'render':function(data){
@@ -355,10 +382,16 @@ var MemberDataTableSource = {
             ,{'title': '신고자 UserID', 'data': 'mem_userid', 'render': function (data, type, row) {
                     return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
             ,{'title': '신고자 User닉네임', 'data': 'mem_nick'}
+            ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }}
             ,{'title': '신고 대상 UserID', 'data': 'reported_userid', 'render': function (data, type, row) {
                     return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}
                 , 'defaultContent': '-'}
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_nick'}
+            ,{'title': '성별', 'data': 'reported_mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }}
             ,{'title': '접수 일시', 'data': 'regDateFormat'}
             ,{'title': '처리 일시', 'data': 'opDateFormat', 'defaultContent':'-'}
             ,{'title': '처리 상태', 'data': 'op_code', 'name': 'slctType', 'render' : function(data) {
@@ -383,6 +416,9 @@ var MemberDataTableSource = {
                     return tmp;
                 }},
             {'title': '문의자닉네임', 'data': 'mem_nick','width':'100px'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '문의제목', 'data': 'question_title','width':'250px','render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+meta.row+');">'+data+'</a>'
                 }},

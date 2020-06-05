@@ -22,16 +22,16 @@
                 <th colspan="3">PC</th>
             </tr>
             <tr>
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male"></th>
+                <th class="_sex_female"></th>
                 <th>알 수 없음</th>
 
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male"></th>
+                <th class="_sex_female"></th>
                 <th>알 수 없음</th>
 
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male"></th>
+                <th class="_sex_female"></th>
                 <th>알 수 없음</th>
             </tr>
             </thead>
@@ -83,14 +83,14 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_androidMCnt}}</td>
-        <td>{{addComma sum_androidFCnt}}</td>
+        <td style="color: blue">{{addComma sum_androidMCnt}}</td>
+        <td style="color: red">{{addComma sum_androidFCnt}}</td>
         <td>{{addComma sum_androidNCnt}}</td>
-        <td>{{addComma sum_iosMCnt}}</td>
-        <td>{{addComma sum_iosFCnt}}</td>
+        <td style="color: blue">{{addComma sum_iosMCnt}}</td>
+        <td style="color: red">{{addComma sum_iosFCnt}}</td>
         <td>{{addComma sum_iosNCnt}}</td>
-        <td>{{addComma sum_pcMCnt}}</td>
-        <td>{{addComma sum_pcFCnt}}</td>
+        <td style="color: blue">{{addComma sum_pcMCnt}}</td>
+        <td style="color: red">{{addComma sum_pcFCnt}}</td>
         <td>{{addComma sum_pcNCnt}}</td>
     </tr>
 </script>
@@ -104,14 +104,14 @@
                 {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
             </td>
             <td>{{addComma totalCnt}}</td>
-            <td>{{addComma androidMCnt}}</td>
-            <td>{{addComma androidFCnt}}</td>
+            <td style="color: blue">{{addComma androidMCnt}}</td>
+            <td style="color: red">{{addComma androidFCnt}}</td>
             <td>{{addComma androidNCnt}}</td>
-            <td>{{addComma iosMCnt}}</td>
-            <td>{{addComma iosFCnt}}</td>
+            <td style="color: blue">{{addComma iosMCnt}}</td>
+            <td style="color: red">{{addComma iosFCnt}}</td>
             <td>{{addComma iosNCnt}}</td>
-            <td>{{addComma pcMCnt}}</td>
-            <td>{{addComma pcFCnt}}</td>
+            <td style="color: blue">{{addComma pcMCnt}}</td>
+            <td style="color: red">{{addComma pcFCnt}}</td>
             <td>{{addComma pcNCnt}}</td>
         </tr>
     {{else}}

@@ -17,8 +17,8 @@
             <tr>
                 <th>시간대</th>
                 <th>소계</th>
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male"></th>
+                <th class="_sex_female"></th>
                 <th>알 수 없음</th>
                 <th>10대</th>
                 <th>20대</th>
@@ -77,8 +77,8 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_maleCnt}}</td>
-        <td>{{addComma sum_femaleCnt}}</td>
+        <td style="color: blue">{{addComma sum_maleCnt}}</td>
+        <td style="color: red">{{addComma sum_femaleCnt}}</td>
         <td>{{addComma sum_noneCnt}}</td>
         <td>{{addComma sum_age10Cnt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
@@ -98,8 +98,8 @@
                 {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
             </td>
             <td>{{addComma totalCnt}}</td>
-            <td>{{addComma maleCnt}}</td>
-            <td>{{addComma femaleCnt}}</td>
+            <td style="color: blue">{{addComma maleCnt}}</td>
+            <td style="color: red">{{addComma femaleCnt}}</td>
             <td>{{addComma noneCnt}}</td>
             <td>{{addComma age10Cnt}}</td>
             <td>{{addComma age20Cnt}}</td>

@@ -8,6 +8,7 @@ import com.dalbit.customer.dao.DeclarationDao;
 import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -36,6 +37,8 @@ public class DeclarationService {
 
     @Autowired
     MessageUtil messageUtil;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     /**
      * 신고 목록 조회
@@ -50,6 +53,18 @@ public class DeclarationService {
             declareList.get(i).setTotalReportedCnt(outVo.getTotalReportedCnt());
             declareList.get(i).setTotalOpCnt(outVo.getTotalOpCnt());
         }
+
+        for(int i=0;i<declareList.size();i++){
+            MemberVo outVo = mem_MemberDao.getMemberInfo(declareList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                declareList.get(i).setMem_sex(outVo.getMem_sex());
+            }
+            MemberVo outVo2 = mem_MemberDao.getMemberInfo(declareList.get(i).getReported_mem_no());
+            if(!DalbitUtil.isEmpty(outVo2)) {
+                declareList.get(i).setReported_mem_sex(outVo2.getMem_sex());
+            }
+        }
+
 
         String result;
 

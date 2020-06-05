@@ -5,6 +5,8 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.Mem_GiftDao;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberChargeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberChargeOutputVo;
 import com.dalbit.member.vo.procedure.P_MemberGiftInputVo;
@@ -26,6 +28,8 @@ public class Mem_GiftService {
     Mem_GiftDao mem_GiftDao;
     @Autowired
     GsonUtil gsonUtil;
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
 
     public String getGiftHistory(P_MemberGiftInputVo pMemberGiftInputVo){
 
@@ -67,6 +71,13 @@ public class Mem_GiftService {
             summary.setAllReceivedSecretDalCnt(ReceivedSceretDalCnt.get(0).getAllReceivedSecretDalCnt());
         }
 
+        for(int i=0;i<giftList.size();i++){
+            MemberVo outVo = mem_MemberDao.getMemberInfo(giftList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                giftList.get(i).setMem_sex(outVo.getMem_sex());
+            }
+        }
+
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.선물내역보기성공, giftList, new PagingVo(memberList_totalCnt),summary));
         return result;
@@ -99,6 +110,13 @@ public class Mem_GiftService {
         summary.setAllDalGiftCnt(allDalGiftCnt);
         summary.setAllDalReceivedCnt(allDalReceivedCnt);
         summary.setAllByeolReceivedCnt(allByeolReceivedCnt);
+
+        for(int i=0;i<chargeList.size();i++){
+            MemberVo outVo = mem_MemberDao.getMemberInfo(chargeList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                chargeList.get(i).setMem_sex(outVo.getMem_sex());
+            }
+        }
 
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.충전선물내역보기_성공, chargeList, new PagingVo(memberList_totalCnt),summary));

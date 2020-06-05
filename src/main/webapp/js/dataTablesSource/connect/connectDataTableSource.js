@@ -9,6 +9,9 @@ var connectDataTableSource = {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': '닉네임', 'data': 'mem_nick'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '이름', 'data': 'mem_name'},
             {'title': '방송횟수/시간', 'data': 'broadcastingCnt', 'render': function (data, type, row, meta) {
                     return data + " / " + common.timeStamp(row.broadcastingTime);

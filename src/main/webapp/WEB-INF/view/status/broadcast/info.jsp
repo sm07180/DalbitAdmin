@@ -163,7 +163,7 @@
     }
 
     function fn_broadSumStatus_success(data, response){
-        var template = $('#tmp_giftLive').html();
+        var template = $('#tmp_broadcastLive').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data.broadCastLiveInfo;
         var html=templateScript(context);

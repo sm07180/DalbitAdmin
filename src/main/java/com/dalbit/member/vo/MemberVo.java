@@ -58,4 +58,30 @@ public class MemberVo{
     private String memState;
     private Date memJoinDate;
     private Date lastUpdDate;
+
+
+    private String mem_no;
+    private String mem_id;
+    private String mem_passwd;
+    private String mem_phone;
+    private String mem_nick;
+    private String mem_userid;
+    private String mem_name;
+    private String mem_email;
+    private String foreign_yn;
+    private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
+    private String mem_slct;
+    private String mem_adid;
+    private String mem_state;
+    private String block_day;
+    private String block_end_date;
+    private String mem_join_date;
+    private String os_type;
+    private String location;
+    private String ip;
+    private String inner;
+    private String last_upd_date;
 }
