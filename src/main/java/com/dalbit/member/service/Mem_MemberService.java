@@ -353,17 +353,13 @@ public class Mem_MemberService {
         pMemberReportVo.setReported_grade(memberInfo.getGrade());
         mem_MemberDao.callMemberReport(pMemberReportVo);
 
-        int blockDay = 0;
         //회원정보 변경 3-1  4-3    5-7
         if(pMemberReportVo.getSlctType() == 3){
             pMemberReportVo.setBlockDay(1);
-            blockDay = 1;
         }else if(pMemberReportVo.getSlctType() == 4){
             pMemberReportVo.setBlockDay(3);
-            blockDay = 3;
         }else if(pMemberReportVo.getSlctType() == 5){
             pMemberReportVo.setBlockDay(7);
-            blockDay = 7;
         }
         mem_MemberDao.callMemberBasicReport_Edit(pMemberReportVo);
         //notice
@@ -384,22 +380,16 @@ public class Mem_MemberService {
             mem_MemberDao.callMemberWithdrawal_fanDel(pMemberReportVo);
             // 해당 회원번호로 등록된 스타목록 삭제
             mem_MemberDao.callMemberWithdrawal_starDel(pMemberReportVo);
-            blockDay = -1;
         }
 
-        if(blockDay != -1){
+        if(pMemberReportVo.getSlctType() == 2){    // 경고 푸시 발송
             try{    // PUSH 발송
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
                 pPushInsertVo.setSlct_push("34");
                 pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
                 pPushInsertVo.setImage_type("101");
-
-                if(blockDay == 0){  // 경고
-                    pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
-                }else{  // 정지
-                    pPushInsertVo.setSend_cont("운영정책 위반으로 "+ blockDay +"일 서비스 이용이 정지됩니다.");
-                }
 
                 pushService.sendPushReqOK(pPushInsertVo);
             }catch (Exception e){
@@ -542,6 +532,23 @@ public class Mem_MemberService {
         pMemberReportVo.setNotimemo(pMemberEditorVo.getAddDalCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
 
+
+        if(pMemberEditorVo.getAddDalCnt() > 0){
+            try{    // PUSH 발송
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
+                pPushInsertVo.setSlct_push("32");
+                pPushInsertVo.setSend_title("운영자의 선물 도착!!");
+                pPushInsertVo.setSend_cont("운영자에게 선물이 도착했습니다.");
+                pPushInsertVo.setImage_type("102");
+
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 달 추가]");
+            }
+        }
+
+
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
     }
 
@@ -575,6 +582,21 @@ public class Mem_MemberService {
         pMemberReportVo.setNotiContents(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         pMemberReportVo.setNotimemo(pMemberEditorVo.getAddByeolCnt() + " - " + pMemberEditorVo.getPointEditStroy());
         mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
+
+        if(pMemberEditorVo.getAddByeolCnt() > 0){
+            try{    // PUSH 발송
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
+                pPushInsertVo.setSlct_push("32");
+                pPushInsertVo.setSend_title("운영자의 선물 도착!!");
+                pPushInsertVo.setSend_cont("운영자에게 선물이 도착했습니다.");
+                pPushInsertVo.setImage_type("102");
+
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 별 추가]");
+            }
+        }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
     }
