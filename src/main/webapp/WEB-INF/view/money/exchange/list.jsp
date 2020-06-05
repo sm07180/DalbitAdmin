@@ -266,9 +266,9 @@
             }
         });
 
-        $('._summary_total_special_cnt').html(special_total_cnt);
-        $('._summary_total_special_amount').html(special_total_amount);
-        $('._summary_total_special_star').html(special_total_star);
+        $('._summary_total_special_cnt').html(common.addComma(special_total_cnt));
+        $('._summary_total_special_amount').html(common.addComma(special_total_amount));
+        $('._summary_total_special_star').html(common.addComma(special_total_star));
 
 
         var general_total_cnt = 0;
