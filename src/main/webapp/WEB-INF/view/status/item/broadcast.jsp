@@ -19,9 +19,9 @@
                 <th>아이템 명</th>
                 <th>금액</th>
                 <th>판매 량</th>
-                <th>판매 금액</th>
+                <th>판매 달수</th>
                 <th>누적 판매량</th>
-                <th>누적 판매 금액</th>
+                <th>누적 판매 달수</th>
             </tr>
             </thead>
             <tbody id="broadTableBody"></tbody>

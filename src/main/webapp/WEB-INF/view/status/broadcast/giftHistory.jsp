@@ -45,7 +45,7 @@
                 <th>아이템<br />이미지</th>
                 <th>아이템명</th>
                 <th>아이템 수량</th>
-                <th>아이템 금액</th>
+                <th>아이템 달수</th>
                 <%--<th>비밀선물</th>--%>
                 <%--<th>선물받은<br />회원 ID</th>
                 <th>닉네임</th>--%>
@@ -123,7 +123,7 @@
             </td>
             <td>{{item_name}}</td>
             <td>{{addComma itemCnt}}개</td>
-            <td>{{addComma itemAmt}}원</td>
+            <td>{{addComma itemAmt}}개</td>
         </tr>
     {{else}}
         <tr>
