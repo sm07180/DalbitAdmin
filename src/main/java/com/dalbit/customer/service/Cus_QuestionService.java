@@ -11,7 +11,9 @@ import com.dalbit.customer.vo.FaqVo;
 import com.dalbit.customer.vo.procedure.*;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
@@ -29,6 +31,8 @@ public class Cus_QuestionService {
 
     @Autowired
     PushService pushService;
+    @Autowired
+    Mem_MemberDao memMemberDao;
     @Autowired
     Cus_QuestionDao cus_questionDao;
     @Autowired
@@ -91,11 +95,12 @@ public class Cus_QuestionService {
         String result;
         if(Status.일대일문의처리_성공.getMessageCode().equals(procedureVo.getRet())) {
 
-            try{    // PUSH 발송
-                cus_questionDao.callServiceCenterQnaDetail(procedureVo);
-                P_QuestionDetailOutputVo questionDetail = new Gson().fromJson(procedureVo.getExt(), P_QuestionDetailOutputVo.class);
+            cus_questionDao.callServiceCenterQnaDetail(procedureVo);
+            P_QuestionDetailOutputVo questionDetail = new Gson().fromJson(procedureVo.getExt(), P_QuestionDetailOutputVo.class);
 
+            try{    // PUSH 발송
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+
                 pPushInsertVo.setMem_nos(questionDetail.getMem_no());
                 pPushInsertVo.setSlct_push("34");
                 pPushInsertVo.setSend_title("1:1문의 답변이 등록되었어요!");
@@ -104,6 +109,18 @@ public class Cus_QuestionService {
                 pushService.sendPushReqOK(pPushInsertVo);
             }catch (Exception e){
                 log.error("[PUSH 발송 실패 - 일대일문의처리]");
+            }
+
+            try{
+                P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                pMemberReportVo.setReported_mem_no(questionDetail.getMem_no());
+                pMemberReportVo.setSlctType(7);
+                pMemberReportVo.setNotiContents("등록한 1:1문의에 답변이 등록되었습니다.");
+                pMemberReportVo.setNotimemo("등록한 1:1문의에 답변이 등록되었습니다.");
+                memMemberDao.callMemberNotification_Add(pMemberReportVo);
+            }catch (Exception e){
+                log.error("[NOTI 발송 실패 - 일대일문의처리]");
             }
 
             result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_성공));
