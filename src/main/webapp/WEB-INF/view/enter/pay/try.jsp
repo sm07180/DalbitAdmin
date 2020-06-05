@@ -284,17 +284,6 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyTryDetailList">
-    <tr class="_tr_total font-bold" style="background-color: #b4c7e7">
-        <td>합계</td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0.0</td>
-    </tr>
     {{#each this.slctType_date}}
         <tr class="_tr_{{this}}">
             <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
