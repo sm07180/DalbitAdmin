@@ -160,6 +160,18 @@ public class Men_SpecialService {
                 log.error("[PUSH 발송 실패 - 스페셜 DJ 선정]");
             }
 
+            try{
+                P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                pMemberReportVo.setReported_mem_no(specialReqVo.getMem_no());
+                pMemberReportVo.setSlctType(7);
+                pMemberReportVo.setNotiContents("축하해요~ 스페셜 DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요.");
+                pMemberReportVo.setNotimemo("축하해요~ 스페셜 DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요.");
+                memMemberDao.callMemberNotification_Add(pMemberReportVo);
+            }catch (Exception e){
+                log.error("[NOTI 발송 실패 - 스페셜 DJ 선정]");
+            }
+
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_성공));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인완료_실패));
@@ -192,6 +204,18 @@ public class Men_SpecialService {
                 pushService.sendPushReqOK(pPushInsertVo);
             }catch (Exception e){
                 log.error("[PUSH 발송 실패 - 스페셜 DJ 신청 거부]");
+            }
+
+            try{
+                P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                pMemberReportVo.setReported_mem_no(specialReqVo.getMem_no());
+                pMemberReportVo.setSlctType(7);
+                pMemberReportVo.setNotiContents("안타깝지만 스페셜 DJ가 해제되었습니다. 다음에 다시 도전해보세요.");
+                pMemberReportVo.setNotimemo("안타깝지만 스페셜 DJ가 해제되었습니다. 다음에 다시 도전해보세요.");
+                memMemberDao.callMemberNotification_Add(pMemberReportVo);
+            }catch (Exception e){
+                log.error("[NOTI 발송 실패 - 스페셜 DJ 신청 거부]");
             }
 
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인거부_성공));

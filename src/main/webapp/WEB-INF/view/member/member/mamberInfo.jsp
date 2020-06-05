@@ -220,7 +220,7 @@
                 }
                 if(confirm("프로필 이미지를 초기화 하시겠습니까?")){
                     sendNoti = 1;
-                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiContents = memberMessage.profileReset;
                     obj.notiMemo = memberMessage.profileReset;
                     // sockat set
                     obj.profileImage = "";
@@ -244,7 +244,7 @@
                     obj.passwdReset = "Reset";
                     obj.phoneNum = tmp_phone;                   //0
                     sendNoti = 1;
-                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiContents = memberMessage.passwordResetSms;
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;
             }else if(tmp == "bt_resatNick"){
@@ -254,7 +254,7 @@
                 }
                 if(confirm("닉네임을 초기화 하시겠습니까?")) {
                     sendNoti = 1;
-                    obj.notiContents = memberMessage.notiContents;
+                    obj.notiContents = memberMessage.nickNameReset;
                     obj.notiMemo = memberMessage.nickNameReset;
 
                     // sockat set
@@ -301,8 +301,8 @@
                 }
                 if(confirm("성별을 변경 하시겠습니까?")) {
                     obj.photoUrl = PHOTO_SERVER_URL;
-                    sendNoti = 1;
-                    obj.notiContents = memberMessage.notiContents;
+                    sendNoti = 2;
+                    obj.notiContents = memberMessage.profileReset;
                     obj.notiMemo = memberMessage.profileReset;
 
                     // sockat set

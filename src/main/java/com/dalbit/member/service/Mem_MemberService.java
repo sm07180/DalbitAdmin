@@ -227,7 +227,7 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberEditor(procedureVo);
         String result;
         if(Status.회원정보수정성공.getMessageCode().equals(procedureVo.getRet())){
-            if(pMemberEditorVo.getSendNoti().equals("1")) {
+            if(pMemberEditorVo.getSendNoti().equals("1") || pMemberEditorVo.getSendNoti().equals("2")) {        // 1: noti + push + socket, 2: socket
 
                 // option
                 HashMap<String, Object> param = new HashMap<>();
@@ -253,17 +253,18 @@ public class Mem_MemberService {
 
                 socketUtil.setSocket(param, "reqMyInfo", message, jwtUtil.generateToken(pMemberEditorVo.getMem_no(), true));
 
-
-                try{    // PUSH 발송
-                    P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
-                    pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
-                    pPushInsertVo.setSlct_push("35");
-                    pPushInsertVo.setSend_title(pMemberEditorVo.getNotiContents());
-                    pPushInsertVo.setSend_cont(pMemberEditorVo.getNotiMemo());
-                    pPushInsertVo.setImage_type("101");
-                    pushService.sendPushReqOK(pPushInsertVo);
-                }catch (Exception e){
-                    log.error("[PUSH 발송 실패 - 회원 정보 수정]");
+                 if(pMemberEditorVo.getSendNoti().equals("1")){
+                    try{    // PUSH 발송
+                        P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                        pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
+                        pPushInsertVo.setSlct_push("35");
+                        pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
+                        pPushInsertVo.setSend_cont(pMemberEditorVo.getNotiMemo());
+                        pPushInsertVo.setImage_type("101");
+                        pushService.sendPushReqOK(pPushInsertVo);
+                    }catch (Exception e){
+                        log.error("[PUSH 발송 실패 - 회원 정보 수정]");
+                    }
                 }
             }
 
