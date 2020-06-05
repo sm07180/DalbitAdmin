@@ -262,7 +262,7 @@
                     if(tmp == 0){
                         tmp = tmp + ".0";
                     }
-                    $("#tryTableBody tr:eq(31) td:eq(" + (i * 3 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(31) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
                 }
             } else if($('input[name="slctType"]:checked').val() == "2"){
                 if(i == 0){
@@ -284,6 +284,17 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyTryDetailList">
+    <tr class="_tr_total font-bold" style="background-color: #b4c7e7">
+        <td>합계</td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td>0</td><td>0.0</td>
+    </tr>
     {{#each this.slctType_date}}
         <tr class="_tr_{{this}}">
             <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
