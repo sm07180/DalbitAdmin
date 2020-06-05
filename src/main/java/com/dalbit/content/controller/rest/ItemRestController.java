@@ -1,5 +1,6 @@
 package com.dalbit.content.controller.rest;
 
+import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
@@ -8,6 +9,8 @@ import com.dalbit.content.vo.ItemVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.dalbit.util.JwtUtil;
+import com.dalbit.util.SocketUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -25,6 +30,11 @@ public class ItemRestController {
 
     @Autowired
     ItemService itemService;
+
+    @Autowired
+    SocketUtil socketUtil;
+    @Autowired
+    JwtUtil jwtUtil;
 
     @Autowired
     GsonUtil gsonUtil;
@@ -269,6 +279,20 @@ public class ItemRestController {
         summaryList.add(data);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt), summaryList));
+    }
+
+
+    @PostMapping("sendChangeItem")
+    public String sendSocketReload(HttpServletRequest request){
+        HashMap<String,Object> param = new HashMap<>();
+        Map<String, Object> result = socketUtil.setSocket(param,"reqChangeItem","reqChangeItem", jwtUtil.generateToken(DalbitUtil.getProperty("temp.memNo"), true));
+
+        if(!result.get("error").equals("")){
+            log.error("[아이템 reqChangeItem Socket Error : {}]", result.get("error"));
+            return gsonUtil.toJson(new JsonOutputVo(ErrorStatus.서버처리중오류));
+        }
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.처리완료));
     }
 
 }

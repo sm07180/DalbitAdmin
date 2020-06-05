@@ -313,10 +313,25 @@ public class Mem_MemberService {
             pPushInsertVo.setSlct_push("34");
             pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
             pPushInsertVo.setSend_cont("이용정지가 해제되었습니다.");
+            pPushInsertVo.setEtc_contents("이용정지가 해제되었습니다.<br>서비스 이용에 주의 부탁드립니다.");
             pPushInsertVo.setImage_type("101");
             pushService.sendPushReqOK(pPushInsertVo);
         }catch (Exception e){
             log.error("[PUSH 발송 실패 - 회원 경고/정지 해지]");
+        }
+
+        try{
+            P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+            pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
+            pMemberReportVo.setSlctType(7);
+            pMemberReportVo.setNotiContents("이용정지가 해제되었습니다.<br>" +
+                                                            "서비스 이용에 주의 부탁드립니다.");
+            pMemberReportVo.setNotimemo("이용정지가 해제되었습니다.<br>" +
+                                                            "서비스 이용에 주의 부탁드립니다.");
+            mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
+        }catch (Exception e){
+            log.error("[NOTI 발송 실패 - 일대일문의처리]");
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
@@ -390,6 +405,7 @@ public class Mem_MemberService {
                 pPushInsertVo.setSlct_push("34");
                 pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
                 pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
+                pPushInsertVo.setEtc_contents(pMemberReportVo.getNotimemo().replaceAll("\n", "<br>"));
                 pPushInsertVo.setImage_type("101");
 
                 pushService.sendPushReqOK(pPushInsertVo);

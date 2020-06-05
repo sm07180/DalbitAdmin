@@ -90,6 +90,10 @@
         $('#bt_search').click( function() {       //검색
             getItemInfo();
         });
+
+        $("#btn_changeItem").off("click").on("click", function () { //삭제
+            changeItemEvent();
+        })
     }
 
 
@@ -129,6 +133,24 @@
             $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
         });
     }
+
+    // 리플레시
+    function changeItemEvent() {
+        util.getAjaxData("sendChangeItem", "/rest/content/item/sendChangeItem", null, fn_changeItem_success, fn_fail);
+    };
+
+    // 리플레시 성공 시
+    function fn_changeItem_success(dst_id, data, dst_params){
+        alert(data.message);
+    };
+
+
+    // Ajax 실패
+    function fn_fail(data, textStatus, jqXHR){
+        alert(data.message);
+
+        console.log(data, textStatus, jqXHR);
+    };
 
 
     // 검색

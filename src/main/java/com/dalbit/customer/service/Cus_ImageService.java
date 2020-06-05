@@ -79,7 +79,11 @@ public class Cus_ImageService {
             P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
             pMemberEditorVo.setMem_no(pMemberReportVo.getMem_no());
             pMemberEditorVo.setProfileImage("");
+            pMemberEditorVo.setSendNoti("2");
             pMemberEditorVo.setNotiSms("0");
+            pMemberEditorVo.setMemSex(pMemberReportVo.getMem_sex());
+            pMemberEditorVo.setNotiContents(pMemberReportVo.getNotiContents());
+            pMemberEditorVo.setNotiMemo(pMemberReportVo.getNotimemo());
 
             String result = memMemberService.getMemberEditor(pMemberEditorVo);
             log.debug(result);

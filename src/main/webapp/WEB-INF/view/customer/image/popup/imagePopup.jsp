@@ -122,15 +122,38 @@
             common.lpad(date.getMinutes(),2,"0") + "." +
             common.lpad(date.getSeconds(),2,"0");
 
-        var msgValue = declarationMessage.imgReset;
-        var msgTitle =  declarationMessage.imgResetTitle;
+
+        var msgValue;
+        var msgTitle;
         var slctType = $('input:radio[name="slctType"]:checked').parent().find("span").text();
         var radioValue = $('input:radio[name="slctType"]:checked').val();
+        var blockDay = 0;
+        if(radioValue == 6 || radioValue == 7){
+            msgValue = declarationMessage.out;
+            msgTitle = declarationMessage.outTitle;
+        } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
+            if(radioValue == 3){blockDay = 1;}
+            if(radioValue == 4){blockDay = 3;}
+            if(radioValue == 5){blockDay = 7;}
+            msgValue = declarationMessage.stop;
+            msgTitle = declarationMessage.stopTitle;
+        } else if(radioValue == 2) {
+            msgValue = declarationMessage.warning;
+            msgTitle = declarationMessage.warningTitle;
+        }
 
         msgValue = msgValue.replace(/{{name}}/gi, strName)
             .replace(/{{nickName}}/gi, memNick)
             .replace(/{{message}}/gi, reportMessage)
             .replace(/{{timestamp}}/gi, timestamp)
+            .replace(/{{blockDay}}/gi, blockDay)
+            .replace(/{{slctType}}/gi, slctType);
+
+        msgTitle = msgTitle.replace(/{{name}}/gi, strName)
+            .replace(/{{nickName}}/gi, memNick)
+            .replace(/{{message}}/gi, reportMessage.replace(/\-/gi, "<br>-"))
+            .replace(/{{timestamp}}/gi, timestamp)
+            .replace(/{{blockDay}}/gi, blockDay)
             .replace(/{{slctType}}/gi, slctType);
 
         console.log(slctType);
@@ -148,6 +171,7 @@
             obj.slctType = $('input:radio[name="slctType"]:checked').val();
             obj.notiContents = msgTitle;
             obj.notimemo = msgValue;
+            obj.mem_sex = memSex;
             util.getAjaxData("imageReset", "/rest/customer/image/reset", obj, update_success, fn_fail);
         }return false;
 

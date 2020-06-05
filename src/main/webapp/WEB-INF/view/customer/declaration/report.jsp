@@ -130,12 +130,16 @@
     function messageCheck() {
 
         var radioValue = $('input:radio[name="opCode"]:checked').val();
+        var blockDay = 0;
         declarationCheck();
 
         if(radioValue == 6 || radioValue == 7){
             msgValue = declarationMessage.out;
             msgTitle = declarationMessage.outTitle;
         } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
+            if(radioValue == 3){blockDay = 1;}
+            if(radioValue == 4){blockDay = 3;}
+            if(radioValue == 5){blockDay = 7;}
             msgValue = declarationMessage.stop;
             msgTitle = declarationMessage.stopTitle;
         } else if(radioValue == 2) {
@@ -168,7 +172,14 @@
         msgValue = msgValue.replace(/{{name}}/gi, strName)
             .replace(/{{nickName}}/gi, detailData.reported_mem_nick)
             .replace(/{{message}}/gi, msg)
-            .replace(/{{timestamp}}/gi, timestamp);
+            .replace(/{{timestamp}}/gi, timestamp)
+            .replace(/{{blockDay}}/gi, blockDay)
+
+        msgTitle = msgTitle.replace(/{{name}}/gi, strName)
+            .replace(/{{nickName}}/gi, detailData.reported_mem_nick)
+            .replace(/{{message}}/gi, msg.replace(/\-/gi, "<br>-"))
+            .replace(/{{timestamp}}/gi, timestamp)
+            .replace(/{{blockDay}}/gi, blockDay)
 
         $("#notiMemo").summernote('code', msgValue);
         $("#notiContents").val(msgTitle);

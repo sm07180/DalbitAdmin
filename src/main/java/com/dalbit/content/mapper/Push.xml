@@ -82,6 +82,7 @@
                 ,status
                 ,send_title
                 ,send_cont
+                ,etc_contents
                 ,send_url
                 ,is_all
                 ,mem_nos
@@ -102,6 +103,7 @@
                 ,#{status}
                 ,#{send_title}
                 ,#{send_cont}
+                ,#{etc_contents}
                 ,#{send_url}
                 ,#{is_all}
                 ,#{mem_nos}

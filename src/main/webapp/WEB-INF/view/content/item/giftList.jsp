@@ -85,10 +85,11 @@ var fnc_giftList = {};
         var delBtn = '<input type="button" value="선택 삭제" class="btn btn-danger btn-sm" id="btn_delete" style="margin-right: 3px;"/>'
         var addBtn = '<input type="button" value="등록" class="btn btn-success btn-sm" id="btn_insert" style="margin-left: 3px;"/>'
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
+        var changeItemBtn = '<input type="button" value="네이티브 전송" class="btn btn-success btn-sm" id="btn_changeItem" style="margin-left: 3px;"/>'
 
         fnc_giftList.divDataTable.find(".footer-left").append(delBtn);
         fnc_giftList.divDataTable.find(".top-right").append(addBtn);
-        fnc_giftList.divDataTable.find(".footer-right").append(excelBtn);
+        fnc_giftList.divDataTable.find(".footer-right").append(changeItemBtn);
     };
 
 

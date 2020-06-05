@@ -12,6 +12,7 @@ public class P_pushInsertVo extends BaseVo {
     private String status;             //방송상태
     private String send_title;      //메시지 제목
     private String send_cont;       //메시지 내용
+    private String etc_contents;       //팝업 메시지 내용
     private String send_url;        //이미지URL
     private String is_all;             //수신대상전체여부
     private String mem_nos;         //회원번호s

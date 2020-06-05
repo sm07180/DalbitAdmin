@@ -141,10 +141,14 @@
         var msgValue;
         var msgTitle;
         var radioValue = $('input:radio[name="slctType"]:checked').val();
+        var blockDay = 0;
         if(radioValue == 6 || radioValue == 7){
             msgValue = declarationMessage.out;
             msgTitle = declarationMessage.outTitle;
         } else if(radioValue == 3 || radioValue == 4 || radioValue ==5){
+            if(radioValue == 3){blockDay = 1;}
+            if(radioValue == 4){blockDay = 3;}
+            if(radioValue == 5){blockDay = 7;}
             msgValue = declarationMessage.stop;
             msgTitle = declarationMessage.stopTitle;
         } else if(radioValue == 2) {
@@ -155,7 +159,14 @@
         msgValue = msgValue.replace(/{{name}}/gi, strName)
             .replace(/{{nickName}}/gi, memNick)
             .replace(/{{message}}/gi, reportMessage)
-            .replace(/{{timestamp}}/gi, timestamp);
+            .replace(/{{timestamp}}/gi, timestamp)
+            .replace(/{{blockDay}}/gi, blockDay)
+
+        msgTitle = msgTitle.replace(/{{name}}/gi, strName)
+            .replace(/{{nickName}}/gi, memNick)
+            .replace(/{{message}}/gi, reportMessage.replace(/\-/gi, "<br>-"))
+            .replace(/{{timestamp}}/gi, timestamp)
+            .replace(/{{blockDay}}/gi, blockDay)
 
         if(confirm("신고 하시겠습니까?")) {
             var obj = new Object();

@@ -11,6 +11,7 @@ public class P_MemberReportVo {
     private String mem_no;
     private String mem_userid;
     private String mem_nick;
+    private String mem_sex;
     private String ip;
     private String browser;
     private String flatform;
