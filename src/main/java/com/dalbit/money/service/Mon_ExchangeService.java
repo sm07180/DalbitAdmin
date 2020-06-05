@@ -366,7 +366,7 @@ public class Mon_ExchangeService {
 
 
             var message = new StringBuffer();
-            message.append("[달빛라이브] 회원님께서 신청하신 환전요청 정보가 부적합하여 정상처리가 되지않았습니다.\n");
+            message.append("[달빛라이브] 회원님께서 신청하신 환전요청 정보가 부적합하여 정상처리가 되지않았습니다.");
             //message.append("신청정보를 다시 확인하시고, 재신청하여 주시기 바랍니다.\n\n");
             //message.append("※ 궁금한 사항은 1:1문의로 연락해 주시기바랍니다.\n");
 

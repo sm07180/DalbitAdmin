@@ -10,6 +10,7 @@ public class ErrorVo extends PagingVo {
     /* input */
     private String txt_startSel;
     private String txt_endSel;
+    private String searchType;
     private String searchText;
 
     /* output */
