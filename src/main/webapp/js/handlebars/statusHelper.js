@@ -1,16 +1,9 @@
 Handlebars.registerHelper("vatMinus", function(lvalue) {
-    if(lvalue == 0){
-        return 0;
-    }
-    return common.addComma(lvalue - (lvalue * 0.1));
+    return common.vatMinus(lvalue);
 });
 
 Handlebars.registerHelper("payRate", function(lvalue,rvalue) {
-    if(rvalue == 0){
-        return 0;
-    }
-    var tmp = (lvalue * 100)/rvalue;
-    return common.addComma(tmp.toFixed(1));
+    return common.payRate(lvalue, rvalue);
 });
 
 Handlebars.registerHelper("average", function(lvalue,rvalue) {

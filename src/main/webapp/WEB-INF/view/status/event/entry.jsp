@@ -18,8 +18,8 @@
             <tr>
                 <th>시간대</th>
                 <th>소계</th>
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male"></th>
+                <th class="_sex_female"></th>
                 <th>알 수 없음</th>
                 <th>10대</th>
                 <th>20대</th>

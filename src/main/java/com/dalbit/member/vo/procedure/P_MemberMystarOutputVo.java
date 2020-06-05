@@ -18,6 +18,8 @@ public class P_MemberMystarOutputVo extends SearchVo {
     private String mem_no_fan;
     private String mem_no_fan_id;
     private String mem_no_fan_nick;
+    private String star_sex;
+    private String fan_sex;
     private int accumCnt;
     private int totalItemCnt;
     private Date reg_date;

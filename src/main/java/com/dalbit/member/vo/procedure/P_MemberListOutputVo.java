@@ -14,6 +14,7 @@ public class P_MemberListOutputVo extends SearchVo {
     private String mem_userid;
     private String mem_no;
     private String mem_nick;
+    private String mem_sex;
     private String memName;
     private String mem_phone;
     private String mem_slct;

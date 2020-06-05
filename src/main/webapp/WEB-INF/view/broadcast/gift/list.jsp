@@ -49,8 +49,8 @@
         <thead>
         <tr>
             <th>방송 중 선물</th>
-            <th><label style="color: blue"><b>남자</b></label></th>
-            <th><label style="color: red"><b>여자</b></label></th>
+            <th>{{{sexIcon 'm'}}}</th>
+            <th>{{{sexIcon 'f'}}}</th>
             <th>미지정</th>
         </tr>
         </thead>

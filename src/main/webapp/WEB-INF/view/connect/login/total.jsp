@@ -26,13 +26,13 @@
             </tr>
             <tr>
                 <th>소계</th>
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male">{{{sexIcon 'm'}}}</th>
+                <th class="_sex_female">{{{sexIcon 'f'}}}</th>
                 <th>알수없음</th>
 
                 <th>소계</th>
-                <th><label class="font-bold" style="color: blue">남성</label></th>
-                <th><label class="font-bold" style="color: red">여성</label></th>
+                <th class="_sex_male">{{{sexIcon 'm'}}}</th>
+                <th class="_sex_female">{{{sexIcon 'f'}}}</th>
                 <th>알수없음</th>
             </tr>
             </thead>
@@ -99,12 +99,12 @@
     <tr class="success font-bold">
         <td>총계</td>
         <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_maleCnt}}</td>
-        <td>{{addComma sum_femaleCnt}}</td>
+        <td style="color: blue">{{addComma sum_maleCnt}}</td>
+        <td style="color: red">{{addComma sum_femaleCnt}}</td>
         <td>{{addComma sum_noneCnt}}</td>
         <td>{{addComma sum_bTotalCnt}}</td>
-        <td>{{addComma sum_bTleCnt}}</td>
-        <td>{{addComma sum_bFemaleCnt}}</td>
+        <td style="color: blue">{{addComma sum_bMaleCnt}}</td>
+        <td style="color: red">{{addComma sum_bFemaleCnt}}</td>
         <td>{{addComma sum_bNoneCnt}}</td>
     </tr>
 </script>
@@ -118,12 +118,12 @@
             {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}</td>
-        <td>{{addComma maleCnt}}</td>
-        <td>{{addComma femaleCnt}}</td>
+        <td style="color: blue">{{addComma maleCnt}}</td>
+        <td style="color: red">{{addComma femaleCnt}}</td>
         <td>{{addComma noneCnt}}</td>
         <td>{{addComma bTotalCnt}}</td>
-        <td>{{addComma bMaleCnt}}</td>
-        <td>{{addComma bFemaleCnt}}</td>
+        <td style="color: blue">{{addComma bMaleCnt}}</td>
+        <td style="color: red">{{addComma bFemaleCnt}}</td>
         <td>{{addComma bNoneCnt}}</td>
     </tr>
     {{else}}

@@ -88,15 +88,15 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td style="font-weight:bold;color: green;">{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold;color: green;"><b>{{addComma sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <td style="font-weight:bold;color: green;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_mcCnt}}</td>
-        <td>{{addComma sum_mcAmt}}</td>
+        <td>{{vatMinus sum_mcAmt}}</td>
         <td>{{addComma sum_cnCnt}}</td>
-        <td>{{addComma sum_cnAmt}}</td>
+        <td>{{vatMinus sum_cnAmt}}</td>
         <td>{{addComma sum_inappCnt}}</td>
-        <td>{{addComma sum_inappAmt}}</td>
+        <td>{{vatMinus sum_inappAmt}}</td>
         <td>{{addComma sum_vaCnt}}</td>
-        <td>{{addComma sum_vaAmt}}</td>
+        <td>{{vatMinus sum_vaAmt}}</td>
     </tr>
 </script>
 
@@ -109,15 +109,15 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold">{{addComma totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</td>
+        <td style="font-weight:bold">{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</td>
         <td>{{addComma mcCnt}}</td>
-        <td>{{addComma mcAmt}}</td>
+        <td>{{vatMinus mcAmt}}</td>
         <td>{{addComma cnCnt}}</td>
-        <td>{{addComma cnAmt}}</td>
+        <td>{{vatMinus cnAmt}}</td>
         <td>{{addComma inappCnt}}</td>
-        <td>{{addComma inappAmt}}</td>
+        <td>{{vatMinus inappAmt}}</td>
         <td>{{addComma vaCnt}}</td>
-        <td>{{addComma vaAmt}}</td>
+        <td>{{vatMinus vaAmt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>

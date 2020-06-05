@@ -24,8 +24,8 @@
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2"><label style="color: blue"><i class="fa fa-male"></i> 남성</label></th>
-                <th colspan="2"><label style="color: red"><i class="fa fa-female"></i> 여성</label></th>
+                <th colspan="2" class="_sex_male"></th>
+                <th colspan="2" class="_sex_female"></th>
                 <th colspan="2">알수없음</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;"></th>
                 <th rowspan="2">시간대</th>
@@ -117,29 +117,29 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td style="color:green;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
-        <td style="color:green;"><b>{{addComma sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <td style="color:green;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td style="color: blue;">{{addComma sum_maleCnt}}</td>
-        <td style="color: blue;">{{addComma sum_maleAmt}}</td>
+        <td style="color: blue;">{{vatMinus sum_maleAmt}}</td>
         <td style="color: red;">{{addComma sum_femaleCnt}}</td>
-        <td style="color: red;">{{addComma sum_femaleAmt}}</td>
+        <td style="color: red;">{{vatMinus sum_femaleAmt}}</td>
         <td>{{addComma sum_noneCnt}}</td>
-        <td>{{addComma sum_noneAmt}}</td>
+        <td>{{vatMinus sum_noneAmt}}</td>
         <td style="background-color: white;border-bottom: hidden;"></td>
         <td>소계</td>
         <td style="color:green;"><b>{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</b></td>
-        <td style="color:green;"><b>{{addComma sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <td style="color:green;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_age10Cnt}}</td>
-        <td>{{addComma sum_age10Amt}}</td>
+        <td>{{vatMinus sum_age10Amt}}</td>
         <td>{{addComma sum_age20Cnt}}</td>
-        <td>{{addComma sum_age20Amt}}</td>
+        <td>{{vatMinus sum_age20Amt}}</td>
         <td>{{addComma sum_age30Cnt}}</td>
-        <td>{{addComma sum_age30Amt}}</td>
+        <td>{{vatMinus sum_age30Amt}}</td>
         <td>{{addComma sum_age40Cnt}}</td>
-        <td>{{addComma sum_age40Amt}}</td>
+        <td>{{vatMinus sum_age40Amt}}</td>
         <td>{{addComma sum_age50Cnt}}</td>
-        <td>{{addComma sum_age50Amt}}</td>
+        <td>{{vatMinus sum_age50Amt}}</td>
         <td>{{addComma sum_age60Cnt}}</td>
-        <td>{{addComma sum_age60Amt}}</td>
+        <td>{{vatMinus sum_age60Amt}}</td>
     </tr>
 </script>
 
@@ -152,13 +152,13 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
-        <td><b>{{addComma totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
+        <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
         <td style="color: blue;">{{addComma maleCnt}}</td>
-        <td style="color: blue;">{{addComma maleAmt}}</td>
+        <td style="color: blue;">{{vatMinus maleAmt}}</td>
         <td style="color: red;">{{addComma femaleCnt}}</td>
-        <td style="color: red;">{{addComma femaleAmt}}</td>
+        <td style="color: red;">{{vatMinus femaleAmt}}</td>
         <td>{{addComma noneCnt}}</td>
-        <td>{{addComma noneAmt}}</td>
+        <td>{{vatMinus noneAmt}}</td>
         <td style="border-bottom: hidden;"></td>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
@@ -166,19 +166,19 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
-        <td><b>{{addComma totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
+        <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma age10Cnt}}</td>
-        <td>{{addComma age10Amt}}</td>
+        <td>{{vatMinus age10Amt}}</td>
         <td>{{addComma age20Cnt}}</td>
-        <td>{{addComma age20Amt}}</td>
+        <td>{{vatMinus age20Amt}}</td>
         <td>{{addComma age30Cnt}}</td>
-        <td>{{addComma age30Amt}}</td>
+        <td>{{vatMinus age30Amt}}</td>
         <td>{{addComma age40Cnt}}</td>
-        <td>{{addComma age40Amt}}</td>
+        <td>{{vatMinus age40Amt}}</td>
         <td>{{addComma age50Cnt}}</td>
-        <td>{{addComma age50Amt}}</td>
+        <td>{{vatMinus age50Amt}}</td>
         <td>{{addComma age60Cnt}}</td>
-        <td>{{addComma age60Amt}}</td>
+        <td>{{vatMinus age60Amt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>

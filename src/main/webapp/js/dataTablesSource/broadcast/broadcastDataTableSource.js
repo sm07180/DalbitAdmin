@@ -34,6 +34,9 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
+            {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '시작일시', 'data': 'start_date','width' : '120px'},
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
@@ -106,6 +109,9 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
+            {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '시작일시', 'data': 'start_date','width' : '120px'},
             {'title': '종료일시', 'data': 'end_date','width' : '120px'},
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
@@ -161,6 +167,9 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
+            {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '누적청취자', 'data': 'totalListener','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
@@ -222,6 +231,9 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'nickName', 'width':'140px'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '청취 시작 일시', 'data': 'startDateFormat', 'width':'120px'},
             {'title': '청취 종료시간', 'data': 'endDateFormat', 'width':'120px'},
             {'title': '권한 시작 일시', 'data': 'authStartDateFormat', 'width':'120px'},

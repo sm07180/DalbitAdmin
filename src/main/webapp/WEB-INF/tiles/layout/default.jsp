@@ -27,7 +27,13 @@
 <!-- /wrapper -->
 
 <tiles:insertAttribute name="setting"/>
+
+<script>
+    $(document).ready(function() {
+        $('._sex_male').html(common.sexIcon('m'));
+        $('._sex_female').html(common.sexIcon('f'));
+    });
+</script>
+
 </body>
 </html>
-
-

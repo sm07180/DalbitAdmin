@@ -43,6 +43,7 @@ public class Pay_PayOutputVo extends PagingVo {
     private String pay_info_nm;
     private String mem_nick;
     private int tot_dal_cnt;
+    private String mem_sex;
 
     //summary
     private int totalPayCnt;

@@ -30,6 +30,9 @@ var questionDataTableSource = {
                         return data;
                     }            
                 }},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '문의', 'data': 'totalQnaCnt','width':'60px','render':function (data,type,row,meta){
                     return common.addComma(data) + " 건";
                 }},

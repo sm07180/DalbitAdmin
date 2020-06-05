@@ -79,10 +79,6 @@
         mem_no = response.data.dj_mem_no;
         dj_nickname = detailData.dj_nickName;
 
-        if(response.data.dj_memSex == "m")        response.data["dj_memSex"] = "2";
-        else if(response.data.dj_memSex == "f")  response.data["dj_memSex"] = "3";
-        else                                      response.data["dj_memSex"] = "4";
-
         if(response.data.broadcastState == "ON")
             response.data["icon_broadcastState"] = '<i class="fa fa-circle" style="color: #ff0000;font-size:20px;"></i> ' + response.data.broadcastState;
         else
@@ -490,7 +486,7 @@
         <tr>
             <th>성별</th>
             <td style="text-align: left">
-                {{{getCommonCodeLabel dj_memSex 'gender'}}}
+                {{{sexIcon dj_memSex}}}
             </td>
             <th>방송 진행시간</th>
             <td style="text-align: left">
