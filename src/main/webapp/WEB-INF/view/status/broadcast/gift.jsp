@@ -15,12 +15,12 @@
             <thead>
             <tr>
                 <th>시간대</th>
-                <th>선물 건수</th>
-                <th>선물 금액</th>
+                <th>총 선물 건수</th>
+                <th>총 선물 달수</th>
                 <th>일반선물 건수</th>
-                <th>일반선물 금액</th>
+                <th>일반선물 달수</th>
                 <th>비밀선물 건수</th>
-                <th>비밀선물 금액</th>
+                <th>비밀선물 달수</th>
             </tr>
             </thead>
             <tbody  id="giftListBody">

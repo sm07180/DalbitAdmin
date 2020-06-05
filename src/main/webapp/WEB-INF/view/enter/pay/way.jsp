@@ -87,8 +87,8 @@
 <script type="text/x-handlebars-template" id="tmp_way">
     <tr class="success font-bold">
         <td>소계</td>
-        <td style="font-weight:bold;color: green;">{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</td>
-        <td style="font-weight:bold;color: green;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
+        <td style="font-weight:bold;color: #ff5600;">{{addComma sum_totalCnt}}<br/>({{average sum_totalCnt sum_totalCnt}}%)</td>
+        <td style="font-weight:bold;color: #ff5600;"><b>{{vatMinus sum_totalAmt}}<br/>({{average sum_totalAmt sum_totalAmt}}%)</b></td>
         <td>{{addComma sum_mcCnt}}</td>
         <td>{{vatMinus sum_mcAmt}}</td>
         <td>{{addComma sum_cnCnt}}</td>

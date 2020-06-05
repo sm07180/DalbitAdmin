@@ -75,13 +75,15 @@
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
         <if test="period == 0 or period == 1">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 2">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -119,13 +121,15 @@
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
         <if test="period == 0 or period == 1">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 2">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -166,13 +170,15 @@
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
         <if test="period == 0 or period == 1">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 2">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(pay_dt_comein, '%Y%m%d')  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
         </if>
         <if test="period == 3 or period == 4">
-            and DATE_FORMAT(pay_dt_comein, '%Y%m%d') = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
