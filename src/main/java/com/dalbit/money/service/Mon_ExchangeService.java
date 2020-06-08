@@ -57,7 +57,16 @@ public class Mon_ExchangeService {
             if(!DalbitUtil.isEmpty(outVo)) {
                 exchangeList.get(i).setMem_sex(outVo.getMem_sex());
             }
+            // 테스트 아이디 등록 여부
+            int testidCnt = monExchangeDao.testid_historyCnt(exchangeList.get(i).getMem_no());
+            if(testidCnt > 0)
+                exchangeList.get(i).setTestid_history("Y");
+            else
+                exchangeList.get(i).setTestid_history("N");
+
         }
+
+
 
         var resultMap = new HashMap<>();
         resultMap.put("exchangeCnt", exchangeCnt);

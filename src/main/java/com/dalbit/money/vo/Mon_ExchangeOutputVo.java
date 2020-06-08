@@ -48,4 +48,6 @@ public class Mon_ExchangeOutputVo{
     private int totalCashBasic;
     private int totalCashReal;
 
+    private String testid_history;
+
 }

@@ -180,6 +180,7 @@
                                     <th>신청 별 수</th>
                                     <th>현재 별 수</th>
                                     <%--<th>환전 후 별 수</th>--%>
+                                    <th>테스트ID 등록이력</th>
                                     <th>환전횟수</th>
                                     <th>신청일자</th>
                                     <th>처리일자</th>
@@ -546,6 +547,7 @@
         <td>{{addComma data.byeol}}별</td>
         <td>{{addComma data.gold}}별</td>
         <!--<td>{{math data.gold '-' data.byeol}}별</td>-->
+        <td>{{data.testid_history}}</td>
         <td>{{addComma data.exchangeCnt}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
