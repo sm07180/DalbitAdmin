@@ -278,6 +278,7 @@
                 <th>방송 제목</th>
                 <th>DJ 아이디</th>
                 <th>DJ 닉네임</th>
+                <th>성별</th>
             </tr>
         </thead>
         <tbody>
@@ -292,6 +293,7 @@
                         <p class="no-margin">{{this.dj_level}} / {{this.dj_grade}}</p>
                     </td>
                     <td>{{this.dj_nickname}}</td>
+                    <td>{{{sexIcon this.dj_memSex}}}</td>
                 </tr>
             {{/each}}
         </tbody>
@@ -355,7 +357,7 @@
                 <div class="pull-left" style="padding-bottom:4px;">
                     <h5><b>[메시지 발송 방송방 리스트]</b></h5><br>
                     ㆍ 메시지를 발송한 방송방 리스트 입니다. <br>
-                    ㆍ 재발송 시에는
+                    ㆍ 재발송 시에는 ?
                 </div>
                 <div class="dataTables_wrapper pb10" id="div_targetList"></div>
             </div>

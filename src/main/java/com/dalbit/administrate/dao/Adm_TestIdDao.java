@@ -19,6 +19,7 @@ public interface Adm_TestIdDao {
     List<TestIdVo> getTestIdInfo(TestIdVo testIdVo);
 
     int insertTestId(TestIdVo testIdVo);
+    int insertTestId_history(TestIdVo testIdVo);
 
     @Transactional(readOnly = true)
     List<TestIdVo> getTestIdSummary();

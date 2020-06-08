@@ -115,6 +115,7 @@
                 , a.title AS title
                 , a.mem_no AS dj_mem_no
                 , b.mem_nick AS dj_nickname
+                , b.mem_sex AS dj_memSex
                 , b.mem_userid AS dj_userid
                 , c.level AS dj_level
                 , c.grade AS dj_grade

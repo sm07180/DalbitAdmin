@@ -18,6 +18,10 @@
         <label id="payWayArea" onchange="sel_change_pay();"></label>
         <label id="payInnerArea" onchange="sel_change_pay();" style="border: 1px solid #632beb"></label>
 
+        <div class="pull-right">
+            <span id="pay_summaryArea"></span>
+        </div>
+
         <table class="table table-bordered" id="list_info">
             <thead>
             </thead>
@@ -66,7 +70,7 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
-        dtList_info.createDataTable();
+        dtList_info.createDataTable(pay_listSummary);
         dtList_info.reload();
 
         $("#div_payY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
@@ -74,11 +78,23 @@
         $("#div_payY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));
     }
 
+    function pay_listSummary(json){
+        console.log(json);
+        var template = $("#pay_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#pay_summaryArea").html(html);
+    }
+
     function sel_change_pay(){
         tmp_ostype = $("#div_payY").find("select[name='ostype']").val();
         tmp_innerType = $("#div_payY").find("select[name='innerType']").val();
         tmp_payWay = $("#div_payY").find("select[name='payWay']").val();
-        dtList_info.reload();
+        dtList_info.reload(pay_listSummary);
     }
 
     /*=============엑셀==================*/
@@ -103,4 +119,24 @@
 
     });
 
+</script>
+
+<script id="pay_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" style="margin-right:0px">
+        <thead>
+        <tr>
+            <th colspan="2">총 결제완료</th>
+            <th colspan="2">총 결제취소</th>
+            <th colspan="2">총 취소실패</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>{{addComma content.totalPayCnt}}건</td>
+        <td>{{addComma content.totalPayAmt}}원</td>
+        <td>{{addComma content.totalPayCancelCnt}}건</td>
+        <td>{{addComma content.totalPayCancelAmt}}원</td>
+        <td>{{addComma content.totalPayCancelCannotCnt}}건</td>
+        <td>{{addComma content.totalPayCancelCannotAmt}}원</td>
+        </tbody>
+    </table>
 </script>

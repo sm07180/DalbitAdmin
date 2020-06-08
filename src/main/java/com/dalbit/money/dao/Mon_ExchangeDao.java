@@ -32,4 +32,7 @@ public interface Mon_ExchangeDao {
 
     ProcedureVo callExchangeCancel(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    int testid_historyCnt(String mem_no);
+
 }

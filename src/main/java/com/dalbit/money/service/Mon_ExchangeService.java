@@ -9,6 +9,8 @@ import com.dalbit.common.vo.SmsVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
+import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.money.dao.Mon_ExchangeDao;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
@@ -40,12 +42,31 @@ public class Mon_ExchangeService {
     @Autowired
     SmsService smsService;
 
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
+
     public String selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo){
 
         int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
 
         monExchangeInputVo.setTotalCnt(exchangeCnt);
         ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
+
+        for(int i=0;i<exchangeList.size();i++) {
+            MemberVo outVo = mem_MemberDao.getMemberInfo(exchangeList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                exchangeList.get(i).setMem_sex(outVo.getMem_sex());
+            }
+            // 테스트 아이디 등록 여부
+            int testidCnt = monExchangeDao.testid_historyCnt(exchangeList.get(i).getMem_no());
+            if(testidCnt > 0)
+                exchangeList.get(i).setTestid_history("Y");
+            else
+                exchangeList.get(i).setTestid_history("N");
+
+        }
+
+
 
         var resultMap = new HashMap<>();
         resultMap.put("exchangeCnt", exchangeCnt);

@@ -41,6 +41,7 @@
                     <th>프로필</th>
                     <th>UserID</th>
                     <th>User닉네임</th>
+                    <th>성별</th>
                     <th>보유팬<br/>(1000명 이상)</th>
                     <th>누적 방송시간<br/>(360시간 이상)</th>
                     <th>누적 받은 별<br/>(100,000개 이상)</th>
@@ -325,6 +326,7 @@
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
         </td>
         <td>{{mem_nick}}</td>
+        <td>{{{sexIcon mem_sex}}}</td>
         <td>{{addComma fanCnt}} 명</td>
         <td>{{timeStamp airTime}}</td>
         <td>{{addComma giftedRuby}} 개</td>

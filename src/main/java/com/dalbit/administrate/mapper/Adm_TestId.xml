@@ -59,6 +59,21 @@
         )
     </insert>
 
+    <insert id="insertTestId_history" parameterType="com.dalbit.administrate.vo.TestIdVo">
+        /* Adm_TestId.xml - insertTestId */
+        INSERT INTO rd_admin.tb_admin_test_account_history(
+            MEM_NO
+            , EMP_NO
+            , EMP_NAME
+            , RELATION
+        ) values(
+              #{mem_no}
+            , #{emp_no}
+            , #{emp_name}
+            , #{relation}
+        )
+    </insert>
+
     <update id="updateInner" parameterType="com.dalbit.administrate.vo.TestIdVo">
         update rd_data.tb_member_basic set `inner`=#{inner} where mem_no=#{mem_no}
     </update>

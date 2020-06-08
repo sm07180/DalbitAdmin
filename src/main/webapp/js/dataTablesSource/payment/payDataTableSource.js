@@ -158,9 +158,22 @@ var payDataTableSource = {
             , {'title': '취소<br />상태', 'data': 'cancel_state', 'width':'30px', 'render': function(data, type, row) {
                     return '<label style="color: #0b38aa; font-weight: bold">'+data.toUpperCase()+'</label>';
                 }}
-            /*, {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
-                    return ((row.tot_dal_cnt < row.dal_cnt) ? "보유 달 부족" : "-") ;
-                }}*/
+            , {'title': '취소', 'data': '', 'width':'80px', 'render': function(data, type, row) {
+
+                    return (row.pay_way == 'VA' || row.pay_way == 'InApp' || row.pay_yn == 'n' || row.cancel_state != 'n') ? '-' : (row.tot_dal_cnt < row.dal_cnt) ? "보유 달 부족" :
+                        '<button type="button" class="btn btn-default cancelBtn" ' +
+                        'data-paycd="'+ row.pay_way+'" ' +
+                        'data-tradeid="'+row.order_id+'" ' +
+                        'data-mobilid="'+row.bill_id+'" ' +
+                        'data-prdtprice="'+row.pay_amt+'" ' +
+                        'data-storeid="'+row.store_id+'" ' +
+                        'data-memno="'+row.mem_no+'" ' +
+                        'data-dalcnt="'+row.dal_cnt+'" ' +
+                        'data-memnick="'+row.mem_nick+'" ' +
+                        'onclick="cancelClick($(this).data())"> 취소' +
+                        '</button>'
+                    '-'
+                }}
 
         ]
         , 'comments': ''

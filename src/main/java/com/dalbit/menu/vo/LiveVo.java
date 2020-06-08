@@ -23,6 +23,7 @@ public class LiveVo extends PagingVo {
     private int level;
     private String grade;
     private String mem_nick;
+    private String mem_sex;
     private int money;
     private int byeol;
     private String gifted_mem_no;

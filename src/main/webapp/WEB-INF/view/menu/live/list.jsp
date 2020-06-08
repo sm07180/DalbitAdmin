@@ -114,6 +114,7 @@
                                 <th>태그부분</th>
                                 <th>User ID</th>
                                 <th>User 닉네임</th>
+                                <th>성별</th>
                                 <th>보유결제금액</th>
                                 <th>누적 받은 별</th>
                                 <th>누적 받은 선물</th>
@@ -235,6 +236,7 @@
             등급 : {{grade}}
         </td>
         <td>{{mem_nick}}</td>
+        <td>{{{sexIcon mem_sex}}}</td>
         <td>{{addComma money}}원</td>
         <td>{{addComma byeol}}개</td>
         <td>{{addComma gifted_mem_no}}개</td>

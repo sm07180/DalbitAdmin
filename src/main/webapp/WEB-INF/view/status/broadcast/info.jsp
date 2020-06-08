@@ -292,7 +292,7 @@
         <td class="{{upAndDownClass gift_week_inc_cnt}}"><i class="fa {{upAndDownIcon gift_week_inc_cnt}}"></i> {{addComma gift_week_inc_cnt}}</td>
     </tr>
     <tr>
-        <th>선물 금액</th>
+        <th>선물 달수</th>
         <td>{{addComma gift_now_amt}}</td>
         <td>{{addComma gift_yes_amt}}</td>
         <td class="{{upAndDownClass gift_now_inc_amt}}"><i class="fa {{upAndDownIcon gift_now_inc_amt}}"></i> {{addComma gift_now_inc_amt}}</td>

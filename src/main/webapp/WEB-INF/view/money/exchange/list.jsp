@@ -171,6 +171,7 @@
                                     <th><input type="checkbox" id="allChk"></th>
                                     <th>아이디</th>
                                     <th>닉네임</th>
+                                    <th>성별</th>
                                     <th>이름</th>
                                     <th>예금주</th>
                                     <th>환전신청금액</th>
@@ -179,6 +180,7 @@
                                     <th>신청 별 수</th>
                                     <th>현재 별 수</th>
                                     <%--<th>환전 후 별 수</th>--%>
+                                    <th>테스트ID 등록이력</th>
                                     <th>환전횟수</th>
                                     <th>신청일자</th>
                                     <th>처리일자</th>
@@ -536,6 +538,7 @@
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_id}}</a></td>
         <td>{{data.mem_nick}}</td>
+        <td>{{{sexIcon data.mem_sex}}}</td>
         <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
@@ -544,6 +547,7 @@
         <td>{{addComma data.byeol}}별</td>
         <td>{{addComma data.gold}}별</td>
         <!--<td>{{math data.gold '-' data.byeol}}별</td>-->
+        <td>{{data.testid_history}}</td>
         <td>{{addComma data.exchangeCnt}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>

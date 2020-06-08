@@ -24,6 +24,7 @@ public class SpecialVo extends PagingVo {
     private String mem_phone;
     private String mem_id;
     private String mem_nick;
+    private String mem_sex;
     private int level;
     private String grade;
     private String image_profile;
