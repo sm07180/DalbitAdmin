@@ -91,6 +91,13 @@
         $("#event-div-period").find("[name=timeMinute]").attr("class", "select-time");
         $("#view-event-div-exposure").find("[name=timeHour]").attr("class", "select-time");
         $("#view-event-div-exposure").find("[name=timeMinute]").attr("class", "select-time");
+
+
+        if($("input:radio[name=is_reply]:checked").val() ==  "1"){
+            $("#tab_eventReply").show();
+        }else{
+            $("#tab_eventReply").hide();
+        }
     };
 
     // 이벤트 적용
@@ -135,6 +142,14 @@
                 }
             }
         });
+
+        // $("input:radio[name=is_reply]").change(function () {
+        //     if ($(this).val() == "1") {
+        //         $("#tab_eventReply").show();
+        //     } else {
+        //         $("#tab_eventReply").hide();
+        //     }
+        // });
 
         // 등록 버튼
         fnc_eventDetail.target.find("#insertBtn").on("click", function () {
@@ -319,7 +334,7 @@
             alert(response.message);
             return false;
         }
-        alert("성공");
+        alert(response.message);
         getEventInfo();
     };
 

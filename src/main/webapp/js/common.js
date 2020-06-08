@@ -158,11 +158,7 @@ common.timeStamp = function(time){
 common.profileImage = function(PHOTO_SERVER_URL, path, gender){
     var image;
     if(common.isEmpty(path)){
-        if (gender == "n") {
-            image = PHOTO_SERVER_URL + "/profile_3/profile_" + gender + "_200327.png";
-        } else {
-            image = PHOTO_SERVER_URL + "/profile_3/profile_" + gender + "_200327.jpg";
-        }
+        image = PHOTO_SERVER_URL + "/profile_3/profile_" + gender + "_200327.jpg";
     }else{
         image = PHOTO_SERVER_URL + path;
     }

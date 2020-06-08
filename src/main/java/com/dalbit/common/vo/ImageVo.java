@@ -21,11 +21,7 @@ public class ImageVo extends BaseVo {
     public ImageVo(Object path, String gender, String photoServerUrl){
         if(gender != null){
             if(path == null || path.equals("")){
-                if(gender.equals("n")){
-                    this.url = photoServerUrl + Code.포토_프로필_디폴트_PREFIX.getCode()+"/"+Code.프로필이미지_파일명_PREFIX.getCode() + gender + "_200327.png";
-                }else {
-                    this.url = photoServerUrl + Code.포토_프로필_디폴트_PREFIX.getCode() + "/" + Code.프로필이미지_파일명_PREFIX.getCode() + gender + "_200327.jpg";
-                }
+                this.url = photoServerUrl + Code.포토_프로필_디폴트_PREFIX.getCode()+"/"+Code.프로필이미지_파일명_PREFIX.getCode() + gender + "_200327.jpg";
                 setThumbs();
             }else{
                 setPath(path.toString(), photoServerUrl);

@@ -258,13 +258,13 @@ var fnc_giftList = {};
 <script id="tmp_giftListStatisticsFrm" type="text/x-handlebars-template">
 
     <div id="div_summary" style="float:left">
-        <table class="table table-sorting table-hover table-bordered dataTable no-footer" style="width:100px;">
+        <table class="table table-sorting table-hover table-bordered dataTable" style="width:100px;">
             <tbody>
             <tr class="align-middle">
-                <th colspan="1">총 선물현황</th>
+                <th class="no-padding no-margin" colspan="1">총 선물현황</th>
             </tr>
             <tr>
-                <td style="text-align:center;" colspan="12">{{totalGiftCnt}}건</td>
+                <td class="no-padding no-margin" style="text-align:center;" colspan="12">{{totalGiftCnt}}건</td>
             </tr>
             </tbody>
         </table>

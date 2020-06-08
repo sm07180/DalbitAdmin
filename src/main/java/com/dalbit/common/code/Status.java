@@ -438,6 +438,12 @@ public enum Status {
     // 이벤트 중복 응모자 목록
     이벤트중복응모자목록보기_성공("0", "event.overlap.apply.list.view.success", "이벤트중복응모자목록보기 성공 시"),
     이벤트중복응모자목록보기_실패("C006", "event.overlap.apply.list.view.fail", "이벤트중복응모자목록보기 실패 시"),
+    // 이벤트 댓글 리스트
+    이벤트댓글보기_성공("0", "event.reply.list.view.success", "이벤트댓글보기 성공 시"),
+    이벤트댓글보기_실패("C006", "event.reply.list.view.fail", "이벤트댓글보기 실패 시"),
+    // 이벤트 댓글 삭제
+    이벤트댓글삭제성공("0", "event.reply.delete.success", "이벤트 댓글 삭제 성공 시"),
+    이벤트댓글삭제실패("C006", "event.reply.delete.fail", "이벤트 댓글 삭제 실패 시"),
 
     //배너 조회
     배너조회_데이터없음("0", "no.data", "배너 조회 데이터가 없을 시"),

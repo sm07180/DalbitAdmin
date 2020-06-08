@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<div class="main-content" style="margin-top: 3px;">
+<div class="main-content" style="margin-top: 3px; display: none;">
     <!-- TAB -->
         <div name="main-content-div" id="chargeListContent"><jsp:include page="detail/chargeTab.jsp"></jsp:include></div>  <!-- 충전 아이템 -->
         <div name="main-content-div" id="exchangeListContent" style="display: none;"><jsp:include page="detail/exchangeTab.jsp"></jsp:include></div>        <!-- 교환 아이템 -->
@@ -113,6 +113,7 @@
 
 
         // 하위 탭 초기화
+        initContentTab();
         initSelectDataInfo();
         var targetContent = eval($("#"+targetName+"Content"))
         $("[name=main-content-div]").each(function(){
@@ -127,11 +128,18 @@
         });
     }
 
+    // Content Tab 선택 초기화
     function initContentTab(){
         $("[name=main-content-div]").each(function(){
             $(this).find("#contentTab").find(".active").removeClass("active");
             $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
         });
+
+        $(".main-content").hide();
+    }
+
+    function showContentTab(){
+        $(".main-content").show();
     }
 
     // 리플레시

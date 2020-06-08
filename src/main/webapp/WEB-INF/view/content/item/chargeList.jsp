@@ -261,20 +261,20 @@ var fnc_chargeList = {};
     <div id="div_summary" style="float:left">
         <table class="table table-sorting table-hover table-bordered dataTable" style="width:400px;">
             <tr class="align-middle">
-                <th colspan="3">게시중 아이템</th>
-                <th colspan="1" rowspan="2">누적 구매현황</th>
+                <th class="no-padding no-margin" colspan="3">게시중 아이템</th>
+                <th class="no-padding no-margin" colspan="1" rowspan="2">누적 구매현황</th>
             </tr>
             <tr>
-                <th>PC</th>
-                <th>Android</th>
-                <th>IOS</th>
+                <th class="no-padding no-margin">PC</th>
+                <th class="no-padding no-margin">Android</th>
+                <th class="no-padding no-margin">IOS</th>
             </tr>
             <tbody>
             <tr>
-                <td style="text-align:center;">{{pcCnt}}건</td>
-                <td style="text-align:center;">{{androidCnt}}건</td>
-                <td style="text-align:center;">{{iosCnt}}건</td>
-                <td style="text-align:center;">{{totalPurchaseCnt}}건</td>
+                <td class="no-padding no-margin" style="text-align:center;">{{pcCnt}}건</td>
+                <td class="no-padding no-margin" style="text-align:center;">{{androidCnt}}건</td>
+                <td class="no-padding no-margin" style="text-align:center;">{{iosCnt}}건</td>
+                <td class="no-padding no-margin" style="text-align:center;">{{totalPurchaseCnt}}건</td>
             </tr>
             </tbody>
         </table>

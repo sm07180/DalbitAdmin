@@ -27,7 +27,7 @@
         </div>
     </div>
 </div>
-<div class="main-content" style="margin-top: 3px;">
+<div class="main-content" style="margin-top: 3px; display: none;">
     <%-- popup으로 인한 주석
     <!-- TAB -->
         <div name="main-content-div" id="messageListContent">
@@ -76,6 +76,13 @@
             $(this).find("#contentTab").find(".active").removeClass("active");
             $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
         });
+
+        $(".main-content").hide();
+    }
+
+    function showContentTab(){
+        $(".main-content").show();
+
     }
 
 

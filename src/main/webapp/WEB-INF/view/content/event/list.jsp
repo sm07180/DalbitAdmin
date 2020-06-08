@@ -34,7 +34,7 @@
         </div>
     </div>
 </div>
-<div class="main-content hide mt5" id="div_eventTabList">
+<div class="main-content mt5" id="div_eventTabList" style="display: none;">
     <!-- TAB -->
     <jsp:include page="detail/eventTab.jsp"></jsp:include>
     <!-- TAB END -->
@@ -72,11 +72,26 @@
 
 //=------------------------------ Option --------------------------------------------
 
+    // Content Tab 선택 초기화
+    function initContentTab(){
+        $("[name=main-content-div]").each(function(){
+            $(this).find("#contentTab").find(".active").removeClass("active");
+            $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
+        });
+
+        $(".main-content").hide();
+    }
+
+    function showContentTab(){
+        $(".main-content").show();
+    }
+
     //Tab 선택시 호출 함수
     function onClickHeaderTab(id){
         var targetName = id.split("_")[1];
         var targetFnc = eval("fnc_"+targetName);
 
+        initContentTab();
         // targetFnc.init();
     }
 
@@ -92,6 +107,7 @@
         targetFnc.selectMainList();
 
 
+        $('#div_eventTabList').addClass("hide");
         /*검색결과 영역이 접혀 있을 시 열기*/
         ui.toggleSearchList();
     }

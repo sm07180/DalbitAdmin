@@ -18,6 +18,7 @@
         var targetName = id.split("_")[1];
         var targetFnc = eval("fnc_"+targetName);
 
+        showContentTab();
         targetFnc.init();
     }
 </script>

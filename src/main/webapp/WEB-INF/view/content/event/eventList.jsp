@@ -74,7 +74,7 @@
 
         fnc_eventList.divDataTable.find(".footer-left").append(delBtn);
         fnc_eventList.divDataTable.find(".top-right").append(addBtn);
-        fnc_eventList.divDataTable.find(".footer-right").append(excelBtn);
+        // fnc_eventList.divDataTable.find(".footer-right").append(excelBtn);
     };
 
     fnc_eventList.initEvent= function(){
@@ -101,7 +101,7 @@
     fnc_eventList.insertEvent= function() {
         initSelectDataInfo();
 
-        $('#div_eventTabList').removeClass("hide");
+        initContentTab();
         // fnc_eventDetail.insertEventDetail();
         $("#tab_eventDetail").click();
 
@@ -139,7 +139,7 @@
 
 
     fnc_eventList.getEventDetail_info= function(index){
-        $('#div_eventTabList').removeClass("hide");
+        initContentTab();
         var data = this.dtList_info.getDataRow(index);
         setSelectDataInfo("data", data);
         // fnc_eventDetail.updateEventDetail(data);

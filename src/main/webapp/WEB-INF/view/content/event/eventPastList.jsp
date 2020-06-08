@@ -73,8 +73,8 @@
         var excelBtn = '<button class="btn btn-default print-btn btn-sm" type="button" style="margin-left: 3px;"><i class="fa fa-print"></i>Excel Down</button>'
 
         fnc_pastEventList.divDataTable.find(".footer-left").append(delBtn);
-        fnc_pastEventList.divDataTable.find(".top-right").append(addBtn);
-        fnc_pastEventList.divDataTable.find(".footer-right").append(excelBtn);
+        // fnc_pastEventList.divDataTable.find(".top-right").append(addBtn);
+        // fnc_pastEventList.divDataTable.find(".footer-right").append(excelBtn);
     };
 
 

@@ -143,6 +143,23 @@ var EventDataTableSource = {
                         + '<div>•선택 후 [선택 당첨]을 선택하시면 당첨여부가 “대기중 > 선정 ”으로 변경됩니다.</div>'
                         + '<div>•선택된 당첨자 수는 우측 상단 “당첨자 남자 /여자 ” 수를 확인세요.</div>'
                         + '<div>•당첨자를 바로 공지하시려면 하단 [바로 공지하기]를 선택하면 사이트공지 작성페이지에 해당 이벤트 정보가 적용되어 빠른 당첨자 공지가 가능합니다.</div>'
+    },
+
+    'reply': {
+        'url': '/rest/content/event/reply'
+        , 'columns': [
+            {'title': '회원 아이디', 'width':'80px', 'data': 'userId', 'render': function (data, type, row, meta) {
+                    var result = '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.write_mem_no + '">' + row.userId + '</a>' +
+                        '<p class="no-margin">' + row.level +' / ' + row.grade + '</p>';
+                    return result;
+                }},
+            {'title': '회원 닉네임', 'width':'100px', 'data': 'nickName'},
+            {'title': '댓글 내용', 'data': 'contents'},
+            {'title': '작성일시', 'width':'120px', 'data': 'writeDate'},
+            {'title': '수정일시', 'width':'120px', 'data': 'updateDate'},
+            {'title': '수정자', 'width':'80px', 'data': 'op_name'}
+        ]
+        // , 'comments': '<div>•뿅</div>'
     }
 
 }

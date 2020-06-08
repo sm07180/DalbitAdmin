@@ -135,7 +135,7 @@
         fnc_eventReport.divDataTable.find(".footer-left").append(winnerBtn);
         fnc_eventReport.divDataTable.find(".footer-left").append(insertNoticeBtn);
         // this.divDataTable.find(".footer-right").append(winnerDelBtn);
-        fnc_eventReport.divDataTable.find(".footer-right").append(excelBtn);
+        // fnc_eventReport.divDataTable.find(".footer-right").append(excelBtn);
     };
 
     fnc_eventReport.initEvent= function(){

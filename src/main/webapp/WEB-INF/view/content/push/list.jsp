@@ -29,7 +29,7 @@
         </div>
     </div>
 </div>
-<div class="main-content" style="margin-top: 3px;">
+<div class="main-content" style="margin-top: 3px; display: none;">
     <!-- TAB -->
         <div name="main-content-div" id="pushListContent">
             <jsp:include page="pushTab.jsp"></jsp:include>
@@ -80,6 +80,12 @@
             $(this).find("#contentTab").find(".active").removeClass("active");
             $(this).find(".tab-content").find(".active").removeClass("in").removeClass("active");
         });
+
+        $(".main-content").hide();
+    }
+
+    function showContentTab(){
+        $(".main-content").show();
     }
 
 
