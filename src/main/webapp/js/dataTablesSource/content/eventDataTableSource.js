@@ -116,7 +116,9 @@ var EventDataTableSource = {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': '참여자 닉네임', 'data': 'mem_nick'},
-            {'title': '성별', 'data': 'mem_sex'},
+            {'title': '성별', 'data': 'mem_sex', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
             {'title': '연락처', 'data': 'mem_phone'},
             {'title': '응모횟수', 'data': 'applyCnt', 'render': function (data, type, row, meta) {
                     return '<a href="javascript:" onclick="fnc_eventReport.setModalData('+meta.row+')">' + data + ' 건' + '</a>'

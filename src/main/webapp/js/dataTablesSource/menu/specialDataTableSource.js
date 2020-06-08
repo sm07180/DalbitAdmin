@@ -13,6 +13,9 @@ var specialDataTableSource = {
                     return '<img class="thumbnail fullSize_background" src="'+ image +'" style="width: 65px;height: 65px" />';
                 }}
             , {'title': '닉네임', 'width': '10%', 'data': 'mem_nick'}
+            , {'title': '성별', 'data': 'mem_sex', 'width':'5%', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }}
             , {'title': '신청일', 'data': 'reg_date', 'width': '10%', 'render': function(data, type, row) {
                     return common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss');
                 }}

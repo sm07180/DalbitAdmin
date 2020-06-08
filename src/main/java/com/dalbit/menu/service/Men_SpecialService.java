@@ -46,6 +46,9 @@ public class Men_SpecialService {
     @Autowired
     ExcelService excelService;
 
+    @Autowired
+    Mem_MemberDao mem_MemberDao;
+
     /**
      * 스페셜 달D 건수
      */
@@ -63,6 +66,14 @@ public class Men_SpecialService {
         List<SpecialReqVo> list = menSpecialDao.getReqSpecialList(specialReqVo);
         int getReqSpecialListCnt = menSpecialDao.getReqSpecialListCnt(specialReqVo);
         specialReqVo.setTotalCnt(getReqSpecialListCnt);
+
+
+        for(int i=0;i<list.size();i++) {
+            MemberVo outVo = mem_MemberDao.getMemberInfo(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                list.get(i).setMem_sex(outVo.getMem_sex());
+            }
+        }
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialReqVo.getTotalCnt(), specialReqVo.getPageStart(), specialReqVo.getPageCnt())));
 
@@ -203,6 +214,13 @@ public class Men_SpecialService {
         int getSpecialListCnt = menSpecialDao.getSpecialListCnt(specialVo);
         specialVo.setTotalCnt(getSpecialListCnt);
         List<SpecialVo> list = menSpecialDao.getSpecialList(specialVo);
+
+        for(int i=0;i<list.size();i++) {
+            MemberVo outVo = mem_MemberDao.getMemberInfo(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                list.get(i).setMem_sex(outVo.getMem_sex());
+            }
+        }
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(specialVo.getTotalCnt(), specialVo.getPageStart(), specialVo.getPageCnt())));
 

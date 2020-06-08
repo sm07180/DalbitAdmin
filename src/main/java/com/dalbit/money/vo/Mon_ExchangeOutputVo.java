@@ -13,6 +13,7 @@ public class Mon_ExchangeOutputVo{
     private String mem_id;
     private String mem_name;
     private String mem_nick;
+    private String mem_sex;
     private int mem_state;
     private String mem_phone;
     private int idx;

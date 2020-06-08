@@ -243,10 +243,10 @@
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 2) + ")").html(common.vatMinus(detail.succAmt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 4) + ")").html(0);
-                    } else if(index == 7) {
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
+                    } else if(index == 7) {     // 평균
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt/7));
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt/7));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 4) + ")").html(0);
                     }
                     // 하단
@@ -274,10 +274,10 @@
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 2) + ")").html(common.vatMinus(detail.succAmt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 4) + ")").html(0);
-                    } else if(index == 7) {
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
+                    } else if(index == 7) {     //평균
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt/7));
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 4) + ")").html(0);
                     }
                     // 하단
@@ -305,9 +305,9 @@
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 4) + ")").html(0);
                     } else if(index == 7) {
-                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt));
-                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
+                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
+                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt/7));
+                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 4) + ")").html(0);
                     }
                     //하단
@@ -361,16 +361,16 @@
                 $("#totalTableBody tr:eq(2) td:eq(" + (i * 4 + 3) + ")").html(0);
             }else if(i == 7){
                 //총합
-                $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_succAmt));
+                $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
+                $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_succAmt/7));
                 $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 3) + ")").html(0);
                 //첫구매
-                $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma(totalInfo.sum_firstCnt));
-                $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_firstAmt));
+                $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_firstCnt/7).toFixed(2)));
+                $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_firstAmt/7));
                 $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 3) + ")").html(0);
                 //재구매
-                $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma(totalInfo.sum_reCnt));
-                $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_reAmt));
+                $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_reCnt/7).toFixed(2)));
+                $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_reAmt/7));
                 $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 3) + ")").html(0);
             }
 
@@ -413,18 +413,18 @@
         <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
-    <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #f2f2f2">첫구매</td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden"></td>
+    <tr class="_tr_{{this}}" style="background-color: #f2f2f2">
+        <td class="font-bold">첫구매</td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
-    <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #f2f2f2">재구매</td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden"></td>
+    <tr class="_tr_{{this}}" style="background-color: #f2f2f2">
+        <td class="font-bold">재구매</td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td style="background-color: #FFF7E5">0</td><td colspan="2" style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
 
@@ -447,18 +447,18 @@
         <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
-    <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #f2f2f2">첫구매</td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
+    <tr class="_tr_{{this}}" style="background-color: #f2f2f2">
+        <td class="font-bold">첫구매</td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
-    <tr class="_tr_{{this}}">
-        <td class="font-bold" style="background-color: #f2f2f2">재구매</td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
+    <tr class="_tr_{{this}}" style="background-color: #f2f2f2">
+        <td class="font-bold">재구매</td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td>0</td><td colspan="2">0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td colspan="2">0</td><td>0</td>
     </tr>
     {{#each this.slctType_date}}
