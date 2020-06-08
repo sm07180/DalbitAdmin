@@ -53,6 +53,7 @@ public class Adm_TestIdService {
 
     public int insertTestId(TestIdVo testIdVo){
         int result = admTestIdDao.insertTestId(testIdVo);
+        admTestIdDao.insertTestId_history(testIdVo);
 
         // 내부직원 테스트 여부 1 update
         testIdVo.setInner(1);
