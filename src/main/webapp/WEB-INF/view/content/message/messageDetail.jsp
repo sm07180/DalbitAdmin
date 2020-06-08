@@ -357,7 +357,6 @@
                 <div class="pull-left" style="padding-bottom:4px;">
                     <h5><b>[메시지 발송 방송방 리스트]</b></h5><br>
                     ㆍ 메시지를 발송한 방송방 리스트 입니다. <br>
-                    ㆍ 재발송 시에는 ?
                 </div>
                 <div class="dataTables_wrapper pb10" id="div_targetList"></div>
             </div>
