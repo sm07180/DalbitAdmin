@@ -10,6 +10,7 @@
                basic.mem_nick,
                basic.mem_state,
                basic.mem_phone,
+               basic.mem_userid,
                exchange.idx,
                exchange.byeol,
                exchange.cash_basic,
@@ -108,6 +109,7 @@
             , mem_nick
             , mem_state
             , mem_phone
+            , mem_userid
             , idx
             , byeol
             , cash_basic

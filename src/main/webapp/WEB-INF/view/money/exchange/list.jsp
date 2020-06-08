@@ -164,6 +164,30 @@
                         <div class="col-lg-12 mt15">
                             <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
+
+                                <colgroup>
+                                    <col width="4%"/>
+                                    <col width="3%"/>
+                                    <col width="3%"/>
+                                    <col width="5%"/>
+                                    <col width="5%"/>
+                                    <col width="4%"/>
+                                    <col width="5%"/>
+                                    <col width="5%"/>
+                                    <col width="7%"/>
+                                    <col width="6%"/>
+                                    <col width="6%"/>
+                                    <col width="7%"/>
+                                    <col width="5%"/>
+                                    <col width="5%"/>
+                                    <col width="5%"/>
+                                    <col width="6%"/>
+                                    <col width="6%"/>
+                                    <col width="4%"/>
+                                    <col width="5%"/>
+                                    <col width="5%"/>
+                                </colgroup>
+
                                 <thead id="tableTop">
                                 <tr>
                                     <th>No</th>
@@ -180,7 +204,7 @@
                                     <th>신청 별 수</th>
                                     <th>현재 별 수</th>
                                     <%--<th>환전 후 별 수</th>--%>
-                                    <th>테스트ID 등록이력</th>
+                                    <th>테스트ID<br />등록이력</th>
                                     <th>환전횟수</th>
                                     <th>신청일자</th>
                                     <th>처리일자</th>
@@ -536,7 +560,7 @@
                 {{{fontColor '대기' 1 'gray'}}}
             {{/workdayCheck}}
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_id}}</a></td>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex}}}</td>
         <td>{{data.mem_name}}</td>
@@ -558,7 +582,7 @@
 
     {{else}}
     <tr>
-        <td colspan="18">{{isEmptyData}}</td>
+        <td colspan="20">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>

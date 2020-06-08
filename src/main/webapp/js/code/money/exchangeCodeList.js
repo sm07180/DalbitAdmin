@@ -23,7 +23,7 @@ var search_exchange_months = [
 
 var search_exchange_type = [
     new COMMON_CODE(null, 'search_type', '검색조건')
-    , new COMMON_CODE('all', '', '검색조건')
+    , new COMMON_CODE('all', '', '회원검색(전체)')
     , new COMMON_CODE('mem_no', 'mem_no', '회원번호')
     , new COMMON_CODE('mem_id', 'user_id', 'User ID')
     , new COMMON_CODE('mem_nick', 'mem_nick', 'User 닉네임')
@@ -32,7 +32,7 @@ var search_exchange_type = [
 
 var search_exchange_state = [
     new COMMON_CODE(null, 'search_state', '처리상태')
-    , new COMMON_CODE('all', '', '처리상태')
+    , new COMMON_CODE('all', '', '처리상태(전체)')
     , new COMMON_CODE('wait', '0', '미처리')
     , new COMMON_CODE('ok', '1', '완료')
     , new COMMON_CODE('reject', '2', '불가')
