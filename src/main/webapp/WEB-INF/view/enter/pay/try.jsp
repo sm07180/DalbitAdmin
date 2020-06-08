@@ -27,7 +27,7 @@
                 <th class="_tryDate" colspan="3" id="th_2"></th><td class="_noBorder"></td>
                 <th class="_tryDate" colspan="3" id="th_1"></th><td class="_noBorder"></td>
                 <th class="_tryDate" colspan="3" id="th_0" style="background-color: #ffe699"></th><td class="_noBorder"></td>
-                <th colspan="3">평균</th>
+                <th colspan="3"  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">평균</th>
             </tr>
             <tr style="background-color: #dae3f3">
                 <th>성공</th>
@@ -58,9 +58,9 @@
                 <th style="background-color: #fff2cc">시도</th>
                 <th style="background-color: #fff2cc">성공률</th>
                 <td class="_noBorder"></td>
-                <th>성공</th>
-                <th>시도</th>
-                <th>성공률</th>
+                <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">성공</th>
+                <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">시도</th>
+                <th  title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">성공률</th>
             </tr>
             </thead>
             <tbody id="tryTableBody"></tbody>
@@ -182,8 +182,15 @@
 
     function fn_tryPay_success(data, response){
         dalbitLog(response);
+        var title = "평균 합계의 경우 반올림된 평균 데이터의 총합이라\n항목별 합계와 다소 오차가 생길 수 있습니다.";
+
         response.data.forEach(function(data, index){
             data.detailList.forEach(function(detail, detailIndex){
+
+                $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").attr('title',title);
+                $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").attr('title',title);
+                $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").attr('title',title);
+
                 var tmp = common.average((detail.succCnt / 7), (detail.tryCnt / 7));
                 if (tmp == 0) {
                     tmp = tmp + ".0";
@@ -324,7 +331,9 @@
         <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0.0</td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0.00%</td>
     </tr>
     {{#each this.slctType_date}}
         <tr class="_tr_{{this}}">
@@ -336,7 +345,7 @@
             <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
             <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
             <td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td>0</td><td>0</td><td>0.0%</td>
+            <td>0</td><td>0</td><td>0.00%</td>
         </tr>
     {{/each}}
     <tr class="_tr_total font-bold" style="background-color: #b4c7e7">
@@ -348,7 +357,9 @@
         <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0.0</td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0.00%</td>
     </tr>
 </script>
 
