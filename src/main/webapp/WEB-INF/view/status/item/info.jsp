@@ -234,7 +234,7 @@
         <td class="{{upAndDownClass month_inc_cnt}}"><i class="fa {{upAndDownIcon month_inc_cnt}}"></i> {{addComma month_inc_cnt}}</td>
     </tr>
     <tr>
-        <th>금액</th>
+        <th>달수</th>
         <td>{{addComma now_item_amt}}</td>
         <td>{{addComma yes_item_amt}}</td>
         <td class="{{upAndDownClass now_inc_amt}}"><i class="fa {{upAndDownIcon now_inc_amt}}"></i> {{addComma now_inc_amt}}</td>

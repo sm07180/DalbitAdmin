@@ -119,14 +119,6 @@
             }
         );
 
-        $("#input_date_6").text(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD'));
-        $("#input_date_5").text(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD'));
-        $("#input_date_4").text(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD'));
-        $("#input_date_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD'));
-        $("#input_date_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD'));
-        $("#input_date_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
-        $("#input_date_0").text(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD'));
-
         //결제/환불 통계 현황
         getStatPayInfo();
     });
@@ -139,42 +131,7 @@
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
-        var me = $(this);
-        if(me.val() == 0){
-            $("#oneDayDatePicker").show();
-            $("#rangeDatepicker").hide();
-        }else {
-            $("#oneDayDatePicker").hide();
-            $("#rangeDatepicker").show();
-        }
-
-        if(me.val() == "0"){
-            $("#input_date_6").val(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD'));
-            $("#input_date_5").val(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD'));
-            $("#input_date_4").val(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD'));
-            $("#input_date_3").val(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD'));
-            $("#input_date_2").val(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD'));
-            $("#input_date_1").val(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
-            $("#input_date_0").val(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD'));
-        }else if(me.val() == "1"){
-            $("#input_date_6").val(moment($("#startDate").val()).add('months', -6).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -5).add('days', -1).format('YYYY.MM.DD'));
-            $("#input_date_5").val(moment($("#startDate").val()).add('months', -5).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -4).add('days', -1).format('YYYY.MM.DD'));
-            $("#input_date_4").val(moment($("#startDate").val()).add('months', -4).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -3).add('days', -1).format('YYYY.MM.DD'));
-            $("#input_date_3").val(moment($("#startDate").val()).add('months', -3).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -2).add('days', -1).format('YYYY.MM.DD'));
-            $("#input_date_2").val(moment($("#startDate").val()).add('months', -2).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', -1).add('days', -1).format('YYYY.MM.DD'));
-            $("#input_date_1").val(moment($("#startDate").val()).add('months', -1).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', 0).add('days', -1).format('YYYY.MM.DD'));
-            $("#input_date_0").val(moment($("#startDate").val()).add('months', 0).format('YYYY.MM.01') + " - " + moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-        }else if(me.val() == "2"){
-            $("#input_date_6").val(moment($("#startDate").val()).add('years', -6).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -5).add('days', -1).format('YYYY.12.31'));
-            $("#input_date_5").val(moment($("#startDate").val()).add('years', -5).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -4).add('days', -1).format('YYYY.12.31'));
-            $("#input_date_4").val(moment($("#startDate").val()).add('years', -4).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -3).add('days', -1).format('YYYY.12.31'));
-            $("#input_date_3").val(moment($("#startDate").val()).add('years', -3).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -2).add('days', -1).format('YYYY.12.31'));
-            $("#input_date_2").val(moment($("#startDate").val()).add('years', -2).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', -1).add('days', -1).format('YYYY.12.31'));
-            $("#input_date_1").val(moment($("#startDate").val()).add('years', -1).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', 0).add('days', -1).format('YYYY.12.31'));
-            $("#input_date_0").val(moment($("#startDate").val()).add('years', 0).format('YYYY.01.01') + " - " + moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
-        }
-
-        searchDate();
+        radioChange();
     });
 
     function getStatPayInfo(){
@@ -269,10 +226,24 @@
     });
 
     $(document).on('click', '._todaySearch', function(){
+        $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+        radioChange();
+
         setTimeDate(dateTime);
         getStatPayInfo();
         $("#bt_search").click();
     });
+
+    function radioChange(){
+        if($('input[name="slctType"]:checked').val() == 0){
+            $("#oneDayDatePicker").show();
+            $("#rangeDatepicker").hide();
+        }else {
+            $("#oneDayDatePicker").hide();
+            $("#rangeDatepicker").show();
+        }
+        searchDate();
+    }
 
     function searchDate(dateType){
         var slctType = $('input[name="slctType"]:checked').val();

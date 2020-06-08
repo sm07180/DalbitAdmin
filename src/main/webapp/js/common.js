@@ -324,7 +324,7 @@ common.average = function(lvalue, rvalue) {
         return 0;
     }
     var tmp = (lvalue / rvalue) * 100;
-    return tmp.toFixed(1);
+    return tmp.toFixed(2);
 };
 
 common.sexIcon = function(sex){
@@ -342,7 +342,7 @@ common.vatMinus = function(lvalue) {
     if(lvalue == 0){
         return 0;
     }
-    return common.addComma(lvalue - (lvalue * 0.1));
+    return common.addComma((lvalue - (lvalue * 0.1)).toFixed(0));
 };
 
 common.payRate = function(lvalue,rvalue) {
@@ -350,5 +350,5 @@ common.payRate = function(lvalue,rvalue) {
         return 0;
     }
     var tmp = (lvalue * 100) / rvalue;
-    return common.addComma(tmp.toFixed(1));
+    return common.addComma(tmp.toFixed(2));
 };

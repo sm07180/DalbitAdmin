@@ -21,7 +21,7 @@
                 <th>판매 량</th>
                 <th>판매 달수</th>
                 <th>누적 판매량</th>
-                <th>누적 판매 달수</th>
+                <%--<th>누적 판매 달수</th>--%>
             </tr>
             </thead>
             <tbody id="broadTableBody"></tbody>
@@ -50,7 +50,6 @@
     }
 
     function fn_broadJoin_success(data, response){
-        dalbitLog(response);
         var isDataEmpty = response.data.detailList == null;
         $("#broadTableBody").empty();
         if(!isDataEmpty){
@@ -93,7 +92,7 @@
         <td>{{addComma sum_itemCnt}}</td>
         <td>{{addComma sum_itemAmt}}</td>
         <td>{{addComma sum_totalItemCnt}}</td>
-        <td>{{addComma sum_totalItemAmt}}</td>
+        <!--<td>{{addComma sum_totalItemAmt}}</td>-->
     </tr>
 </script>
 
@@ -107,7 +106,7 @@
         <td>{{addComma itemCnt}}</td>
         <td>{{addComma itemAmt}}</td>
         <td>{{addComma totalItemCnt}}</td>
-        <td>{{addComma totalItemAmt}}</td>
+        <!--<td>{{addComma totalItemAmt}}</td>-->
     </tr>
     {{else}}
     <%--<tr>--%>

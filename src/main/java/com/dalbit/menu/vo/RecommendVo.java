@@ -10,6 +10,7 @@ public class RecommendVo extends PagingVo {
     private String mem_no;
     private String mem_id;
     private String mem_nick;
+    private String mem_sex;
     private String image_profile;
     private String level;
     private String grade;

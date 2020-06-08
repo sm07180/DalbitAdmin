@@ -18,6 +18,7 @@
         , lev.level as `level`
         , lev.grade as grade
         , mem.mem_nick as mem_nick
+        , mem.mem_sex as mem_sex
         , bro.count_entry as count_entry
         , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
         , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no

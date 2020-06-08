@@ -3,34 +3,28 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid col-lg-9 no-padding">
+        <div class="container-fluid col-lg-8 no-padding">
             <form id="searchForm">
-                <input type="hidden" id="pageNo" name="pageNo" value="1" />
-                <input type="hidden" id="pageCnt" name="pageCnt" value="100" />
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
                                 <span id="slctTypeArea"></span>
-
                                 <div class="input-group date" id="oneDayDatePicker">
                                     <label for="onedayDate" class="input-group-addon">
                                         <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
                                     </label>
                                     <input type="text" class="form-control" id="onedayDate" name="onedayDate">
                                 </div>
-
                                 <div class="input-group date" id="rangeDatepicker" style="display:none;">
                                     <label for="displayDate" class="input-group-addon">
                                         <span><i class="fa fa-calendar"></i></span>
                                     </label>
                                     <input type="text" name="displayDate" id="displayDate" class="form-control" />
                                 </div>
-
                                 <input type="hidden" name="startDate" id="startDate">
                                 <input type="hidden" name="endDate" id="endDate" />
-
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
                         </div>
@@ -38,74 +32,31 @@
                 </div>
             </form>
 
-            <div class="row col-lg-12 form-inline">
-                <div class="col-lg-6 pl0 pr5">
-                    <!-- 방송 -->
-                    <div class="widget widget-table mb10">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 방송 통계 현황</h3>
-                        </div>
-                        <div class="widget-content mt10">
-                            <table class="table table-bordered" id="tb_broadSumStatus">
-                                <colgroup>
-                                    <col width="20%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/>
-                                    <col width="16%"/>
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>실시간</th>
-                                        <th>전일</th>
-                                        <th>증감</th>
-                                        <th>주간</th>
-                                        <th>증감</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="broadSumStatus">
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="row col-lg-12 form-inline hide">
+                <!-- 가입자수 -->
+                <div class="widget widget-table mb10">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-table"></i> 환전 통계 현황</h3>
                     </div>
-                    <!-- //방송 -->
-                </div>
-
-                <div class="col-lg-6 pr0 pl5">
-                    <!-- 선물 -->
-                    <div class="widget widget-table mb10">
-                        <div class="widget-header">
-                            <h3><i class="fa fa-table"></i> 선물 통계 현황</h3>
-                        </div>
-                        <div class="widget-content mt10">
-                            <table class="table table-bordered" id="tb_giftSumStatus">
-                                <colgroup>
-                                    <col width="20%"/><col width="16%"/><col width="16%"/><col width="16%"/><col width="16%"/>
-                                    <col width="16%"/>
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>실시간</th>
-                                    <th>전일</th>
-                                    <th>증감</th>
-                                    <th>주간</th>
-                                    <th>증감</th>
-                                </tr>
-                                </thead>
-                                <tbody id="giftSumStatus">
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="widget-content mt10">
+                        <table class="table table-bordered">
+                            <colgroup>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                            </colgroup>
+                            <thead>
+                            </thead>
+                            <tbody id="infoTableBody"></tbody>
+                        </table>
                     </div>
-                    <!-- //선물 -->
                 </div>
             </div>
-
         </div>
-            <!-- tab -->
-            <div class="no-padding" id="infoTab">
-                <jsp:include page="infoTab.jsp"/>
-            </div>
-            <!-- //tab -->
+        <!-- tab -->
+        <div class="no-padding" id="infoTab">
+            <jsp:include page="infoTab.jsp"/>
+        </div>
+        <!-- //tab -->
     </div>
 </div>
 
@@ -159,21 +110,15 @@
     });
 
     function getList(){
-        util.getAjaxData("broadSumStatus", "/rest/status/broadcast/broadcastLive/list", null, fn_broadSumStatus_success);
+        // util.getAjaxData("iteminfo", "/rest/status/item/info/list", null, fn_info_success);
     }
 
-    function fn_broadSumStatus_success(data, response){
-        var template = $('#tmp_broadcastLive').html();
+    function fn_info_success(data, response){
+        var template = $('#tmp_info').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data.broadCastLiveInfo;
+        var context = response.data.info;
         var html=templateScript(context);
-        $("#broadSumStatus").append(html);
-
-        var template = $('#tmp_giftLive').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data.broadCastLiveInfo;
-        var html=templateScript(context);
-        $("#giftSumStatus").append(html);
+        $("#infoTableBody").append(html);
     }
 
     $(document).on('click', '._prevSearch', function(){
@@ -263,40 +208,17 @@
     }
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_broadcastLive">
-    <tr>
-        <th>방송개설건</th>
-        <td>{{addComma create_now_cnt}}</td>
-        <td>{{addComma create_yes_cnt}}</td>
-        <td class="{{upAndDownClass create_now_inc_cnt}}"><i class="fa {{upAndDownIcon create_now_inc_cnt}}"></i> {{addComma create_now_inc_cnt}}</td>
-        <td>{{addComma create_week_cnt}}</td>
-        <td class="{{upAndDownClass create_week_inc_cnt}}"><i class="fa {{upAndDownIcon create_week_inc_cnt}}"></i> {{addComma create_week_inc_cnt}}</td>
-    </tr>
-    <tr>
-        <th>방송시간</th>
-        <td>{{addComma broadcast_now_time}}</td>
-        <td>{{addComma broadcast_yes_time}}</td>
-        <td class="{{upAndDownClass broadcast_now_inc_time}}"><i class="fa {{upAndDownIcon broadcast_now_inc_time}}"></i> {{addComma broadcast_now_inc_time}}</td>
-        <td>{{addComma broadcast_week_time}}</td>
-        <td class="{{upAndDownClass broadcast_week_inc_time}}"><i class="fa {{upAndDownIcon broadcast_week_inc_time}}"></i> {{addComma broadcast_week_inc_time}}</td>
-    </tr>
-</script>
-
-<script type="text/x-handlebars-template" id="tmp_giftLive">
-    <tr>
-        <th>선물 건</th>
-        <td>{{addComma gift_now_cnt}}</td>
-        <td>{{addComma gift_yes_cnt}}</td>
-        <td class="{{upAndDownClass gift_now_inc_cnt}}"><i class="fa {{upAndDownIcon gift_now_inc_cnt}}"></i> {{addComma gift_now_inc_cnt}}</td>
-        <td>{{addComma gift_week_cnt}}</td>
-        <td class="{{upAndDownClass gift_week_inc_cnt}}"><i class="fa {{upAndDownIcon gift_week_inc_cnt}}"></i> {{addComma gift_week_inc_cnt}}</td>
-    </tr>
-    <tr>
-        <th>선물 달수</th>
-        <td>{{addComma gift_now_amt}}</td>
-        <td>{{addComma gift_yes_amt}}</td>
-        <td class="{{upAndDownClass gift_now_inc_amt}}"><i class="fa {{upAndDownIcon gift_now_inc_amt}}"></i> {{addComma gift_now_inc_amt}}</td>
-        <td>{{addComma gift_week_amt}}</td>
-        <td class="{{upAndDownClass gift_week_inc_amt}}"><i class="fa {{upAndDownIcon gift_week_inc_amt}}"></i> {{addComma gift_week_inc_amt}}</td>
-    </tr>
+<script type="text/x-handlebars-template" id="tmp_info">
+    <%--<tr>--%>
+        <%--<th>건수</th>--%>
+        <%--<td>{{addComma now_item_cnt}}</td>--%>
+        <%--<td>{{addComma yes_item_cnt}}</td>--%>
+        <%--<td class="{{upAndDownClass now_inc_cnt}}"><i class="fa {{upAndDownIcon now_inc_cnt}}"></i> {{addComma now_inc_cnt}}</td>--%>
+        <%--<td>{{addComma week_item_cnt}}</td>--%>
+        <%--<td>{{addComma bweek_item_cnt}}</td>--%>
+        <%--<td class="{{upAndDownClass week_inc_cnt}}"><i class="fa {{upAndDownIcon week_inc_cnt}}"></i> {{addComma week_inc_cnt}}</td>--%>
+        <%--<td>{{addComma month_item_cnt}}</td>--%>
+        <%--<td>{{addComma bmonth_item_cnt}}</td>--%>
+        <%--<td class="{{upAndDownClass month_inc_cnt}}"><i class="fa {{upAndDownIcon month_inc_cnt}}"></i> {{addComma month_inc_cnt}}</td>--%>
+    <%--</tr>--%>
 </script>

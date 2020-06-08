@@ -205,6 +205,7 @@ var fnc_profileList = {};
                 </h3>
                 <ul class="list-unstyled">
                     <li><strong>Nick:</strong> {{replaceHtml user.mem_nick}}</li>
+                    <li><strong>Sex:</strong> {{{sexIcon user.mem_sex}}}</li>
                     <li><strong>No:</strong> {{user.mem_no}}</li>
                 </ul>
             </div>
