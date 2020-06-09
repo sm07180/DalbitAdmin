@@ -165,12 +165,20 @@
     function getList(){
 
         if($('._tab.active').find('a').data('specialdj') != null){
+
             $("#exchangeCheckArea").attr('style', 'display:none !important;');
+            $("#searchYearArea").show();
+            $("#searchMonthArea").show();
+            $("#searchStateArea").show();
 
             exchangeList();
         }else{
 
             $("#exchangeCheckArea").show();
+            $("#searchYearArea").hide();
+            $("#searchMonthArea").hide();
+            $("#searchStateArea").hide();
+
             enableList()
         }
     }
@@ -211,11 +219,6 @@
     $('#bt_search').on('click', function(){
         exchangePagingInfo.pageNo = 1;
         getList();
-
-        /*var template = $('#tmp_exchangeTable').html();
-        var templateScript = Handlebars.compile(template);
-        var html = templateScript();
-        $("#listTable").html(html);*/
     });
 
     $('input[id="search_value"]').on('keydown', function(e) {    // textBox 처리
