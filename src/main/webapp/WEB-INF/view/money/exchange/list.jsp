@@ -54,11 +54,11 @@
                 </ul>
 
                 <div>
-                    <div class="row col-lg-12 no-padding">
+                    <div class="row col-lg-12 no-padding" style="margin-left: 0px">
                         <div id="summaryTable"></div>
 
                         <div class="dataTables_paginate paging_full_numbers mt15" id="list_info_paginate_top"></div>
-                        <div class="col-lg-12" id="listTable"></div>
+                        <div class="col-lg-12 no-padding" id="listTable"></div>
                         <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
                     </div>
                 </div>
