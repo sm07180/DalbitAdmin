@@ -745,7 +745,12 @@
                 {{/equal}}
             </td>
             <th>회원탈퇴일시</th>
-            <td colspan="2" style="text-align: left">{{withdrawalDate}}</td>
+            <td colspan="2" style="text-align: left">
+                {{#equal memWithdrawal '1'}}
+                    {{../last_upd_date}}
+                {{/equal}}
+
+            </td>
         </tr>
         <tr>
             <th rowspan="4">운영자메모</th>
