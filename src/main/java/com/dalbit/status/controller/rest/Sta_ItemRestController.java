@@ -88,7 +88,7 @@ public class Sta_ItemRestController {
 
     /**
      * 아이템 방송별
-     * @param P_ItemBroadInputVo
+     * @param pItemBroadInputVo
      * @return
      */
     @PostMapping("/broad/list")
