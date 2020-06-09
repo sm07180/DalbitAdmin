@@ -48,10 +48,7 @@ Handlebars.registerHelper("specialBenefit", function (star, isSpecial) {
     if(common.isEmpty(isSpecial) || isSpecial == 0){
         return 0;
     }
-
-    var benefit = star * 60 * 0.05;
-    console.log(benefit);
-
+    var benefit = Number(Math.floor(star * 60 * 0.005)) * 10;
     return common.addComma(benefit);
 });
 
@@ -61,25 +58,13 @@ Handlebars.registerHelper("exchangeAmt", function (star, isSpecial) {
     var specialBenefit = 0;
 
     if(!common.isEmpty(isSpecial) && isSpecial != 0){
-        specialBenefit = Number(star * 60 * 0.05);
+        specialBenefit = Number(Math.floor(star * 60 * 0.005)) * 10;
     }
 
     var sum = Number(cashBasic + specialBenefit);
-    console.log("sum");
-    console.log(sum);
-
     var incomeTax = Number(Math.floor(sum * 0.003)) * 10;
-    console.log("incomeTax");
-    console.log(incomeTax);
-
     var residentTax = Number(Math.floor(incomeTax * 0.001)) * 10;
-    console.log("residentTax");
-    console.log(residentTax);
-
     var total = Number(sum - incomeTax - residentTax);
-    console.log("total");
-    console.log(total);
-
 
     return common.addComma(total);
 });
