@@ -34,26 +34,7 @@
 <iframe id="iframe_excel_download" name="iframe_excel_download" style="display:none;"></iframe>
 
 <script type="text/javascript">
-    $('._bgColor').each(function () {
-        var bgcolor = $(this).data('bgcolor');
-        if (bgcolor != null && bgcolor != '') {
-            $(this).css('background', bgcolor);
-        }
-    });
-
-    $('._fontColor').each(function () {
-        var fontcolor = $(this).data('fontcolor');
-        if (fontcolor != null && fontcolor != '') {
-            $(this).css('color', fontcolor);
-        }
-    });
-    $('._noBorder').each(function () {
-        var noborderwidth = $(this).data('noborderwidth');
-        $(this).css("background-color", 'white')
-            .css("border-bottom", "hidden")
-            .css("border-top", "hidden");
-        if (noborderwidth != null && noborderwidth != '') {
-            $(this).css("width", noborderwidth);
-        }
+    $(function(){
+        ui.paintColor();
     });
 </script>
