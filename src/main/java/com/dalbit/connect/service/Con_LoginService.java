@@ -138,7 +138,7 @@ public class Con_LoginService {
         }
 
         List list = new ArrayList();
-        if(statVo.getSlctType() != 1){
+        if(statVo.getSlctType() == 0){              // 시간별
             for (int i=0; i < detailList.size(); i++){
                 P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
                 outVo.setDate(detailList.get(i).getDate());
@@ -151,8 +151,54 @@ public class Con_LoginService {
                 outVo.setFemaleCnt(detailList.get(i).getFemaleCnt());
                 outVo.setNoneCnt(detailList.get(i).getNoneCnt());
 
+                boolean tmpSw = false;
                 if(!DalbitUtil.isEmpty(bDetailList)){
-                    if(i < bDetailList.size()){
+                    for(int j=0;j<bDetailList.size();j++){
+                        if(detailList.get(i).getHour().equals(bDetailList.get(j).getHour())){
+                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
+                            outVo.setBMaleCnt(bDetailList.get(j).getMaleCnt());
+                            outVo.setBFemaleCnt(bDetailList.get(j).getFemaleCnt());
+                            outVo.setBNoneCnt(bDetailList.get(j).getNoneCnt());
+                            tmpSw = true;
+                            break;
+                        }
+                    }
+                }
+                if(!tmpSw){
+                    outVo.setBTotalCnt(0);
+                    outVo.setBMaleCnt(0);
+                    outVo.setBFemaleCnt(0);
+                    outVo.setBNoneCnt(0);
+                }
+                list.add(outVo);
+            }
+        }else if(statVo.getSlctType() == 1) {       // 일별
+            for (int i=30; -1 < i; i --){
+                P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
+                outVo.setDay(Integer.toString(i+1));
+                outVo.setMonth(SelectMonth);
+
+                if(detailList.size() >= i+1) {
+                    if (detailList.get(i).getDay().equals(Integer.toString(i+1))) {
+                        outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+                        outVo.setMaleCnt(detailList.get(i).getMaleCnt());
+                        outVo.setFemaleCnt(detailList.get(i).getFemaleCnt());
+                        outVo.setNoneCnt(detailList.get(i).getNoneCnt());
+                    }else{
+                        outVo.setTotalCnt(0);
+                        outVo.setMaleCnt(0);
+                        outVo.setFemaleCnt(0);
+                        outVo.setNoneCnt(0);
+                    }
+                }else{
+                    outVo.setTotalCnt(0);
+                    outVo.setMaleCnt(0);
+                    outVo.setFemaleCnt(0);
+                    outVo.setNoneCnt(0);
+                }
+
+                if(bDetailList.size() >= i+1) {
+                    if (bDetailList.get(i).getDay().equals(Integer.toString(i+1))) {
                         outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
                         outVo.setBMaleCnt(bDetailList.get(i).getMaleCnt());
                         outVo.setBFemaleCnt(bDetailList.get(i).getFemaleCnt());
@@ -171,58 +217,33 @@ public class Con_LoginService {
                 }
                 list.add(outVo);
             }
-        }else if(statVo.getSlctType() == 1) {
-            boolean detailListSw = false;
-            boolean bDetailListSw = false;
-            for (int i=0; i < 31; i++){
+        }else{      // 월별
+            for (int i=0; i < detailList.size(); i++){
                 P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
-                outVo.setDay(Integer.toString(i + 1));
-                outVo.setMonth(SelectMonth);
-                for (int j = 0; j < detailList.size(); j++) {
-                    if(detailList.size() >= i) {
-                        if (Integer.parseInt(detailList.get(j).getDay()) == i + 1) {
-                            outVo.setTotalCnt(detailList.get(j).getTotalCnt());
-                            outVo.setMaleCnt(detailList.get(j).getMaleCnt());
-                            outVo.setFemaleCnt(detailList.get(j).getFemaleCnt());
-                            outVo.setNoneCnt(detailList.get(j).getNoneCnt());
-                            detailListSw = true;
-                            break;
-                        }
-                    }else{
-                        outVo.setTotalCnt(0);
-                        outVo.setMaleCnt(0);
-                        outVo.setFemaleCnt(0);
-                        outVo.setNoneCnt(0);
-                        detailListSw = true;
-                        break;
-                    }
-                }
-                for (int j = 0; j < bDetailList.size(); j++) {
-                    if(bDetailList.size() >= i){
-                        if (Integer.parseInt(bDetailList.get(j).getDay()) == i + 1) {
+                outVo.setDate(detailList.get(i).getDate());
+                outVo.setHour(detailList.get(i).getHour());
+                outVo.setYear(detailList.get(i).getYear());
+                outVo.setMonth(detailList.get(i).getMonth());
+                outVo.setDay(detailList.get(i).getDay());
+                outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+                outVo.setMaleCnt(detailList.get(i).getMaleCnt());
+                outVo.setFemaleCnt(detailList.get(i).getFemaleCnt());
+                outVo.setNoneCnt(detailList.get(i).getNoneCnt());
+
+                boolean tmpSw = false;
+                if(!DalbitUtil.isEmpty(bDetailList)){
+                    for(int j=0;j<bDetailList.size();j++){
+                        if(detailList.get(i).getMonth().equals(bDetailList.get(j).getMonth())){
                             outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
                             outVo.setBMaleCnt(bDetailList.get(j).getMaleCnt());
                             outVo.setBFemaleCnt(bDetailList.get(j).getFemaleCnt());
                             outVo.setBNoneCnt(bDetailList.get(j).getNoneCnt());
-                            bDetailListSw = true;
+                            tmpSw = true;
                             break;
                         }
-                    }else{
-                        outVo.setBTotalCnt(0);
-                        outVo.setBMaleCnt(0);
-                        outVo.setBFemaleCnt(0);
-                        outVo.setBNoneCnt(0);
-                        bDetailListSw = true;
-                        break;
                     }
                 }
-                if(!detailListSw){
-                    outVo.setTotalCnt(0);
-                    outVo.setMaleCnt(0);
-                    outVo.setFemaleCnt(0);
-                    outVo.setNoneCnt(0);
-                }
-                if(!bDetailListSw){
+                if(!tmpSw){
                     outVo.setBTotalCnt(0);
                     outVo.setBMaleCnt(0);
                     outVo.setBFemaleCnt(0);
@@ -340,7 +361,7 @@ public class Con_LoginService {
         }
 
         List list = new ArrayList();
-        if(statVo.getSlctType() != 1){
+        if(statVo.getSlctType() == 0){              // 시간별
             for (int i=0; i < detailList.size(); i++){
                 P_LoginAgeOutDetailVo outVo = new P_LoginAgeOutDetailVo();
                 outVo.setDate(detailList.get(i).getDate());
@@ -348,7 +369,6 @@ public class Con_LoginService {
                 outVo.setYear(detailList.get(i).getYear());
                 outVo.setMonth(detailList.get(i).getMonth());
                 outVo.setDay(detailList.get(i).getDay());
-
                 outVo.setTotalCnt(detailList.get(i).getTotalCnt());
                 outVo.setAge10Cnt(detailList.get(i).getAge10Cnt());
                 outVo.setAge20Cnt(detailList.get(i).getAge20Cnt());
@@ -356,8 +376,70 @@ public class Con_LoginService {
                 outVo.setAge40Cnt(detailList.get(i).getAge40Cnt());
                 outVo.setAge50Cnt(detailList.get(i).getAge50Cnt());
                 outVo.setAge60Cnt(detailList.get(i).getAge60Cnt());
+
+                boolean tmpSw = false;
                 if(!DalbitUtil.isEmpty(bDetailList)){
-                    if(i < bDetailList.size()){
+                    for(int j=0;j<bDetailList.size();j++){
+                        if(detailList.get(i).getHour().equals(bDetailList.get(j).getHour())){
+                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
+                            outVo.setBAge10Cnt(bDetailList.get(j).getAge10Cnt());
+                            outVo.setBAge20Cnt(bDetailList.get(j).getAge20Cnt());
+                            outVo.setBAge30Cnt(bDetailList.get(j).getAge30Cnt());
+                            outVo.setBAge40Cnt(bDetailList.get(j).getAge40Cnt());
+                            outVo.setBAge50Cnt(bDetailList.get(j).getAge50Cnt());
+                            outVo.setBAge60Cnt(bDetailList.get(j).getAge60Cnt());
+                            tmpSw = true;
+                            break;
+                        }
+                    }
+                }
+                if(!tmpSw){
+                    outVo.setBTotalCnt(0);
+                    outVo.setBAge10Cnt(0);
+                    outVo.setBAge20Cnt(0);
+                    outVo.setBAge30Cnt(0);
+                    outVo.setBAge40Cnt(0);
+                    outVo.setBAge50Cnt(0);
+                    outVo.setBAge60Cnt(0);
+                }
+                list.add(outVo);
+            }
+        }else if(statVo.getSlctType() == 1) {       // 일별
+            for (int i=30; -1 < i; i --){
+                P_LoginAgeOutDetailVo outVo = new P_LoginAgeOutDetailVo();
+                outVo.setDay(Integer.toString(i+1));
+                outVo.setMonth(SelectMonth);
+
+                if(detailList.size() >= i+1) {
+                    if (detailList.get(i).getDay().equals(Integer.toString(i+1))) {
+                        outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+                        outVo.setAge10Cnt(detailList.get(i).getAge10Cnt());
+                        outVo.setAge20Cnt(detailList.get(i).getAge20Cnt());
+                        outVo.setAge30Cnt(detailList.get(i).getAge30Cnt());
+                        outVo.setAge40Cnt(detailList.get(i).getAge40Cnt());
+                        outVo.setAge50Cnt(detailList.get(i).getAge50Cnt());
+                        outVo.setAge60Cnt(detailList.get(i).getAge60Cnt());
+                    }else{
+                        outVo.setTotalCnt(0);
+                        outVo.setAge10Cnt(0);
+                        outVo.setAge20Cnt(0);
+                        outVo.setAge30Cnt(0);
+                        outVo.setAge40Cnt(0);
+                        outVo.setAge50Cnt(0);
+                        outVo.setAge60Cnt(0);
+                    }
+                }else{
+                    outVo.setTotalCnt(0);
+                    outVo.setAge10Cnt(0);
+                    outVo.setAge20Cnt(0);
+                    outVo.setAge30Cnt(0);
+                    outVo.setAge40Cnt(0);
+                    outVo.setAge50Cnt(0);
+                    outVo.setAge60Cnt(0);
+                }
+
+                if(bDetailList.size() >= i+1) {
+                    if (bDetailList.get(i).getDay().equals(Integer.toString(i+1))) {
                         outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
                         outVo.setBAge10Cnt(bDetailList.get(i).getAge10Cnt());
                         outVo.setBAge20Cnt(bDetailList.get(i).getAge20Cnt());
@@ -385,41 +467,26 @@ public class Con_LoginService {
                 }
                 list.add(outVo);
             }
-        }else if(statVo.getSlctType() == 1) {
-            boolean detailListSw = false;
-            boolean bDetailListSw = false;
-            for (int i=0; i < 31; i++){
+        }else{      // 월별
+            for (int i=0; i < detailList.size(); i++){
                 P_LoginAgeOutDetailVo outVo = new P_LoginAgeOutDetailVo();
-                outVo.setDay(Integer.toString(i + 1));
-                outVo.setMonth(SelectMonth);
-                for (int j = 0; j < detailList.size(); j++) {
-                    if(detailList.size() >= i) {
-                        if (Integer.parseInt(detailList.get(j).getDay()) == i + 1) {
-                            outVo.setTotalCnt(detailList.get(j).getTotalCnt());
-                            outVo.setAge10Cnt(detailList.get(j).getAge10Cnt());
-                            outVo.setAge20Cnt(detailList.get(j).getAge20Cnt());
-                            outVo.setAge30Cnt(detailList.get(j).getAge30Cnt());
-                            outVo.setAge40Cnt(detailList.get(j).getAge40Cnt());
-                            outVo.setAge50Cnt(detailList.get(j).getAge50Cnt());
-                            outVo.setAge60Cnt(detailList.get(j).getAge60Cnt());
-                            detailListSw = true;
-                            break;
-                        }
-                    }else{
-                        outVo.setTotalCnt(0);
-                        outVo.setAge10Cnt(0);
-                        outVo.setAge20Cnt(0);
-                        outVo.setAge30Cnt(0);
-                        outVo.setAge40Cnt(0);
-                        outVo.setAge50Cnt(0);
-                        outVo.setAge60Cnt(0);
-                        detailListSw = true;
-                        break;
-                    }
-                }
-                for (int j = 0; j < bDetailList.size(); j++) {
-                    if(bDetailList.size() >= i){
-                        if (Integer.parseInt(bDetailList.get(j).getDay()) == i + 1) {
+                outVo.setDate(detailList.get(i).getDate());
+                outVo.setHour(detailList.get(i).getHour());
+                outVo.setYear(detailList.get(i).getYear());
+                outVo.setMonth(detailList.get(i).getMonth());
+                outVo.setDay(detailList.get(i).getDay());
+                outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+                outVo.setAge10Cnt(detailList.get(i).getAge10Cnt());
+                outVo.setAge20Cnt(detailList.get(i).getAge20Cnt());
+                outVo.setAge30Cnt(detailList.get(i).getAge30Cnt());
+                outVo.setAge40Cnt(detailList.get(i).getAge40Cnt());
+                outVo.setAge50Cnt(detailList.get(i).getAge50Cnt());
+                outVo.setAge60Cnt(detailList.get(i).getAge60Cnt());
+
+                boolean tmpSw = false;
+                if(!DalbitUtil.isEmpty(bDetailList)){
+                    for(int j=0;j<bDetailList.size();j++){
+                        if(detailList.get(i).getMonth().equals(bDetailList.get(j).getMonth())){
                             outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
                             outVo.setBAge10Cnt(bDetailList.get(j).getAge10Cnt());
                             outVo.setBAge20Cnt(bDetailList.get(j).getAge20Cnt());
@@ -427,31 +494,12 @@ public class Con_LoginService {
                             outVo.setBAge40Cnt(bDetailList.get(j).getAge40Cnt());
                             outVo.setBAge50Cnt(bDetailList.get(j).getAge50Cnt());
                             outVo.setBAge60Cnt(bDetailList.get(j).getAge60Cnt());
-                            bDetailListSw = true;
+                            tmpSw = true;
                             break;
                         }
-                    }else{
-                        outVo.setBTotalCnt(0);
-                        outVo.setBAge10Cnt(0);
-                        outVo.setBAge20Cnt(0);
-                        outVo.setBAge30Cnt(0);
-                        outVo.setBAge40Cnt(0);
-                        outVo.setBAge50Cnt(0);
-                        outVo.setBAge60Cnt(0);
-                        bDetailListSw = true;
-                        break;
                     }
                 }
-                if(!detailListSw){
-                    outVo.setTotalCnt(0);
-                    outVo.setAge10Cnt(0);
-                    outVo.setAge20Cnt(0);
-                    outVo.setAge30Cnt(0);
-                    outVo.setAge40Cnt(0);
-                    outVo.setAge50Cnt(0);
-                    outVo.setAge60Cnt(0);
-                }
-                if(!bDetailListSw){
+                if(!tmpSw){
                     outVo.setBTotalCnt(0);
                     outVo.setBAge10Cnt(0);
                     outVo.setBAge20Cnt(0);
@@ -558,9 +606,10 @@ public class Con_LoginService {
             sumOutVo.setSum_bPcCnt(0);
         }
 
-        List list = new ArrayList();
 
-        if(statVo.getSlctType() != 1){
+
+        List list = new ArrayList();
+        if(statVo.getSlctType() == 0){              // 시간별
             for (int i=0; i < detailList.size(); i++){
                 P_LoginBrowserOutDetailVo outVo = new P_LoginBrowserOutDetailVo();
                 outVo.setDate(detailList.get(i).getDate());
@@ -568,26 +617,25 @@ public class Con_LoginService {
                 outVo.setYear(detailList.get(i).getYear());
                 outVo.setMonth(detailList.get(i).getMonth());
                 outVo.setDay(detailList.get(i).getDay());
-
                 outVo.setTotalCnt(detailList.get(i).getTotalCnt());
                 outVo.setAndroidCnt(detailList.get(i).getAndroidCnt());
                 outVo.setIosCnt(detailList.get(i).getIosCnt());
                 outVo.setPcCnt(detailList.get(i).getPcCnt());
+
+                boolean tmpSw = false;
                 if(!DalbitUtil.isEmpty(bDetailList)){
-                    if(i < bDetailList.size()){
-                        outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
-                        outVo.setBAndroidCnt(bDetailList.get(i).getAndroidCnt());
-                        outVo.setBIosCnt(bDetailList.get(i).getIosCnt());
-                        outVo.setBPcCnt(bDetailList.get(i).getPcCnt());
-                    }else{
-                        outVo.setBTotalCnt(0);
-                        outVo.setBTotalCnt(0);
-                        outVo.setBAndroidCnt(0);
-                        outVo.setBIosCnt(0);
-                        outVo.setBPcCnt(0);
+                    for(int j=0;j<bDetailList.size();j++){
+                        if(detailList.get(i).getHour().equals(bDetailList.get(j).getHour())){
+                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
+                            outVo.setBAndroidCnt(bDetailList.get(j).getAndroidCnt());
+                            outVo.setBIosCnt(bDetailList.get(j).getIosCnt());
+                            outVo.setBPcCnt(bDetailList.get(j).getPcCnt());
+                            tmpSw = true;
+                            break;
+                        }
                     }
-                }else{
-                    outVo.setBTotalCnt(0);
+                }
+                if(!tmpSw){
                     outVo.setBTotalCnt(0);
                     outVo.setBAndroidCnt(0);
                     outVo.setBIosCnt(0);
@@ -595,60 +643,78 @@ public class Con_LoginService {
                 }
                 list.add(outVo);
             }
-        }else if(statVo.getSlctType() == 1) {
-            boolean detailListSw = false;
-            boolean bDetailListSw = false;
-            for (int i=0; i < 31; i++){
+        }else if(statVo.getSlctType() == 1) {       // 일별
+            for (int i=30; -1 < i; i --){
                 P_LoginBrowserOutDetailVo outVo = new P_LoginBrowserOutDetailVo();
-                outVo.setDay(Integer.toString(i + 1));
+                outVo.setDay(Integer.toString(i+1));
                 outVo.setMonth(SelectMonth);
-                for (int j = 0; j < detailList.size(); j++) {
-                    if(detailList.size() >= i) {
-                        if (Integer.parseInt(detailList.get(j).getDay()) == i + 1) {
-                            outVo.setTotalCnt(detailList.get(j).getTotalCnt());
-                            outVo.setAndroidCnt(detailList.get(j).getAndroidCnt());
-                            outVo.setIosCnt(detailList.get(j).getIosCnt());
-                            outVo.setPcCnt(detailList.get(j).getPcCnt());
-                            detailListSw = true;
-                            break;
-                        }
+
+                if(detailList.size() >= i+1) {
+                    if (detailList.get(i).getDay().equals(Integer.toString(i+1))) {
+                        outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+                        outVo.setAndroidCnt(detailList.get(i).getAndroidCnt());
+                        outVo.setIosCnt(detailList.get(i).getIosCnt());
+                        outVo.setPcCnt(detailList.get(i).getPcCnt());
                     }else{
                         outVo.setTotalCnt(0);
                         outVo.setAndroidCnt(0);
                         outVo.setIosCnt(0);
                         outVo.setPcCnt(0);
-                        detailListSw = true;
-                        break;
                     }
-                }
-                for (int j = 0; j < bDetailList.size(); j++) {
-                    if(bDetailList.size() >= i){
-                        if (Integer.parseInt(bDetailList.get(j).getDay()) == i + 1) {
-                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
-                            outVo.setBAndroidCnt(bDetailList.get(j).getAndroidCnt());
-                            outVo.setBIosCnt(bDetailList.get(j).getIosCnt());
-                            outVo.setBPcCnt(bDetailList.get(j).getPcCnt());
-                            bDetailListSw = true;
-                            break;
-                        }
-                    }else{
-                        outVo.setBTotalCnt(0);
-                        outVo.setBTotalCnt(0);
-                        outVo.setBAndroidCnt(0);
-                        outVo.setBIosCnt(0);
-                        outVo.setBPcCnt(0);
-                        bDetailListSw = true;
-                        break;
-                    }
-                }
-                if(!detailListSw){
+                }else{
                     outVo.setTotalCnt(0);
                     outVo.setAndroidCnt(0);
                     outVo.setIosCnt(0);
                     outVo.setPcCnt(0);
                 }
-                if(!bDetailListSw){
+
+                if(bDetailList.size() >= i+1) {
+                    if (bDetailList.get(i).getDay().equals(Integer.toString(i+1))) {
+                        outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
+                        outVo.setBAndroidCnt(bDetailList.get(i).getAndroidCnt());
+                        outVo.setBIosCnt(bDetailList.get(i).getIosCnt());
+                        outVo.setBPcCnt(bDetailList.get(i).getPcCnt());
+                    }else{
+                        outVo.setBTotalCnt(0);
+                        outVo.setBAndroidCnt(0);
+                        outVo.setBIosCnt(0);
+                        outVo.setBPcCnt(0);
+                    }
+                }else{
                     outVo.setBTotalCnt(0);
+                    outVo.setBAndroidCnt(0);
+                    outVo.setBIosCnt(0);
+                    outVo.setBPcCnt(0);
+                }
+                list.add(outVo);
+            }
+        }else{      // 월별
+            for (int i=0; i < detailList.size(); i++){
+                P_LoginBrowserOutDetailVo outVo = new P_LoginBrowserOutDetailVo();
+                outVo.setDate(detailList.get(i).getDate());
+                outVo.setHour(detailList.get(i).getHour());
+                outVo.setYear(detailList.get(i).getYear());
+                outVo.setMonth(detailList.get(i).getMonth());
+                outVo.setDay(detailList.get(i).getDay());
+                outVo.setTotalCnt(detailList.get(i).getTotalCnt());
+                outVo.setAndroidCnt(detailList.get(i).getAndroidCnt());
+                outVo.setIosCnt(detailList.get(i).getIosCnt());
+                outVo.setPcCnt(detailList.get(i).getPcCnt());
+
+                boolean tmpSw = false;
+                if(!DalbitUtil.isEmpty(bDetailList)){
+                    for(int j=0;j<bDetailList.size();j++){
+                        if(detailList.get(i).getMonth().equals(bDetailList.get(j).getMonth())){
+                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
+                            outVo.setBAndroidCnt(bDetailList.get(j).getAndroidCnt());
+                            outVo.setBIosCnt(bDetailList.get(j).getIosCnt());
+                            outVo.setBPcCnt(bDetailList.get(j).getPcCnt());
+                            tmpSw = true;
+                            break;
+                        }
+                    }
+                }
+                if(!tmpSw){
                     outVo.setBTotalCnt(0);
                     outVo.setBAndroidCnt(0);
                     outVo.setBIosCnt(0);
@@ -657,6 +723,7 @@ public class Con_LoginService {
                 list.add(outVo);
             }
         }
+
         var result = new HashMap<String, Object>();
         result.put("totalInfo", sumOutVo);
         result.put("detailList", list);
