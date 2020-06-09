@@ -29,7 +29,7 @@
 
                                 <label class="control-inline fancy-checkbox custom-color-green" id="exchangeCheckArea">
                                     <input type="checkbox" name="search_exchangeYn" id="search_exchangeYn" value="1">
-                                    <span>1회 이상 환전 신청 회원</span>
+                                    <span>1회 이상 환전 회원</span>
                                 </label>
                             </div>
                         </div>
