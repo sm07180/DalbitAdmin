@@ -54,7 +54,7 @@
                 </ul>
 
                 <div>
-                    <div class="row col-lg-12">
+                    <div class="row col-lg-12 no-padding">
                         <div id="summaryTable"></div>
 
                         <div class="dataTables_paginate paging_full_numbers mt15" id="list_info_paginate_top"></div>
@@ -446,13 +446,11 @@
 
 
 <script type="text/x-handlebars-template" id="tmp_exchangeSummary">
-    <div class="pt10 col-lg-6">
-        <ul>
-            <li>환전완료 정보를 확인하고, 처리 불가 회원에 대한 응대를 할 수 있습니다.</li>
-            <li>경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</li>
-            <li>[SMS발송] 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</li>
-            <li>환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</li>
-        </ul>
+    <div class="pt10 col-lg-6 no-padding">
+        <label>ㆍ환전완료 정보를 확인하고, 처리 불가 회원에 대한 응대를 할 수 있습니다.</label><br/>
+        <label>ㆍ경영지원부에서 환전 처리를 완료한 후, 운영 담당자가 최종 확인하여 [SMS 발송]으로 회원에게 환전결과를 알립니다.</label><br/>
+        <label>ㆍ[SMS발송] 후 [최종완료] 처리를 하면 더 이상 변경이 불가합니다.</label><br/>
+        <label>ㆍ환전 불가처리 시 신청한 환전별은 환불처리 됩니다.</label>
 
         <div>
             <button class="btn btn-sm btn-success print-btn no-margin" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>
@@ -460,8 +458,8 @@
         </div>
     </div>
 
-    <div class="col-lg-6">
-        <table class="table table-bordered table-summary pull-right">
+    <div class="col-lg-6 no-padding">
+        <table class="table table-bordered table-summary pull-right" style="margin-right: 0px">
 
             <colgroup>
                 <col width="80px"/>
