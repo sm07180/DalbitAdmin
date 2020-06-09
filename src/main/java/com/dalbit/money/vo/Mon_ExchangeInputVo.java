@@ -10,13 +10,14 @@ import lombok.Setter;
 public class Mon_ExchangeInputVo extends PagingVo {
 
     private Integer idx;
-    private int isSpecial;
+    private Integer isSpecial;
     private String search_year;
     private String search_month;
     private String search_type;
     private String search_value;
     private String search_state;
     private int search_testId;
+    private String search_exchangeYn;
     private String limitDay;
     private String excelYn;
 

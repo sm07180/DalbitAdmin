@@ -1,6 +1,7 @@
 package com.dalbit.money.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.money.vo.Mon_EnableOutputVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.payment.vo.Pay_CancelVo;
@@ -20,6 +21,12 @@ public interface Mon_ExchangeDao {
 
     @Transactional(readOnly = true)
     ArrayList<Mon_ExchangeOutputVo> selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo);
+
+    @Transactional(readOnly = true)
+    int selectEnableCnt(Mon_ExchangeInputVo monExchangeInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<Mon_EnableOutputVo> selectEnableList(Mon_ExchangeInputVo monExchangeInputVo);
 
     @Transactional(readOnly = true)
     Mon_ExchangeOutputVo selectExchangeDetail(Mon_ExchangeInputVo monExchangeInputVo);
