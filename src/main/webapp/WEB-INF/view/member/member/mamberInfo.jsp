@@ -581,9 +581,7 @@
         <tr>
             <th>접속상태</th>
             <td colspan="2" style="text-align: left">{{connectState}}
-                {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
-                {{/equal}}
+                <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
         </tr>
         </tr>
