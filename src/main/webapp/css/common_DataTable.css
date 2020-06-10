@@ -119,3 +119,15 @@ table td.text-center {
     font-size: 12.5px !important;
     padding: 1.7px;
 }
+
+
+
+.ar {
+    text-align: right !important;
+}
+.ac {
+    text-align: center !important;
+}
+.al {
+    text-align: left !important;
+}
