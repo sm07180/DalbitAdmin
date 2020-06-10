@@ -21,6 +21,7 @@ public class P_pushListOutputVo extends BaseVo {
     private int msg_type;           //메시지 구분
     private int slct_push;           //푸시 구분
     private int is_direct;          //즉시발송여부
+    private int is_noti;          //알림 발송 여부
     private int send_cnt;          //발송건수 (전체 :-1, 지정: 지정건수)
     private Date send_datetime;     //발송시작일시
     private String send_datetimeFormat;     //발송시작일시

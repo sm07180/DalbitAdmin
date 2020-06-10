@@ -9,8 +9,10 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.content.dao.PushDao;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
+import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
@@ -30,6 +32,9 @@ public class PushService {
 
     @Autowired
     PushDao pushDao;
+
+    @Autowired
+    Mem_MemberDao memMemberDao;
 
     @Autowired
     Adm_TestIdDao admTestIdDao;
@@ -231,6 +236,21 @@ public class PushService {
                       pushDao.callStmpPushAdd(procedureVo);
 
                     if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+
+                        if(pPushInsertVo.getIs_noti().equals("1")){ // 지정회원 알림 발송
+                            try{
+                                P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                                pMemberReportVo.setReported_mem_no(target);
+                                pMemberReportVo.setSlctType(7);
+                                pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont());
+                                pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont());
+                                memMemberDao.callMemberNotification_Add(pMemberReportVo);
+                            }catch (Exception e){
+                                log.error("[NOTI 발송 실패 - PUSH 발송]");
+                            }
+                        }
+
                         log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
                         sucCnt++;
                     }else if(Status.푸시발송_디바이스토큰미존재.getMessageCode().equals(procedureVo.getRet())){

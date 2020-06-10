@@ -14,6 +14,7 @@ public class P_pushUpdateVo extends BaseVo {
     private String send_cont;       //메시지 내용
     private String send_url;        //이미지URL
     private String is_all;             //수신대상전체여부
+    private String is_noti;             //알림발송여부
     private String mem_nos;         //회원번호s
     private String msg_type;           //메시지 구분
     private String slct_push;           //푸시 구분

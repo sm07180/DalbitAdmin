@@ -65,6 +65,9 @@
                     fnc_pushDetail.target.find("input[name='platform']").prop("disabled", true);
                     fnc_pushDetail.target.find("input[name='platform']").prop("checked", true);
 
+                    fnc_pushDetail.target.find("input[name='is_noti'][value='0']").click();
+                    fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", false);
+
                 } else {
                     fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
                     fnc_pushDetail.target.find("#div_selectTarget").hide();
@@ -73,9 +76,11 @@
                     fnc_pushDetail.target.find("input[name='platform']").prop("disabled", false);
                     // 예약발송 선택
                     fnc_pushDetail.target.find("input[name='is_direct'][value='1']").click();
+
+                    fnc_pushDetail.target.find("input[name='is_noti'][value='0']").click();
+                    fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", true);
                 }
             });
-
 
             //OS 구분
             fnc_pushDetail.target.find("input[name='platform']").change(function () {
@@ -237,6 +242,17 @@
 
             //수신대상선택
             fnc_pushDetail.target.find("input[name=is_all][value='"+ detailData.is_all +"']").prop("checked", true);
+
+            //알림 여부
+            if (detailData.is_all == "7") { //지정 회원
+                fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", false);
+
+            } else {
+                fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", true);
+            }
+            fnc_pushDetail.target.find("input[name='is_noti'][value='" + detailData.is_noti + "']").click();
+
+
 
             var type = detailData.slct_push;
             if(type == "1"){ //room_no
@@ -677,15 +693,22 @@
 
                 <th>노출 OS구분</th>
                 <%--<td colspan="5">{{{getCommonCodeRadio -1 'push_platform'}}}</td>--%>
-                <td colspan="6">
+                <td colspan="2">
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform-1" value="-1" checked="true"><span>전체</span> </label>
                     <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform1" value="1" checked="true"><span>PC</span></label>--%>
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform2" value="2" checked="true"><span>Android</span></label>
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform3" value="3" checked="true"><span>IOS</span></label>
                 </td>
 
+                <th>알림 여부</th>
+                <td colspan="2">
+                    <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="0" id="is_noti0" name="is_noti" class="form-control" checked disabled><span><i></i>미표시</span> </label>
+                    <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="1" id="is_noti1" name="is_noti" class="form-control" disabled><span><i></i>표시</span> </label>
+                    <p class="no-padding no-margin" style="color:red; font-size:0.9em;"> * 수신대상이 '지정 회원'일 경우만 가능</p>
+                </td>
+
                 <th>발송일시</th>
-                <td colspan="2">{{send_datetime}}</td>
+                <td colspan="3">{{send_datetime}}</td>
             </tr>
             <tr>
                 <th>메시지 제목</th>
@@ -774,11 +797,10 @@
                     <input type="button" value="미리보기" onclick="getImg('push-send_url')">
                     <br><span style="color: red"> * Photo 서버에 업로드된 파일만 등록 가능합니다.</span>
                 </td>
-                -->
                 <td colspan="1">
-                    <!--미리보기-->
                     <img id="push-send_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px;" src="" alt="" /></a>
                 </td>
+                -->
             </tr>
             <tr>
                 <th>푸시 타입<br>(이동경로)</th>
