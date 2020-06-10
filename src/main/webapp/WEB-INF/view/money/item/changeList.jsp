@@ -22,7 +22,7 @@
                         <th>교환 달 수</th>
                         <th>아이템</th>
                         <th>아이템코드</th>
-                        <th>아이템수량</th>
+                        <%--<th>아이템수량</th>--%>
                         <th>보유 달 수</th>
                         <th>보유 별 수</th>
                     </tr>
@@ -245,7 +245,7 @@
         <td>{{addComma data.ruby}}달</td>
         <td>{{data.item_name}}</td>
         <td>{{data.item_code}}</td>
-        <td>{{addComma data.item_cnt}}개</td>
+        <!--<td>{{addComma data.item_cnt}}개</td>-->
         <td>{{addComma data.currentRuby}}달</td>
         <td>{{addComma data.currentGold}}별</td>
     </tr>
