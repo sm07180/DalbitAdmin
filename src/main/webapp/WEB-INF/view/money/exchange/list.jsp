@@ -406,7 +406,7 @@
         getList();
     }
 
-    $('#allChk').on('click', function(){
+    $(document).on('click', '#allChk', function(){
 
         if(0 == $('._chk:enabled').length){
             alert('선택할 회원이 없습니다.');
