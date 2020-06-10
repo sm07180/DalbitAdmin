@@ -156,7 +156,7 @@ public class Adm_TestIdService {
             hm.put("mem5", DalbitUtil.isEmpty(list.get(i).getMem_userId()) ? "" : list.get(i).getMem_userId());
             hm.put("mem6", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
             hm.put("mem7", mem7);
-            hm.put("mem8", list.get(i).getType() + ": " + list.get(i).getCharge() +" / "+ list.get(i).getChargeDate());
+            hm.put("mem8", DalbitUtil.isEmpty(list.get(i).getType()) ? "" : list.get(i).getType() + ": " + list.get(i).getCharge() +" / "+ list.get(i).getChargeDate());
             hm.put("mem9", DalbitUtil.isEmpty(list.get(i).getDal()) ? "" : "달: " + list.get(i).getDal() + " / 별: " + list.get(i).getByeol());
             hm.put("mem10", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getMem_phone());
             hm.put("mem11",  list.get(i).getLevel() + " / " + list.get(i).getGrade());
