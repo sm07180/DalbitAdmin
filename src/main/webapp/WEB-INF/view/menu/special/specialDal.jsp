@@ -315,12 +315,7 @@
         </td>
         <td>{{{renderOnAir onAir}}}</td>
         <td style="width: 65px;height:65px;">
-            {{#equal data.image_profile ''}}
-                <img class="thumbnail" src="https://devphoto2.dalbitlive.com/profile_3/profile.jpg" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
-            {{else}}
-                <img class="thumbnail" src="{{renderImage data.image_profile}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
-            {{/equal}}
-
+            <img class="thumbnail" src="{{renderProfileImage data.image_profile data.mem_sex}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_id}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>

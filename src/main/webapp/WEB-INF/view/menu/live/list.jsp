@@ -219,11 +219,7 @@
     {{#each this as |user|}}
     <tr>
         <td>
-            {{#equal image_profile ''}}
-            <img class="thumbnail fullSize_background" alt="your image" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:100px; width:auto;' />
-            {{else}}
-            <img class="thumbnail fullSize_background" alt="your image" src="{{renderImage user.image_profile}}" style='height:100px; width:auto;' />
-            {{/equal}}
+            <img class="thumbnail fullSize_background" alt="your image" src="{{renderProfileImage image_profile mem_sex}}" style='height:100px; width:auto;' />
         </td>
 
         <td>

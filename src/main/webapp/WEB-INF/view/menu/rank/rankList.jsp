@@ -193,11 +193,7 @@
                 {{/isSmall}}
             </td>
             <td style="width: 50px">
-                {{#equal rank.image_profile ''}}
-                    <img class="thumbnail fullSize_background" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' />
-                {{else}}
-                    <img class="thumbnail fullSize_background" src="{{renderImage rank.image_profile}}" style='height:50px; width:50px;' />
-                {{/equal}}
+                <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:50px; width:50px;' />
             </td>
             <td>
                 <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{memNo}}</a>
@@ -266,11 +262,7 @@
                 {{/isSmall}}
             </td>
             <td style="width: 50px">
-                {{#equal fan.image_profile ''}}
-                    <img class="thumbnail fullSize_background" src="{{viewImage '/profile_3/profile.jpg'}}" style='height:50px; width:50px;' />
-                {{else}}
-                    <img class="thumbnail fullSize_background" src="{{viewImage fan.image_profile}}" style='height:50px; width:50px;' />
-                {{/equal}}
+                <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:50px; width:50px;' />
             </td>
             <td>
                 {{mem_id}} <br /> <br />

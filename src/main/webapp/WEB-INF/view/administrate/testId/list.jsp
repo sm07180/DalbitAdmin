@@ -111,9 +111,9 @@
                             <span>
                                 <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
                             </span>
-                            <%--<span>
+                            <span>
                                 <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
-                            </span>--%>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -188,6 +188,12 @@
 
     function fn_list_success(dst_id, response){
         dalbitLog(response);
+
+        for(var i=0;i<response.data.length;i++){
+            if(response.data[i].charge != ""){
+                response.data[i].charge = response.data[i].type +": "+response.data[i].charge + '<br/>' + response.data[i].chargeDate;
+            }
+        }
         if(response.result == 'success'){
             var template = $('#tmp_list').html();
             var templateScript = Handlebars.compile(template);
@@ -274,6 +280,24 @@
         ui.topScroll();
     });
 
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("searchType", 0);
+        formData.append("searchText", "");
+        util.excelDownload($(this), "/rest/administrate/testId/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+    /*==================================*/
+
 </script>
 
 <script id="tmp_summary" type="text/x-handlebars-template">
@@ -301,9 +325,7 @@
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
             <td>{{user.mem_nick}}</td>
             <td>{{{sexIcon user.mem_sex}}}</td>
-            <td>{{user.type}}: {{user.charge}}<br/>
-                {{user.chargeDate}}
-            </td>
+            <td>{{{user.charge}}}</td>
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">
                 <label class="font-bold" style="color: #7030a0;">달 : {{user.dal}}</label><br/>
                 <label class="font-bold" style="color: #b79135;">별 : {{user.byeol}}</label>

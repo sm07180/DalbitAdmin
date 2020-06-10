@@ -6,7 +6,7 @@ var specialDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + row.mem_no + '">' + data + '</a>'
                 }}
             , {'title': '프로필', 'width': '65px', 'data': 'image_profile', 'render': function(data, type, row) {
-                    var image = 'https://devphoto2.dalbitlive.com/profile_3/profile.jpg';
+                    var image = 'https://devphoto2.dalbitlive.com/profile_3/profile_' + row.mem_sex + '_200327.jpg';
                     if(!data == ''){
                         image = PHOTO_SERVER_URL + data;
                     }
