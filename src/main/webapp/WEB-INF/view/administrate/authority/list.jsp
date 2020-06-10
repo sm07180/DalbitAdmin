@@ -52,6 +52,7 @@
                                     <th>부서/팀명</th>
                                     <th>직급/직책</th>
                                     <th>이름</th>
+                                    <th style="color: #6f49d1">테스트ID</th>
                                     <th>핸드폰</th>
                                     <th>회사메일</th>
                                     <th>개인메일</th>
@@ -169,6 +170,11 @@
     }
 
     function fn_memberList_success(data, response, params){
+
+        for(var i=0;i<response.data.length;i++){
+            response.data[i].url = "/member/member/popup/memberTestid?name=" + encodeURIComponent(response.data[i].emp_no);
+        }
+
         dalbitLog(response);
         var template = $('#tmp_memberList').html();
         var templateScript = Handlebars.compile(template);
@@ -361,6 +367,9 @@
                 {{/equal}}
             </td>
             <td>{{staff_name}}</td>
+            <td style="color: #6f49d1">
+                <a href="javascript://" class="_openPop" data-url="{{url}}" data-width="1400" data-height="700">{{testIdCnt}}</a>
+            </td>
             <td>{{staff_hphone}}</td>
             <td>{{staff_email}}@inforex.co.kr</td>
             <td>{{staff_email_etc}}</td>

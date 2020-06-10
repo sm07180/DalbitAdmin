@@ -238,7 +238,7 @@
 
     <insert id="callMemberAddDal_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
-        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new ) VALUES ( #{mem_no}, 7, #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt} );
+        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new, op_name ) VALUES ( #{mem_no}, 7, #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt}, #{opName});
     </insert>
 
     <!-- 별추가 -->
@@ -252,7 +252,7 @@
     </update>
     <insert id="callMemberAddByeol_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
-        INSERT INTO rd_data.tb_member_wallet_gold( mem_no, `type`, use_contents, gold, gold_old, gold_new ) VALUES ( #{mem_no}, 7, #{use_contents}, #{addByeolCnt}, #{beforByeolCnt}, #{afterByeolCnt} );
+        INSERT INTO rd_data.tb_member_wallet_gold( mem_no, `type`, use_contents, gold, gold_old, gold_new, op_name) VALUES ( #{mem_no}, 7, #{use_contents}, #{addByeolCnt}, #{beforByeolCnt}, #{afterByeolCnt}, #{opName} );
     </insert>
 
     <update id="callMemberEdit_date" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">

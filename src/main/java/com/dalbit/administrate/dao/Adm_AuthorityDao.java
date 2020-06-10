@@ -15,4 +15,5 @@ public interface Adm_AuthorityDao {
     @Transactional(readOnly = true)
     List<MenuVo> getMemberAuthInfo(int empNo);
     int getMemberAuthCnt(String empNo);
+    int getTestIdCnt(String empNo);
 }

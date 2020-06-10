@@ -27,4 +27,5 @@ public class InforexMember {
     String new_dept_name;
 
     int authCnt;
+    int testIdCnt;
 }

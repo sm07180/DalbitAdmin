@@ -51,4 +51,7 @@
     <select id="getMemberAuthCnt" parameterType="string" resultType="integer">
         select count(*) as cnt from rd_admin.tb_admin_menu_auth where lpad(emp_no,5,0) = #{empNo}
     </select>
+    <select id="getTestIdCnt" parameterType="string" resultType="integer">
+        select count(*) as cnt from rd_admin.tb_admin_test_account where lpad(emp_no,5,0) = #{empNo}
+    </select>
 </mapper>

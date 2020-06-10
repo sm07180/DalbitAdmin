@@ -23,6 +23,10 @@
     <form id="question_detailFrm"></form>
 </div>
 
+<textarea id="txtForm" style="width:100%; height:300px;"></textarea>
+<input type="text" id="addInput">
+<input type="button" onclick="insertText()" value="추가하기">
+
 <!-- 이미지 원본 보기 -->
 <div id="fullSize_question"></div>
 
@@ -36,6 +40,29 @@
     var memNo;
     var memId;
     var slct_type;
+
+    function insertText(){
+        var txtArea = document.getElementById('txtForm');
+        console.log("-------------");
+        console.log(txtArea);
+
+        var txtValue = txtArea.value;
+        var selectPos = txtArea.selectionStart; // 커서 위치 지정
+        var beforeTxt = txtValue.substring(0, selectPos);  // 기존텍스트 ~ 커서시작점 까지의 문자
+        var afterTxt = txtValue.substring(txtArea.selectionEnd, txtValue.length);   // 커서끝지점 ~ 기존텍스트 까지의 문자
+        var addTxt = document.getElementById('addInput').value; // 추가 입력 할 텍스트
+
+        txtArea.value = beforeTxt + addTxt + afterTxt;
+
+        selectPos = selectPos + addTxt.length;
+        txtArea.selectionStart = selectPos; // 커서 시작점을 추가 삽입된 텍스트 이후로 지정
+        txtArea.selectionEnd = selectPos; // 커서 끝지점을 추가 삽입된 텍스트 이후로 지정
+        txtForm.focus();
+    }
+
+
+
+
     function quest_detail_success(data, response, params){
         qnaIdx = params.qnaIdx;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
@@ -144,9 +171,25 @@
     }
 
     $(document).on('click', '#bt_faq', function() {
-        $('button.btn-codeview').click();
-        $('#editor').summernote('code', $('#editor').summernote('code') + '<p>' + $('select[name="faqSub"]').find('option:selected').data('answer')) + '</p>';
-        $('button.btn-codeview').click();
+
+        var txtArea = $('#editor').html();
+        console.log(txtArea);
+        var txtValue = txtArea.summernote('code');
+        var selectPos = txtArea.selectionStart; // 커서 위치 지정
+        var beforeTxt = txtValue.substring(0, selectPos);  // 기존텍스트 ~ 커서시작점 까지의 문자
+        var afterTxt = txtValue.substring(txtArea.selectionEnd, txtValue.length);   // 커서끝지점 ~ 기존텍스트 까지의 문자
+        var addTxt = document.getElementById('addInput').value; // 추가 입력 할 텍스트
+
+        txtArea.value = beforeTxt + addTxt + afterTxt;
+
+        selectPos = selectPos + addTxt.length;
+        txtArea.selectionStart = selectPos; // 커서 시작점을 추가 삽입된 텍스트 이후로 지정
+        txtArea.selectionEnd = selectPos; // 커서 끝지점을 추가 삽입된 텍스트 이후로 지정
+        txtForm.focus();
+
+        // $('button.btn-codeview').click();
+        // $('#editor').summernote('code', $('#editor').summernote('code') + '<p>' + $('select[name="faqSub"]').find('option:selected').data('answer')) + '</p>';
+        // $('button.btn-codeview').click();
     });
 
     $(document).on('click', '.bt_baro', function() {

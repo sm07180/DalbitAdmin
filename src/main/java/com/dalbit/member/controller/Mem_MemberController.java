@@ -28,4 +28,7 @@ public class Mem_MemberController {
     @RequestMapping("popup/reportPopup")
     public String reportPopup(Model model) { return "member/member/popup/reportPopup"; }
 
+    @RequestMapping("popup/memberTestid")
+    public String memberTestid(Model model) { return "member/member/popup/memberTestid"; }
+
 }

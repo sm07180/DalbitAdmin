@@ -3,9 +3,9 @@ $(function(){
     $("#searchForm").append('<input type="text" id="dummy" style="display:none;" />');
 });
 
-/*이벤트 바인딩*/
+/* 팝업창 */
 $(document).on('click', '._openPop', function(){
-    util.windowOpen($(this).data());
+    util.windowOpen($(this).data('url'),$(this).data('width'),$(this).data('height'),$(this).data('url'));
 });
 
 /*회원정보보기 팝업*/

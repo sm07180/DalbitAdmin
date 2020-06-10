@@ -20,4 +20,15 @@ public class TestIdListVo {
     private String level;
     private String grade;
     private String lastLoginDatetime;
+
+    private String mem_sex;
+    private String type;
+    private String charge;
+    private String chargeDate;
+    private String dal;
+    private String byeol;
+    private String reg_date;
+    private String lastOpDate;
+    private String lastOpName;
+
 }
