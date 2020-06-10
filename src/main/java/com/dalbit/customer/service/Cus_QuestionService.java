@@ -102,7 +102,7 @@ public class Cus_QuestionService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
 
                 pPushInsertVo.setMem_nos(questionDetail.getMem_no());
-                pPushInsertVo.setSlct_push("7");
+                pPushInsertVo.setSlct_push("37");
                 pPushInsertVo.setSend_title("1:1문의 답변이 등록되었어요!");
                 pPushInsertVo.setSend_cont("등록한 1:1문의에 답변이 등록되었습니다.");
                 pPushInsertVo.setImage_type("101");

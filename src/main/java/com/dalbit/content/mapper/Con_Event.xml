@@ -151,6 +151,7 @@
                     ,(SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.mem_no) AS profileImage
                     ,mv.level AS level
                     ,mv.grade AS grade
+                    ,c.applyCnt AS applyCnt
                 FROM
                     rd_admin.tb_event_reply AS a
                 LEFT JOIN
@@ -161,8 +162,12 @@
                     rd_data.tb_member_level AS mv
                 ON
                     a.mem_no = mv.mem_no
+				LEFT JOIN
+					(SELECT mem_no, COUNT(*) as applyCnt FROM rd_admin.tb_event_reply WHERE event_idx = #{event_idx} AND depth = 1 AND status = 1 GROUP BY mem_no HAVING COUNT(*) > 0) AS c
+				ON
+					a.mem_no = c.mem_no
                 WHERE
-                    a.event_idx = ${event_idx}
+                    a.event_idx = #{event_idx}
                     AND a.depth = 1
                     AND a.status = 1
                 ORDER BY

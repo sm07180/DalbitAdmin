@@ -156,7 +156,12 @@ var EventDataTableSource = {
                     return result;
                 }},
             {'title': '회원 닉네임', 'width':'100px', 'data': 'nickName'},
-            {'title': '댓글 내용', 'data': 'contents'},
+            {'title': '응모횟수', 'width':'30px', 'data': 'applyCnt', 'render':function (data,type,row, meta){
+                    return data + "회";
+                }},
+            {'title': '댓글 내용', 'className':'al', 'data': 'contents', 'render':function (data, type, row, meta){
+                    return data.replace(/\n/g, "<br/>")
+                }},
             {'title': '작성일시', 'width':'120px', 'data': 'writeDate'},
             {'title': '수정일시', 'width':'120px', 'data': 'updateDate'},
             {'title': '수정자', 'width':'80px', 'data': 'op_name'}

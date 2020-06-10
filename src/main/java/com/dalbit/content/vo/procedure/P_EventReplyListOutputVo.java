@@ -21,6 +21,7 @@ public class P_EventReplyListOutputVo extends BaseVo {
     private String op_name;		// '수정자'
     private String req_mem_no;			// 요청 mem_no
 
+    private String applyCnt;            // 응모 횟수
     private String userId;
     private String nickName;
     private String memSex;
