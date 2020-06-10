@@ -126,16 +126,21 @@
                     and exchange.state = #{search_state}
                 </if>
 
-                <if test='idx != null and idx != 0'>
-                    and exchange.idx = #{idx}
-                </if>
-
                 <if test='excelYn == "Y" and limitDay != ""'>
                     and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<]]> #{limitDay}
                 </if>
 
                 <if test='search_testId == 1'>
                     and basic.inner = 0
+                </if>
+
+                <if test='idx != null and idx != 0'>
+                    <if test='search_year == null'>
+                        or exchange.idx = #{idx}
+                    </if>
+                    <if test='search_year != null'>
+                        and exchange.idx = #{idx}
+                    </if>
                 </if>
 
             order by exchange.reg_date desc

@@ -80,7 +80,11 @@
 
     <select id="selectChangeItemList" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="com.dalbit.money.vo.Mon_ItemOutputVo">
         /* Mon_Item.xml - selectChangeItemList */
-        <include refid="baseChangeItemList" />
+        select *
+        from(
+            <include refid="baseChangeItemList"/>
+        ) list
+        where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
 </mapper>

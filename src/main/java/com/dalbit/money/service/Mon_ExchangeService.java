@@ -6,6 +6,8 @@ import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SmsVo;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
@@ -42,6 +44,9 @@ public class Mon_ExchangeService {
 
     @Autowired
     SmsService smsService;
+
+    @Autowired
+    PushService pushService;
 
     @Autowired
     Mem_MemberDao mem_MemberDao;
@@ -375,6 +380,23 @@ public class Mon_ExchangeService {
             smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
             //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
 
+            try{    // PUSH 발송
+
+                var monExchangeInputVo = new Mon_ExchangeInputVo();
+                monExchangeInputVo.setIdx(monExchangeOutputVo.getIdx());
+                Mon_ExchangeOutputVo exchangeInfo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
+
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
+                pPushInsertVo.setSlct_push("2");
+                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 완료되었습니다.");
+                pPushInsertVo.setSend_cont("마이페이지 > 내지갑을 확인해주세요.");
+                pPushInsertVo.setImage_type("101");
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 환전 성공]");
+            }
+
         }else if(monExchangeOutputVo.getState().equals("2")){
             P_ExchangeCancelInputVo pExchangeCancelInputVo = new P_ExchangeCancelInputVo();
             pExchangeCancelInputVo.setExchangeIdx(monExchangeOutputVo.getIdx());
@@ -402,6 +424,24 @@ public class Mon_ExchangeService {
 
             smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
             //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
+
+            try{    // PUSH 발송
+
+                var monExchangeInputVo = new Mon_ExchangeInputVo();
+                monExchangeInputVo.setIdx(monExchangeOutputVo.getIdx());
+                Mon_ExchangeOutputVo exchangeInfo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
+
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
+                pPushInsertVo.setSlct_push("2");
+                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 불가처리 되었습니다.");
+                pPushInsertVo.setSend_cont("자세한 사항은 1:1문의로 연락해 주시기바랍니다.");
+                pPushInsertVo.setImage_type("101");
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 환전 불가]");
+            }
+
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
