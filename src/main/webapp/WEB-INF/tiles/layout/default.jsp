@@ -25,6 +25,8 @@
     </div>
 </div>
 <!-- /wrapper -->
+<!-- 이미지 원본 크기 -->
+<div id="imageFullSize"></div>
 
 <tiles:insertAttribute name="setting"/>
 

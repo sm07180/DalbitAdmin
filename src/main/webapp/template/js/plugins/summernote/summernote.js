@@ -5863,7 +5863,7 @@
                                         $image.attr('data-filename', param);
                                     }
 
-                                    $image.css('width', Math.min(_this3.$editable.width(), $image.width()));
+                                    $image.css('width', '100%');
                                 }
 
                                 $image.show();

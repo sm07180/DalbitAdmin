@@ -12,6 +12,7 @@
             , mem_state
             , mem_phone
             , mem_userid
+            , image_profile
             , idx
             , byeol
             , cash_basic
@@ -52,6 +53,7 @@
                    basic.mem_state,
                    basic.mem_phone,
                    basic.mem_userid,
+                    (select image_profile from rd_data.tb_member_profile where mem_no=basic.mem_no) as image_profile,
                    exchange.idx,
                    exchange.byeol,
                    exchange.cash_basic,
@@ -472,6 +474,7 @@
             , basic.mem_nick
             , basic.mem_state
             , basic.mem_sex
+            , (select image_profile from rd_data.tb_member_profile where mem_no=basic.mem_no) as image_profile
             , wallet.gold
             , ifnull(exchange.exchangeCnt, 0) exchangeCnt
             , ifnull(special.specialCnt, 0) specialCnt

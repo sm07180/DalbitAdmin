@@ -563,6 +563,7 @@
             <col width="4%"/>
             <col width="3%"/>
             <col width="3%"/>
+            <col width="3%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="4%"/>
@@ -587,6 +588,7 @@
             <th>No</th>
             <th>상태</th>
             <th><input type="checkbox" id="allChk"></th>
+            <th>프로필</th>
             <th>아이디</th>
             <th>닉네임</th>
             <th>성별</th>
@@ -629,6 +631,12 @@
             {{else}}
                 {{{fontColor '대기' 1 'gray'}}}
             {{/workdayCheck}}
+        </td>
+        <td >
+            <form id="profileImg" method="post" enctype="multipart/form-data">
+                <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
+                     style="width: 50px;height: 50px;margin-bottom: 0px;" />
+            </form>
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
         <td>{{data.mem_nick}}</td>
