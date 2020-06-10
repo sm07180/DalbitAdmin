@@ -291,7 +291,7 @@
 
     }
 
-    $('#excelDownBtn').on('click', function(){
+    $(document).on('click', '#excelDownBtn', function(){
         /*var formElement = document.querySelector("form");
         var formData = new FormData(formElement);
         formData.append("isSpecial", getParameter().isSpecial);
@@ -406,7 +406,7 @@
         getList();
     }
 
-    $('#allChk').on('click', function(){
+    $(document).on('click', '#allChk', function(){
 
         if(0 == $('._chk:enabled').length){
             alert('선택할 회원이 없습니다.');
@@ -421,7 +421,7 @@
 
     });
 
-    $("#completeBtn").on('click', function(){
+    $(document).on('click', '#completeBtn', function(){
         var checks = $('._chk:checked');
         if(0 == checks.length){
             alert('선택된 회원이 없습니다.');
