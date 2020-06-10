@@ -188,6 +188,12 @@
 
     function fn_list_success(dst_id, response){
         dalbitLog(response);
+
+        for(var i=0;i<response.data.length;i++){
+            if(response.data[i].charge != ""){
+                response.data[i].charge = response.data[i].type +": "+response.data[i].charge + '<br/>' + response.data[i].chargeDate;
+            }
+        }
         if(response.result == 'success'){
             var template = $('#tmp_list').html();
             var templateScript = Handlebars.compile(template);
@@ -319,9 +325,7 @@
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
             <td>{{user.mem_nick}}</td>
             <td>{{{sexIcon user.mem_sex}}}</td>
-            <td>{{user.type}}: {{user.charge}}<br/>
-                {{user.chargeDate}}
-            </td>
+            <td>{{{user.charge}}}</td>
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">
                 <label class="font-bold" style="color: #7030a0;">달 : {{user.dal}}</label><br/>
                 <label class="font-bold" style="color: #b79135;">별 : {{user.byeol}}</label>
