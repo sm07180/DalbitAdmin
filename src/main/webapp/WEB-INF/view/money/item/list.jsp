@@ -74,7 +74,6 @@
     }
 
     function getList(){
-        console.log(getParameter());
         util.getAjaxData("select", "/rest/money/item/list", getParameter(), fn_succ_list);
     }
 
