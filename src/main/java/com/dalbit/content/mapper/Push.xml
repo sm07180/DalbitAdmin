@@ -23,6 +23,7 @@
             ,link_url          AS link_url
             ,target_info          AS target_info
             ,image_type          AS image_type
+            ,is_noti          AS is_noti
         FROM
             rd_admin.tb_admin_push
     </sql>
@@ -96,6 +97,7 @@
                 ,link_url
                 ,target_info
                 ,image_type
+                ,is_noti
           )
           VALUES
           (
@@ -124,6 +126,7 @@
                 ,#{link_url}
                 ,#{target_info}
                 ,#{image_type}
+                ,#{is_noti}
           )
     </insert>
 
