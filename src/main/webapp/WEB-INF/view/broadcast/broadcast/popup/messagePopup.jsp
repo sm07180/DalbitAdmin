@@ -16,6 +16,7 @@
 
     init();
     function init() {
+        messageTab = "broadcast";
         var roomNo =  <%=in_roomNo%>;
         var djMemNo =  <%=in_djMemNo%>;
 

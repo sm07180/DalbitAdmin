@@ -12,13 +12,16 @@
 <script>
     $(document).ready(function() {
     });
+    var messageTab = "";
 
     //Tab 선택시 호출 함수
     function onClickContentTab(id){
         var targetName = id.split("_")[1];
         var targetFnc = eval("fnc_"+targetName);
 
-        showContentTab();
+        if(messageTab == "broadcast"){
+            showContentTab();
+        }
         targetFnc.init();
     }
 </script>
