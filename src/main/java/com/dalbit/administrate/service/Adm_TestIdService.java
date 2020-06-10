@@ -68,6 +68,26 @@ public class Adm_TestIdService {
 
     public List<TestIdListVo> getTestIdList(SearchVo searchVo){
         List<TestIdListVo> testIdList = admTestIdDao.getTestIdList(searchVo);
+
+        for(int i=0;i<testIdList.size();i++){
+            TestIdListVo chargeVo = admTestIdDao.getCharge(testIdList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(chargeVo)) {
+                testIdList.get(i).setType(chargeVo.getType());
+                testIdList.get(i).setCharge(chargeVo.getCharge());
+                testIdList.get(i).setChargeDate(chargeVo.getChargeDate());
+            }
+            TestIdListVo itemVo = admTestIdDao.getItem(testIdList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(itemVo)) {
+                testIdList.get(i).setDal(itemVo.getDal());
+                testIdList.get(i).setByeol(itemVo.getByeol());
+            }
+            TestIdListVo updateVo = admTestIdDao.getLastUpdate(testIdList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(updateVo)) {
+                testIdList.get(i).setLastOpDate(updateVo.getLastOpDate());
+                testIdList.get(i).setLastOpName(updateVo.getLastOpName());
+            }
+        }
+
         return testIdList;
     }
 

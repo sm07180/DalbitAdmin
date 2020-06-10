@@ -35,7 +35,9 @@
             ) changeCnt on item.mem_no = changeCnt.mem_no
             , (select @RNUM := 0) r
         where item_type = 5
-            and DATE_FORMAT(item.last_upd_date, '%Y%m') = concat(#{search_year}, #{search_month})
+            <if test='search_year != null and search_year != ""'>
+              and DATE_FORMAT(item.last_upd_date, '%Y%m') = concat(#{search_year}, #{search_month})
+            </if>
 
             <if test='search_value != null and search_value != ""'>
                 <choose>

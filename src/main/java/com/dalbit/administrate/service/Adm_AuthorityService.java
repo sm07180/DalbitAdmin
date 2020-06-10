@@ -118,6 +118,9 @@ public class Adm_AuthorityService {
         for(int i=0;i<memberList.size();i ++ ){
             int authCnt = admAuthorityDao.getMemberAuthCnt(memberList.get(i).getEmp_no());
             memberList.get(i).setAuthCnt(authCnt);
+
+            int testIdCnt = admAuthorityDao.getTestIdCnt(memberList.get(i).getEmp_no());
+            memberList.get(i).setTestIdCnt(testIdCnt);
         }
 
         return memberList;

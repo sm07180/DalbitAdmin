@@ -244,8 +244,29 @@ var MemberDataTableSource = {
         'url': '/rest/member/gift/charge/list'
         , 'columns': [
             {'title': '회원번호', 'data': 'mem_no'},
-            {'title': 'User ID', 'data': 'mem_userid'},
-            {'title': 'User 닉네임', 'data': 'mem_nick'},
+            {'title': 'User ID', 'data': 'mem_userid', 'render': function (data, type, row, meta) {
+                    if(row.mem_no == "운영자") {
+                        if (data == "운영자") {
+                            return data;
+                        } else {
+                            var tmp = "/member/member/popup/memberTestid?name=" + encodeURIComponent(data);
+                            return util.popupLink(data, tmp, "1400", "700");
+                        }
+                    }
+                    return data;
+                }},
+            {'title': 'User 닉네임', 'data': 'mem_nick', 'render': function (data, type, row, meta) {
+                if(row.mem_no == "운영자"){
+                    if(data == "운영자"){
+                        return data;
+                    }else{
+                        var tmp = "/member/member/popup/memberTestid?name=" + encodeURIComponent(data);
+                        return util.popupLink(data,tmp,"1400","700");
+                    }
+                }else{
+                    return util.memNoLink(data, row.mem_no);
+                }
+            }},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }},
