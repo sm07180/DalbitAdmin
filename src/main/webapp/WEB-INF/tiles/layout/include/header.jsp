@@ -10,11 +10,11 @@
 <meta name="author" content="Inforex">
 
 <!-- CSS -->
-<link href="/template2/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link href="/template2/assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-<link href="/template2/assets/css/main.css" rel="stylesheet" type="text/css">
-<link href="/template2/assets/css/my-custom-styles.css" rel="stylesheet" type="text/css">
-<link href="/template2/assets/css/summernote/summernote.css" rel="stylesheet" type="text/css">
+<link href="/template/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/template/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="/template/css/main.css" rel="stylesheet" type="text/css">
+<link href="/template/css/my-custom-styles.css" rel="stylesheet" type="text/css">
+<link href="/template/css/summernote/summernote.css" rel="stylesheet" type="text/css">
 <link href="/css/daterangepicker.css?${dummyData}" rel="stylesheet" type="text/css">
 <link href="/css/bootstrap-datetimepicker.css?${dummyData}" rel="stylesheet" type="text/css">
 <link href="/css/common_DataTable.css?${dummyData}" rel="stylesheet" type="text/css">
@@ -22,12 +22,12 @@
 
 
 <!--[if lte IE 9]>
-<link href="/template2/assets/css/main-ie.css" rel="stylesheet" type="text/css"/>
-<link href="/template2/assets/css/main-ie-part2.css" rel="stylesheet" type="text/css"/>
+<link href="/template/css/main-ie.css" rel="stylesheet" type="text/css"/>
+<link href="/template/css/main-ie-part2.css" rel="stylesheet" type="text/css"/>
 <![endif]-->
 
 <!-- CSS for demo style switcher. you can remove this -->
-<link href="/template2/assets/css/style-switcher.css" rel="stylesheet" type="text/css">
+<link href="/template/css/style-switcher.css" rel="stylesheet" type="text/css">
 
 <!-- Fav and touch icons -->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/favicon.ico">
