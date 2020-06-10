@@ -14,11 +14,11 @@
 
     <div id="main-content-wrapper" class="content-wrapper ">
     <!-- top 버튼 -->
-    <div>
-        <a id="back-to-top" href="#" class="btn btn-primary btn-sm back-to-top-css" role="button" title="Move Top" data-toggle="tooltip" data-placement="left">
-        <span class="glyphicon glyphicon-chevron-up"></span>
-        </a>
-    </div>
+        <div>
+            <a id="back-to-top" href="#" class="btn btn-primary btn-sm back-to-top-css" role="button" title="Move Top" data-toggle="tooltip" data-placement="left" style="z-index: 2">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+        </div>
         <%--<tiles:insertAttribute name="gnb"/>--%>
 
         <tiles:insertAttribute name="body"/>
@@ -30,6 +30,7 @@
 
 <script>
     $(document).ready(function() {
+        common.scrollTop();
         $('._sex_male').html(common.sexIcon('m'));
         $('._sex_female').html(common.sexIcon('f'));
     });

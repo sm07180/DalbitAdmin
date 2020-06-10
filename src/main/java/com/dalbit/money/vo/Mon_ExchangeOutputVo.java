@@ -11,6 +11,7 @@ public class Mon_ExchangeOutputVo{
     private int rowNum;
     private String mem_no;
     private String mem_id;
+    private String mem_userid;
     private String mem_name;
     private String mem_nick;
     private String mem_sex;

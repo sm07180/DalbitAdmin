@@ -16,8 +16,8 @@ util.windowOpen = function(data, width, height, name){
     }
     name = name || 'popup';
 
-    var left = (screen.width / 2) - (width / 2);
-    var top = (screen.height / 2) - (height / 2);
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
 
     window.open(url, name, 'width=' + width + ' height=' + height + ' scrollbars=yes left=' + left + 'top=' + top);
 }
@@ -224,6 +224,11 @@ util.imagePopup = function(obj) {
     var option = "width=" + (obj.width + 20) + ", height=" + (obj.height + 20) + ",fullscreen=yes";
 
     window.open(url, title, option);
+},
+
+util.popupLink = function(display, url, width, height) {
+    var template = '<a href="javascript://" class="_openPop" data-url="' + url + '" data-width="'+ width +'" data-height="'+ height +'">' + display + '</a>';
+    return template;
 },
 
 util.memNoLink = function(display, memNo) {
@@ -571,7 +576,7 @@ util.renderPagingNavigation = function(targetId, pagingInfo){
 },
 
 util.scrollPostion = function(y){
-    $('html').animate({scrollTop: y}, 400);
+    $('html, body').animate({scrollTop: y}, 400);
 },
 
 util.renderOnAir = function(value) {

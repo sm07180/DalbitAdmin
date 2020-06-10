@@ -75,6 +75,8 @@ public class Mem_GiftService {
             MemberVo outVo = mem_MemberDao.getMemberInfo(giftList.get(i).getMem_no());
             if(!DalbitUtil.isEmpty(outVo)) {
                 giftList.get(i).setMem_sex(outVo.getMem_sex());
+                giftList.get(i).setUserId(outVo.getMem_id());
+                giftList.get(i).setNickName(outVo.getMem_nick());
             }
         }
 
@@ -115,6 +117,8 @@ public class Mem_GiftService {
             MemberVo outVo = mem_MemberDao.getMemberInfo(chargeList.get(i).getMem_no());
             if(!DalbitUtil.isEmpty(outVo)) {
                 chargeList.get(i).setMem_sex(outVo.getMem_sex());
+                chargeList.get(i).setMem_userid(outVo.getMem_id());
+                chargeList.get(i).setMem_nick(outVo.getMem_nick());
             }
         }
 

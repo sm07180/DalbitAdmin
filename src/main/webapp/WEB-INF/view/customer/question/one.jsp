@@ -198,102 +198,102 @@
                     <col width="5%"><col width="5%"><col width="5%"><col width="5%"><col width="5%"><col width="5%">
                 </colgroup>
                 <tbody>
-                    <tr>
-                        <th rowspan="2">No</th>
-                        <td rowspan="2">{{rowNum}}</td>
+                <tr>
+                    <th rowspan="2">No</th>
+                    <td rowspan="2">{{rowNum}}</td>
 
-                        <th>문의유형</th>
-                        <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>
+                    <th>문의유형</th>
+                    <td>{{{getCommonCodeLabel slct_type 'question_type'}}}</td>
 
-                        <th>Browser</th>
-                        <td>{{browser}}</td>
+                    <th>Browser</th>
+                    <td>{{browser}}</td>
 
-                        <th>회원번호</th>
-                        <td>{{mem_no}}</td>
+                    <th>회원번호</th>
+                    <td>{{mem_no}}</td>
 
-                        <th>접수일시</th>
-                        <td>{{write_date}}</td>
+                    <th>접수일시</th>
+                    <td>{{write_date}}</td>
 
-                        <th>처리상태</th>
-                        <td>{{{getCommonCodeLabel state 'question_status'}}}
-                            <c:if test="${insertYn eq 'Y'}">
-                                {{#equal state '2'}}
-                                    <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
-                                {{/equal}}
-                            </c:if>
-
-                            <c:if test="${insertYn eq 'N'}">
-                                {{#equal editAuth 'Y'}}
-                                    <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
-                                {{/equal}}
-                            </c:if>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>플랫폼</th>
-                        <td>{{platform}}</td>
-
-                        <th>ip Address</th>
-                        <td>{{ip}}</td>
-
-                        <th>문의자<br /></th>
-                        <td>
-                            {{{mem_userid}}}
-                            <br/>{{mem_level}}/{{mem_grade}}
-                        </td>
-
-                        <th>처리일시</th>
-                        <td>{{op_date}}</td>
-
-                        <th>처리자명</th>
-                        <td>{{op_name}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">문의제목</th>
-                        <td colspan="4"><input type="text" class="form-control fit-table" value="{{question_title}}" /></td>
-
-                        <th>문의자<br />닉네임</th>
-                        <td>{{mem_nick}}</td>
-
-                        <th>문의자 이메일</th>
-                        <td colspan="3">{{email}}</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">문의내용</th>
-                        <td colspan="6">
-                            <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="util.textareaResize(this, 114)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
-                        </td>
-
-                        <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
-                        <td colspan="3">
-                            {{#equal add_file ''}}
-                             -
-                            {{else}}
-                                <img src="{{renderImage ../add_file}}" width="auto" height="100px" class="_imageFullPop thumbnail" />
+                    <th>처리상태</th>
+                    <td>{{{getCommonCodeLabel state 'question_status'}}}
+                        <c:if test="${insertYn eq 'Y'}">
+                            {{#equal state '2'}}
+                            <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
                             {{/equal}}
-                        </td>
-                    </tr>
+                        </c:if>
 
-                    <tr>
-                        <th colspan="2">매크로 답변하기</th>
-                        <td colspan="2" id="_faqGroupArea"></td>
-                        <td colspan="2" id="_faqSubArea"></td>
+                        <c:if test="${insertYn eq 'N'}">
+                            {{#equal editAuth 'Y'}}
+                            <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
+                            {{/equal}}
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>플랫폼</th>
+                    <td>{{platform}}</td>
 
-                        <td><button type="button" id="bt_faq" class="btn-sm btn btn-default">적용</button></td>
+                    <th>ip Address</th>
+                    <td>{{ip}}</td>
 
-                        <th>바로가기버튼</th>
-                        <td colspan="4">
-                            <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url=" https://m.dalbitlive.com/store">달결제</button>
-                            <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/money_exchange">별환전</button>
-                            <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/mypage/{{mem_no}}/wallet">내지갑</button>
-                            <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.dalbitlive.com/mypage/setting">사진등록</button>
-                            <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.dalbitlive.com/customer/faq">방송방법</button>
-                            <button type="button" id="bt_myinfo" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/private">내정보관리</button>
-                            <button type="button" id="bt_pcSetting" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=EegzDQ_dZAc target='_blank'">PC 방송 기본장비 설정하기</button>
-                            <button type="button" id="bt_pcBroad" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=-wAeaNZLEws&t=4s target='_blank'">PC방송하기</button>
-                            <button type="button" id="bt_mobileBroad" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=IKo_tNDPpB0&t=1s target='_blank'">모바일 방송하기</button>
-                        </td>
-                    </tr>
+                    <th>문의자<br /></th>
+                    <td>
+                        {{{mem_userid}}}
+                        <br/>{{mem_level}}/{{mem_grade}}
+                    </td>
+
+                    <th>처리일시</th>
+                    <td>{{op_date}}</td>
+
+                    <th>처리자명</th>
+                    <td>{{op_name}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">문의제목</th>
+                    <td colspan="4"><input type="text" class="form-control fit-table" value="{{question_title}}" /></td>
+
+                    <th>문의자<br />닉네임</th>
+                    <td>{{mem_nick}}</td>
+
+                    <th>문의자 이메일</th>
+                    <td colspan="3">{{email}}</td>
+                </tr>
+                <tr>
+                    <th colspan="2">문의내용</th>
+                    <td colspan="6">
+                        <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="util.textareaResize(this, 114)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
+                    </td>
+
+                    <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
+                    <td colspan="3">
+                        {{#equal add_file ''}}
+                        -
+                        {{else}}
+                        <img src="{{renderImage ../add_file}}" width="auto" height="100px" class="_imageFullPop thumbnail" />
+                        {{/equal}}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">매크로 답변하기</th>
+                    <td colspan="2" id="_faqGroupArea"></td>
+                    <td colspan="2" id="_faqSubArea"></td>
+
+                    <td><button type="button" id="bt_faq" class="btn-sm btn btn-default">적용</button></td>
+
+                    <th>바로가기버튼</th>
+                    <td colspan="4">
+                        <button type="button" id="bt_moon" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url=" https://m.dalbitlive.com/store">달결제</button>
+                        <button type="button" id="bt_star" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/money_exchange">별환전</button>
+                        <button type="button" id="bt_wallet" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/mypage/{{mem_no}}/wallet">내지갑</button>
+                        <button type="button" id="bt_profile" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.dalbitlive.com/mypage/setting">사진등록</button>
+                        <button type="button" id="bt_broadRoot" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.dalbitlive.com/customer/faq">방송방법</button>
+                        <button type="button" id="bt_myinfo" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://m.dalbitlive.com/private">내정보관리</button>
+                        <button type="button" id="bt_pcSetting" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=EegzDQ_dZAc target='_blank'">PC 방송 기본장비 설정하기</button>
+                        <button type="button" id="bt_pcBroad" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=-wAeaNZLEws&t=4s target='_blank'">PC방송하기</button>
+                        <button type="button" id="bt_mobileBroad" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=IKo_tNDPpB0&t=1s target='_blank'">모바일 방송하기</button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             <div class="widget mt10" id="div_editor">
@@ -306,10 +306,10 @@
                 <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
                 <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
                 {{#equal state '2'}}
-                    <button type="button" id="bt_operate" class="btn btn-default">완료</button>
+                <button type="button" id="bt_operate" class="btn btn-default">완료</button>
                 {{/equal}}
                 {{^equal state '2'}}
-                    <button type="button" id="bt_update" class="btn btn-default">수정</button>
+                <button type="button" id="bt_update" class="btn btn-default">수정</button>
                 {{/equal}}
             </div>
         </div>
@@ -319,7 +319,7 @@
 <script id="tmp_question_faqGroup" type="text/x-handlebars-template">
     <select name="faqGroup" id="faqGroup" class="form-control">
         {{#each this as |faq|}}
-            <option value="{{faq.slct_type}}">{{questionGroupName faq.slct_type}}</option>
+        <option value="{{faq.slct_type}}">{{questionGroupName faq.slct_type}}</option>
         {{/each}}
     </select>
 </script>
@@ -327,7 +327,7 @@
 <script id="tmp_question_faqSub" type="text/x-handlebars-template">
     <select name="faqSub" id="faqSub" class="form-control">
         {{#each this as |sub|}}
-            <option data-answer="{{replaceHtml sub.answer}}">{{sub.question}}</option>
+        <option data-answer="{{replaceHtml sub.answer}}">{{sub.question}}</option>
         {{/each}}
     </select>
 </script>

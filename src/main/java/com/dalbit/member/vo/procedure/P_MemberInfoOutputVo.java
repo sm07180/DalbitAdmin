@@ -44,6 +44,7 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String lastOpDate;
     private String lastOpName;
     private String memWithdrawal;
+    private String last_upd_date;       // 탈퇴일시
 
     private String certification;
     private String comm_company;

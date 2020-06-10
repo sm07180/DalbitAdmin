@@ -48,7 +48,7 @@
             <div class="row">
 
                 <!-- 테스트 계정 현황 -->
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <div class="widget widget-table mb10">
                         <div class="widget-header">
                             <h3><i class="fa fa-table"></i> 테스트 계정 현황</h3>
@@ -69,13 +69,19 @@
                 <!-- //테스트 계정 현황 -->
 
                 <!-- 검색결과 -->
-                <div class="col-lg-9">
+                <div class="col-lg-10">
                     <div class="widget widget-table">
                         <div class="widget-header">
                             <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                         </div>
                         <div class="widget-content mt10">
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
+                                <colgroup>
+                                    <col width="1%"/><col width="3%"/><col width="3%"/><col width="4%"/><col width="3%"/>
+                                    <col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="4%"/><col width="7%"/>
+                                    <col width="7%"/><col width="8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/>
+                                    <col width="5.8%"/><col width="5.8%"/>
+                                </colgroup>
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="allChk" /></th>
@@ -86,8 +92,13 @@
                                         <th>회원번호</th>
                                         <th>User ID</th>
                                         <th>User 닉네임</th>
+                                        <th>성별</th>
+                                        <th>달/별 충전일</th>
+                                        <th>보유 달/별 수</th>
                                         <th>연락처</th>
                                         <th>레벨/등급</th>
+                                        <th>등록일</th>
+                                        <th>최근수정일</th>
                                         <th>최근로그인</th>
                                         <th>상태</th>
                                     </tr>
@@ -100,9 +111,9 @@
                             <span>
                                 <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
                             </span>
-                            <%--<span>
+                            <span>
                                 <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
-                            </span>--%>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -171,6 +182,7 @@
     });
 
     function getList(){
+        console.log($("#searchForm").serialize());
         util.getAjaxData("summary", "/rest/administrate/testId/list", $("#searchForm").serialize(), fn_list_success);
     }
 
@@ -262,6 +274,24 @@
         ui.topScroll();
     });
 
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("searchType", 0);
+        formData.append("searchText", "");
+        util.excelDownload($(this), "/rest/administrate/testId/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+    /*==================================*/
+
 </script>
 
 <script id="tmp_summary" type="text/x-handlebars-template">
@@ -288,8 +318,19 @@
             <td>{{user.mem_no}}</td>
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
             <td>{{user.mem_nick}}</td>
+            <td>{{{sexIcon user.mem_sex}}}</td>
+            <td>{{user.type}}: {{user.charge}}<br/>
+                {{user.chargeDate}}
+            </td>
+            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">
+                <label class="font-bold" style="color: #7030a0;">달 : {{user.dal}}</label><br/>
+                <label class="font-bold" style="color: #b79135;">별 : {{user.byeol}}</label>
+                </a>
+            </td>
             <td>{{user.mem_phone}}</td>
             <td>{{user.level}} / {{user.grade}}</td>
+            <td>{{user.reg_date}}</td>
+            <td>{{user.lastOpDate}}<br/>{{user.lastOpName}}</td>
             <td>{{user.lastLoginDatetime}}</td>
             <td>{{stateName user.mem_state}}</td>
         </tr>

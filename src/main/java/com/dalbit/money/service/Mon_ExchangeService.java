@@ -6,12 +6,15 @@ import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SmsVo;
+import com.dalbit.content.service.PushService;
+import com.dalbit.content.vo.procedure.P_pushInsertVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.money.dao.Mon_ExchangeDao;
+import com.dalbit.money.vo.Mon_EnableOutputVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.money.vo.procedure.P_ExchangeCancelInputVo;
@@ -43,34 +46,45 @@ public class Mon_ExchangeService {
     SmsService smsService;
 
     @Autowired
+    PushService pushService;
+
+    @Autowired
     Mem_MemberDao mem_MemberDao;
 
     public String selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo){
 
-        int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
-
-        monExchangeInputVo.setTotalCnt(exchangeCnt);
-        ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
-
-        for(int i=0;i<exchangeList.size();i++) {
-            MemberVo outVo = mem_MemberDao.getMemberInfo(exchangeList.get(i).getMem_no());
-            if(!DalbitUtil.isEmpty(outVo)) {
-                exchangeList.get(i).setMem_sex(outVo.getMem_sex());
-            }
-            // 테스트 아이디 등록 여부
-            int testidCnt = monExchangeDao.testid_historyCnt(exchangeList.get(i).getMem_no());
-            if(testidCnt > 0)
-                exchangeList.get(i).setTestid_history("Y");
-            else
-                exchangeList.get(i).setTestid_history("N");
-
-        }
-
-
-
         var resultMap = new HashMap<>();
-        resultMap.put("exchangeCnt", exchangeCnt);
-        resultMap.put("exchangeList", exchangeList);
+
+        if(DalbitUtil.isEmpty(monExchangeInputVo.getIsSpecial())){  //환전가능리스트
+            int enableCnt = monExchangeDao.selectEnableCnt(monExchangeInputVo);
+            monExchangeInputVo.setTotalCnt(enableCnt);
+            ArrayList<Mon_EnableOutputVo> enableList = monExchangeDao.selectEnableList(monExchangeInputVo);
+
+            resultMap.put("enableCnt", enableCnt);
+            resultMap.put("enableList", enableList);
+
+        }else{  //환전내역
+            int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
+            monExchangeInputVo.setTotalCnt(exchangeCnt);
+            ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
+
+            for(int i=0;i<exchangeList.size();i++) {
+                MemberVo outVo = mem_MemberDao.getMemberInfo(exchangeList.get(i).getMem_no());
+                if(!DalbitUtil.isEmpty(outVo)) {
+                    exchangeList.get(i).setMem_sex(outVo.getMem_sex());
+                }
+                // 테스트 아이디 등록 여부
+                int testidCnt = monExchangeDao.testid_historyCnt(exchangeList.get(i).getMem_no());
+                if(testidCnt > 0){
+                    exchangeList.get(i).setTestid_history("Y");
+                }else{
+                    exchangeList.get(i).setTestid_history("N");
+                }
+            }
+
+            resultMap.put("exchangeCnt", exchangeCnt);
+            resultMap.put("exchangeList", exchangeList);
+        }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }
@@ -366,6 +380,23 @@ public class Mon_ExchangeService {
             smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
             //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
 
+            try{    // PUSH 발송
+
+                var monExchangeInputVo = new Mon_ExchangeInputVo();
+                monExchangeInputVo.setIdx(monExchangeOutputVo.getIdx());
+                Mon_ExchangeOutputVo exchangeInfo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
+
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
+                pPushInsertVo.setSlct_push("2");
+                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 완료되었습니다.");
+                pPushInsertVo.setSend_cont("마이페이지 > 내지갑을 확인해주세요.");
+                pPushInsertVo.setImage_type("101");
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 환전 성공]");
+            }
+
         }else if(monExchangeOutputVo.getState().equals("2")){
             P_ExchangeCancelInputVo pExchangeCancelInputVo = new P_ExchangeCancelInputVo();
             pExchangeCancelInputVo.setExchangeIdx(monExchangeOutputVo.getIdx());
@@ -393,6 +424,24 @@ public class Mon_ExchangeService {
 
             smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
             //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
+
+            try{    // PUSH 발송
+
+                var monExchangeInputVo = new Mon_ExchangeInputVo();
+                monExchangeInputVo.setIdx(monExchangeOutputVo.getIdx());
+                Mon_ExchangeOutputVo exchangeInfo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
+
+                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
+                pPushInsertVo.setSlct_push("2");
+                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 불가처리 되었습니다.");
+                pPushInsertVo.setSend_cont("자세한 사항은 1:1문의로 연락해 주시기바랍니다.");
+                pPushInsertVo.setImage_type("101");
+                pushService.sendPushReqOK(pPushInsertVo);
+            }catch (Exception e){
+                log.error("[PUSH 발송 실패 - 환전 불가]");
+            }
+
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));

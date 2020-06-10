@@ -27,6 +27,13 @@ public interface Adm_TestIdDao {
     @Transactional(readOnly = true)
     List<TestIdListVo> getTestIdList(SearchVo searchVo);
 
+    @Transactional(readOnly = true)
+    TestIdListVo getCharge(String mem_no);
+    @Transactional(readOnly = true)
+    TestIdListVo getItem(String mem_no);
+    @Transactional(readOnly = true)
+    TestIdListVo getLastUpdate(String mem_no);
+
     void deleteTestId(String[] memNos);
 
     int updateInner(TestIdVo testIdVo);

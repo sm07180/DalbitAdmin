@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.money.dao.Mon_ItemDao" >
+
+    <sql id="baseChangeItemList">
+        select @RNUM := @RNUM + 1 as rowNum
+            , basic.mem_no
+            , basic.mem_name
+            , basic.mem_userid
+            , basic.mem_nick
+            , basic.mem_sex
+            , basic.inner
+            , wallet.gold as currentGold
+            , wallet.ruby as currentRuby
+            , item.last_upd_date
+            , item.ruby
+            , item.gold
+            , item.item_name
+            , item.item_cnt
+            , item.item_code
+            , item.mem_grade
+            , item.mem_level
+            , changeCnt.changeCnt
+            , changeCnt.sumRuby
+            , changeCnt.sumGold
+        from rd_data.tb_member_broadcast_item item
+            inner join rd_data.tb_member_basic basic on item.mem_no = basic.mem_no
+            inner join rd_data.tb_member_wallet wallet on basic.mem_no = wallet.mem_no
+            left outer join (
+                select mem_no, count(mem_no) changeCnt, sum(ruby) sumRuby, sum(gold) sumGold
+                from rd_data.tb_member_broadcast_item
+                where item_type = 5
+                  and DATE_FORMAT(last_upd_date, '%Y%m') = concat(#{search_year}, #{search_month})
+                group by mem_no
+            ) changeCnt on item.mem_no = changeCnt.mem_no
+            , (select @RNUM := 0) r
+        where item_type = 5
+            <if test='search_year != null and search_year != ""'>
+              and DATE_FORMAT(item.last_upd_date, '%Y%m') = concat(#{search_year}, #{search_month})
+            </if>
+
+            <if test='search_value != null and search_value != ""'>
+                <choose>
+                    <when test="search_type == 'mem_no'">
+                        and basic.mem_no like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <when test="search_type == 'user_id'">
+                        and basic.mem_userid like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <when test="search_type == 'mem_nick'">
+                        and basic.mem_nick like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <when test="search_type == 'mem_phone'">
+                        and basic.mem_phone like CONCAT('%',#{search_value},'%')
+                    </when>
+                    <otherwise>
+                        and (
+                        basic.mem_no like CONCAT('%',#{search_value},'%')
+                        or basic.mem_userid like CONCAT('%',#{search_value},'%')
+                        or basic.mem_nick like CONCAT('%',#{search_value},'%')
+                        or basic.mem_phone like CONCAT('%',#{search_value},'%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+
+        order by item.last_upd_date desc
+    </sql>
+
+
+    <select id="selectChangeItemCnt" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="int">
+        /* Mon_Item.xml - selectChangeItemCnt */
+        select count(*)
+        from(
+            <include refid="baseChangeItemList"/>
+        )a
+    </select>
+
+    <select id="selectChangeItemList" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="com.dalbit.money.vo.Mon_ItemOutputVo">
+        /* Mon_Item.xml - selectChangeItemList */
+        select *
+        from(
+            <include refid="baseChangeItemList"/>
+        ) list
+        where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+</mapper>

@@ -1,33 +1,22 @@
 package com.dalbit.administrate.service;
 
-import com.dalbit.administrate.dao.Adm_AuthorityDao;
 import com.dalbit.administrate.dao.Adm_TestIdDao;
 import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.administrate.vo.TestIdVo;
-import com.dalbit.common.code.Status;
-import com.dalbit.common.service.CommonService;
-import com.dalbit.common.vo.MenuAuthVo;
-import com.dalbit.common.vo.MenuVo;
 import com.dalbit.common.vo.SearchVo;
-import com.dalbit.exception.GlobalException;
-import com.dalbit.inforex.vo.InforexDutyCode;
-import com.dalbit.inforex.vo.InforexMember;
-import com.dalbit.inforex.vo.InforexPosCode;
+import com.dalbit.excel.service.ExcelService;
+import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
-import com.dalbit.util.InforexApiUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -40,6 +29,9 @@ public class Adm_TestIdService {
     MessageUtil messageUtil;
     @Autowired
     GsonUtil gsonUtil;
+
+    @Autowired
+    ExcelService excelService;
 
     public MemberVo getMemberInfo(TestIdVo testIdVo){
         MemberVo memberInfo = admTestIdDao.getMemberInfo(testIdVo);
@@ -68,6 +60,26 @@ public class Adm_TestIdService {
 
     public List<TestIdListVo> getTestIdList(SearchVo searchVo){
         List<TestIdListVo> testIdList = admTestIdDao.getTestIdList(searchVo);
+
+        for(int i=0;i<testIdList.size();i++){
+            TestIdListVo chargeVo = admTestIdDao.getCharge(testIdList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(chargeVo)) {
+                testIdList.get(i).setType(chargeVo.getType());
+                testIdList.get(i).setCharge(chargeVo.getCharge());
+                testIdList.get(i).setChargeDate(chargeVo.getChargeDate());
+            }
+            TestIdListVo itemVo = admTestIdDao.getItem(testIdList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(itemVo)) {
+                testIdList.get(i).setDal(itemVo.getDal());
+                testIdList.get(i).setByeol(itemVo.getByeol());
+            }
+            TestIdListVo updateVo = admTestIdDao.getLastUpdate(testIdList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(updateVo)) {
+                testIdList.get(i).setLastOpDate(updateVo.getLastOpDate());
+                testIdList.get(i).setLastOpName(updateVo.getLastOpName());
+            }
+        }
+
         return testIdList;
     }
 
@@ -78,5 +90,89 @@ public class Adm_TestIdService {
         testIdVo.setMem_no(memNos[0]);
         testIdVo.setInner(0);
         admTestIdDao.updateInner(testIdVo);
-       }
+    }
+
+    /**
+     * 회원 엑셀
+     */
+    public Model getListExcel(SearchVo searchVo, Model model) {
+        searchVo.setPageCnt(60000);
+        List<TestIdListVo> list = admTestIdDao.getTestIdList(searchVo);
+
+        for(int i=0;i<list.size();i++){
+            TestIdListVo chargeVo = admTestIdDao.getCharge(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(chargeVo)) {
+                list.get(i).setType(chargeVo.getType());
+                list.get(i).setCharge(chargeVo.getCharge());
+                list.get(i).setChargeDate(chargeVo.getChargeDate());
+            }
+            TestIdListVo itemVo = admTestIdDao.getItem(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(itemVo)) {
+                list.get(i).setDal(itemVo.getDal());
+                list.get(i).setByeol(itemVo.getByeol());
+            }
+            TestIdListVo updateVo = admTestIdDao.getLastUpdate(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(updateVo)) {
+                list.get(i).setLastOpDate(updateVo.getLastOpDate());
+                list.get(i).setLastOpName(updateVo.getLastOpName());
+            }
+        }
+
+        String[] headers = {"No", "사번", "직원명", "관계","회원번호","User ID","User 닉네임","성별","달/별 충전일","보유 달/별 수","연락처","레벨/등급","등록일","최근수정일","최근로그인","상태"};
+        int[] headerWidths = {3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            HashMap hm = new LinkedHashMap();
+
+
+            String mem3 = "";
+            if(list.get(i).getRelation().equals("1")) mem3 = "본인";
+            else if(list.get(i).getRelation().equals("2")) mem3 = "가족";
+            else if(list.get(i).getRelation().equals("3")) mem3 = "친구";
+            else if(list.get(i).getRelation().equals("4")) mem3 = "친척";
+            else if(list.get(i).getRelation().equals("5")) mem3 = "업체";
+            else if(list.get(i).getRelation().equals("6")) mem3 = "기타";
+
+            String mem7 = "";
+            if(list.get(i).getMem_sex().equals("m")) mem7 = "남자";
+            else if(list.get(i).getMem_sex().equals("f")) mem7 = "여자";
+            else if(list.get(i).getMem_sex().equals("n")) mem7 = "알수없음";
+
+            String mem15 = "";
+            if(list.get(i).getMem_state().equals("1")) mem15 = "정상";
+            else if(list.get(i).getMem_state().equals("2")) mem15 = "경고";
+            else if(list.get(i).getMem_state().equals("3")) mem15 = "1일정지";
+            else if(list.get(i).getMem_state().equals("4")) mem15 = "3일정지";
+            else if(list.get(i).getMem_state().equals("5")) mem15 = "7일정지";
+            else if(list.get(i).getMem_state().equals("6")) mem15 = "영구정지";
+            else if(list.get(i).getMem_state().equals("7")) mem15 = "강제탈퇴";
+
+            hm.put("no", list.size() - i);
+            hm.put("mem1", DalbitUtil.isEmpty(list.get(i).getEmp_no()) ? "" : list.get(i).getEmp_no());
+            hm.put("mem2", DalbitUtil.isEmpty(list.get(i).getEmp_name()) ? "" : list.get(i).getEmp_name());
+            hm.put("mem3", mem3);
+            hm.put("mem4", DalbitUtil.isEmpty(list.get(i).getMem_no()) ? "" : list.get(i).getMem_no());
+            hm.put("mem5", DalbitUtil.isEmpty(list.get(i).getMem_userId()) ? "" : list.get(i).getMem_userId());
+            hm.put("mem6", DalbitUtil.isEmpty(list.get(i).getMem_nick()) ? "" : list.get(i).getMem_nick());
+            hm.put("mem7", mem7);
+            hm.put("mem8", list.get(i).getType() + ": " + list.get(i).getCharge() +" / "+ list.get(i).getChargeDate());
+            hm.put("mem9", "달: " + list.get(i).getDal() + " / 별: " + list.get(i).getByeol());
+            hm.put("mem10", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getMem_phone());
+            hm.put("mem11",  list.get(i).getLevel() + " / " + list.get(i).getGrade());
+            hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getReg_date()) ? "" : list.get(i).getReg_date());
+            hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getLastOpDate()) ? "" : list.get(i).getLastOpDate());
+            hm.put("mem14", DalbitUtil.isEmpty(list.get(i).getLastLoginDatetime()) ? "" : list.get(i).getLastLoginDatetime());
+            hm.put("mem15", mem15);
+
+            bodies.add(hm.values().toArray());
+        }
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("목록",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "회원 목록");
+
+        return model;
+    }
 }

@@ -129,7 +129,7 @@
                      where mem_no=#{mem_no}
                        and item_type='3'
                 union
-                select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
+                select '운영자' as mem_no,ifnull(op_name,'운영자') as mem_userid ,ifnull(op_name,'운영자') as mem_nick
                         ,use_contents
                         ,'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' as image
                         ,'달' as itemNm
@@ -145,7 +145,7 @@
                   union
               </if>
               <if test="slctItem == 1 or slctItem == -1">    <!-- 별 -->
-              select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
+              select '운영자' as mem_no,ifnull(op_name,'운영자') as mem_userid ,ifnull(op_name,'운영자') as mem_nick
                     ,use_contents
                     ,'https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg' as image
                     ,'별' as itemNm
@@ -214,7 +214,7 @@
                     union
                   </if>
                   <if test="slctItem == 1 or slctItem == -1">      <!-- 달 -->
-                     select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
+                     select '운영자' as mem_no,ifnull(op_name,'운영자') as mem_userid ,ifnull(op_name,'운영자') as mem_nick
                       ,use_contents
                       ,'https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg' as image
                       ,'별' as itemNm
@@ -239,7 +239,7 @@
                          where mem_no=#{mem_no}
                            and item_type='3'
                     union
-                    select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
+                    select '운영자' as mem_no,ifnull(op_name,'운영자') as mem_userid ,ifnull(op_name,'운영자') as mem_nick
                             ,use_contents
                             ,'https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg' as image
                             ,'달' as itemNm
@@ -255,7 +255,7 @@
                       union
                   </if>
                   <if test="slctItem == 1 or slctItem == -1">    <!-- 별 -->
-                  select '운영자' as mem_no,'운영자' as mem_userid ,'운영자' as mem_nick
+                  select '운영자' as mem_no,ifnull(op_name,'운영자') as mem_userid ,ifnull(op_name,'운영자') as mem_nick
                         ,use_contents
                         ,'https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg' as image
                         ,'별' as itemNm
