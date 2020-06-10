@@ -31,6 +31,7 @@
                 </table>
             </div>
             <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+            <%--<button class="btn btn-sm btn-success print-btn no-margin pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i> Excel Down</button>--%>
         </div>
     </div>
 </div>

@@ -111,9 +111,9 @@
                             <span>
                                 <button class="btn btn-default" type="button" id="bt_delete">선택삭제</button>
                             </span>
-                            <%--<span>
+                            <span>
                                 <button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
-                            </span>--%>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -273,6 +273,24 @@
         $("#bt_search").click();
         ui.topScroll();
     });
+
+    /*=============엑셀==================*/
+    $('#excelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("searchType", 0);
+        formData.append("searchText", "");
+        util.excelDownload($(this), "/rest/administrate/testId/listExcel", formData, fn_success_excel, fn_fail_excel)
+    });
+
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+    /*==================================*/
 
 </script>
 

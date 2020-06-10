@@ -185,6 +185,9 @@
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
         dtList_info_detail.reload();
+
+        var scrollPosition = $("#tab_infoDetail").offset();
+        util.scrollPostion(scrollPosition.top);
     }
 
     var editEntry;
@@ -523,7 +526,7 @@
 
 <script id="tmp_editHistFrm" type="text/x-handlebars-template">
     <div class="widget-content mt5">
-        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tab_infoDetail">
             <li class="active" id="detail1"><a href="#memberInfoDetail" role="tab" data-toggle="tab" id="tab_memberInfoDetail"></a></li>
             <li class="hide" id="detail2"><a href="#memberInfoDetail2" role="tab" data-toggle="tab" id="tab_memberInfoDetail2"></a></li>
         </ul>
