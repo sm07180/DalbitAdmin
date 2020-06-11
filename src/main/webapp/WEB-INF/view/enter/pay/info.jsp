@@ -397,8 +397,8 @@
         <thead>
         <tr>
             <th><u onclick="click_age();">※결제 성별</u></th>
-            <th class="_sex_male"></th>
-            <th class="_sex_female"></th>
+            <th class="_sex_male">{{{sexIcon 'm'}}}</th>
+            <th class="_sex_female">{{{sexIcon 'f'}}}</th>
             <th>알수없음</th>
             <th>총 합</th>
             <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
