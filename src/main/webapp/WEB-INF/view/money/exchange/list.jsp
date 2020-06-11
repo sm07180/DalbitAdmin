@@ -849,8 +849,8 @@
             </colgroup>
             <tr>
                 <th style="color: white;background-color: #ffa100">
-                    총 매출대비 예상 순매출<br/>
-                     (환전예상금액 제외한)
+                    (환전가능 금액/부가세 제외)<br/>
+                         총 예상 순 매출
                 </th>
                 <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}</td>
             </tr>
