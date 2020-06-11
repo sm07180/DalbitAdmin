@@ -8,6 +8,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SmsVo;
 import com.dalbit.content.service.PushService;
 import com.dalbit.content.vo.procedure.P_pushInsertVo;
+import com.dalbit.enter.vo.procedure.P_StatVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
@@ -18,6 +19,8 @@ import com.dalbit.money.vo.Mon_EnableOutputVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.money.vo.procedure.P_ExchangeCancelInputVo;
+import com.dalbit.payment.dao.Pay_PayDao;
+import com.dalbit.payment.vo.Pay_PaySumOutputVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -51,17 +54,29 @@ public class Mon_ExchangeService {
     @Autowired
     Mem_MemberDao mem_MemberDao;
 
+    @Autowired
+    Pay_PayDao pay_PayDao;
+
     public String selectExchangeList(Mon_ExchangeInputVo monExchangeInputVo){
 
         var resultMap = new HashMap<>();
 
         if(DalbitUtil.isEmpty(monExchangeInputVo.getIsSpecial())){  //환전가능리스트
-            int enableCnt = monExchangeDao.selectEnableCnt(monExchangeInputVo);
-            monExchangeInputVo.setTotalCnt(enableCnt);
+            Mon_EnableOutputVo outVo= monExchangeDao.selectEnableCnt(monExchangeInputVo);
+            monExchangeInputVo.setTotalCnt(outVo.getEnableCnt());
             ArrayList<Mon_EnableOutputVo> enableList = monExchangeDao.selectEnableList(monExchangeInputVo);
 
-            resultMap.put("enableCnt", enableCnt);
+            P_StatVo pStatVo = new P_StatVo();
+            Pay_PaySumOutputVo outTotalPay = pay_PayDao.getTotalPaySum(pStatVo);
+
+            Mon_EnableOutputVo outExchangeVo= monExchangeDao.totalExchangeCash(monExchangeInputVo);
+
+            resultMap.put("enableCnt", outVo.getEnableCnt());
+            resultMap.put("totalGold", outVo.getTotalGold());
+            resultMap.put("totalSpecialCnt", outVo.getTotalSpecialCnt());
             resultMap.put("enableList", enableList);
+            resultMap.put("totalSuccAmt", outTotalPay.getTotalSuccAmt());
+            resultMap.put("totalExchangeAmt", outExchangeVo.getTotalExchangeAmt());
 
         }else{  //환전내역
             int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);

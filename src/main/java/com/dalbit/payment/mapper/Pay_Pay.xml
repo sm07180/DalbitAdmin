@@ -75,15 +75,22 @@
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
         <if test="period == 0 or period == 1">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')-->
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')-->
         </if>
         <if test="period == 2">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')-->
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')-->
         </if>
         <if test="period == 3 or period == 4">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')-->
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -121,15 +128,22 @@
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
         <if test="period == 0 or period == 1">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')-->
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')-->
         </if>
         <if test="period == 2">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')-->
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')-->
         </if>
         <if test="period == 3 or period == 4">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')-->
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -170,15 +184,22 @@
         or mem_id like concat('%', #{searchText}, '%')
         or mem_phone like concat('%', #{searchText}, '%'))
         <if test="period == 0 or period == 1">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')-->
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')-->
         </if>
         <if test="period == 2">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) >= STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) >= STR_TO_DATE(#{sDate}, '%Y%m%d')-->
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))  <![CDATA[<]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')-->
         </if>
         <if test="period == 3 or period == 4">
-            and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y%m%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d'))) = STR_TO_DATE(#{sDate}, '%Y%m%d')
+            <!--and if(DATE_FORMAT(pay_ok_date, '%Y%m%d') = '' ,DATE_FORMAT(pay_dt_comein, '%Y%m%d') ,DATE_FORMAT(pay_ok_date, '%Y%m%d')) = STR_TO_DATE(#{sDate}, '%Y%m%d')-->
         </if>
         <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
             <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -201,5 +222,23 @@
             and pay_way = #{payWay}
         </if>
     </select>
+
+    <select id="getTotalPaySum" parameterType="com.dalbit.enter.vo.procedure.P_StatVo" resultType="com.dalbit.payment.vo.Pay_PaySumOutputVo">
+        SELECT SUM(succ_cnt) AS totalSuccCnt,
+                SUM(pay_amt) AS totalSuccAmt,
+                SUM(try_cnt) AS totalTryCnt,
+                if( ifnull(SUM(try_cnt),0) > 0, FLOOR((ifnull(SUM(succ_cnt), 0)/SUM(try_cnt))*100), 0) AS totalSuccRate,
+                SUM(first_cnt) AS totalFirstCnt,
+                SUM(first_amt) AS totalFirstAmt,
+                SUM(re_cnt) AS totalReCnt,
+                SUM(re_amt) AS totalReAmt,
+                SUM(canc_cnt) AS totalCancCnt,
+                SUM(canc_amt) AS totalCancAmt
+          FROM rd_data.stat_member_payment_total
+          <if test='startDate != "" and startDate != null'>
+            WHERE the_date BETWEEN #{startDate} AND #{endDate}
+          </if>
+    </select>
+
 
 </mapper>

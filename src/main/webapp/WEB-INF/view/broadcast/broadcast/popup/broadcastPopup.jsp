@@ -9,6 +9,9 @@
         <div class="tab-pane fade in active" id="memberDetail"><jsp:include page="../broadcastTab.jsp"/></div>     <!-- 상세 -->
     </div>
 </div>
+<!-- 이미지 원본 크기 -->
+<div id="imageFullSize"></div>
+
 <script>
     $(document).ready(function() {
     });

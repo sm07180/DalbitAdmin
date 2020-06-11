@@ -150,7 +150,7 @@ ui.imageLayerView = function(){
 ui.imageLayerView();
 
 
-$(document).on("click",".fullSize_background",function(){ //마우스 오버
+$(document).on("click",".fullSize_background",function(){ //이미지 원본 크기
     util.fullSize_background($(this).prop('src'));
 });
 

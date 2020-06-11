@@ -98,6 +98,8 @@
 
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
+    var week = ['일', '월', '화', '수', '목', '금', '토'];
+    var toDay = week[moment(new Date()).day()];
     setTimeDate(dateTime);
 
     $(function(){
@@ -127,7 +129,8 @@
         $("#onedayDate").val(dateTime);
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
-        $("._searchDate").html(dateTime);
+
+        $("._searchDate").html(dateTime + " (" + toDay + ")");
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
@@ -252,7 +255,8 @@
             if(common.isEmpty(dateType)){
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
+                $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
+
             }else if(dateType == 'prev'){
                 setDay(-1);
             }else{
@@ -291,10 +295,11 @@
     }
 
     function setDay(days){
+        toDay = week[moment($("#startDate").val()).add('days', days).day()];
         $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
         $("#endDate").val($("#startDate").val());
 
-        $("._searchDate").html($("#startDate").val());
+        $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
         $("#onedayDate").val($("#startDate").val());
     }
 

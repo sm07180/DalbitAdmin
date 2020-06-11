@@ -289,6 +289,18 @@
         util.renderPagingNavigation("list_info_paginate_top", exchangePagingInfo);
         util.renderPagingNavigation("list_info_paginate", exchangePagingInfo);
 
+        var exchangeAmt = common.exchangeAmt(response.data.totalGold,response.data.specialCnt).replace(/,/gi,"");
+        var totalSuccAmt = common.vatMinus(response.data.totalSuccAmt).replace(/,/gi,"");
+        response.data.netProfit = Number(totalSuccAmt)-(Number(exchangeAmt) + Number(response.data.totalExchangeAmt));
+
+        var template = $("#tmp_enableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : response.data
+        };
+        var html = templateScript(data);
+        $("#summaryTable").html(html);
+
     }
 
     $(document).on('click', '#excelDownBtn', function(){
@@ -563,6 +575,7 @@
             <col width="4%"/>
             <col width="3%"/>
             <col width="3%"/>
+            <col width="3%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="4%"/>
@@ -587,6 +600,7 @@
             <th>No</th>
             <th>상태</th>
             <th><input type="checkbox" id="allChk"></th>
+            <th>프로필</th>
             <th>아이디</th>
             <th>닉네임</th>
             <th>성별</th>
@@ -629,6 +643,12 @@
             {{else}}
                 {{{fontColor '대기' 1 'gray'}}}
             {{/workdayCheck}}
+        </td>
+        <td >
+            <form id="profileImg" method="post" enctype="multipart/form-data">
+                <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
+                     style="width: 50px;height: 50px;margin-bottom: 0px;" />
+            </form>
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
         <td>{{data.mem_nick}}</td>
@@ -819,10 +839,27 @@
 
 <!-- 환전신청 가능회원 -->
 <script type="text/x-handlebars-template" id="tmp_enableSummary">
-    <div class="pt10 col-lg-12">
-        <ul>
-            <li>570별 이상을 보유하고 있는 환전신청이 가능한 회원 리스트입니다.</li>
-        </ul>
+    <div class="pt10 col-lg-6 no-padding">
+        <label>ㆍ570별 이상을 보유하고 있는 환전신청이 가능한 회원 리스트입니다.</label>
+    </div>
+    <div class="col-lg-6 no-padding">
+        <table class="table table-bordered table-summary pull-right" style="margin-right: 0px">
+            <colgroup>
+                <col width="34%"/><col width="33%"/><col width="33%"/>
+            </colgroup>
+            <tr>
+                <th style="color: #ff5600">
+                    <b>총 매출대비 예상 순매출</b><br/>
+                     (환전예상금액 제외한)
+                </th>
+                <td colspan="2">{{addComma content.netProfit}}</td>
+            </tr>
+            <tr>
+                <th style="color: #66a449;">총 환전 가능금액</th>
+                <td>{{addComma content.enableCnt}} 명</td>
+                <td>{{exchangeAmt content.totalGold content.specialCnt}}</td>
+            </tr>
+        </table>
     </div>
 </script>
 

@@ -17,6 +17,7 @@ public class FanRankingVo extends PagingVo {
     private int fanRank;
     private String upDown;
     private String image_profile;
+    private String mem_no;
     private String mem_id;
     private int level;
     private String grade;
