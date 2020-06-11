@@ -202,4 +202,22 @@
         </if>
     </select>
 
+    <select id="getTotalPaySum" parameterType="com.dalbit.enter.vo.procedure.P_StatVo" resultType="com.dalbit.payment.vo.Pay_PaySumOutputVo">
+        SELECT SUM(succ_cnt) AS totalSuccCnt,
+                SUM(pay_amt) AS totalSuccAmt,
+                SUM(try_cnt) AS totalTryCnt,
+                if( ifnull(SUM(try_cnt),0) > 0, FLOOR((ifnull(SUM(succ_cnt), 0)/SUM(try_cnt))*100), 0) AS totalSuccRate,
+                SUM(first_cnt) AS totalFirstCnt,
+                SUM(first_amt) AS totalFirstAmt,
+                SUM(re_cnt) AS totalReCnt,
+                SUM(re_amt) AS totalReAmt,
+                SUM(canc_cnt) AS totalCancCnt,
+                SUM(canc_amt) AS totalCancAmt
+          FROM rd_data.stat_member_payment_total
+          <if test='startDate != "" and startDate != null'>
+            WHERE the_date BETWEEN #{startDate} AND #{endDate}
+          </if>
+    </select>
+
+
 </mapper>

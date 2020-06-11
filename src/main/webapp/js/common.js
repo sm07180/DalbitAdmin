@@ -352,3 +352,19 @@ common.payRate = function(lvalue,rvalue) {
     var tmp = (lvalue * 100) / rvalue;
     return common.addComma(tmp.toFixed(2));
 };
+
+common.exchangeAmt = function(star, isSpecial){
+    var cashBasic = Number(star * 60);
+    var specialBenefit = 0;
+
+    if(!common.isEmpty(isSpecial) && isSpecial != 0){
+        specialBenefit = Number(Math.floor(star * 60 * 0.005)) * 10;
+    }
+
+    var sum = Number(cashBasic + specialBenefit);
+    var incomeTax = Number(Math.floor(sum * 0.003)) * 10;
+    var residentTax = Number(Math.floor(incomeTax * 0.001)) * 10;
+    var total = Number(sum - incomeTax - residentTax);
+
+    return common.addComma(total);
+};

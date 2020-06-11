@@ -138,7 +138,7 @@
 
     </select>
 
-    <select id="selectExchangeCnt" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="int">
+    <select id="selectExchangeCnt" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="integer">
         /* Mon_Exchange.xml - selectExchangeCnt */
         select count(*)
         from (
@@ -487,9 +487,9 @@
         order by wallet.gold desc
     </sql>
 
-    <select id="selectEnableCnt" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="int">
+    <select id="selectEnableCnt" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_EnableOutputVo">
         /* Mon_Exchange.xml - selectEnableCnt */
-        select count(*)
+        select count(*) as enableCnt , sum(gold) as totalGold, sum(specialCnt) as totalSpecialCnt
         from(
             <include refid="baseEnable"/>
         ) a
@@ -502,5 +502,23 @@
             <include refid="baseEnable"/>
         ) list
         where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+    <select id="totalExchangeCash" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_EnableOutputVo">
+        select ifnull(sum(cash_basic), 0) totalExchangeAmt
+          from rd_data.tb_member_exchange exchange
+          left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no
+           <!--<if test='search_year != "" and search_year != null'>-->
+               <!--and special.select_year = #{search_year}-->
+               <!--and special.select_month = #{search_month}-->
+           <!--</if>-->
+          left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
+         where exchange.state = 1
+        <!--<if test='search_year != "" and search_year != null'>-->
+          <!--and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})-->
+        <!--</if>-->
+        <if test='search_testId == 1'>
+            and basic.inner = 0
+        </if>
     </select>
 </mapper>
