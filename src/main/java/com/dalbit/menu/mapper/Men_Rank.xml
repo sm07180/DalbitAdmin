@@ -87,6 +87,7 @@
                     , fan.up_down as upDown
                     , prof.image_profile as image_profile
                     , mem.mem_id as mem_id
+                    , mem.mem_no as mem_no
                     , lev.`level` as `level`
                     , lev.grade as grade
                     , mem.mem_nick as mem_nick
