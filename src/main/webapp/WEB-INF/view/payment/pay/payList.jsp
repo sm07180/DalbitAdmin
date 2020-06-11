@@ -34,7 +34,7 @@
     var date = new Date();
     var sDate;
     var eDate;
-    var dtList_info;
+    var dtList_info_pay;
 
     var tmp_searchPayStatus = 1; //결제완료 디폴트 호출
     var tmp_ostype = -1;
@@ -49,7 +49,7 @@
 
 
     function getPayList(tmp) {
-        var dtList_info_data = function(data) {
+        var dtList_info_pay_data = function(data) {
             data.searchText = txt_search;                        // 검색명
             data.period = tmp_period;
             if(tmp_joinDate == "0" || tmp_joinDate == "1" || tmp_joinDate == "2") {               // 선택
@@ -67,15 +67,15 @@
 
         };
         if(tmp == "payment"){
-            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.payList);
+            dtList_info_pay = new DalbitDataTable($("#list_info"), dtList_info_pay_data, payDataTableSource.payList);
         }else{
-            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, payDataTableSource.memPayHistory);
+            dtList_info_pay = new DalbitDataTable($("#list_info"), dtList_info_pay_data, payDataTableSource.memPayHistory);
         }
-        dtList_info.useCheckBox(false);
-        dtList_info.useIndex(true);
-        dtList_info.setPageLength(50);
-        dtList_info.createDataTable(pay_listSummary);
-        dtList_info.reload();
+        dtList_info_pay.useCheckBox(false);
+        dtList_info_pay.useIndex(true);
+        dtList_info_pay.setPageLength(50);
+        dtList_info_pay.createDataTable(pay_listSummary);
+        dtList_info_pay.reload();
 
         $("#payStateArea").html(util.getCommonCodeSelect('1', payStatus));
         $("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
@@ -130,26 +130,26 @@
     function payCancelSuccess(response){
         dalbitLog(response);
         alert("결제취소가 완료되었습니다.");
-        dtList_info.reload(pay_listSummary);
+        dtList_info_pay.reload(pay_listSummary);
     }
 
     function sel_change_payStateArea(){
         tmp_searchPayStatus = $("select[name='searchPayStatus']").val();
-        dtList_info.reload(pay_listSummary);
+        dtList_info_pay.reload(pay_listSummary);
     }
     function sel_change_payPlatformArea(){
         tmp_ostype = $("select[name='ostype']").val();
-        dtList_info.reload(pay_listSummary);
+        dtList_info_pay.reload(pay_listSummary);
     }
 
     function sel_change_payInnerArea(){
         tmp_innerType = $("select[name='innerType']").val();
-        dtList_info.reload(pay_listSummary);
+        dtList_info_pay.reload(pay_listSummary);
     }
 
     function sel_change_payWayArea(){
         tmp_payWay = $("select[name='payWay']").val();
-        dtList_info.reload(pay_listSummary);
+        dtList_info_pay.reload(pay_listSummary);
     }
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
