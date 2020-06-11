@@ -449,8 +449,8 @@ public class Mon_ExchangeService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
                 pPushInsertVo.setSlct_push("2");
-                pPushInsertVo.setSend_title("환전신청이 승인되지 않았습니다.");
-                pPushInsertVo.setSend_cont("신청하신 환전정보 중 첨부파일이 명확하게 확인되지 않아 승인이 거부되었습니다.");
+                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 불가처리 되었습니다.");
+                pPushInsertVo.setSend_cont("자세한 사항은 1:1문의로 연락해 주시기바랍니다.");
                 pPushInsertVo.setImage_type("101");
                 pushService.sendPushReqOK(pPushInsertVo);
             }catch (Exception e){
