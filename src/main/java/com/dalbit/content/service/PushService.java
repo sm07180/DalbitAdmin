@@ -119,11 +119,11 @@ public class PushService {
             if(DalbitUtil.isEmpty(pPushInsertVo.getSend_url())){
                 if(!DalbitUtil.isEmpty(pPushInsertVo.getImage_type())){
                     if(pPushInsertVo.getImage_type().equals("102")){
-                        pPushInsertVo.setSend_url(PUSH_LOGO_IMG_102);
+                        pPushInsertVo.setSend_url(SERVER_PHOTO_URL + PUSH_LOGO_IMG_102);
                     }else if(pPushInsertVo.getImage_type().equals("103")){
-                        pPushInsertVo.setSend_url(PUSH_LOGO_IMG_103);
+                        pPushInsertVo.setSend_url(SERVER_PHOTO_URL + PUSH_LOGO_IMG_103);
                     }else{
-                        pPushInsertVo.setSend_url(PUSH_LOGO_IMG_101);
+                        pPushInsertVo.setSend_url(SERVER_PHOTO_URL + PUSH_LOGO_IMG_101);
                     }
                 }
             }
