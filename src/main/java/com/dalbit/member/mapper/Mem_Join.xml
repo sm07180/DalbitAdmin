@@ -119,7 +119,7 @@
     <select id="callWithdrawalList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
         select count(*) totalCnt From rd_data.tb_member_withdrawal_bak a
             <if test="period != 4 and period != 3">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
             </if>
             <if test="period == 3 or period == 4">
                 where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
@@ -145,7 +145,7 @@
                 ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
          From rd_data.tb_member_withdrawal_bak a
             <if test="period != 4 and period != 3">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and mem_join_date  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
+                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
             </if>
             <if test="period == 3 or period == 4">
                 where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
