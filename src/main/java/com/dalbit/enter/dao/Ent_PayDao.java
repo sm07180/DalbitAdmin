@@ -15,6 +15,9 @@ public interface Ent_PayDao {
     List<P_PayInfoOutVo> callPayInfo(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
+    P_PayInfoOutVo callPayCancelInfo(P_StatVo pStatVo);
+
+    @Transactional(readOnly = true)
     List<P_PayTotalOutDetailVo> callPayTotal(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)

@@ -35,7 +35,6 @@
     var date = new Date();
     var sDate;
     var eDate;
-    var dtList_info;
 
     $(document).ready(function() {
     });
@@ -107,7 +106,7 @@
         }else if(tmp_joinDate == "4" ){
             tmp_sDate = $("#onedayDate").val().replace(/-/gi, "");
         }
-        dtList_info.reload(pay_listSummary);
+        dtList_info_pay.reload(pay_listSummary);
     }
 
 

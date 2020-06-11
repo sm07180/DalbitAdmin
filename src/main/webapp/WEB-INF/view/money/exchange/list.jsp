@@ -843,19 +843,19 @@
         <label>ㆍ570별 이상을 보유하고 있는 환전신청이 가능한 회원 리스트입니다.</label>
     </div>
     <div class="col-lg-6 no-padding">
-        <table class="table table-bordered table-summary pull-right" style="margin-right: 0px">
+        <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 500px">
             <colgroup>
-                <col width="34%"/><col width="33%"/><col width="33%"/>
+                <col width="47%"/><col width="20%"/><col width="33%"/>
             </colgroup>
             <tr>
-                <th style="color: #ff5600">
-                    <b>총 매출대비 예상 순매출</b><br/>
+                <th style="color: white;background-color: #ffa100">
+                    총 매출대비 예상 순매출<br/>
                      (환전예상금액 제외한)
                 </th>
-                <td colspan="2">{{addComma content.netProfit}}</td>
+                <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}</td>
             </tr>
             <tr>
-                <th style="color: #66a449;">총 환전 가능금액</th>
+                <th style="color: white;background-color: #66a449">총 환전 가능금액</th>
                 <td>{{addComma content.enableCnt}} 명</td>
                 <td>{{exchangeAmt content.totalGold content.specialCnt}}</td>
             </tr>
