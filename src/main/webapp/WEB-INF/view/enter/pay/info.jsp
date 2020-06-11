@@ -46,7 +46,7 @@
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
                     </div>
-                    <div class="widget-content mt10 col-md-8 no-padding">
+                    <div class="widget-content mt10 col-md-8 no-padding mr10">
                         <table class="table table-condensed table-dark-header table-bordered no-margin">
                             <thead>
                             </thead>
@@ -54,7 +54,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="widget-content mt10 col-md-2 no-padding">
+                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
                         <table class="table table-condensed table-dark-header table-bordered no-margin">
                             <thead>
                             </thead>
@@ -62,7 +62,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="widget-content mt10 col-md-2 no-padding">
+                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
                         <table class="table table-condensed table-dark-header table-bordered no-margin">
                             <thead>
                             </thead>
