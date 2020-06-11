@@ -219,7 +219,7 @@
     {{#each this as |user|}}
     <tr>
         <td>
-            <img class="thumbnail fullSize_background" alt="your image" src="{{renderProfileImage image_profile mem_sex}}" style='height:100px; width:auto;' />
+            <img class="thumbnail fullSize_background" alt="your image" src="{{renderProfileImage image_profile mem_sex}}" style='height:68px; width:68px; margin: auto;' />
         </td>
 
         <td>

@@ -164,7 +164,6 @@
     <thead id="djtableTop">
     <tr>
         <th>순위</th>
-        <th>Main 추천상태</th>
         <th>프로필 이미지</th>
         <th>User ID</th>
         <th>User 닉네임</th>
@@ -184,16 +183,8 @@
                 {{djRank}} <br /><br />
                 {{upDown}}
             </td>
-            <td>
-                {{#isSmall djRank '6'}}
-                <i class="fa fa-circle" style="color: blue"></i><br/><span class="text">추천 중</span>
-
-                {{else}}
-                <i class="fa fa-circle-o" style="color: blue"></i><br/><span class="text">비추천</span>
-                {{/isSmall}}
-            </td>
             <td style="width: 50px">
-                <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:50px; width:50px;' />
+                <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
             </td>
             <td>
                 <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{mem_id}}</a>
@@ -234,7 +225,6 @@
     <thead id="tableTop">
     <tr>
         <th>순위</th>
-        <th>Main 추천상태</th>
         <th>프로필 이미지</th>
         <th>User ID</th>
         <th>User 닉네임</th>
@@ -254,15 +244,8 @@
                 {{fanRank}} <br /><br />
                 {{upDown}}
             </td>
-            <td>
-                {{#isSmall fanRank '6'}}
-                <i class="fa fa-circle" style="color: blue"></i><br/><span class="text">추천 중</span>
-                {{else}}
-                <i class="fa fa-circle-o" style="color: blue"></i><br/><span class="text">비추천</span>
-                {{/isSmall}}
-            </td>
             <td style="width: 50px">
-                <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:50px; width:50px;' />
+                <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
             </td>
             <td>
                 <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_id}}</a> <br /> <br />
