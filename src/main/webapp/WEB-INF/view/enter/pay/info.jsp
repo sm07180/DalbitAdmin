@@ -229,6 +229,7 @@
         var context = response.data.info;
         var html=templateScript(context);
         $("#PayCancelTotalTableBody").append(html);
+        getPayTotalList();
     }
 
     $(document).on('click', '._prevSearch', function(){
