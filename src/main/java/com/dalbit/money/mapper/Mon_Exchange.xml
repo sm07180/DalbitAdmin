@@ -4,56 +4,20 @@
 
     <sql id="baseExchange">
         select
-            rowNum
-            , mem_no
-            , mem_id
-            , mem_name
-            , mem_nick
-            , mem_state
-            , mem_phone
-            , mem_userid
-            , image_profile
-            , idx
-            , byeol
-            , cash_basic
-            , income_tax
-            , resident_tax
-            , transfer_fee
-            , benefit
-            , cash_real
-            , account_name
-            , bank_code
-            , account_no
-            , social_no
-            , phone_no
-            , address_1
-            , address_2
-            , add_file1
-            , add_file2
-            , terms_agree
-            , os_type
-            , ip
-            , confirm
-            , state
-            , op_msg
-            , op_name
-            , op_date
-            , reg_date
-            , last_upd_date
-            , gold
+            @RNUM := @RNUM + 1 as rowNum,
+            a.*
             , ifnull(exchangeCnt, 0) exchangeCnt
             , ifnull(totalCashBasic, 0) totalCashBasic
             , ifnull(totalCashReal, 0) totalCashReal
         from (
-            select @RNUM := @RNUM + 1 as rowNum,
-                   basic.mem_no,
+            select basic.mem_no,
                    basic.mem_id,
                    basic.mem_name,
                    basic.mem_nick,
                    basic.mem_state,
                    basic.mem_phone,
                    basic.mem_userid,
-                    (select image_profile from rd_data.tb_member_profile where mem_no=basic.mem_no) as image_profile,
+                   profile.image_profile,
                    exchange.idx,
                    exchange.byeol,
                    exchange.cash_basic,
@@ -87,8 +51,9 @@
                 inner join rd_data.tb_member_wallet wallet on exchange.mem_no = wallet.mem_no
                 left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no and special.select_year = #{search_year} and special.select_month = #{search_month}
                 left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
-                , (select @RNUM := 0) r
-            where concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')
+                inner join (select @RNUM := 0) r
+            where
+                concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')
                 <choose>
                     <when test="isSpecial == 0">
                         and special.mem_no is null
@@ -145,7 +110,7 @@
                     </if>
                 </if>
 
-            order by exchange.reg_date desc
+            order by exchange.idx desc
         ) a
         left join
         (
