@@ -180,12 +180,11 @@
             <if test='search_testId == 1'>
                 and basic.inner = 0
             </if>
-            group by exchange.mem_no
          )a
 
         union all
         -- 미처리 신청금액
-        select ifnull(sum(cash_basic), 0) cash_basic
+        select ifnull(sum(cash_real), 0) cash_basic
         from rd_data.tb_member_exchange exchange
         left join rd_admin.tb_special_dj special
         on exchange.mem_no = special.mem_no
@@ -230,7 +229,6 @@
         <if test='search_testId == 1'>
             and basic.inner = 0
         </if>
-            /*and exchange.state = 1*/
 
         union all
         -- 처리완료 건 수
@@ -257,12 +255,11 @@
             <if test='search_testId == 1'>
                 and basic.inner = 0
             </if>
-            group by exchange.mem_no
         )a
 
         union all
         -- 처리완료 금액
-        select ifnull(sum(cash_basic), 0) cash_basic
+        select ifnull(sum(cash_real), 0) cash_basic
         from rd_data.tb_member_exchange exchange
             left join rd_admin.tb_special_dj special
                 on exchange.mem_no = special.mem_no
@@ -333,12 +330,11 @@
         <if test='search_testId == 1'>
             and basic.inner = 0
         </if>
-        group by exchange.mem_no
         )a
 
         union all
         -- 불가처리 금액
-        select ifnull(sum(cash_basic), 0) cash_basic
+        select ifnull(sum(cash_real), 0) cash_basic
         from rd_data.tb_member_exchange exchange
         left join rd_admin.tb_special_dj special
         on exchange.mem_no = special.mem_no
