@@ -10,6 +10,9 @@ var payDataTableSource = {
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
+            , {'title': '구매<br />횟수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
+                    return common.addComma(String(data))+"건";
+                }}
             , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
@@ -33,10 +36,7 @@ var payDataTableSource = {
             , {'title': '완료일시', 'data': '', 'width':'80px', 'render': function(data, type, row) {
                     return row.pay_yn == 'y' ? row.pay_ok_date + '<br/>' + row.pay_ok_time : '-';
                 }}
-            /*, {'title': '구매<br />횟수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
-                    return common.addComma(String(data));
-                }}
-            , {'title': '총 구매<br />금액', 'data': 'amount', 'width':'80px', 'render': function(data, type, row) {
+            /*, {'title': '총 구매<br />금액', 'data': 'amount', 'width':'80px', 'render': function(data, type, row) {
                     return common.addComma(data) + '원';
                 }}*/
             , {'title': '결제<br />아이템', 'data': 'pay_code', 'width':'60px'}
