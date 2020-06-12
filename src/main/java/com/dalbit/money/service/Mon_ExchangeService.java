@@ -386,6 +386,23 @@ public class Mon_ExchangeService {
 
     public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
 
+        if(monExchangeOutputVo.getSend_type() > 0){     //[승인거부] 발송 메시지 title 지정
+            //send_type (0: 미선택, 1 증빙서류 화질문제, 2: 미비한 증빙서류 , 3: 입력정보 불일치, 4: 기타 직접작성)
+            int send_type = monExchangeOutputVo.getSend_type();
+            if(send_type == 1){
+                monExchangeOutputVo.setSend_title("(증빙서류 화질문제)환전신청이 승인되지 않았습니다.");
+            }
+            else if(send_type == 2){
+                monExchangeOutputVo.setSend_title("(미비한 증빙서류)환전신청이 승인되지 않았습니다.");
+            }
+            else if(send_type == 3){
+                monExchangeOutputVo.setSend_title("(입력정보 불일치)환전신청이 승인되지 않았습니다.");
+            }
+            else{
+                monExchangeOutputVo.setSend_title("환전신청이 승인되지 않았습니다.");
+            }
+        }
+
         monExchangeDao.updateExchangeComplete(monExchangeOutputVo);
         if(monExchangeOutputVo.getState().equals("1")) {
             var message = new StringBuffer();
@@ -432,12 +449,16 @@ public class Mon_ExchangeService {
             }
 
 
-            var message = new StringBuffer();
-            message.append("[달빛라이브] 회원님께서 신청하신 환전요청 정보가 부적합하여 정상처리가 되지않았습니다.");
+
+//            String subject = "환전신청이 승인되지 않았습니다.";
+//            var message = new StringBuffer();
+//            message.append("신청하신 환전정보 중 첨부파일이 명확하게 확인되지 않아 승인이 거부되었습니다.\n");
+//            message.append("회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시 캡쳐 또는 사진을 찍어 첨부하여 신청해주시기 바랍니다.\n");
+//            message.append("[달빛라이브] 회원님께서 신청하신 환전요청 정보가 부적합하여 정상처리가 되지않았습니다.");
             //message.append("신청정보를 다시 확인하시고, 재신청하여 주시기 바랍니다.\n\n");
             //message.append("※ 궁금한 사항은 1:1문의로 연락해 주시기바랍니다.\n");
 
-            smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
+            smsService.sendMms(new SmsVo(monExchangeOutputVo.getSend_title(), monExchangeOutputVo.getSend_cont(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
             //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
 
             try{    // PUSH 발송
@@ -449,8 +470,10 @@ public class Mon_ExchangeService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
                 pPushInsertVo.setSlct_push("2");
-                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 불가처리 되었습니다.");
-                pPushInsertVo.setSend_cont("자세한 사항은 1:1문의로 연락해 주시기바랍니다.");
+//                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 불가처리 되었습니다.");
+//                pPushInsertVo.setSend_cont("자세한 사항은 1:1문의로 연락해 주시기바랍니다.");
+                pPushInsertVo.setSend_title(monExchangeOutputVo.getSend_title());
+                pPushInsertVo.setSend_cont(monExchangeOutputVo.getSend_cont());
                 pPushInsertVo.setImage_type("101");
                 pushService.sendPushReqOK(pPushInsertVo);
             }catch (Exception e){

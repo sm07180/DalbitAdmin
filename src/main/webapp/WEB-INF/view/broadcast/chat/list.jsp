@@ -71,7 +71,7 @@
         dblist_chat_detail = new DalbitDataTable($("#list_target_chat"), dtList_info_detail_data, BroadcastDataTableSource.targetchat);
         dblist_chat_detail.useCheckBox(false);
         dblist_chat_detail.useIndex(false);
-        dtList_info_detail.setPageLength(15);
+        dtList_info_detail.setPageLength(50);
         dblist_chat_detail.createDataTable();
     }
 
