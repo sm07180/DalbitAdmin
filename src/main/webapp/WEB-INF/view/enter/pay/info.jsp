@@ -514,12 +514,12 @@
             <th>총합</th>
             <td style="border-bottom: hidden;border-top: hidden;"></td>
             <th><u onclick="click_code();">※아이템별<br>아이폰</u></th>
-            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 49</th>
-            <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 100</th>
+            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 30</th>
+            <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 200</th>
             <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300</th>
-            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 420</th>
-            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 920</th>
-            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,350</th>
+            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 500</th>
+            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 1030</th>
+            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,080</th>
             <th>총합</th>
         </tr>
         <tr>
