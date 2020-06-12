@@ -498,20 +498,23 @@
 <script id="tmp_payTableSummary3" type="text/x-handlebars-template">
     <table class="table table-bordered mb0">
         <colgroup>
-            <col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/>
-            <col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="1%"/><col width="5.8%"/>
-            <col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/>
-            <col width="5.8%"/><col width="5.8%"/>
+            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="5%"/><col width="1%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
         </colgroup>
         <tbody>
         <tr>
             <th><u onclick="click_code();">※아이템별<br>Web, 안드로이드</u></th>
-            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 50</th>
-            <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 100</th>
-            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 500</th>
-            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 1,000</th>
-            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 2,000</th>
-            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 3,000</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px"> 달 10</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 달 50</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px"> 달 100</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0300.png" width="25px" height="25px"> 달 300</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0500.png" width="25px" height="25px"> 달 500</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px"> 달 1,000</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 달 2,000</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px" height="25px"> 달 3,000</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 달 5,000</th>
             <th>총합</th>
             <td style="border-bottom: hidden;border-top: hidden;"></td>
             <th><u onclick="click_code();">※아이템별<br>아이폰</u></th>
@@ -525,12 +528,15 @@
         </tr>
         <tr>
             <th>결제 건 수</th>
+            <td>{{addComma code13_cnt}}</td>
             <td>{{addComma code01_cnt}}</td>
             <td>{{addComma code02_cnt}}</td>
+            <td>{{addComma code14_cnt}}</td>
             <td>{{addComma code03_cnt}}</td>
             <td>{{addComma code04_cnt}}</td>
             <td>{{addComma code05_cnt}}</td>
             <td>{{addComma code06_cnt}}</td>
+            <td>{{addComma code15_cnt}}</td>
             <td><b>{{addComma android_total_cnt}}</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>결제 건 수</th>
@@ -544,12 +550,15 @@
         </tr>
         <tr  style="color: #66a449;">
             <th>부가세 포함 금액</th>
+            <td>{{addComma code13_amt}}</td>
             <td>{{addComma code01_amt}}</td>
             <td>{{addComma code02_amt}}</td>
+            <td>{{addComma code04_amt}}</td>
             <td>{{addComma code03_amt}}</td>
             <td>{{addComma code04_amt}}</td>
             <td>{{addComma code05_amt}}</td>
             <td>{{addComma code06_amt}}</td>
+            <td>{{addComma code15_amt}}</td>
             <td><b>{{addComma android_total_amt}}</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>부가세 포함 금액</th>
@@ -563,12 +572,15 @@
         </tr>
         <tr style="color: #ff5600;">
             <th><label class="font-bold">부가세 제외 금액</label></th>
+            <td>{{vatMinus code13_amt}}</td>
             <td>{{vatMinus code01_amt}}</td>
             <td>{{vatMinus code02_amt}}</td>
+            <td>{{vatMinus code14_amt}}</td>
             <td>{{vatMinus code03_amt}}</td>
             <td>{{vatMinus code04_amt}}</td>
             <td>{{vatMinus code05_amt}}</td>
             <td>{{vatMinus code06_amt}}</td>
+            <td>{{vatMinus code15_amt}}</td>
             <td><b>{{vatMinus android_total_amt}}</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>부가세 제외 금액</th>
@@ -582,12 +594,15 @@
         </tr>
         <tr>
             <th>결제 비율</th>
+            <td>({{payRate code13_cnt android_total_cnt}}%)<br><b>{{payRate code13_amt android_total_amt}}%</b></td>
             <td>({{payRate code01_cnt android_total_cnt}}%)<br><b>{{payRate code01_amt android_total_amt}}%</b></td>
             <td>({{payRate code02_cnt android_total_cnt}}%)<br><b>{{payRate code02_amt android_total_amt}}%</b></td>
+            <td>({{payRate code14_cnt android_total_cnt}}%)<br><b>{{payRate code14_amt android_total_amt}}%</b></td>
             <td>({{payRate code03_cnt android_total_cnt}}%)<br><b>{{payRate code03_amt android_total_amt}}%</b></td>
             <td>({{payRate code04_cnt android_total_cnt}}%)<br><b>{{payRate code04_amt android_total_amt}}%</b></td>
             <td>({{payRate code05_cnt android_total_cnt}}%)<br><b>{{payRate code05_amt android_total_amt}}%</b></td>
             <td>({{payRate code06_cnt android_total_cnt}}%)<br><b>{{payRate code06_amt android_total_amt}}%</b></td>
+            <td>({{payRate code15_cnt android_total_cnt}}%)<br><b>{{payRate code15_amt android_total_amt}}%</b></td>
             <td>({{payRate android_total_cnt android_total_cnt}}%)<br><b>{{payRate android_total_amt android_total_amt}}%</b></td>
             <td style="border-bottom: hidden;border-top: hidden"></td>
             <th>결제 비율</th>

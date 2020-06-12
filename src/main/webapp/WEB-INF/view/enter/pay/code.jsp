@@ -9,29 +9,35 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/>
-                <col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/>
-                <col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/>
-                <col width="1%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/>
-                <col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/>
-                <col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/><col width="3.2%"/>
-                <col width="3.2%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="1%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/>
             </colgroup>
             <thead>
             <tr>
-                <th colspan="15">Web, 안드로이드</th>
+                <th colspan="21">Web, 안드로이드</th>
                 <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
                 <th colspan="15">IOS</th>
             </tr>
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 5,500원 </th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 11,000원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 55,000원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 110,000원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 220,000원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 330,000원</th>
+
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px"> 1,100원 </th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 5,500원 </th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px"> 11,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0300.png" width="25px" height="25px"> 33,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0500.png" width="25px" height="25px"> 55,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px"> 110,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 220,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px" height="25px"> 330,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 550,000원</th>
                 <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
@@ -45,6 +51,12 @@
             <tr>
                 <th>건<br/>(비율)</th>
                 <th>금액<br/>(비율)</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
                 <th>건</th>
@@ -101,6 +113,9 @@
             response.data.totalInfo.sum_code04Cnt,
             response.data.totalInfo.sum_code05Cnt,
             response.data.totalInfo.sum_code06Cnt,
+            response.data.totalInfo.sum_code13Cnt,
+            response.data.totalInfo.sum_code14Cnt,
+            response.data.totalInfo.sum_code15Cnt,
         ];
         var sum_android_total_amt = [
             response.data.totalInfo.sum_code01Amt,
@@ -109,6 +124,9 @@
             response.data.totalInfo.sum_code04Amt,
             response.data.totalInfo.sum_code05Amt,
             response.data.totalInfo.sum_code06Amt,
+            response.data.totalInfo.sum_code13Amt,
+            response.data.totalInfo.sum_code14Amt,
+            response.data.totalInfo.sum_code15Amt,
         ];
         response.data.totalInfo["sum_android_total_cnt"] = common.getListSum(sum_android_total_cnt);
         response.data.totalInfo["sum_android_total_amt"] = common.getListSum(sum_android_total_amt);
@@ -141,6 +159,9 @@
                 response.data.detailList[i].code04Cnt,
                 response.data.detailList[i].code05Cnt,
                 response.data.detailList[i].code06Cnt,
+                response.data.detailList[i].code13Cnt,
+                response.data.detailList[i].code14Cnt,
+                response.data.detailList[i].code15Cnt,
             ];
             var android_total_amt = [
                 response.data.detailList[i].code01Amt,
@@ -149,6 +170,9 @@
                 response.data.detailList[i].code04Amt,
                 response.data.detailList[i].code05Amt,
                 response.data.detailList[i].code06Amt,
+                response.data.detailList[i].code13Amt,
+                response.data.detailList[i].code14Amt,
+                response.data.detailList[i].code15Amt,
             ];
             response.data.detailList[i]["android_total_cnt"] = common.getListSum(android_total_cnt);
             response.data.detailList[i]["android_total_amt"] = common.getListSum(android_total_amt);
@@ -209,10 +233,14 @@
         <td>소계</td>
         <td style="color:red;font-weight: bold;color: #ff5600">{{addComma sum_android_total_cnt}}<br/>({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
         <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus sum_android_total_amt}}<br/>({{average sum_android_total_amt sum_android_total_amt}}%)</td>
+        <td>{{addComma sum_code13Cnt}}</td>
+        <td>{{vatMinus sum_code13Amt}}</td>
         <td>{{addComma sum_code01Cnt}}</td>
         <td>{{vatMinus sum_code01Amt}}</td>
         <td>{{addComma sum_code02Cnt}}</td>
         <td>{{vatMinus sum_code02Amt}}</td>
+        <td>{{addComma sum_code14Cnt}}</td>
+        <td>{{vatMinus sum_code14Amt}}</td>
         <td>{{addComma sum_code03Cnt}}</td>
         <td>{{vatMinus sum_code03Amt}}</td>
         <td>{{addComma sum_code04Cnt}}</td>
@@ -221,6 +249,8 @@
         <td>{{vatMinus sum_code05Amt}}</td>
         <td>{{addComma sum_code06Cnt}}</td>
         <td>{{vatMinus sum_code06Amt}}</td>
+        <td>{{addComma sum_code15Cnt}}</td>
+        <td>{{vatMinus sum_code15Amt}}</td>
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td>소계</td>
         <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}<br/>({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
@@ -250,10 +280,14 @@
         </td>
         <td>{{addComma android_total_cnt}}<br/>({{average android_total_cnt sum_android_total_cnt}}%)</td>
         <td style="font-weight: bold">{{vatMinus android_total_amt}}<br/>({{average android_total_amt sum_android_total_amt}}%)</td>
+        <td>{{addComma code13Cnt}}</td>
+        <td>{{vatMinus code13Amt}}</td>
         <td>{{addComma code01Cnt}}</td>
         <td>{{vatMinus code01Amt}}</td>
         <td>{{addComma code02Cnt}}</td>
         <td>{{vatMinus code02Amt}}</td>
+        <td>{{addComma code14Cnt}}</td>
+        <td>{{vatMinus code14Amt}}</td>
         <td>{{addComma code03Cnt}}</td>
         <td>{{vatMinus code03Amt}}</td>
         <td>{{addComma code04Cnt}}</td>
@@ -262,6 +296,8 @@
         <td>{{vatMinus code05Amt}}</td>
         <td>{{addComma code06Cnt}}</td>
         <td>{{vatMinus code06Amt}}</td>
+        <td>{{addComma code15Cnt}}</td>
+        <td>{{vatMinus code15Amt}}</td>
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
