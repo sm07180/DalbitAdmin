@@ -26,28 +26,24 @@
                                 <input type="hidden" name="startDate" id="startDate">
                                 <input type="hidden" name="endDate" id="endDate" />
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
 
-            <div class="row col-lg-12 form-inline hide">
+            <div class="row col-lg-12 form-inline">
                 <!-- 가입자수 -->
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 환전 통계 현황</h3>
                     </div>
                     <div class="widget-content mt10">
-                        <table class="table table-bordered">
-                            <colgroup>
-                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                            </colgroup>
-                            <thead>
-                            </thead>
-                            <tbody id="infoTableBody"></tbody>
-                        </table>
+                        <div id="summaryTable"></div>
+                        <div id="summaryTable2"></div>
                     </div>
                 </div>
             </div>
@@ -62,8 +58,19 @@
 
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
+
 <script type="text/javascript">
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    var week = ['일', '월', '화', '수', '목', '금', '토'];
+    var toDay = week[moment(new Date()).day()];
+    setTimeDate(dateTime);
+
     $(function(){
+
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
@@ -81,9 +88,6 @@
                 $("#onedayDate").val($("#startDate").val());
             }
         );
-
-        var dateTime = new Date();
-        dateTime = moment(dateTime).format("YYYY.MM.DD");
         setTimeDate(dateTime);
 
         //방송 통계 현황
@@ -94,31 +98,97 @@
         $("#onedayDate").val(dateTime);
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
-        $("._searchDate").html(dateTime);
+        $("._searchDate").html(dateTime + " (" + toDay + ")");
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
-        var me = $(this);
-        if(me.val() == 0){
-            $("#oneDayDatePicker").show();
-            $("#rangeDatepicker").hide();
-        }else {
-            $("#oneDayDatePicker").hide();
-            $("#rangeDatepicker").show();
-        }
-        searchDate();
+        radioChange();
+
     });
 
     function getList(){
-        // util.getAjaxData("iteminfo", "/rest/status/item/info/list", null, fn_info_success);
+        var fullDate = $("#startDate").val();
+        var year = fullDate.split(".")[0];
+        var month = fullDate.split(".")[1];
+        var day = fullDate.split(".")[2];
+
+        var data = {};
+        data.search_year = year;
+        data.search_month = month;
+        data.search_day = day;
+        data.search_testId = 0;
+        data.slctType = $('input[name="slctType"]:checked').val();
+
+        var template = $('#tmp_exchangeSummary').html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript();
+        $("#summaryTable").html(html);
+
+        ui.paintColor();
+
+        util.getAjaxData("select", "/rest/money/exchange/summary", data, fn_succ_summary);
+
+        var data = {};
+        data.search_testId = 0;
+        util.getAjaxData("select", "/rest/money/exchange/list", data, fn_succ_enable_list);
+
+    }
+    function fn_succ_summary(dst_id, response){
+        dalbitLog(response);
+
+        var special_total_cnt = 0;
+        var special_total_amount = 0;
+        var special_total_star = 0;
+        response.data.specialSummaryList.forEach(function(data, i){
+            $('._summary_special_'+i).html(common.addComma(data));
+            if(i == 0 || i == 3 || i == 6){
+                special_total_cnt += data;
+            }
+            if(i == 1 || i == 4 || i == 7){
+                special_total_amount += data;
+            }
+            if(i == 2 || i == 5 || i == 8){
+                special_total_star += data;
+            }
+        });
+        $('._summary_total_special_cnt').html(common.addComma(special_total_cnt));
+        $('._summary_total_special_amount').html(common.addComma(special_total_amount));
+        $('._summary_total_special_star').html(common.addComma(special_total_star));
+
+        var general_total_cnt = 0;
+        var general_total_amount = 0;
+        var general_total_star = 0;
+        response.data.generalSummaryList.forEach(function(data, i){
+            $('._summary_user_'+i).html(common.addComma(data));
+
+            if(i == 0 || i == 3 || i == 6){
+                general_total_cnt += data;
+            }
+            if(i == 1 || i == 4 || i == 7){
+                general_total_amount += data;
+            }
+            if(i == 2 || i == 5 || i == 8){
+                general_total_star += data;
+            }
+        });
+        $('._summary_total_user_cnt').html(common.addComma(general_total_cnt));
+        $('._summary_total_user_amount').html(common.addComma(general_total_amount));
+        $('._summary_total_user_star').html(common.addComma(general_total_star));
     }
 
-    function fn_info_success(data, response){
-        var template = $('#tmp_info').html();
+    function fn_succ_enable_list(dst_id, response) {
+
+        var exchangeAmt = common.exchangeAmt(response.data.totalGold,response.data.specialCnt).replace(/,/gi,"");
+        var totalSuccAmt = common.vatMinus(response.data.totalSuccAmt).replace(/,/gi,"");
+        response.data.netProfit = Number(totalSuccAmt)-(Number(exchangeAmt) + Number(response.data.totalExchangeAmt));
+
+        var template = $("#tmp_enableSummary").html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data.info;
-        var html=templateScript(context);
-        $("#infoTableBody").append(html);
+        var data = {
+            content : response.data
+        };
+        var html = templateScript(data);
+        $("#summaryTable2").html(html);
     }
 
     $(document).on('click', '._prevSearch', function(){
@@ -128,6 +198,25 @@
     $(document).on('click', '._nextSearch', function(){
         searchDate('next');
     });
+
+    $(document).on('click', '._todaySearch', function(){
+        $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+        radioChange();
+
+        setTimeDate(dateTime);
+        $("#bt_search").click();
+    });
+
+    function radioChange(){
+        if($('input[name="slctType"]:checked').val() == 0){
+            $("#oneDayDatePicker").show();
+            $("#rangeDatepicker").hide();
+        }else {
+            $("#oneDayDatePicker").hide();
+            $("#rangeDatepicker").show();
+        }
+        searchDate();
+    }
 
     function searchDate(dateType){
         var slctType = $('input[name="slctType"]:checked').val();
@@ -208,17 +297,128 @@
     }
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_info">
-    <%--<tr>--%>
-        <%--<th>건수</th>--%>
-        <%--<td>{{addComma now_item_cnt}}</td>--%>
-        <%--<td>{{addComma yes_item_cnt}}</td>--%>
-        <%--<td class="{{upAndDownClass now_inc_cnt}}"><i class="fa {{upAndDownIcon now_inc_cnt}}"></i> {{addComma now_inc_cnt}}</td>--%>
-        <%--<td>{{addComma week_item_cnt}}</td>--%>
-        <%--<td>{{addComma bweek_item_cnt}}</td>--%>
-        <%--<td class="{{upAndDownClass week_inc_cnt}}"><i class="fa {{upAndDownIcon week_inc_cnt}}"></i> {{addComma week_inc_cnt}}</td>--%>
-        <%--<td>{{addComma month_item_cnt}}</td>--%>
-        <%--<td>{{addComma bmonth_item_cnt}}</td>--%>
-        <%--<td class="{{upAndDownClass month_inc_cnt}}"><i class="fa {{upAndDownIcon month_inc_cnt}}"></i> {{addComma month_inc_cnt}}</td>--%>
-    <%--</tr>--%>
+<script type="text/x-handlebars-template" id="tmp_exchangeSummary">
+    <div class="col-lg-4 no-padding">
+        <table class="table table-bordered table-summary">
+            <colgroup>
+                <col width="80px"/>
+                <col width="80px"/>
+                <col width="80px"/>
+                <col width="80px"/>
+            </colgroup>
+
+            <thead>
+            <tr>
+                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#ffa100" data-fontcolor="white">스페셜DJ</th>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <th>건 수</th>
+                <th>금액</th>
+                <th>요청 별</th>
+            </tr>
+            </thead>
+            <tbody id="tb_special_summary">
+            <tr>
+                <th>미처리</th>
+                <td style="background-color: white"><span class="_summary_special_0">0</span>건</td>
+                <td style="background-color: white"><span class="_summary_special_1">0</span>원</td>
+                <td style="background-color: white"><span class="_summary_special_2">0</span>별</td>
+            </tr>
+            <tr>
+                <th>처리완료</th>
+                <td style="background-color: white"><span class="_summary_special_3">0</span>건</td>
+                <td style="background-color: white"><span class="_summary_special_4">0</span>원</td>
+                <td style="background-color: white"><span class="_summary_special_5">0</span>별</td>
+            </tr>
+            <tr>
+                <th>처리불가</th>
+                <td style="background-color: white"><span class="_summary_special_6">0</span>건</td>
+                <td style="background-color: white"><span class="_summary_special_7">0</span>원</td>
+                <td style="background-color: white"><span class="_summary_special_8">0</span>별</td>
+            </tr>
+            <tr class="_fontColor" data-fontcolor="#ff5600">
+                <th>총계</th>
+                <th style="background-color: white"><span class="_summary_total_special_cnt">0</span>건</th>
+                <th style="background-color: white"><span class="_summary_total_special_amount">0</span>원</th>
+                <th style="background-color: white"><span class="_summary_total_special_star">0</span>별</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-4 no-padding">
+        <table class="table table-bordered table-summary" style="margin-right: 0px">
+            <colgroup>
+                <col width="80px"/>
+                <col width="80px"/>
+                <col width="80px"/>
+                <col width="80px"/>
+            </colgroup>
+
+            <thead>
+            <tr>
+                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#66a449" data-fontcolor="white">일반회원</th>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <th>건 수</th>
+                <th>금액</th>
+                <th>요청 별</th>
+            </tr>
+            </thead>
+            <tbody id="tb_user_summary">
+            <tr>
+                <th>미처리</th>
+                <td style="background-color: white"><span class="_summary_user_0">0</span>건</td>
+                <td style="background-color: white"><span class="_summary_user_1">0</span>원</td>
+                <td style="background-color: white"><span class="_summary_user_2">0</span>별</td>
+            </tr>
+            <tr>
+                <th>처리완료</th>
+                <td style="background-color: white"><span class="_summary_user_3">0</span>건</td>
+                <td style="background-color: white"><span class="_summary_user_4">0</span>원</td>
+                <td style="background-color: white"><span class="_summary_user_5">0</span>별</td>
+            </tr>
+            <tr>
+                <th>처리불가</th>
+                <td style="background-color: white"><span class="_summary_user_6">0</span>건</td>
+                <td style="background-color: white"><span class="_summary_user_7">0</span>원</td>
+                <td style="background-color: white"><span class="_summary_user_8">0</span>별</td>
+            </tr>
+            <tr class="_fontColor" data-fontcolor="#ff5600">
+                <th>총계</th>
+                <th style="background-color: white"><span class="_summary_total_user_cnt">0</span>건</th>
+                <th style="background-color: white"><span class="_summary_total_user_amount">0</span>원</th>
+                <th style="background-color: white"><span class="_summary_total_user_star">0</span>별</th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_enableSummary">
+    <div class="col-lg-3 no-padding">
+        <table class="table table-bordered table-summary" style="margin-right: 0px;width: 300px">
+            <colgroup>
+                <col width="50%"/><col width="50%"/>
+            </colgroup>
+            <tr>
+                <th colspan="2">총 환전 가능금액</th>
+            </tr>
+            <tr style="background-color: white">
+                <td>{{addComma content.enableCnt}} 명</td>
+                <td>{{exchangeAmt content.totalGold content.specialCnt}}</td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <label class="font-bold" style="padding-top: 9px">(환전가능 금액/부가세 제외)<br/>
+                        총 예상 순 매출
+                    </label>
+                </th>
+            </tr>
+            <tr style="background-color: white">
+                <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}</td>
+            </tr>
+        </table>
+    </div>
 </script>

@@ -167,7 +167,16 @@
                     and special.select_month = #{search_month}
                 left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
-            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            <if test="slctType == 2">
+                where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+            </if>
+            <if test="slctType == 1">
+                where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            </if>
+            <if test="slctType == 0">
+                where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+            </if>
+
             and exchange.state = 0
             <choose>
                 <when test="isSpecial == 0">
@@ -192,7 +201,15 @@
         and special.select_month = #{search_month}
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        <if test="slctType == 2">
+            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+        </if>
+        <if test="slctType == 1">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        </if>
+        <if test="slctType == 0">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+        </if>
         and exchange.state = 0
         <choose>
             <when test="isSpecial == 0">
@@ -216,7 +233,15 @@
                     and special.select_month = #{search_month}
             left join rd_data.tb_member_basic basic
             on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        <if test="slctType == 2">
+            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+        </if>
+        <if test="slctType == 1">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        </if>
+        <if test="slctType == 0">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+        </if>
         and exchange.state = 0
         <choose>
             <when test="isSpecial == 0">
@@ -242,7 +267,15 @@
                     and special.select_month = #{search_month}
             left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            <if test="slctType == 2">
+                where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+            </if>
+            <if test="slctType == 1">
+                where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            </if>
+            <if test="slctType == 0">
+                where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+            </if>
             and exchange.state = 1
             <choose>
                 <when test="isSpecial == 0">
@@ -267,7 +300,15 @@
                     and special.select_month = #{search_month}
             left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            <if test="slctType == 2">
+                where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+            </if>
+            <if test="slctType == 1">
+                where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            </if>
+            <if test="slctType == 0">
+                where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+            </if>
             and exchange.state = 1
             <choose>
                 <when test="isSpecial == 0">
@@ -291,7 +332,15 @@
         and special.select_month = #{search_month}
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        <if test="slctType == 2">
+            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+        </if>
+        <if test="slctType == 1">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        </if>
+        <if test="slctType == 0">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+        </if>
         and exchange.state = 1
         <choose>
             <when test="isSpecial == 0">
@@ -317,7 +366,15 @@
         and special.select_month = #{search_month}
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        <if test="slctType == 2">
+            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+        </if>
+        <if test="slctType == 1">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        </if>
+        <if test="slctType == 0">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+        </if>
         and exchange.state = 2
         <choose>
             <when test="isSpecial == 0">
@@ -342,7 +399,15 @@
         and special.select_month = #{search_month}
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        <if test="slctType == 2">
+            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+        </if>
+        <if test="slctType == 1">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        </if>
+        <if test="slctType == 0">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+        </if>
         and exchange.state = 2
         <choose>
             <when test="isSpecial == 0">
@@ -366,7 +431,15 @@
                     and special.select_month = #{search_month}
             left join rd_data.tb_member_basic basic
             on exchange.mem_no = basic.mem_no
-        where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        <if test="slctType == 2">
+            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+        </if>
+        <if test="slctType == 1">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+        </if>
+        <if test="slctType == 0">
+            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+        </if>
             and exchange.state = 2
             <choose>
                 <when test="isSpecial == 0">
@@ -504,15 +577,8 @@
         select ifnull(sum(cash_basic), 0) totalExchangeAmt
           from rd_data.tb_member_exchange exchange
           left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no
-           <!--<if test='search_year != "" and search_year != null'>-->
-               <!--and special.select_year = #{search_year}-->
-               <!--and special.select_month = #{search_month}-->
-           <!--</if>-->
           left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
          where exchange.state = 1
-        <!--<if test='search_year != "" and search_year != null'>-->
-          <!--and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})-->
-        <!--</if>-->
         <if test='search_testId == 1'>
             and basic.inner = 0
         </if>

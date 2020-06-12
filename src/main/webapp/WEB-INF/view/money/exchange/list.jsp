@@ -107,6 +107,7 @@
             , pageStart : exchangePagingInfo.pageNo
             , pageCnt : exchangePagingInfo.pageCnt
             , limitDay : limitDay
+            , slctType : 1
         };
     }
 
@@ -843,21 +844,26 @@
         <label>ㆍ570별 이상을 보유하고 있는 환전신청이 가능한 회원 리스트입니다.</label>
     </div>
     <div class="col-lg-6 no-padding">
-        <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 500px">
+        <table class="table table-bordered table-summary pull-right" style="margin-right: 0px;width: 300px">
             <colgroup>
-                <col width="47%"/><col width="20%"/><col width="33%"/>
+                <col width="50%"/><col width="50%"/>
             </colgroup>
             <tr>
-                <th style="color: white;background-color: #ffa100">
-                    (환전가능 금액/부가세 제외)<br/>
-                         총 예상 순 매출
-                </th>
-                <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}</td>
+                <th colspan="2">총 환전 가능금액</th>
             </tr>
-            <tr>
-                <th style="color: white;background-color: #66a449">총 환전 가능금액</th>
+            <tr style="background-color: white">
                 <td>{{addComma content.enableCnt}} 명</td>
                 <td>{{exchangeAmt content.totalGold content.specialCnt}}</td>
+            </tr>
+            <tr>
+                <th colspan="2">
+                    <label class="font-bold" style="padding-top: 9px">(환전가능 금액/부가세 제외)<br/>
+                             총 예상 순 매출
+                    </label>
+                </th>
+            </tr>
+            <tr style="background-color: white">
+                <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}</td>
             </tr>
         </table>
     </div>
