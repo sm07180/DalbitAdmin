@@ -168,6 +168,9 @@
             response.data.info.code04_cnt,
             response.data.info.code05_cnt,
             response.data.info.code06_cnt,
+            response.data.info.code13_cnt,
+            response.data.info.code14_cnt,
+            response.data.info.code15_cnt,
         ];
         var android_total_amt = [
             response.data.info.code01_amt,
@@ -176,6 +179,9 @@
             response.data.info.code04_amt,
             response.data.info.code05_amt,
             response.data.info.code06_amt,
+            response.data.info.code13_amt,
+            response.data.info.code14_amt,
+            response.data.info.code15_amt,
         ];
         response.data.info["android_total_cnt"] = common.getListSum(android_total_cnt);
         response.data.info["android_total_amt"] = common.getListSum(android_total_amt);
@@ -553,7 +559,7 @@
             <td>{{addComma code13_amt}}</td>
             <td>{{addComma code01_amt}}</td>
             <td>{{addComma code02_amt}}</td>
-            <td>{{addComma code04_amt}}</td>
+            <td>{{addComma code14_amt}}</td>
             <td>{{addComma code03_amt}}</td>
             <td>{{addComma code04_amt}}</td>
             <td>{{addComma code05_amt}}</td>
