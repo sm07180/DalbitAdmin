@@ -386,23 +386,6 @@ public class Mon_ExchangeService {
 
     public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
 
-        if(monExchangeOutputVo.getSend_type() > 0){     //[승인거부] 발송 메시지 title 지정
-            //send_type (0: 미선택, 1 증빙서류 화질문제, 2: 미비한 증빙서류 , 3: 입력정보 불일치, 4: 기타 직접작성)
-            int send_type = monExchangeOutputVo.getSend_type();
-            if(send_type == 1){
-                monExchangeOutputVo.setSend_title("(증빙서류 화질문제)환전신청이 승인되지 않았습니다.");
-            }
-            else if(send_type == 2){
-                monExchangeOutputVo.setSend_title("(미비한 증빙서류)환전신청이 승인되지 않았습니다.");
-            }
-            else if(send_type == 3){
-                monExchangeOutputVo.setSend_title("(입력정보 불일치)환전신청이 승인되지 않았습니다.");
-            }
-            else{
-                monExchangeOutputVo.setSend_title("환전신청이 승인되지 않았습니다.");
-            }
-        }
-
         monExchangeDao.updateExchangeComplete(monExchangeOutputVo);
         if(monExchangeOutputVo.getState().equals("1")) {
             var message = new StringBuffer();
@@ -458,7 +441,9 @@ public class Mon_ExchangeService {
             //message.append("신청정보를 다시 확인하시고, 재신청하여 주시기 바랍니다.\n\n");
             //message.append("※ 궁금한 사항은 1:1문의로 연락해 주시기바랍니다.\n");
 
-            smsService.sendMms(new SmsVo(monExchangeOutputVo.getSend_title(), monExchangeOutputVo.getSend_cont(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
+
+            // TODO 양부장님 요청으로 인한 MMS 발송 중단 2020.06.12 (06.15 확인 필요)
+            //smsService.sendMms(new SmsVo("[달빛라이브]", monExchangeOutputVo.getSend_title() + "\n\n" + monExchangeOutputVo.getSend_cont(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
             //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
 
             try{    // PUSH 발송
