@@ -77,6 +77,8 @@ var sms_code = [
   , new COMMON_CODE('all', '-1', 'SMS구분(전체)')
   , new COMMON_CODE('join', '0', '회원가입')
   , new COMMON_CODE('change', '1', '비밀번호 변경')
+  , new COMMON_CODE('exchange_ok', '2', '환전완료')
+  , new COMMON_CODE('exchange_cancel', '3', '환전불가')
     , new COMMON_CODE('etc', '', '기타')
 ];
 

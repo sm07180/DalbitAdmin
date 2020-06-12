@@ -11,7 +11,7 @@
                 and report_time <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel}, '%Y-%m-%d 23:59:59')
             </if>
 
-            <if test = 'vxml_file == "0" or vxml_file == "1" or vxml_file == "" or vxml_file == null'>
+            <if test = 'vxml_file != "-1"'>
                 and vxml_file = #{vxml_file}
             </if>
 
