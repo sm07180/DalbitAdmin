@@ -123,13 +123,13 @@
 
         response.data.specialSummaryList.forEach(function(data, i){
             $('._summary_special_'+i).html(common.addComma(data));
-            if(i == 0 || i == 3 || i == 6){
+            if(i == 0 || i == 3 ){
                 special_total_cnt += data;
             }
-            if(i == 1 || i == 4 || i == 7){
+            if(i == 1 || i == 4){
                 special_total_amount += data;
             }
-            if(i == 2 || i == 5 || i == 8){
+            if(i == 2 || i == 5){
                 special_total_star += data;
             }
         });
@@ -146,13 +146,13 @@
         response.data.generalSummaryList.forEach(function(data, i){
             $('._summary_user_'+i).html(common.addComma(data));
 
-            if(i == 0 || i == 3 || i == 6){
+            if(i == 0 || i == 3){
                 general_total_cnt += data;
             }
-            if(i == 1 || i == 4 || i == 7){
+            if(i == 1 || i == 4){
                 general_total_amount += data;
             }
-            if(i == 2 || i == 5 || i == 8){
+            if(i == 2 || i == 5){
                 general_total_star += data;
             }
         });
@@ -505,17 +505,23 @@
                 <td><span class="_summary_user_4">0</span>원</td>
                 <td><span class="_summary_user_5">0</span>별</td>
             </tr>
-            <tr>
-                <th>처리불가</th>
-                <td><span class="_summary_user_6">0</span>건</td>
-                <td><span class="_summary_user_7">0</span>원</td>
-                <td><span class="_summary_user_8">0</span>별</td>
-            </tr>
             <tr class="_fontColor" data-fontcolor="#ff5600">
                 <th>총계</th>
                 <th><span class="_summary_total_user_cnt">0</span>건</th>
                 <th><span class="_summary_total_user_amount">0</span>원</th>
                 <th><span class="_summary_total_user_star">0</span>별</th>
+            </tr>
+            <tr style="border-left: hidden;border-right: hidden; height: 5px;">
+                <td colspan="4" style="height: 5px;"></td>
+            </tr>
+            <tr>
+                <th>처리불가</th>
+                <td><span class="_summary_user_6">0</span>건</td>
+                <!-- 양과장님 요청으로 수치 표현 안함 -->
+                <!--<td><span class="_summary_special_7">0</span>원</td>
+                <td><span class="_summary_special_8">0</span>별</td>-->
+                <td>-</td>
+                <td>-</td>
             </tr>
             </tbody>
         </table>
@@ -530,41 +536,47 @@
             </colgroup>
 
             <thead>
-            <tr>
-                <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#ffa100" data-fontcolor="white">스페셜DJ</th>
-            </tr>
-            <tr>
-                <th>상태</th>
-                <th>건 수</th>
-                <th>금액</th>
-                <th>요청 별</th>
-            </tr>
+                <tr>
+                    <th colspan="4" class="_bgColor _fontColor" data-bgcolor="#ffa100" data-fontcolor="white">스페셜DJ</th>
+                </tr>
+                <tr>
+                    <th>상태</th>
+                    <th>건 수</th>
+                    <th>금액</th>
+                    <th>요청 별</th>
+                </tr>
             </thead>
             <tbody id="tb_special_summary">
-            <tr>
-                <th>미처리</th>
-                <td><span class="_summary_special_0">0</span>건</td>
-                <td><span class="_summary_special_1">0</span>원</td>
-                <td><span class="_summary_special_2">0</span>별</td>
-            </tr>
-            <tr>
-                <th>처리완료</th>
-                <td><span class="_summary_special_3">0</span>건</td>
-                <td><span class="_summary_special_4">0</span>원</td>
-                <td><span class="_summary_special_5">0</span>별</td>
-            </tr>
-            <tr>
-                <th>처리불가</th>
-                <td><span class="_summary_special_6">0</span>건</td>
-                <td><span class="_summary_special_7">0</span>원</td>
-                <td><span class="_summary_special_8">0</span>별</td>
-            </tr>
-            <tr class="_fontColor" data-fontcolor="#ff5600">
-                <th>총계</th>
-                <th><span class="_summary_total_special_cnt">0</span>건</th>
-                <th><span class="_summary_total_special_amount">0</span>원</th>
-                <th><span class="_summary_total_special_star">0</span>별</th>
-            </tr>
+                <tr>
+                    <th>미처리</th>
+                    <td><span class="_summary_special_0">0</span>건</td>
+                    <td><span class="_summary_special_1">0</span>원</td>
+                    <td><span class="_summary_special_2">0</span>별</td>
+                </tr>
+                <tr>
+                    <th>처리완료</th>
+                    <td><span class="_summary_special_3">0</span>건</td>
+                    <td><span class="_summary_special_4">0</span>원</td>
+                    <td><span class="_summary_special_5">0</span>별</td>
+                </tr>
+                <tr class="_fontColor" data-fontcolor="#ff5600">
+                    <th>총계</th>
+                    <th><span class="_summary_total_special_cnt">0</span>건</th>
+                    <th><span class="_summary_total_special_amount">0</span>원</th>
+                    <th><span class="_summary_total_special_star">0</span>별</th>
+                </tr>
+                <tr style="border-left: hidden;border-right: hidden; height: 5px;">
+                    <td colspan="4" style="height: 5px;"></td>
+                </tr>
+                <tr>
+                    <th>처리불가</th>
+                    <td><span class="_summary_special_6">0</span>건</td>
+                    <!-- 양과장님 요청으로 수치 표현 안함 -->
+                    <!--<td><span class="_summary_special_7">0</span>원</td>
+                    <td><span class="_summary_special_8">0</span>별</td>-->
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -594,6 +606,7 @@
             <col width="4%"/>
             <col width="5%"/>
             <col width="5%"/>
+            <col width="5%"/>
         </colgroup>
 
         <thead id="tableTop">
@@ -612,7 +625,6 @@
             <th>환전실수령액</th>
             <th>신청 별 수</th>
             <th>현재 별 수</th>
-            <%--<th>환전 후 별 수</th>--%>
             <th>테스트ID<br />등록이력</th>
             <th>환전횟수</th>
             <th>신청일자</th>
@@ -661,7 +673,6 @@
         <td>{{addComma data.cash_real}}원</td>
         <td>{{addComma data.byeol}}별</td>
         <td>{{addComma data.gold}}별</td>
-        <!--<td>{{math data.gold '-' data.byeol}}별</td>-->
         <td>{{data.testid_history}}</td>
         <td>{{addComma data.exchangeCnt}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
@@ -673,7 +684,7 @@
 
     {{else}}
     <tr>
-        <td colspan="20">{{isEmptyData}}</td>
+        <td colspan="21">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
@@ -692,42 +703,30 @@
                         <table id="list_info" class="table table-sorting table-hover table-bordered">
                             <tbody id="tableBody">
                                 <tr>
-                                    <th>
-                                        신청금액
-                                    </th>
-                                    <td>
+                                    <th>신청금액</th>
+                                    <td colspan="3">
                                         {{addComma detail.cash_basic}}원
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
-                                        은행명
-                                    </th>
+                                    <th>은행명</th>
                                     <td>
                                         {{{getCommonCodeSelect detail.bank_code 'inforex_bank_code' 'Y' ''}}}
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        계좌번호
-                                    </th>
+
+                                    <th>계좌번호</th>
                                     <td>
                                         <input type="text" class="form-control" id="account_no" name="account_no" maxlength="25" value="{{detail.account_no}}" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>
-                                        예금주
-                                    </th>
+                                    <th>예금주</th>
                                     <td>
                                         <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
-                                        / {{detail.mem_name}}
+                                        <br />
+                                        {{detail.mem_name}}
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        주민번호
-                                    </th>
+                                    <th>주민번호</th>
                                     <td>
                                         <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
                                         [{{convertJumin detail.social_no}}]
@@ -735,28 +734,22 @@
                                 </tr>
 
                                 <tr>
-                                    <th>
-                                        주소
-                                    </th>
-                                    <td>
+                                    <th>주소</th>
+                                    <td colspan="3">
                                         <input type="text" class="form-control _fullWidth" id="address_1" name="address_1" value="{{detail.address_1}}" />
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th>
-                                        상세주소
-                                    </th>
-                                    <td>
+                                    <th>상세주소</th>
+                                    <td colspan="3">
                                         <input type="text" class="form-control _fullWidth" id="address_2" name="address_2" value="{{detail.address_2}}" />
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <th>
-                                        전화번호
-                                    </th>
-                                    <td>
+                                    <th>전화번호</th>
+                                    <td colspan="3">
                                         <input type="hidden" name="phone_no" value="{{phoneNumHyphen detail.phone_no}}" />
                                         {{phoneNumHyphen detail.phone_no}}
                                         / {{phoneNumHyphen detail.mem_phone}}
@@ -764,10 +757,8 @@
                                 </tr>
 
                                 <tr>
-                                    <th>
-                                        접수서류
-                                    </th>
-                                    <td>
+                                    <th>접수서류</th>
+                                    <td colspan="3">
                                         <div class="col-lg-6" style="border:solid 1px black">
                                             <a href="javascript://">
                                                 <img src="${cfn:getProperty("server.photo.url")}{{detail.add_file1}}" class="_fullWidth _openImagePop thumbnail" />
@@ -782,18 +773,12 @@
                                 </tr>
 
                                 <tr>
-                                    <th>
-                                        신청일자
-                                    </th>
+                                    <th>신청일자</th>
                                     <td>
                                         {{convertToDate detail.reg_date 'YYYY-MM-DD HH:mm:ss'}}
                                     </td>
-                                </tr>
 
-                                <tr>
-                                    <th>
-                                        완료일자
-                                    </th>
+                                    <th>완료일자</th>
                                     <td>
                                         {{#equal detail.op_date ''}}
                                             -
@@ -804,10 +789,8 @@
                                 </tr>
 
                                 <tr>
-                                    <th>
-                                        메모
-                                    </th>
-                                    <td>
+                                    <th>메모</th>
+                                    <td colspan="3">
                                         <input type="text" class="form-control _fullWidth" id="op_msg" name="op_msg" maxlength="1000" value="{{detail.op_msg}}" />
                                     </td>
                                 </tr>
@@ -853,7 +836,7 @@
             </tr>
             <tr style="background-color: white">
                 <td>{{addComma content.enableCnt}} 명</td>
-                <td>{{exchangeAmt content.totalGold content.specialCnt}}</td>
+                <td>{{exchangeAmt content.totalGold content.specialCnt}}원</td>
             </tr>
             <tr>
                 <th colspan="2">
@@ -863,7 +846,7 @@
                 </th>
             </tr>
             <tr style="background-color: white">
-                <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}</td>
+                <td colspan="2">{{addComma content.netProfit}}원</td>
             </tr>
         </table>
     </div>
