@@ -7,6 +7,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.ItemService;
 import com.dalbit.content.vo.ItemVo;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.socket.service.SocketService;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.JwtUtil;
@@ -33,6 +34,8 @@ public class ItemRestController {
 
     @Autowired
     SocketUtil socketUtil;
+    @Autowired
+    SocketService socketService;
     @Autowired
     JwtUtil jwtUtil;
 
@@ -281,11 +284,13 @@ public class ItemRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(totalCnt), summaryList));
     }
 
-
     @PostMapping("sendChangeItem")
     public String sendSocketReload(HttpServletRequest request){
         HashMap<String,Object> param = new HashMap<>();
-        Map<String, Object> result = socketUtil.setSocket(param,"reqChangeItem","reqChangeItem", jwtUtil.generateToken(DalbitUtil.getProperty("temp.memNo"), true));
+
+        Map<String, Object> result = socketService.changeItem(DalbitUtil.getProperty("temp.memNo"), jwtUtil.generateToken(DalbitUtil.getProperty("temp.memNo")), true);
+
+//        Map<String, Object> result = socketUtil.setSocket(param,"reqChangeItem","reqChangeItem", jwtUtil.generateToken(DalbitUtil.getProperty("temp.memNo"), true));
 
         if(!result.get("error").equals("")){
             log.error("[아이템 reqChangeItem Socket Error : {}]", result.get("error"));

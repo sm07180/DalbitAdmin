@@ -519,6 +519,24 @@ public class SocketService {
         return null;
     }
 
+//    @Async("threadTaskExecutor")
+    public Map<String, Object> changeItem(String memNo, String authToken, boolean isLogin){
+        log.info("Socket Start : changeItem {}, {}", memNo, isLogin);
+        memNo = memNo == null ? "" : memNo.trim();
+        authToken = authToken == null ? "" : authToken.trim();
+
+        if(!"".equals(memNo) && !"".equals(authToken)){
+            SocketVo vo = new SocketVo();
+            vo.setMemNo(memNo);
+            vo.setLogin(isLogin ? 1 : 0);
+            vo.setCommand("reqChangeItem");
+            vo.setChannel(SERVER_SOCKET_GLOBAL_ROOM);
+            return sendSocketApi(authToken, SERVER_SOCKET_GLOBAL_ROOM, vo.toQueryString());
+        }
+
+        return null;
+    }
+
     public SocketVo getSocketVo(String kickedMemNo, String memNo, boolean isLogin){
         try{
 
