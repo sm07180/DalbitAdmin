@@ -16,13 +16,10 @@
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">환전신청</th>
-                <th colspan="2">총계</th>
                 <th colspan="2">환전완료</th>
                 <th colspan="2">환전불가</th>
             </tr>
             <tr>
-                <th>건수</th>
-                <th>금액</th>
                 <th>건수</th>
                 <th>금액</th>
                 <th>건수</th>
@@ -82,8 +79,6 @@
         <td>소계</td>
         <td>{{addComma sum_tryCnt}}</td>
         <td>{{addComma sum_tryAmt}}</td>
-        <td>0</td>
-        <td>0</td>
         <td>{{addComma sum_succCnt}}</td>
         <td>{{addComma sum_succAmt}}</td>
         <td>{{addComma sum_cancCnt}}</td>
@@ -101,8 +96,6 @@
         </td>
         <td>{{addComma tryCnt}}</td>
         <td>{{addComma tryAmt}}</td>
-        <td>0</td>
-        <td>0</td>
         <td>{{addComma succCnt}}</td>
         <td>{{addComma succAmt}}</td>
         <td>{{addComma cancCnt}}</td>
