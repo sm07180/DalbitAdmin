@@ -352,23 +352,6 @@
                                     <td>0원</td>
                                     <td>0원</td>
                                 </tr>
-                                <tr class="_pay" data-payway="RA" data-type="cnt">
-                                    <th rowspan="2">실시간<br/>계좌이체</th>
-                                    <th>건</th>
-                                    <td>0건</td>
-                                    <td>0건</td>
-                                    <td>0건</td>
-                                    <td>0건</td>
-                                    <td>0건</td>
-                                </tr>
-                                <tr class="_pay" data-payway="RA" data-type="amt">
-                                    <th>금액</th>
-                                    <td>0원</td>
-                                    <td>0원</td>
-                                    <td>0원</td>
-                                    <td>0원</td>
-                                    <td>0원</td>
-                                </tr>
                                 <tr class="_pay" data-payway="VA" data-type="cnt">
                                     <th rowspan="2">가상계좌</th>
                                     <th>건</th>

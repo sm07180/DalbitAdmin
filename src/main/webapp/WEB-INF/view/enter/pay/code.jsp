@@ -35,11 +35,11 @@
                 <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 5,900원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 12,000원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 36,000원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 50,000원</th>
-                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 109,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 3,900원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 26,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 39,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 65,000원</th>
+                <th colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 169,000원</th>
                 <th colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원</th>
             </tr>
             <tr>

@@ -18,6 +18,10 @@
         <label id="payWayArea" onchange="sel_change_pay_cancel();"></label>
         <label id="payInnerArea" onchange="sel_change_pay_cancel();" style="border: 1px solid #632beb"></label>
 
+        <div class="pull-right">
+            <span id="pay_cancel_summaryArea"></span>
+        </div>
+
         <table class="table table-bordered" id="list_info">
             <thead>
             </thead>
@@ -67,7 +71,7 @@
         dtList_info_cancel.useCheckBox(false);
         dtList_info_cancel.useIndex(true);
         dtList_info_cancel.setPageLength(50);
-        dtList_info_cancel.createDataTable();
+        dtList_info_cancel.createDataTable(pay_cancel_listSummary);
         dtList_info_cancel.reload();
 
         $("#div_canselY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
@@ -75,11 +79,23 @@
         $("#div_canselY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));
     }
 
+    function pay_cancel_listSummary(json){
+        console.log(json);
+        var template = $("#pay_cancel_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#pay_cancel_summaryArea").html(html);
+    }
+
     function sel_change_pay_cancel(){
         tmp_ostype_cansel = $("#div_canselY").find("select[name='ostype']").val();
         tmp_innerType_cansel= $("#div_canselY").find("select[name='innerType']").val();
         tmp_payWay_cansel = $("#div_canselY").find("select[name='payWay']").val();
-        dtList_info_cancel.reload();
+        dtList_info_cancel.reload(pay_cancel_listSummary);
     }
 
     /*=============엑셀==================*/
@@ -104,4 +120,23 @@
 
     });
 
+</script>
+
+<script id="pay_cancel_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right" style="margin-right:0px">
+        <tr>
+            <th colspan="2">결제 취소(부가세 포함)</th>
+        </tr>
+        <tr>
+            <td>{{addComma content.totalPayCancelCnt}}건</td>
+            <td>{{addComma content.totalPayCancelAmt}}원</td>
+        </tr>
+        <tr>
+            <th colspan="2">결제 취소(부가세 제외)</th>
+        </tr>
+        <tr>
+            <td>{{addComma content.totalPayCancelCnt}}건</td>
+            <td>{{vatMinus content.totalPayCancelAmt}}원</td>
+        </tr>
+    </table>
 </script>

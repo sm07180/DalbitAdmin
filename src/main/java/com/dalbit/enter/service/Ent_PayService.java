@@ -41,6 +41,19 @@ public class Ent_PayService {
 
         P_PayInfoOutVo info = new Gson().fromJson(procedureVo.getExt(), P_PayInfoOutVo.class);
         var result = new HashMap<String, Object>();
+
+        pStatVo.setStartDate(pStatVo.getStartDate().replaceAll("\\.",""));
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(pStatVo.getStartDate());
+        }else {
+            pStatVo.setEndDate(pStatVo.getEndDate().replaceAll("\\.", ""));
+        }
+
+        P_PayInfoOutVo outVo = ent_PayDao.callPayCancelInfo(pStatVo);
+        if(!DalbitUtil.isEmpty(outVo)) {
+            info.setCancelCnt(outVo.getCancelCnt());
+            info.setCancelAmt(outVo.getCancelAmt());
+        }
         result.put("info", info);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));

@@ -52,11 +52,11 @@
     });
 
     $("#bt_search").on('click', function(){
-
         if($('input[name="slctType"]:first').prop('checked')){
             $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
         }
 
+        getStatPayInfo();
         $("#tablist_con li.active a").click();
     });
 </script>

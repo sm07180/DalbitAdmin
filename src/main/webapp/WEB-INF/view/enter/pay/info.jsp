@@ -46,7 +46,7 @@
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
                     </div>
-                    <div class="widget-content mt10 col-md-8 no-padding">
+                    <div class="widget-content mt10 col-md-8 no-padding mr10">
                         <table class="table table-condensed table-dark-header table-bordered no-margin">
                             <thead>
                             </thead>
@@ -54,8 +54,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-lg-1"></div>
-                    <div class="widget-content mt10 col-md-2 no-padding">
+                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
+                        <table class="table table-condensed table-dark-header table-bordered no-margin">
+                            <thead>
+                            </thead>
+                            <tbody id="PayCancelTotalTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
                         <table class="table table-condensed table-dark-header table-bordered no-margin">
                             <thead>
                             </thead>
@@ -151,6 +158,7 @@
         $("#statPayTableBody2").empty();
         $("#statPayTableBody3").empty();
         $("#PayTotalTableBody").empty();
+        $("#PayCancelTotalTableBody").empty();
 
         // WEB/안드로이드 총 계/합
         var android_total_cnt = [
@@ -216,7 +224,11 @@
         var html=templateScript(context);
         $("#PayTotalTableBody").append(html);
 
-
+        var template = $('#tmp_payCancelTotalTable').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.info;
+        var html=templateScript(context);
+        $("#PayCancelTotalTableBody").append(html);
         getPayTotalList();
     }
 
@@ -502,12 +514,12 @@
             <th>총합</th>
             <td style="border-bottom: hidden;border-top: hidden;"></td>
             <th><u onclick="click_code();">※아이템별<br>아이폰</u></th>
-            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 49</th>
-            <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 100</th>
+            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 30</th>
+            <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 200</th>
             <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300</th>
-            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 420</th>
-            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 920</th>
-            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,350</th>
+            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 500</th>
+            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 1030</th>
+            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,080</th>
             <th>총합</th>
         </tr>
         <tr>
@@ -605,9 +617,31 @@
         <tr>
             <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
         </tr>
-        <tr  style="color: #ff5600;">
+        <tr style="color: #ff5600;">
             <td><b>{{total_cnt}} 건</b></td>
             <td><b>{{vatMinus total_amt}} 원</b></td>
+        </tr>
+    </table>
+</script>
+
+<script id="tmp_payCancelTotalTable" type="text/x-handlebars-template">
+    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px">
+        <colgroup>
+            <col width="35%"/><col width="65%"/>
+        </colgroup>
+        <tr>
+            <th colspan="2">결제 취소(부가세 포함)</th>
+        </tr>
+        <tr class="font-bold" style="color: #66a449;">
+            <td>{{addComma cancelCnt}}건</td>
+            <td>{{addComma cancelAmt}}원</td>
+        </tr>
+        <tr>
+            <th colspan="2">결제 취소(부가세 제외)</th>
+        </tr>
+        <tr class="font-bold" style="color: #ff5600;">
+            <td>{{addComma cancelCnt}}건</td>
+            <td>{{vatMinus cancelAmt}}원</td>
         </tr>
     </table>
 </script>

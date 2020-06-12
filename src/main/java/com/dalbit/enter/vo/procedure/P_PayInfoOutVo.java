@@ -64,4 +64,10 @@ public class P_PayInfoOutVo {
     private int code12_cnt;
     private int code12_amt;
 
+
+    private int cancelCnt;
+    private int cancelAmt;
+
+
+
 }

@@ -370,8 +370,8 @@
                 <th colspan="2">누적 결제 수<br />/금액</th>
                 <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
 
-                <th rowspan="5">조치 선택</th>
-                <td rowspan="5" colspan="3" id="message">
+                <th rowspan="4">조치 선택</th>
+                <td rowspan="4" colspan="3" id="message">
                     {{{getCommonCodeCheck message 'declaration_Message'}}}
                 </td>
             </tr>
@@ -394,7 +394,7 @@
 
             <tr>
                 <th colspan="2">기타 신고 메시지</th>
-                <td colspan="3">{{etc}}</td>
+                <td colspan="6">{{etc}}</td>
 
 
             </tr>
