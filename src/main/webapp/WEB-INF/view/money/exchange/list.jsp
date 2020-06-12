@@ -454,6 +454,44 @@
         }
     });
 
+    // 미처리 사유 change 이벤트
+    $(document).on('change', '#send_type', function(){
+        var type = $(this).val();
+
+        if(type == 1){
+            $("#tr_send_cont").show();
+            var text = "환전신청 시 첨부하여주신 파일이 명확하게 확인되지 않아 승인이 거부되었습니다.\n" +
+                        "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시(캡쳐 또는 사진을 찍어) 첨부한 후 신청해주시기 바랍니다.";
+            $("#send_cont").val(text);
+            util.textareaResize(document.getElementById("send_cont"), 90)
+        }
+        else if(type == 2) {
+            $("#tr_send_cont").show();
+            var text = "주민등록증, 주민등록등본 사본과 통장정보를 확인할 수 있는 명확한 파일을 다시 첨부하여 신청해주시기 바랍니다.";
+            $("#send_cont").val(text);
+            util.textareaResize(document.getElementById("send_cont"), 90)
+        }
+        else if(type == 3){
+            $("#tr_send_cont").show();
+            var text = "환전신청 시 입력하신 정보와 첨부파일 정보가 일치하지 않습니다.\n" +
+                        "회원님의 정보 또는 통장사본의 정보가 정확하게 확인될 수 있도록 다시 캡쳐 또는 사진을 찍어 첨부하여 신청해주시기 바랍니다.";
+            $("#send_cont").val(text);
+            util.textareaResize(document.getElementById("send_cont"), 90)
+        }
+        else if(type == 4){
+            $("#tr_send_cont").show();
+            var text = "";
+            $("#send_cont").val(text);
+            util.textareaResize(document.getElementById("send_cont"), 90)
+        }
+        else{
+            $("#tr_send_cont").hide();
+            var text = "";
+            $("#send_cont").val(text);
+            util.textareaResize(document.getElementById("send_cont"), 90)
+        }
+    });
+
 
 </script>
 
@@ -785,6 +823,29 @@
                                         {{else}}
                                             {{convertToDate detail.op_date 'YYYY-MM-DD HH:mm:ss'}}
                                         {{/equal}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>
+                                        미처리 사유
+                                    </th>
+                                    <td colspan="3">
+                                        {{{getCommonCodeSelect detail.send_type 'exchange_cancel_type'}}}
+                                        <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 불가 처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
+                                    </td>
+                                </tr>
+
+                                {{#dalbit_if detail.send_type "==" "0"}}
+                                    <tr id="tr_send_cont" style="display:none;">
+                                {{else}}
+                                    <tr id="tr_send_cont">
+                                {{/dalbit_if}}
+                                    <th>
+                                        미처리 사유<br>내용
+                                    </th>
+                                    <td colspan="3">
+                                        <textarea class="form-control" name="send_cont" id="send_cont" oninput="util.textareaResize(this)" placeholder="" style="width:100%; height:90px; resize: none">{{replaceHtml detail.send_cont}}</textarea>
                                     </td>
                                 </tr>
 

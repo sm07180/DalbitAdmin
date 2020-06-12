@@ -50,6 +50,10 @@ public class Mon_ExchangeOutputVo{
     private int totalCashBasic;
     private int totalCashReal;
 
+    private String send_title;		// 발송 메시지 제목
+    private String send_cont;		// 발송 메시지 내용
+    private int send_type;		    //(0: 미선택, 1 증빙서류 화질문제, 2: 미비한 증빙서류 , 3: 입력정보 불일치, 4: 기타 직접작성)
+
     private String testid_history;
 
 }

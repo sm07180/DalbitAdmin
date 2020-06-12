@@ -44,6 +44,9 @@
                    exchange.op_name,
                    exchange.op_date,
                    exchange.reg_date,
+                   exchange.send_title,
+                   exchange.send_cont,
+                   exchange.send_type,
                    exchange.last_upd_date,
                    wallet.gold
             from rd_data.tb_member_exchange exchange
@@ -463,6 +466,9 @@
         , address_2 = #{address_2}
         , op_msg = #{op_msg}
         , op_name = #{op_name}
+        , send_title = #{send_title}
+        , send_cont = #{send_cont}
+        , send_type = #{send_type}
         , last_upd_date = now()
     </sql>
 

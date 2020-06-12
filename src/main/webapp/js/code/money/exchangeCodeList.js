@@ -96,3 +96,12 @@ var inforex_bank_code = [
     , new COMMON_CODE('227', '227', 'KTB투자증권')
     , new COMMON_CODE('266', '266', 'SK증권')
 ]
+
+var exchange_cancel_type = [
+    new COMMON_CODE(null, 'send_type', '환전불가 사유')
+    , new COMMON_CODE('0', '0', '미선택')
+    , new COMMON_CODE('1', '1', '증빙서류 화질문제')
+    , new COMMON_CODE('2', '2', '미비한 증빙서류 ')
+    , new COMMON_CODE('3', '3', '입력정보 불일치')
+    , new COMMON_CODE('4', '4', '기타 직접작성')
+]
