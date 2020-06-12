@@ -154,17 +154,14 @@
         var total_th_1;
         var total_th_0;
 
-        console.log($('input[name="slctType"]:checked').val());
-
-
         if($('input[name="slctType"]:checked').val() == "0"){
-            $("#total_th_6").text(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD'));
-            $("#total_th_5").text(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD'));
-            $("#total_th_4").text(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD'));
-            $("#total_th_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD'));
-            $("#total_th_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD'));
-            $("#total_th_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
-            $("#total_th_0").text(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD'));
+            $("#total_th_6").text(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -6).day()] + ")");
+            $("#total_th_5").text(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -5).day()] + ")");
+            $("#total_th_4").text(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -4).day()] + ")");
+            $("#total_th_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -3).day()] + ")");
+            $("#total_th_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -2).day()] + ")");
+            $("#total_th_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -1).day()] + ")");
+            $("#total_th_0").text(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', 0).day()] + ")");
 
             total_th_6 = moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD');
             total_th_5 = moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD');

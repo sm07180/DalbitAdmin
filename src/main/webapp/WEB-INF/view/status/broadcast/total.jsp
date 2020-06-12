@@ -6,9 +6,7 @@
     <div class="widget-header">
     </div>
     <div class="widget-content mt10">
-        <a href="javascript://" class="_prevSearch">[이전]</a>
         <span class="_searchDate"></span>
-        <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
             <colgroup>
                 <col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/><col width="12.5%"/>

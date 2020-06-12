@@ -11,7 +11,7 @@
                         <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
                     </div>
                     <div class="widget-content mt10">
-                        <button type="button" class="fa fa-refresh" onclick="getLoginLiveInfo();"></button>
+                        <%--<button type="button" class="fa fa-refresh" onclick="getLoginLiveInfo();"></button>--%>
                         <colgroup>
                             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
                             <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>

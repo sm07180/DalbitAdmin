@@ -4,29 +4,7 @@
 <!-- 방송 > 선물내역 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <div class="row">
-            <div class="col-md-4" style="float:right;">
-            <%--<table class="table table-condensed table-dark-header table-bordered">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>건수</th>
-                    <th>금액</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>합계</th>
-                    <td>900</td>
-                    <td>900</td>
-                </tr>
-                </tbody>
-            </table>--%>
-            </div>
-        </div>
-        <a href="javascript://" class="_prevSearch">[이전]</a>
         <span class="_searchDate"></span>
-        <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
             <colgroup>
                 <col width="2%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/>

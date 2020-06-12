@@ -46,7 +46,7 @@
     $("#bt_search").on('click', function(){
 
         if($('input[name="slctType"]:first').prop('checked')){
-            $("._searchDate").html($("#startDate").val());
+            $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
         }
 
         $("#tablist_con li.active a").click();

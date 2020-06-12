@@ -119,13 +119,13 @@
         var try_th_0;
 
         if($('input[name="slctType"]:checked').val() == "0"){
-            $("#th_6").text(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD'));
-            $("#th_5").text(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD'));
-            $("#th_4").text(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD'));
-            $("#th_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD'));
-            $("#th_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD'));
-            $("#th_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
-            $("#th_0").text(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD'));
+            $("#th_6").text(moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -6).day()] + ")");
+            $("#th_5").text(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -5).day()] + ")");
+            $("#th_4").text(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -4).day()] + ")");
+            $("#th_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -3).day()] + ")");
+            $("#th_2").text(moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -2).day()] + ")");
+            $("#th_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -1).day()] + ")");
+            $("#th_0").text(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', 0).day()] + ")");
 
             try_th_6 = moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD');
             try_th_5 = moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD');

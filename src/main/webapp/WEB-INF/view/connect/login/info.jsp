@@ -40,6 +40,9 @@
                                 <%--<input name="endDate" id="endDate" style="width: 100px">--%>
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
                     </div>
@@ -93,6 +96,8 @@
 <script type="text/javascript">
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
+    var week = ['일', '월', '화', '수', '목', '금', '토'];
+    var toDay = week[moment(new Date()).day()];
     setTimeDate(dateTime);
 
     $(function() {
@@ -147,7 +152,7 @@
         $("#onedayDate").val(dateTime);
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
-        $("._searchDate").html(dateTime);
+        $("._searchDate").html(dateTime + " (" + toDay + ")");
     }
 
     function setRangeDate(displayDate, startDate, endDate){
@@ -160,8 +165,44 @@
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
-        var me = $(this);
-        if(me.val() == 0){
+        radioChange();
+    });
+
+    function getStatJoinInfo(){
+        util.getAjaxData("infoLive", "/rest/connect/login/info/live", null, fn_loginLive_success);
+    }
+
+    function fn_loginLive_success(data, response){
+        $("#loginLiveTableBody").empty();
+
+        var template = $('#tmp_loginLive').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+        $("#loginLiveTableBody").append(html);
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        prevNext(true);
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        prevNext(false);
+    });
+
+    $(document).on('click', '._todaySearch', function(){
+        toDay = week[moment(new Date()).day()];
+        $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+        radioChange();
+
+        setTimeDate(dateTime);
+        getStatJoinInfo();
+        $("#bt_search").click();
+    });
+
+    function radioChange(){
+        var me = $('input[name="slctType"]:checked').val();
+        if(me == 0){
             $("#oneDayDatePicker").show();
             $("#rangeDatepicker").hide();
             $("#yearDatepicker").hide();
@@ -171,7 +212,7 @@
 
             $("._searchDate").html($("#onedayDate").val());
         }else{
-            if(me.val() == 1){
+            if(me == 1){
                 // 일별 -----------------------------------
                 $("#oneDayDatePicker").hide();
                 $("#rangeDatepicker").show();
@@ -202,32 +243,15 @@
             }
         }
         $("#tablist_con li.active a").click();
-    });
-
-    function getStatJoinInfo(){
-        util.getAjaxData("infoLive", "/rest/connect/login/info/live", null, fn_loginLive_success);
     }
-
-    function fn_loginLive_success(data, response){
-        var template = $('#tmp_loginLive').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data;
-        var html=templateScript(context);
-        $("#loginLiveTableBody").append(html);
-    }
-
-    $(document).on('click', '._prevSearch', function(){
-        prevNext(true);
-    });
-
-    $(document).on('click', '._nextSearch', function(){
-        prevNext(false);
-    });
 
     function prevNext(isPrev){
+
         var slctType = $('input[name="slctType"]:checked').val();
         var targetDate = statUtil.getStatTimeDate($("#startDate").val(), stat_searchType, slctType, isPrev);
         var addDate = isPrev ? -1 : 1;
+
+        toDay = week[moment($("#startDate").val()).add('days', addDate).day()];
 
         if(slctType == 0){
             setTimeDate(targetDate);

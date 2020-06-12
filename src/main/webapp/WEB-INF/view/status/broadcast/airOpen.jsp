@@ -4,9 +4,7 @@
 <!-- 방송 > 방송개설 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <a href="javascript://" class="_prevSearch">[이전]</a>
         <span class="_searchDate"></span>
-        <a href="javascript://" class="_nextSearch">[다음]</a>
         <table class="table table-bordered">
             <colgroup>
                 <col width="5.4%"/><col width="4.3%"/><col width="4.3%"/><col width="4.3%"/><col width="4.3%"/>

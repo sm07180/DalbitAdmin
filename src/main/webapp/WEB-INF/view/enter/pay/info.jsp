@@ -241,6 +241,7 @@
     });
 
     $(document).on('click', '._todaySearch', function(){
+        toDay = week[moment(new Date()).day()];
         $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
         radioChange();
 

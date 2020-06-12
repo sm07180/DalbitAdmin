@@ -32,6 +32,9 @@
                                 <input type="hidden" name="endDate" id="endDate" />
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
                     </div>
@@ -112,6 +115,13 @@
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 <script type="text/javascript">
+
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    var week = ['일', '월', '화', '수', '목', '금', '토'];
+    var toDay = week[moment(new Date()).day()];
+    setTimeDate(dateTime);
+
     $(function(){
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
 
@@ -131,10 +141,6 @@
             }
         );
 
-        var dateTime = new Date();
-        dateTime = moment(dateTime).format("YYYY.MM.DD");
-        setTimeDate(dateTime);
-
         //방송 통계 현황
         getList();
     });
@@ -143,19 +149,11 @@
         $("#onedayDate").val(dateTime);
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
-        $("._searchDate").html(dateTime);
+        $("._searchDate").html(dateTime + " (" + toDay + ")");
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
-        var me = $(this);
-        if(me.val() == 0){
-            $("#oneDayDatePicker").show();
-            $("#rangeDatepicker").hide();
-        }else {
-            $("#oneDayDatePicker").hide();
-            $("#rangeDatepicker").show();
-        }
-        searchDate();
+        radioChange();
     });
 
     function getList(){
@@ -163,6 +161,9 @@
     }
 
     function fn_broadSumStatus_success(data, response){
+        $("#broadSumStatus").empty();
+        $("#giftSumStatus").empty();
+
         var template = $('#tmp_broadcastLive').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data.broadCastLiveInfo;
@@ -183,6 +184,26 @@
     $(document).on('click', '._nextSearch', function(){
         searchDate('next');
     });
+    $(document).on('click', '._todaySearch', function(){
+        toDay = week[moment(new Date()).day()];
+        $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+        radioChange();
+
+        setTimeDate(dateTime);
+        getList();
+        $("#bt_search").click();
+    });
+
+    function radioChange(){
+        if($('input[name="slctType"]:checked').val() == 0){
+            $("#oneDayDatePicker").show();
+            $("#rangeDatepicker").hide();
+        }else {
+            $("#oneDayDatePicker").hide();
+            $("#rangeDatepicker").show();
+        }
+        searchDate();
+    }
 
     function searchDate(dateType){
         var slctType = $('input[name="slctType"]:checked').val();
@@ -239,6 +260,7 @@
     }
 
     function setDay(days){
+        toDay = week[moment($("#startDate").val()).add('days', days).day()];
         $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
         $("#endDate").val($("#startDate").val());
 

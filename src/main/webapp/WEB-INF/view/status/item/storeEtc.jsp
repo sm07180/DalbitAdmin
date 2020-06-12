@@ -10,9 +10,7 @@
 <!-- 아이템 > 스토어/기타 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <a href="javascript://">[이전]</a>
         <%= sf.format(nowTime)%>
-        <a href="javascript://">[다음]</a>
         <table class="table table-bordered">
             <thead>
             <tr>

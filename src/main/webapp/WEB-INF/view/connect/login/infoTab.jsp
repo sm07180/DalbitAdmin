@@ -66,7 +66,7 @@
             getBrowserList(obj);
         }
 
-        $(".searchDate").html($("#onedayDate").val());
+        $(".searchDate").html($("#onedayDate").val() + " (" + toDay + ")");
     });
 
     $("#bt_search").on('click', function(){
