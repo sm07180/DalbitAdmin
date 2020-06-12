@@ -907,7 +907,7 @@
                 </th>
             </tr>
             <tr style="background-color: white">
-                <td colspan="2">{{addComma content.netProfit}}원</td>
+                <td colspan="2" class="font-bold" style="color: #ff5600">{{addComma content.netProfit}}원</td>
             </tr>
         </table>
     </div>
