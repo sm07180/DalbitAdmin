@@ -109,7 +109,7 @@
         SELECT a.*, @rownum := @rownum + 1 as rowNum
           FROM (
                 <if test="slctItem == 0 or slctItem == -1">      <!-- 달 -->
-                select gifted_mem_no as mem_no
+                select mem_no as mem_no
                        , (select mem_userid from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_userid
                        , (select mem_nick from rd_data.tb_member_basic where mem_no = aa.mem_no) AS mem_nick
                        , '받은 달' as use_contents
@@ -229,7 +229,7 @@
                 </if>
                 <if test="slctType == 1">      <!-- 받은 -->
                   <if test="slctItem == 0 or slctItem == -1">      <!-- 달 -->
-                    select gifted_mem_no as mem_no
+                    select mem_no as mem_no
                            , (select mem_userid from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_userid
                            , (select mem_nick from rd_data.tb_member_basic where mem_no = gifted_mem_no) AS mem_nick
                            , '받은 달' as use_contents
