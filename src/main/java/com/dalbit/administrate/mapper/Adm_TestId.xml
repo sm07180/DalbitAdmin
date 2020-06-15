@@ -117,7 +117,7 @@
                 <choose>
                     <when test='searchType == 0'>
                         AND (test.emp_name like concat('%', #{searchText}, '%')
-                            or test.emp_no like concat('%', #{searchText}, '%')
+                            or lpad(test.emp_no,5,'0') like concat('%', #{searchText}, '%')
                             or mem.mem_no like concat('%', #{searchText}, '%')
                             or mem.mem_userid like concat('%', #{searchText}, '%')
                             or mem.mem_nick like concat('%', #{searchText}, '%')
