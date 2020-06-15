@@ -733,7 +733,7 @@
             {{indexDesc ../exchangeCnt data.rowNum}}
         </td>
         <td>
-            {{getMemStateName data.mem_state}}
+            {{{getMemStateName data.mem_state}}}
         </td>
         <td>
             {{#workdayCheck ../limitDay data.reg_date}}
@@ -1008,7 +1008,7 @@
                 {{indexDesc ../enableCnt data.rowNum}}
             </td>
             <td>
-                {{getMemStateName data.mem_state}}
+                {{{getMemStateName data.mem_state}}}
             </td>
             <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
             <td>{{data.mem_userid}}</td>
