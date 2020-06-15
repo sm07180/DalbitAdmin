@@ -9,11 +9,11 @@ import lombok.Setter;
 public class Mon_ItemInputVo extends PagingVo {
 
     private Integer idx;
-    private String search_year;
-    private String search_month;
-    private String search_type;
     private String search_value;
+    private String search_type;
     private String search_state;
+    private String sDate;
+    private String eDate;
     private int search_testId;
     private String limitDay;
     private String excelYn;
