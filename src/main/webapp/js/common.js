@@ -370,3 +370,16 @@ common.exchangeAmt = function(star, isSpecial){
 
     return common.addComma(total);
 };
+
+common.koreaAge = function(birthDate){
+    if(birthDate == null){
+        return "";
+    }
+    if(birthDate.split('-').length == 3){
+        var birthYear = birthDate.split('-')[0];
+        var curYear = moment(new Date()).format('YYYY');
+
+        var koreaAge = Number(curYear - birthYear) + 1;
+        return koreaAge;
+    }
+}
