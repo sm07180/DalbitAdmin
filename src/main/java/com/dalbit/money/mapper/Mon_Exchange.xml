@@ -405,6 +405,7 @@
             where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
         </if>
         and exchange.state = 2
+        and exchange.last_reject = 1
         <choose>
             <when test="isSpecial == 0">
                 and special.mem_no is null
