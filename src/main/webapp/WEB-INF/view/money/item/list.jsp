@@ -108,6 +108,7 @@
     });
 
     function setTimeDate(dateTime){
+        itemPagingInfo.pageNo = 1;
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
         $("#displayDate").val(dateTime + " - " + dateTime);
