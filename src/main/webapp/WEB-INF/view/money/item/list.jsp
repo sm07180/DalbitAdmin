@@ -11,7 +11,7 @@
                     <input type="hidden" name="pageCnt" id="pageCnt">--%>
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 교환 이력</h3>
+                            <h3 class="title"><i class="fa fa-search"></i> 교환내역 검색</h3>
                             <div>
                                 <span id="searchRadio"></span>
 
