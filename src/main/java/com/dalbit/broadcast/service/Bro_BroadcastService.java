@@ -78,6 +78,16 @@ public class Bro_BroadcastService {
             summary.setSpecialDjCnt(djTypeCntList.get(0).getSpecialDjCnt());
         }
 
+        for(int i=0;i < broadList.size(); i++){
+            pBroadcastListInputVo.setRoom_no(broadList.get(i).getRoom_no());
+            ProcedureVo brocastInfo_procedureVo = new ProcedureVo(pBroadcastListInputVo);
+            bro_BroadcastDao.callBroadcastInfo(brocastInfo_procedureVo);
+            P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(brocastInfo_procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
+            if(!DalbitUtil.isEmpty(broadcastDetail)){
+                broadList.get(i).setBackgroundImage(broadcastDetail.getBackgroundImage());
+            }
+        }
+
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송기록보기성공, broadList, new PagingVo(procedureVo.getRet()),summary));

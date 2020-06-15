@@ -9,6 +9,9 @@ var BroadcastDataTableSource = {
             {'title': '제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }},
+            {'title': '방송방<br/>배경이미지', 'data': 'backgroundImage', 'width' : '50px', 'render' : function(data, type, row){
+                    return '<img class="thumbnail fullSize_background" src="'+ PHOTO_SERVER_URL + data +'" width="65px" height="65px" />';
+                }},
             {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
                     return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" />';
                 }},
@@ -83,6 +86,9 @@ var BroadcastDataTableSource = {
             {'title': '주제', 'data': 'subject_name','width' : '65px'},
             {'title': '제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
+                }},
+            {'title': '방송방<br/>배경이미지', 'data': 'backgroundImage', 'width' : '50px', 'render' : function(data, type, row){
+                    return '<img class="thumbnail fullSize_background" src="'+ PHOTO_SERVER_URL + data +'" width="65px" height="65px" />';
                 }},
             {'title': '프로필<br/>이미지', 'data': 'dj_profileImage', 'width' : '50px', 'render' : function(data, type, row){
                     return '<img class="thumbnail fullSize_background" src="'+ common.profileImage(PHOTO_SERVER_URL,data,row.dj_memSex) +'" width="65px" height="65px" />';
