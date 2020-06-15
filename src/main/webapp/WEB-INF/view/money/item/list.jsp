@@ -22,11 +22,11 @@
                                     <input type="text" name="displayDate" id="displayDate" class="form-control" />
                                 </div>
 
-                                <input type="hidden" name="startDate" id="startDate">
-                                <input type="hidden" name="endDate" id="endDate" />
+                                <%--<input type="hidden" name="startDate" id="startDate">--%>
+                                <%--<input type="hidden" name="endDate" id="endDate" />--%>
 
-                                <%--<input name="startDate" id="startDate">--%>
-                                <%--<input name="endDate" id="endDate" />--%>
+                                <input name="startDate" id="startDate">
+                                <input name="endDate" id="endDate" />
 
 
                                 <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
@@ -103,9 +103,8 @@
 
     $(document).on('click', '._todaySearch', function(){
         $("input:radio[name='searchRadio']:radio[value='3']").prop('checked', true);
-        radioChange();
-
         setTimeDate(dateTime);
+        radioChange();
     });
 
     function setTimeDate(dateTime){
@@ -115,12 +114,7 @@
     }
 
     function searchDate(dateType){
-        if(common.isEmpty(dateType)){
-            $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-            $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-            $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
-            $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-        }else if(dateType == 'prev'){
+        if(dateType == 'prev'){
             setDay(-1);
         }else if(dateType == 'next'){
             setDay(1);
