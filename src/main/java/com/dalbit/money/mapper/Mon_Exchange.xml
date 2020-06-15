@@ -10,13 +10,13 @@
             , ifnull(totalCashBasic, 0) totalCashBasic
             , ifnull(totalCashReal, 0) totalCashReal
         from (
-            select basic.mem_no,
-                   basic.mem_id,
-                   basic.mem_name,
-                   basic.mem_nick,
-                   basic.mem_state,
-                   basic.mem_phone,
-                   basic.mem_userid,
+            select IFNULL(basic.mem_no, withdrawal.mem_no) mem_no,
+                   IFNULL(basic.mem_id, withdrawal.mem_id) mem_id,
+                   IFNULL(basic.mem_name, withdrawal.mem_name) mem_name,
+                   IFNULL(basic.mem_nick, withdrawal.mem_nick) mem_nick,
+                   IFNULL(basic.mem_state, withdrawal.mem_state) mem_state,
+                   IFNULL(basic.mem_phone, withdrawal.mem_phone) mem_phone,
+                   IFNULL(basic.mem_userid, withdrawal.mem_userid) mem_userid,
                    profile.image_profile,
                    exchange.idx,
                    exchange.byeol,
@@ -54,6 +54,7 @@
                 inner join rd_data.tb_member_wallet wallet on exchange.mem_no = wallet.mem_no
                 left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no and special.select_year = #{search_year} and special.select_month = #{search_month}
                 left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
+                left join rd_data.tb_member_withdrawal_bak withdrawal on exchange.mem_no = withdrawal.mem_no
                 inner join (select @RNUM := 0) r
             where
                 concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')
@@ -64,10 +65,16 @@
                             and exchange.mem_no like CONCAT('%',#{search_value},'%')
                         </when>
                         <when test="search_type == 'user_id'">
-                            and basic.mem_userid like CONCAT('%',#{search_value},'%')
+                            and (
+                                basic.mem_userid like CONCAT('%',#{search_value},'%')
+                                or withdrawal.mem_userid like CONCAT('%',#{search_value},'%')
+                            )
                         </when>
                         <when test="search_type == 'mem_nick'">
-                            and basic.mem_nick like CONCAT('%',#{search_value},'%')
+                            and (
+                                basic.mem_nick like CONCAT('%',#{search_value},'%')
+                                or withdrawal.mem_nick like CONCAT('%',#{search_value},'%')
+                            )
                         </when>
                         <when test="search_type == 'mem_phone'">
                             and exchange.phone_no like CONCAT('%',#{search_value},'%')
@@ -75,8 +82,11 @@
                         <otherwise>
                             and (
                                 exchange.mem_no like CONCAT('%',#{search_value},'%')
+                                or withdrawal.mem_no like CONCAT('%',#{search_value},'%')
                                 or basic.mem_userid like CONCAT('%',#{search_value},'%')
+                                or withdrawal.mem_userid like CONCAT('%',#{search_value},'%')
                                 or basic.mem_nick like CONCAT('%',#{search_value},'%')
+                                or withdrawal.mem_nick like CONCAT('%',#{search_value},'%')
                                 or exchange.phone_no like CONCAT('%',#{search_value},'%')
                             )
                         </otherwise>

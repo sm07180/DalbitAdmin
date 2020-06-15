@@ -302,6 +302,8 @@ common.getMemStateName = function(state){
         return '경고'
     }else if(state == '3'){
         return '정지'
+    }else if(state == '4'){
+        return '<span style="color:red;">탈퇴</span>'
     }else if(state == '5'){
         return '영구정지'
     }

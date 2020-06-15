@@ -1091,7 +1091,7 @@
                 {{indexDesc ../rejectCnt data.rowNum}}
             </td>
             <td>
-                {{getMemStateName data.mem_state}}
+                {{{getMemStateName data.mem_state}}}
             </td>
             <td>
                 {{^equal data.benefit 0}}
