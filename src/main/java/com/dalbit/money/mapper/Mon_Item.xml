@@ -12,7 +12,7 @@
             , basic.inner
             , wallet.gold as currentGold
             , wallet.ruby as currentRuby
-            , item.last_upd_date
+            , DATE_FORMAT(item.last_upd_date,'%Y-%m-%d %h:%i:%s') as last_upd_date
             , item.ruby
             , item.gold
             , item.item_name
@@ -30,13 +30,13 @@
                 select mem_no, count(mem_no) changeCnt, sum(ruby) sumRuby, sum(gold) sumGold
                 from rd_data.tb_member_broadcast_item
                 where item_type = 5
-                  and DATE_FORMAT(last_upd_date, '%Y%m') = concat(#{search_year}, #{search_month})
                 group by mem_no
             ) changeCnt on item.mem_no = changeCnt.mem_no
             , (select @RNUM := 0) r
         where item_type = 5
-            <if test='search_year != null and search_year != ""'>
-              and DATE_FORMAT(item.last_upd_date, '%Y%m') = concat(#{search_year}, #{search_month})
+            <if test='sDate != null and eDate != ""'>
+                and DATE_FORMAT(item.last_upd_date, '%Y.%m.%d') >= #{sDate}
+                and DATE_FORMAT(item.last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
             </if>
 
             <if test='search_value != null and search_value != ""'>

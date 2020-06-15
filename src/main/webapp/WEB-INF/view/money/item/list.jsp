@@ -13,13 +13,27 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 교환 이력</h3>
                             <div>
-                                <span id="searchYearArea"></span>
-                                <span id="searchMonthArea"></span>
-                                <span id="searchStateArea"></span>
+                                <span id="searchRadio"></span>
 
-                                <span id="searchTypeArea" class="ml10"></span>
+                                <div class="input-group date" id="rangeDatepicker">
+                                    <label for="displayDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                                </div>
+
+                                <input type="hidden" name="startDate" id="startDate">
+                                <input type="hidden" name="endDate" id="endDate" />
+
+                                <%--<input name="startDate" id="startDate">--%>
+                                <%--<input name="endDate" id="endDate" />--%>
+
+
                                 <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
+                                <a href="javascript://" class="_nextSearch">[다음]</a>
 
                                 <%--<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>--%>
                                 <label class="control-inline fancy-checkbox custom-color-green">
@@ -50,24 +64,100 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 <script type="text/javascript">
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    setTimeDate(dateTime);
 
+
+    var sDate;
+    var eDate;
+    var _searchRadio ="";
     $(function(){
+        $("#searchRadio").html(util.getCommonCodeRadio(2, searchRadio));
 
-        $("#searchYearArea").html(util.getCommonCodeSelect(moment(new Date()).format('YYYY'), search_exchange_years));
-        $("#searchMonthArea").html(util.getCommonCodeSelect(moment(new Date()).format('MM'), search_exchange_months));
-        $("#searchTypeArea").html(util.getCommonCodeSelect('', search_exchange_type));
-
-        $('#searchTestIdArea').html(util.getCommonCodeRadio(-1, testId));
+        $("#displayDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startDate").val(start.format('YYYY.MM.DD'));
+                $("#endDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
         getList();
     });
 
+    $(document).on('change', 'input[name="searchRadio"]', function(){
+        radioChange();
+    });
+
+    function radioChange(){
+        _searchRadio = $('input[name="searchRadio"]:checked').val();
+        setStartDay();
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        searchDate('prev');
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        searchDate('next');
+    });
+
+    $(document).on('click', '._todaySearch', function(){
+        $("input:radio[name='searchRadio']:radio[value='3']").prop('checked', true);
+        radioChange();
+
+        setTimeDate(dateTime);
+    });
+
+    function setTimeDate(dateTime){
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("#displayDate").val(dateTime + " - " + dateTime);
+    }
+
+    function searchDate(dateType){
+        if(common.isEmpty(dateType)){
+            $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+            $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+            $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
+            $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+        }else if(dateType == 'prev'){
+            setDay(-1);
+        }else if(dateType == 'next'){
+            setDay(1);
+        }
+    }
+
+    function setDay(days){
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
+
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
+        getList();
+    }
+    function setStartDay(){
+        var date = new Date();
+        $("#endDate").val(dateTime);
+
+        if(_searchRadio == 1) {     // 일주일 전
+            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
+            sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            $("#startDate").val(sDate);
+        }else if(_searchRadio == 0) {       // 한달전
+            $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
+        }
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
+        getList();
+    }
+
     function getParameter(){
         return data = {
-            search_year : $("#search_year").val()
-            , search_month : $("#search_month").val()
-            , search_type : $("#search_type").val()
-            , search_value : $("#search_value").val()
+            search_value : $("#search_value").val()
+            , search_type : ""
             , search_testId : $('input[name="search_testId"]').prop('checked') ? 1 : 0
+            , sDate : $("#startDate").val()
+            , eDate : $("#endDate").val()
             , pageStart : itemPagingInfo.pageNo
             , pageCnt : itemPagingInfo.pageCnt
         };

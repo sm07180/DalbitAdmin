@@ -15,9 +15,7 @@
 
     function getParameter(){
         return data = {
-            search_year : ""
-            , search_month : ""
-            , search_type : ""
+            search_type : ""
             , search_value : memNo
             , search_testId : 0
             , pageStart : itemPagingInfo.pageNo
