@@ -91,7 +91,7 @@ public class Bro_BroadcastService {
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(broadList.get(i).getDj_mem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
                     broadList.get(i).setDj_userid(memInfoOutVo.getMem_id());
-                    broadList.get(i).setDj_nickname(memInfoOutVo.getMem_nick());
+                    broadList.get(i).setDj_nickname("탈퇴회원");
                 }
             }
         }
