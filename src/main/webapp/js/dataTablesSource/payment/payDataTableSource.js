@@ -7,6 +7,9 @@ var payDataTableSource = {
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
+            , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
+                    return row.order_id;
+                }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
@@ -100,6 +103,9 @@ var payDataTableSource = {
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
+            , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
+                    return row.order_id;
+                }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
@@ -187,6 +193,9 @@ var payDataTableSource = {
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
+            , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
+                    return row.order_id;
+                }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
@@ -250,6 +259,9 @@ var payDataTableSource = {
             /*{'title': '주문번호', 'data': 'order_id'}*/
             {'title': '회원번호 <br /> 닉네임', 'data' : 'data', 'width':'80px', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
+                }}
+            , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
+                    return row.order_id;
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
