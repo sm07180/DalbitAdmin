@@ -18,9 +18,9 @@ Handlebars.registerHelper("stateName", function (state) {
     }else if(state == 0){
         return '미처리'
     }else if(state == 1){
-        return '완료'
+        return '<span style=color:blue;>완료</span>'
     }else if(state == 2){
-        return '불가'
+        return '<span style=color:red;>불가</span>'
     }
     
 });
