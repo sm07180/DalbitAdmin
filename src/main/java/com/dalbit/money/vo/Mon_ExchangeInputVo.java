@@ -1,6 +1,5 @@
 package com.dalbit.money.vo;
 
-import com.dalbit.common.vo.BaseVo;
 import com.dalbit.common.vo.PagingVo;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +21,9 @@ public class Mon_ExchangeInputVo extends PagingVo {
     private String search_exchangeYn;
     private String limitDay;
     private String excelYn;
+    private int last_reject;
 
+    private String viewName;
     private String idxs;
     private String[] idxArr;
     private int state;

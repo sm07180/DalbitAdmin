@@ -62,23 +62,40 @@ public class Mon_ExchangeService {
         var resultMap = new HashMap<>();
 
         if(DalbitUtil.isEmpty(monExchangeInputVo.getIsSpecial())){  //환전가능리스트
-            Mon_EnableOutputVo outVo= monExchangeDao.selectEnableCnt(monExchangeInputVo);
-            monExchangeInputVo.setTotalCnt(outVo.getEnableCnt());
-            ArrayList<Mon_EnableOutputVo> enableList = monExchangeDao.selectEnableList(monExchangeInputVo);
+            if(monExchangeInputVo.getViewName().equals("enableList")) {
+                Mon_EnableOutputVo outVo = monExchangeDao.selectEnableCnt(monExchangeInputVo);
+                monExchangeInputVo.setTotalCnt(outVo.getEnableCnt());
+                ArrayList<Mon_EnableOutputVo> enableList = monExchangeDao.selectEnableList(monExchangeInputVo);
 
-            P_StatVo pStatVo = new P_StatVo();
-            Pay_PaySumOutputVo outTotalPay = pay_PayDao.getTotalPaySum(pStatVo);
+                P_StatVo pStatVo = new P_StatVo();
+                Pay_PaySumOutputVo outTotalPay = pay_PayDao.getTotalPaySum(pStatVo);
 
-            Mon_EnableOutputVo outExchangeVo= monExchangeDao.totalExchangeCash(monExchangeInputVo);
+                Mon_EnableOutputVo outExchangeVo = monExchangeDao.totalExchangeCash(monExchangeInputVo);
 
-            resultMap.put("enableCnt", outVo.getEnableCnt());
-            resultMap.put("totalGold", outVo.getTotalGold());
-            resultMap.put("totalSpecialCnt", outVo.getTotalSpecialCnt());
-            resultMap.put("enableList", enableList);
-            resultMap.put("totalSuccAmt", outTotalPay.getTotalSuccAmt());
-            resultMap.put("totalExchangeAmt", outExchangeVo.getTotalExchangeAmt());
+                resultMap.put("enableCnt", outVo.getEnableCnt());
+                resultMap.put("totalGold", outVo.getTotalGold());
+                resultMap.put("totalSpecialCnt", outVo.getTotalSpecialCnt());
+                resultMap.put("enableList", enableList);
+                resultMap.put("totalSuccAmt", outTotalPay.getTotalSuccAmt());
+                resultMap.put("totalExchangeAmt", outExchangeVo.getTotalExchangeAmt());
+                return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+
+                //}else if(monExchangeInputVo.getViewName().equals("rejectList")){
+            }else{
+                //monExchangeInputVo.setLast_reject(0);
+
+                int rejectCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
+                monExchangeInputVo.setTotalCnt(rejectCnt);
+                ArrayList<Mon_ExchangeOutputVo> rejectList = monExchangeDao.selectExchangeList(monExchangeInputVo);
+
+                resultMap.put("rejectCnt", rejectCnt);
+                resultMap.put("rejectList", rejectList);
+                return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+            }
 
         }else{  //환전내역
+            monExchangeInputVo.setLast_reject(1);
+
             int exchangeCnt = monExchangeDao.selectExchangeCnt(monExchangeInputVo);
             monExchangeInputVo.setTotalCnt(exchangeCnt);
             ArrayList<Mon_ExchangeOutputVo> exchangeList = monExchangeDao.selectExchangeList(monExchangeInputVo);
@@ -99,9 +116,8 @@ public class Mon_ExchangeService {
 
             resultMap.put("exchangeCnt", exchangeCnt);
             resultMap.put("exchangeList", exchangeList);
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
         }
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }
 
     public String selectExchangeSummary(Mon_ExchangeInputVo monExchangeInputVo){
@@ -386,6 +402,9 @@ public class Mon_ExchangeService {
 
     public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
 
+        //최근 불가 모두 0으로 업데이트
+        monExchangeDao.updateLastReject(monExchangeOutputVo);
+        
         monExchangeDao.updateExchangeComplete(monExchangeOutputVo);
         if(monExchangeOutputVo.getState().equals("1")) {
             var message = new StringBuffer();

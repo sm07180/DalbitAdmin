@@ -35,6 +35,8 @@ public interface Mon_ExchangeDao {
 
     int updateExchangeDetail(Mon_ExchangeOutputVo monExchangeOutputVo);
 
+    int updateLastReject(Mon_ExchangeOutputVo monExchangeOutputVo);
+
     int updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo);
 
     int updateExchangeMultiComplete(Mon_ExchangeInputVo monExchangeInputVo);

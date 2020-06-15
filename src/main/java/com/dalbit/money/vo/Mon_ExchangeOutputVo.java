@@ -1,6 +1,5 @@
 package com.dalbit.money.vo;
 
-import com.dalbit.common.vo.BaseVo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,6 +48,7 @@ public class Mon_ExchangeOutputVo{
     private int exchangeCnt;
     private int totalCashBasic;
     private int totalCashReal;
+    private int last_reject;
 
     private String send_title;		// 발송 메시지 제목
     private String send_cont;		// 발송 메시지 내용
