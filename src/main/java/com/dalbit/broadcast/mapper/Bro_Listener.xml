@@ -24,4 +24,8 @@
         /* B_Listener.xml - callForceLeave */
         INSERT INTO rd_data.tb_broadcast_room_block( mem_no, blocked_mem_no, last_upd_date) VALUES ( #{dj_mem_no}, #{mem_no}, NOW() );
     </insert>
+    <insert id="callListen_exitMemo" parameterType="com.dalbit.broadcast.vo.procedure.P_ListenForceLeaveVo">
+        /* B_Listener.xml - callForceLeave */
+        INSERT INTO rd_data.tb_broadcast_room_block( mem_no, blocked_mem_no, last_upd_date) VALUES ( #{dj_mem_no}, #{mem_no}, NOW() );
+    </insert>
 </mapper>

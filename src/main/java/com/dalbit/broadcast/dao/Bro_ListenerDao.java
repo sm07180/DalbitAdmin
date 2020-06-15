@@ -19,4 +19,5 @@ public interface Bro_ListenerDao {
     ArrayList<P_ListenListOutputVo> callListenerList_withdrawal(String mem_no);
     ProcedureVo callForceLeave(ProcedureVo procedureVo);
     int callForceLeave_roomBlock(P_ListenForceLeaveVo pListenForceLeaveVo);
+    int callListen_exitMemo(P_ListenForceLeaveVo pListenForceLeaveVo);
 }

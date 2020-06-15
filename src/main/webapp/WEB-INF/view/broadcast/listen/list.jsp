@@ -27,7 +27,7 @@
             </div>
             <div class="modal-body">
                 <span id="declaration_Message"></span>
-                <input type="text" id="forced_message" class="form-control"/>
+                <input type="text" id="forced_message" class="form-control" style="width: 500px"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="bt_modalForced"><i class="fa fa-times-circle"></i> 확인</button>
@@ -51,6 +51,7 @@
         });
     });
     var tmp_sortAuth = -1;
+    var tmp_forced = "";
     function getBroadHistory_listen(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var source = BroadcastDataTableSource[tmp];
@@ -66,9 +67,11 @@
 
         var table_sel = '<span name="state" id="state" onchange="force_sel_change()"></span>';
         var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
+        var exitBtn = '<input type="button" value="퇴장" class="btn btn-success btn-sm" id="btn_exit" style="margin-right: 3px;"/>'
 
         $("#" + tmp).find("#main_table").find(".top-left").addClass("no-padding").append(table_sel);
         $("#" + tmp).find("#main_table").find(".footer-left").append(forcedBtn);
+        $("#" + tmp).find("#main_table").find(".footer-left").append(exitBtn);
         $("#state").html(util.getCommonCodeSelect(-1, state));
         forcedEventInit();
     }
@@ -90,15 +93,27 @@
     }
     function forcedEventInit(){
         $("#btn_forced").on("click", function () { //강제퇴장
-            forcedData();
+            forcedData("forced");
+        });
+        $("#btn_exit").on("click", function () { //강제퇴장
+            forcedData("exit");
         });
     }
-    function forcedData(){
+    function forcedData(tmp){
+        tmp_forced = tmp;
         if(dtList_info_detail.getCheckedData().length <= 0){
-            alert("강제퇴장자를 선택해 주십시오");
+            if(tmp_forced == "forced") {
+                alert("강제퇴장자를 선택해 주십시오");
+            }else if(tmp_forced == "exit") {
+                alert("퇴장자를 선택해 주십시오");
+            }
             return;
         }
-        $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
+        if(tmp_forced == "forced") {
+            $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
+        }else if(tmp_forced == "exit") {
+            $("#bt_modalForcedNotice").hide();
+        }
         $('#forcedModal').modal('show');
     }
     function forced(tmp){
@@ -121,12 +136,15 @@
         });
         if($("#declaration_Message99").prop('checked')){
             if($("#forced_message").val().length < 1){
-                alert("기타 사유를 입력해 주십시오.");
+                alert("기타 사유를 입력해주세요");
                 return false;
             }
         }
+        if(tmp_forced == "exit") {
+            forceMessage = $("#forced_message").val();
+        }
         if(forceMessage == ""){
-            alert("강제 퇴장 사유를 선택해 주십시오");
+            alert("강제 퇴장 사유를 선택해주세요.");
             return;
         }
 
@@ -147,17 +165,21 @@
                                                           .replace("{{message}}",forceMessage)
                                                           .replace("{{timestamp}}",timestamp);
 
-                console.log(memo);
-                console.log(memoDetail);
                 var data = new Object();
                 data.room_no = room_no;
                 data.mem_no = checkDatas[i].mem_no;             // 강퇴 대상
                 data.mem_nickName=checkDatas[i].nickName;       // 강퇴 대상
                 data.sendNoti = sendNoti;
                 data.notiContents = memo;
-                data.notiMemo = memoDetail;
+                if(tmp_forced == "forced") {
+                    data.notiMemo = memoDetail;
+                }else if(tmp_forced == "exit") {
+                    console.log(forceMessage);
+                    data.notiMemo = forceMessage;
+                }
                 data.dj_mem_no = mem_no;
                 data.dj_nickname = dj_nickname;
+                data.forced = tmp_forced;
 
                 util.getAjaxData("forceLeave", "/rest/broadcast/listener/forceLeave",data, forceLeave_success);
             }

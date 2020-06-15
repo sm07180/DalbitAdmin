@@ -11,7 +11,7 @@
                     <input type="hidden" name="pageCnt" id="pageCnt">--%>
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
-                            <h3 class="title"><i class="fa fa-search"></i> 교환 이력</h3>
+                            <h3 class="title"><i class="fa fa-search"></i> 교환내역 검색</h3>
                             <div>
                                 <span id="searchRadio"></span>
 
@@ -22,11 +22,11 @@
                                     <input type="text" name="displayDate" id="displayDate" class="form-control" />
                                 </div>
 
-                                <%--<input type="hidden" name="startDate" id="startDate">--%>
-                                <%--<input type="hidden" name="endDate" id="endDate" />--%>
+                                <input type="hidden" name="startDate" id="startDate">
+                                <input type="hidden" name="endDate" id="endDate" />
 
-                                <input name="startDate" id="startDate">
-                                <input name="endDate" id="endDate" />
+                                <%--<input name="startDate" id="startDate">--%>
+                                <%--<input name="endDate" id="endDate" />--%>
 
 
                                 <label><input type="text" class="form-control" id="search_value" name="search_value"></label>
@@ -108,6 +108,7 @@
     });
 
     function setTimeDate(dateTime){
+        itemPagingInfo.pageNo = 1;
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
         $("#displayDate").val(dateTime + " - " + dateTime);
