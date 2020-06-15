@@ -18,6 +18,8 @@ public interface Cus_QuestionDao {
 
     @Transactional(readOnly = true)
     P_QuestionListOutputVo getQuestionCount(String mem_no);
+    @Transactional(readOnly = true)
+    P_QuestionListOutputVo getAdminCount(int qnaIdx);
 
     @Transactional(readOnly = true)
     P_QuestionDetailOutputVo callServiceCenterQnaDetail(ProcedureVo procedureVo);
@@ -42,4 +44,10 @@ public interface Cus_QuestionDao {
     int callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo);
     int callServiceCenterQnaChatchRelease(P_QuestionOperateVo pQuestionOperateVo);
     int callServiceCenterQnaChatchRelease_all(P_QuestionOperateVo pQuestionOperateVo);
+    int callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_QuestionAdminMemoListOutputVo> callQuestionAdminList(P_QuestionOperateVo pQuestionOperateVo);
+    @Transactional(readOnly = true)
+    int callQuestionAdminList_totalCnt(P_QuestionOperateVo pQuestionOperateVo);
 }

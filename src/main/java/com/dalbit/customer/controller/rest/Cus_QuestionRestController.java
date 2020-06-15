@@ -155,4 +155,20 @@ public class Cus_QuestionRestController {
     public String release_all() {
         return cus_questionService.callServiceCenterQnaChatchRelease_all();
     }
+
+    /**
+     *  1:1 문의 운영자 메모 등록
+     */
+    @PostMapping("adminMemoAdd")
+    public String adminMemoAdd(P_QuestionOperateVo pQuestionOperateVo){
+        return cus_questionService.callAdminMemoAdd(pQuestionOperateVo);
+    }
+
+    /**
+     *  1:1 문의 운영자 메모 목록
+     */
+    @PostMapping("adminMemo/list")
+    public String adminMemoList(P_QuestionOperateVo pQuestionOperateVo){
+        return cus_questionService.callAdminMemoList(pQuestionOperateVo);
+    }
 }

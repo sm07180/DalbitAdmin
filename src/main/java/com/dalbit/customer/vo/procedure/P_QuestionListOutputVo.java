@@ -34,6 +34,7 @@ public class P_QuestionListOutputVo extends BaseVo {
     private String opDateFormat;
     private Date write_date;
     private String writeDateFormat;
+    private String adminMemoCnt;
 
     private int totalQnaCnt;
     private int totalOpCnt;
