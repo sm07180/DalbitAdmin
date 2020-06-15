@@ -14,4 +14,5 @@ public class P_ListenForceLeaveVo {
     private String notiMemo;
     private String dj_mem_no;
     private String dj_nickname;
+    private String forced;
 }

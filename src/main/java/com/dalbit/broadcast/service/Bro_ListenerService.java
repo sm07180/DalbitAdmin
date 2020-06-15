@@ -11,6 +11,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberAdminMemoAddVo;
 import com.dalbit.member.vo.procedure.P_MemberInfoOutputVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
@@ -107,8 +108,17 @@ public class Bro_ListenerService {
         ProcedureVo procedureVo = new ProcedureVo(pListenForceLeaveVo);
         bro_ListenerDao.callForceLeave(procedureVo);
 
-        //재입장 불가능 하도록
-        bro_ListenerDao.callForceLeave_roomBlock(pListenForceLeaveVo);
+        if(pListenForceLeaveVo.getForced().equals("forced")) {
+            //재입장 불가능 하도록
+            bro_ListenerDao.callForceLeave_roomBlock(pListenForceLeaveVo);
+        }else if(pListenForceLeaveVo.getForced().equals("exit")) {
+            P_MemberAdminMemoAddVo pMemberAdminMemoAddVo = new P_MemberAdminMemoAddVo();
+            pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
+            pMemberAdminMemoAddVo.setMem_no(pListenForceLeaveVo.getMem_no());
+            pMemberAdminMemoAddVo.setMemo(pListenForceLeaveVo.getNotiMemo());
+            ProcedureVo procedureVo2 = new ProcedureVo(pMemberAdminMemoAddVo);
+            mem_MemberDao.callMemAdminMemoAdd(procedureVo2);
+        }
         String result = "";
         if(Status.생방청취자강제퇴장_성공.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.생방청취자강제퇴장_성공));
