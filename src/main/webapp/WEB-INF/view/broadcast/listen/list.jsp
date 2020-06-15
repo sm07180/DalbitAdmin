@@ -27,7 +27,7 @@
             </div>
             <div class="modal-body">
                 <span id="declaration_Message"></span>
-                <input type="text" id="forced_message" class="form-control"/>
+                <input type="text" id="forced_message" class="form-control" style="width: 500px"/>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="bt_modalForced"><i class="fa fa-times-circle"></i> 확인</button>
