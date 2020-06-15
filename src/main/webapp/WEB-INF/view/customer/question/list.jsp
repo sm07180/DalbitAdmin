@@ -152,22 +152,12 @@
     var answer;
     var rowNum;
     function getQuestDetail(index){
-        var data = dtList_info.getDataRow(index);
-        qnaIdx = data.qnaIdx;
-        answer = data.answer;
-        rowNum = data.rowNum;
-
-        var obj = {};
-        obj.qnaIdx = qnaIdx;
-        util.getAjaxData("qnaCatch", "/rest/customer/question/qnaCatch", obj, fn_getqnaCatch_success);
-
-    }
-    function fn_getqnaCatch_success(data, response, params) {
         $('#tab_customerQuestion').addClass("show");
+        var data = dtList_info.getDataRow(index);
         var obj ={};
-        obj.qnaIdx = qnaIdx;
-        obj.answer = answer;
-        obj.rowNum = rowNum;
+        obj.qnaIdx = data.qnaIdx;
+        obj.answer = data.answer;
+        obj.rowNum = data.rowNum;
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 

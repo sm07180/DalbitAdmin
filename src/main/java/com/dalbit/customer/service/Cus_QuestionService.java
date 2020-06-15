@@ -50,6 +50,11 @@ public class Cus_QuestionService {
             P_QuestionListOutputVo outVo = cus_questionDao.getQuestionCount(questionList.get(i).getMem_no());
             questionList.get(i).setTotalQnaCnt(outVo.getTotalQnaCnt());
             questionList.get(i).setTotalOpCnt(outVo.getTotalOpCnt());
+
+            P_QuestionListOutputVo outVo2 = cus_questionDao.getAdminCount(questionList.get(i).getQnaIdx());
+            if(!DalbitUtil.isEmpty(outVo2)) {
+                questionList.get(i).setAdminMemoCnt(outVo2.getAdminMemoCnt());
+            }
         }
 
         String result;
@@ -292,6 +297,35 @@ public class Cus_QuestionService {
         cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태해제_성공));
+
+        return result;
+    }
+    public String callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo){
+        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
+        int resultInt = cus_questionDao.callAdminMemoAdd(pQuestionOperateVo);
+        String result;
+        if(resultInt > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.처리완료));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.파라미터오류));
+        }
+        return result;
+    }
+
+    public String callAdminMemoList(P_QuestionOperateVo pQuestionOperateVo) {
+
+        pQuestionOperateVo.setPageNo(pQuestionOperateVo.getPageNo() -1);
+        pQuestionOperateVo.setPageNo(pQuestionOperateVo.getPageNo() * pQuestionOperateVo.getPageCnt());
+        ArrayList<P_QuestionAdminMemoListOutputVo> questionList = cus_questionDao.callQuestionAdminList(pQuestionOperateVo);
+        int totalCnt = cus_questionDao.callQuestionAdminList_totalCnt(pQuestionOperateVo);
+
+        String result;
+
+        if(questionList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.문의목록조회_성공, questionList, new PagingVo(totalCnt)));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.문의목록조회_실패));
+        }
 
         return result;
     }

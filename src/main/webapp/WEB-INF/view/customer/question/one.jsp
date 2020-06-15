@@ -26,6 +26,31 @@
 <!-- 이미지 원본 보기 -->
 <div id="fullSize_question"></div>
 
+<!-- 강제퇴장 Modal -->
+<div class="modal fade" id="adminMemoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 800px;display: table;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <lable>운영자메모</lable>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="widget-content">
+                    <table id="memo_list" class="table table-sorting table-hover table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal 끝 -->
+
 <script type="text/javascript" src="/js/code/customer/questionCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/customerHelper.js?${dummyData}"></script>
 
@@ -38,6 +63,7 @@
     var slct_type;
     function quest_detail_success(data, response, params){
         qnaIdx = params.qnaIdx;
+        answer = params.answer;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
         response.data["rowNum"] = params.rowNum;
@@ -126,7 +152,6 @@
         $("#question_detailFrm").empty();
     }
 
-
     $(document).on('change', '#faqGroup', function() {
         var faqData = {
             slct_type : $('select[name="faqGroup"]').find('option:selected').val()
@@ -187,6 +212,52 @@
         obj.style.height = "114px";
         obj.style.height = (12+obj.scrollHeight)+"px";
     }
+
+    function adminMemoAdd(){
+        if (common.isEmpty($("#txt_adminMemo").val())) {
+            alert("등록할 운영자 메모를 입력해 주십시오.");
+            return;
+        }
+        var obj = {};
+        obj.qnaIdx = qnaIdx;
+        obj.memo = $("#txt_adminMemo").val();
+        obj.mem_no = memNo;
+        util.getAjaxData("adminMemoAdd", "/rest/customer/question/adminMemoAdd", obj, update_success);
+    }
+
+    function update_success(dst_id, response) {
+        dalbitLog(response);
+        alert(response.message);
+    }
+
+    function adminMemoList(){
+        console.log("-----------------------------------------------------");
+        $('#adminMemoModal').modal('show');
+        var dtMemo_List_info;
+        var dtList_info_data = function ( data ) {
+            data.qnaIdx = qnaIdx;
+        };
+        dtMemo_List_info = new DalbitDataTable($("#memo_list"), dtList_info_data, questionDataTableSource.adminMemoList);
+        dtMemo_List_info.useCheckBox(false);
+        dtMemo_List_info.useIndex(true);
+        dtMemo_List_info.createDataTable();
+    }
+
+    function chatch() {
+        var obj = {};
+        obj.qnaIdx = qnaIdx;
+        util.getAjaxData("qnaCatch", "/rest/customer/question/qnaCatch", obj, fn_getqnaCatch_success);
+    }
+    function fn_getqnaCatch_success(dst_id, response) {
+        dalbitLog(response);
+
+        var obj ={};
+        obj.qnaIdx = qnaIdx;
+        obj.answer = answer;
+        util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
+    }
+
+
 </script>
 
 <script id="tmp_question_detailFrm" type="text/x-handlebars-template">
@@ -219,6 +290,9 @@
                         <c:if test="${insertYn eq 'Y'}">
                             {{#equal state '2'}}
                             <button type="button" class="btn-sm btn btn-default bt_chatchRelease">해제</button>
+                            {{/equal}}
+                            {{#equal state '0'}}
+                            <button type="button" class="btn-sm btn btn-default" onclick="chatch();">처리중</button>
                             {{/equal}}
                         </c:if>
 
@@ -279,7 +353,9 @@
                     <td colspan="2" id="_faqGroupArea"></td>
                     <td colspan="2" id="_faqSubArea"></td>
 
-                    <td><button type="button" id="bt_faq" class="btn-sm btn btn-default">적용</button></td>
+                    <td style="text-align: center">
+                        <button type="button" id="bt_faq" class="btn-sm btn btn-default">적용</button>
+                    </td>
 
                     <th>바로가기버튼</th>
                     <td colspan="4">
@@ -292,6 +368,18 @@
                         <button type="button" id="bt_pcSetting" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=EegzDQ_dZAc target='_blank'">PC 방송 기본장비 설정하기</button>
                         <button type="button" id="bt_pcBroad" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=-wAeaNZLEws&t=4s target='_blank'">PC방송하기</button>
                         <button type="button" id="bt_mobileBroad" class="btn-sm btn btn-default bt_baro" style="margin-bottom: 3px" data-url="https://www.youtube.com/watch?v=IKo_tNDPpB0&t=1s target='_blank'">모바일 방송하기</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">
+                        운영자 메모
+                    </th>
+                    <td colspan="9">
+                        <input type="text" class="form-control" id="txt_adminMemo">
+                    </td>
+                    <td>
+                        <button type="button" id="bt_adminMemo" class="btn-sm btn btn-default" style="margin-right: 3px" onclick="adminMemoAdd();">등록</button>
+                        <button type="button" id="bt_adminMemoList" class="btn-sm btn btn-default" onclick="adminMemoList();">자세히</button>
                     </td>
                 </tr>
                 </tbody>

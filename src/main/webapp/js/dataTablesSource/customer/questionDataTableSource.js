@@ -43,6 +43,7 @@ var questionDataTableSource = {
             {'title': '문의제목', 'data': 'question_title','width':'250px','render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+meta.row+');">'+data+'</a>'
                 }},
+            {'title': '운영자메모', 'data': 'adminMemoCnt','width':'60px'},
             {'title': '접수일시', 'data': 'writeDateFormat','width':'120px'},
             {'title': '처리일시', 'data': 'opDateFormat','width':'120px'},
             {'title': '첨부파일', 'data': 'add_file','width':'60px', 'render' : function(data, type, row, meta){
@@ -58,4 +59,12 @@ var questionDataTableSource = {
         , 'comments': 'ㆍ1:1 문의 처리 및 상세정보 확인 후 해당 정보를 확인 및 답변, 수정할 수 있습니다.'
     },
 
+    'adminMemoList': {
+        'url': '/rest/customer/question/adminMemo/list'
+        , 'columns': [
+            {'title': '등록일시', 'data': 'reg_date','width':'120px'},
+            {'title': '등록 관리자', 'data': 'op_name','width':'80px'},
+            {'title': '운영자 메모 내용', 'data': 'memo','width':'200px'},
+        ]
+    },
 }
