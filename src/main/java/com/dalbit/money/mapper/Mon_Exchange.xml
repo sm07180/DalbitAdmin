@@ -57,14 +57,6 @@
                 inner join (select @RNUM := 0) r
             where
                 concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')
-                <choose>
-                    <when test="isSpecial == 0">
-                        and special.mem_no is null
-                    </when>
-                    <when test="isSpecial == 1">
-                        and special.mem_no is not null
-                    </when>
-                </choose>
 
                 <if test='search_value != null and search_value != ""'>
                     <choose>
@@ -104,15 +96,39 @@
                     and basic.inner = 0
                 </if>
 
-                <if test='idx != null and idx != 0'>
-                    <if test='search_year == null'>
-                        or exchange.idx = #{idx}
-                    </if>
-                    <if test='search_year != null'>
-                        and exchange.idx = #{idx}
-                    </if>
-                </if>
-
+                <choose>
+                    <when test='idx != null and idx != 0'>
+                        <if test='search_year == null'>
+                            or exchange.idx = #{idx}
+                        </if>
+                        <if test='search_year != null'>
+                            and exchange.idx = #{idx}
+                        </if>
+                    </when>
+                    <otherwise>
+                        <choose>
+                            <when test="last_reject == 0">
+                                and exchange.state = 2
+                            </when>
+                            <when test='last_reject != 0'>
+                                and (exchange.state in (0,1)
+                                    or (
+                                        exchange.state = 2
+                                        and exchange.last_reject = #{last_reject}
+                                    )
+                                )
+                                <choose>
+                                    <when test="isSpecial == 0">
+                                        and special.mem_no is null
+                                    </when>
+                                    <when test="isSpecial == 1">
+                                        and special.mem_no is not null
+                                    </when>
+                                </choose>
+                            </when>
+                        </choose>
+                    </otherwise>
+                </choose>
             order by exchange.idx desc
         ) a
         left join
@@ -457,6 +473,17 @@
             </if>
     </select>
 
+    <update id="updateLastReject" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        /* Mon_Exchange.xml - updateLastReject */
+        update rd_data.tb_member_exchange
+        set last_reject = 0
+        where mem_no = (
+            select mem_no
+            from rd_data.tb_member_exchange
+            where idx = #{idx}
+        ) and state = 2
+    </update>
+
     <sql id="baseUpdateColumn">
         bank_code = #{bank_code}
         , account_name = #{account_name}
@@ -485,6 +512,9 @@
         set <include refid="baseUpdateColumn" />
             , state = #{state}
             , op_date = now()
+            <if test='state == 2'>
+                , last_reject = 1
+            </if>
         where idx = #{idx}
     </update>
 

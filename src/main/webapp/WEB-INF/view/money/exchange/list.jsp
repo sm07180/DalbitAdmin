@@ -42,14 +42,17 @@
             <div class="row col-lg-12 form-inline block">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="_tab active">
-                        <a href="#recommend" id="tab_specialDj" name="tab_specialDj" role="tab" data-toggle="tab" data-specialDj="1"><i class="fa fa-home"></i> 스페셜DJ</a>
+                        <a href="#recommend" id="tab_specialDj" name="tab_specialDj" role="tab" data-toggle="tab" data-specialDj="1">스페셜DJ</a>
                     </li>
                     <li class="_tab">
-                        <a href="#recommend" id="tab_user" name="tab_user" role="tab" data-toggle="tab" data-specialDj="0"><i class="fa fa-home"></i> 일반회원</a>
+                        <a href="#recommend" id="tab_user" name="tab_user" role="tab" data-toggle="tab" data-specialDj="0">일반회원</a>
                     </li>
 
                     <li class="_tab ml15">
-                        <a href="" id="enableList" name="enableList" role="tab" data-toggle="tab"><i class="fa fa-home"></i> 환전신청 가능회원</a>
+                        <a href="javascript://" id="rejectList" name="rejectList" role="tab" data-toggle="tab">불가내역</a>
+                    </li>
+                    <li class="_tab">
+                        <a href="javascript://" id="enableList" name="enableList" role="tab" data-toggle="tab">환전신청 가능회원</a>
                     </li>
                 </ul>
 
@@ -94,7 +97,7 @@
         getList();
     });
 
-    function getParameter(){
+    function getParameter(viewName){
         return data = {
             isSpecial : $('._tab.active a').data('specialdj')
             , search_year : $("#search_year").val()
@@ -108,6 +111,7 @@
             , pageCnt : exchangePagingInfo.pageCnt
             , limitDay : limitDay
             , slctType : 1
+            , viewName : viewName
         };
     }
 
@@ -165,7 +169,9 @@
 
     function getList(){
 
-        if($('._tab.active').find('a').data('specialdj') != null){
+        var targetAnchor = $('._tab.active').find('a');
+
+        if(targetAnchor.data('specialdj') != null){
 
             $("#exchangeCheckArea").attr('style', 'display:none !important;');
             $("#searchYearArea").show();
@@ -173,14 +179,23 @@
             $("#searchStateArea").show();
 
             exchangeList();
-        }else{
+        }else if(targetAnchor.prop('id') == 'rejectList'){
+
+            $("#exchangeCheckArea").attr('style', 'display:none !important;');
+            $("#searchYearArea").show();
+            $("#searchMonthArea").show();
+            $("#searchStateArea").show();
+
+            rejectList();
+
+        }else if(targetAnchor.prop('id') == 'enableList') {
 
             $("#exchangeCheckArea").show();
             $("#searchYearArea").hide();
             $("#searchMonthArea").hide();
             $("#searchStateArea").hide();
 
-            enableList()
+            enableList();
         }
     }
 
@@ -213,8 +228,20 @@
         var html = templateScript();
         $("#listTable").html(html);
 
-        util.getAjaxData("select", "/rest/money/exchange/list", getParameter(), fn_succ_enable_list);
+        util.getAjaxData("select", "/rest/money/exchange/list", getParameter('enableList'), fn_succ_enable_list);
 
+    }
+
+    function rejectList(){
+
+        $('#summaryTable').empty();
+
+        var template = $('#tmp_rejectTable').html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript();
+        $("#listTable").html(html);
+
+        util.getAjaxData("select", "/rest/money/exchange/list", getParameter('rejectList'), fn_succ_reject_list);
     }
 
     $('#bt_search').on('click', function(){
@@ -304,21 +331,19 @@
 
     }
 
+    function fn_succ_reject_list(dst_id, response){
+        var template = $('#tmp_rejectList').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#tableBody").html(html);
+
+        exchangePagingInfo.totalCnt = response.data.rejectCnt;
+        util.renderPagingNavigation("list_info_paginate_top", exchangePagingInfo);
+        util.renderPagingNavigation("list_info_paginate", exchangePagingInfo);
+    }
+
     $(document).on('click', '#excelDownBtn', function(){
-        /*var formElement = document.querySelector("form");
-        var formData = new FormData(formElement);
-        formData.append("isSpecial", getParameter().isSpecial);
-        formData.append("search_year", getParameter().search_year);
-        formData.append("search_month", getParameter().search_month);
-        formData.append("search_state", 0);
-        formData.append("search_testId", getParameter().search_testId);
-        formData.append("search_type", getParameter().search_type);
-        formData.append("search_value", getParameter().search_value);
-        formData.append("limitDay", getParameter().limitDay);
-
-        util.excelDownload($(this), "/money/exchange/listExcel", formData, fn_success_excel, fn_fail_excel)
-
-        util.changeLoadingBtn($("#excelDownBtn"), 'reset');*/
         var hidden = '<input type="hidden" name="{name}" value="{value}">';
 
         var hiddenData = '';
@@ -999,6 +1024,107 @@
     {{else}}
         <tr>
             <td colspan="12">{{isEmptyData}}</td>
+        </tr>
+    {{/each}}
+</script>
+
+<!-- 불가목록 -->
+<script type="text/x-handlebars-template" id="tmp_rejectTable">
+    <table id="list_info" class="table table-sorting table-hover table-bordered">
+        <colgroup>
+            <col width="4%"/>
+            <col width="3%"/>
+            <col width="3%"/>
+            <col width="3%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="4%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="7%"/>
+            <col width="6%"/>
+            <col width="6%"/>
+            <col width="7%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="6%"/>
+            <col width="6%"/>
+            <col width="4%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+        </colgroup>
+
+        <thead id="tableTop">
+        <tr>
+            <th>No</th>
+            <th>상태</th>
+            <th>스페셜<br />여부</th>
+            <th>프로필</th>
+            <th>아이디</th>
+            <th>닉네임</th>
+            <th>성별</th>
+            <th>이름</th>
+            <th>예금주</th>
+            <th>환전신청금액</th>
+            <th>스페셜DJ혜택</th>
+            <th>환전실수령액</th>
+            <th>신청 별 수</th>
+            <th>현재 별 수</th>
+            <th>테스트ID<br />등록이력</th>
+            <th>환전횟수</th>
+            <th>신청일자</th>
+            <th>처리일자</th>
+            <th>처리자</th>
+            <th>상세보기</th>
+        </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_rejectList">
+    {{#each this.rejectList as |data|}}
+        <tr>
+            <td>
+                {{indexDesc ../rejectCnt data.rowNum}}
+            </td>
+            <td>
+                {{getMemStateName data.mem_state}}
+            </td>
+            <td>
+                {{^equal data.benefit 0}}
+                    <span class="label" style="background-color:red">스페셜DJ</span>
+                {{/equal}}
+            </td>
+            <td >
+                <form id="profileImg" method="post" enctype="multipart/form-data">
+                    <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage data.image_profile data.mem_sex}}" alt="your image"
+                         style="width: 50px;height: 50px;margin-bottom: 0px;" />
+                </form>
+            </td>
+            <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
+            <td>{{data.mem_nick}}</td>
+            <td>{{{sexIcon data.mem_sex}}}</td>
+            <td>{{data.mem_name}}</td>
+            <td>{{data.account_name}}</td>
+            <td>{{addComma data.cash_basic}}원</td>
+            <td>{{addComma data.benefit}}원</td>
+            <td>{{addComma data.cash_real}}원</td>
+            <td>{{addComma data.byeol}}별</td>
+            <td>{{addComma data.gold}}별</td>
+            <td>{{data.testid_history}}</td>
+            <td>{{addComma data.exchangeCnt}}번</td>
+            <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+            <td>{{data.op_name}}</td>
+            <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
+        </tr>
+
+    {{else}}
+        <tr>
+            <td colspan="21">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>
