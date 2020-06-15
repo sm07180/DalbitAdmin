@@ -86,6 +86,14 @@ public class Bro_BroadcastService {
             if(!DalbitUtil.isEmpty(broadcastDetail)){
                 broadList.get(i).setBackgroundImage(broadcastDetail.getBackgroundImage());
             }
+
+            if(DalbitUtil.isEmpty(broadList.get(i).getDj_nickname())){
+                MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(broadList.get(i).getDj_mem_no());
+                if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                    broadList.get(i).setDj_userid(memInfoOutVo.getMem_id());
+                    broadList.get(i).setDj_nickname(memInfoOutVo.getMem_nick());
+                }
+            }
         }
 
         String result;
