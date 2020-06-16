@@ -23,11 +23,9 @@
 <!-- detail -->
 <form id="member_detailFrm" class="hide"></form>
 
+<script type="text/javascript" src="/js/util/memberUtil.js"></script>
+<script type="text/javascript">
 
-<script>
-    $(document).ready(function() {
-
-    });
     $("#gender").html(util.getCommonCodeRadio(2, gender, "Y"));
 
     var memWithdrawal = "0";

@@ -516,7 +516,9 @@ var MemberDataTableSource = {
         'url': '/rest/member/member/editHist'
         , 'columns': [
             {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
-            {'title': '수정 내용', 'data': 'editContents','width':'900px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px','render' : function(data){
+                    return memberUtil.convertEditHistory(data);
+                }},
             {'title': '처리자명', 'data': 'opName','width':'100px'},
         ]
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
