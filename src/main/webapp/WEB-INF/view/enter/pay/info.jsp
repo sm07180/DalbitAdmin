@@ -252,7 +252,6 @@
         radioChange();
 
         setTimeDate(dateTime);
-        getStatPayInfo();
         $("#bt_search").click();
     });
 
@@ -309,7 +308,6 @@
                 setYear(1);
             }
         }
-        getStatPayInfo();
         $("#bt_search").click();
     }
 
