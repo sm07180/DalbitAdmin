@@ -12,20 +12,17 @@ memberUtil.convertEditHistory = function(text){
     var result = text;
     var textArr = text.split(' ');
     textArr.forEach(function(txt){
-        var imageUrl = memberUtil.profileImageAppender(txt);
-        result = common.replace(text, txt, imageUrl)
+        if(txt.startsWith('/profile_')) {
+            console.log(txt);
+            result = common.replace(result, txt, memberUtil.profileImageAppender(txt));
+        }
     })
 
     return result;
 }
 
 memberUtil.profileImageAppender = function(text){
-    var lowerText = text.toLowerCase();
-    var returnText = text;
-    if(-1 < lowerText.indexOf('/profile')){
-        returnText = PHOTO_SERVER_URL + text;
-        var image = '<img src="'+returnText+'" class="thumbnail fullSize_background" style="width:68px;height:68px;" />'
-        return image;
-    }
-    return text;
+    var returnText = PHOTO_SERVER_URL + text;
+    var image = '<img src="'+returnText+'" class="thumbnail fullSize_background" style="width:68px;height:68px;" />'
+    return image;
 }
