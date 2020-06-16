@@ -353,10 +353,12 @@ util.getCommonCodeHorizontalCheck = function(code, targetCode, isExcludeAllYn, n
     }
 },
 
-util.getOnOffSwitch = function(data) {
+util.getOnOffSwitch = function(data, name) {
+    var checkName = name == null ? 'viewOn' : name;
+
     var html = '<div class="onoffswitch">';
-    html += '<input type="checkbox" name="viewOn" id="detail_viewOn" class="onoffswitch-checkbox" ' + (data == 1 ? 'checked="checked"': '') +'>';
-    html += '<label class="onoffswitch-label" for="detail_viewOn">';
+    html += '<input type="checkbox" name="'+checkName+'" id="detail_'+checkName+'" class="onoffswitch-checkbox" ' + (data == 1 ? 'checked="checked"': '') +'>';
+    html += '<label class="onoffswitch-label" for="detail_'+checkName+'">';
     html += '<span class="onoffswitch-inner"></span>';
     html += '<span class="onoffswitch-switch"></span>';
     html += '</label>';

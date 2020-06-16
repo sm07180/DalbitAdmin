@@ -69,12 +69,11 @@
     };
 
     // 초기 설정
-    fnc_bannerDetail.initDetail= function()
-    {
+    fnc_bannerDetail.initDetail= function(){
         // 캘린더 기능추가
         fnc_bannerDetail.target.find("#banner-startDate, #banner-endDate").daterangepicker(this.dataPickerSrc,
             function (start, end, t1) {
-                console.log(t1);
+                //console.log(t1);
                 fnc_bannerDetail.target.find("#banner-input-startDate").val(start.format('YYYY.MM.DD'));
                 fnc_bannerDetail.target.find("#banner-input-endDate").val(end.format('YYYY.MM.DD'));
             }
@@ -152,6 +151,22 @@
             }else if (type == 8) {        // 종료팝업
                 $("input[name='is_pop']:input[value='1']").prop("checked", true)
             }
+
+            fnc_bannerDetail.popupBannerDisplayChange();
+        });
+
+        fnc_bannerDetail.target.find("input[name='popup_type']:radio").change(function () {   // 배너위치
+            var type = this.value;
+
+            //팝업구분 따른 display 변경
+            if(type == 0){
+                $('._show_popup_image').show();
+                $('._show_popup_text').hide();
+            }else{
+                $('._show_popup_image').hide();
+                $('._show_popup_text').show();
+            }
+
         });
 
         // 등록 버튼
@@ -184,8 +199,31 @@
 
             util.getAjaxData("upldate", "/rest/content/banner/update", data, fnc_bannerDetail.fn_update_success, fnc_bannerDetail.fn_fail);
         })
+
     };
 
+    fnc_bannerDetail.popupBannerDisplayChange = function(){
+        //배너위치에 따른 display 변경
+        if($('input[name="position"]:checked').val() == 6){
+            $('._show_popup').show();
+            $("input[name='popup_type']:radio").change();
+
+
+            //배너타입에 따른 display 변경 [이미지/텍스트]
+            if($('input[name="popup_type"]:checked').val() == 0){
+                    $('._show_popup_image').show();
+                    $('._show_popup_text').hide();
+            }else{
+                $('._show_popup_image').hide();
+                $('._show_popup_text').show();
+            }
+        }else{
+            $('._show_popup').hide();
+            $('._show_popup_image').show();
+            $('._show_popup_text').hide();
+        }
+
+    }
 
     //수정 데이터 조회 후 UI 처리
     fnc_bannerDetail.initUpdateUI= function(){
@@ -227,7 +265,7 @@
             fnc_bannerDetail.target.find("#banner-div-endDate").find("#timeHour").val(eDate.hour().toString().length == 1?("0"+eDate.hour()):eDate.hour());
             fnc_bannerDetail.target.find("#banner-div-endDate").find("#timeMinute").val(eDate.minute().toString().length == 1?("0"+eDate.minute()):eDate.minute());
         }
-
+        fnc_bannerDetail.popupBannerDisplayChange();
     };
 
 
@@ -245,6 +283,7 @@
             ,'position':'0'
             ,'is_view':'1'
             ,'term_type':'0'
+            ,'popup_type':'0'
         }
         var context = detailData;
         var html = templateScript(context);
@@ -371,6 +410,10 @@
             resultJson['platform'] = platform;
         }
 
+        if(0 < $('#detail_is_cookie:checked').length){
+            resultJson['is_cookie'] = 1;
+        }
+
         //예약발송 일경우 Date 처리
         if(fnc_bannerDetail.target.find("input[name='term_type']:radio:checked").val() == "1"){
             var startDiv = fnc_bannerDetail.target.find("#banner-div-startDate");
@@ -381,7 +424,6 @@
             resultJson['start_datetime'] = "";
             resultJson['end_datetime'] = "";
         }
-
 
         dalbitLog(resultJson)
         return resultJson
@@ -442,6 +484,23 @@
             alert("노출 기간 타입을 선택하여 주시기 바랍니다.");
             fnc_bannerDetail.target.find("input[name=term_type]").focus();
             return false;
+        }
+
+        //팝업 선택 시 필수 값 체크
+        if($('input[name="position"]:checked').val() == 6){
+
+            //이미지팝업
+            if($('input[name="popup_type"]:checked').val() == 0){
+                if($('#banner-pc_img_url').val() == '' && $('#banner-mobile_img_url').val() == ''){
+                    alert('이미지링크를 입력해 주시기 바랍니다.');
+                    return false;
+                }
+            }else{
+                if(common.isEmpty($('#contents').val())){
+                    alert('배너문구를 입력해 주시기 바랍니다.');
+                    return false;
+                }
+            }
         }
 
         return true;
@@ -550,10 +609,25 @@
                     </div>
                 </td>
             </tr>
-            <tr>
+            <tr class="_show_popup" style='display:none;'>
+                <th>팝업 구분</th>
+                <td colspan="5">{{{getCommonCodeRadio popup_type 'banner_popupType' 'N' 'popup_type'}}}</td>
+
+                <th>오늘하루 열지않기</th>
+                <td colspan="5">{{{getOnOffSwitch is_cookie 'is_cookie'}}}</td>
+            </tr>
+
+            <tr class="_show_popup _show_popup_text" style='display:none;'>
+                <th>배너문구</th>
+                <td colspan="11">
+                    <textarea name="contents" id="contents" style='width:100%;height:100%;' rows="10">{{contents}}</textarea>
+                </td>
+            </tr>
+
+            <tr class="_show_popup_image">
                 <th colspan="12">배너 이미지</th>
             </tr>
-            <tr>
+            <tr class="_show_popup_image">
                 <th>PC (1618px x 000px)</th>
                 <td colspan="5">
                     <input type="text" class="_trim" id="banner-pc_img_url" name="pc_img_url" style="width:70%" value="{{pc_img_url}}" >
@@ -566,7 +640,7 @@
                     <input type="button" value="미리보기" onclick="getImg('banner-mobile_img_url')">
                 </td>
             </tr>
-            <tr>
+            <tr class="_show_popup_image">
                 <td colspan="6">
                     <!--미리보기-->
                     <img id="banner-pc_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px;" src="" alt="" /></a>
