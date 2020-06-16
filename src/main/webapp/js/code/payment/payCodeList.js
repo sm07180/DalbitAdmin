@@ -46,3 +46,12 @@ var bankList = [
     , new COMMON_CODE('039','039','경남은행')
     , new COMMON_CODE('031','031','대구은행')
 ];
+
+var attempSearchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '', '검색구분(전체)')
+    , new COMMON_CODE('mem_no','mem_no','회원번호')
+    , new COMMON_CODE('mem_nick','mem_nick','닉네임')
+    , new COMMON_CODE('mem_name','mem_name','이름')
+    , new COMMON_CODE('product_nm','product_nm','상품명')
+]
