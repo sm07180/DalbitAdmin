@@ -765,7 +765,7 @@
         <td>{{addComma data.exchangeCnt}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
-        <td>{{{stateName data.state}}}{{stateName data.state}}</td>
+        <td>{{{stateName data.state}}}</td>
         <td>{{data.op_name}}</td>
         <td><button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx='{{data.idx}}'>보기</button></td>
     </tr>
