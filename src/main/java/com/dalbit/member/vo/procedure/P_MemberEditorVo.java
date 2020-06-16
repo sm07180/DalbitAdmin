@@ -27,7 +27,12 @@ public class P_MemberEditorVo extends BaseVo {
     private String  editContents;
     private String  beforProfileImage;
     private String  beforNickName;
-    private int  type;
+    private int type;
+
+    // 방송방 숨김상태
+    private String room_no;
+    private int hide;
+    private String title;
 
     // 달 별 추가 Cnt
     private int beforDalCnt;

@@ -37,17 +37,22 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
-            {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
+            {'title': '성별', 'data': 'dj_memSex', 'width':'55px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
+                }},
+            {'title': '숨김상태', 'data': 'hide', 'width':'50px', 'render': function (data, type, row, meta) {
+                    if(data == 0) return "N";
+                    else return "Y";
+
                 }},
             {'title': '시작일시', 'data': 'start_date','width' : '120px'},
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '나가기 횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '55px','render': function (data){
                     return common.fontColor(data, 1, 'red') +'번';
                 }},
-            {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '65px','render': function (data){
+            {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '55px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
                 }},
@@ -115,15 +120,20 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px'},
-            {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
+            {'title': '성별', 'data': 'dj_memSex', 'width':'55px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
+                }},
+            {'title': '숨김상태', 'data': 'hide', 'width':'50px', 'render': function (data, type, row, meta) {
+                    if(data == 0) return "N";
+                    else return "Y";
+
                 }},
             {'title': '시작일시', 'data': 'start_date','width' : '120px'},
             {'title': '종료일시', 'data': 'end_date','width' : '120px'},
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '나가기 횟수', 'data': 'exit_try_count','width' : '70px','render': function (data){
+            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '55px','render': function (data){
                     return common.fontColor(data, 1, 'red') +'번';
                 }},
             {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '65px','render': function (data){
@@ -175,6 +185,11 @@ var BroadcastDataTableSource = {
             {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
             {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
+                }},
+            {'title': '숨김상태', 'data': 'hide', 'render': function (data, type, row, meta) {
+                    if(data == 0) return "N";
+                    else return "Y";
+
                 }},
             {'title': '누적청취자', 'data': 'totalListener','render': function (data){
                     var tmp = common.addComma(data);
@@ -350,7 +365,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/chat/list'
         , 'columns': [
             {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
-            {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
+            {'title': '채팅 내용', 'data': 'nickname','render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반
                         tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
@@ -371,7 +386,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/chat/targetList'
         , 'columns': [
             {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
-            {'title': '채팅 내용', 'data': 'nickname','className' : 'text-left', 'render': function (data, type, row, meta) {
+            {'title': '채팅 내용', 'data': 'nickname','render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반
                         tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
@@ -392,7 +407,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/broadcast/editHist'
         , 'columns': [
             {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
-            {'title': '수정 내용', 'data': 'editContents','width':'900px'},
+            {'title': '수정 내용', 'data': 'editContents','width':'900px','className':'al'},
             {'title': '처리자명', 'data': 'opName','width':'100px'},
         ]
         , 'comments': 'ㆍ회원 또는 운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'

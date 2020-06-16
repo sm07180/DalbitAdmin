@@ -200,4 +200,13 @@ public class Mem_MemberRestController {
     }
 
     //-------------------------------------------------------------------------
+
+    /**
+     * 회원 방송방 숨김 상태
+     */
+    @PostMapping("update/broadCastHide")
+    public String broadCastHide(P_MemberEditorVo pMemberEditorVo) {
+        String result = mem_MemberService.callMemberBroadCastHide(pMemberEditorVo);
+        return result;
+    }
 }

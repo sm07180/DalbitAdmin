@@ -516,7 +516,7 @@ var MemberDataTableSource = {
         'url': '/rest/member/member/editHist'
         , 'columns': [
             {'title': '수정일자', 'data': 'editDateFormat','width':'120px'},
-            {'title': '수정 내용', 'data': 'editContents','width':'900px','render' : function(data){
+            {'title': '수정 내용', 'data': 'editContents','width':'900px','className':'al' ,'render' : function(data){
                     return memberUtil.convertEditHistory(data);
                 }},
             {'title': '처리자명', 'data': 'opName','width':'100px'},

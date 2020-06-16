@@ -36,6 +36,7 @@ public class P_BroadcastDetailOutputVo extends BaseVo {
     private String airTime;
     private String lastOpDate;
     private String lastOpName;
+    private String roomHide;
 
     private String recomm_badge;
     private String newdj_badge;

@@ -89,6 +89,9 @@ public enum Status {
     회원방송방_숨김해제_성공("0", "member.broadcast.hide.success", "회원방송방 숨김해제 성공 시"),
     회원방송방_숨김해제_실패("-1", "member.broadcast.hide.fail", "회원방송방 숨김해제 실패 시"),
 
+    //회원 방송방 숨김 불가능
+    회원방송방_숨김처리_불가능("-2", "member.broadcast.hide.error", "회원방송방 숨김처리 불가능 방송방 상태"),
+
     //방송기록보기
     방송기록보기성공("0", "broadcast.list.view.success", "방송기록 보기 성공 시"),
     방송기록보기실패("C006", "broadcast.list.view.fail", "방송기록 보기 실패 시"),

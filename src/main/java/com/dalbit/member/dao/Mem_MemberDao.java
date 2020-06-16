@@ -106,4 +106,6 @@ public interface Mem_MemberDao {
 
     @Transactional(readOnly = true)
     MemberVo getMemberInfo(String mem_no);
+
+    int callMemberBroadCastHide(P_MemberEditorVo pMemberEditorVo);
 }

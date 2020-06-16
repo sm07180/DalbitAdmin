@@ -38,4 +38,6 @@ public interface Bro_BroadcastDao {
     HashMap callBroadcastSimpleInfo(String roomNo);
     @Transactional(readOnly = true)
     ArrayList<P_ChatListOutputVo> callBroadcastLiveChatInfo(P_ChatListInputVo pChatListInputVo);
+
+    int callBroadCastEditHistoryAdd(P_BroadcastEditInputVo pBroadcastEditInputVo);
 }

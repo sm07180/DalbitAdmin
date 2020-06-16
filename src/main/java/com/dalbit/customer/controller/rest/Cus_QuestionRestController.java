@@ -152,8 +152,8 @@ public class Cus_QuestionRestController {
      *  1:1 문의 운영자 메모 등록
      */
     @PostMapping("adminMemoAdd")
-    public String adminMemoAdd(P_QuestionOperateVo pQuestionOperateVo){
-        return cus_questionService.callAdminMemoAdd(pQuestionOperateVo);
+    public String callAdminMemoQuestionAdd(P_QuestionOperateVo pQuestionOperateVo){
+        return cus_questionService.callAdminMemoQuestionAdd(pQuestionOperateVo);
     }
 
     /**

@@ -47,7 +47,7 @@ public interface Cus_QuestionDao {
 
     int callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo);
     int callServiceCenterQnaChatchRelease(P_QuestionOperateVo pQuestionOperateVo);
-    int callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo);
+    int callAdminMemoQuestionAdd(P_QuestionOperateVo pQuestionOperateVo);
 
     @Transactional(readOnly = true)
     ArrayList<P_QuestionAdminMemoListOutputVo> callQuestionAdminList(P_QuestionOperateVo pQuestionOperateVo);

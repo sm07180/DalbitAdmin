@@ -50,6 +50,7 @@
         $("#bt_modalEntryNotice").on("click", function () {    //입장제한변경 팝업 알림O
             entry(this.id);
         });
+
     });
 
     $("#subjectType").html(util.getCommonCodeSelect(1, subject_type, "Y"));
@@ -374,6 +375,31 @@
         // $("#broadcast_detailFrm").empty();
     }
 
+    function broadCastHide(hide){
+        var tmp;
+        if(hide == 1)
+            tmp = "방송방 숨김 처리 하시겠습니까?";
+        else
+            tmp = "방송방 숨김 해제 하시겠습니까?";
+
+        if(confirm(tmp)) {
+            var data = {};
+            data.mem_no = mem_no;
+            data.hide = hide;
+            data.room_no = room_no;
+            data.title = broadCast_responseData.title;
+            util.getAjaxData("info", "/rest/member/member/update/broadCastHide", data, broadcast_hide_success, fn_fail);
+        }else return;
+    }
+
+    function broadcast_hide_success(dst_id, response) {
+        if(response.code != 0){
+            alert(response.message);
+            return;
+        }
+        getBroadCast_info_popup(room_no);
+    }
+
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
         alert('정보 변경에 실패하였습니다');
@@ -431,7 +457,15 @@
                 {{#equal broadcastState 'ON'}}<button type="button" id="bt_msgWelcom" class="btn btn-default btn-sm pull-right">초기화</button>{{/equal}}
             </td>
             <th>방송상태</th>
-            <td style="text-align: left">{{{icon_broadcastState}}}</td>
+            <td style="text-align: left">
+                {{{icon_broadcastState}}}
+                {{#equal roomHide '0'}}
+                    <button type="button" id="bt_broadCastHide" class="btn btn-danger btn-sm pull-right" onclick="broadCastHide(1);">방송방 숨김</button>
+                {{/equal}}
+                {{#equal roomHide '1'}}
+                    <button type="button" id="bt_broadCastHideCancel" class="btn btn-danger btn-sm pull-right" onclick="broadCastHide(0);">방송방 숨김 해제</button>
+                {{/equal}}
+            </td>
         </tr>
         <tr>
             <th>마이크</th>

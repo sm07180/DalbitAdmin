@@ -173,6 +173,13 @@
             getInfoDetail(this.id,"보유달/별 수정내역");
         });
 
+        $('#bt_broadCastHide').click(function() {           // 방송 숨김상태 변경
+            broadCastHide(1);
+        });
+        $('#bt_broadCastHideCancel').click(function() {           // 방송 숨김상태 해제
+            broadCastHide(0);
+        });
+
         // 버튼 끝
     }
 
@@ -429,6 +436,7 @@
 
         var scrollPosition = $("#tab_infoDetail").offset();
         util.scrollPostion(scrollPosition.top);
+
     }
     function getInfoDetail2(tmp){
         var dtList_info_detail_data = function (data) {
@@ -536,6 +544,30 @@
         util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
     }
 
+    function broadCastHide(hide){
+        var tmp;
+        if(hide == 1)
+            tmp = "방송방 숨김 처리 하시겠습니까?";
+        else
+            tmp = "방송방 숨김 해제 하시겠습니까?";
+
+        if(confirm(tmp)) {
+            var data = {};
+            data.mem_no = memNo;
+            data.hide = hide;
+            data.room_no = memberInfo_responseDate.room_no;
+            data.title = memberInfo_responseDate.title
+            util.getAjaxData("info", "/rest/member/member/update/broadCastHide", data, broadcast_hide_success, fn_fail);
+        }else return;
+    }
+
+    function broadcast_hide_success(dst_id, response) {
+        if(response.code != 0){
+            alert(response.message);
+            return;
+        }
+        getMemNo_info_reload(memNo);
+    }
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
@@ -594,6 +626,12 @@
                 {{{icon_broadcastState}}}
                 {{#equal broadcastState 'ON'}}
                  - 방송제목 : {{{roomNoLink ../title ../room_no}}}
+                    {{#equal ../hide 0}}
+                        <button type="button" id="bt_broadCastHide" class="btn btn-danger btn-sm pull-right">방송방 숨김</button>
+                    {{/equal}}
+                    {{#equal ../hide 1}}
+                        <button type="button" id="bt_broadCastHideCancel" class="btn btn-danger btn-sm pull-right">방송방 숨김 해제</button>
+                    {{/equal}}
                 {{/equal}}
 
             </td>

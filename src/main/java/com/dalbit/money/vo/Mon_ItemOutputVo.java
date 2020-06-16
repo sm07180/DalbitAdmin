@@ -29,4 +29,9 @@ public class Mon_ItemOutputVo {
     private int sumGold;
     private int totalDal;
     private int totalByeol;
+
+    private int ruby_old;
+    private int gold_old;
+    private int ruby_new;
+    private int gold_new;
 }
