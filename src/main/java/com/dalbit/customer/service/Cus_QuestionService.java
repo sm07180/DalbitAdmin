@@ -266,7 +266,7 @@ public class Cus_QuestionService {
         if(DalbitUtil.exceptionUser().indexOf(MemberVo.getMyMemNo()) > -1){
             check = 2;
         }else {
-            cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
+//            cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
 
             check = cus_questionDao.callServiceCenterQnaStateCheck(pQuestionOperateVo);
         }
@@ -302,18 +302,6 @@ public class Cus_QuestionService {
         return result;
     }
 
-    /**
-     *  1:1 문의하기 처리중 상태 전체 해제
-     */
-    public String callServiceCenterQnaChatchRelease_all(){
-        P_QuestionOperateVo pQuestionOperateVo = new P_QuestionOperateVo();
-        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
-        cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
-        String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태해제_성공));
-
-        return result;
-    }
     public String callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo){
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
         int resultInt = cus_questionDao.callAdminMemoAdd(pQuestionOperateVo);

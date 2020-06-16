@@ -47,7 +47,6 @@ public interface Cus_QuestionDao {
 
     int callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo);
     int callServiceCenterQnaChatchRelease(P_QuestionOperateVo pQuestionOperateVo);
-    int callServiceCenterQnaChatchRelease_all(P_QuestionOperateVo pQuestionOperateVo);
     int callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo);
 
     @Transactional(readOnly = true)
