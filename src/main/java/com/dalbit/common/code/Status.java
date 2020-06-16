@@ -81,6 +81,14 @@ public enum Status {
     회원달별수정내역조회_성공("0", "member.dal.byeol.edit.list.success", "회원달/별 수정내역 조회 성공 시"),
     회원달별수정내역조회_실패("-1", "member.dal.byeol.edit.list.fail", "회원달/별 수정내역 조회 실패 시"),
 
+    //회원 방송방 숨김 처리
+    회원방송방_숨김처리_성공("0", "member.broadcast.hide.success", "회원방송방 숨김처리 성공 시"),
+    회원방송방_숨김처리_실패("-1", "member.broadcast.hide.fail", "회원방송방 숨김처리 실패 시"),
+
+    //회원 방송방 숨김 해제
+    회원방송방_숨김해제_성공("0", "member.broadcast.hide.success", "회원방송방 숨김해제 성공 시"),
+    회원방송방_숨김해제_실패("-1", "member.broadcast.hide.fail", "회원방송방 숨김해제 실패 시"),
+
     //방송기록보기
     방송기록보기성공("0", "broadcast.list.view.success", "방송기록 보기 성공 시"),
     방송기록보기실패("C006", "broadcast.list.view.fail", "방송기록 보기 실패 시"),
@@ -226,6 +234,7 @@ public enum Status {
     일대일문의처리_문의번호없음("-1", "no.data", "1:1문의 처리에서 문의 번호가 없을 시"),
     일대일문의처리_이미처리됐음("-2", "server.error", "1:1문의 처리에서 이미 처리된 문의일 시"),
     일대일문의처리_에러("C006", "server.error", "1:1문의 처리에서 에러 발생 시"),
+    일대일문의처리_이미_진행중("3", "server.error", "1:1문의 처리에서 에러 발생 (처리 진행중)"),
 
     //1:1문의 수정하기
     일대일문의수정_성공("0", "question.update.success", "1:1문의 수정 성공 시"),

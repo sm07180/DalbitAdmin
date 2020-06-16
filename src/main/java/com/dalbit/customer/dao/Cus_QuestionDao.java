@@ -24,6 +24,10 @@ public interface Cus_QuestionDao {
     @Transactional(readOnly = true)
     P_QuestionDetailOutputVo callServiceCenterQnaDetail(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    P_QuestionDetailOutputVo callServiceCenterQnaState(P_QuestionOperateVo pQuestionOperateVo);
+
+    @Transactional(readOnly = true)
     ProcedureVo callServiceCenterQnaOperate(ProcedureVo procedureVo);
     int callServiceCenterQnaUpdate(P_QuestionOperateVo pQuestionOperateVo);
 
@@ -43,7 +47,6 @@ public interface Cus_QuestionDao {
 
     int callServiceCenterQnaCatch(P_QuestionOperateVo pQuestionOperateVo);
     int callServiceCenterQnaChatchRelease(P_QuestionOperateVo pQuestionOperateVo);
-    int callServiceCenterQnaChatchRelease_all(P_QuestionOperateVo pQuestionOperateVo);
     int callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo);
 
     @Transactional(readOnly = true)

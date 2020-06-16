@@ -111,8 +111,6 @@
         ui.toggleSearchList();
 
         $('#tab_customerQuestion').removeClass("show");
-
-        util.getAjaxData("release_all", "/rest/customer/question/release_all",null);
     }
 
     function question_summary_table(json){

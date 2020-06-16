@@ -93,48 +93,62 @@ public class Cus_QuestionService {
      *  1:1 문의하기 처리하기
      */
     public String callServiceCenterQnaOperate(P_QuestionOperateVo pQuestionOperateVo){
+        P_QuestionDetailOutputVo outVo = cus_questionDao.callServiceCenterQnaState(pQuestionOperateVo);
+        String result = "";
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
-        ProcedureVo procedureVo = new ProcedureVo(pQuestionOperateVo,true);
-        cus_questionDao.callServiceCenterQnaOperate(procedureVo);
+        if(outVo.getState() == 0){
+            ProcedureVo procedureVo = new ProcedureVo(pQuestionOperateVo,true);
+            cus_questionDao.callServiceCenterQnaOperate(procedureVo);
 
-        String result;
-        if(Status.일대일문의처리_성공.getMessageCode().equals(procedureVo.getRet())) {
+            if(Status.일대일문의처리_성공.getMessageCode().equals(procedureVo.getRet())) {
 
-            cus_questionDao.callServiceCenterQnaDetail(procedureVo);
-            P_QuestionDetailOutputVo questionDetail = new Gson().fromJson(procedureVo.getExt(), P_QuestionDetailOutputVo.class);
+                cus_questionDao.callServiceCenterQnaDetail(procedureVo);
+                P_QuestionDetailOutputVo questionDetail = new Gson().fromJson(procedureVo.getExt(), P_QuestionDetailOutputVo.class);
 
-            try{    // PUSH 발송
-                P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+                try{    // PUSH 발송
+                    P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
 
-                pPushInsertVo.setMem_nos(questionDetail.getMem_no());
-                pPushInsertVo.setSlct_push("37");
-                pPushInsertVo.setSend_title("1:1문의 답변이 등록되었어요!");
-                pPushInsertVo.setSend_cont("등록한 1:1문의에 답변이 등록되었습니다.");
-                pPushInsertVo.setImage_type("101");
-                pushService.sendPushReqOK(pPushInsertVo);
-            }catch (Exception e){
-                log.error("[PUSH 발송 실패 - 일대일문의처리]");
+                    pPushInsertVo.setMem_nos(questionDetail.getMem_no());
+                    pPushInsertVo.setSlct_push("37");
+                    pPushInsertVo.setSend_title("1:1문의 답변이 등록되었어요!");
+                    pPushInsertVo.setSend_cont("등록한 1:1문의에 답변이 등록되었습니다.");
+                    pPushInsertVo.setImage_type("101");
+                    pushService.sendPushReqOK(pPushInsertVo);
+                }catch (Exception e){
+                    log.error("[PUSH 발송 실패 - 일대일문의처리]");
+                }
+
+                try{
+                    P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                    pMemberReportVo.setReported_mem_no(questionDetail.getMem_no());
+                    pMemberReportVo.setSlctType(7);
+                    pMemberReportVo.setNotiContents("등록한 1:1문의에 답변이 등록되었습니다.");
+                    pMemberReportVo.setNotimemo("등록한 1:1문의에 답변이 등록되었습니다.");
+                    memMemberDao.callMemberNotification_Add(pMemberReportVo);
+                }catch (Exception e){
+                    log.error("[NOTI 발송 실패 - 일대일문의처리]");
+                }
+
+                result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_성공));
+            } else if(Status.일대일문의처리_문의번호없음.getMessageCode().equals((procedureVo.getRet()))) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_문의번호없음));
+            } else if(Status.일대일문의처리_이미처리됐음.getMessageCode().equals(procedureVo.getRet())) {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_이미처리됐음));
+            } else {
+                result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_에러));
             }
-
-            try{
-                P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
-
-                pMemberReportVo.setReported_mem_no(questionDetail.getMem_no());
-                pMemberReportVo.setSlctType(7);
-                pMemberReportVo.setNotiContents("등록한 1:1문의에 답변이 등록되었습니다.");
-                pMemberReportVo.setNotimemo("등록한 1:1문의에 답변이 등록되었습니다.");
-                memMemberDao.callMemberNotification_Add(pMemberReportVo);
-            }catch (Exception e){
-                log.error("[NOTI 발송 실패 - 일대일문의처리]");
+        }else{
+            if(outVo.getState() == 1){
+                int updateResult = cus_questionDao.callServiceCenterQnaUpdate(pQuestionOperateVo);
+                if(updateResult == 1) {
+                    result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의수정_성공));
+                } else {
+                    result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_에러));
+                }
+             }else if(outVo.getState() == 2){
+                result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_이미_진행중));
             }
-
-            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_성공));
-        } else if(Status.일대일문의처리_문의번호없음.getMessageCode().equals((procedureVo.getRet()))) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_문의번호없음));
-        } else if(Status.일대일문의처리_이미처리됐음.getMessageCode().equals(procedureVo.getRet())) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_이미처리됐음));
-        } else {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리_에러));
         }
 
         return result;
@@ -252,7 +266,7 @@ public class Cus_QuestionService {
         if(DalbitUtil.exceptionUser().indexOf(MemberVo.getMyMemNo()) > -1){
             check = 2;
         }else {
-            cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
+//            cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
 
             check = cus_questionDao.callServiceCenterQnaStateCheck(pQuestionOperateVo);
         }
@@ -288,18 +302,6 @@ public class Cus_QuestionService {
         return result;
     }
 
-    /**
-     *  1:1 문의하기 처리중 상태 전체 해제
-     */
-    public String callServiceCenterQnaChatchRelease_all(){
-        P_QuestionOperateVo pQuestionOperateVo = new P_QuestionOperateVo();
-        pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
-        cus_questionDao.callServiceCenterQnaChatchRelease_all(pQuestionOperateVo);
-        String result;
-        result = gsonUtil.toJson(new JsonOutputVo(Status.일대일문의처리중_상태해제_성공));
-
-        return result;
-    }
     public String callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo){
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
         int resultInt = cus_questionDao.callAdminMemoAdd(pQuestionOperateVo);

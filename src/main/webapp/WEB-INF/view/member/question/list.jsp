@@ -25,8 +25,6 @@
     var tmp_slctPlatform = null;
     var tmp_slctState = -1;
     function getHistory_questionDetail(tmp) {     // 상세보기
-        util.getAjaxData("release_all", "/rest/customer/question/release_all",null);
-
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         var dtList_info_detail_data = function (data) {
             data.searchText = memNo;

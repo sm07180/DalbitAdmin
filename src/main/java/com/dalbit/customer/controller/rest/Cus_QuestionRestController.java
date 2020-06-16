@@ -149,14 +149,6 @@ public class Cus_QuestionRestController {
     }
 
     /**
-     *  1:1 문의 처리중 상태 전체 해제
-     */
-    @PostMapping("release_all")
-    public String release_all() {
-        return cus_questionService.callServiceCenterQnaChatchRelease_all();
-    }
-
-    /**
      *  1:1 문의 운영자 메모 등록
      */
     @PostMapping("adminMemoAdd")

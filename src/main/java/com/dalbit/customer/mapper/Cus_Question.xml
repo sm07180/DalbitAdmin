@@ -78,10 +78,6 @@
          update rd_data.tb_service_center_qna set state=0, op_name='' where idx =#{qnaIdx} and state = 2
     </update>
 
-    <update id="callServiceCenterQnaChatchRelease_all" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
-        update rd_data.tb_service_center_qna set state=0, op_name='' where op_name=#{opName} and state = 2
-    </update>
-
     <insert id="callAdminMemoAdd" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
         insert into rd_admin.tb_admin_op_memo_question (qnaIdx,mem_no,memo,op_name,reg_date)
          value (#{qnaIdx},#{mem_no},#{memo},#{opName},now());
@@ -100,5 +96,11 @@
          select count(*) as totalCnt
 				 from rd_admin.tb_admin_op_memo_question
 				where qnaIdx=#{qnaIdx}
+    </select>
+
+    <select id="callServiceCenterQnaState" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo" resultType="com.dalbit.customer.vo.procedure.P_QuestionDetailOutputVo">
+        select state
+             from rd_data.tb_service_center_qna
+            where idx = #{qnaIdx}
     </select>
 </mapper>
