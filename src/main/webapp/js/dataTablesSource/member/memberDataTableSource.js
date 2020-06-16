@@ -423,51 +423,6 @@ var MemberDataTableSource = {
         , 'comments' : ' • 최신 신고자를 기준으로 상위 구성하고, 확인하고자 하는 회원 정보 내 선택을 클릭하면 상세정보 및 회원 신고조치를 처리할 수 있습니다.'
     },
 
-    'questionDetail': {
-        'url': '/rest/customer/question/list'
-        , 'columns': [
-            {'title': '문의유형', 'data': 'slct_type','width':'80px','render': function (data, type, row, meta) {
-                    return util.getCommonCodeLabel(data, question_type);
-                }},
-            {'title': '플랫폼', 'data': 'platform','width':'60px'},
-            {'title': 'Browser', 'data': 'browser','width':'70px'},
-            {'title': '문의자UserId', 'data': 'mem_userid','width':'80px','render': function (data, type, row, meta) {
-                    var tmp = util.memNoLink(data, row.mem_no);
-                    tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
-                    return tmp;
-                }},
-            {'title': '문의자닉네임', 'data': 'mem_nick','width':'100px'},
-            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
-                }},
-            {'title': '문의제목', 'data': 'question_title','width':'250px','render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="getQuestDetail" onclick="javascript:getQuestDetail('+meta.row+');">'+data+'</a>'
-                }},
-            {'title': '접수일시<br>/처리일시', 'data': 'writeDateFormat','width':'120px','render' : function(data,type,row){
-                    if(row.opDateFormat == ""){
-                        return data;
-                    }else{
-                        return data + '<br/>/' + row.opDateFormat;
-                    }
-                }},
-            // {'title': '첨부파일', 'data': 'add_file','width':'60px'},
-            {'title': '첨부파일', 'data': 'add_file','width':'60px','render' : function(data){
-                    var tmp = data.split(",");
-                    return tmp.length + " 건";
-                }},
-            {'title': '처리상태', 'data': 'state','width':'60px','render' : function(data){
-                    if(data == "0"){
-                        return "미처리";
-                    }else if (data == "1"){
-                        return "처리완료";
-                    }
-                }},
-            {'title': '알림', 'data': 'memNo','width':'60px'},
-            {'title': '처리자', 'data': 'op_name','width':'80px'},
-        ]
-        , 'comments': 'ㆍ해당 회원의 1:1문의, 전화문의, 메일문의 전체내역을 리스트로 확인할 수 있습니다.'
-    },
-
     'banwordDetail': {
         'url': '/rest/member/banword/list'
         , 'columns': [

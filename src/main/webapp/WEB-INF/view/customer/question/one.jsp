@@ -102,7 +102,7 @@
         //textarea resize
         resize(document.getElementById("question_contents"));
 
-        var scrollPosition = $(".tab-content").offset();
+        var scrollPosition = $("#div_questionTab").offset();
         util.scrollPostion(scrollPosition.top);
     }
     function fn_getFaqGroup_success(data, response, params) {
@@ -214,13 +214,15 @@
     }
 
     function adminMemoAdd(){
-        if (common.isEmpty($("#txt_adminMemo").val())) {
+        console.log("--------------------------");
+        console.log($("#txt_qnaAdminMemo").val());
+        if (common.isEmpty($("#txt_qnaAdminMemo").val())) {
             alert("등록할 운영자 메모를 입력해 주십시오.");
             return;
         }
         var obj = {};
         obj.qnaIdx = qnaIdx;
-        obj.memo = $("#txt_adminMemo").val();
+        obj.memo = $("#txt_qnaAdminMemo").val();
         obj.mem_no = memNo;
         util.getAjaxData("adminMemoAdd", "/rest/customer/question/adminMemoAdd", obj, update_success);
     }
@@ -231,7 +233,6 @@
     }
 
     function adminMemoList(){
-        console.log("-----------------------------------------------------");
         $('#adminMemoModal').modal('show');
         var dtMemo_List_info;
         var dtList_info_data = function ( data ) {
@@ -375,7 +376,7 @@
                         운영자 메모
                     </th>
                     <td colspan="9">
-                        <input type="text" class="form-control" id="txt_adminMemo">
+                        <input type="text" class="form-control" id="txt_qnaAdminMemo" style="width: 100%">
                     </td>
                     <td>
                         <button type="button" id="bt_adminMemo" class="btn-sm btn btn-default" style="margin-right: 3px" onclick="adminMemoAdd();">등록</button>
