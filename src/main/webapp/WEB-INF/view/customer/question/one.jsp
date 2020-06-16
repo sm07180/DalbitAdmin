@@ -397,7 +397,7 @@
                 {{#equal state '2'}}
                 <button type="button" id="bt_operate" class="btn btn-default">완료</button>
                 {{/equal}}
-                {{^equal state '2'}}
+                {{#equal state '1'}}
                 <button type="button" id="bt_update" class="btn btn-default">수정</button>
                 {{/equal}}
             </div>
