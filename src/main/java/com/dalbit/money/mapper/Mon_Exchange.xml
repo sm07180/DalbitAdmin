@@ -28,6 +28,7 @@
                    exchange.cash_real,
                    exchange.account_name,
                    exchange.bank_code,
+                   (select code from rd_data.tbl_code_define where `type` = 'exchange_bank_code' and `value` = exchange.bank_code) bank_name,
                    exchange.account_no,
                    exchange.social_no,
                    exchange.phone_no,

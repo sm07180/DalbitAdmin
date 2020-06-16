@@ -46,6 +46,7 @@ public class Mon_ExchangeController {
     public ModelAndView listExcel(Map map, ModelAndView mv, HttpServletRequest request, HttpServletResponse response, Mon_ExchangeInputVo monExchangeInputVo, Model model) throws GlobalException {
 
         monExchangeInputVo.setExcelYn("Y");
+        monExchangeInputVo.setLast_reject(1);
         List<Object[]> body = monExchangeService.getExcelData(monExchangeInputVo, model);
 
         if(body.size() == 0){

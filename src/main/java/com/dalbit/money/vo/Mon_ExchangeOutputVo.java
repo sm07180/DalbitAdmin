@@ -27,6 +27,7 @@ public class Mon_ExchangeOutputVo{
     private int cash_real;
     private String account_name;
     private String bank_code;
+    private String bank_name;
     private String account_no;
     private String social_no;
     private String phone_no;
