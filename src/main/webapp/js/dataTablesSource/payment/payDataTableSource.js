@@ -8,7 +8,7 @@ var payDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
-                    return row.order_id;
+                    return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
@@ -104,7 +104,7 @@ var payDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
-                    return row.order_id;
+                    return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
@@ -194,7 +194,7 @@ var payDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
-                    return row.order_id;
+                    return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
@@ -261,7 +261,7 @@ var payDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + row.mem_no + '</a> </br> '+row.mem_nick+''
                 }}
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
-                    return row.order_id;
+                    return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
