@@ -330,7 +330,7 @@
 
                 <th>사이트 적용</th>
                 <!--<td id="viewOn"></td>-->
-                <td>{{{getOnOffSwitch viewOn}}}</td>
+                <td>{{{getOnOffSwitch viewOn 'viewOn'}}}</td>
 
                 <th>등록일시</th>
                 <td id="regDate">{{writeDate}}</td>

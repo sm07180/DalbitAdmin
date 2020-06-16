@@ -366,7 +366,7 @@
                     <td>{{opName}}</td>
                     <th>게시상태</th>
                     <td>
-                        {{{getOnOffSwitch viewOn}}}
+                        {{{getOnOffSwitch viewOn 'viewOn'}}}
                     </td>
                 </tr>
             </tbody>
