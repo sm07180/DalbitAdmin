@@ -24,6 +24,10 @@ public interface Cus_QuestionDao {
     @Transactional(readOnly = true)
     P_QuestionDetailOutputVo callServiceCenterQnaDetail(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    P_QuestionDetailOutputVo callServiceCenterQnaState(P_QuestionOperateVo pQuestionOperateVo);
+
+    @Transactional(readOnly = true)
     ProcedureVo callServiceCenterQnaOperate(ProcedureVo procedureVo);
     int callServiceCenterQnaUpdate(P_QuestionOperateVo pQuestionOperateVo);
 
