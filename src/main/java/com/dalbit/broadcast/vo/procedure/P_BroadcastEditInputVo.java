@@ -27,5 +27,7 @@ public class P_BroadcastEditInputVo  extends PagingVo {
     private String state;
     private String start_date;
 
+    private String editContents;
+
 
 }

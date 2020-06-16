@@ -44,6 +44,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int osType;
     private int exit_try_count;
     private String backgroundImage;
+    private int hide;
 
     /* total */
     private int totalBroadCastCnt;

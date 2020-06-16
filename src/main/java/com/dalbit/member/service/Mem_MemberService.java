@@ -2,6 +2,7 @@ package com.dalbit.member.service;
 
 
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.*;
@@ -620,5 +621,35 @@ public class Mem_MemberService {
         }
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모등록성공));
+    }
+    public String callMemberBroadCastHide(P_MemberEditorVo pMemberEditorVo){
+        pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+        int hide = mem_MemberDao.callMemberBroadCastHide(pMemberEditorVo);
+        String ediContents = "";
+        if (pMemberEditorVo.getHide() == 1) {
+            ediContents = "방송방 제목 : " + pMemberEditorVo.getTitle() + " > [방송방 숨김]";
+        }else {
+            ediContents = "방송방 제목 : " + pMemberEditorVo.getTitle() + " > [방송방 숨김 해제]";
+        }
+
+        pMemberEditorVo.setEditContents(ediContents);
+        pMemberEditorVo.setType(0);
+        mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+        P_BroadcastEditInputVo pBroadcastEditInputVo = new P_BroadcastEditInputVo();
+        pBroadcastEditInputVo.setRoom_no(pMemberEditorVo.getRoom_no());
+        pBroadcastEditInputVo.setEditContents(ediContents);
+        pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
+
+        bro_BroadcastDao.callBroadCastEditHistoryAdd(pBroadcastEditInputVo);
+
+        String result;
+        if(hide > 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원방송방_숨김처리_성공));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원방송방_숨김처리_실패));
+        }
+
+        return result;
     }
 }

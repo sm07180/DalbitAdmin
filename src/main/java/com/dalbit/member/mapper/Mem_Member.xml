@@ -265,4 +265,15 @@
         INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new ) VALUES ( #{mem_no}, 8, #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt} );
     </insert>
 
+    <update id="callMemberBroadCastHide" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
+        /* M_Member.xml - callMemberBroadCastHide */
+        update rd_data.tb_broadcast_room
+           set hide = #{hide}
+         where mem_no = #{mem_no}
+           and state !=4
+           <if test='room_no != "" and room_no != null'>
+               and room_no = #{room_no}
+           </if>
+    </update>
+
 </mapper>

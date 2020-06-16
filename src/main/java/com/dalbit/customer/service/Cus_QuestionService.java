@@ -302,9 +302,9 @@ public class Cus_QuestionService {
         return result;
     }
 
-    public String callAdminMemoAdd(P_QuestionOperateVo pQuestionOperateVo){
+    public String callAdminMemoQuestionAdd(P_QuestionOperateVo pQuestionOperateVo){
         pQuestionOperateVo.setOpName(MemberVo.getMyMemNo());
-        int resultInt = cus_questionDao.callAdminMemoAdd(pQuestionOperateVo);
+        int resultInt = cus_questionDao.callAdminMemoQuestionAdd(pQuestionOperateVo);
         String result;
         if(resultInt > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.처리완료));
