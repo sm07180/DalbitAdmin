@@ -6,7 +6,7 @@
         <li class="active"><a href="#one" role="tab" data-toggle="tab"> 1:1문의 </a></li> <%-- href 수정 --%>
         <%--<li><a href="#call" role="tab" data-toggle="tab"> 전화문의 </a></li>--%>
      </ul>
-    <div class="tab-content">
+    <div class="tab-content" id="div_questionTab">
         <div class="tab-pane fade in active" id="one"><jsp:include page="../../customer/question/one.jsp"/></div> <%-- 1:1문의 --%>
         <%--<div class="tab-pane fade" id="call"><jsp:include page="../../customer/email/call.jsp"/></div> &lt;%&ndash; 전화문의 &ndash;%&gt;--%>
     </div>

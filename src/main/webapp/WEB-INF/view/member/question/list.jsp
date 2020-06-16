@@ -28,14 +28,13 @@
         util.getAjaxData("release_all", "/rest/customer/question/release_all",null);
 
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
-        var source = MemberDataTableSource[tmp];
         var dtList_info_detail_data = function (data) {
             data.searchText = memNo;
             data.searchType = 1;
             data.slctPlatform = tmp_slctPlatform;
             data.slctState = tmp_slctState;
         };
-        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, source);
+        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, questionDataTableSource.questList);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(50);
@@ -79,23 +78,14 @@
     var qnaIdx;
     var answer;
     function getQuestDetail(index){
+        $("#tab_memberQuestion").addClass('show');
         var data = dtList_info_detail.getDataRow(index);
-        qnaIdx = data.qnaIdx;
-        answer = data.answer;
-
-        var obj = {};
-        obj.qnaIdx = qnaIdx;
-        util.getAjaxData("qnaCatch", "/rest/customer/question/qnaCatch", obj, fn_getqnaCatch_success);
-    }
-    function fn_getqnaCatch_success(data, response, params) {
-        dalbitLog(response);
-
-        $('#tab_memberQuestion').removeClass("hide");
         var obj ={};
-        obj.qnaIdx = qnaIdx;
-        obj.answer = answer;
+        obj.qnaIdx = data.qnaIdx;
+        obj.answer = data.answer;
+        obj.rowNum = data.rowNum;
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
-        dtList_info_detail.reload();
+        // dtList_info_detail.reload();
     }
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
