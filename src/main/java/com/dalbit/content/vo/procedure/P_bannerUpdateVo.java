@@ -25,6 +25,9 @@ public class P_bannerUpdateVo extends BaseVo {
     private String mobile_img_url;      //mobile 이미지 URL
     private String mobile_link_url;     //mobile 링크 URL
     private String thumb_img_url;       //썸네일 URL
+    private int popup_type;       //썸네일 URL
+    private int is_cookie;       //썸네일 URL
+    private String contents;       //썸네일 URL
     private String desc;                //비고
     private String reg_date;            //등록일
     private String op_name;             //등록자

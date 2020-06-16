@@ -149,8 +149,8 @@ Handlebars.registerHelper("equal", function (value, value2, opt){
     return common.equal(value, value2, opt);
 });
 
-Handlebars.registerHelper("getOnOffSwitch", function(value){
-   return util.getOnOffSwitch(value);
+Handlebars.registerHelper("getOnOffSwitch", function(value, name){
+   return util.getOnOffSwitch(value, name);
 });
 
 Handlebars.registerHelper("renderProfileImage", function(value,gender){

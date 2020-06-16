@@ -147,6 +147,18 @@ var banner_exposureType = [
     , new COMMON_CODE('choice', '1', '직접선택')
 ];
 
+var banner_popupType = [
+    new COMMON_CODE(null, 'popup_type', '팝업 구분')
+    , new COMMON_CODE('image', '0', '이미지팝업')
+    , new COMMON_CODE('text', '1', '텍스트팝업')
+];
+
+var banner_cookieYn = [
+    new COMMON_CODE(null, 'cookie_yn', '쿠키사용여부')
+    , new COMMON_CODE('off', 'N', 'off')
+    , new COMMON_CODE('on', 'Y', 'on')
+];
+
 /** =------ Event ---------- */
 var event_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')

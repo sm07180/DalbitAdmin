@@ -23,6 +23,9 @@ public class P_bannerDetailOutputVo extends BaseVo {
     private String mobile_img_url;      //mobile 이미지 URL
     private String mobile_link_url;     //mobile 링크 URL
     private String thumb_img_url;       //썸네일 URL
+    private int popup_type;             //팝업구분(0:이미지, 1:텍스트)
+    private int is_cookie;              //쿠키사용여부(0:안함, 1:사용함)
+    private String contents;            //배너내용
     private String desc;                //비고
     private String reg_date;            //등록일
     private String op_name;             //등록자

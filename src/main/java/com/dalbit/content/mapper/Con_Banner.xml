@@ -21,7 +21,10 @@
             ,mobile_img_url     AS mobile_img_url
             ,mobile_link_url    AS mobile_link_url
             ,thumb_img_url      AS thumb_img_url
-            ,platform              AS platform
+            ,platform           AS platform
+            ,popup_type         AS popup_type
+            ,is_cookie          AS is_cookie
+            ,contents           AS contents
             ,`desc`             AS `desc`
             ,reg_date           AS regDate
             ,op_name            AS opName
@@ -126,6 +129,9 @@
                 ,mobile_link_url
                 ,thumb_img_url
                 ,platform
+                ,popup_type
+                ,is_cookie
+                ,contents
                 ,`desc`
                 ,reg_date
                 ,op_name
@@ -150,6 +156,9 @@
                 ,#{mobile_link_url}
                 ,#{thumb_img_url}
                 ,#{platform}
+                ,#{popup_type}
+                ,#{is_cookie}
+                ,#{contents}
                 ,#{desc}
                 ,NOW()
                 ,#{opName}
@@ -177,6 +186,9 @@
             ,mobile_link_url = IFNULL(#{mobile_link_url}, mobile_link_url)
             ,thumb_img_url = IFNULL(#{thumb_img_url}, thumb_img_url)
             ,platform = IFNULL(#{platform}, platform)
+            ,popup_type = IFNULL(#{popup_type}, popup_type)
+            ,is_cookie = IFNULL(#{is_cookie}, is_cookie)
+            ,contents = IFNULL(#{contents}, contents)
             ,`desc` = IFNULL(#{desc}, `desc`)
             ,last_upd_date = NOW()
             ,last_op_name = #{opName}
