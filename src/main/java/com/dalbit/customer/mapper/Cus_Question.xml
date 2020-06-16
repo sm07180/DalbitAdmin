@@ -92,6 +92,7 @@
         from ( select *
 				 from rd_admin.tb_admin_op_memo_question
 				where qnaIdx=#{qnaIdx}) a, (select @RNUM := #{pageNo}) r
+		order by reg_date desc
 		limit #{pageNo}, #{pageCnt}
     </select>
 

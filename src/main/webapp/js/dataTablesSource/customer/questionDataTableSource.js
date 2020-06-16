@@ -62,7 +62,7 @@ var questionDataTableSource = {
     'adminMemoList': {
         'url': '/rest/customer/question/adminMemo/list'
         , 'columns': [
-            {'title': '등록일시', 'data': 'reg_date','width':'120px'},
+            {'title': '등록일시', 'data': 'regDateFormat','width':'120px'},
             {'title': '등록 관리자', 'data': 'op_name','width':'80px'},
             {'title': '운영자 메모 내용', 'data': 'memo','width':'200px'},
         ]

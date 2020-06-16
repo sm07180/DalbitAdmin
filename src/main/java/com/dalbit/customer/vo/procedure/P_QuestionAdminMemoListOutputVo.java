@@ -12,8 +12,14 @@ import java.sql.Date;
 public class P_QuestionAdminMemoListOutputVo extends BaseVo {
 
     private int qnaIdx;
-    private String reg_date;
+    private Date reg_date;
+    private String regDateFormat;
     private String op_name;
     private String memo;
+
+    public void setReg_date(Date reg_date) {
+        this.reg_date = reg_date;
+        this.regDateFormat = DalbitUtil.convertDateFormat(reg_date, "yyyy.MM.dd HH:mm:ss");
+    }
 
 }
