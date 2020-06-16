@@ -379,7 +379,7 @@
                         <input type="text" class="form-control" id="txt_qnaAdminMemo" style="width: 100%">
                     </td>
                     <td>
-                        <button type="button" id="bt_adminMemo" class="btn-sm btn btn-default" style="margin-right: 3px" onclick="adminMemoAdd();">등록</button>
+                        <button type="button" id="bt_adminMemo" class="btn-sm btn btn-default" onclick="adminMemoAdd();">등록</button>
                         <button type="button" id="bt_adminMemoList" class="btn-sm btn btn-default" onclick="adminMemoList();">자세히</button>
                     </td>
                 </tr>
