@@ -220,4 +220,78 @@
     </select>
 
 
+    <sql id="baseIosAttemp">
+        select @RNUM := @RNUM + 1 rowNum
+            , log.idx
+            , log.mem_no
+            , log.product_nm
+            , log.product_price
+            , DATE_FORMAT(log.attempt_date, '%Y-%m-%d %H:%i:%s') attempt_date
+            , ifnull(basic.mem_nick, withdrawal.mem_nick) mem_nick
+            , ifnull(basic.mem_name, withdrawal.mem_name) mem_name
+            , ifnull(basic.mem_state, withdrawal.mem_state) mem_state
+            , profile.image_profile
+        from rd_data.tb_ios_attempt_log log
+            left join rd_data.tb_member_basic basic on log.mem_no = basic.mem_no
+            left join rd_data.tb_member_withdrawal_bak withdrawal on log.mem_no = withdrawal.mem_no
+            left join rd_data.tb_member_profile profile on log.mem_no = profile.mem_no
+            , (select @RNUM := 0) r
+        where 1=1
+        <if test='txt_startSel != null and txt_startSel != ""'>
+            and DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00') <![CDATA[<=]]> log.attempt_date
+        </if>
+        <if test='txt_endSel != null and txt_endSel != ""'>
+            and log.attempt_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
+        </if>
+
+        <if test='searchText != null and searchText != ""'>
+            <choose>
+                <when test='searchType == "mem_no"'>
+                    and log.mem_no like  concat ('%', #{searchText}, '%')
+                </when>
+                <when test='searchType == "product_nm"'>
+                    and log.product_nm like concat ('%', upper(#{searchText}), '%')
+                </when>
+                <when test='searchType == "mem_nick"'>
+                    and (
+                        basic.mem_nick like concat ('%', upper(#{searchText}), '%')
+                        or withdrawal.mem_nick like concat ('%', upper(#{searchText}), '%')
+                    )
+                </when>
+                <when test='searchType == "mem_name"'>
+                    and (
+                        basic.mem_name like concat ('%', upper(#{searchText}), '%')
+                        or withdrawal.mem_name like concat ('%', upper(#{searchText}), '%')
+                    )
+                </when>
+                <otherwise>
+                    and (
+                        log.mem_no like concat ('%', #{searchText}, '%')
+                        or log.product_nm like concat ('%', upper(#{searchText}), '%')
+                        or basic.mem_nick like concat ('%', upper(#{searchText}), '%')
+                        or withdrawal.mem_nick like concat ('%', upper(#{searchText}), '%')
+                        or basic.mem_name like concat ('%', upper(#{searchText}), '%')
+                        or withdrawal.mem_name like concat ('%', upper(#{searchText}), '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+        order by idx desc
+    </sql>
+    <select id="selectIosAttempCnt" parameterType="com.dalbit.payment.vo.Pay_IosAttempInputVo" resultType="int">
+        /* Pay_Pay.xml - selectIosAttempCnt */
+        select count(*)
+        from (
+            <include refid="baseIosAttemp" />
+        ) a
+    </select>
+
+    <select id="selectIosAttempList" parameterType="com.dalbit.payment.vo.Pay_IosAttempInputVo" resultType="com.dalbit.payment.vo.Pay_IosAttempOutputVo">
+        /* Pay_Pay.xml - selectIosAttempList */
+        select *
+        from (
+            <include refid="baseIosAttemp" />
+        ) a
+    </select>
+
 </mapper>

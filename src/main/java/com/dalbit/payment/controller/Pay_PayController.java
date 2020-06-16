@@ -16,4 +16,9 @@ public class Pay_PayController {
         return "payment/pay/list";
     }
 
+    @GetMapping("ios/attemp/list")
+    public String iosAttempList() {
+        return "payment/log/iosAttempList";
+    }
+
 }
