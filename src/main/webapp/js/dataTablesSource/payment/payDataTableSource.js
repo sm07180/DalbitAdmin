@@ -30,6 +30,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    /*} else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.bill_id*/
                     } else {
                         info = '-'
                     }
@@ -126,6 +128,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    /*} else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.bill_id*/
                     } else {
                         info = '-'
                     }
@@ -219,6 +223,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    /*} else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.bill_id*/
                     } else {
                         info = '-'
                     }
@@ -289,6 +295,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    /*} else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.bill_id*/
                     } else {
                         info = '-'
                     }
