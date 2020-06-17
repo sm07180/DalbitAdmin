@@ -32,6 +32,7 @@
             , pay.bill_id
             , pay.os
             , pay.dal_cnt
+            , pay.pay_info
             ,CASE
                 WHEN pay.pay_way = 'CN'
                 THEN pay.card_no
@@ -55,10 +56,11 @@
             , mem_userid
             , mem_id
             , mem_phone
+            , birth
             , ruby as tot_dal_cnt
         from rd_data.tb_payment_succ pay
             left join (select mem_no, count(mem_no) memCnt, sum(pay_amt) paySum from rd_data.tb_payment_succ where pay_yn = 'Y' group by mem_no) summary on pay.mem_no = summary.mem_no
-            left join (select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner` from rd_data.tb_member_basic union select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner` from rd_data.tb_member_withdrawal_bak) member on pay.mem_no = member.mem_no
+            left join (select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`, concat(mem_birth_year,'-',IF(length(mem_birth_month) = 1, concat('0',mem_birth_month), mem_birth_month),'-',IF(length(mem_birth_day) = 1, concat('0',mem_birth_day), mem_birth_day)) as birth from rd_data.tb_member_basic union select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`, concat(mem_birth_year,'-',IF(length(mem_birth_month) = 1, concat('0',mem_birth_month), mem_birth_month),'-',IF(length(mem_birth_day) = 1, concat('0',mem_birth_day), mem_birth_day)) as birth from rd_data.tb_member_withdrawal_bak) member on pay.mem_no = member.mem_no
             left join (select mem_no, ruby from rd_data.tb_member_wallet) wallet on pay.mem_no = wallet.mem_no
             , (select @rownum := #{pageStart}) r
         order by pay_dt_comein desc

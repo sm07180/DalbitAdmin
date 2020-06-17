@@ -111,7 +111,7 @@
     var tmp_searchText;
     var memNo = "unknown";
     function getUserInfo() {                 // 검색
-        if ($('#txt_search').val().length < 2) {
+        if ($('#txt_search').val().length < 1) {
             alert("검색대상을 입력해 주세요.");
             return;
         }

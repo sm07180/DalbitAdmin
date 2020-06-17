@@ -151,47 +151,35 @@
     <sql id="special">
         select
             @RNUM := @RNUM + 1 as rowNum,
-        dj.req_idx         as req_idx,
-        dj.mem_no          as mem_no,
-        dj.reg_date        as reg_date,
-        dj.is_force        as is_force,
-        dj.`order`         as `order`,
-        dj.op_name         as op_name,
-        basic.mem_id       as mem_id,
-        basic.mem_nick     as mem_nick,
-        redj.mem_phone     as mem_phone,
-        lev.level          as `level`,
-        lev.grade          as grade,
-        pro.image_profile  as image_profile,
-        dj.select_year        as select_year,
-        dj.select_month       as select_month,
-        ifnull(room.onAir, 0) as onAir,
-        ifnull(fanstar.fanCnt, 0) as fanCnt,
-        ifnull(time.airTime, 0) as airTime,
-        ifnull(listening.giftedRuby, 0) as giftedRuby,
-        ifnull(good.likeCnt, 0) as likeCnt,
-        ifnull(broadcast.broadcastCnt, 0) as broadcastCnt,
-        ifnull(report.reportCnt, 0) as reportCnt
+            dj.req_idx         as req_idx,
+            dj.mem_no          as mem_no,
+            dj.reg_date        as reg_date,
+            dj.is_force        as is_force,
+            dj.`order`         as `order`,
+            dj.op_name         as op_name,
+            basic.mem_id       as mem_id,
+            basic.mem_nick     as mem_nick,
+            redj.mem_phone     as mem_phone,
+            lev.level          as `level`,
+            lev.grade          as grade,
+            pro.image_profile  as image_profile,
+            dj.select_year        as select_year,
+            dj.select_month       as select_month,
+            (select COUNT(*) from rd_data.tb_broadcast_room_live_list WHERE mem_no = dj.mem_no AND state <![CDATA[<]]> 4)  as onAir,
+            (select COUNT(*) from rd_data.tb_member_fanstar WHERE mem_no_star= dj.mem_no AND state <![CDATA[<]]> 4) as fanCnt,
+            (select ifnull(sum(airtime), 0) from rd_data.tb_member_broadcast_broadcasting WHERE mem_no= dj.mem_no) AS airTime,
+            (select ifnull(sum(gold), 0) from rd_data.tb_member_broadcast_broadcasting WHERE mem_no= dj.mem_no) AS giftedRuby,
+            (select ifnull(sum(good), 0) from rd_data.tb_member_broadcast_broadcasting WHERE mem_no= dj.mem_no) AS likeCnt,
+            (SELECT
+                count(distinct(DATE( last_upd_date )))
+            FROM rd_data.tb_member_broadcast_broadcasting
+            WHERE mem_no = dj.mem_no AND last_upd_date between SUBDATE(NOW(), INTERVAL 3 MONTH) AND NOW()) as broadcastCnt,
+            (select count(*) from rd_data.tb_member_report WHERE mem_no = dj.mem_no and op_code in (3,4,5,6) ) as reportCnt
         from rd_admin.tb_special_dj dj
                 inner join rd_data.tb_member_basic basic on dj.mem_no = basic.mem_no
                 inner join rd_data.tb_member_profile pro on dj.mem_no = pro.mem_no
                 inner join rd_data.tb_member_level lev on dj.mem_no = lev.mem_no
                 left join rd_admin.tb_req_special_dj redj on dj.mem_no = redj.mem_no and dj.req_idx = redj.idx
-                left join (select sum(gift_ruby) giftedRuby , dj_mem_no from rd_data.tb_member_broadcast_listening group by dj_mem_no) listening on listening.dj_mem_no = dj.mem_no
-                left join (select count(*) likeCnt, dj_mem_no from rd_data.tb_broadcast_room_good group by dj_mem_no) good on good.dj_mem_no = dj.mem_no
-                left join (select count(room.mem_no) onAir, room.mem_no from rd_data.tb_broadcast_room room group by room.mem_no and room.state <![CDATA[<>]]> 4) room on room.mem_no = dj.mem_no
-                left join (select count(*) fanCnt, mem_no_star  from rd_data.tb_member_fanstar fanstar group by mem_no_star) fanstar on fanstar.mem_no_star = dj.mem_no
-                left join (select sum(airtime) airTime, mem_no from rd_data.tb_broadcast_room  group by mem_no) time on time.mem_no = dj.mem_no
-                left join (select count(*) reportCnt, reported_mem_no from rd_data.tb_member_report where op_code in (3,4,5,6) group by reported_mem_no) report on report.reported_mem_no = dj.mem_no
-                left join (select count(*) broadcastCnt, mem_no
-                from (
-                select distinct date_format(start_date, '%Y%m%d'), dj.mem_no
-                from rd_data.tb_broadcast_room room
-                , rd_admin.tb_special_dj dj
-                where SUBDATE(NOW(), INTERVAL 3 MONTH) <![CDATA[<=]]> start_date
-                and room.mem_no = dj.mem_no
-                )a group by mem_no
-                ) broadcast on broadcast.mem_no = dj.mem_no
             , (select @RNUM := 0) r
         <where>
             <if test='select_year != null and select_year != ""' >
@@ -230,7 +218,7 @@
         /* Men_Special.xml - getSpecialList */
         select *
         from (
-        <include refid="special"/>
+            <include refid="special"/>
         ) a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
@@ -282,6 +270,8 @@
         delete
         from rd_admin.tb_special_dj
         where mem_no = #{mem_no}
+          and select_year = #{select_year}
+          and select_month = #{select_month}
     </delete>
 
     <update id="updateOrder" parameterType="com.dalbit.menu.vo.SpecialDjOrderVo">
