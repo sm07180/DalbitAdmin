@@ -166,13 +166,20 @@ var freezeMsg_Message = [
 
 var forceExit_Message = [
     new COMMON_CODE(null, 'entry_message', '조치메시지')
-    ,new COMMON_CODE('msg1', '1', '성 매매를 하거나 이를 홍보하는 행위')
-    ,new COMMON_CODE('msg2', '2', '게임물 내 도박/프리서버/유료 대리랭크를 하거나 이를 홍보하는 행위')
-    ,new COMMON_CODE('msg3', '3', '타인의 개인정보를 유포하는 행위')
-    ,new COMMON_CODE('msg4', '4', '저작권침해 (게시물 복제*전송에 대한 신고의 건)')
-    ,new COMMON_CODE('msg5', '5', '방송방 내 음란물 게시')
-    ,new COMMON_CODE('msg6', '6', '범법 행위에 관한 정보를 공유하거나, 법령에 위반 되는 행위를 유도, 조장하는 행위')
-    ,new COMMON_CODE('msg7', '7', '위 항목 외 위법 행위')
+    ,new COMMON_CODE('msg1', '1', '음란물 유포행위')
+    ,new COMMON_CODE('msg2', '2', '부계정을 이용한 어뷰징')
+    ,new COMMON_CODE('msg3', '3', '불법 유포 및 홍보')
+    ,new COMMON_CODE('msg4', '4', '청소년 정서에 저해')
+    ,new COMMON_CODE('msg5', '5', '타인의 개인정보 복제/유포')
+    ,new COMMON_CODE('msg6', '6', '범법행위 정보의 공유 및 위반행위 유도 조장')
+    ,new COMMON_CODE('msg7', '7', '지나친 욕설과 부적절한 언어, 혐오 폭력성을 포함한 부적절한 내용')
+    ,new COMMON_CODE('msg7', '8', '타인 또는 장애인 비하')
+    ,new COMMON_CODE('msg7', '9', '지역/종교/인종차별 및 정치적 선동')
+    ,new COMMON_CODE('msg7', '10', '고의적 서비스 운영방해')
+    ,new COMMON_CODE('msg7', '11', '서비스 내 현금 거래')
+    ,new COMMON_CODE('msg7', '12', '채팅 도배 행위')
+    ,new COMMON_CODE('msg7', '13', '결제 도용 및 악용을 통해 부당이익을 취하는 행위')
+    ,new COMMON_CODE('msg7', '14', '단체적인 행동으로 타인을 압박/협박/고통등을 주는 경우')
     ,new COMMON_CODE('msg99', '99', '기타 운영자 직접작성')
 ];
 

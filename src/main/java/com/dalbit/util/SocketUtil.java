@@ -4,6 +4,7 @@ import com.dalbit.socket.service.SocketService;
 import com.dalbit.socket.vo.SocketVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public class SocketUtil {
     @Value("${socket.global.room}")
     private String SERVER_SOCKET_GLOBAL_ROOM;
 
+    @Async("threadTaskExecutor")
     public Map<String, Object> setSocket(HashMap<String,Object> param ,String command, String message, String authToken){
         if(!"".equals(param) && !"".equals(authToken)) {
             if(command.equals("chatEnd")){

@@ -32,6 +32,7 @@
             , pay.bill_id
             , pay.os
             , pay.dal_cnt
+            , pay.pay_info
             ,CASE
                 WHEN pay.pay_way = 'CN'
                 THEN pay.card_no
