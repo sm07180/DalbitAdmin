@@ -104,12 +104,12 @@
         var inputText = $("#"+memberModalId).find('#txt_search').val();
 
         if(common.isEmpty(inputText)){
-            alert("검색어(2자 이상)를 입력하여 주시기 바랍니다.");
+            alert("검색어(1자 이상)를 입력하여 주시기 바랍니다.");
             return false;
         }
 
-        if(inputText.length < 2){
-            alert("검색어는 최소 2자 이상 입력하여 주셔야 합니다.");
+        if(inputText.length < 1){
+            alert("검색어는 최소 1자 이상 입력하여 주셔야 합니다.");
             return false;
         }
 
