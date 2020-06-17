@@ -172,9 +172,9 @@
                     AND a.status = 1
                 ORDER BY
                     a.idx desc
-                LIMIT #{pageNo}, #{pageCnt}
+                LIMIT #{pageStart}, #{pageCnt}
           ) a
-          , (select @rownum := #{pageNo} ) AS d
+          , (select @rownum := #{pageStart} ) AS d
     </select>
 
 
