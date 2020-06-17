@@ -10,16 +10,19 @@ var payDataTableSource = {
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
+            ,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
+                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
             , {'title': '구매<br />횟수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
                     return common.addComma(String(data))+"건";
                 }}
-            , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
+            , {'title': '수단', 'data': 'pay_way', 'width':'70px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'170px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -27,6 +30,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    } else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
@@ -106,13 +111,16 @@ var payDataTableSource = {
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
+            /*,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
+                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                }}*/
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
-            , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
+            , {'title': '수단', 'data': 'pay_way', 'width':'70px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'170px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -120,6 +128,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    } else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
@@ -196,13 +206,16 @@ var payDataTableSource = {
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
+            ,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
+                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
-            , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
+            , {'title': '수단', 'data': 'pay_way', 'width':'70px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'170px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -210,6 +223,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    } else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
@@ -263,13 +278,16 @@ var payDataTableSource = {
             , {'title': '거래번호', 'data': 'data', 'width':'80px', 'render': function(data, type, row) {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
+            ,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
+                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
                 }}
-            , {'title': '수단', 'data': 'pay_way', 'width':'60px', 'render': function(data, type, row) {
+            , {'title': '수단', 'data': 'pay_way', 'width':'70px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
                 }}
-            , {'title': '결제 정보', 'data': 'data', 'width':'120px', 'render': function(data, type, row) {
+            , {'title': '결제 정보', 'data': 'data', 'width':'170px', 'render': function(data, type, row) {
                     var info="";
                     if(row.pay_way == 'MC'){
                         info = common.phoneNumHyphen(row.pay_info_no);
@@ -277,6 +295,8 @@ var payDataTableSource = {
                         info = common.cardNo(row.pay_info_no) + '<br/>' + row.pay_info_nm;
                     } else if(row.pay_way == 'VA'){
                         info = row.pay_info_no + '<br/>' + util.getCommonCodeLabel(row.pay_info_nm,bankList);
+                    } else if(row.pay_way == 'cashbee' || row.pay_way == 'tmoney' || row.pay_way == 'payco' || row.pay_way == 'toss' || row.pay_way == 'kakaopay'){
+                        info = row.pay_info;
                     } else {
                         info = '-'
                     }
