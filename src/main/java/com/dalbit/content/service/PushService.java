@@ -222,6 +222,8 @@ public class PushService {
         int notTokenCnt=0;
         int notMemNoCnt=0;
         int failCnt=0;
+        int sucNotiCnt=0;
+        int failNotiCnt=0;
 
         pPushInsertVo.setSend_url(pPushInsertVo.getSend_url().replace(SERVER_PHOTO_URL, ""));
 
@@ -233,35 +235,45 @@ public class PushService {
                     P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
                     ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
-                      pushDao.callStmpPushAdd(procedureVo);
+                    // PUSH 발송
+                    if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("1")){
+                        pushDao.callStmpPushAdd(procedureVo);
 
-                    if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
-
-                        if(pPushInsertVo.getIs_noti().equals("1")){ // 지정회원 알림 발송
-                            try{
-                                P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
-
-                                pMemberReportVo.setReported_mem_no(target);
-                                pMemberReportVo.setSlctType(7);
-                                pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont());
-                                pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont());
-                                memMemberDao.callMemberNotification_Add(pMemberReportVo);
-                            }catch (Exception e){
-                                log.error("[NOTI 발송 실패 - PUSH 발송]");
-                            }
+                        if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
+                            log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
+                            sucCnt++;
+                        }else if(Status.푸시발송_디바이스토큰미존재.getMessageCode().equals(procedureVo.getRet())){
+                            log.error("[PUSH_SEND] ERROR 디바이스토큰 미존재 (" + target + ")");
+                            notTokenCnt++;
+                        }else if(Status.푸시발송_요청회원번호미존재.getMessageCode().equals(procedureVo.getRet())){
+                            log.error("[PUSH_SEND] ERROR mem_no 미존재 (" + target + ")");
+                            notMemNoCnt++;
+                        } else {
+                            log.error("[PUSH_SEND] ERROR [ targetMemNo:{} | 실패코드:{} | 실패내용:{} ]", target, procedureVo.getRet(), procedureVo.getExt());
+                            failCnt++;
                         }
+                    }
 
-                        log.debug("[PUSH_SEND] 푸시 발송 성공 (" + target + ")");
-                        sucCnt++;
-                    }else if(Status.푸시발송_디바이스토큰미존재.getMessageCode().equals(procedureVo.getRet())){
-                        log.error("[PUSH_SEND] ERROR 디바이스토큰 미존재 (" + target + ")");
-                        notTokenCnt++;
-                    }else if(Status.푸시발송_요청회원번호미존재.getMessageCode().equals(procedureVo.getRet())){
-                        log.error("[PUSH_SEND] ERROR mem_no 미존재 (" + target + ")");
-                        notMemNoCnt++;
-                    } else {
-                        log.error("[PUSH_SEND] ERROR [ targetMemNo:{} | 실패코드:{} | 실패내용:{} ]", target, procedureVo.getRet(), procedureVo.getExt());
-                        failCnt++;
+                    // 알림 발송
+                    if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("2")){
+                        try{
+                            P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                            pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
+                            pMemberReportVo.setReported_mem_no(target);
+                            pMemberReportVo.setSlctType(7);
+                            pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
+                            pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
+                            int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
+
+                            if(notiResult > 0){
+                                sucNotiCnt++;
+                            }else{
+                                failNotiCnt++;
+                            }
+                        }catch (Exception e){
+                            log.error("[NOTI 발송 실패 - PUSH 발송]");
+                        }
                     }
                 }
             }
@@ -273,20 +285,45 @@ public class PushService {
                 P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target.getMem_no(), pPushInsertVo);
                 ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
-                pushDao.callStmpPushAdd(procedureVo);
+                // PUSH 발송
+                if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("1")) {
+                    pushDao.callStmpPushAdd(procedureVo);
 
-                if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
-                    log.debug("[PUSH_SEND] 푸시 발송 성공  (" + target + ")");
-                    sucCnt++;
-                }else if(Status.푸시발송_디바이스토큰미존재.getMessageCode().equals(procedureVo.getRet())){
-                    log.error("[PUSH_SEND] ERROR 디바이스토큰 미존재 (" + target + ") ");
-                    notTokenCnt++;
-                }else if(Status.푸시발송_요청회원번호미존재.getMessageCode().equals(procedureVo.getRet())){
-                    log.error("[PUSH_SEND] ERROR mem_no 미존재 (" + target + ") ");
-                    notMemNoCnt++;
-                } else {
-                    log.error("[PUSH_SEND] ERROR [ targetMemNo:{} | 실패코드:{} | 실패내용:{} ]", target, procedureVo.getRet(), procedureVo.getExt() );
-                    failCnt++;
+                    if (Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())) {
+                        log.debug("[PUSH_SEND] 푸시 발송 성공  (" + target + ")");
+                        sucCnt++;
+                    } else if (Status.푸시발송_디바이스토큰미존재.getMessageCode().equals(procedureVo.getRet())) {
+                        log.error("[PUSH_SEND] ERROR 디바이스토큰 미존재 (" + target + ") ");
+                        notTokenCnt++;
+                    } else if (Status.푸시발송_요청회원번호미존재.getMessageCode().equals(procedureVo.getRet())) {
+                        log.error("[PUSH_SEND] ERROR mem_no 미존재 (" + target + ") ");
+                        notMemNoCnt++;
+                    } else {
+                        log.error("[PUSH_SEND] ERROR [ targetMemNo:{} | 실패코드:{} | 실패내용:{} ]", target, procedureVo.getRet(), procedureVo.getExt());
+                        failCnt++;
+                    }
+                }
+
+                // 알림 발송
+                if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("2")) {
+                    try{
+                        P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                        pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
+                        pMemberReportVo.setReported_mem_no(target.getMem_no());
+                        pMemberReportVo.setSlctType(7);
+                        pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
+                        pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
+                        int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
+
+                        if(notiResult > 0){
+                            sucNotiCnt++;
+                        }else{
+                            failNotiCnt++;
+                        }
+                    }catch (Exception e){
+                        log.error("[NOTI 발송 실패 - PUSH 발송]");
+                    }
                 }
             }
 
@@ -294,17 +331,48 @@ public class PushService {
             P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(null, pPushInsertVo);
             ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
-            pushDao.callStmpPushAdd(procedureVo);
+            // PUSH 발송
+            if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("1")) {
+                pushDao.callStmpPushAdd(procedureVo);
 
-            if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
-                log.debug("[PUSH_SEND] 푸시 발송 성공 (" + MemberVo.getUserInfo().getEmp_no() + ")");
-                sucCnt++;
-            } else {
-                log.error("[PUSH_SEND] ERROR [ 실패코드:{} | 실패내용:{} ]", procedureVo.getRet(), procedureVo.getExt());
-                failCnt++;
+                if (Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())) {
+                    log.debug("[PUSH_SEND] 푸시 발송 성공 (" + MemberVo.getUserInfo().getEmp_no() + ")");
+                    sucCnt++;
+                } else {
+                    log.error("[PUSH_SEND] ERROR [ 실패코드:{} | 실패내용:{} ]", procedureVo.getRet(), procedureVo.getExt());
+                    failCnt++;
+                }
             }
+
+            // 알림 발송
+            if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("2")) {
+                try{
+                    P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
+
+                    pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
+                    pMemberReportVo.setSlctType(7);
+                    pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
+                    pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
+                    int notiResult = pushDao.callContentsNotiAddALL(pMemberReportVo);
+
+                    if(notiResult > 0){
+                        sucNotiCnt++;
+                    }else{
+                        failNotiCnt++;
+                    }
+
+                }catch (Exception e){
+                    log.error("[NOTI 발송 실패 - PUSH 발송]");
+                }
+            }
+
         }else{
             log.error("[PUSH_SEND] ERROR 발송 타입이 존재하지 않습니다. [ is_all:{}]", pPushInsertVo.getIs_all());
+        }
+
+        if(pPushInsertVo.getSend_type().equals("2")){
+            sucCnt = sucNotiCnt;
+            failCnt = failNotiCnt;
         }
 
         log.error("[PUSH_SEND] Result [ 성공:{} | 디바이스토큰 미존재:{} | mem_no 미존재:{} | 실패:{} ]", sucCnt, notTokenCnt, notMemNoCnt, failCnt);

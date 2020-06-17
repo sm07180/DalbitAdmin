@@ -24,6 +24,7 @@
             ,target_info          AS target_info
             ,image_type          AS image_type
             ,is_noti          AS is_noti
+            ,send_type          AS send_type
         FROM
             rd_admin.tb_admin_push
     </sql>
@@ -98,6 +99,7 @@
                 ,target_info
                 ,image_type
                 ,is_noti
+                ,send_type
           )
           VALUES
           (
@@ -127,6 +129,7 @@
                 ,#{target_info}
                 ,#{image_type}
                 ,#{is_noti}
+                ,#{send_type}
           )
     </insert>
 
@@ -162,5 +165,30 @@
           )
     </select>
 
+
+    <insert id="callContentsNotiAddALL" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
+        INSERT into rd_data.tb_member_notification
+          ( mem_no, type_noti, contents, memo, target_mem_no, room_no, read_yn, last_upd_date )
+        SELECT
+            e.mem_no, #{slctType}, #{notiContents}, #{notimemo}, e.mem_no, null, 0, NOW()
+        FROM
+        (
+          SELECT
+              a.mem_no, b.set_6
+          FROM
+              tb_member_stmp_token AS a
+          INNER JOIN
+              tb_member_setting AS b
+          ON
+              a.mem_no = b.mem_no
+          WHERE
+            b.set_6 = '1'
+            <choose>
+                <when test='slctType != null and slctType != ""'>
+                    AND a.os_type = #{slctType}
+                </when>
+            </choose>
+       ) AS e
+    </insert>
 
 </mapper>

@@ -3,7 +3,7 @@ var PushDataTableSource = {
         'url': '/rest/content/push/list'
 
         , 'columns': [
-             {'title': '플랫폼', 'data': 'platform', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+             {'title': '플랫폼', 'width':'110px', 'data': 'platform', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                      var arrCode = data.toString().split("");
                      if(arrCode.length < 3){
                          return data;
@@ -29,7 +29,10 @@ var PushDataTableSource = {
                      return result;
 
                  }},
-             {'title': '수신<br>대상', 'data': 'is_all', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+            {'title': '발송형태', 'width':'70px', 'data': 'send_type', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, push_sendType);
+                }},
+             {'title': '수신<br>대상', 'width':'80px', 'data': 'is_all', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                      if(data == "11"){
                          return "전체";
                      }
@@ -83,6 +86,6 @@ var PushDataTableSource = {
                 }},
             {'title': '처리자명', 'data': 'push_col7', 'defaultContent': '로그아웃', 'width':'100px'},
         ]
-        , 'comments': 'zzzzzzzzzzz 방송 중 운영자 공지/알림/이벤트 안내 메시지등을 발송 할 수 있습니다.'
+        , 'comments': ' 방송 중 운영자 공지/알림/이벤트 안내 메시지등을 발송 할 수 있습니다.'
     }
 }

@@ -28,4 +28,6 @@ public class P_MemberReportVo {
     private String notimemo;
     private int blockDay;
 
+    private String slctOs; // OS Type 구분.. (a: AOS, b: IOS)
+
 }

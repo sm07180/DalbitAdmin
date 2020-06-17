@@ -26,6 +26,13 @@ var push_searchType = [
     , new COMMON_CODE('content', '2', '메시지 내용')
 ];
 
+var push_sendType = [
+    new COMMON_CODE(null, 'send_type', '발송형태')
+    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('push', '1', 'PUSH')
+    , new COMMON_CODE('noti', '2', '알림')
+];
+
 var push_snedStatus = [
     new COMMON_CODE(null, 'snedStatus', '발송상태')
     , new COMMON_CODE('ready', '0', '발송대기')
@@ -77,7 +84,7 @@ var push_slctPush2 = [
     , new COMMON_CODE('djpage', '36', '레벨업 대상 마이페이지')              		// [mem_no]
 ];
 
-var push_sendType = [
+var push_isDirect = [
     new COMMON_CODE(null, 'sendType', '발송 구분')
     , new COMMON_CODE('instant', '0', '즉시발송')
     , new COMMON_CODE('reservation', '1', '예약발송')

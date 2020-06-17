@@ -57,28 +57,19 @@
 
             //수신대상 선택
             fnc_pushDetail.target.find("input[name='is_all']").change(function () {
-                if ($(this).val() == "7") { //지정 회원
+                if ($(this).val() == "11") { //전체
+                    fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
+                    fnc_pushDetail.target.find("#div_selectTarget").hide();
+                    fnc_pushDetail.target.find("#div_selectTarget").empty();
+
+                    fnc_pushDetail.target.find("input[name='platform']").prop("disabled", false);
+                } else {
                     fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", false);
                     fnc_pushDetail.target.find("#div_selectTarget").show();
 
                     // 플랫폼 선택
                     fnc_pushDetail.target.find("input[name='platform']").prop("disabled", true);
                     fnc_pushDetail.target.find("input[name='platform']").prop("checked", true);
-
-                    fnc_pushDetail.target.find("input[name='is_noti'][value='0']").click();
-                    fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", false);
-
-                } else {
-                    fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
-                    fnc_pushDetail.target.find("#div_selectTarget").hide();
-                    fnc_pushDetail.target.find("#div_selectTarget").empty();
-
-                    fnc_pushDetail.target.find("input[name='platform']").prop("disabled", false);
-                    // 예약발송 선택
-                    fnc_pushDetail.target.find("input[name='is_direct'][value='1']").click();
-
-                    fnc_pushDetail.target.find("input[name='is_noti'][value='0']").click();
-                    fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", true);
                 }
             });
 
@@ -108,7 +99,41 @@
             });
 
 
+            // 발송 형태
+            fnc_pushDetail.target.find("input[name='send_type']").change(function () {
+
+                if ($(this).val() == "0") {
+                    fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
+                }
+                if ($(this).val() == "2") {
+                    fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
+
+                    fnc_pushDetail.target.find("input[name='slct_push']").prop('checked', false);
+
+                    fnc_pushDetail.target.find("#label_targetType").text("");
+                    fnc_pushDetail.target.find("#input_targetLink").hide();
+                    fnc_pushDetail.target.find("#input_targetLink").val("");
+                    fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+                }else{
+                    fnc_pushDetail.target.find("input[name='is_direct']").prop("disabled", false);
+
+                    fnc_pushDetail.target.find("input[name='slct_push']").prop("disabled", false);
+                    fnc_pushDetail.target.find("input[name='slct_push'][value='2']").click();
+                }
+            });
+
+
             //발송여부 선택
+            fnc_pushDetail.target.find("input[name=is_direct]:radio").click(function () {
+                if(fnc_pushDetail.target.find("input[name='send_type']:checked").val() != '1'){
+                    if($(this).val() != 0){
+                        alert("전체 발송 및 알림 발송은 즉시 발송만 가능합니다.");
+                        return false;
+                    }
+                }
+            });
+
             fnc_pushDetail.target.find("input[name='is_direct']:radio").change(function () {
                 var type = this.value;
 
@@ -131,7 +156,15 @@
                 }
             });
 
+
             //푸시 타입 선택
+            fnc_pushDetail.target.find("input[name=slct_push]:radio").click(function () {
+                if(fnc_pushDetail.target.find("input[name='send_type']:checked").val() == '2'){
+                    alert("푸시 타입은 푸시 발송 시에만 선택 가능 합니다.");
+                    return false;
+                }
+            });
+
             fnc_pushDetail.target.find("input[name=slct_push]:radio").change(function () {
                 var type = this.value;
                 if(type == "1"){ //room_no
@@ -243,15 +276,18 @@
             //수신대상선택
             fnc_pushDetail.target.find("input[name=is_all][value='"+ detailData.is_all +"']").prop("checked", true);
 
-            //알림 여부
-            if (detailData.is_all == "7") { //지정 회원
-                fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", false);
+            //발송 형태
+            if (detailData.send_type == "2") {
+                fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
 
-            } else {
-                fnc_pushDetail.target.find("input[name='is_noti']").prop("disabled", true);
+                fnc_pushDetail.target.find("input[name='slct_push']").prop('checked', false);
+
+                fnc_pushDetail.target.find("#label_targetType").text("");
+                fnc_pushDetail.target.find("#input_targetLink").hide();
+                fnc_pushDetail.target.find("#input_targetLink").val("");
+                fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
             }
-            fnc_pushDetail.target.find("input[name='is_noti'][value='" + detailData.is_noti + "']").click();
-
 
 
             var type = detailData.slct_push;
@@ -502,6 +538,10 @@
                 resultJson['image_type'] = "101";
             }
 
+            if(common.isEmpty(resultJson['slct_push'])){
+                resultJson['slct_push'] = "9";
+            }
+
             dalbitLog(resultJson)
             return resultJson;
     };
@@ -564,34 +604,35 @@
                 }
             }
 
-            if (common.isEmpty(data.slct_push)) {
-                alert("푸시 타입을 선택하여 주시기 바랍니다.");
-                fnc_pushDetail.target.find("input[name=slct_push]").focus();
-                return false;
-            }
+            if(data.send_type != "2"){
+                if (common.isEmpty(data.slct_push)) {
+                    alert("푸시 타입을 선택하여 주시기 바랍니다.");
+                    fnc_pushDetail.target.find("input[name=slct_push]").focus();
+                    return false;
+                }
 
-            //푸시 타입 선택
-            var type = data.slct_push;
-            if(type == "1"){ //room_no
-                if (common.isEmpty(data.room_no)) {
-                    alert("방송방을 선택하여 주시기 바랍니다.");
-                    fnc_pushDetail.target.find("#input_targetLink").focus();
-                    return false;
-                }
-            }else if(type == "31" || type == "35" || type == "36"){ //mem_no
-                if (common.isEmpty(data.target_mem_no)) {
-                    alert("회원을 선택하여 주시기 바랍니다.");
-                    fnc_pushDetail.target.find("#input_targetLink").focus();
-                    return false;
-                }
-            }else if(type == "5" || type == "6" || type == "7"){ //board_idx
-                if (common.isEmpty(data.board_idx)) {
-                    alert("게시물 번호를 입력하여 주시기 바랍니다.");
-                    fnc_pushDetail.target.find("#input_targetLink").focus();
-                    return false;
+                //푸시 타입 선택
+                var type = data.slct_push;
+                if(type == "1"){ //room_no
+                    if (common.isEmpty(data.room_no)) {
+                        alert("방송방을 선택하여 주시기 바랍니다.");
+                        fnc_pushDetail.target.find("#input_targetLink").focus();
+                        return false;
+                    }
+                }else if(type == "31" || type == "35" || type == "36"){ //mem_no
+                    if (common.isEmpty(data.target_mem_no)) {
+                        alert("회원을 선택하여 주시기 바랍니다.");
+                        fnc_pushDetail.target.find("#input_targetLink").focus();
+                        return false;
+                    }
+                }else if(type == "5" || type == "6" || type == "7"){ //board_idx
+                    if (common.isEmpty(data.board_idx)) {
+                        alert("게시물 번호를 입력하여 주시기 바랍니다.");
+                        fnc_pushDetail.target.find("#input_targetLink").focus();
+                        return false;
+                    }
                 }
             }
-
 
             return true;
     };
@@ -700,11 +741,13 @@
                     <label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="platform" id="platform3" value="3" checked="true"><span>IOS</span></label>
                 </td>
 
-                <th>알림 여부</th>
+                <th>발송형태</th>
                 <td colspan="2">
-                    <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="0" id="is_noti0" name="is_noti" class="form-control" checked disabled><span><i></i>미표시</span> </label>
-                    <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="1" id="is_noti1" name="is_noti" class="form-control" disabled><span><i></i>표시</span> </label>
-                    <p class="no-padding no-margin" style="color:red; font-size:0.9em;"> * 수신대상이 '지정 회원'일 경우만 가능</p>
+                    {{{getCommonCodeRadio send_type 'push_sendType'}}}
+
+                    <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="0" id="is_noti0" name="is_noti" class="form-control" checked disabled><span><i></i>미표시</span> </label>--%>
+                    <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="1" id="is_noti1" name="is_noti" class="form-control" disabled><span><i></i>표시</span> </label>--%>
+                    <%--<p class="no-padding no-margin" style="color:red; font-size:0.9em;"> * 수신대상이 '지정 회원'일 경우만 가능</p>--%>
                 </td>
 
                 <th>발송일시</th>
@@ -752,7 +795,7 @@
                 <th>발송여부</th>
                 <td colspan="5">
                     <div>
-                        {{{getCommonCodeRadio is_direct 'push_sendType' 'N' 'is_direct'}}}
+                        {{{getCommonCodeRadio is_direct 'push_isDirect' 'N' 'is_direct'}}}
                     </div>
                     <div class="input-group date" id="push-div-sendDate" style="display:none;">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
