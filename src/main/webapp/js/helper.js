@@ -248,3 +248,12 @@ Handlebars.registerHelper("sexIcon", function(sex) {
 Handlebars.registerHelper("koreaAge", function(birthDate) {
     return common.koreaAge(birthDate);
 });
+
+Handlebars.registerHelper("calcAge", function(value, state) {
+   if(common.calcAge(value) < 19) {
+       state = '<span style="color:red">미성년자</span>';
+   } else {
+       state = '-';
+   }
+   return state;
+});
