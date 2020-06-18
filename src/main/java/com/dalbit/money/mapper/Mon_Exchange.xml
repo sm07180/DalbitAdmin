@@ -49,13 +49,19 @@
                    exchange.send_cont,
                    exchange.send_type,
                    exchange.last_upd_date,
-                   wallet.gold
+                   wallet.gold,
+                   birth
             from rd_data.tb_member_exchange exchange
                 inner join rd_data.tb_member_profile profile on exchange.mem_no = profile.mem_no
                 inner join rd_data.tb_member_wallet wallet on exchange.mem_no = wallet.mem_no
                 left join rd_admin.tb_special_dj special on exchange.mem_no = special.mem_no and special.select_year = #{search_year} and special.select_month = #{search_month}
                 left join rd_data.tb_member_basic basic on exchange.mem_no = basic.mem_no
                 left join rd_data.tb_member_withdrawal_bak withdrawal on exchange.mem_no = withdrawal.mem_no
+                left join
+                    (select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`, concat(mem_birth_year,'-',IF(length(mem_birth_month) = 1, concat('0',mem_birth_month), mem_birth_month),'-',IF(length(mem_birth_day) = 1, concat('0',mem_birth_day), mem_birth_day)) as birth
+                      from rd_data.tb_member_basic
+                      union select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`, concat(mem_birth_year,'-',IF(length(mem_birth_month) = 1, concat('0',mem_birth_month), mem_birth_month),'-',IF(length(mem_birth_day) = 1, concat('0',mem_birth_day), mem_birth_day)) as birth
+                      from rd_data.tb_member_withdrawal_bak) member on exchange.mem_no = member.mem_no
                 inner join (select @RNUM := 0) r
             where
                 concat(#{search_year}, #{search_month}) = DATE_FORMAT(exchange.reg_date, '%Y%m')

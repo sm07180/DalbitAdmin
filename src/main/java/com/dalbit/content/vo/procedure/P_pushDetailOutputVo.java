@@ -27,6 +27,7 @@ public class P_pushDetailOutputVo extends BaseVo {
     private String reg_date;          //등록일
     private String op_name;         //등록자
     private String link_url;         //이동 링크
+    private String send_type;          //발송 구분 (0: 전체, 1: 푸시, 2: 알림)
     private String target_info;
     private String image_type;
 

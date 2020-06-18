@@ -706,6 +706,8 @@
             <th>아이디</th>
             <th>닉네임</th>
             <th>성별</th>
+            <th>가입시<br />생년월일</th>
+            <th>미성년자<br />여부</th>
             <th>이름</th>
             <th>예금주</th>
             <th>환전신청금액</th>
@@ -754,6 +756,10 @@
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex}}}</td>
+
+        <td>{{data.birth}}</td>
+        <td>{{{calcAge data.birth}}}</td>
+
         <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
@@ -792,7 +798,7 @@
                             <tbody id="tableBody">
                                 <tr>
                                     <th>신청금액</th>
-                                    <td colspan="3">
+                                    <td colspan="3" style="font-weight:bold; color: #ff5600">
                                         {{addComma detail.cash_basic}}원
                                     </td>
                                 </tr>
@@ -818,6 +824,19 @@
                                     <td>
                                         <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
                                         [{{convertJumin detail.social_no}}]
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>가입시<br />생년월일</th>
+                                    <td>
+                                        <%--<input type="text" class="form-control" id="birth" name="birth" maxlength="25" value="{{detail.birth}}" />--%>
+                                        {{detail.birth}}
+                                    </td>
+                                    <th>미성년자<br />여부</th>
+                                    <td>
+                                        <%--<input type="text" class="form-control" id="calcAge" name="calcAge" maxlength="13" value="{{{calcAge detail.birth}}}" />--%>
+                                        {{{calcAge detail.birth}}}
                                     </td>
                                 </tr>
 

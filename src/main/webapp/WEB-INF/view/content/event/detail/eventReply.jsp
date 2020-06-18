@@ -67,11 +67,14 @@
         var dtList_info_data = function ( data ) {
             console.log("event_idx : " + common.isEmpty(fnc_eventReply.data)?"-1":fnc_eventReply.data.idx);
             data.event_idx = common.isEmpty(fnc_eventReply.data)?"-1":fnc_eventReply.data.idx;
-            data.pageCnt = 20;
+            // data.pageCnt = 20;
+            // data.length = 20;
         };
+        console.log(dtList_info_data)
         fnc_eventReply.dtList_info = new DalbitDataTable(fnc_eventReply.targetDataTable, dtList_info_data, EventDataTableSource.reply);
         fnc_eventReply.dtList_info.useCheckBox(true);
         fnc_eventReply.dtList_info.useIndex(true);
+        fnc_eventReply.dtList_info.setPageLength(20);
         fnc_eventReply.dtList_info.createDataTable();
 
         fnc_eventReply.initDataTableButton();

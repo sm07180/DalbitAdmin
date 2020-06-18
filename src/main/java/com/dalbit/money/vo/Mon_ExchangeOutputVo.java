@@ -57,4 +57,6 @@ public class Mon_ExchangeOutputVo{
 
     private String testid_history;
 
+    private String birth;
+
 }

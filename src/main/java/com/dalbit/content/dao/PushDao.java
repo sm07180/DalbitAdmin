@@ -3,6 +3,7 @@ package com.dalbit.content.dao;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
+import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +25,10 @@ public interface PushDao {
     int callContentsPushAdd(P_pushInsertVo pPushInsertVo);
     int callContentsPushEdit(P_pushUpdateVo pPushUpdateVo);
     int callContentsPushDelete(P_pushDeleteVo pPushDeleteVo);
-
     ProcedureVo callStmpPushAdd(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
     List<P_MemberListOutputVo> selectMemInfo(List arrayList);
+
+    int callContentsNotiAddALL(P_MemberReportVo pMemberReportVo);
 }

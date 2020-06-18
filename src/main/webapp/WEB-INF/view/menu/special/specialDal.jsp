@@ -334,7 +334,7 @@
     </tr>
     {{else}}
     <tr>
-        <td colspan="14">{{isEmptyData}}</td>
+        <td colspan="15">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
