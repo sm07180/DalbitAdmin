@@ -158,6 +158,7 @@
             dj.`order`         as `order`,
             dj.op_name         as op_name,
             basic.mem_id       as mem_id,
+            basic.mem_userid   as mem_userid,
             basic.mem_nick     as mem_nick,
             redj.mem_phone     as mem_phone,
             lev.level          as `level`,
