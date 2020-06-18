@@ -1,5 +1,6 @@
 package com.dalbit.content.dao;
 
+import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,4 +48,8 @@ public interface Con_EventDao {
 
     int callEventReplyDelete(P_EventReplyDeleteInputVo pEventReplyDeleteInputVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<AttendanceVo> selectAttendanceList(AttendanceVo attendanceVo);
+    @Transactional(readOnly = true)
+    int selectAttendanceListCnt(AttendanceVo attendanceVo);
 }

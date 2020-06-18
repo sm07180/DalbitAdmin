@@ -292,4 +292,21 @@ var content_isUse = [
     new COMMON_CODE(null, 'content_isUse', '사용여부')
     , new COMMON_CODE('no', 0, '사용 안 함')
     , new COMMON_CODE('yes', 1, '사용 함')
-]
+];
+
+/** =------ Attendance ---------- */
+var attendance_dayType = [
+    new COMMON_CODE(null, 'the_day', '참여 구분')
+    , new COMMON_CODE('all', '-1', '참여 구분(전체)')
+    , new COMMON_CODE('more', '1', '더줘')
+    , new COMMON_CODE('yes', '2', '출석')
+];
+
+var attendance_searchType = [
+    new COMMON_CODE(null, 'searchType', '검색 조건')
+    , new COMMON_CODE('all', '-1', '검색 조건(전체)')
+    , new COMMON_CODE('memno', '1', '회원번호')
+    , new COMMON_CODE('memid', '2', 'UserID')
+    , new COMMON_CODE('memnick', '3', 'User닉네임')
+];
+
