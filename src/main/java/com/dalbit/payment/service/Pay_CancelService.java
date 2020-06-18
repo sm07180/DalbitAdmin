@@ -13,18 +13,23 @@ import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.module.cnnew_v0003.McashManager;
 import com.dalbit.payment.module.mcCancel_v0001.MC_Cancel;
 import com.dalbit.payment.module.ucCancel_v0001.CancelUc;
-import com.dalbit.payment.vo.Pay_CancelBankVo;
-import com.dalbit.payment.vo.Pay_CancelCardVo;
-import com.dalbit.payment.vo.Pay_CancelPhoneVo;
-import com.dalbit.payment.vo.Pay_CancelVo;
+import com.dalbit.payment.vo.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
+import java.util.HashMap;
 
 @Slf4j
 @Service
@@ -248,4 +253,101 @@ public class Pay_CancelService {
         return gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
     }
 
+    /**
+     * 페이레터 결제취소
+     */
+    public int payletter(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
+        int result = 0;
+
+        try{
+            log.debug("payletter.cancel.url: {}", DalbitUtil.getProperty("payletter.cancel.url"));
+            URL objUrl = new URL(DalbitUtil.getProperty("payletter.cancel.url"));
+
+            Pay_JsonCancelVo payJsonCancelVo = new Pay_JsonCancelVo();
+            payJsonCancelVo.setPgcode(payCancelPayletterVo.getPaycd());
+            payJsonCancelVo.setClient_id(DalbitUtil.getProperty("payletter.client.id"));
+            payJsonCancelVo.setUser_id(payCancelPayletterVo.getMemno());
+            payJsonCancelVo.setTid(payCancelPayletterVo.getMobilid());
+            payJsonCancelVo.setAmount(Integer.parseInt(payCancelPayletterVo.getPrdtprice()));
+            payJsonCancelVo.setIp_addr(DalbitUtil.getIp(request));
+
+            String jsonData = new Gson().toJson(payJsonCancelVo);
+            log.debug("jsonData: {}", jsonData);
+            HttpURLConnection objURLConnection = (HttpURLConnection)objUrl.openConnection();
+
+            objURLConnection.setDoOutput(true);
+            objURLConnection.setDoInput(true);
+            objURLConnection.setRequestMethod("POST");
+            objURLConnection.setRequestProperty("Content-Type", "application/json");
+            objURLConnection.setRequestProperty("Authorization","PLKEY "+DalbitUtil.getProperty("payletter.api.key"));
+
+            OutputStream objOutputStream = objURLConnection.getOutputStream();
+
+            objOutputStream.write(jsonData.getBytes());
+            objOutputStream.flush();
+            objOutputStream.close();
+
+            log.debug("objURLConnection.getResponseCode(): {}", objURLConnection.getResponseCode());
+
+            BufferedReader objReader = null;
+            // Response Parameters (성공시) : tid, cid, amount, cancel_date
+            if(objURLConnection.getResponseCode() == 200 ) {
+                objReader = new BufferedReader(new InputStreamReader(objURLConnection.getInputStream()));
+            }else{// Response Parameters (실패시) : code, message
+                objReader = new BufferedReader(new InputStreamReader(objURLConnection.getErrorStream()));
+            }
+
+            String strInputLine;
+            StringBuffer objStringBuffer = new StringBuffer();
+
+            while ((strInputLine = objReader.readLine()) != null) {
+                objStringBuffer.append(strInputLine);
+            }
+            objReader.close();
+            objURLConnection.disconnect();
+
+            log.info("bufferString: {}", objStringBuffer.toString());
+            HashMap<String, String> parsingMap = new Gson().fromJson(objStringBuffer.toString(), HashMap.class);
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+
+            if(objURLConnection.getResponseCode() == 200){
+
+                /*String tid = parsingMap.get("tid");
+                String cid = parsingMap.get("cid");
+                String amount = parsingMap.get("amount");*/
+                String cancel_date = parsingMap.get("cancel_date");
+
+                cancelVo.setOrder_id(payCancelPayletterVo.getTradeid());
+                cancelVo.setCancel_dt(cancel_date);
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+                cancelVo.setFail_msg("");
+
+            } else {    //Response Parameters (실패시) : code, message
+                log.error("[payletter] cancel error =====>>> ResponseCode: {}, ResponseMsg: {}", objURLConnection.getResponseCode(), objURLConnection.getResponseMessage());
+
+                //String code = parsingMap.get("code");
+                String message = parsingMap.get("message");
+
+                cancelVo.setOrder_id(payCancelPayletterVo.getTradeid());
+                cancelVo.setCancel_dt("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("f");
+                cancelVo.setFail_msg(message);
+            }
+            //취소 업데이트
+            result = payCancelDao.sendPayCancel(cancelVo);
+
+            //달 차감
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelPayletterVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelPayletterVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
+
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
+        }
+
+        return result;
+    }
 }
