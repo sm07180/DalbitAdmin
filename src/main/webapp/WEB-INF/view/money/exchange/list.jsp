@@ -691,10 +691,10 @@
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
+            <col width="5%"/>
+            <col width="5%"/>
             <col width="4%"/>
-            <col width="5%"/>
-            <col width="5%"/>
-            <col width="5%"/>
+            <col width="4%"/>
             <col width="5%"/>
         </colgroup>
 
