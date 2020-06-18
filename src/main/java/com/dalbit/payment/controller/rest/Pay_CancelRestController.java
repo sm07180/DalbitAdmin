@@ -6,6 +6,7 @@ import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.service.Pay_CancelService;
 import com.dalbit.payment.vo.Pay_CancelBankVo;
 import com.dalbit.payment.vo.Pay_CancelCardVo;
+import com.dalbit.payment.vo.Pay_CancelPayletterVo;
 import com.dalbit.payment.vo.Pay_CancelPhoneVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Slf4j
@@ -57,6 +59,16 @@ public class Pay_CancelRestController {
     public int payBankPhone(Pay_CancelBankVo payCancelBankVo) throws GlobalException {
 
         int result = payCancelService.payCancelBank(payCancelBankVo);
+        return result;
+    }
+
+    /**
+     *  페이레터 결제 취소
+     */
+    @PostMapping("payletter")
+    public int payletter(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
+
+        int result = payCancelService.payletter(payCancelPayletterVo, request);
         return result;
     }
 

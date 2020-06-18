@@ -4,7 +4,9 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.dao.Con_EventDao;
+import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -22,6 +24,8 @@ public class Con_EventService {
 
     @Autowired
     Con_EventDao con_EventDao;
+    @Autowired
+    Mem_MemberDao memMemberDao;
     @Autowired
     MessageUtil messageUtil;
     @Autowired
@@ -220,6 +224,28 @@ public class Con_EventService {
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.이벤트댓글삭제실패));
         }
+
+        return result;
+    }
+
+    /*======================= 출석 체크 이벤트 ======================= */
+
+    /**
+     * 출석 이벤트 리스트 조회
+     */
+    public String selectAttendanceList(AttendanceVo attendanceVo) {
+        List<AttendanceVo> list = con_EventDao.selectAttendanceList(attendanceVo);
+        int totalCnt = con_EventDao.selectAttendanceListCnt(attendanceVo);
+        attendanceVo.setTotalCnt(totalCnt);
+
+        for(int i=0; i<list.size(); i++) {
+            MemberVo outVo = memMemberDao.getMemberInfo(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outVo)) {
+                list.get(i).setMem_sex(outVo.getMem_sex());
+            }
+        }
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(attendanceVo.getTotalCnt(), attendanceVo.getPageStart(), attendanceVo.getPageCnt())));
 
         return result;
     }

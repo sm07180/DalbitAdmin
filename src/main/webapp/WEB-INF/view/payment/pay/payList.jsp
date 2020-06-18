@@ -109,6 +109,8 @@
                 restUrl='bank'
             }else if(cancelData.paycd == 'MC'){
                 restUrl='phone'
+            }else if(cancelData.paycd == 'toss' || cancelData.paycd == 'payco' || cancelData.paycd == 'cashbee' || cancelData.paycd == 'tmoney' || cancelData.paycd == 'kakaopay' ){
+                restUrl='payletter'
             }else {
                 alert("결제수단 오류 확인필요");
             }
@@ -120,6 +122,7 @@
                 , mrchid : cancelData.storeid
                 , memno : cancelData.memno
                 , dalcnt : cancelData.dalcnt
+                , paycd : cancelData.paycd
             };
 
             util.getAjaxData("cancel", "/rest/payment/pay/cancel/"+restUrl, data, payCancelSuccess);
