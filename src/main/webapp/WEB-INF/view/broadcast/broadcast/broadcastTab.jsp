@@ -30,7 +30,7 @@
     <!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
-
+<script src="/js/util/memberUtil.js"></script>
 <script>
     $(document).ready(function() {
     });
