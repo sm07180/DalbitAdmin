@@ -13,7 +13,6 @@ memberUtil.convertEditHistory = function(text){
     var textArr = text.split(' ');
     textArr.forEach(function(txt){
         if(txt.startsWith('/profile_')) {
-            console.log(txt);
             result += ' ' + common.replace(txt, txt, memberUtil.profileImageAppender(txt));
         }else{
             result += ' ' + txt;
