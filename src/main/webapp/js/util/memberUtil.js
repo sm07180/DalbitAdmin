@@ -12,7 +12,7 @@ memberUtil.convertEditHistory = function(text){
     var result;
     var textArr = text.split(' ');
     textArr.forEach(function(txt){
-        if(txt.startsWith('/profile_')) {
+        if(-1 < txt.indexOf('/profile_') || -1 < txt.indexOf('/bg_')) {
             result += ' ' + common.replace(txt, txt, memberUtil.profileImageAppender(txt));
         }else{
             result += ' ' + txt;
