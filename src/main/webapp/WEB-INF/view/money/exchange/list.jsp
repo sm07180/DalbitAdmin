@@ -673,25 +673,26 @@
 <script type="text/x-handlebars-template" id="tmp_exchangeTable">
     <table id="list_info" class="table table-sorting table-hover table-bordered">
         <colgroup>
-            <col width="4%"/>
             <col width="3%"/>
             <col width="3%"/>
             <col width="3%"/>
+            <col width="3%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="4%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <col width="7%"/>
-            <col width="6%"/>
-            <col width="6%"/>
-            <col width="7%"/>
+            <!--<col width="7%"/>-->
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <col width="6%"/>
-            <col width="6%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="5%"/>
+            <col width="5%"/>
             <col width="4%"/>
+            <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
@@ -708,11 +709,11 @@
             <th>성별</th>
             <th>가입시<br />생년월일</th>
             <th>미성년자<br />여부</th>
-            <th>이름</th>
+            <!--<th>이름</th>-->
             <th>예금주</th>
-            <th>환전신청금액</th>
-            <th>스페셜DJ혜택</th>
-            <th>환전실수령액</th>
+            <th>신청금액</th>
+            <th>스페셜DJ<br />혜택</th>
+            <th>실수령액</th>
             <th>신청 별 수</th>
             <th>현재 별 수</th>
             <th>테스트ID<br />등록이력</th>
@@ -760,7 +761,7 @@
         <td>{{data.birth}}</td>
         <td>{{{calcAge data.birth}}}</td>
 
-        <td>{{data.mem_name}}</td>
+        <!--<td>{{data.mem_name}}</td>-->
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
         <td>{{addComma data.benefit}}원</td>
@@ -778,7 +779,7 @@
 
     {{else}}
     <tr>
-        <td colspan="21">{{isEmptyData}}</td>
+        <td colspan="22">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
