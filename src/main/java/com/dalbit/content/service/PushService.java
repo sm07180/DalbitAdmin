@@ -439,6 +439,9 @@ public class PushService {
         pPushInsertVo.setStatus("0");
         pPushInsertVo.setMsg_type("0");
         pPushInsertVo.setIs_direct("0");
+        if(DalbitUtil.isEmpty(pPushInsertVo.getSend_type())){       // default 1
+            pPushInsertVo.setSend_type("1");
+        }
 
         String pushResult = callContentsPushAdd(pPushInsertVo);
         log.info("[PUSH SEND RESULT] : {}" , pushResult);
