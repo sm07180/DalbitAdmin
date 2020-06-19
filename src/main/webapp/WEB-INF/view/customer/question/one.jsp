@@ -394,16 +394,16 @@
 
         </div>
     </div>
-     <div class="pull-right">
-                <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
-                <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
-                <%--{{^equal state '2'}}--%>
-                <button type="button" id="bt_operate" class="btn btn-default">완료</button>
-                <%--{{/equal}}--%>
-                <%--{{#equal state '1'}}--%>
-                <%--<button type="button" id="bt_update" class="btn btn-default">수정</button>--%>
-                <%--{{/equal}}--%>
-            </div>
+    <div class="pull-right">
+        <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
+        <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
+        <%--{{^equal state '2'}}--%>
+        <button type="button" id="bt_operate" class="btn btn-default">완료</button>
+        <%--{{/equal}}--%>
+        <%--{{#equal state '1'}}--%>
+        <%--<button type="button" id="bt_update" class="btn btn-default">수정</button>--%>
+        <%--{{/equal}}--%>
+    </div>
 </script>
 
 <script id="tmp_question_faqGroup" type="text/x-handlebars-template">
