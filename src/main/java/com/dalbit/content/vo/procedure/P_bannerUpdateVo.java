@@ -28,6 +28,8 @@ public class P_bannerUpdateVo extends BaseVo {
     private int popup_type;       //썸네일 URL
     private int is_cookie;       //썸네일 URL
     private String contents;       //썸네일 URL
+    private int is_title_view;          //제목노출여부(0:노출안함, 1:노출)
+    private int is_button_view;         //버튼노출여부(0:노출안함, 1:노출)
     private String desc;                //비고
     private String reg_date;            //등록일
     private String op_name;             //등록자

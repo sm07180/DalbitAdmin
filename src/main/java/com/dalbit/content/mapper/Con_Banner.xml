@@ -25,6 +25,8 @@
             ,popup_type         AS popup_type
             ,is_cookie          AS is_cookie
             ,contents           AS contents
+            ,is_title_view      AS is_title_view
+            ,is_button_view     AS is_button_view
             ,`desc`             AS `desc`
             ,reg_date           AS regDate
             ,op_name            AS opName
@@ -132,6 +134,8 @@
                 ,popup_type
                 ,is_cookie
                 ,contents
+                ,is_title_view
+                ,is_button_view
                 ,`desc`
                 ,reg_date
                 ,op_name
@@ -159,6 +163,8 @@
                 ,#{popup_type}
                 ,#{is_cookie}
                 ,#{contents}
+                ,#{is_title_view}
+                ,#{is_button_view}
                 ,#{desc}
                 ,NOW()
                 ,#{opName}
@@ -189,6 +195,8 @@
             ,popup_type = IFNULL(#{popup_type}, popup_type)
             ,is_cookie = IFNULL(#{is_cookie}, is_cookie)
             ,contents = IFNULL(#{contents}, contents)
+            ,is_title_view = IFNULL(#{is_title_view}, contents)
+            ,is_button_view = IFNULL(#{is_button_view}, contents)
             ,`desc` = IFNULL(#{desc}, `desc`)
             ,last_upd_date = NOW()
             ,last_op_name = #{opName}
