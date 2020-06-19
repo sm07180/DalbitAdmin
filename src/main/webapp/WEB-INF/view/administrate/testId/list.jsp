@@ -78,9 +78,9 @@
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <colgroup>
                                     <col width="1%"/><col width="3%"/><col width="3%"/><col width="4%"/><col width="3%"/>
-                                    <col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="4%"/><col width="7%"/>
-                                    <col width="7%"/><col width="8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/>
-                                    <col width="5.8%"/><col width="5.8%"/>
+                                    <col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/>
+                                    <col width="5.5%"/><col width="5.5%"/><col width="7%"/><col width="5.5%"/><col width="5.5%"/>
+                                    <col width="5.5%"/><col width="5.5%"/><col width="5.5%"/><col width="5.5%"/>
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -93,7 +93,9 @@
                                         <th>User ID</th>
                                         <th>User 닉네임</th>
                                         <th>성별</th>
-                                        <th>달/별 충전일</th>
+                                        <th>달/별 충전</th>
+                                        <th>최근 충전일</th>
+                                        <th>지급자</th>
                                         <th>보유 달/별 수</th>
                                         <th>연락처</th>
                                         <th>레벨/등급</th>
@@ -189,11 +191,6 @@
     function fn_list_success(dst_id, response){
         dalbitLog(response);
 
-        for(var i=0;i<response.data.length;i++){
-            if(response.data[i].charge != ""){
-                response.data[i].charge = response.data[i].type +": "+response.data[i].charge + '<br/>' + response.data[i].chargeDate;
-            }
-        }
         if(response.result == 'success'){
             var template = $('#tmp_list').html();
             var templateScript = Handlebars.compile(template);
@@ -325,7 +322,9 @@
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
             <td>{{user.mem_nick}}</td>
             <td>{{{sexIcon user.mem_sex}}}</td>
-            <td>{{{user.charge}}}</td>
+            <td>{{user.charge}}</td>
+            <td>{{user.chargeDate}}</td>
+            <td>{{user.lastOpName}}</td>
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">
                 <label class="font-bold" style="color: #7030a0;">달 : {{user.dal}}</label><br/>
                 <label class="font-bold" style="color: #b79135;">별 : {{user.byeol}}</label>
@@ -334,7 +333,7 @@
             <td>{{user.mem_phone}}</td>
             <td>{{user.level}} / {{user.grade}}</td>
             <td>{{user.reg_date}}</td>
-            <td>{{user.lastOpDate}}<br/>{{user.lastOpName}}</td>
+            <td>{{user.lastOpDate}}</td>
             <td>{{user.lastLoginDatetime}}</td>
             <td>{{stateName user.mem_state}}</td>
         </tr>

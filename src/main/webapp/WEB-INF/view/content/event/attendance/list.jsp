@@ -84,6 +84,7 @@
     }
 
     function getList() {
+        var dtList_info;
         var dtList_info_data = function (data) {
             data.attendanceType = $('#attendanceTypeArea').val();   // 참여 구분
             data.searchType = $('#attendance_searchType').val();    // 검색 조건
@@ -95,6 +96,8 @@
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
         dtList_info.createDataTable();
+
+        dtList_info.reload();
     }
 
     function dateCompare() {

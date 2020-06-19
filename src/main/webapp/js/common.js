@@ -355,6 +355,14 @@ common.payRate = function(lvalue,rvalue) {
     return common.addComma(tmp.toFixed(2));
 };
 
+common.division = function(lvalue,rvalue) {
+    if (rvalue == 0) {
+        return 0;
+    }
+    var tmp = lvalue / rvalue;
+    return common.addComma(tmp.toFixed(2));
+};
+
 common.exchangeAmt = function(star, isSpecial){
     var cashBasic = Number(star * 60);
     var specialBenefit = 0;
