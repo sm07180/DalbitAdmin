@@ -67,6 +67,9 @@
 
     function radioChange(){
         _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+        if(_searchFormRadio == 2){
+            setTimeDate(dateTime);
+        }
         setStartDay();
     }
 
@@ -80,8 +83,9 @@
 
     $(document).on('click', '._todaySearch', function(){
         $("input:radio[name='searchFormRadio']:radio[value='2']").prop('checked', true);
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
         setTimeDate(dateTime);
-        radioChange();
+        setStartDay();
     });
 
     function setTimeDate(dateTime){
