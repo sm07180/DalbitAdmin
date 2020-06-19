@@ -133,6 +133,7 @@
 
     <!--이벤트 댓글 목록 -->
     <select id="callEventReplyList" parameterType="com.dalbit.content.vo.procedure.P_EventReplyListInputVo" resultType="com.dalbit.content.vo.procedure.P_EventReplyListOutputVo">
+        /* Con_Event.xml - callEventReplyList */
     SELECT  @rownum := @rownum + 1 as rowNum, a.*
           FROM (
               SELECT
@@ -179,6 +180,7 @@
 
 
     <select id="callEventReplyList_totalCnt" parameterType="com.dalbit.content.vo.procedure.P_EventReplyListInputVo" resultType="Integer">
+        /* Con_Event.xml - callEventReplyList_totalCnt */
         SELECT
             COUNT(*) AS totalCnt
         FROM
@@ -200,6 +202,7 @@
 
     <!--이벤트 댓글 삭제 -->
     <update id="callEventReplyDelete" parameterType="com.dalbit.content.vo.procedure.P_EventReplyDeleteInputVo">
+        /* Con_Event.xml - callEventReplyDelete */
         UPDATE rd_admin.tb_event_reply
         SET
           status = 2
@@ -210,4 +213,81 @@
           AND event_idx = #{event_idx}
     </update>
 
+    <sql id="attendanceCondition">
+        select
+              bas.mem_state as mem_state
+              , pro.image_profile as image_profile
+              , att.mem_no as mem_no
+              , bas.mem_userid as mem_userid
+              , bas.mem_nick as mem_nick
+              , bas.mem_sex as mem_sex
+              , att.the_day as the_day
+              , att.last_upd_date as last_upd_date
+              , att.reward_exp as reward_exp
+              , att.reward_dal as reward_dal
+              , @RNUM := @RNUM + 1 as rowNum
+        from rd_data.tb_member_attendance_check att
+            , rd_data.tb_member_basic bas
+            , rd_data.tb_member_profile pro
+            , (select @RNUM := 0) r
+        where att.mem_no = bas.mem_no
+          and att.mem_no = pro.mem_no
+              <if test='txt_startSel != null and txt_startSel != ""'>
+                  and att.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel}, '%Y-%m-%d 00:00:00')
+              </if>
+              <if test='txt_endSel != null and txt_endSel != ""'>
+                  and att.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel}, '%Y-%m-%d 23:59:59')
+              </if>
+              <if test='the_day != null and the_day != ""'>
+                  <choose>
+                      <when test='the_day =="1"'>
+                          and att.the_day = 9
+                      </when>
+                      <when test='the_day == "2"'>
+                          and att.the_day in (0,1,2,3,4,5,6)
+                      </when>
+                      <otherwise>
+                          and att.the_day in (0,1,2,3,4,5,6,9)
+                      </otherwise>
+                  </choose>
+              </if>
+              <if test='txt_search != null and txt_search != ""'>
+                 <choose>
+                     <when test='searchType == "1"'>
+                        and att.mem_no like concat ('%', #{txt_search}, '%')
+                     </when>
+                     <when test='searchType == "2"'>
+                        and bas.mem_userid like concat ('%', #{txt_search}, '%')
+                     </when>
+                     <when test='searchType == "3"'>
+                         and bas.mem_nick like concat ('%', #{txt_search}, '%')
+                     </when>
+                     <otherwise>
+                         and (att.mem_no like concat ('%', #{txt_search}, '%')
+                              or bas.mem_userid like concat('%', #{txt_search}, '%')
+                              or bas.mem_nick like concat('%', #{txt_search}, '%')
+                              )
+                     </otherwise>
+                 </choose>
+              </if>
+        order by att.last_upd_date desc
+    </sql>
+
+    <select id="selectAttendanceList" parameterType="com.dalbit.content.vo.AttendanceVo" resultType="com.dalbit.content.vo.AttendanceVo">
+        /* Con_Event.xml - selectAttendanceList */
+        select *
+        from (
+          <include refid="attendanceCondition"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="selectAttendanceListCnt" parameterType="com.dalbit.content.vo.AttendanceVo" resultType="integer">
+        /* Con_Event.xml - selectAttendanceListCnt */
+        select
+          count(*)
+        from (
+          <include refid="attendanceCondition"/>
+        ) a
+    </select>
 </mapper>

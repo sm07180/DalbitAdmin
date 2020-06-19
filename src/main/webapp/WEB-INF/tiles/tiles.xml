@@ -54,4 +54,8 @@
         <put-attribute name="body" value="/WEB-INF/view/{1}/{2}/{3}.jsp" />
     </definition>
 
+    <definition name="*/*/*/*" extends="base">
+        <put-attribute name="body" value="/WEB-INF/view/{1}/{2}/{3}/{4}.jsp" />
+    </definition>
+
 </tiles-definitions>

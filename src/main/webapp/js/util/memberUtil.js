@@ -9,12 +9,13 @@ memberUtil.convertEditHistory = function(text){
         return '';
     }
 
-    var result = text;
+    var result;
     var textArr = text.split(' ');
     textArr.forEach(function(txt){
-        if(txt.startsWith('/profile_')) {
-            console.log(txt);
-            result = common.replace(result, txt, memberUtil.profileImageAppender(txt));
+        if(-1 < txt.indexOf('/profile_') || -1 < txt.indexOf('/bg_')) {
+            result += ' ' + common.replace(txt, txt, memberUtil.profileImageAppender(txt));
+        }else{
+            result += ' ' + txt;
         }
     })
 

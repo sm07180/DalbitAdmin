@@ -167,6 +167,35 @@ var EventDataTableSource = {
             {'title': '수정자', 'width':'80px', 'data': 'op_name'}
         ]
         // , 'comments': '<div>•뿅</div>'
-    }
+    },
 
+    'attendance': {
+        'url': '/rest/content/event/attendance/list'
+        , 'columns': [
+            {'title': '회원상태', 'data': 'mem_state', 'render': function(data) {
+                return util.getCommonCodeLabel(data, mem_state);
+                }}
+            , {'title': '프로필'+ '<br/>' +'사진', 'data': 'image_profile', 'width': '65px', 'render': function(data, type, row) {
+                return '<img class="thumbnail fullSize_background" src="' + common.profileImage(PHOTO_SERVER_URL, data, row.mem_sex) + '" width="65px" height="65px" />';
+                }}
+            , {'title': '회원번호', 'data': 'mem_no'}
+            , {'title': 'UserID', 'data': 'mem_userid', 'render': function(data, type, row) {
+                return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + data + '</a>'
+                }}
+            , {'title': '닉네임', 'data': 'mem_nick'}
+            , {'title': '성별', 'data': 'mem_sex', 'render': function(data) {
+                return common.sexIcon(data);
+                }}
+            , {'title': '참여 구분', 'data': 'the_day', 'render': function(data) {
+                if(data == 9) {
+                    return '더줘';
+                } else {
+                    return '출석';
+                }
+                }}
+            , {'title': '참여 일시', 'data': 'last_upd_date'}
+            , {'title': '경험치', 'data': 'reward_exp'}
+            , {'title': '받은 달', 'data': 'reward_dal'}
+        ]
+    }
 }

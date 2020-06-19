@@ -1,6 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_EventService;
+import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -105,4 +106,16 @@ public class Con_EventRestController {
         String result = con_EventService.getEventReplyDelete(pEventReplyDeleteInputVo);
         return result;
     }
+
+    /*======================= 출석 체크 이벤트 ======================= */
+
+    /**
+     * 출석 이벤트 리스트 조회
+     */
+    @PostMapping("/attendance/list")
+    public String attendanceList(AttendanceVo attendanceVo) {
+        String result = con_EventService.selectAttendanceList(attendanceVo);
+        return result;
+    }
+
 }

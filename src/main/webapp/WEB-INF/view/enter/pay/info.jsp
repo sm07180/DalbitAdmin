@@ -236,6 +236,8 @@
         var html=templateScript(context);
         $("#PayCancelTotalTableBody").append(html);
         getPayTotalList();
+
+        ui.paintColor();
     }
 
     $(document).on('click', '._prevSearch', function(){
@@ -358,7 +360,9 @@
         </colgroup>
         <thead>
         <tr>
-            <th><u onclick="click_way();">※결제 방법 별</u></th>
+            <th class="_bgColor" data-bgcolor="#F1E7FB">
+                <a href="javascript://" onclick="click_way();" class="_fontColor" data-fontcolor="black">◈ 결제 방법 별</a>
+            </th>
             <th>휴대폰</th>
             <th>카드</th>
             <th>가상계좌이체</th>
@@ -413,13 +417,17 @@
         </colgroup>
         <thead>
         <tr>
-            <th><u onclick="click_age();">※결제 성별</u></th>
+            <th class="_bgColor" data-bgcolor="#F1E7FB">
+                <a href="javascript://" onclick="click_age();" class="_fontColor" data-fontcolor="black">◈ 결제 성별</a>
+            </th>
             <th class="_sex_male">{{{sexIcon 'm'}}}</th>
             <th class="_sex_female">{{{sexIcon 'f'}}}</th>
             <th>알수없음</th>
             <th>총 합</th>
             <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-            <th><u onclick="click_age();">※결제 연령대 별</u></th>
+            <th class="_bgColor" data-bgcolor="#F1E7FB">
+                <a href="javascript://" onclick="click_age();" class="_fontColor" data-fontcolor="black">◈ 결제 연령대 별</a>
+            </th>
             <th>10대</th>
             <th>20대</th>
             <th>30대</th>
@@ -509,7 +517,9 @@
         </colgroup>
         <tbody>
         <tr>
-            <th><u onclick="click_code();">※아이템별<br>Web, 안드로이드</u></th>
+            <th class="_bgColor" data-bgcolor="#F1E7FB">
+                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별<br>Web, 안드로이드</a>
+            </th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px"> 달 10</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 달 50</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px"> 달 100</th>
@@ -521,7 +531,9 @@
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 달 5,000</th>
             <th>총합</th>
             <td style="border-bottom: hidden;border-top: hidden;"></td>
-            <th><u onclick="click_code();">※아이템별<br>아이폰</u></th>
+            <th class="_bgColor" data-bgcolor="#F1E7FB">
+                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별<br>아이폰</a>
+            </th>
             <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 30</th>
             <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 200</th>
             <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300</th>

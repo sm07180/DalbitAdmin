@@ -317,7 +317,7 @@
         <td style="width: 65px;height:65px;">
             <img class="thumbnail" src="{{renderProfileImage data.image_profile data.mem_sex}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_id}}</a>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_userid}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
         </td>
         <td>{{mem_nick}}</td>
