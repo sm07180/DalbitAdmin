@@ -14,12 +14,20 @@
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <br/>
-        <label id="payPlatformArea" onchange="sel_change_pay();"></label>
-        <label id="payWayArea" onchange="sel_change_pay();"></label>
-        <label id="payInnerArea" onchange="sel_change_pay();" style="border: 1px solid #632beb"></label>
 
-        <div class="pull-right">
-            <span id="pay_summaryArea"></span>
+        <div class="top-left pull-left dataTable-div col-md-6 no-padding">
+            <label id="payPlatformArea" onchange="sel_change_pay();"></label>
+            <label id="payWayArea" onchange="sel_change_pay();"></label>
+            <label id="payInnerArea" onchange="sel_change_pay();" style="border: 1px solid #632beb"></label>
+        </div>
+
+        <div class="col-md-4 no-padding pull-right mb5">
+            <div class="col-md-7 no-padding pull-right">
+                <span id="pay_summaryArea2"></span>
+            </div>
+            <div class="col-md-4 no-padding mr10 pull-right">
+                <span id="pay_summaryArea"></span>
+            </div>
         </div>
 
         <table class="table table-bordered" id="list_info">
@@ -88,6 +96,15 @@
         };
         var html = templateScript(data);
         $("#pay_summaryArea").html(html);
+
+        var template = $("#pay_tableSummary2").html();
+        var templateScript = Handlebars.compile(template);
+        var data = {
+            content : json.summary
+            , length : json.recordsTotal
+        };
+        var html = templateScript(data);
+        $("#pay_summaryArea2").html(html);
     }
 
     function sel_change_pay(){
@@ -122,21 +139,45 @@
 </script>
 
 <script id="pay_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right:0px">
-        <thead>
+    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px">
+        <colgroup>
+            <col width="35%"/><col width="65%"/>
+        </colgroup>
         <tr>
-            <th colspan="2">총 결제완료</th>
-            <th colspan="2">총 결제취소</th>
-            <th colspan="2">총 취소실패</th>
+            <th colspan="2">결제 취소(부가세 포함)</th>
         </tr>
-        </thead>
-        <tbody>
-        <td>{{addComma content.totalPayCnt}}건</td>
-        <td>{{addComma content.totalPayAmt}}원</td>
-        <td>{{addComma content.totalPayCancelCnt}}건</td>
-        <td>{{addComma content.totalPayCancelAmt}}원</td>
-        <td>{{addComma content.totalPayCancelCannotCnt}}건</td>
-        <td>{{addComma content.totalPayCancelCannotAmt}}원</td>
-        </tbody>
+        <tr class="font-bold" style="color: #66a449;">
+            <td>{{addComma content.totalPayCancelCnt}}건</td>
+            <td>{{addComma content.totalPayCancelAmt}}원</td>
+        </tr>
+        <tr>
+            <th colspan="2">결제 취소(부가세 제외)</th>
+        </tr>
+        <tr class="font-bold" style="color: #ff5600;">
+            <td>{{addComma content.totalPayCancelCnt}}건</td>
+            <td>{{vatMinus content.totalPayCancelAmt}}원</td>
+        </tr>
+    </table>
+</script>
+
+<script id="pay_tableSummary2" type="text/x-handlebars-template">
+    <table class="table table-bordered mb0">
+        <colgroup>
+            <col width="35%"/><col width="65%"/>
+        </colgroup>
+        <tr>
+            <th colspan="2">총 결제 건/(부가세 포함) 매출</th>
+        </tr>
+        <tr style="color: #66a449;">
+            <td><b>{{content.totalPayCnt}} 건</b></td>
+            <td><b>{{addComma content.totalPayAmt}} 원</b></td>
+        </tr>
+        <tr>
+            <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
+        </tr>
+        <tr style="color: #ff5600;">
+            <td><b>{{content.totalPayCnt}} 건</b></td>
+            <td><b>{{vatMinus content.totalPayAmt}} 원</b></td>
+        </tr>
     </table>
 </script>
