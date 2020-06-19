@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Pay_PayInputVo extends SearchVo {
 
     private int pageNo;
-    private int period;
+//    private int period;
     private String sDate;
     private String eDate;
     private int searchPayStatus;

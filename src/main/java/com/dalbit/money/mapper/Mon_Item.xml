@@ -79,4 +79,61 @@
         where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
+    <select id="selectChangeItemSummary" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="com.dalbit.money.vo.Mon_ItemOutputVo">
+        /* Mon_Item.xml - selectChangeItemSummary */
+        SELECT sum(gold) as sumTotalByeol
+                ,sum(ruby) as sumTotalDal
+                ,count(case when mem_sex = 'm' then 1 end) as changeMale
+                ,count(case when mem_sex = 'f' then 1 end) as changeFemale
+        from(
+        <include refid="baseChangeItemList"/>
+        )a
+    </select>
+
+    <select id="selectChangeItemMemCnt" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="int">
+        /* Mon_Item.xml - selectChangeItemMemCnt */
+        SELECT count(distinct mem_no) as cnt
+        from(
+        <include refid="baseChangeItemList"/>
+        )a
+    </select>
+
+    <select id="selectChangeItemModCnt" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="com.dalbit.money.vo.Mon_ItemOutputVo">
+        /* Mon_Item.xml - selectChangeItemMemCnt */
+        select sum(gold) as modByeol, sum(ruby) as modDal
+          from rd_data.tb_member_wallet a join rd_data.tb_member_basic b on a.mem_no = b.mem_no
+        <if test='search_value != null and search_value != ""'>
+            <choose>
+                <when test="search_type == 'mem_no'">
+                    and b.mem_no like CONCAT('%',#{search_value},'%')
+                </when>
+                <when test="search_type == 'user_id'">
+                    and b.mem_userid like CONCAT('%',#{search_value},'%')
+                </when>
+                <when test="search_type == 'mem_nick'">
+                    and b.mem_nick like CONCAT('%',#{search_value},'%')
+                </when>
+                <when test="search_type == 'mem_phone'">
+                    and b.mem_phone like CONCAT('%',#{search_value},'%')
+                </when>
+                <otherwise>
+                    and ( b.mem_no like CONCAT('%',#{search_value},'%')
+                        or b.mem_userid like CONCAT('%',#{search_value},'%')
+                        or b.mem_nick like CONCAT('%',#{search_value},'%')
+                        or b.mem_phone like CONCAT('%',#{search_value},'%')
+                        )
+                </otherwise>
+            </choose>
+        </if>
+        <if test='search_testId == 1'>
+            and b.inner = 0
+        </if>
+            and a.mem_no in (select distinct mem_no
+                              from rd_data.tb_member_wallet_ruby where type = 6
+                               and DATE_FORMAT(last_upd_date, '%Y.%m.%d') >= #{sDate}
+                               and DATE_FORMAT(last_upd_date, '%Y.%m.%d') <![CDATA[<=]]> #{eDate}
+                            )
+    </select>
+
+
 </mapper>

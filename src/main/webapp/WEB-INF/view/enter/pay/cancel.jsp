@@ -18,7 +18,7 @@
         <label id="payWayArea" onchange="sel_change_pay_cancel();"></label>
         <label id="payInnerArea" onchange="sel_change_pay_cancel();" style="border: 1px solid #632beb"></label>
 
-        <div class="pull-right">
+        <div class="pull-right mb5" style="width: 227px">
             <span id="pay_cancel_summaryArea"></span>
         </div>
 
@@ -49,8 +49,8 @@
     function getPayCancelList() {
         var sDate;
         var eDate;
-        sDate = $("#startDate").val().replace(/\./gi,'');
-        eDate = $("#endDate").val().replace(/\./gi,'');
+        sDate = $("#startDate").val();
+        eDate = $("#endDate").val();
         var dtList_info_data = function(data) {
             data.searchText = "";                        // 검색명
             if( $('input[name="slctType"]:checked').val() == 0){
@@ -123,18 +123,21 @@
 </script>
 
 <script id="pay_cancel_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right" style="margin-right:0px">
+    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px">
+        <colgroup>
+            <col width="35%"/><col width="65%"/>
+        </colgroup>
         <tr>
             <th colspan="2">결제 취소(부가세 포함)</th>
         </tr>
-        <tr>
+        <tr class="font-bold" style="color: #66a449;">
             <td>{{addComma content.totalPayCancelCnt}}건</td>
             <td>{{addComma content.totalPayCancelAmt}}원</td>
         </tr>
         <tr>
             <th colspan="2">결제 취소(부가세 제외)</th>
         </tr>
-        <tr>
+        <tr class="font-bold" style="color: #ff5600;">
             <td>{{addComma content.totalPayCancelCnt}}건</td>
             <td>{{vatMinus content.totalPayCancelAmt}}원</td>
         </tr>

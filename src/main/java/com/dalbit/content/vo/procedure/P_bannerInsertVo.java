@@ -27,6 +27,8 @@ public class P_bannerInsertVo extends BaseVo {
     private int popup_type;             //팝업구분(0:이미지, 1:텍스트)
     private int is_cookie;              //쿠키사용여부(0:안함, 1:사용함)
     private String contents;            //배너내용
+    private int is_title_view;          //제목노출여부(0:노출안함, 1:노출)
+    private int is_button_view;         //버튼노출여부(0:노출안함, 1:노출)
     private String desc;                //비고
     private String reg_date;            //등록일
     private String op_name;             //등록자
