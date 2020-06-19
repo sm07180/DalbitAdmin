@@ -35,9 +35,16 @@ public class Mon_ItemService {
         monItemInputVo.setTotalCnt(changeItemCnt);
         ArrayList<Mon_ItemOutputVo> changeItemList = monItemDao.selectChangeItemList(monItemInputVo);
 
+        Mon_ItemOutputVo outVo = monItemDao.selectChangeItemSummary(monItemInputVo);
+        Mon_ItemOutputVo outVo2 = monItemDao.selectChangeItemModCnt(monItemInputVo);
+        int memCnt = monItemDao.selectChangeItemMemCnt(monItemInputVo);
+
         var resultMap = new HashMap<>();
         resultMap.put("changeItemCnt", changeItemCnt);
         resultMap.put("changeItemList", changeItemList);
+        resultMap.put("changeItemSummary", outVo);
+        resultMap.put("changeItemMemCnt", memCnt);
+        resultMap.put("changeItemModCnt", outVo2);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }
