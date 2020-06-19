@@ -15,10 +15,10 @@
         </div>
 
         <div class="col-md-4 no-padding pull-right mb5">
-            <div class="col-md-7 no-padding pull-right">
+            <div class="pull-right">
                 <span id="pay_summaryArea2"></span>
             </div>
-            <div class="col-md-4 no-padding mr10 pull-right">
+            <div class="mr10 pull-right">
                 <span id="pay_summaryArea"></span>
             </div>
         </div>
@@ -37,18 +37,15 @@
 <script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
 <script type="text/javascript">
 
-    var date = new Date();
-    var sDate;
-    var eDate;
     var dtList_info_pay;
 
     var tmp_searchPayStatus = 1; //결제완료 디폴트 호출
     var tmp_ostype = -1;
     var txt_search = "";
-    var tmp_period = "";
-    var tmp_joinDate = "";
     var tmp_innerType = "0";
     var tmp_payWay = "all";
+    var sDate;
+    var eDate;
 
     $(document).ready(function() {
     });
@@ -57,15 +54,8 @@
     function getPayList(tmp) {
         var dtList_info_pay_data = function(data) {
             data.searchText = txt_search;                        // 검색명
-            data.period = tmp_period;
-            if(tmp_joinDate == "0" || tmp_joinDate == "1" || tmp_joinDate == "2") {               // 선택
-                data.sDate = sDate;
-                data.eDate = eDate;
-            }else if(tmp_joinDate == "3" ){
-                data.sDate = sDate;
-            }else if(tmp_joinDate == "4" ){
-                data.sDate = $("#onedayDate").val().replace(/-/gi, "");
-            }
+            data.sDate = sDate;
+            data.eDate = eDate;
             data.ostype = tmp_ostype;
             data.searchPayStatus = tmp_searchPayStatus;
             data.innerType = tmp_innerType;
@@ -190,7 +180,7 @@
 </script>
 
 <script id="pay_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px">
+    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px;width: 227px">
         <colgroup>
             <col width="35%"/><col width="65%"/>
         </colgroup>
@@ -212,7 +202,7 @@
 </script>
 
 <script id="pay_tableSummary2" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0">
+    <table class="table table-bordered mb0" style="width: 227px;">
         <colgroup>
             <col width="35%"/><col width="65%"/>
         </colgroup>

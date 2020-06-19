@@ -18,7 +18,7 @@
         <label id="payWayArea" onchange="sel_change_pay_cancel();"></label>
         <label id="payInnerArea" onchange="sel_change_pay_cancel();" style="border: 1px solid #632beb"></label>
 
-        <div class="pull-right mb5">
+        <div class="pull-right mb5" style="width: 227px">
             <span id="pay_cancel_summaryArea"></span>
         </div>
 
@@ -49,8 +49,8 @@
     function getPayCancelList() {
         var sDate;
         var eDate;
-        sDate = $("#startDate").val().replace(/\./gi,'');
-        eDate = $("#endDate").val().replace(/\./gi,'');
+        sDate = $("#startDate").val();
+        eDate = $("#endDate").val();
         var dtList_info_data = function(data) {
             data.searchText = "";                        // 검색명
             if( $('input[name="slctType"]:checked').val() == 0){

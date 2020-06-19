@@ -13,7 +13,7 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 교환내역 검색</h3>
                             <div>
-                                <span id="searchRadio"></span>
+                                <span id="searchFormRadio"></span>
 
                                 <div class="input-group date" id="rangeDatepicker">
                                     <label for="displayDate" class="input-group-addon">
@@ -71,9 +71,9 @@
 
     var sDate;
     var eDate;
-    var _searchRadio ="";
+    var _searchFormRadio ="";
     $(function(){
-        $("#searchRadio").html(util.getCommonCodeRadio(2, searchRadio));
+        $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
 
         $("#displayDate").statsDaterangepicker(
             function(start, end, t1) {
@@ -84,12 +84,12 @@
         getList();
     });
 
-    $(document).on('change', 'input[name="searchRadio"]', function(){
+    $(document).on('change', 'input[name="searchFormRadio"]', function(){
         radioChange();
     });
 
     function radioChange(){
-        _searchRadio = $('input[name="searchRadio"]:checked').val();
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
         setStartDay();
     }
 
@@ -102,7 +102,7 @@
     });
 
     $(document).on('click', '._todaySearch', function(){
-        $("input:radio[name='searchRadio']:radio[value='3']").prop('checked', true);
+        $("input:radio[name='searchFormRadio']:radio[value='2']").prop('checked', true);
         setTimeDate(dateTime);
         radioChange();
     });
@@ -134,11 +134,11 @@
         var date = new Date();
         $("#endDate").val(dateTime);
 
-        if(_searchRadio == 1) {     // 일주일 전
+        if(_searchFormRadio == 1) {     // 일주일 전
             sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
             sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
             $("#startDate").val(sDate);
-        }else if(_searchRadio == 0) {       // 한달전
+        }else if(_searchFormRadio == 0) {       // 한달전
             $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
         }
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());

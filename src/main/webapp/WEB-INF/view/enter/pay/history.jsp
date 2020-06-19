@@ -22,10 +22,10 @@
         </div>
 
         <div class="col-md-4 no-padding pull-right mb5">
-            <div class="col-md-7 no-padding pull-right">
+            <div class="no-padding pull-right" style="width: 227px">
                 <span id="pay_summaryArea2"></span>
             </div>
-            <div class="col-md-4 no-padding mr10 pull-right">
+            <div class="no-padding mr10 pull-right" style="width: 227px">
                 <span id="pay_summaryArea"></span>
             </div>
         </div>
@@ -57,18 +57,12 @@
     function getPayHistoryList() {
         var sDate;
         var eDate;
-        sDate = $("#startDate").val().replace(/\./gi,'');
-        eDate = $("#endDate").val().replace(/\./gi,'');
+        sDate = $("#startDate").val();
+        eDate = $("#endDate").val();
         var dtList_info_data = function(data) {
             data.searchText = "";                        // 검색명
-            if( $('input[name="slctType"]:checked').val() == 0){
-                data.period = 4;
-                data.sDate = sDate;
-            }else{
-                data.period = 0;
-                data.sDate = sDate;
-                data.eDate = eDate;
-            }
+            data.sDate = sDate;
+            data.eDate = eDate;
             data.ostype = tmp_ostype;
             data.searchPayStatus = 1;
             data.innerType = tmp_innerType;
