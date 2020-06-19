@@ -108,7 +108,7 @@
     function fn_success_detail(dst_id, response) {
 
         response.data.select_year = moment(new Date()).format('YYYY');
-        response.data.select_month = moment(new Date()).format('MM');
+        response.data.select_month = moment(new Date()).add('1', 'months').format('MM');
 
         var template = $('#tmp_reqDalList').html();
         var templateScript = Handlebars.compile(template);
@@ -203,16 +203,24 @@
                         <td>{{convertToDate reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                         <th>승인일시</th>
                         <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
+                    </tr>
+                    <tr>
                         <th>이름</th>
                         <td>{{mem_name}}</td>
+
+                        <th>주요방송시간</th>
+                        <td>
+                            {{broadcast_time1}}<br />
+                            {{broadcast_time2}}
+                        </td>
                     </tr>
                     <tr>
                         <th>제목</th>
-                        <td colspan="5">{{title}}</td>
+                        <td colspan="3">{{title}}</td>
                     </tr>
                     <tr>
                         <th>신청내용</th>
-                        <td colspan="5" style="height:300px">
+                        <td colspan="3" style="height:300px">
                             <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%">{{contents}}</textarea>
                         </td>
                     </tr>
@@ -224,9 +232,9 @@
                     </colgroup>
                     <tr>
                         <th>스페셜DJ 선정 연도</th>
-                        <td colspan="2" id="reqSelectYear">{{{getCommonCodeSelect select_year 'special_selectYears' 'Y' 'reqSelectYear'}}}</td>
+                        <td id="reqSelectYear">{{{getCommonCodeSelect select_year 'special_selectYears' 'Y' 'reqSelectYear'}}}</td>
                         <th>선정 월</th>
-                        <td colspan="2" id="reqSelectMonth">{{{getCommonCodeSelect select_month 'special_selectMonths' 'Y' 'reqSelectMonth'}}}</td>
+                        <td id="reqSelectMonth">{{{getCommonCodeSelect select_month 'special_selectMonths' 'Y' 'reqSelectMonth'}}}</td>
                     </tr>
                 </table>
                 <!-- 승인완료 승인거부-->

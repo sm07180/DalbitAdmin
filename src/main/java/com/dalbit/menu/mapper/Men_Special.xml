@@ -38,6 +38,8 @@
         , dj.title as title
         , dj.reg_date as reg_date
         , dj.contents as contents
+        , dj.broadcast_time1 as broadcast_time1
+        , dj.broadcast_time2 as broadcast_time2
         , dj.state as state
         , dj.op_name as op_name
         , dj.last_upd_date as last_upd_date
@@ -111,6 +113,8 @@
           , op_name
           , last_upd_date
           , contents
+          , broadcast_time1
+          , broadcast_time2
           , state
         from rd_admin.tb_req_special_dj
         where idx = #{idx}
