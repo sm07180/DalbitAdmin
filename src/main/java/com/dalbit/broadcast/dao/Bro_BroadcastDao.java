@@ -2,6 +2,7 @@ package com.dalbit.broadcast.dao;
 
 import com.dalbit.broadcast.vo.procedure.*;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.vo.LoginHistoryVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,4 +41,6 @@ public interface Bro_BroadcastDao {
     ArrayList<P_ChatListOutputVo> callBroadcastLiveChatInfo(P_ChatListInputVo pChatListInputVo);
 
     int callBroadCastEditHistoryAdd(P_BroadcastEditInputVo pBroadcastEditInputVo);
+
+
 }

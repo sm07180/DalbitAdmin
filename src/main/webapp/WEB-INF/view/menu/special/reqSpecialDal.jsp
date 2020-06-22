@@ -118,7 +118,7 @@
         $('#reqDalList').html(html);
         ui.scrollIntoView('reqDalList');
 
-        $('#contents').attr("disabled", "disabled");
+        //$('#contents').attr("disabled", "disabled");
 
         if(response.data.state == 2 || response.data.state == 3) {
             $('select[name=reqSelectYear]').attr("disabled", "disabled");
@@ -215,13 +215,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>제목</th>
-                        <td colspan="3">{{title}}</td>
+                        <th>방송소개</th>
+                        <td colspan="3" style="height:200px">
+                            <textarea type="textarea" class="form-control" id="title" name="title" style="width: 100%; height: 100%" disabled>{{title}}</textarea>
+                        </td>
                     </tr>
                     <tr>
-                        <th>신청내용</th>
-                        <td colspan="3" style="height:300px">
-                            <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%">{{contents}}</textarea>
+                        <th>내가 스페셜 DJ가 된다면?!</th>
+                        <td colspan="3" style="height:200px">
+                            <textarea type="textarea" class="form-control" id="contents" name="contents" style="width: 100%; height: 100%" disabled>{{contents}}</textarea>
                         </td>
                     </tr>
                     <colgroup>
