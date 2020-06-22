@@ -12,6 +12,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
+import com.dalbit.member.vo.LoginHistoryVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.P_LoginVo;
 import com.dalbit.member.vo.procedure.*;
@@ -19,6 +20,7 @@ import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -651,5 +653,17 @@ public class Mem_MemberService {
         }
 
         return result;
+    }
+
+    public String selectLoginHistory(LoginHistoryVo loginHistoryVo){
+        int loginHistCnt = mem_MemberDao.selectLoginHistoryCnt(loginHistoryVo);
+        loginHistoryVo.setTotalCnt(loginHistCnt);
+        ArrayList<LoginHistoryVo> loginHistList = mem_MemberDao.selectLoginHistory(loginHistoryVo);
+
+        var returnMap = new HashMap();
+        returnMap.put("loginHistCnt", loginHistCnt);
+        returnMap.put("loginHistList", loginHistList);
+
+        return new Gson().toJson(new JsonOutputVo(Status.조회, returnMap));
     }
 }

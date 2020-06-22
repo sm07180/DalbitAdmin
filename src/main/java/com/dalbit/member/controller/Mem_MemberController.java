@@ -31,4 +31,7 @@ public class Mem_MemberController {
     @RequestMapping("popup/memberTestid")
     public String memberTestid(Model model) { return "member/member/popup/memberTestid"; }
 
+
+    @RequestMapping("login/history")
+    public String loginHistory(Model model) { return "member/login/history"; }
 }

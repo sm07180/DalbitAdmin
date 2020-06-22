@@ -1,6 +1,7 @@
 package com.dalbit.member.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.vo.LoginHistoryVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.*;
 import org.springframework.stereotype.Repository;
@@ -108,4 +109,8 @@ public interface Mem_MemberDao {
     MemberVo getMemberInfo(String mem_no);
 
     int callMemberBroadCastHide(P_MemberEditorVo pMemberEditorVo);
+
+    int selectLoginHistoryCnt(LoginHistoryVo loginHistoryVo);
+
+    ArrayList<LoginHistoryVo> selectLoginHistory(LoginHistoryVo loginHistoryVo);
 }
