@@ -16271,6 +16271,8 @@ div[class*="col-"] > .form-group {
         margin: 0 auto; } }
 .king-gallery .list-group-item-heading {
     font-size: 1em; }
+.king-gallery .list-group-item-heading.broadcast_title {
+    height: 40px; }
 .king-gallery .thumbnail {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
