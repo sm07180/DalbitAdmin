@@ -16,3 +16,19 @@ var search_searchType = [
     , new COMMON_CODE('description', 'description', 'description')
     , new COMMON_CODE('ctype', 'ctype', 'ctype')
 ];
+
+
+var search_alarmTalk_seachType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '', '검색구분')
+    , new COMMON_CODE('emp_no', 'emp_no', '직원번호')
+    , new COMMON_CODE('msg', 'msg', '내용')
+];
+
+var search_alarmTalk_status = [
+    new COMMON_CODE(null, 'result_code', '발송상태')
+    , new COMMON_CODE('all', '', '전체')
+    , new COMMON_CODE('req', '0', '요청')
+    , new COMMON_CODE('success', '1', '성공')
+    , new COMMON_CODE('fail', '-1', '실패')
+];

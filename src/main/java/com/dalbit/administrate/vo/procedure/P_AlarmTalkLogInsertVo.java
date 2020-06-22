@@ -1,4 +1,4 @@
-package com.dalbit.content.vo.procedure;
+package com.dalbit.administrate.vo.procedure;
 
 import com.dalbit.common.vo.BaseVo;
 import lombok.Getter;

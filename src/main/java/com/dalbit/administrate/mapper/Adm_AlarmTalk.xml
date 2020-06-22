@@ -2,12 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.administrate.dao.Adm_AlarmTalkDao" >
 
-
-    <!-- 알림톡 변수 데이터 조회  -->
-    <select id="callSpStatGetData" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
-        call rd_admin.sp_stat_get_data(#{ret, mode=OUT, jdbcType=INTEGER})
-    </select>
-
     <!-- 알림톡 발송 대상 조회  -->
     <select id="callAlarmTalkTarget" resultType="com.dalbit.administrate.vo.procedure.P_AlarmTalkTargetListOutputVo">
         SELECT
@@ -50,6 +44,166 @@
         </foreach>
     </delete>
 
+
+    <sql id="alarmTalkLogSelect">
+        SELECT
+            idx
+            ,group_idx
+            ,emp_no
+            ,userid
+            ,message_type
+            ,phn
+            ,profile
+            ,reserveDt
+            ,msg
+            ,title
+            ,tmplId
+            ,smsKind
+            ,msgSms
+            ,smsSender
+            ,smsLmsTit
+            ,smsOnly
+            ,ad_flag
+            ,img_url
+            ,img_link
+            ,wide
+            ,button1
+            ,button2
+            ,button3
+            ,button4
+            ,button5
+            ,op_name
+            ,send_date
+            ,CASE WHEN result_code = '0' THEN '요청' WHEN result_code = '1' THEN '성공' ELSE '실패' END AS result_code_kr
+            ,result_code
+            ,result_cont
+        FROM
+        rd_admin.tb_admin_alarmtalk_log
+    </sql>
+
+    <sql id="log_condition">
+        <where>
+            <if test='txt_startSel != null and txt_startSel != ""'>
+                send_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')
+            </if>
+            <if test='txt_endSel != null and txt_endSel != ""'>
+                and send_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
+            </if>
+            <if test="result_code != null and result_code != '' ">
+                <choose>
+                    <when test='result_code == "1" or result_code == "0"'>
+                        and result_code = #{result_code}
+                    </when>
+                    <otherwise>
+                        and (result_code != '0' AND result_code != '1')
+                    </otherwise>
+                </choose>
+            </if>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == "emp_no"'>
+                        and emp_no like  concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == "msg"'>
+                        and msg like  concat ('%', #{searchText}, '%')
+                    </when>
+                    <otherwise>
+                        and (emp_no like concat ('%', #{searchText}, '%')
+                        or msg like  concat ('%', #{searchText}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="callAlarmTalkLogList_total" parameterType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogListInputVo" resultType="java.lang.Integer">
+        select
+          COUNT(*)
+        FROM
+        (
+            <include refid="alarmTalkLogSelect"/>
+            <include refid="log_condition"/>
+            <!--<where>-->
+            <!--<if test='is_view != null and is_view != "" and is_view != "-1" '>-->
+            <!--AND is_view = #{is_view}-->
+            <!--</if>-->
+            <!--<if test='position != null and position != "" and position != "-1" '>-->
+            <!--AND position = #{position}-->
+            <!--</if>-->
+            <!--<if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>-->
+            <!--<choose>-->
+            <!--<when test='platformGroup == "2" '>-->
+            <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))-->
+            <!--</when>-->
+            <!--<when test='platformGroup == "3" '>-->
+            <!--AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
+            <!--</when>-->
+            <!--<when test='platformGroup == "4" '>-->
+            <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
+            <!--</when>-->
+            <!--</choose>-->
+            <!--</if>-->
+            <!--<if test='searchText != null and searchText != ""'>-->
+            <!--AND title like CONCAT('%',#{searchText},'%')-->
+            <!--</if>-->
+            <!--</where>-->
+        ) AS a
+    </select>
+
+
+    <!-- 알림톡 발송 로그 조회  -->
+    <select id="callAlarmTalkLogList" parameterType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogListInputVo" resultType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogListOutputVo">
+        SELECT
+         *
+        FROM
+        (
+            select
+            @rownum := @rownum + 1 as rowNum,
+            a.*
+            FROM
+            (
+            <include refid="alarmTalkLogSelect"/>
+            <include refid="log_condition"/>
+            <!--<where>-->
+                <!--<if test='is_view != null and is_view != "" and is_view != "-1" '>-->
+                    <!--AND is_view = #{is_view}-->
+                <!--</if>-->
+                <!--<if test='position != null and position != "" and position != "-1" '>-->
+                    <!--AND position = #{position}-->
+                <!--</if>-->
+                <!--<if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>-->
+                    <!--<choose>-->
+                        <!--<when test='platformGroup == "2" '>-->
+                            <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))-->
+                        <!--</when>-->
+                        <!--<when test='platformGroup == "3" '>-->
+                            <!--AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
+                        <!--</when>-->
+                        <!--<when test='platformGroup == "4" '>-->
+                            <!--AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))-->
+                        <!--</when>-->
+                    <!--</choose>-->
+                <!--</if>-->
+                <!--<if test='searchText != null and searchText != ""'>-->
+                    <!--AND title like CONCAT('%',#{searchText},'%')-->
+                <!--</if>-->
+            <!--</where>-->
+            ) AS a,
+            (SELECT @rownum := 0) AS b
+            <trim prefix="ORDER BY">
+                a.send_date desc
+            </trim>
+        ) d
+        WHERE rowNum BETWEEN #{searchStartNo, jdbcType=INTEGER} AND #{searchEndNo, jdbcType=INTEGER}
+    </select>
+
+
+
+    <!-- 알림톡 변수 데이터 조회  -->
+    <select id="callSpStatGetData" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_stat_get_data(#{ret, mode=OUT, jdbcType=INTEGER})
+    </select>
 
     <!-- 알림톡 발송 로그 등록  -->
     <insert id="callAlarmTalkLogAdd" parameterType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogInsertVo">

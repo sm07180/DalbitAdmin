@@ -7,7 +7,6 @@ import com.dalbit.common.vo.MenuVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
-import jdk.nashorn.internal.runtime.regexp.RegExp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -116,8 +115,8 @@ public class DalbitUtil {
      * @return
      */
     public static boolean isEmpty(List list){
-        if(list != null){
-            return false;
+        if(list == null){
+            return true;
         }
         return 0 < list.size() ? false : true;
     }
@@ -825,9 +824,15 @@ public class DalbitUtil {
             return null;
         }
 
-        return prefix + phone.substring(0,2);
+        return prefix + phone.substring(1);
     }
 
+    public static String randomValueDatetime(int suffixCnt){
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHHmmssSSS");
+        String dataFormat = sdf.format(new Date());
+
+        return dataFormat + randomValue("number", suffixCnt);
+    }
 
     /*
      * 회원 기본정보 조회

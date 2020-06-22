@@ -1,31 +1,28 @@
 package com.dalbit.administrate.controller.rest;
 
-import com.dalbit.administrate.service.Adm_AuthorityService;
+import com.dalbit.administrate.service.Adm_AlarmTalkService;
+import com.dalbit.administrate.vo.procedure.P_AlarmTalkLogListInputVo;
+import com.dalbit.administrate.vo.procedure.P_AlarmTalkTargetEditVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.CommonService;
 import com.dalbit.common.vo.JsonOutputVo;
-import com.dalbit.common.vo.MenuAuthVo;
-import com.dalbit.common.vo.MenuVo;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.inforex.vo.InforexMember;
 import com.dalbit.util.GsonUtil;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/rest/administrate/authority")
-public class Adm_AuthorityRestController {
+@RequestMapping("/rest/administrate/alarmtalk")
+public class Adm_AlarmTalkRestController {
 
     @Autowired
     GsonUtil gsonUtil;
@@ -33,42 +30,25 @@ public class Adm_AuthorityRestController {
     @Autowired
     CommonService commonService;
     @Autowired
-    Adm_AuthorityService admAuthorityService;
+    Adm_AlarmTalkService admAlarmTalkService;
 
     @PostMapping("/list")
     public String list(SearchVo searchVo) {
+        List<InforexMember> memberList = admAlarmTalkService.callAlarmTalkTargetList(searchVo);
 
-        List<InforexMember> memberList = admAuthorityService.getInforexMemberList(searchVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, memberList));
     }
 
-    @PostMapping("/info")
-    public String info(SearchVo searchVo) {
 
-        //관리자 메뉴 조회
-        List<MenuVo> menuList = admAuthorityService.getAdminMenuInfo();
+    @PostMapping("/edit")
+    public String edit(P_AlarmTalkTargetEditVo pAlarmTalkTargetEditVo, HttpServletRequest request) throws GlobalException{
+        admAlarmTalkService.targetEdit(pAlarmTalkTargetEditVo);
 
-        //선택된 관리자 메뉴 조회
-        List<MenuVo> memberAuthList = admAuthorityService.getMemberAuthInfo(searchVo.getEmpNo());
-
-        var map = new HashMap();
-        map.put("menuInfo", menuList);
-        map.put("authInfo", memberAuthList);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, map));
+        return gsonUtil.toJson(new JsonOutputVo(Status.알림톡대상조회_성공));
     }
 
-    @PostMapping("/setAuth")
-    public String setAuth(HttpServletRequest request) throws GlobalException{
-
-        String menuAuthArr = request.getParameter("menuAuthArr");
-        String empNoArr = request.getParameter("empNoArr");
-        MenuAuthVo[] menuAuthVos = new Gson().fromJson(menuAuthArr, MenuAuthVo[].class);
-        int[] empNos = new Gson().fromJson(empNoArr, int[].class);
-        log.debug("메뉴 : {}", request);
-
-        admAuthorityService.setAuth(empNos, menuAuthVos);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.관리자권한부여_성공));
+    @PostMapping("/logs")
+    public String logs(P_AlarmTalkLogListInputVo pAlarmTalkLogListInputVo, HttpServletRequest request) throws  GlobalException{
+        return admAlarmTalkService.callAlarmTalkLogList(pAlarmTalkLogListInputVo);
     }
 }

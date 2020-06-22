@@ -1,39 +1,23 @@
 package com.dalbit.schelduler;
 
-import com.dalbit.content.service.AlarmTalkService;
-import com.dalbit.content.vo.procedure.P_AlarmTalkInsertVo;
-import com.google.gson.Gson;
+import com.dalbit.administrate.service.Adm_AlarmTalkService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 @Slf4j
 @Component
+@Profile({"dev"})
 public class AlarmTalkScheduler {
 
     @Autowired
-    AlarmTalkService alarmTalkService;
+    Adm_AlarmTalkService admAlarmTalkService;
 
-    @Scheduled(cron = "45 * * * * *")
-    protected void deleteTemp() {
-        SimpleDateFormat yyyymm = new SimpleDateFormat("/YYYY/MM");
-
-        Date now = new Date();
-        Calendar cal = new GregorianCalendar();
-        cal.setTime(now);
-        cal.add(Calendar.DATE, -2);
-
-        System.out.println(now);
-
-        List<P_AlarmTalkInsertVo> list = alarmTalkService.callSpStatGetData();
-
-        System.out.println(new Gson().toJson(list));
+    //TODO 통계 알림톡 발송 스케쥴링 시간 추가 필요
+//    @Scheduled(cron = "45 * * * * *")
+    protected void sendStatusAlarmTalk() {
+        // 달빛라이브 통계 알림톡 발송 요청
+        admAlarmTalkService.sendStatusAlarmTalk();
     }
 }

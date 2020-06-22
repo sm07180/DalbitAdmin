@@ -28,4 +28,5 @@ public class InforexMember {
 
     int authCnt;
     int testIdCnt;
+    int alarmTalkTarget;
 }

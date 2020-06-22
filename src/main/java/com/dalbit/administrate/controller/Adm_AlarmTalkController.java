@@ -7,11 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
 @Controller
-@RequestMapping("/administrate/authority")
-public class Adm_AuthorityController {
+@RequestMapping("/administrate/alarmtalk")
+public class Adm_AlarmTalkController {
 
-    @GetMapping("/list")
-    public String list() {
-        return "administrate/authority/list";
+    @GetMapping("target/list")
+    public String targetList() {
+        return "administrate/alarmtalk/list";
+    }
+
+    @GetMapping("log/list")
+    public String logList() {
+        return "sample/alarmTalkLog";
     }
 }

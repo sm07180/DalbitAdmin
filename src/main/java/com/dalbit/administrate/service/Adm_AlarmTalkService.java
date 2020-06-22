@@ -1,19 +1,24 @@
 package com.dalbit.administrate.service;
 
-import com.dalbit.administrate.dao.AlarmTalkDao;
+import com.dalbit.administrate.dao.Adm_AlarmTalkDao;
 import com.dalbit.administrate.vo.AlarmTalkValVo;
 import com.dalbit.administrate.vo.procedure.*;
 import com.dalbit.common.code.AlarmTalkTemplate;
 import com.dalbit.common.code.Code;
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.inforex.vo.InforexMember;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
+import com.dalbit.util.InforexApiUtil;
 import com.dalbit.util.RestApiUtil;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +32,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class AlarmTalkService {
+public class Adm_AlarmTalkService {
 
     @Autowired
-    AlarmTalkDao alarmTalkDao;
+    Adm_AlarmTalkDao admAlarmTalkDao;
 
     @Autowired
     Adm_AuthorityService admAuthorityService;
@@ -59,33 +65,80 @@ public class AlarmTalkService {
 
 
     /** 알림톡 발송 대상 리스트 */
-    public List<P_AlarmTalkListOutputVo> callAlarmTalkTargetList(SearchVo searchVo) {
+    public List<InforexMember> callAlarmTalkTargetList(SearchVo searchVo) {
 
-        List<P_AlarmTalkListOutputVo> resultMemberList = new ArrayList<>();
         // 검색조건 대상자 조회
         List<InforexMember> memberList = admAuthorityService.getInforexMemberList(searchVo);
         // 알림톡 발송 대상 리스트 조회
-        List<P_AlarmTalkTargetListOutputVo> targetList =  alarmTalkDao.callAlarmTalkTarget();
+        List<P_AlarmTalkTargetListOutputVo> targetList =  admAlarmTalkDao.callAlarmTalkTarget();
 
         // 검색 조건에 알림톡 발송 대상 여부 체크
         for (InforexMember member : memberList) {
-            P_AlarmTalkListOutputVo target = (P_AlarmTalkListOutputVo) member;
-            target.setAlarmTalkTarget(targetList.stream().filter(inforexMember -> inforexMember.getEmp_no().equals(target.getEmp_no())).collect(Collectors.toList()).size());
-            resultMemberList.add(target);
+            member.setAlarmTalkTarget(targetList.stream().filter(inforexMember -> inforexMember.getEmp_no().equals(member.getEmp_no())).collect(Collectors.toList()).size());
         }
 
-        return resultMemberList;
+        return memberList;
+    }
+
+    /** 알림톡 발송 대상 수정 */
+    public void targetEdit(P_AlarmTalkTargetEditVo pAlarmTalkTargetEditVo) {
+        HashMap<String, Object> targets = new HashMap<>();
+        List<HashMap> insertTargets = pAlarmTalkTargetEditVo.getInsertTargets();
+        List<HashMap> deleteTargets = pAlarmTalkTargetEditVo.getDeleteTargets();
+
+        targets.put("opName", pAlarmTalkTargetEditVo.getOpName());
+        targets.put("insertTargets", insertTargets);
+        targets.put("deleteTargets", deleteTargets);
+
+        if(!DalbitUtil.isEmpty(insertTargets) && insertTargets.size() > 0) admAlarmTalkDao.alarmTalkTargetAdd(targets);
+        if(!DalbitUtil.isEmpty(deleteTargets) && deleteTargets.size() > 0) admAlarmTalkDao.alarmTalkTargetRemove(targets);
     }
 
 
+
+    /** 알림톡 발송 로그 리스트 */
+    public String callAlarmTalkLogList(P_AlarmTalkLogListInputVo pAlarmTalkLogListInputVo) {
+        String result;
+
+        // 임직원 리스트
+        HashMap<String, InforexMember> mapInforexMembers = InforexApiUtil.getInforexMemberSearchMap();
+
+        // 로그 리스트
+        int totalCnt = admAlarmTalkDao.callAlarmTalkLogList_total(pAlarmTalkLogListInputVo);
+        pAlarmTalkLogListInputVo.setTotalCnt(totalCnt);
+        List<P_AlarmTalkLogListOutputVo> logList = admAlarmTalkDao.callAlarmTalkLogList(pAlarmTalkLogListInputVo);
+
+        for(P_AlarmTalkLogListOutputVo log : logList){
+            InforexMember target = mapInforexMembers.get(log.getEmp_no());
+
+            if(!DalbitUtil.isEmpty(target)){
+                log.setStaff_hphone(target.getStaff_hphone());
+                log.setStaff_name(target.getStaff_name());
+            }
+        }
+
+
+        if(logList != null && logList.size() > 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.알림톡로그조회_성공, logList, new PagingVo(pAlarmTalkLogListInputVo.getTotalCnt(), pAlarmTalkLogListInputVo.getPageStart(), pAlarmTalkLogListInputVo.getPageCnt())));
+        }else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.알림톡로그조회_데이터없음, null, new PagingVo(pAlarmTalkLogListInputVo.getTotalCnt(), pAlarmTalkLogListInputVo.getPageStart(), pAlarmTalkLogListInputVo.getPageCnt())));
+        }
+
+        return result;
+    }
+
+
+
+
+
     /** 통계 알림톡 발송 */
-    public void callSpStatGetData() {
+    public void sendStatusAlarmTalk() {
         ProcedureVo procedureVo = new ProcedureVo();
         List<P_AlarmTalkInsertVo> sendList = new ArrayList<>();
 
         try {
             // 변수 데이터 조회
-            alarmTalkDao.callSpStatGetData(procedureVo);
+            admAlarmTalkDao.callSpStatGetData(procedureVo);
 
             if(!DalbitUtil.isEmpty(procedureVo.getRet())){// 성공
                 log.info("[AlarmTalk] 통계 조회 성공 : {}", procedureVo.getRet());
@@ -110,7 +163,7 @@ public class AlarmTalkService {
 
 
                 //발송 대상 조회
-                List<P_AlarmTalkTargetListOutputVo> targetList =  alarmTalkDao.callAlarmTalkTarget();
+                List<P_AlarmTalkTargetListOutputVo> targetList =  admAlarmTalkDao.callAlarmTalkTarget();
 
                 if(targetList.size() <= 0){
                     log.debug("[AlarmTalk] 발송 대상 미존재");
@@ -160,47 +213,6 @@ public class AlarmTalkService {
                 }else{
                     log.debug("[AlarmTalk] 정상 발송 대상 미존재");
                 }
-
-                /* TEST
-                P_AlarmTalkInsertVo a = new P_AlarmTalkInsertVo();
-                a.setEmp_no("1111");
-                a.setUserid(ALARMTALK_USER_ID);
-                a.setMessage_type("at");
-                a.setPhn("821045990513");
-                a.setProfile(ALARMTALK_PROFILE);
-                a.setTmplId(tmpId);
-                a.setMsg(msg);
-                a.setReserveDt("00000000000000");
-
-                sendList.add(a);
-
-                a = new P_AlarmTalkInsertVo();
-                a.setEmp_no("2222");
-                a.setUserid(ALARMTALK_USER_ID);
-                a.setMessage_type("at");
-                a.setPhn("01045990513");
-                a.setProfile(ALARMTALK_PROFILE);
-                a.setTmplId(tmpId);
-                a.setMsg(msg);
-                a.setReserveDt("00000000000000");
-
-                sendList.add(a);
-
-                a = new P_AlarmTalkInsertVo();
-                a.setEmp_no("3333");
-                a.setUserid(ALARMTALK_USER_ID);
-                a.setMessage_type("at");
-                a.setPhn("444");
-                a.setProfile(ALARMTALK_PROFILE);
-                a.setTmplId(tmpId);
-                a.setMsg(msg);
-                a.setReserveDt("00000000000000");
-
-                sendList.add(a);
-
-                //알림톡 발송 요청 시작  //100건씩 끊어서 발송 필요
-                sendAlarmTalk(sendList, null);
-                */
             }else{
                 log.error("[AlarmTalk] 통계 조회 실패 : {}", procedureVo.getRet());
             }
@@ -227,7 +239,7 @@ public class AlarmTalkService {
             pAlarmTalkLogInsertVo.setOp_name(DalbitUtil.isEmpty(opName) ? "관리자" : opName);
 
             // 발송로그 적재
-            alarmTalkDao.callAlarmTalkLogAdd(pAlarmTalkLogInsertVo);
+            admAlarmTalkDao.callAlarmTalkLogAdd(pAlarmTalkLogInsertVo);
 
             // 발송요청
             try {
@@ -267,20 +279,21 @@ public class AlarmTalkService {
                         JSONObject  data = jsonObj.getJSONObject("data");
 
                         if(data.get("phn") != null && !data.get("phn").equals("")){
+                            String resultCode = jsonObj.get("code").toString().equals("success") ? "1" : "-1";
                             P_AlarmTalkLogUpdateVo resultLog = new P_AlarmTalkLogUpdateVo();
                             resultLog.setGroup_idx(group_idx);
                             resultLog.setPhn(data.get("phn").toString());
-                            resultLog.setResult_code(jsonObj.get("code").toString());
+                            resultLog.setResult_code(resultCode);
                             resultLog.setResult_cont(jsonObj.toString());
 
-                            alarmTalkDao.callAlarmTalkLogUpdate(resultLog);
+                            admAlarmTalkDao.callAlarmTalkLogUpdate(resultLog);
                         }
 
                         if(jsonObj.get("code").equals("fail")){
                             //실패 로그
-                            log.error(jsonObj.toString());
+                            log.error("[AlarmTalk] 발송 실패 {}", jsonObj.toString());
                         }else{
-                            log.info(jsonObj.toString());
+                            log.info("[AlarmTalk] 발송 성공 {}", jsonObj.toString());
                         }
                     }
                 } else {
@@ -291,7 +304,7 @@ public class AlarmTalkService {
                     resultLog.setResult_code("-9");
                     resultLog.setResult_cont(result.toString());
 
-                    alarmTalkDao.callAlarmTalkLogUpdate(resultLog);
+                    admAlarmTalkDao.callAlarmTalkLogUpdate(resultLog);
                 }
 
                 log.debug("[AlarmTalk] 발송 요청 결과 : {}", result.toString());
