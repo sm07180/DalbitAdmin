@@ -193,7 +193,9 @@ var EventDataTableSource = {
                     return '출석';
                 }
                 }}
-            , {'title': '참여 일시', 'data': 'last_upd_date'}
+            , {'title': '참여 일시', 'data': 'last_upd_date', 'render': function(data) {
+                return common.convertToDate(data);
+                }}
             , {'title': '경험치', 'data': 'reward_exp'}
             , {'title': '받은 달', 'data': 'reward_dal'}
         ]

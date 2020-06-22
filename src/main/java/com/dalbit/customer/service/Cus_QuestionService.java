@@ -55,6 +55,11 @@ public class Cus_QuestionService {
             if(!DalbitUtil.isEmpty(outVo2)) {
                 questionList.get(i).setAdminMemoCnt(outVo2.getAdminMemoCnt());
             }
+
+            MemberVo memInfoOutVo = DalbitUtil.getMemInfo(questionList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                questionList.get(i).setMem_userid(memInfoOutVo.getMem_userid());
+            }
         }
 
         String result;

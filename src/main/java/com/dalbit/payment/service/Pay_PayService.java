@@ -91,7 +91,7 @@ public class Pay_PayService {
             hm.put("col5", DalbitUtil.isEmpty(list.get(i).getPay_dt_comein()) ? "" : list.get(i).getPay_dt_comein());
             hm.put("col6", DalbitUtil.isEmpty(list.get(i).getPay_ok_date()) ? "" : list.get(i).getPay_ok_date() + " " + list.get(i).getPay_ok_time());
             hm.put("col7", DalbitUtil.isEmpty(list.get(i).getPay_code()) ? "" : list.get(i).getPay_code());
-            hm.put("col8", DalbitUtil.isEmpty(list.get(i).getPay_amt()) ? "" : DalbitUtil.comma(list.get(i).getPay_amt())+"원");
+            hm.put("col8", DalbitUtil.isEmpty(list.get(i).getPay_amt()) ? "" : list.get(i).getPay_amt());
             hm.put("col9", DalbitUtil.isEmpty(list.get(i).getDal_cnt()) ? "" : list.get(i).getDal_cnt());
             hm.put("col10", DalbitUtil.isEmpty(list.get(i).getTot_dal_cnt()) ? "" : list.get(i).getTot_dal_cnt());
             hm.put("col11", DalbitUtil.isEmpty(list.get(i).getChrgr_yn()) ? "" : list.get(i).getChrgr_yn().equals("1") ? "Y" : "N");

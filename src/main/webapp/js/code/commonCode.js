@@ -236,8 +236,8 @@ var broadcastSubjectType = [
     , new COMMON_CODE('99', '99', '기타')
 ];
 
-var searchRadio = [
-    new COMMON_CODE('', 'searchRadio', '날짜선택')
+var searchFormRadio = [
+    new COMMON_CODE('', 'searchFormRadio', '날짜선택')
     , new COMMON_CODE('0', '0', '한달')
     , new COMMON_CODE('1', '1', '일주일')
     , new COMMON_CODE('2', '2', '날짜선택')

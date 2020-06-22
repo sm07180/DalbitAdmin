@@ -414,6 +414,14 @@
             resultJson['is_cookie'] = 1;
         }
 
+        if(0 < $('#detail_is_title_view:checked').length){
+            resultJson['is_title_view'] = 1;
+        }
+
+        if(0 < $('#detail_is_button_view:checked').length){
+            resultJson['is_button_view'] = 1;
+        }
+
         //예약발송 일경우 Date 처리
         if(fnc_bannerDetail.target.find("input[name='term_type']:radio:checked").val() == "1"){
             var startDiv = fnc_bannerDetail.target.find("#banner-div-startDate");
@@ -618,6 +626,14 @@
             </tr>
 
             <tr class="_show_popup _show_popup_text" style='display:none;'>
+                <th>제목 노출 여부</th>
+                <td colspan="5">{{{getOnOffSwitch is_title_view 'is_title_view'}}}</td>
+
+                <th>버튼 노출 여부</th>
+                <td colspan="5">{{{getOnOffSwitch is_button_view 'is_button_view'}}}</td>
+            </tr>
+
+            <tr class="_show_popup _show_popup_text" style='display:none;'>
                 <th>배너문구</th>
                 <td colspan="11">
                     <textarea name="contents" id="contents" style='width:100%;height:100%;' rows="10">{{contents}}</textarea>
@@ -643,12 +659,12 @@
             <tr class="_show_popup_image">
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="banner-pc_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px;" src="" alt="" /></a>
+                    <img id="banner-pc_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px; width:100%;" src="" alt="" /></a>
                 </td>
 
                 <td colspan="6">
                     <!--미리보기-->
-                    <img id="banner-mobile_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px;" src="" alt="" /></a>
+                    <img id="banner-mobile_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px; width:100%;" src="" alt="" /></a>
                 </td>
             </tr>
             <tr>

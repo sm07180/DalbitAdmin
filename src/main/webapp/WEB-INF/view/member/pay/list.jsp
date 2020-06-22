@@ -12,7 +12,8 @@
     function getHistory_payDetail(tmp) {     // 상세보기
         if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
         txt_search = memNo;
-        tmp_period = 99;
+        sDate = "";
+        eDate = "";
         getPayList("memPayHistory");
     }
 

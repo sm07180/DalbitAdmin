@@ -15,5 +15,11 @@ public interface Mon_ItemDao {
 
     @Transactional(readOnly = true)
     ArrayList<Mon_ItemOutputVo> selectChangeItemList(Mon_ItemInputVo monItemInputVo);
+    @Transactional(readOnly = true)
+    Mon_ItemOutputVo selectChangeItemSummary(Mon_ItemInputVo monItemInputVo);
+    @Transactional(readOnly = true)
+    Mon_ItemOutputVo selectChangeItemModCnt(Mon_ItemInputVo monItemInputVo);
+    @Transactional(readOnly = true)
+    int selectChangeItemMemCnt(Mon_ItemInputVo monItemInputVo);
 
 }
