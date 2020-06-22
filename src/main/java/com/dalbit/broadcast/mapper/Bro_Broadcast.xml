@@ -135,4 +135,5 @@
         insert into rd_data.tb_broadcast_room_edit_history (room_no,edit_contents,op_name,last_upd_date)
          value (#{room_no}, #{editContents}, #{opName}, now())
     </insert>
+
 </mapper>

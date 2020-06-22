@@ -276,4 +276,68 @@
            </if>
     </update>
 
+    <sql id="baseLoginHistory">
+        select
+            @rownum := @rownum + 1 as rowNum
+            , idx
+            , mem_no
+            , slct
+            , os_type
+            , device_uuid
+            , device_token
+            , app_version
+            , browser
+            , device_manufacturer
+            , device_model
+            , sdk_version
+            , adid
+            , location
+            , ip
+            , DATE_FORMAT(last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
+        from rd_data.tb_member_session_history
+            , (select @rownum := 0) AS b
+        where 1=1
+        <if test='searchText != null and searchText != ""'>
+            <choose>
+                <when test='searchType == "mem_no"'>
+                    and mem_no like concat ('%', #{searchText}, '%')
+                </when>
+                <when test='searchType == "uuid"'>
+                    and upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
+                </when>
+                <when test='searchType == "token"'>
+                    and upper(device_token) like concat ('%', upper(#{searchText}), '%')
+                </when>
+                <when test='searchType == "ip"'>
+                    and ip like concat ('%', upper(#{searchText}), '%')
+                </when>
+                <otherwise>
+                    and (
+                        mem_no like concat ('%', #{searchText}, '%')
+                        or upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
+                        or upper(device_token) like concat ('%', upper(#{searchText}), '%')
+                        or ip like concat ('%', upper(#{searchText}), '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+        order by idx desc
+    </sql>
+
+    <select id="selectLoginHistoryCnt" parameterType="com.dalbit.member.vo.LoginHistoryVo" resultType="int">
+        /* Bro_Broadcast.xml - selectLoginHistoryCnt */
+        select count(*)
+        from(
+            <include refid="baseLoginHistory" />
+        ) a
+    </select>
+
+    <select id="selectLoginHistory" parameterType="com.dalbit.member.vo.LoginHistoryVo" resultType="com.dalbit.member.vo.LoginHistoryVo">
+        /* Bro_Broadcast.xml - selectLoginHistory */
+        select *
+        from(
+            <include refid="baseLoginHistory" />
+        ) a
+        where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
 </mapper>
