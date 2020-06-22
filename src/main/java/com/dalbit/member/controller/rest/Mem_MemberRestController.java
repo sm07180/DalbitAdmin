@@ -5,6 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.Mem_MemberService;
+import com.dalbit.member.vo.LoginHistoryVo;
 import com.dalbit.member.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -207,6 +208,15 @@ public class Mem_MemberRestController {
     @PostMapping("update/broadCastHide")
     public String broadCastHide(P_MemberEditorVo pMemberEditorVo) {
         String result = mem_MemberService.callMemberBroadCastHide(pMemberEditorVo);
+        return result;
+    }
+
+    /**
+     * 회원 로그인 이력 조회
+     */
+    @PostMapping("login/history")
+    public String loginHistory(LoginHistoryVo loginHistoryVo) {
+        String result = mem_MemberService.selectLoginHistory(loginHistoryVo);
         return result;
     }
 }

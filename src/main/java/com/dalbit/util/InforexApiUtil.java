@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Slf4j
 @Component
@@ -67,5 +68,23 @@ public class InforexApiUtil {
             httpSession.setAttribute(sessionName, inforexMembers);
         }
         return inforexMembers;
+    }
+
+
+    public static HashMap<String, InforexMember> getInforexMemberSearchMap(){
+        String sessionName = DalbitUtil.getProperty(Code.인포렉스_임직원목록.getCode());
+        InforexMember[] inforexMembers = (InforexMember[])httpSession.getAttribute(sessionName);
+        if(DalbitUtil.isEmpty(inforexMembers)){
+            String result = RestApiUtil.sendGet(DalbitUtil.getProperty(Code.인포렉스_임직원목록.getDesc()));
+            inforexMembers = new Gson().fromJson(result, InforexMember[].class);
+            httpSession.setAttribute(sessionName, inforexMembers);
+        }
+
+        HashMap<String, InforexMember> mapResult = new HashMap<>();
+        for(InforexMember member : inforexMembers){
+            mapResult.put(member.getEmp_no(), member);
+        }
+
+        return mapResult;
     }
 }
