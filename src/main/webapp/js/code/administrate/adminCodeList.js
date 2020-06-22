@@ -13,6 +13,7 @@ var faq_slctType = [
     , new COMMON_CODE('event', '2', '방송')
     , new COMMON_CODE('check', '3', '결제')
     , new COMMON_CODE('update', '4', '기타')
+    , new COMMON_CODE('id', '5', '계정')
     , new COMMON_CODE('question', '99', '1:1문의')
 ];
 
