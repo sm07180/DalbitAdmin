@@ -39,7 +39,7 @@
                         >
 
                             <%--<a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">--%>
-                            <a href="javascript://" data-url="${0 < fn:length(menu.menu_url) ? menu.menu_url: ''}"
+                            <a href="${menu.is_pop eq 1 ? menu.menu_url : 'javascript://'}" data-url="${0 < fn:length(menu.menu_url) ? menu.menu_url: ''}"
                                target="${menu.is_pop eq 1 ? '_black' : ''}"
                                class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''} _dalbit">
 
@@ -55,7 +55,8 @@
                                 <ul class="sub-menu" style="${isSubmenuView ? 'display:block;': 'display:block;'}">
                                     <c:forEach var="twoDepth" items="${menu.twoDepth}">
                                         <li class="${not empty url and url.equals(twoDepth.menu_url) ? 'active': ''}">
-                                            <a href="javascript://" data-url="${0 == fn:length(twoDepth.menu_url) ? '' : twoDepth.menu_url}"
+                                            <a href="${twoDepth.is_pop eq 1 ? twoDepth.menu_url : 'javascript://'}" data-url="${0 == fn:length(twoDepth.menu_url) ? '' : twoDepth.menu_url}"
+                                               target="${twoDepth.is_pop eq 1 ? '_black' : ''}"
                                                class="${twoDepth.is_comming_soon eq 1 ? '_commingSoon' : ''} _dalbit">
                                                 <i class="fa ${twoDepth.icon}"></i><span class="text">${twoDepth.menu_name}</span>
                                             </a>
