@@ -200,7 +200,7 @@ var fnc_broadcastList = {};
                 </div>
             </div>
             <div>
-                <h3 class="inner list-group-item-heading">
+                <h3 class="inner list-group-item-heading broadcast_title">
                     <a href="javascript://" class="_openBroadcastPop" data-roomno="{{user.room_no}}"><h5>{{user.title}}</h5></a>
                 </h3>
                 <ul class="list-unstyled">
