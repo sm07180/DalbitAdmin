@@ -39,8 +39,6 @@ public class Cus_QuestionService {
     GsonUtil gsonUtil;
     @Autowired
     ExcelService excelService;
-    @Autowired
-    Mem_MemberDao mem_MemberDao;
 
     public String getQuestionList(P_QuestionListInputVo pQuestionListInputVo) {
         ProcedureVo procedureVo = new ProcedureVo(pQuestionListInputVo);
@@ -58,7 +56,7 @@ public class Cus_QuestionService {
                 questionList.get(i).setAdminMemoCnt(outVo2.getAdminMemoCnt());
             }
 
-            MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(questionList.get(i).getMem_no());
+            MemberVo memInfoOutVo = DalbitUtil.getMemInfo(questionList.get(i).getMem_no());
             if(!DalbitUtil.isEmpty(memInfoOutVo)) {
                 questionList.get(i).setMem_userid(memInfoOutVo.getMem_userid());
             }
