@@ -232,6 +232,7 @@
             , (select @RNUM := 0) r
         where att.mem_no = bas.mem_no
           and att.mem_no = pro.mem_no
+          and check_ok = '1'
               <if test='txt_startSel != null and txt_startSel != ""'>
                   and att.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel}, '%Y-%m-%d 00:00:00')
               </if>
