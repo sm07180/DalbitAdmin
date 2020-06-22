@@ -4,6 +4,7 @@ import com.dalbit.administrate.service.Adm_AuthorityService;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
 import com.dalbit.common.vo.MenuVo;
+import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
 import jdk.nashorn.internal.runtime.regexp.RegExp;
@@ -31,13 +32,20 @@ import java.util.*;
 public class DalbitUtil {
 
     private static Environment environment;
+    private static Mem_MemberDao mem_MemberDao;
 
     @Autowired
     private Environment activeEnvironment;
 
+    @Autowired
+    private Mem_MemberDao activeMem_MemberDao;
+
     @PostConstruct
     private void init () {
+
         environment = this.activeEnvironment;
+        mem_MemberDao = this.activeMem_MemberDao;
+
     }
 
     private static Adm_AuthorityService admAuthorityService;
@@ -806,4 +814,13 @@ public class DalbitUtil {
         }
         return platform;
     }
+
+    /*
+    * 회원 기본정보 조회
+     */
+    public static MemberVo getMemInfo(String mem_no){
+        MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(mem_no);
+        return memInfoOutVo;
+    }
+
 }
