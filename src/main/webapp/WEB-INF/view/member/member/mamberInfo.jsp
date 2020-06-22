@@ -87,20 +87,21 @@
             var tmp = '<label>' + response.data.socialId + '</label>';
             $("#div_socialId").append(tmp);
         }
-
-        if (tmp_bt != "adminMemoAdd") {
-            $("#member_detailFrm").html("");
-        }
         if (response.data.memState == 4){
             $("#txt_phon").css("display", "none");
         }else{
             $("#txt_phon").css("display", "");
         }
 
-        $("#tablist_con").find('.active').find('a').click();
+        if (tmp_bt != "bt_adminMemo") {
+            $("#member_detailFrm").html("");
+            $("#tablist_con").find('.active').find('a').click();
 
-        var scrollPosition = $("#tabList_top").offset();
-        util.scrollPostion(scrollPosition.top);
+            var scrollPosition = $("#tabList_top").offset();
+            util.scrollPostion(scrollPosition.top);
+        }else{
+            getInfoDetail("bt_adminMemoList", "운영자메모");
+        }
     }
 
     function init(){
@@ -196,10 +197,9 @@
                 alert("등록할 운영자 메모를 입력해 주십시오.");
                 return;
             }
-            getInfoDetail("bt_adminMemoList", "운영자메모");
             obj.mem_no = memNo;
             obj.memo = $("#txt_adminMemo").val();
-            util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, update_success, fn_fail);
+            util.getAjaxData("adminMemoAdd", "/rest/member/member/adminMemoAdd", obj, adminMemo_success, fn_fail);
         } else if(tmp == "bt_socialId" ){       // 로그인ID변경
             if (common.isEmpty($("#txt_socialId").val())) {
                 alert("로그인 아이디를 입력해 주십시오.");
@@ -319,13 +319,15 @@
             obj.beforProfileImage = memberInfo_responseDate.profileImage;
             obj.sendNoti=sendNoti;
 
-            util.getAjaxData("editor", "/rest/member/member/editor", obj, update_success, fn_fail);
+            util.getAjaxData("editor", "/rest/member/member/editor", obj, member_update_success, fn_fail);
         }
     }
 
-    function update_success(dst_id, response) {
-        dalbitLog(response);
-
+    function adminMemo_success(dst_id, response) {
+        alert(response.message);
+        getMemNo_info_reload(memNo)
+    }
+    function member_update_success(dst_id, response) {
         if(response.code == 0){
             if (tmp_bt == "bt_img") {                        //사진변경
                 alert("프로필 이미지가 초기화 되었습니다.");
@@ -358,16 +360,7 @@
             alert(response.message);
         }
 
-
-        if (dst_id == "adminMemoAdd") {
-            dtList_info_detail.reload();
-            tmp_bt = dst_id;
-            getMemNo_info_reload(memNo);
-        } else {
-            var obj = new Object();
-            obj.mem_no =  memNo;
-            util.getAjaxData("info", "/rest/member/member/info", obj, info_sel_success, fn_fail);
-        }
+        getMemNo_info_reload(memNo);
     }
     function getMemNo_info_reload(memNo){
         var data = new Object;

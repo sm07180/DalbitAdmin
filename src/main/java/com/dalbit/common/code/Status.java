@@ -71,7 +71,7 @@ public enum Status {
 
     //회원정보수정
     회원정보수정성공("0", "member.editor.success", "회원 정보 수정 성공"),
-    회원정보수정실패("-1", "member.editor.fail", "회원 정소 수정 실패"),
+    회원정보수정실패("-1", "member.editor.fail", "회원 정보 수정 실패"),
 
     //회원정보수정 내역 조회
     회원정보수정내역조회_성공("0", "member.editor.list.success", "회원정보 수정내역 조회 성공 시"),
