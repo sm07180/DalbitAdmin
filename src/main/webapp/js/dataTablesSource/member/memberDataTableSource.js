@@ -436,7 +436,9 @@ var MemberDataTableSource = {
         , 'columns': [
             {'title': '등록 일시', 'data': 'regDate','width':'180px'},
             {'title': '등록 관리자', 'data': 'opName','width':'100px'},
-            {'title': '운영자 메모 내용', 'data': 'memo'},
+            {'title': '운영자 메모 내용', 'data': 'memo','render': function (data) {
+                return common.replaceTag(data);
+            }},
         ]
     },
 

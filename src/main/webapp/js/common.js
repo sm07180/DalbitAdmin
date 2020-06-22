@@ -111,6 +111,14 @@ common.replaceHtml = function(text){
         }
 }
 
+common.replaceTag = function(text){
+    if(!common.isEmpty(text)){
+        text = text.replace(/\\n/g, '<br/>');
+        text = text.replace(/\\t/g, ' ');
+        return text;
+    }
+}
+
 common.equal = function(val1, val2, opt) {
     if (arguments.length < 3)
         throw new Error("equal은 2개의 인자가 필요합니다.");
