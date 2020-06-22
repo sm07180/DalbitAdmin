@@ -6,7 +6,6 @@ import com.dalbit.common.vo.LocationVo;
 import com.dalbit.common.vo.MenuVo;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
-import jdk.nashorn.internal.runtime.regexp.RegExp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -805,5 +804,18 @@ public class DalbitUtil {
             platform = "-";
         }
         return platform;
+    }
+
+    public static String convertInternationalPhone(String phone, String prefix){
+        phone = phone.replaceAll("-", "");
+        if(!isSmsPhoneNoChk(phone)){
+            return null;
+        }
+
+        if(!phone.startsWith("01")){
+            return null;
+        }
+
+        return "82" + phone.substring(0,2);
     }
 }

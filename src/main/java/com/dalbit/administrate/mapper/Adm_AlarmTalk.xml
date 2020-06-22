@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.administrate.dao.Adm_AlarmTalkDao" >
+
+
+    <!-- 알림톡 변수 데이터 조회  -->
+    <select id="callSpStatGetData" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        call rd_admin.sp_stat_get_data(#{ret, mode=OUT, jdbcType=INTEGER})
+    </select>
+
+    <!-- 알림톡 발송 대상 조회  -->
+    <select id="callAlarmTalkTarget" resultType="com.dalbit.administrate.vo.procedure.P_AlarmTalkTargetListOutputVo">
+        SELECT
+            emp_no,
+            mem_phone,
+            `type`,
+            op_name,
+            reg_date
+        FROM rd_admin.tb_admin_alarmtalk_target
+    </select>
+
+    <!-- 알림톡 발송 대상 등록  -->
+    <insert id="alarmTalkTargetAdd" parameterType="java.util.HashMap">
+        INSERT INTO rd_admin.tb_admin_alarmtalk_target
+        (
+            emp_no,
+            mem_phone,
+            `type`,
+            op_name,
+            reg_date
+        )
+        VALUES
+        <foreach collection="insertTargets" item="item" separator=" , ">
+        (
+            #{item.empno},
+            #{item.phone},
+            0,
+            #{opName},
+            NOW()
+        )
+        </foreach>
+    </insert>
+
+    <!-- 알림톡 발송 대상 삭제 -->
+    <delete id="alarmTalkTargetRemove" parameterType="java.util.HashMap">
+        DELETE FROM rd_admin.tb_admin_alarmtalk_target
+        WHERE emp_no IN
+        <foreach collection="deleteTargets" item="item" separator="," open="(" close=")">
+            #{item.empno}
+        </foreach>
+    </delete>
+
+
+    <!-- 알림톡 발송 로그 등록  -->
+    <insert id="callAlarmTalkLogAdd" parameterType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogInsertVo">
+        INSERT INTO rd_admin.tb_admin_alarmtalk_log
+        (
+            emp_no,
+            group_idx,
+            userid,
+            message_type,
+            phn,
+            profile,
+            reserveDt,
+            msg,
+            title,
+            tmplId,
+            smsKind,
+            msgSms,
+            smsSender,
+            smsLmsTit,
+            smsOnly,
+            ad_flag,
+            img_url,
+            img_link,
+            wide,
+            button1,
+            button2,
+            button3,
+            button4,
+            button5,
+            op_name,
+            send_date
+        )
+        VALUES
+        <foreach collection="sendList" item="item" separator=" , ">
+            (
+                #{item.emp_no},
+                #{group_idx},
+                #{item.userid},
+                #{item.message_type},
+                #{item.phn},
+                #{item.profile},
+                #{item.reserveDt},
+                #{item.msg},
+                #{item.title},
+                #{item.tmplId},
+                #{item.smsKind},
+                #{item.msgSms},
+                #{item.smsSender},
+                #{item.smsLmsTit},
+                #{item.smsOnly},
+                #{item.ad_flag},
+                #{item.img_url},
+                #{item.img_link},
+                #{item.wide},
+                #{item.button1},
+                #{item.button2},
+                #{item.button3},
+                #{item.button4},
+                #{item.button5},
+                #{op_name},
+                NOW()
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="callAlarmTalkLogUpdate" parameterType="com.dalbit.administrate.vo.procedure.P_AlarmTalkLogUpdateVo">
+        UPDATE rd_admin.tb_admin_alarmtalk_log
+        SET
+            result_code = #{result_code},
+            result_cont = #{result_cont}
+        WHERE
+            group_idx = #{group_idx}
+            <if test='phn != null and phn != ""'>
+              AND phn = #{phn}
+            </if>
+    </insert>
+
+</mapper>
