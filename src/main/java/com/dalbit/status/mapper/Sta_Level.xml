@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.status.dao.Sta_LevelDao" >
+
+    <sql id="levelCondition">
+        select b.level, b.exp, b.grade,a.mem_no, a.mem_userid,a.mem_nick, c.ruby as dal,c.gold as byeol, a.mem_join_date
+          from rd_data.tb_member_basic a
+         inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
+         inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no
+            , (select @rownum := #{pageStart}) r
+    </sql>
+
+    <select id="getMemberLevelList" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">
+        /* Sta_Level.xml - getLevelList */
+        select @rownum := @rownum + 1 as rowNum,a.*
+        from (
+        <include refid="levelCondition"/>
+        ) a
+        where (mem_nick like concat('%', #{searchText}, '%') or mem_no like concat('%', #{searchText}, '%') or mem_userid like concat('%', #{searchText}, '%'))
+        <if test='level != null and level !="" '>
+          and `level` = #{level}
+        </if>
+        order by `level` desc, exp desc
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="getLevelListCnt" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="integer">
+        /* Sta_Level.xml - getLevelListCnt */
+        select
+          count(*)
+        from (
+        <include refid="levelCondition"/>
+        ) a
+        where (mem_nick like concat('%', #{searchText}, '%') or mem_no like concat('%', #{searchText}, '%') or mem_userid like concat('%', #{searchText}, '%'))
+        <if test='level != null and level !="" '>
+            and `level` = #{level}
+        </if>
+    </select>
+
+    <select id="getLevelSummary" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+                ,count(case when level <![CDATA[<=]]> 10 then 1 end) as level10
+                ,count(case when level >= 11 and level <![CDATA[<=]]> 20 then 1 end) as level20
+                ,count(case when level >= 21 and level <![CDATA[<=]]> 30 then 1 end) as level30
+                ,count(case when level >= 31 and level <![CDATA[<=]]> 40 then 1 end) as level40
+                ,count(case when level >= 41 and level <![CDATA[<=]]> 50 then 1 end) as level50
+                ,count(case when level >= 51 then 1 end) as level50up
+        from (
+        <include refid="levelCondition"/>
+        ) a
+    </select>
+
+
+
+    <select id="getLevelSummary10" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+                ,count(case when level = 0 then 1 end) as level0
+                ,count(case when level = 1 then 1 end) as level1
+                ,count(case when level = 2 then 1 end) as level2
+                ,count(case when level = 3 then 1 end) as level3
+                ,count(case when level = 4 then 1 end) as level4
+                ,count(case when level = 5 then 1 end) as level5
+                ,count(case when level = 6 then 1 end) as level6
+                ,count(case when level = 7 then 1 end) as level7
+                ,count(case when level = 8 then 1 end) as level8
+                ,count(case when level = 9 then 1 end) as level9
+                ,count(case when level = 10 then 1 end) as level10
+        from (
+        <include refid="levelCondition"/>
+        ) a
+        where level <![CDATA[<=]]> 10
+    </select>
+    <select id="getLevelSummary20" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+                ,count(case when level = 11 then 1 end) as level1
+                ,count(case when level = 12 then 1 end) as level2
+                ,count(case when level = 13 then 1 end) as level3
+                ,count(case when level = 14 then 1 end) as level4
+                ,count(case when level = 15 then 1 end) as level5
+                ,count(case when level = 16 then 1 end) as level6
+                ,count(case when level = 17 then 1 end) as level7
+                ,count(case when level = 18 then 1 end) as level8
+                ,count(case when level = 19 then 1 end) as level9
+                ,count(case when level = 20 then 1 end) as level10
+        from (
+        <include refid="levelCondition"/>
+        ) a
+        where level > 10 and level  <![CDATA[<]]>  21
+    </select>
+    <select id="getLevelSummary30" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+                ,count(case when level = 21 then 1 end) as level1
+                ,count(case when level = 22 then 1 end) as level2
+                ,count(case when level = 23 then 1 end) as level3
+                ,count(case when level = 24 then 1 end) as level4
+                ,count(case when level = 25 then 1 end) as level5
+                ,count(case when level = 26 then 1 end) as level6
+                ,count(case when level = 27 then 1 end) as level7
+                ,count(case when level = 28 then 1 end) as level8
+                ,count(case when level = 29 then 1 end) as level9
+                ,count(case when level = 30 then 1 end) as level10
+        from (
+        <include refid="levelCondition"/>
+        ) a
+        where level > 20 and level  <![CDATA[<]]>  31
+    </select>
+    <select id="getLevelSummary40" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+                ,count(case when level = 31 then 1 end) as level1
+                ,count(case when level = 32 then 1 end) as level2
+                ,count(case when level = 33 then 1 end) as level3
+                ,count(case when level = 34 then 1 end) as level4
+                ,count(case when level = 35 then 1 end) as level5
+                ,count(case when level = 36 then 1 end) as level6
+                ,count(case when level = 37 then 1 end) as level7
+                ,count(case when level = 38 then 1 end) as level8
+                ,count(case when level = 39 then 1 end) as level9
+                ,count(case when level = 40 then 1 end) as level10
+        from (
+        <include refid="levelCondition"/>
+        ) a
+        where level > 30 and level  <![CDATA[<]]>  41
+    </select>
+    <select id="getLevelSummary50" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+                ,count(case when level = 41 then 1 end) as level1
+                ,count(case when level = 42 then 1 end) as level2
+                ,count(case when level = 43 then 1 end) as level3
+                ,count(case when level = 44 then 1 end) as level4
+                ,count(case when level = 45 then 1 end) as level5
+                ,count(case when level = 46 then 1 end) as level6
+                ,count(case when level = 47 then 1 end) as level7
+                ,count(case when level = 48 then 1 end) as level8
+                ,count(case when level = 49 then 1 end) as level9
+                ,count(case when level = 50 then 1 end) as level10
+        from (
+        <include refid="levelCondition"/>
+        ) a
+        where level > 40 and level  <![CDATA[<]]>  51
+    </select>
+
+
+</mapper>
