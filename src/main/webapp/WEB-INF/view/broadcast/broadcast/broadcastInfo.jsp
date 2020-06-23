@@ -460,10 +460,10 @@
             <td style="text-align: left">
                 {{{icon_broadcastState}}}
                 {{#equal roomHide '0'}}
-                    <button type="button" id="bt_broadCastHide" class="btn btn-danger btn-sm pull-right" onclick="broadCastHide(1);">방송방 숨김</button>
+                    <button type="button" id="bt_broadCastHide" class="btn btn-info btn-sm pull-right" onclick="broadCastHide(1);">방송방 숨김</button>
                 {{/equal}}
                 {{#equal roomHide '1'}}
-                    <button type="button" id="bt_broadCastHideCancel" class="btn btn-danger btn-sm pull-right" onclick="broadCastHide(0);">방송방 숨김 해제</button>
+                    <button type="button" id="bt_broadCastHideCancel" class="btn btn-info btn-sm pull-right" onclick="broadCastHide(0);">방송방 숨김 해제</button>
                 {{/equal}}
             </td>
         </tr>

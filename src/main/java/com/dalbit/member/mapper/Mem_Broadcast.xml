@@ -7,5 +7,21 @@
         <!--call rd_admin.sp_admin_member_broadcast_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})-->
         call rd_admin.sp_admin_member_all_broadcast_history(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <select id="callbroadCastList" parameterType="com.dalbit.member.vo.MemberVo" resultType="com.dalbit.member.vo.procedure.P_MemberBroadcastOutputVo">
+        SELECT a.room_no
+              ,a.mem_no
+              ,ifnull(b.mem_nick, (select aa.mem_nick FROM rd_data.tb_member_withdrawal_bak aa WHERE aa.mem_no = a.mem_no)) as mem_nick
+              ,a.subject_type
+              ,title
+              ,image_background
+              ,start_date
+              ,msg_welcom
+          FROM rd_data.tb_broadcast_room a
+          LEFT JOIN rd_data.tb_member_basic b ON a.mem_no = b.mem_no
+         where a.mem_no = #{mem_no}
+           and start_date > DATE_SUB(now(), INTERVAL 7 DAY)
+          order by start_date desc
+          limit 5;
+    </select>
 
 </mapper>

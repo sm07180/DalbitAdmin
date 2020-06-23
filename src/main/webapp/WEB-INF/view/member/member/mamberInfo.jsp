@@ -93,7 +93,7 @@
             $("#txt_phon").css("display", "");
         }
 
-        if (tmp_bt != "bt_adminMemo") {
+        if (tmp_bt != "bt_adminMemoList") {
             $("#member_detailFrm").html("");
             $("#tablist_con").find('.active').find('a').click();
 
@@ -179,6 +179,10 @@
         });
         $('#bt_broadCastHideCancel').click(function() {           // 방송 숨김상태 해제
             broadCastHide(0);
+        });
+
+        $('#bt_forcedEnd').click(function() {           // 방송 강제종료
+            forcedEnd();
         });
 
         // 버튼 끝
@@ -477,7 +481,7 @@
         adminMemoDelInit();
     }
     function adminMemoDelInit(){
-        $("#btn_adminMemoDel").on("click", function () { //강제퇴장
+        $("#btn_adminMemoDel").on("click", function () { //운영자 메모 삭제
             adminMemoDel();
         });
     }
@@ -616,6 +620,26 @@
         console.log(data, textStatus, jqXHR);
     }
 
+    function forcedEnd(){
+        if(confirm("방송강제 종료 시도 하시겠습니까?")){
+            var data = {};
+            data.mem_no = memNo;
+            util.getAjaxData("forcedEnd", "/rest/member/broadcast/forcedEnd",data, forced_success);
+        }else return false
+    }
+
+    function forcedListenExit(){
+        if(confirm("청취강제 종료 시도 하시겠습니까?")) {
+            var data = {};
+            data.mem_no = memNo;
+            util.getAjaxData("forcedExit", "/rest/member/listen/forcedExit", data, forced_success);
+        }else return false
+    }
+    function forced_success(dst_id, response) {
+        alert(response.message);
+        getAdminMemoList("bt_adminMemoList", "운영자메모");
+    }
+
 </script>
 
 <script id="tmp_memberInfoFrm" type="text/x-handlebars-template">
@@ -667,16 +691,16 @@
             <th>방송상태</th>
             <td colspan="2" style="text-align: left">
                 {{{icon_broadcastState}}}
+                <button type="button" id="bt_forcedEnd" class="btn btn-danger btn-sm pull-right">방송강제종료</button>
                 {{#equal broadcastState 'ON'}}
                  - 방송제목 : {{{roomNoLink ../title ../room_no}}}
                     {{#equal ../hide 0}}
-                        <button type="button" id="bt_broadCastHide" class="btn btn-danger btn-sm pull-right">방송방 숨김</button>
+                        <button type="button" id="bt_broadCastHide" class="btn btn-info btn-sm pull-right">방송방 숨김</button>
                     {{/equal}}
                     {{#equal ../hide 1}}
-                        <button type="button" id="bt_broadCastHideCancel" class="btn btn-danger btn-sm pull-right">방송방 숨김 해제</button>
+                        <button type="button" id="bt_broadCastHideCancel" class="btn btn-info btn-sm pull-right">방송방 숨김 해제</button>
                     {{/equal}}
                 {{/equal}}
-
             </td>
         </tr>
         <tr>
@@ -690,6 +714,7 @@
                 {{#equal listeningState 'ON'}}
                  - 방송제목 : {{{roomNoLink ../listen_title ../listen_room_no}}}
                 {{/equal}}
+                <button type="button" id="bt_forcedExit" class="btn btn-danger btn-sm pull-right" onclick="forcedListenExit();">청취강제종료</button>
             </td>
         </tr>
         <tr>

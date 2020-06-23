@@ -29,6 +29,8 @@ public class P_MemberListenOutputVo extends SearchVo {
     private int goodCnt;
     private int boosterCnt;
 
+    private String mem_nick;
+
     //summary
     private int totalforcedCnt;
     private int totalByeol;

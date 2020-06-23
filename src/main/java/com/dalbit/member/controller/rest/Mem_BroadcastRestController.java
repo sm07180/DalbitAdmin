@@ -2,6 +2,7 @@ package com.dalbit.member.controller.rest;
 
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.member.service.Mem_BroadcastService;
+import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberBroadcastInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,16 @@ public class Mem_BroadcastRestController {
     @PostMapping("list")
     public String list(P_MemberBroadcastInputVo pMemberBroadcastInputVo){
         String result = mem_BroadcastService.getBroadHistory(pMemberBroadcastInputVo);
+        return result;
+
+    }
+
+    /**
+     * 회원 방송 강제 종료
+     */
+    @PostMapping("forcedEnd")
+    public String forcedEnd(MemberVo MemberVo){
+        String result = mem_BroadcastService.forcedEnd(MemberVo);
         return result;
 
     }
