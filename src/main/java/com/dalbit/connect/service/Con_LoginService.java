@@ -49,215 +49,81 @@ public class Con_LoginService {
      * @param statVo
      * @return
      */
-    public String callLoginTotal(StatVo statVo){
+    public String callLoginTotal(P_LoginTotalInPutVo pLoginTotalInPutVo){
 
-        ProcedureVo procedureVo = new ProcedureVo(statVo);
-        List<P_LoginTotalOutDetailVo> detailList =  con_LoginDao.callLoginTotal(procedureVo);
-        P_LoginTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginTotalOutVo.class);
+        ArrayList resultList = new ArrayList();
+        String[] dateList = pLoginTotalInPutVo.getDateList().split("@");
 
-        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy.MM.dd");
-
-        String EndDate = statVo.getEndDate();
-        String StartDate = statVo.getStartDate();
-        String SelectMonth = StartDate.substring(5,7);
-        // 선택한 달
-
-        Date bEdate = new Date ();
-        Date bSdate = new Date ();
-        try {
-            Date eEDate = transFormat.parse(EndDate);
-            Date bSDate = transFormat.parse(StartDate);
-            Calendar eCal = Calendar.getInstance();
-            Calendar sCal = Calendar.getInstance();
-
-            if(statVo.getSlctType() == 0) {
-                bEdate.setTime(eEDate.getTime() - (long) 1000 * 60 * 60 * 24);
-                eCal.setTime(bEdate);
-                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH) + 1),2,"0") + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.DATE)),2,"0");
-                StartDate = EndDate;
-            }else if(statVo.getSlctType() == 1) {
-                // 해당월의 마지막 날짜 구하기  -------------------
-                bEdate.setTime(eEDate.getTime());
-                eCal.setTime(bEdate);
-                Calendar cal = Calendar.getInstance();
-                cal.set(eCal.get(Calendar.YEAR),eCal.get(Calendar.MONTH),eCal.get(Calendar.DATE));
-                cal.add(Calendar.MONTH,-1);
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy.MM.dd");
-                String tmp_endDate = cal.get(Calendar.YEAR) + "." + DalbitUtil.lpad(String.valueOf(cal.get(Calendar.MONTH) + 1),2,"0") + "." + cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-                // ----------------------------------------------
-
-                EndDate = tmp_endDate;
-                bSdate.setTime(bSDate.getTime());
-                sCal.setTime(bSdate);
-                StartDate = String.valueOf(sCal.get(Calendar.YEAR)) + "."
-                            + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.MONTH)),2,"0") + "."
-                            + DalbitUtil.lpad(String.valueOf(sCal.get(Calendar.DATE)),2,"0");
-            }else if(statVo.getSlctType() == 2) {
-                bEdate.setTime(eEDate.getTime());
-                eCal.setTime(bEdate);
-                eCal.add(eCal.YEAR,-1);
-                EndDate = String.valueOf(eCal.get(Calendar.YEAR)) + ".12.31";
-
-                bSdate.setTime(bSDate.getTime());
-                sCal.setTime(bSdate);
-                sCal.add(sCal.YEAR,-1);
-                StartDate = String.valueOf(sCal.get(Calendar.YEAR)) + ".01.01";
+        int slctType_date = 0;
+        if(pLoginTotalInPutVo.getSlctType() == 0) {
+            slctType_date = 24;
+        }else if(pLoginTotalInPutVo.getSlctType() == 1) {
+            slctType_date = 32;
+        }else if(pLoginTotalInPutVo.getSlctType() == 2) {
+            slctType_date = 13;
+        }
+        for(int i=0;i<dateList.length;i++){
+            if(dateList[i].indexOf("-") > -1){
+                pLoginTotalInPutVo.setStartDate(dateList[i].split("-")[0]);
+                pLoginTotalInPutVo.setEndDate(dateList[i].split("-")[1]);
+            }else{
+                pLoginTotalInPutVo.setStartDate(dateList[i]);
+                pLoginTotalInPutVo.setEndDate(null);
             }
-        }catch (ParseException e){
-            e.printStackTrace();
-        }
 
-        statVo.setEndDate(EndDate);
-        statVo.setStartDate(StartDate);
-        procedureVo = new ProcedureVo(statVo);
-        List<P_LoginTotalOutDetailVo> bDetailList =  con_LoginDao.callLoginTotal(procedureVo);
-        P_LoginTotalOutVo bTotalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginTotalOutVo.class);
+            ProcedureVo procedureVo = new ProcedureVo(pLoginTotalInPutVo);
+            List<P_LoginTotalOutDetailVo> detailList =  con_LoginDao.callLoginTotal(procedureVo);
+            P_LoginTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginTotalOutVo.class);
 
-
-        log.info(procedureVo.getExt());
-
-        P_LoginTotalOutVo sumOutVo = new P_LoginTotalOutVo();
-        if(totalInfo.getSum_totalCnt() > 0) {
-            sumOutVo.setSum_totalCnt(totalInfo.getSum_totalCnt());
-            sumOutVo.setSum_maleCnt(totalInfo.getSum_maleCnt());
-            sumOutVo.setSum_femaleCnt(totalInfo.getSum_femaleCnt());
-            sumOutVo.setSum_noneCnt(totalInfo.getSum_noneCnt());
-            sumOutVo.setSum_bTotalCnt(bTotalInfo.getSum_totalCnt());
-            sumOutVo.setSum_bMaleCnt(bTotalInfo.getSum_maleCnt());
-            sumOutVo.setSum_bFemaleCnt(bTotalInfo.getSum_femaleCnt());
-            sumOutVo.setSum_bNoneCnt(bTotalInfo.getSum_noneCnt());
-        }else{
-            sumOutVo.setSum_totalCnt(0);
-            sumOutVo.setSum_maleCnt(0);
-            sumOutVo.setSum_femaleCnt(0);
-            sumOutVo.setSum_noneCnt(0);
-            sumOutVo.setSum_bTotalCnt(0);
-            sumOutVo.setSum_bMaleCnt(0);
-            sumOutVo.setSum_bFemaleCnt(0);
-            sumOutVo.setSum_bNoneCnt(0);
-        }
-
-        List list = new ArrayList();
-        if(statVo.getSlctType() == 0){              // 시간별
-            for (int i=0; i < detailList.size(); i++){
-                P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
-                outVo.setDate(detailList.get(i).getDate());
-                outVo.setHour(detailList.get(i).getHour());
-                outVo.setYear(detailList.get(i).getYear());
-                outVo.setMonth(detailList.get(i).getMonth());
-                outVo.setDay(detailList.get(i).getDay());
-                outVo.setTotalCnt(detailList.get(i).getTotalCnt());
-                outVo.setMaleCnt(detailList.get(i).getMaleCnt());
-                outVo.setFemaleCnt(detailList.get(i).getFemaleCnt());
-                outVo.setNoneCnt(detailList.get(i).getNoneCnt());
-
-                boolean tmpSw = false;
-                if(!DalbitUtil.isEmpty(bDetailList)){
-                    for(int j=0;j<bDetailList.size();j++){
-                        if(detailList.get(i).getHour().equals(bDetailList.get(j).getHour())){
-                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
-                            outVo.setBMaleCnt(bDetailList.get(j).getMaleCnt());
-                            outVo.setBFemaleCnt(bDetailList.get(j).getFemaleCnt());
-                            outVo.setBNoneCnt(bDetailList.get(j).getNoneCnt());
-                            tmpSw = true;
-                            break;
+            boolean zeroSw = false;
+            if(detailList.size() < slctType_date){
+                int detailList_size = detailList.size();
+                for (int j = 0; j < slctType_date; j++) {
+                    P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
+                    for (int k = 0; k < detailList_size; k++){
+                        if(pLoginTotalInPutVo.getSlctType() == 0) {
+                            if (detailList.get(k).getHour() == j) {
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pLoginTotalInPutVo.getSlctType() == 1) {
+                            if (detailList.get(k).getDay() == j) {
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pLoginTotalInPutVo.getSlctType() == 2) {
+                            if (detailList.get(k).getMonth() == j) {
+                                detailList.get(k).setMonthly(j);
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
                         }
                     }
-                }
-                if(!tmpSw){
-                    outVo.setBTotalCnt(0);
-                    outVo.setBMaleCnt(0);
-                    outVo.setBFemaleCnt(0);
-                    outVo.setBNoneCnt(0);
-                }
-                list.add(outVo);
-            }
-        }else if(statVo.getSlctType() == 1) {       // 일별
-            for (int i=30; -1 < i; i --){
-                P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
-                outVo.setDay(Integer.toString(i+1));
-                outVo.setMonth(SelectMonth);
-
-                if(detailList.size() >= i+1) {
-                    if (detailList.get(i).getDay().equals(Integer.toString(i+1))) {
-                        outVo.setTotalCnt(detailList.get(i).getTotalCnt());
-                        outVo.setMaleCnt(detailList.get(i).getMaleCnt());
-                        outVo.setFemaleCnt(detailList.get(i).getFemaleCnt());
-                        outVo.setNoneCnt(detailList.get(i).getNoneCnt());
-                    }else{
+                    if(!zeroSw){
+                        outVo.setDay(j);
+                        outVo.setHour(j);
+                        outVo.setMonthly(j);
                         outVo.setTotalCnt(0);
                         outVo.setMaleCnt(0);
                         outVo.setFemaleCnt(0);
                         outVo.setNoneCnt(0);
-                    }
-                }else{
-                    outVo.setTotalCnt(0);
-                    outVo.setMaleCnt(0);
-                    outVo.setFemaleCnt(0);
-                    outVo.setNoneCnt(0);
-                }
 
-                if(bDetailList.size() >= i+1) {
-                    if (bDetailList.get(i).getDay().equals(Integer.toString(i+1))) {
-                        outVo.setBTotalCnt(bDetailList.get(i).getTotalCnt());
-                        outVo.setBMaleCnt(bDetailList.get(i).getMaleCnt());
-                        outVo.setBFemaleCnt(bDetailList.get(i).getFemaleCnt());
-                        outVo.setBNoneCnt(bDetailList.get(i).getNoneCnt());
-                    }else{
-                        outVo.setBTotalCnt(0);
-                        outVo.setBMaleCnt(0);
-                        outVo.setBFemaleCnt(0);
-                        outVo.setBNoneCnt(0);
+                        detailList.add(outVo);
                     }
-                }else{
-                    outVo.setBTotalCnt(0);
-                    outVo.setBMaleCnt(0);
-                    outVo.setBFemaleCnt(0);
-                    outVo.setBNoneCnt(0);
                 }
-                list.add(outVo);
             }
-        }else{      // 월별
-            for (int i=0; i < detailList.size(); i++){
-                P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
-                outVo.setDate(detailList.get(i).getDate());
-                outVo.setHour(detailList.get(i).getHour());
-                outVo.setYear(detailList.get(i).getYear());
-                outVo.setMonth(detailList.get(i).getMonth());
-                outVo.setDay(detailList.get(i).getDay());
-                outVo.setTotalCnt(detailList.get(i).getTotalCnt());
-                outVo.setMaleCnt(detailList.get(i).getMaleCnt());
-                outVo.setFemaleCnt(detailList.get(i).getFemaleCnt());
-                outVo.setNoneCnt(detailList.get(i).getNoneCnt());
 
-                boolean tmpSw = false;
-                if(!DalbitUtil.isEmpty(bDetailList)){
-                    for(int j=0;j<bDetailList.size();j++){
-                        if(detailList.get(i).getMonth().equals(bDetailList.get(j).getMonth())){
-                            outVo.setBTotalCnt(bDetailList.get(j).getTotalCnt());
-                            outVo.setBMaleCnt(bDetailList.get(j).getMaleCnt());
-                            outVo.setBFemaleCnt(bDetailList.get(j).getFemaleCnt());
-                            outVo.setBNoneCnt(bDetailList.get(j).getNoneCnt());
-                            tmpSw = true;
-                            break;
-                        }
-                    }
-                }
-                if(!tmpSw){
-                    outVo.setBTotalCnt(0);
-                    outVo.setBMaleCnt(0);
-                    outVo.setBFemaleCnt(0);
-                    outVo.setBNoneCnt(0);
-                }
-                list.add(outVo);
-            }
+            var result = new HashMap<String, Object>();
+            result.put("totalInfo", totalInfo);
+            result.put("detailList", detailList);
+
+            resultList.add(result);
+
         }
 
-        var result = new HashMap<String, Object>();
-        result.put("totalInfo", sumOutVo);
-        result.put("detailList", list);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
     }
 
     /**

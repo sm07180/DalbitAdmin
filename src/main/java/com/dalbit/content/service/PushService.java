@@ -330,9 +330,7 @@ public class PushService {
             }
 
         }else if(pPushInsertVo.getIs_all().equals("11")){  // 전체 발송
-            P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(null, pPushInsertVo);
-            // 전체 발송을 위한 공지 전용 mem_no
-            pPushStmpInsertVo.setMem_no(ADMIN_MEM_NO);
+            P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(ADMIN_MEM_NO, pPushInsertVo);
             ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
             // PUSH 발송

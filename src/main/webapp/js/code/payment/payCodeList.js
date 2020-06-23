@@ -33,6 +33,10 @@ var payWay = [
     , new COMMON_CODE('payletter', 'payco', '페이코')
     , new COMMON_CODE('payletter', 'kakaopay', '카카오페이')
     , new COMMON_CODE('payletter', 'toss', '토스')
+    , new COMMON_CODE('GM', 'GM', '문화상품권')
+    , new COMMON_CODE('GG', 'GG', '게임문화상품권')
+    , new COMMON_CODE('GC', 'GC', '도서문화상품권')
+    , new COMMON_CODE('HM', 'HM', '해피머니상품권')
 ];
 
 var bankList = [
