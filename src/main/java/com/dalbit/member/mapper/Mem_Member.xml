@@ -205,6 +205,20 @@
         /* M_Member.xml - callMemAdminMemoList */
         call rd_admin.sp_admin_op_memo_select(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <!-- 운영자 메모 삭제하기 -->
+    <delete id="callMemAdminMemoDel" parameterType="com.dalbit.member.vo.procedure.P_MemberAdminMemoDelVo">
+        /* M_Member.xml - callMemAdminMemoDel */
+        delete
+          from rd_admin.tb_admin_op_memo
+         where mem_no=#{mem_no}
+           and idx in
+        <foreach collection="delList" item="item" separator="," open="(" close=")">
+            #{item.idx}
+        </foreach>
+
+    </delete>
+
+
     <select id="callMemConnect" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberConnectOutputVo">
         /* M_Member.xml - callMemConnect */
         call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})

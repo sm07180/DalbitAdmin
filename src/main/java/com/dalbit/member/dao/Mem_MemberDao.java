@@ -81,6 +81,8 @@ public interface Mem_MemberDao {
     @Transactional(readOnly = true)
     ArrayList<P_MemberAdminMemoListOutputVo> callMemAdminMemoList(ProcedureVo procedureVo);
 
+    int callMemAdminMemoDel(P_MemberAdminMemoDelVo pMemberAdminMemoDelVo);
+
     @Transactional(readOnly = true)
     ArrayList<P_MemberConnectOutputVo> callMemConnect(ProcedureVo procedureVo);
 

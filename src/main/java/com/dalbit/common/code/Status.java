@@ -45,6 +45,10 @@ public enum Status {
     회원운영자메모등록성공("0", "member.admin.memo.add.success", "회원 운영자 메모 등록 성공"),
     회원운영자메모등록실패("-1", "member.admin.memo.add.fail", "회원 운영자 메모 등록 실패"),
 
+    //회원운영자 메모 삭제
+    회원운영자메모삭제성공("0", "member.admin.memo.del.success", "회원 운영자 메모 삭제 성공"),
+    회원운영자메모삭제실패("-1", "member.admin.memo.del.fail", "회원 운영자 메모 삭제 실패"),
+
     //회원 제재 처리
     회원제재처리성공("0", "member.admin.report.success", "회원 제재 처리 성공"),
     회원제재처리실패("-1", "member.admin.report.fail", "회원 제재 처리 실패"),

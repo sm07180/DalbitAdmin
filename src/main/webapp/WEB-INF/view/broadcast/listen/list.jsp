@@ -66,8 +66,8 @@
         dtList_info_detail.createDataTable(listen_summary_table);
 
         var table_sel = '<span name="state" id="state" onchange="force_sel_change()"></span>';
-        var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>'
-        var exitBtn = '<input type="button" value="퇴장" class="btn btn-success btn-sm" id="btn_exit" style="margin-right: 3px;"/>'
+        var forcedBtn = '<input type="button" value="강제퇴장" class="btn btn-danger btn-sm" id="btn_forced" style="margin-right: 3px;"/>';
+        var exitBtn = '<input type="button" value="퇴장" class="btn btn-success btn-sm" id="btn_exit" style="margin-right: 3px;"/>';
 
         $("#" + tmp).find("#main_table").find(".top-left").addClass("no-padding").append(table_sel);
         $("#" + tmp).find("#main_table").find(".footer-left").append(forcedBtn);

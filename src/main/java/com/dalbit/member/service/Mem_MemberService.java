@@ -439,7 +439,6 @@ public class Mem_MemberService {
         }
         return result;
     }
-
     /**
      * 회원 운영자 메모 목록
      */
@@ -451,6 +450,19 @@ public class Mem_MemberService {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberAdminMemoList, new PagingVo(procedureVo.getRet())));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_실패));
+        }
+        return result;
+    }
+    /**
+     * 회원 운영자 메모 등록
+     */
+    public String getMemberAdminMemoDel(P_MemberAdminMemoDelVo pMemberAdminMemoDelVo){
+        int cnt = mem_MemberDao.callMemAdminMemoDel(pMemberAdminMemoDelVo);
+        String result;
+        if(cnt > 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모삭제성공));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원운영자메모삭제실패));
         }
         return result;
     }

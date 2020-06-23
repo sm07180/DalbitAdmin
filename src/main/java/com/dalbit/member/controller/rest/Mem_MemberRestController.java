@@ -158,6 +158,14 @@ public class Mem_MemberRestController {
         return result;
     }
     /**
+     * 회원 관리자 메모 삭제
+     */
+    @PostMapping("admin/memoDel")
+    public String adminMemoDel(P_MemberAdminMemoDelVo pMemberAdminMemoDelVo){
+        String result = mem_MemberService.getMemberAdminMemoDel(pMemberAdminMemoDelVo);
+        return result;
+    }
+    /**
      * 회원 접속 정보 보기
      */
     @PostMapping("connect")
