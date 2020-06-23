@@ -4,10 +4,13 @@ import com.dalbit.common.vo.SearchVo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Getter
 @Setter
 public class P_QuestionDeleteVo{
 
-    private int qnaIdx;
+    private List<HashMap> delList;
 
 }

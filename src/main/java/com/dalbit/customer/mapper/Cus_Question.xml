@@ -61,7 +61,11 @@
     </select>
 
     <delete id="callQuestionDelete" parameterType="com.dalbit.customer.vo.procedure.P_QuestionDeleteVo">
-         delete From rd_data.tb_service_center_qna where idx =#{qnaIdx}
+         delete From rd_data.tb_service_center_qna
+          where idx in
+            <foreach collection="delList" item="item" separator="," open="(" close=")">
+                #{item.qnaIdx}
+            </foreach>
     </delete>
 
     <select id="callServiceCenterQnaStateCheck" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo" resultType="integer">
