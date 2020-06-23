@@ -44,6 +44,8 @@ public class PushService {
 
     @Value("${server.photo.url}")
     String SERVER_PHOTO_URL;
+    @Value("${admin.memNo}")
+    String ADMIN_MEM_NO;
 
     @Value("${push.logo.img.101}")
     String PUSH_LOGO_IMG_101;
@@ -328,7 +330,7 @@ public class PushService {
             }
 
         }else if(pPushInsertVo.getIs_all().equals("11")){  // 전체 발송
-            P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo("0", pPushInsertVo);
+            P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(ADMIN_MEM_NO, pPushInsertVo);
             ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
             // PUSH 발송
