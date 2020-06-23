@@ -10,5 +10,6 @@ public class P_MemberAdminMemoListOutputVo extends SearchVo {
 
     private String regDate;
     private String memo;
+    private int idx;
 
 }

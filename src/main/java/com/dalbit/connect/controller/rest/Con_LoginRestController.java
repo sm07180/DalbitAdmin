@@ -2,6 +2,7 @@ package com.dalbit.connect.controller.rest;
 
 import com.dalbit.common.vo.StatVo;
 import com.dalbit.connect.service.Con_LoginService;
+import com.dalbit.connect.vo.procedure.P_LoginTotalInPutVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -32,14 +33,8 @@ public class Con_LoginRestController {
 
 
     @PostMapping("info/total")
-    public String total(StatVo statVo){
-        if(DalbitUtil.isEmpty(statVo.getStartDate())){
-            statVo.setStartDate(null);
-        }
-        if(DalbitUtil.isEmpty(statVo.getEndDate())){
-            statVo.setEndDate(null);
-        }
-        String result = con_LoginService.callLoginTotal(statVo);
+    public String total(P_LoginTotalInPutVo pLoginTotalInPutVo){
+        String result = con_LoginService.callLoginTotal(pLoginTotalInPutVo);
         return result;
     }
 

@@ -31,7 +31,7 @@
                     </div>
                     <span id="question_summaryArea"></span>
                     <div class="widget-content" id="main_table">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered">
+                        <table id="list_info" class="table table-sorting table-hover table-bordered ">
                             <thead>
                             </thead>
                             <tbody id="tableBody">
@@ -56,7 +56,7 @@
 <script>
     $(document).ready(function() {
 
-        ui.checkBoxInit('list_info');
+        // ui.checkBoxInit('list_info');
 
         $('input[id="txt_search"]').keydown(function(e) {
             if (e.keyCode === 13) {
@@ -150,6 +150,7 @@
     var answer;
     var rowNum;
     function getQuestDetail(index){
+        $("#tab_qna").removeClass("hide");
         $('#tab_customerQuestion').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj ={};
@@ -175,13 +176,13 @@
         console.log("fn_fail_excel");
     }
 
-    $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
-        if($(this).prop('checked')){
-            $(this).parent().parent().find('.getQuestDetail').click();
-        }else{
-            $('#tab_customerQuestion').removeClass("show");
-        }
-    });
+    // $(document).on('click', '#list_info .dt-body-center input[type="checkbox"]', function(){
+    //     if($(this).prop('checked')){
+    //         $(this).parent().parent().find('.getQuestDetail').click();
+    //     }else{
+    //         $('#tab_customerQuestion').removeClass("show");
+    //     }
+    // });
 
     function questionDelEventInit(){
         $("#btn_questionDelBtn").on("click", function () { //선택삭제
@@ -196,20 +197,23 @@
             alert("삭제할 사연을 선택해 주십시오");
             return;
         }
-        var tmp_sw;
-        // 1:1 문의는 단건 삭제 한다고 함.
-        if(checkDatas[0].state == 1 ){
-            if (confirm("처리완료 건 입니다. 삭제 하시겠습니까?")) {
-                tmp_sw = true;
-            }else{
+        var tmp_sw = true;
+        // 1:1 문의 삭제 상태 체크
+
+        for(var i=0;i<checkDatas.length;i++){
+            if(checkDatas[i].state == 1){
                 tmp_sw = false;
+                break;
             }
-        }else{
-            tmp_sw = true;
+        }
+        if(!tmp_sw){
+            if (confirm("처리완료 건이 있습니다. 삭제 하시겠습니까?")) {
+                tmp_sw = true;
+            }
         }
         if(tmp_sw){
             var data = new Object();
-            data.qnaIdx = checkDatas[0].qnaIdx;
+            data.delList = checkDatas;
             util.getAjaxData("delete", "/rest/customer/question/delete",data, questionDel_success);
         }else{
             return;

@@ -10,15 +10,25 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 회원검색</h3>
-                            <div class="input-group date" id="date_startSel">
-                                <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
-                            </div>
-                            <label>~</label>
-                            <div class="input-group date" id="date_endSel">
-                                <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                            </div>
                             <span id="attendanceTypeArea"></span>
                             <span id="searchTypeArea"></span>
+                            <div class="input-group date" id="rangeDatepicker">
+                                <label for="displayDate" class="input-group-addon">
+                                    <span><i class="fa fa-calendar"></i></span>
+                                </label>
+                                <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                            </div>
+
+                            <input type="hidden" name="startDate" id="startDate">
+                            <input type="hidden" name="endDate" id="endDate" />
+
+                            <%--<input name="startDate" id="startDate">--%>
+                            <%--<input name="endDate" id="endDate" />--%>
+
+                            <a href="javascript://" class="_prevSearch">[이전]</a>
+                            <a href="javascript://" class="_todaySearch">[오늘]</a>
+                            <a href="javascript://" class="_nextSearch">[다음]</a>
+
                             <label><input type="text" class="form-control" id="txt_search" name="txt_search" placeholder="검색할 정보를 입력하세요"/></label>
                             <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         </div>
@@ -49,6 +59,56 @@
 <script type="text/javascript" src="/js/dataTablesSource/content/eventDataTableSource.js?${dummyData}"></script>
 
 <script type="text/javascript">
+
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    setTimeDate(dateTime);
+    $(document).ready(function() {
+        $("#displayDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startDate").val(start.format('YYYY.MM.DD'));
+                $("#endDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
+        getList();
+    });
+    $(document).on('click', '._prevSearch', function(){
+        searchDate('prev');
+    });
+    $(document).on('click', '._nextSearch', function(){
+        searchDate('next');
+    });
+    $(document).on('click', '._todaySearch', function(){
+        setTimeDate(dateTime);
+        setStartDay();
+    });
+    function setTimeDate(dateTime){
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("#displayDate").val(dateTime + " - " + dateTime);
+    }
+    function searchDate(dateType){
+        if(dateType == 'prev'){
+            setDay(-1);
+        }else if(dateType == 'next'){
+            setDay(1);
+        }
+    }
+    function setDay(days){
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
+
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+        getList();
+    }
+    function setStartDay(){
+        $("#endDate").val(dateTime);
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
+        getList();
+    }
+
+
     $(function() {
        init();
        getList();
@@ -56,14 +116,12 @@
 
     $('#bt_search').click(function() {
         getList();
-        dateCompare();
 
     });
 
     $('input[id="txt_search"]').keydown(function(e) {
        if(e.keyCode === 13) {
            getList();
-           dateCompare();
        }
     });
 
@@ -71,16 +129,6 @@
         // 검색조건 불러오기
         $('#attendanceTypeArea').html(util.getCommonCodeSelect('-1', attendance_dayType));
         $('#searchTypeArea').html(util.getCommonCodeSelect('-1', attendance_searchType));
-
-        $('#txt_startSel').datepicker("setDate", new Date());
-        $('#txt_endSel').datepicker("setDate", new Date());
-
-        $('#txt_startSel').datepicker().on('dp.change', function(e) {
-           $(this).html($(this).val());
-        });
-        $('#txt_endSel').datepicker().on('dp.change', function(e) {
-           $(this).html($(this).val());
-        });
     }
 
     function getList() {
@@ -89,6 +137,8 @@
             data.attendanceType = $('#attendanceTypeArea').val();   // 참여 구분
             data.searchType = $('#attendance_searchType').val();    // 검색 조건
             data.search = $('#txt_search').val();                   // 검색 창
+            data.txt_startSel =  $("#startDate").val().replace(/\./gi,'');
+            data.txt_endSel =  $("#endDate").val().replace(/\./gi,'');
         };
 
         dtList_info = new DalbitDataTable($('#attendanceList'), dtList_info_data, EventDataTableSource.attendance, $('#searchForm'));
@@ -100,13 +150,4 @@
         dtList_info.reload();
     }
 
-    function dateCompare() {
-        var startSel =  moment($('#txt_startSel').val()).format('YYYYMMDD');
-        var endSel = moment($('#txt_endSel').val()).format('YYYYMMDD');
-        if(startSel > endSel) {
-            alert('날짜를 확인해주세요.');
-            init();
-            getList();
-        }
-    }
 </script>

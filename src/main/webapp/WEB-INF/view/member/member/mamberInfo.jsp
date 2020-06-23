@@ -100,7 +100,7 @@
             var scrollPosition = $("#tabList_top").offset();
             util.scrollPostion(scrollPosition.top);
         }else{
-            getInfoDetail("bt_adminMemoList", "운영자메모");
+            getAdminMemoList("bt_adminMemoList", "운영자메모");
         }
     }
 
@@ -142,7 +142,7 @@
             bt_click(this.id);
         });
         $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
-            getInfoDetail(this.id,"운영자메모");
+            getAdminMemoList(this.id,"운영자메모");
         });
         $('#bt_connectState').click(function() {         //접속상태
             getInfoDetail(this.id,"접속상태");
@@ -429,7 +429,6 @@
 
         var scrollPosition = $("#tab_infoDetail").offset();
         util.scrollPostion(scrollPosition.top);
-
     }
     function getInfoDetail2(tmp){
         var dtList_info_detail_data = function (data) {
@@ -448,6 +447,57 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
+    }
+
+    var dtMemoList;
+
+    function getAdminMemoList(tmp,tmp1) {     // 상세보기
+        var template = $('#tmp_member_detailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        $("#member_detailFrm").html(templateScript);
+
+        $('#tab_memberInfoDetail').text(tmp1);           //텝 이름 변경
+        $('#member_detailFrm').addClass("show");
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+
+        var source = MemberDataTableSource[tmp];
+        var dtList_info_detail_data = function (data) {
+            data.mem_no = memNo;
+        };
+        dtMemoList = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
+        dtMemoList.useCheckBox(true);
+        dtMemoList.useIndex(true);
+        dtMemoList.createDataTable();
+
+        var scrollPosition = $("#tab_infoDetail").offset();
+        util.scrollPostion(scrollPosition.top);
+
+        var adminMemoDel = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_adminMemoDel" style="margin-right: 3px;"/>';
+        $("#memberInfoDetail").find(".footer-left").append(adminMemoDel);
+        adminMemoDelInit();
+    }
+    function adminMemoDelInit(){
+        $("#btn_adminMemoDel").on("click", function () { //강제퇴장
+            adminMemoDel();
+        });
+    }
+
+    function adminMemoDel(){
+        if(dtMemoList.getCheckedData().length <= 0){
+            alert("삭제할 메모를 선택해 주세요.");
+            return;
+        }
+        var data = {};
+        data.mem_no = memNo;
+        data.delList =  dtMemoList.getCheckedData();
+        console.log(data);
+        util.getAjaxData("adminMemoDel", "/rest/member/member/admin/memoDel",data, adminMemoDel_success);
+    }
+
+    function adminMemoDel_success(dst_id, response) {
+        // alert(response.message);
+        tmp_bt = "bt_adminMemoList";
+        getMemNo_info_reload(memNo);
     }
 
     function stateEdit() {
