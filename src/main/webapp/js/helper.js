@@ -158,6 +158,9 @@ Handlebars.registerHelper("renderProfileImage", function(value,gender){
 });
 
 Handlebars.registerHelper("renderImage", function(value){
+    if(-1 < value.indexOf('https://')){
+        return value;
+    }
     return PHOTO_SERVER_URL + value;
 });
 

@@ -509,6 +509,8 @@
         , social_no = #{social_no}
         , address_1 = #{address_1}
         , address_2 = #{address_2}
+        , add_file1 = #{add_file1}
+        , add_file2 = #{add_file2}
         , op_msg = #{op_msg}
         , op_name = #{op_name}
         , send_title = #{send_title}
