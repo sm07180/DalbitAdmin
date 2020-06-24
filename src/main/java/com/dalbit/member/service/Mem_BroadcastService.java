@@ -121,7 +121,7 @@ public class Mem_BroadcastService {
         }
 
         String result = "";
-        result = gsonUtil.toJson(new JsonOutputVo(Status.회원청취강제종료시도_성공));
+        result = gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_성공));
 
         return result;
     }
