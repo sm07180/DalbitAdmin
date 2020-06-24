@@ -114,6 +114,14 @@
                 restUrl='bank'
             }else if(cancelData.paycd == 'MC'){
                 restUrl='phone'
+            }else if(cancelData.paycd == 'GM'){
+                restUrl='gm'
+            }else if(cancelData.paycd == 'GG'){
+                restUrl='gg'
+            }else if(cancelData.paycd == 'GC'){
+                restUrl='gc'
+            }else if(cancelData.paycd == 'HM'){
+                restUrl='hm'
             }else if(cancelData.paycd == 'toss' || cancelData.paycd == 'payco' || cancelData.paycd == 'cashbee' || cancelData.paycd == 'tmoney' || cancelData.paycd == 'kakaopay' ){
                 restUrl='payletter'
             }else {

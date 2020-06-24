@@ -11,6 +11,7 @@ import com.dalbit.payment.dao.Pay_CancelDao;
 import com.dalbit.payment.module.cnnew_v0003.AckParam;
 import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.module.cnnew_v0003.McashManager;
+import com.dalbit.payment.module.gift_v0001.giftCncl;
 import com.dalbit.payment.module.mcCancel_v0001.MC_Cancel;
 import com.dalbit.payment.module.ucCancel_v0001.CancelUc;
 import com.dalbit.payment.vo.*;
@@ -30,6 +31,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.Properties;
 
 @Slf4j
 @Service
@@ -253,10 +255,11 @@ public class Pay_CancelService {
         return gsonUtil.toJson(new JsonOutputVo(Status.결제취소성공));
     }
 
+
     /**
      * 페이레터 결제취소
      */
-    public int payletter(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
+    public int payletterCancel(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
         int result = 0;
 
         try{
@@ -342,6 +345,222 @@ public class Pay_CancelService {
             P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
             pMemberEditorVo.setMem_no(payCancelPayletterVo.getMemno());
             pMemberEditorVo.setMinusDalCnt(payCancelPayletterVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
+
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
+        }
+
+        return result;
+    }
+
+
+    /**
+     * 문화상품권 결제 취소
+     */
+    public int payCancelGm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException{
+
+        int result = 0;
+
+        try{
+            String svcId = DalbitUtil.getProperty("gm.service.id");
+            String siteUrl = DalbitUtil.getProperty("pay.site.url");
+            String tradeId = payCancelGiftVo.getTradeid();
+            String prdtPrice = payCancelGiftVo.getPrdtprice();
+            String mobilId = payCancelGiftVo.getMobilid();
+
+            giftCncl gc = new giftCncl();
+            Properties cnclRslt = gc.revokePayGM(siteUrl, svcId, tradeId, prdtPrice, mobilId);
+
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+            if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFail_msg("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+            } else {
+
+                log.info("=====================================");
+                log.info("[문화상품권] 취소코드: {}", cnclRslt.getProperty("resultCd"));
+                log.info("[문화상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
+                log.info("=====================================");
+
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt("");
+                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("f");
+            }
+
+            //취소 업데이트
+            result = payCancelDao.sendPayCancel(cancelVo);
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelGiftVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelGiftVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
+
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
+        }
+
+        return result;
+    }
+
+
+    /**
+     * 게임문화상품권 결제 취소
+     */
+    public int payCancelGg(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException{
+
+        int result = 0;
+
+        try{
+            String svcId = DalbitUtil.getProperty("gg.service.id");
+            String siteUrl = DalbitUtil.getProperty("pay.site.url");
+            String tradeId = payCancelGiftVo.getTradeid();
+            String prdtPrice = payCancelGiftVo.getPrdtprice();
+            String mobilId = payCancelGiftVo.getMobilid();
+
+            giftCncl gc = new giftCncl();
+            Properties cnclRslt = gc.revokePayGG(siteUrl, svcId, tradeId, prdtPrice, mobilId);
+
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+            if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFail_msg("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+            } else {
+
+                log.info("=====================================");
+                log.info("[게임문화상품권] 취소코드: {}", cnclRslt.getProperty("resultCd"));
+                log.info("[게임문화상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
+                log.info("=====================================");
+
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt("");
+                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("f");
+            }
+
+            //취소 업데이트
+            result = payCancelDao.sendPayCancel(cancelVo);
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelGiftVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelGiftVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
+
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
+        }
+
+        return result;
+    }
+
+
+    /**
+     * 도서문화상품권 결제 취소
+     */
+    public int payCancelGc(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException{
+
+        int result = 0;
+
+        try{
+            String svcId = DalbitUtil.getProperty("gc.service.id");
+            String siteUrl = DalbitUtil.getProperty("pay.site.url");
+            String tradeId = payCancelGiftVo.getTradeid();
+            String prdtPrice = payCancelGiftVo.getPrdtprice();
+            String mobilId = payCancelGiftVo.getMobilid();
+
+            giftCncl gc = new giftCncl();
+            Properties cnclRslt = gc.revokePayGC(siteUrl, svcId, tradeId, prdtPrice, mobilId);
+
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+            if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFail_msg("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+            } else {
+
+                log.info("=====================================");
+                log.info("[도서문화상품권] 취소코드: {}", cnclRslt.getProperty("resultCd"));
+                log.info("[도서문화상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
+                log.info("=====================================");
+
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt("");
+                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("f");
+            }
+
+            //취소 업데이트
+            result = payCancelDao.sendPayCancel(cancelVo);
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelGiftVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelGiftVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
+
+        }catch (Exception e){
+            throw new GlobalException(Status.비즈니스로직오류);
+        }
+
+        return result;
+    }
+
+
+    /**
+     * 해피머니상품권 결제 취소
+     */
+    public int payCancelHm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException{
+
+        int result = 0;
+
+        try{
+            String svcId = DalbitUtil.getProperty("hm.service.id");
+            String siteUrl = DalbitUtil.getProperty("pay.site.url");
+            String tradeId = payCancelGiftVo.getTradeid();
+            String prdtPrice = payCancelGiftVo.getPrdtprice();
+            String mobilId = payCancelGiftVo.getMobilid();
+
+            giftCncl gc = new giftCncl();
+            Properties cnclRslt = gc.revokePayHM(siteUrl, svcId, tradeId, prdtPrice, mobilId);
+
+            Pay_CancelVo cancelVo = new Pay_CancelVo();
+            if(cnclRslt.getProperty("resultCd").equals(Status.결제취소성공.getMessageCode())){
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt(DalbitUtil.stringToDate(cnclRslt.getProperty("actDate")));
+                cancelVo.setFail_msg("");
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("y");
+            } else {
+
+                log.info("=====================================");
+                log.info("[해피머니상품권] 취소코드: {}", cnclRslt.getProperty("resultCd"));
+                log.info("[해피머니상품권] Result Msg: {}", cnclRslt.getProperty("resultMsg"));
+                log.info("=====================================");
+
+                cancelVo.setOrder_id(cnclRslt.getProperty("tradeId"));
+                cancelVo.setCancel_dt("");
+                cancelVo.setFail_msg(cnclRslt.getProperty("resultMsg"));
+                cancelVo.setOp_name(MemberVo.getMyMemNo());
+                cancelVo.setCancel_state("f");
+            }
+
+            //취소 업데이트
+            result = payCancelDao.sendPayCancel(cancelVo);
+
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelGiftVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelGiftVo.getDalcnt());
             getMemberDalMinus(pMemberEditorVo);
 
         }catch (Exception e){
