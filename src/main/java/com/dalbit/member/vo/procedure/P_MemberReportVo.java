@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class P_MemberReportVo {
 
+    private int idx;
     private String opName;
     private String mem_no;
     private String mem_userid;
@@ -27,6 +28,9 @@ public class P_MemberReportVo {
     private String memo;
     private String notimemo;
     private int blockDay;
+
+    private String blockScope;
+    private String blockScopeText;
 
     private String slctOs; // OS Type 구분.. (a: AOS, b: IOS)
 
