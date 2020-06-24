@@ -78,9 +78,9 @@ public enum Status {
     회원정보수정실패("-1", "member.editor.fail", "회원 정보 수정 실패"),
 
     // 회원방송강제종료시도
-    회원방송강제종료시도_성공("0", "member.broadcast.forced.end.success", "회원방송강제 종료 시도 성공"),
+    회원방송강제종료시도_성공("0", "member.broadcast.forced.end.success", "운영자에 의한 회원 방송 강제 종료 시도 성공"),
     // 회원청취강제종료시도
-    회원청취강제종료시도_성공("0", "member.listen.forced.exit.success", "회원청취강제 종료 시도 성공"),
+    회원청취강제종료시도_성공("0", "member.listen.forced.exit.success", "운영자에 의한 회원 청취 강제 종료 시도 성공"),
 
     //회원정보수정 내역 조회
     회원정보수정내역조회_성공("0", "member.editor.list.success", "회원정보 수정내역 조회 성공 시"),

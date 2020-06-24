@@ -74,7 +74,7 @@ public class Mem_ListenService {
         P_MemberAdminMemoAddVo pMemberAdminMemoAddVo = new P_MemberAdminMemoAddVo();
         pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
         pMemberAdminMemoAddVo.setMem_no(MemberVo.getMem_no());
-        pMemberAdminMemoAddVo.setMemo("회원 청취 강제 종료 시도");
+        pMemberAdminMemoAddVo.setMemo("운영자에 의한 회원 청취 강제 종료 시도");
         ProcedureVo procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
         mem_MemberDao.callMemAdminMemoAdd(procedureVo);
 

@@ -73,20 +73,30 @@ public class Mem_BroadcastService {
         P_MemberAdminMemoAddVo pMemberAdminMemoAddVo = new P_MemberAdminMemoAddVo();
         pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
         pMemberAdminMemoAddVo.setMem_no(MemberVo.getMem_no());
-        pMemberAdminMemoAddVo.setMemo("회원 방송 강제 종료 시도");
+        pMemberAdminMemoAddVo.setMemo("운영자에 의한 회원 방송 강제 종료 시도");
         ProcedureVo procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
         mem_MemberDao.callMemAdminMemoAdd(procedureVo);
 
+        if(!DalbitUtil.isEmpty(MemberVo.getRoom_no())) {
+            pMemberAdminMemoAddVo.setOpName(MemberVo.getMyMemNo());
+            pMemberAdminMemoAddVo.setMem_no(MemberVo.getRoom_no());
+            pMemberAdminMemoAddVo.setMemo("운영자에 의한 회원 방송 강제 종료 시도");
+            procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
+            mem_MemberDao.callMemAdminMemoAdd(procedureVo);
+        }
+
+        String room_no;
         for (int i=0; i<list.size();i++) {
+            room_no = list.get(i).getRoom_no();
             // 방송 시작시간
             P_MemberBroadcastInputVo pMemberBroadcastInputVo = new P_MemberBroadcastInputVo();
-            pMemberBroadcastInputVo.setRoom_no(list.get(i).getRoom_no());
+            pMemberBroadcastInputVo.setRoom_no(room_no);
             ProcedureVo procedureVo2 = new ProcedureVo(pMemberBroadcastInputVo);
             bro_BroadcastDao.callBroadcastInfo(procedureVo2);
 
             P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo2.getExt(), P_BroadcastDetailOutputVo.class);
             P_BroadcastEditInputVo pBroadcastEditInputVo = new P_BroadcastEditInputVo();
-            pBroadcastEditInputVo.setRoom_no(list.get(i).getRoom_no());
+            pBroadcastEditInputVo.setRoom_no(room_no);
             pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
 
             // 회원 방 나가기 상태
@@ -96,7 +106,7 @@ public class Mem_BroadcastService {
 
             //option
             HashMap<String,Object> param = new HashMap<>();
-            param.put("roomNo",list.get(i).getRoom_no());
+            param.put("roomNo",room_no);
             param.put("memNo",MemberVo.getMem_no());
 
             //option
@@ -110,7 +120,7 @@ public class Mem_BroadcastService {
             socketUtil.setSocket(param,"chatEnd","roomOut",jwtUtil.generateToken(MemberVo.getMem_no(), true));
 
             try{
-                HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(list.get(i).getRoom_no());
+                HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(room_no);
                 if(broadInfo != null && !DalbitUtil.isEmpty(broadInfo.get("bjStreamId"))){
                     OkHttpClientUtil httpUtil = new OkHttpClientUtil();
                     httpUtil.sendDelete(antServer + "/" + antName + "/rest/v2/broadcasts/" + broadInfo.get("bjStreamId"));
