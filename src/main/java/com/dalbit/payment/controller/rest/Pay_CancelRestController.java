@@ -4,10 +4,7 @@ import com.dalbit.exception.GlobalException;
 import com.dalbit.payment.dao.Pay_CancelDao;
 import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.service.Pay_CancelService;
-import com.dalbit.payment.vo.Pay_CancelBankVo;
-import com.dalbit.payment.vo.Pay_CancelCardVo;
-import com.dalbit.payment.vo.Pay_CancelPayletterVo;
-import com.dalbit.payment.vo.Pay_CancelPhoneVo;
+import com.dalbit.payment.vo.*;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +53,7 @@ public class Pay_CancelRestController {
      *  실계좌이체 결제 취소
      */
     @PostMapping("bank")
-    public int payBankPhone(Pay_CancelBankVo payCancelBankVo) throws GlobalException {
+    public int payCancelBank(Pay_CancelBankVo payCancelBankVo) throws GlobalException {
 
         int result = payCancelService.payCancelBank(payCancelBankVo);
         return result;
@@ -66,9 +63,53 @@ public class Pay_CancelRestController {
      *  페이레터 결제 취소
      */
     @PostMapping("payletter")
-    public int payletter(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
+    public int payletterCancel(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
 
-        int result = payCancelService.payletter(payCancelPayletterVo, request);
+        int result = payCancelService.payletterCancel(payCancelPayletterVo, request);
+        return result;
+    }
+
+
+    /**
+     *  문화상품권 결제 취소
+     */
+    @PostMapping("gm")
+    public int payCancelGm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+
+        int result = payCancelService.payCancelGm(payCancelGiftVo);
+        return result;
+    }
+
+
+    /**
+     *  게임문화상품권 결제 취소
+     */
+    @PostMapping("gg")
+    public int payCancelGg(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+
+        int result = payCancelService.payCancelGg(payCancelGiftVo);
+        return result;
+    }
+
+
+    /**
+     *  도서문화상품권 결제 취소
+     */
+    @PostMapping("gc")
+    public int payCancelGc(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+
+        int result = payCancelService.payCancelGc(payCancelGiftVo);
+        return result;
+    }
+
+
+    /**
+     *  해피머니상품권 결제 취소
+     */
+    @PostMapping("hm")
+    public int payCancelHm(Pay_CancelGiftVo payCancelGiftVo) throws GlobalException {
+
+        int result = payCancelService.payCancelHm(payCancelGiftVo);
         return result;
     }
 
