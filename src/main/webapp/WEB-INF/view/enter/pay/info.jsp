@@ -11,7 +11,6 @@
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
                                 <span id="slctTypeArea"></span>
-
                                 <div class="input-group date" id="oneDayDatePicker">
                                     <label for="onedayDate" class="input-group-addon">
                                         <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
@@ -45,47 +44,52 @@
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 결제통계 현황</h3>
+                        <%--<div class="btn-group widget-header-toolbar">--%>
+                            <%--<a href="#" title="Expand/Collapse" class="btn-borderless btn-toggle-expand" onclick="slid();"><i class="fa fa-chevron-up" id="chevron"></i></a>--%>
+                        <%--</div>--%>
                     </div>
-                    <div class="widget-content mt10 col-md-8 no-padding mr10">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="statPayTableBody1">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="PayCancelTotalTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="PayTotalTableBody">
-                            </tbody>
-                        </table>
-                    </div>
+                    <div id="div_top">
+                        <div class="widget-content mt10 col-md-8 no-padding mr10">
+                            <table class="table table-condensed table-dark-header table-bordered no-margin">
+                                <thead>
+                                </thead>
+                                <tbody id="statPayTableBody1">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
+                            <table class="table table-condensed table-dark-header table-bordered no-margin">
+                                <thead>
+                                </thead>
+                                <tbody id="PayCancelTotalTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
+                            <table class="table table-condensed table-dark-header table-bordered no-margin">
+                                <thead>
+                                </thead>
+                                <tbody id="PayTotalTableBody">
+                                </tbody>
+                            </table>
+                        </div>
 
-                    <div class="widget-content mt10 col-md-12 no-padding">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="statPayTableBody2">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content mt10 col-md-12 no-padding">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="statPayTableBody3">
-                            </tbody>
-                        </table>
+                        <div class="widget-content mt10 col-md-12 no-padding">
+                            <table class="table table-condensed table-dark-header table-bordered no-margin">
+                                <thead>
+                                </thead>
+                                <tbody id="statPayTableBody2">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="widget-content mt10 col-md-12 no-padding">
+                            <table class="table table-condensed table-dark-header table-bordered no-margin">
+                                <thead>
+                                </thead>
+                                <tbody id="statPayTableBody3">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -109,6 +113,9 @@
     var toDay = week[moment(new Date()).day()];
     setTimeDate(dateTime);
 
+
+    // slid();
+
     $(function(){
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
 
@@ -127,7 +134,6 @@
                 $("#onedayDate").val($("#startDate").val());
             }
         );
-
         //결제/환불 통계 현황
         getStatPayInfo();
     });
@@ -238,6 +244,7 @@
         getPayTotalList();
 
         ui.paintColor();
+
     }
 
     $(document).on('click', '._prevSearch', function(){
@@ -261,11 +268,29 @@
         if($('input[name="slctType"]:checked').val() == 0){
             $("#oneDayDatePicker").show();
             $("#rangeDatepicker").hide();
+            // $(".fa-chevron-down").addClass("fa-chevron-up");
+            // $(".fa-chevron-down").removeClass("fa-chevron-down");
+            // slid();
         }else {
             $("#oneDayDatePicker").hide();
             $("#rangeDatepicker").show();
+            // $(".fa-chevron-up").addClass("fa-chevron-down");
+            // $(".fa-chevron-up").removeClass("fa-chevron-up");
+            // slid();
         }
         searchDate();
+    }
+
+    function slid(){
+        if($("#chevron").hasClass("fa-chevron-down") === true) {
+            $("#div_top").slideDown("slow");
+            $(".fa-chevron-down").addClass("fa-chevron-up");
+            $(".fa-chevron-down").removeClass("fa-chevron-down");
+        }else{
+            $("#div_top").slideUp("slow");
+            $(".fa-chevron-up").addClass("fa-chevron-down");
+            $(".fa-chevron-up").removeClass("fa-chevron-up");
+        }
     }
 
     function searchDate(dateType){
@@ -367,6 +392,8 @@
             <th>카드</th>
             <th>가상계좌이체</th>
             <th>인앱결제(아이폰)</th>
+            <th>문화상품권</th>
+            <th>해피머니상품권</th>
             <th style="color: green;font-weight: bold">총합</th>
         </tr>
         </thead>
@@ -377,6 +404,8 @@
             <td>{{addComma cn_cnt}}</td>
             <td>{{addComma va_cnt}}</td>
             <td>{{addComma inapp_cnt}}</td>
+            <td>{{addComma gm_cnt}}</td>
+            <td>{{addComma hm_cnt}}</td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr  style="color: #66a449">
@@ -385,6 +414,8 @@
             <td>{{addComma cn_amt}}</td>
             <td>{{addComma va_amt}}</td>
             <td>{{addComma inapp_amt}}</td>
+            <td>{{addComma gm_amt}}</td>
+            <td>{{addComma hm_amt}}</td>
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
 
@@ -394,6 +425,8 @@
             <td>{{vatMinus cn_amt}}</td>
             <td>{{vatMinus va_amt}}</td>
             <td>{{vatMinus inapp_amt}}</td>
+            <td>{{vatMinus gm_amt}}</td>
+            <td>{{vatMinus gm_amt}}</td>
             <td><b>{{vatMinus total_amt}}</b></td>
         </tr>
         <tr>
@@ -402,6 +435,8 @@
             <td>({{payRate cn_cnt total_cnt}}%)<br/><b>{{payRate cn_amt total_amt}}%</b></td>
             <td>({{payRate va_cnt total_cnt}}%)<br/><b>{{payRate va_amt total_amt}}%</b></td>
             <td>({{payRate inapp_cnt total_cnt}}%)<br/><b>{{payRate inapp_amt total_amt}}%</b></td>
+            <td>({{payRate gm_cnt total_cnt}}%)<br/><b>{{payRate gm_amt total_amt}}%</b></td>
+            <td>({{payRate hm_cnt total_cnt}}%)<br/><b>{{payRate hm_amt total_amt}}%</b></td>
             <td>({{payRate total_cnt total_cnt}}%)<br/><b>{{payRate total_amt total_amt}}%</b></td>
         </tr>
         </tbody>

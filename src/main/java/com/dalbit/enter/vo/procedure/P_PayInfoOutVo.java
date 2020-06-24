@@ -17,6 +17,10 @@ public class P_PayInfoOutVo {
     private int cn_amt;
     private int inapp_cnt;
     private int inapp_amt;
+    private int gm_cnt;
+    private int gm_amt;
+    private int hm_cnt;
+    private int hm_amt;
     private int ra_cnt;
     private int ra_amt;
     private int va_cnt;
