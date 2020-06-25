@@ -53,13 +53,12 @@
         eDate = $("#endDate").val();
         var dtList_info_data = function(data) {
             data.searchText = "";                        // 검색명
+            data.sDate = sDate;
+            data.eDate = eDate;
             if( $('input[name="slctType"]:checked').val() == 0){
                 data.period = 4;
-                data.sDate = sDate;
             }else{
                 data.period = 0;
-                data.sDate = sDate;
-                data.eDate = eDate;
             }
 
             data.ostype = tmp_ostype_cansel;

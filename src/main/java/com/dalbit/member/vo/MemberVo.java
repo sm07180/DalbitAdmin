@@ -84,4 +84,6 @@ public class MemberVo{
     private String ip;
     private String inner;
     private String last_upd_date;
+
+    private String room_no;
 }

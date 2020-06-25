@@ -5,6 +5,8 @@
     String in_memId = request.getParameter("memId");
     String in_memNick = request.getParameter("memNick");
     String in_memSex = request.getParameter("memSex");
+    String in_deviceUuid = request.getParameter("deviceUuid");
+    String in_ip = request.getParameter("ip");
 %>
 
 <div class="col-md-12 no-padding" id="report_detail">
@@ -34,7 +36,10 @@
                     </tr>
                     <tr>
                         <th>조치사유</th>
-                        <td colspan="5" style="text-align: left"><span id="declaration_reason"></span></td>
+                        <td style="text-align: left"><span id="declaration_reason"></span></td>
+
+                        <th>조치범위</th>
+                        <td colspan="3" style="text-align: left"><span id="blockScope_area"></span></td>
                     </tr>
                     <tr>
                         <th>제재조치</th>
@@ -84,12 +89,23 @@
             bt_complet_click(this.id);
         });
     });
-    var memNo =  <%=in_memNo%>;
-    var memId =  <%=in_memId%>;
-    var memNick =  <%=in_memNick%>;
-    var memSex =  <%=in_memSex%>;
+    var memNo =  '<%=in_memNo%>';
+    var memId =  '<%=in_memId%>';
+    var memNick =  '<%=in_memNick%>';
+    var memSex =  '<%=in_memSex%>';
+    var deviceUuid =  '<%=in_deviceUuid%>';
+    var ip =  '<%=in_ip%>';
 
     $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
+    $("#blockScope_area").html(util.getCommonCodeCheck2(-1, block_scope,"Y"));
+
+    //아이디, 디바이스 아이디 default로 check한다.
+    $("#blockScope_mem_no").attr({
+        'checked' : 'checked'
+        , 'disabled' : 'disabled'
+    });
+    $("#blockScope_1").attr('checked', 'checked');
+
     $("#member_declaration_slctType").html(util.getCommonCodeRadio(2, member_declaration_slctType));
     $("#declaration_Message").html(util.getCommonCodeCheck(-1, declaration_Message,"Y"));
     $('#td_memId').html(memId);
@@ -176,6 +192,11 @@
             obj.memo = $("#txt_adminMemo").val();
             obj.notiContents = msgTitle;
             obj.notimemo = msgValue;
+            //obj.blockScope = $("blockScope_deviceUuid").
+            obj.blockScope = $("#blockScope_1").prop('checked')+','+$("#blockScope_2").prop('checked');
+
+            obj.blockScopeText = deviceUuid +','+ ip;
+
             util.getAjaxData("report", "/rest/member/member/report", obj, update_success);
         }return false;
 

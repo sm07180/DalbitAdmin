@@ -135,6 +135,9 @@
     <!-- 정지/탈퇴 (신고) -->
     <insert id="callMemberReport" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberReport */
+        <selectKey keyProperty="idx" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
         insert into rd_data.tb_member_report
                       (mem_no,mem_userid,mem_nick,mem_phone,mem_level,mem_grade,reported_mem_no,reported_userid,
                       reported_nick,reported_phone,reported_level,reported_grade,room_no,reason,etc,status,op_code,
@@ -205,6 +208,20 @@
         /* M_Member.xml - callMemAdminMemoList */
         call rd_admin.sp_admin_op_memo_select(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <!-- 운영자 메모 삭제하기 -->
+    <delete id="callMemAdminMemoDel" parameterType="com.dalbit.member.vo.procedure.P_MemberAdminMemoDelVo">
+        /* M_Member.xml - callMemAdminMemoDel */
+        delete
+          from rd_admin.tb_admin_op_memo
+         where mem_no=#{mem_no}
+           and idx in
+        <foreach collection="delList" item="item" separator="," open="(" close=")">
+            #{item.idx}
+        </foreach>
+
+    </delete>
+
+
     <select id="callMemConnect" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.member.vo.procedure.P_MemberConnectOutputVo">
         /* M_Member.xml - callMemConnect */
         call rd_admin.sp_admin_member_info_connect(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
@@ -296,36 +313,43 @@
             , DATE_FORMAT(last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
         from rd_data.tb_member_session_history
             , (select @rownum := 0) AS b
-        where 1=1
-        <if test='searchText != null and searchText != ""'>
-            <choose>
-                <when test='searchType == "mem_no"'>
-                    and mem_no like concat ('%', #{searchText}, '%')
-                </when>
-                <when test='searchType == "uuid"'>
-                    and upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
-                </when>
-                <when test='searchType == "token"'>
-                    and upper(device_token) like concat ('%', upper(#{searchText}), '%')
-                </when>
-                <when test='searchType == "ip"'>
-                    and ip like concat ('%', upper(#{searchText}), '%')
-                </when>
-                <otherwise>
-                    and (
-                        mem_no like concat ('%', #{searchText}, '%')
-                        or upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
-                        or upper(device_token) like concat ('%', upper(#{searchText}), '%')
-                        or ip like concat ('%', upper(#{searchText}), '%')
-                    )
-                </otherwise>
-            </choose>
-        </if>
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == "mem_no"'>
+                        and mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == "uuid"'>
+                        and upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
+                    </when>
+                    <when test='searchType == "token"'>
+                        and upper(device_token) like concat ('%', upper(#{searchText}), '%')
+                    </when>
+                    <when test='searchType == "ip"'>
+                        and ip like concat ('%', upper(#{searchText}), '%')
+                    </when>
+                    <otherwise>
+                        and (
+                            mem_no like concat ('%', #{searchText}, '%')
+                            or upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
+                            or upper(device_token) like concat ('%', upper(#{searchText}), '%')
+                            or ip like concat ('%', upper(#{searchText}), '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+            <if test='txt_startSel != null and txt_startSel != ""'>
+                and last_upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')
+            </if>
+            <if test='txt_endSel != null and txt_endSel != ""'>
+                and last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
+            </if>
+        </where>
         order by idx desc
     </sql>
 
     <select id="selectLoginHistoryCnt" parameterType="com.dalbit.member.vo.LoginHistoryVo" resultType="int">
-        /* Bro_Broadcast.xml - selectLoginHistoryCnt */
+        /* Mem_Member.xml - selectLoginHistoryCnt */
         select count(*)
         from(
             <include refid="baseLoginHistory" />
@@ -333,11 +357,54 @@
     </select>
 
     <select id="selectLoginHistory" parameterType="com.dalbit.member.vo.LoginHistoryVo" resultType="com.dalbit.member.vo.LoginHistoryVo">
-        /* Bro_Broadcast.xml - selectLoginHistory */
+        /* Mem_Member.xml - selectLoginHistory */
         select *
         from(
             <include refid="baseLoginHistory" />
         ) a
         where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
+
+    <insert id="insertLoginBlock" parameterType="com.dalbit.member.vo.LoginBlockVo">
+        /* Mem_Member.xml - insertLoginBlock */
+        INSERT INTO rd_admin.tb_login_block(
+            block_type
+            , block_text
+            , block_day
+            , block_end_date
+            , op_name
+            , report_idx
+        ) values(
+              #{block_type}
+            , #{block_text}
+            , #{block_day}
+            <choose>
+                <when test="block_day == 99">
+                    , '9999-12-31'
+                </when>
+                <otherwise>
+                    , DATE_ADD( now(), interval #{block_day} day)
+                </otherwise>
+            </choose>
+            , #{op_name}
+            , #{report_idx}
+        )
+    </insert>
+
+    <insert id="insertLoginBlockHistory" parameterType="com.dalbit.member.vo.LoginBlockHistVo">
+        /* Mem_Member.xml - insertLoginBlockHistory */
+        INSERT INTO rd_admin.tb_login_block_history(
+            edit_contents
+            , edit_type
+            , last_upd_date
+            , op_name
+            , report_idx
+        ) values(
+            #{edit_contents}
+            , #{edit_type}
+            , now()
+            , #{op_name}
+            , #{report_idx}
+        )
+    </insert>
 </mapper>

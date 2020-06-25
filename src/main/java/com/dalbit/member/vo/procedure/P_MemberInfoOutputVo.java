@@ -67,6 +67,10 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String newdj_badge;
     private String specialdj_badge;
 
+    //마지막 로그인 정보
+    private String ip;
+    private String deviceUuid;
+
     public void setBlock_end_date(Date block_end_date){
         this.block_end_date = block_end_date;
         this.blockEndDateFormat = DalbitUtil.convertDateFormat(block_end_date, "yyyy.MM.dd HH:mm:ss");

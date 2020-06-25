@@ -246,7 +246,7 @@
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 4) + ")").html(0);
                     } else if(index == 7) {     // 평균
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt/7));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt/7));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 4) + ")").html(0);
@@ -277,7 +277,7 @@
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 4) + ")").html(0);
                     } else if(index == 7) {     //평균
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 4) + ")").html(0);
@@ -307,7 +307,7 @@
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 4) + ")").html(0);
                     } else if(index == 7) {
-                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
+                        $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(detail.succAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(detail.accumAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 4) + ")").html(0);
@@ -363,15 +363,15 @@
                 $("#totalTableBody tr:eq(2) td:eq(" + (i * 4 + 3) + ")").html(0);
             }else if(i == 7){
                 //총합
-                $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
+                $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
                 $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_succAmt/7));
                 $("#totalTableBody tr:eq(0) td:eq(" + (3 * 4 + 3) + ")").html(0);
                 //첫구매
-                $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_firstCnt/7).toFixed(2)));
+                $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_firstCnt/7).toFixed(1)));
                 $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_firstAmt/7));
                 $("#totalTableBody tr:eq(1) td:eq(" + (3 * 4 + 3) + ")").html(0);
                 //재구매
-                $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_reCnt/7).toFixed(2)));
+                $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 1) + ")").html(common.addComma((totalInfo.sum_reCnt/7).toFixed(1)));
                 $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 2) + ")").html(common.vatMinus(totalInfo.sum_reAmt/7));
                 $("#totalTableBody tr:eq(2) td:eq(" + (3 * 4 + 3) + ")").html(0);
             }

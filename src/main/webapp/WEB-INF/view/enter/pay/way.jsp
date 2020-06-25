@@ -9,9 +9,10 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="10%"/><col width="7%"/><col width="8%"/><col width="7%"/><col width="8%"/>
-                <col width="7%"/><col width="8%"/><col width="7%"/><col width="8%"/><col width="7%"/>
-                <col width="8%"/><col width="7%"/><col width="8%"/>
+                <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
+                <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
+                <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
+
             </colgroup>
             <thead>
             <tr>
@@ -21,10 +22,16 @@
                 <th colspan="2">카드 <i class="fa fa-credit-card"></i></th>
                 <th colspan="2">인앱결제(아이폰) <i class="fa fa-apple"></i></th>
                 <th colspan="2">가상계좌아체 <i class="fa fa-money"></i></th>
+                <th colspan="2">문화상품권 <i class="fa fa-barcode"></i></th>
+                <th colspan="2">해피머니상품권 <i class="fa fa-smile-o"></i></th>
             </tr>
             <tr>
                 <th>건(비율)</th>
                 <th>금액(비율)</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
                 <th>건</th>
@@ -97,6 +104,10 @@
         <td>{{vatMinus sum_inappAmt}}</td>
         <td>{{addComma sum_vaCnt}}</td>
         <td>{{vatMinus sum_vaAmt}}</td>
+        <td>{{addComma sum_gmCnt}}</td>
+        <td>{{vatMinus sum_gmAmt}}</td>
+        <td>{{addComma sum_hmCnt}}</td>
+        <td>{{vatMinus sum_hmAmt}}</td>
     </tr>
 </script>
 
@@ -118,6 +129,11 @@
         <td>{{vatMinus inappAmt}}</td>
         <td>{{addComma vaCnt}}</td>
         <td>{{vatMinus vaAmt}}</td>
+        <td>{{addComma gmCnt}}</td>
+        <td>{{vatMinus gmAmt}}</td>
+        <td>{{addComma hmCnt}}</td>
+        <td>{{vatMinus hmAmt}}</td>
+
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>

@@ -160,6 +160,9 @@
         $('#bt_editHistory').click(function() {
             getInfoDetail(this.id,"정보수정내역");
         });
+        $('#bt_forcedEnd').click(function() {           // 방송 강제종료
+            forcedEnd();
+        });
         // 버튼 끝
     }
 
@@ -404,6 +407,19 @@
         console.log(data, textStatus, jqXHR);
         alert('정보 변경에 실패하였습니다');
     }
+
+    function forcedEnd(){
+        if(confirm("방송강제 종료 시도 하시겠습니까?")){
+            var data = {};
+            data.mem_no = mem_no;
+            data.room_no = room_no;
+            util.getAjaxData("forcedEnd", "/rest/member/broadcast/forcedEnd",data, forced_success);
+        }else return false
+    }
+    function forced_success(dst_id, response) {
+        alert(response.message);
+        getInfoDetail("bt_adminMemoList", "운영자메모");
+    }
 </script>
 
 <script id="tmp_broadcast_detailFrm" type="text/x-handlebars-template">
@@ -459,11 +475,12 @@
             <th>방송상태</th>
             <td style="text-align: left">
                 {{{icon_broadcastState}}}
+                <button type="button" id="bt_forcedEnd" class="btn btn-danger btn-sm pull-right">방송강제종료</button>
                 {{#equal roomHide '0'}}
-                    <button type="button" id="bt_broadCastHide" class="btn btn-danger btn-sm pull-right" onclick="broadCastHide(1);">방송방 숨김</button>
+                    <button type="button" id="bt_broadCastHide" class="btn btn-info btn-sm pull-right" onclick="broadCastHide(1);">방송방 숨김</button>
                 {{/equal}}
                 {{#equal roomHide '1'}}
-                    <button type="button" id="bt_broadCastHideCancel" class="btn btn-danger btn-sm pull-right" onclick="broadCastHide(0);">방송방 숨김 해제</button>
+                    <button type="button" id="bt_broadCastHideCancel" class="btn btn-info btn-sm pull-right" onclick="broadCastHide(0);">방송방 숨김 해제</button>
                 {{/equal}}
             </td>
         </tr>

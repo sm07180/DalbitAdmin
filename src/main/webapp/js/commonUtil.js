@@ -330,6 +330,29 @@ util.getCommonCodeCheck = function(code, targetCode, isExcludeAllYn, name) {
     }
 },
 
+util.getCommonCodeCheck2 = function(code, targetCode, isExcludeAllYn, name) {
+    targetCode = eval(targetCode);
+    if (!common.isEmpty(targetCode)) {
+
+        var header = targetCode[0];
+        var html = '';
+        var checkName = common.isEmpty(name) ? header.value : name;
+        targetCode.forEach(function (value) {
+            if (!common.isEmpty(value.type)) {
+
+                if (isExcludeAllYn == 'Y' && value.type == 'all') {
+                    return;
+                }
+                html += '<label class="control-inline fancy-checkbox custom-color-green">';
+                html += '<input type="checkbox" value="' + value.value + '" id="' + checkName + '_' + value.value + '" name="' + checkName + '" class="form-control" ' + (value.value == code ? 'checked="checked"' : '') + '/>';
+                html += '<span><i></i>' + value.code + '</span>'
+                html += '</label><br/>';
+            }
+        });
+        return html;
+    }
+},
+
 util.getCommonCodeHorizontalCheck = function(code, targetCode, isExcludeAllYn, name) {
     targetCode = eval(targetCode);
     if (!common.isEmpty(targetCode)) {

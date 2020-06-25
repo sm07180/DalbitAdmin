@@ -1,6 +1,8 @@
 package com.dalbit.member.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.member.vo.LoginBlockHistVo;
+import com.dalbit.member.vo.LoginBlockVo;
 import com.dalbit.member.vo.LoginHistoryVo;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.*;
@@ -81,6 +83,8 @@ public interface Mem_MemberDao {
     @Transactional(readOnly = true)
     ArrayList<P_MemberAdminMemoListOutputVo> callMemAdminMemoList(ProcedureVo procedureVo);
 
+    int callMemAdminMemoDel(P_MemberAdminMemoDelVo pMemberAdminMemoDelVo);
+
     @Transactional(readOnly = true)
     ArrayList<P_MemberConnectOutputVo> callMemConnect(ProcedureVo procedureVo);
 
@@ -113,4 +117,7 @@ public interface Mem_MemberDao {
     int selectLoginHistoryCnt(LoginHistoryVo loginHistoryVo);
 
     ArrayList<LoginHistoryVo> selectLoginHistory(LoginHistoryVo loginHistoryVo);
+
+    int insertLoginBlock(LoginBlockVo loginBlockVo);
+    int insertLoginBlockHistory(LoginBlockHistVo loginBlockHistVo);
 }

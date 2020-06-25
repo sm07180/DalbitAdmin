@@ -77,10 +77,13 @@
 
         // $("#txt_birth").val(response.data.birthDate);
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "40"));
-        report = "/member/member/popup/reportPopup?memNo='" + encodeURIComponent(response.data.mem_no) + "'&memId='"
-                                                            + encodeURIComponent(response.data.userId) + "'&memNick='"
-                                                            + encodeURIComponent(common.replaceHtml(response.data.nickName)) + "'&memSex='"
-                                                            + encodeURIComponent(response.data.memSex) + "'";
+        report = "/member/member/popup/reportPopup?"
+                                                + "memNo=" + encodeURIComponent(response.data.mem_no)
+                                                + "&memId=" + encodeURIComponent(response.data.userId)
+                                                + "&memNick=" + encodeURIComponent(common.replaceHtml(response.data.nickName))
+                                                + "&memSex=" + encodeURIComponent(response.data.memSex)
+                                                + "&deviceUuid=" + response.data.deviceUuid
+                                                + "&ip=" + response.data.ip;
 
         if (response.data.memSlct != "p") {
             $("#div_socialId").empty();
@@ -93,14 +96,14 @@
             $("#txt_phon").css("display", "");
         }
 
-        if (tmp_bt != "bt_adminMemo") {
+        if (tmp_bt != "bt_adminMemoList") {
             $("#member_detailFrm").html("");
             $("#tablist_con").find('.active').find('a').click();
 
             var scrollPosition = $("#tabList_top").offset();
             util.scrollPostion(scrollPosition.top);
         }else{
-            getInfoDetail("bt_adminMemoList", "운영자메모");
+            getAdminMemoList("bt_adminMemoList", "운영자메모");
         }
     }
 
@@ -142,10 +145,10 @@
             bt_click(this.id);
         });
         $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
-            getInfoDetail(this.id,"운영자메모");
+            getAdminMemoList(this.id,"운영자메모");
         });
-        $('#bt_connectState').click(function() {         //접속상태
-            getInfoDetail(this.id,"접속상태");
+        $('.bt_connectState').click(function() {         //접속상태
+            getInfoDetail('bt_connectState',"접속상태");
         });
         $('#bt_manager').click(function() {             //매니저 자세히
             getInfoDetail(this.id,"(내가 등록한) 매니저");
@@ -156,7 +159,7 @@
         $('#bt_editHistory').click(function() {         //최근정보 내역
             getInfoDetail(this.id,"정보수정내역");
         });
-        $('#bt_report').click(function() {           // 회원상태(경고/정지)
+        $('.bt_report').click(function() {           // 회원상태(경고/정지)
             reportPopup();
         });
         $('#bt_state').click(function() {           // 상태 정상으로 변경
@@ -179,6 +182,10 @@
         });
         $('#bt_broadCastHideCancel').click(function() {           // 방송 숨김상태 해제
             broadCastHide(0);
+        });
+
+        $('#bt_forcedEnd').click(function() {           // 방송 강제종료
+            forcedEnd();
         });
 
         // 버튼 끝
@@ -370,7 +377,7 @@
     }
     function reportPopup(){
         console.log(report);
-        util.windowOpen(report,"750","700","경고/정지");
+        util.windowOpen(report,"750","885","경고/정지");
     }
 
     function fnChkByte(obj) {
@@ -429,7 +436,6 @@
 
         var scrollPosition = $("#tab_infoDetail").offset();
         util.scrollPostion(scrollPosition.top);
-
     }
     function getInfoDetail2(tmp){
         var dtList_info_detail_data = function (data) {
@@ -448,6 +454,57 @@
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.createDataTable();
+    }
+
+    var dtMemoList;
+
+    function getAdminMemoList(tmp,tmp1) {     // 상세보기
+        var template = $('#tmp_member_detailFrm').html();
+        var templateScript = Handlebars.compile(template);
+        $("#member_detailFrm").html(templateScript);
+
+        $('#tab_memberInfoDetail').text(tmp1);           //텝 이름 변경
+        $('#member_detailFrm').addClass("show");
+        if(tmp.indexOf("_") > 0){ tmp = tmp.split("_"); tmp = tmp[1]; }
+
+        var source = MemberDataTableSource[tmp];
+        var dtList_info_detail_data = function (data) {
+            data.mem_no = memNo;
+        };
+        dtMemoList = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
+        dtMemoList.useCheckBox(true);
+        dtMemoList.useIndex(true);
+        dtMemoList.createDataTable();
+
+        var scrollPosition = $("#tab_infoDetail").offset();
+        util.scrollPostion(scrollPosition.top);
+
+        var adminMemoDel = '<input type="button" value="삭제" class="btn btn-danger btn-sm" id="btn_adminMemoDel" style="margin-right: 3px;"/>';
+        $("#memberInfoDetail").find(".footer-left").append(adminMemoDel);
+        adminMemoDelInit();
+    }
+    function adminMemoDelInit(){
+        $("#btn_adminMemoDel").on("click", function () { //운영자 메모 삭제
+            adminMemoDel();
+        });
+    }
+
+    function adminMemoDel(){
+        if(dtMemoList.getCheckedData().length <= 0){
+            alert("삭제할 메모를 선택해 주세요.");
+            return;
+        }
+        var data = {};
+        data.mem_no = memNo;
+        data.delList =  dtMemoList.getCheckedData();
+        console.log(data);
+        util.getAjaxData("adminMemoDel", "/rest/member/member/admin/memoDel",data, adminMemoDel_success);
+    }
+
+    function adminMemoDel_success(dst_id, response) {
+        // alert(response.message);
+        tmp_bt = "bt_adminMemoList";
+        getMemNo_info_reload(memNo);
     }
 
     function stateEdit() {
@@ -566,6 +623,26 @@
         console.log(data, textStatus, jqXHR);
     }
 
+    function forcedEnd(){
+        if(confirm("방송강제 종료 시도 하시겠습니까?")){
+            var data = {};
+            data.mem_no = memNo;
+            util.getAjaxData("forcedEnd", "/rest/member/broadcast/forcedEnd",data, forced_success);
+        }else return false
+    }
+
+    function forcedListenExit(){
+        if(confirm("청취강제 종료 시도 하시겠습니까?")) {
+            var data = {};
+            data.mem_no = memNo;
+            util.getAjaxData("forcedExit", "/rest/member/listen/forcedExit", data, forced_success);
+        }else return false
+    }
+    function forced_success(dst_id, response) {
+        alert(response.message);
+        getAdminMemoList("bt_adminMemoList", "운영자메모");
+    }
+
 </script>
 
 <script id="tmp_memberInfoFrm" type="text/x-handlebars-template">
@@ -576,8 +653,8 @@
         </colgroup>
         <tbody>
         <tr>
-            <th rowspan="5">프로필이미지</th>
-            <td rowspan="5" colspan="3" style="border: white">
+            <th rowspan="7">프로필이미지</th>
+            <td rowspan="7" colspan="3" style="border: white">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
                     {{#equal memWithdrawal '0'}}
@@ -599,15 +676,31 @@
                 {{{getCommonCodeLabel memState 'mem_state'}}}
                 {{{block}}}
                 {{#equal memWithdrawal '0'}}
-                    <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
+                    <button type="button" class="btn btn-default btn-sm pull-right bt_report">경고/정지</button>
                 {{/equal}}
                 <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
             </td>
         </tr>
         <tr>
+            <th>Mobile 정보</th>
+            <td colspan="2" style="text-align: left">
+                {{deviceUuid}}
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
+                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">기기 차단</button>
+            </td>
+        </tr>
+        <tr>
+            <th>IP 정보</th>
+            <td colspan="2" style="text-align: left">
+                {{ip}}
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
+                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">IP 차단</button>
+            </td>
+        </tr>
+        <tr>
             <th>접속상태</th>
             <td colspan="2" style="text-align: left">{{connectState}}
-                <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
             </td>
         </tr>
         </tr>
@@ -617,16 +710,16 @@
             <th>방송상태</th>
             <td colspan="2" style="text-align: left">
                 {{{icon_broadcastState}}}
+                <button type="button" id="bt_forcedEnd" class="btn btn-danger btn-sm pull-right">방송강제종료</button>
                 {{#equal broadcastState 'ON'}}
                  - 방송제목 : {{{roomNoLink ../title ../room_no}}}
                     {{#equal ../hide 0}}
-                        <button type="button" id="bt_broadCastHide" class="btn btn-danger btn-sm pull-right">방송방 숨김</button>
+                        <button type="button" id="bt_broadCastHide" class="btn btn-info btn-sm pull-right">방송방 숨김</button>
                     {{/equal}}
                     {{#equal ../hide 1}}
-                        <button type="button" id="bt_broadCastHideCancel" class="btn btn-danger btn-sm pull-right">방송방 숨김 해제</button>
+                        <button type="button" id="bt_broadCastHideCancel" class="btn btn-info btn-sm pull-right">방송방 숨김 해제</button>
                     {{/equal}}
                 {{/equal}}
-
             </td>
         </tr>
         <tr>
@@ -640,6 +733,7 @@
                 {{#equal listeningState 'ON'}}
                  - 방송제목 : {{{roomNoLink ../listen_title ../listen_room_no}}}
                 {{/equal}}
+                <button type="button" id="bt_forcedExit" class="btn btn-danger btn-sm pull-right" onclick="forcedListenExit();">청취강제종료</button>
             </td>
         </tr>
         <tr>

@@ -201,8 +201,8 @@
                         $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
                         $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
                     } else if (index == 7) {    // 평균
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(2)));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(1)));
                         $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
                     } else {
                         $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
@@ -215,8 +215,8 @@
                         $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
                         $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
                     } else if (index == 7) {        //평균
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(2)));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(1)));
                         $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
                     } else {
                         $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
@@ -229,8 +229,8 @@
                         $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
                         $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
                     } else if (index == 7) {
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(2)));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(2)));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(1)));
                         $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
                     } else {
                         $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
@@ -256,11 +256,11 @@
                     $("#tryTableBody tr:eq(25) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     $("#tryTableBody tr:eq(25) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
                 }else if(i == 7){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma( (totalInfo.sum_tryCnt/7).toFixed(2)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma( (totalInfo.sum_tryCnt/7).toFixed(1)));
                     $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(2)));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
                     $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
                 }else{
                     $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
@@ -279,11 +279,11 @@
                     $("#tryTableBody tr:eq(32) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     $("#tryTableBody tr:eq(32) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
                 }else if(i == 7){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(2)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
                     $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(2)));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
                     $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
                 }else{
                     $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
@@ -302,11 +302,11 @@
                     $("#tryTableBody tr:eq(13) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
                     $("#tryTableBody tr:eq(13) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
                 }else if(i == 7){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(2)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
                     $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(2)));
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(2)));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
                     $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
                 }else{
                     $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));

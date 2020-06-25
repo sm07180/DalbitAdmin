@@ -6,6 +6,10 @@
     <div class="widget-content mt10">
         <div class="widget widget-table" id="main_table">
             <div class="widget-content">
+                <div class="pull-left" style="margin-top: 8px;margin-bottom: 8px;">
+                    <label><input type="text" class="form-control" id="txt_search"></label>
+                    <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                </div>
                 <div class="pull-right" style="margin-top: 8px;margin-bottom: 8px;">
                     <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
                 </div>
@@ -32,6 +36,16 @@
     $(function(){
         getCurrenList();
 
+        $('input[id="txt_search"]').keydown(function() {
+            if (event.keyCode === 13) {
+                getCurrenList();
+            };
+        });
+        <!-- 버튼 -->
+        $('#bt_search').click( function() {       //검색
+            getCurrenList();
+        });
+
     });
 
     var dtList_info_detail;
@@ -40,6 +54,7 @@
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 20;
+            data.searchText = $("#txt_search").val();
         };
         dtList_info_detail = new DalbitDataTable($("#tableList"), dtList_data, connectDataTableSource.current);
         dtList_info_detail.setPageLength(20);
