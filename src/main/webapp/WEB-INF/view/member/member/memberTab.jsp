@@ -18,6 +18,7 @@
             <li><a href="#banwordDetail" role="tab" data-toggle="tab" id="tab_banwordDetail" onclick="tab_click(this.id);">금지어관리</a></li>
             <li><a href="#declarationDetail" role="tab" data-toggle="tab" id="tab_declarationDetail" onclick="tab_click(this.id);">신고내역</a></li>
             <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail" onclick="tab_click(this.id);">문의내역</a></li>
+            <li><a href="#walletDetail" role="tab" data-toggle="tab" id="tab_walletDetail" onclick="tab_click(this.id);">내지갑v2</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active " id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>     <!-- 상세 -->
@@ -33,6 +34,7 @@
             <div class="tab-pane fade" id="banwordDetail"><jsp:include page="../banword/list.jsp"/></div>         <!-- 금지어 -->
             <div class="tab-pane fade" id="declarationDetail"><jsp:include page="../declaration/list.jsp"/></div> <!-- 신고 -->
             <div class="tab-pane fade" id="questionDetail"><jsp:include page="../question/list.jsp"/></div>     <!-- 문의 -->
+            <div class="tab-pane fade" id="walletDetail"><jsp:include page="../wallet/list.jsp"/></div>             <!-- 내지갑v2-->
         </div>
     </div>
 </div>
@@ -56,6 +58,8 @@
             getHistory_listenDetail(tmp);
         }else if(tmp == "tab_payDetail"){
             getHistory_payDetail(tmp);
+        }else if(tmp == "tab_walletDetail"){
+            memberWalletInit("dal");
         }else if(tmp == "tab_giftDetail"){
             memberGiftInit("broadGift");
         }else if(tmp == "tab_changeDetail"){

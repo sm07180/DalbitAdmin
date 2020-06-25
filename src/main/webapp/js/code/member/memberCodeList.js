@@ -173,3 +173,33 @@ var mem_received_summary = [
     , new COMMON_CODE('', 'dal1000', '달 1,000')
     , new COMMON_CODE('', 'dal3000', '달 3,000')
 ];
+
+
+var mem_wallet_code = [
+    new COMMON_CODE('', 'walletType', '달 선물 구분')
+    , new COMMON_CODE('all', '0', '이용구분(전체)')
+    , new COMMON_CODE('1', '1', '받은내역')
+    , new COMMON_CODE('2', '2', '보낸내역')
+];
+
+var mem_wallet_dal_code = [
+    new COMMON_CODE('', 'slct_type', '달 선물 구분')
+    , new COMMON_CODE('all', '0', '구분(전체)')
+    , new COMMON_CODE('1', '1', '달 구매')
+    , new COMMON_CODE('2', '2', '아이템선물')
+    , new COMMON_CODE('3', '3', '아이템사용')
+    , new COMMON_CODE('4', '4', '달 선물보내기')
+    , new COMMON_CODE('5', '5', '달 선물받기')
+    , new COMMON_CODE('6', '6', '달 교환')
+    , new COMMON_CODE('7', '7', '이벤트 받기')
+    , new COMMON_CODE('8', '8', '환불차감')
+];
+
+var mem_wallet_byeol_code = [
+    new COMMON_CODE('', 'slct_type', '별 선물 구분')
+    , new COMMON_CODE('all', '0', '구분(전체)')
+    , new COMMON_CODE('1', '1', '달 교환')
+    , new COMMON_CODE('2', '2', '선물')
+    , new COMMON_CODE('3', '3', '환전')
+    , new COMMON_CODE('7', '7', '이벤트 받기')
+];

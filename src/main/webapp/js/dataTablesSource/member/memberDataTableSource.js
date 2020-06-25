@@ -594,4 +594,67 @@ var MemberDataTableSource = {
             }},
         ]
     },
+
+
+
+
+    'walletDalDetail': {
+        'url': '/rest/member/wallet/dal/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': 'UserID', 'data': 'userId', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
+            {'title': '구분', 'data': 'gubun', 'render': function (data, type, row, meta) {
+                    return util.getCommonCodeLabel(data, mem_wallet_dal_code);
+                }},
+            {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
+                }},
+            {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
+                }},
+            {'title': '아이템명', 'data': 'itemName'},
+            {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
+                    return common.addComma(data) + " 개"
+                }},
+            {'title': '선물 달', 'data': 'ruby', 'render': function (data) {
+                    return common.addComma(data) + " 달"
+                }},
+            {'title': '선물 일시', 'data': 'giftDateFormat'},
+        ]
+    },
+
+    'walletByeolDetail': {
+        'url': '/rest/member/wallet/byeol/list'
+        , 'columns': [
+            {'title': '회원번호', 'data': 'mem_no'},
+            {'title': 'UserID', 'data': 'userId', 'render': function (data, type, row, meta) {
+                    return util.memNoLink(data, row.mem_no);
+                }},
+            {'title': 'User닉네임', 'data': 'nickName'},
+            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data);
+                }},
+            {'title': '구분', 'data': 'gubun'},
+            {'title': '비공개', 'data': 'secret', 'render': function (data, type, row, meta) {
+                    return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
+                }},
+            {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
+                    return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
+                }},
+            {'title': '아이템명', 'data': 'itemName'},
+            {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
+                    return common.addComma(data) + " 개"
+                }},
+            {'title': '선물 별', 'data': 'gold', 'render': function (data) {
+                    return common.addComma(data) + " 별"
+                }},
+            {'title': '선물 일시', 'data': 'giftDateFormat'},
+        ]
+    },
 }

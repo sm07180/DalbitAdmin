@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.Mem_WalletDao" >
+
+    <sql id="condition_dal">
+        AND
+        (
+            mem_no = #{mem_no}
+            <if test='walletType != null and walletType != ""'>
+                <choose>
+                    <when test='walletType == "1"'>
+                        AND
+                        (
+                          `type` IN (1, 5, 6)
+                        OR
+                          (`type` IN (7, 8) AND (ruby_new - ruby_old) > 0)
+                        )
+                    </when>
+                    <when test='walletType == "2"'>
+                        AND
+                        (
+                          `type` IN (2, 3, 4)
+                        OR
+                          (`type` IN (7, 8) AND  0 > (ruby_new - ruby_old))
+                        )
+                    </when>
+                </choose>
+            </if>
+            <if test='slct_type != null and slct_type != ""'>
+                AND `type` = #{slct_type}
+            </if>
+        )
+    </sql>
+
+    <select id="getResultDalSummary" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="java.util.HashMap">
+        SELECT
+        (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby  where `type` = 1  <include refid="condition_dal"/>) AS sum_charge_cnt
+        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 5  <include refid="condition_dal"/>) AS sum_input_cnt
+        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (7,8)  <include refid="condition_dal"/>) AS sum_event_cnt
+        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2,3,4) <include refid="condition_dal"/>) AS sum_output_cnt
+        ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 6 <include refid="condition_dal"/>) AS sum_change_cnt
+        ,(SELECT IFNULL(ruby_old, 0) FROM rd_data.tb_member_wallet_ruby where mem_no = #{mem_no} order by last_upd_date asc limit 0, 1) AS start_cnt
+        ,IFNULL(ruby, 0) AS sum_own_cnt
+        FROM
+        rd_data.tb_member_wallet
+        WHERE
+        mem_no = #{mem_no}
+    </select>
+
+
+    <select id="getResultDalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="integer">
+        SELECT ruby FROM rd_data.tb_member_wallet WHERE mem_no = #{mem_no}
+    </select>
+
+    <select id="callMemberWalletDal_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="integer">
+        SELECT
+            COUNT(*)
+        FROM
+        (
+            SELECT
+                (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS gubun
+                ,ruby
+                ,room_no
+                ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS item_type
+                ,gifted_mem_no AS mem_no
+                ,mem_level AS `level`
+                ,mem_grade AS grade
+                ,last_upd_date AS giftDate
+                ,item_code
+                ,item_cnt AS itemCnt
+                ,secret
+                ,'' AS cont
+            FROM
+                rd_data.tb_member_broadcast_item
+            WHERE
+                mem_no=#{mem_no}
+                AND item_type != '3'
+            UNION ALL
+            SELECT
+                '4' AS gubun
+                ,ruby
+                ,room_no
+                ,item_type
+                ,gifted_mem_no AS mem_no
+                ,mem_level AS `level`
+                ,mem_grade AS grade
+                ,last_upd_date AS giftDate
+                ,item_code
+                ,item_cnt AS itemCnt
+                ,secret
+                ,'' AS cont
+            FROM
+                rd_data.tb_member_broadcast_item
+            WHERE
+                mem_no=#{mem_no}
+                and item_type = '3'
+            UNION ALL
+            SELECT
+                '5' AS gubun
+                ,ruby
+                ,room_no
+                ,item_type
+                ,gifted_mem_no AS mem_no
+                ,mem_level AS `level`
+                ,mem_grade AS grade
+                ,last_upd_date AS giftDate
+                ,item_code
+                ,item_cnt AS itemCnt
+                ,secret
+                ,'' AS cont
+            FROM
+                rd_data.tb_member_broadcast_item
+            WHERE
+                gifted_mem_no =#{mem_no}
+                and item_type = '3'
+            UNION ALL
+            SELECT
+                `type` AS gubun
+                ,( ruby_new - ruby_old ) AS ruby
+                ,'' AS room_no
+                ,'' AS item_type
+                ,'10000000000000' AS mem_no
+                ,0 AS `level`
+                ,'' AS grade
+                ,last_upd_date AS giftDate
+                ,'' AS item_code
+                ,1 AS itemCnt
+                ,0 AS secret
+                ,use_contents AS cont
+            FROM
+                rd_data.tb_member_wallet_ruby
+            WHERE
+                mem_no =#{mem_no}
+                and type in (1,7,8)
+        ) a
+        LEFT JOIN
+            rd_data.tbl_gift_item AS b
+        ON
+            a.item_code = b.item_code
+        LEFT JOIN
+            (
+                select mem_no, mem_userid ,mem_nick ,mem_sex from rd_data.tb_member_basic
+                union
+                select mem_no, mem_userid ,mem_nick ,mem_sex FROM rd_data.tb_member_withdrawal_bak
+            ) AS c
+        ON
+            a.mem_no = c.mem_no
+        <where>
+            <if test='walletType != null and walletType != ""'>
+                <choose>
+                    <when test='walletType == "1"'>
+                        AND
+                        (
+                        a.gubun IN (1, 5, 6)
+                        OR
+                        (a.gubun IN (7, 8) AND a.ruby > 0)
+                        )
+                    </when>
+                    <when test='walletType == "2"'>
+                        AND
+                        (
+                        a.gubun IN (2, 3, 4)
+                        OR
+                        (a.gubun IN (7, 8) AND 0 > a.ruby)
+                        )
+                    </when>
+                </choose>
+            </if>
+            <if test='slct_type != null and slct_type != ""'>
+                AND a.gubun = #{slct_type}
+            </if>
+        </where>
+    </select>
+
+    <select id="callMemberWalletDal" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="com.dalbit.member.vo.procedure.P_WalletDalListOutVo">
+        SELECT
+        @rownum := @rownum + 1 as rowNum,
+        r.*
+        FROM
+        (
+            SELECT
+                a.gubun
+                ,a.ruby
+                ,a.room_no
+                ,a.mem_no
+                ,a.item_type
+                ,a.`level`
+                ,a.`grade`
+                ,a.giftDate
+                ,a.secret
+                ,b.item_image 		AS itemImage
+                ,IFNULL(b.item_name, a.cont) 		AS itemName
+                ,a.itemCnt
+                ,b.item_thumbnail
+                ,c.mem_userid		AS userId
+                ,c.mem_nick		AS nickName
+                ,c.mem_sex
+            FROM
+            (
+                SELECT
+                    (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS gubun
+                    ,ruby
+                    ,room_no
+                    ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS item_type
+                    ,gifted_mem_no AS mem_no
+                    ,mem_level AS `level`
+                    ,mem_grade AS grade
+                    ,last_upd_date AS giftDate
+                    ,item_code
+                    ,item_cnt AS itemCnt
+                    ,secret
+                    ,'' AS cont
+                FROM
+                    rd_data.tb_member_broadcast_item
+                WHERE
+                    mem_no=#{mem_no}
+                    AND item_type != '3'
+                UNION ALL
+                SELECT
+                    '4' AS gubun
+                    ,ruby
+                    ,room_no
+                    ,item_type
+                    ,gifted_mem_no AS mem_no
+                    ,mem_level AS `level`
+                    ,mem_grade AS grade
+                    ,last_upd_date AS giftDate
+                    ,item_code
+                    ,item_cnt AS itemCnt
+                    ,secret
+                    ,'' AS cont
+                FROM
+                    rd_data.tb_member_broadcast_item
+                WHERE
+                    mem_no=#{mem_no}
+                    and item_type = '3'
+                UNION ALL
+                SELECT
+                    '5' AS gubun
+                    ,ruby
+                    ,room_no
+                    ,item_type
+                    ,gifted_mem_no AS mem_no
+                    ,mem_level AS `level`
+                    ,mem_grade AS grade
+                    ,last_upd_date AS giftDate
+                    ,item_code
+                    ,item_cnt AS itemCnt
+                    ,secret
+                    ,'' AS cont
+                FROM
+                    rd_data.tb_member_broadcast_item
+                WHERE
+                    gifted_mem_no =#{mem_no}
+                    and item_type = '3'
+                UNION ALL
+                SELECT
+                    `type` AS gubun
+                    ,( ruby_new - ruby_old ) AS ruby
+                    ,'' AS room_no
+                    ,'' AS item_type
+                    ,'10000000000000' AS mem_no
+                    ,0 AS `level`
+                    ,'' AS grade
+                    ,last_upd_date AS giftDate
+                    ,'' AS item_code
+                    ,1 AS itemCnt
+                    ,0 AS secret
+                    ,use_contents AS cont
+                FROM
+                    rd_data.tb_member_wallet_ruby
+                WHERE
+                    mem_no =#{mem_no}
+                    and type in (1,7,8)
+            ) a
+            LEFT JOIN
+                rd_data.tbl_gift_item AS b
+            ON
+                a.item_code = b.item_code
+            LEFT JOIN
+                (
+                    select mem_no, mem_userid ,mem_nick ,mem_sex from rd_data.tb_member_basic
+                    union
+                    select mem_no, mem_userid ,mem_nick ,mem_sex FROM rd_data.tb_member_withdrawal_bak
+                ) AS c
+            ON
+                a.mem_no = c.mem_no
+            <where>
+                <if test='walletType != null and walletType != ""'>
+                    <choose>
+                        <when test='walletType == "1"'>
+                            AND
+                            (
+                            a.gubun IN (1, 5, 6)
+                            OR
+                            (a.gubun IN (7, 8) AND a.ruby > 0)
+                            )
+                        </when>
+                        <when test='walletType == "2"'>
+                            AND
+                            (
+                            a.gubun IN (2, 3, 4)
+                            OR
+                            (a.gubun IN (7, 8) AND 0 > a.ruby)
+                            )
+                        </when>
+                    </choose>
+                </if>
+                <if test='slct_type != null and slct_type != ""'>
+                    AND a.gubun = #{slct_type}
+                </if>
+            </where>
+            ORDER BY a.giftDate DESC
+            limit  #{pageStart}, #{pageCnt}
+        ) AS r,
+        (SELECT @rownum := #{pageStart} ) AS d
+    </select>
+
+
+
+
+    <select id="getResultByeolSummary" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="java.util.HashMap">
+        SELECT
+            (SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` = 2 AND mem_no = #{mem_no}) AS sum_input_cnt
+            ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` in (4,7) AND mem_no = #{mem_no}) AS sum_event_cnt
+            ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` = 3 AND mem_no = #{mem_no}) AS sum_exchange_cnt
+            ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` = 1 AND mem_no = #{mem_no}) AS sum_change_cnt
+            ,(SELECT IFNULL((gold_old), 0) FROM rd_data.tb_member_wallet_gold where mem_no = #{mem_no} order by last_upd_date asc limit 0, 1) AS start_cnt
+            ,IFNULL(gold, 0) AS sum_own_cnt
+        FROM
+            rd_data.tb_member_wallet
+        WHERE
+            mem_no = #{mem_no}
+    </select>
+
+
+    <select id="getResultByeolCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="integer">
+        SELECT gold FROM rd_data.tb_member_wallet WHERE mem_no = #{mem_no}
+    </select>
+
+    <select id="callMemberWalletByeol_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="integer">
+        SELECT
+            COUNT(*)
+        FROM
+        (
+            SELECT
+                (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS gubun
+                ,gold
+                ,room_no
+                ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS item_type
+                ,gifted_mem_no AS mem_no
+                ,mem_level AS `level`
+                ,mem_grade AS grade
+                ,last_upd_date AS giftDate
+                ,item_code
+                ,item_cnt AS itemCnt
+                ,secret
+                ,'' AS cont
+            FROM
+                rd_data.tb_member_broadcast_item
+            WHERE
+                gifted_mem_no = #{mem_no}
+                and item_type in ('1', '2')
+            UNION ALL
+            select
+                `type` AS gubun
+                ,( gold_new - gold_old ) AS gold
+                ,'' AS room_no
+                ,'' AS item_type
+                ,'10000000000000' AS mem_no
+                ,0 AS `level`
+                ,'' AS grade
+                ,last_upd_date AS giftDate
+                ,'' AS item_code
+                ,1 AS itemCnt
+                ,0 AS secret
+                ,use_contents AS cont
+            from
+                rd_data.tb_member_wallet_gold
+            where
+                mem_no = #{mem_no}
+                and type != '2'
+        ) a
+        LEFT JOIN
+            rd_data.tbl_gift_item AS b
+        ON
+            a.item_code = b.item_code
+        LEFT JOIN
+            (
+                select mem_no, mem_userid ,mem_nick ,mem_sex from rd_data.tb_member_basic
+                union
+                select mem_no, mem_userid ,mem_nick ,mem_sex FROM rd_data.tb_member_withdrawal_bak
+            ) AS c
+        ON
+            a.mem_no = c.mem_no
+        <where>
+            <if test='walletType != null and walletType != ""'>
+                <choose>
+                    <when test='walletType == "1"'>
+                        AND
+                        (
+                          a.gubun = 2
+                          OR
+                          (a.gubun IN (3, 7) AND a.gold > 0)
+                        )
+                    </when>
+                    <when test='walletType == "2"'>
+                        AND
+                        (
+                          a.gubun = 1
+                          OR
+                          (a.gubun IN (3, 7) AND 0 > a.gold)
+                        )
+                    </when>
+                </choose>
+            </if>
+            <if test='slct_type != null and slct_type != ""'>
+                AND a.gubun = #{slct_type}
+            </if>
+        </where>
+        ORDER BY a.giftDate DESC
+    </select>
+
+
+    <select id="callMemberWalletByeol" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="com.dalbit.member.vo.procedure.P_WalletByeolListOutVo">
+        SELECT
+            @rownum := @rownum + 1 as rowNum,
+            r.*
+        FROM
+        (
+            SELECT
+                a.gubun
+                ,a.gold
+                ,a.room_no
+                ,a.mem_no
+                ,a.item_type
+                ,a.`level`
+                ,a.`grade`
+                ,a.giftDate
+                ,a.secret
+                ,b.item_image 		AS itemImage
+                ,IFNULL(b.item_name, a.cont) 		AS itemName
+                ,a.itemCnt
+                ,b.item_thumbnail
+                ,c.mem_userid		AS userId
+                ,c.mem_nick		AS nickName
+                ,c.mem_sex
+            FROM
+            (
+                SELECT
+                    (CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS gubun
+                    ,gold
+                    ,room_no
+                    ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS item_type
+                    ,gifted_mem_no AS mem_no
+                    ,mem_level AS `level`
+                    ,mem_grade AS grade
+                    ,last_upd_date AS giftDate
+                    ,item_code
+                    ,item_cnt AS itemCnt
+                    ,secret
+                    ,'' AS cont
+                FROM
+                    rd_data.tb_member_broadcast_item
+                WHERE
+                    gifted_mem_no = #{mem_no}
+                    and item_type in ('1', '2')
+                UNION ALL
+                select
+                    `type` AS gubun
+                    ,( gold_new - gold_old) AS gold
+                    ,'' AS room_no
+                    ,'' AS item_type
+                    ,'10000000000000' AS mem_no
+                    ,0 AS `level`
+                    ,'' AS grade
+                    ,last_upd_date AS giftDate
+                    ,'' AS item_code
+                    ,1 AS itemCnt
+                    ,0 AS secret
+                    ,use_contents AS cont
+                from
+                    rd_data.tb_member_wallet_gold
+                where
+                    mem_no = #{mem_no}
+                    and type != '2'
+            ) a
+            LEFT JOIN
+                rd_data.tbl_gift_item AS b
+            ON
+                a.item_code = b.item_code
+            LEFT JOIN
+                (
+                    select mem_no, mem_userid ,mem_nick ,mem_sex from rd_data.tb_member_basic
+                    union
+                    select mem_no, mem_userid ,mem_nick ,mem_sex FROM rd_data.tb_member_withdrawal_bak
+                ) AS c
+            ON
+                a.mem_no = c.mem_no
+            <where>
+                <if test='walletType != null and walletType != ""'>
+                    <choose>
+                        <when test='walletType == "1"'>
+                            AND
+                            (
+                              a.gubun = 2
+                              OR
+                              (a.gubun IN (3, 7) AND a.gold > 0)
+                            )
+                        </when>
+                        <when test='walletType == "2"'>
+                            AND
+                            (
+                              a.gubun = 1
+                              OR
+                              (a.gubun IN (3, 7) AND 0 > a.gold)
+                            )
+                        </when>
+                    </choose>
+                </if>
+                <if test='slct_type != null and slct_type != ""'>
+                    AND a.gubun = #{slct_type}
+                </if>
+            </where>
+            ORDER BY a.giftDate DESC
+            limit  #{pageStart}, #{pageCnt}
+        ) AS r,
+        (SELECT @rownum := #{pageStart} ) AS d
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+    <select id="callMemberWalletDal_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="integer">
+        SELECT
+            COUNT(*)
+        FROM
+            rd_data.tb_member_wallet_ruby
+        WHERE
+            mem_no = #{mem_no}
+            <if test='walletType != null and walletType != ""'>
+                <choose>
+                    <when test='walletType == "1"'>
+                        AND `type` IN (1, 8)
+                    </when>
+                    <when test='walletType == "2"'>
+                        AND `type` IN (2,3,4,5,7)
+                    </when>
+                    <when test='walletType == "3"'>
+                        AND `type` IN (6)
+                    </when>
+                </choose>
+            </if>
+            <if test='slct_type != null and slct_type != ""'>
+                AND `type` = #{slct_type}
+            </if>
+        ORDER BY last_upd_date DESC
+    </select>
+
+    <select id="callMemberWalletDal" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="com.dalbit.member.vo.procedure.P_WalletDalListOutVo">
+        select
+        @rownum := @rownum + 1 as rowNum,
+        a.*
+        FROM
+        (
+            SELECT
+                last_upd_date AS updateDt,
+                `type` AS slct_type,
+                use_contents AS contents,
+                ( ruby_new - ruby_old ) AS dalCnt
+            FROM
+                rd_data.tb_member_wallet_ruby
+            WHERE
+                mem_no = #{mem_no}
+                <if test='walletType != null and walletType != ""'>
+                    <choose>
+                        <when test='walletType == "1"'>
+                            AND `type` IN (1, 8)
+                        </when>
+                        <when test='walletType == "2"'>
+                            AND `type` IN (2,3,4,5,7)
+                        </when>
+                        <when test='walletType == "3"'>
+                            AND `type` IN (6)
+                        </when>
+                    </choose>
+                </if>
+                <if test='slct_type != null and slct_type != ""'>
+                    AND `type` = #{slct_type}
+                </if>
+            ORDER BY last_upd_date DESC
+            limit  #{pageStart}, #{pageCnt}
+        ) a,
+        (SELECT @rownum := #{pageStart} ) AS d
+    </select>
+
+
+
+    <select id="getResultByeolCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="integer">
+        SELECT gold FROM rd_data.tb_member_wallet WHERE mem_no = #{mem_no}
+    </select>
+
+    <select id="callMemberWalletByeol_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="integer">
+        SELECT
+            COUNT(*)
+        FROM
+            rd_data.tb_member_wallet_gold
+        WHERE
+            mem_no = #{mem_no}
+            <if test='walletType != null and walletType != ""'>
+                <choose>
+                    <when test='walletType == "1"'>
+                        AND `type` IN (1, 8)
+                    </when>
+                    <when test='walletType == "2"'>
+                        AND `type` IN (2,3,4,5,7)
+                    </when>
+                    <when test='walletType == "3"'>
+                        AND `type` IN (6)
+                    </when>
+                </choose>
+            </if>
+            <if test='slct_type != null and slct_type != ""'>
+                AND `type` = #{slct_type}
+            </if>
+        ORDER BY last_upd_date DESC
+    </select>
+
+
+    <select id="callMemberWalletByeol" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="com.dalbit.member.vo.procedure.P_WalletByeolListOutVo">
+        select
+            @rownum := @rownum + 1 as rowNum,
+            a.*
+        FROM
+        (
+            SELECT
+                last_upd_date AS updateDt,
+                `type` AS slct_type,
+                use_contents AS contents,
+                ( gold_new - gold_old) AS byeolCnt
+            FROM
+              rd_data.tb_member_wallet_gold
+            WHERE
+            mem_no = #{mem_no}
+            <if test='walletType != null and walletType != ""'>
+                <choose>
+                    <when test='walletType == "1"'>
+                        AND `type` IN (1, 8)
+                    </when>
+                    <when test='walletType == "2"'>
+                        AND `type` IN (2,3,4,5,7)
+                    </when>
+                    <when test='walletType == "3"'>
+                        AND `type` IN (6)
+                    </when>
+                </choose>
+            </if>
+            <if test='slct_type != null and slct_type != ""'>
+                AND `type` = #{slct_type}
+            </if>
+            ORDER BY last_upd_date DESC
+            limit  #{pageStart}, #{pageCnt}
+        ) a,
+        (SELECT @rownum := #{pageStart} ) AS d
+    </select>
+-->
+
+</mapper>
