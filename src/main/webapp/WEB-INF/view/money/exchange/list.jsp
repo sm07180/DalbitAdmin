@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication var="principal" property="principal" />
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -48,11 +51,14 @@
                         <a href="#recommend" id="tab_user" name="tab_user" role="tab" data-toggle="tab" data-specialDj="0">일반회원</a>
                     </li>
 
-                    <li class="_tab ml15">
-                        <a href="javascript://" id="rejectList" name="rejectList" role="tab" data-toggle="tab">불가내역</a>
-                    </li>
+                    <c:if test="${fn:contains('|고병권|이재호|양효진', principal.getUserInfo().getName())}">
+                        <li class="_tab ml15">
+                            <a href="javascript://" id="rejectList" name="rejectList" role="tab" data-toggle="tab">불가내역</a>
+                        </li>
+                    </c:if>
+
                     <li class="_tab">
-                        <a href="javascript://" id="enableList" name="enableList" role="tab" data-toggle="tab">환전신청 가능회원</a>
+                        <a href="javascript://" id="enableList" name="enableList" role="tab" data-toggle="tab">환전신청 가능회원[${principal.getUserInfo().getName()}]</a>
                     </li>
                 </ul>
 
