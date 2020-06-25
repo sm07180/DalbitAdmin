@@ -3,40 +3,19 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div id="container-fluid" class="col-lg-8 no-padding">
-            <!-- 접속 관련 통계 데이터-->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget widget-table mb10">
-                    <div class="widget-header">
-                        <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
-                    </div>
-                    <div class="widget-content mt10">
-                        <%--<button type="button" class="fa fa-refresh" onclick="getLoginLiveInfo();"></button>--%>
-                        <colgroup>
-                            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                        </colgroup>
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>실시간</th>
-                                <th>전일</th>
-                                <th>증감</th>
-                                <th>주간</th>
-                                <th>전주</th>
-                                <th>증감</th>
-                                <th>월간</th>
-                                <th>전월</th>
-                                <th>증감</th>
-                            </tr>
-                            </thead>
-                            <tbody id="loginLiveTableBody"></tbody>
-                        </table>
+        <div class="row col-lg-12 form-inline">
+            <div class="widget widget-table searchBoxArea">
+                <div class="widget-header searchBoxRow">
+                    <h3 class="title"><i class="fa fa-search"></i>현재 접속자 회원 검색</h3>
+                    <div>
+                        <span id="searchType"></span>
+                        <label><input type="text" class="form-control" id="txt_search"></label>
+                        <button type="submit" class="btn btn-success" id="bt_search">검색</button>
                     </div>
                 </div>
-            </div> <!-- // container-fluid -->
-        </div> <!-- // page-wrapper -->
+            </div>
+        </div>
+
         <div class="no-padding col-lg-12" id="infoTab">
             <jsp:include page="infoTab.jsp"/>
         </div>

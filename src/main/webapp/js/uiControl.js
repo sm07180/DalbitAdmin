@@ -189,3 +189,36 @@ ui.paintColor = function(){
         }
     });
 }
+
+ ui.tableHeightSet = function(){
+    $('._tableHeight').each(function () {
+        var table = $(this);
+        var height = table.data('height');
+
+        console.log(table);
+        if (height != null && height != '') {
+            table.find('tr').each(function(){
+                console.log($(this));
+                $(this).css('height', height);
+            });
+            table.find('td').each(function(){
+                console.log($(this));
+                $(this).css('height', height);
+            });
+        }
+
+        var height_tr = table.data('height-tr');
+        if (height_tr != null && height_tr != "") {
+            table.find('td').each(function(){
+                $(this).css('height', height_tr);
+            });
+        }
+
+        var height_td = table.data('height-td');
+        if (height_td != null && height_td != "") {
+            table.find('td').each(function(){
+                $(this).css('height', height_td);
+            });
+        }
+    });
+}

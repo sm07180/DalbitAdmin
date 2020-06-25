@@ -2,25 +2,54 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 현재 접속자 > 현재 접속 회원 -->
-<div class="widget widget-table mb10">
-    <div class="widget-content mt10">
-        <div class="widget widget-table" id="main_table">
-            <div class="widget-content">
-                <div class="pull-left" style="margin-top: 8px;margin-bottom: 8px;">
-                    <label><input type="text" class="form-control" id="txt_search"></label>
-                    <button type="submit" class="btn btn-success" id="bt_search">검색</button>
-                </div>
-                <div class="pull-right" style="margin-top: 8px;margin-bottom: 8px;">
-                    <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
-                </div>
-                <table id="tableList" class="table table-sorting table-hover table-bordered datatable">
-                    <thead id="tableTop_detail">
-                    </thead>
-                    <tbody id="tableBody_detail">
-                    </tbody>
-                </table>
-            </div>
+<div class="widget-table mb10">
+    <div class="col-md-12 no-padding">
+
+        <div class="col-md-2 no-padding">
+            <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
         </div>
+
+        <div class="col-md-6 no-padding pull-right">
+            <!-- 접속 관련 통계 데이터-->
+            <div class="widget widget-table mb10">
+                <div class="widget-header">
+                    <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
+                </div>
+                <div class="widget-content mt10">
+                    <%--<button type="button" class="fa fa-refresh" onclick="getLoginLiveInfo();"></button>--%>
+                    <colgroup>
+                        <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                        <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                    </colgroup>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>실시간</th>
+                            <th>전일</th>
+                            <th>증감</th>
+                            <th>주간</th>
+                            <th>전주</th>
+                            <th>증감</th>
+                            <th>월간</th>
+                            <th>전월</th>
+                            <th>증감</th>
+                        </tr>
+                        </thead>
+                        <tbody id="loginLiveTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- // container-fluid -->
+    </div>
+    <div class="col-md-12 no-padding">
+        <table id="tableList" class="table table-sorting table-hover table-bordered datatable">
+            <thead id="tableTop_detail">
+            </thead>
+            <tbody id="tableBody_detail">
+            </tbody>
+        </table>
+    </div>
     </span>
     <div class="widget-footer">
         <span>
