@@ -978,11 +978,11 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
 
-                    {{#equal detail.state '0'}}
-                    <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
-                    <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
-                    <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
-                    {{/equal}}
+                    <%--{{#equal detail.state '0'}}--%>
+                    <%--<button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>--%>
+                    <%--<button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>--%>
+                    <%--<button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>--%>
+                    <%--{{/equal}}--%>
 
                     {{#equal detail.state '1'}}
                     <span class="exchange_complete_txt">완료되었습니다.</span>
