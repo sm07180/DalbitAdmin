@@ -11,8 +11,8 @@ import java.util.Date;
 import java.util.Properties;
 
 public class FileMaker {
-    //private final String PROPERTY_NAME = "/mobilians/"+ DalbitUtil.getActiveProfile()+"/McashGift.properties"; //local, dev
-    private final String PROPERTY_NAME = "/mobilians/local/McashGift.properties"; //local, dev
+    private final String PROPERTY_NAME = "/mobilians/"+ DalbitUtil.getActiveProfile()+"/McashGift.properties"; //local, dev
+
 
     private FileInputStream fis;
     private FileOutputStream fos;
