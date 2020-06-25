@@ -20,6 +20,11 @@
                         </div>
                         <input type="text" class="form-control" id="txt_search">
                         <button type="button" id="bt_search" class="btn btn-success">검색</button>
+
+                        <label class="control-inline fancy-checkbox custom-color-green">
+                            <input type="checkbox" name="search_joinPath" id="search_joinPath" value="1">
+                            <span>광고유입</span>
+                        </label>
                     </div>
                 </div>
             </div>
@@ -91,6 +96,15 @@
         <!-- 버튼 끝 -->
     });
 
+    $("#search_joinPath").on('change', function(){
+        if($(this).prop('checked')){
+            tmp_joinPath = 1;
+        }else{
+            tmp_joinPath = 0;
+        }
+        getUserInfo();
+    });
+
     $("#seldate").addClass('hide');
     $('#selJoinDate').change(function() {
         sDate = "";
@@ -126,6 +140,7 @@
 
     var _testid = -1;
     var tmp_searchText;
+    var tmp_joinPath = 0;
 
     var _memJoinDateSort = -1;
     var _memNickSort = -1;
@@ -144,6 +159,7 @@
         data.memNickSort = _memNickSort;
         data.memLoginIdSort = _memLoginIdSort;
         data.memIpSort = _memIpSort;
+        data.memJoinPath = tmp_joinPath;
 
         data.period = $('input[name="joinDate"]:checked').val();
         if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
@@ -223,6 +239,7 @@
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
     function getUserInfo() {                 // 검색
+
         tmp_searchText = $('#txt_search').val();
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
@@ -323,6 +340,7 @@
         formData.append("memNickSort", _memNickSort);
         formData.append("memLoginIdSort", _memLoginIdSort);
         formData.append("memIpSort", _memIpSort);
+        formData.append("memJoinPath", tmp_joinPath);
 
         util.excelDownload($(this), "/rest/member/join/listExcel", formData);
     });
@@ -340,6 +358,7 @@
         formData.append("memNickSort_withdrawal", _memNickSort_withdrawal);
         formData.append("memLoginIdSort_withdrawal", _memLoginIdSort_withdrawal);
         formData.append("memIpSort_withdrawal", _memIpSort_withdrawal);
+        formData.append("memJoinPath", tmp_joinPath);
         util.excelDownload($(this), "/rest/member/join/withdrawalListExcel", formData);
     });
     /*==================================*/

@@ -19,6 +19,7 @@ public class P_MemberJoinInputVo extends SearchVo {
     private int memNickSort;
     private int memLoginIdSort;
     private int memIpSort;
+    private int memJoinPath;
 
     private int memJoinDateSort_withdrawal;
     private int memNickSort_withdrawal;
