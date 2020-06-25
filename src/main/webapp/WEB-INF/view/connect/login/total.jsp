@@ -111,21 +111,21 @@
     function getTotalList(){
         var slctType = $('input[name="slctType"]:checked').val();
         if(slctType == 0){
-            tmp_end = -1;
-            tmp = 24;
+            tmp_end = 0;
+            tmp = 23;
             type = "시";
         }else if (slctType == 1){
-            tmp_end = 0;
+            tmp_end = 1;
             tmp = 32;
             type = "일";
         }else if (slctType == 2){
-            tmp_end = 0;
+            tmp_end = 1;
             tmp = 13;
             type = "월";
         }
 
         var slctType_date = [];
-        for(var i = 0; i < tmp; i++ ){
+        for(var i = tmp_end; i < tmp; i++ ){
             slctType_date.push(i + " " + type);
         }
         data = {
