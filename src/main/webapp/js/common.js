@@ -352,7 +352,7 @@ common.vatMinus = function(lvalue) {
     if(lvalue == 0){
         return 0;
     }
-    return common.addComma(((lvalue / 1.1) - ((lvalue / 1.1) * 0.1)).toFixed(0));
+    return common.addComma((lvalue / 1.1).toFixed(0));
 };
 
 common.payRate = function(lvalue,rvalue) {
