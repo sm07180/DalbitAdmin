@@ -71,7 +71,7 @@
         dblist_chat_detail = new DalbitDataTable($("#list_target_chat"), dtList_info_detail_data, BroadcastDataTableSource.targetchat);
         dblist_chat_detail.useCheckBox(false);
         dblist_chat_detail.useIndex(false);
-        dtList_info_detail.setPageLength(50);
+        dblist_chat_detail.setPageLength(50);
         dblist_chat_detail.createDataTable();
     }
 
@@ -96,7 +96,7 @@
         </table>
     </div>
     <div class="col-md-12 no-padding" id="chatLeft">
-        <table class="table table-bordered" style="margin-bottom: -7px">
+        <table class="table table-bordered" style="margin-bottom: 2px">
             <th>전체 채팅내역</th>
         </table>
         <table id="list_chat_detail" class="table table-sorting table-hover table-bordered datatable">
@@ -105,7 +105,7 @@
         </table>
     </div>
     <div class="col-md-6 no-padding" id="chatRight">
-        <table class="table table-bordered" style="margin-bottom: -7px">
+        <table class="table table-bordered" style="margin-bottom: 2px">
             <th id="chatRight_title"></th>
         </table>
         <table id="list_target_chat" class="table table-sorting table-hover table-bordered datatable">

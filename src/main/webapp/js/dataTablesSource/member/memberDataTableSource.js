@@ -538,4 +538,60 @@ var MemberDataTableSource = {
         ]
         , 'comments': 'ㆍ운영자에 의해 정보가 수정된 일시를 확인할 수 있습니다.'
     },
+
+
+    'exchangeList': {
+        'url': '/rest/member/exchange/list'
+        , 'columns': [
+            {'title': '상태', 'data': 'mem_state','render' : function (data, type, row) {
+                    return common.getMemStateName(data);
+                }},
+            {'title': '미성년자여부', 'data': 'birth','render' : function (data, type, row) {
+                    if(data < 19){
+                        return '<span style="color:red">미성년자</span>';
+                    }
+                    return "-";
+                }},
+            {'title': '예금주', 'data': 'account_name'},
+            {'title': '신청금액', 'data': 'cash_basic', 'render': function(data) {
+                    return common.addComma(data) + "원";
+                }},
+            {'title': '스페셜DJ<br/>혜택', 'data': 'benefit', 'render': function(data) {
+                    return common.addComma(data) + "원";
+                }},
+            {'title': '실수령액', 'data': 'cash_real', 'render': function(data) {
+                    return common.addComma(data) + "원";
+                }},
+            {'title': '신청 별 수', 'data': 'byeol', 'render': function(data) {
+                    return common.addComma(data) + "별";
+                }},
+            {'title': '현재 별 수', 'data': 'gold', 'render': function(data) {
+                    return common.addComma(data) + "별";
+                }},
+            {'title': '환전횟수', 'data': 'exchangeCnt', 'render': function(data) {
+                    return common.addComma(data) + "번";
+                }},
+            {'title': '신청일자', 'data': 'reg_date', 'render': function(data) {
+                    return common.convertToDate(data);
+                }},
+            {'title': '처리일자', 'data': 'op_date', 'render': function(data) {
+                    return common.convertToDate(data);
+                }},
+            {'title': '처리현황', 'data': 'state', 'render': function(data) {
+                    if(common.isEmpty(data)){
+                        return '-';
+                    }else if(data == 0){
+                        return '미처리';
+                    }else if(data == 1){
+                        return '<span style=color:blue;>완료</span>';
+                    }else if(data == 2){
+                        return '<span style=color:red;>불가</span>';
+                    }
+                }},
+            {'title': '처리자', 'data': 'op_name'},
+            {'title': '상세보기', 'data': '','render' : function (data, type, row) {
+                return '<button type="button" class="btn btn-primary btn-sm _layerOpen" data-exchangeidx=' + row.idx + '>보기</button>';
+            }},
+        ]
+    },
 }
