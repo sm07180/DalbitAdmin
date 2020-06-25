@@ -365,7 +365,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/chat/list'
         , 'columns': [
             {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
-            {'title': '채팅 내용', 'data': 'nickname','render': function (data, type, row, meta) {
+            {'title': '채팅 내용', 'data': 'nickname','className': 'al','render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반
                         tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';
@@ -386,7 +386,7 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/chat/targetList'
         , 'columns': [
             {'title': '채팅 시작 일시', 'data': 'writeDateFormat', 'width':'140px'},
-            {'title': '채팅 내용', 'data': 'nickname','render': function (data, type, row, meta) {
+            {'title': '채팅 내용', 'data': 'nickname','className': 'al','render': function (data, type, row, meta) {
                     var tmp_auth;
                     if(row.auth == "0"){             //일반
                         tmp_auth = '<i class="fa fa-volume-up" style="color: #080004"></i>';

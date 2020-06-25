@@ -10,4 +10,5 @@ public class P_MemberExchangeInputVo extends SearchVo {
     private int pageNo;
     private String mem_no;
     private int slctDate;
+    private int idx;
 }

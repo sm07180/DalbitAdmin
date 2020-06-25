@@ -130,6 +130,7 @@
 
         var data = {};
         data.search_testId = 0;
+        data.viewName = "enableList";
         util.getAjaxData("select", "/rest/money/exchange/list", data, fn_succ_enable_list);
 
     }
@@ -177,7 +178,8 @@
     }
 
     function fn_succ_enable_list(dst_id, response) {
-
+        console.log("--------------------------");
+        dalbitLog(response);
         var exchangeAmt = common.exchangeAmt(response.data.totalGold,response.data.specialCnt).replace(/,/gi,"");
         var totalSuccAmt = common.vatMinus(response.data.totalSuccAmt).replace(/,/gi,"");
         response.data.netProfit = Number(totalSuccAmt)-(Number(exchangeAmt) + Number(response.data.totalExchangeAmt));

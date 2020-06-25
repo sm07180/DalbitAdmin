@@ -10,6 +10,7 @@
             <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="tab_click(this.id);">청취내역</a></li>
             <li><a href="#payDetail" role="tab" data-toggle="tab" id="tab_payDetail" onclick="tab_click(this.id);">결제/취소내역</a></li>
             <li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="tab_click(this.id);">내지갑</a></li>
+            <li><a href="#exchangeDetail" role="tab" data-toggle="tab" id="tab_exchangeDetail" onclick="tab_click(this.id);">환전내역</a></li>
             <li><a href="#changeDetail" role="tab" data-toggle="tab" id="tab_changeDetail" onclick="tab_click(this.id);">교환내역</a></li>
             <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="tab_click(this.id);">마이스타/팬</a></li>
             <li><a href="#noticeDetail" role="tab" data-toggle="tab" id="tab_noticeDetail" onclick="tab_click(this.id);">회원공지관리</a></li>
@@ -24,6 +25,7 @@
             <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>         <!-- 청취 -->
             <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>               <!-- 결제 -->
             <div class="tab-pane fade" id="giftDetail"><jsp:include page="../gift/list.jsp"/></div>             <!-- 선물 -->
+            <div class="tab-pane fade" id="exchangeDetail"><jsp:include page="../exchange/list.jsp"/></div>     <!-- 환전 -->
             <div class="tab-pane fade" id="changeDetail"><jsp:include page="../change/list.jsp"/></div>             <!-- 교환내역 -->
             <div class="tab-pane fade" id="mystarDetail"><jsp:include page="../myStar/list.jsp"/></div>         <!-- 마이스타 -->
             <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../notice/list.jsp"/></div>         <!-- 공지 -->
@@ -70,6 +72,8 @@
             getHistory_declarationDetail(tmp);
         }else if(tmp == "tab_questionDetail"){
             getHistory_questionDetail(tmp);
+        }else if(tmp == "tab_exchangeDetail"){
+            getHistory_exchangeDetail(tmp);
         }
     }
 </script>

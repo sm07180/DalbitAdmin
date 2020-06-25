@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.member.dao.Mem_ExchangeDao" >
+
+    <sql id="baseExchangeHistory">
+         SELECT a.*,
+                ifnull(exchangeCnt, 0)    exchangeCnt,
+                ifnull(totalCashBasic, 0) totalCashBasic,
+                ifnull(totalCashReal, 0)  totalCashReal
+           FROM ( SELECT IFNULL(basic.mem_no, withdrawal.mem_no)                                mem_no,
+                        IFNULL(basic.mem_id, withdrawal.mem_id)                                mem_id,
+                        IFNULL(basic.mem_name, withdrawal.mem_name)                            mem_name,
+                        IFNULL(basic.mem_nick, withdrawal.mem_nick)                            mem_nick,
+                        IFNULL(basic.mem_state, withdrawal.mem_state)                          mem_state,
+                        IFNULL(basic.mem_phone, withdrawal.mem_phone)                          mem_phone,
+                        IFNULL(basic.mem_userid, withdrawal.mem_userid)                        mem_userid,
+                        profile.image_profile,
+                        exchange.idx,
+                        exchange.byeol,
+                        exchange.cash_basic,
+                        exchange.income_tax,
+                        exchange.resident_tax,
+                        exchange.transfer_fee,
+                        exchange.benefit,
+                        exchange.cash_real,
+                        exchange.account_name,
+                        exchange.bank_code,
+                        (select code
+                         FROM rd_data.tbl_code_define
+                         WHERE `type` = 'exchange_bank_code' and `value` = exchange.bank_code) bank_name,
+                        exchange.account_no,
+                        exchange.social_no,
+                        exchange.phone_no,
+                        exchange.address_1,
+                        exchange.address_2,
+                        exchange.add_file1,
+                        exchange.add_file2,
+                        exchange.terms_agree,
+                        exchange.os_type,
+                        exchange.ip,
+                        exchange.confirm,
+                        exchange.state,
+                        exchange.op_msg,
+                        exchange.op_name,
+                        exchange.op_date,
+                        exchange.reg_date,
+                        exchange.send_title,
+                        exchange.send_cont,
+                        exchange.send_type,
+                        exchange.last_upd_date,
+                        wallet.gold,
+                        birth
+                 FROM rd_data.tb_member_exchange exchange
+                INNER JOIN rd_data.tb_member_profile profile
+                   ON exchange.mem_no = profile.mem_no
+                INNER JOIN rd_data.tb_member_wallet wallet
+                   ON exchange.mem_no = wallet.mem_no
+                 LEFT JOIN rd_data.tb_member_basic basic
+                   ON exchange.mem_no = basic.mem_no
+                 LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal
+                   ON exchange.mem_no = withdrawal.mem_no
+                 LEFT JOIN (select mem_no,
+                                 mem_nick,
+                                 mem_userid,
+                                 mem_id,
+                                 mem_phone,
+                                 `inner`,
+                                 concat(mem_birth_year, '-', IF(length(mem_birth_month) = 1, concat('0', mem_birth_month), mem_birth_month), '-', IF(length(mem_birth_day) = 1, concat('0', mem_birth_day), mem_birth_day)) as birth
+                              FROM rd_data.tb_member_basic
+                      UNION SELECT mem_no,
+                                   mem_nick,
+                                   mem_userid,
+                                   mem_id,
+                                   mem_phone,
+                                   `inner`,
+                                   concat(mem_birth_year, '-', IF(length(mem_birth_month) = 1, concat('0', mem_birth_month), mem_birth_month), '-', IF(length(mem_birth_day) = 1, concat('0', mem_birth_day), mem_birth_day)) as birth
+                              FROM rd_data.tb_member_withdrawal_bak) member
+                          ON exchange.mem_no = member.mem_no
+                       INNER JOIN (select @RNUM := #{pageNo}) r
+                        WHERE (exchange.state in (0, 1) or (exchange.state = 2))
+                        order by exchange.idx desc) a
+           LEFT JOIN ( SELECT mem_no          memNo,
+                              count(mem_no)   exchangeCnt,
+                              sum(cash_basic) totalCashBasic,
+                              sum(cash_real)  totalCashReal
+                         FROM rd_data.tb_member_exchange
+                        WHERE state = 1
+                        group by mem_no) summary
+       ON a.mem_no = summary.memNo
+    </sql>
+
+    <select id="getExchangeHistory" parameterType="com.dalbit.member.vo.procedure.P_MemberExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        SELECT
+          @RNUM := @RNUM + 1 as     rowNum, aa.*
+          FROM (
+            <include refid="baseExchangeHistory" />
+          ) aa
+        where mem_no=#{mem_no}
+        order by reg_date desc
+         limit #{pageNo}, #{pageCnt}
+    </select>
+
+    <select id="getExchangeHistory_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberExchangeInputVo" resultType="integer">
+        SELECT count(*) totalCnt
+         FROM (
+                <include refid="baseExchangeHistory" />
+              ) aa
+         where mem_no=#{mem_no}
+    </select>
+
+    <select id="getExchangeHistory_detail" parameterType="com.dalbit.member.vo.procedure.P_MemberExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeOutputVo">
+        SELECT
+        @RNUM := @RNUM + 1 as     rowNum, aa.*
+        FROM (
+        <include refid="baseExchangeHistory" />
+        ) aa
+        where mem_no=#{mem_no}
+          and idx = #{idx}
+    </select>
+
+</mapper>
