@@ -105,21 +105,6 @@
         getTotalList();
     });
 
-
-    function tableHeightSet(){
-        var tb = $('._tableHeight');
-        var height = tb.data('height');
-
-        tb.find('th').each(function(){
-            $(this).css('height', height);
-        });
-
-        tb.find('td').each(function(){
-            console.log($(this));
-            $(this).css('height', height);
-        });
-    }
-
     var tmp = 0;
     var tmp_end = 0;
     var type;

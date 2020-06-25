@@ -195,14 +195,11 @@ ui.paintColor = function(){
         var table = $(this);
         var height = table.data('height');
 
-        console.log(table);
         if (height != null && height != '') {
             table.find('tr').each(function(){
-                console.log($(this));
                 $(this).css('height', height);
             });
             table.find('td').each(function(){
-                console.log($(this));
                 $(this).css('height', height);
             });
         }
