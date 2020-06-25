@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -840,5 +841,9 @@ public class DalbitUtil {
     public static MemberVo getMemInfo(String mem_no){
         MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(mem_no);
         return memInfoOutVo;
+    }
+
+    public static String convertNumberType(int data){
+        return NumberFormat.getInstance().format(data);
     }
 }

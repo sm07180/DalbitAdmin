@@ -30,6 +30,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -146,20 +147,20 @@ public class Adm_AlarmTalkService {
                 String msg = AlarmTalkTemplate.알림톡_달빛라이브_직원관리용_CONT1.getMsg();
 
                 AlarmTalkValVo alarmTalkValVo = new Gson().fromJson(procedureVo.getRet(), AlarmTalkValVo.class);
-                msg = msg.replace("#{1}", alarmTalkValVo.getWeb_male_cnt());
-                msg = msg.replace("#{2}", alarmTalkValVo.getWeb_female_cnt());
-                msg = msg.replace("#{3}", alarmTalkValVo.getMobile_male_cnt());
-                msg = msg.replace("#{4}", alarmTalkValVo.getMobile_female_cnt());
-                msg = msg.replace("#{5}", alarmTalkValVo.getConnect_member_cnt());
-                msg = msg.replace("#{6}", alarmTalkValVo.getConnect_nonmem_cnt());
-                msg = msg.replace("#{7}", alarmTalkValVo.getConnect_30_cnt());
-                msg = msg.replace("#{8}", alarmTalkValVo.getConnect_10_cnt());
-                msg = msg.replace("#{9}", alarmTalkValVo.getBroadcast_create_cnt());
-                msg = msg.replace("#{10}", alarmTalkValVo.getBroadcast_listener_cnt());
-                msg = msg.replace("#{11}", alarmTalkValVo.getPayment_cnt());
-                msg = msg.replace("#{12}", alarmTalkValVo.getPayment_cnt());
-                msg = msg.replace("#{13}", alarmTalkValVo.getDal_pay_amt());
-                msg = msg.replace("#{14}", alarmTalkValVo.getDal_use_amt());
+                msg = msg.replace("#{1}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getWeb_male_cnt())));
+                msg = msg.replace("#{2}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getWeb_female_cnt())));
+                msg = msg.replace("#{3}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getMobile_male_cnt())));
+                msg = msg.replace("#{4}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getMobile_female_cnt())));
+                msg = msg.replace("#{5}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getConnect_member_cnt())));
+                msg = msg.replace("#{6}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getConnect_nonmem_cnt())));
+                msg = msg.replace("#{7}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getConnect_30_cnt())));
+                msg = msg.replace("#{8}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getConnect_10_cnt())));
+                msg = msg.replace("#{9}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getBroadcast_create_cnt())));
+                msg = msg.replace("#{10}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getBroadcast_listener_cnt())));
+                msg = msg.replace("#{11}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getPayment_cnt())));
+                msg = msg.replace("#{12}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getPayment_amt())));
+                msg = msg.replace("#{13}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getDal_pay_amt())));
+                msg = msg.replace("#{14}", DalbitUtil.convertNumberType(Integer.parseInt(alarmTalkValVo.getDal_use_amt())));
 
 
                 //발송 대상 조회
