@@ -168,7 +168,9 @@
 
         // popup일 경우 창 닫기
         if(fnc_messageDetail.popup){
-            opener.fnc_messageList.selectMainList(false);
+            if(!common.isEmpty(opener.fnc_messageList)){
+                opener.fnc_messageList.selectMainList(false);
+            }
             window.close();
             return false;
         }
