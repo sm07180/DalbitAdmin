@@ -426,7 +426,7 @@
             <td>{{vatMinus va_amt}}</td>
             <td>{{vatMinus inapp_amt}}</td>
             <td>{{vatMinus gm_amt}}</td>
-            <td>{{vatMinus gm_amt}}</td>
+            <td>{{vatMinus hm_amt}}</td>
             <td><b>{{vatMinus total_amt}}</b></td>
         </tr>
         <tr>
