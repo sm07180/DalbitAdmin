@@ -16,15 +16,15 @@
                 <col width="6.2%"/><col width="6.2%"/><col width="6.2%"/><col width="6.2%"/><col width="6.2%"/>
             </colgroup>
             <thead>
-            <tr>
+            <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
                 <th class="_totalDate" colspan="5" id="total_th_2"></th>
                 <td class="_noBorder"></td>
                 <th class="_totalDate" colspan="5" id="total_th_1"></th>
                 <td class="_noBorder"></td>
-                <th class="_totalDate" colspan="5" id="total_th_0"></th>
+                <th class="_totalDate" colspan="5" id="total_th_0" style="background-color: #ffe699"></th>
             </tr>
-            <tr>
+            <tr style="background-color: #dae3f3">
                 <th class="_sex_male"></th>
                 <th class="_sex_female"></th>
                 <th class="_sex_female"></th>
@@ -39,11 +39,11 @@
                 <th>소계</th>
                 <td class="_noBorder"></td>
 
-                <th class="_sex_male"></th>
-                <th class="_sex_female"></th>
-                <th class="_sex_female"></th>
-                <th>알수없음</th>
-                <th>소계</th>
+                <th class="_sex_male" style="background-color: #fff2cc"></th>
+                <th class="_sex_female" style="background-color: #fff2cc"></th>
+                <th class="_sex_female" style="background-color: #fff2cc"></th>
+                <th style="background-color: #fff2cc">알수없음</th>
+                <th style="background-color: #fff2cc">소계</th>
             </tr>
             </thead>
             <tbody id="totalTableBody"></tbody>
@@ -59,7 +59,7 @@
                 <col width="6.2%"/><col width="6.2%"/><col width="6.2%"/><col width="6.2%"/><col width="6.2%"/>
             </colgroup>
             <thead>
-            <tr>
+            <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
                 <th class="_totalDate" colspan="5" id="total_th_5"></th>
                 <td class="_noBorder"></td>
@@ -67,7 +67,7 @@
                 <td class="_noBorder"></td>
                 <th class="_totalDate" colspan="5" id="total_th_3"></th>
             </tr>
-            <tr>
+            <tr style="background-color: #dae3f3">
                 <th class="_sex_male"></th>
                 <th class="_sex_female"></th>
                 <th class="_sex_female"></th>
@@ -211,7 +211,20 @@
     function fn_total_success(data, response){
         dalbitLog(response);
 
+        var tmp_date = new Date();
+        tmp_date = moment(tmp_date).format("YYYY.MM.DD HH:mm:SS");
+        var tmp_day = tmp_date.split(" ")[0];
+        var tmp_time = tmp_date.split(" ")[1];
+
         tmp_index = -1;
+
+        var maleCnt;
+        var femaleCnt;
+        var femaleAvg;
+        var noneCnt;
+        var totalCnt;
+
+
         response.data.forEach(function(data, index){
             if(index > 2){
                 ++tmp_index;
@@ -220,93 +233,139 @@
                 if(detail.succAmt == 0){
                     detail.accumAmt = 0;
                 }
+
+                maleCnt = common.addComma(detail.maleCnt);
+                femaleCnt = common.addComma(detail.femaleCnt);
+                femaleAvg = common.average(detail.femaleCnt , detail.totalCnt) + "%";
+                noneCnt = common.addComma(detail.noneCnt);
+                totalCnt = common.addComma(detail.totalCnt);
+
                 if($('input[name="slctType"]:checked').val() == "0") {
                     // 상단
                     if (index == 0) {
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(common.average(detail.femaleCnt , detail.totalCnt) + "%");
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").html(maleCnt);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 4) + ")").html(noneCnt);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 5) + ")").html(totalCnt);
+                        if(tmp_time.split(":")[0] == detail.hour) {
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 4) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 5) + ")").css("background-color", "#e3ecfb");
+                        }
                     } else if (index == 1 || index == 2) {
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 3) + ")").html(common.average(detail.femaleCnt , detail.totalCnt) + "%");
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 1) + ")").html(maleCnt);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 4) + ")").html(noneCnt);
+                        $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 5) + ")").html(totalCnt);
+                        if(tmp_time.split(":")[0] == detail.hour) {
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 1) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 2) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 3) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 4) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 5) + ")").css("background-color", "#e3ecfb");
+                        }
                     }
                     // 하단
                     if (index == 3) {
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 3) + ")").html(common.average(detail.femaleCnt , detail.totalCnt) + "%");
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 1) + ")").html(maleCnt);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 4) + ")").html(noneCnt);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 5) + ")").html(totalCnt);
+                        if(tmp_time.split(":")[0] == detail.hour) {
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 1) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 2) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 3) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 4) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 5) + ")").css("background-color", "#e3ecfb");
+                        }
                     }else if(index == 4 || index == 5){
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(detail.femaleCnt , detail.totalCnt) + "%");
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 1) + ")").html(maleCnt);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 4) + ")").html(noneCnt);
+                        $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 5) + ")").html(totalCnt);
+                        if(tmp_time.split(":")[0] == detail.hour) {
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 1) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 2) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 3) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 4) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 6 + 5) + ")").css("background-color", "#e3ecfb");
+                        }
                     }
+                    if(index == 2){
+                        if((detail.hour > tmp_time.split(":")[0])) {
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 1) + ")").html("");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 2) + ")").html("");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 3) + ")").html("");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 4) + ")").html("");
+                            $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 6 + 5) + ")").html("");
+                        }
+                    }
+
 
                 } else if($('input[name="slctType"]:checked').val() == "1"){
                     //상단
                     if (index == 0) {
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 1) + ")").html(maleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 4) + ")").html(noneCnt);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 5) + ")").html(totalCnt);
                     } else if (index == 1 || index == 2) {
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 1) + ")").html(maleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 4) + ")").html(noneCnt);
+                        $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 5) + ")").html(totalCnt);
                     }
+
                     // 하단
                     if (index == 3) {
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 1) + ")").html(maleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 4) + ")").html(noneCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 5) + ")").html(totalCnt);
                     } else if (index == 4 || index == 5){
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 1) + ")").html(maleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 4) + ")").html(noneCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 5) + ")").html(totalCnt);
                     }
                 } else if($('input[name="slctType"]:checked').val() == "2") {
                     //상단
                     if (index == 0) {
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 1) + ")").html(maleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 4) + ")").html(noneCnt);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index + 5) + ")").html(totalCnt);
                     } else if (index == 1 || index == 2) {
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 1) + ")").html(maleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 4) + ")").html(noneCnt);
+                        $("#totalTableBody tr._tr_" + (detail.month) + " td:eq(" + (index * 6 + 5) + ")").html(totalCnt);
                     }
                     //하단
                     if (index == 3){
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 1) + ")").html(maleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 4) + ")").html(noneCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index + 5) + ")").html(totalCnt);
                     } else if (index == 4 || index == 5) {
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(detail.maleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(detail.femaleCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 3) + ")").html(common.addComma(common.average(detail.femaleCnt , detail.totalCnt) + "%"));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 4) + ")").html(common.addComma(detail.noneCnt));
-                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 5) + ")").html(common.addComma(detail.totalCnt));
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 1) + ")").html(maleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 2) + ")").html(femaleCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 3) + ")").html(femaleAvg);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 4) + ")").html(noneCnt);
+                        $("#totalTableBody2 tr._tr_" + (detail.month) + " td:eq(" + (tmp_index * 6 + 5) + ")").html(totalCnt);
                     }
                 }
             });
@@ -322,150 +381,90 @@
 
             if($('input[name="slctType"]:checked').val() == "0"){
                 if(i == 0){
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
                 }else if(i == 1 || i == 2){
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(25) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody tr:eq(24) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
                 }
             } else if($('input[name="slctType"]:checked').val() == "1"){
                 if(i == 0){
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
                 }else if(i == 1 || i == 2){
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(32) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody tr:eq(31) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
                 }
             } else if($('input[name="slctType"]:checked').val() == "2"){
                 if(i == 0){
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
                 }else if(i == 1 || i == 2){
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(0) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody tr:eq(13) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody tr:eq(12) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
                 }
             }
 
             // 하단
             if($('input[name="slctType"]:checked').val() == "0"){
                 if(i == 3){
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
                 }else if(i == 4 || i == 5){
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(25) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody2 tr:eq(24) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
                 }
             } else if($('input[name="slctType"]:checked').val() == "1"){
                 if(i == 3){
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
                 }else if(i == 4 || i == 5){
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(32) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody2 tr:eq(31) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
                 }
             } else if($('input[name="slctType"]:checked').val() == "2"){
                 if(i == 3){
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
                 }else if(i == 4 || i == 5){
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_neneCnt);
-                    $("#totalTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
+                    $("#totalTableBody2 tr:eq(12) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
                 }
             }
         }
@@ -474,44 +473,32 @@
 
 
 <script type="text/x-handlebars-template" id="tmp_dummyTotalDetailList">
-    <tr class="_tr_{{this}} font-bold" style="background-color: #b4c7e7">
-        <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
-    </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold">{{this}}</td>
+        <td class="font-bold"  style="background-color: #dae3f3">{{this}}</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td>
     </tr>
     {{/each}}
-    <tr class="_tr_{{this}} font-bold" style="background-color: #b4c7e7">
+    <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5">0</td>
     </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_dummyTotalDetailList2">
-    <tr class="_tr_{{this}} font-bold" style="background-color: #b4c7e7">
-        <td>총합</td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
-    </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
-        <td class="font-bold">{{this}}</td>
+        <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
     {{/each}}
-    <tr class="_tr_{{this}} font-bold" style="background-color: #b4c7e7">
+    <tr class="_tr_{{this}} font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총합</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>

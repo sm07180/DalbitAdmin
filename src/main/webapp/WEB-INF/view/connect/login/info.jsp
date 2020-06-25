@@ -50,7 +50,7 @@
             </form>
             <!-- //serachBox -->
             <!-- 접속 관련 통계 데이터-->
-            <div class="row col-lg-12 form-inline">
+            <div class="row col-lg-12 form-inline hide">
                 <div class="widget widget-table mb10">
                     <div class="widget-header">
                         <h3><i class="fa fa-table"></i> 로그인 통계 현황</h3>
@@ -169,7 +169,7 @@
     });
 
     function getStatJoinInfo(){
-        util.getAjaxData("infoLive", "/rest/connect/login/info/live", null, fn_loginLive_success);
+        // util.getAjaxData("infoLive", "/rest/connect/login/info/live", null, fn_loginLive_success);
     }
 
     function fn_loginLive_success(data, response){
