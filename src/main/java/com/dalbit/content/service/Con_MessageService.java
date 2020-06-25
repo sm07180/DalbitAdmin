@@ -113,9 +113,10 @@ public class Con_MessageService {
         try{
             // 방송중인 방송방 리스트 조회 및 발송 건수 셋팅
             if(!DalbitUtil.isEmpty(pMessageInsertVo.getSend_all()) && pMessageInsertVo.getSend_all().equals("0")) {       // ALL
-                RoomListVo pRoomListVo = new RoomListVo();
-                pRoomListVo.setPage(1);
-                pRoomListVo.setRecords(100);
+                P_RoomListVo pRoomListVo = new P_RoomListVo();
+                pRoomListVo.setMem_no(DalbitUtil.getProperty("admin.memNo"));
+                pRoomListVo.setPageNo(1);
+                pRoomListVo.setPageCnt(100);
                 ProcedureVo roomListProcedureVo = new ProcedureVo(pRoomListVo);
                 List<P_RoomListVo> roomVoList = menLiveDao.callBroadCastRoomList(roomListProcedureVo);
 
@@ -181,6 +182,7 @@ public class Con_MessageService {
 
             return gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지발송_성공));
         }catch (IOException | GlobalException e){
+            e.printStackTrace();
             throw new GlobalException(Status.방송방메시지발송_에러);
         }
     }
