@@ -58,7 +58,7 @@
                     </c:if>
 
                     <li class="_tab">
-                        <a href="javascript://" id="enableList" name="enableList" role="tab" data-toggle="tab">환전신청 가능회원[${principal.getUserInfo().getName()}]</a>
+                        <a href="javascript://" id="enableList" name="enableList" role="tab" data-toggle="tab">환전신청 가능회원</a>
                     </li>
                 </ul>
 
