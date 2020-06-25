@@ -18,6 +18,7 @@ public class LogoutHandlerImpl implements LogoutHandler {
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication){
         try {
             response.addCookie(CookieUtil.deleteCookie("JSESSIONID", "inforex.co.kr", "/", 0));
+            response.addCookie(CookieUtil.deleteCookie("dalbitCookie", "dalbitlocal.inforex.co.kr", "/", 0));
             /*response.addCookie(CookieUtil.deleteCookie("ADMIN_COOKIE", "inforex.co.kr", "/", 0));
             response.addCookie(CookieUtil.deleteCookie("gSTAFF", "inforex.co.kr", "/", 0));
             response.addCookie(CookieUtil.deleteCookie("NAME", "inforex.co.kr", "/", 0));

@@ -45,6 +45,13 @@ var declaration_reason = [
     , new COMMON_CODE('admin', '98', '관리자신고')
 ];
 
+var block_scope = [
+    new COMMON_CODE(null, 'blockScope', '조치 범위')
+    , new COMMON_CODE('mem_no', 'mem_no', '아이디(변경x)')
+    , new COMMON_CODE('deviceUuid', '1', '디바이스 아이디')
+    , new COMMON_CODE('ip', '2', 'ip')
+]
+
 var declaration_status = [
     new COMMON_CODE(null, 'status', '처리구분')
     , new COMMON_CODE('all', '-1', '전체')

@@ -16,6 +16,10 @@
                     <if test="testid != -1">
                         and a.inner = 0
                     </if>
+                    <if test="memJoinPath == 1">
+                        and a.join_path is not null
+                        and a.join_path != ''
+                    </if>
                     and (mem_no like concat('%', #{searchText}, '%')
                        or mem_name like concat('%', #{searchText}, '%')
                        or mem_userid like concat('%', #{searchText}, '%')
@@ -49,6 +53,10 @@
             </if>
             <if test="testid != -1">
                 and a.inner = 0
+            </if>
+            <if test="memJoinPath == 1">
+                and a.join_path is not null
+                and a.join_path != ''
             </if>
             and (mem_no like concat('%', #{searchText}, '%')
                 or mem_name like concat('%', #{searchText}, '%')
@@ -93,6 +101,10 @@
                    <if test="testid != -1">
                        and a.inner = 0
                    </if>
+                   <if test="memJoinPath == 1">
+                       and a.join_path is not null
+                       and a.join_path != ''
+                   </if>
                    and (mem_no like concat('%', #{searchText}, '%')
                        or mem_name like concat('%', #{searchText}, '%')
                        or mem_userid like concat('%', #{searchText}, '%')
@@ -126,6 +138,10 @@
             </if>
             <if test="testid != -1">
                 and a.inner = 0
+            </if>
+            <if test="memJoinPath == 1">
+                and a.join_path is not null
+                and a.join_path != ''
             </if>
             and (mem_no like concat('%', #{searchText}, '%')
                 or mem_name like concat('%', #{searchText}, '%')

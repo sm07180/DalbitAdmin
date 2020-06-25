@@ -26,6 +26,7 @@ public class P_MemberJoinOutputVo extends SearchVo {
     private String lastUpdDateFormat;
     private int os_type;
     private String ip;
+    private String join_path;
     private String testId;
 
     //summary

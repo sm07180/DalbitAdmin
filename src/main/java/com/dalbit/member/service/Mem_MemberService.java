@@ -12,9 +12,7 @@ import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
-import com.dalbit.member.vo.LoginHistoryVo;
-import com.dalbit.member.vo.MemberVo;
-import com.dalbit.member.vo.P_LoginVo;
+import com.dalbit.member.vo.*;
 import com.dalbit.member.vo.procedure.*;
 import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
@@ -168,6 +166,20 @@ public class Mem_MemberService {
             memberInfo.setNewdj_badge(String.valueOf(djBadge.get("newdj_badge")));
             memberInfo.setSpecialdj_badge(String.valueOf(djBadge.get("specialdj_badge")));
         }
+        
+        //ip정보 및 device 정보
+        //recentLoginInfo
+        LoginHistoryVo loginHistoryVo = new LoginHistoryVo();
+        loginHistoryVo.setSearchStartNo(1);
+        loginHistoryVo.setSearchEndNo(1);
+        loginHistoryVo.setSearchType("mem_no");
+        loginHistoryVo.setSearchText(pMemberInfoInputVo.getMem_no());
+        ArrayList<LoginHistoryVo> loginHostory = mem_MemberDao.selectLoginHistory(loginHistoryVo);
+        if(!DalbitUtil.isEmpty(loginHostory)){
+            memberInfo.setIp(loginHostory.get(0).getIp());
+            memberInfo.setDeviceUuid(loginHostory.get(0).getDevice_uuid());
+        }
+
 
         String result;
         if(Status.회원정보보기_성공.getMessageCode().equals(procedureVo.getRet())) {
@@ -400,6 +412,24 @@ public class Mem_MemberService {
             // 해당 회원번호로 등록된 스타목록 삭제
             mem_MemberDao.callMemberWithdrawal_starDel(pMemberReportVo);
         }
+
+        //디바이스 UUID or IP block 테이블 등록
+        if(3 <= pMemberReportVo.getSlctType() && pMemberReportVo.getSlctType() <= 6){
+            var blockScopes = pMemberReportVo.getBlockScope().split(",");
+            var blockScopeTexts = pMemberReportVo.getBlockScopeText().split(",");
+
+            var blockDay = pMemberReportVo.getSlctType() == 6 ? 99 : pMemberReportVo.getBlockDay();
+
+            for(int i = 0; i < blockScopes.length; i++){
+                if(blockScopes[i].equals("true")){
+                    mem_MemberDao.insertLoginBlock(new LoginBlockVo(i+1, blockScopeTexts[i], blockDay, pMemberReportVo.getOpName(), pMemberReportVo.getIdx()));
+
+                    /*int block_type = i+1;
+                    mem_MemberDao.insertLoginBlockHistory(new LoginBlockHistVo());*/
+                }
+            }
+        }
+
 
         if(pMemberReportVo.getSlctType() == 2){    // 경고 푸시 발송
             try{    // PUSH 발송

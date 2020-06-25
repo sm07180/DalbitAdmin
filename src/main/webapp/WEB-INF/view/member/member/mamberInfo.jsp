@@ -77,10 +77,13 @@
 
         // $("#txt_birth").val(response.data.birthDate);
         $("#memSlct").html(util.renderSlct(response.data.memSlct, "40"));
-        report = "/member/member/popup/reportPopup?memNo='" + encodeURIComponent(response.data.mem_no) + "'&memId='"
-                                                            + encodeURIComponent(response.data.userId) + "'&memNick='"
-                                                            + encodeURIComponent(common.replaceHtml(response.data.nickName)) + "'&memSex='"
-                                                            + encodeURIComponent(response.data.memSex) + "'";
+        report = "/member/member/popup/reportPopup?"
+                                                + "memNo=" + encodeURIComponent(response.data.mem_no)
+                                                + "&memId=" + encodeURIComponent(response.data.userId)
+                                                + "&memNick=" + encodeURIComponent(common.replaceHtml(response.data.nickName))
+                                                + "&memSex=" + encodeURIComponent(response.data.memSex)
+                                                + "&deviceUuid=" + response.data.deviceUuid
+                                                + "&ip=" + response.data.ip;
 
         if (response.data.memSlct != "p") {
             $("#div_socialId").empty();
@@ -144,8 +147,8 @@
         $('#bt_adminMemoList').click(function() {       //운영자 메모 리스트
             getAdminMemoList(this.id,"운영자메모");
         });
-        $('#bt_connectState').click(function() {         //접속상태
-            getInfoDetail(this.id,"접속상태");
+        $('.bt_connectState').click(function() {         //접속상태
+            getInfoDetail('bt_connectState',"접속상태");
         });
         $('#bt_manager').click(function() {             //매니저 자세히
             getInfoDetail(this.id,"(내가 등록한) 매니저");
@@ -156,7 +159,7 @@
         $('#bt_editHistory').click(function() {         //최근정보 내역
             getInfoDetail(this.id,"정보수정내역");
         });
-        $('#bt_report').click(function() {           // 회원상태(경고/정지)
+        $('.bt_report').click(function() {           // 회원상태(경고/정지)
             reportPopup();
         });
         $('#bt_state').click(function() {           // 상태 정상으로 변경
@@ -374,7 +377,7 @@
     }
     function reportPopup(){
         console.log(report);
-        util.windowOpen(report,"750","700","경고/정지");
+        util.windowOpen(report,"750","885","경고/정지");
     }
 
     function fnChkByte(obj) {
@@ -650,8 +653,8 @@
         </colgroup>
         <tbody>
         <tr>
-            <th rowspan="5">프로필이미지</th>
-            <td rowspan="5" colspan="3" style="border: white">
+            <th rowspan="7">프로필이미지</th>
+            <td rowspan="7" colspan="3" style="border: white">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
                     {{#equal memWithdrawal '0'}}
@@ -673,15 +676,31 @@
                 {{{getCommonCodeLabel memState 'mem_state'}}}
                 {{{block}}}
                 {{#equal memWithdrawal '0'}}
-                    <button type="button" class="btn btn-default btn-sm pull-right" id="bt_report">경고/정지</button>
+                    <button type="button" class="btn btn-default btn-sm pull-right bt_report">경고/정지</button>
                 {{/equal}}
                 <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
             </td>
         </tr>
         <tr>
+            <th>Mobile 정보</th>
+            <td colspan="2" style="text-align: left">
+                {{deviceUuid}}
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
+                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">기기 차단</button>
+            </td>
+        </tr>
+        <tr>
+            <th>IP 정보</th>
+            <td colspan="2" style="text-align: left">
+                {{ip}}
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
+                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">IP 차단</button>
+            </td>
+        </tr>
+        <tr>
             <th>접속상태</th>
             <td colspan="2" style="text-align: left">{{connectState}}
-                <button type="button" id="bt_connectState" class="btn btn-default btn-sm pull-right">자세히</button>
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
             </td>
         </tr>
         </tr>
