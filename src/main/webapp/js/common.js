@@ -50,6 +50,9 @@ common.addComma = function(value){
     if(common.isEmpty(value)){
         return 0;
     }
+    if(value == "null"){
+        return '';
+    }
     var regExp = /\B(?=(\d{3})+(?!\d))/g
     return value.toString().replace(regExp, ",");
 }

@@ -11,18 +11,18 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate"></span>
-        <table class="table table-bordered">
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="12%"/><col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
                 <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
             </colgroup>
             <thead id="browserTable">
-            <tr>
-                <th rowspan="2">시간대</th>
+            <tr style="background-color: #b4c7e7">
+                <th rowspan="2"></th>
                 <th colspan="4" id="th_after">실시간</th>
                 <th colspan="4" id="th_befor">전일</th>
             </tr>
-            <tr>
+            <tr style="background-color: #dae3f3">
                 <th>소계</th>
                 <th>안드로이드</th>
                 <th>아이폰</th>
@@ -47,8 +47,14 @@
 
 <script type="text/javascript">
 
-    function getBrowserList(obj){
-        util.getAjaxData("browser", "/rest/connect/login/info/browser", obj, fn_browser_success);
+    function getBrowserList(){
+        var data = {};
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+        data.slctType = slctType;
+        console.log("---------------------");
+        console.log(data);
+        util.getAjaxData("browser", "/rest/connect/login/info/browser", data, fn_browser_success);
     }
 
     function fn_browser_success(data, response){
@@ -61,10 +67,38 @@
             var totalHtml = templateScript(totalContext);
             $("#browserTableBody").append(totalHtml);
 
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+            response.data.detailList.slctType = slctType;
 
         }
 
+        for(var i=0;i<response.data.detailList.length;i++){
+            if(response.data.detailList[i].androidCnt == 0){
+                console.log(response.data.detailList[i].androidCnt);
+                response.data.detailList[i].androidCnt = "null";
+            }
+            if(response.data.detailList[i].iosCnt == 0){
+                response.data.detailList[i].iosCnt = "null";
+            }
+            if(response.data.detailList[i].pcCnt == 0){
+                response.data.detailList[i].pcCnt = "null";
+            }
+            if(response.data.detailList[i].bAndroidCnt == 0){
+                response.data.detailList[i].bAndroidCnt = "null";
+            }
+            if(response.data.detailList[i].bIosCnt == 0){
+                response.data.detailList[i].bIosCnt = "null";
+            }
+            if(response.data.detailList[i].bPcCnt == 0){
+                response.data.detailList[i].bPcCnt = "null";
+            }
+            if(response.data.detailList[i].totalCnt == 0){
+                response.data.detailList[i].totalCnt = "null";
+            }
+            if(response.data.detailList[i].bTotalCnt == 0){
+                response.data.detailList[i].bTotalCnt = "null";
+            }
+        }
+        dalbitLog(response.data.detailList);
         var template = $('#tmp_browserDetailList').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
@@ -77,20 +111,14 @@
             $("#browserTableBody").append(totalHtml);
         }
 
-        if($('input[name="slctType"]:checked').val() == 0) {
-            $("#browserTable").find("#th_after").text("금일");
-            $("#browserTable").find("#th_befor").text("전일");
-        }else if($('input[name="slctType"]:checked').val() == 1){
-            $("#browserTable").find("#th_after").text("금월");
-            $("#browserTable").find("#th_befor").text("전월");
-        }else if($('input[name="slctType"]:checked').val() == 2){
-            $("#browserTable").find("#th_after").text("금년");
-            $("#browserTable").find("#th_befor").text("전년");
-        }
+        $("#browserTable").find("#th_after").text("금월");
+        $("#browserTable").find("#th_befor").text("전월");
+
+        ui.tableHeightSet();
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_browserTotal">
-    <tr class="success font-bold">
+    <tr class="font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총계</td>
         <td>{{addComma sum_totalCnt}}</td>
         <td>{{addComma sum_androidCnt}}</td>
@@ -107,7 +135,7 @@
 <script type="text/x-handlebars-template" id="tmp_browserDetailList">
     {{#each this as |data|}}
     <tr>
-        <td class="font-bold">
+        <td class="font-bold" style="background-color: #dae3f3">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
             {{#equal ../slctType 1}}{{data.month}}월 {{data.day}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}

@@ -11,7 +11,7 @@
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
-                                <span id="slctTypeArea"></span>
+                                <%--<span id="slctTypeArea"></span>--%>
 
                                 <div class="input-group date" id="oneDayDatePicker">
                                     <label for="onedayDate" class="input-group-addon">
@@ -41,7 +41,6 @@
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
-                                <a href="javascript://" class="_todaySearch">[오늘]</a>
                                 <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
@@ -101,7 +100,7 @@
     setTimeDate(dateTime);
 
     $(function() {
-        $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
+        // $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");
@@ -143,9 +142,9 @@
         });
 
         //로그인 통계 현황
-        getStatJoinInfo();
+        // getStatJoinInfo();
 
-        $("#tablist_con li.active a").click();
+        // $("#tablist_con li.active a").click();
     });
 
     function setTimeDate(dateTime){
@@ -164,9 +163,6 @@
         $("#yearDate").val(startDate.substr(0,4));
     }
 
-    $(document).on('change', 'input[name="slctType"]', function(){
-        radioChange();
-    });
 
     function getStatJoinInfo(){
         // util.getAjaxData("infoLive", "/rest/connect/login/info/live", null, fn_loginLive_success);
@@ -190,18 +186,8 @@
         prevNext(false);
     });
 
-    $(document).on('click', '._todaySearch', function(){
-        toDay = week[moment(new Date()).day()];
-        $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
-        radioChange();
-
-        setTimeDate(dateTime);
-        getStatJoinInfo();
-        $("#bt_search").click();
-    });
-
+    var me = 0;
     function radioChange(){
-        var me = $('input[name="slctType"]:checked').val();
         if(me == 0){
             $("#oneDayDatePicker").show();
             $("#rangeDatepicker").hide();
@@ -242,12 +228,12 @@
                 $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
             }
         }
-        $("#tablist_con li.active a").click();
+        // $("#tablist_con li.active a").click();
     }
 
+    var slctType;
     function prevNext(isPrev){
 
-        var slctType = $('input[name="slctType"]:checked').val();
         var targetDate = statUtil.getStatTimeDate($("#startDate").val(), stat_searchType, slctType, isPrev);
         var addDate = isPrev ? -1 : 1;
 
@@ -260,7 +246,7 @@
             var monthLastDate = new Date($("#startDate").val().substr(0,4),$("#startDate").val().substr(5,7),-1);
             $("#endDate").val($("#startDate").val().substr(0,8) +(monthLastDate.getDate() + 1));
             setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
-        }else{
+        }else if(slctType == 2){
             $("#startDate").val(moment($("#startDate").val()).add("years", addDate).format('YYYY.MM.DD'));
             $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
             setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());

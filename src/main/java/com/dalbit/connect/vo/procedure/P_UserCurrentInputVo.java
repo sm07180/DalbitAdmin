@@ -8,4 +8,5 @@ import lombok.Setter;
 @Setter
 public class P_UserCurrentInputVo extends SearchVo {
     private int pageNo;
+    private String inner;
 }
