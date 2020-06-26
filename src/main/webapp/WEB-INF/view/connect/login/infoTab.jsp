@@ -14,7 +14,7 @@
                 <li><a href="#age" role="tab" data-toggle="tab" id="tab_loAgeDetail">연령대별(비중복)</a></li>
                 <li><a href="#browserType" role="tab" data-toggle="tab" id="tab_loBrowserDetail">브라우저별</a></li>
             </ul>
-            <div class="tab-content">
+            <div class="tab-content  col-md-9">
                 <div class="tab-pane fade in active" id="timeNonOver"><jsp:include page="timeNonOver.jsp"/></div>      <!-- 시간대별 비중복 -->
                 <div class="tab-pane fade" id="monthNonOver"><jsp:include page="monthNonOver.jsp"/></div>      <!-- 월간별 비중복 -->
                 <div class="tab-pane fade" id="yearNonOver"><jsp:include page="yearNonOver.jsp"/></div>      <!-- 년간별 비중복 -->

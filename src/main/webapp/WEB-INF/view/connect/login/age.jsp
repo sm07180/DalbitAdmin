@@ -3,7 +3,7 @@
 
 <!-- 로그인 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10 col-md-9">
+    <div class="widget-content mt10">
         <span class="_searchDate"></span>
 
         <table class="table table-bordered _tableHeight" data-height="23px">
