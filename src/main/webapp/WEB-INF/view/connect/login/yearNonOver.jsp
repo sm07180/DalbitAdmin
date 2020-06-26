@@ -245,52 +245,52 @@
             //상단
 
             if(i == 0){
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 5) + ")").html(totalInfo.sum_totalCnt);
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
             }else if(i == 1 || i == 2){
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody tr:eq(0) td:eq(" + (i * 6 + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody tr:eq(13) td:eq(" + (i * 6 + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
             }
 
             // 하단
             if(i == 3){
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (5) + ")").html(totalInfo.sum_totalCnt);
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
             }else if(i == 4 || i == 5){
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 1) + ")").html(totalInfo.sum_maleCnt);
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 2) + ")").html(totalInfo.sum_femaleCnt);
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
                 $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 4) + ")").html(totalInfo.sum_noneCnt);
-                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 5) + ")").html(totalInfo.sum_totalCnt);
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
+                $("#yearNonOverTableBody2 tr:eq(13) td:eq(" + (tmp_index * 6 + 5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
             }
         }
         // tableHeightSet();
