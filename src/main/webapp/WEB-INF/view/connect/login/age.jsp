@@ -191,38 +191,38 @@
             var totalInfo = response.data[i].totalInfo;
             //상단
             if(i == 0){
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (1)+ ")").html(totalInfo.sum_totalCnt);
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (2)+ ")").html(totalInfo.sum_age10Cnt);
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (3)+ ")").html(totalInfo.sum_age20Cnt);
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (4)+ ")").html(totalInfo.sum_age30Cnt);
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (5)+ ")").html(totalInfo.sum_age40Cnt);
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (6)+ ")").html(totalInfo.sum_age50Cnt);
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (7)+ ")").html(totalInfo.sum_age60Cnt);
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (1) + ")").html(totalInfo.sum_totalCnt);
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (2) + ")").html(totalInfo.sum_age10Cnt);
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (3) + ")").html(totalInfo.sum_age20Cnt);
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (4) + ")").html(totalInfo.sum_age30Cnt);
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (5) + ")").html(totalInfo.sum_age40Cnt);
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (6) + ")").html(totalInfo.sum_age50Cnt);
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (7) + ")").html(totalInfo.sum_age60Cnt);
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (1)+ ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (2)+ ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (3)+ ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (4)+ ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (5)+ ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (6)+ ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (7)+ ")").html(common.addComma(totalInfo.sum_age60Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (3) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (6) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (7) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
             }
 
             // 하단
             if(i == 1){
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(totalInfo.sum_totalCnt);
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(totalInfo.sum_age10Cnt);
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (3) + ")").html(totalInfo.sum_age20Cnt);
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(totalInfo.sum_age30Cnt);
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(totalInfo.sum_age40Cnt);
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (6) + ")").html(totalInfo.sum_age50Cnt);
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (7) + ")").html(totalInfo.sum_age60Cnt);
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (1) + ")").html(totalInfo.sum_totalCnt);
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (2) + ")").html(totalInfo.sum_age10Cnt);
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (3) + ")").html(totalInfo.sum_age20Cnt);
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (4) + ")").html(totalInfo.sum_age30Cnt);
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (5) + ")").html(totalInfo.sum_age40Cnt);
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (6) + ")").html(totalInfo.sum_age50Cnt);
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (7) + ")").html(totalInfo.sum_age60Cnt);
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (3) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (6) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (7) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (3) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (6) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (7) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
             }
         }
         // tableHeightSet();
