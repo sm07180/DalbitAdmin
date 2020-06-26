@@ -75,7 +75,7 @@ public class Mem_WalletService {
 
             String gubun =  "";
             //(1: 루비구매, 2: 아이템선물, 3: 아이템사용, 4: 루비선물보내기, 5:루비선물받기, 6: 루비 교환, 7: 이벤트 받기, 8: 환불차감
-            switch (list.get(i).getGubun()){
+            switch (DalbitUtil.isEmpty(list.get(i).getGubun())? "99" : list.get(i).getGubun()){
                 case "1" :
                     gubun = "달 구매";
                     break;
@@ -105,7 +105,7 @@ public class Mem_WalletService {
             }
 
             String sex;
-            switch (list.get(i).getMem_sex()){
+            switch (DalbitUtil.isEmpty(list.get(i).getMem_sex())? "n" : list.get(i).getMem_sex()){
                 case "m" :
                     sex = "남자";
                     break;
@@ -185,7 +185,7 @@ public class Mem_WalletService {
 
             String gubun =  "";
             //(1: 루비교환, 2: 선물, 3: 환전, 4: 이벤트 받기, 7: 운영 지급 )
-            switch (list.get(i).getGubun()){
+            switch (DalbitUtil.isEmpty(list.get(i).getGubun())? "99" : list.get(i).getGubun()){
                 case "1" :
                     gubun = "달 교환";
                     break;
@@ -206,7 +206,7 @@ public class Mem_WalletService {
             }
 
             String sex;
-            switch (list.get(i).getMem_sex()){
+            switch (DalbitUtil.isEmpty(list.get(i).getMem_sex())? "n" : list.get(i).getMem_sex()){
                 case "f" :
                     sex = "여자";
                     break;
