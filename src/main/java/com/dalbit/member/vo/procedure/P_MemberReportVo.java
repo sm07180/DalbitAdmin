@@ -22,7 +22,7 @@ public class P_MemberReportVo {
     private String reported_phone;
     private int reported_level;
     private String reported_grade;
-    private String slctReason;
+    private int slctReason;
     private int slctType;
     private String notiContents;
     private String memo;
