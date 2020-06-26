@@ -275,6 +275,7 @@
     }
 
     function setDay(days){
+        toDay = week[moment($("#startDate").val()).add('days', days).day()];
         $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
         $("#endDate").val($("#startDate").val());
 
