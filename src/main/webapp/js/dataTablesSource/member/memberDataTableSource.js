@@ -616,7 +616,8 @@ var MemberDataTableSource = {
                     return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
-                    return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
+                    var imgurl = common.isEmpty(data) ? "https://image.dalbitlive.com/ani/thumbs/moon_thumb.jpg" : data;
+                    return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {
@@ -645,7 +646,8 @@ var MemberDataTableSource = {
                     return data == '' ? "X" : data == 1 ? "O" : common.addComma(data);
                 }},
             {'title': '이미지', 'data': 'item_thumbnail','width':'50px','render' : function (data, type, row, meta) {
-                    return '<img class="" src="'+ data +'" width="50px" height="50px"/>';
+                    var imgurl = common.isEmpty(data) ? "https://image.dalbitlive.com/ani/thumbs/star_thumb.jpg" : data;
+                    return '<img class="" src="'+ imgurl +'" width="50px" height="50px"/>';
                 }},
             {'title': '아이템명', 'data': 'itemName'},
             {'title': '선물 수', 'data': 'itemCnt', 'render': function (data) {

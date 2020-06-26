@@ -39,17 +39,12 @@
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (7,8)  <include refid="condition_dal"/>) AS sum_event_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` in (2,3,4) <include refid="condition_dal"/>) AS sum_output_cnt
         ,(SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby where `type` = 6 <include refid="condition_dal"/>) AS sum_change_cnt
-        ,(SELECT IFNULL(ruby_old, 0) FROM rd_data.tb_member_wallet_ruby where mem_no = #{mem_no} order by last_upd_date asc limit 0, 1) AS start_cnt
+        ,IFNULL((SELECT IFNULL(ruby_old, 0) FROM rd_data.tb_member_wallet_ruby where mem_no = #{mem_no} order by last_upd_date asc limit 0, 1), IFNULL(ruby, 0)) AS start_cnt
         ,IFNULL(ruby, 0) AS sum_own_cnt
         FROM
         rd_data.tb_member_wallet
         WHERE
         mem_no = #{mem_no}
-    </select>
-
-
-    <select id="getResultDalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="integer">
-        SELECT ruby FROM rd_data.tb_member_wallet WHERE mem_no = #{mem_no}
     </select>
 
     <select id="callMemberWalletDal_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletDalVo" resultType="integer">
@@ -325,7 +320,7 @@
             ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` in (4,7) AND mem_no = #{mem_no}) AS sum_event_cnt
             ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` = 3 AND mem_no = #{mem_no}) AS sum_exchange_cnt
             ,(SELECT IFNULL(SUM(gold_new - gold_old), 0) FROM rd_data.tb_member_wallet_gold where `type` = 1 AND mem_no = #{mem_no}) AS sum_change_cnt
-            ,(SELECT IFNULL((gold_old), 0) FROM rd_data.tb_member_wallet_gold where mem_no = #{mem_no} order by last_upd_date asc limit 0, 1) AS start_cnt
+            ,IFNULL((SELECT IFNULL((gold_old), 0) FROM rd_data.tb_member_wallet_gold where mem_no = #{mem_no} order by last_upd_date asc limit 0, 1), IFNULL(gold, 0)) AS start_cnt
             ,IFNULL(gold, 0) AS sum_own_cnt
         FROM
             rd_data.tb_member_wallet
@@ -333,10 +328,6 @@
             mem_no = #{mem_no}
     </select>
 
-
-    <select id="getResultByeolCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="integer">
-        SELECT gold FROM rd_data.tb_member_wallet WHERE mem_no = #{mem_no}
-    </select>
 
     <select id="callMemberWalletByeol_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_WalletByeolVo" resultType="integer">
         SELECT
@@ -348,7 +339,7 @@
                 ,gold
                 ,room_no
                 ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS item_type
-                ,gifted_mem_no AS mem_no
+                ,mem_no AS mem_no
                 ,mem_level AS `level`
                 ,mem_grade AS grade
                 ,last_upd_date AS giftDate
@@ -452,7 +443,7 @@
                     ,gold
                     ,room_no
                     ,(CASE item_type WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 4 THEN 99 WHEN 5 THEN 6 WHEN 6 THEN 9 WHEN 7 THEN 10 ELSE item_type END) AS item_type
-                    ,gifted_mem_no AS mem_no
+                    ,mem_no AS mem_no
                     ,mem_level AS `level`
                     ,mem_grade AS grade
                     ,last_upd_date AS giftDate
