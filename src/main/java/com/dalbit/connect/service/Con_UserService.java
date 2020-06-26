@@ -57,6 +57,8 @@ public class Con_UserService {
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.조회, currentList, new PagingVo(procedureVo.getRet())));
+        }else if(Integer.parseInt(procedureVo.getRet()) == 0){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
         }else{
             result = gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }

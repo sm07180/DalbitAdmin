@@ -4,43 +4,51 @@
 <!-- 현재 접속자 > 현재 접속 회원 -->
 <div class="widget-table mb10">
     <div class="col-md-12 no-padding">
-
-        <div class="col-md-2 no-padding">
-            <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
+        <div class="col-md-12 no-padding">
+            <div class="col-md-2" style="padding-top: 7px;width: 200px">
+                <label class="control-inline fancy-radio custom-color-green">
+                    <input type="radio" value="-1" id="testId-1" name="testId" class="form-control" checked="checked">
+                    <span><i></i>전체</span>
+                </label>
+                <label class="control-inline fancy-radio custom-color-green">
+                    <input type="radio" value="0" id="testId-0" name="testId" class="form-control">
+                    <span><i></i>Test-ID 제외</span>
+                </label>
+            </div>
+            <div class="col-md-2 no-padding">
+                <span name="currentType" id="currentType" onchange="currentType_sel_change()"></span>
+            </div>
         </div>
 
-        <div class="col-md-6 no-padding pull-right">
-            <!-- 접속 관련 통계 데이터-->
-            <div class="widget widget-table mb10">
-                <div class="widget-header">
-                    <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
-                </div>
-                <div class="widget-content mt10">
-                    <%--<button type="button" class="fa fa-refresh" onclick="getLoginLiveInfo();"></button>--%>
+        <div class="col-md-12 no-padding">
+            <div class="col-md-6 no-padding">
+                <table class="table table-bordered">
                     <colgroup>
                         <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
                         <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
                     </colgroup>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>실시간</th>
-                            <th>전일</th>
-                            <th>증감</th>
-                            <th>주간</th>
-                            <th>전주</th>
-                            <th>증감</th>
-                            <th>월간</th>
-                            <th>전월</th>
-                            <th>증감</th>
-                        </tr>
-                        </thead>
-                        <tbody id="loginLiveTableBody"></tbody>
-                    </table>
-                </div>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>실시간</th>
+                        <th>전일</th>
+                        <th>증감</th>
+                        <th>주간</th>
+                        <th>전주</th>
+                        <th>증감</th>
+                        <th>월간</th>
+                        <th>전월</th>
+                        <th>증감</th>
+                    </tr>
+                    </thead>
+                    <tbody id="loginLiveTableBody"></tbody>
+                </table>
+            </div>
+            <div class="col-md-6 no-padding">
+                <jsp:include page="total.jsp"/>
             </div>
         </div> <!-- // container-fluid -->
+
     </div>
     <div class="col-md-12 no-padding">
         <table id="tableList" class="table table-sorting table-hover table-bordered datatable">
@@ -77,13 +85,31 @@
 
     });
 
+    //전체 클릭
+    $('#testId-1').click( function() {
+        $('#testId-1').attr("checked", true);
+        $('#testId-0').attr("checked", false);
+        dtList_info_detail.reload();
+    });
+
+    // Test-ID 제외 클릭
+    $('#testId-0').click( function() {
+        $('#testId-1').attr("checked", false);
+        $('#testId-0').attr("checked", true);
+        dtList_info_detail.reload();
+    });
+
+
+
     var dtList_info_detail;
     var slctType = 1;
     function getCurrenList(){
+        console.log($('input[name="testId"]:checked').val());
         var dtList_data = function (data) {
             data.slctType = slctType;
             data.pageCnt = 20;
             data.searchText = $("#txt_search").val();
+            data.inner = $('input[name="testId"]:checked').val();
         };
         dtList_info_detail = new DalbitDataTable($("#tableList"), dtList_data, connectDataTableSource.current);
         dtList_info_detail.setPageLength(20);
