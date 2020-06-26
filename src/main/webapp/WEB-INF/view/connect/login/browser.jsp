@@ -136,9 +136,7 @@
     {{#each this as |data|}}
     <tr>
         <td class="font-bold" style="background-color: #dae3f3">
-            {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.month}}월 {{data.day}}일{{/equal}}
-            {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}
+            {{data.day}}일
         </td>
         <td>{{addComma totalCnt}}</td>
         <td>{{addComma androidCnt}}</td>
