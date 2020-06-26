@@ -546,7 +546,7 @@
         <td>총합</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>o</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
