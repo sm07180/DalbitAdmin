@@ -52,7 +52,7 @@
 <script type="text/x-handlebars-template" id="tmp_loginLive">
     <tr style="color: blue">
         <th>{{{sexIcon 'm'}}}</th>
-        <td>{{addComma m_now_cnt}}</td>
+        <td style="background-color: #fff2cc">{{addComma m_now_cnt}}</td>
         <td>{{addComma m_yes_cnt}}</td>
         <td class="{{upAndDownClass m_now_inc_cnt}}"><i class="fa {{upAndDownIcon m_now_inc_cnt}}"></i> {{addComma m_now_inc_cnt}}</td>
         <td>{{addComma m_week_cnt}}</td>
@@ -64,7 +64,7 @@
     </tr>
     <tr style="color: red">
         <th>{{{sexIcon 'f'}}}</th>
-        <td>{{addComma f_now_cnt}}</td>
+        <td style="background-color: #fff2cc">{{addComma f_now_cnt}}</td>
         <td>{{addComma f_yes_cnt}}</td>
         <td class="{{upAndDownClass f_now_inc_cnt}}"><i class="fa {{upAndDownIcon f_now_inc_cnt}}"></i> {{addComma f_now_inc_cnt}}</td>
         <td>{{addComma f_week_cnt}}</td>
@@ -76,7 +76,7 @@
     </tr>
     <tr>
         <th>알수없음</th>
-        <td>{{addComma n_now_cnt}}</td>
+        <td style="background-color: #fff2cc">{{addComma n_now_cnt}}</td>
         <td>{{addComma n_yes_cnt}}</td>
         <td class="{{upAndDownClass n_now_inc_cnt}}"><i class="fa {{upAndDownIcon n_now_inc_cnt}}"></i> {{addComma n_now_inc_cnt}}</td>
         <td>{{addComma n_week_cnt}}</td>
@@ -88,7 +88,7 @@
     </tr>
     <tr>
         <th>합계</th>
-        <td>{{addComma t_now_cnt}}</td>
+        <td style="background-color: #fff2cc">{{addComma t_now_cnt}}</td>
         <td>{{addComma t_yes_cnt}}</td>
         <td class="{{upAndDownClass t_now_inc_cnt}}"><i class="fa {{upAndDownIcon t_now_inc_cnt}}"></i> {{addComma t_now_inc_cnt}}</td>
         <td>{{addComma t_week_cnt}}</td>

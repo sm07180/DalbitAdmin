@@ -30,7 +30,7 @@
                     <thead>
                     <tr>
                         <th></th>
-                        <th>실시간</th>
+                        <th style="background-color: #ffe699">실시간</th>
                         <th>전일</th>
                         <th>증감</th>
                         <th>주간</th>
