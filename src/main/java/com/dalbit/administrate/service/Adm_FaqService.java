@@ -127,6 +127,7 @@ public class Adm_FaqService {
      * Faq 수정
      */
     public String callFaqUpdate(P_FaqUpdateVo pFaqUpdateVo) {
+        pFaqUpdateVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pFaqUpdateVo, true);
         adm_FaqDao.callFaqUpdate(procedureVo);
         String result;
