@@ -109,9 +109,9 @@
         console.log(slct_type);
 
         if(walletList_gubun == "dal" ){
-            dtList_info_detail.reload(dal_summary_table);
+            dtList_info_detail.reload(dal_summary_table,true);
         }else if(walletList_gubun == "byeol"){
-            dtList_info_detail.reload(byeol_summary_table);
+            dtList_info_detail.reload(byeol_summary_table,true);
         }
     }
 

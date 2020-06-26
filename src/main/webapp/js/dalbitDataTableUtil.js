@@ -85,6 +85,10 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         },
         fnServerParams: function ( aoData ) {
             dalbitLog("[fnServerParams]");
+            // 새로생성 시 1 페이지 유지를 위함
+            if(aoData.draw == 1){
+                aoData.start = 0;
+            }
             console.log(aoData.start + "/" + aoData.length + "/" + (aoData.start / aoData.length + 1))
             aoData.pageNo = aoData.start / aoData.length + 1;
             aoData.pageStart = aoData.start;
@@ -150,6 +154,9 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         },
         fnInitComplete: function(oSettings){
             dalbitLog("[fnInitComplete]");
+
+            // 새로생성 시 1 페이지 유지를 위함
+            this.fnPageChange(0, true);
             // Comments 설정
             var comments = common.isEmpty(columnsInfo.comments) ? "" : columnsInfo.comments;
             dom.parent("div").find(".comments").html(comments);
