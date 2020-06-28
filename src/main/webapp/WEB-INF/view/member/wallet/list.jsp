@@ -18,6 +18,7 @@
                 <tbody id="tableBody_detail">
                 </tbody>
             </table>
+            <button class="btn btn-default btn-sm print-btn pull-right mb10" type="button" id="walletExcelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
         </div>
     </div>
 </div>
@@ -108,11 +109,37 @@
         console.log(slct_type);
 
         if(walletList_gubun == "dal" ){
-            dtList_info_detail.reload(dal_summary_table);
+            dtList_info_detail.reload(dal_summary_table,true);
         }else if(walletList_gubun == "byeol"){
-            dtList_info_detail.reload(byeol_summary_table);
+            dtList_info_detail.reload(byeol_summary_table,true);
         }
     }
+
+
+    /*=============엑셀==================*/
+    $('#walletExcelDownBtn').on('click', function(){
+        var formElement = document.querySelector("form");
+        var formData = new FormData(formElement);
+        formData.append("mem_no", memNo);
+        formData.append("walletType", walletType);
+        formData.append("slct_type", slct_type);
+
+        if(walletList_gubun == "dal" ){
+            util.excelDownload($(this), "/rest/member/wallet/dal/excel", formData, fn_success_excel, fn_fail_excel)
+        }else if(walletList_gubun == "byeol"){
+            util.excelDownload($(this), "/rest/member/wallet/byeol/excel", formData, fn_success_excel, fn_fail_excel)
+        }
+    });
+
+    function fn_success_excel(){
+        console.log("fn_success_excel");
+    }
+
+    function fn_fail_excel(){
+        console.log("fn_fail_excel");
+    }
+    /*==================================*/
+
 </script>
 
 

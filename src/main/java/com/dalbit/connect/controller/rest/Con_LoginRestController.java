@@ -39,15 +39,8 @@ public class Con_LoginRestController {
     }
 
     @PostMapping("info/age")
-    public String age(StatVo statVo){
-        if(DalbitUtil.isEmpty(statVo.getStartDate())){
-            statVo.setStartDate(null);
-        }
-        if(DalbitUtil.isEmpty(statVo.getEndDate())){
-            statVo.setEndDate(null);
-        }
-
-        String result = con_LoginService.callLoginAge(statVo);
+    public String age(P_LoginTotalInPutVo pLoginTotalInPutVo){
+        String result = con_LoginService.callLoginAge(pLoginTotalInPutVo);
         return result;
     }
 

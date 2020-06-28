@@ -35,7 +35,7 @@
                         <td style="text-align: left" id="td_memSex"></td>
                     </tr>
                     <tr>
-                        <th>조치사유</th>
+                        <th>신고사유</th>
                         <td style="text-align: left"><span id="declaration_reason"></span></td>
 
                         <th>조치범위</th>

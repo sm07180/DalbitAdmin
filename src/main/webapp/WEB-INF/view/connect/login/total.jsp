@@ -3,7 +3,7 @@
 
 <!-- 로그인 > 총계 -->
 <div class="widget widget-table mb10">
-    <div class="widget-content mt10 col-md-9">
+    <div class="widget-content mt10">
         <span class="_searchDate"></span>
 
         <table class="table table-bordered _tableHeight" data-height="23px">
@@ -546,7 +546,7 @@
         <td>총합</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>o</td><td>0</td><td>0</td><td>0</td><td>0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
