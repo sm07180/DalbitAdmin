@@ -25,35 +25,35 @@
                 <div class="widget-header">
                     <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
                 </div>
-                <div class="widget-content mt10">
-                    <div class="col-md-12 no-padding">
-                        <div class="col-md-6 no-padding">
-                            <table class="table table-bordered no-margin">
-                                <colgroup>
-                                    <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                                    <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-                                </colgroup>
-                                <thead>
-                                <tr>
-                                    <th style="background-color: #ebccd1; color:red;">◈ 성별</th>
-                                    <th style="background-color: #ffe699">실시간</th>
-                                    <th>전일</th>
-                                    <th>증감</th>
-                                    <th>주간</th>
-                                    <th>전주</th>
-                                    <th>증감</th>
-                                    <th>월간</th>
-                                    <th>전월</th>
-                                    <th>증감</th>
-                                </tr>
-                                </thead>
-                                <tbody id="loginLiveTableBody"></tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-6 no-padding">
-                            <jsp:include page="total.jsp"/>
-                        </div>
-                    </div> <!-- // container-fluid -->
+                <div class="col-md-6 no-padding">
+                    <div class="widget-content mt10 no-padding ml10">
+                        <table class="table table-bordered">
+                            <colgroup>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th style="background-color: #ebccd1; color:red;">◈ 성별</th>
+                                <th style="background-color: #ffe699">실시간</th>
+                                <th>전일</th>
+                                <th>증감</th>
+                                <th>주간</th>
+                                <th>전주</th>
+                                <th>증감</th>
+                                <th>월간</th>
+                                <th>전월</th>
+                                <th>증감</th>
+                            </tr>
+                            </thead>
+                            <tbody id="loginLiveTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6 no-padding">
+                    <div class="widget-content mt10 no-padding mr10">
+                    <jsp:include page="total.jsp"/>
+                    </div>
                 </div>
             </div>
         </div>
