@@ -175,10 +175,9 @@
 
         if(isChecked){
             $('._chk').each(function(){
-                var type = $(this).data("type");
                 var empno = $(this).data("empno");
                 var phone = $(this).data("phone");
-                if(type != 'checked'){
+                if(!$(this).prop('checked')){
                     var target = {};
                     if(!common.isEmpty(empno)){
                         target["empno"] = empno;
@@ -189,10 +188,9 @@
             })
         }else{
             $('._chk').each(function(){
-                var type = $(this).data("type");
                 var empno = $(this).data("empno");
                 var phone = $(this).data("phone");
-                if(type == 'checked'){
+                if($(this).prop('checked')){
                     var target = {};
                     if(!common.isEmpty(empno)){
                         target["empno"] = empno;
@@ -273,9 +271,9 @@
 
             <td>
                 {{#equal alarmTalkTarget '0'}}
-                    <input type="checkbox" name="empNo" id="empRadio_{{../emp_no}}" class="_chk" data-empno="{{../emp_no}}" data-phone="{{../staff_hphone}}" data-type='unchecked' >
+                    <input type="checkbox" name="empNo" id="empRadio_{{../emp_no}}" class="_chk" data-empno="{{../emp_no}}" data-phone="{{../staff_hphone}}">
                 {{else}}
-                    <input type="checkbox" name="empNo" id="empRadio_{{../emp_no}}" class="_chk" data-empno="{{../emp_no}}" data-phone="{{../staff_hphone}}" data-type='checked'  checked="checked">
+                    <input type="checkbox" name="empNo" id="empRadio_{{../emp_no}}" class="_chk" data-empno="{{../emp_no}}" data-phone="{{../staff_hphone}}" checked="checked">
                 {{/equal}}
             </td>
             <td>{{index @index no}}</td>

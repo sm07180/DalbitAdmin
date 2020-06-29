@@ -393,10 +393,12 @@
             </tr>
 
             <tr>
-                <th colspan="2">기타 신고 메시지</th>
-                <td colspan="6">{{etc}}</td>
-
-
+                <th colspan="2">신고 메시지</th>
+                {{#if etc}}
+                    <td colspan="6">{{{replaceNewLineToBr etc}}}</td>
+                {{else}}
+                    <td colspan="6">-</td>
+                {{/if}}
             </tr>
 
             </tbody>
