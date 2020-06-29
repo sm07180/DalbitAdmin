@@ -293,6 +293,15 @@
            </if>
     </update>
 
+    <select id="memberLoginHistory" parameterType="string" resultType="com.dalbit.member.vo.LoginHistoryVo">
+        /* M_Member.xml - memberLoginHistory */
+        SELECT a.ip
+              ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = a.mem_no AND last_upd_date <![CDATA[<=]]> a.last_upd_date  ORDER BY last_upd_date DESC LIMIT 1) AS device_uuid
+          FROM rd_data.tb_member_connect_log AS a
+         where mem_no = #{mem_no}
+         ORDER BY last_upd_date DESC LIMIT 1
+    </select>
+
     <sql id="baseLoginHistory">
         select
             @rownum := @rownum + 1 as rowNum
