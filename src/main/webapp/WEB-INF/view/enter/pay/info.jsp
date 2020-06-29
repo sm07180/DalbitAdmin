@@ -394,7 +394,7 @@
             <th>인앱결제(아이폰)</th>
             <th>문화상품권</th>
             <th>해피머니상품권</th>
-            <th>게임문화상품권</th>
+            <th>스마트문상(게임)</th>
             <th>도서문화상품권</th>
             <th style="color: green;font-weight: bold">총합</th>
         </tr>
