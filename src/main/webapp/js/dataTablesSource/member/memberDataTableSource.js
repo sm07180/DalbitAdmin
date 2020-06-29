@@ -31,6 +31,15 @@ var MemberDataTableSource = {
             {'title': '광고유입여부', 'data': 'join_path', 'width':'100px', 'render' : function(data, type, row, meta){
                     return common.isEmpty(data) ? 'N' : 'Y'
                 }},
+            {'title': '방생성수', 'data': 'broadcastCnt', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
+            {'title': '청취수', 'data': 'listenCnt', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
+            {'title': '결제수', 'data': 'payCnt', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
         ]
         , 'comments': 'ㆍ최근 가입 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>' +
                       'ㆍ회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요.'
@@ -60,6 +69,18 @@ var MemberDataTableSource = {
             {'title': '이름', 'data': 'mem_name', 'width':'100px'},
             {'title': '연락처', 'data': 'mem_phone', 'width':'100px'},
             {'title': 'IP', 'data': 'ip', 'width':'100px'},
+            {'title': '광고유입여부', 'data': 'join_path', 'width':'100px', 'render' : function(data, type, row, meta){
+                    return common.isEmpty(data) ? 'N' : 'Y'
+                }},
+            {'title': '방생성수', 'data': 'broadcastCnt', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
+            {'title': '청취수', 'data': 'listenCnt', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
+            {'title': '결제수', 'data': 'payCnt', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
         ]
         , 'comments': 'ㆍ 최근 탈퇴 회원 정보가 상위로 누적되어 보여지는 리스트입니다.<br/>' +
                       'ㆍ 탈퇴 회원에 대한 상세정보를 확인하시려면 UserID를 클릭 해주세요. <br/>' +

@@ -424,8 +424,16 @@ public class Mem_MemberService {
                 if(blockScopes[i].equals("true")){
                     mem_MemberDao.insertLoginBlock(new LoginBlockVo(i+1, blockScopeTexts[i], blockDay, pMemberReportVo.getOpName(), pMemberReportVo.getIdx()));
 
-                    /*int block_type = i+1;
-                    mem_MemberDao.insertLoginBlockHistory(new LoginBlockHistVo());*/
+                    int block_type = i+1;
+
+                    String edit_contents = "";
+                    if(block_type == 1){
+                        edit_contents = "deviceUuid 차단 등록 : " +  blockScopeTexts[i];
+                    }else{
+                        edit_contents = "ip 차단 등록 : " +  blockScopeTexts[i];
+                    }
+
+                    mem_MemberDao.insertLoginBlockHistory(new LoginBlockHistVo(edit_contents, 0, pMemberReportVo.getOpName(), pMemberReportVo.getIdx()));
                 }
             }
         }
