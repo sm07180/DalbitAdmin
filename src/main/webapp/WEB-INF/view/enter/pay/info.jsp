@@ -244,7 +244,6 @@
         getPayTotalList();
 
         ui.paintColor();
-
     }
 
     $(document).on('click', '._prevSearch', function(){
@@ -380,8 +379,9 @@
 <script id="tmp_payTableSummary1" type="text/x-handlebars-template">
     <table class="table table-bordered mb0">
         <colgroup>
-            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
-            <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+            <col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>
+            <col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>
+            <col width="9%"/>
         </colgroup>
         <thead>
         <tr>
@@ -394,6 +394,8 @@
             <th>인앱결제(아이폰)</th>
             <th>문화상품권</th>
             <th>해피머니상품권</th>
+            <th>게임문화상품권</th>
+            <th>도서문화상품권</th>
             <th style="color: green;font-weight: bold">총합</th>
         </tr>
         </thead>
@@ -406,6 +408,8 @@
             <td>{{addComma inapp_cnt}}</td>
             <td>{{addComma gm_cnt}}</td>
             <td>{{addComma hm_cnt}}</td>
+            <td>{{addComma gg_cnt}}</td>
+            <td>{{addComma gc_cnt}}</td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr  style="color: #66a449">
@@ -416,6 +420,8 @@
             <td>{{addComma inapp_amt}}</td>
             <td>{{addComma gm_amt}}</td>
             <td>{{addComma hm_amt}}</td>
+            <td>{{addComma gg_amt}}</td>
+            <td>{{addComma gc_amt}}</td>
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
 
@@ -427,6 +433,8 @@
             <td>{{vatMinus inapp_amt}}</td>
             <td>{{vatMinus gm_amt}}</td>
             <td>{{vatMinus hm_amt}}</td>
+            <td>{{vatMinus gg_amt}}</td>
+            <td>{{vatMinus gc_amt}}</td>
             <td><b>{{vatMinus total_amt}}</b></td>
         </tr>
         <tr>
@@ -437,6 +445,8 @@
             <td>({{payRate inapp_cnt total_cnt}}%)<br/><b>{{payRate inapp_amt total_amt}}%</b></td>
             <td>({{payRate gm_cnt total_cnt}}%)<br/><b>{{payRate gm_amt total_amt}}%</b></td>
             <td>({{payRate hm_cnt total_cnt}}%)<br/><b>{{payRate hm_amt total_amt}}%</b></td>
+            <td>({{payRate gg_cnt total_cnt}}%)<br/><b>{{payRate gg_amt total_amt}}%</b></td>
+            <td>({{payRate gc_cnt total_cnt}}%)<br/><b>{{payRate gc_amt total_amt}}%</b></td>
             <td>({{payRate total_cnt total_cnt}}%)<br/><b>{{payRate total_amt total_amt}}%</b></td>
         </tr>
         </tbody>
@@ -447,7 +457,7 @@
     <table class="table table-bordered mb0">
         <colgroup>
             <col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
-            <col width="1%"/><col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+            <col width="0.1%"/><col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/>
             <col width="7%"/><col width="7%"/><col width="8%"/><col width="8%"/>
         </colgroup>
         <thead>
@@ -547,7 +557,7 @@
         <colgroup>
             <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
             <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-            <col width="5%"/><col width="1%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="5%"/><col width="0.1%"/><col width="5%"/><col width="5%"/><col width="5%"/>
             <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
         </colgroup>
         <tbody>

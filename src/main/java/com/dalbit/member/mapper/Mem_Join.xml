@@ -6,6 +6,9 @@
         select @rownum := @rownum + 1 as rowNum, c.*
           from ( select if(a.inner = 1 ,'Test',null) testId
                         ,a.*
+                        , (select count(*) from rd_data.tb_member_broadcast_broadcasting where mem_no = a.mem_no) broadcastCnt
+                        , (select count(*) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt
+                        , (select count(*) from rd_data.tb_payment_succ where mem_no = a.mem_no and pay_yn = 'Y') payCnt
                    From rd_data.tb_member_basic a
                    <if test="period != 4 and period != 3">
                       where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
@@ -91,6 +94,9 @@
         select @rownum := @rownum + 1 as rowNum, c.*
           from ( select if(a.inner = 1 ,'Test',null) testId
                         ,a.*
+                        , (select count(*) from rd_data.tb_member_broadcast_broadcasting where mem_no = a.mem_no) broadcastCnt
+                        , (select count(*) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt
+                        , (select count(*) from rd_data.tb_payment_succ where mem_no = a.mem_no and pay_yn = 'Y') payCnt
                    From rd_data.tb_member_withdrawal_bak a
                    <if test="period != 4 and period != 3">
                       where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')

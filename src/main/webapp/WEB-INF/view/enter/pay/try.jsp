@@ -191,130 +191,158 @@
                 $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").attr('title',title);
                 $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").attr('title',title);
 
-                var tmp = common.average((detail.succCnt / 7), (detail.tryCnt / 7));
-                if (tmp == 0) {
-                    tmp = tmp + ".0";
-                }
+                var tmp = "";
+
+                var succCnt = detail.succCnt;
+                var tryCnt = detail.tryCnt;
+                var succRate = detail.succRate;
+                if(succCnt == 0)
+                    succCnt = "null";
+                else
+                    tmp = common.average((detail.succCnt / 7), (detail.tryCnt / 7)) + "%";
+                if(tryCnt == 0)
+                    tryCnt = "null";
+                if(succRate == 0)
+                    succRate = "";
+                else
+                    succRate = succRate + "%";
+
                 if($('input[name="slctType"]:checked').val() == "0") {
                     if (index == 0) {
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").html(common.addComma(succCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.addComma(tryCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(succRate);
                     } else if (index == 7) {    // 평균
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(1)));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((tryCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").html(tmp);
                     } else {
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(succCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(tryCnt));
+                        $("#tryTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 4 + 3) + ")").html(succRate);
                     }
                 } else if($('input[name="slctType"]:checked').val() == "1"){
                     if (index == 0) {
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 1) + ")").html(common.addComma(succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(common.addComma(tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(succRate);
                     } else if (index == 7) {        //평균
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(1)));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((tryCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 3) + ")").html(tmp);
                     } else {
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 4 + 3) + ")").html(succRate);
                     }
                 } else if($('input[name="slctType"]:checked').val() == "2"){
                     if (index == 0) {
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 1) + ")").html(common.addComma(succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 2) + ")").html(common.addComma(tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 3) + ")").html(succRate);
                     } else if (index == 7) {
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((detail.succCnt/7).toFixed(1)));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((detail.tryCnt/7).toFixed(1)));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 3) + ")").html(tmp + "%");
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma((tryCnt/7).toFixed(1)));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 3) + ")").html(tmp);
                     } else {
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(detail.succCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(detail.tryCnt));
-                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 3) + ")").html(detail.succRate + "%");
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 1) + ")").html(common.addComma(succCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 2) + ")").html(common.addComma(tryCnt));
+                        $("#tryTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 4 + 3) + ")").html(succRate);
                     }
                 }
             });
         });
 
-        for(var i=0 ; i<response.data.length;i++){
+        for(var i=0 ; i<response.data.length;i++) {
             var totalInfo = response.data[i].totalInfo;
-            var tmp = common.average((totalInfo.sum_succCnt/7),(totalInfo.sum_tryCnt/7));
-            if(tmp == 0){
-                tmp = tmp + ".0";
+
+            var sum_succCnt = totalInfo.sum_succCnt;
+            var sum_tryCnt = totalInfo.sum_tryCnt;
+            var sum_succRate = totalInfo.sum_succRate;
+            var tmp = "";
+
+            if (sum_succCnt == 0) {
+                sum_succCnt = "null";
+            } else {
+                tmp = common.average((sum_succCnt / 7), (sum_tryCnt / 7)) + "%";
             }
+            if (sum_tryCnt == 0) {
+                sum_tryCnt = "null";
+            }
+            if (sum_succRate == 0) {
+                sum_succRate = "";
+            }else{
+                sum_succRate = sum_succRate + "%";
+            }
+
             if($('input[name="slctType"]:checked').val() == "0"){
                 if(i == 0){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(sum_succRate);
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i + 3) + ")").html(sum_succRate);
                 }else if(i == 7){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma( (totalInfo.sum_tryCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma( (sum_tryCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp);
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((sum_tryCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 3) + ")").html(tmp);
                 }else{
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp);
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(25) td:eq(" + (i * 4 + 3) + ")").html(tmp);
                 }
             } else if($('input[name="slctType"]:checked').val() == "1"){
                 if(i == 0){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(sum_succRate);
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i + 3) + ")").html(sum_succRate);
                 }else if(i == 7){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((sum_tryCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp);
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((sum_tryCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 3) + ")").html(tmp);
                 }else{
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp);
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(32) td:eq(" + (i * 4 + 3) + ")").html(tmp);
                 }
             } else if($('input[name="slctType"]:checked').val() == "2"){
                 if(i == 0){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i + 3) + ")").html(totalInfo.sum_succRate + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i + 3) + ")").html(sum_succRate);
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i + 3) + ")").html(sum_succRate);
                 }else if(i == 7){
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((totalInfo.sum_succCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((totalInfo.sum_tryCnt/7).toFixed(1)));
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((sum_tryCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp);
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 1) + ")").html(common.addComma((sum_succCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 2) + ")").html(common.addComma((sum_tryCnt/7).toFixed(1)));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 3) + ")").html(tmp);
                 }else{
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(totalInfo.sum_succCnt));
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(totalInfo.sum_tryCnt));
-                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 3) + ")").html(tmp + "%");
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(0) td:eq(" + (i * 4 + 3) + ")").html(tmp);
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 1) + ")").html(common.addComma(sum_succCnt));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 2) + ")").html(common.addComma(sum_tryCnt));
+                    $("#tryTableBody tr:eq(13) td:eq(" + (i * 4 + 3) + ")").html(tmp);
                 }
             }
         }
@@ -324,42 +352,42 @@
 <script type="text/x-handlebars-template" id="tmp_dummyTryDetailList">
     <tr class="_tr_total font-bold" style="background-color: #b4c7e7">
         <td>합계</td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
-        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
-        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0.00%</td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td style="background-color: #fff2cc"></td><td style="background-color: #fff2cc"></td><td style="background-color: #fff2cc"></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다."></td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다."></td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다."></td>
     </tr>
     {{#each this.slctType_date}}
         <tr class="_tr_{{this}}">
             <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td>0</td><td>0</td><td>0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0</td><td style="background-color: #FFF7E5">0%</td><td style="border-bottom: hidden;border-top: hidden"></td>
-            <td>0</td><td>0</td><td>0.00%</td>
+            <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="border-bottom: hidden;border-top: hidden"></td>
+            <td></td><td></td><td></td>
         </tr>
     {{/each}}
     <tr class="_tr_total font-bold" style="background-color: #b4c7e7">
         <td>합계</td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="background-color: #fff2cc">0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
-        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0</td>
-        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다.">0.00%</td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td style="background-color: #fff2cc"></td><td style="background-color: #fff2cc"></td><td style="background-color: #fff2cc"></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다."></td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다."></td>
+        <td title="평균 합계의 경우 반올림된 평균 데이터의 총합이라&#10;항목별 합계와 다소 오차가 생길 수 있습니다."></td>
     </tr>
 </script>
 

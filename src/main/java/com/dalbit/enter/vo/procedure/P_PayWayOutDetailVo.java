@@ -28,4 +28,8 @@ public class P_PayWayOutDetailVo {
     private int gmAmt;
     private int hmCnt;
     private int hmAmt;
+    private int ggCnt;
+    private int ggAmt;
+    private int gcCnt;
+    private int gcAmt;
 }

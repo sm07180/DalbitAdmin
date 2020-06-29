@@ -28,6 +28,9 @@ public class P_MemberJoinOutputVo extends SearchVo {
     private String ip;
     private String join_path;
     private String testId;
+    private int broadcastCnt;
+    private int listenCnt;
+    private int payCnt;
 
     //summary
     private int allCnt;
