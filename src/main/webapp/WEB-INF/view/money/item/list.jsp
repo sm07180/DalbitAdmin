@@ -68,7 +68,6 @@
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     setTimeDate(dateTime);
 
-
     var sDate;
     var eDate;
     var _searchFormRadio ="";

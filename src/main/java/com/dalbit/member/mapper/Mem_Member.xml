@@ -315,28 +315,20 @@
             , (select @rownum := 0) AS b
         <where>
             <if test='searchText != null and searchText != ""'>
-                <choose>
-                    <when test='searchType == "mem_no"'>
-                        and mem_no like concat ('%', #{searchText}, '%')
-                    </when>
-                    <when test='searchType == "uuid"'>
-                        and upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
-                    </when>
-                    <when test='searchType == "token"'>
-                        and upper(device_token) like concat ('%', upper(#{searchText}), '%')
-                    </when>
-                    <when test='searchType == "ip"'>
-                        and ip like concat ('%', upper(#{searchText}), '%')
-                    </when>
-                    <otherwise>
-                        and (
-                            mem_no like concat ('%', #{searchText}, '%')
-                            or upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
-                            or upper(device_token) like concat ('%', upper(#{searchText}), '%')
-                            or ip like concat ('%', upper(#{searchText}), '%')
-                        )
-                    </otherwise>
-                </choose>
+                and (
+                    mem_no in (
+                        select mem_no
+                          From rd_data.tb_member_basic
+                         where mem_no like concat ('%', upper(#{searchText}), '%')
+                            or mem_id like concat ('%', upper(#{searchText}), '%')
+                            or mem_nick like concat ('%', upper(#{searchText}), '%')
+                            or mem_userid like concat ('%', upper(#{searchText}), '%')
+                            or mem_phone like concat ('%', upper(#{searchText}), '%')
+                    )
+                    or upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
+                    or upper(device_token) like concat ('%', upper(#{searchText}), '%')
+                    or ip like concat ('%', upper(#{searchText}), '%')
+                )
             </if>
             <if test='txt_startSel != null and txt_startSel != ""'>
                 and last_upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')

@@ -182,10 +182,14 @@ var MemberDataTableSource = {
                 }},
             {'title': '강제퇴장', 'data': 'forcedLeave', 'width':'80px'},
             {'title': '보낸 별', 'data': 'giftByeol', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "건";
+                    return common.addComma(data) + "개";
                 }},
             {'title': '보낸 좋아요', 'data': 'goodCnt', 'width':'80px', 'render': function (data) {
-                    return common.addComma(data) + "건";
+                    if(data == "1"){
+                        return "Y";
+                    }else{
+                        return "N";
+                    }
                 }},
             {'title': '보낸 부스터', 'data': 'boosterCnt', 'width':'80px', 'render': function (data) {
                     return common.addComma(data) + "건";
