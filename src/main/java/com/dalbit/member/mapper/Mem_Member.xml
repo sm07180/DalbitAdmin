@@ -300,7 +300,6 @@
             , a.mem_no
             , b.mem_nick
             , b.mem_sex
-            , a.slct
             , a.os_type
             , a.device_uuid
             , a.device_token
@@ -313,7 +312,7 @@
             , a.location
             , a.ip
             , DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
-        from rd_data.tb_member_basic b left join rd_data.tb_member_session_history a on a.mem_no = b.mem_no
+        from rd_data.tb_member_basic b left join rd_data.tb_member_session a on a.mem_no = b.mem_no
             , (select @rownum := 0) AS b
         <where>
             <if test='searchText != null and searchText != ""'>
