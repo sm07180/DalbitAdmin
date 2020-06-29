@@ -79,7 +79,6 @@
     }
 
     function change_summary(json){
-        console.log("----------------------------------");
         console.log(json);
 
         var template = $("#change_tableSummary").html();

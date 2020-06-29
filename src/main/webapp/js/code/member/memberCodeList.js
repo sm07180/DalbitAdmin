@@ -140,6 +140,7 @@ var loginHistoryOsType = [
     , new COMMON_CODE('all', '', 'os구분')
     , new COMMON_CODE('android', '1', '안드로이드')
     , new COMMON_CODE('ios', '2', 'IOS')
+    , new COMMON_CODE('PC', '3', 'PC')
     , new COMMON_CODE('web', 'WEB', 'WEB')
     , new COMMON_CODE('api', 'API', 'API')
     , new COMMON_CODE('server', 'server', 'SERVER')

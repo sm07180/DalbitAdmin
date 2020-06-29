@@ -24,7 +24,7 @@
                 <th colspan="2">가상계좌아체<i class="fa fa-money"></i></th>
                 <th colspan="2">문화상품권<i class="fa fa-barcode"></i></th>
                 <th colspan="2">해피머니상품권<i class="fa fa-smile-o"></i></th>
-                <th colspan="2">게임문화상품권<i class="fa fa-gamepad"></i></th>
+                <th colspan="2">스마트문상(게임)<i class="fa fa-gamepad"></i></th>
                 <th colspan="2">도서문화상품권<i class="fa fa-book"></i></th>
             </tr>
             <tr>

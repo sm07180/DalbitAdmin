@@ -20,7 +20,8 @@ public class LoginHistoryVo extends PagingVo {
     /* out */
     private int idx;
     private String mem_no;
-    private String slct;
+    private String mem_nick;
+    private String mem_sex;
     private int os_type;
     private String device_uuid;
     private String device_token;

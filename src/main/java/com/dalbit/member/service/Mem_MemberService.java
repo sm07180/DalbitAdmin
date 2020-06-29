@@ -169,12 +169,7 @@ public class Mem_MemberService {
         
         //ip정보 및 device 정보
         //recentLoginInfo
-        LoginHistoryVo loginHistoryVo = new LoginHistoryVo();
-        loginHistoryVo.setSearchStartNo(1);
-        loginHistoryVo.setSearchEndNo(1);
-        loginHistoryVo.setSearchType("mem_no");
-        loginHistoryVo.setSearchText(pMemberInfoInputVo.getMem_no());
-        ArrayList<LoginHistoryVo> loginHostory = mem_MemberDao.selectLoginHistory(loginHistoryVo);
+        ArrayList<LoginHistoryVo> loginHostory = mem_MemberDao.memberLoginHistory(pMemberInfoInputVo.getMem_no());
         if(!DalbitUtil.isEmpty(loginHostory)){
             memberInfo.setIp(loginHostory.get(0).getIp());
             memberInfo.setDeviceUuid(loginHostory.get(0).getDevice_uuid());

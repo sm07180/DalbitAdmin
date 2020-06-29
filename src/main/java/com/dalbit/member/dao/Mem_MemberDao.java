@@ -114,8 +114,12 @@ public interface Mem_MemberDao {
 
     int callMemberBroadCastHide(P_MemberEditorVo pMemberEditorVo);
 
+    @Transactional(readOnly = true)
     int selectLoginHistoryCnt(LoginHistoryVo loginHistoryVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<LoginHistoryVo> memberLoginHistory(String mem_no);
+    @Transactional(readOnly = true)
     ArrayList<LoginHistoryVo> selectLoginHistory(LoginHistoryVo loginHistoryVo);
 
     int insertLoginBlock(LoginBlockVo loginBlockVo);

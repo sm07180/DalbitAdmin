@@ -41,6 +41,7 @@
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
+                                <a href="javascript://" class="_todaySearch">[오늘]</a>
                                 <a href="javascript://" class="_nextSearch">[다음]</a>
                             </div>
                         </div>
@@ -141,10 +142,7 @@
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
 
-        //로그인 통계 현황
         // getStatJoinInfo();
-
-        // $("#tablist_con li.active a").click();
     });
 
     function setTimeDate(dateTime){
@@ -186,17 +184,30 @@
         prevNext(false);
     });
 
+    $(document).on('click', '._todaySearch', function(){
+        if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory'){
+            slctType = "0";
+            me = 0;
+        }else if(tabId == 'tab_monthNonOver' || tabId == 'tab_loAgeDetail' || tabId == 'tab_loBrowserDetail') {
+            slctType = "1";
+            me = 1;
+        }else if(tabId == 'tab_yearNonOver'){
+            slctType = "2";
+            me = 2;
+        }
+        setTimeDate(dateTime);
+        radioChange();
+        $("#bt_search").click();
+    });
+
     var me = 0;
     function radioChange(){
         if(me == 0){
             $("#oneDayDatePicker").show();
             $("#rangeDatepicker").hide();
             $("#yearDatepicker").hide();
-
             $("#startDate").val($("#onedayDate").val());
             $("#endDate").val($("#onedayDate").val());
-
-            $("._searchDate").html($("#onedayDate").val());
         }else{
             if(me == 1){
                 // 일별 -----------------------------------
@@ -228,10 +239,9 @@
                 $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
             }
         }
-        // $("#tablist_con li.active a").click();
     }
 
-    var slctType;
+    var slctType = 0;
     function prevNext(isPrev){
 
         var targetDate = statUtil.getStatTimeDate($("#startDate").val(), stat_searchType, slctType, isPrev);
@@ -251,7 +261,7 @@
             $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
             setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
         }
-        $("#tablist_con li.active a").click();
+        $("#bt_search").click();
     }
 </script>
 

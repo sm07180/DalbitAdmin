@@ -35,6 +35,7 @@
         common.scrollTop();
         $('._sex_male').html(common.sexIcon('m'));
         $('._sex_female').html(common.sexIcon('f'));
+        $('._sex_none').html(common.sexIcon('n'));
     });
 </script>
 

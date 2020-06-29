@@ -293,59 +293,56 @@
            </if>
     </update>
 
+    <select id="memberLoginHistory" parameterType="string" resultType="com.dalbit.member.vo.LoginHistoryVo">
+        /* M_Member.xml - memberLoginHistory */
+        SELECT a.ip
+              ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = a.mem_no AND last_upd_date <![CDATA[<=]]> a.last_upd_date  ORDER BY last_upd_date DESC LIMIT 1) AS device_uuid
+          FROM rd_data.tb_member_connect_log AS a
+         where mem_no = #{mem_no}
+         ORDER BY last_upd_date DESC LIMIT 1
+    </select>
+
     <sql id="baseLoginHistory">
         select
             @rownum := @rownum + 1 as rowNum
-            , idx
-            , mem_no
-            , slct
-            , os_type
-            , device_uuid
-            , device_token
-            , app_version
-            , browser
-            , device_manufacturer
-            , device_model
-            , sdk_version
-            , adid
-            , location
-            , ip
-            , DATE_FORMAT(last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
-        from rd_data.tb_member_session_history
+            , a.idx
+            , a.mem_no
+            , b.mem_nick
+            , b.mem_sex
+            , a.os_type
+            , a.device_uuid
+            , a.device_token
+            , a.app_version
+            , a.browser
+            , a.device_manufacturer
+            , a.device_model
+            , a.sdk_version
+            , a.adid
+            , a.location
+            , a.ip
+            , DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
+        from rd_data.tb_member_basic b left join rd_data.tb_member_session a on a.mem_no = b.mem_no
             , (select @rownum := 0) AS b
         <where>
             <if test='searchText != null and searchText != ""'>
-                <choose>
-                    <when test='searchType == "mem_no"'>
-                        and mem_no like concat ('%', #{searchText}, '%')
-                    </when>
-                    <when test='searchType == "uuid"'>
-                        and upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
-                    </when>
-                    <when test='searchType == "token"'>
-                        and upper(device_token) like concat ('%', upper(#{searchText}), '%')
-                    </when>
-                    <when test='searchType == "ip"'>
-                        and ip like concat ('%', upper(#{searchText}), '%')
-                    </when>
-                    <otherwise>
-                        and (
-                            mem_no like concat ('%', #{searchText}, '%')
-                            or upper(device_uuid) like concat ('%', upper(#{searchText}), '%')
-                            or upper(device_token) like concat ('%', upper(#{searchText}), '%')
-                            or ip like concat ('%', upper(#{searchText}), '%')
-                        )
-                    </otherwise>
-                </choose>
+                and (b.mem_no like concat ('%', upper(#{searchText}), '%')
+                     or b.mem_id like concat ('%', upper(#{searchText}), '%')
+                     or b.mem_nick like concat ('%', upper(#{searchText}), '%')
+                     or b.mem_userid like concat ('%', upper(#{searchText}), '%')
+                     or b.mem_phone like concat ('%', upper(#{searchText}), '%')
+                    )
+                or upper(a.device_uuid) like concat ('%', upper(#{searchText}), '%')
+                or upper(a.device_token) like concat ('%', upper(#{searchText}), '%')
+                or a.ip like concat ('%', upper(#{searchText}), '%')
             </if>
             <if test='txt_startSel != null and txt_startSel != ""'>
-                and last_upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')
+                and a.last_upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')
             </if>
             <if test='txt_endSel != null and txt_endSel != ""'>
-                and last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
+                and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
             </if>
         </where>
-        order by idx desc
+        order by a.idx desc
     </sql>
 
     <select id="selectLoginHistoryCnt" parameterType="com.dalbit.member.vo.LoginHistoryVo" resultType="int">

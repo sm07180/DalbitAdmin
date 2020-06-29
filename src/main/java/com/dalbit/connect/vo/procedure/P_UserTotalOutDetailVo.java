@@ -54,6 +54,11 @@ public class P_UserTotalOutDetailVo {
     private int age65_female_cnt;
     private int age65_none_cnt;
 
+    private int ageEtc_total_cnt;
+    private int ageEtc_male_cnt;
+    private int ageEtc_female_cnt;
+    private int ageEtc_none_cnt;
+
     private int total_cnt;
     private int total_male_cnt;
     private int total_female_cnt;

@@ -14,5 +14,8 @@
     <select id="callLoginBrowser" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.connect.vo.procedure.P_LoginBrowserOutDetailVo">
         call rd_admin.sp_admin_connect_stat_login_platform(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <select id="callLoginTotalWeek" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.connect.vo.procedure.P_LoginTotalOutDetailVo">
+        call rd_admin.sp_admin_connect_stat_login_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
 
 </mapper>

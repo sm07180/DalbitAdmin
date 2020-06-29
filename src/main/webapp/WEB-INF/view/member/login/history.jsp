@@ -12,21 +12,31 @@
                     <div class="widget widget-table searchBoxArea">
                         <div class="widget-header searchBoxRow">
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
+
+                            <span id="searchFormRadio"></span>
+
+                            <div class="input-group date" id="rangeDatepicker">
+                                <label for="displayDate" class="input-group-addon">
+                                    <span><i class="fa fa-calendar"></i></span>
+                                </label>
+                                <input type="text" name="displayDate" id="displayDate" class="form-control" />
+                            </div>
+
+                            <input type="hidden" name="txt_startSel" id="txt_startSel">
+                            <input type="hidden" name="txt_endSel" id="txt_endSel" />
+
+                            <%--<input name="txt_startSel" id="txt_startSel">--%>
+                            <%--<input name="txt_endSel" id="txt_endSel" />--%>
+
+                            <label><input type="text" class="form-control" id="searchText" name="searchText"></label>
+                            <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                            <a href="javascript://" class="_prevSearch">[이전]</a>
+                            <a href="javascript://" class="_todaySearch">[오늘]</a>
+                            <a href="javascript://" class="_nextSearch">[다음]</a>
+
                             <input type="hidden" name="pageStart" id="pageStart">
                             <input type="hidden" name="pageCnt" id="pageCnt">
-                            <div>
-                                <div class="input-group date" id="date_startSel">
-                                    <input type="text" class="form-control " id="txt_startSel" name="txt_startSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
-                                </div>
-                                <label>~</label>
-                                <div class="input-group date" id="date_endSel">
-                                    <input type="text" class="form-control" id="txt_endSel" name="txt_endSel"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                                </div>
-                                <span id="osTypeArea"></span>
-                                <span id="searchTypeArea"></span>
-                                <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
-                                <button type="button" class="btn btn-success" id="bt_search">검색</button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -48,29 +58,22 @@
                         </table>
                         <table id="loginHistoryList" class="table table-sorting table-hover table-bordered datatable" style="table-layout: fixed;word-break: break-word;">
                             <colgroup>
-                                <col width="2%"/>
-                                <col width="4%"/>
-                                <col width="3%"/>
-                                <col width="5%"/>
-                                <col width="20%"/>
-                                <col width="2%"/>
-                                <col width="3%"/>
-                                <col width="3%"/>
-                                <col width="4%"/>
-                                <col width="5%"/>
+                                <col width="2%"/><col width="4%"/><col width="7%"/><col width="4%"/><col width="6%"/><col width="10%"/>
+                                <col width="20%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                             </colgroup>
 
                             <thead>
-                                <th>번호</th>
-                                <th>회원번호</th>
-                                <th>OS구분</th>
-                                <th>device uuid</th>
-                                <th>device token</th>
-                                <th>앱버전</th>
-                                <th>브라우저정보</th>
-                                <th>location</th>
-                                <th>ip</th>
-                                <th>로그인 일시</th>
+                            <th>번호</th>
+                            <th>로그인 일시</th>
+                            <th>회원</th>
+                            <th>성별</th>
+                            <th>ip</th>
+                            <th>device uuid</th>
+                            <th>device token</th>
+                            <th>OS구분</th>
+                            <th>브라우저정보</th>
+                            <th>앱버전</th>
+                            <th>location</th>
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
@@ -87,20 +90,104 @@
 <script type="text/javascript">
     var loginHistoryPagingInfo = new PAGING_INFO(0, 1, 500);
 
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    setTimeDate(dateTime);
+
+    var sDate;
+    var eDate;
+    var _searchFormRadio ="";
+    $(function(){
+        $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
+
+        $("#displayDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#txt_startSel").val(start.format('YYYY.MM.DD'));
+                $("#txt_endSel").val(end.format('YYYY.MM.DD'));
+            }
+        );
+        getLoginHistoryList();
+    });
+
+    $(document).on('change', 'input[name="searchFormRadio"]', function(){
+        radioChange();
+    });
+
+    function radioChange(){
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+        if(_searchFormRadio == 2){
+            setTimeDate(dateTime);
+        }
+        setStartDay();
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        searchDate('prev');
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        searchDate('next');
+    });
+
+    $(document).on('click', '._todaySearch', function(){
+        $("input:radio[name='searchFormRadio']:radio[value='2']").prop('checked', true);
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+        setTimeDate(dateTime);
+        setStartDay();
+    });
+
+    function setTimeDate(dateTime){
+        loginHistoryPagingInfo.pageNo = 1;
+        $("#txt_startSel").val(dateTime);
+        $("#txt_endSel").val(dateTime);
+        $("#displayDate").val(dateTime + " - " + dateTime);
+    }
+
+    function searchDate(dateType){
+        if(dateType == 'prev'){
+            setDay(-1);
+        }else if(dateType == 'next'){
+            setDay(1);
+        }
+    }
+
+    function setDay(days){
+        $("#txt_startSel").val(moment($("#txt_startSel").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#txt_endSel").val(moment($("#txt_endSel").val()).add('days', days).format('YYYY.MM.DD'));
+
+        $("#displayDate").val($("#txt_startSel").val() + " - " + $("#txt_endSel").val());
+
+        getLoginHistoryList();
+    }
+    function setStartDay(){
+        var date = new Date();
+        $("#txt_endSel").val(dateTime);
+
+        if(_searchFormRadio == 1) {     // 일주일 전
+            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
+            sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            $("#txt_startSel").val(sDate);
+        }else if(_searchFormRadio == 0) {       // 한달전
+            $("#txt_startSel").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
+        }
+        $("#displayDate").val($("#txt_startSel").val() + " - " + $("#txt_endSel").val());
+
+        getLoginHistoryList();
+    }
+
     $(document).ready(function() {
-        init();
     });
 
     function compare() {
-        var startDate = $('#txt_startSel').val();
-        var startDateArr = startDate.split('.');
-        var endDate = $('#txt_endSel').val();
-        var endDateArr = endDate.split('.');
+        var txt_startSel = $('#txt_startSel').val();
+        var txt_startSelArr = txt_startSel.split('.');
+        var txt_endSel = $('#txt_endSel').val();
+        var txt_endSelArr = txt_endSel.split('.');
 
-        var startDateCompare = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
-        var endDateCompare = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+        var txt_startSelCompare = new Date(txt_startSelArr[0], parseInt(txt_startSelArr[1])-1, txt_startSelArr[2]);
+        var txt_endSelCompare = new Date(txt_endSelArr[0], parseInt(txt_endSelArr[1])-1, txt_endSelArr[2]);
 
-        if(startDateCompare.getTime() > endDateCompare.getTime()) {
+        if(txt_startSelCompare.getTime() > txt_endSelCompare.getTime()) {
             alert('시작날짜와 종료날짜를 확인해주세요');
         }
     }
@@ -119,26 +206,18 @@
         getLoginHistoryList();
     });
 
-    function init() {
-        $("#osTypeArea").html(util.getCommonCodeSelect(-1, loginHistoryOsType));
-        $("#searchTypeArea").html(util.getCommonCodeSelect(-1, loginHistorySearchType));
-
-
-        $('#txt_startSel').datepicker("setDate", new Date());
-        $('#txt_endSel').datepicker("setDate", new Date());
-
-        $('#txt_startSel').datepicker().on('dp.change',function(e){
-            $(this).html($(this).val());
-        });
-        $('#txt_endSel').datepicker().on('dp.change',function(e){
-            $(this).html($(this).val());
-        });
-    }
-
     function getLoginHistoryList(){
         $("#pageStart").val(loginHistoryPagingInfo.pageNo);
         $("#pageCnt").val(loginHistoryPagingInfo.pageCnt);
-        util.getAjaxData("errorList", "/rest/member/member/login/history", $('#searchForm').serialize(), fn_success);
+
+        var data = {};
+        data.txt_startSel = $('#txt_startSel').val();
+        data.txt_endSel = $('#txt_startEnd').val();
+        data.searchText = $('#searchText').val();
+        data.pageStart = $("#pageStart").val();
+        data.pageCnt = $("#pageCnt").val();
+
+        util.getAjaxData("errorList", "/rest/member/member/login/history", data, fn_success);
     }
 
     function fn_success(dst_id, response) {
@@ -174,15 +253,19 @@
     {{#each this.loginHistList}}
     <tr>
         <td>{{indexDesc ../loginHistCnt rowNum}}</td>
-        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{this.mem_no}}">{{mem_no}}</a></td>
-        <td>{{{getCommonCodeLabel os_type 'loginHistoryOsType'}}}</td>
+        <td>{{last_upd_date}}</td>
+        <td>
+            {{mem_no}}<br/>
+            <a href="javascript://" class="_openMemberPop" data-memNo="{{this.mem_no}}">{{mem_nick}}</a>
+        </td>
+        <td>{{{sexIcon mem_sex}}}</td>
+        <td>{{ip}}</td>
         <td style="text-align:left">{{device_uuid}}</td>
         <td style="text-align:left">{{device_token}}</td>
-        <td>{{app_version}}</td>
+        <td>{{{getCommonCodeLabel os_type 'loginHistoryOsType'}}}</td>
         <td>{{browser}}</td>
+        <td>{{app_version}}</td>
         <td>{{location}}</td>
-        <td>{{ip}}</td>
-        <td>{{last_upd_date}}</td>
     </tr>
     {{else}}
     <tr>

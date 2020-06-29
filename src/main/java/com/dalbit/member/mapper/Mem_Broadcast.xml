@@ -19,7 +19,9 @@
           FROM rd_data.tb_broadcast_room a
           LEFT JOIN rd_data.tb_member_basic b ON a.mem_no = b.mem_no
          where a.mem_no = #{mem_no}
+         <if test='room_no != "" and room_no != null'>
            and a.room_no = #{room_no}
+         </if>
            and start_date > DATE_SUB(now(), INTERVAL 7 DAY)
           order by start_date desc
           limit 5;

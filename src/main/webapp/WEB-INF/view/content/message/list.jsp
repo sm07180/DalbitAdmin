@@ -9,7 +9,7 @@
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i>시스템메시지 검색</h3>
+                        <h3 class="title"><i class="fa fa-search"></i>방송방 메시지 검색</h3>
                         <div>
                             <span id="search_searchType_aria"></span>
 
