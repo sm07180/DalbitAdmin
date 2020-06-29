@@ -42,6 +42,17 @@ public class Con_UserService {
         con_UserDao.callUserTotal(procedureVo);
         P_UserTotalOutDetailVo detailList = new Gson().fromJson(procedureVo.getExt(), P_UserTotalOutDetailVo.class);
 
+        /** 기타(5559/6064/65) 처리를 위한 항목 합 추가 - 2020.06.29 Jeon.YooSin */
+        int etc_male_cnt = detailList.getAge5559_male_cnt() + detailList.getAge6064_male_cnt() + detailList.getAge65_male_cnt();
+        int etc_female_cnt = detailList.getAge5559_female_cnt() + detailList.getAge6064_female_cnt() + detailList.getAge65_female_cnt();
+        int etc_none_cnt = detailList.getAge5559_none_cnt() + detailList.getAge6064_none_cnt() + detailList.getAge65_none_cnt();
+        int etc_total_cnt = detailList.getAge5559_total_cnt() + detailList.getAge6064_total_cnt() + detailList.getAge65_total_cnt();
+
+        detailList.setAgeEtc_male_cnt(etc_male_cnt);
+        detailList.setAgeEtc_female_cnt(etc_female_cnt);
+        detailList.setAgeEtc_none_cnt(etc_none_cnt);
+        detailList.setAgeEtc_total_cnt(etc_total_cnt);
+
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, detailList));
     }
 

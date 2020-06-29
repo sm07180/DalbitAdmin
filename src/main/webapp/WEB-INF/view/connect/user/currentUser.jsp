@@ -29,7 +29,7 @@
                     </colgroup>
                     <thead>
                     <tr>
-                        <th></th>
+                        <th style="background-color: #ebccd1; color:red; height: 37.4px;">◈ 성별</th>
                         <th style="background-color: #ffe699">실시간</th>
                         <th>전일</th>
                         <th>증감</th>

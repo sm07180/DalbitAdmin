@@ -16,6 +16,7 @@ public class P_pushStmpInsertVo extends BaseVo {
     public P_pushStmpInsertVo(){}
 
     public P_pushStmpInsertVo(String mem_no, P_pushInsertVo pPushInsertVo){
+        this.setPush_idx(pPushInsertVo.getPush_idx());
         this.setMem_no(mem_no);
         this.setTitle(pPushInsertVo.getSend_title());
         this.setContents(pPushInsertVo.getSend_cont());
@@ -62,5 +63,6 @@ public class P_pushStmpInsertVo extends BaseVo {
     private String image_type;
     private String slctOs;        //OS 구분  (a: Android, b:IOS)
 
+    private String push_idx;  //요청 push_idx
 }
 
