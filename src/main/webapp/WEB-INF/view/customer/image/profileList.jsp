@@ -186,7 +186,7 @@ var fnc_profileList = {};
     {{#each this as |user|}}
         <div class="item col-md-2 col-sm-6" style="padding-bottom: 25px;">
             <div>
-                <label>NO.{{user.rowNum}}</label>
+                <label>NO.{{indexDesc ../length user.rowNum}}</label>
             </div>
             <div style="border: 1px solid #ddd; border-radius: 4px; padding: 4px;">
             <div class="thumbnail" src="{{user.image_profile.url}}?360x360">

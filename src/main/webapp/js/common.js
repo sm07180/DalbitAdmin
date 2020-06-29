@@ -50,7 +50,7 @@ common.addComma = function(value){
     if(common.isEmpty(value)){
         return 0;
     }
-    if(value == "null"){
+    if(value == "null" || value == "NaN"){
         return '';
     }
     var regExp = /\B(?=(\d{3})+(?!\d))/g
@@ -330,6 +330,9 @@ common.getListSum = function(value){
 };
 
 common.average = function(lvalue, rvalue) {
+    if(lvalue == "null" || lvalue == "NaN" || rvalue == "null" || rvalue == "NaN"){
+        return '';
+    }
     if (rvalue == 0 || common.isEmpty(rvalue)) {
         return 0;
     }
@@ -354,6 +357,9 @@ common.sexIcon = function(sex){
 common.vatMinus = function(lvalue) {
     if(lvalue == 0){
         return 0;
+    }
+    if(lvalue == "null" || lvalue == "NaN"){
+        return '';
     }
     return common.addComma((lvalue / 1.1).toFixed(0));
 };

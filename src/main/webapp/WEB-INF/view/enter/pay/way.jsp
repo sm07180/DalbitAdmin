@@ -9,25 +9,31 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
-                <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
-                <col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/><col width="6.6%"/>
-
+                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
+                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
+                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
+                <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
             </colgroup>
             <thead>
             <tr>
                 <th rowspan="2">시간대</th>
                 <th colspan="2">총계</th>
-                <th colspan="2">휴대폰 <i class="fa fa-tablet"></i></th>
-                <th colspan="2">카드 <i class="fa fa-credit-card"></i></th>
-                <th colspan="2">인앱결제(아이폰) <i class="fa fa-apple"></i></th>
-                <th colspan="2">가상계좌아체 <i class="fa fa-money"></i></th>
-                <th colspan="2">문화상품권 <i class="fa fa-barcode"></i></th>
-                <th colspan="2">해피머니상품권 <i class="fa fa-smile-o"></i></th>
+                <th colspan="2">휴대폰<i class="fa fa-tablet"></i></th>
+                <th colspan="2">카드<i class="fa fa-credit-card"></i></th>
+                <th colspan="2">인앱결제(아이폰)<i class="fa fa-apple"></i></th>
+                <th colspan="2">가상계좌아체<i class="fa fa-money"></i></th>
+                <th colspan="2">문화상품권<i class="fa fa-barcode"></i></th>
+                <th colspan="2">해피머니상품권<i class="fa fa-smile-o"></i></th>
+                <th colspan="2">게임문화상품권<i class="fa fa-gamepad"></i></th>
+                <th colspan="2">도서문화상품권<i class="fa fa-book"></i></th>
             </tr>
             <tr>
                 <th>건(비율)</th>
                 <th>금액(비율)</th>
+                <th>건</th>
+                <th>금액</th>
+                <th>건</th>
+                <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
                 <th>건</th>
@@ -108,6 +114,10 @@
         <td>{{vatMinus sum_gmAmt}}</td>
         <td>{{addComma sum_hmCnt}}</td>
         <td>{{vatMinus sum_hmAmt}}</td>
+        <td>{{vatMinus sum_ggCnt}}</td>
+        <td>{{vatMinus sum_ggAmt}}</td>
+        <td>{{vatMinus sum_gcCnt}}</td>
+        <td>{{vatMinus sum_gcAmt}}</td>
     </tr>
 </script>
 
@@ -133,6 +143,10 @@
         <td>{{vatMinus gmAmt}}</td>
         <td>{{addComma hmCnt}}</td>
         <td>{{vatMinus hmAmt}}</td>
+        <td>{{vatMinus ggCnt}}</td>
+        <td>{{vatMinus ggAmt}}</td>
+        <td>{{vatMinus gcCnt}}</td>
+        <td>{{vatMinus gcAmt}}</td>
 
     </tr>
     {{else}}
