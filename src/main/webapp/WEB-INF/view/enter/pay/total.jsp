@@ -7,7 +7,7 @@
         <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
         <span class="_searchDate"></span>
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
-        <table class="table table-bordered mb0">
+        <table class="table table-bordered mb0 _tableHeight" data-height="23px">
             <colgroup>
                 <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
                 <col width="0.1%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
@@ -51,7 +51,7 @@
             <tbody id="totalTableBody"></tbody>
         </table>
 
-        <table class="table table-bordered">
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
                 <col width="0.1%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
@@ -442,6 +442,7 @@
                 $("#totalTableBody2 tr:eq(2) td:eq(" + (tmp_index * 4 + 3) + ")").html();
             }
         }
+        ui.tableHeightSet();
     }
 </script>
 

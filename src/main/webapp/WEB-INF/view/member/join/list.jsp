@@ -187,6 +187,7 @@
         data.memNickSort_withdrawal = _memNickSort_withdrawal;
         data.memLoginIdSort_withdrawal = _memLoginIdSort_withdrawal;
         data.memIpSort_withdrawal = _memIpSort_withdrawal;
+        data.memJoinPath = tmp_joinPath;
         data.period = $('input[name="joinDate"]:checked').val();
         if($('input[name="joinDate"]:checked').val() != "4") {               // 선택
             data.sDate = sDate;

@@ -142,10 +142,7 @@
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
 
-        //로그인 통계 현황
         // getStatJoinInfo();
-
-        // $("#tablist_con li.active a").click();
     });
 
     function setTimeDate(dateTime){
@@ -209,11 +206,8 @@
             $("#oneDayDatePicker").show();
             $("#rangeDatepicker").hide();
             $("#yearDatepicker").hide();
-
             $("#startDate").val($("#onedayDate").val());
             $("#endDate").val($("#onedayDate").val());
-
-            // $("._searchDate").html($("#onedayDate").val());
         }else{
             if(me == 1){
                 // 일별 -----------------------------------
@@ -245,7 +239,6 @@
                 $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
             }
         }
-        // $("#tablist_con li.active a").click();
     }
 
     var slctType = 0;
@@ -268,7 +261,7 @@
             $("#endDate").val(moment($("#endDate").val()).add("years", addDate).format('YYYY.MM.DD'));
             setRangeDate(targetDate, $("#startDate").val(), $("#endDate").val());
         }
-        $("#tablist_con li.active a").click();
+        $("#bt_search").click();
     }
 </script>
 

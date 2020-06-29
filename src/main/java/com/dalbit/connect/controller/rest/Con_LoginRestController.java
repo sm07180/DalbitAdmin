@@ -56,4 +56,17 @@ public class Con_LoginRestController {
         String result = con_LoginService.callLoginBrowser(statVo);
         return result;
     }
+
+    @PostMapping("total/week")
+    public String totalWeek(StatVo statVo){
+        if(DalbitUtil.isEmpty(statVo.getStartDate())){
+            statVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(statVo.getEndDate())){
+            statVo.setEndDate(null);
+        }
+
+        String result = con_LoginService.callLoginTotalWeek(statVo);
+        return result;
+    }
 }
