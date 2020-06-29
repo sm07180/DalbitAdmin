@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.status.dao.Sta_AppVersionDao" >
+
+    <select id="selectTotalUsers" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="integer">
+        /* Sta_AppVersion.xml - selectTotalUsers */
+        select count(mem_no)
+          from rd_data.tb_member_stmp
+          where os_type = #{os}
+    </select>
+
+    <!--<select id="selectVersionUsersSum" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="integer">-->
+        <!--/* Sta_AppVersion.xml - selectVersionUsersSum */-->
+        <!--select count(mem_no)-->
+            <!--from (-->
+                   <!--select distinct (version) as appVersion-->
+                   <!--from rd_admin.tb_app_version-->
+                   <!--where os = #{os}-->
+                   <!--order by reg_date desc-->
+                   <!--limit #{selectVersionCount}-->
+                 <!--)a-->
+              <!--, rd_data.tb_member_stmp se-->
+            <!--where se.app_version = a.appVersion-->
+              <!--and se.os_type = #{os}-->
+    <!--</select>-->
+
+    <select id="selectBuildUserSum" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="integer">
+        /* Sta_AppVersion.xml - selectBuildUserSum */
+        select count(mem_no)
+             from rd_data.tb_member_stmp a
+               , (
+                      select distinct (build_no) as build
+                        from rd_admin.tb_app_version ap
+                        where os = #{os}
+                        order by reg_date desc
+                        limit #{selectVersionCount}
+                  ) b
+            where a.build_version = b.build
+            and a.os_type = #{os}
+    </select>
+
+    <!--<select id="selectAppVersionUsers" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="com.dalbit.status.vo.procedure.P_AppVersionVo">-->
+        <!--/* Sta_AppVersion.xml - selectAppVersionUsers */-->
+        <!--select ifnull(count(se.mem_no),0) as userCnt-->
+              <!--, ifnull(appVersion, '-') as appVersion-->
+          <!--from (-->
+              <!--select distinct (version) as appVersion-->
+                <!--from rd_admin.tb_app_version-->
+                <!--where os = #{os}-->
+                <!--order by reg_date desc-->
+                <!--limit #{selectVersionCount}-->
+            <!--)a , rd_data.tb_member_stmp se-->
+          <!--where se.app_version = a.appVersion-->
+            <!--and se.os_type = #{os}-->
+          <!--group by se.app_version-->
+    <!--</select>-->
+
+    <select id="selectAppBuildUsers" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="com.dalbit.status.vo.procedure.P_AppVersionVo">
+        /* Sta_AppVersion.xml - selectAppBuildUsers */
+        select ifnull(count(se.mem_no),0) as userCnt
+              , ifnull(build_version, '-') as buildVersion
+        from (
+               select distinct (build_no) as buildVersion
+               from rd_admin.tb_app_version
+               where os = #{os}
+               order by reg_date desc
+               limit #{selectVersionCount}
+             )a , rd_data.tb_member_stmp se
+        where se.build_version = a.buildVersion
+              and se.os_type = #{os}
+        group by se.build_version
+    </select>
+
+    <select id="selectMarketVersion" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="com.dalbit.status.vo.procedure.P_AppVersionVo">
+        /* Sta_AppVersion.xml - selectMarketVersion */
+        select
+            ifnull(count(b.mem_no),0) as userCnt
+          , ifnull(app_version, '-') as appVersion
+        from (
+               select
+                 mem_no
+                 , os_type
+                 , app_version
+               from
+                 rd_data.tb_member_stmp
+                 ,(select
+                     os
+                     , version
+                   from rd_admin.tb_app_version
+                   where is_use = 1
+                    and os = #{os})as a
+               where  os_type = a.os
+                 and app_version = a.version
+             )as b
+    </select>
+
+    <sql id="totalCondition">
+        select os as platform
+          , version as appVersion
+          , build_no as buildVersion
+          , (select count(*) from rd_data.tb_member_stmp where os_type = os and app_version = version and build_version = build_no) as userCnt
+          , reg_date as reg_date
+          , @RNUM := @RNUM + 1 as rowNum
+          from rd_admin.tb_app_version
+                , (select @RNUM := 0) r
+            <where>
+                <if test='platform != 0'>
+                    os = #{platform}
+                </if>
+            </where>
+          order by reg_date desc
+    </sql>
+
+    <select id="selectTotalList" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="com.dalbit.status.vo.procedure.P_AppVersionVo">
+        /* Sta_AppVersion.xml - selectTotalList */
+       select *
+        from (
+        <include refid="totalCondition"/>
+        )a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="selectTotalListCnt" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="integer">
+        /* Sta_AppVersion.xml - selectTotalListCnt */
+        select
+          count(*)
+        from (
+          <include refid="totalCondition"/>
+        ) a
+    </select>
+
+</mapper>
