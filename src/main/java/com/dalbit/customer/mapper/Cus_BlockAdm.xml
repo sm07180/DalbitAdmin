@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.customer.dao.Cus_BlockAdmDao">
+
+    <sql id="blockCondition">
+        select
+              rep.reported_mem_no as mem_no
+              , bas.mem_id as mem_id
+              , bas.mem_nick as mem_nick
+              , bas.mem_phone as mem_phone
+              , blo.block_type as block_type
+              , blo.block_text as block_text
+              , blo.block_day as block_day
+              , blo.block_end_date as block_end_date
+              , blo.last_upd_date as last_upd_date
+              , blo.op_name as op_name
+              , blo.report_idx as report_idx
+              , @RNUM := @RNUM + 1 as rowNum
+          from rd_admin.tb_login_block blo
+                inner join rd_data.tb_member_report rep on blo.report_idx = rep.idx
+                inner join rd_data.tb_member_basic bas on rep.reported_mem_no = bas.mem_no
+              , (select @RNUM := 0) r
+              <where>
+                  <if test='searchText != null and searchText != ""'>
+                      <choose>
+                          <when test='searchType == "1"'>
+                              rep.reported_mem_no like concat ('%', #{searchText}, '%')
+                          </when>
+                          <when test='searchType == "2"'>
+                              and bas.mem_id like concat ('%', #{searchText}, '%')
+                          </when>
+                          <when test='searchType == "3"'>
+                              and bas.mem_nick like concat ('%', #{searchText}, '%')
+                          </when>
+                          <when test='searchType == "4"'>
+                              and bas.mem_phone like concat ('%', #{searchText}, '%')
+                          </when>
+                          <when test='searchType == "5"'>
+                              and blo.block_text like concat ('%', #{searchText}, '%')
+                          </when>
+                          <when test='searchType == "6"'>
+                              and blo.op_name like concat ('%', #{searchText}, '%')
+                          </when>
+                          <otherwise>
+                              and (
+                              rep.reported_mem_no like concat ('%', #{searchText}, '%')
+                              or bas.mem_id like concat ('%', #{searchText}, '%')
+                              or bas.mem_nick like concat ('%', #{searchText}, '%')
+                              or bas.mem_phone like concat ('%', #{searchText}, '%')
+                              or blo.block_text like concat ('%', #{searchText}, '%')
+                              or blo.op_name like concat ('%', #{searchText}, '%')
+                              )
+                          </otherwise>
+                      </choose>
+                  </if>
+                  <if test='blockType != -1'>
+                      and blo.block_type = #{blockType}
+                  </if>
+              </where>
+          order by last_upd_date desc
+    </sql>
+
+    <select id="selectBlockList" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
+        select *
+        from (
+          <include refid="blockCondition"/>
+        ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="selectBlockListCnt" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="integer">
+        select
+          count(*)
+        from (
+          <include refid="blockCondition"/>
+        ) a
+    </select>
+
+    <select id="selectBlockDetail" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
+      select
+        op_msg
+      from rd_data.tb_member_report
+      where idx = #{report_idx}
+    </select>
+</mapper>
