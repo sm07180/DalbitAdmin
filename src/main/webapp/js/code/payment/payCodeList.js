@@ -30,7 +30,7 @@ var payWay = [
     , new COMMON_CODE('InApp', 'InApp', '인앱(IOS)')
     , new COMMON_CODE('GM', 'GM', '문화상품권')
     , new COMMON_CODE('HM', 'HM', '해피머니상품권')
-    , new COMMON_CODE('GG', 'GG', '스마트문상(게임문화상품권)')
+    , new COMMON_CODE('GG', 'GG', '스마트문상(게임)')
     , new COMMON_CODE('GC', 'GC', '도서문화상품권')
     /*, new COMMON_CODE('payletter', 'cashbee', '캐시비')
     , new COMMON_CODE('payletter', 'tmoney', '티머니')
