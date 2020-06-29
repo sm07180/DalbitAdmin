@@ -6,18 +6,23 @@
 <!-- 로그인 현황 > 총계 -->
 <table class="table table-bordered _tableHeight" data-height="23px">
     <colgroup>
-        <col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+        <col width="1%"/><col width="9%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
+        <col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
     </colgroup>
-    <thead id="userTotalTable">
+    <thead>
     <tr>
-        <th rowspan="2">시간대</th>
-        <th colspan="4">실시간</th>
-    </tr>
-    <tr>
-        <th>소계</th>
-        <th class="_sex_male">{{{sexIcon 'm'}}}</th>
-        <th class="_sex_female">{{{sexIcon 'm'}}}</th>
-        <th>알수없음</th>
+        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <th style="background-color: #ebccd1; color:red;">◈ 연령대 별</th>
+        <th>10대<br>(미성년자)</th>
+        <th>20~24세</th>
+        <th>25~29세</th>
+        <th>30~34세</th>
+        <th>35~39세</th>
+        <th>40~44세</th>
+        <th>45~49세</th>
+        <th>50~54세</th>
+        <th>기타</th>
+        <th>합계</th>
     </tr>
     </thead>
     <tbody id="userTotalTableBody"></tbody>
@@ -39,15 +44,7 @@
     }
 
     function fn_total_success(data, response){
-        var isDataEmpty = response.data == null;
         $("#userTotalTableBody").empty();
-        if(!isDataEmpty){
-            var template = $('#tmp_userTotal').html();
-            var templateScript = Handlebars.compile(template);
-            var totalContext = response.data;
-            var totalHtml = templateScript(totalContext);
-            $("#userTotalTableBody").append(totalHtml);
-        }
 
         var template = $('#tmp_userDetailList').html();
         var templateScript = Handlebars.compile(template);
@@ -55,102 +52,69 @@
         var html=templateScript(detailContext);
         $("#userTotalTableBody").append(html);
 
-        if(isDataEmpty){
-            $("#userTotalTableBody td:last").remove();
-        }else{
-            $("#userTotalTableBody").append(totalHtml);
-        }
+        // $("#userTotalTableBody td:last").remove();
 
         ui.tableHeightSet();
+        ui.paintColor()
     }
-</script>
-<script type="text/x-handlebars-template" id="tmp_userTotal">
-    <tr class="success font-bold">
-        <td>총계</td>
-        <td>{{addComma total_cnt}}</td>
-        <td style="color: blue">{{addComma total_male_cnt}}</td>
-        <td style="color: red">{{addComma total_female_cnt}}</td>
-        <td>{{addComma total_none_cnt}}</td>
-    </tr>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_userDetailList">
     <tr>
-        <td class="font-bold">10대</td>
-        <td>{{addComma age10_total_cnt}}</td>
+        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <th>{{{sexIcon 'm'}}}</th>
         <td style="color: blue">{{addComma age10_male_cnt}}</td>
-        <td style="color: red">{{addComma age10_female_cnt}}</td>
-        <td>{{addComma age10_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">20~24세</td>
-        <td>{{addComma age2024_total_cnt}}</td>
         <td style="color: blue">{{addComma age2024_male_cnt}}</td>
-        <td style="color: red">{{addComma age2024_female_cnt}}</td>
-        <td>{{addComma age2024_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">25~29세</td>
-        <td>{{addComma age2529_total_cnt}}</td>
         <td style="color: blue">{{addComma age2529_male_cnt}}</td>
-        <td style="color: red">{{addComma age2529_female_cnt}}</td>
-        <td>{{addComma age2529_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">30~34세</td>
-        <td>{{addComma age3034_total_cnt}}</td>
         <td style="color: blue">{{addComma age3034_male_cnt}}</td>
-        <td style="color: red">{{addComma age3034_female_cnt}}</td>
-        <td>{{addComma age3034_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">35~39세</td>
-        <td>{{addComma age3539_total_cnt}}</td>
         <td style="color: blue">{{addComma age3539_male_cnt}}</td>
-        <td style="color: red">{{addComma age3539_female_cnt}}</td>
-        <td>{{addComma age3539_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">40~44세</td>
-        <td>{{addComma age4044_total_cnt}}</td>
         <td style="color: blue">{{addComma age4044_male_cnt}}</td>
-        <td style="color: red">{{addComma age4044_female_cnt}}</td>
-        <td>{{addComma age4044_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">45~49세</td>
-        <td>{{addComma age4549_total_cnt}}</td>
         <td style="color: blue">{{addComma age4549_male_cnt}}</td>
-        <td style="color: red">{{addComma age4549_female_cnt}}</td>
-        <td>{{addComma age4549_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">50~54세</td>
-        <td>{{addComma age5054_total_cnt}}</td>
         <td style="color: blue">{{addComma age5054_male_cnt}}</td>
+        <td style="color: blue">{{addComma ageEtc_male_cnt}}</td>
+        <td style="color: blue">{{addComma total_male_cnt}}</td>
+    </tr>
+    <tr>
+        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <th>{{{sexIcon 'f'}}}</th>
+        <td style="color: red">{{addComma age10_female_cnt}}</td>
+        <td style="color: red">{{addComma age2024_female_cnt}}</td>
+        <td style="color: red">{{addComma age2529_female_cnt}}</td>
+        <td style="color: red">{{addComma age3034_female_cnt}}</td>
+        <td style="color: red">{{addComma age3539_female_cnt}}</td>
+        <td style="color: red">{{addComma age4044_female_cnt}}</td>
+        <td style="color: red">{{addComma age4549_female_cnt}}</td>
         <td style="color: red">{{addComma age5054_female_cnt}}</td>
+        <td style="color: red">{{addComma ageEtc_female_cnt}}</td>
+        <td style="color: red">{{addComma total_female_cnt}}</td>
+    </tr>
+    <tr>
+        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <th>알수없음</th>
+        <td>{{addComma age10_none_cnt}}</td>
+        <td>{{addComma age2024_none_cnt}}</td>
+        <td>{{addComma age2529_none_cnt}}</td>
+        <td>{{addComma age3034_none_cnt}}</td>
+        <td>{{addComma age3539_none_cnt}}</td>
+        <td>{{addComma age4044_none_cnt}}</td>
+        <td>{{addComma age4549_none_cnt}}</td>
         <td>{{addComma age5054_none_cnt}}</td>
+        <td>{{addComma ageEtc_none_cnt}}</td>
+        <td>{{addComma total_none_cnt}}</td>
     </tr>
     <tr>
-        <td class="font-bold">50~59세</td>
-        <td>{{addComma age5459_total_cnt}}</td>
-        <td style="color: blue">{{addComma age5459_male_cnt}}</td>
-        <td style="color: red">{{addComma age5459_female_cnt}}</td>
-        <td>{{addComma age5459_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">60~64세</td>
-        <td>{{addComma age6064_total_cnt}}</td>
-        <td style="color: blue">{{addComma age6064_male_cnt}}</td>
-        <td style="color: red">{{addComma age6064_female_cnt}}</td>
-        <td>{{addComma age6064_none_cnt}}</td>
-    </tr>
-    <tr>
-        <td class="font-bold">60세 이상</td>
-        <td>{{addComma age65_total_cnt}}</td>
-        <td style="color: blue">{{addComma age65_male_cnt}}</td>
-        <td style="color: red">{{addComma age65_female_cnt}}</td>
-        <td>{{addComma age65_none_cnt}}</td>
+        <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
+        <th>합계</th>
+        <td>{{addComma age10_total_cnt}}</td>
+        <td>{{addComma age2024_total_cnt}}</td>
+        <td>{{addComma age2529_total_cnt}}</td>
+        <td>{{addComma age3034_total_cnt}}</td>
+        <td>{{addComma age3539_total_cnt}}</td>
+        <td>{{addComma age4044_total_cnt}}</td>
+        <td>{{addComma age4549_total_cnt}}</td>
+        <td>{{addComma age5054_total_cnt}}</td>
+        <td>{{addComma ageEtc_total_cnt}}</td>
+        <td>{{addComma total_cnt}}</td>
     </tr>
 
 </script>

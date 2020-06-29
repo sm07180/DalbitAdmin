@@ -131,6 +131,10 @@
                 ,#{is_noti}
                 ,#{send_type}
           )
+
+        <selectKey keyProperty="push_idx" resultType="java.lang.String" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
 
