@@ -24,4 +24,8 @@ public class P_PayWayOutVo {
     private int sum_gmAmt;
     private int sum_hmCnt;
     private int sum_hmAmt;
+    private int sum_ggCnt;
+    private int sum_ggAmt;
+    private int sum_gcCnt;
+    private int sum_gcAmt;
 }
