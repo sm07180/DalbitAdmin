@@ -4,24 +4,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- 로그인 현황 > 총계 -->
-<table class="table table-bordered _tableHeight" data-height="23px">
+<table class="table table-bordered _tableHeight no-margin" data-height="23px">
     <colgroup>
-        <col width="1%"/><col width="9%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
-        <col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/><col width="8%"/>
+        <col width="1%"/><col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
+        <col width="11%"/><col width="11%"/><col width="11%"/><col width="11%"/>
     </colgroup>
     <thead>
     <tr>
         <th class="_noBorder" style="width: 5px; border-left: hidden"></th>
         <th style="background-color: #ebccd1; color:red;">◈ 연령대 별</th>
-        <th>10대<br>(미성년자)</th>
+        <th>10대</th>
         <th>20~24세</th>
         <th>25~29세</th>
         <th>30~34세</th>
         <th>35~39세</th>
-        <th>40~44세</th>
-        <th>45~49세</th>
-        <th>50~54세</th>
-        <th>기타</th>
+        <th>40대 이상</th>
         <th>합계</th>
     </tr>
     </thead>
@@ -68,9 +65,6 @@
         <td style="color: blue">{{addComma age2529_male_cnt}}</td>
         <td style="color: blue">{{addComma age3034_male_cnt}}</td>
         <td style="color: blue">{{addComma age3539_male_cnt}}</td>
-        <td style="color: blue">{{addComma age4044_male_cnt}}</td>
-        <td style="color: blue">{{addComma age4549_male_cnt}}</td>
-        <td style="color: blue">{{addComma age5054_male_cnt}}</td>
         <td style="color: blue">{{addComma ageEtc_male_cnt}}</td>
         <td style="color: blue">{{addComma total_male_cnt}}</td>
     </tr>
@@ -82,9 +76,6 @@
         <td style="color: red">{{addComma age2529_female_cnt}}</td>
         <td style="color: red">{{addComma age3034_female_cnt}}</td>
         <td style="color: red">{{addComma age3539_female_cnt}}</td>
-        <td style="color: red">{{addComma age4044_female_cnt}}</td>
-        <td style="color: red">{{addComma age4549_female_cnt}}</td>
-        <td style="color: red">{{addComma age5054_female_cnt}}</td>
         <td style="color: red">{{addComma ageEtc_female_cnt}}</td>
         <td style="color: red">{{addComma total_female_cnt}}</td>
     </tr>
@@ -96,9 +87,6 @@
         <td>{{addComma age2529_none_cnt}}</td>
         <td>{{addComma age3034_none_cnt}}</td>
         <td>{{addComma age3539_none_cnt}}</td>
-        <td>{{addComma age4044_none_cnt}}</td>
-        <td>{{addComma age4549_none_cnt}}</td>
-        <td>{{addComma age5054_none_cnt}}</td>
         <td>{{addComma ageEtc_none_cnt}}</td>
         <td>{{addComma total_none_cnt}}</td>
     </tr>
@@ -110,9 +98,6 @@
         <td>{{addComma age2529_total_cnt}}</td>
         <td>{{addComma age3034_total_cnt}}</td>
         <td>{{addComma age3539_total_cnt}}</td>
-        <td>{{addComma age4044_total_cnt}}</td>
-        <td>{{addComma age4549_total_cnt}}</td>
-        <td>{{addComma age5054_total_cnt}}</td>
         <td>{{addComma ageEtc_total_cnt}}</td>
         <td>{{addComma total_cnt}}</td>
     </tr>

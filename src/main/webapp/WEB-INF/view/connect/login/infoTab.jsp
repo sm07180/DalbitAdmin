@@ -33,7 +33,6 @@
 
     var tabId;
     $("#tablist_con li a").on('click', function(){
-        console.log("----------------------------------------");
         tabId = $(this).prop('id');
         if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory'){
             slctType = "0";

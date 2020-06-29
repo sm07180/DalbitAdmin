@@ -350,7 +350,7 @@ common.sexIcon = function(sex){
     }else if(sex_lowercase == 'f'){
         return '<label class="font-bold" style="color: red"><i class="fa fa-female"></i> 여성</label>';
     }else{
-        return '<label><i class="fa fa-question"></i> 알수없음</label>';
+        return '<label class="font-bold" ><i class="fa fa-question"></i> 알수없음</label>';
     }
 };
 

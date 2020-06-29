@@ -25,4 +25,7 @@ public interface Con_LoginDao {
     @Transactional(readOnly = true)
     List<P_LoginBrowserOutDetailVo> callLoginBrowser(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    List<P_LoginTotalOutDetailVo> callLoginTotalWeek(ProcedureVo procedureVo);
+
 }

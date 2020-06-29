@@ -11,6 +11,48 @@
                         <span id="searchType"></span>
                         <label><input type="text" class="form-control" id="txt_search"></label>
                         <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                        <label class="control-inline fancy-checkbox custom-color-green">
+                            <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                            <span>테스트 아이디 제외</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col-lg-12">
+            <div class="widget widget-table mb10">
+                <div class="widget-header">
+                    <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
+                </div>
+                <div class="col-md-6 no-padding">
+                    <div class="widget-content mt10 no-padding ml10">
+                        <table class="table table-bordered">
+                            <colgroup>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                                <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th style="background-color: #ebccd1; color:red;">◈ 성별</th>
+                                <th style="background-color: #ffe699">실시간</th>
+                                <th>전일</th>
+                                <th>증감</th>
+                                <th>주간</th>
+                                <th>전주</th>
+                                <th>증감</th>
+                                <th>월간</th>
+                                <th>전월</th>
+                                <th>증감</th>
+                            </tr>
+                            </thead>
+                            <tbody id="loginLiveTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6 no-padding">
+                    <div class="widget-content mt10 no-padding mr10">
+                    <jsp:include page="total.jsp"/>
                     </div>
                 </div>
             </div>

@@ -52,8 +52,6 @@
         data.startDate = $("#startDate").val();
         data.endDate = $("#endDate").val();
         data.slctType = slctType;
-        console.log("---------------------");
-        console.log(data);
         util.getAjaxData("browser", "/rest/connect/login/info/browser", data, fn_browser_success);
     }
 

@@ -15,6 +15,7 @@ public class P_LoginTotalOutDetailVo {
     private String date;
     private int day;
     private int hour;
+    private String week;
 
     private int totalCnt;
     private int maleCnt;
