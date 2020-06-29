@@ -28,8 +28,8 @@
                         </table>
                         <table id="loginHistoryList" class="table table-sorting table-hover table-bordered datatable" style="table-layout: fixed;word-break: break-word;">
                             <colgroup>
-                                <col width="4%"/><col width="4%"/><col width="7%"/><col width="4%"/><col width="6%"/><col width="10%"/>
-                                <col width="20%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
+                                <col width="2%"/><col width="5%"/><col width="7%"/><col width="4%"/><col width="6%"/><col width="9%"/>
+                                <col width="20%"/><col width="4%"/><col width="4%"/><col width="3%"/><col width="4%"/>
                             </colgroup>
 
                             <thead>
@@ -41,7 +41,7 @@
                             <th>device uuid</th>
                             <th>device token</th>
                             <th>OS구분</th>
-                            <th>브라우저정보</th>
+                            <th>브라우저<br/>정보</th>
                             <th>앱버전</th>
                             <th>location</th>
                             </thead>
