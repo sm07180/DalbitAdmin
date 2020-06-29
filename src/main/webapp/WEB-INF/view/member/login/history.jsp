@@ -58,29 +58,22 @@
                         </table>
                         <table id="loginHistoryList" class="table table-sorting table-hover table-bordered datatable" style="table-layout: fixed;word-break: break-word;">
                             <colgroup>
-                                <col width="2%"/>
-                                <col width="4%"/>
-                                <col width="3%"/>
-                                <col width="5%"/>
-                                <col width="20%"/>
-                                <col width="2%"/>
-                                <col width="3%"/>
-                                <col width="3%"/>
-                                <col width="4%"/>
-                                <col width="5%"/>
+                                <col width="4%"/><col width="4%"/><col width="7%"/><col width="4%"/><col width="6%"/><col width="10%"/>
+                                <col width="20%"/><col width="4%"/><col width="4%"/><col width="4%"/><col width="4%"/>
                             </colgroup>
 
                             <thead>
-                                <th>번호</th>
-                                <th>회원번호</th>
-                                <th>OS구분</th>
-                                <th>device uuid</th>
-                                <th>device token</th>
-                                <th>앱버전</th>
-                                <th>브라우저정보</th>
-                                <th>location</th>
-                                <th>ip</th>
-                                <th>로그인 일시</th>
+                            <th>번호</th>
+                            <th>로그인 일시</th>
+                            <th>회원</th>
+                            <th>성별</th>
+                            <th>ip</th>
+                            <th>device uuid</th>
+                            <th>device token</th>
+                            <th>OS구분</th>
+                            <th>브라우저정보</th>
+                            <th>앱버전</th>
+                            <th>location</th>
                             </thead>
                             <tbody id="tableBody">
                             </tbody>
@@ -260,15 +253,19 @@
     {{#each this.loginHistList}}
     <tr>
         <td>{{indexDesc ../loginHistCnt rowNum}}</td>
-        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{this.mem_no}}">{{mem_no}}</a></td>
-        <td>{{{getCommonCodeLabel os_type 'loginHistoryOsType'}}}</td>
+        <td>{{last_upd_date}}</td>
+        <td>
+            {{mem_no}}<br/>
+            <a href="javascript://" class="_openMemberPop" data-memNo="{{this.mem_no}}">{{mem_nick}}</a>
+        </td>
+        <td>{{{sexIcon mem_sex}}}</td>
+        <td>{{ip}}</td>
         <td style="text-align:left">{{device_uuid}}</td>
         <td style="text-align:left">{{device_token}}</td>
-        <td>{{app_version}}</td>
+        <td>{{{getCommonCodeLabel os_type 'loginHistoryOsType'}}}</td>
         <td>{{browser}}</td>
+        <td>{{app_version}}</td>
         <td>{{location}}</td>
-        <td>{{ip}}</td>
-        <td>{{last_upd_date}}</td>
     </tr>
     {{else}}
     <tr>
