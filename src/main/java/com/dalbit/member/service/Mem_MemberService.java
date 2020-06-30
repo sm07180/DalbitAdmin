@@ -131,11 +131,16 @@ public class Mem_MemberService {
             }
         }
 
+        //본인인증 여부
         P_MemberInfoOutputVo certification = mem_MemberDao.callMemberCertification(pMemberInfoInputVo);
         if(!DalbitUtil.isEmpty(certification)){
-            memberInfo.setCertification("통신사: " + certification.getComm_company() + " | 본인인증: Y");
+            //memberInfo.setCertification("통신사: " + certification.getComm_company() + " | 본인인증: Y");
+            memberInfo.setComm_company(certification.getComm_company());
+            memberInfo.setAuth_yn("Yes");
+            memberInfo.setParents_agree_yn(certification.getParents_agree_yn());
         }else{
-            memberInfo.setCertification("본인인증: N");
+            //memberInfo.setCertification("본인인증: N");
+            memberInfo.setAuth_yn("No");
         }
 
         P_MemberInfoOutputVo testId = mem_MemberDao.callMemberTestId(pMemberInfoInputVo);
