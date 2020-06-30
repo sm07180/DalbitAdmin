@@ -111,6 +111,15 @@
         $('#bt_search').click( function() {       //검색
             getUserInfo();
         });
+
+        $("#search_joinPath").on('change', function(){
+            if($(this).prop('checked')){
+                tmp_joinPath = 1;
+            }else{
+                tmp_joinPath = 0;
+            }
+            getUserInfo();
+        });
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
