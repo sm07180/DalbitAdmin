@@ -4,7 +4,8 @@
 
     <sql id="blockCondition">
         select
-              rep.reported_mem_no as mem_no
+                blo.idx as idx
+              , rep.reported_mem_no as mem_no
               , bas.mem_id as mem_id
               , bas.mem_nick as mem_nick
               , bas.mem_phone as mem_phone
@@ -17,8 +18,8 @@
               , blo.report_idx as report_idx
               , @RNUM := @RNUM + 1 as rowNum
           from rd_admin.tb_login_block blo
-                inner join rd_data.tb_member_report rep on blo.report_idx = rep.idx
-                inner join rd_data.tb_member_basic bas on rep.reported_mem_no = bas.mem_no
+                left join rd_data.tb_member_report rep on blo.report_idx = rep.idx
+                left join rd_data.tb_member_basic bas on rep.reported_mem_no = bas.mem_no
               , (select @RNUM := 0) r
               <where>
                   <if test='searchText != null and searchText != ""'>
@@ -61,6 +62,7 @@
     </sql>
 
     <select id="selectBlockList" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
+        /* Cus_BlockAdm.xml - selectBlockList*/
         select *
         from (
           <include refid="blockCondition"/>
@@ -69,6 +71,7 @@
     </select>
 
     <select id="selectBlockListCnt" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="integer">
+        /* Cus_BlockAdm.xml - selectBlockListCnt*/
         select
           count(*)
         from (
@@ -77,9 +80,75 @@
     </select>
 
     <select id="selectBlockDetail" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
-      select
-        op_msg
-      from rd_data.tb_member_report
-      where idx = #{report_idx}
+      /* Cus_BlockAdm.xml - selectBlockDetail*/
+      <choose>
+          <when test='report_idx != null and report_idx != ""'>
+              select
+                op_msg
+                , idx as report_idx
+              from rd_data.tb_member_report
+              where idx = #{report_idx}
+          </when>
+          <otherwise>
+              select
+                memo as adminMemo
+              from rd_admin.tb_login_block
+              where idx = #{idx}
+          </otherwise>
+      </choose>
     </select>
+
+    <insert id="insertBlock" parameterType="com.dalbit.customer.vo.BlockAdmVo">
+      /* Cus_BlockAdm.xml - insertBlock*/
+      insert into rd_admin.tb_login_block (
+        block_type
+        , block_text
+        , block_day
+        , block_end_date
+        , last_upd_date
+        , op_name
+        , report_idx
+        , memo
+      ) values (
+        #{radioBlock}
+        , #{block_text}
+        , #{block_day}
+        <choose>
+            <when test="block_day == 99">
+                , '9999-12-31'
+            </when>
+            <otherwise>
+                , DATE_ADD(now(), interval #{block_day} day)
+            </otherwise>
+        </choose>
+         , now()
+         , #{op_name}
+         , null
+         , #{adminMemo}
+      )
+    </insert>
+
+    <insert id="insertBlockHistory" parameterType="com.dalbit.customer.vo.BlockAdmVo">
+      /* Cus_BlockAdm.xml - insertBlockHistory*/
+      insert into rd_admin.tb_login_block_history (
+        edit_contents
+        , edit_type
+        , last_upd_date
+        , op_name
+        , report_idx
+        , memo
+        ) values (
+          #{edit_contents}
+          , #{edit_type}
+          , now()
+          , #{op_name}
+          , null
+          , #{adminMemo}
+        )
+    </insert>
+
+    <delete id="deleteBlock" parameterType="com.dalbit.customer.vo.BlockAdmVo">
+        /* Cus_BlockAdm.xml - deleteBlock*/
+    </delete>
+
 </mapper>

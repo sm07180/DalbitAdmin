@@ -7,7 +7,7 @@ var blockAdmDataTableSource = {
                 return util.getCommonCodeLabel(data, block_blockType);
                 }}
             , {'title': '차단 내역', 'data': 'block_text', 'render': function(data, type, row) {
-                return '<a href="javascript://" class="_blockDetail" data-reportidx="'+row.report_idx +'">' + data + '</a>';
+                return '<a href="javascript://" class="_blockDetail" data-idx="'+row.idx+'" data-reportidx="'+row.report_idx +'">' + data + '</a>';
                 }}
             , {'title': '제재 종류', 'data': 'block_day', 'render' : function(data) {
                 return util.getCommonCodeLabel(data, block_blockDay);
@@ -19,6 +19,14 @@ var blockAdmDataTableSource = {
                 return common.convertToDate(data);
                 }}
             , {'title': '등록자', 'data': 'op_name'}
+            , {'title': '직접등록여부', 'data': '', 'render': function(data, type, row) {
+                if(!common.isEmpty(row.report_idx)) {
+                    return 'N';
+                } else {
+                    return 'Y';
+                }
+                }}
         ]
     },
+
 };
