@@ -112,6 +112,21 @@
         $("#browserTable").find("#th_after").text("금월");
         $("#browserTable").find("#th_befor").text("전월");
 
+
+        var tmp_date = new Date();
+        tmp_date = moment(tmp_date).format("YYYY.MM.DD HH:mm:SS");
+        var tmp_day = tmp_date.split(" ")[0];
+        var tmp_time = tmp_date.split(" ")[1];
+
+        for(var j = 0; j < response.data.detailList.length ; j ++) {
+            if (Number(tmp_day.split(".")[2]) == response.data.detailList[j].day) {
+                for (var i = 1; i < 9; i++) {
+                    $("#browserTableBody tr:eq(" + (response.data.detailList.length - response.data.detailList[j].day + 1) + ") td:eq(" + (i) + ")").css("background-color", "#e3ecfb");
+                    $("#browserTableBody tr:eq(" + (response.data.detailList.length - response.data.detailList[j].day + 1) + ") td:eq(" + (i) + ")").css("font-weight", "bold");
+                }
+            }
+        }
+
         ui.tableHeightSet();
     }
 </script>

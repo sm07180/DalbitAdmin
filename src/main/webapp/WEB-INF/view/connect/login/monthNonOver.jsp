@@ -210,12 +210,27 @@
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(femaleAvg);
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 4) + ")").html(noneCnt);
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 5) + ")").html(totalCnt);
+
+                    if(Number(tmp_day.split(".")[2]) == detail.day) {
+                        for(var i = 1; i < 6 ; i ++){
+                            $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + i) + ")").css("background-color", "#e3ecfb");
+                            $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + i) + ")").css("font-weight", "bold");
+                        }
+                    }
+
                 } else if (index == 1 || index == 2) {
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 1) + ")").html(maleCnt);
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 2) + ")").html(femaleCnt);
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 3) + ")").html(femaleAvg);
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 4) + ")").html(noneCnt);
                     $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + 5) + ")").html(totalCnt);
+
+                    if(Number(tmp_day.split(".")[2]) == detail.day) {
+                        for(var i = 1; i < 6 ; i ++){
+                            $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#monthNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 6 + i) + ")").css("font-weight", "bold");
+                        }
+                    }
                 }
 
                 // 하단
@@ -225,15 +240,30 @@
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 3) + ")").html(femaleAvg);
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 4) + ")").html(noneCnt);
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 5) + ")").html(totalCnt);
+                    if(Number(tmp_day.split(".")[2]) == detail.day) {
+                        for(var i = 1; i < 6 ; i ++){
+                            $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + i) + ")").css("background-color", "#e3ecfb");
+                            $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + i) + ")").css("font-weight", "bold");
+                        }
+                    }
                 } else if (index == 4 || index == 5){
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 1) + ")").html(maleCnt);
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 2) + ")").html(femaleCnt);
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 3) + ")").html(femaleAvg);
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 4) + ")").html(noneCnt);
                     $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + 5) + ")").html(totalCnt);
+
+                    if(Number(tmp_day.split(".")[2]) == detail.day) {
+                        for(var i = 1; i < 6 ; i ++) {
+                            $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#monthNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 6 + i) + ")").css("font-weight", "bold");
+                        }
+                    }
                 }
             });
         });
+
+
 
         tmp_index = -1;
         for(var i=0 ; i<response.data.length;i++){
