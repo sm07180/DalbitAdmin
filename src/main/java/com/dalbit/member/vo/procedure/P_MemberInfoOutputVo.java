@@ -48,6 +48,8 @@ public class P_MemberInfoOutputVo extends SearchVo {
 
     private String certification;
     private String comm_company;
+    private String auth_yn;
+    private String parents_agree_yn;
     private String block_day;
     private Date block_end_date;
     private String blockEndDateFormat;
