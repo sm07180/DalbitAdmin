@@ -34,6 +34,9 @@ var MemberDataTableSource = {
             {'title': '방생성수', 'data': 'broadcastCnt', 'width':'100px', 'render' : function(data){
                     return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
                 }},
+            {'title': '청취일수', 'data': 'listenCnt2', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
             {'title': '청취수', 'data': 'listenCnt', 'width':'100px', 'render' : function(data){
                     return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
                 }},
@@ -73,6 +76,9 @@ var MemberDataTableSource = {
                     return common.isEmpty(data) ? 'N' : 'Y'
                 }},
             {'title': '방생성수', 'data': 'broadcastCnt', 'width':'100px', 'render' : function(data){
+                    return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
+                }},
+            {'title': '청취일수', 'data': 'listenCnt2', 'width':'100px', 'render' : function(data){
                     return common.fontColor(common.addComma(data), 0, 'red') + ' 회';
                 }},
             {'title': '청취수', 'data': 'listenCnt', 'width':'100px', 'render' : function(data){
