@@ -8,14 +8,10 @@
                         ,a.*
                         , (select count(*) from rd_data.tb_member_broadcast_broadcasting where mem_no = a.mem_no) broadcastCnt
                         , (select count(*) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt
+                        , (select count(distinct DATE_FORMAT(start_date, '%Y%m%d')) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt2
                         , (select count(*) from rd_data.tb_payment_succ where mem_no = a.mem_no and pay_yn = 'Y') payCnt
                    From rd_data.tb_member_basic a
-                   <if test="period != 4 and period != 3">
-                      where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
-                   </if>
-                   <if test="period == 3 or period == 4">
-                       where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-                   </if>
+                  where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
                     <if test="testid != -1">
                         and a.inner = 0
                     </if>
@@ -48,12 +44,7 @@
 
     <select id="callJoinList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
         select count(*) totalCnt From rd_data.tb_member_basic a
-            <if test="period != 4 and period != 3">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
-            </if>
-            <if test="period == 3 or period == 4">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            </if>
+          where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
             <if test="testid != -1">
                 and a.inner = 0
             </if>
@@ -78,12 +69,7 @@
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
                 ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
          From rd_data.tb_member_basic a
-            <if test="period != 4 and period != 3">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
-            </if>
-            <if test="period == 3 or period == 4">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            </if>
+        where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
             <if test="testid != -1">
                 and a.inner = 0
             </if>
@@ -96,14 +82,10 @@
                         ,a.*
                         , (select count(*) from rd_data.tb_member_broadcast_broadcasting where mem_no = a.mem_no) broadcastCnt
                         , (select count(*) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt
+                        , (select count(distinct DATE_FORMAT(start_date, '%Y%m%d')) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt2
                         , (select count(*) from rd_data.tb_payment_succ where mem_no = a.mem_no and pay_yn = 'Y') payCnt
                    From rd_data.tb_member_withdrawal_bak a
-                   <if test="period != 4 and period != 3">
-                      where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
-                   </if>
-                   <if test="period == 3 or period == 4">
-                       where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-                   </if>
+                  where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
                    <if test="testid != -1">
                        and a.inner = 0
                    </if>
@@ -136,12 +118,7 @@
 
     <select id="callWithdrawalList_totalCnt" parameterType="com.dalbit.member.vo.procedure.P_MemberJoinInputVo" resultType="integer">
         select count(*) totalCnt From rd_data.tb_member_withdrawal_bak a
-            <if test="period != 4 and period != 3">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
-            </if>
-            <if test="period == 3 or period == 4">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            </if>
+         where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
             <if test="testid != -1">
                 and a.inner = 0
             </if>
@@ -166,12 +143,7 @@
                 ,count(case when mem_slct = 'n' then 1 end) as slctNaverCnt
                 ,count(case when mem_slct = 'i' then 1 end) as slctAppleCnt
          From rd_data.tb_member_withdrawal_bak a
-            <if test="period != 4 and period != 3">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d') and DATE_FORMAT(mem_join_date, '%Y%m%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y%m%d')
-            </if>
-            <if test="period == 3 or period == 4">
-                where DATE_FORMAT(mem_join_date, '%Y%m%d') >= STR_TO_DATE(#{sDate}, '%Y%m%d')
-            </if>
+        where DATE_FORMAT(mem_join_date, '%Y.%m.%d') >= STR_TO_DATE(#{sDate}, '%Y.%m.%d') and DATE_FORMAT(mem_join_date, '%Y.%m.%d')  <![CDATA[<=]]>  STR_TO_DATE(#{eDate}, '%Y.%m.%d')
             <if test="testid != -1">
                 and a.inner = 0
             </if>

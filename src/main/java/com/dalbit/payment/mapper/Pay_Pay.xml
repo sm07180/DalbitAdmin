@@ -3,66 +3,95 @@
 <mapper namespace="com.dalbit.payment.dao.Pay_PayDao" >
 
     <sql id="payCondition">
-        select
-            pay.order_id
-            , pay.mem_no
-            , pay.pay_way
-            , pay.pay_dt_comein
-            , pay.pay_yn
-            , pay.pay_ok_date
-            , pay.pay_ok_time
-            , pay.pay_slct
-            , floor(pay.pay_amt) as pay_amt
-            , pay.pay_code
-            , member.inner as chrgr_yn
-            , pay.app_ver
-            , pay.first_pay_yn
-            , pay.card_no
-            , pay.card_nm
-            , pay.phone_no
-            , pay.bank_code
-            , pay.account_no
-            , pay.rcpt_dt
-            , pay.rcpt_nm
-            , pay.store_id
-            , pay.cancel_dt
-            , pay.cancel_state
-            , pay.fail_msg
-            , pay.op_name
-            , pay.bill_id
-            , pay.os
-            , pay.dal_cnt
-            , pay.pay_info
-            ,CASE
-                WHEN pay.pay_way = 'CN'
-                THEN pay.card_no
-                WHEN pay.pay_way = 'MC'
-                THEN pay.phone_no
-                WHEN pay.pay_way = 'VA'
-                THEN pay.account_no
-                WHEN pay.pay_way = 'InApp'
-                THEN pay.bill_id
-            END AS pay_info_no
-            ,CASE
-                WHEN pay.pay_way = 'CN'
-                THEN pay.card_nm
-                WHEN pay.pay_way = 'VA'
-                THEN pay.bank_code
-            END AS pay_info_nm
-            , summary.memCnt as count
-            , summary.paySum as amount
-            , @RNUM := @RNUM + 1 as rowNum
-            , mem_nick
-            , mem_userid
-            , mem_id
-            , mem_phone
-            , birth
-            , ruby as tot_dal_cnt
-        from rd_data.tb_payment_succ pay
-            left join (select mem_no, count(mem_no) memCnt, sum(pay_amt) paySum from rd_data.tb_payment_succ where pay_yn = 'Y' group by mem_no) summary on pay.mem_no = summary.mem_no
-            left join (select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`, concat(mem_birth_year,'-',IF(length(mem_birth_month) = 1, concat('0',mem_birth_month), mem_birth_month),'-',IF(length(mem_birth_day) = 1, concat('0',mem_birth_day), mem_birth_day)) as birth from rd_data.tb_member_basic union select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`, concat(mem_birth_year,'-',IF(length(mem_birth_month) = 1, concat('0',mem_birth_month), mem_birth_month),'-',IF(length(mem_birth_day) = 1, concat('0',mem_birth_day), mem_birth_day)) as birth from rd_data.tb_member_withdrawal_bak) member on pay.mem_no = member.mem_no
-            left join (select mem_no, ruby from rd_data.tb_member_wallet) wallet on pay.mem_no = wallet.mem_no
-            , (select @rownum := #{pageStart}) r
+      SELECT payAll.*
+          , ifnull(concat(b.mem_birth_year, '-', LPAD(b.mem_birth_month,2,'0'), '-', LPAD(b.mem_birth_day,2,'0'))
+                    , concat(c.mem_birth_year, '-', LPAD(c.mem_birth_month,2,'0'), '-', LPAD(c.mem_birth_day,2,'0'))) as birth
+          , ifnull(b.inner,c.inner) as chrgr_yn
+          , ifnull(b.mem_nick,c.mem_nick) as mem_nick
+          , ifnull(b.mem_userid,c.mem_userid) as mem_userid
+          , ifnull(b.mem_id,c.mem_id) as mem_id
+          , ifnull(b.mem_phone,c.mem_phone) as mem_phone
+          , ifnull(b.mem_sex,c.mem_sex) as mem_sex
+        FROM ( SELECT pay.order_id,
+                     pay.mem_no,
+                     pay.pay_way,
+                     pay.pay_dt_comein,
+                     pay.pay_yn,
+                     pay.pay_ok_date,
+                     pay.pay_ok_time,
+                     pay.pay_slct,
+                     floor(pay.pay_amt) as pay_amt,
+                     pay.pay_code,
+                     pay.app_ver,
+                     pay.first_pay_yn,
+                     pay.card_no,
+                     pay.card_nm,
+                     pay.phone_no,
+                     pay.bank_code,
+                     pay.account_no,
+                     pay.rcpt_dt,
+                     pay.rcpt_nm,
+                     pay.store_id,
+                     pay.cancel_dt,
+                     pay.cancel_state,
+                     pay.fail_msg,
+                     pay.op_name,
+                     pay.bill_id,
+                     pay.os,
+                     pay.dal_cnt,
+                     pay.pay_info,
+                     CASE WHEN pay.pay_way = 'CN' THEN pay.card_no
+                          WHEN pay.pay_way = 'MC' THEN pay.phone_no WHEN pay.pay_way = 'VA'
+                          THEN pay.account_no WHEN pay.pay_way = 'InApp'
+                          THEN pay.bill_id END   AS pay_info_no,
+                     CASE WHEN pay.pay_way = 'CN' THEN pay.card_nm WHEN pay.pay_way = 'VA' THEN pay.bank_code END AS pay_info_nm,
+                     summary.memCnt           as count,
+                     summary.paySum           as amount,
+                     @RNUM := @RNUM + 1       as rowNum,
+                     ruby                     as tot_dal_cnt
+               FROM rd_data.tb_payment_succ pay LEFT JOIN (select mem_no, count(mem_no) memCnt, sum(pay_amt)  paySum FROM rd_data.tb_payment_succ WHERE pay_yn = 'Y' group by mem_no) summary ON pay.mem_no = summary.mem_no
+                 LEFT JOIN (select mem_no, ruby FROM rd_data.tb_member_wallet) wallet ON pay.mem_no = wallet.mem_no
+                 , (select @rownum := #{pageStart}) r ) payAll
+           left join rd_data.tb_member_basic b on b.mem_no = payAll.mem_no
+           left join rd_data.tb_member_withdrawal_bak c on b.mem_no = c.mem_no
+
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                   and (((b.mem_nick like concat('%', #{searchText}, '%')
+                      or b.mem_no like concat('%', #{searchText}, '%')
+                      or b.mem_id like concat('%', #{searchText}, '%')
+                      or b.mem_phone like concat('%', #{searchText}, '%'))
+                   and (c.mem_nick like concat('%', #{searchText}, '%')
+                     or c.mem_no like concat('%', #{searchText}, '%')
+                     or c.mem_id like concat('%', #{searchText}, '%')
+                     or c.mem_phone like concat('%', #{searchText}, '%')))
+                )
+            </if>
+            <if test='sDate != null and sDate != ""'>
+                and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) >= #{sDate}
+                and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) <![CDATA[<=]]>  #{eDate}
+            </if>
+            <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
+                <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
+                    and pay_yn ='Y'
+                </if>
+                <if test="searchPayStatus == 2"> <!-- 취소 완료 -->
+                    and cancel_state = 'Y'
+                </if>
+                <if test="searchPayStatus == 3"> <!-- 취소 불가 -->
+                    and cancel_state = 'F'
+                </if>
+            </if>
+            <if test="ostype != -1">
+                and os = #{ostype}
+            </if>
+            <if test="innerType != -1">
+                and (b.inner = #{innerType} or c.inner = #{innerType})
+            </if>
+            <if test="payWay != 'all'">
+                and pay_way = #{payWay}
+            </if>
+        </where>
     </sql>
 
     <select id="getPayList" parameterType="com.dalbit.payment.vo.Pay_PayInputVo" resultType="com.dalbit.payment.vo.Pay_PayOutputVo">
@@ -71,34 +100,7 @@
         from (
         <include refid="payCondition"/>
         ) a
-        where (mem_nick like concat('%', #{searchText}, '%')
-        or mem_no like concat('%', #{searchText}, '%')
-        or mem_id like concat('%', #{searchText}, '%')
-        or mem_phone like concat('%', #{searchText}, '%'))
-        <if test='sDate != null and sDate != ""'>
-            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) >= #{sDate}
-            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) <![CDATA[<=]]>  #{eDate}
-        </if>
-        <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
-            <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
-                and pay_yn ='Y'
-            </if>
-            <if test="searchPayStatus == 2"> <!-- 취소 완료 -->
-                and cancel_state = 'Y'
-            </if>
-            <if test="searchPayStatus == 3"> <!-- 취소 불가 -->
-                and cancel_state = 'F'
-            </if>
-        </if>
-        <if test="ostype != -1">
-            and os = #{ostype}
-        </if>
-        <if test="innerType != -1">
-            and chrgr_yn = #{innerType}
-        </if>
-        <if test="payWay != 'all'">
-            and pay_way = #{payWay}
-        </if>
+
         order by pay_dt_comein desc
         limit #{pageStart}, #{pageCnt}
     </select>
@@ -110,34 +112,6 @@
         from (
         <include refid="payCondition"/>
         ) a
-        where (mem_nick like concat('%', #{searchText}, '%')
-        or mem_no like concat('%', #{searchText}, '%')
-        or mem_id like concat('%', #{searchText}, '%')
-        or mem_phone like concat('%', #{searchText}, '%'))
-        <if test='sDate != null and sDate != ""'>
-            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) >= #{sDate}
-            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) <![CDATA[<=]]>  #{eDate}
-        </if>
-        <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
-            <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
-                and pay_yn ='Y'
-            </if>
-            <if test="searchPayStatus == 2"> <!-- 취소 완료 -->
-                and cancel_state = 'Y'
-            </if>
-            <if test="searchPayStatus == 3"> <!-- 취소 불가 -->
-                and cancel_state = 'F'
-            </if>
-        </if>
-        <if test="ostype != -1">
-            and os = #{ostype}
-        </if>
-        <if test="innerType != -1">
-            and chrgr_yn = #{innerType}
-        </if>
-        <if test="payWay != 'all'">
-            and pay_way = #{payWay}
-        </if>
     </select>
 
 
@@ -152,34 +126,6 @@
         from (
         <include refid="payCondition"/>
         ) a
-        where (mem_nick like concat('%', #{searchText}, '%')
-        or mem_no like concat('%', #{searchText}, '%')
-        or mem_id like concat('%', #{searchText}, '%')
-        or mem_phone like concat('%', #{searchText}, '%'))
-        <if test='sDate != null and sDate != ""'>
-            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) >= #{sDate}
-            and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) <![CDATA[<=]]>  #{eDate}
-        </if>
-        <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
-            <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
-                and pay_yn ='Y'
-            </if>
-            <if test="searchPayStatus == 2"> <!-- 취소 완료 -->
-                and cancel_state = 'Y'
-            </if>
-            <if test="searchPayStatus == 3"> <!-- 취소 불가 -->
-                and cancel_state = 'F'
-            </if>
-        </if>
-        <if test="ostype != -1">
-            and os = #{ostype}
-        </if>
-        <if test="innerType != -1">
-            and chrgr_yn = #{innerType}
-        </if>
-        <if test="payWay != 'all'">
-            and pay_way = #{payWay}
-        </if>
     </select>
 
     <select id="getTotalPaySum" parameterType="com.dalbit.enter.vo.procedure.P_StatVo" resultType="com.dalbit.payment.vo.Pay_PaySumOutputVo">

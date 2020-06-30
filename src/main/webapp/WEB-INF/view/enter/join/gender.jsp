@@ -14,7 +14,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th class="_sex_male" colspan="7"></th>
                 <th class="_sex_female" colspan="7"></th>
                 <th rowspan="2">알 수 없음</th>
@@ -106,7 +106,7 @@
         <tr>
             <td class="font-bold">
                 {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-                {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+                {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
                 {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
             </td>
             <td style="color: blue">{{addComma totalMCnt}}</td>

@@ -24,6 +24,7 @@ public interface Mem_MemberDao {
     @Transactional(readOnly = true)
     P_MemberInfoOutputVo callMemberInfo(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
     P_MemberInfoOutputVo callMemberCertification(P_MemberInfoInputVo pMemberInfoInputVo);
 
     @Transactional(readOnly = true)
@@ -124,4 +125,5 @@ public interface Mem_MemberDao {
 
     int insertLoginBlock(LoginBlockVo loginBlockVo);
     int insertLoginBlockHistory(LoginBlockHistVo loginBlockHistVo);
+
 }

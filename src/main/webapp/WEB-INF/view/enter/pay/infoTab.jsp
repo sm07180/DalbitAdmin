@@ -31,8 +31,9 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
+    var tabId;
     $("#tablist_con li a").on('click', function(){
-        var tabId = $(this).prop('id');
+        tabId = $(this).prop('id');
         if(tabId == 'tab_payTotal'){
             getPayTotalList();
         }else if(tabId == 'tab_payAge'){
@@ -55,8 +56,21 @@
         if($('input[name="slctType"]:first').prop('checked')){
             $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
         }
-
         getStatPayInfo();
-        $("#tablist_con li.active a").click();
+        if(tabId == 'tab_payTotal'){
+            getPayTotalList();
+        }else if(tabId == 'tab_payAge'){
+            getPayAgeList();
+        }else if(tabId == 'tab_payWay'){
+            getPayWayList();
+        }else if(tabId == 'tab_payCode'){
+            getPayCodeList();
+        }else if(tabId == 'tab_payHistory'){
+            getPayHistoryList();
+        }else if(tabId == 'tab_payCancel'){
+            getPayCancelList();
+        }else if(tabId == 'tab_payTry'){
+            getPayTryList();
+        }
     });
 </script>

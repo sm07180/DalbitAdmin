@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="5">페이지뷰</th>
             </tr>
             <tr>

@@ -15,7 +15,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>소계</th>
                 <th>일상</th>
                 <th>수다/챗</th>

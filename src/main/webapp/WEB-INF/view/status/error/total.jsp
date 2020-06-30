@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>발생 건 수</th>
                 <th>조치 건 수</th>
                 <th>미해결 건 수</th>

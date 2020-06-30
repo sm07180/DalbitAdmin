@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>소계</th>
                 <th>일상/채팅</th>
                 <th>연애/오락</th>
