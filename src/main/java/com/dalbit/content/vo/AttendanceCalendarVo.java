@@ -14,6 +14,7 @@ public class AttendanceCalendarVo extends PagingVo {
 
     /* output */
     private String the_date;
+    private int joinCnt;
     private int joinSum;
     private int expSum;
     private int dalSum;
