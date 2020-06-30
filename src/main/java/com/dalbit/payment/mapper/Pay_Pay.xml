@@ -4,7 +4,8 @@
 
     <sql id="payCondition">
       SELECT payAll.*
-          , concat(b.mem_birth_year, '-', LPAD(b.mem_birth_month,2,'0'), '-', LPAD(b.mem_birth_day,2,'0')) as birth
+          , ifnull(concat(b.mem_birth_year, '-', LPAD(b.mem_birth_month,2,'0'), '-', LPAD(b.mem_birth_day,2,'0'))
+                    , concat(c.mem_birth_year, '-', LPAD(c.mem_birth_month,2,'0'), '-', LPAD(c.mem_birth_day,2,'0'))) as birth
           , ifnull(b.inner,c.inner) as chrgr_yn
           , ifnull(b.mem_nick,c.mem_nick) as mem_nick
           , ifnull(b.mem_userid,c.mem_userid) as mem_userid
