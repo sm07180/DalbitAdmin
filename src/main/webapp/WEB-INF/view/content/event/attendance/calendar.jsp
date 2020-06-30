@@ -82,7 +82,19 @@
                 weekTotal.dalSum += Number(info.dalSum);
             });
         }
-        console.log(weekTotal);
+        console.log(param);
+        //console.log(weekTotal);
+
+        var weekTarget = $('.fc-week:eq('+param.index+')').find('.fc-day-content:last');
+        weekTarget.html('6월 '+(param.index + 1)+'주차' );
+
+        var template = $('#tmp_calendarData').html();
+        var templateScript = Handlebars.compile(template);
+        var context = weekTotal;
+        var html=templateScript(context);
+
+        weekTarget.append(html);
+
 
     }
 
@@ -103,9 +115,11 @@
                     search_endDate: $('td.fc-day:last').data('date')
                 },
                 success: function(response) {
+                    console.log('response');
                     console.log(response);
                     var data = response.data;
                     data.forEach(function(info){
+                        var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]');
                         calendarRenderEvent('1.참여자 수: ' + common.addComma(info.joinSum), info.the_date, '#b64e1d');
                         calendarRenderEvent('3.남성 : ' + common.addComma(info.sex_men), info.the_date, '#b64e1d');
                         calendarRenderEvent('4.여성 : ' + common.addComma(info.sex_female), info.the_date, '#b64e1d');
@@ -137,5 +151,15 @@
         });
     }
 
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_calendarData">
+    <div>참여자 수 : {{joinSum}}</div>
+    <div>남성 : {{sex_man}}</div>
+    <div>여성 : {{sex_famale}}</div>
+    <div>알수없음 : {{sex_unknown}}</div>
+    <div>참여건수 : {{joinSum}}</div>
+    <div>경험치 : {{expSum}}</div>
+    <div>달 : {{dalSum}}</div>
 </script>
 

@@ -8,6 +8,7 @@
                         ,a.*
                         , (select count(*) from rd_data.tb_member_broadcast_broadcasting where mem_no = a.mem_no) broadcastCnt
                         , (select count(*) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt
+                        , (select count(distinct DATE_FORMAT(start_date, '%Y%m%d')) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt2
                         , (select count(*) from rd_data.tb_payment_succ where mem_no = a.mem_no and pay_yn = 'Y') payCnt
                    From rd_data.tb_member_basic a
                    <if test="period != 4 and period != 3">
@@ -96,6 +97,7 @@
                         ,a.*
                         , (select count(*) from rd_data.tb_member_broadcast_broadcasting where mem_no = a.mem_no) broadcastCnt
                         , (select count(*) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt
+                        , (select count(distinct DATE_FORMAT(start_date, '%Y%m%d')) from rd_data.tb_member_broadcast_listening where mem_no = a.mem_no) listenCnt2
                         , (select count(*) from rd_data.tb_payment_succ where mem_no = a.mem_no and pay_yn = 'Y') payCnt
                    From rd_data.tb_member_withdrawal_bak a
                    <if test="period != 4 and period != 3">
