@@ -61,7 +61,7 @@
                       or b.mem_no like concat('%', #{searchText}, '%')
                       or b.mem_id like concat('%', #{searchText}, '%')
                       or b.mem_phone like concat('%', #{searchText}, '%'))
-                   and (c.mem_nick like concat('%', #{searchText}, '%')
+                   or (c.mem_nick like concat('%', #{searchText}, '%')
                      or c.mem_no like concat('%', #{searchText}, '%')
                      or c.mem_id like concat('%', #{searchText}, '%')
                      or c.mem_phone like concat('%', #{searchText}, '%')))
