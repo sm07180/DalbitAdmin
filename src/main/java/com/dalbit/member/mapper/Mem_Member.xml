@@ -325,7 +325,7 @@
             , (select @rownum := 0) AS b
         <where>
             <if test='searchText != null and searchText != ""'>
-                and (b.mem_no like concat ('%', upper(#{searchText}), '%')
+                and ((b.mem_no like concat ('%', upper(#{searchText}), '%')
                      or b.mem_id like concat ('%', upper(#{searchText}), '%')
                      or b.mem_nick like concat ('%', upper(#{searchText}), '%')
                      or b.mem_userid like concat ('%', upper(#{searchText}), '%')
@@ -333,7 +333,7 @@
                     )
                 or upper(a.device_uuid) like concat ('%', upper(#{searchText}), '%')
                 or upper(a.device_token) like concat ('%', upper(#{searchText}), '%')
-                or a.ip like concat ('%', upper(#{searchText}), '%')
+                or a.ip like concat ('%', upper(#{searchText}), '%'))
             </if>
             <if test='txt_startSel != null and txt_startSel != ""'>
                 and a.last_upd_date  <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel},'%Y-%m-%d 00:00:00')

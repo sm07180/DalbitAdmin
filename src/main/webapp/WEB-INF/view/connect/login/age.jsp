@@ -69,30 +69,6 @@
     var tmp_end = 0;
     var type;
     function getAgeNonOver(){
-        tmp_end = 0;
-        tmp = 31;
-        type = "일";
-
-        var slctType_date = [];
-        for(var i = tmp; tmp_end < i; i-- ){
-            slctType_date.push(i + " " + type);
-        }
-        data = {
-            slctType_date : slctType_date
-        };
-
-        var template = $('#tmp_dummyAgeNonOver').html();
-        var templateScript = Handlebars.compile(template);
-        var context = data;
-        var html=templateScript(context);
-        $("#ageNonOverTableBody").html(html);
-
-        var template = $('#tmp_dummyAgeNonOver2').html();
-        var templateScript = Handlebars.compile(template);
-        var context = data;
-        var html=templateScript(context);
-        $("#ageNonOverTableBody2").html(html);
-
         var th_1;
         var th_0;
 
@@ -114,17 +90,35 @@
     }
 
     function fn_age_success(data, response){
-        dalbitLog(response);
 
-        var tmp_date = new Date();
-        tmp_date = moment(tmp_date).format("YYYY.MM.DD HH:mm:SS");
+        tmp = response.data[0].detailList.length - 1;
+        var slctType_date = [];
+        for(var i = tmp; 0 < i; i-- ){
+            slctType_date.push(i + " 일");
+        }
+        data = { slctType_date : slctType_date };
 
-        tmp_index = -1;
+        var template = $('#tmp_dummyAgeNonOver').html();
+        var templateScript = Handlebars.compile(template);
+        var context = data;
+        var html=templateScript(context);
+        $("#ageNonOverTableBody").html(html);
 
+        tmp = response.data[1].detailList.length - 1;
+        slctType_date = [];
+        for(var i = tmp; 0 < i; i-- ){
+            slctType_date.push(i + " 일");
+        }
+        data = { slctType_date : slctType_date };
+        var template = $('#tmp_dummyAgeNonOver2').html();
+        var templateScript = Handlebars.compile(template);
+        var context = data;
+        var html=templateScript(context);
+        $("#ageNonOverTableBody2").html(html);
+
+
+        var count=0;
         response.data.forEach(function(data, index){
-            if(index > 2){
-                ++tmp_index;
-            }
             data.detailList.forEach(function(detail, detailIndex){
                 if(detail.succAmt == 0){
                     detail.accumAmt = 0;
@@ -160,69 +154,69 @@
                     age60Cnt = common.addComma(detail.age60Cnt);
                 }
                 //상단
+                count = 0;
                 if (index == 0) {
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (1) + ")").html(totalCnt);
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (2) + ")").html(age10Cnt);
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (3) + ")").html(age20Cnt);
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (4) + ")").html(age30Cnt);
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (5) + ")").html(age40Cnt);
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (6) + ")").html(age50Cnt);
-                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (7) + ")").html(age60Cnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(totalCnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age10Cnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age20Cnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age30Cnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age40Cnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age50Cnt);
+                    $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age60Cnt);
                 }
 
                 // 하단
+                count = 0;
                 if (index == 1) {
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (1) + ")").html(totalCnt);
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (2) + ")").html(age10Cnt);
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (3) + ")").html(age20Cnt);
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (4) + ")").html(age30Cnt);
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (5) + ")").html(age40Cnt);
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (6) + ")").html(age50Cnt);
-                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (7) + ")").html(age60Cnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(totalCnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age10Cnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age20Cnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age30Cnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age40Cnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age50Cnt);
+                    $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age60Cnt);
                 }
             });
         });
 
-        tmp_index = -1;
         for(var i=0 ; i<response.data.length;i++){
-            if(i > 2){
-                ++tmp_index;
-            }
             var totalInfo = response.data[i].totalInfo;
             //상단
+            count = 0;
             if(i == 0){
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (1)+ ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (2)+ ")").html(common.addComma(totalInfo.sum_age10Cnt));
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (3)+ ")").html(common.addComma(totalInfo.sum_age20Cnt));
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (4)+ ")").html(common.addComma(totalInfo.sum_age30Cnt));
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (5)+ ")").html(common.addComma(totalInfo.sum_age40Cnt));
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (6)+ ")").html(common.addComma(totalInfo.sum_age50Cnt));
-                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (7)+ ")").html(common.addComma(totalInfo.sum_age60Cnt));
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (3) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (6) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
-                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (7) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody tr:eq(0) td:eq(" + (++count)+ ")").html(common.addComma(totalInfo.sum_age60Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
             }
 
             // 하단
+            count = 0;
             if(i == 1){
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (3) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (6) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
-                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (7) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_totalCnt));
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (3) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (6) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
-                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (7) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody2 tr:eq(0) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age10Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age20Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age30Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age40Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age50Cnt));
+                $("#ageNonOverTableBody2 tr:eq(32) td:eq(" + (++count) + ")").html(common.addComma(totalInfo.sum_age60Cnt));
             }
         }
         // tableHeightSet();

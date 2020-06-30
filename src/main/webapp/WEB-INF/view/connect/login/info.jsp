@@ -38,6 +38,7 @@
                                 <input class="hide" name="endDate" id="endDate" style="width: 100px">
                                 <%--<input name="startDate" id="startDate" style="width: 100px">--%>
                                 <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+                                <label><input type="text" class="form-control hide" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>

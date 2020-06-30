@@ -5,14 +5,6 @@
 <div id="wrapper">
     <div id="page-wrapper">
         <div id="container-fluid">
-            <!-- searchBox -->
-            <div class="row col-lg-12 form-inline">
-                <div class="widget-header searchBoxRow">
-                        <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색어를 입력해주세요."></label>
-                </div>
-            </div>
-            <!-- // searchBox -->
-
             <!-- error log table-->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">

@@ -46,6 +46,13 @@
             me = 2;
         }
         radioChange();
+
+        if(tabId != 'tab_loginHistory') {
+            $("#searchText").addClass('hide');
+        }else{
+            $("#searchText").removeClass('hide');
+        }
+
         if(tabId == 'tab_timeNonOver'){
             getTimeNonOver();
         }else if(tabId == 'tab_monthNonOver') {
