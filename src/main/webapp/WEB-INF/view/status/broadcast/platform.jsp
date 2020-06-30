@@ -17,7 +17,7 @@
                 <th colspan="4">방송시간</th>
             </tr>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>소계</th>
                 <th>PC웹</th>
                 <th>안드로이드</th>

@@ -19,14 +19,14 @@
             <thead id="browserTable">
             <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
-                <th colspan="4" id="th_after">실시간</th>
-                <th colspan="4" id="th_befor">전일</th>
+                <th colspan="4" id="th_after" style="background-color: #ffe699">금월</th>
+                <th colspan="4" id="th_befor">전월</th>
             </tr>
             <tr style="background-color: #dae3f3">
-                <th>소계</th>
-                <th>안드로이드</th>
-                <th>아이폰</th>
-                <th>PC</th>
+                <th style="background-color: #fff2cc">소계</th>
+                <th style="background-color: #fff2cc">안드로이드</th>
+                <th style="background-color: #fff2cc">아이폰</th>
+                <th style="background-color: #fff2cc">PC</th>
 
                 <th>소계</th>
                 <th>안드로이드</th>

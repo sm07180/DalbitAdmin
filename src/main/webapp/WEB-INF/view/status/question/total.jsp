@@ -17,7 +17,7 @@
             </colgroup>
             <thead id="totalTable">
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>등록 건 수</th>
                 <th>처리 건 수</th>
                 <th>미처리 건 수</th>

@@ -18,7 +18,7 @@
             </colgroup>
             <thead id="totalTable">
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>소계</th>
                 <th>회원정보</th>
                 <th>방송하기</th>

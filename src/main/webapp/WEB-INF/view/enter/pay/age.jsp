@@ -22,13 +22,13 @@
                 <th colspan="15">연령대별</th>
             </tr>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">총계</th>
                 <th colspan="2" class="_sex_male"></th>
                 <th colspan="2" class="_sex_female"></th>
                 <th colspan="2">알수없음</th>
                 <th rowspan="2" style="background-color: white; border-bottom: hidden;"></th>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">총계</th>
                 <th colspan="2">10대</th>
                 <th colspan="2">20대</th>
@@ -148,7 +148,7 @@
     <tr>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}일{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
@@ -162,7 +162,7 @@
         <td style="border-bottom: hidden;"></td>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}일{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>

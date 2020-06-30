@@ -9,12 +9,12 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="10%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>
+                <col width="5%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>
                 <col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">환전신청</th>
                 <th colspan="2">환전완료</th>
                 <th colspan="2">환전불가</th>
@@ -91,7 +91,7 @@
     <tr>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}일{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma tryCnt}}</td>

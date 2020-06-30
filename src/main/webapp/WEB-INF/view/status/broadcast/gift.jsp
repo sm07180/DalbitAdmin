@@ -12,7 +12,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>총 선물 건수</th>
                 <th>총 선물 달수</th>
                 <th>일반선물 건수</th>

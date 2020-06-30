@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>소계</th>
                 <th>PC 웹</th>
                 <th>모바일 웹</th>

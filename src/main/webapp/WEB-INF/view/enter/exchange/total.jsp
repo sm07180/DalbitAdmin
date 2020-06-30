@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">환전신청</th>
                 <th colspan="2">환전취소</th>
                 <th colspan="2">환전완료</th>

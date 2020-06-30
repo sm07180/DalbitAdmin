@@ -260,3 +260,7 @@ Handlebars.registerHelper("calcAge", function(value, state) {
    }
    return state;
 });
+
+Handlebars.registerHelper("substr", function(value, st, ed) {
+    return common.substr(value,st, ed);
+});

@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th rowspan="2">소계</th>
                 <th colspan="3">성별</th>
                 <th colspan="6">연령별</th>

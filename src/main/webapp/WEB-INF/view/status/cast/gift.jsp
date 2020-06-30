@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>선물 건수</th>
                 <th>선물 금액</th>
             </tr>

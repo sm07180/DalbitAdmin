@@ -18,7 +18,7 @@
             </colgroup>
             <thead id="totalTable">
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>소계</th>
                 <th>PC/모바일WEB</th>
                 <th>안드로이드</th>
