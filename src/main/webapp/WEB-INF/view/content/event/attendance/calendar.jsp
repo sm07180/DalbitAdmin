@@ -2,43 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="wrapper">
-
-    <!-- BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
-    <div class="bottom">
-        <div class="container">
-            <div class="row">
-                <!-- content-wrapper -->
-                <div class="col-md-10 content-wrapper">
-                    <!-- main -->
-                    <div class="content">
-                        <div class="main-header">
-                            <h2>Calendar</h2>
-                        </div>
-
-                        <div class="main-content">
-                            <!-- WIDGET CALENDAR -->
-                            <div class="widget">
-                                <div class="widget-header">
-                                    <h3><i class="fa fa-calendar"></i> Calendar</h3>
-                                </div>
-                                <div class="widget-content">
-                                    <div class="calendar"></div>
-                                </div>
-                            </div>
-                            <!-- END WIDGET CALENDAR -->
-
-                        </div>
-                        <!-- /main-content -->
-                    </div>
-                    <!-- /main -->
+    <div id="page-wrapper">
+        <div id="container-fluid">
+            <%@ include file="/WEB-INF/view/content/event/attendance/attendanceTab.jsp"%>
+            <div class="widget">
+                <div class="widget-header">
+                    <h3><i class="fa fa-calendar"></i> 출석체크 이벤트 현황</h3>
                 </div>
-                <!-- /content-wrapper -->
+                <div class="widget-content">
+                    <div class="calendar"></div>
+                </div>
             </div>
-            <!-- /row -->
         </div>
-        <!-- /container -->
     </div>
-    <!-- END BOTTOM: LEFT NAV AND RIGHT MAIN CONTENT -->
 </div>
 <!-- /wrapper -->
 
@@ -47,10 +23,6 @@
 <script src="/template/js/plugins/fullcalendar/fullcalendar.js"></script>
 <script src="/template/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <script type="text/javascript">
-
-    $(function(){
-       //getAttendanceList();
-    });
 
     function getAttendanceWeek(startDate, endDate, index){
         var data = {
@@ -62,8 +34,14 @@
     }
 
     function getCalendarWeek_success(dst_id, response, param) {
+
+        var date = $(".calendar").fullCalendar('getDate');
+        var month_int = date.getMonth() + 1;
+
         var weekTotal = {
-            joinMem : 0
+            month : month_int
+            , index : 0
+            , joinMem : 0
             , sex_man : 0
             , sex_famale : 0
             , sex_unknown : 0
@@ -71,36 +49,35 @@
             , expSum : 0
             , dalSum : 0
         }
+
         if(!common.isEmpty(response.data)){
+            weekTotal.index = param.index;
             response.data.forEach(function(info){
                 weekTotal.joinSum += Number(info.joinSum);
                 weekTotal.sex_man += Number(info.sex_man);
                 weekTotal.sex_famale += Number(info.sex_famale);
                 weekTotal.sex_unknown += Number(info.sex_unknown);
-                weekTotal.joinSum += Number(info.joinSum);
+                //weekTotal.joinSum += Number(info.joinSum);
                 weekTotal.expSum += Number(info.expSum);
                 weekTotal.dalSum += Number(info.dalSum);
             });
         }
         console.log(param);
-        //console.log(weekTotal);
 
         var weekTarget = $('.fc-week:eq('+param.index+')').find('.fc-day-content:last');
-        weekTarget.html('6월 '+(param.index + 1)+'주차' );
-
-        var template = $('#tmp_calendarData').html();
+        var template = $('#tmp_weekCalendarData').html();
         var templateScript = Handlebars.compile(template);
         var context = weekTotal;
         var html=templateScript(context);
 
         weekTarget.append(html);
 
-
     }
 
     $('.calendar').fullCalendar({
         header: {
-            left: 'month, agendaWeek, agendaDay',
+            //left: 'month, agendaWeek, agendaDay',
+            left: '',
             center: 'title',
             right: 'prev, next, today'
         },
@@ -115,18 +92,15 @@
                     search_endDate: $('td.fc-day:last').data('date')
                 },
                 success: function(response) {
-                    console.log('response');
-                    console.log(response);
                     var data = response.data;
                     data.forEach(function(info){
-                        var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]');
-                        calendarRenderEvent('1.참여자 수: ' + common.addComma(info.joinSum), info.the_date, '#b64e1d');
-                        calendarRenderEvent('3.남성 : ' + common.addComma(info.sex_men), info.the_date, '#b64e1d');
-                        calendarRenderEvent('4.여성 : ' + common.addComma(info.sex_female), info.the_date, '#b64e1d');
-                        calendarRenderEvent('5.알수없음 : ' + common.addComma(info.sex_unknown), info.the_date, '#b64e1d');
-                        calendarRenderEvent('6.참여 건수: ' + common.addComma(info.joinSum), info.the_date, '#b64e1d');
-                        calendarRenderEvent('7.경험치 : ' + common.addComma(info.expSum), info.the_date, '#b64e1d');
-                        calendarRenderEvent('8.달 : ' + common.addComma(info.dalSum), info.the_date, '#b64e1d');
+                        var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
+                        var template = $('#tmp_calendarData').html();
+                        var templateScript = Handlebars.compile(template);
+                        var context = info;
+                        var html=templateScript(context);
+                        dayTarget.append(html);
+
                     });
 
                     //주별 합계 구하기
@@ -153,13 +127,25 @@
 
 </script>
 
+
 <script type="text/x-handlebars-template" id="tmp_calendarData">
-    <div>참여자 수 : {{joinSum}}</div>
-    <div>남성 : {{sex_man}}</div>
-    <div>여성 : {{sex_famale}}</div>
-    <div>알수없음 : {{sex_unknown}}</div>
-    <div>참여건수 : {{joinSum}}</div>
-    <div>경험치 : {{expSum}}</div>
-    <div>달 : {{dalSum}}</div>
+    <div>참여자 수 : {{joinSum}} 명</div>
+    <div>남성 : {{sex_man}} 명</div>
+    <div>여성 : {{sex_famale}} 명</div>
+    <div>알수없음 : {{sex_unknown}} 명</div>
+    <div>참여건수 : {{joinSum}} 명</div>
+    <div>경험치 : {{expSum}} exp</div>
+    <div>달 : {{dalSum}} 개</div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_weekCalendarData">
+    <div style="font-weight:bold">{{month}}월 {{math index '+' 1}}주차</div>
+    <div>참여자 수 : {{joinSum}} 명</div>
+    <div>남성 : {{sex_man}} 명</div>
+    <div>여성 : {{sex_famale}} 명</div>
+    <div>알수없음 : {{sex_unknown}} 명</div>
+    <div>참여건수 : {{joinSum}} 명</div>
+    <div>경험치 : {{expSum}} exp</div>
+    <div>달 : {{dalSum}} 개</div>
 </script>
 
