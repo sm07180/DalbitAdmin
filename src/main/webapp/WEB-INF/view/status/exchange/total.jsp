@@ -91,7 +91,7 @@
     <tr>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma tryCnt}}</td>
