@@ -275,7 +275,7 @@
     <tr>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma android_total_cnt}}<br/>({{average android_total_cnt sum_android_total_cnt}}%)</td>
@@ -301,7 +301,7 @@
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 1}}{{data.daily}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma ios_total_cnt}}<br/>({{average ios_total_cnt sum_ios_total_cnt}}%)</td>

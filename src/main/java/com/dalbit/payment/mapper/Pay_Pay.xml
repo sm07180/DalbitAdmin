@@ -11,6 +11,7 @@
           , ifnull(b.mem_userid,c.mem_userid) as mem_userid
           , ifnull(b.mem_id,c.mem_id) as mem_id
           , ifnull(b.mem_phone,c.mem_phone) as mem_phone
+          , ifnull(b.mem_sex,c.mem_sex) as mem_sex
         FROM ( SELECT pay.order_id,
                      pay.mem_no,
                      pay.pay_way,

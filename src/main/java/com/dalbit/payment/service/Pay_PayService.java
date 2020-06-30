@@ -46,19 +46,9 @@ public class Pay_PayService {
         pay_PayInputVo.setPageNo(pay_PayInputVo.getPageNo() -1);
         pay_PayInputVo.setPageNo(pay_PayInputVo.getPageNo() * pay_PayInputVo.getPageCnt());
         List<Pay_PayOutputVo> list = payPayDao.getPayList(pay_PayInputVo);
-
         int getPayListCnt = payPayDao.getPayListCnt(pay_PayInputVo);
-
         //summary
         Pay_PayOutputVo summary = payPayDao.getPaySummary(pay_PayInputVo);
-
-        for(int i=0;i<list.size();i++){
-            MemberVo outVo = mem_MemberDao.getMemberInfo(list.get(i).getMem_no());
-            if(!DalbitUtil.isEmpty(outVo)) {
-                list.get(i).setMem_sex(outVo.getMem_sex());
-            }
-        }
-
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(getPayListCnt),summary));
 
         return result;
