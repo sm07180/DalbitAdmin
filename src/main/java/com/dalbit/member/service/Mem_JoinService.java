@@ -67,8 +67,8 @@ public class Mem_JoinService {
         pMemberJoinInputVo.setPageCnt(60000);
         ArrayList<P_MemberJoinOutputVo> list = mem_JoinDao.callJoinList(pMemberJoinInputVo);
         String[] headers = null;
-        headers = new String[]{"No", "회원가입일시", "가입플랫폼", "OS", "회원번호", "로그인ID", "UserID", "닉네임", "이름", "연락처", "IP"};
-        int[] headerWidths = {3000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000};
+        headers = new String[]{"No", "회원가입일시", "가입플랫폼", "OS", "회원번호", "로그인ID", "UserID", "닉네임", "이름", "연락처", "IP", "광고유입여부", "방생성수", "청취일수", "청취수", "결제수"};
+        int[] headerWidths = {3000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
@@ -107,6 +107,11 @@ public class Mem_JoinService {
             hm.put("mem8",  DalbitUtil.isEmpty(list.get(i).getMem_name())          ? "" : list.get(i).getMem_name());
             hm.put("mem9",  DalbitUtil.isEmpty(list.get(i).getMem_phone())         ? "" : list.get(i).getMem_phone());
             hm.put("mem10", DalbitUtil.isEmpty(list.get(i).getIp())                ? "" : list.get(i).getIp());
+            hm.put("mem11", DalbitUtil.isEmpty(list.get(i).getJoin_path())         ? "N" : "Y");
+            hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getBroadcastCnt())      ? "" : list.get(i).getBroadcastCnt());
+            hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getListenCnt2())         ? "" : list.get(i).getListenCnt2());
+            hm.put("mem14", DalbitUtil.isEmpty(list.get(i).getListenCnt())         ? "" : list.get(i).getListenCnt());
+            hm.put("mem15", DalbitUtil.isEmpty(list.get(i).getPayCnt())            ? "" : list.get(i).getPayCnt());
             bodies.add(hm.values().toArray());
         }
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
@@ -126,8 +131,8 @@ public class Mem_JoinService {
         pMemberJoinInputVo.setPageCnt(60000);
         ArrayList<P_MemberJoinOutputVo> list = mem_JoinDao.callWithdrawalList(pMemberJoinInputVo);
         String[] headers = null;
-        headers = new String[]{"No", "회원탈퇴일시", "가입플랫폼", "OS", "회원번호", "로그인ID", "UserID", "닉네임", "이름", "연락처", "IP"};
-        int[] headerWidths = {3000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000};
+        headers = new String[]{"No", "회원가입일시", "가입플랫폼", "OS", "회원번호", "로그인ID", "UserID", "닉네임", "이름", "연락처", "IP", "광고유입여부", "방생성수", "청취일수", "청취수", "결제수"};
+        int[] headerWidths = {3000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000, 6000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i = 0; i < list.size(); i++){
@@ -166,6 +171,11 @@ public class Mem_JoinService {
             hm.put("mem8",  DalbitUtil.isEmpty(list.get(i).getMem_name())          ? "" : list.get(i).getMem_name());
             hm.put("mem9",  DalbitUtil.isEmpty(list.get(i).getMem_phone())         ? "" : list.get(i).getMem_phone());
             hm.put("mem10", DalbitUtil.isEmpty(list.get(i).getIp())                ? "" : list.get(i).getIp());
+            hm.put("mem11", DalbitUtil.isEmpty(list.get(i).getJoin_path())         ? "N" : "Y");
+            hm.put("mem12", DalbitUtil.isEmpty(list.get(i).getBroadcastCnt())      ? "" : list.get(i).getBroadcastCnt());
+            hm.put("mem13", DalbitUtil.isEmpty(list.get(i).getListenCnt2())         ? "" : list.get(i).getListenCnt2());
+            hm.put("mem14", DalbitUtil.isEmpty(list.get(i).getListenCnt())         ? "" : list.get(i).getListenCnt());
+            hm.put("mem15", DalbitUtil.isEmpty(list.get(i).getPayCnt())            ? "" : list.get(i).getPayCnt());
             bodies.add(hm.values().toArray());
         }
         ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);

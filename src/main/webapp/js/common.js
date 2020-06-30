@@ -427,3 +427,11 @@ common.calcAge = function(birth) {
     return age;
 
 }
+
+common.substr = function(value, st, ed){
+    if(ed > 0){
+        return value.substr(st,ed);
+    }else{
+        return value.substr(st);
+    }
+};

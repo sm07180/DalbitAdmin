@@ -12,7 +12,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">교환</th>
                 <th colspan="2">선물</th>
                 <th colspan="2">구독</th>

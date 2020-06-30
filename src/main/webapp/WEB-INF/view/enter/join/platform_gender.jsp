@@ -13,7 +13,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th rowspan="2">소계</th>
                 <th colspan="3">안드로이드</th>
                 <th colspan="3">아이폰</th>
@@ -98,7 +98,7 @@
         <tr>
             <td class="font-bold">
                 {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-                {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+                {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
                 {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
             </td>
             <td>{{addComma totalCnt}}</td>

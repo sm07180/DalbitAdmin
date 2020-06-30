@@ -8,7 +8,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>게스트 인원</th>
                 <th>방송 건수</th>
                 <th>방송 시간</th>

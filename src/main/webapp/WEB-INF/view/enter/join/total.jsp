@@ -13,7 +13,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>소계</th>
                 <th class="_sex_male"></th>
                 <th class="_sex_female"></th>
@@ -92,7 +92,7 @@
         <tr>
             <td class="font-bold">
                 {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-                {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+                {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
                 {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
             </td>
             <td>{{addComma totalCnt}}</td>

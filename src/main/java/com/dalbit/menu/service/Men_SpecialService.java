@@ -258,6 +258,7 @@ public class Men_SpecialService {
 
         if(result > 0) {
             // 스페셜 DJ 선정 PUSH 발송
+            /*
             try{    // PUSH 발송
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(specialReqVo.getMem_no());
@@ -283,7 +284,7 @@ public class Men_SpecialService {
             }catch (Exception e){
                 log.error("[NOTI 발송 실패 - 스페셜 DJ 신청 거부]");
             }
-
+            */
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인취소_성공));
         } else {
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ승인취소_실패));

@@ -68,6 +68,12 @@
         if(response.data.specialdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
         response.data["dj_badge"] = tmp_badge;
 
+        if(response.data.age < 19){
+            response.data["adultYn"] = "n";
+        } else {
+            response.data["adultYn"] = "y";
+        }
+
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -649,12 +655,12 @@
     <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
     <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
         <colgroup>
-            <col width="10%"/><col width="10%"/><col width="10%"/><col width="20%"/><col width="10%"/><col width="35%"/><col width="5%"/>
+            <col width="10%"/><col width="10%"/><col width="10%"/><col width="7%"/><col width="13%"/><col width="10%"/><col width="35%"/><col width="5%"/>
         </colgroup>
         <tbody>
         <tr>
             <th rowspan="7">프로필이미지</th>
-            <td rowspan="7" colspan="3" style="border: white">
+            <td rowspan="7" colspan="4" style="border: white">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
                     {{#equal memWithdrawal '0'}}
@@ -706,7 +712,7 @@
         </tr>
         <tr>
             <th>회원NO</th>
-            <td colspan="3" style="text-align: left">{{mem_no}}</td>
+            <td colspan="4" style="text-align: left">{{mem_no}}</td>
             <th>방송상태</th>
             <td colspan="2" style="text-align: left">
                 {{{icon_broadcastState}}}
@@ -726,7 +732,7 @@
             <th>회원이름</th>
             <td style="text-align: left">{{userName}}</td>
             <th>내/외국인 구분</th>
-            <td style="text-align: left">{{local}}</td>
+            <td style="text-align: left" colspan="2">{{local}}</td>
             <th>청취상태</th>
             <td colspan="2" style="text-align: left">
                 {{{icon_listeningState}}}
@@ -738,7 +744,7 @@
         </tr>
         <tr>
             <th>UserId</th>
-            <td colspan="3" style="text-align: left" id="td_userid" data-userid="{{userId}}">
+            <td colspan="4" style="text-align: left" id="td_userid" data-userid="{{userId}}">
                 {{userId}}
                 {{^equal dj_badge ''}}
                 <label class="pull-right"> DJ타입 | {{{../dj_badge}}} </label>
@@ -771,9 +777,9 @@
         </tr>
         <tr>
             <th>로그인 아이디</th>
-            <td colspan="3" style="text-align: left">
+            <td colspan="4" style="text-align: left">
                 <div id="div_socialId">
-                    <input type="text" class="form-control" id="txt_socialId" style="width: 50%;" value="{{socialId}}" onkeyup="fnChkByte(this);">
+                    <input type="text" class="form-control" id="txt_socialId" style="width: 207px;" value="{{socialId}}" onkeyup="fnChkByte(this);">
                     {{#equal memWithdrawal '0'}}
                         <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                     {{/equal}}
@@ -801,12 +807,20 @@
         </tr>
         <tr>
             <th>연락처</th>
-            <td colspan="3" style="text-align: left">
-                <input type="text" class="form-control" id="txt_phon" style="width: 50%;" value="{{phoneNum}}">
+            <td colspan="2" style="text-align: left">
+                <input type="text" class="form-control" id="txt_phon" style="width: 207px;" value="{{phoneNum}}">
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                 {{/equal}}
-                {{certification}}
+            </td>
+            <th>본인인증 여부</th>
+            <td class="font-bold">
+                {{#equal auth_yn 'Yes'}}
+                    {{../comm_company}} &nbsp&nbsp|&nbsp&nbsp <label style="color: red; font-weight: bold">{{../auth_yn}}</label>
+                {{/equal}}
+                {{#equal auth_yn 'No'}}
+                    <label style="font-weight: bold;">{{../auth_yn}}</label>
+                {{/equal}}
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
             <td colspan="2" style="text-align: left">
@@ -818,7 +832,7 @@
         </tr>
         <tr>
             <th>닉네임</th>
-            <td colspan="3" style="text-align: left">
+            <td colspan="4" style="text-align: left">
                 {{nickName}}
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
@@ -834,17 +848,42 @@
         </tr>
         <tr>
             <th>생년월일</th>
-            <td colspan="3" style="text-align: left">
+            {{^equal adultYn 'y'}}
+            <td colspan="2" style="text-align: left">
                 <div class="input-group date" id="date_birth">
-                    <input type="text" class="form-control" id="txt_birth" value="{{{birthData}}}">
-                    {{#equal memWithdrawal '0'}}
+                    <input type="text" class="form-control" id="txt_birth" value="{{{../birthData}}}">
+                    {{#equal ../memWithdrawal '0'}}
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     {{/equal}}
                 </div>
-                {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_birth" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{#equal ../memWithdrawal '0'}}
+                    <button type="button" id="bt_birth" class="btn btn-default btn-sm" data-memno="{{../../mem_no}}" data-nickname="{{../../nickName}}">변경</button>
                 {{/equal}}
             </td>
+            <th>법정대리인 동의</br>(보호자)</th>
+            <td>
+                {{#equal ../parents_agree_yn 'y'}}
+                    <label style="color: red; font-weight: bold;">Yes</label>
+                    <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
+                    <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
+                {{else}}
+                    <label style="font-weight: bold;">No</label>
+                {{/equal}}
+
+            </td>
+            {{else}}
+            <td colspan="4" style="text-align: left">
+                <div class="input-group date" id="date_birth">
+                    <input type="text" class="form-control" id="txt_birth" value="{{{../birthData}}}">
+                    {{#equal ../memWithdrawal '0'}}
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    {{/equal}}
+                </div>
+                {{#equal ../memWithdrawal '0'}}
+                    <button type="button" id="bt_birth" class="btn btn-default btn-sm" data-memno="{{../../mem_no}}" data-nickname="{{../../nickName}}">변경</button>
+                {{/equal}}
+            </td>
+            {{/equal}}
             <th>가입방법</th>
             <td colspan="2" style="text-align: left"><label id="memSlct"></label></td>
         </tr>
@@ -852,7 +891,7 @@
             <th>나이</th>
             <td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>
             <th>성별</th>
-            <td style="text-align: left">
+            <td style="text-align: left" colspan="2">
                 <label class="mt5">{{{getCommonCodeRadio memSex 'memSex'}}}</label>
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
@@ -863,7 +902,7 @@
         </tr>
         <tr>
             <th>비밀번호</th>
-            <td colspan="3" style="text-align: left">
+            <td colspan="4" style="text-align: left">
                 {{#equal memWithdrawal '0'}}
                     <button type="button" id="bt_resatPass" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
                 {{/equal}}
@@ -878,14 +917,14 @@
         </tr>
         <tr>
             <th rowspan="4">운영자메모</th>
-            <td rowspan="1" colspan="3" style="text-align: left">등록: {{addComma opMemoCnt}} 건
+            <td rowspan="1" colspan="4" style="text-align: left">등록: {{addComma opMemoCnt}} 건
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
             <th rowspan="1">최초방송일시</th>
             <td rowspan="1" colspan="2" style="text-align: left">{{firstBroadcastDate}}</td>
         </tr>
         <tr>
-            <td rowspan="3" colspan="3" style="text-align: left">
+            <td rowspan="3" colspan="4" style="text-align: left">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
                 <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
             </td>

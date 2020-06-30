@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>총계</th>
                 <th>네트워크</th>
                 <th>서버</th>

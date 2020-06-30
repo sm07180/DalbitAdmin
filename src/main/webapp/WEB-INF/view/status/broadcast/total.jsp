@@ -14,7 +14,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>방송개설 건</th>
                 <th>방송시간(분)</th>
                 <th>DJ</th>

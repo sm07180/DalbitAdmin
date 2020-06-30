@@ -11,15 +11,34 @@
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                     <div>
-                        <span id="selJoinDate"></span>
-                        <div class="input-group date" id="seldate">
-                            <label for="onedayDate" class="input-group-addon">
-                                <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
+
+                        <span id="searchFormRadio"></span>
+
+                        <div class="input-group date" id="rangeDatepicker">
+                            <label for="displayDate" class="input-group-addon">
+                                <span><i class="fa fa-calendar"></i></span>
                             </label>
-                            <input type="text" class="form-control" id="onedayDate" name="onedayDate" style="width: 110px">
+                            <input type="text" name="displayDate" id="displayDate" class="form-control" />
                         </div>
-                        <input type="text" class="form-control" id="txt_search">
-                        <button type="button" id="bt_search" class="btn btn-success">검색</button>
+
+                        <input type="hidden" name="startDate" id="startDate">
+                        <input type="hidden" name="endDate" id="endDate" />
+
+                        <%--<input name="startDate" id="startDate">--%>
+                        <%--<input name="endDate" id="endDate" />--%>
+
+
+                        <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
+                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                        <a href="javascript://" class="_prevSearch">[이전]</a>
+                        <a href="javascript://" class="_todaySearch">[오늘]</a>
+                        <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                        <%--<button type="button" class="btn btn-primary" id="bt_search_special">600달 이상 보유 회원</button>--%>
+                        <label class="control-inline fancy-checkbox custom-color-green">
+                            <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                            <span>테스트 아이디 제외</span>
+                        </label>
 
                         <label class="control-inline fancy-checkbox custom-color-green">
                             <input type="checkbox" name="search_joinPath" id="search_joinPath" value="1">
@@ -65,25 +84,24 @@
 <script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
 <script>
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    setTimeDate(dateTime);
 
-    var date = new Date();
     var sDate;
     var eDate;
+    var _searchFormRadio ="";
+    $(function(){
+        $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
 
-    $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
-
-    $(document).ready(function() {
-        $("#selJoinDate").html(util.getCommonCodeRadio(3, joinDate));
-
-        $('#seldate').datetimepicker({
-            format: 'L',
-            maxDate:new Date(),
-            format: "YYYY-MM-DD",
-        });
-
-        sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
-
+        $("#displayDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startDate").val(start.format('YYYY.MM.DD'));
+                $("#endDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
         getUserInfo();
+
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getUserInfo();
@@ -93,42 +111,81 @@
         $('#bt_search').click( function() {       //검색
             getUserInfo();
         });
-        <!-- 버튼 끝 -->
+
+        $("#search_joinPath").on('change', function(){
+            if($(this).prop('checked')){
+                tmp_joinPath = 1;
+            }else{
+                tmp_joinPath = 0;
+            }
+            getUserInfo();
+        });
     });
 
-    $("#search_joinPath").on('change', function(){
-        if($(this).prop('checked')){
-            tmp_joinPath = 1;
-        }else{
-            tmp_joinPath = 0;
+    $(document).on('change', 'input[name="searchFormRadio"]', function(){
+        radioChange();
+    });
+
+    function radioChange(){
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+        if(_searchFormRadio == 2){
+            setTimeDate(dateTime);
         }
-        getUserInfo();
+        setStartDay();
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        searchDate('prev');
     });
 
-    $("#seldate").addClass('hide');
-    $('#selJoinDate').change(function() {
-        sDate = "";
-        eDate = "";
+    $(document).on('click', '._nextSearch', function(){
+        searchDate('next');
+    });
 
-        $("#seldate").addClass('hide');
-        eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");         // 오늘
-        if($('input[name="joinDate"]:checked').val() == "0"){               // 월
-            sDate = date.getFullYear() + common.lpad(date.getMonth(),2,"0") + common.lpad(date.getDate(),2,"0");        // 한달전
-        }else if($('input[name="joinDate"]:checked').val() == "1"){               // 주
+    $(document).on('click', '._todaySearch', function(){
+        $("input:radio[name='searchFormRadio']:radio[value='2']").prop('checked', true);
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+        setTimeDate(dateTime);
+        setStartDay();
+    });
+
+    function setTimeDate(dateTime){
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("#displayDate").val(dateTime + " - " + dateTime);
+    }
+
+    function searchDate(dateType){
+        if(dateType == 'prev'){
+            setDay(-1);
+        }else if(dateType == 'next'){
+            setDay(1);
+        }
+    }
+
+    function setDay(days){
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
+
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
+        getUserInfo();
+    }
+    function setStartDay(){
+        var date = new Date();
+        $("#endDate").val(dateTime);
+
+        if(_searchFormRadio == 1) {     // 일주일 전
             sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
-            sDate = date.getFullYear() + common.lpad(sDate.getMonth() + 1,2,"0") + common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
-        }else if($('input[name="joinDate"]:checked').val() == "2"){               // 전일
-            sDate = new Date(Date.parse(date) - 1 * 1000 * 60 * 60 * 24);           // 일주일 전
-            eDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");      // 어제
-            sDate = sDate.getFullYear() + common.lpad(sDate.getMonth() + 1,2,"0") + common.lpad(sDate.getDate(),2,"0");      //어제
-        }else if($('input[name="joinDate"]:checked').val() == "3"){               // 당일
-            sDate = date.getFullYear() + common.lpad(date.getMonth() + 1,2,"0") + common.lpad(date.getDate(),2,"0");        //오늘
-        }else if($('input[name="joinDate"]:checked').val() == "4"){               // 당일
-            $("#seldate").removeClass('hide');
+            sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            $("#startDate").val(sDate);
+        }else if(_searchFormRadio == 0) {       // 한달전
+            $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
         }
-        $("#onedayDate").val(date.getFullYear() +"-"+ common.lpad(date.getMonth() + 1,2,"0") +"-"+ common.lpad(date.getDate(),2,"0"));
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
         getUserInfo();
-    });
+    }
 
     var tmp_memWithdrawal;
     var tmp_period;
@@ -161,15 +218,8 @@
         data.memIpSort = _memIpSort;
         data.memJoinPath = tmp_joinPath;
 
-        data.period = $('input[name="joinDate"]:checked').val();
-        if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
-            data.sDate = sDate;
-            data.eDate = eDate;
-        }else if($('input[name="joinDate"]:checked').val() == "3" ){
-            data.sDate = sDate;
-        }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            data.sDate = $("#onedayDate").val().replace(/-/gi, "");
-        }
+        data.sDate = tmp_sDate;
+        data.eDate = tmp_eDate;
     };
     dtList_info = new DalbitDataTable($("#tb_memberList"), dtList_info_data, MemberDataTableSource.joinList);
     dtList_info.useCheckBox(false);
@@ -180,7 +230,7 @@
 
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
-        data.searchText = $('#txt_search').val();                        // 검색명
+        data.searchText = tmp_searchText;                        // 검색명
         data.testid = _testid;
         data.memWithdrawal = memWithdrawal;
         data.memJoinDateSort_withdrawal = _memJoinDateSort_withdrawal;
@@ -188,15 +238,8 @@
         data.memLoginIdSort_withdrawal = _memLoginIdSort_withdrawal;
         data.memIpSort_withdrawal = _memIpSort_withdrawal;
         data.memJoinPath = tmp_joinPath;
-        data.period = $('input[name="joinDate"]:checked').val();
-        if($('input[name="joinDate"]:checked').val() != "4") {               // 선택
-            data.sDate = sDate;
-            data.eDate = eDate;
-        }else if($('input[name="joinDate"]:checked').val() == "3" ){
-            data.sDate = sDate;
-        }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            data.sDate = $("#onedayDate").val().replace(/-/gi, "");
-        }
+        data.sDate = tmp_sDate;
+        data.eDate = tmp_eDate;
     };
     dtList_info2 = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data2, MemberDataTableSource.withdrawalList);
     dtList_info2.useCheckBox(false);
@@ -204,17 +247,12 @@
     dtList_info2.useInitReload(false);
     dtList_info2.setPageLength(100);
     dtList_info2.createDataTable(withdrawalListSummary);
-    //
-    // var topTable = '<span name="search_gift_top" id="search_gift_top" onchange="gift_sel_change()"></span>';
-    // $("#"+tmp).find("#main_table").find(".top-left").addClass("no-padding").append(topTable);
 
-    var testid = '<br/><br/><br/><div class="searchBoxRow"><span id="testId"></span>' +
-                '<span id="memJoinDateSort" onchange="joinSort();"></span>' +
+    var testid = '<br/><br/><span id="memJoinDateSort" onchange="joinSort();"></span>' +
                 '<span id="memNickSort" onchange="joinSort();"></span>' +
                 '<span id="memLoginIdSort" onchange="joinSort();"></span>' +
                 '<span id="memIpSort" onchange="joinSort();"></span></div>';
     $("#memberList").find(".top-left").append(testid);
-    $("#testId").html(util.getCommonCodeRadio(-1, testId));
     $("#memJoinDateSort").html(util.getCommonCodeSelect(-1, memJoinDateSort));
     $("#memNickSort").html(util.getCommonCodeSelect(-1, memNickSort));
     $("#memLoginIdSort").html(util.getCommonCodeSelect(-1, memLoginIdSort));
@@ -224,14 +262,12 @@
     var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#memberList").find(".footer-right").append(excel);
 
-    var testid_withdrawal = '<br/><br/><div class="searchBoxRow"><span id="testId_withdrawal"></span>' +
-                            '<span id="memJoinDateSort_withdrawal" onchange="withdrawalSort();"></span>' +
+    var testid_withdrawal = '<br/><br/><span id="memJoinDateSort_withdrawal" onchange="withdrawalSort();"></span>' +
                             '<span id="memNickSort_withdrawal" onchange="withdrawalSort();"></span>' +
                             '<span id="memLoginIdSort_withdrawal" onchange="withdrawalSort();"></span>' +
                             '<span id="memIpSort_withdrawal" onchange="withdrawalSort();"></span></div>';
     $("#withdrawalList").find(".top-left").append(testid_withdrawal);
     $("#testId_withdrawal").html(util.getCommonCodeRadio(-1, testId_withdrawal));
-    $("#memJoinDateSort_withdrawal").html(util.getCommonCodeSelect(-1, memJoinDateSort));
     $("#memNickSort_withdrawal").html(util.getCommonCodeSelect(-1, memNickSort));
     $("#memLoginIdSort_withdrawal").html(util.getCommonCodeSelect(-1, memLoginIdSort));
     $("#memIpSort_withdrawal").html(util.getCommonCodeSelect(-1, memIpSort));
@@ -240,22 +276,15 @@
     $("#withdrawalList").find(".footer-right").append(withdrawal_excel);
 
     function getUserInfo() {                 // 검색
-
+        _testid = $('input[name="search_testId"]').prop('checked') ? 1 : -1;
         tmp_searchText = $('#txt_search').val();
+        tmp_memWithdrawal = memWithdrawal;
+        tmp_sDate = $("#startDate").val();
+        tmp_eDate = $("#endDate").val();
         if(memWithdrawal == "0"){
             dtList_info.reload(joinListSummary);
         }else{
             dtList_info2.reload(withdrawalListSummary);
-        }
-        tmp_memWithdrawal = memWithdrawal;
-        tmp_period = $('input[name="joinDate"]:checked').val();
-        if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
-            tmp_sDate = sDate;
-            tmp_eDate = eDate;
-        }else if($('input[name="joinDate"]:checked').val() == "3" ){
-            tmp_sDate = sDate;
-        }else if($('input[name="joinDate"]:checked').val() == "4" ){
-            tmp_sDate = $("#onedayDate").val().replace(/-/gi, "");
         }
     }
     function memberList(){
@@ -268,10 +297,6 @@
     }
 
     // 가입 --------------------
-    $("input[name='testId']:radio").change(function () {
-        _testid = this.value;
-        getUserInfo();
-    });
     function joinSort(){
         _memJoinDateSort = $("#memJoinDateSort").find("select[name='memJoinDateSort']").val();
         _memNickSort = $("#memNickSort").find("select[name='memNickSort']").val();
@@ -288,12 +313,6 @@
                 $(this).val("-1");
             }
         });
-    });
-
-    // 탈퇴 -------------------
-    $("input[name='testId_withdrawal']:radio").change(function () {
-        _testid = this.value;
-        getUserInfo();
     });
 
     function withdrawalSort(){
@@ -334,7 +353,6 @@
         formData.append("searchText", tmp_searchText);
         formData.append("testid", _testid);
         formData.append("memWithdrawal", memWithdrawal);
-        formData.append("period", tmp_period);
         formData.append("sDate", tmp_sDate);
         formData.append("eDate", tmp_eDate);
         formData.append("memJoinDateSort", _memJoinDateSort);
@@ -352,7 +370,6 @@
         formData.append("searchText", tmp_searchText);
         formData.append("testid", _testid);
         formData.append("memWithdrawal", memWithdrawal);
-        formData.append("period", tmp_period);
         formData.append("sDate", tmp_sDate);
         formData.append("eDate", tmp_eDate);
         formData.append("memJoinDateSort_withdrawal", _memJoinDateSort_withdrawal);

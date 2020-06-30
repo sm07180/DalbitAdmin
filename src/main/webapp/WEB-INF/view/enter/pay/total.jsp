@@ -221,6 +221,12 @@
 
         tmp_index = -1;
         var title = "평균 합계의 경우 반올림된 평균 데이터의 총합이라\n항목별 합계와 다소 오차가 생길 수 있습니다.";
+
+        var tmp_date = new Date();
+        tmp_date = moment(tmp_date).format("YYYY.MM.DD HH:mm:SS");
+        var tmp_day = tmp_date.split(" ")[0];
+        var tmp_time = tmp_date.split(" ")[1];
+
         response.data.forEach(function(data, index){
             if(index > 2){
                 ++tmp_index;
@@ -252,16 +258,34 @@
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 4) + ")").html();
+                        if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                            for(var i = 1; i < 5 ; i ++){
+                                $("#totalTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index + i) + ")").css("background-color", "#e3ecfb");
+                                $("#totalTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index + i) + ")").css("font-weight", "bold");
+                            }
+                        }
                     } else if (index == 1 || index == 2) {
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 1) + ")").html(common.addComma(succCnt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 4) + ")").html();
+                        if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                            for(var i = 1; i < 5 ; i ++){
+                                $("#totalTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index * 5 + i) + ")").css("background-color", "#e3ecfb");
+                                $("#totalTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index * 5 + i) + ")").css("font-weight", "bold");
+                            }
+                        }
                     } else if(index == 7) {     // 평균
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(succAmt/7));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(accumAmt/7));
                         $("#totalTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 4) + ")").html();
+                        if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                            for(var i = 1; i < 5 ; i ++){
+                                $("#totalTableBody tr._tr_" + (detail.hour) + " td:eq(" + (3 * 5 + i) + ")").css("background-color", "#e3ecfb");
+                                $("#totalTableBody tr._tr_" + (detail.hour) + " td:eq(" + (3 * 5 + i) + ")").css("font-weight", "bold");
+                            }
+                        }
                     }
                     // 하단
                     if (index == 3) {
@@ -269,11 +293,23 @@
                         $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 4) + ")").html();
+                        if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                            for(var i = 1; i < 5 ; i ++){
+                                $("#totalTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index + i) + ")").css("background-color", "#e3ecfb");
+                                $("#totalTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index + i) + ")").css("font-weight", "bold");
+                            }
+                        }
                     }else if(index == 4 || index == 5 || index == 6){
                         $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(succCnt));
                         $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 4) + ")").html();
+                        if(Number(tmp_time.split(":")[0]) == detail.hour) {
+                            for(var i = 1; i < 5 ; i ++){
+                                $("#totalTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index * 5 + i) + ")").css("background-color", "#e3ecfb");
+                                $("#totalTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index * 5 + i) + ")").css("font-weight", "bold");
+                            }
+                        }
                     }
 
                 } else if($('input[name="slctType"]:checked').val() == "1"){
@@ -283,16 +319,28 @@
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index + i) + ")").css("font-weight", "bold");
+                        }
                     } else if (index == 1 || index == 2) {
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 1) + ")").html(common.addComma(succCnt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (index * 5 + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index * 5 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (index * 5 + i) + ")").css("font-weight", "bold");
+                        }
                     } else if(index == 7) {     //평균
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(succAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(accumAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.day) + " td:eq(" + (3 * 5 + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (3 * 5 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (3 * 5 + i) + ")").css("font-weight", "bold");
+                        }
                     }
                     // 하단
                     if (index == 3) {
@@ -300,11 +348,19 @@
                         $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index + i) + ")").css("font-weight", "bold");
+                        }
                     } else if (index == 4 || index == 5 || index == 6){
                         $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(succCnt));
                         $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (tmp_index * 5 + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index * 5 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr:eq(" + (34 - Number(tmp_day.split(".")[2])) + ") td:eq(" + (tmp_index * 5+ i) + ")").css("font-weight", "bold");
+                        }
                     }
                 } else if($('input[name="slctType"]:checked').val() == "2") {
                     //상단
@@ -313,16 +369,28 @@
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (index + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (index + i) + ")").css("font-weight", "bold");
+                        }
                     } else if (index == 1 || index == 2) {
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 1) + ")").html(common.addComma(succCnt));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (index * 5 + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (index * 5 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (index * 5 + i) + ")").css("font-weight", "bold");
+                        }
                     } else if(index == 7) {
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 2) + ")").html(common.vatMinus(succAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 3) + ")").html(common.vatMinus(accumAmt/7));
                         $("#totalTableBody tr._tr_" + (detail.monthly) + " td:eq(" + (3 * 5 + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (3 * 5 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (3 * 5 + i) + ")").css("font-weight", "bold");
+                        }
                     }
                     //하단
                     if (index == 3){
@@ -330,11 +398,19 @@
                         $("#totalTableBody2 tr._tr_" + (detail.monthly) + " td:eq(" + (tmp_index + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.monthly) + " td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.monthly) + " td:eq(" + (tmp_index + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody2 tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (tmp_index + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (tmp_index + i) + ")").css("font-weight", "bold");
+                        }
                     } else if (index == 4 || index == 5 || index == 6) {
                         $("#totalTableBody2 tr._tr_" + (detail.monthly) + " td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(succCnt));
                         $("#totalTableBody2 tr._tr_" + (detail.monthly) + " td:eq(" + (tmp_index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.monthly) + " td:eq(" + (tmp_index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                         $("#totalTableBody2 tr._tr_" + (detail.monthly) + " td:eq(" + (tmp_index * 5 + 4) + ")").html();
+                        for (var i = 1; i < 5; i++) {
+                            $("#totalTableBody2 tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (tmp_index * 5 + i) + ")").css("background-color", "#e3ecfb");
+                            $("#totalTableBody2 tr:eq(" + (15 - Number(tmp_day.split(".")[1])) + ") td:eq(" + (tmp_index * 5 + i) + ")").css("font-weight", "bold");
+                        }
                     }
                 }
             });

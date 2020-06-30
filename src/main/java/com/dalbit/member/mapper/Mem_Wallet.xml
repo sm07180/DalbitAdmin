@@ -95,7 +95,7 @@
                 ,ruby
                 ,room_no
                 ,item_type
-                ,gifted_mem_no AS mem_no
+                ,mem_no AS mem_no
                 ,mem_level AS `level`
                 ,mem_grade AS grade
                 ,last_upd_date AS giftDate
@@ -235,7 +235,7 @@
                     ,ruby
                     ,room_no
                     ,item_type
-                    ,gifted_mem_no AS mem_no
+                    ,mem_no AS mem_no
                     ,mem_level AS `level`
                     ,mem_grade AS grade
                     ,last_upd_date AS giftDate
