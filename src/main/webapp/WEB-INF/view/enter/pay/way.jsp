@@ -16,7 +16,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">총계</th>
                 <th colspan="2">휴대폰<i class="fa fa-tablet"></i></th>
                 <th colspan="2">카드<i class="fa fa-credit-card"></i></th>
@@ -126,7 +126,7 @@
     <tr>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>

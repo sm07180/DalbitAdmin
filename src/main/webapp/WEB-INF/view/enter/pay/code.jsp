@@ -26,7 +26,7 @@
                 <th colspan="15">IOS</th>
             </tr>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">총계</th>
 
                 <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px"> 1,100원 </th>
@@ -39,7 +39,7 @@
                 <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px" height="25px"> 330,000원</th>
                 <th colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 550,000원</th>
                 <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">총계</th>
                 <th colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 3,900원</th>
                 <th colspan="2"><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 26,000원</th>
@@ -275,7 +275,7 @@
     <tr>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma android_total_cnt}}<br/>({{average android_total_cnt sum_android_total_cnt}}%)</td>
@@ -301,7 +301,7 @@
         <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
         <td class="font-bold">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-            {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
+            {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma ios_total_cnt}}<br/>({{average ios_total_cnt sum_ios_total_cnt}}%)</td>

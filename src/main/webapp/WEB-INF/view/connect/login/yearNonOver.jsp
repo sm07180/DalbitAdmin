@@ -95,6 +95,15 @@
         $("#totalWeekTableBody").append(html);
         ui.tableHeightSet();
 
+        var tmp_date = new Date();
+        tmp_date = moment(tmp_date).format("YYYY.MM.DD HH:mm:SS");
+        var tmp_day = tmp_date.split(" ")[0];
+        var tmp_time = tmp_date.split(" ")[1];
+
+        for (var i = 1; i < 7; i++) {
+            $("#totalWeekTableBody td:eq(" + (i) + ")").css("font-weight", "bold");
+        }
+
     }
     function fn_yearNonOver_success(data, response){
         tmp_end = 0;
@@ -113,6 +122,11 @@
         var context = data;
         var html=templateScript(context);
         $("#yearNonOverTableBody").html(html);
+
+        var tmp_date = new Date();
+        tmp_date = moment(tmp_date).format("YYYY.MM.DD HH:mm:SS");
+        var tmp_day = tmp_date.split(" ")[0];
+        var tmp_time = tmp_date.split(" ")[1];
 
         response.data.forEach(function(data, index){
             data.detailList.forEach(function(detail, detailIndex){
@@ -141,6 +155,13 @@
                 $("#yearNonOverTableBody tr._tr_" + (detail.month) + " td:eq(" + (3) + ")").html(femaleAvg);
                 $("#yearNonOverTableBody tr._tr_" + (detail.month) + " td:eq(" + (4) + ")").html(noneCnt);
                 $("#yearNonOverTableBody tr._tr_" + (detail.month) + " td:eq(" + (5) + ")").html(totalCnt);
+
+                if(Number(tmp_day.split(".")[1]) == detail.month) {
+                    for (var i = 1; i < 6; i++) {
+                        $("#yearNonOverTableBody tr._tr_" + (detail.month) + " td:eq(" + (i) + ")").css("font-weight", "bold");
+                    }
+                }
+
             });
         });
 

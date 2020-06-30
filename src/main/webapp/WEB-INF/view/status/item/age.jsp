@@ -13,7 +13,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">총계</th>
                 <th colspan="2">10대</th>
                 <th colspan="2">20대</th>

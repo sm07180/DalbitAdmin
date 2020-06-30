@@ -12,7 +12,7 @@
             </colgroup>
             <thead>
             <tr>
-                <th rowspan="2">시간대</th>
+                <th rowspan="2"></th>
                 <th colspan="2">소개</th>
                 <th colspan="2" class="_sex_male"></th>
                 <th colspan="2" class="_sex_female"></th>

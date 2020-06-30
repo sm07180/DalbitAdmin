@@ -116,6 +116,10 @@
         var html=templateScript(context);
         $("#ageNonOverTableBody2").html(html);
 
+        var tmp_date = new Date();
+        tmp_date = moment(tmp_date).format("YYYY.MM.DD HH:mm:SS");
+        var tmp_day = tmp_date.split(" ")[0];
+        var tmp_time = tmp_date.split(" ")[1];
 
         var count=0;
         response.data.forEach(function(data, index){
@@ -163,6 +167,12 @@
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age40Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age50Cnt);
                     $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age60Cnt);
+
+                    if(Number(tmp_day.split(".")[2]) == detail.day) {
+                        for(var i = 1; i < 8 ; i ++){
+                            $("#ageNonOverTableBody tr._tr_" + (detail.day) + " td:eq(" + (i) + ")").css("font-weight", "bold");
+                        }
+                    }
                 }
 
                 // 하단
@@ -175,6 +185,12 @@
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age40Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age50Cnt);
                     $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (++count) + ")").html(age60Cnt);
+
+                    if(Number(tmp_day.split(".")[2]) == detail.day) {
+                        for(var i = 1; i < 8 ; i ++){
+                            $("#ageNonOverTableBody2 tr._tr_" + (detail.day) + " td:eq(" + (i) + ")").css("font-weight", "bold");
+                        }
+                    }
                 }
             });
         });

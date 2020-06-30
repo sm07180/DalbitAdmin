@@ -16,7 +16,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th>시간대</th>
+                <th></th>
                 <th>캐스트 건</th>
                 <th>DJ</th>
                 <th>조회 수</th>
