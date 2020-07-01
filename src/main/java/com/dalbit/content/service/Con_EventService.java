@@ -255,4 +255,9 @@ public class Con_EventService {
         List<AttendanceCalendarVo> attendanceCalendarList = con_EventDao.selectAttendanceCalendarList(attendanceCalendarVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, attendanceCalendarList));
     }
+
+    public String selectAttendanceWeekCalendarList(AttendanceCalendarVo attendanceCalendarVo){
+        AttendanceCalendarVo weekAttendanceCalendarVo = con_EventDao.selectAttendanceWeekCalendarList(attendanceCalendarVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, weekAttendanceCalendarVo));
+    }
 }

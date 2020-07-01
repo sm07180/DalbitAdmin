@@ -227,4 +227,29 @@ public class Mem_MemberRestController {
         String result = mem_MemberService.selectLoginHistory(loginHistoryVo);
         return result;
     }
+
+    /**
+     * 법정대리인 동의정보 조회
+     */
+    @PostMapping("parents")
+    public String getParentsAgreeInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
+        String result = mem_MemberService.getParentsAgreeInfo(pMemberParentsAgreeInputVo);
+        return result;
+    }
+
+    /**
+     * 법정대리인 동의 철회
+     */
+    @PostMapping("recant")
+    public int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
+        return mem_MemberService.updateRecant(pMemberParentsAgreeInputVo);
+    }
+
+    /**
+     * 법정대리인 동의 복귀
+     */
+    @PostMapping("back/recant")
+    public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
+        return mem_MemberService.updateBackRecant(pMemberParentsAgreeInputVo);
+    }
 }

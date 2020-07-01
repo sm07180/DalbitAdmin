@@ -14,6 +14,7 @@ import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.*;
 import com.dalbit.member.vo.procedure.*;
+import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
@@ -138,6 +139,7 @@ public class Mem_MemberService {
             memberInfo.setComm_company(certification.getComm_company());
             memberInfo.setAuth_yn("Yes");
             memberInfo.setParents_agree_yn(certification.getParents_agree_yn());
+            memberInfo.setRecant_yn(certification.getRecant_yn());
         }else{
             //memberInfo.setCertification("본인인증: N");
             memberInfo.setAuth_yn("No");
@@ -715,5 +717,31 @@ public class Mem_MemberService {
         returnMap.put("loginHistList", loginHistList);
 
         return new Gson().toJson(new JsonOutputVo(Status.조회, returnMap));
+    }
+
+    /**
+     * 법정대리인 동의정보
+     */
+    public String getParentsAgreeInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        P_MemberParentsAgreeOutputVo memberParentsAgreeOutputVo = mem_MemberDao.getParentsAgreeInfo(pMemberParentsAgreeInputVo);
+
+        var resultMap = new HashMap<>();
+        resultMap.put("detail", memberParentsAgreeOutputVo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+    }
+
+    /**
+     * 법정대리인 동의 철회
+     */
+    public int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        return mem_MemberDao.updateRecant(pMemberParentsAgreeInputVo);
+    }
+
+    /**
+     * 법정대리인 동의 복귀
+     */
+    public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo) {
+        return mem_MemberDao.updateBackRecant(pMemberParentsAgreeInputVo);
     }
 }

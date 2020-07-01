@@ -23,6 +23,10 @@
 <!-- detail -->
 <form id="member_detailFrm" class="hide"></form>
 
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">동의정보오픈버튼</button>
+
+<div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
+
 <script type="text/javascript" src="/js/util/memberUtil.js"></script>
 <script type="text/javascript">
 
@@ -649,13 +653,71 @@
         getAdminMemoList("bt_adminMemoList", "운영자메모");
     }
 
+    //법정대리인 동의정보
+    $(document).on('click', '#bt_agree_info', function(){
+
+        var detailData = {};
+        detailData.memNo = memNo
+
+        util.getAjaxData("parents", "/rest/member/member/parents", detailData, fn_succ_parents_detail);
+    });
+
+    function fn_succ_parents_detail(dist_id, response){
+        var template = $('#tmp_layer_detail').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.detail;
+        console.log(response.data);
+        var html = templateScript(context);
+        $("#detailView").html(html);
+
+        showModal();
+    }
+
+    function showModal(){
+        $("#showModal").click();
+    }
+
+    function closeModal(){
+        $("#layerCloseBtn").click();
+    }
+
+    //법정대리인(보호자) 동의 철회
+    $(document).on('click', '#bt_recant', function(){
+
+        var detailData = {};
+        detailData.memNo = memNo
+
+        util.getAjaxData("recant", "/rest/member/member/recant", detailData, fn_succ_recant);
+    });
+
+    //법정대리인(보호자) 동의
+    $(document).on('click', '#bt_back_recant', function(){
+
+        var detailData = {};
+        detailData.memNo = memNo
+
+        util.getAjaxData("backrecant", "/rest/member/member/back/recant", detailData, fn_succ_back_recant);
+    });
+
+    function fn_succ_recant(){
+        alert("보호자인증 철회되었습니다.");
+        getMemNo_info_reload(memNo);
+    }
+
+    function fn_succ_back_recant() {
+        alert("보호자인증 복귀되었습니다.");
+        getMemNo_info_reload(memNo);
+    }
+
+
+
 </script>
 
 <script id="tmp_memberInfoFrm" type="text/x-handlebars-template">
     <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
     <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
         <colgroup>
-            <col width="10%"/><col width="10%"/><col width="10%"/><col width="7%"/><col width="13%"/><col width="10%"/><col width="35%"/><col width="5%"/>
+            <col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/><col width="12%"/><col width="10%"/><col width="35%"/><col width="5%"/>
         </colgroup>
         <tbody>
         <tr>
@@ -712,7 +774,7 @@
         </tr>
         <tr>
             <th>회원NO</th>
-            <td colspan="4" style="text-align: left">{{mem_no}}</td>
+            <td colspan="4" style="text-align: left" id="memberNo">{{mem_no}}</td>
             <th>방송상태</th>
             <td colspan="2" style="text-align: left">
                 {{{icon_broadcastState}}}
@@ -860,11 +922,15 @@
                     <button type="button" id="bt_birth" class="btn btn-default btn-sm" data-memno="{{../../mem_no}}" data-nickname="{{../../nickName}}">변경</button>
                 {{/equal}}
             </td>
-            <th>법정대리인 동의</br>(보호자)</th>
+            <th>법정대리인(보호자)</br>동의 여부</th>
             <td>
                 {{#equal ../parents_agree_yn 'y'}}
                     <label style="color: red; font-weight: bold;">Yes</label>
-                    <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
+                    {{#equal ../recant_yn 'n'}}
+                        <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
+                    {{else}}
+                        <button type="button" id="bt_back_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
+                    {{/equal}}
                     <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
                 {{else}}
                     <label style="font-weight: bold;">No</label>
@@ -977,4 +1043,77 @@
     </div>
 </script>
 
+<script type="text/x-handlebars-template" id="tmp_layer_detail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
+                <h4 class="modal-title" id="_layerTitle" style="font-weight: bold">법정대리인 (보호자) 동의정보</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 form-inline block _modalLayer">
+                    <table id="list_info" class="table table-sorting table-hover table-bordered">
+                        <tbody id="tableBody">
+                            <tr>
+                                <th>보호자 이름</th>
+                                <td>
+                                    &nbsp;{{parents_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>성 별</th>
+                                <td>
+                                    &nbsp;{{{sexIcon parents_sex}}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>생년월일</th>
+                                <td>
+                                    &nbsp;{{parents_birth_year}}{{parents_birth_month}}{{parents_birth_day}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>통 신 사</th>
+                                <td>
+                                    &nbsp;{{parents_comm_company}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>휴대폰 번호</th>
+                                <td>
+                                    &nbsp;{{parents_phone}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>내 / 외국인</th>
+                                <td>
+                                    &nbsp;{{parents_foreign_yn}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>철회 여부</th>
+                                <td>
+                                    {{#equal recant_yn 'n'}}
+                                        &nbsp;<label style="font-weight: bold">No</label>
+                                    {{else}}
+                                        &nbsp;<label style="color: red; font-weight: bold">Yes</label>
+                                    {{/equal}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>가족관계증명</br>서류</th>
+                                <td>
+                                    <a href="javascript://">
+                                        <img src="{{renderImage add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                        <%--<img src="{{renderImage add_file}}" class="_fullWidth fullSize_background thumbnail" />--%>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
 

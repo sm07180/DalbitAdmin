@@ -124,4 +124,10 @@ public class Con_EventRestController {
         String result = con_EventService.selectAttendanceCalendarList(attendanceCalendarVo);
         return result;
     }
+
+    @PostMapping("/attendance/calendar/week")
+    public String attendanceCalendarWeek(AttendanceCalendarVo attendanceCalendarVo) {
+        String result = con_EventService.selectAttendanceWeekCalendarList(attendanceCalendarVo);
+        return result;
+    }
 }
