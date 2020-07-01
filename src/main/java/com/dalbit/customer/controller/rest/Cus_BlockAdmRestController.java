@@ -35,4 +35,20 @@ public class Cus_BlockAdmRestController {
     public String selectBlockDetail(BlockAdmVo blockAdmVo) {
         return cusBlockAdmService.selectBlockDetail(blockAdmVo);
     }
+
+    /**
+     * IP/Uuid 차단 (Modal)
+     */
+    @PostMapping("/insertBlock")
+    public String insertBlock(BlockAdmVo blockAdmVo) {
+        return cusBlockAdmService.insertBlock(blockAdmVo);
+    }
+
+    /**
+     * 차단 내역 삭제 (차단 해지)
+     */
+    @PostMapping("/deleteBlock")
+    public String deleteBlock(BlockAdmVo blockAdmVo) {
+        return cusBlockAdmService.deleteBlock(blockAdmVo);
+    }
 }

@@ -16,8 +16,15 @@ var block_blockType = [
   , new COMMON_CODE('ip', '2', 'IP')
 ];
 
+var block_blockRadio = [
+    new COMMON_CODE(null, 'radioBlock', '검색 조건')
+    , new COMMON_CODE('deviceUuid', '1', 'deviceUuid')
+    , new COMMON_CODE('ip', '2', 'IP')
+];
+
 var block_blockDay = [
-    new COMMON_CODE('1', 1, '1일 정지')
+    new COMMON_CODE(null, 'block_day', '')
+    , new COMMON_CODE('1', 1, '1일 정지')
     , new COMMON_CODE('3', 3, '3일 정지')
     , new COMMON_CODE('7', 7, '7일 정지')
     , new COMMON_CODE('99', 99, '영구 정지')

@@ -300,14 +300,14 @@
              , sum(reward_exp) expSum
              , sum(reward_dal) dalSum
              , sum(sex_man) sex_man
-             , sum(sex_famale) sex_famale
+             , sum(sex_female) sex_female
              , sum(sex_unknown) sex_unknown
         from (
              select attendance.the_date
                   , attendance.reward_exp
                   , attendance.reward_dal
                   , if(basic.mem_sex = 'm', 1, 0) sex_man
-                  , if(basic.mem_sex = 'f', 1, 0) sex_famale
+                  , if(basic.mem_sex = 'f', 1, 0) sex_female
                   , if(basic.mem_sex = 'n', 1, 0) sex_unknown
              from rd_data.tb_member_attendance_check attendance
                 , rd_data.tb_member_basic basic
