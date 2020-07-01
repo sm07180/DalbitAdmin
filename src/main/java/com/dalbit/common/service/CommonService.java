@@ -1,11 +1,11 @@
 package com.dalbit.common.service;
 
 import com.dalbit.common.annotation.NoLogging;
+import com.dalbit.common.code.Status;
 import com.dalbit.common.dao.CommonDao;
-import com.dalbit.common.vo.CodeVo;
-import com.dalbit.common.vo.ItemVo;
-import com.dalbit.common.vo.MenuVo;
+import com.dalbit.common.vo.*;
 import com.dalbit.util.DalbitUtil;
+import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
@@ -29,6 +29,8 @@ public class CommonService {
 
     @Autowired
     CommonDao commonDao;
+    @Autowired
+    GsonUtil gsonUtil;
 
     @Cacheable(cacheNames = "codeCache", key = "#code")
     public HashMap getCodeCache(String code) {
@@ -74,6 +76,20 @@ public class CommonService {
         return data;
     }
 
+    public String getCodeList(CodeListVo codeListVo){
+        List<String> typeList = new ArrayList<>();
+        if(codeListVo.getType().indexOf(",") > 0){
+            String arryType[] = codeListVo.getType().split(",");
+            for(int i=0; i<arryType.length; i++) {
+                typeList.add(arryType[i]);
+            }
+        }else{
+            typeList.add(codeListVo.getType());
+        }
+        codeListVo.setTypeList(typeList);
+        ArrayList<CodeListVo> codeList = commonDao.getCodeList(codeListVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, codeList));
+    }
     public List<CodeVo> getCodeList(String code){
         return (List<CodeVo>)callCodeDefineSelect().get(code);
     }

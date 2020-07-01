@@ -241,9 +241,10 @@
         var context = response.data.info;
         var html=templateScript(context);
         $("#PayCancelTotalTableBody").append(html);
-        getPayTotalList();
 
         ui.paintColor();
+
+        getPayTotalList();
     }
 
     $(document).on('click', '._prevSearch', function(){
@@ -260,22 +261,16 @@
         radioChange();
 
         setTimeDate(dateTime);
-        $("#bt_search").click();
     });
 
     function radioChange(){
         if($('input[name="slctType"]:checked').val() == 0){
             $("#oneDayDatePicker").show();
             $("#rangeDatepicker").hide();
-            // $(".fa-chevron-down").addClass("fa-chevron-up");
-            // $(".fa-chevron-down").removeClass("fa-chevron-down");
-            // slid();
+            $("#onedayDate").val(dateTime);
         }else {
             $("#oneDayDatePicker").hide();
             $("#rangeDatepicker").show();
-            // $(".fa-chevron-up").addClass("fa-chevron-down");
-            // $(".fa-chevron-up").removeClass("fa-chevron-up");
-            // slid();
         }
         searchDate();
     }
@@ -300,7 +295,6 @@
                 $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
-
             }else if(dateType == 'prev'){
                 setDay(-1);
             }else{

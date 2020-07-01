@@ -69,6 +69,70 @@
                 </script>
             </div>
 
+            <div class="widget-header">
+                <h3>공통코드_CodeDefine</h3>
+            </div>
+            <div class="widget-content">
+                <div>
+                    <h4>한개</h4>
+                    var data = {};<br/>
+                    data.type="faq_slctType";<br/>
+                    data.order = "desc" (asc,desc);<br/>
+                    data.is_ues = "1" (0:사용안함, 1:사용);<br/>
+                    util.getAjaxData("codeList", "/common/codeList", data, fn_getCode_success);<br/>
+                </div>
+                <div id="codeDefine"></div>
+                <div>
+                    <h4>여러개</h4>
+                    var data = {};<br/>
+                    data.type="faq_slctType,os_type,broadcast_state";<br/>
+                    util.getAjaxData("codeList", "/common/codeList", data, fn_getCode_success2);<br/>
+                </div>
+                <div id="codeDefine2"></div>
+                <div>
+                    <h4>골라쓰기</h4>
+                </div>
+                <div id="codeDefine3"></div>
+
+
+                <script type="text/javascript">
+                    getCodeDefine();
+                    function getCodeDefine(){
+                        var data = {};
+                        data.type="faq_slctType";
+                        data.order = "desc";
+                        data.is_ues = "1";
+                        util.getAjaxData("codeList", "/common/codeList", data, fn_getCode_success);
+
+                        var data = {};
+                        data.type="faq_slctType,os_type,broadcast_state";
+                        util.getAjaxData("codeList", "/common/codeList", data, fn_getCode_success2);
+
+                    }
+                    function fn_getCode_success(dst_id, response){
+                        var template = $("#tmp_codeDefine").html();
+                        var templateScript = Handlebars.compile(template);
+                        var context = response.data;
+                        var html = templateScript(context);
+                        $("#codeDefine").html(html);
+                    }
+
+                    function fn_getCode_success2(dst_id, response){
+                        var template = $("#tmp_codeDefine2").html();
+                        var templateScript = Handlebars.compile(template);
+                        var context = response.data;
+                        var html = templateScript(context);
+                        $("#codeDefine2").html(html);
+
+                        var template = $("#tmp_codeDefine3").html();
+                        var templateScript = Handlebars.compile(template);
+                        var context = response.data;
+                        var html = templateScript(context);
+                        $("#codeDefine3").html(html);
+                    }
+                </script>
+            </div>
+
             <hr />
 
             <div class="widget-content">
@@ -181,3 +245,28 @@
         </tbody>
     </table>
 </div>
+
+
+<script id="tmp_codeDefine" type="text/x-handlebars-template">
+    <select name="slctType" id="slctType" class="form-control">
+        {{#each this as |sub|}}
+        <option value="{{sub.value}}">{{sub.code}}</option>
+        {{/each}}
+    </select>
+</script>
+<script id="tmp_codeDefine2" type="text/x-handlebars-template">
+    <select name="slctType2" id="slctType2" class="form-control">
+        {{#each this as |sub|}}
+        <option value="{{sub.value}}">{{sub.code}}</option>
+        {{/each}}
+    </select>
+</script>
+<script id="tmp_codeDefine3" type="text/x-handlebars-template">
+    <select name="slctType3" id="slctType3" class="form-control">
+        {{#each this as |sub|}}
+            {{#equal sub.type 'broadcast_state'}}
+                <option value="{{sub.value}}">{{sub.code}}</option>
+            {{/equal}}
+        {{/each}}
+    </select>
+</script>
