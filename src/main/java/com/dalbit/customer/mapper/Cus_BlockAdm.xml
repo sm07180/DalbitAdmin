@@ -149,6 +149,33 @@
 
     <delete id="deleteBlock" parameterType="com.dalbit.customer.vo.BlockAdmVo">
         /* Cus_BlockAdm.xml - deleteBlock*/
+        delete from rd_admin.tb_login_block
+        where idx = #{idx}
     </delete>
 
+    <insert id="insertDelBlockHistory" parameterType="com.dalbit.customer.vo.BlockAdmVo">
+        /* Cus_BlockAdm.xml - insertDelBlockHistory*/
+        insert into rd_admin.tb_login_block_history (
+          edit_contents
+          , edit_type
+          , last_upd_date
+          , op_name
+          , report_idx
+          , memo
+          ) values (
+            #{edit_contents}
+            , #{edit_type}
+            , now()
+            , #{op_name}
+            , #{report_idx}
+            , null
+          )
+    </insert>
+
+    <select id="selectBlockInfo" parameterType="String" resultType="com.dalbit.customer.vo.BlockAdmVo">
+        /* Cus_BlockAdm.xml - selectBlockInfo*/
+        select *
+            from rd_admin.tb_login_block
+            where idx = #{idx}
+    </select>
 </mapper>
