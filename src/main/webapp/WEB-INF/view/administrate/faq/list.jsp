@@ -73,7 +73,6 @@
         });
 
         getFaqInfo();
-
     });
 
     var dtList_info;
@@ -121,6 +120,7 @@
         }
     });
 
+    var slctType;
     function fn_detail_success(dst_id, response, params) {
         // form 띄우기
         response.data["rowNum"] = params.rowNum;
@@ -136,6 +136,22 @@
         // scroll 처리
         var scrollPosition = $("#faq_detatil_title").offset();
         util.scrollPostion(scrollPosition.top);
+
+        slctType = response.data.slctType;
+        // code
+        var data = {};
+        data.type="faq_slctType";
+        util.getAjaxData("codeList", "/common/codeList", data, fn_getCode_success);
+
+    }
+    function fn_getCode_success(dst_id, response) {
+        var template = $("#tmp_faqSlctType").html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#_faqSlctType").html(html);
+
+        $("#_faqSlctType").find("#slctType").val(slctType).prop("selected", true);
     }
 
     function isValid(){
@@ -321,7 +337,8 @@
                 <td rowspan="2" id="no">{{rowNum}}</td>
 
                 <th>구분</th>
-                <td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y' 'slctType'}}}</td>
+                <td id="_faqSlctType"></td>
+                <%--<td>{{{getCommonCodeSelect slctType 'faq_slctType' 'Y' 'slctType'}}}</td>--%>
 
                 <th>질문</th>
                 <td colspan="5"><input type="text" name="question" id="question" class="form-control" value="{{question}}"></td>
@@ -352,4 +369,12 @@
             <div class="_editor" id="editor" name="editor" onkeypress="contentsCheck();">{{{replaceHtml answer}}}</div>
         </div>
     </div>
+</script>
+
+<script id="tmp_faqSlctType" type="text/x-handlebars-template">
+    <select name="slctType" id="slctType" class="form-control">
+        {{#each this as |sub|}}
+        <option value="{{sub.value}}">{{sub.code}}</option>
+        {{/each}}
+    </select>
 </script>
