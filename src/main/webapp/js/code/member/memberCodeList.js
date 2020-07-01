@@ -156,6 +156,12 @@ var loginHistorySearchType = [
     , new COMMON_CODE('ip', 'ip', 'IP')
 ];
 
+var searchRadioMember = [
+    new COMMON_CODE(null, 'searchRadio', '검색구분')
+    , new COMMON_CODE('1', '1', '회원')
+    , new COMMON_CODE('2', '2', 'IP')
+];
+
 
 // ------------------------- table -----------------------------
 var mem_gift_summary = [
