@@ -25,4 +25,11 @@ public interface Cus_BlockAdmDao {
     int insertDelBlockHistory(BlockAdmVo blockAdmVo);
 
     BlockAdmVo selectBlockInfo(String idx);
+
+    @Transactional(readOnly = true)
+    ArrayList<BlockAdmVo> selectBlockHistList(BlockAdmVo blockAdmVo);
+
+    @Transactional(readOnly = true)
+    int selectBlockHistListCnt(BlockAdmVo blockAdmVo);
+
 }

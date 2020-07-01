@@ -178,4 +178,34 @@
             from rd_admin.tb_login_block
             where idx = #{idx}
     </select>
+
+    <sql id="blockHistCondition">
+        select
+          edit_contents
+          , edit_type
+          , last_upd_date
+          , op_name
+          , report_idx
+          , memo
+          , @RNUM := @RNUM + 1 as rowNum
+        from rd_admin.tb_login_block_history
+            , (select @RNUM := 0) r
+        order by last_upd_date desc
+    </sql>
+    <select id="selectBlockHistList" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
+        /* Cus_BlockAdm.xml - selectBlockHistList*/
+        select *
+          from (
+          <include refid="blockHistCondition"/>
+          ) a
+        limit #{pageStart}, #{pageCnt}
+    </select>
+
+    <select id="selectBlockHistListCnt" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="integer">
+        /* Cus_BlockAdm.xml - selectBlockHistListCnt*/
+        select count(*)
+          from (
+          <include refid="blockHistCondition"/>
+          ) b
+    </select>
 </mapper>

@@ -16,7 +16,7 @@ public class BlockAdmVo extends PagingVo {
     private String report_idx;
     private String idx;
     private String adminMemo;   // 모달창에서 입력하는 memo
-    private String tabtype;
+    private String tabType;
 
     /* output */
     private int block_type;     // output을 위한 block_type

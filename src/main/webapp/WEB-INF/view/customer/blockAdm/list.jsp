@@ -30,22 +30,35 @@
             <div class="row col-lg-12 form-inline">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li class="_tab active">
-                        <a href="#block" id="block" name="block" role="tab" data-toggle="tab" data-tabtype="1">로그인 차단 정보</a>
+                        <a href="#blockAdmList" id="block" name="block" role="tab" data-toggle="tab" onclick="blockList();">로그인 차단 정보</a>
                     </li>
                     <li class="_tab">
-                        <a href="#blockHistory" id="blockHistory" name="blockHistory" role="tab" data-toggle="tab" data-tabtype="2">로그인 차단/해지 내역</a>
+                        <a href="#blcokHistList" id="blockHistory" name="blockHistory" role="tab" data-toggle="tab" onclick="blockHistList();">로그인 차단/해지 내역</a>
                     </li>
                 </ul>
-
+            </div>
+            <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table no-margin">
-                    <div class="widget-content">
-                        <table id="blockAdmList" class="table table-sorting table-hover table-bordered">
-                            <thead></thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div class="widget-footer">
-                        <button type="button" id="bt_delete" class="btn btn-danger btn-sm">차단 해지</button>
+                    <div class="tab-content no-padding">
+                        <div class="tab-pane fade in active" id="blockAdmList">
+                            <div class="widget-content">
+                                <table id="tb_blockAdmList" class="table table-sorting table-hover table-bordered">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="widget-footer">
+                                <button type="button" id="bt_delete" class="btn btn-danger btn-sm">차단 해지</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="blcokHistList">
+                            <div class="widget-content">
+                                <table id="tb_blockHistList" class="table table-sorting table-hover table-bordered">
+                                    <thead></thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -81,16 +94,23 @@
         }
     });
 
+    function blockList() {
+        getBlockList();
+    }
+
+    function blockHistList() {
+        getBlockHistoryList();
+    }
+
     var dtList_info;
     function getBlockList() {
         var dtList_info_data = function (data) {
             data.blockType = $('#blockType').val();     // 차단 유형 구분
             data.searchType = $('#searchType').val();   // 검색 유형 구분
             data.searchText = $('#searchText').val();   // 검색어 구분
-            data.tabtype = $('._tab active').find('a').data('tabtype');
         };
 
-        dtList_info = new DalbitDataTable($('#blockAdmList'), dtList_info_data, blockAdmDataTableSource.blockAdmList, $('#searchForm'));
+        dtList_info = new DalbitDataTable($('#tb_blockAdmList'), dtList_info_data, blockAdmDataTableSource.blockAdmList, $('#searchForm'));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
@@ -101,7 +121,7 @@
 
     }
 
-    $(document).on('click', '#blockAdmList .dt-body-center input[type="checkbox"]', function() {
+    $(document).on('click', '#tb_blockAdmList .dt-body-center input[type="checkbox"]', function() {
         if($(this).prop('checked')){
             $(this).parent().parent().find('._blockDetail').click();
         } else {
@@ -177,7 +197,7 @@
     }
 
     $('#bt_delete').on('click', function() {
-       var checked = $('#blockAdmList .dt-body-center input[type="checkbox"]:checked');
+       var checked = $('#tb_blockAdmList .dt-body-center input[type="checkbox"]:checked');
        if(checked.length == 0) {
            alert("차단 해지할 사항을 선택해주세요.");
            return;
@@ -205,6 +225,24 @@
         alert(response.message + '\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt + '건');
 
         getBlockList();
+    }
+
+
+    function getBlockHistoryList() {
+         var dtList_info_data2 = function (data) {
+             data.blockType = $('#blockType').val();     // 차단 유형 구분
+             data.searchType = $('#searchType').val();   // 검색 유형 구분
+             data.searchText = $('#searchText').val();   // 검색어 구분
+         };
+
+        dtList_info = new DalbitDataTable($('#tb_blockHistList'), dtList_info_data2, blockAdmDataTableSource.blockHistList, $('#searchForm'));
+        dtList_info.useCheckBox(false);
+        dtList_info.useIndex(true);
+        dtList_info.setPageLength(50);
+        dtList_info.createDataTable();
+
+        dtList_info.reload();
+
     }
 </script>
 

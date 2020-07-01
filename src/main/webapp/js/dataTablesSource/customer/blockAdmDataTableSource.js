@@ -30,4 +30,19 @@ var blockAdmDataTableSource = {
         ]
     },
 
+
+    'blockHistList': {
+        'url': '/rest/customer/blockAdm/histList'
+
+        , 'columns': [
+            {'title': '수정 내용', 'data': 'edit_contents'}
+            , {'title': '수정 타입', 'data': 'edit_type', 'render' : function(data) {
+                return util.getCommonCodeLabel(data, blockHist_reviseType);
+                }}
+            , {'title': '등록 일시', 'data': 'last_upd_date', 'render' : function(data) {
+                return common.convertToDate(data);
+                }}
+            , {'title': '등록자', 'data': 'op_name'}
+        ]
+    }
 };
