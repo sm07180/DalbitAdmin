@@ -25,7 +25,7 @@
 
     <select id="callMemberCertification" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
         /* M_Member.xml - callMemberCertification */
-        select comm_company, parents_agree_yn from rd_data.tb_member_certification where mem_no=#{mem_no}
+        select comm_company, parents_agree_yn, recant_yn from rd_data.tb_member_certification where mem_no=#{mem_no}
     </select>
 
     <select id="callMemberTestId" parameterType="com.dalbit.member.vo.procedure.P_MemberInfoInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberInfoOutputVo">
@@ -404,4 +404,37 @@
             , #{report_idx}
         )
     </insert>
+
+    <select id="getParentsAgreeInfo" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo" resultType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeOutputVo">
+        /* Mem_Member.xml - getParentsAgreeInfo */
+        SELECT
+            mem_no
+            , parents_name
+            , if(parents_sex=0, 'm', 'f') as parents_sex
+            , substr(parents_birth_year, 3) as parents_birth_year
+            , LPAD(parents_birth_month, 2, '0') as parents_birth_month
+            , LPAD(parents_birth_day, 2, '0') as parents_birth_day
+            , parents_comm_company
+            , concat(substr(parents_phone, 1,3), '-', substr(parents_phone,4,4), '-', substr(parents_phone,8,4)) as parents_phone
+            , if(parents_foreign_yn='0', '내국인', '외국인') as parents_foreign_yn
+            , recant_yn
+            , add_file
+        FROM rd_data.tb_member_certification
+        WHERE mem_no = #{memNo}
+    </select>
+
+    <update id="updateRecant" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo">
+        /* M_Member.xml - updateRecant */
+        UPDATE rd_data.tb_member_certification
+        SET recant_yn = 'y'
+        WHERE mem_no = #{memNo}
+    </update>
+
+    <update id="updateBackRecant" parameterType="com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo">
+        /* M_Member.xml - updateBackRecant */
+        UPDATE rd_data.tb_member_certification
+        SET recant_yn = 'n'
+        WHERE mem_no = #{memNo}
+    </update>
+
 </mapper>

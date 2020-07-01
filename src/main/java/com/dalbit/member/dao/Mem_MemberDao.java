@@ -126,4 +126,10 @@ public interface Mem_MemberDao {
     int insertLoginBlock(LoginBlockVo loginBlockVo);
     int insertLoginBlockHistory(LoginBlockHistVo loginBlockHistVo);
 
+    @Transactional(readOnly = true)
+    P_MemberParentsAgreeOutputVo getParentsAgreeInfo(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
+
+    int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
+
+    int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
 }
