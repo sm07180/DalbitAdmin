@@ -294,29 +294,80 @@
 
     <select id="selectAttendanceCalendarList" parameterType="com.dalbit.content.vo.AttendanceCalendarVo" resultType="com.dalbit.content.vo.AttendanceCalendarVo">
         /* Con_Event.xml - selectAttendanceCalendarList */
-        select the_date
-             , (select count(distinct mem_no) from rd_data.tb_member_attendance_check where check_ok = 1 and the_day != 9 and #{search_startDate} <![CDATA[<=]]> the_date and the_date <![CDATA[<=]]> #{search_endDate}) joinCnt
-             , count(the_date) joinSum
-             , sum(reward_exp) expSum
-             , sum(reward_dal) dalSum
-             , sum(sex_man) sex_man
-             , sum(sex_female) sex_female
-             , sum(sex_unknown) sex_unknown
+        select attendance.the_date
+            , (select count(*) from rd_data.stat_member_login_day where the_date = attendance.the_date) loginCnt
+            , count(the_date) joinCnt
+            , count(the_date) joinSum
+            , sum(sex_man)  sex_man
+            , sum(sex_female) sex_female
+            , sum(sex_unknown) sex_unknown
+            , sum(reward_exp) expSum
+            , sum(reward_dal) dalSum
         from (
-             select attendance.the_date
-                  , attendance.reward_exp
-                  , attendance.reward_dal
-                  , if(basic.mem_sex = 'm', 1, 0) sex_man
-                  , if(basic.mem_sex = 'f', 1, 0) sex_female
-                  , if(basic.mem_sex = 'n', 1, 0) sex_unknown
-             from rd_data.tb_member_attendance_check attendance
-                , rd_data.tb_member_basic basic
-             where attendance.check_ok = 1
-               and attendance.mem_no = basic.mem_no
-               and #{search_startDate} <![CDATA[<=]]> the_date
-               and the_date <![CDATA[<=]]> #{search_endDate}
-               and the_day != 9
-         ) attendance
+            select
+                attendance.the_date,
+                ifnull(attendance.reward_exp, 0) reward_exp,
+                ifnull(attendance.reward_dal, 0) reward_dal,
+                if(basic.mem_sex = 'm', 1, 0)    sex_man,
+                if(basic.mem_sex = 'f', 1, 0)    sex_female,
+                if(basic.mem_sex = 'n', 1, 0)    sex_unknown
+            from rd_data.tb_member_attendance_check attendance
+                left join rd_data.tb_member_basic basic on attendance.mem_no = basic.mem_no
+            where attendance.check_ok = 1
+                and attendance.the_day != 9
+                and date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+        ) attendance
         group by attendance.the_date
+    </select>
+
+    <select id="selectAttendanceWeekCalendarList" parameterType="com.dalbit.content.vo.AttendanceCalendarVo" resultType="com.dalbit.content.vo.AttendanceCalendarVo">
+        /* Con_Event.xml - selectAttendanceWeekCalendarList */
+        select
+            (select
+                count(distinct mem_no)
+                from rd_data.tb_member_attendance_check
+                    where check_ok = 1
+                    and the_day != 9
+                    and date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+            ) joinCnt
+            , (select count(distinct mem_no)
+                from rd_data.stat_member_login_day
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+            ) loginCnt
+            , sum(joinSum) joinSum
+            , sum(expSum) expSum
+            , sum(dalSum) dalSum
+            , sum(sex_man) sex_man
+            , sum(sex_female) sex_female
+            , sum(sex_unknown) sex_unknown
+        from (
+                select attendance.the_date
+                , count(the_date) joinCnt
+                , count(the_date) joinSum
+                , sum(sex_man)  sex_man
+                , sum(sex_female) sex_female
+                , sum(sex_unknown) sex_unknown
+                , sum(reward_exp) expSum
+                , sum(reward_dal) dalSum
+            from (
+                select
+                    attendance.the_date,
+                    ifnull(attendance.reward_exp, 0) reward_exp,
+                    ifnull(attendance.reward_dal, 0) reward_dal,
+                    if(basic.mem_sex = 'm', 1, 0)    sex_man,
+                    if(basic.mem_sex = 'f', 1, 0)    sex_female,
+                    if(basic.mem_sex = 'n', 1, 0)    sex_unknown
+                from rd_data.tb_member_attendance_check attendance
+                    left join rd_data.tb_member_basic basic on attendance.mem_no = basic.mem_no
+                where attendance.check_ok = 1
+                    and attendance.the_day != 9
+                    and date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+            ) attendance
+            group by attendance.the_date
+        ) a
     </select>
 </mapper>
