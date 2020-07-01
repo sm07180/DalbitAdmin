@@ -29,4 +29,30 @@
             </if>
         order by depth, order_no
     </select>
+
+    <select id="getCodeList" parameterType="com.dalbit.common.vo.CodeListVo" resultType="com.dalbit.common.vo.CodeListVo">
+        select `type`,`value`,`code`,ifnull(`order`,1) as `order`, is_use
+           from rd_data.tbl_code_define
+        <where>
+            <if test='type != null and type != ""'>
+              and `type` in
+                <foreach collection="typeList" item="type" index="index" separator="," open="(" close=")">
+                    #{type}
+                </foreach>
+            </if>
+            <if test='is_use != null and is_use != ""'>
+              and is_use in (#{is_use})
+            </if>
+        </where>
+        <if test='order != "desc" and order != "asc"'>
+            order by `type` asc ,`order` desc,`value`,code asc
+        </if>
+        <if test='order == "desc"'>
+            order by `type` asc ,`order` desc,`value`,code asc
+        </if>
+        <if test='order == "asc"'>
+            order by `type` asc ,`order` asc,`value`,code asc
+        </if>
+
+    </select>
 </mapper>

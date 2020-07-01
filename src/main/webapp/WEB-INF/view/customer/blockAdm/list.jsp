@@ -28,6 +28,15 @@
 
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li class="_tab active">
+                        <a href="#block" id="block" name="block" role="tab" data-toggle="tab" data-tabtype="1">로그인 차단 정보</a>
+                    </li>
+                    <li class="_tab">
+                        <a href="#blockHistory" id="blockHistory" name="blockHistory" role="tab" data-toggle="tab" data-tabtype="2">로그인 차단/해지 내역</a>
+                    </li>
+                </ul>
+
                 <div class="widget widget-table no-margin">
                     <div class="widget-content">
                         <table id="blockAdmList" class="table table-sorting table-hover table-bordered">
@@ -78,6 +87,7 @@
             data.blockType = $('#blockType').val();     // 차단 유형 구분
             data.searchType = $('#searchType').val();   // 검색 유형 구분
             data.searchText = $('#searchText').val();   // 검색어 구분
+            data.tabtype = $('._tab active').find('a').data('tabtype');
         };
 
         dtList_info = new DalbitDataTable($('#blockAdmList'), dtList_info_data, blockAdmDataTableSource.blockAdmList, $('#searchForm'));
@@ -85,9 +95,10 @@
         dtList_info.useIndex(true);
         dtList_info.createDataTable();
 
-        // ui.checkBoxInit('blockAdmList');
-
         dtList_info.reload();
+
+        $("#blockDetail").empty();
+
     }
 
     $(document).on('click', '#blockAdmList .dt-body-center input[type="checkbox"]', function() {
@@ -133,11 +144,30 @@
     });
 
     $(document).on('click', '#ipUuidBlockBtn', function() {
-        if(confirm("해당 ip/deviceUuid를 차단하시겠습니까?")) {
-            util.getAjaxData("insertBlock", "/rest/customer/blockAdm/insertBlock", $('#blockForm').serialize(), fn_insertBlock_success);
+        if(blockValidation()) {
+            if (confirm("해당 ip/deviceUuid를 차단하시겠습니까?")) {
+                util.getAjaxData("insertBlock", "/rest/customer/blockAdm/insertBlock", $('#blockForm').serialize(), fn_insertBlock_success);
+            }
+            return false;
         }
-        return false;
     });
+
+    function blockValidation() {
+        var text = $("#blockForm #block_text");
+        if(common.isEmpty(text.val())) {
+            alert("ip/Uuid를 입력해주세요.");
+            text.focus();
+            return false;
+        }
+
+        var memo = $("#blockForm #adminMemo");
+        if(common.isEmpty(memo.val())) {
+            alert("운영자 메모를 입력해주세요.");
+            memo.focus();
+            return false;
+        }
+        return true;
+    }
 
     function fn_insertBlock_success(dst_id, response) {
         alert(response.message);
@@ -161,6 +191,9 @@
 
            var data = {
                blockIdxs : blockIdxs
+               , block_type : $(this).parent().parent().find('._blockDetail').data('block_type')
+               , block_text : $(this).parent().parent().find('._blockDetail').data('block_text')
+               , report_idx : $(this).parent().parent().find('._blockDetail').data('report_idx')
            };
            dalbitLog(data);
            util.getAjaxData("delete", "/rest/customer/blockAdm/deleteBlock", data, fn_deleteBlock_success);
@@ -168,7 +201,10 @@
     });
 
     function fn_deleteBlock_success(dst_id, response) {
-        dalbitLog(response.message);
+        dalbitLog(response.data);
+        alert(response.message + '\n- 성공 : ' + response.data.sucCnt + '건\n- 실패 : ' + response.data.failCnt + '건');
+
+        getBlockList();
     }
 </script>
 
@@ -187,7 +223,7 @@
         {{/equal}}
         {{#equal report_idx ""}}
         <tr>
-            <th>운영자 메시지</th>
+            <th>운영자 메모</th>
             <td>{{../adminMemo}}</td>
         </tr>
         {{/equal}}

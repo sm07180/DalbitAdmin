@@ -18,8 +18,8 @@ var block_blockType = [
 
 var block_blockRadio = [
     new COMMON_CODE(null, 'radioBlock', '검색 조건')
-    , new COMMON_CODE('deviceUuid', '1', 'deviceUuid')
-    , new COMMON_CODE('ip', '2', 'IP')
+    , new COMMON_CODE('deviceUuid', 1, 'deviceUuid')
+    , new COMMON_CODE('ip', 2, 'IP')
 ];
 
 var block_blockDay = [

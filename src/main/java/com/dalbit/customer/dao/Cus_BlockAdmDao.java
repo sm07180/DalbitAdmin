@@ -22,5 +22,7 @@ public interface Cus_BlockAdmDao {
     int insertBlockHistory(BlockAdmVo blockAdmVo);
 
     int deleteBlock(BlockAdmVo blockAdmVo);
+    int insertDelBlockHistory(BlockAdmVo blockAdmVo);
 
+    BlockAdmVo selectBlockInfo(String idx);
 }

@@ -16,10 +16,12 @@
         <div class="modal fade" id="modal_select_block" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
                 <div class="modal-content">
+
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="bt_x();">&times;</button>
                     </div>
-                    <div class="modal-body" style="height:500px; width:600px;">
+
+                    <div class="modal-body" style="height:300px; width:600px;">
                         <form id="blockForm">
 
                         <div class="row col-lg-12 form-inline">
@@ -47,10 +49,12 @@
                             </div>
                         </div>
                         </form>
+                    </div>
 
-                        <div class="modal-footer">
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-danger" id="ipUuidBlockBtn" data-dismiss="modal">차단</button>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -63,16 +67,16 @@
     var targetId = "select_blockList";
 
     $(document).ready(function () {
-        $("#"+targetId).find('input[id="modalSearch"]').keydown(function() {
-            if (event.keyCode === 13) {
-                getModalUserInfo();
-            };
-        });
-        <!-- 버튼 -->
-        $("#"+targetId).find('#bt_search').click( function() {       //검색
-            getModalUserInfo();
-        });
-        <!-- 버튼 끝 -->
+        // $("#"+targetId).find('input[id="modalSearch"]').keydown(function() {
+        //     if (event.keyCode === 13) {
+        //         getModalUserInfo();
+        //     };
+        // });
+        // <!-- 버튼 -->
+        // $("#"+targetId).find('#bt_search').click( function() {       //검색
+        //     getModalUserInfo();
+        // });
+        // <!-- 버튼 끝 -->
 
         $("#"+targetId).find("#modalBlockType").html(util.getCommonCodeRadio('1', block_blockRadio));
         $("#"+targetId).find("#modalBlockDay").html(util.getCommonCodeRadio('1', block_blockDay));

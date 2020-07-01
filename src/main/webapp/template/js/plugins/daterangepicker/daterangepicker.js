@@ -1574,7 +1574,7 @@
                 '오늘': [moment(), moment()],
                 '어제': [moment().subtract('days', 1), moment().subtract('days', 1)],
                 '지난주': [moment().subtract('days', 6), moment()],
-                '전월': [moment().subtract('months', 1), moment()],
+                '전월': [moment().subtract('months', 1), moment().add('months', 0).add('days', -1).format('YYYY.MM.DD')],
                 '전년': [moment().subtract('years', 1), moment()]
             },
             opens: 'left',

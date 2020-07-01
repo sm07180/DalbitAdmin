@@ -10,6 +10,7 @@
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                     <div>
+                        <span id="searchRadio"></span>
                         <span id="searchType"></span>
                         <label><input type="text" class="form-control" id="txt_search"></label>
                         <button type="submit" class="btn btn-success" id="bt_search">검색</button>
@@ -76,11 +77,19 @@
         <!-- 버튼 끝 -->
     });
 
+    $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadioMember));
     $("#searchType").html(util.getCommonCodeSelect(-1, searchType));
 
+    $('#searchRadio').change(function() {
+        if($('input[name="searchRadio"]:checked').val() == "1"){
+            $("#searchType").removeClass("hide");
+        }else{
+            $("#searchType").addClass("hide");
+        }
+    });
     var dtList_info;
     var dtList_info_data = function ( data ) {
-        data.searchType = $("select[name='searchType']").val();          // 검색구분
+        data.searchType = tmp_searchType;          // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명
         data.memWithdrawal = memWithdrawal;
         // data.pageCnt = 10;
@@ -93,7 +102,7 @@
 
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
-        data.searchType = $("select[name='searchType']").val();          // 검색구분
+        data.searchType = tmp_searchType;          // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명
         data.memWithdrawal = memWithdrawal;
         // data.pageCnt = 10;
@@ -107,7 +116,7 @@
     var excel = '<button class="btn btn-default btn-sm print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>';
     $("#div_memberList").find(".footer-right").append(excel);
 
-    var tmp_searchType;
+    var tmp_searchType = -1;
     var tmp_searchText;
     var memNo = "unknown";
     function getUserInfo() {                 // 검색
@@ -115,6 +124,15 @@
             alert("검색대상을 입력해 주세요.");
             return;
         }
+        /* 엑셀저장을 위해 조회조건 임시저장 */
+        if($('input[name="searchRadio"]:checked').val() == "1"){
+            tmp_searchType = $("select[name='searchType']").val();
+        }else{
+            tmp_searchType = 6;
+        }
+        tmp_searchText = $('#txt_search').val();
+
+        $('#tabList_top').removeClass("show");
         if(memWithdrawal == "0"){
             dtList_info.reload();
             ui.checkBoxInit('tb_memberList');
@@ -122,13 +140,6 @@
             dtList_info2.reload();
             ui.checkBoxInit('tb_withdrawalList');
         }
-        /* 엑셀저장을 위해 조회조건 임시저장 */
-        tmp_searchType = $("select[name='searchType']").val();
-        tmp_searchText = $('#txt_search').val();
-        /*검색결과 영역이 접혀 있을 시 열기*/
-        ui.toggleSearchList();
-        $('#tabList_top').removeClass("show");
-
     }
     function memberList(){
         memWithdrawal = "0";
