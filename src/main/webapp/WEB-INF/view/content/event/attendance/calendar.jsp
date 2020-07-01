@@ -162,9 +162,9 @@
         target.find('.sex_man').html(common.addComma(data.sex_man) + '명');
         target.find('.sex_female').html(common.addComma(data.sex_female) + '명');
         target.find('.sex_unknown').html(common.addComma(data.sex_unknown) + '명');
-        target.find('.joinSum').html(common.addComma(data.joinSum) + '명');
-        target.find('.expSum').html(common.addComma(data.expSum) + '명');
-        target.find('.dalSum').html(common.addComma(data.dalSum) + '명');
+        target.find('.joinSum').html(common.addComma(data.joinSum) + '건');
+        target.find('.expSum').html(common.addComma(data.expSum) + 'exp');
+        target.find('.dalSum').html(common.addComma(data.dalSum) + '개');
     }
 
     function getAttendanceWeek(startDate, endDate, index){
