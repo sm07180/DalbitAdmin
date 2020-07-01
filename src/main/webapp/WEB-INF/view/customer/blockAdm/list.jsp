@@ -22,10 +22,9 @@
             </form>
             <!-- //serachBox -->
 
-            <%--<div class="row col-lg-12">--%>
-                <%--<button type="button" class="btn btn-primary pull-right mb15" id="device_block" ><i class="fa fa-search"></i>디바이스 ID 차단</button>--%>
-                <%--<button type="button" class="btn btn-primary pull-right mb15 mr15" id="ip_block"><i class="fa fa-search"></i>IP 차단</button>--%>
-            <%--</div>--%>
+            <div class="row col-lg-12">
+                <button type="button" class="btn btn-primary pull-right mb15 mr15" id="bt_block"><i class="fa fa-search"></i>IP / 디바이스 차단</button>
+            </div>
 
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
@@ -35,6 +34,9 @@
                             <thead></thead>
                             <tbody></tbody>
                         </table>
+                    </div>
+                    <div class="widget-footer">
+                        <button type="button" id="bt_delete" class="btn btn-danger btn-sm">차단 해지</button>
                     </div>
                 </div>
             </div>
@@ -48,6 +50,7 @@
 
 <script src="/js/dataTablesSource/customer/blockAdmDataTableSource.js?${dummyData}"></script>
 <script src="/js/code/customer/blockAdmCodeList.js?${dummyData}"></script>
+<jsp:include page="/WEB-INF/view/common/util/select_blockList.jsp"/>
 
 <script type="text/javascript">
 
@@ -80,10 +83,9 @@
         dtList_info = new DalbitDataTable($('#blockAdmList'), dtList_info_data, blockAdmDataTableSource.blockAdmList, $('#searchForm'));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
-        // dtList_info.setPageLength(10);
         dtList_info.createDataTable();
 
-        ui.checkBoxInit('blockAdmList');
+        // ui.checkBoxInit('blockAdmList');
 
         dtList_info.reload();
     }
@@ -99,6 +101,7 @@
     $(document).on('click', '._blockDetail', function() {
        var data = {
            report_idx : $(this).data('reportidx')
+           , idx : $(this).data('idx')
        };
        util.getAjaxData('detail', '/rest/customer/blockAdm/detail', data, fn_detail_success);
     });
@@ -109,24 +112,64 @@
         var context = response.data;
         var html = templateScript(context);
 
-
         $('#blockDetail').html(html);
     }
 
-    var report = "/member/member/popup/reportPopup?";
-    $('#device_block').on('click', function() {
-        reportPopup();
-    });
+    function fullSize_background(url) {
+        if(common.isEmpty(url)){
+            return;
+        }
 
-    $('#ip_block').on('click', function() {
-        reportPopup();
-    });
-
-    function reportPopup() {
-        console.log(report);
-        util.windowOpen(report,"750","885","차단");
+        $("#imageFullSize").html(util.imageFullSize("fullSize_background", url));
+        $('#fullSize_background').modal('show');
     }
 
+    function modal_close(){
+        $("#fullSize_background").modal('hide');
+    }
+
+    $('#bt_block').on('click', function() {
+       showPopMemberList();
+    });
+
+    $(document).on('click', '#ipUuidBlockBtn', function() {
+        if(confirm("해당 ip/deviceUuid를 차단하시겠습니까?")) {
+            util.getAjaxData("insertBlock", "/rest/customer/blockAdm/insertBlock", $('#blockForm').serialize(), fn_insertBlock_success);
+        }
+        return false;
+    });
+
+    function fn_insertBlock_success(dst_id, response) {
+        alert(response.message);
+        console.log(response.data);
+
+        getBlockList();
+    }
+
+    $('#bt_delete').on('click', function() {
+       var checked = $('#blockAdmList .dt-body-center input[type="checkbox"]:checked');
+       if(checked.length == 0) {
+           alert("차단 해지할 사항을 선택해주세요.");
+           return;
+       }
+
+       if(confirm(checked.length + '건의 사항을 해지하시겠습니까?')){
+           var blockIdxs = "";
+           checked.each(function() {
+               blockIdxs += $(this).parent().parent().find('._blockDetail').data('idx') + ",";
+           });
+
+           var data = {
+               blockIdxs : blockIdxs
+           };
+           dalbitLog(data);
+           util.getAjaxData("delete", "/rest/customer/blockAdm/deleteBlock", data, fn_deleteBlock_success);
+       }
+    });
+
+    function fn_deleteBlock_success(dst_id, response) {
+        dalbitLog(response.message);
+    }
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_blockDetail">
@@ -136,10 +179,18 @@
             <col width="15%" />
         </colgroup>
         <tbody>
+        {{^equal report_idx ""}}
         <tr>
             <th>기타 신고 메시지</th>
-            <td id="opMsg" name="opMsg">{{{replaceHtml op_msg}}}</td>
+            <td>{{{replaceHtml ../op_msg}}}</td>
         </tr>
+        {{/equal}}
+        {{#equal report_idx ""}}
+        <tr>
+            <th>운영자 메시지</th>
+            <td>{{../adminMemo}}</td>
+        </tr>
+        {{/equal}}
         </tbody>
     </table>
 </script>

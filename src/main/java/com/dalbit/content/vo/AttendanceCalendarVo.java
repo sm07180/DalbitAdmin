@@ -19,6 +19,6 @@ public class AttendanceCalendarVo extends PagingVo {
     private int expSum;
     private int dalSum;
     private int sex_man;
-    private int sex_famale;
+    private int sex_female;
     private int sex_unknown;
 }

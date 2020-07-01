@@ -17,4 +17,10 @@ public interface Cus_BlockAdmDao {
 
     @Transactional(readOnly = true)
     BlockAdmVo selectBlockDetail(BlockAdmVo blockAdmVo);
+
+    int insertBlock(BlockAdmVo blockAdmVo);
+    int insertBlockHistory(BlockAdmVo blockAdmVo);
+
+    int deleteBlock(BlockAdmVo blockAdmVo);
+
 }
