@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
@@ -78,6 +79,9 @@ public class Bro_BroadcastService {
             summary.setSpecialDjCnt(djTypeCntList.get(0).getSpecialDjCnt());
         }
 
+        // 오늘 년도
+        String year = DalbitUtil.getDate("yyyy");
+
         for(int i=0;i < broadList.size(); i++){
             pBroadcastListInputVo.setRoom_no(broadList.get(i).getRoom_no());
             ProcedureVo brocastInfo_procedureVo = new ProcedureVo(pBroadcastListInputVo);
@@ -85,13 +89,20 @@ public class Bro_BroadcastService {
             P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(brocastInfo_procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
             if(!DalbitUtil.isEmpty(broadcastDetail)){
                 broadList.get(i).setBackgroundImage(broadcastDetail.getBackgroundImage());
+                broadList.get(i).setDj_birth_year(broadcastDetail.getDj_birth_year());
+                broadList.get(i).setDj_birth_month(broadcastDetail.getDj_birth_month());
+                broadList.get(i).setDj_birth_day(broadcastDetail.getDj_birth_day());
+                broadList.get(i).setDj_korean_age(broadcastDetail.getDj_korean_age());
             }
-
             if(DalbitUtil.isEmpty(broadList.get(i).getDj_nickname())){
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(broadList.get(i).getDj_mem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
                     broadList.get(i).setDj_userid(memInfoOutVo.getMem_id());
                     broadList.get(i).setDj_nickname("탈퇴회원");
+                    broadList.get(i).setDj_birth_year(memInfoOutVo.getMem_birth_year());
+                    broadList.get(i).setDj_birth_month(memInfoOutVo.getMem_birth_month());
+                    broadList.get(i).setDj_birth_day(memInfoOutVo.getMem_birth_day());
+                    broadList.get(i).setDj_korean_age(Integer.toString(Integer.parseInt(year) - Integer.parseInt(memInfoOutVo.getMem_birth_year())));
                 }
             }
         }
