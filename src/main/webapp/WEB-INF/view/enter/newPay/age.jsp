@@ -74,7 +74,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getPayAgeList ();
+        getPayAgeList();
     });
 
     function getPayAgeList (){
@@ -82,9 +82,10 @@
     }
 
     function fn_agePay_success(data, response){
-
         if(response.result == "fail"){
             searchDate();
+            getPayAgeList();
+            return;
         }
 
         for(var i=0;i<response.data.detailList.length;i++){

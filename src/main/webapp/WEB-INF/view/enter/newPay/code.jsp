@@ -13,7 +13,7 @@
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="1%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="0.1%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
@@ -98,7 +98,6 @@
 
 <script type="text/javascript">
     $(function(){
-        getPayCodeList ();
     });
 
     function getPayCodeList (){
@@ -106,8 +105,10 @@
     }
 
     function fn_codePay_success(data, response){
-        if(){
-
+        if(response.result == "fail"){
+            searchDate();
+            getPayCodeList();
+            return;
         }
         var sum_android_total_cnt = [
             response.data.totalInfo.sum_code01Cnt,

@@ -144,8 +144,6 @@
         var total_th_1 = moment($("#startDate").val()).add('years', -1).format('YYYY.01.01') + "-" + moment($("#startDate").val()).add('years', -1).format('YYYY.12.31');
         var total_th_0 = moment($("#startDate").val()).add('years', 0).format('YYYY.01.01') + "-" + moment($("#startDate").val()).add('years', 0).format('YYYY.12.31');
 
-        console.log("-----------------------------------------------------");
-        console.log($("#startDate").val());
         var dateList = total_th_2 + "@" + total_th_1 + "@" + total_th_0 + "@" + total_th_6 + "@" + total_th_5 + "@" + total_th_4  + "@" +  total_th_3;
         var data = {};
 
@@ -157,8 +155,6 @@
     }
 
     function fn_payYear_success(data, response){
-        dalbitLog(response);
-
         tmp_index = -1;
         var title = "평균 합계의 경우 반올림된 평균 데이터의 총합이라\n항목별 합계와 다소 오차가 생길 수 있습니다.";
 

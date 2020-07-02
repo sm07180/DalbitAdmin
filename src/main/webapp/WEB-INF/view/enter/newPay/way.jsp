@@ -60,14 +60,19 @@
 
 <script type="text/javascript">
     $(function(){
-        getPayWayList ();
+        getPayWayList();
     });
 
-    function getPayWayList (){
+    function getPayWayList(){
         util.getAjaxData("way", "/rest/enter/pay/way", $("#searchForm").serialize(), fn_wayPay_success);
     }
 
     function fn_wayPay_success(data, response){
+        if(response.result == "fail"){
+            searchDate();
+            getPayWayList();
+            return;
+        }
         for(var i=0;i<response.data.detailList.length;i++){
             response.data.detailList[i]["sum_totalCnt"] = response.data.totalInfo.sum_totalCnt;
             response.data.detailList[i]["sum_totalAmt"] = response.data.totalInfo.sum_totalAmt;
