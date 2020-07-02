@@ -13,8 +13,11 @@
                             <div>
                                 <span id="blockTypeArea"></span>
                                 <span id="searchArea"></span>
+                                <sapn id="blockHistArea"></sapn>
                                 <label><input type="text" class="form-control" id="searchText" name="searchText"></label>
+                                <label><input type="text" class="form-control" id="searchHistText" name="searchHistText"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+                                <button type="button" class="btn btn-success" id="bt_histSearch">검색</button>
                             </div>
                         </div>
                     </div>
@@ -79,9 +82,12 @@
     $(function() {
         $('#blockTypeArea').html(util.getCommonCodeSelect(-1, block_blockType));
         $('#searchArea').html(util.getCommonCodeSelect(-1, block_searchType));
-
+        $('#blockHistArea').html(util.getCommonCodeSelect(-1, blockHist_histType));
         getBlockList();
 
+        $('#blockHistArea').hide();
+        $('#searchHistText').hide();
+        $('#bt_histSearch').hide();
     });
 
     $('#bt_search').on('click', function() {
@@ -94,12 +100,40 @@
         }
     });
 
+    $('#bt_histSearch').on('click', function() {
+        getBlockHistoryList();
+    });
+
+    $('input[id="searchHistText"]').keydown(function() {
+        if (event.keyCode === 13) {
+            getBlockHistoryList();
+        }
+    });
+
     function blockList() {
         getBlockList();
+
+        $('#blockTypeArea').show();
+        $('#searchArea').show();
+        $('#searchText').show();
+        $('#bt_search').show();
+
+        $('#blockHistArea').hide();
+        $('#searchHistText').hide();
+        $('#bt_histSearch').hide();
     }
 
     function blockHistList() {
         getBlockHistoryList();
+
+        $('#blockHistArea').show();
+        $('#searchHistText').show();
+        $('#bt_histSearch').show();
+
+        $('#blockTypeArea').hide();
+        $('#searchArea').hide();
+        $('#searchText').hide();
+        $('#bt_search').hide();
     }
 
     var dtList_info;
@@ -230,9 +264,8 @@
 
     function getBlockHistoryList() {
          var dtList_info_data2 = function (data) {
-             data.blockType = $('#blockType').val();     // 차단 유형 구분
              data.searchType = $('#searchType').val();   // 검색 유형 구분
-             data.searchText = $('#searchText').val();   // 검색어 구분
+             data.searchHistText = $('#searchHistText').val();   // 검색어 구분
          };
 
         dtList_info = new DalbitDataTable($('#tb_blockHistList'), dtList_info_data2, blockAdmDataTableSource.blockHistList, $('#searchForm'));

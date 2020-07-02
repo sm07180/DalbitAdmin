@@ -35,3 +35,10 @@ var blockHist_reviseType = [
     , new COMMON_CODE('add', 0, '등록')
     , new COMMON_CODE('update', 1, '해제')
 ];
+
+var blockHist_histType = [
+    new COMMON_CODE(null, 'searchType', '검색 조건')
+    , new COMMON_CODE('all', '-1', '검색 조건(전체)')
+    , new COMMON_CODE('contents', '1', '수정 내용')
+    , new COMMON_CODE('opname', '2', '등록자')
+];
