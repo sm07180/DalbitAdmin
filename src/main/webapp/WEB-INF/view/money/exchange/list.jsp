@@ -4,6 +4,7 @@
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication var="principal" property="principal" />
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
