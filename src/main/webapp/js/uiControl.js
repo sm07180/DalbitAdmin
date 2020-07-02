@@ -218,4 +218,8 @@ ui.paintColor = function(){
             });
         }
     });
+
+     $('._stateTopTh').css('background-color','#b4c7e7');
+     $('._stateSubTh').css('background-color','#dae3f3');
+     $('._stateSumTd').css('background-color','#f2f2f2');
 }
