@@ -684,28 +684,35 @@
     //법정대리인(보호자) 동의 철회
     $(document).on('click', '#bt_recant', function(){
 
-        var detailData = {};
-        detailData.memNo = memNo
+        var result = confirm("법정대리인의 보호자 동의를 철회하시는 경우\n해당 회원은 추 후 법정대리인 동의를 다시 받아야 합니다.\n법정대리인(동의)를 철회하시겠습니까?");
+        if(result){
+            var detailData = {};
+            detailData.memNo = memNo
 
-        util.getAjaxData("recant", "/rest/member/member/recant", detailData, fn_succ_recant);
+            util.getAjaxData("recant", "/rest/member/member/recant", detailData, fn_succ_recant);
+        }
+
     });
 
-    //법정대리인(보호자) 동의
-    $(document).on('click', '#bt_back_recant', function(){
+    //법정대리인(보호자) 동의 복귀
+    $(ocument).on('click', '#bt_back_recant', function(){
 
-        var detailData = {};
-        detailData.memNo = memNo
+        var result = confirm("법정대리인(동의)를 복귀하시겠습니까?");
+        if(result){
+            var detailData = {};
+            detailData.memNo = memNo
 
-        util.getAjaxData("backrecant", "/rest/member/member/back/recant", detailData, fn_succ_back_recant);
+            util.getAjaxData("backrecant", "/rest/member/member/back/recant", detailData, fn_succ_back_recant);
+        }
     });
 
     function fn_succ_recant(){
-        alert("보호자인증 철회되었습니다.");
+        alert("법정대리인(동의)를 철회하였습니다.");
         getMemNo_info_reload(memNo);
     }
 
     function fn_succ_back_recant() {
-        alert("보호자인증 복귀되었습니다.");
+        alert("법정대리인(동의)를 복귀하였습니다.");
         getMemNo_info_reload(memNo);
     }
 
