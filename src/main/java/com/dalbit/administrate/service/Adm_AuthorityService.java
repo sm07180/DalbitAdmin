@@ -89,12 +89,13 @@ public class Adm_AuthorityService {
         InforexMember[] inforexMembers = InforexApiUtil.getInforexMemberList();
 
         //직급, 직책 이름 매칭
-        Arrays.stream(inforexMembers).forEach(member -> {
-            member.setStaff_pos_name(Arrays.stream(inforexPosCodes).filter(inforexPosCode -> inforexPosCode.getPos_code().equals(member.getStaff_pos())).findFirst().get().getPos_name());
-            member.setStaff_duty_name(Arrays.stream(inforexDutyCode).filter(inforexPosCode -> inforexPosCode.getDuty_code().equals(member.getStaff_duty())).findFirst().get().getDuty_name());
-        });
+        Arrays.stream(inforexMembers)
+            .forEach(member -> {
+                member.setStaff_pos_name(Arrays.stream(inforexPosCodes).filter(inforexPosCode -> inforexPosCode.getPos_code().equals(member.getStaff_pos())).findFirst().get().getPos_name());
+                member.setStaff_duty_name(Arrays.stream(inforexDutyCode).filter(inforexPosCode -> inforexPosCode.getDuty_code().equals(member.getStaff_duty())).findFirst().get().getDuty_name());
+            });
 
-        List<InforexMember> memberList = Arrays.asList(inforexMembers);
+        List<InforexMember> memberList = Arrays.stream(inforexMembers).filter(member -> !(member.getNew_dept_name().equals("임원"))).collect(Collectors.toList());
         //검색
         if(!DalbitUtil.isEmpty(searchVo.getPosType())){
             memberList = memberList.stream()
