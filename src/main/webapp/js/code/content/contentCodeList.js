@@ -15,6 +15,7 @@ var notice_slctType = [
     , new COMMON_CODE('event', '2', '이벤트')
     , new COMMON_CODE('check', '3', '정기점검')
     , new COMMON_CODE('update', '4', '업데이트')
+    , new COMMON_CODE('news', '5', '언론보도')
 ];
 
 
