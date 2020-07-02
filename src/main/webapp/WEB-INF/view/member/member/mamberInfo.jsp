@@ -933,14 +933,12 @@
             <td>
                 {{#equal ../parents_agree_yn 'y'}}
                     <label style="color: red; font-weight: bold;">Yes</label>
-                    {{#equal ../recant_yn 'n'}}
-                        <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
-                    {{else}}
-                        <button type="button" id="bt_back_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
-                    {{/equal}}
+                    <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
                     <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
                 {{else}}
                     <label style="font-weight: bold;">No</label>
+                    <button type="button" id="bt_back_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
+                    <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
                 {{/equal}}
 
             </td>

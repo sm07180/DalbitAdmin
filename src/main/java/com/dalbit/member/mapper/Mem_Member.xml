@@ -427,6 +427,7 @@
         /* M_Member.xml - updateRecant */
         UPDATE rd_data.tb_member_certification
         SET recant_yn = 'y'
+            , parents_agree_yn = 'n'
         WHERE mem_no = #{memNo}
     </update>
 
@@ -434,6 +435,7 @@
         /* M_Member.xml - updateBackRecant */
         UPDATE rd_data.tb_member_certification
         SET recant_yn = 'n'
+            , parents_agree_yn = 'y'
         WHERE mem_no = #{memNo}
     </update>
 
