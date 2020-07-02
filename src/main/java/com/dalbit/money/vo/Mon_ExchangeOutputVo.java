@@ -50,6 +50,7 @@ public class Mon_ExchangeOutputVo{
     private int totalCashBasic;
     private int totalCashReal;
     private int last_reject;
+    private String recant_yn;
 
     private String send_title;		// 발송 메시지 제목
     private String send_cont;		// 발송 메시지 내용

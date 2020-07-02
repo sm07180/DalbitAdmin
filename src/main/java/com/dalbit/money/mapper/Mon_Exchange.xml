@@ -11,6 +11,7 @@
             , ifnull(totalCashReal, 0) totalCashReal
             , ifnull((select concat(aa.mem_birth_year, '-', LPAD(aa.mem_birth_month,2,'0'), '-', LPAD(aa.mem_birth_day,2,'0')) as birth from rd_data.tb_member_basic aa where aa.mem_no = a.mem_no),
               (select concat(aa.mem_birth_year, '-', LPAD(aa.mem_birth_month,2,'0'), '-', LPAD(aa.mem_birth_day,2,'0')) as birth from rd_data.tb_member_withdrawal_bak aa where aa.mem_no = a.mem_no)) as birth
+            , (select recant_yn from rd_data.tb_member_certification where mem_no = a.mem_no limit 1) recant_yn
         from (
             select IFNULL(basic.mem_no, withdrawal.mem_no) mem_no,
                    IFNULL(basic.mem_id, withdrawal.mem_id) mem_id,
