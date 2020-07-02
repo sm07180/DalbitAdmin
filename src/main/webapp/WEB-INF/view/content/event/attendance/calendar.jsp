@@ -8,7 +8,7 @@
 
             <div class="widget widget-table mb10">
                 <div class="widget-header">
-                    <h3><i class="fa fa-table"></i> 2020-06-30 기준</h3>
+                    <h3><i class="fa fa-table"></i> <span id="summary_today"></span> 기준</h3>
                 </div>
                 <div class="col-md-12 no-padding">
                     <div class="widget-content mt10 no-padding ml10 mr10">
@@ -34,51 +34,51 @@
                             <tbody id="loginLiveTableBody">
                                 <tr class="today_summary">
                                     <th>오늘</th>
-                                    <td class="loginCnt">0</td>
-                                    <td class="joinCnt">0</td>
-                                    <td class="joinRate">0</td>
-                                    <td class="sex_man">0</td>
-                                    <td class="sex_female">0</td>
-                                    <td class="sex_unknown">0</td>
-                                    <td class="sex_joinSum">0</td>
-                                    <td class="expSum">0</td>
-                                    <td class="dalSum">0</td>
+                                    <td class="loginCnt">0명</td>
+                                    <td class="joinCnt">0명</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
+                                    <td class="sex_man">0명</td>
+                                    <td class="sex_female">0명</td>
+                                    <td class="sex_unknown">0명</td>
+                                    <td class="joinSum">0건</td>
+                                    <td class="expSum">0exp</td>
+                                    <td class="dalSum">0달</td>
                                 </tr>
                                 <tr class="yesterday_summary">
                                     <th>전일</th>
-                                    <td class="loginCnt">0</td>
-                                    <td class="joinCnt">0</td>
-                                    <td class="joinRate">0</td>
-                                    <td class="sex_man">0</td>
-                                    <td class="sex_female">0</td>
-                                    <td class="sex_unknown">0</td>
-                                    <td class="sex_joinSum">0</td>
-                                    <td class="expSum">0</td>
-                                    <td class="dalSum">0</td>
+                                    <td class="loginCnt">0명</td>
+                                    <td class="joinCnt">0명</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
+                                    <td class="sex_man">0명</td>
+                                    <td class="sex_female">0명</td>
+                                    <td class="sex_unknown">0명</td>
+                                    <td class="joinSum">0건</td>
+                                    <td class="expSum">0exp</td>
+                                    <td class="dalSum">0달</td>
                                 </tr>
                                 <tr class="thisWeek_summary">
                                     <th>이번주</th>
-                                    <td class="loginCnt">0</td>
-                                    <td class="joinCnt">0</td>
-                                    <td class="joinRate">0</td>
-                                    <td class="sex_man">0</td>
-                                    <td class="sex_female">0</td>
-                                    <td class="sex_unknown">0</td>
-                                    <td class="sex_joinSum">0</td>
-                                    <td class="expSum">0</td>
-                                    <td class="dalSum">0</td>
+                                    <td class="loginCnt">0명</td>
+                                    <td class="joinCnt">0명</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
+                                    <td class="sex_man">0명</td>
+                                    <td class="sex_female">0명</td>
+                                    <td class="sex_unknown">0명</td>
+                                    <td class="joinSum">0건</td>
+                                    <td class="expSum">0exp</td>
+                                    <td class="dalSum">0달</td>
                                 </tr>
                                 <tr class="prevWeek_summary">
                                     <th>지난주</th>
-                                    <td class="loginCnt">0</td>
-                                    <td class="joinCnt">0</td>
-                                    <td class="joinRate">0</td>
-                                    <td class="sex_man">0</td>
-                                    <td class="sex_female">0</td>
-                                    <td class="sex_unknown">0</td>
-                                    <td class="sex_joinSum">0</td>
-                                    <td class="expSum">0</td>
-                                    <td class="dalSum">0</td>
+                                    <td class="loginCnt">0명</td>
+                                    <td class="joinCnt">0명</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
+                                    <td class="sex_man">0명</td>
+                                    <td class="sex_female">0명</td>
+                                    <td class="sex_unknown">0명</td>
+                                    <td class="joinSum">0건</td>
+                                    <td class="expSum">0exp</td>
+                                    <td class="dalSum">0달</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -105,13 +105,75 @@
 <script src="/template/js/plugins/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <script type="text/javascript">
 
+    $(function(){
+        init();
+    });
+
+    function init(){
+        $("#summary_today").html(moment(new Date()).format('YYYY-MM-DD'));
+
+        getSummary();
+    }
+
+    function getSummary(){
+        util.getAjaxData("today_summary" , "/rest/content/event/attendance/calendar/week"
+            , {
+                search_startDate : moment(new Date()).format('YYYY-MM-DD')
+                , search_endDate : moment(new Date()).format('YYYY-MM-DD')
+            }
+            , getSummary_success);
+
+        util.getAjaxData("yesterday_summary" , "/rest/content/event/attendance/calendar/week"
+            , {
+                search_startDate : moment(new Date()).add('days', -1).format('YYYY-MM-DD')
+                , search_endDate : moment(new Date()).add('days', -1).format('YYYY-MM-DD')
+            }
+            , getSummary_success);
+
+        var thisWeekStartDate = moment().startOf('week').add('days', 1).format('YYYY-MM-DD');
+        util.getAjaxData("thisWeek_summary" , "/rest/content/event/attendance/calendar/week"
+            , {
+                search_startDate : thisWeekStartDate
+                , search_endDate : moment(thisWeekStartDate).add('days', 6).format('YYYY-MM-DD')
+            }
+            , getSummary_success);
+
+        var prevWeekStartDate = moment().startOf('week').add('days', -6).format('YYYY-MM-DD')
+        util.getAjaxData("prevWeek_summary" , "/rest/content/event/attendance/calendar/week"
+            , {
+                search_startDate : moment().startOf('week').add('days', -6).format('YYYY-MM-DD')
+                , search_endDate : moment(prevWeekStartDate).add('days', 6).format('YYYY-MM-DD')
+            }
+            , getSummary_success);
+    }
+
+    function getSummary_success(dst_id, response, param){
+        var data = response.data;
+        var target = $("#loginLiveTableBody").find('.'+dst_id);
+        target.find('.loginCnt').html(common.addComma(data.loginCnt) + '명');
+        target.find('.joinCnt').html(common.addComma(data.joinCnt) + '명');
+
+        var loginCnt = common.isEmpty(data.loginCnt) ? 0 : data.loginCnt;
+        var joinCnt = common.isEmpty(data.joinCnt) ? 0 : data.joinCnt;
+
+        var joinRate = joinCnt == 0 ? 0 : (joinCnt / loginCnt * 100).toFixed(1);
+
+        target.find('.joinRate').html(joinRate + "%");
+        target.find('.sex_man').html(common.addComma(data.sex_man) + '명');
+        target.find('.sex_female').html(common.addComma(data.sex_female) + '명');
+        target.find('.sex_unknown').html(common.addComma(data.sex_unknown) + '명');
+        target.find('.joinSum').html(common.addComma(data.joinSum) + '건');
+        target.find('.expSum').html(common.addComma(data.expSum) + 'exp');
+        target.find('.dalSum').html(common.addComma(data.dalSum) + '개');
+    }
+
     function getAttendanceWeek(startDate, endDate, index){
         var data = {
             search_startDate : startDate
             , search_endDate : endDate
             , index : index
         }
-        util.getAjaxData("getCalendarWeekSum", "/rest/content/event/attendance/calendar/list", data, getCalendarWeek_success);
+        util.getAjaxData("getCalendarWeekSum", "/rest/content/event/attendance/calendar/week", data, getCalendarWeek_success);
     }
 
     function getCalendarWeek_success(dst_id, response, param) {
@@ -122,6 +184,7 @@
         var weekTotal = {
             month : month_int
             , index : param.index
+            , loginCnt : 0
             , joinMem : 0
             , sex_man : 0
             , sex_female : 0
@@ -133,16 +196,14 @@
         }
 
         if(!common.isEmpty(response.data)){
-            response.data.forEach(function(info){
-                weekTotal.joinCnt = Number(info.joinCnt);
-
-                weekTotal.sex_man += Number(info.sex_man);
-                weekTotal.sex_female += Number(info.sex_female);
-                weekTotal.sex_unknown += Number(info.sex_unknown);
-                weekTotal.joinSum += Number(info.joinSum);
-                weekTotal.expSum += Number(info.expSum);
-                weekTotal.dalSum += Number(info.dalSum);
-            });
+            weekTotal.loginCnt = response.data.loginCnt;
+            weekTotal.joinCnt = response.data.joinCnt;
+            weekTotal.sex_man = response.data.sex_man;
+            weekTotal.sex_female += response.data.sex_female;
+            weekTotal.sex_unknown += response.data.sex_unknown;
+            weekTotal.joinSum += response.data.joinSum;
+            weekTotal.expSum += response.data.expSum;
+            weekTotal.dalSum += response.data.dalSum;
         }
 
         var weekTarget = $('.fc-week:eq('+param.index+')').find('.fc-day-content:last');
@@ -168,7 +229,6 @@
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    // our hypothetical feed requires UNIX timestamps
                     search_startDate : $('td.fc-day:first').data('date'),
                     search_endDate: $('td.fc-day:last').data('date')
                 },
@@ -203,23 +263,25 @@
 
 
 <script type="text/x-handlebars-template" id="tmp_calendarData">
-    <div>참여자 수 : {{joinSum}} 명</div>
-    <div>남성 : {{sex_man}} 명</div>
-    <div>여성 : {{sex_female}} 명</div>
-    <div>알수없음 : {{sex_unknown}} 명</div>
-    <div>참여건수 : {{joinSum}} 명</div>
-    <div>경험치 : {{expSum}} exp</div>
-    <div>달 : {{dalSum}} 개</div>
+    <div>참여자 수 : {{addComma joinSum}} 명</div>
+    <div>로그인 수 : {{addComma loginCnt}} 명</div>
+    <div>남성 : {{addComma sex_man}} 명</div>
+    <div>여성 : {{addComma sex_female}} 명</div>
+    <div>알수없음 : {{addComma sex_unknown}} 명</div>
+    <div>참여건수 : {{addComma joinSum}} 건</div>
+    <div>경험치 : {{addComma expSum}} exp</div>
+    <div>달 : {{addComma dalSum}} 개</div>
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_weekCalendarData">
     <div style="font-weight:bold">{{month}}월 {{math index '+' 1}}주차</div>
-    <div>참여자 수 : {{joinCnt}} 명</div>
-    <div>남성 : {{sex_man}} 명</div>
-    <div>여성 : {{sex_female}} 명</div>
-    <div>알수없음 : {{sex_unknown}} 명</div>
-    <div>참여건수 : {{joinSum}} 명</div>
-    <div>경험치 : {{expSum}} exp</div>
-    <div>달 : {{dalSum}} 개</div>
+    <div>참여자 수 : {{addComma joinCnt}} 명</div>
+    <div>로그인 수 : {{addComma loginCnt}} 명</div>
+    <div>남성 : {{addComma sex_man}} 명</div>
+    <div>여성 : {{addComma sex_female}} 명</div>
+    <div>알수없음 : {{addComma sex_unknown}} 명</div>
+    <div>참여건수 : {{addComma joinSum}} 건</div>
+    <div>경험치 : {{addComma expSum}} exp</div>
+    <div>달 : {{addComma dalSum}} 개</div>
 </script>
 

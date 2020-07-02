@@ -13,7 +13,10 @@ public class AttendanceCalendarVo extends PagingVo {
     private String search_endDate;
 
     /* output */
+    private String start_date;
+    private String end_date;
     private String the_date;
+    private int loginCnt;
     private int joinCnt;
     private int joinSum;
     private int expSum;

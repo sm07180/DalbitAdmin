@@ -51,4 +51,12 @@ public class Cus_BlockAdmRestController {
     public String deleteBlock(BlockAdmVo blockAdmVo) {
         return cusBlockAdmService.deleteBlock(blockAdmVo);
     }
+
+    /**
+     * 로그인 차단/해지 내역 조회
+     */
+    @PostMapping("/histList")
+    public String historyList(BlockAdmVo blockAdmVo) {
+        return cusBlockAdmService.selectBlockHistList(blockAdmVo);
+    }
 }

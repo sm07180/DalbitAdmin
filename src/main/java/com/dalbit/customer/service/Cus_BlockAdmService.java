@@ -85,7 +85,7 @@ public class Cus_BlockAdmService {
             } else {
                 temp_blockType = "ip";
             }
-            blockAdmVo.setEdit_contents(temp_blockType + "차단 해지 : " + history.getBlock_text());
+            blockAdmVo.setEdit_contents(temp_blockType + " 차단 해지 : " + history.getBlock_text());
             blockAdmVo.setEdit_type(1);
             if(!DalbitUtil.isEmpty(history.getReport_idx())) {
                 blockAdmVo.setReport_idx(history.getReport_idx());
@@ -119,6 +119,17 @@ public class Cus_BlockAdmService {
     public BlockAdmVo blockInfo(String idx) {
         BlockAdmVo info = cusBlockAdmDao.selectBlockInfo(idx);
         return info;
+    }
+
+    /**
+     * 로그인 차단/해지 내역 조회
+     */
+    public String selectBlockHistList(BlockAdmVo blockAdmVo) {
+        int count = cusBlockAdmDao.selectBlockHistListCnt(blockAdmVo);
+        ArrayList<BlockAdmVo> list = cusBlockAdmDao.selectBlockHistList(blockAdmVo);
+        blockAdmVo.setTotalCnt(count);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(blockAdmVo.getTotalCnt(), blockAdmVo.getPageStart(), blockAdmVo.getPageCnt())));
     }
 
 }

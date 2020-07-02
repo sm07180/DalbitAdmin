@@ -56,4 +56,5 @@ public interface Con_EventDao {
     int selectAttendanceListCnt(AttendanceVo attendanceVo);
 
     List<AttendanceCalendarVo> selectAttendanceCalendarList(AttendanceCalendarVo attendanceCalendarVo);
+    AttendanceCalendarVo selectAttendanceWeekCalendarList(AttendanceCalendarVo attendanceCalendarVo);
 }
