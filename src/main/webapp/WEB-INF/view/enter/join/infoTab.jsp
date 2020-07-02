@@ -18,7 +18,7 @@
                     <div class="tab-pane fade" id="gender"><jsp:include page="gender.jsp"/></div>               <!-- 성별 -->
                     <div class="tab-pane fade" id="platGender"><jsp:include page="platform_gender.jsp"/></div>  <!-- 플랫폼(성별) -->
                     <div class="tab-pane fade" id="platAge"><jsp:include page="platform_age.jsp"/></div>        <!-- 플랫폼(연령별) -->
-                    <div class="tab-pane fade" id="memberQuit"><jsp:include page="member_withdraw.jsp"/></div>      <!-- 가입/탈퇴회원 리스트 -->
+                    <div class="tab-pane fade" id="memberQuit"><jsp:include page="member_withdraw.jsp"/></div>      <!-- 회원 탈퇴 -->
                 </div>
             </div>
         </div>
