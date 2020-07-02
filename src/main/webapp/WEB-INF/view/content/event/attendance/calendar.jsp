@@ -36,7 +36,7 @@
                                     <th>오늘</th>
                                     <td class="loginCnt">0명</td>
                                     <td class="joinCnt">0명</td>
-                                    <td class="joinRate">0%</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
@@ -48,7 +48,7 @@
                                     <th>전일</th>
                                     <td class="loginCnt">0명</td>
                                     <td class="joinCnt">0명</td>
-                                    <td class="joinRate">0%</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
@@ -60,7 +60,7 @@
                                     <th>이번주</th>
                                     <td class="loginCnt">0명</td>
                                     <td class="joinCnt">0명</td>
-                                    <td class="joinRate">0%</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
@@ -72,7 +72,7 @@
                                     <th>지난주</th>
                                     <td class="loginCnt">0명</td>
                                     <td class="joinCnt">0명</td>
-                                    <td class="joinRate">0%</td>
+                                    <td class="joinRate" style="color:red;">0%</td>
                                     <td class="sex_man">0명</td>
                                     <td class="sex_female">0명</td>
                                     <td class="sex_unknown">0명</td>
