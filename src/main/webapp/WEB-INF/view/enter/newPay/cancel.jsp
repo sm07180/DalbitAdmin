@@ -52,7 +52,7 @@
         sDate = $("#startDate").val();
         eDate = $("#endDate").val();
         var dtList_info_data = function(data) {
-            data.searchText = "";                        // 검색명
+            data.searchText = $('#txt_search').val();                        // 검색명
             data.sDate = sDate;
             data.eDate = eDate;
             if( $('input[name="slctType"]:checked').val() == 0){

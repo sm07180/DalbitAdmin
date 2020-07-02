@@ -38,6 +38,7 @@
 
                                 <%--<input name="startDate" id="startDate">--%>
                                 <%--<input name="endDate" id="endDate" />--%>
+                                <label><input type="text" class="form-control" id="txt_search" name="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
                                 <a href="javascript://" class="_todaySearch">[오늘]</a>
@@ -105,6 +106,12 @@
         });
 
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
+
+        $('input[id="txt_search"]').keydown(function() {
+            if (event.keyCode === 13) {
+                $("#bt_search").click();
+            };
+        });
     });
 
     function setTimeDate(dateTime){
@@ -150,6 +157,9 @@
             $("#oneDayDatePicker").show();
             $("#monthDatepicker").hide();
             $("#yearDatepicker").hide();
+            if(_searchText == 1){
+                $("#txt_search").show();
+            }
         }else if(_datePicker == 1) {
             $("#oneDayDatePicker").hide();
             $("#monthDatepicker").show();

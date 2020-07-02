@@ -13,17 +13,11 @@
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="0.1%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/>
             </colgroup>
             <thead>
             <tr>
                 <th class="_stateTopTh" colspan="21">Web, 안드로이드</th>
-                <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-                <th class="_stateTopTh" colspan="15">IOS</th>
             </tr>
             <tr>
                 <th class="_stateTopTh" rowspan="2"></th>
@@ -38,15 +32,6 @@
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 220,000원</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px" height="25px"> 330,000원</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 550,000원</th>
-                <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-                <th class="_stateTopTh" rowspan="2"></th>
-                <th class="_stateSubTh" colspan="2">총계</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 3,900원</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 26,000원</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 39,000원</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 65,000원</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 169,000원</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원</th>
             </tr>
             <tr>
                 <th class="_stateSubTh">건<br/>(비율)</th>
@@ -69,25 +54,52 @@
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
-                <th style="background-color: white; border-bottom: hidden; border-top: hidden;"></th>
-                <th class="_stateSubTh">건<br/>(비율)</th>
-                <th class="_stateSubTh">금액<br/>(비율)</th>
-                <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
-                <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
-                <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
-                <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
-                <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
-                <th class="_stateSubTh">건</th>
-                <th class="_stateSubTh">금액</th>
             </tr>
             </thead>
-            <tbody id="codeTableBody"></tbody>
+            <tbody id="androidTableBody"></tbody>
         </table>
+
+            <table class="table table-bordered">
+                <colgroup>
+                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                    <col width="2.7%"/><col width="2.7%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="_stateTopTh" colspan="15">IOS</th>
+                </tr>
+                <tr>
+                    <th class="_stateTopTh" rowspan="2"></th>
+                    <th class="_stateSubTh" colspan="2">총계</th>
+                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 3,900원</th>
+                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 26,000원</th>
+                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 39,000원</th>
+                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 65,000원</th>
+                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 169,000원</th>
+                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원</th>
+                </tr>
+                <tr>
+                    <th class="_stateSubTh">건<br/>(비율)</th>
+                    <th class="_stateSubTh">금액<br/>(비율)</th>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
+                </tr>
+                </thead>
+                <tbody id="iosTableBody"></tbody>
+            </table>
     </div>
     <div class="widget-footer">
         <span>
@@ -208,33 +220,56 @@
 
         console.log(response.data);
         var isDataEmpty = response.data.detailList == null;
-        $("#codeTableBody").empty();
+        $("#androidTableBody").empty();
         if(!isDataEmpty){
-            var template = $('#tmp_code').html();
+            var template = $('#tmp_android').html();
             var templateScript = Handlebars.compile(template);
             var totalContext = response.data.totalInfo;
             var totalHtml = templateScript(totalContext);
-            $("#codeTableBody").append(totalHtml);
+            $("#androidTableBody").append(totalHtml);
 
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
         }
 
-        var template = $('#tmp_codeDetailList').html();
+        var template = $('#tmp_androidDetailList').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
-        $("#codeTableBody").append(html);
+        $("#androidTableBody").append(html);
 
         if(isDataEmpty){
-            $("#codeTableBody td:last").remove();
+            $("#androidTableBody td:last").remove();
         }else{
-            $("#codeTableBody").append(totalHtml);
+            $("#androidTableBody").append(totalHtml);
+        }
+
+        $("#iosTableBody").empty();
+        if(!isDataEmpty){
+            var template = $('#tmp_ios').html();
+            var templateScript = Handlebars.compile(template);
+            var totalContext = response.data.totalInfo;
+            var totalHtml = templateScript(totalContext);
+            $("#iosTableBody").append(totalHtml);
+
+            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
+        }
+
+        var template = $('#tmp_iosDetailList').html();
+        var templateScript = Handlebars.compile(template);
+        var detailContext = response.data.detailList;
+        var html=templateScript(detailContext);
+        $("#iosTableBody").append(html);
+
+        if(isDataEmpty){
+            $("#iosTableBody td:last").remove();
+        }else{
+            $("#iosTableBody").append(totalHtml);
         }
 
         ui.tableHeightSet();
     }
 </script>
-<script type="text/x-handlebars-template" id="tmp_code">
+<script type="text/x-handlebars-template" id="tmp_android">
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
         <td style="color:red;font-weight: bold;color: #ff5600">{{addComma sum_android_total_cnt}}<br/>({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
@@ -257,26 +292,10 @@
         <td>{{vatMinus sum_code06Amt}}</td>
         <td>{{addComma sum_code15Cnt}}</td>
         <td>{{vatMinus sum_code15Amt}}</td>
-        <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
-        <td>소계</td>
-        <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}<br/>({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="color:#ff5600;font-weight: bold">{{vatMinus sum_ios_total_amt}}<br/>({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
-        <td>{{addComma sum_code07Cnt}}</td>
-        <td>{{vatMinus sum_code07Amt}}</td>
-        <td>{{addComma sum_code08Cnt}}</td>
-        <td>{{vatMinus sum_code08Amt}}</td>
-        <td>{{addComma sum_code09Cnt}}</td>
-        <td>{{vatMinus sum_code09Amt}}</td>
-        <td>{{addComma sum_code10Cnt}}</td>
-        <td>{{vatMinus sum_code10Amt}}</td>
-        <td>{{addComma sum_code11Cnt}}</td>
-        <td>{{vatMinus sum_code11Amt}}</td>
-        <td>{{addComma sum_code12Cnt}}</td>
-        <td>{{vatMinus sum_code12Amt}}</td>
     </tr>
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_codeDetailList">
+<script type="text/x-handlebars-template" id="tmp_androidDetailList">
     {{#each this as |data|}}
     <tr>
         <td class="font-bold _stateSubTh">
@@ -304,8 +323,36 @@
         <td>{{vatMinus code06Amt}}</td>
         <td>{{addComma code15Cnt}}</td>
         <td>{{vatMinus code15Amt}}</td>
-        <td style="background-color: white; border-bottom: hidden; border-top: hidden;"></td>
-        <td class="font-bold">
+    </tr>
+    {{else}}
+    <td colspan="11" class="noData">{{isEmptyData}}<td>
+        {{/each}}
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_ios">
+    <tr class="font-bold _stateSumTd">
+        <td>소계</td>
+        <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}<br/>({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
+        <td style="color:#ff5600;font-weight: bold">{{vatMinus sum_ios_total_amt}}<br/>({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
+        <td>{{addComma sum_code07Cnt}}</td>
+        <td>{{vatMinus sum_code07Amt}}</td>
+        <td>{{addComma sum_code08Cnt}}</td>
+        <td>{{vatMinus sum_code08Amt}}</td>
+        <td>{{addComma sum_code09Cnt}}</td>
+        <td>{{vatMinus sum_code09Amt}}</td>
+        <td>{{addComma sum_code10Cnt}}</td>
+        <td>{{vatMinus sum_code10Amt}}</td>
+        <td>{{addComma sum_code11Cnt}}</td>
+        <td>{{vatMinus sum_code11Amt}}</td>
+        <td>{{addComma sum_code12Cnt}}</td>
+        <td>{{vatMinus sum_code12Amt}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_iosDetailList">
+    {{#each this as |data|}}
+    <tr>
+        <td class="font-bold _stateSubTh">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
             {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}

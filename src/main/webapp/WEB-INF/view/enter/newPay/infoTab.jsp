@@ -35,13 +35,19 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
-    var tabId = "tab_payTime";
+    var tabId = "tab_payHistory";
+    var _searchText = 0;
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
-
         $("#slctTypeArea").hide();
-        if(tabId == 'tab_payTime' || tabId == 'tab_payTry' || tabId == 'tab_payCancel' || tabId == 'tab_payHistory'){
+        $("#txt_search").hide();
+
+        _searchText = 0;
+        if(tabId == 'tab_payTime' || tabId == 'tab_payTry' || tabId == 'tab_payHistory' || tabId == 'tab_payCancel'){
             _datePicker = 0;
+            if(tabId == 'tab_payHistory' || tabId == 'tab_payCancel'){
+                _searchText = 1;
+            }
         }else if(tabId == 'tab_payMonth'){
             _datePicker = 1;
         }else if(tabId == 'tab_payYear'){
