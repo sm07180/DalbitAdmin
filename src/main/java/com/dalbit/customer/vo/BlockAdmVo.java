@@ -11,6 +11,7 @@ public class BlockAdmVo extends PagingVo {
     /* input */
     private String searchType;
     private String searchText;
+    private String searchHistText;
     private String blockType;   // 차단유형 검색조건을 위한 input
     private int radioBlock;  // 모달창에서 라디오 타입을 위한 input blockType
     private String report_idx;
