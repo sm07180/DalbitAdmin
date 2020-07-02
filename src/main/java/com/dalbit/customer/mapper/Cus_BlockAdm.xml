@@ -190,6 +190,24 @@
           , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_login_block_history
             , (select @RNUM := 0) r
+            <where>
+                <if test='searchHistText != "" and searchHistText != null'>
+                    <choose>
+                        <when test='searchType == "1"'>
+                            edit_contents like concat ('%', #{searchHistText}, '%')
+                        </when>
+                        <when test='searchType == "2"'>
+                            and op_name like concat ('%', #{searchHistText}, '%')
+                        </when>
+                        <otherwise>
+                            and (
+                                edit_contents like concat ('%', #{searchHistText}, '%')
+                                or op_name like concat ('%', #{searchHistText}, '%')
+                            )
+                        </otherwise>
+                    </choose>
+                </if>
+            </where>
         order by last_upd_date desc
     </sql>
     <select id="selectBlockHistList" parameterType="com.dalbit.customer.vo.BlockAdmVo" resultType="com.dalbit.customer.vo.BlockAdmVo">
