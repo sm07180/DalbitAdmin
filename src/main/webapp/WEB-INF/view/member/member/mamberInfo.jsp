@@ -695,7 +695,7 @@
     });
 
     //법정대리인(보호자) 동의 복귀
-    $(ocument).on('click', '#bt_back_recant', function(){
+    $(document).on('click', '#bt_back_recant', function(){
 
         var result = confirm("법정대리인(동의)를 복귀하시겠습니까?");
         if(result){
