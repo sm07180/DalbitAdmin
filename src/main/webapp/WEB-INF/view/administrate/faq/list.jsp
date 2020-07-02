@@ -93,6 +93,13 @@
     $("#bt_insert").on("click", function(){
         generateForm();
         ui.unCheck('list_info');
+        // scroll 처리
+        var scrollPosition = $("#faq_detatil_title").offset();
+        util.scrollPostion(scrollPosition.top);
+        // code
+        var data = {};
+        data.type="faq_slctType";
+        util.getAjaxData("codeList", "/common/codeList", data, fn_getCode_success);
     });
 
     function generateForm() {
@@ -120,7 +127,7 @@
         }
     });
 
-    var slctType;
+    var slctType ="";
     function fn_detail_success(dst_id, response, params) {
         // form 띄우기
         response.data["rowNum"] = params.rowNum;
@@ -151,7 +158,11 @@
         var html = templateScript(context);
         $("#_faqSlctType").html(html);
 
-        $("#_faqSlctType").find("#slctType").val(slctType).prop("selected", true);
+        if(slctType != "" ){
+            $("#_faqSlctType").find("#slctType").val(slctType).prop("selected", true);
+        }else{
+            $("#_faqSlctType").find("#slctType").val(1).prop("selected", true);
+        }
     }
 
     function isValid(){
