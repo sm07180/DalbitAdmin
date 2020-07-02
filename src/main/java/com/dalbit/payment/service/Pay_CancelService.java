@@ -260,15 +260,32 @@ public class Pay_CancelService {
      * 페이레터 결제취소
      */
     public int payletterCancel(Pay_CancelPayletterVo payCancelPayletterVo, HttpServletRequest request) throws GlobalException {
+        String activeProperties = System.getProperty("spring.profiles.active");
+        log.info("activeProperties: {}", activeProperties);
         int result = 0;
 
         try{
             log.debug("payletter.cancel.url: {}", DalbitUtil.getProperty("payletter.cancel.url"));
             URL objUrl = new URL(DalbitUtil.getProperty("payletter.cancel.url"));
+            String apiKey = "";
 
             Pay_JsonCancelVo payJsonCancelVo = new Pay_JsonCancelVo();
             payJsonCancelVo.setPgcode(payCancelPayletterVo.getPaycd());
+
             payJsonCancelVo.setClient_id(DalbitUtil.getProperty("payletter.client.id"));
+            if(!activeProperties.equals("dev")){
+                payJsonCancelVo.setClient_id(DalbitUtil.getProperty("payletter.client.id"));
+                apiKey = DalbitUtil.getProperty("payletter.api.key");
+            }else {
+                if(payCancelPayletterVo.getPaycd().equals("cashbee") || payCancelPayletterVo.getPaycd().equals("tmoney")){
+                    payJsonCancelVo.setClient_id(DalbitUtil.getProperty("payletter.cashbee.tmoney.client.id")); //캐시비, 티머니일 경우
+                    apiKey = DalbitUtil.getProperty("payletter.cashbee.tmoney.api.key");
+                } else {
+                    payJsonCancelVo.setClient_id(DalbitUtil.getProperty("payletter.payco.kakao.client.id"));     //페이코, 카카오페이 경우
+                    apiKey = DalbitUtil.getProperty("payletter.payco.kakao.api.key");
+                }
+            }
+
             payJsonCancelVo.setUser_id(payCancelPayletterVo.getMemno());
             payJsonCancelVo.setTid(payCancelPayletterVo.getMobilid());
             payJsonCancelVo.setAmount(Integer.parseInt(payCancelPayletterVo.getPrdtprice()));
@@ -282,7 +299,7 @@ public class Pay_CancelService {
             objURLConnection.setDoInput(true);
             objURLConnection.setRequestMethod("POST");
             objURLConnection.setRequestProperty("Content-Type", "application/json");
-            objURLConnection.setRequestProperty("Authorization","PLKEY "+DalbitUtil.getProperty("payletter.api.key"));
+            objURLConnection.setRequestProperty("Authorization","PLKEY "+apiKey);
 
             OutputStream objOutputStream = objURLConnection.getOutputStream();
 
