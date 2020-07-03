@@ -249,6 +249,19 @@
 
     });
 
+    function click_way(){
+        $("#tablist_con li:eq(7) a").tab("show");   // 수단
+        getPayWayList();
+    }
+    function click_age(){
+        $("#tablist_con li:eq(6) a").tab("show");   // 회원별
+        getPayAgeList();
+    }
+    function click_code(){
+        $("#tablist_con li:eq(8) a").tab("show");   // 상품별
+        getPayCodeList();
+    }
+
 </script>
 
 
