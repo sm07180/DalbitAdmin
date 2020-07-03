@@ -60,7 +60,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getPayWayList();
+        // getPayWayList();
     });
 
     function getPayWayList(){

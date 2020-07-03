@@ -11,7 +11,7 @@
                     <li><a href="#platGender" role="tab" data-toggle="tab" id="tab_platformGender">플랫폼(성별)</a></li>
                     <li><a href="#platAge" role="tab" data-toggle="tab" id="tab_platformAge">플랫폼(연령별)</a></li>
                     <li><a href="#memberQuit" role="tab" data-toggle="tab" id="tab_withdraw">회원 탈퇴</a></li>
-                    <li><a href="/member/join/list" id="tab_joMemberAllDetail" title="회원검색으로 이동합니다.">가입/탈퇴회원 리스트</a></li>
+                    <li><a href="/member/join/list" id="tab_joMemberAllDetail" title="회원검색으로 이동합니다.">가입/탈퇴회원 내역</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>       <!-- 총계 -->
