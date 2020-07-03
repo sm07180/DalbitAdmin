@@ -186,7 +186,7 @@
     });
 
     $(document).on('click', '._todaySearch', function(){
-        if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory'){
+        if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory' || tabId == 'tab_timeOver'){
             slctType = "0";
             me = 0;
         }else if(tabId == 'tab_monthNonOver' || tabId == 'tab_loAgeDetail' || tabId == 'tab_loBrowserDetail') {

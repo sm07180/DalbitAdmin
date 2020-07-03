@@ -20,6 +20,9 @@ public interface Con_LoginDao {
     List<P_LoginTotalOutDetailVo> callLoginTotal(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
+    List<P_LoginTotalOutDetailVo> callLoginTotalAll(ProcedureVo procedureVo);
+
+    @Transactional(readOnly = true)
     List<P_LoginAgeOutDetailVo> callLoginAge(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
