@@ -332,7 +332,12 @@
             , sum(joinSum) joinSum
             , sum(dalSum) dalSum
             , sum(expSum) expSum
-            , (select count(distinct mem.mem_no) from rd_data.tb_member_attendance_check chk, rd_data.tb_member_basic mem where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(chk.the_date, '%Y-%m-%d') and date_format(chk.the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d') and check_ok = 1 and the_day != 9 and chk.mem_no = mem.mem_no) joinCnt
+            , (select count(distinct mem_no)
+                from rd_data.tb_member_attendance_check chk
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(chk.the_date, '%Y-%m-%d')
+                    and date_format(chk.the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+                    and check_ok = 1
+                    and the_day != 9) joinCnt
             , (select count(*)
                 from rd_data.tb_member_attendance_check chk
                     left join rd_data.tb_member_basic mem on chk.mem_no = mem.mem_no
