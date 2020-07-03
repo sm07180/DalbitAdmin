@@ -57,19 +57,19 @@
 
             //수신대상 선택
             fnc_pushDetail.target.find("input[name='is_all']").change(function () {
-                if ($(this).val() == "11") { //전체
-                    fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
-                    fnc_pushDetail.target.find("#div_selectTarget").hide();
-                    fnc_pushDetail.target.find("#div_selectTarget").empty();
-
-                    fnc_pushDetail.target.find("input[name='platform']").prop("disabled", false);
-                } else {
+                if ($(this).val() == "7") { //지정
                     fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", false);
                     fnc_pushDetail.target.find("#div_selectTarget").show();
 
                     // 플랫폼 선택
                     fnc_pushDetail.target.find("input[name='platform']").prop("disabled", true);
                     fnc_pushDetail.target.find("input[name='platform']").prop("checked", true);
+                } else {
+                    fnc_pushDetail.target.find("#btn_selectMember").prop("disabled", true);
+                    fnc_pushDetail.target.find("#div_selectTarget").hide();
+                    fnc_pushDetail.target.find("#div_selectTarget").empty();
+
+                    fnc_pushDetail.target.find("input[name='platform']").prop("disabled", false);
                 }
             });
 
@@ -137,19 +137,18 @@
             fnc_pushDetail.target.find("input[name='is_direct']:radio").change(function () {
                 var type = this.value;
 
+                var sendDate = moment();
+
+                // 캘린더 초기값
+                fnc_pushDetail.target.find("#push-div-sendDate").find("#push-sendDate").val(sendDate.format('YYYY.MM.DD'));
+
+                // 시간 Select CSS 적용
+                fnc_pushDetail.target.find("#push-div-sendDate").find("#timeHour").val(sendDate.hour().toString().length == 1?("0"+sendDate.hour()):sendDate.hour());
+                fnc_pushDetail.target.find("#push-div-sendDate").find("#timeMinute").val(sendDate.minute().toString().length == 1?("0"+sendDate.minute()):sendDate.minute());
+
                 //예약 발송 일 경우 날짜 추가
                 if (type == "1") {
                     fnc_pushDetail.target.find("#push-div-sendDate").show();
-
-                    var sendDate = moment();
-
-                    // 캘린더 초기값
-                    fnc_pushDetail.target.find("#push-div-sendDate").find("#push-sendDate").val(sendDate.format('YYYY.MM.DD'));
-
-                    // 시간 Select CSS 적용
-                    fnc_pushDetail.target.find("#push-div-sendDate").find("#timeHour").val(sendDate.hour().toString().length == 1?("0"+sendDate.hour()):sendDate.hour());
-                    fnc_pushDetail.target.find("#push-div-sendDate").find("#timeMinute").val(sendDate.minute().toString().length == 1?("0"+sendDate.minute()):sendDate.minute());
-
                 } else {
                     fnc_pushDetail.target.find("#push-div-sendDate").hide();
 
@@ -760,9 +759,9 @@
                 <th rowspan="2">수신대상 선택</th>
                 <td rowspan="2" colspan="5" style="width:50%;">
                     <div>
-                        <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>전체</span> </label>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="1" checked="true"><span>생방송</span></label>--%>
-                        <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="2" checked="true"><span>여자</span></label>--%>
+                        <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>전체(회원+비회원)</span> </label>
+                        <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="21" id="is_all21" name="is_all" class="form-control"><span><i></i>회원</span> </label>
+                        <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="31" id="is_all31" name="is_all" class="form-control"><span><i></i>비회원</span> </label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="3" checked="true"><span>남자</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="4" checked="true"><span>로그인</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="5" checked="true"><span>비로그인</span></label>--%>

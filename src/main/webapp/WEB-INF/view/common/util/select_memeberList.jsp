@@ -14,7 +14,7 @@
 <div id="select_memberList">
     <div id="wrapper">
         <div class="modal fade" id="modal_select_member" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
-            <div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
+            <div class="modal-dialog" style="max-width: 100%; width: 70%; display: table;">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="bt_x();">&times;</button>
@@ -75,8 +75,10 @@
     });
 
     var callbackFn;
-    function showPopMemberList(fn) {
+    var validFn;
+    function showPopMemberList(fn, fnIsValid) {
         callbackFn = fn;
+        validFn = fnIsValid;
         $("#"+memberModalId).find("#modal_select_member").modal();
     }
 
@@ -95,6 +97,13 @@
         // var obj = new Object();
         console.log(data);
         console.log(data.mem_no);
+
+        if(!common.isEmpty(validFn)){
+            if(!validFn(data)){
+                event.stopPropagation();
+                return false;
+            }
+        }
 
         //callback
         callbackFn(data);
