@@ -729,7 +729,8 @@
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <col width="5%"/>
+            <col width="3%"/>
+            <col width="3%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
@@ -760,6 +761,7 @@
             <th>현재 별 수</th>
             <th>테스트ID<br />등록이력</th>
             <th>환전횟수</th>
+            <th>환전<br />누적금액</th>
             <th>신청일자</th>
             <th>처리일자</th>
             <th>처리현황</th>
@@ -816,6 +818,7 @@
         <td>{{addComma data.gold}}별</td>
         <td>{{data.testid_history}}</td>
         <td>{{addComma data.exchangeCnt}}번</td>
+        <td>{{addComma data.totalCashReal}}원</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{{stateName data.state}}}</td>
@@ -825,7 +828,7 @@
 
     {{else}}
     <tr>
-        <td colspan="22">{{isEmptyData}}</td>
+        <td colspan="23">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
@@ -1196,8 +1199,8 @@
             <col width="6%"/>
             <col width="6%"/>
             <col width="7%"/>
-            <col width="5%"/>
-            <col width="5%"/>
+            <col width="3%"/>
+            <col width="3%"/>
             <col width="5%"/>
             <col width="6%"/>
             <col width="6%"/>
@@ -1225,6 +1228,7 @@
             <th>현재 별 수</th>
             <th>테스트ID<br />등록이력</th>
             <th>환전횟수</th>
+            <th>환전<br />누적금액</th>
             <th>신청일자</th>
             <th>처리일자</th>
             <th>처리자</th>
@@ -1267,6 +1271,7 @@
         <td>{{addComma data.gold}}별</td>
         <td>{{data.testid_history}}</td>
         <td>{{addComma data.exchangeCnt}}번</td>
+        <td>{{addComma data.totalCashReal}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{data.op_name}}</td>
