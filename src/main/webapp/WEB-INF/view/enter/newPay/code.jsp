@@ -9,7 +9,7 @@
         <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
         <table class="table table-bordered">
             <colgroup>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="5%"/><col width="5%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                 <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
@@ -34,8 +34,8 @@
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 550,000원</th>
             </tr>
             <tr>
-                <th class="_stateSubTh">건<br/>(비율)</th>
-                <th class="_stateSubTh">금액<br/>(비율)</th>
+                <th class="_stateSubTh">건(비율)</th>
+                <th class="_stateSubTh">금액(비율)</th>
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
@@ -61,7 +61,7 @@
 
             <table class="table table-bordered">
                 <colgroup>
-                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                    <col width="2.7%"/><col width="5%"/><col width="5%"/>
                     <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                     <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
                     <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
@@ -82,8 +82,8 @@
                     <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원</th>
                 </tr>
                 <tr>
-                    <th class="_stateSubTh">건<br/>(비율)</th>
-                    <th class="_stateSubTh">금액<br/>(비율)</th>
+                    <th class="_stateSubTh">건(비율)</th>
+                    <th class="_stateSubTh">금액(비율)</th>
                     <th class="_stateSubTh">건</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
@@ -272,8 +272,8 @@
 <script type="text/x-handlebars-template" id="tmp_android">
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
-        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma sum_android_total_cnt}}<br/>({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
-        <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus sum_android_total_amt}}<br/>({{average sum_android_total_amt sum_android_total_amt}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{addComma sum_android_total_cnt}}({{average sum_android_total_cnt sum_android_total_cnt}}%)</td>
+        <td style="color:red;font-weight: bold;color: #ff5600">{{vatMinus sum_android_total_amt}}({{average sum_android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma sum_code13Cnt}}</td>
         <td>{{vatMinus sum_code13Amt}}</td>
         <td>{{addComma sum_code01Cnt}}</td>
@@ -303,8 +303,8 @@
             {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma android_total_cnt}}<br/>({{average android_total_cnt sum_android_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{vatMinus android_total_amt}}<br/>({{average android_total_amt sum_android_total_amt}}%)</td>
+        <td>{{addComma android_total_cnt}}({{average android_total_cnt sum_android_total_cnt}}%)</td>
+        <td style="font-weight: bold">{{vatMinus android_total_amt}}({{average android_total_amt sum_android_total_amt}}%)</td>
         <td>{{addComma code13Cnt}}</td>
         <td>{{vatMinus code13Amt}}</td>
         <td>{{addComma code01Cnt}}</td>
@@ -332,8 +332,8 @@
 <script type="text/x-handlebars-template" id="tmp_ios">
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
-        <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}<br/>({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="color:#ff5600;font-weight: bold">{{vatMinus sum_ios_total_amt}}<br/>({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
+        <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
+        <td style="color:#ff5600;font-weight: bold">{{vatMinus sum_ios_total_amt}}({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma sum_code07Cnt}}</td>
         <td>{{vatMinus sum_code07Amt}}</td>
         <td>{{addComma sum_code08Cnt}}</td>
@@ -357,8 +357,8 @@
             {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma ios_total_cnt}}<br/>({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{vatMinus ios_total_amt}}<br/>({{average ios_total_amt sum_ios_total_amt}}%)</td>
+        <td>{{addComma ios_total_cnt}}({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
+        <td style="font-weight: bold">{{vatMinus ios_total_amt}}({{average ios_total_amt sum_ios_total_amt}}%)</td>
         <td>{{addComma code07Cnt}}</td>
         <td>{{vatMinus code07Amt}}</td>
         <td>{{addComma code08Cnt}}</td>
