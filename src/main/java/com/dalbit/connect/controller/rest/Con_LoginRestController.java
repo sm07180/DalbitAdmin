@@ -31,6 +31,11 @@ public class Con_LoginRestController {
         return result;
     }
 
+    @PostMapping("info/totalAll")
+    public String totalAll(P_LoginTotalInPutVo pLoginTotalInPutVo){
+        String result = con_LoginService.callLoginTotalAll(pLoginTotalInPutVo);
+        return result;
+    }
 
     @PostMapping("info/total")
     public String total(P_LoginTotalInPutVo pLoginTotalInPutVo){

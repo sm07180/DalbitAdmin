@@ -5,6 +5,9 @@
     <select id="callLoginLive" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.connect.vo.procedure.P_LoginLiveOutVo">
         call rd_admin.sp_admin_connect_stat_login_live(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
+    <select id="callLoginTotalAll" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.connect.vo.procedure.P_LoginTotalOutDetailVo">
+        call rd_admin.sp_admin_connect_stat_login_total_all(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
     <select id="callLoginTotal" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.connect.vo.procedure.P_LoginTotalOutDetailVo">
         call rd_admin.sp_admin_connect_stat_login_total(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>

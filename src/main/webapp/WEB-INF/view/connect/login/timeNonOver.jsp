@@ -102,7 +102,6 @@
 
 <script type="text/javascript">
     $(function(){
-        getTimeNonOver();
     });
 
     var tmp = 0;
@@ -133,13 +132,6 @@
         var html=templateScript(context);
         $("#timeNonOverTableBody2").html(html);
 
-        var th_5;
-        var th_4;
-        var th_3;
-        var th_2;
-        var th_1;
-        var th_0;
-
         $("#timeNonOver_th_5").text(moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -5).day()] + ")");
         $("#timeNonOver_th_4").text(moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -4).day()] + ")");
         $("#timeNonOver_th_3").text(moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -3).day()] + ")");
@@ -147,12 +139,12 @@
         $("#timeNonOver_th_1").text(moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', -1).day()] + ")");
         $("#timeNonOver_th_0").text(moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD') + " (" + week[moment($("#startDate").val()).add('days', 0).day()] + ")");
 
-        th_5 = moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD');
-        th_4 = moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD');
-        th_3 = moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD');
-        th_2 = moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD');
-        th_1 = moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD');
-        th_0 = moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD');
+        var th_5 = moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD');
+        var th_4 = moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD');
+        var th_3 = moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD');
+        var th_2 = moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD');
+        var th_1 = moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD');
+        var th_0 = moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD');
         var dateList = th_2 + "@" + th_1 + "@" + th_0 + "@" + th_5 + "@" + th_4  + "@" +  th_3;
         var data = {};
         data.dateList = dateList;

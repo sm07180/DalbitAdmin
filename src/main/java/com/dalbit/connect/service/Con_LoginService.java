@@ -43,6 +43,87 @@ public class Con_LoginService {
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, loginLive));
     }
 
+    /**
+     * 로그인 총계(중복)
+     * @param pLoginTotalInPutVo
+     * @return
+     */
+    public String callLoginTotalAll(P_LoginTotalInPutVo pLoginTotalInPutVo){
+
+        ArrayList resultList = new ArrayList();
+        String[] dateList = pLoginTotalInPutVo.getDateList().split("@");
+
+        int slctType_date = 0;
+        if(pLoginTotalInPutVo.getSlctType() == 0) {
+            slctType_date = 24;
+        }else if(pLoginTotalInPutVo.getSlctType() == 1) {
+            slctType_date = 32;
+        }else if(pLoginTotalInPutVo.getSlctType() == 2) {
+            slctType_date = 13;
+        }
+        for(int i=0;i<dateList.length;i++){
+            if(dateList[i].indexOf("-") > -1){
+                pLoginTotalInPutVo.setStartDate(dateList[i].split("-")[0]);
+                pLoginTotalInPutVo.setEndDate(dateList[i].split("-")[1]);
+            }else{
+                pLoginTotalInPutVo.setStartDate(dateList[i]);
+                pLoginTotalInPutVo.setEndDate(null);
+            }
+
+            ProcedureVo procedureVo = new ProcedureVo(pLoginTotalInPutVo);
+            List<P_LoginTotalOutDetailVo> detailList =  con_LoginDao.callLoginTotalAll(procedureVo);
+            P_LoginTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginTotalOutVo.class);
+
+            boolean zeroSw = false;
+            if(detailList.size() < slctType_date){
+                int detailList_size = detailList.size();
+                for (int j = 0; j < slctType_date; j++) {
+                    P_LoginTotalOutDetailVo outVo = new P_LoginTotalOutDetailVo();
+                    for (int k = 0; k < detailList_size; k++){
+                        if(pLoginTotalInPutVo.getSlctType() == 0) {
+                            if (detailList.get(k).getHour() == j) {
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pLoginTotalInPutVo.getSlctType() == 1) {
+                            if (detailList.get(k).getDay() == j) {
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
+                        }else if(pLoginTotalInPutVo.getSlctType() == 2) {
+                            if (detailList.get(k).getMonth() == j) {
+                                detailList.get(k).setMonthly(j);
+                                detailList.get(k).setDay(j);
+                                zeroSw = true;
+                                break;
+                            }
+                        }
+                    }
+                    if(!zeroSw){
+                        outVo.setDay(j);
+                        outVo.setHour(j);
+                        outVo.setMonthly(j);
+                        outVo.setTotalCnt(0);
+                        outVo.setMaleCnt(0);
+                        outVo.setFemaleCnt(0);
+                        outVo.setNoneCnt(0);
+
+                        detailList.add(outVo);
+                    }
+                }
+            }
+
+            var result = new HashMap<String, Object>();
+            result.put("totalInfo", totalInfo);
+            result.put("detailList", detailList);
+
+            resultList.add(result);
+
+        }
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultList));
+    }
 
     /**
      * 로그인 총계
