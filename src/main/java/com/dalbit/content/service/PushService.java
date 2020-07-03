@@ -227,6 +227,12 @@ public class PushService {
         int sucNotiCnt=0;
         int failNotiCnt=0;
 
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + pPushInsertVo.getSend_cont();
+            pPushInsertVo.setSend_cont(cont);
+        }
+
         pPushInsertVo.setSend_url(pPushInsertVo.getSend_url().replace(SERVER_PHOTO_URL, ""));
 
         if(pPushInsertVo.getIs_all().equals("7")){        // 지정 일 경우 푸시 발송
@@ -329,7 +335,7 @@ public class PushService {
                 }
             }
 
-        }else if(pPushInsertVo.getIs_all().equals("11")){  // 전체 발송
+        }else if(pPushInsertVo.getIs_all().equals("11") || pPushInsertVo.getIs_all().equals("21") || pPushInsertVo.getIs_all().equals("31")){  // 전체(회원+비회원) 발송 / 회원 / 비회원
             P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(ADMIN_MEM_NO, pPushInsertVo);
             ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
@@ -347,6 +353,7 @@ public class PushService {
             }
 
             // 알림 발송
+            //TODO 전체(회원+비회원) 발송 / 회원 / 비회원 설정 필요!!!!!!
             if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("2")) {
                 try{
                     P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
@@ -434,6 +441,12 @@ public class PushService {
 //        pPushInsertVo.setBoard_idx("22");
 //        pPushInsertVo.setImage_type("101");
 //        pPushInsertVo.setSlct_push("7");
+
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + pPushInsertVo.getSend_cont();
+            pPushInsertVo.setSend_cont(cont);
+        }
 
         pPushInsertVo.setSend_cnt("1");
         pPushInsertVo.setIs_all("7");
