@@ -14,10 +14,6 @@
     </div>
 </div>
 
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">레이어팝업오픈버튼</button>
-
-<div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
-
 <script type="text/javascript" src="/js/code/money/exchangeCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/moneyHelper.js?${dummyData}"></script>
 
@@ -45,30 +41,20 @@
     });
 
     function fn_succ_detail(dist_id, response){
-        var template = $('#tmp_layer_detail').html();
+        var template = $('#tmp_exchange_detail').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data[0];
         var html = templateScript(context);
         $("#detailView").html(html);
-
         showModal();
-
-    }
-
-    function showModal(){
-        $("#showModal").click();
-    }
-
-    function closeModal(){
-        $("#layerCloseBtn").click();
     }
 
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_layer_detail">
+<script type="text/x-handlebars-template" id="tmp_exchange_detail">
     <form id="exchangeForm">
         <input type="hidden" name="idx" value="{{idx}}" />
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="max-width: 900px; width: auto; display: table;">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>

@@ -45,6 +45,10 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int exit_try_count;
     private String backgroundImage;
     private int hide;
+    private String dj_birth_year;
+    private String dj_birth_month;
+    private String dj_birth_day;
+    private String dj_korean_age;
 
     /* total */
     private int totalBroadCastCnt;

@@ -4,6 +4,7 @@
 <%@ taglib prefix="cfn" uri="/WEB-INF/tld/comFunction.tld" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <sec:authentication var="principal" property="principal" />
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 <div id="wrapper">
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -728,7 +729,8 @@
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <col width="5%"/>
+            <col width="3%"/>
+            <col width="3%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="5%"/>
@@ -759,6 +761,7 @@
             <th>현재 별 수</th>
             <th>테스트ID<br />등록이력</th>
             <th>환전횟수</th>
+            <th>환전<br />누적금액</th>
             <th>신청일자</th>
             <th>처리일자</th>
             <th>처리현황</th>
@@ -780,14 +783,18 @@
             {{{getMemStateName data.mem_state}}}
         </td>
         <td>
-            {{#workdayCheck ../limitDay data.reg_date}}
-            <input type="checkbox" class="_chk"
-                   data-exchangeidx='{{data.idx}}'
-                   data-regdate="{{convertToDate data.reg_date 'YYYYMMDD'}}"
-                   {{^equal data.state '0'}}disabled{{/equal}} />
+            {{#adultStatusCheck data.birth data.recant_yn}}
+                {{#workdayCheck ../limitDay data.reg_date}}
+                    <input type="checkbox" class="_chk"
+                           data-exchangeidx='{{data.idx}}'
+                           data-regdate="{{convertToDate data.reg_date 'YYYYMMDD'}}"
+                           {{^equal data.state '0'}}disabled{{/equal}} />
+                {{else}}
+                    {{{fontColor '대기' 1 'gray'}}}
+                {{/workdayCheck}}
             {{else}}
-            {{{fontColor '대기' 1 'gray'}}}
-            {{/workdayCheck}}
+                {{{fontColor '철회' 1 'red'}}}
+            {{/adultStatusCheck}}
         </td>
         <td >
             <form id="profileImg" method="post" enctype="multipart/form-data">
@@ -800,7 +807,7 @@
         <td>{{{sexIcon data.mem_sex}}}</td>
 
         <td>{{data.birth}}</td>
-        <td>{{{calcAge data.birth}}}</td>
+        <td>{{{calcAge data.birth}}}{{#equal data.recant_yn 'y'}}<br /><span style='font-weight:bold'>[철회됨]</span>{{/equal}}</td>
 
         <!--<td>{{data.mem_name}}</td>-->
         <td>{{data.account_name}}</td>
@@ -811,6 +818,7 @@
         <td>{{addComma data.gold}}별</td>
         <td>{{data.testid_history}}</td>
         <td>{{addComma data.exchangeCnt}}번</td>
+        <td>{{addComma data.totalCashReal}}원</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{{stateName data.state}}}</td>
@@ -820,7 +828,7 @@
 
     {{else}}
     <tr>
-        <td colspan="22">{{isEmptyData}}</td>
+        <td colspan="23">{{isEmptyData}}</td>
     </tr>
     {{/each}}
 </script>
@@ -828,7 +836,7 @@
 <script type="text/x-handlebars-template" id="tmp_layer_detail">
     <form id="exchangeForm">
         <input type="hidden" name="idx" value="{{detail.idx}}" />
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="width:1000px">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
@@ -836,160 +844,241 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-lg-12 form-inline block _modalLayer">
-                        <table id="list_info" class="table table-sorting table-hover table-bordered">
-                            <tbody id="tableBody">
-                            <tr>
-                                <th>신청금액</th>
-                                <td colspan="3" style="font-weight:bold; color: #ff5600">
-                                    {{addComma detail.cash_basic}}원
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>은행명</th>
-                                <td>
-                                    {{{getCommonCodeSelect detail.bank_code 'inforex_bank_code' 'Y' ''}}}
-                                </td>
+                        <div class="{{#if parentInfo}}col-lg-9{{/if}}{{^if parentInfo}}col-lg-12{{/if}}">
+                            <table id="list_info" class="table table-sorting table-hover table-bordered">
+                                <tbody id="tableBody">
+                                    <tr>
+                                        <th>신청금액</th>
+                                        <td colspan="3" style="font-weight:bold; color: #ff5600">
+                                            {{addComma detail.cash_basic}}원
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>은행명</th>
+                                        <td>
+                                            {{{getCommonCodeSelect detail.bank_code 'inforex_bank_code' 'Y' ''}}}
+                                        </td>
 
-                                <th>계좌번호</th>
-                                <td>
-                                    <input type="text" class="form-control" id="account_no" name="account_no" maxlength="25" value="{{detail.account_no}}" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>예금주</th>
-                                <td>
-                                    <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
-                                    <br />
-                                    {{detail.mem_name}}
-                                </td>
-                                <th>주민번호</th>
-                                <td>
-                                    <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
-                                    [{{convertJumin detail.social_no}}]
-                                </td>
-                            </tr>
+                                        <th>계좌번호</th>
+                                        <td>
+                                            <input type="text" class="form-control" id="account_no" name="account_no" maxlength="25" value="{{detail.account_no}}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>예금주</th>
+                                        <td>
+                                            <input type="text" class="form-control" id="account_name" name="account_name" maxlength="25" value="{{detail.account_name}}" />
+                                            <br />
+                                            {{detail.mem_name}}
+                                        </td>
+                                        <th>주민번호</th>
+                                        <td>
+                                            <input type="text" class="form-control" id="social_no" name="social_no" maxlength="13" value="{{detail.social_no}}" />
+                                            <br />
+                                            [{{convertJumin detail.social_no}}]
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>가입시<br />생년월일</th>
-                                <td>
-                                    <%--<input type="text" class="form-control" id="birth" name="birth" maxlength="25" value="{{detail.birth}}" />--%>
-                                    {{detail.birth}}
-                                </td>
-                                <th>미성년자<br />여부</th>
-                                <td>
-                                    <%--<input type="text" class="form-control" id="calcAge" name="calcAge" maxlength="13" value="{{{calcAge detail.birth}}}" />--%>
-                                    {{{calcAge detail.birth}}}
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <th>가입시<br />생년월일</th>
+                                        <td>
+                                            {{detail.birth}}
+                                        </td>
+                                        <th>미성년자<br />여부</th>
+                                        <td>
+                                            {{{calcAge detail.birth}}}
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>주소</th>
-                                <td colspan="3">
-                                    <input type="text" class="form-control _fullWidth" id="address_1" name="address_1" value="{{detail.address_1}}" />
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <th>주소</th>
+                                        <td colspan="3">
+                                            <input type="text" class="form-control _fullWidth" id="address_1" name="address_1" value="{{detail.address_1}}" />
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>상세주소</th>
-                                <td colspan="3">
-                                    <input type="text" class="form-control _fullWidth" id="address_2" name="address_2" value="{{detail.address_2}}" />
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <th>상세주소</th>
+                                        <td colspan="3">
+                                            <input type="text" class="form-control _fullWidth" id="address_2" name="address_2" value="{{detail.address_2}}" />
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>전화번호</th>
-                                <td colspan="3">
-                                    <input type="hidden" name="phone_no" value="{{phoneNumHyphen detail.phone_no}}" />
-                                    {{phoneNumHyphen detail.phone_no}}
-                                    / {{phoneNumHyphen detail.mem_phone}}
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <th>전화번호</th>
+                                        <td colspan="3">
+                                            <input type="hidden" name="phone_no" value="{{phoneNumHyphen detail.phone_no}}" />
+                                            {{phoneNumHyphen detail.phone_no}}
+                                            / {{phoneNumHyphen detail.mem_phone}}
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>접수서류</th>
-                                <td colspan="3">
-                                    <div class="col-lg-6" style="border:solid 1px black">
-                                        <a href="javascript://">
-                                            <img src="{{renderImage detail.add_file1}}" class="_fullWidth _openImagePop thumbnail" />
-                                        </a>
-                                        {{#equal detail.state '0'}}<input id="files1" type="file" onchange="photoSubmit($(this))">{{/equal}}
-                                        <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file1" value="{{detail.add_file1}}" />
-                                    </div>
-                                    <div class="col-lg-6" style="border:solid 1px black">
-                                        <a href="javascript://">
-                                            <img src="{{renderImage detail.add_file2}}" class="_fullWidth _openImagePop thumbnail" />
-                                        </a>
-                                        {{#equal detail.state '0'}}<input id="files2" type="file" onchange="photoSubmit($(this))"/>{{/equal}}
-                                        <input type="hidden" class="_hidden_filename" name="add_file2" id="add_file2" value="{{detail.add_file2}}" />
-                                    </div>
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <th>접수서류</th>
+                                        <td colspan="3">
+                                            <div class="col-lg-6" style="border:solid 1px black">
+                                                <a href="javascript://">
+                                                    <img src="{{renderImage detail.add_file1}}" class="_fullWidth _openImagePop thumbnail" />
+                                                </a>
+                                                {{#equal detail.state '0'}}<input id="files1" type="file" onchange="photoSubmit($(this))">{{/equal}}
+                                                <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file1" value="{{detail.add_file1}}" />
+                                            </div>
+                                            <div class="col-lg-6" style="border:solid 1px black">
+                                                <a href="javascript://">
+                                                    <img src="{{renderImage detail.add_file2}}" class="_fullWidth _openImagePop thumbnail" />
+                                                </a>
+                                                {{#equal detail.state '0'}}<input id="files2" type="file" onchange="photoSubmit($(this))"/>{{/equal}}
+                                                <input type="hidden" class="_hidden_filename" name="add_file2" id="add_file2" value="{{detail.add_file2}}" />
+                                            </div>
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>신청일자</th>
-                                <td>
-                                    {{convertToDate detail.reg_date 'YYYY-MM-DD HH:mm:ss'}}
-                                </td>
+                                    <tr>
+                                        <th>신청일자</th>
+                                        <td>
+                                            {{convertToDate detail.reg_date 'YYYY-MM-DD HH:mm:ss'}}
+                                        </td>
 
-                                <th>완료일자</th>
-                                <td>
-                                    {{#equal detail.op_date ''}}
-                                    -
-                                    {{else}}
-                                    {{convertToDate detail.op_date 'YYYY-MM-DD HH:mm:ss'}}
-                                    {{/equal}}
-                                </td>
-                            </tr>
+                                        <th>완료일자</th>
+                                        <td>
+                                            {{#equal detail.op_date ''}}
+                                            -
+                                            {{else}}
+                                            {{convertToDate detail.op_date 'YYYY-MM-DD HH:mm:ss'}}
+                                            {{/equal}}
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>
-                                    미처리 사유
-                                </th>
-                                <td colspan="3">
-                                    <input type="hidden" id="send_title" name="send_title">
-                                    {{{getCommonCodeSelect detail.send_type 'exchange_cancel_type'}}} <label id="label_send_title">{{detail.send_title}}</label>
-                                    <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 불가 처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
-                                </td>
-                            </tr>
+                                    <tr>
+                                        <th>
+                                            미처리 사유
+                                        </th>
+                                        <td colspan="3">
+                                            <input type="hidden" id="send_title" name="send_title">
+                                            {{{getCommonCodeSelect detail.send_type 'exchange_cancel_type'}}} <label id="label_send_title">{{detail.send_title}}</label>
+                                            <p class="no-margin no-padding" style="font-size:0.9em; color:red;">* 사유 선택 후 불가 처리 시 회원에게 푸시 메시지, SMS로 발송됩니다</p>
+                                        </td>
+                                    </tr>
 
-                            {{#dalbit_if detail.send_type "==" "0"}}
-                            <tr id="tr_send_cont" style="display:none;">
-                                {{else}}
-                            <tr id="tr_send_cont">
-                                {{/dalbit_if}}
-                                <th>
-                                    미처리 사유<br>내용
-                                </th>
-                                <td colspan="3">
-                                    <textarea class="form-control" name="send_cont" id="send_cont" oninput="util.textareaResize(this)" placeholder="" style="width:100%; height:90px; resize: none">{{replaceHtml detail.send_cont}}</textarea>
-                                </td>
-                            </tr>
+                                    {{#dalbit_if detail.send_type "==" "0"}}
+                                    <tr id="tr_send_cont" style="display:none;">
+                                        {{else}}
+                                    <tr id="tr_send_cont">
+                                        {{/dalbit_if}}
+                                        <th>
+                                            미처리 사유<br>내용
+                                        </th>
+                                        <td colspan="3">
+                                            <textarea class="form-control" name="send_cont" id="send_cont" oninput="util.textareaResize(this)" placeholder="" style="width:100%; height:90px; resize: none">{{replaceHtml detail.send_cont}}</textarea>
+                                        </td>
+                                    </tr>
 
-                            <tr>
-                                <th>메모</th>
-                                <td colspan="3">
-                                    <input type="text" class="form-control _fullWidth" id="op_msg" name="op_msg" maxlength="1000" value="{{detail.op_msg}}" />
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                    <tr>
+                                        <th>메모</th>
+                                        <td colspan="3">
+                                            <input type="text" class="form-control _fullWidth" id="op_msg" name="op_msg" maxlength="1000" value="{{detail.op_msg}}" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {{#if parentInfo}}
+                        <div class="col-lg-3">
+                            <div class="mb10">법정대리인 (보호자) 동의 정보</div>
+                            <table id="parentTable" class="table table-sorting table-hover table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                           보호자 이름
+                                        </th>
+                                        <td>
+                                            {{parentInfo.parents_name}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                           성별
+                                        </th>
+                                        <td>
+                                            {{{sexIcon parentInfo.parents_sex}}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                           생년월일
+                                        </th>
+                                        <td>
+                                            {{parentInfo.parents_birth_year}}{{parentInfo.parents_birth_month}}{{parentInfo.parents_birth_day}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                           통신사
+                                        </th>
+                                        <td>
+                                            {{parentInfo.parents_comm_company}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                           휴대폰번호
+                                        </th>
+                                        <td>
+                                            {{parentInfo.parents_phone}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                           내/외국인
+                                        </th>
+                                        <td>
+                                            {{parentInfo.parents_foreign_yn}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>철회 여부</th>
+                                        <td>
+                                            {{#equal parentInfo.recant_yn 'n'}}
+                                                <label style="font-weight: bold">No</label>
+                                            {{else}}
+                                                <label style="color: red; font-weight: bold">Yes</label>
+                                            {{/equal}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                           가족관계<br />증명서류
+                                        </th>
+                                        <td>
+                                            <img src="{{renderImage parentInfo.add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
 
                     {{#equal detail.state '0'}}
-                    <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
-                    <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
-                    <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
+                        {{#adultStatusCheck ../detail.birth ../parentInfo.recant_yn}}
+                            <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
+                            <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
+                            <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
+                        {{else}}
+                            <span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>
+                        {{/adultStatusCheck}}
                     {{/equal}}
 
                     {{#equal detail.state '1'}}
-                    <span class="exchange_complete_txt">완료되었습니다.</span>
+                        <span class="exchange_complete_txt">완료되었습니다.</span>
                     {{/equal}}
 
                     {{#equal detail.state '2'}}
-                    <span class="exchange_reject_txt">불가처리 되었습니다.</span>
+                        <span class="exchange_reject_txt">불가처리 되었습니다.</span>
                     {{/equal}}
 
                 </div>
@@ -1110,8 +1199,8 @@
             <col width="6%"/>
             <col width="6%"/>
             <col width="7%"/>
-            <col width="5%"/>
-            <col width="5%"/>
+            <col width="3%"/>
+            <col width="3%"/>
             <col width="5%"/>
             <col width="6%"/>
             <col width="6%"/>
@@ -1139,6 +1228,7 @@
             <th>현재 별 수</th>
             <th>테스트ID<br />등록이력</th>
             <th>환전횟수</th>
+            <th>환전<br />누적금액</th>
             <th>신청일자</th>
             <th>처리일자</th>
             <th>처리자</th>
@@ -1181,6 +1271,7 @@
         <td>{{addComma data.gold}}별</td>
         <td>{{data.testid_history}}</td>
         <td>{{addComma data.exchangeCnt}}번</td>
+        <td>{{addComma data.totalCashReal}}번</td>
         <td>{{convertToDate data.reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{convertToDate data.op_date 'YYYY-MM-DD HH:mm:ss'}}</td>
         <td>{{data.op_name}}</td>

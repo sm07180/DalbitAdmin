@@ -38,6 +38,11 @@ public class P_BroadcastDetailOutputVo extends BaseVo {
     private String lastOpName;
     private String roomHide;
 
+    private String dj_birth_year;
+    private String dj_birth_month;
+    private String dj_birth_day;
+    private String dj_korean_age;
+
     private String recomm_badge;
     private String newdj_badge;
     private String specialdj_badge;

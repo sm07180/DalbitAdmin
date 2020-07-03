@@ -19,19 +19,19 @@
             <thead id="browserTable">
             <tr style="background-color: #b4c7e7">
                 <th rowspan="2"></th>
-                <th colspan="4" id="th_after" style="background-color: #ffe699">금월</th>
                 <th colspan="4" id="th_befor">전월</th>
+                <th colspan="4" id="th_after" style="background-color: #ffe699">금월</th>
             </tr>
             <tr style="background-color: #dae3f3">
-                <th style="background-color: #fff2cc">소계</th>
-                <th style="background-color: #fff2cc">안드로이드</th>
-                <th style="background-color: #fff2cc">아이폰</th>
-                <th style="background-color: #fff2cc">PC</th>
-
                 <th>소계</th>
                 <th>안드로이드</th>
                 <th>아이폰</th>
                 <th>PC</th>
+
+                <th style="background-color: #fff2cc">소계</th>
+                <th style="background-color: #fff2cc">안드로이드</th>
+                <th style="background-color: #fff2cc">아이폰</th>
+                <th style="background-color: #fff2cc">PC</th>
             </tr>
             </thead>
             <tbody id="browserTableBody"></tbody>
@@ -133,15 +133,15 @@
 <script type="text/x-handlebars-template" id="tmp_browserTotal">
     <tr class="font-bold" style="color: #ff5600;background-color: #f2f2f2">
         <td>총계</td>
-        <td>{{addComma sum_totalCnt}}</td>
-        <td>{{addComma sum_androidCnt}}</td>
-        <td>{{addComma sum_iosCnt}}</td>
-        <td>{{addComma sum_pcCnt}}</td>
-
         <td>{{addComma sum_bTotalCnt}}</td>
         <td>{{addComma sum_bAndroidCnt}}</td>
         <td>{{addComma sum_bIosCnt}}</td>
         <td>{{addComma sum_bPcCnt}}</td>
+
+        <td>{{addComma sum_totalCnt}}</td>
+        <td>{{addComma sum_androidCnt}}</td>
+        <td>{{addComma sum_iosCnt}}</td>
+        <td>{{addComma sum_pcCnt}}</td>
     </tr>
 </script>
 
@@ -151,15 +151,15 @@
         <td class="font-bold" style="background-color: #dae3f3">
             {{data.day}}일
         </td>
-        <td>{{addComma totalCnt}}</td>
-        <td>{{addComma androidCnt}}</td>
-        <td>{{addComma iosCnt}}</td>
-        <td>{{addComma pcCnt}}</td>
-
         <td>{{addComma bTotalCnt}}</td>
         <td>{{addComma bAndroidCnt}}</td>
         <td>{{addComma bIosCnt}}</td>
         <td>{{addComma bPcCnt}}</td>
+
+        <td>{{addComma totalCnt}}</td>
+        <td>{{addComma androidCnt}}</td>
+        <td>{{addComma iosCnt}}</td>
+        <td>{{addComma pcCnt}}</td>
     </tr>
     {{else}}
 

@@ -23,10 +23,6 @@
 <!-- detail -->
 <form id="member_detailFrm" class="hide"></form>
 
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">동의정보오픈버튼</button>
-
-<div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
-
 <script type="text/javascript" src="/js/util/memberUtil.js"></script>
 <script type="text/javascript">
 
@@ -1049,7 +1045,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_layer_detail">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="max-width: 700px; width: auto; display: table;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>

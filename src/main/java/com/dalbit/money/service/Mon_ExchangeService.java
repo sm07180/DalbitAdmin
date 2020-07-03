@@ -14,6 +14,8 @@ import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberParentsAgreeInputVo;
+import com.dalbit.member.vo.procedure.P_MemberParentsAgreeOutputVo;
 import com.dalbit.money.dao.Mon_ExchangeDao;
 import com.dalbit.money.vo.Mon_EnableOutputVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
@@ -271,8 +273,14 @@ public class Mon_ExchangeService {
 
         Mon_ExchangeOutputVo monExchangeOutputVo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
 
+
+        P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo = new P_MemberParentsAgreeInputVo();
+        pMemberParentsAgreeInputVo.setMemNo(monExchangeOutputVo.getMem_no());
+        P_MemberParentsAgreeOutputVo memberParentsAgreeOutputVo = mem_MemberDao.getParentsAgreeInfo(pMemberParentsAgreeInputVo);
+
         var resultMap = new HashMap<>();
         resultMap.put("detail", monExchangeOutputVo);
+        resultMap.put("parentInfo", memberParentsAgreeOutputVo);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
     }
@@ -395,7 +403,7 @@ public class Mon_ExchangeService {
             HashMap hm = new LinkedHashMap();
 
             hm.put("no", i+1);
-            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_id()) ? "" : exchangeVo.getMem_id());
+            hm.put("id", DalbitUtil.isEmpty(exchangeVo.getMem_userid()) ? "" : exchangeVo.getMem_userid());
             hm.put("name", DalbitUtil.isEmpty(exchangeVo.getMem_name()) ? "" : exchangeVo.getMem_name());
             hm.put("accountName", DalbitUtil.isEmpty(exchangeVo.getAccount_name()) ? "" : exchangeVo.getAccount_name());
 

@@ -253,6 +253,7 @@ Handlebars.registerHelper("koreaAge", function(birthDate) {
 });
 
 Handlebars.registerHelper("calcAge", function(value, state) {
+    console.log(value);
    if(common.calcAge(value) < 19) {
        state = '<span style="color:red">미성년자</span>';
    } else {
