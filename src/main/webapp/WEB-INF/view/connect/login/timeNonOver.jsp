@@ -354,11 +354,11 @@
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
-    <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
+    <tr class="_tr_{{this}} font-bold"  style="background-color: #c55a11;color: white;">
         <td>비중복</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
-        <td style="background-color: #c55a11;color: white;">0</td><td style="background-color: #c55a11;color: white;">0</td><td style="background-color: #c55a11;color: white;">0</td><td style="background-color: #c55a11;color: white;">0</td><td style="background-color: #c55a11;color: white;">0</td>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td>
     </tr>
 </script>
 
@@ -383,7 +383,7 @@
         <td></td><td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td></td><td></td><td></td><td></td><td></td>
     </tr>
-    <tr class="_tr_{{this}} font-bold" style="background-color: #dae3f3">
+    <tr class="_tr_{{this}} font-bold"  style="background-color: #c55a11;color: white;">
         <td>비중복</td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
         <td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td style="border-bottom: hidden;border-top: hidden;background-color: white"></td>
