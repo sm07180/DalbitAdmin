@@ -985,7 +985,7 @@
                         </div>
 
                         {{#if parentInfo}}
-                        <!--<div class="col-lg-3">
+                        <div class="col-lg-3">
                             <div class="mb10">법정대리인 (보호자) 동의 정보</div>
                             <table id="parentTable" class="table table-sorting table-hover table-bordered">
                                 <tbody>
@@ -1057,7 +1057,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>-->
+                        </div>
                         {{/if}}
                     </div>
                 </div>
