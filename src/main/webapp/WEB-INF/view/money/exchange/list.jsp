@@ -783,7 +783,7 @@
             {{{getMemStateName data.mem_state}}}
         </td>
         <td>
-            <%--{{#adultStatusCheck data.birth data.recant_yn}}--%>
+            {{#adultStatusCheck data.birth data.recant_yn}}
                 {{#workdayCheck ../limitDay data.reg_date}}
                     <input type="checkbox" class="_chk"
                            data-exchangeidx='{{data.idx}}'
@@ -792,9 +792,9 @@
                 {{else}}
                     {{{fontColor '대기' 1 'gray'}}}
                 {{/workdayCheck}}
-            <%--{{else}}
+            {{else}}
                 {{{fontColor '철회' 1 'red'}}}
-            {{/adultStatusCheck}}--%>
+            {{/adultStatusCheck}}
         </td>
         <td >
             <form id="profileImg" method="post" enctype="multipart/form-data">
