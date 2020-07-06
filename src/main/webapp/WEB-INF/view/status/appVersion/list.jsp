@@ -2,8 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="wrapper">
-    <div id="page-wrapper" class="col-lg-12">
-        <div class="row">
+    <div id="page-wrapper">
+        <div class="row col-lg-12">
             <!-- 버전 별 사용자 수 -->
             <div class="col-lg-6 mb10">
                 <div id="buildUser"></div>
@@ -17,7 +17,7 @@
         </div>
 
         <!-- DATA TABLE -->
-        <div class="row form-inline block">
+        <div class="row form-inline block col-lg-12">
             <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                 <li class="tab_select" id="platform" name="platform"></li>
             </ul>
