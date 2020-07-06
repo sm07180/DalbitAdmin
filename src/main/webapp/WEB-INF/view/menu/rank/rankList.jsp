@@ -135,6 +135,16 @@
             $("#startDate").val(selectDate);
         });
 
+        // $('#onedayDate').datepicker({
+        //     minViewMode: 'days',
+        //     format: 'yyyy.mm.dd',
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     autoclose: true,
+        //     language: 'kr',
+        //
+        // });
+
         $('#monthDate').datepicker({
             minViewMode: 'months',
             format: 'yyyy.mm',
@@ -145,6 +155,7 @@
         });
 
         $("#onedayDate").on('change', function () {
+            console.log("----------------------------");
             if($('input:radio[name="rankType"]:checked').val() == 2){
                 setMonday();
             }else{
@@ -239,17 +250,11 @@
          return new Date(d.setDate(diff));
      }
      function setMonday(){
-         var monday = getMonday($("#startDate").val());       // 선택한 날의 월요일
-         var endDate = new Date();
-         endDate.setFullYear(monday.getFullYear());
-         endDate.setMonth(monday.getMonth() + 1);
-         endDate.setDate(monday.getDate()-1); //하루 전
-         var startDate = new Date();
-         startDate.setFullYear(monday.getFullYear());
-         startDate.setMonth(monday.getMonth() + 1);
-         startDate.setDate(monday.getDate()-8);
-         $("#startDate").val(startDate.getFullYear() + "." + common.lpad(startDate.getMonth(),2,"0") + "." + common.lpad(startDate.getDate(),2,"0"));
-         $("#endDate").val(endDate.getFullYear() + "." + common.lpad(endDate.getMonth(),2,"0") + "." + common.lpad(endDate.getDate(),2,"0"));
+         var monday = getMonday($("#onedayDate").val());       // 선택한 날의 월요일
+         var endDate = new Date(Date.parse(monday) - 1 * 1000 * 60 * 60 * 24);
+         var startDate = new Date(Date.parse(monday) - 7 * 1000 * 60 * 60 * 24);
+         $("#startDate").val(startDate.getFullYear() + "." + common.lpad(startDate.getMonth() + 1,2,"0") + "." + common.lpad(startDate.getDate(),2,"0"));
+         $("#endDate").val(endDate.getFullYear() + "." + common.lpad(endDate.getMonth() + 1,2,"0") + "." + common.lpad(endDate.getDate(),2,"0"));
      }
 
     $('#rankTab li').on('click', function(){
