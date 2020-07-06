@@ -124,6 +124,8 @@
     }
 
     function blockHistList() {
+        $('#blockDetail').hide();
+
         getBlockHistoryList();
 
         $('#blockHistArea').show();
@@ -134,6 +136,7 @@
         $('#searchArea').hide();
         $('#searchText').hide();
         $('#bt_search').hide();
+
     }
 
     var dtList_info;
