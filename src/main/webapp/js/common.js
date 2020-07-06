@@ -435,3 +435,13 @@ common.substr = function(value, st, ed){
         return value.substr(st);
     }
 };
+
+common.getStringByteLength = function(str){
+
+    if(common.isEmpty(str)){
+        return 0;
+    }
+
+    // return str.replace(/[\0-\x7f]|([0-\u07ff]|(.))/g, "$&$1$2").length;      // utf-8
+    return str.replace(/[\0-\x7f]|([0-힣]|(.))/g, "$&$1$2").length;      // euc-kr
+}

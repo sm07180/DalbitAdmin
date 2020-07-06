@@ -32,6 +32,17 @@ $(document).on('click', '._openPlayerPop', function(){
     util.windowOpen(url, 530, 980, 'roomPlayer');
 });
 
+/*문자 발송 팝업*/
+$(document).on('click', '._openSmsSendPop', function(){
+    var url = "/customer/sms/popup/smsSendPopup?cmid="+encodeURIComponent($(this).data('cmid'))+"&rownum="+encodeURIComponent($(this).data('rownum'))+"&logtable="+encodeURIComponent($(this).data('logtable'));;
+
+    if(common.isEmpty($(this).data('cmid')) || common.isEmpty($(this).data('rownum'))){
+        util.windowOpen(url, 775, 560, 'smsSend');
+    }else{
+        util.windowOpen(url, 575, 360, 'smsSend');
+    }
+});
+
 $(document).on('click', 'img._imageFullPop', function(){
     $("#_imgFullLayer").html(util.imageFullSize("_imgFullLayer_modal", $(this).attr('src')));
     $('#_imgFullLayer_modal').modal('show');

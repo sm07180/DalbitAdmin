@@ -93,8 +93,36 @@ var sms_code = [
   , new COMMON_CODE('change', '1', '비밀번호 변경')
   , new COMMON_CODE('exchange_ok', '2', '환전완료')
   , new COMMON_CODE('exchange_cancel', '3', '환전불가')
+    , new COMMON_CODE('exchange_cancel', '7', '어드민')
     , new COMMON_CODE('etc', '', '기타')
 ];
+
+var sms_isDirect = [
+    new COMMON_CODE(null, 'sendType', '발송 구분')
+    , new COMMON_CODE('instant', '0', '즉시발송')
+    , new COMMON_CODE('reservation', '1', '예약발송')
+];
+
+var sms_msgType = [
+    new COMMON_CODE(null, 'msg_type', '발송형태')
+    , new COMMON_CODE('sms', '0', 'SMS')
+    , new COMMON_CODE('lms', '5', 'LMS')
+];
+
+var sms_slctType = [
+    new COMMON_CODE(null, 'slctType', '검색 조건')
+    , new COMMON_CODE('time', '0', '시간대별')
+    , new COMMON_CODE('day', '1', '일자별')
+    , new COMMON_CODE('month', '2', '월간별')
+];
+
+var sms_status = [
+    new COMMON_CODE(null, 'status', '발송상태')
+    , new COMMON_CODE('0', '0', '요청')
+    , new COMMON_CODE('1', '1', '대기')
+    , new COMMON_CODE('2', '2', '완료')
+];
+
 
 /** =------ Image ---------- */
 var declaration_image_searchType = [

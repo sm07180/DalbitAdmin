@@ -5,5 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SmsDao {
-    void sendSms(SmsVo smsVo);
+    int sendSms(SmsVo smsVo);
+
+    int sendSmsTargetTest(SmsVo smsVo);
+
+    int sendSmsTargetMemberAll(SmsVo smsVo);
 }

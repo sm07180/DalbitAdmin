@@ -303,7 +303,7 @@ public class Mon_ExchangeService {
             //message.append("\n\n※ 마이페이지>내지갑에서도 내역을 확인할 수 있습니다.");
 
             smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
-            //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
+            //smsService.sendMms(new SmsHistoryVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
 
             try{    // PUSH 발송
 
@@ -353,8 +353,8 @@ public class Mon_ExchangeService {
 
 
             // TODO 양부장님 요청으로 인한 MMS 발송 중단 2020.06.12 (06.15 확인 필요)
-            //smsService.sendMms(new SmsVo("[달빛라이브]", monExchangeOutputVo.getSend_title() + "\n\n" + monExchangeOutputVo.getSend_cont(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
-            //smsService.sendMms(new SmsVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
+            //smsService.sendMms(new SmsHistoryVo("[달빛라이브]", monExchangeOutputVo.getSend_title() + "\n\n" + monExchangeOutputVo.getSend_cont(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
+            //smsService.sendMms(new SmsHistoryVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전불가.getCode()));
 
             try{    // PUSH 발송
 

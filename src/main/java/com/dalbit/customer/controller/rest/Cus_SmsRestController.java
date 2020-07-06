@@ -2,7 +2,7 @@ package com.dalbit.customer.controller.rest;
 
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.customer.service.Cus_SmsService;
-import com.dalbit.customer.vo.SmsVo;
+import com.dalbit.customer.vo.SmsHistoryVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.util.GsonUtil;
@@ -35,8 +35,26 @@ public class Cus_SmsRestController {
      * sms 리스트 조회
      */
     @PostMapping("list")
-    public String getSmsList(SmsVo smsVo) {
-        String result = cusSmsService.getSmsList(smsVo);
+    public String getSmsList(SmsHistoryVo smsHistoryVo) {
+        String result = cusSmsService.getSmsList(smsHistoryVo);
+        return result;
+    }
+
+    /**
+     * sms 상세 조회
+     */
+    @PostMapping("detail")
+    public String getSmsDetail(SmsHistoryVo smsHistoryVo) {
+        String result = cusSmsService.getSmsDetail(smsHistoryVo);
+        return result;
+    }
+
+    /**
+     * sms 발송
+     */
+    @PostMapping("send")
+    public String smsSend(SmsHistoryVo smsHistoryVo, HttpServletRequest request) {
+        String result = cusSmsService.smsSend(smsHistoryVo);
         return result;
     }
 
@@ -44,8 +62,8 @@ public class Cus_SmsRestController {
      * sms 엑셀 출력
      */
     @PostMapping("listExcel")
-    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, SmsVo smsVo) throws GlobalException {
-        Model resultModel = cusSmsService.getListExcel(smsVo, model);
+    public String listExcel(HttpServletRequest request, HttpServletResponse response, Model model, SmsHistoryVo smsHistoryVo) throws GlobalException {
+        Model resultModel = cusSmsService.getListExcel(smsHistoryVo, model);
 
         excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
