@@ -844,8 +844,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-lg-12 form-inline block _modalLayer">
-                        <!--<div class="{{#if parentInfo}}col-lg-9{{/if}}{{^if parentInfo}}col-lg-12{{/if}}">-->
-                        <div class="col-lg-12">
+                        <div class="{{#if parentInfo}}col-lg-9{{/if}}{{^if parentInfo}}col-lg-12{{/if}}">
+                        <%--<div class="col-lg-12">--%>
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <tbody id="tableBody">
                                     <tr>
