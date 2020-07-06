@@ -844,8 +844,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-lg-12 form-inline block _modalLayer">
-                        <!--<div class="{{#if parentInfo}}col-lg-9{{/if}}{{^if parentInfo}}col-lg-12{{/if}}">-->
-                        <div class="col-lg-12">
+                        <div class="{{#if parentInfo}}col-lg-9{{/if}}{{^if parentInfo}}col-lg-12{{/if}}">
+                        <%--<div class="col-lg-12">--%>
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <tbody id="tableBody">
                                     <tr>
@@ -985,7 +985,7 @@
                         </div>
 
                         {{#if parentInfo}}
-                        <!--<div class="col-lg-3">
+                        <div class="col-lg-3">
                             <div class="mb10">법정대리인 (보호자) 동의 정보</div>
                             <table id="parentTable" class="table table-sorting table-hover table-bordered">
                                 <tbody>
@@ -1057,7 +1057,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>-->
+                        </div>
                         {{/if}}
                     </div>
                 </div>
@@ -1065,13 +1065,13 @@
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
 
                     {{#equal detail.state '0'}}
-                        {{#adultStatusCheck ../detail.birth ../parentInfo.recant_yn}}
+                        <%--{{#adultStatusCheck ../detail.birth ../parentInfo.recant_yn}}--%>
                             <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
                             <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
                             <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
-                        {{else}}
+                        <%--{{else}}
                             <span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>
-                        {{/adultStatusCheck}}
+                        {{/adultStatusCheck}}--%>
                     {{/equal}}
 
                     {{#equal detail.state '1'}}
