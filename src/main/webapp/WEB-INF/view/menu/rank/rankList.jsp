@@ -19,6 +19,9 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    <label id="lb_title" style="display: none"><b>· 선택 날짜의 전주 랭킹을 확인할 수 있습니다.</b></label>
+                </div>
             </div>
             </form>
             <!-- //serachBox -->
@@ -53,6 +56,27 @@
                                     <input type="radio" name="rankType" value='3' />
                                     <span><i></i>월간</span>
                                 </label>
+
+                                <div class="input-group date" id="oneDayDatePicker">
+                                    <label for="onedayDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
+                                    </label>
+                                    <input type="text" class="form-control" id="onedayDate" name="onedayDate">
+                                </div>
+
+                                <div class="input-group date" id="rangeDatepicker" style="display: none">
+                                    <label for="monthDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input id="monthDate" type="text" class="form-control" style="width: 168px;"/>
+                                </div>
+
+                                <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                                <input class="hide" name="endDate" id="endDate" style="width: 100px">
+
+                                <%--<input name="startDate" id="startDate" style="width: 100px">--%>
+                                <%--<input name="endDate" id="endDate" style="width: 100px">--%>
+
                             </div>
                         </div>
 
@@ -98,24 +122,66 @@
 <script type="text/javascript">
      djRankListPagingInfo = new PAGING_INFO(0, 1, 50);
 
+     var dateTime = new Date();
+     dateTime = moment(dateTime).format("YYYY.MM.DD");
+     setTimeDate(dateTime);
+
     $(function(){
         $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
         init();
+
+        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
+            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
+            $("#startDate").val(selectDate);
+        });
+
+        $('#monthDate').datepicker({
+            minViewMode: 'months',
+            format: 'yyyy.mm',
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            language: 'kr',
+        });
+
+        $("#onedayDate").on('change', function () {
+            if($('input:radio[name="rankType"]:checked').val() == 2){
+                setMonday();
+            }else{
+                $("#endDate").val($("#startDate").val());
+            }
+        });
+
+        $("#monthDate").on('change', function () {
+            var monthLastDate = new Date($("#monthDate").val().substr(0,4),$("#monthDate").val().substr(5,6),-1);
+            $("#startDate").val($("#monthDate").val() + '.01');
+            $("#endDate").val($("#monthDate").val() + "." +  (monthLastDate.getDate() + 1));
+            init();
+        });
+
+        $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
     });
 
     function init(tabName){
-
         var rank = common.isEmpty(tabName) ? $('#rankTab li.active a').data('rank') : tabName;
+
         var data = {
             rankType : $('input:radio[name="rankType"]:checked').val()
             , pageStart : djRankListPagingInfo.pageNo
             , pageCnt : djRankListPagingInfo.pageCnt
             , selectGubun : $('#searchArea').val()
             , txt_search : $("#txt_search").val()
+            , sDate : $("#startDate").val()
+            , eDate : $("#endDate").val()
         }
         util.getAjaxData(rank, "/rest/menu/rank/"+rank, data, fn_succ_list);
     }
 
+     function setTimeDate(dateTime){
+         $("#onedayDate").val(dateTime);
+         $("#startDate").val(dateTime);
+         $("#endDate").val(dateTime);
+     }
 
     function fn_succ_list(dst_id, response, params) {
         dalbitLog(dst_id);
@@ -133,10 +199,58 @@
         util.renderPagingNavigation('list_info_paginate', djRankListPagingInfo);
     }
 
+     rankTypeChange();
     $('input[name="rankType"]').on('change', function(){
+        rankTypeChange();
+    });
+    function rankTypeChange(){
+        if($('input:radio[name="rankType"]:checked').val() == 3){
+            $("#rangeDatepicker").show();
+            $("#oneDayDatePicker").hide();
+            $("#monthDate").val(moment(new Date()).format('YYYY.MM'));
+            $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+            $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+        }else{
+            $("#oneDayDatePicker").show();
+            $("#rangeDatepicker").hide();
+            $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+            $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+            $("#onedayDate").val(moment(new Date()).format('YYYY.MM.DD'));
+            if($('input:radio[name="rankType"]:checked').val() == 2){       // 주간
+                setMonday();
+            }
+        }
+        if($('input:radio[name="rankType"]:checked').val() == 2){
+            $("#lb_title").show();
+        }else{
+            $("#lb_title").hide();
+        }
         djRankListPagingInfo.pageNo = 1;
         init();
-    });
+    }
+
+     function getMonday(str) {
+         var y = str.substr(0, 4);
+         var m = str.substr(5, 2);
+         var d = str.substr(8, 2);
+         d = new Date(y,m-1,d);
+         var day = d.getDay(),
+             diff = d.getDate() - day + (day == 0 ? -6:1);
+         return new Date(d.setDate(diff));
+     }
+     function setMonday(){
+         var monday = getMonday($("#startDate").val());       // 선택한 날의 월요일
+         var endDate = new Date();
+         endDate.setFullYear(monday.getFullYear());
+         endDate.setMonth(monday.getMonth() + 1);
+         endDate.setDate(monday.getDate()-1); //하루 전
+         var startDate = new Date();
+         startDate.setFullYear(monday.getFullYear());
+         startDate.setMonth(monday.getMonth() + 1);
+         startDate.setDate(monday.getDate()-8);
+         $("#startDate").val(startDate.getFullYear() + "." + common.lpad(startDate.getMonth(),2,"0") + "." + common.lpad(startDate.getDate(),2,"0"));
+         $("#endDate").val(endDate.getFullYear() + "." + common.lpad(endDate.getMonth(),2,"0") + "." + common.lpad(endDate.getDate(),2,"0"));
+     }
 
     $('#rankTab li').on('click', function(){
         var rank = $(this).find('a').data('rank');
@@ -168,12 +282,11 @@
         <th>User ID</th>
         <th>User 닉네임</th>
         <th>성별</th>
-        <th>보유결제금액</th>
-        <th>누적 받은 별</th>
-        <th>누적 받은 선물</th>
-        <th>누적 방송 횟수</th>
-        <th>최초 방송 시작일</th>
-        <th>총 방송진행 시간</th>
+        <th>랭킹점수</th>
+        <th>받은 별</th>
+        <th>누적 청취자</th>
+        <th>받은 좋아요</th>
+        <th>방송진행 시간</th>
     </tr>
     </thead>
     <tbody id="djRankListBody">
@@ -200,16 +313,10 @@
                 {{/equal}}
             </td>
             <td>{{{sexIcon mem_sex}}}</td>
-            <td>{{addComma money}}원</td>
-            <td>{{addComma byeol}}개</td>
-            <td>{{addComma gifted_mem_no}}개</td>
-            <td>{{addComma airCount}}번</td>
-            <td>{{#equal rank.start_date ''}}
-                -
-                {{else}}
-                {{rank.start_date}}
-                {{/equal}}
-            </td>
+            <td>{{addComma rankPoint}}점</td>
+            <td>{{addComma itemCnt}}개</td>
+            <td>{{addComma listenCnt}}번</td>
+            <td>{{addComma goodCnt}}번</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 
@@ -229,12 +336,9 @@
         <th>User ID</th>
         <th>User 닉네임</th>
         <th>성별</th>
-        <th>보유결제금액</th>
-        <th>누적 받은 별</th>
-        <th>누적 받은 선물</th>
-        <th>누적 방송 횟수</th>
-        <th>최초 방송 시작일</th>
-        <th>총 방송진행 시간</th>
+        <th>랭킹 점수</th>
+        <th>보낸 달</th>
+        <th>청취 시간</th>
     </tr>
     </thead>
     <tbody id="fanRankListBody">
@@ -254,16 +358,8 @@
             </td>
             <td>{{mem_nick}}</td>
             <td>{{{sexIcon mem_sex}}}</td>
-            <td>{{addComma money}}원</td>
-            <td>{{addComma byeol}}개</td>
-            <td>{{addComma gifted_mem_no}}개</td>
-            <td>{{addComma airCount}}번</td>
-            <td>{{#equal fan.start_date ''}}
-                -
-                {{else}}
-                {{fan.start_date}}
-                {{/equal}}
-            </td>
+            <td>{{addComma rankPoint}}점</td>
+            <td>{{addComma itemCnt}}개</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 
