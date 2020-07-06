@@ -783,7 +783,7 @@
             {{{getMemStateName data.mem_state}}}
         </td>
         <td>
-            {{#adultStatusCheck data.birth data.recant_yn}}
+            <%--{{#adultStatusCheck data.birth data.recant_yn}}--%>
                 {{#workdayCheck ../limitDay data.reg_date}}
                     <input type="checkbox" class="_chk"
                            data-exchangeidx='{{data.idx}}'
@@ -792,9 +792,9 @@
                 {{else}}
                     {{{fontColor '대기' 1 'gray'}}}
                 {{/workdayCheck}}
-            {{else}}
+            <%--{{else}}
                 {{{fontColor '철회' 1 'red'}}}
-            {{/adultStatusCheck}}
+            {{/adultStatusCheck}}--%>
         </td>
         <td >
             <form id="profileImg" method="post" enctype="multipart/form-data">
@@ -1065,13 +1065,13 @@
                     <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
 
                     {{#equal detail.state '0'}}
-                        {{#adultStatusCheck ../detail.birth ../parentInfo.recant_yn}}
+                        <%--{{#adultStatusCheck ../detail.birth ../parentInfo.recant_yn}}--%>
                             <button type="button" class="btn btn-custom-primary _updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
                             <button type="button" class="btn btn-danger _rejectBtn"><i class="fa fa-times-circle"></i> 불가</button>
                             <button type="button" class="btn btn-success _completeBtn"><i class="fa fa-check-circle"></i> 완료</button>
-                        {{else}}
+                        <%--{{else}}
                             <span class="exchange_complete_txt">법정대리인 보호자 정보동의 철회로 처리 할 수 없습니다.</span>
-                        {{/adultStatusCheck}}
+                        {{/adultStatusCheck}}--%>
                     {{/equal}}
 
                     {{#equal detail.state '1'}}
