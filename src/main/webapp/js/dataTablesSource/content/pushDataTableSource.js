@@ -33,8 +33,12 @@ var PushDataTableSource = {
                     return util.getCommonCodeLabel(data, push_sendType);
                 }},
              {'title': '수신<br>대상', 'width':'80px', 'data': 'is_all', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                     if(data == "21"){
+                         return "전체(회원+비회원)";
+                     }
+                 
                      if(data == "11"){
-                         return "전체";
+                         return "회원";
                      }
 
                      if(data == "99"){

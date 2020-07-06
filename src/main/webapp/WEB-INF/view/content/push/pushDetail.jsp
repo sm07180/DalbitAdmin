@@ -349,7 +349,16 @@
     fnc_pushDetail.insertDetail= function() {
             var template = $('#tmp_pushDetailFrm').html();
             var templateScript = Handlebars.compile(template);
-            fnc_pushDetail.target.find("#"+this.formId).html(templateScript);
+
+            var detailData = {
+                'send_type' : 1
+                ,'is_direct' : 0
+                ,'slct_push' : 2
+            };
+
+            var context = detailData;
+            var html = templateScript(context);
+            fnc_pushDetail.target.find("#"+this.formId).html(html);
 
             fnc_pushDetail.initDetail();
             fnc_pushDetail.initDetailEvent();
@@ -767,7 +776,7 @@
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="5" checked="true"><span>비로그인</span></label>--%>
                         <label class="control-inline fancy-radio custom-color-green"><input type="radio" id="is_all99" name="is_all" value="99" class="form-control"><span><i></i>테스트 계정</span></label>
                         <div>
-                            <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="7" id="is_all7" name="is_all" class="form-control"><span><i></i>지정 회원 </span></label>
+                            <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="7" id="is_all7" name="is_all" class="form-control" checked="checked"><span><i></i>지정 회원 </span></label>
                             <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember"/>
                         </div>
                     </div>
