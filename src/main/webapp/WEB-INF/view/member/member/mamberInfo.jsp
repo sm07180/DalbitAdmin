@@ -925,7 +925,7 @@
                     <button type="button" id="bt_birth" class="btn btn-default btn-sm" data-memno="{{../../mem_no}}" data-nickname="{{../../nickName}}">변경</button>
                 {{/equal}}
             </td>
-            <!--<th>법정대리인(보호자)</br>동의 여부</th>
+            <th>법정대리인(보호자)</br>동의 여부</th>
             <td>
                 {{#equal ../parents_agree_yn 'y'}}
                     <label style="color: red; font-weight: bold;">Yes</label>
@@ -937,7 +937,7 @@
                     <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
                 {{/equal}}
 
-            </td>-->
+            </td>
             {{else}}
             <td colspan="4" style="text-align: left">
                 <div class="input-group date" id="date_birth">
