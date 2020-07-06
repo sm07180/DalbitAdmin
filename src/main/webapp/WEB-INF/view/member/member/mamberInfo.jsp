@@ -914,7 +914,7 @@
         <tr>
             <th>생년월일</th>
             {{^equal adultYn 'y'}}
-            <td colspan="4" style="text-align: left">
+            <td colspan="2" style="text-align: left">
                 <div class="input-group date" id="date_birth">
                     <input type="text" class="form-control" id="txt_birth" value="{{{../birthData}}}">
                     {{#equal ../memWithdrawal '0'}}
