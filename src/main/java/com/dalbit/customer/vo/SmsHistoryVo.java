@@ -66,7 +66,7 @@ public class SmsHistoryVo extends PagingVo {
     }
 
     public void setSend_time(Date last_upd_date){
-        this.report_time = DalbitUtil.convertDateFormat(last_upd_date, "yyyy.MM.dd HH:mm:ss");
+        this.send_time = DalbitUtil.convertDateFormat(last_upd_date, "yyyy.MM.dd HH:mm:ss");
     }
 
     public void setSend_time(String last_upd_date){

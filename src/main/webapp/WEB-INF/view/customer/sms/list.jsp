@@ -296,9 +296,13 @@
         {{else}}
             <td>{{{getCommonCodeLabel status 'sms_status'}}}</td>
         {{/dalbit_if}}
-        <td>{{report_time}}</td>
+        {{#if report_time}}
+            <td>{{report_time}}</td>
+        {{else}}
+            <td>{{substr send_time '0' '19'}}</td>
+        {{/if}}
         <%--<td><a class="_openSmsSendPop" data-cmid="{{cmid}}" data-rownum="{{../totalCnt rowNum}}">{{subject}}</a></td>--%>
-        <td><a class="_openSmsSendPop" data-cmid="{{cmid}}" data-rownum="{{indexDesc ../totalCnt rowNum}}" data-logtable="{{logDateTableName}}">{{subject}}</a></td>
+        <td><a href="javascript://" class="_openSmsSendPop" data-cmid="{{cmid}}" data-rownum="{{indexDesc ../totalCnt rowNum}}" data-logtable="{{logDateTableName}}">{{subject}}</a></td>
         <td class="al pl5">{{{replaceNewLineToBr msg_body}}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
         <td>{{send_name}}</td>
