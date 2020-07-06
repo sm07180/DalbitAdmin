@@ -315,8 +315,8 @@
             <td>{{{sexIcon mem_sex}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
-            <td>{{addComma listenCnt}}번</td>
-            <td>{{addComma goodCnt}}번</td>
+            <td>{{addComma listenCnt}}명</td>
+            <td>{{addComma goodCnt}}개</td>
             <td>{{timeStamp airTime}}</td>
         </tr>
 

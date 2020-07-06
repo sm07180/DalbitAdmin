@@ -83,6 +83,9 @@ public class Men_RankService {
                 inputVo.setRankType(djRankingVo.getRankType());
                 inputVo.setSDate(djRankingVo.getSDate());
                 inputVo.setEDate(djRankingVo.getEDate());
+                inputVo.setLiveCnt(djRankingVo.getLiveCnt());
+                inputVo.setLiveDate(djRankingVo.getLiveDate());
+
                 DjRankingVo outVo = menRankDao.getDjRankingOutVo(inputVo);
 
                 djRankingList.get(i).setBroadCnt(outVo.getBroadCnt());
@@ -148,6 +151,8 @@ public class Men_RankService {
                 inputVo.setRankType(fanRankingVo.getRankType());
                 inputVo.setSDate(fanRankingVo.getSDate());
                 inputVo.setEDate(fanRankingVo.getEDate());
+                inputVo.setLiveCnt(fanRankingVo.getLiveCnt());
+                inputVo.setLiveDate(fanRankingVo.getLiveDate());
                 FanRankingVo outVo = menRankDao.getFanRankingOutVo(inputVo);
 
                 fanRankingList.get(i).setBroadCnt(outVo.getBroadCnt());
