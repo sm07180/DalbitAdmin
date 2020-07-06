@@ -12,6 +12,10 @@ public class DjRankingVo extends PagingVo {
     private int rankType;    // 일간/주간/월간
     private String selectGubun;        // 검색구분(userID, user닉네임, 연락처, 이름)
     private String txt_search;
+    private String sDate;
+    private String eDate;
+    private int liveCnt;
+    private String liveDate;
 
     /* output */
     private int djRank;
@@ -30,4 +34,9 @@ public class DjRankingVo extends PagingVo {
     private String start_date;
     private int airTime;
 
+    private int broadCnt;
+    private int listenCnt;
+    private int goodCnt;
+    private int rankPoint;
+    private String itemCnt;
 }

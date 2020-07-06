@@ -20,14 +20,23 @@ public interface Men_RankDao {
 
     /* DJ 랭킹 */
     @Transactional(readOnly = true)
-    List<DjRankingVo> getMainDjRankingList(DjRankingVo djRankingVo);
+    DjRankingVo getDjLiveCheck(DjRankingVo djRankingVo);
 
     @Transactional(readOnly = true)
+    List<DjRankingVo> getMainDjRankingList(DjRankingVo djRankingVo);
+    @Transactional(readOnly = true)
     int getMainDjRankingListCnt(DjRankingVo djRankingVo);
+    @Transactional(readOnly = true)
+    DjRankingVo getDjRankingOutVo(DjRankingVo djRankingVo);
 
     /* fan 랭킹*/
+    @Transactional(readOnly = true)
+    FanRankingVo getFanLiveCheck(FanRankingVo fanRankingVo);
+
     @Transactional(readOnly = true)
     List<FanRankingVo> getMainFanRankingList(FanRankingVo fanRankingVo);
     @Transactional(readOnly = true)
     int getMainFanRankingListCnt(FanRankingVo fanRankingVo);
+    @Transactional(readOnly = true)
+    FanRankingVo getFanRankingOutVo(FanRankingVo fanRankingVo);
 }
