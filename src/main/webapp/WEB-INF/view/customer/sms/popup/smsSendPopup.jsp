@@ -425,7 +425,7 @@
                 <tr>
                     <th>제목</th>
                     <td colspan="11" style="width:50%;">
-                        <input type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="{{send_title}}" maxlength="30">
+                        <input type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달빛라이브]" maxlength="30">
                         <span style="color: red; font-size:0.9em">* LMS 제목은 한글 최대 30자까지 입력 가능합니다.</span>
                     </td>
                 </tr>
@@ -433,7 +433,7 @@
                     <th>내용</th>
                     <td colspan="11">
                         <div>
-                            <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="SMS/LMS 발송 문자 내용을 입력해 주세요." style="resize: none" maxlength="1000" oninput="checkContText_smsSend()"></textarea>
+                            <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="SMS/LMS 발송 문자 내용을 입력해 주세요." style="resize: none" maxlength="1000" oninput="checkContText_smsSend()">[달빛라이브]</textarea>
                             <span style="color: red; font-size:0.9em">* SMS 최대 40자(한글) / LMS 최대 1000자(한글)까지 입력 가능합니다.</span><br>
                         </div>
                     </td>
