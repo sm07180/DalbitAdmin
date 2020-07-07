@@ -305,15 +305,7 @@
         };
         var data = [ year ];
         var layout = {
-            // font: {size: 13}
-            // legend: {
-            //     y: 1,
-            //     y: 1,
-            //     traceorder: 'reversed',
-            //     font: {
-            //         size: 13
-            //     }
-            // }
+            font: {size: 13}
         };
         var config = {responsive: true};
         Plotly.newPlot('barArea', data, layout, config );
