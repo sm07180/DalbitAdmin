@@ -95,7 +95,7 @@
         <div class="main-content">
             <div class="widget">
                 <div class="widget-content">
-                    <div id='barArea'></div>
+                    <div id='barArea' style="display: none"></div>
                 </div>
             </div>
         </div>
@@ -114,8 +114,6 @@
     });
 
     function getPayYearList(){
-        $("#wayYearTableBody").empty();
-        $("#yearTableBody").empty();
         $("#year_th_1").text(moment($("#startDate").val()).add('years', -1).format('YYYY'));
         $("#year_th_0").text(moment($("#startDate").val()).add('years', 0).format('YYYY'));
 
@@ -129,17 +127,17 @@
         data.slctType = 2;
 
         console.log(data);
+
+        $("#yearTableBody").empty();
+        $("#wayYearTableBody").empty();
+        $("#barArea").hide();
+
         util.getAjaxData("total", "/rest/enter/pay/total", data, fn_payYear_success);
     }
 
     var yearResponseData;
     function fn_payYear_success(data, response){
         yearResponseData = response.data;
-        if(response.result == "fail"){
-            searchDate();
-            getPayYearList();
-            return;
-        }
 
         var slctType_date = [];
         for(i = (response.data[1].detailList.length-1); 0 < i; i-- ){
@@ -277,6 +275,8 @@
         chart();
     }
     function chart(){
+        $("#barArea").show();
+
         yearResponseData = yearResponseData[1].detailList;
         var sortingField = "monthly";
         yearResponseData.sort(function(a, b) { // 오름차순
