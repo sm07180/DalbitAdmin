@@ -19,19 +19,11 @@
                     <%--</div>--%>
                 </div>
                 <div id="div_top">
-                    <div class="widget-content mt10 col-md-8 no-padding mr10">
+                    <div class="widget-content mt10 col-md-10 no-padding mr10">
                         <table class="table table-condensed table-dark-header table-bordered no-margin">
                             <thead>
                             </thead>
                             <tbody id="statPayTableBody1">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="PayCancelTotalTableBody">
                             </tbody>
                         </table>
                     </div>
@@ -116,7 +108,6 @@
         $("#statPayTableBody2").empty();
         $("#statPayTableBody3").empty();
         $("#PayTotalTableBody").empty();
-        $("#PayCancelTotalTableBody").empty();
 
         // WEB/안드로이드 총 계/합
         var android_total_cnt = [
@@ -187,12 +178,6 @@
         var context = response.data.info;
         var html=templateScript(context);
         $("#PayTotalTableBody").append(html);
-
-        var template = $('#tmp_payCancelTotalTable').html();
-        var templateScript = Handlebars.compile(template);
-        var context = response.data.info;
-        var html=templateScript(context);
-        $("#PayCancelTotalTableBody").append(html);
 
         ui.paintColor();
         getPayHistoryList();
@@ -268,9 +253,9 @@
 <script id="tmp_payTableSummary1" type="text/x-handlebars-template">
     <table class="table table-bordered mb0">
         <colgroup>
-            <col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>
-            <col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/><col width="9%"/>
-            <col width="9%"/>
+            <col width="7.4%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/>
+            <col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/>
+            <col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/>
         </colgroup>
         <thead>
         <tr>
@@ -280,11 +265,15 @@
             <th>휴대폰</th>
             <th>카드</th>
             <th>가상계좌이체</th>
-            <th>인앱결제(아이폰)</th>
+            <th>인앱결제<br/>(아이폰)</th>
             <th>문화상품권</th>
             <th>해피머니상품권</th>
-            <th>스마트문상(게임)</th>
+            <th>스마트문상<br/>(게임)</th>
             <th>도서문화상품권</th>
+            <th>티머니</th>
+            <th>캐시비</th>
+            <%--<th>페이코</th>--%>
+            <%--<th>카카오페이</th>--%>
             <th style="color: green;font-weight: bold">총합</th>
         </tr>
         </thead>
@@ -299,6 +288,10 @@
             <td>{{addComma hm_cnt}}</td>
             <td>{{addComma gg_cnt}}</td>
             <td>{{addComma gc_cnt}}</td>
+            <td>{{addComma tmoney_cnt}}</td>
+            <td>{{addComma cashbee_cnt}}</td>
+            <%--<td>{{addComma payco_cnt}}</td>--%>
+            <%--<td>{{addComma kakaopay_cnt}}</td>--%>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr  style="color: #66a449">
@@ -311,6 +304,10 @@
             <td>{{addComma hm_amt}}</td>
             <td>{{addComma gg_amt}}</td>
             <td>{{addComma gc_amt}}</td>
+            <td>{{addComma tmoney_amt}}</td>
+            <td>{{addComma cashbee_amt}}</td>
+            <%--<td>{{addComma payco_amt}}</td>--%>
+            <%--<td>{{addComma kakaopay_amt}}</td>--%>
             <td><b>{{addComma total_amt}}</b></td>
         </tr>
 
@@ -324,6 +321,10 @@
             <td>{{vatMinus hm_amt}}</td>
             <td>{{vatMinus gg_amt}}</td>
             <td>{{vatMinus gc_amt}}</td>
+            <td>{{vatMinus tmoney_amt}}</td>
+            <td>{{vatMinus cashbee_amt}}</td>
+            <%--<td>{{vatMinus payco_amt}}</td>--%>
+            <%--<td>{{vatMinus kakaopay_amt}}</td>--%>
             <td><b>{{vatMinus total_amt}}</b></td>
         </tr>
         <tr>
@@ -336,6 +337,10 @@
             <td>({{payRate hm_cnt total_cnt}}%)<br/><b>{{payRate hm_amt total_amt}}%</b></td>
             <td>({{payRate gg_cnt total_cnt}}%)<br/><b>{{payRate gg_amt total_amt}}%</b></td>
             <td>({{payRate gc_cnt total_cnt}}%)<br/><b>{{payRate gc_amt total_amt}}%</b></td>
+            <td>({{payRate tmoney_cnt total_cnt}}%)<br/><b>{{payRate tmoney_amt total_amt}}%</b></td>
+            <td>({{payRate cashbee_cnt total_cnt}}%)<br/><b>{{payRate cashbee_amt total_amt}}%</b></td>
+            <%--<td>({{payRate payco_cnt total_cnt}}%)<br/><b>{{payRate payco_amt total_amt}}%</b></td>--%>
+            <%--<td>({{payRate kakaopay_cnt total_cnt}}%)<br/><b>{{payRate kakaopay_amt total_amt}}%</b></td>--%>
             <td>({{payRate total_cnt total_cnt}}%)<br/><b>{{payRate total_amt total_amt}}%</b></td>
         </tr>
         </tbody>
@@ -574,33 +579,11 @@
             <col width="35%"/><col width="65%"/>
         </colgroup>
         <tr>
-            <th colspan="2">총 결제 건/(부가세 포함) 매출</th>
-        </tr>
-        <tr style="color: #66a449;">
-            <td><b>{{total_cnt}} 건</b></td>
-            <td><b>{{addComma total_amt}} 원</b></td>
-        </tr>
-        <tr>
             <th colspan="2">총 결제 건/(부가세 제외) 매출</th>
         </tr>
         <tr style="color: #ff5600;">
             <td><b>{{total_cnt}} 건</b></td>
             <td><b>{{vatMinus total_amt}} 원</b></td>
-        </tr>
-    </table>
-</script>
-
-<script id="tmp_payCancelTotalTable" type="text/x-handlebars-template">
-    <table class="table table-condensed table-dark-header table-bordered no-margin" style="margin-right:0px">
-        <colgroup>
-            <col width="35%"/><col width="65%"/>
-        </colgroup>
-        <tr>
-            <th colspan="2">결제 취소(부가세 포함)</th>
-        </tr>
-        <tr class="font-bold" style="color: #66a449;">
-            <td>{{addComma cancelCnt}}건</td>
-            <td>{{addComma cancelAmt}}원</td>
         </tr>
         <tr>
             <th colspan="2">결제 취소(부가세 제외)</th>

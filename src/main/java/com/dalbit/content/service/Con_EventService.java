@@ -4,6 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.dao.Con_EventDao;
+import com.dalbit.content.vo.AttendanceBonusVo;
 import com.dalbit.content.vo.AttendanceCalendarVo;
 import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
@@ -259,5 +260,10 @@ public class Con_EventService {
     public String selectAttendanceWeekCalendarList(AttendanceCalendarVo attendanceCalendarVo){
         AttendanceCalendarVo weekAttendanceCalendarVo = con_EventDao.selectAttendanceWeekCalendarList(attendanceCalendarVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, weekAttendanceCalendarVo));
+    }
+
+    public String selectAttendanceBonus(AttendanceBonusVo attendanceBonusVo){
+        AttendanceBonusVo resultBonusVo = con_EventDao.selectAttendanceBonus(attendanceBonusVo);
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultBonusVo));
     }
 }

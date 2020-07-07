@@ -56,9 +56,14 @@ public class Cus_BlockAdmService {
         } else {
             blockAdmVo.setEdit_contents("ip 차단 등록 : " + blockAdmVo.getBlock_text());
         }
-        cusBlockAdmDao.insertBlockHistory(blockAdmVo);
 
-        int result = cusBlockAdmDao.insertBlock(blockAdmVo);
+        int result = 0;
+        if(DalbitUtil.isEmpty(blockAdmVo.getBlock_text())){
+            cusBlockAdmDao.insertBlockHistory(blockAdmVo);
+            result = cusBlockAdmDao.insertBlock(blockAdmVo);
+        }
+
+
         if(result > 0) {
             return gsonUtil.toJson(new JsonOutputVo(Status.회원ipUuid차단_성공));
         } else {

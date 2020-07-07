@@ -783,7 +783,7 @@
             {{{getMemStateName data.mem_state}}}
         </td>
         <td>
-            <%--{{#adultStatusCheck data.birth data.recant_yn}}--%>
+            {{#adultStatusCheck data.birth data.recant_yn}}
                 {{#workdayCheck ../limitDay data.reg_date}}
                     <input type="checkbox" class="_chk"
                            data-exchangeidx='{{data.idx}}'
@@ -792,9 +792,9 @@
                 {{else}}
                     {{{fontColor '대기' 1 'gray'}}}
                 {{/workdayCheck}}
-            <%--{{else}}
+            {{else}}
                 {{{fontColor '철회' 1 'red'}}}
-            {{/adultStatusCheck}}--%>
+            {{/adultStatusCheck}}
         </td>
         <td >
             <form id="profileImg" method="post" enctype="multipart/form-data">
@@ -844,8 +844,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-lg-12 form-inline block _modalLayer">
-                        <!--<div class="{{#if parentInfo}}col-lg-9{{/if}}{{^if parentInfo}}col-lg-12{{/if}}">-->
-                        <div class="col-lg-12">
+                        <div class="{{#if parentInfo}}col-lg-9{{/if}}{{^if parentInfo}}col-lg-12{{/if}}">
+                        <%--<div class="col-lg-12">--%>
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <tbody id="tableBody">
                                     <tr>
@@ -985,7 +985,7 @@
                         </div>
 
                         {{#if parentInfo}}
-                        <!--<div class="col-lg-3">
+                        <div class="col-lg-3">
                             <div class="mb10">법정대리인 (보호자) 동의 정보</div>
                             <table id="parentTable" class="table table-sorting table-hover table-bordered">
                                 <tbody>
@@ -1057,7 +1057,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>-->
+                        </div>
                         {{/if}}
                     </div>
                 </div>

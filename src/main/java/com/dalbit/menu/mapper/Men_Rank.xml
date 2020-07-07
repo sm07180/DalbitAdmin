@@ -10,11 +10,20 @@
         call rd_data.sp_ranking_fan(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
     </select>
 
+    <select id="getDjLiveCheck" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
+        /* Men_Rank.xml - getDjLiveCheck */
+        select count(*) as liveCnt, max(ranking_date) as liveDate from rd_data.tb_ranking_dj_live where date_format(ranking_date,'%Y.%m.%d') = #{sDate}
+    </select>
+
+    <select id="getFanLiveCheck" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="com.dalbit.menu.vo.FanRankingVo">
+        /* Men_Rank.xml - getFanLiveCheck */
+        select count(*) as liveCnt, max(ranking_date) as liveDate from rd_data.tb_ranking_fan_live where date_format(ranking_date,'%Y.%m.%d') = #{sDate}
+    </select>
+
     <sql id="djCondition">
         select *, @RNUM := @RNUM + 1 as rowNum
-            from (
-                select
-                    dj.rank as djRank
+            from (select
+                      dj.rank as djRank
                     , dj.up_down as upDown
                     , dj.mem_no as memNo
                     , prof.image_profile as image_profile
@@ -28,11 +37,19 @@
                     , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
                     , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
                     , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                    , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
                     , dj.ranking_date as ranking_date
-                from
+                    , dj.broadcast_point as airTime
+                    , CAST(dj.good_point AS INT) as goodCnt
+                    , CAST(dj.dj_point AS INT) AS rankPoint
+                    , dj.listener_point as listenCnt
+                  from
                     <if test='rankType == "1"'>
-                        rd_data.tb_ranking_dj_day dj
+                        <if test='liveCnt != 0'>
+                          rd_data.tb_ranking_dj_live dj
+                        </if>
+                        <if test='liveCnt == 0'>
+                            rd_data.tb_ranking_dj_day dj
+                        </if>
                     </if>
                     <if test='rankType == "2"'>
                         rd_data.tb_ranking_dj_week dj
@@ -44,14 +61,11 @@
                     inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
                     left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
                 where
-                    <if test='rankType == "1"'>
-                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_day)
+                    <if test='liveCnt != 0'>
+                      ranking_date = #{liveDate}
                     </if>
-                    <if test='rankType == "2"'>
-                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_week)
-                    </if>
-                    <if test='rankType == "3"'>
-                        ranking_date = (select max(ranking_date) from rd_data.tb_ranking_dj_month)
+                    <if test='liveCnt == 0'>
+                      date_format(ranking_date,'%Y.%m.%d') = #{sDate}
                     </if>
 
                     <if test='txt_search != null and txt_search != ""'>
@@ -79,10 +93,12 @@
             ) a , (select @RNUM := 0) r
             order by djRank asc
     </sql>
+
     <sql id="fanCondition">
         select *, @RNUM := @RNUM + 1 as rowNum
            from (
                   select
+                      <!--fan.fan_point as fanRank-->
                       fan.rank as fanRank
                     , fan.up_down as upDown
                     , prof.image_profile as image_profile
@@ -97,13 +113,19 @@
                     , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
                     , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
                     , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                    , (select sum(ifnull(airtime,0)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airTime
                     , fan.ranking_date as ranking_date
+                    , fan.listen_point as airTime
+                    , CAST(fan.fan_point AS INT) AS rankPoint
                   from rd_data.tb_member_basic mem
                     , rd_data.tb_member_profile prof
                     , rd_data.tb_member_level lev
                     <if test='rankType == "1"'>
-                        , rd_data.tb_ranking_fan_day fan
+                        <if test='liveCnt != 0'>
+                            ,rd_data.tb_ranking_fan_live fan
+                        </if>
+                        <if test='liveCnt == "0"'>
+                            ,rd_data.tb_ranking_fan_day fan
+                        </if>
                     </if>
                     <if test='rankType == "2"'>
                         , rd_data.tb_ranking_fan_week fan
@@ -114,60 +136,38 @@
                   where mem.mem_no = prof.mem_no
                         and mem.mem_no = lev.mem_no
                         and mem.mem_no = fan.mem_no
-                        <if test='rankType == "1"'>
-                            and ranking_date = (select max(ranking_date) from rd_data.tb_ranking_fan_day)
+                        <if test='liveCnt != 0'>
+                           and ranking_date = #{liveDate}
                         </if>
-                        <if test='rankType == "2"'>
-                            and ranking_date = (select max(ranking_date) from rd_data.tb_ranking_fan_week)
+                        <if test='liveCnt == 0'>
+                           and date_format(ranking_date,'%Y.%m.%d') = #{sDate}
                         </if>
-                        <if test='rankType == "3"'>
-                            and ranking_date = (select max(ranking_date) from rd_data.tb_ranking_fan_month)
-                        </if>
-
                         <if test='txt_search != null and txt_search != ""'>
-                            <choose>
-                                <when test='selectGubun =="1"'>
-                                    and mem.mem_no like concat('%', #{txt_search}, '%')
-                                </when>
-                                <when test='selectGubun =="2"'>
-                                    and mem_id like concat('%', #{txt_search}, '%')
-                                </when>
-                                <when test='selectGubun =="3"'>
-                                    and mem_nick like concat('%', #{txt_search}, '%')
-                                </when>
-                                <when test='selectGubun =="4"'>
-                                    and mem.mem_phone like concat('%', #{txt_search}, '%')
-                                </when>
-                                <otherwise>
-                                    and (mem.mem_no like concat('%', #{txt_search}, '%')
-                                    or mem_id like concat('%', #{txt_search}, '%')
-                                    or mem_nick like concat('%', #{txt_search}, '%')
-                                    or mem.mem_phone like concat('%', #{txt_search}, '%'))
-                                </otherwise>
-                            </choose>
+                            and (mem.mem_no like concat('%', #{txt_search}, '%')
+                            or mem_id like concat('%', #{txt_search}, '%')
+                            or mem_nick like concat('%', #{txt_search}, '%')
+                            or mem.mem_phone like concat('%', #{txt_search}, '%'))
                         </if>
                 ) a , (select @RNUM := 0) r
             order by fanRank asc
     </sql>
-
-
     <!-- DJ -->
-     <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
-         /* Men_Rank.xml - getMainDjRankingList */
-         select *
-             from (
-              <include refid="djCondition"/>
-             ) b
-         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
-     </select>
+    <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
+        /* Men_Rank.xml - getMainDjRankingList */
+        select *
+        from (
+        <include refid="djCondition"/>
+        ) b
+        where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+    </select>
 
     <select id="getMainDjRankingListCnt" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="integer">
         /* Men_Rank.xml - getMainDjRankingListCnt */
         select
-          count(*)
-            from (
-              <include refid="djCondition"/>
-            ) as tb
+        count(*)
+        from (
+        <include refid="djCondition"/>
+        ) as tb
     </select>
 
 
@@ -189,4 +189,33 @@
               <include refid="fanCondition"/>
             ) as tb
     </select>
+
+
+
+    <select id="getDjRankingOutVo" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
+        /* Men_Rank.xml - getDjRankingOutVo */
+        select ifnull(sum(ruby),0) as itemCnt
+          from rd_data.tb_member_broadcast_item
+         where gifted_mem_no = #{memNo}
+           and room_no in ( select room_no
+                              from rd_data.tb_broadcast_room
+                             where mem_no = #{memNo}
+                               and date_format(end_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                               and date_format(end_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate})
+    </select>
+
+    <select id="getFanRankingOutVo" parameterType="com.dalbit.menu.vo.FanRankingVo" resultType="com.dalbit.menu.vo.FanRankingVo">
+        /* Men_Rank.xml - getFanRankingOutVo */
+        select ifnull(sum(ruby),0) as itemCnt
+          from rd_data.tb_member_broadcast_item
+         where mem_no = #{mem_no}
+           and room_no in ( select room_no
+                            from rd_data.tb_broadcast_room_member
+                           where mem_no = #{mem_no}
+                             and date_format(join_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                             and date_format(join_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate})
+    </select>
+
+
+
 </mapper>

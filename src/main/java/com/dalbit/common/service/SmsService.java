@@ -17,7 +17,10 @@ public class SmsService {
     @Autowired
     SmsDao smsDao;
 
-    public void sendSms(SmsVo smsVo)throws GlobalException{
+    /**
+     * SMS 문자 발송 - 타겟
+     * */
+    public int sendSms(SmsVo smsVo)throws GlobalException{
 
         smsVo.setPhoneNo(smsVo.getPhoneNo().replaceAll("-", ""));
 
@@ -28,11 +31,22 @@ public class SmsService {
         smsVo.setUmId(DalbitUtil.getProperty("sms.umid"));
         smsVo.setMsgType("0");
         smsVo.setVxmlFile(smsVo.getVxmlFile());
+        smsVo.setCinfo(DalbitUtil.isEmpty(smsVo.getCinfo()) ? "" : smsVo.getCinfo());
 
-        smsDao.sendSms(smsVo);
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + smsVo.getMsgBody();
+            smsVo.setMsgBody(cont);
+        }
+
+        return smsDao.sendSms(smsVo);
     }
 
-    public void sendMms(SmsVo smsVo)throws GlobalException{
+
+    /**
+     * LMS 문자 발송 - 타겟
+     * */
+    public int sendMms(SmsVo smsVo)throws GlobalException{
 
         smsVo.setPhoneNo(smsVo.getPhoneNo().replaceAll("-", ""));
 
@@ -43,7 +57,95 @@ public class SmsService {
         smsVo.setUmId(DalbitUtil.getProperty("sms.umid"));
         smsVo.setMsgType("5");
         smsVo.setVxmlFile(smsVo.getVxmlFile());
+        smsVo.setCinfo(DalbitUtil.isEmpty(smsVo.getCinfo()) ? "" : smsVo.getCinfo());
 
-        smsDao.sendSms(smsVo);
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + smsVo.getMsgBody();
+            smsVo.setMsgBody(cont);
+        }
+
+        return smsDao.sendSms(smsVo);
     }
+
+
+    /**
+     * SMS 문자 발송 - 테스트 계정 전체
+     * */
+    public int sendSmsTargetTest(SmsVo smsVo)throws GlobalException{
+        smsVo.setSendPhoneNo(DalbitUtil.getProperty("sms.send.phone.no"));
+        smsVo.setUmId(DalbitUtil.getProperty("sms.umid"));
+        smsVo.setMsgType("0");
+        smsVo.setVxmlFile(smsVo.getVxmlFile());
+        smsVo.setCinfo(DalbitUtil.isEmpty(smsVo.getCinfo()) ? "" : smsVo.getCinfo());
+
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + smsVo.getMsgBody();
+            smsVo.setMsgBody(cont);
+        }
+
+        return smsDao.sendSmsTargetTest(smsVo);
+    }
+
+
+    /**
+     * LMS 문자 발송 - 테스트 계정 전체
+     * */
+    public int sendMmsTargetTest(SmsVo smsVo)throws GlobalException{
+        smsVo.setSendPhoneNo(DalbitUtil.getProperty("sms.send.phone.no"));
+        smsVo.setUmId(DalbitUtil.getProperty("sms.umid"));
+        smsVo.setMsgType("5");
+        smsVo.setVxmlFile(smsVo.getVxmlFile());
+        smsVo.setCinfo(DalbitUtil.isEmpty(smsVo.getCinfo()) ? "" : smsVo.getCinfo());
+
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + smsVo.getMsgBody();
+            smsVo.setMsgBody(cont);
+        }
+
+        return smsDao.sendSmsTargetTest(smsVo);
+    }
+
+
+    /**
+     * SMS 문자 발송 - 모든 유저 전체
+     * */
+    public int sendSmsTargetMemberAll(SmsVo smsVo)throws GlobalException{
+        smsVo.setSendPhoneNo(DalbitUtil.getProperty("sms.send.phone.no"));
+        smsVo.setUmId(DalbitUtil.getProperty("sms.umid"));
+        smsVo.setMsgType("0");
+        smsVo.setVxmlFile(smsVo.getVxmlFile());
+        smsVo.setCinfo(DalbitUtil.isEmpty(smsVo.getCinfo()) ? "" : smsVo.getCinfo());
+
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + smsVo.getMsgBody();
+            smsVo.setMsgBody(cont);
+        }
+
+        return smsDao.sendSmsTargetMemberAll(smsVo);
+    }
+
+
+    /**
+     * LMS 문자 발송 - 모든 유저 전체
+     * */
+    public int sendMmsTargetMemberAll(SmsVo smsVo)throws GlobalException{
+        smsVo.setSendPhoneNo(DalbitUtil.getProperty("sms.send.phone.no"));
+        smsVo.setUmId(DalbitUtil.getProperty("sms.umid"));
+        smsVo.setMsgType("5");
+        smsVo.setVxmlFile(smsVo.getVxmlFile());
+        smsVo.setCinfo(DalbitUtil.isEmpty(smsVo.getCinfo()) ? "" : smsVo.getCinfo());
+
+        // 내부 개발 테스트 표시 추가 2020.07.01
+        if("local".equals(DalbitUtil.getActiveProfile())){
+            String cont = "[내부개발] " + smsVo.getMsgBody();
+            smsVo.setMsgBody(cont);
+        }
+
+        return smsDao.sendSmsTargetMemberAll(smsVo);
+    }
+
 }

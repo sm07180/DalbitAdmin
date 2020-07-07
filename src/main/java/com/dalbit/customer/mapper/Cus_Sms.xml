@@ -5,61 +5,167 @@
     <sql id="condition">
         <where>
             <if test = 'txt_startSel != null and txt_startSel != ""'>
-                and report_time <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel}, '%Y-%m-%d 00:00:00')
+                and send_time <![CDATA[>=]]> DATE_FORMAT(#{txt_startSel}, '%Y-%m-%d 00:00:00')
             </if>
             <if test = 'txt_endSel != null and txt_endSel != ""'>
-                and report_time <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel}, '%Y-%m-%d 23:59:59')
+                and send_time <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel}, '%Y-%m-%d 23:59:59')
             </if>
 
-            <if test = 'vxml_file != "-1"'>
+            <if test = 'vxml_file != null and vxml_file != "" and vxml_file != "-1"'>
                 and vxml_file = #{vxml_file}
             </if>
 
+            <if test='tabType != null and tabType != "" '>
+                <choose>
+                    <when test='tabType == 1'>
+                        AND vxml_file IN ('0', '1')
+                    </when>
+                    <when test='tabType == 2'>
+                        AND vxml_file = '4'
+                    </when>
+                    <when test='tabType == 3'>
+                        AND vxml_file NOT IN ('0', '1', '4', '7')
+                    </when>
+                    <when test='tabType == 7'>
+                        AND vxml_file = '7'
+                    </when>
+                </choose>
+            </if>
+
             <if test = 'searchText != null and searchText != ""'>
-                and send_phone like concat('%', #{searchText}, '%')
-                or wap_info like concat('%', #{searchText}, '%')
-                or dest_phone like concat('%', #{searchText}, '%')
-                or msg_body like concat('%', #{searchText}, '%')
+                and (
+                    send_phone like concat('%', #{searchText}, '%')
+                    or wap_info like concat('%', #{searchText}, '%')
+                    or dest_phone like concat('%', #{searchText}, '%')
+                    or msg_body like concat('%', #{searchText}, '%')
+                )
             </if>
         </where>
     </sql>
 
-    <select id="getSmsList" parameterType="com.dalbit.customer.vo.SmsVo" resultType="com.dalbit.customer.vo.SmsVo">
+    <select id="getSmsList" parameterType="com.dalbit.customer.vo.SmsHistoryVo" resultType="com.dalbit.customer.vo.SmsHistoryVo">
         /* Cus_Sms.xml - getSmsList */
       select *
       from (
-          select
-              cmid
-              , send_phone
-              , wap_info
-              , dest_phone
-              , report_time
-              , msg_body
-              , vxml_file
-              , @RNUM := @RNUM + 1 as rowNum
-          from rd_data.hp_msg_hist_000000
-          , (select @RNUM := 0) r
-        <include refid="condition"/>
-          order by report_time desc
+        SELECT
+            a.cmid
+            , a.send_phone
+            , a.wap_info
+            , a.dest_phone
+            , a.report_time
+            , a.send_time
+            , a.subject
+            , a.msg_body
+            , a.vxml_file
+            , IF(a.status != 0, a.status, IF(a.send_time > current_timestamp, '3', a.status)) AS status
+            , a.msg_type
+            , a.send_name
+            , a.cinfo
+            , IF(a.mem_no = 0, '', a.mem_no) AS mem_no
+            , a.logDateTableName
+            , IFNULL(basic.mem_id, withdrawal.mem_id) AS mem_id
+            , IFNULL(basic.mem_name, withdrawal.mem_name) AS mem_name
+            , IFNULL(basic.mem_nick, withdrawal.mem_nick) AS mem_nick
+            , IFNULL(basic.mem_userid, withdrawal.mem_userid) AS mem_userid
+            , IFNULL(basic.mem_sex, withdrawal.mem_sex) AS mem_memSex
+            , leval.level AS mem_level
+            , leval.grade AS mem_grade
+            , @RNUM := @RNUM + 1 AS rowNum
+        FROM
+        (select @RNUM := 0) r,
+        (
+            SELECT
+                  cmid, send_phone, wap_info, dest_phone, report_time, send_time, subject, msg_body, vxml_file, status, msg_type, mem_no, send_name, cinfo
+                  , ${logDateTableName} AS logDateTableName
+            FROM
+                rd_data.hp_msg_hist_${logDateTableName}
+                <include refid="condition"/>
+            UNION ALL
+                SELECT
+                  cmid, send_phone, wap_info, dest_phone, report_time, send_time, subject, msg_body, vxml_file, status, msg_type, mem_no, send_name, cinfo
+                  , '000000' AS logDateTableName
+                FROM
+                rd_data.hp_msg_hist_000000
+                <include refid="condition"/>
+            UNION ALL
+                SELECT
+                  cmid, send_phone, wap_info, dest_phone, report_time, send_time, subject, msg_body, vxml_file, status, msg_type, mem_no, send_name, cinfo
+                  , 'hp_msg' AS logDateTableName
+                FROM
+                rd_data.hp_msg
+                <include refid="condition"/>
+        ) a
+        LEFT JOIN rd_data.tb_member_basic basic ON	a.mem_no = basic.mem_no
+        LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal ON a.mem_no = withdrawal.mem_no
+        LEFT JOIN rd_data.tb_member_level AS leval ON a.mem_no = leval.mem_no
+        ORDER BY a.send_time desc, a.report_time desc
       ) a
       where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
-    <select id="getSmsListCnt" parameterType="com.dalbit.customer.vo.SmsVo" resultType="integer">
+    <select id="getSmsListCnt" parameterType="com.dalbit.customer.vo.SmsHistoryVo" resultType="integer">
         /* Cus_Sms.xml - getSmsListCnt */
         select
           count(*)
-          from (
-          select
-              cmid
-              , send_phone
-              , wap_info
-              , dest_phone
-              , report_time
-              , msg_body
-              , vxml_file
-              from rd_data.hp_msg_hist_000000
-        <include refid="condition"/>
+        from (
+            SELECT
+              cmid, send_phone, wap_info, dest_phone, report_time, send_time, subject, msg_body, vxml_file, status, msg_type, mem_no, send_name, cinfo
+            FROM
+              rd_data.hp_msg_hist_${logDateTableName}
+            <include refid="condition"/>
+            UNION ALL
+            SELECT
+              cmid, send_phone, wap_info, dest_phone, report_time, send_time, subject, msg_body, vxml_file, status, msg_type, mem_no, send_name, cinfo
+            FROM
+              rd_data.hp_msg_hist_000000
+            <include refid="condition"/>
+            UNION ALL
+            SELECT
+              cmid, send_phone, wap_info, dest_phone, report_time, send_time, subject, msg_body, vxml_file, status, msg_type, mem_no, send_name, cinfo
+            FROM
+            rd_data.hp_msg
+            <include refid="condition"/>
         ) b
     </select>
+
+    <select id="getSmsDetail" parameterType="com.dalbit.customer.vo.SmsHistoryVo" resultType="com.dalbit.customer.vo.SmsHistoryVo">
+        SELECT
+            a.cmid
+            , a.send_phone
+            , a.wap_info
+            , a.dest_phone
+            , a.report_time
+            , a.send_time
+            , a.subject
+            , a.msg_body
+            , a.vxml_file
+            , IF(a.status != 0, a.status, IF(a.send_time > current_timestamp, '3', a.status)) AS status
+            , a.msg_type
+            , a.send_name
+            , a.cinfo
+            , IF(a.mem_no = 0, '', a.mem_no) AS mem_no
+            , IFNULL(basic.mem_id, withdrawal.mem_id) AS mem_id
+            , IFNULL(basic.mem_name, withdrawal.mem_name) AS mem_name
+            , IFNULL(basic.mem_nick, withdrawal.mem_nick) AS mem_nick
+            , IFNULL(basic.mem_userid, withdrawal.mem_userid) AS mem_userid
+            , IFNULL(basic.mem_sex, withdrawal.mem_sex) AS mem_memSex
+            , leval.level AS mem_level
+            , leval.grade AS mem_grade
+        FROM
+            <choose>
+                <when test="logDateTableName == 'hp_msg' ">
+                    rd_data.hp_msg AS a
+                </when>
+                <otherwise>
+                    rd_data.hp_msg_hist_${logDateTableName}  AS a
+                </otherwise>
+            </choose>
+        LEFT JOIN rd_data.tb_member_basic basic ON	a.mem_no = basic.mem_no
+        LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal ON a.mem_no = withdrawal.mem_no
+        LEFT JOIN rd_data.tb_member_level AS leval ON a.mem_no = leval.mem_no
+        WHERE
+            cmid = #{cmid}
+        limit 0, 1
+    </select>
+
 </mapper>

@@ -1,6 +1,6 @@
 package com.dalbit.customer.dao;
 
-import com.dalbit.customer.vo.SmsVo;
+import com.dalbit.customer.vo.SmsHistoryVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,8 +10,11 @@ import java.util.List;
 public interface Cus_SmsDao {
 
     @Transactional(readOnly = true)
-    List<SmsVo> getSmsList(SmsVo smsVo);
+    List<SmsHistoryVo> getSmsList(SmsHistoryVo smsHistoryVo);
 
     @Transactional(readOnly = true)
-    int getSmsListCnt(SmsVo smsVo);
+    int getSmsListCnt(SmsHistoryVo smsHistoryVo);
+
+    @Transactional(readOnly = true)
+    SmsHistoryVo getSmsDetail(SmsHistoryVo smsHistoryVo);
 }

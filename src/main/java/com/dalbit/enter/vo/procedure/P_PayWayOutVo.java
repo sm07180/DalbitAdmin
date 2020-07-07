@@ -28,4 +28,13 @@ public class P_PayWayOutVo {
     private int sum_ggAmt;
     private int sum_gcCnt;
     private int sum_gcAmt;
+
+    private int sum_tmoneyCnt;
+    private int sum_tmoneyAmt;
+    private int sum_cashbeeCnt;
+    private int sum_cashbeeAmt;
+    private int sum_paycoCnt;
+    private int sum_paycoAmt;
+    private int sum_kakaopayCnt;
+    private int sum_kakaopayAmt;
 }

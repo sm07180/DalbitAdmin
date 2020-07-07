@@ -751,7 +751,7 @@
 
                 <th>발송형태</th>
                 <td colspan="2">
-                    {{{getCommonCodeRadio send_type 'push_sendType'}}}
+                    {{{getCommonCodeRadio send_type 'push_sendType' 'Y' 'send_type'}}}
 
                     <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="0" id="is_noti0" name="is_noti" class="form-control" checked disabled><span><i></i>미표시</span> </label>--%>
                     <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="1" id="is_noti1" name="is_noti" class="form-control" disabled><span><i></i>표시</span> </label>--%>
@@ -770,7 +770,7 @@
                     <div>
                         <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="21" id="is_all21" name="is_all" class="form-control"><span><i></i>전체(회원+비회원)</span> </label>
                         <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>회원</span> </label>
-                        <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="31" id="is_all31" name="is_all" class="form-control"><span><i></i>비회원</span> </label>--%>
+                        <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="31" id="is_all31" name="is_all" class="form-control"><span><i></i>비회원</span> </label>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="3" checked="true"><span>남자</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="4" checked="true"><span>로그인</span></label>--%>
                         <%--<label class="control-inline fancy-checkbox custom-color-green"><input type="checkbox" name="is_all" value="5" checked="true"><span>비로그인</span></label>--%>

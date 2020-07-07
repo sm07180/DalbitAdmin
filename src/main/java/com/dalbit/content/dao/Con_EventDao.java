@@ -1,5 +1,6 @@
 package com.dalbit.content.dao;
 
+import com.dalbit.content.vo.AttendanceBonusVo;
 import com.dalbit.content.vo.AttendanceCalendarVo;
 import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
@@ -55,6 +56,10 @@ public interface Con_EventDao {
     @Transactional(readOnly = true)
     int selectAttendanceListCnt(AttendanceVo attendanceVo);
 
+    @Transactional(readOnly = true)
     List<AttendanceCalendarVo> selectAttendanceCalendarList(AttendanceCalendarVo attendanceCalendarVo);
+    @Transactional(readOnly = true)
     AttendanceCalendarVo selectAttendanceWeekCalendarList(AttendanceCalendarVo attendanceCalendarVo);
+    @Transactional(readOnly = true)
+    AttendanceBonusVo selectAttendanceBonus(AttendanceBonusVo attendanceBonusVo);
 }
