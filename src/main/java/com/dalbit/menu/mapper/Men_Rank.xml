@@ -99,7 +99,8 @@
         select *, @RNUM := @RNUM + 1 as rowNum
            from (
                   select
-                      fan.rank as fanRank
+                      fan.fan_point as fanRank
+                      <!--fan.rank as fanRank-->
                     , fan.up_down as upDown
                     , prof.image_profile as image_profile
                     , mem.mem_id as mem_id
@@ -148,7 +149,7 @@
                             or mem.mem_phone like concat('%', #{txt_search}, '%'))
                         </if>
                 ) a , (select @RNUM := 0) r
-            order by fanRank asc
+            order by fanRank desc
     </sql>
     <!-- DJ -->
     <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
@@ -233,10 +234,10 @@
                     from rd_data.tb_member_broadcast_item
                    where mem_no = a.mem_no
                      and room_no in ( select room_no
-                                        from rd_data.tb_broadcast_room
+                                        from rd_data.tb_broadcast_room_member
                                        where mem_no = a.mem_no
-                                         and date_format(end_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
-                                         and date_format(end_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate})
+                                         and date_format(join_date,'%Y.%m.%d') <![CDATA[>=]]> #{sDate}
+                                         and date_format(join_date,'%Y.%m.%d') <![CDATA[<=]]> #{eDate})
                   ) as itemCnt
         <if test='rankType == "1"'>
             <if test='liveCnt != 0'>

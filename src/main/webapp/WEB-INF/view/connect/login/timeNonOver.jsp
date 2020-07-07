@@ -102,6 +102,7 @@
 
 <script type="text/javascript">
     $(function(){
+        getTimeNonOver();
     });
 
     var tmp = 0;
