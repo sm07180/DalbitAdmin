@@ -111,6 +111,8 @@
     });
 
     function blockList() {
+        $('#blockDetail').show();
+
         getBlockList();
 
         $('#blockTypeArea').show();
