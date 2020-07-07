@@ -26,8 +26,6 @@ public interface Men_RankDao {
     List<DjRankingVo> getMainDjRankingList(DjRankingVo djRankingVo);
     @Transactional(readOnly = true)
     int getMainDjRankingListCnt(DjRankingVo djRankingVo);
-    @Transactional(readOnly = true)
-    DjRankingVo getDjRankingOutVo(DjRankingVo djRankingVo);
 
     /* fan 랭킹*/
     @Transactional(readOnly = true)
@@ -37,6 +35,4 @@ public interface Men_RankDao {
     List<FanRankingVo> getMainFanRankingList(FanRankingVo fanRankingVo);
     @Transactional(readOnly = true)
     int getMainFanRankingListCnt(FanRankingVo fanRankingVo);
-    @Transactional(readOnly = true)
-    FanRankingVo getFanRankingOutVo(FanRankingVo fanRankingVo);
 }
