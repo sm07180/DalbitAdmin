@@ -751,7 +751,7 @@
 
                 <th>발송형태</th>
                 <td colspan="2">
-                    {{{getCommonCodeRadio send_type 'push_sendType'}}}
+                    {{{getCommonCodeRadio send_type 'push_sendType' 'Y'}}}
 
                     <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="0" id="is_noti0" name="is_noti" class="form-control" checked disabled><span><i></i>미표시</span> </label>--%>
                     <%--<label class="control-inline fancy-radio custom-color-green"><input type="radio" value="1" id="is_noti1" name="is_noti" class="form-control" disabled><span><i></i>표시</span> </label>--%>
