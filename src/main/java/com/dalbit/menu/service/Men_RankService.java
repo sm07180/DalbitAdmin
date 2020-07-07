@@ -76,16 +76,6 @@ public class Men_RankService {
         djRankingVo.setTotalCnt(getMainDjRankingListCnt);
         List<DjRankingVo> djRankingList = menRankDao.getMainDjRankingList(djRankingVo);
 
-        for(int i=0; i<djRankingList.size(); i++){
-            if(!DalbitUtil.isEmpty(djRankingList)){
-                DjRankingVo inputVo = new DjRankingVo();
-                inputVo.setMemNo(djRankingList.get(i).getMemNo());
-                inputVo.setSDate(djRankingVo.getSDate());
-                inputVo.setEDate(djRankingVo.getEDate());
-                DjRankingVo outVo = menRankDao.getDjRankingOutVo(inputVo);
-                djRankingList.get(i).setItemCnt(outVo.getItemCnt());
-            }
-        }
         String result = gsonUtil.toJson(new JsonOutputVo(Status.메인_DJ랭킹조회_성공, djRankingList, new PagingVo(djRankingVo.getTotalCnt(), djRankingVo.getPageStart(), djRankingVo.getPageCnt())));
         return result;
     }
@@ -133,18 +123,6 @@ public class Men_RankService {
         int getMainFanRankingListCnt = menRankDao.getMainFanRankingListCnt(fanRankingVo);
         fanRankingVo.setTotalCnt(getMainFanRankingListCnt);
         List<FanRankingVo> fanRankingList = menRankDao.getMainFanRankingList(fanRankingVo);
-
-        for(int i=0; i<fanRankingList.size(); i++){
-            if(!DalbitUtil.isEmpty(fanRankingVo)){
-                FanRankingVo inputVo = new FanRankingVo();
-                inputVo.setMem_no(fanRankingList.get(i).getMem_no());
-                inputVo.setSDate(fanRankingVo.getSDate());
-                inputVo.setEDate(fanRankingVo.getEDate());
-                FanRankingVo outVo = menRankDao.getFanRankingOutVo(inputVo);
-
-                fanRankingList.get(i).setItemCnt(outVo.getItemCnt());
-            }
-        }
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.메인_팬랭킹조회_성공, fanRankingList, new PagingVo(fanRankingVo.getTotalCnt(), fanRankingVo.getPageStart(), fanRankingVo.getPageCnt())));
 
