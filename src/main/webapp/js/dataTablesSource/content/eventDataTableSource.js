@@ -198,6 +198,7 @@ var EventDataTableSource = {
                 }}
             , {'title': '경험치', 'data': 'reward_exp'}
             , {'title': '받은 달', 'data': 'reward_dal'}
+            , {'title': 'device UUID', 'data': 'device_uuid'}
         ]
     }
 }
