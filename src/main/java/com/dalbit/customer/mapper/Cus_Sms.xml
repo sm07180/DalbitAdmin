@@ -57,7 +57,7 @@
             , a.subject
             , a.msg_body
             , a.vxml_file
-            , a.status
+            , IF(a.status != 0, a.status, IF(a.send_time > current_timestamp, '3', a.status)) AS status
             , a.msg_type
             , a.send_name
             , a.cinfo
@@ -139,7 +139,7 @@
             , a.subject
             , a.msg_body
             , a.vxml_file
-            , a.status
+            , IF(a.status != 0, a.status, IF(a.send_time > current_timestamp, '3', a.status)) AS status
             , a.msg_type
             , a.send_name
             , a.cinfo

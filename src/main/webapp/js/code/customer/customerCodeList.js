@@ -121,6 +121,7 @@ var sms_status = [
     , new COMMON_CODE('0', '0', '요청')
     , new COMMON_CODE('1', '1', '대기')
     , new COMMON_CODE('2', '2', '완료')
+    , new COMMON_CODE('3', '3', '예약')
 ];
 
 
