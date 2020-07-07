@@ -423,7 +423,8 @@ public class Mem_MemberService {
             var blockDay = pMemberReportVo.getSlctType() == 6 ? 99 : pMemberReportVo.getBlockDay();
 
             for(int i = 0; i < blockScopes.length; i++){
-                if(blockScopes[i].equals("true")){
+                if(blockScopes[i].equals("true") && !DalbitUtil.isEmpty(blockScopeTexts[i])){
+
                     mem_MemberDao.insertLoginBlock(new LoginBlockVo(i+1, blockScopeTexts[i], blockDay, pMemberReportVo.getOpName(), pMemberReportVo.getIdx()));
 
                     int block_type = i+1;
