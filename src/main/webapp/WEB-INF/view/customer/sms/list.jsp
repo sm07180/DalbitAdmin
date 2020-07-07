@@ -61,7 +61,7 @@
                                             <col width="250px"/>    <!-- LMS 제목 -->
                                             <col width="450px"/>    <!-- 발송내용 -->
                                             <col width="110px"/>    <!-- 구분 -->
-                                            <col width="100px"/>    <!-- 요청자 -->
+                                            <col width="100px"/>    <!-- 발신자 -->
                                         </colgroup>
                                         <thead>
                                             <th>No</th>
@@ -75,7 +75,7 @@
                                             <th>LMS 제목</th>
                                             <th>발송내용</th>
                                             <th>구분</th>
-                                            <th>요청자</th>
+                                            <th>발신자</th>
                                         </thead>
                                         <tbody id="tableBody"></tbody>
                                     </table>

@@ -499,7 +499,7 @@
                 </td>
             </tr>
             <tr>
-                <th>발송자</th>
+                <th>발신자</th>
                 <td colspan="11">{{send_name}}</td>
             </tr>
             </tbody>

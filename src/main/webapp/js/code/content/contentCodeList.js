@@ -25,11 +25,13 @@ var push_searchType = [
     , new COMMON_CODE('all', '-1', '전체')
     , new COMMON_CODE('title', '1', '메시지 제목')
     , new COMMON_CODE('content', '2', '메시지 내용')
+    , new COMMON_CODE('opname', '3', '발신자')
 ];
 
 var push_sendType = [
     new COMMON_CODE(null, 'send_type', '발송형태')
-    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('push/noti', '0', 'PUSH/알림')
     , new COMMON_CODE('push', '1', 'PUSH')
     , new COMMON_CODE('noti', '2', '알림')
 ];
@@ -272,6 +274,14 @@ var content_platform4 = [
     , new COMMON_CODE('all', '0', '전체')
     , new COMMON_CODE('pc', '1', 'PC')
     , new COMMON_CODE('Mobile', '2', 'Mobile')
+];
+
+var content_platform5 = [
+    new COMMON_CODE(null, 'platform', '플랫폼구분')
+    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('android/ios', '111', 'Android/IOS')
+    , new COMMON_CODE('android', '110', 'Android')
+    , new COMMON_CODE('ios', '101', 'IOS')
 ];
 
 
