@@ -1,6 +1,7 @@
 package com.dalbit.content.controller.rest;
 
 import com.dalbit.content.service.Con_EventService;
+import com.dalbit.content.vo.AttendanceBonusVo;
 import com.dalbit.content.vo.AttendanceCalendarVo;
 import com.dalbit.content.vo.AttendanceVo;
 import com.dalbit.content.vo.procedure.*;
@@ -130,4 +131,12 @@ public class Con_EventRestController {
         String result = con_EventService.selectAttendanceWeekCalendarList(attendanceCalendarVo);
         return result;
     }
+
+    @PostMapping("/attendance/bonus/status")
+    public String selectAttendanceBonus(AttendanceBonusVo attendanceBonusVo) {
+        String result = con_EventService.selectAttendanceBonus(attendanceBonusVo);
+        return result;
+    }
+
+
 }

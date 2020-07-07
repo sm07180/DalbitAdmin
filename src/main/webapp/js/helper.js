@@ -265,3 +265,7 @@ Handlebars.registerHelper("calcAge", function(value, state) {
 Handlebars.registerHelper("substr", function(value, st, ed) {
     return common.substr(value,st, ed);
 });
+
+Handlebars.registerHelper("moment", function(value, format) {
+    return moment(value).format(format);
+});
