@@ -102,7 +102,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getTimeOver();
+        // getTimeOver();
     });
 
     var tmp = 0;

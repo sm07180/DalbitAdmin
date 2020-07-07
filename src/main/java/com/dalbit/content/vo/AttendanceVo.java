@@ -25,5 +25,6 @@ public class AttendanceVo extends PagingVo {
     private String last_upd_date;
     private int reward_exp;
     private int reward_dal;
+    private String device_uuid;
 
 }

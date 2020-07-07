@@ -53,8 +53,8 @@
                     <th colspan="2" class="_stateTopTh">해피머니상품권<i class="fa fa-smile-o"></i></th>
                     <th colspan="2" class="_stateTopTh">스마트문상(게임)<i class="fa fa-gamepad"></i></th>
                     <th colspan="2" class="_stateTopTh">도서문화상품권<i class="fa fa-book"></i></th>
-                    <th colspan="2" class="_stateTopTh">티머니<i class="fa fa-bus"></i></th>
-                    <th colspan="2" class="_stateTopTh">캐시비<i class="fa fa-forumbee"></i></th>
+                    <%--<th colspan="2" class="_stateTopTh">티머니<i class="fa fa-bus"></i></th>--%>
+                    <%--<th colspan="2" class="_stateTopTh">캐시비<i class="fa fa-forumbee"></i></th>--%>
                     <%--<th colspan="2" class="_stateTopTh">페이코<i class="fa fa-paypal"></i></th>--%>
                     <%--<th colspan="2" class="_stateTopTh">카카오페이<i class="fa fa-comment"></i></th>--%>
                 </tr>
@@ -77,10 +77,10 @@
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
                     <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
+                    <%--<th class="_stateSubTh">건</th>--%>
+                    <%--<th class="_stateSubTh">금액</th>--%>
+                    <%--<th class="_stateSubTh">건</th>--%>
+                    <%--<th class="_stateSubTh">금액</th>--%>
                     <%--<th class="_stateSubTh">건</th>--%>
                     <%--<th class="_stateSubTh">금액</th>--%>
                     <%--<th class="_stateSubTh">건</th>--%>
@@ -95,7 +95,7 @@
         <div class="main-content">
             <div class="widget">
                 <div class="widget-content">
-                    <div id='barArea'></div>
+                    <div id='barArea' style="display: none"></div>
                 </div>
             </div>
         </div>
@@ -114,8 +114,6 @@
     });
 
     function getPayYearList(){
-        $("#wayYearTableBody").empty();
-        $("#yearTableBody").empty();
         $("#year_th_1").text(moment($("#startDate").val()).add('years', -1).format('YYYY'));
         $("#year_th_0").text(moment($("#startDate").val()).add('years', 0).format('YYYY'));
 
@@ -129,17 +127,17 @@
         data.slctType = 2;
 
         console.log(data);
+
+        $("#yearTableBody").empty();
+        $("#wayYearTableBody").empty();
+        $("#barArea").hide();
+
         util.getAjaxData("total", "/rest/enter/pay/total", data, fn_payYear_success);
     }
 
     var yearResponseData;
     function fn_payYear_success(data, response){
         yearResponseData = response.data;
-        if(response.result == "fail"){
-            searchDate();
-            getPayYearList();
-            return;
-        }
 
         var slctType_date = [];
         for(i = (response.data[1].detailList.length-1); 0 < i; i-- ){
@@ -277,6 +275,8 @@
         chart();
     }
     function chart(){
+        $("#barArea").show();
+
         yearResponseData = yearResponseData[1].detailList;
         var sortingField = "monthly";
         yearResponseData.sort(function(a, b) { // 오름차순
@@ -291,7 +291,7 @@
                 yList.push(common.vatMinus(yearResponseData[i].succAmt));
             }
         }
-        console.log(yList);
+        //console.log(yList);
         var year = {
             type: 'bar',
             x: xList,
@@ -305,9 +305,24 @@
         };
         var data = [ year ];
         var layout = {
-            font: {size: 13}
+            autosize:true,
+            /*width:'100%',
+            height:500,*/
+            font: {size: 13},
+            xaxis: {
+                autorange: true,
+            },
+            yaxis: {
+                tickformat:",d"
+            },
+            separators : '.,',
+            legend: {
+                y: 1,
+                y: 1,
+                traceorder: 'reversed',
+            }
         };
-        var config = {responsive: true};
+        var config = {responsive: false};
         Plotly.newPlot('barArea', data, layout, config );
     }
 
@@ -359,10 +374,10 @@
         <td>{{vatMinus sum_gcCnt}}</td>
         <td>{{vatMinus sum_gcAmt}}</td>
 
-        <td>{{vatMinus sum_tmoneyCnt}}</td>
-        <td>{{vatMinus sum_tmoneyAmt}}</td>
-        <td>{{vatMinus sum_cashbeeCnt}}</td>
-        <td>{{vatMinus sum_cashbeeAmt}}</td>
+        <%--<td>{{vatMinus sum_tmoneyCnt}}</td>--%>
+        <%--<td>{{vatMinus sum_tmoneyAmt}}</td>--%>
+        <%--<td>{{vatMinus sum_cashbeeCnt}}</td>--%>
+        <%--<td>{{vatMinus sum_cashbeeAmt}}</td>--%>
         <%--<td>{{vatMinus sum_paycoCnt}}</td>--%>
         <%--<td>{{vatMinus sum_paycoAmt}}</td>--%>
         <%--<td>{{vatMinus sum_kakaopayCnt}}</td>--%>
@@ -395,10 +410,10 @@
         <td>{{vatMinus gcCnt}}</td>
         <td>{{vatMinus gcAmt}}</td>
 
-        <td>{{vatMinus tmoneyCnt}}</td>
-        <td>{{vatMinus tmoneyAmt}}</td>
-        <td>{{vatMinus cashbeeCnt}}</td>
-        <td>{{vatMinus cashbeeAmt}}</td>
+        <%--<td>{{vatMinus tmoneyCnt}}</td>--%>
+        <%--<td>{{vatMinus tmoneyAmt}}</td>--%>
+        <%--<td>{{vatMinus cashbeeCnt}}</td>--%>
+        <%--<td>{{vatMinus cashbeeAmt}}</td>--%>
         <%--<td>{{vatMinus paycoCnt}}</td>--%>
         <%--<td>{{vatMinus paycoAmt}}</td>--%>
         <%--<td>{{vatMinus kakaopayCnt}}</td>--%>
