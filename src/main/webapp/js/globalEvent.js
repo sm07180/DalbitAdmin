@@ -36,11 +36,7 @@ $(document).on('click', '._openPlayerPop', function(){
 $(document).on('click', '._openSmsSendPop', function(){
     var url = "/customer/sms/popup/smsSendPopup?cmid="+encodeURIComponent($(this).data('cmid'))+"&rownum="+encodeURIComponent($(this).data('rownum'))+"&logtable="+encodeURIComponent($(this).data('logtable'));;
 
-    if(common.isEmpty($(this).data('cmid')) || common.isEmpty($(this).data('rownum'))){
-        util.windowOpen(url, 775, 560, 'smsSend');
-    }else{
-        util.windowOpen(url, 575, 360, 'smsSend');
-    }
+    util.windowOpen(url, 775, 560, 'smsSend');
 });
 
 $(document).on('click', 'img._imageFullPop', function(){

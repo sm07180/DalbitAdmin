@@ -232,13 +232,13 @@
         <tr data-week='{{week_no}}'>
             <th>{{moment cur_month 'MM'}}월 {{week_no}}주차</th>
             <th>{{moment s_week 'MM.DD'}} - {{moment e_week 'MM.DD'}}</th>
-            <td>{{target_cnt}}명</td>
-            <td>{{sex_man}}명</td>
-            <td>{{sex_female}}명</td>
-            <td>{{sex_unkwown}}명</td>
-            <td>{{join_cnt}}명</td>
-            <td>{{expSum}}exp</td>
-            <td>{{dalSum}}달</td>
+            <td>{{addComma target_cnt}}명</td>
+            <td>{{addComma sex_man}}명</td>
+            <td>{{addComma sex_female}}명</td>
+            <td>{{addComma sex_unkwown}}명</td>
+            <td>{{addComma join_cnt}}명</td>
+            <td>{{addComma expSum}}exp</td>
+            <td>{{addComma dalSum}}달</td>
         </tr>
     {{/each}}
 </script>
@@ -248,13 +248,13 @@
         <tr data-week='{{week_no}}'>
             <th>{{moment cur_month 'MM'}}월 {{week_no}}주차</th>
             <th>{{moment s_week 'MM.DD'}} - {{moment e_week 'MM.DD'}}</th>
-            <td>{{exp50}}</td>
-            <td>{{exp70}}</td>
-            <td>{{exp100}}</td>
-            <td>{{exp200}}</td>
-            <td>{{exp300}}</td>
-            <td>{{exp500}}</td>
-            <td>{{expSum}}</td>
+            <td>{{addComma exp50}}</td>
+            <td>{{addComma exp70}}</td>
+            <td>{{addComma exp100}}</td>
+            <td>{{addComma exp200}}</td>
+            <td>{{addComma exp300}}</td>
+            <td>{{addComma exp500}}</td>
+            <td>{{addComma expSum}}</td>
         </tr>
     {{/each}}
 </script>
@@ -264,17 +264,17 @@
         <tr data-week='{{week_no}}'>
             <th>{{moment cur_month 'MM'}}월 {{week_no}}주차</th>
             <th>{{moment s_week 'MM.DD'}} - {{moment e_week 'MM.DD'}}</th>
-            <td>{{dal1}}</td>
-            <td>{{dal2}}</td>
-            <td>{{dal3}}</td>
-            <td>{{dal4}}</td>
-            <td>{{dal5}}</td>
-            <td>{{dal6}}</td>
-            <td>{{dal7}}</td>
-            <td>{{dal8}}</td>
-            <td>{{dal9}}</td>
-            <td>{{dal10}}</td>
-            <td>{{dalSum}}</td>
+            <td>{{addComma dal1}}</td>
+            <td>{{addComma dal2}}</td>
+            <td>{{addComma dal3}}</td>
+            <td>{{addComma dal4}}</td>
+            <td>{{addComma dal5}}</td>
+            <td>{{addComma dal6}}</td>
+            <td>{{addComma dal7}}</td>
+            <td>{{addComma dal8}}</td>
+            <td>{{addComma dal9}}</td>
+            <td>{{addComma dal10}}</td>
+            <td>{{addComma dalSum}}</td>
         </tr>
     {{/each}}
 </script>

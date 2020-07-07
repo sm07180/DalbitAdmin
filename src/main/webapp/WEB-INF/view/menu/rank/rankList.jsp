@@ -126,19 +126,19 @@
         $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
         init();
 
-        // $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
-        //     var selectDate = moment(dateText.date).format("YYYY.MM.DD");
-        //     $("#startDate").val(selectDate);
-        // });
-
-        $('#onedayDate').datepicker({
-            minViewMode: 'days',
-            format: 'yyyy.mm.dd',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
+        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
+            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
+            $("#startDate").val(selectDate);
         });
+
+        // $('#onedayDate').datepicker({
+        //     minViewMode: 'days',
+        //     format: 'yyyy.mm.dd',
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     autoclose: true,
+        //     language: 'kr',
+        // });
 
         $('#monthDate').datepicker({
             minViewMode: 'months',
@@ -150,7 +150,6 @@
         });
 
         $("#onedayDate").on('change', function () {
-            console.log("----------------------------");
             if($('input:radio[name="rankType"]:checked').val() == 2){
                 setMonday();
             }else{
