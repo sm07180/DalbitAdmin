@@ -384,4 +384,42 @@
             group by attendance.the_date
         ) a
     </select>
+
+    <select id="selectAttendanceBonus" parameterType="com.dalbit.content.vo.AttendanceBonusVo" resultType="com.dalbit.content.vo.AttendanceBonusVo">
+        select
+            (select count(*)
+                from rd_data.tb_member_attendance_check
+                where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+                    and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+                    and the_day = 9) target_cnt
+            , count(*) join_cnt
+            , count(case when basic.mem_sex = 'm' or withdrawal.mem_sex = 'm' then 1 end) sex_man
+            , count(case when basic.mem_sex = 'f' or withdrawal.mem_sex = 'f' then 1 end) sex_female
+            , count(case when basic.mem_sex = 'n' or withdrawal.mem_sex = 'n' then 1 end) sex_unkwown
+            , count(case when chk.reward_exp = 50 then 1 end) exp50
+            , count(case when chk.reward_exp = 70 then 1 end) exp70
+            , count(case when chk.reward_exp = 100 then 1 end) exp100
+            , count(case when chk.reward_exp = 200 then 1 end) exp200
+            , count(case when chk.reward_exp = 300 then 1 end) exp300
+            , count(case when chk.reward_exp = 500 then 1 end) exp500
+            , count(case when chk.reward_dal = 1 then 1 end) dal1
+            , count(case when chk.reward_dal = 2 then 1 end) dal2
+            , count(case when chk.reward_dal = 3 then 1 end) dal3
+            , count(case when chk.reward_dal = 4 then 1 end) dal4
+            , count(case when chk.reward_dal = 5 then 1 end) dal5
+            , count(case when chk.reward_dal = 6 then 1 end) dal6
+            , count(case when chk.reward_dal = 7 then 1 end) dal7
+            , count(case when chk.reward_dal = 8 then 1 end) dal8
+            , count(case when chk.reward_dal = 9 then 1 end) dal9
+            , count(case when chk.reward_dal = 10 then 1 end) dal10
+            , sum(chk.reward_exp) expSum
+            , sum(chk.reward_dal) dalSum
+        from rd_data.tb_member_attendance_check chk
+            left join rd_data.tb_member_basic basic on chk.mem_no = basic.mem_no
+            left join rd_data.tb_member_withdrawal_bak withdrawal on chk.mem_no = withdrawal.mem_no
+        where date_format(#{search_startDate}, '%Y-%m-%d') <![CDATA[<=]]> date_format(the_date, '%Y-%m-%d')
+            and date_format(the_date, '%Y-%m-%d') <![CDATA[<=]]> date_format(#{search_endDate}, '%Y-%m-%d')
+            and check_ok = 1
+            and the_day = 9
+    </select>
 </mapper>

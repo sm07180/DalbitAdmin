@@ -261,7 +261,6 @@
 
 </script>
 
-
 <script type="text/x-handlebars-template" id="tmp_calendarData">
     <div>참여자 수 : {{addComma joinSum}} 명</div>
     <div>로그인 수 : {{addComma loginCnt}} 명</div>
