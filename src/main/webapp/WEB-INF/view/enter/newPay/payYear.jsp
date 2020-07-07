@@ -291,7 +291,7 @@
                 yList.push(common.vatMinus(yearResponseData[i].succAmt));
             }
         }
-        console.log(yList);
+        //console.log(yList);
         var year = {
             type: 'bar',
             x: xList,
@@ -305,18 +305,24 @@
         };
         var data = [ year ];
         var layout = {
+            autosize:true,
+            /*width:'100%',
+            height:500,*/
             font: {size: 13},
             xaxis: {
                 autorange: true,
             },
-
+            yaxis: {
+                tickformat:",d"
+            },
+            separators : '.,',
             legend: {
                 y: 1,
                 y: 1,
                 traceorder: 'reversed',
             }
         };
-        var config = {responsive: true};
+        var config = {responsive: false};
         Plotly.newPlot('barArea', data, layout, config );
     }
 
