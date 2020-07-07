@@ -70,7 +70,7 @@ var PushDataTableSource = {
                      return data;
                  }},
              */
-             {'title': '처리자명', 'data': 'opName', 'defaultContent': '-', 'width':'100px'},
+             {'title': '발신자', 'data': 'opName', 'defaultContent': '-', 'width':'100px'},
         ]
 
         , 'comments': ' 방송 중 운영자 공지/알림/이벤트 안내 메시지등을 발송 할 수 있습니다.'
@@ -92,7 +92,7 @@ var PushDataTableSource = {
             {'title': '등록/수정기간', 'data': 'push_col6', 'width':'100px', 'render': function (data, type, row, meta) {
                     return common.convertToDate(data);
                 }},
-            {'title': '처리자명', 'data': 'push_col7', 'defaultContent': '로그아웃', 'width':'100px'},
+            {'title': '발신자', 'data': 'push_col7', 'defaultContent': '로그아웃', 'width':'100px'},
         ]
         , 'comments': ' 방송 중 운영자 공지/알림/이벤트 안내 메시지등을 발송 할 수 있습니다.'
     }

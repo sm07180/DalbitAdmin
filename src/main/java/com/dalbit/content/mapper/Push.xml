@@ -35,6 +35,32 @@
           COUNT(*)
         FROM
           rd_admin.tb_admin_push
+        <where>
+            <if test='platform != null and platform != "" and platform != "1"'>
+                AND platform = #{platform}
+            </if>
+
+            <if test='send_type != null and send_type != "" and send_type != "-1"'>
+                AND send_type = #{send_type}
+            </if>
+
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND send_title like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND send_cont like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND op_name like concat ('%', #{searchText}, '%')
+                    </when>
+                    <otherwise>
+                        AND (send_title like concat ('%', #{searchText}, '%') OR send_cont like concat ('%', #{searchText}, '%') OR op_name like concat ('%', #{searchText}, '%'))
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
     </select>
 
     <select id="callContentsPushList" parameterType="com.dalbit.content.vo.procedure.P_pushListInputVo" resultType="com.dalbit.content.vo.procedure.P_pushListOutputVo">
@@ -49,16 +75,23 @@
                 AND platform = #{platform}
             </if>
 
+            <if test='send_type != null and send_type != "" and send_type != "-1"'>
+                AND send_type = #{send_type}
+            </if>
+
             <if test='searchText != null and searchText != ""'>
                 <choose>
                     <when test='searchType == 1'>
-                        AND send_title like #{searchText}
+                        AND send_title like concat ('%', #{searchText}, '%')
                     </when>
                     <when test='searchType == 2'>
-                        AND send_cont like #{searchText}
+                        AND send_cont like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND op_name like concat ('%', #{searchText}, '%')
                     </when>
                     <otherwise>
-                        AND (send_title like #{searchText} OR send_cont like #{searchText})
+                        AND (send_title like concat ('%', #{searchText}, '%') OR send_cont like concat ('%', #{searchText}, '%') OR op_name like concat ('%', #{searchText}, '%'))
                     </otherwise>
                 </choose>
             </if>
