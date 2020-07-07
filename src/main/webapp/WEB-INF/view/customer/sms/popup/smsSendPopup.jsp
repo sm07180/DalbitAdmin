@@ -58,9 +58,17 @@
     });
 
     function init(){
-        var template = $('#tmp_SmsSend_insert').html();
+        var data = {
+            "msg_type" : "0"
+            ,"is_direct" : "0"
+            ,"subject": "[달빛라이브]"
+            ,"msg_body": "[달빛라이브]"
+        };
+
+        var template = $('#tmp_SmsSend_view').html();
         var templateScript = Handlebars.compile(template);
-        var html=templateScript();
+        var context = data;
+        var html=templateScript(context);
 
         $(".smsSendPopup").append(html);
         initData_smsSend();
@@ -199,10 +207,26 @@
 
             $(".smsSendPopup").append(html);
 
+            initData_smsSend();
+            smsSend_eventInit();
+
+            initUpdateData_smsSend(response.data);
         }else{
 
         }
     }
+
+    function initUpdateData_smsSend(target){
+        var data = {
+            "mem_phone" : target.dest_phone
+            ,"mem_no" : common.isEmpty(target.mem_no) ? "0" : target.mem_no
+            ,"mem_nick": common.isEmpty(target.mem_nick) ? "직접입력" : target.mem_nick
+        };
+        choiceMember_smsSend(data);
+
+        checkContText_smsSend();
+    }
+
 
     function insert_smsSend(){
         var data = getDetailData_smsSend();
@@ -351,7 +375,8 @@
     }
 </script>
 
-<script type="text/x-handlebars-template" id="tmp_SmsSend_insert">
+
+<script type="text/x-handlebars-template" id="tmp_SmsSend_view">
     <form id="form_smsSend">
         <input type="hidden" name="sms_idx" value="{{cmid}}" />
         <div class="row col-md-12">
@@ -381,37 +406,40 @@
                 <tr>
                     <th>발송형태</th>
                     <td colspan="11">
-                        {{{getCommonCodeRadio 0 'sms_msgType'}}}
+                        {{{getCommonCodeRadio msg_type 'sms_msgType'}}}
                     </td>
                 </tr>
                 <tr>
                     <th>수신대상</th>
-                        <td colspan="11" style="width:50%;">
+                    <td colspan="11" style="width:50%;">
+                        <div>
+                            <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>전체</span> </label>
+                            <label class="control-inline fancy-radio custom-color-green"><input type="radio" id="is_all99" name="is_all" value="99" class="form-control"><span><i></i>테스트 계정</span></label>
                             <div>
-                                <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="11" id="is_all11" name="is_all" class="form-control"><span><i></i>전체</span> </label>
-                                <label class="control-inline fancy-radio custom-color-green"><input type="radio" id="is_all99" name="is_all" value="99" class="form-control"><span><i></i>테스트 계정</span></label>
-                                <div>
-                                    <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="7" id="is_all7" name="is_all" class="form-control" checked="checked"><span><i></i>지정 회원 </span></label>
-                                    <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember"/>
-                                    <span class="pr5 pl5"> | </span>
-                                    <input type="text" class="form-control control-inline" name="add_phone" id="add_phone" placeholder="수신번호 입력" maxlength="11" style="width:130px; height:25px;">
-                                    <input type="button" value="번호추가" class="btn btn-success btn-xs pl5" id="btn_addMember"/>
+                                <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="7" id="is_all7" name="is_all" class="form-control" checked="checked"><span><i></i>지정 회원 </span></label>
+                                <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember"/>
+                                <span class="pr5 pl5"> | </span>
+                                <input type="text" class="form-control control-inline" name="add_phone" id="add_phone" placeholder="수신번호 입력" maxlength="11" style="width:130px; height:25px;">
+                                <input type="button" value="번호추가" class="btn btn-success btn-xs pl5" id="btn_addMember"/>
+                            </div>
+                            <%--
+                            <div>
+                                <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="8" id="is_all8" name="is_all" class="form-control" checked="checked"><span><i></i>직접입력</span></label>
+                                <input type="text" class="form-control control-inline" name="add_phone" id="add_phone" placeholder="수신번호 입력" maxlength="11" style="width:130px; height:25px;">
+                                <input type="button" value="번호추가" class="btn btn-success btn-xs" id="btn_addMember"/>
                                 </div>
-                                <%--<div>
-                                    <label class="control-inline fancy-radio custom-color-green"><input type="radio" value="8" id="is_all8" name="is_all" class="form-control" checked="checked"><span><i></i>직접입력</span></label>
-                                    <input type="text" class="form-control control-inline" name="add_phone" id="add_phone" placeholder="수신번호 입력" maxlength="11" style="width:130px; height:25px;">
-                                    <input type="button" value="번호추가" class="btn btn-success btn-xs" id="btn_addMember"/>
-                                --%></div>
-                            </div>
-                            <div id="div_selectTarget" style="padding-left: 30px;">
-                            </div>
-                        </td>
+                            --%>
+
+                        </div>
+                        <div id="div_selectTarget" style="padding-left: 30px;">
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th>발송여부</th>
                     <td colspan="11">
                         <div>
-                            {{{getCommonCodeRadio 0 'sms_isDirect' 'N' 'is_direct'}}}
+                            {{{getCommonCodeRadio is_direct 'sms_isDirect' 'N' 'is_direct'}}}
                         </div>
                         <div class="input-group date" id="smsSend-div-sendDate" style="display:none;">
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -425,7 +453,7 @@
                 <tr>
                     <th>제목</th>
                     <td colspan="11" style="width:50%;">
-                        <input type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달빛라이브]" maxlength="30">
+                        <input type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="{{subject}}" maxlength="30">
                         <span style="color: red; font-size:0.9em">* LMS 제목은 한글 최대 30자까지 입력 가능합니다.</span>
                     </td>
                 </tr>
@@ -433,80 +461,30 @@
                     <th>내용</th>
                     <td colspan="11">
                         <div>
-                            <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="SMS/LMS 발송 문자 내용을 입력해 주세요." style="resize: none" maxlength="1000" oninput="checkContText_smsSend()">[달빛라이브]</textarea>
+                            <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="SMS/LMS 발송 문자 내용을 입력해 주세요." style="resize: none" maxlength="1000" oninput="checkContText_smsSend()">{{{msg_body}}}</textarea>
                             <span style="color: red; font-size:0.9em">* SMS 최대 40자(한글) / LMS 최대 1000자(한글)까지 입력 가능합니다.</span><br>
                         </div>
                     </td>
                 </tr>
-                </tbody>
-            </table>
-            <div class="col-md-6 pull-left pl0">
-                <button class="btn btn-default" type="button" id="closeBtn" onclick="javascript:window.close();">닫기</button>
-            </div>
-            <div class="col-md-6 pull-right pr0">
-                <button class="btn btn-info _layerOpen" data-toggle="modal" data-target="#smsPreViewModal" type="button" id="preViewBtn">미리보기</button>
-                <button class="btn btn-primary" type="button" id="insertBtn">발송</button>
-            </div>
-        </div>
-    </form>
-</script>
-
-<script type="text/x-handlebars-template" id="tmp_SmsSend_view">
-    <input type="hidden" name="cmid" value="{{cmid}}" />
-    <div class="row col-md-12">
-        <table class="table table-bordered table-dalbit">
-            <colgroup>
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-                <col width="8%" />
-            </colgroup>
-            <tbody>
-            <tr class="align-middle">
-                <th>No</th>
-                <td colspan="5">{{rowNum}}</td>
-
-                <th>발송일시</th>
-                <td colspan="5">{{report_time}}</td>
-            </tr>
-            <tr>
-                <th>수신대상</th>
-                <td colspan="5">{{dest_phone}}</td>
-
-                <th>발송형태</th>
-                <td colspan="5">
-                    {{{getCommonCodeLabel msg_type 'sms_msgType'}}}
-                </td>
-            </tr>
-            <tr>
-                <th>제목</th>
-                <td colspan="11" style="width:50%;"><input type="text" class="form-control" name="subject" id="subject" value="{{subject}}" style="background-color: white;" disabled="disabled"></td>
-            </tr>
-            <tr>
-                <th>내용</th>
-                <td colspan="11">
-                    <div>
-                        <textarea class="form-control" name="msg_body" id="msg_body" rows="5" cols="30" oninput="util.textareaResize(this)" style="resize: none; background-color: white;" maxlength="150" disabled="disabled">{{msg_body}}</textarea>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>발신자</th>
-                <td colspan="11">{{send_name}}</td>
-            </tr>
+                {{#if cmid}}
+                <tr>
+                    <th>발신자</th>
+                    <td colspan="11">{{send_name}}</td>
+                </tr>
+                {{/if}}
             </tbody>
         </table>
-        <div class="col-md-12 pull-right pr0">
-            <button class="btn btn-default btn-sm" type="button" onclick="javascript:window.close();">닫기</button>
+        <div class="col-md-6 pull-left pl0">
+            <button class="btn btn-default" type="button" id="closeBtn" onclick="javascript:window.close();">닫기</button>
         </div>
-    </div>
-
+        <div class="col-md-6 pull-right pr0">
+            <button class="btn btn-info _layerOpen" data-toggle="modal" data-target="#smsPreViewModal" type="button" id="preViewBtn">미리보기</button>
+            {{#if cmid}}
+                <button class="btn btn-primary" type="button" id="insertBtn">재발송</button>
+            {{else}}
+                <button class="btn btn-primary" type="button" id="insertBtn">발송</button>
+            {{/if}}
+        </div>
+        </div>
+    </form>
 </script>

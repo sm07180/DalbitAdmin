@@ -37,9 +37,9 @@
             <div class="row col-lg-12 form-inline">
                 <div class="mb15" id="htmlTag"></div>
                     <ul class="nav nav-tabs nav-tabs-custom-colored" id="smsTab" role="tablist">
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="7" id="tab_admin" onclick="init(7)">운영자 발송</a></li>
                         <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="2" id="tab_pay" onclick="init(2)">가상계좌 발송</a></li>
                         <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="1" id="tab_certification" onclick="init(1)">인증번호 발송</a></li>
+                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="7" id="tab_admin" onclick="init(7)">운영자 발송</a></li>
                         <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="3" id="tab_etc" onclick="init(3)">기타 발송</a></li>
                     </ul>
                     <div class="tab-content">
@@ -72,8 +72,8 @@
                                             <th>회원 닉네임</th>
                                             <th>상태</th>
                                             <th>발송일</th>
-                                            <th>LMS 제목</th>
-                                            <th>발송내용</th>
+                                            <th>문자제목</th>
+                                            <th>문자내용</th>
                                             <th>구분</th>
                                             <th>발신자</th>
                                         </thead>
@@ -103,7 +103,7 @@
         "<br> ㆍ서비스를 위한 문자 발송 상태 실패 내역을 확인 할 수 있습니다.");
 
     $(document).ready(function() {
-       $("#tab_admin").click();
+       $("#tab_pay").click();
     });
 
     $('input[id="searchText"]').keydown(function(e) {
