@@ -225,6 +225,7 @@
               , att.last_upd_date as last_upd_date
               , att.reward_exp as reward_exp
               , att.reward_dal as reward_dal
+              , att.device_uuid as device_uuid
               , @RNUM := @RNUM + 1 as rowNum
         from rd_data.tb_member_attendance_check att
             , rd_data.tb_member_basic bas
