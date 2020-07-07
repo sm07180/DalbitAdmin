@@ -39,10 +39,6 @@
                 <div>
                     <div>
                         <div class="row col-lg-12 form-inline">
-                            <div class="table-comment pt10 pull-left">
-                                DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
-                            </div>
-
                             <div class="table-option pt10 pull-right">
                                 <label class="control-inline fancy-radio custom-color-green">
                                     <input type="radio" name="rankType" value='1' checked="checked" />

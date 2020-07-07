@@ -189,5 +189,5 @@
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>
-        {{/each}}
+    {{/each}}
 </script>
