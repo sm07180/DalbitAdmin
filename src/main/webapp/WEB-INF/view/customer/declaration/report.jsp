@@ -370,8 +370,9 @@
                 <th colspan="2">누적 결제 수<br />/금액</th>
                 <td colspan="2">{{addComma reported_payCount}}개 <br />{{addComma reported_payAmount}}원</td>
 
-                <th rowspan="4">조치 선택</th>
-                <td rowspan="4" colspan="3" id="message">
+
+                <th {{#if room_no}}rowspan="5"{{else}}rowspan="4"{{/if}}>조치 선택</th>
+                <td {{#if room_no}}rowspan="5"{{else}}rowspan="4"{{/if}} colspan="3" id="message">
                     {{{getCommonCodeCheck message 'declaration_Message'}}}
                 </td>
             </tr>
@@ -388,9 +389,14 @@
 
                 <th colspan="2">총 신고/조치</th>
                 <td colspan="2"> 프로시저에 없음<br />/프로시저에 없음</td>
-
-
             </tr>
+
+            {{#if room_no}}
+            <tr>
+                <th colspan="2">방송방</th>
+                <td colspan="6">{{{roomNoLink room_no room_no}}}</td>
+            </tr>
+            {{/if}}
 
             <tr>
                 <th colspan="2">신고 메시지</th>
