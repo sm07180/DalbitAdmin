@@ -291,7 +291,7 @@
         {{else}}
             <td></td>
         {{/if}}
-        {{#dalbit_if sms_status '>' '2'}}
+        {{#dalbit_if sms_status '>' '3'}}
             <td>오류</td>
         {{else}}
             <td>{{{getCommonCodeLabel status 'sms_status'}}}</td>
