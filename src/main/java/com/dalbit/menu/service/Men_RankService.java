@@ -80,19 +80,9 @@ public class Men_RankService {
             if(!DalbitUtil.isEmpty(djRankingList)){
                 DjRankingVo inputVo = new DjRankingVo();
                 inputVo.setMemNo(djRankingList.get(i).getMemNo());
-                inputVo.setRankType(djRankingVo.getRankType());
                 inputVo.setSDate(djRankingVo.getSDate());
                 inputVo.setEDate(djRankingVo.getEDate());
-                inputVo.setLiveCnt(djRankingVo.getLiveCnt());
-                inputVo.setLiveDate(djRankingVo.getLiveDate());
-
                 DjRankingVo outVo = menRankDao.getDjRankingOutVo(inputVo);
-
-                djRankingList.get(i).setBroadCnt(outVo.getBroadCnt());
-                djRankingList.get(i).setListenCnt(outVo.getListenCnt());
-                djRankingList.get(i).setAirTime(outVo.getAirTime());
-                djRankingList.get(i).setGoodCnt(outVo.getGoodCnt());
-                djRankingList.get(i).setRankPoint(outVo.getRankPoint());
                 djRankingList.get(i).setItemCnt(outVo.getItemCnt());
             }
         }
@@ -148,18 +138,10 @@ public class Men_RankService {
             if(!DalbitUtil.isEmpty(fanRankingVo)){
                 FanRankingVo inputVo = new FanRankingVo();
                 inputVo.setMem_no(fanRankingList.get(i).getMem_no());
-                inputVo.setRankType(fanRankingVo.getRankType());
                 inputVo.setSDate(fanRankingVo.getSDate());
                 inputVo.setEDate(fanRankingVo.getEDate());
-                inputVo.setLiveCnt(fanRankingVo.getLiveCnt());
-                inputVo.setLiveDate(fanRankingVo.getLiveDate());
                 FanRankingVo outVo = menRankDao.getFanRankingOutVo(inputVo);
 
-                fanRankingList.get(i).setBroadCnt(outVo.getBroadCnt());
-                fanRankingList.get(i).setListenCnt(outVo.getListenCnt());
-                fanRankingList.get(i).setAirTime(outVo.getAirTime());
-                fanRankingList.get(i).setGoodCnt(outVo.getGoodCnt());
-                fanRankingList.get(i).setRankPoint(outVo.getRankPoint());
                 fanRankingList.get(i).setItemCnt(outVo.getItemCnt());
             }
         }
