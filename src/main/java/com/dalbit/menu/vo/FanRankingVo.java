@@ -38,6 +38,6 @@ public class FanRankingVo extends PagingVo {
     private int listenCnt;
     private int goodCnt;
     private int rankPoint;
-    private String itemCnt;
+    private int itemCnt;
 
 }
