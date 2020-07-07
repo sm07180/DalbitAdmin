@@ -346,6 +346,8 @@
         }
 
         util.textareaResize(document.getElementById("smsSend-msg_body"));
+
+        window.resizeTo(window.outerWidth, $(".container").height()+100);
     }
 </script>
 

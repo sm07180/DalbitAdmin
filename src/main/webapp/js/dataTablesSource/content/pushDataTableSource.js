@@ -41,6 +41,10 @@ var PushDataTableSource = {
                          return "회원";
                      }
 
+                     if(data == "31"){
+                         return "비회원";
+                     }
+
                      if(data == "99"){
                          return "테스트";
                      }
