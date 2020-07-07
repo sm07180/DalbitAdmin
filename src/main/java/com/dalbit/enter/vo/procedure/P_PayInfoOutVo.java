@@ -25,6 +25,14 @@ public class P_PayInfoOutVo {
     private int gg_amt;
     private int gc_cnt;
     private int gc_amt;
+    private int tmoney_cnt;
+    private int tmoney_amt;
+    private int cashbee_cnt;
+    private int cashbee_amt;
+    private int payco_cnt;
+    private int payco_amt;
+    private int kakaopay_cnt;
+    private int kakaopay_amt;
 
     private int ra_cnt;
     private int ra_amt;

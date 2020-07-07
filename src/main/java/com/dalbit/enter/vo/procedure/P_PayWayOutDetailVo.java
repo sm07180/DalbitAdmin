@@ -32,4 +32,12 @@ public class P_PayWayOutDetailVo {
     private int ggAmt;
     private int gcCnt;
     private int gcAmt;
+    private int tmoneyCnt;
+    private int tmoneyAmt;
+    private int cashbeeCnt;
+    private int cashbeeAmt;
+    private int paycoCnt;
+    private int paycoAmt;
+    private int kakaopayCnt;
+    private int kakaopayAmt;
 }
