@@ -29,7 +29,7 @@ public class SmsVo {
     private String msgBody;         //메시지
     private String subject = "";    //제목
     private String vxmlFile;        //문자발송구분 (0: 회원가입, 1: 비밀번호변경, 2: 환전, 7: 운영자 발송) Admin은 비밀번호 초기화 '1' 하드코딩
-    private String send_name;
+    private String send_name = "";
     private String send_time;
     private String mem_no;
     private String cinfo;              // 운영자 발송 시 그룹 코드

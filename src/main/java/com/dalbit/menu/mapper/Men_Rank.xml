@@ -208,7 +208,7 @@
                 ) as itemCnt
         <if test='rankType == "1"'>
             <if test='liveCnt != 0'>
-                ,(select round(dj_point) from rd_data.tb_ranking_dj_live where date_format(ranking_date,'%Y.%m.%d') = #{sDate} and mem_no=a.mem_no) as rankPoint
+                ,(select round(dj_point) from rd_data.tb_ranking_dj_live where ranking_date = #{liveDate} and mem_no=a.mem_no) as rankPoint
             </if>
             <if test='liveCnt == "0"'>
                 ,(select round(dj_point) from rd_data.tb_ranking_dj_day where date_format(ranking_date,'%Y.%m.%d') = #{sDate} and mem_no=a.mem_no) as rankPoint
@@ -240,7 +240,7 @@
                   ) as itemCnt
         <if test='rankType == "1"'>
             <if test='liveCnt != 0'>
-                ,(select round(fan_point) from rd_data.tb_ranking_fan_live where date_format(ranking_date,'%Y.%m.%d') = #{sDate}  and mem_no=a.mem_no) as rankPoint
+                ,(select round(fan_point) from rd_data.tb_ranking_fan_live where ranking_date = #{liveDate}  and mem_no=a.mem_no) as rankPoint
             </if>
             <if test='liveCnt == "0"'>
                 ,(select round(fan_point) from rd_data.tb_ranking_fan_day where date_format(ranking_date,'%Y.%m.%d') = #{sDate}  and mem_no=a.mem_no) as rankPoint
