@@ -55,9 +55,7 @@
                 ,count(case when level >= 31 and level <![CDATA[<=]]> 40 then 1 end) as level40
                 ,count(case when level >= 41 and level <![CDATA[<=]]> 50 then 1 end) as level50
                 ,count(case when level >= 51 then 1 end) as level50up
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
     </select>
 
 
@@ -76,9 +74,7 @@
                 ,count(case when level = 8 then 1 end) as level8
                 ,count(case when level = 9 then 1 end) as level9
                 ,count(case when level = 10 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level <![CDATA[<=]]> 10
     </select>
     <select id="getLevelSummary20" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -94,9 +90,7 @@
                 ,count(case when level = 18 then 1 end) as level8
                 ,count(case when level = 19 then 1 end) as level9
                 ,count(case when level = 20 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 10 and level  <![CDATA[<]]>  21
     </select>
     <select id="getLevelSummary30" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -112,9 +106,7 @@
                 ,count(case when level = 28 then 1 end) as level8
                 ,count(case when level = 29 then 1 end) as level9
                 ,count(case when level = 30 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 20 and level  <![CDATA[<]]>  31
     </select>
     <select id="getLevelSummary40" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -130,9 +122,7 @@
                 ,count(case when level = 38 then 1 end) as level8
                 ,count(case when level = 39 then 1 end) as level9
                 ,count(case when level = 40 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 30 and level  <![CDATA[<]]>  41
     </select>
     <select id="getLevelSummary50" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -148,9 +138,7 @@
                 ,count(case when level = 48 then 1 end) as level8
                 ,count(case when level = 49 then 1 end) as level9
                 ,count(case when level = 50 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 40 and level  <![CDATA[<]]>  51
     </select>
 
