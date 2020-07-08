@@ -26,7 +26,12 @@
                     <h3><i class="fa fa-table"></i> 현재 접속자 통계 현황</h3>
                 </div>
                 <div class="col-md-6 no-padding">
-                    <div class="widget-content mt10 no-padding ml10">
+                    <div class="widget-content mt10 no-padding mr10">
+                        <jsp:include page="total.jsp"/>
+                    </div>
+                </div>
+                <div class="col-md-6 no-padding">
+                    <div class="widget-content mt10 no-padding mr10">
                         <table class="table table-bordered">
                             <colgroup>
                                 <col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/><col width="10%"/>
@@ -48,11 +53,6 @@
                             </thead>
                             <tbody id="loginLiveTableBody"></tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="col-md-6 no-padding">
-                    <div class="widget-content mt10 no-padding mr10">
-                    <jsp:include page="total.jsp"/>
                     </div>
                 </div>
             </div>
