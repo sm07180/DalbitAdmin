@@ -1104,10 +1104,13 @@
                             <tr>
                                 <th>가족관계증명</br>서류</th>
                                 <td>
-                                    <a href="javascript://">
-                                        <img src="{{renderImage add_file}}" class="_fullWidth _openImagePop thumbnail" />
-                                        <%--<img src="{{renderImage add_file}}" class="_fullWidth fullSize_background thumbnail" />--%>
-                                    </a>
+                                    {{#if add_file}}
+                                        <a href="javascript://">
+                                            <img src="{{renderImage add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                        </a>
+                                    {{else}}
+                                        가족관계증명서류가 없습니다.
+                                    {{/if}}
                                 </td>
                             </tr>
                         </tbody>
