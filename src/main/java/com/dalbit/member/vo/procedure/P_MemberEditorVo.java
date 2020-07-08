@@ -1,7 +1,6 @@
 package com.dalbit.member.vo.procedure;
 
 import com.dalbit.common.vo.BaseVo;
-import com.dalbit.common.vo.ImageVo;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,6 +27,7 @@ public class P_MemberEditorVo extends BaseVo {
     private String  beforProfileImage;
     private String  beforNickName;
     private int type;
+    private String memState;
 
     // 방송방 숨김상태
     private String room_no;

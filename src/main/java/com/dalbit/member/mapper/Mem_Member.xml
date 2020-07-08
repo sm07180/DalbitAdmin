@@ -115,6 +115,9 @@
     <!-- 회원상태 정상 변경 -->
     <update id="callMemberStateEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberStateEditor */
+        <selectKey keyProperty="memState" resultType="String" order="BEFORE">
+            SELECT mem_state FROM rd_data.tb_member_basic WHERE mem_no=#{mem_no}
+        </selectKey>
         update rd_data.tb_member_basic set mem_state=1, block_day=0, block_end_date=null where mem_no=#{mem_no}
     </update>
     <delete id="callMemberWithdrawal_del" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
