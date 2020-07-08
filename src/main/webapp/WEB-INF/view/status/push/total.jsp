@@ -5,7 +5,7 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate"></span>
-        <table class="table table-bordered">
+        <table class="table table-bordered _tableHeight" data-height="23px">
             <colgroup>
                 <col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/>
                 <col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/><col width="5.8%"/>
@@ -73,10 +73,6 @@
             response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
         }
 
-        // for(var i=0 ; i<response.data.detailList.length ; i++){
-        //     response.data.detailList[i].month = common.lpad(response.data.detailList[i].month,2,"0");
-        //     response.data.detailList[i].day = common.lpad(response.data.detailList[i].day,2,"0");
-        // }
         var template = $('#tmp_totalDetail').html();
         var templateScript = Handlebars.compile(template);
         var detailContext = response.data.detailList;
@@ -86,6 +82,8 @@
         if(isDataEmpty){
             $("#tableTotalBody td:last").remove();
         }
+
+        ui.tableHeightSet();
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_total">
