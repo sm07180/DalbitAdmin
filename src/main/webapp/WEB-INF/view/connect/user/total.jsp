@@ -37,7 +37,9 @@
     });
 
     function getTotalList(){
-        util.getAjaxData("total", "/rest/connect/user/info/total", null, fn_total_success);
+        var data = {};
+        data.inner = $('input[name="search_testId"]').is(":checked") ? "0" : "-1";
+        util.getAjaxData("total", "/rest/connect/user/info/total", data, fn_total_success);
     }
 
     function fn_total_success(data, response){

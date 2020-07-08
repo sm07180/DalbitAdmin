@@ -33,11 +33,13 @@
         $('input[id="txt_search"]').keydown(function() {
             if (event.keyCode === 13) {
                 getCurrenList();
+                getTotalList();
             };
         });
         <!-- 버튼 -->
         $('#bt_search').click( function() {       //검색
             getCurrenList();
+            getTotalList();
         });
 
     });
@@ -45,6 +47,7 @@
     // Test-ID 제외 클릭
     $('#search_testId').click( function() {
         dtList_info_detail.reload();
+        getTotalList();
     });
 
 
