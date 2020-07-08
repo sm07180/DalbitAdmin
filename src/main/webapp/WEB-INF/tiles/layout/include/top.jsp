@@ -11,7 +11,7 @@
             <!-- logo -->
             <div class="pull-left left topLogo">
                 <a href="/index.html"><img src="https://image.dalbitlive.com/images/api/logo_real.png" alt="달빛라이브 관리자"></a>
-                <h1 class="sr-only">KingAdmin Admin Dashboard</h1>
+                <h1 class="sr-only">Dalbit Admin</h1>
             </div>
             <!-- end logo -->
             <div class="pull-right right">
