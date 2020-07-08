@@ -102,7 +102,7 @@ public class Bro_BroadcastService {
                     broadList.get(i).setDj_birth_year(memInfoOutVo.getMem_birth_year());
                     broadList.get(i).setDj_birth_month(memInfoOutVo.getMem_birth_month());
                     broadList.get(i).setDj_birth_day(memInfoOutVo.getMem_birth_day());
-                    broadList.get(i).setDj_korean_age(Integer.toString(Integer.parseInt(year) - Integer.parseInt(memInfoOutVo.getMem_birth_year())));
+                    broadList.get(i).setDj_korean_age(Integer.toString(Integer.parseInt(year) - Integer.parseInt(memInfoOutVo.getMem_birth_year()) + 1));
                 }
             }
         }
