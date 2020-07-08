@@ -92,7 +92,7 @@ public class Bro_BroadcastRestController {
 
         if(pBroadcastEditInputVo.getBackgroundImage().equals("backImageDel")) {
              int random = Integer.parseInt(DalbitUtil.randomBgValue());
-             pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
+             pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200708_" + random + ".jpg");
         }
         return bro_BroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
     }

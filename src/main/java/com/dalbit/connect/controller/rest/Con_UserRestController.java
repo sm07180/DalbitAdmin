@@ -27,8 +27,8 @@ public class Con_UserRestController {
     Con_UserService con_UserService;
 
     @PostMapping("info/total")
-    public String total(){
-        String result = con_UserService.callUserTotal();
+    public String total(P_UserCurrentInputVo pUserCurrentInputVo){
+        String result = con_UserService.callUserTotal(pUserCurrentInputVo);
         return result;
     }
     @PostMapping("info/current")

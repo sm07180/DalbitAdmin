@@ -37,8 +37,8 @@ public class Con_UserService {
      * 현재 접속자 통계 총계
      * @return
      */
-    public String callUserTotal(){
-        ProcedureVo procedureVo = new ProcedureVo();
+    public String callUserTotal(P_UserCurrentInputVo pUserCurrentInputVo){
+        ProcedureVo procedureVo = new ProcedureVo(pUserCurrentInputVo);
         con_UserDao.callUserTotal(procedureVo);
         P_UserTotalOutDetailVo detailList = new Gson().fromJson(procedureVo.getExt(), P_UserTotalOutDetailVo.class);
 

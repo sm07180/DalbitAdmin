@@ -152,7 +152,7 @@ public class Cus_ImageService {
             pBroadcastEditInputVo.setMem_no(pMemberReportVo.getMem_no());
             pBroadcastEditInputVo.setForceExit("0");
             int random = Integer.parseInt(DalbitUtil.randomBgValue());
-            pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200310_" + random + ".jpg");
+            pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200708_" + random + ".jpg");
 
             String result = broBroadcastService.callBroadcastEdit(pBroadcastEditInputVo);
             log.debug(result);

@@ -39,10 +39,6 @@
                 <div>
                     <div>
                         <div class="row col-lg-12 form-inline">
-                            <div class="table-comment pt10 pull-left">
-                                DJ/Fan랭킹 Main 노출 수는 1위부터 5위까지 총5명입니다.
-                            </div>
-
                             <div class="table-option pt10 pull-right">
                                 <label class="control-inline fancy-radio custom-color-green">
                                     <input type="radio" name="rankType" value='1' checked="checked" />
@@ -130,19 +126,19 @@
         $("#searchArea").html(util.getCommonCodeSelect(9999, searchType));
         init();
 
-        // $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
-        //     var selectDate = moment(dateText.date).format("YYYY.MM.DD");
-        //     $("#startDate").val(selectDate);
-        // });
-
-        $('#onedayDate').datepicker({
-            minViewMode: 'days',
-            format: 'yyyy.mm.dd',
-            keyboardNavigation: false,
-            forceParse: false,
-            autoclose: true,
-            language: 'kr',
+        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
+            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
+            $("#startDate").val(selectDate);
         });
+
+        // $('#onedayDate').datepicker({
+        //     minViewMode: 'days',
+        //     format: 'yyyy.mm.dd',
+        //     keyboardNavigation: false,
+        //     forceParse: false,
+        //     autoclose: true,
+        //     language: 'kr',
+        // });
 
         $('#monthDate').datepicker({
             minViewMode: 'months',
@@ -154,7 +150,6 @@
         });
 
         $("#onedayDate").on('change', function () {
-            console.log("----------------------------");
             if($('input:radio[name="rankType"]:checked').val() == 2){
                 setMonday();
             }else{
