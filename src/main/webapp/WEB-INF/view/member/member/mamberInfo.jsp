@@ -1055,64 +1055,68 @@
                 <div class="col-lg-12 form-inline block _modalLayer">
                     <table id="list_info" class="table table-sorting table-hover table-bordered">
                         <tbody id="tableBody">
-                            <tr>
-                                <th>보호자 이름</th>
-                                <td>
-                                    &nbsp;{{parents_name}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>성 별</th>
-                                <td>
-                                    &nbsp;{{{sexIcon parents_sex}}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>생년월일</th>
-                                <td>
-                                    &nbsp;{{parents_birth_year}}{{parents_birth_month}}{{parents_birth_day}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>통 신 사</th>
-                                <td>
-                                    &nbsp;{{parents_comm_company}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>휴대폰 번호</th>
-                                <td>
-                                    &nbsp;{{parents_phone}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>내 / 외국인</th>
-                                <td>
-                                    &nbsp;{{parents_foreign_yn}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>철회 여부</th>
-                                <td>
-                                    {{#equal recant_yn 'n'}}
-                                        &nbsp;<label style="font-weight: bold">No</label>
-                                    {{else}}
-                                        &nbsp;<label style="color: red; font-weight: bold">Yes</label>
-                                    {{/equal}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>가족관계증명</br>서류</th>
-                                <td>
-                                    {{#if add_file}}
-                                        <a href="javascript://">
-                                            <img src="{{renderImage add_file}}" class="_fullWidth _openImagePop thumbnail" />
-                                        </a>
-                                    {{else}}
-                                        가족관계증명서류가 없습니다.
-                                    {{/if}}
-                                </td>
-                            </tr>
+                            {{#if parents_name}}
+                                <tr>
+                                    <th>보호자 이름</th>
+                                    <td>
+                                        &nbsp;{{parents_name}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>성 별</th>
+                                    <td>
+                                        &nbsp;{{{sexIcon parents_sex}}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>생년월일</th>
+                                    <td>
+                                        &nbsp;{{parents_birth_year}}{{parents_birth_month}}{{parents_birth_day}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>통 신 사</th>
+                                    <td>
+                                        &nbsp;{{parents_comm_company}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>휴대폰 번호</th>
+                                    <td>
+                                        &nbsp;{{parents_phone}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>내 / 외국인</th>
+                                    <td>
+                                        &nbsp;{{parents_foreign_yn}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>철회 여부</th>
+                                    <td>
+                                        {{#equal recant_yn 'n'}}
+                                            &nbsp;<label style="font-weight: bold">No</label>
+                                        {{else}}
+                                            &nbsp;<label style="color: red; font-weight: bold">Yes</label>
+                                        {{/equal}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>가족관계증명</br>서류</th>
+                                    <td>
+                                        {{#if add_file}}
+                                            <a href="javascript://">
+                                                <img src="{{renderImage add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                            </a>
+                                        {{else}}
+                                            가족관계증명서류가 없습니다.
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                            {{else}}
+                                법정대리인 보호자 동의 정보가 없습니다.
+                            {{/if}}
                         </tbody>
                     </table>
                 </div>
