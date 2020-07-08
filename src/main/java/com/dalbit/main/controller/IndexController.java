@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class IndexController {
 
-    @GetMapping("index")
+    @GetMapping("index") 
     public String list(HttpServletRequest request, HttpSession httpSession) {
         return "index";
     }
