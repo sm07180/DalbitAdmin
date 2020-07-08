@@ -324,12 +324,12 @@ public class Mem_MemberService {
         mem_MemberDao.callMemberWithdrawal_bak_del(pMemberEditorVo);
         mem_MemberDao.callMemberStateEditor(pMemberEditorVo);
 
-        String subject = "이용정지가 해제되었습니다.";
-        String cont = "이용정지가 해제되었습니다.<br>서비스 이용에 주의 부탁드립니다.";
+        String cont = "이용정지가 해제되었습니다.";
+        String etcCont = "이용정지가 해제되었습니다.<br>서비스 이용에 주의 부탁드립니다.";
 
         if(pMemberEditorVo.getMemState().equals("2")){ //경고
-            subject = "달빛 라이브 운영자 메시지";
             cont = "경고 조치가 해제되었습니다.";
+            etcCont = "경고 조치가 해제되었습니다.";
         }
 
         try{    // PUSH 발송
@@ -337,8 +337,8 @@ public class Mem_MemberService {
             pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
             pPushInsertVo.setSlct_push("34");
             pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
-            pPushInsertVo.setSend_cont(subject);
-            pPushInsertVo.setEtc_contents(cont);
+            pPushInsertVo.setSend_cont(cont);
+            pPushInsertVo.setEtc_contents(etcCont);
             pPushInsertVo.setImage_type("101");
             pushService.sendPushReqOK(pPushInsertVo);
         }catch (Exception e){
@@ -350,8 +350,8 @@ public class Mem_MemberService {
 
             pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
             pMemberReportVo.setSlctType(7);
-            pMemberReportVo.setNotiContents(cont);
-            pMemberReportVo.setNotimemo(cont);
+            pMemberReportVo.setNotiContents(etcCont);
+            pMemberReportVo.setNotimemo(etcCont);
             mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
         }catch (Exception e){
             log.error("[NOTI 발송 실패 - 일대일문의처리]");
