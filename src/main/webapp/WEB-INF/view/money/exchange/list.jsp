@@ -1052,7 +1052,11 @@
                                            가족관계<br />증명서류
                                         </th>
                                         <td>
-                                            <img src="{{renderImage parentInfo.add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                            {{#if parentInfo.add_file}}
+                                                <img src="{{renderImage parentInfo.add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                            {{else}}
+                                                가족관계 증명서류가 없습니다.
+                                            {{/if}}
                                         </td>
                                     </tr>
                                 </tbody>
