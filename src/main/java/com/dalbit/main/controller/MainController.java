@@ -16,4 +16,9 @@ public class MainController {
     public String list(HttpServletRequest request, HttpSession httpSession) {
         return "main/main";
     }
+
+    @GetMapping("/new")
+    public String newMain(HttpServletRequest request, HttpSession httpSession) {
+        return "main/new_main";
+    }
 }
