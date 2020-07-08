@@ -18,6 +18,14 @@ public class P_LevelOutputVo extends PagingVo {
     private String mem_join_date;
     private int dal;
     private int byeol;
+    private String mem_sex;
+    private String age;
+    private String broadDate;
+    private String listenDate;
+    private String newdj_badge;
+    private String specialdj_badge;
+    private String badge_value;
+    private String expPro;
 
     //summary
     private int totalLevelCnt;
