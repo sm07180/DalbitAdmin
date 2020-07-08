@@ -1045,7 +1045,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_layer_detail">
-    <div class="modal-dialog" style="max-width: 700px; width: auto; display: table;">
+    <div class="modal-dialog" style="max-width: 700px;min-width: 400px; width: auto; display: table;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
@@ -1104,10 +1104,13 @@
                             <tr>
                                 <th>가족관계증명</br>서류</th>
                                 <td>
-                                    <a href="javascript://">
-                                        <img src="{{renderImage add_file}}" class="_fullWidth _openImagePop thumbnail" />
-                                        <%--<img src="{{renderImage add_file}}" class="_fullWidth fullSize_background thumbnail" />--%>
-                                    </a>
+                                    {{#if add_file}}
+                                        <a href="javascript://">
+                                            <img src="{{renderImage add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                        </a>
+                                    {{else}}
+                                        가족관계증명서류가 없습니다.
+                                    {{/if}}
                                 </td>
                             </tr>
                         </tbody>
