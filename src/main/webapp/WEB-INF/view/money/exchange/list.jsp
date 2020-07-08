@@ -888,6 +888,12 @@
                                         <th>미성년자<br />여부</th>
                                         <td>
                                             {{{calcAge detail.birth}}}
+                                            {{#isChild detail.birth}}
+                                                {{^if ../parentInfo.parents_name}}
+                                                    <br />
+                                                    <span style="font-weight:bold;">법정대리인 보호자 동의 정보가 없습니다.</span>
+                                                {{/if}}
+                                            {{/isChild}}
                                         </td>
                                     </tr>
 
@@ -919,14 +925,14 @@
                                         <td colspan="3">
                                             <div class="col-lg-6" style="border:solid 1px black">
                                                 <a href="javascript://">
-                                                    <img src="{{renderImage detail.add_file1}}" class="_fullWidth _openImagePop thumbnail" />
+                                                    <img src="{{renderImage detail.add_file1}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
                                                 </a>
                                                 {{#equal detail.state '0'}}<input id="files1" type="file" onchange="photoSubmit($(this))">{{/equal}}
                                                 <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file1" value="{{detail.add_file1}}" />
                                             </div>
                                             <div class="col-lg-6" style="border:solid 1px black">
                                                 <a href="javascript://">
-                                                    <img src="{{renderImage detail.add_file2}}" class="_fullWidth _openImagePop thumbnail" />
+                                                    <img src="{{renderImage detail.add_file2}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
                                                 </a>
                                                 {{#equal detail.state '0'}}<input id="files2" type="file" onchange="photoSubmit($(this))"/>{{/equal}}
                                                 <input type="hidden" class="_hidden_filename" name="add_file2" id="add_file2" value="{{detail.add_file2}}" />
@@ -1053,7 +1059,7 @@
                                         </th>
                                         <td>
                                             {{#if parentInfo.add_file}}
-                                                <img src="{{renderImage parentInfo.add_file}}" class="_fullWidth _openImagePop thumbnail" />
+                                                <img src="{{renderImage parentInfo.add_file}}" style="max-width:100px;max-height:150px;" class="_fullWidth _openImagePop thumbnail" />
                                             {{else}}
                                                 가족관계 증명서류가 없습니다.
                                             {{/if}}

@@ -152,10 +152,6 @@
         }
     });*/
 
-    window.onpopstate = function(event) {
-        //alert(`location: ${document.location}, state: ${JSON.stringify(event.state)}`)
-        console.log(event);
-    }
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_inforexMenu">

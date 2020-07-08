@@ -252,6 +252,10 @@ Handlebars.registerHelper("koreaAge", function(birthDate) {
     return common.koreaAge(birthDate);
 });
 
+Handlebars.registerHelper("isChild", function(birthDate, options) {
+    return common.isChild(birthDate) ? options.fn(this) : options.inverse(this);
+});
+
 Handlebars.registerHelper("calcAge", function(value, state) {
     console.log(value);
    if(common.calcAge(value) < 19) {
