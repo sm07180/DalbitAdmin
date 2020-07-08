@@ -1045,7 +1045,7 @@
 </script>
 
 <script type="text/x-handlebars-template" id="tmp_layer_detail">
-    <div class="modal-dialog" style="max-width: 700px; width: auto; display: table;">
+    <div class="modal-dialog" style="max-width: 700px;min-width: 400px; width: auto; display: table;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
