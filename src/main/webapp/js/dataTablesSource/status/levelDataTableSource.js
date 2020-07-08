@@ -5,7 +5,7 @@ var levelDataTableSource = {
         , 'columns': [
             {'title': 'level', 'data' : 'level', 'width':'80px'}
             ,{'title': 'Exp(%)', 'data' : 'exp', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data + "(" + Number(row.expPro).toFixed(2) + ")";
+                    return data + "(" + Number(row.expPro).toFixed(2) + "%)";
                 }}
             ,{'title': 'Exp(수치)', 'data' : 'exp', 'width':'80px'}
             ,{'title': '레벨등급', 'data' : 'grade', 'width':'80px'}
