@@ -70,8 +70,8 @@
         dtList_info_cancel.useCheckBox(false);
         dtList_info_cancel.useIndex(true);
         dtList_info_cancel.setPageLength(50);
+        dtList_info_cancel.useInitReload(true);
         dtList_info_cancel.createDataTable(pay_cancel_listSummary);
-        dtList_info_cancel.reload();
 
         $("#div_canselY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
         $("#div_canselY").find("#payWayArea").html(util.getCommonCodeSelect('all', payWay));

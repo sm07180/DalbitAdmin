@@ -49,9 +49,6 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '55px','render': function (data){
-                    return common.fontColor(data, 1, 'red') +'번';
-                }},
             {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '55px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
@@ -78,6 +75,9 @@ var BroadcastDataTableSource = {
             {'title': '강제퇴장', 'data': 'forcedCnt','width' : '50px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
+                }},
+            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '55px','render': function (data){
+                    return common.fontColor(data, 1, 'red') +'번';
                 }},
         ]
     },
@@ -133,9 +133,6 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '55px','render': function (data){
-                    return common.fontColor(data, 1, 'red') +'번';
-                }},
             {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '65px','render': function (data){
                     return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},
@@ -158,6 +155,9 @@ var BroadcastDataTableSource = {
             {'title': '강제퇴장', 'data': 'forcedCnt','width' : '50px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
+                }},
+            {'title': '나가기<br/>횟수', 'data': 'exit_try_count','width' : '55px','render': function (data){
+                    return common.fontColor(data, 1, 'red') +'번';
                 }},
         ]
     },

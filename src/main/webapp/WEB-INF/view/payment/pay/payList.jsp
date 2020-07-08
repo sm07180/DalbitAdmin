@@ -71,8 +71,8 @@
         dtList_info_pay.useCheckBox(false);
         dtList_info_pay.useIndex(true);
         dtList_info_pay.setPageLength(50);
+        dtList_info_pay.useInitReload(true);
         dtList_info_pay.createDataTable(pay_listSummary);
-        dtList_info_pay.reload();
 
         $("#payStateArea").html(util.getCommonCodeSelect('1', payStatus));
         $("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));

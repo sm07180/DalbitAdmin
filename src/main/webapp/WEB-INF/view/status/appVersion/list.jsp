@@ -66,9 +66,9 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(false);
         dtList_info.setPageLength(50);
+        dtList_info.useInitReload(true);
         dtList_info.createDataTable();
 
-        dtList_info.reload();
 
         platformType_sel_change();
     }

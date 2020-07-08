@@ -147,9 +147,9 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
+        dtList_info.useInitReload(true);
         dtList_info.createDataTable();
 
-        dtList_info.reload();
     }
 
 </script>
