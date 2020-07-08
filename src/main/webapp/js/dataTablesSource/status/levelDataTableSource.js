@@ -22,7 +22,7 @@ var levelDataTableSource = {
                         tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span><br/>';
                     }
                     if(row.specialdj_badge == "1"){
-                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
+                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span><br/>';
                     }
                     if(row.badge_value != "" && row.badge_value != null){
                         if(row.badge_value == 1){
