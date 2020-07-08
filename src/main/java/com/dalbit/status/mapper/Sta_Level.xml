@@ -4,9 +4,18 @@
 
     <sql id="levelCondition">
         select b.level, b.exp, b.grade,a.mem_no, a.mem_userid,a.mem_nick, c.ruby as dal,c.gold as byeol, a.mem_join_date
+                , a.mem_sex,(date_format(now(),'%Y') - mem_birth_year) as age
+                , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_broadcast_room where mem_no=a.mem_no order by start_date desc limit 1) as broadDate
+                , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_member_broadcast_listening where mem_no=a.mem_no order by start_date desc limit 1) as listenDate
+                , d.newdj_badge
+                , d.specialdj_badge
+                , (select badge_value from rd_data.tb_member_badge where mem_no = a.mem_no and slct_type='1') badge_value
+                , (((select exp from rd_data.tbl_level_exp where `level` = b.level+1) - b.exp)
+                  / ((select exp from rd_data.tbl_level_exp where `level` = b.level+1) - (select exp from rd_data.tbl_level_exp where `level` = b.level)) * 100) expPro
           from rd_data.tb_member_basic a
          inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
          inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no
+          left join rd_data.tb_member_profile d on a.mem_no = d.mem_no
             , (select @rownum := #{pageStart}) r
     </sql>
 
@@ -46,9 +55,7 @@
                 ,count(case when level >= 31 and level <![CDATA[<=]]> 40 then 1 end) as level40
                 ,count(case when level >= 41 and level <![CDATA[<=]]> 50 then 1 end) as level50
                 ,count(case when level >= 51 then 1 end) as level50up
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
     </select>
 
 
@@ -67,9 +74,7 @@
                 ,count(case when level = 8 then 1 end) as level8
                 ,count(case when level = 9 then 1 end) as level9
                 ,count(case when level = 10 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level <![CDATA[<=]]> 10
     </select>
     <select id="getLevelSummary20" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -85,9 +90,7 @@
                 ,count(case when level = 18 then 1 end) as level8
                 ,count(case when level = 19 then 1 end) as level9
                 ,count(case when level = 20 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 10 and level  <![CDATA[<]]>  21
     </select>
     <select id="getLevelSummary30" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -103,9 +106,7 @@
                 ,count(case when level = 28 then 1 end) as level8
                 ,count(case when level = 29 then 1 end) as level9
                 ,count(case when level = 30 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 20 and level  <![CDATA[<]]>  31
     </select>
     <select id="getLevelSummary40" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -121,9 +122,7 @@
                 ,count(case when level = 38 then 1 end) as level8
                 ,count(case when level = 39 then 1 end) as level9
                 ,count(case when level = 40 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 30 and level  <![CDATA[<]]>  41
     </select>
     <select id="getLevelSummary50" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
@@ -139,9 +138,7 @@
                 ,count(case when level = 48 then 1 end) as level8
                 ,count(case when level = 49 then 1 end) as level9
                 ,count(case when level = 50 then 1 end) as level10
-        from (
-        <include refid="levelCondition"/>
-        ) a
+        from rd_data.tb_member_level
         where level > 40 and level  <![CDATA[<]]>  51
     </select>
 

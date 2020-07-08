@@ -129,6 +129,8 @@
 
         getMemLevelSearch();
     }
+    var sDate;
+    var eDate;
     function setStartDay(){
         var date = new Date();
         $("#endDate").val(dateTime);
