@@ -35,14 +35,12 @@
 
     <select id="getLevelListCnt" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="integer">
         /* Sta_Level.xml - getLevelListCnt */
-        select
-          count(*)
-        from (
-        <include refid="levelCondition"/>
-        ) a
-        where (mem_nick like concat('%', #{searchText}, '%') or mem_no like concat('%', #{searchText}, '%') or mem_userid like concat('%', #{searchText}, '%'))
+        select count(*)
+        from rd_data.tb_member_basic a
+        inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
+        where (a.mem_nick like concat('%', #{searchText}, '%') or a.mem_no like concat('%', #{searchText}, '%') or a.mem_userid like concat('%', #{searchText}, '%'))
         <if test='level != null and level !="" '>
-            and `level` = #{level}
+            and b.`level` = #{level}
         </if>
     </select>
 
