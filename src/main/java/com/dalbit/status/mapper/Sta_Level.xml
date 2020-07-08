@@ -4,9 +4,18 @@
 
     <sql id="levelCondition">
         select b.level, b.exp, b.grade,a.mem_no, a.mem_userid,a.mem_nick, c.ruby as dal,c.gold as byeol, a.mem_join_date
+                , a.mem_sex,(date_format(now(),'%Y') - mem_birth_year) as age
+                , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_broadcast_room where mem_no=a.mem_no order by start_date desc limit 1) as broadDate
+                , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_member_broadcast_listening where mem_no=a.mem_no order by start_date desc limit 1) as listenDate
+                , d.newdj_badge
+                , d.specialdj_badge
+                , (select badge_value from rd_data.tb_member_badge where mem_no = a.mem_no and slct_type='1') badge_value
+                , (((select exp from rd_data.tbl_level_exp where `level` = b.level+1) - b.exp)
+                  / ((select exp from rd_data.tbl_level_exp where `level` = b.level+1) - (select exp from rd_data.tbl_level_exp where `level` = b.level)) * 100) expPro
           from rd_data.tb_member_basic a
          inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
          inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no
+          left join rd_data.tb_member_profile d on a.mem_no = d.mem_no
             , (select @rownum := #{pageStart}) r
     </sql>
 
