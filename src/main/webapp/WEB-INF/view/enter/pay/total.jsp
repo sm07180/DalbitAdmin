@@ -424,7 +424,6 @@
                 ++tmp_index;
             }
 
-
             var sum_succCnt = totalInfo.sum_succCnt;
             var sum_succAmt = totalInfo.sum_succAmt;
             var sum_firstCnt = totalInfo.sum_firstCnt;
@@ -444,10 +443,6 @@
                 sum_reCnt = "null";
             if(sum_reAmt == 0)
                 sum_reAmt = "null";
-
-            if(i == 7){
-
-            }
 
             if(i == 0){
                 //총합
