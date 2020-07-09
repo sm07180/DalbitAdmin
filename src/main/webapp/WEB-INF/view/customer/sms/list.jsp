@@ -305,7 +305,11 @@
         <td><a href="javascript://" class="_openSmsSendPop" data-cmid="{{cmid}}" data-rownum="{{indexDesc ../totalCnt rowNum}}" data-logtable="{{logDateTableName}}">{{subject}}</a></td>
         <td class="al pl5">{{{replaceNewLineToBr msg_body}}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
-        <td>{{send_name}}</td>
+        {{#if send_name}}
+            <td>{{send_name}}</td>
+        {{else}}
+            <td>자동</td>
+        {{/if}}
     </tr>
     {{else}}
         <tr>
