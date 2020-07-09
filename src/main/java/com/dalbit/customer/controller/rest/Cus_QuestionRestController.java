@@ -163,4 +163,12 @@ public class Cus_QuestionRestController {
     public String adminMemoList(P_QuestionOperateVo pQuestionOperateVo){
         return cus_questionService.callAdminMemoList(pQuestionOperateVo);
     }
+
+    /**
+     *  1:1 문의 운영자 메모 목록
+     */
+    @PostMapping("file/del")
+    public String fileDel(P_QuestionOperateVo pQuestionOperateVo){
+        return cus_questionService.callQustionFileDel(pQuestionOperateVo);
+    }
 }

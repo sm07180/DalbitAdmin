@@ -53,4 +53,6 @@ public interface Cus_QuestionDao {
     ArrayList<P_QuestionAdminMemoListOutputVo> callQuestionAdminList(P_QuestionOperateVo pQuestionOperateVo);
     @Transactional(readOnly = true)
     int callQuestionAdminList_totalCnt(P_QuestionOperateVo pQuestionOperateVo);
+
+    int callQuestionFileDel(P_QuestionOperateVo pQuestionOperateVo);
 }
