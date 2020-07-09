@@ -107,4 +107,8 @@
              from rd_data.tb_service_center_qna
             where idx = #{qnaIdx}
     </select>
+
+    <update id="callQuestionFileDel" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
+         update rd_data.tb_service_center_qna set add_file='' where idx=#{qnaIdx}
+    </update>
 </mapper>

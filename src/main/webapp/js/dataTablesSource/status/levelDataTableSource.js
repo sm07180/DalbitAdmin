@@ -7,14 +7,14 @@ var levelDataTableSource = {
             ,{'title': 'Exp(%)', 'data' : 'exp', 'width':'80px', 'render': function (data, type, row, meta) {
                     return data + "(" + Number(row.expPro).toFixed(2) + "%)";
                 }}
-            ,{'title': 'Exp(수치)', 'data' : 'exp', 'width':'80px'}
+            ,{'title': '다음Level<br/>Exp(수치)', 'data' : 'nextLevelExp', 'width':'80px'}
             ,{'title': '레벨등급', 'data' : 'grade', 'width':'80px'}
             ,{'title': 'UserID', 'data' : 'mem_userid', 'width':'80px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }}
             ,{'title': '닉네임', 'data' : 'mem_nick', 'width':'80px'}
             ,{'title': '성별(나이)', 'data' : 'mem_sex', 'width':'80px','render' : function(data, type, row, meta) {
-                    return common.sexIcon(data) + '<br/>' + row.age.split('.')[0];
+                    return common.sexIcon(data) + "(" + row.age.split('.')[0] + ")";
                 }}
             ,{'title': '태그', 'data' : '', 'width':'80px', 'render': function (data, type, row, meta) {
                     var tmp = "";

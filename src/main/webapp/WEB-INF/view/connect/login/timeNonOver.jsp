@@ -95,7 +95,7 @@
     </div>
     <div class="widget-footer">
         <span>
-            <%--<button class="btn btn-default print-btn pull-right" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>--%>
+            <%--<button class="btn btn-default print-btn pull-right btn-sm" type="button" id="excelDownBtn" onclick="excelDownBtn();"><i class="fa fa-print"></i>Excel Down</button>--%>
         </span>
     </div>
 </div>
@@ -330,6 +330,10 @@
             }
         }
         ui.tableHeightSet();
+    }
+    function excelDownBtn(){
+        console.log("----------------");
+
     }
 </script>
 

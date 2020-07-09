@@ -1,6 +1,7 @@
 package com.dalbit.status.controller.rest;
 
 import com.dalbit.status.service.Sta_PushService;
+import com.dalbit.status.vo.procedure.P_PushHistoryInputVo;
 import com.dalbit.status.vo.procedure.P_StatVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
@@ -26,7 +27,7 @@ public class Sta_PushRestController {
     Sta_PushService sta_PushService;
 
     /**
-     * 1:1문의 총계
+     * push발송현황
      * @param pStatVo
      * @return
      */
@@ -41,4 +42,36 @@ public class Sta_PushRestController {
         String result = sta_PushService.callPushTotal(pStatVo);
         return result;
     }
+
+    /**
+     * push발송 내역 조회
+     * @param pPushHistoryInputVo
+     * @return
+     */
+    @PostMapping("history/list")
+    public String historyList(P_PushHistoryInputVo pPushHistoryInputVo){
+
+        String result = sta_PushService.callPushHistoryList(pPushHistoryInputVo);
+
+        return result;
+    }
+
+
+    /**
+     * 알림설정 현황
+     * @param pStatVo
+     * @return
+     */
+    @PostMapping("notice")
+    public String notice(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = sta_PushService.callNotice(pStatVo);
+        return result;
+    }
+
 }

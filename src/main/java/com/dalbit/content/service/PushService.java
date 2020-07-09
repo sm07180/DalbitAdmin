@@ -9,6 +9,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.content.dao.PushDao;
 import com.dalbit.content.vo.procedure.*;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
@@ -20,6 +21,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,7 +115,8 @@ public class PushService {
     /**
      * 푸시  등록
      */
-    public String callContentsPushAdd(P_pushInsertVo pPushInsertVo){
+    @Transactional(propagation=Propagation.REQUIRED, rollbackFor=GlobalException.class)
+    public String callContentsPushAdd(P_pushInsertVo pPushInsertVo) throws GlobalException{
         pPushInsertVo.setOpName(MemberVo.getMyMemNo());
         ProcedureVo procedureVo = new ProcedureVo(pPushInsertVo, true);
         String result = null;
@@ -144,7 +148,7 @@ public class PushService {
             }
         }catch (Exception e){
             e.printStackTrace();
-            result = gsonUtil.toJson(new JsonOutputVo(Status.푸시등록_에러));
+            throw new GlobalException(Status.푸시등록_에러);
         }
 
         return result;
@@ -244,7 +248,7 @@ public class PushService {
                     ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
                     // PUSH 발송
-                    if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("1")){
+                    if(pPushInsertVo.getSend_type().equals("11") || pPushInsertVo.getSend_type().equals("10")){
                         pushDao.callStmpPushAdd(procedureVo);
 
                         if(Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())){
@@ -263,7 +267,7 @@ public class PushService {
                     }
 
                     // 알림 발송
-                    if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("2")){
+                    if(pPushInsertVo.getSend_type().equals("11") || pPushInsertVo.getSend_type().equals("01")){
                         try{
                             P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
@@ -294,7 +298,7 @@ public class PushService {
                 ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
                 // PUSH 발송
-                if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("1")) {
+                if(pPushInsertVo.getSend_type().equals("11") || pPushInsertVo.getSend_type().equals("10")) {
                     pushDao.callStmpPushAdd(procedureVo);
 
                     if (Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())) {
@@ -313,7 +317,7 @@ public class PushService {
                 }
 
                 // 알림 발송
-                if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("2")) {
+                if(pPushInsertVo.getSend_type().equals("11") || pPushInsertVo.getSend_type().equals("01")) {
                     try{
                         P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
@@ -340,7 +344,7 @@ public class PushService {
             ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
             // PUSH 발송
-            if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("1")) {
+            if(pPushInsertVo.getSend_type().equals("11") || pPushInsertVo.getSend_type().equals("10")) {
                 pushDao.callStmpPushAdd(procedureVo);
 
                 if (Status.푸시발송_성공.getMessageCode().equals(procedureVo.getRet())) {
@@ -354,7 +358,7 @@ public class PushService {
 
             // 알림 발송
             //TODO 전체(회원+비회원) 발송 / 회원 / 비회원 설정 필요!!!!!!
-            if(pPushInsertVo.getSend_type().equals("0") || pPushInsertVo.getSend_type().equals("2")) {
+            if(pPushInsertVo.getSend_type().equals("11") || pPushInsertVo.getSend_type().equals("01")) {
                 try{
                     P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
@@ -379,7 +383,7 @@ public class PushService {
             log.error("[PUSH_SEND] ERROR 발송 타입이 존재하지 않습니다. [ is_all:{}]", pPushInsertVo.getIs_all());
         }
 
-        if(pPushInsertVo.getSend_type().equals("2")){
+        if(pPushInsertVo.getSend_type().equals("01")){
             sucCnt = sucNotiCnt;
             failCnt = failNotiCnt;
         }
@@ -434,7 +438,7 @@ public class PushService {
 
 
 
-    public String sendPushReqOK(P_pushInsertVo pPushInsertVo){
+    public String sendPushReqOK(P_pushInsertVo pPushInsertVo) throws GlobalException{
 //        pPushInsertVo.setMem_nos(mem_no);
 //        pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
 //        pPushInsertVo.setSend_cont("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
@@ -454,8 +458,8 @@ public class PushService {
         pPushInsertVo.setStatus("0");
         pPushInsertVo.setMsg_type("0");
         pPushInsertVo.setIs_direct("0");
-        if(DalbitUtil.isEmpty(pPushInsertVo.getSend_type())){       // default 1
-            pPushInsertVo.setSend_type("1");
+        if(DalbitUtil.isEmpty(pPushInsertVo.getSend_type())){       // default 10
+            pPushInsertVo.setSend_type("10");
         }
 
         String pushResult = callContentsPushAdd(pPushInsertVo);
