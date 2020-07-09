@@ -11,23 +11,27 @@ import java.util.ArrayList;
 @Repository
 public interface Sta_LevelDao {
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     ArrayList<P_LevelOutputVo> getMemberLevelList(P_LevelInputVo pLevelInputVo);
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     int getLevelListCnt(P_LevelInputVo pLevelInputVo);
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     P_LevelOutputVo getLevelSummary(P_LevelInputVo pLevelInputVo);
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     P_LevelSummaryOutputVo getLevelSummary10(P_LevelInputVo pLevelInputVo);
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     P_LevelSummaryOutputVo getLevelSummary20(P_LevelInputVo pLevelInputVo);
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     P_LevelSummaryOutputVo getLevelSummary30(P_LevelInputVo pLevelInputVo);
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     P_LevelSummaryOutputVo getLevelSummary40(P_LevelInputVo pLevelInputVo);
-    @Transactional(readOnly=true)
+
+    @Transactional(readOnly = true)
     P_LevelSummaryOutputVo getLevelSummary50(P_LevelInputVo pLevelInputVo);
 }

@@ -129,6 +129,8 @@
 
         getMemLevelSearch();
     }
+    var sDate;
+    var eDate;
     function setStartDay(){
         var date = new Date();
         $("#endDate").val(dateTime);
@@ -184,15 +186,14 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(100);
+        dtList_info.useInitReload(true);
         dtList_info.createDataTable(level_listSummary);
-        dtList_info.reload();
 
         $("#level").html(util.getCommonCodeSelect('', level));
 
     }
 
     function level_listSummary(json){
-        console.log(json);
         var template = $("#level_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {

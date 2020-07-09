@@ -889,7 +889,7 @@
                                         <td>
                                             {{{calcAge detail.birth}}}
                                             {{#isChild detail.birth}}
-                                                {{^if ../parentInfo.parents_name}}
+                                                {{^if parentInfo.parents_name}}
                                                     <br />
                                                     <span style="font-weight:bold;">법정대리인 보호자 동의 정보가 없습니다.</span>
                                                 {{/if}}

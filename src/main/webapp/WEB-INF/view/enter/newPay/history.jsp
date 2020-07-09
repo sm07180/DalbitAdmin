@@ -202,8 +202,8 @@
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
         dtList_info.setPageLength(50);
+        dtList_info.useInitReload(true);
         dtList_info.createDataTable();
-        dtList_info.reload();
 
         $("#div_payY").find("#payPlatformArea").html(util.getCommonCodeSelect('-1', payPlatform));
         $("#div_payY").find("#payInnerArea").html(util.getCommonCodeSelect('0', innerType));

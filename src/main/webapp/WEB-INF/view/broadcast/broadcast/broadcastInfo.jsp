@@ -187,8 +187,8 @@
         dtList_info_detail = new DalbitDataTable($("#info_detail"), dtList_info_detail_data, source);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
+        dtList_info_detail.useInitReload(true);
         dtList_info_detail.createDataTable();
-        dtList_info_detail.reload();
 
         var scrollPosition = $("#tab_infoDetail").offset();
         util.scrollPostion(scrollPosition.top);

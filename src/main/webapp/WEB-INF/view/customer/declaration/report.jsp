@@ -37,8 +37,8 @@
     dtList_info_detail = new DalbitDataTable($("#list_chat_detail"), dtList_info_detail_data, BroadcastDataTableSource.chatDetail);
     dtList_info_detail.useCheckBox(false);
     dtList_info_detail.useIndex(false);
+    dtList_info_detail.useInitReload(true);
     dtList_info_detail.createDataTable();
-    dtList_info_detail.reload();
     $("#chatLeft").removeClass("col-md-6");
     $("#chatLeft").addClass("col-md-12");
     $("#chatRight").addClass("hide");
@@ -247,8 +247,8 @@
         dblist_chat_detail = new DalbitDataTable($("#list_target_chat"), dtList_info_detail_data, BroadcastDataTableSource.targetchat);
         dblist_chat_detail.useCheckBox(false);
         dblist_chat_detail.useIndex(false);
+        dblist_chat_detail.useInitReload(true);
         dblist_chat_detail.createDataTable();
-        dblist_chat_detail.reload();
     }
 </script>
 

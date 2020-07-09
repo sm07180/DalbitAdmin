@@ -37,10 +37,10 @@
             <div class="row col-lg-12 form-inline">
                 <div class="mb15" id="htmlTag"></div>
                     <ul class="nav nav-tabs nav-tabs-custom-colored" id="smsTab" role="tablist">
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="2" id="tab_pay" onclick="init(2)">가상계좌 발송</a></li>
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="1" id="tab_certification" onclick="init(1)">인증번호 발송</a></li>
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="7" id="tab_admin" onclick="init(7)">운영자 발송</a></li>
-                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="3" id="tab_etc" onclick="init(3)">기타 발송</a></li>
+                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="2" id="tab_pay" onclick="smsList(2)">가상계좌 발송</a></li>
+                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="1" id="tab_certification" onclick="smsList(1)">인증번호 발송</a></li>
+                        <li><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="7" id="tab_admin" onclick="smsList(7)">운영자 발송</a></li>
+                        <li style="display: none;"><a href="#smsDetail" role="tab" data-toggle="tab" data-tabType="3" id="tab_etc" onclick="smsList(3)">기타 발송</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane fade" id="smsDetail">
@@ -103,6 +103,7 @@
         "<br> ㆍ서비스를 위한 문자 발송 상태 실패 내역을 확인 할 수 있습니다.");
 
     $(document).ready(function() {
+        init();
        $("#tab_pay").click();
     });
 
@@ -117,9 +118,7 @@
         smsList();
     });
 
-    function init(type) {
-        $("#tabType").val(type);
-
+    function init() {
         var date = new Date();
         var thisYear = date.getFullYear();
         var thisMonth = date.getMonth() + 1;
@@ -204,7 +203,10 @@
         }
     }
 
-    function smsList() {
+    function smsList(type) {
+        type = common.isEmpty(type) ? "2" : type
+        $("#tabType").val(type);
+
         compare();
 
         $("#pageStart").val(listPagingInfo.pageNo);
@@ -305,7 +307,11 @@
         <td><a href="javascript://" class="_openSmsSendPop" data-cmid="{{cmid}}" data-rownum="{{indexDesc ../totalCnt rowNum}}" data-logtable="{{logDateTableName}}">{{subject}}</a></td>
         <td class="al pl5">{{{replaceNewLineToBr msg_body}}}</td>
         <td>{{{getCommonCodeLabel vxml_file 'sms_code'}}}</td>
-        <td>{{send_name}}</td>
+        {{#if send_name}}
+            <td>{{send_name}}</td>
+        {{else}}
+            <td>자동</td>
+        {{/if}}
     </tr>
     {{else}}
         <tr>
