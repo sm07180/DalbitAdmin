@@ -151,12 +151,16 @@
     var rowNum;
     function getQuestDetail(index){
         $("#tab_qna").removeClass("hide");
-        $('#tab_customerQuestion').addClass("show");
         var data = dtList_info.getDataRow(index);
         var obj ={};
         obj.qnaIdx = data.qnaIdx;
         obj.answer = data.answer;
         obj.rowNum = data.rowNum;
+
+        qnaIdx = data.qnaIdx;
+        answer = data.answer;
+        rowNum = data.rowNum;
+
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
 

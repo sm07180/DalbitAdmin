@@ -336,4 +336,16 @@ public class Cus_QuestionService {
 
         return result;
     }
+
+    public String callQustionFileDel(P_QuestionOperateVo pQuestionOperateVo) {
+        int success = cus_questionDao.callQuestionFileDel(pQuestionOperateVo);
+        String result;
+        if(success > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.문의첨부문서삭제_성공));
+        } else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.문의첨부문서삭제_실패));
+        }
+
+        return result;
+    }
 }

@@ -85,6 +85,8 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         },
         fnServerParams: function ( aoData ) {
             dalbitLog("[fnServerParams]");
+            dalbitLog("[URL] " + url);
+            dalbitLog("[DOM] " + dom.selector);
             // 새로생성 시 1 페이지 유지를 위함
             if(aoData.draw == 1){
                 aoData.start = 0;

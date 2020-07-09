@@ -62,6 +62,7 @@
     var memId;
     var slct_type;
     function quest_detail_success(data, response, params){
+        $('#tab_customerQuestion').addClass("show");
         qnaIdx = params.qnaIdx;
         answer = params.answer;
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
@@ -256,6 +257,28 @@
         obj.answer = answer;
         util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
     }
+    function fileDel(){
+        if(confirm("첨부파일을 삭제하시겠습니까?")){
+            var obj ={};
+            obj.qnaIdx = qnaIdx;
+            util.getAjaxData("fileDel", "/rest/customer/question/file/del",obj, quest_fileDel_success);
+        }else false;
+    }
+    function quest_fileDel_success(dst_id, response) {
+        dalbitLog(response);
+        alert(response.message);
+        quest_reload();
+    }
+
+    function quest_reload() {
+        getUserInfo();
+
+        var obj ={};
+        obj.qnaIdx = qnaIdx;
+        obj.answer = answer;
+        obj.rowNum = rowNum;
+        util.getAjaxData("type", "/rest/customer/question/detail",obj, quest_detail_success);
+    }
 
 
 </script>
@@ -343,7 +366,10 @@
                         {{#equal add_file ''}}
                         -
                         {{else}}
-                        <img src="{{renderImage ../add_file}}" width="auto" height="100px" class="_imageFullPop thumbnail" />
+                        <form id="profileImg" method="post" enctype="multipart/form-data">
+                            <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file}}" alt="your image" style="width: 150px;height: 150px" />
+                            <button type="button" id="bt_fileDel" class="btn btn-danger btn-sm" style="margin-left: 10px" onclick="fileDel();">첨부파일 삭제</button>
+                        </form>
                         {{/equal}}
                     </td>
                 </tr>
