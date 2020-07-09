@@ -5,7 +5,7 @@
     <sql id="levelCondition">
         select b.level, b.exp, b.grade,a.mem_no, a.mem_userid,a.mem_nick, c.ruby as dal,c.gold as byeol, a.mem_join_date
                 , (select exp from rd_data.tbl_level_exp where `level` = b.level+1) as nextLevelExp
-                , a.mem_sex,(date_format(now(),'%Y') - mem_birth_year) as age
+                , a.mem_sex,(date_format(now(),'%Y') - mem_birth_year + 1) as age
                 , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_broadcast_room where mem_no=a.mem_no order by start_date desc limit 1) as broadDate
                 , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_member_broadcast_listening where mem_no=a.mem_no order by start_date desc limit 1) as listenDate
                 , d.newdj_badge
