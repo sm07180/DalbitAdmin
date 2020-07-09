@@ -93,8 +93,9 @@ var sms_code = [
   , new COMMON_CODE('change', '1', '비밀번호 변경')
   , new COMMON_CODE('exchange_ok', '2', '환전완료')
   , new COMMON_CODE('exchange_cancel', '3', '환전불가')
-    , new COMMON_CODE('exchange_cancel', '7', '어드민')
-    , new COMMON_CODE('etc', '', '기타')
+  , new COMMON_CODE('VA', '4', '가상계좌')
+  , new COMMON_CODE('exchange_cancel', '7', '어드민')
+  , new COMMON_CODE('etc', '', '기타')
 ];
 
 var sms_isDirect = [

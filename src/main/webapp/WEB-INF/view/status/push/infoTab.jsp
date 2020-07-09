@@ -9,12 +9,12 @@
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_total">Push발송현황</a></li>
-                    <%--<li><a href="#pushHistory" role="tab" data-toggle="tab" id="tab_pushHistory">Push발송내역</a></li>--%>
+                    <li><a href="#history" role="tab" data-toggle="tab" id="tab_history">Push발송내역</a></li>
                     <li><a href="#notice" role="tab" data-toggle="tab" id="tab_notice">알림설정현황</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="total"><jsp:include page="total.jsp"/></div>      <!-- Push발송현황 -->
-                    <%--<div class="tab-pane fade" id="pushHistory"><jsp:include page="pushHistory.jsp"/></div>    <!-- Push발송내역 -->--%>
+                    <div class="tab-pane fade" id="history"><jsp:include page="history.jsp"/></div>    <!-- Push발송내역 -->
                     <div class="tab-pane fade" id="notice"><jsp:include page="notice.jsp"/></div>    <!-- 알림설정현황 -->
                 </div>
             </div>
@@ -29,11 +29,17 @@
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
         if(tabId == 'tab_total'){
+            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
             $("#slctTypeArea").show();
-        }else if(tabId == 'tab_pushHistory'){
+            $("#div_searchArea").hide();
+        }else if(tabId == 'tab_history'){
+            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);
+            $("#slctTypeArea").hide();
+            $("#div_searchArea").css('display', 'inline');
         }else if(tabId == 'tab_notice'){
             $("input:radio[name='slctType']:radio[value='1']").prop('checked', true);
             $("#slctTypeArea").hide();
+            $("#div_searchArea").hide();
         }
         radioChange();
         $(".searchDate").html($("#onedayDate").val());
@@ -46,7 +52,8 @@
         }
         if(tabId == 'tab_total'){
             getTotal();
-        }else if(tabId == 'tab_pushHistory'){
+        }else if(tabId == 'tab_history'){
+            getHistory();
         }else if(tabId == 'tab_notice'){
             getNotice();
         }
