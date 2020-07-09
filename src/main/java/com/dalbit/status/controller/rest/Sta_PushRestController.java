@@ -26,7 +26,7 @@ public class Sta_PushRestController {
     Sta_PushService sta_PushService;
 
     /**
-     * 1:1문의 총계
+     * push발송현황
      * @param pStatVo
      * @return
      */
@@ -41,4 +41,23 @@ public class Sta_PushRestController {
         String result = sta_PushService.callPushTotal(pStatVo);
         return result;
     }
+
+
+    /**
+     * 알림설정 현황
+     * @param pStatVo
+     * @return
+     */
+    @PostMapping("notice")
+    public String notice(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = sta_PushService.callNotice(pStatVo);
+        return result;
+    }
+
 }

@@ -14,7 +14,7 @@ var levelDataTableSource = {
                 }}
             ,{'title': '닉네임', 'data' : 'mem_nick', 'width':'80px'}
             ,{'title': '성별(나이)', 'data' : 'mem_sex', 'width':'80px','render' : function(data, type, row, meta) {
-                    return common.sexIcon(data) + '<br/>' + row.age.split('.')[0];
+                    return common.sexIcon(data) + "(" + row.age.split('.')[0] + ")";
                 }}
             ,{'title': '태그', 'data' : '', 'width':'80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
