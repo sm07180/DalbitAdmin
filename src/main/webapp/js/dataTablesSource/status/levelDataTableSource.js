@@ -5,7 +5,7 @@ var levelDataTableSource = {
         , 'columns': [
             {'title': 'level', 'data' : 'level', 'width':'80px'}
             ,{'title': 'Exp(%)', 'data' : 'exp', 'width':'80px', 'render': function (data, type, row, meta) {
-                    return data + "(" + Number(row.expPro).toFixed(2) + ")";
+                    return data + "(" + Number(row.expPro).toFixed(2) + "%)";
                 }}
             ,{'title': 'Exp(수치)', 'data' : 'exp', 'width':'80px'}
             ,{'title': '레벨등급', 'data' : 'grade', 'width':'80px'}
@@ -14,7 +14,7 @@ var levelDataTableSource = {
                 }}
             ,{'title': '닉네임', 'data' : 'mem_nick', 'width':'80px'}
             ,{'title': '성별(나이)', 'data' : 'mem_sex', 'width':'80px','render' : function(data, type, row, meta) {
-                    return common.sexIcon(data) + '<br/>' + row.age.split('.')[0];
+                    return common.sexIcon(data) + "(" + row.age.split('.')[0] + ")";
                 }}
             ,{'title': '태그', 'data' : '', 'width':'80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
@@ -22,7 +22,7 @@ var levelDataTableSource = {
                         tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span><br/>';
                     }
                     if(row.specialdj_badge == "1"){
-                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
+                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span><br/>';
                     }
                     if(row.badge_value != "" && row.badge_value != null){
                         if(row.badge_value == 1){
