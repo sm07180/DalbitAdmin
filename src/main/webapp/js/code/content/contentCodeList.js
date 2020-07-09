@@ -31,9 +31,9 @@ var push_searchType = [
 var push_sendType = [
     new COMMON_CODE(null, 'send_type', '발송형태')
     , new COMMON_CODE('all', '-1', '전체')
-    , new COMMON_CODE('push/noti', '0', 'PUSH/알림')
-    , new COMMON_CODE('push', '1', 'PUSH')
-    , new COMMON_CODE('noti', '2', '알림')
+    , new COMMON_CODE('push/noti', '11', 'PUSH/알림')
+    , new COMMON_CODE('push', '10', 'PUSH')
+    , new COMMON_CODE('noti', '01', '알림')
 ];
 
 var push_snedStatus = [
@@ -85,6 +85,24 @@ var push_slctPush2 = [
     , new COMMON_CODE('noti', '34', '알림')
     , new COMMON_CODE('mypage', '35', '대상 마이페이지')							// [mem_no]
     , new COMMON_CODE('djpage', '36', '레벨업 대상 마이페이지')              		// [mem_no]
+];
+
+var push_slctPush3 = [
+    new COMMON_CODE(null, 'slctPush', '푸시타입')
+    , new COMMON_CODE('room', '1', '방송방')
+    , new COMMON_CODE('main', '2', '메인')
+    , new COMMON_CODE('incast', '4', '캐스트')
+    , new COMMON_CODE('spdj', '5', '스페셜 DJ')
+    , new COMMON_CODE('event', '6', '이벤트')
+    , new COMMON_CODE('notice', '7', '공지사항')
+    , new COMMON_CODE('fan', '31', '팬보드/댓글')
+    , new COMMON_CODE('wallet', '32', '내지갑')
+    , new COMMON_CODE('cast', '33', '캐스트 수정')
+    , new COMMON_CODE('noti', '34', '알림')
+    , new COMMON_CODE('mypage', '35', '마이페이지')
+    , new COMMON_CODE('djpage', '36', '레벨업')
+    , new COMMON_CODE('question', '37', '1:1문의')
+    , new COMMON_CODE('broadnoti', '38', '방송공지')
 ];
 
 var push_isDirect = [

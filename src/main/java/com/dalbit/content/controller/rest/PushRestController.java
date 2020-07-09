@@ -1,22 +1,14 @@
 package com.dalbit.content.controller.rest;
 
-import com.dalbit.common.code.Status;
-import com.dalbit.common.vo.JsonOutputVo;
-import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.PushService;
-import com.dalbit.content.vo.PushVo;
 import com.dalbit.content.vo.procedure.*;
-import com.dalbit.util.DalbitUtil;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
 
 @Slf4j
 @RestController
@@ -52,7 +44,7 @@ public class PushRestController {
      * 푸시 메시지 등록
      */
     @PostMapping("insert")
-    public String insert(P_pushInsertVo pPushInsertVo) {
+    public String insert(P_pushInsertVo pPushInsertVo) throws GlobalException {
         String result = pushService.callContentsPushAdd(pPushInsertVo);
         return result;
     }

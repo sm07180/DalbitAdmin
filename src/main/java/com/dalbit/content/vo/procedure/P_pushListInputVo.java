@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 public class P_pushListInputVo extends SearchVo {
     private int push_idx;                //푸시번호
-    private String send_type;
+    private String send_type;           //발송 구분 (11: 전체, 10: 푸시, 01: 알림)
 
 }
