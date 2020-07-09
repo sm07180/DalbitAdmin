@@ -34,8 +34,8 @@ var payWay = [
     , new COMMON_CODE('GC', 'GC', '도서문화상품권')
     , new COMMON_CODE('payletter', 'cashbee', '캐시비')
     , new COMMON_CODE('payletter', 'tmoney', '티머니')
-    /*, new COMMON_CODE('payletter', 'payco', '페이코')
-    , new COMMON_CODE('payletter', 'kakaopay', '카카오페이')
+    , new COMMON_CODE('payletter', 'payco', '페이코')
+    /*, new COMMON_CODE('payletter', 'kakaopay', '카카오페이')
     , new COMMON_CODE('payletter', 'toss', '토스')*/
 ];
 
