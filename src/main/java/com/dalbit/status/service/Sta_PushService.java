@@ -3,7 +3,10 @@ package com.dalbit.status.service;
 
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
+import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.vo.procedure.P_pushDetailOutputVo;
+import com.dalbit.member.vo.procedure.P_MemberListOutputVo;
 import com.dalbit.status.dao.Sta_PushDao;
 import com.dalbit.status.vo.procedure.*;
 import com.dalbit.util.GsonUtil;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -58,6 +62,46 @@ public class Sta_PushService {
         result.put("detailList", detailList);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+
+    /**
+     * PUSH 발송 내역 조회
+     */
+    public String callPushHistoryList(P_PushHistoryInputVo pPushHistoryInputVo) {
+        String result;
+
+        int totalCnt = sta_PushDao.callPushHistoryListCnt(pPushHistoryInputVo);
+        pPushHistoryInputVo.setTotalCnt(totalCnt);
+        ArrayList<P_PushHistoryOutputVo> historyList = sta_PushDao.callPushHistoryList(pPushHistoryInputVo);
+
+        if(historyList != null && historyList.size() > 0) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, historyList, new PagingVo(pPushHistoryInputVo.getTotalCnt(), pPushHistoryInputVo.getPageStart(), pPushHistoryInputVo.getPageCnt())));
+        }else {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, new ArrayList<P_PushHistoryOutputVo>(), new PagingVo(pPushHistoryInputVo.getTotalCnt(), pPushHistoryInputVo.getPageStart(), pPushHistoryInputVo.getPageCnt())));
+        }
+
+        return result;
+    }
+
+
+    /** PUSH 발송 내역 상세 조회 */
+    public String callPushHistoryDetail(P_PushHistoryInputVo pPushHistoryInputVo) {
+        String result;
+
+        P_pushDetailOutputVo pPushDetailOutputVo = sta_PushDao.callPushHistoryDetail(pPushHistoryInputVo);
+
+        List<P_MemberListOutputVo> memInfo = sta_PushDao.selectTargetMemInfo(pPushHistoryInputVo);
+
+        pPushDetailOutputVo.setMem_info(memInfo);
+
+        if (pPushDetailOutputVo != null) {
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, pPushDetailOutputVo));
+        } else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        return result;
     }
 
 }

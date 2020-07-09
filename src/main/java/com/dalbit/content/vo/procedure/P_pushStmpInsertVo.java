@@ -28,6 +28,7 @@ public class P_pushStmpInsertVo extends BaseVo {
         this.setSlctPush(pPushInsertVo.getIs_all());
         this.setPush_type(pPushInsertVo.getSlct_push());
         this.setImageUrl(pPushInsertVo.getSend_url());
+        this.setSend_type(DalbitUtil.isEmpty(pPushInsertVo.getSend_type()) ? "10" : pPushInsertVo.getSend_type());
 
         if(pPushInsertVo.getPlatform().equals("110")){
             this.setSlctOs("a");
@@ -62,6 +63,7 @@ public class P_pushStmpInsertVo extends BaseVo {
     private String etcData;             // ETC!!!!!!!!!!!!
     private String image_type;
     private String slctOs;        //OS 구분  (a: Android, b:IOS)
+    private String send_type;          //발송 구분 (11: 전체, 10: 푸시, 01: 알림)
 
     private String push_idx;  //요청 push_idx
 }

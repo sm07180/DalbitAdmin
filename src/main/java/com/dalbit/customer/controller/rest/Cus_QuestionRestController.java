@@ -165,7 +165,7 @@ public class Cus_QuestionRestController {
     }
 
     /**
-     *  1:1 문의 첨부문서 삭제
+     *  1:1 문의 운영자 메모 목록
      */
     @PostMapping("file/del")
     public String fileDel(P_QuestionOperateVo pQuestionOperateVo){

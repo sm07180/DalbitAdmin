@@ -32,11 +32,26 @@
                                     <input id="yearDate" type="text" class="form-control"/>
                                 </div>
 
+                                <div class="input-group date" id="rangeDatepicker" style="display:none;">
+                                    <label for="rangeDate" class="input-group-addon">
+                                        <span><i class="fa fa-calendar"></i></span>
+                                    </label>
+                                    <input id="rangeDate" type="text" class="form-control"/>
+                                </div>
+
                                 <input type="hidden" name="startDate" id="startDate">
                                 <input type="hidden" name="endDate" id="endDate" />
 
                                 <%--<input name="startDate" id="startDate">--%>
                                 <%--<input name="endDate" id="endDate" />--%>
+
+                                <div id="div_searchArea" style="display: none;">
+                                    <span id="search_platform_aria"></span>
+                                    <span id="search_sendType_aria"></span>
+                                    <span id="search_searchType_aria"></span>
+
+                                    <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
+                                </div>
 
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                                 <a href="javascript://" class="_prevSearch">[이전]</a>
@@ -59,6 +74,9 @@
 <script type="text/javascript" src="/js/code/enter/joinCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/util/statUtil.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/handlebars/statusHelper.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/dataTablesSource/status/pushDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
+
 <script type="text/javascript">
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
@@ -68,6 +86,17 @@
 
     $(function(){
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
+        $("#slctTypeArea").find("input:radio[name='slctType'][value='3']").parent().attr('style', 'display:none !important');
+
+        $("#search_platform_aria").html(util.getCommonCodeSelect(-1, content_platform5));
+        $("#search_sendType_aria").html(util.getCommonCodeSelect(-1, push_sendType));
+        $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, push_searchType));
+
+        $('input[id="txt_search"]').keydown(function() {
+            if (event.keyCode === 13) {
+                $("#bt_search").click();
+            };
+        });
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");
@@ -105,7 +134,22 @@
             $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         });
 
+        setRangeDatepicker(moment().format("YYYY.MM.01"), moment())
+
+
     });
+
+    function setRangeDatepicker(startDate, endDate){
+        $('#rangeDate').daterangepicker({
+            startDate: startDate,
+            endDate: endDate
+        }, function(startDate,endDate){
+            $("#startDate").val(moment(startDate).format("YYYY.MM.DD"));
+            $("#endDate").val(moment(endDate).format("YYYY.MM.DD"));
+            $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+            $("#bt_search").click();
+        });
+    }
 
     function setTimeDate(dateTime){
         $("#onedayDate").val(dateTime);
@@ -139,6 +183,8 @@
             toDay = week[moment(new Date()).day()];
             $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
             setTimeDate(dateTime);
+        }else if(tabId == 'tab_history'){
+            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);
         }else if(tabId == 'tab_notice'){
             $("input:radio[name='slctType']:radio[value='1']").prop('checked', true);
         }
@@ -151,6 +197,7 @@
             $("#oneDayDatePicker").show();
             $("#monthDatepicker").hide();
             $("#yearDatepicker").hide();
+            $("#rangeDatepicker").hide();
             $("#startDate").val($("#onedayDate").val());
             $("#endDate").val($("#onedayDate").val());
         }else{
@@ -159,6 +206,7 @@
                 $("#oneDayDatePicker").hide();
                 $("#monthDatepicker").show();
                 $("#yearDatepicker").hide();
+                $("#rangeDatepicker").hide();
 
                 var monthLastDate = new Date($("#onedayDate").val().substr(0,4),$("#onedayDate").val().substr(5,7),-1);
                 $("#startDate").val($("#onedayDate").val().substr(0,8) + "01");
@@ -171,6 +219,24 @@
                     $("#endDate").val(rangeDate[1]);
                 };
                 $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
+            }else if($('input[name="slctType"]:checked').val() == 3){
+                $("#oneDayDatePicker").hide();
+                $("#monthDatepicker").hide();
+                $("#yearDatepicker").hide();
+                $("#rangeDatepicker").show();
+
+                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+                setRangeDatepicker($("#startDate").val(), $("#endDate").val());
+
+                var rangeDate = $("#rangeDate").val().split(' - ');
+                if(-1 < rangeDate.indexOf(' - ')){
+                    $("#startDate").val(rangeDate[0]);
+                    $("#endDate").val(rangeDate[1]);
+                }
+
+                $("._searchDate").html($("#startDate").val() + ' - ' + $("#endDate").val());
             }else{
                 // 월별 ----------------------------------
                 $("#oneDayDatePicker").hide();
@@ -212,7 +278,7 @@
         }else if($('input[name="slctType"]:checked').val() == 2){ // 년간
             if(common.isEmpty(dateType)){
                 $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
-                $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
+                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
                 $("._searchDate").html(moment(new Date()).format('YYYY년'));
                 $("#yearDate").val(moment(new Date()).format('YYYY'));
             }else if(dateType == 'prev'){
@@ -220,6 +286,17 @@
 
             }else if(dateType == 'next'){
                 setYear(1);
+            }
+        }else if($('input[name="slctType"]:checked').val() == 3){ // PUSH 발송 이력 달력
+            if(common.isEmpty(dateType)){
+                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD') + " (" + toDay + ")");
+                $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+            }else if(dateType == 'prev'){
+                setRangeDay(-1);
+            }else if(dateType == 'next'){
+                setRangeDay(1);
             }
         }
         $("#bt_search").click();
@@ -245,6 +322,16 @@
         $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
         $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
         $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
+    }
+
+    function setRangeDay(days){
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
+
+        setRangeDatepicker($("#startDate").val(), $("#endDate").val())
+
+        $("._searchDate").html($("#startDate").val() + ' - ' + $("#endDate").val());
+        $("#rangeDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
     }
 
     // var slctType = 0;
