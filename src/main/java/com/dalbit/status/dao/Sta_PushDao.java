@@ -13,7 +13,4 @@ public interface Sta_PushDao {
     @Transactional(readOnly = true)
     ArrayList<P_PushTotalOutDetailVo> callPushTotal(ProcedureVo procedureVo);
 
-    @Transactional(readOnly = true)
-    ArrayList<P_NoticeOutDetailVo> callNotice (ProcedureVo procedureVo);
-
 }

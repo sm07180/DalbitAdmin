@@ -29,7 +29,7 @@ public class Sta_PushService {
     Sta_PushDao sta_PushDao;
 
     /**
-     * Push발송 현황
+     * 1:1문의 총계
      */
     public String callPushTotal(P_StatVo pStatVo){
         ProcedureVo procedureVo = new ProcedureVo(pStatVo);
@@ -40,21 +40,6 @@ public class Sta_PushService {
         }
         var result = new HashMap<String, Object>();
         result.put("totalInfo", totalInfo);
-        result.put("detailList", detailList);
-
-        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
-    }
-
-    /**
-     * 알림설정 현황
-     */
-    public String callNotice(P_StatVo pStatVo){
-        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
-        ArrayList<P_NoticeOutDetailVo> detailList = sta_PushDao.callNotice(procedureVo);
-        if(Integer.parseInt(procedureVo.getRet()) <= 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
-        }
-        var result = new HashMap<String, Object>();
         result.put("detailList", detailList);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
