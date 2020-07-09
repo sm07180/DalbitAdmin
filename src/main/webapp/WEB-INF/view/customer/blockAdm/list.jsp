@@ -152,9 +152,9 @@
         dtList_info = new DalbitDataTable($('#tb_blockAdmList'), dtList_info_data, blockAdmDataTableSource.blockAdmList, $('#searchForm'));
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
+        dtList_info.useInitReload(true);
         dtList_info.createDataTable();
 
-        dtList_info.reload();
 
         $("#blockDetail").empty();
 
