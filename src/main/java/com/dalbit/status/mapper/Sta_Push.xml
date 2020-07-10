@@ -248,7 +248,7 @@
     </select>
 
 
-    <select id="callPushHistoryDetail" parameterType="com.dalbit.status.vo.procedure.P_PushHistoryInputVo" resultType="com.dalbit.status.vo.procedure.P_pushDetailOutputVo">
+    <select id="callPushHistoryDetail" parameterType="com.dalbit.status.vo.procedure.P_PushHistoryInputVo" resultType="com.dalbit.content.vo.procedure.P_pushDetailOutputVo">
             SELECT
                 history.idx
                 ,history.send_date
