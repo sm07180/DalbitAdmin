@@ -44,4 +44,18 @@ public class P_PayCodeOutDetailVo {
     private int code14Amt;
     private int code15Cnt;
     private int code15Amt;
+    private int code16Cnt;
+    private int code16Amt;
+    private int code17Cnt;
+    private int code17Amt;
+    private int code18Cnt;
+    private int code18Amt;
+    private int code19Cnt;
+    private int code19Amt;
+    private int code20Cnt;
+    private int code20Amt;
+    private int code21Cnt;
+    private int code21Amt;
+    private int code22Cnt;
+    private int code22Amt;
 }
