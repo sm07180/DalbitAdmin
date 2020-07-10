@@ -273,23 +273,3 @@ Handlebars.registerHelper("substr", function(value, st, ed) {
 Handlebars.registerHelper("moment", function(value, format) {
     return moment(value).format(format);
 });
-
-/**
- *  숫자 연산 뒤 콤마 추가
- */
-Handlebars.registerHelper("mathAddComma", function(lvalue, operator, rvalue) {
-    var result;
-    if(operator == "+") {
-        result = (lvalue + rvalue);
-    } else if(operator == "-") {
-        result = (lvalue - rvalue);
-    } else if(operator == "*") {
-        result = (lvalue * rvalue);
-    } else if(operator == "/") {
-        result = (lvalue / rvalue);
-    } else if(operator == "%") {
-        result = (lvalue % rvalue);
-    }
-
-    return common.addComma(result);
-});
