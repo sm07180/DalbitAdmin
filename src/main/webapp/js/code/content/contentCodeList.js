@@ -22,7 +22,7 @@ var notice_slctType = [
 /** =------ PushMessage ---------- */
 var push_searchType = [
     new COMMON_CODE(null, 'searchType', '검색구분')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '-1', '검색구분(전체)')
     , new COMMON_CODE('title', '1', '메시지 제목')
     , new COMMON_CODE('content', '2', '메시지 내용')
     , new COMMON_CODE('opname', '3', '발신자')
@@ -30,7 +30,7 @@ var push_searchType = [
 
 var push_sendType = [
     new COMMON_CODE(null, 'send_type', '발송형태')
-    , new COMMON_CODE('all', '-1', '전체')
+    , new COMMON_CODE('all', '-1', '발송형태(전체)')
     , new COMMON_CODE('push/noti', '11', 'PUSH/알림')
     , new COMMON_CODE('push', '10', 'PUSH')
     , new COMMON_CODE('noti', '01', '알림')
@@ -85,6 +85,8 @@ var push_slctPush2 = [
     , new COMMON_CODE('noti', '34', '알림')
     , new COMMON_CODE('mypage', '35', '대상 마이페이지')							// [mem_no]
     , new COMMON_CODE('djpage', '36', '레벨업 대상 마이페이지')              		// [mem_no]
+    , new COMMON_CODE('question', '37', '1:1문의')
+    , new COMMON_CODE('broadnoti', '38', '방송공지')
 ];
 
 var push_slctPush3 = [
@@ -110,6 +112,40 @@ var push_isDirect = [
     , new COMMON_CODE('instant', '0', '즉시발송')
     , new COMMON_CODE('reservation', '1', '예약발송')
 ];
+
+
+var push_push_slct = [
+    new COMMON_CODE(null, 'push_slct', '카테고리')
+    , new COMMON_CODE('all', '-1', '카테고리(전체)')
+    , new COMMON_CODE('11', '11', '방송 시작')
+    , new COMMON_CODE('12', '12', 'DJ 레벨 업(사용안함)')
+    , new COMMON_CODE('13', '13', '캐스트 등록, 좋아요')
+    , new COMMON_CODE('14', '14', '방송 시작 10분 후')
+    , new COMMON_CODE('15', '15', '회원 선물 수신')
+    , new COMMON_CODE('16', '16', '팬 등록')
+    , new COMMON_CODE('17', '17', '팬 보드 등록')
+    , new COMMON_CODE('18', '18', '방송공지 등록')
+    , new COMMON_CODE('19', '19', '생일 축하')
+    , new COMMON_CODE('51', '51', '미접속 대상 알림')
+    , new COMMON_CODE('52', '52', '이벤트 알림')
+    , new COMMON_CODE('53', '53', '긴급공지')
+    , new COMMON_CODE('54', '54', '사용자 경고')
+    , new COMMON_CODE('55', '55', '경고 해제')
+    , new COMMON_CODE('56', '56', '이용정지 해제')
+    , new COMMON_CODE('57', '57', '사용자 정보 초기화')
+    , new COMMON_CODE('58', '58', '캐스트 정보 초기화')
+    , new COMMON_CODE('59', '59', '스페셜 DJ 선정')
+    , new COMMON_CODE('60', '60', '1:1 문의 답변')
+    , new COMMON_CODE('61', '61', '운영자 선물 수신')
+    , new COMMON_CODE('62', '62', '환전 완료')
+    , new COMMON_CODE('63', '63', '환전 불가')
+    , new COMMON_CODE('92', '92', '운영자(회원 + 비회원)')
+    , new COMMON_CODE('93', '93', '운영자(회원)')
+    , new COMMON_CODE('94', '94', '운영자(비회원)')
+    , new COMMON_CODE('95', '95', '운영자(테스트계정)')
+    , new COMMON_CODE('96', '96', '운영자(지정회원)')
+];
+
 
 /** =------ Splash ---------- */
 var splash_exposureType = [
@@ -296,7 +332,7 @@ var content_platform4 = [
 
 var content_platform5 = [
     new COMMON_CODE(null, 'platform', '플랫폼구분')
-    , new COMMON_CODE('all', '0', '전체')
+    , new COMMON_CODE('all', '0', '플랫폼(전체)')
     , new COMMON_CODE('android/ios', '111', 'Android/IOS')
     , new COMMON_CODE('android', '110', 'Android')
     , new COMMON_CODE('ios', '101', 'IOS')

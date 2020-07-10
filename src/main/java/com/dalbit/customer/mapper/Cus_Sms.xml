@@ -61,11 +61,11 @@
             , a.msg_type
             , a.send_name
             , a.cinfo
-            , IF(a.mem_no = 0, '', a.mem_no) AS mem_no
+            , IFNULL(basic.mem_no, IFNULL(withdrawal.mem_no, IF(a.mem_no = '0', '', a.mem_no))) AS mem_no
             , a.logDateTableName
             , IFNULL(basic.mem_id, withdrawal.mem_id) AS mem_id
             , IFNULL(basic.mem_name, withdrawal.mem_name) AS mem_name
-            , IFNULL(basic.mem_nick, withdrawal.mem_nick) AS mem_nick
+            , IFNULL(basic.mem_nick, IFNULL(withdrawal.mem_nick, IF(a.mem_no = '0', '개별발송', '비회원'))) AS mem_nick
             , IFNULL(basic.mem_userid, withdrawal.mem_userid) AS mem_userid
             , IFNULL(basic.mem_sex, withdrawal.mem_sex) AS mem_memSex
             , leval.level AS mem_level
@@ -96,8 +96,8 @@
                 <include refid="condition"/>
         ) a
         LEFT JOIN rd_data.tb_member_basic basic ON	a.mem_no = basic.mem_no
-        LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal ON a.mem_no = withdrawal.mem_no
-        LEFT JOIN rd_data.tb_member_level AS leval ON a.mem_no = leval.mem_no
+        LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal ON	 a.mem_no = withdrawal.mem_no
+        LEFT JOIN rd_data.tb_member_level AS leval ON IFNULL(basic.mem_no, withdrawal.mem_no) = leval.mem_no
         ORDER BY a.send_time desc, a.report_time desc
       ) a
       where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
@@ -143,10 +143,10 @@
             , a.msg_type
             , a.send_name
             , a.cinfo
-            , IF(a.mem_no = 0, '', a.mem_no) AS mem_no
+            , IFNULL(basic.mem_no, IFNULL(withdrawal.mem_no, IF(a.mem_no = '0', '', a.mem_no))) AS mem_no
             , IFNULL(basic.mem_id, withdrawal.mem_id) AS mem_id
             , IFNULL(basic.mem_name, withdrawal.mem_name) AS mem_name
-            , IFNULL(basic.mem_nick, withdrawal.mem_nick) AS mem_nick
+            , IFNULL(basic.mem_nick, IFNULL(withdrawal.mem_nick, IF(a.mem_no = '0', '개별발송', '비회원'))) AS mem_nick
             , IFNULL(basic.mem_userid, withdrawal.mem_userid) AS mem_userid
             , IFNULL(basic.mem_sex, withdrawal.mem_sex) AS mem_memSex
             , leval.level AS mem_level
@@ -161,8 +161,8 @@
                 </otherwise>
             </choose>
         LEFT JOIN rd_data.tb_member_basic basic ON	a.mem_no = basic.mem_no
-        LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal ON a.mem_no = withdrawal.mem_no
-        LEFT JOIN rd_data.tb_member_level AS leval ON a.mem_no = leval.mem_no
+        LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal ON	a.mem_no = withdrawal.mem_no
+        LEFT JOIN rd_data.tb_member_level AS leval ON IFNULL(basic.mem_no, withdrawal.mem_no) = leval.mem_no
         WHERE
             cmid = #{cmid}
         limit 0, 1

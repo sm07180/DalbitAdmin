@@ -33,7 +33,7 @@
             $("#slctTypeArea").show();
             $("#div_searchArea").hide();
         }else if(tabId == 'tab_history'){
-            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);
+            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
             $("#slctTypeArea").hide();
             $("#div_searchArea").css('display', 'inline');
         }else if(tabId == 'tab_notice'){

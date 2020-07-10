@@ -5,6 +5,7 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
         <span class="_searchDate"></span>
+        <span id="pushHistory_summaryArea"></span>
         <table id="push_history_list_info" class="table table-sorting table-hover table-bordered">
             <thead>
             </thead>
@@ -55,10 +56,18 @@
         dtList_info = new DalbitDataTable($("#push_history_list_info"), dtList_info_data, PushDataTableSource.historyList, $("#searchForm"));
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
-        dtList_info.createDataTable();
+        dtList_info.createDataTable(pushHistorySummary);
         //---------- Main DataTable ----------=
     };
 
+    function pushHistorySummary(data){
+        console.log(data.summary);
+
+        var template = $("#pushHistory_tableSummary").html();
+        var templateScript = Handlebars.compile(template);
+        var html = templateScript(data.summary);
+        $("#pushHistory_summaryArea").html(html);
+    }
 
     function historyDetail(data){
         $(".div_historyDetail").show();
@@ -95,6 +104,31 @@
 
         ui.tableHeightSet();
     }
+</script>
+
+<script id="pushHistory_tableSummary" type="text/x-handlebars-template">
+    <table class="table table-bordered table-summary pull-right">
+        <thead>
+        <tr>
+            <th>수신대상</th>
+            <th>발송건수</th>
+            <th>성공건수</th>
+            <th>실패건수</th>
+            <th>성공율</th>
+            <th>클릭건수</th>
+            <th>클릭율</th>
+        </tr>
+        </thead>
+        <tbody id="summaryDataTable">
+            <td>{{#if target_cnt}}{{target_cnt}}{{else}}0{{/if}}명</td>
+            <td>{{#if target_cnt}}{{send_cnt}}{{else}}0{{/if}}건</td>
+            <td>{{#if target_cnt}}{{succ_cnt}}{{else}}0{{/if}}건</td>
+            <td>{{#if target_cnt}}{{fail_cnt}}{{else}}0{{/if}}건</td>
+            <td>{{#if target_cnt}}{{succ_rate}}{{else}}0{{/if}}%</td>
+            <td>{{#if target_cnt}}{{click_cnt}}{{else}}0{{/if}}건</td>
+            <td>{{#if target_cnt}}{{click_rate}}{{else}}0{{/if}}%</td>
+        </tbody>
+    </table>
 </script>
 
 

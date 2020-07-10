@@ -102,10 +102,10 @@
             // 발송 형태
             fnc_pushDetail.target.find("input[name='send_type']").change(function () {
 
-                if ($(this).val() == "0") {
+                if ($(this).val() == "11") {
                     fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
                 }
-                if ($(this).val() == "2") {
+                if ($(this).val() == "01") {
                     fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
 
                     fnc_pushDetail.target.find("input[name='slct_push']").prop('checked', false);
@@ -126,7 +126,7 @@
 
             //발송여부 선택
             fnc_pushDetail.target.find("input[name=is_direct]:radio").click(function () {
-                if(fnc_pushDetail.target.find("input[name='send_type']:checked").val() != '1'){
+                if(fnc_pushDetail.target.find("input[name='send_type']:checked").val() != '10'){
                     if($(this).val() != 0){
                         alert("전체 발송 및 알림 발송은 즉시 발송만 가능합니다.");
                         return false;
@@ -158,7 +158,7 @@
 
             //푸시 타입 선택
             fnc_pushDetail.target.find("input[name=slct_push]:radio").click(function () {
-                if(fnc_pushDetail.target.find("input[name='send_type']:checked").val() == '2'){
+                if(fnc_pushDetail.target.find("input[name='send_type']:checked").val() == '01'){
                     alert("푸시 타입은 푸시 발송 시에만 선택 가능 합니다.");
                     return false;
                 }
@@ -351,7 +351,7 @@
             var templateScript = Handlebars.compile(template);
 
             var detailData = {
-                'send_type' : 1
+                'send_type' : 10
                 ,'is_direct' : 0
                 ,'slct_push' : 2
             };
@@ -612,7 +612,7 @@
                 }
             }
 
-            if(data.send_type != "2"){
+            if(data.send_type != "01"){
                 if (common.isEmpty(data.slct_push)) {
                     alert("푸시 타입을 선택하여 주시기 바랍니다.");
                     fnc_pushDetail.target.find("input[name=slct_push]").focus();
