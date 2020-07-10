@@ -30,6 +30,8 @@
 function DalbitDataTable(dom, param, columnsInfo, searchForm) {
     this.dom = dom;
     this.columnsInfo = columnsInfo;
+    this.isInitResetCallback = true;
+
     var url = this.columnsInfo.url;
     var dataSource = this.columnsInfo;
     var dom = this.dom;
@@ -238,8 +240,12 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         //초기화
         this.initDataTable();
 
+        // callback 호출 여부
+        var isInitResetCallback = this.isInitResetCallback;
+
         this.dataTableSource.ajax.complete = function (response) {
                 dalbitLog("[complete]");
+
 
                 if(!common.isEmpty(response.responseJSON)){
                     dalbitLog(response.responseJSON);
@@ -249,7 +255,7 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
                 // 완료 후 처리 함수
                 if(!common.isEmpty(initFn)){
                     initFn(response.responseJSON);
-                    initFn = "";    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
+                    initFn = isInitResetCallback ? "" : initFn;    // create or reload 에서만 호출 ( 최초 호출 후 초기화 )
                 }
             };
 
@@ -407,6 +413,11 @@ function DalbitDataTable(dom, param, columnsInfo, searchForm) {
         }else{
             this.dataTableSource.dom = '<"dataTable-top"<"top-left pull-left dataTable-div"<"comments">><"top-right pull-right dataTable-div">><"dataTable-top-page col-md-12">rt<"dataTable-foot-page  col-md-12" p><"dataTable-footer"<"footer-left pull-left dataTable-div"><"footer-right pull-right dataTable-div">>';
         }
+    }
+
+    // 데이터 테이블 성공 후 Callback 호출 여부 : default - TRUE( 초기화)
+    DalbitDataTable.prototype.useInitResetCallback = function(isInitResetCallback){
+        this.isInitResetCallback = isInitResetCallback;
     }
 
 

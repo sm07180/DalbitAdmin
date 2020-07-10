@@ -158,6 +158,7 @@ public class Men_SpecialService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(specialReqVo.getMem_no());
                 pPushInsertVo.setSlct_push("5");
+                pPushInsertVo.setPush_slct("59");       //스페셜 DJ 선정
                 pPushInsertVo.setSend_title("스페셜 DJ로 선정되었어요.");
                 pPushInsertVo.setSend_cont("축하해요~ 스페셜DJ로 선정되셨어요. DJ님의 FLEX한 방송을 보여주세요♥");
                 pPushInsertVo.setImage_type("102");
