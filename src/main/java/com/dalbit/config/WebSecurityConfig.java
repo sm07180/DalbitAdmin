@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired private AuthenticationProvider authProvider;
     @Autowired private SsoAuthenticationFilter ssoAuthenticationFilter;
 
-    private final static String REMEMBER_ME_KEY = "INFOREX_ADMIN_REMEMBER_ME";
+    //private final static String REMEMBER_ME_KEY = "INFOREX_ADMIN_REMEMBER_ME";
 
     @Bean
     public DelegatingPasswordEncoder passwordEncoder() {
@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
 
-                .csrf().disable() // 기본값이 on인 csrf 취약점 보안을 해제한다. on으로 설정해도 되나 설정할경우 웹페이지에서 추가처리가 필요함.
+            .csrf().disable() // 기본값이 on인 csrf 취약점 보안을 해제한다. on으로 설정해도 되나 설정할경우 웹페이지에서 추가처리가 필요함.
             .formLogin() // 권한없이 페이지 접근하면 로그인 페이지로 이동한다.
             .loginPage("/login")
             .loginProcessingUrl("/login/authenticate")
@@ -120,7 +120,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                     .logoutUrl("/logout")
                     .addLogoutHandler(logoutHandler)
-                    //.deleteCookies("JSESSIONID", "ADMIN_COOKIE", "gSTAFF", "NAME", "USER_ID")
+                    .clearAuthentication(true)
                     .invalidateHttpSession(true)
 
             .and()
@@ -141,7 +141,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
+    /*@Bean
     public TokenBasedRememberMeServices tokenBasedRememberMeServices() {
         TokenBasedRememberMeServices rememberMeServices = new TokenBasedRememberMeServices(REMEMBER_ME_KEY, userDetailsService);
         rememberMeServices.setAlwaysRemember(true);
@@ -149,5 +149,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         rememberMeServices.setTokenValiditySeconds(31536000);
         rememberMeServices.setCookieName(REMEMBER_ME_KEY);
         return rememberMeServices;
-    }
+    }*/
 }

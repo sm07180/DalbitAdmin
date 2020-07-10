@@ -50,6 +50,10 @@ public class Mem_MemberService {
 
     @Autowired
     PushService pushService;
+    @Autowired
+    Mem_ListenService mem_ListenService;
+    @Autowired
+    Mem_BroadcastService mem_BroadcastService;
 
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
@@ -369,12 +373,24 @@ public class Mem_MemberService {
     public String getMemberReport(P_MemberReportVo pMemberReportVo){
         pMemberReportVo.setOpName(MemberVo.getMyMemNo());
 
-        // 신고 대상자가 방송 참여중인지
+        // 신고 대상자가 방송 중인지
         int check = mem_MemberDao.callMemberBroadCasting_check(pMemberReportVo);
 
-        if(check > 0){
-            return gsonUtil.toJson(new JsonOutputVo(Status.방송중));
-        }
+//        if(check > 0){
+//            return gsonUtil.toJson(new JsonOutputVo(Status.방송중));
+//        }
+
+        // 경고를 제외한 정지, 탈퇴 시 방송강제종료, 청취강제종료 후 처리 되도록
+        if(pMemberReportVo.getSlctType() > 2) {
+            MemberVo MemVo = new MemberVo();
+            MemVo.setMem_no(pMemberReportVo.getMem_no());
+            if(check > 0) {
+                //방송 강제 종료 처리
+                mem_BroadcastService.forcedEnd(MemVo);
+            }
+            // 청취 종료 처리
+            mem_ListenService.forcedExit(MemVo);
+         }
 
         // 신고 대상자 정보
         ProcedureVo procedureVo = new ProcedureVo(pMemberReportVo);

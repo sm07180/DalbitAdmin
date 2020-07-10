@@ -5,7 +5,7 @@
 <div class="wrapper full-page-wrapper page-auth page-login text-center">
     <div class="inner-page">
         <div class="logo">
-            <img src="https://image.dalbitlive.com/images/api/ic_logo_normal.png" alt="달빛라이브 관리자" />
+            <img src="https://image.dalbitlive.com/images/api/logo_real.png" alt="달빛라이브 관리자" />
         </div>
 
         <div class="login-box center-block">
@@ -32,12 +32,12 @@
                         </div>
                     </div>
                 </div>
-                <label class="fancy-checkbox">
+                <%--<label class="fancy-checkbox">
                     <label for="remember-me-new">
                         <input type="checkbox" name="remember-me-new" id="remember-me-new" value="true" />
                         <span>Remember me</span>
                     </label>
-                </label>
+                </label>--%>
                 <button type="button" class="btn btn-custom-primary btn-lg btn-block btn-auth" id="loginBtn">
                     <i class="fa fa-arrow-circle-o-right"></i> Login
                 </button>
