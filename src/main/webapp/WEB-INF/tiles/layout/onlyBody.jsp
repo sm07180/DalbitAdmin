@@ -15,5 +15,6 @@
 
     <!-- 이미지 원본 보기 -->
     <div id="fullSize_question"></div>
+    <div class="dalbit_modal"></div>
 </body>
 </html>
