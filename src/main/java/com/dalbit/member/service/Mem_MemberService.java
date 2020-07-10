@@ -275,6 +275,7 @@ public class Mem_MemberService {
                         P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                         pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
                         pPushInsertVo.setSlct_push("35");
+                        pPushInsertVo.setPush_slct("57");       //운영자 메시지(프로필 이미지 초기화, 닉네임 초기화)
                         pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
                         pPushInsertVo.setSend_cont(pMemberEditorVo.getNotiMemo());
                         pPushInsertVo.setImage_type("101");
@@ -326,14 +327,16 @@ public class Mem_MemberService {
 
         String cont = "이용정지가 해제되었습니다.";
         String etcCont = "이용정지가 해제되었습니다.<br>서비스 이용에 주의 부탁드립니다.";
+        P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
+        pPushInsertVo.setPush_slct("56");   //운영자 메시지(이용정지 해제)
 
         if(pMemberEditorVo.getMemState().equals("2")){ //경고
             cont = "경고 조치가 해제되었습니다.";
             etcCont = "경고 조치가 해제되었습니다.";
+            pPushInsertVo.setPush_slct("55");       //운영자 메시지(경고 해제)
         }
 
         try{    // PUSH 발송
-            P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
             pPushInsertVo.setMem_nos(pMemberEditorVo.getMem_no());
             pPushInsertVo.setSlct_push("34");
             pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
@@ -453,6 +456,7 @@ public class Mem_MemberService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
                 pPushInsertVo.setSlct_push("34");
+                pPushInsertVo.setPush_slct("54");   //운영자 메시지(사용자 경고)
                 pPushInsertVo.setSend_title("달빛 라이브 운영자 메시지");
                 pPushInsertVo.setSend_cont("운영정책 위반에 의한 경고 안내입니다.");
                 pPushInsertVo.setEtc_contents(pMemberReportVo.getNotimemo().replaceAll("\n", "<br>"));
@@ -619,6 +623,7 @@ public class Mem_MemberService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
                 pPushInsertVo.setSlct_push("32");
+                pPushInsertVo.setPush_slct("61");   //운영자 선물 알림
                 pPushInsertVo.setSend_title("운영자의 선물 도착!!");
                 pPushInsertVo.setSend_cont("운영자에게 선물이 도착했습니다.");
                 pPushInsertVo.setImage_type("102");
@@ -671,6 +676,7 @@ public class Mem_MemberService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(pMemberReportVo.getReported_mem_no());
                 pPushInsertVo.setSlct_push("32");
+                pPushInsertVo.setPush_slct("61");       //운영자 선물 알림
                 pPushInsertVo.setSend_title("운영자의 선물 도착!!");
                 pPushInsertVo.setSend_cont("운영자에게 선물이 도착했습니다.");
                 pPushInsertVo.setImage_type("102");

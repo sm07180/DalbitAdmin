@@ -76,7 +76,9 @@ public class Sta_PushService {
         ArrayList<P_PushHistoryOutputVo> historyList = sta_PushDao.callPushHistoryList(pPushHistoryInputVo);
 
         if(historyList != null && historyList.size() > 0) {
-            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, historyList, new PagingVo(pPushHistoryInputVo.getTotalCnt(), pPushHistoryInputVo.getPageStart(), pPushHistoryInputVo.getPageCnt())));
+            P_PushHistoryOutputVo summary = sta_PushDao.callPushHistorySummary(pPushHistoryInputVo);
+
+            result = gsonUtil.toJson(new JsonOutputVo(Status.조회, historyList, new PagingVo(pPushHistoryInputVo.getTotalCnt(), pPushHistoryInputVo.getPageStart(), pPushHistoryInputVo.getPageCnt()), summary));
         }else {
             result = gsonUtil.toJson(new JsonOutputVo(Status.데이터없음, new ArrayList<P_PushHistoryOutputVo>(), new PagingVo(pPushHistoryInputVo.getTotalCnt(), pPushHistoryInputVo.getPageStart(), pPushHistoryInputVo.getPageCnt())));
         }

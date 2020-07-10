@@ -25,6 +25,7 @@
             ,image_type          AS image_type
             ,is_noti          AS is_noti
             ,send_type          AS send_type
+            ,push_slct      AS push_slct
         FROM
             rd_admin.tb_admin_push
     </sql>
@@ -133,6 +134,7 @@
                 ,image_type
                 ,is_noti
                 ,send_type
+                ,push_slct
           )
           VALUES
           (
@@ -163,6 +165,7 @@
                 ,#{image_type}
                 ,#{is_noti}
                 ,#{send_type}
+                ,#{push_slct}
           )
 
         <selectKey keyProperty="push_idx" resultType="java.lang.String" order="AFTER">
