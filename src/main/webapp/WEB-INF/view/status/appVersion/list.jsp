@@ -128,7 +128,7 @@
             {{#each aosList}}
             <td>{{addComma userCnt}}</td>
             {{/each}}
-            <td>{{addComma math aosTotUsers "-" aosBuildUser}}</td>
+            <td>{{mathAddComma aosTotUsers "-" aosBuildUser}}</td>
             <td>{{addComma aosTotUsers}}</td>
         </tr>
         </tbody>
@@ -150,7 +150,7 @@
             {{#each iosList}}
             <td>{{addComma userCnt}}</td>
             {{/each}}
-            <td>{{addComma math iosTotUsers "-" iosBuildUser}}</td>
+            <td>{{mathAddComma iosTotUsers "-" iosBuildUser}}</td>
             <td>{{addComma iosTotUsers}}</td>
         </tr>
         </tbody>
