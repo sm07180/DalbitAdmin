@@ -836,7 +836,7 @@
 <script type="text/x-handlebars-template" id="tmp_layer_detail">
     <form id="exchangeForm">
         <input type="hidden" name="idx" value="{{detail.idx}}" />
-        <div class="modal-dialog" style="width:1000px">
+        <div class="modal-dialog" style="{{#if parentInfo.parents_name}}{{/if}}width:900px{{^if parentInfo.parents_name}}width:600px{{/if}}">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
@@ -844,7 +844,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-lg-12 form-inline block _modalLayer">
-                        <div class="{{#if parentInfo.parents_name}}col-lg-9{{/if}}{{^if parentInfo.parents_name}}col-lg-12{{/if}}">
+                        <div class="{{#if parentInfo.parents_name}}col-lg-8{{/if}}{{^if parentInfo.parents_name}}col-lg-12{{/if}}">
                         <%--<div class="col-lg-12">--%>
                             <table id="list_info" class="table table-sorting table-hover table-bordered">
                                 <tbody id="tableBody">
@@ -991,7 +991,7 @@
                         </div>
 
                         {{#if parentInfo.parents_name}}
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                             <div class="mb10">법정대리인 (보호자) 동의 정보</div>
                             <table id="parentTable" class="table table-sorting table-hover table-bordered">
                                 <tbody>
