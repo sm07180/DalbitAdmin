@@ -140,17 +140,23 @@
 
     $('.main-menu li:first').before($('._mainMenu'));
 
+    window.onpopstate = function(event) {
+        var menuArr = history.state.menuArr == null ? [] : history.state.menuArr;
+        if(0 == menuArr.length){
+            location.href='/index';
+        }else{
+            var menuCnt = history.state.menuArr.length;
 
-    /*$(window).scroll(function(){
-        var scrollTop = $(document).scrollTop();
+            var menu = $('._dalbit[data-url="'+history.state.menuArr[menuCnt - 1]+'"], ._inforex[data-url="'+history.state.menuArr[menuCnt - 1]+'"]');
+            if(menu.hasClass('_inforex')){
+                ui.loadInforexAdminPage($('._inforex[data-url="'+history.state.menuArr[menuCnt - 1]+'"]'), true);
+            }else{
+                ui.loadBaseAdminPage($('._dalbit[data-url="'+history.state.menuArr[menuCnt - 1]+'"]'), true);
+            }
 
-        var leftMenu = $('._leftFixed');
-        if (scrollTop < $('.clearfix').height()){
-            leftMenu.css('top', '54px');
-        } else {
-            leftMenu.css('top', '0px');
+            menuArr.length = menuCnt-1
         }
-    });*/
+    }
 
 </script>
 

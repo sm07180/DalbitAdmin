@@ -15,7 +15,11 @@ ui.toogleSearchListFooter = function(searchCnt){
 }
 
 /*인포렉스 메뉴를 클릭 했을 시*/
-ui.loadInforexAdminPage = function(menu){
+ui.loadInforexAdminPage = function(menu, historyBack){
+
+    if(!historyBack){
+        ui.saveHistory(menu);
+    }
 
     //left menu
     var marginLeft = 240;
@@ -28,7 +32,6 @@ ui.loadInforexAdminPage = function(menu){
         html += 'border: 0px;">';
         html += '</iframe>';
 
-    //$('#page-wrapper').empty().append(html);
     $('#main-content-wrapper').empty().append(html);
 
     //이전 메뉴 비활성화/ 클릭한 메뉴 활성화 처리
@@ -36,15 +39,15 @@ ui.loadInforexAdminPage = function(menu){
     $(menu).parent().addClass('active');
 }
 
-ui.loadBaseAdminPage = function(menu){
+ui.loadBaseAdminPage = function(menu, historyBack){
 
     var url = $(menu).data('url');
     if(url == ''){
         return false;
     }
 
-    if(!0 == url.indexOf("http")){
-        url = ADMIN_SERVER_URL + $(menu).data('url');
+    if(!historyBack){
+        ui.saveHistory(menu);
     }
 
     //left menu
@@ -58,7 +61,6 @@ ui.loadBaseAdminPage = function(menu){
     html += 'border: 0px;" id="iframePageContent">';
     html += '</iframe>';
 
-    //$('#page-wrapper').empty().append(html);
     $('#main-content-wrapper').empty().append(html);
 
     //이전 메뉴 비활성화/ 클릭한 메뉴 활성화 처리
@@ -66,14 +68,20 @@ ui.loadBaseAdminPage = function(menu){
     $(menu).parent().addClass('active');
 }
 
+ui.saveHistory = function(menu){
+
+    var url = $(menu).data('url');
+    var menuArr = history.state.menuArr == null ? [] : history.state.menuArr;
+
+    menuArr.push($(menu).data('url'));
+    history.pushState({menuArr: menuArr}, $(menu).find('span').text(), '?menuUrl='+$(menu).data('url'));
+
+    if(!0 == url.indexOf("http")){
+        url = ADMIN_SERVER_URL + $(menu).data('url');
+    }
+}
+
 ui.iframeBodyAutoResize = function(iframe){
-
-    /*var iframeHeight=
-    (iframe).contentWindow.document.body.scrollHeight;
-    (iframe).height=iframeHeight+20;
-
-    console.log(iframeHeight);*/
-    //$('body').height(iframeHeight + 20);
 
     var the_height= document.getElementById('iframePageContent').contentWindow.document.body.scrollHeight + 1000;
 
