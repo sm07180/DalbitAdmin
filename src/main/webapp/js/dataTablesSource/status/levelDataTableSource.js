@@ -4,7 +4,7 @@ var levelDataTableSource = {
 
         , 'columns': [
             {'title': 'level', 'data' : 'level', 'width':'80px'}
-            ,{'title': 'Exp(%)', 'data' : 'exp', 'width':'80px', 'render': function (data, type, row, meta) {
+            ,{'title': 'Exp(%)', 'data' : 'memExp', 'width':'80px', 'render': function (data, type, row, meta) {
                     return data + "(" + Number(row.expPro).toFixed(2) + "%)";
                 }}
             ,{'title': '다음Level<br/>Exp(수치)', 'data' : 'nextLevelExp', 'width':'80px'}
@@ -14,7 +14,7 @@ var levelDataTableSource = {
                 }}
             ,{'title': '닉네임', 'data' : 'mem_nick', 'width':'80px'}
             ,{'title': '성별(나이)', 'data' : 'mem_sex', 'width':'80px','render' : function(data, type, row, meta) {
-                    return common.sexIcon(data) + "(" + row.age.split('.')[0] + ")";
+                    return common.sexIcon(data) + "(" + row.age.split('.')[0] + "세)";
                 }}
             ,{'title': '태그', 'data' : '', 'width':'80px', 'render': function (data, type, row, meta) {
                     var tmp = "";

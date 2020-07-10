@@ -27,6 +27,7 @@ public class P_LevelOutputVo extends PagingVo {
     private String badge_value;
     private String expPro;
     private String nextLevelExp;
+    private String memExp;
 
     //summary
     private int totalLevelCnt;
