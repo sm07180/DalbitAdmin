@@ -50,6 +50,10 @@ ui.loadBaseAdminPage = function(menu, historyBack){
         ui.saveHistory(menu);
     }
 
+    /*if(!0 == url.indexOf("http")){
+        url = ADMIN_SERVER_URL + $(menu).data('url');
+    }*/
+
     //left menu
     var marginLeft = 210;
 
@@ -75,10 +79,6 @@ ui.saveHistory = function(menu){
 
     menuArr.push($(menu).data('url'));
     history.pushState({menuArr: menuArr}, $(menu).find('span').text(), '?menuUrl='+$(menu).data('url'));
-
-    if(!0 == url.indexOf("http")){
-        url = ADMIN_SERVER_URL + $(menu).data('url');
-    }
 }
 
 ui.iframeBodyAutoResize = function(iframe){
