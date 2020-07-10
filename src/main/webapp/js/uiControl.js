@@ -75,7 +75,7 @@ ui.loadBaseAdminPage = function(menu, historyBack){
 ui.saveHistory = function(menu){
 
     var url = $(menu).data('url');
-    var menuArr = history.state.menuArr == null ? [] : history.state.menuArr;
+    var menuArr = (history.state == null || history.state.menuArr == null) ? [] : history.state.menuArr;
 
     menuArr.push($(menu).data('url'));
     history.pushState({menuArr: menuArr}, $(menu).find('span').text(), '?menuUrl='+$(menu).data('url'));
