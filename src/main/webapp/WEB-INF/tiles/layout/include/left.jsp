@@ -141,7 +141,7 @@
     $('.main-menu li:first').before($('._mainMenu'));
 
     window.onpopstate = function(event) {
-        var menuArr = history.state.menuArr == null ? [] : history.state.menuArr;
+        var menuArr = (history.state == null || history.state.menuArr == null) ? [] : history.state.menuArr;
         if(0 == menuArr.length){
             location.href='/index';
         }else{
