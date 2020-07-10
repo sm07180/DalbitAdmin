@@ -126,6 +126,7 @@
         $("#input_startSel").datepicker("setDate", thisYear + '.' + thisMonth + '.01');
         $("#txt_endSel").val($("#input_endSel").val());
         $("#txt_startSel").val($("#input_startSel").val());
+        $("#tabType").val("2");
 
         $("#input_startSel").off('change').on("change", function() {
             var start = $("#input_startSel").val();
@@ -204,7 +205,11 @@
     }
 
     function smsList(type) {
-        type = common.isEmpty(type) ? "2" : type
+        if(!common.isEmpty(type)){
+            listPagingInfo.pageNo = 1;
+        }
+
+        type = common.isEmpty(type) ? $("#tabType").val() : type
         $("#tabType").val(type);
 
         compare();

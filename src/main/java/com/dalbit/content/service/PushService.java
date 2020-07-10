@@ -134,6 +134,20 @@ public class PushService {
                 }
             }
 
+            if(DalbitUtil.isEmpty(pPushInsertVo.getPush_slct())){
+                if(pPushInsertVo.getIs_all().equals("7")){
+                    pPushInsertVo.setPush_slct("96");   //어드민 운영자 메시지(타겟)
+                }else if(pPushInsertVo.getIs_all().equals("99")){
+                    pPushInsertVo.setPush_slct("95");   //어드민 운영자 메시지(테스트계정)
+                }else if(pPushInsertVo.getIs_all().equals("11")){
+                    pPushInsertVo.setPush_slct("93");   //어드민 운영자 메시지(회원)
+                }else if(pPushInsertVo.getIs_all().equals("21")){
+                    pPushInsertVo.setPush_slct("92");   //어드민 운영자 메시지(회원 + 비회원)
+                }else if(pPushInsertVo.getIs_all().equals("31")){
+                    pPushInsertVo.setPush_slct("94");   //어드민 운영자 메시지(비회원)
+                }
+            }
+
             int insertResult = pushDao.callContentsPushAdd(pPushInsertVo);
 
             if(insertResult > 0){
@@ -245,6 +259,7 @@ public class PushService {
 
                 for(String target : arryMem_no){
                     P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target, pPushInsertVo);
+                    pPushInsertVo.setPush_slct("96");   //어드민 운영자 메시지(타겟)
                     ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
                     // PUSH 발송
@@ -295,6 +310,7 @@ public class PushService {
 
             for(TestIdListVo target : testIdList){
                 P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(target.getMem_no(), pPushInsertVo);
+                pPushInsertVo.setPush_slct("95");   //어드민 운영자 메시지(테스트계정)
                 ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
                 // PUSH 발송
@@ -339,8 +355,16 @@ public class PushService {
                 }
             }
 
-        }else if(pPushInsertVo.getIs_all().equals("11") || pPushInsertVo.getIs_all().equals("21") || pPushInsertVo.getIs_all().equals("31")){  // 전체(회원+비회원) 발송 / 회원 / 비회원
+        }else if(pPushInsertVo.getIs_all().equals("11") || pPushInsertVo.getIs_all().equals("21") || pPushInsertVo.getIs_all().equals("31")){  // 회원 / 전체(회원+비회원) 발송 / 비회원
             P_pushStmpInsertVo pPushStmpInsertVo = new P_pushStmpInsertVo(ADMIN_MEM_NO, pPushInsertVo);
+            if(pPushInsertVo.getIs_all().equals("11")){
+                pPushInsertVo.setPush_slct("93");   // 어드민 운영자 메시지(회원)
+            }else if(pPushInsertVo.getIs_all().equals("21")){
+                pPushInsertVo.setPush_slct("92");   // 어드민 운영자 메시지(회원 + 비회원)
+            }else if(pPushInsertVo.getIs_all().equals("31")){
+                pPushInsertVo.setPush_slct("94");   // 어드민 운영자 메시지(비회원)
+            }
+
             ProcedureVo procedureVo = new ProcedureVo(pPushStmpInsertVo);
 
             // PUSH 발송

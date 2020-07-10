@@ -3,7 +3,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid col-lg-8 no-padding">
+        <div class="container-fluid col-lg-9 no-padding">
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
@@ -48,6 +48,7 @@
                                 <div id="div_searchArea" style="display: none;">
                                     <span id="search_platform_aria"></span>
                                     <span id="search_sendType_aria"></span>
+                                    <span id="search_push_slct_aria"></span>
                                     <span id="search_searchType_aria"></span>
 
                                     <label><input type="text" class="form-control" id="txt_search" name="searchText" placeholder="검색할 정보를 입력하세요"></label>
@@ -90,6 +91,7 @@
 
         $("#search_platform_aria").html(util.getCommonCodeSelect(-1, content_platform5));
         $("#search_sendType_aria").html(util.getCommonCodeSelect(-1, push_sendType));
+        $("#search_push_slct_aria").html(util.getCommonCodeSelect(-1, push_push_slct));
         $("#search_searchType_aria").html(util.getCommonCodeSelect(-1, push_searchType));
 
         $('input[id="txt_search"]').keydown(function() {
@@ -184,7 +186,8 @@
             $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
             setTimeDate(dateTime);
         }else if(tabId == 'tab_history'){
-            $("input:radio[name='slctType']:radio[value='3']").prop('checked', true);
+            $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+            setTimeDate(dateTime);
         }else if(tabId == 'tab_notice'){
             $("input:radio[name='slctType']:radio[value='1']").prop('checked', true);
         }

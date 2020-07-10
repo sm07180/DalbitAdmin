@@ -30,6 +30,7 @@ public class P_pushDetailOutputVo extends BaseVo {
     private String send_type;          //발송 구분 (11: 전체, 10: 푸시, 01: 알림)
     private String target_info;
     private String image_type;
+    private String push_slct;
 
     private List<P_MemberListOutputVo> mem_info;        //수신대상정보
 }

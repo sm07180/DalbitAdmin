@@ -314,6 +314,7 @@ public class Mon_ExchangeService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
                 pPushInsertVo.setSlct_push("2");
+                pPushInsertVo.setPush_slct("62");   //환전 완료
                 pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 완료되었습니다.");
                 pPushInsertVo.setSend_cont("마이페이지 > 내지갑을 확인해주세요.");
                 pPushInsertVo.setImage_type("101");
@@ -365,6 +366,7 @@ public class Mon_ExchangeService {
                 P_pushInsertVo pPushInsertVo = new P_pushInsertVo();
                 pPushInsertVo.setMem_nos(exchangeInfo.getMem_no());
                 pPushInsertVo.setSlct_push("2");
+                pPushInsertVo.setPush_slct("63");   //환전 불가
 //                pPushInsertVo.setSend_title("회원님께서 신청하신 환전처리가 불가처리 되었습니다.");
 //                pPushInsertVo.setSend_cont("자세한 사항은 1:1문의로 연락해 주시기바랍니다.");
                 pPushInsertVo.setSend_title(monExchangeOutputVo.getSend_title());
