@@ -3,7 +3,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid col-lg-9 no-padding">
+        <div class="container-fluid col-lg-12 no-padding">
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
