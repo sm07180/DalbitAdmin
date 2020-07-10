@@ -39,7 +39,7 @@
                 </otherwise>
             </choose>
             , #{send_name}
-            , #{mem_no}
+            , ifnull(#{mem_no}, '0')
             , #{cinfo}
         )
     </insert>

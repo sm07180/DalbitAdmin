@@ -13,6 +13,8 @@
                 , (select badge_value from rd_data.tb_member_badge where mem_no = a.mem_no and slct_type='1') badge_value
                 , 100 - (((select exp from rd_data.tbl_level_exp where `level` = b.level+1) - b.exp)
                   / ((select exp from rd_data.tbl_level_exp where `level` = b.level+1) - (select exp from rd_data.tbl_level_exp where `level` = b.level)) * 100) expPro
+                , b.exp - (select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level) as memExp
+                , ((select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level + 1) - (select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level)) as nextLevelExp
           from rd_data.tb_member_basic a
          inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
          inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no

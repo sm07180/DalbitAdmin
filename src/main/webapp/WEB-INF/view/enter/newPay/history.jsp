@@ -19,39 +19,11 @@
                     <%--</div>--%>
                 </div>
                 <div id="div_top">
-                    <div class="widget-content mt10 col-md-10 no-padding mr10">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="statPayTableBody1">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content mt10 col-md-2 no-padding mr10" style="width: 230px">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="PayTotalTableBody">
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="widget-content mt10 col-md-12 no-padding">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="statPayTableBody2">
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget-content mt10 col-md-12 no-padding">
-                        <table class="table table-condensed table-dark-header table-bordered no-margin">
-                            <thead>
-                            </thead>
-                            <tbody id="statPayTableBody3">
-                            </tbody>
-                        </table>
-                    </div>
+                    <div class="mt5 col-md-10 no-padding mr10" id="statPayTableBody1"></div>
+                    <div class="mt5 col-md-2 no-padding mr10" style="width: 230px" id="PayTotalTableBody"></div>
+                    <div class="mt5 col-md-12 no-padding" id="statPayTableBody2"></div>
+                    <div class="mt5 col-md-12 no-padding" id="statPayTableBody3"></div>
+                    <div class="mt5 col-md-12 no-padding" id="statPayTableBody4"></div>
                 </div>
             </div>
         </div>
@@ -107,6 +79,7 @@
         $("#statPayTableBody1").empty();
         $("#statPayTableBody2").empty();
         $("#statPayTableBody3").empty();
+        $("#statPayTableBody4").empty();
         $("#PayTotalTableBody").empty();
 
         // WEB/안드로이드 총 계/합
@@ -179,7 +152,14 @@
         var html=templateScript(context);
         $("#PayTotalTableBody").append(html);
 
+        var template = $('#tmp_payTableSummary4').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data.info;
+        var html=templateScript(context);
+        $("#statPayTableBody4").append(html);
+
         ui.paintColor();
+        ui.tableHeightSet();
         getPayHistoryList();
     }
 
@@ -251,7 +231,7 @@
 
 
 <script id="tmp_payTableSummary1" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0">
+    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
         <colgroup>
             <col width="7.4%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/>
             <col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/><col width="7.1%"/>
@@ -348,7 +328,7 @@
 </script>
 
 <script id="tmp_payTableSummary2" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0">
+    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
         <colgroup>
             <col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
             <col width="0.1%"/><col width="9%"/><col width="7%"/><col width="7%"/><col width="7%"/>
@@ -447,17 +427,16 @@
 
 
 <script id="tmp_payTableSummary3" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0">
+    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
         <colgroup>
-            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-            <col width="5%"/><col width="0.1%"/><col width="5%"/><col width="5%"/><col width="5%"/>
-            <col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/><col width="5%"/>
+            <col width="14%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+            <col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+            <col width="7%"/>
         </colgroup>
         <tbody>
         <tr>
             <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별<br>Web, 안드로이드</a>
+                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별 Web, 안드로이드</a>
             </th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px"> 달 10</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 달 50</th>
@@ -468,17 +447,6 @@
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 달 2,000</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_3000.png" width="25px" height="25px"> 달 3,000</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 달 5,000</th>
-            <th>총합</th>
-            <td style="border-bottom: hidden;border-top: hidden;"></td>
-            <th class="_bgColor" data-bgcolor="#F1E7FB">
-                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별<br>아이폰</a>
-            </th>
-            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 30</th>
-            <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 200</th>
-            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300</th>
-            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 500</th>
-            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 1030</th>
-            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,080</th>
             <th>총합</th>
         </tr>
         <tr>
@@ -493,15 +461,6 @@
             <td>{{addComma code06_cnt}}</td>
             <td>{{addComma code15_cnt}}</td>
             <td><b>{{addComma android_total_cnt}}</b></td>
-            <td style="border-bottom: hidden;border-top: hidden"></td>
-            <th>결제 건 수</th>
-            <td>{{addComma code07_cnt}}</td>
-            <td>{{addComma code08_cnt}}</td>
-            <td>{{addComma code09_cnt}}</td>
-            <td>{{addComma code10_cnt}}</td>
-            <td>{{addComma code11_cnt}}</td>
-            <td>{{addComma code12_cnt}}</td>
-            <td><b>{{addComma ios_total_cnt}}</b></td>
         </tr>
         <tr  style="color: #66a449;">
             <th>부가세 포함 금액</th>
@@ -515,18 +474,9 @@
             <td>{{addComma code06_amt}}</td>
             <td>{{addComma code15_amt}}</td>
             <td><b>{{addComma android_total_amt}}</b></td>
-            <td style="border-bottom: hidden;border-top: hidden"></td>
-            <th>부가세 포함 금액</th>
-            <td>{{addComma code07_amt}}</td>
-            <td>{{addComma code08_amt}}</td>
-            <td>{{addComma code09_amt}}</td>
-            <td>{{addComma code10_amt}}</td>
-            <td>{{addComma code11_amt}}</td>
-            <td>{{addComma code12_amt}}</td>
-            <td><b>{{addComma ios_total_amt}}</b></td>
         </tr>
         <tr style="color: #ff5600;">
-            <th><label class="font-bold">부가세 제외 금액</label></th>
+            <th>부가세 제외 금액</th>
             <td>{{vatMinus code13_amt}}</td>
             <td>{{vatMinus code01_amt}}</td>
             <td>{{vatMinus code02_amt}}</td>
@@ -537,15 +487,6 @@
             <td>{{vatMinus code06_amt}}</td>
             <td>{{vatMinus code15_amt}}</td>
             <td><b>{{vatMinus android_total_amt}}</b></td>
-            <td style="border-bottom: hidden;border-top: hidden"></td>
-            <th>부가세 제외 금액</th>
-            <td>{{vatMinus code07_amt}}</td>
-            <td>{{vatMinus code08_amt}}</td>
-            <td>{{vatMinus code09_amt}}</td>
-            <td>{{vatMinus code10_amt}}</td>
-            <td>{{vatMinus code11_amt}}</td>
-            <td>{{vatMinus code12_amt}}</td>
-            <td><b>{{vatMinus ios_total_amt}}</b></td>
         </tr>
         <tr>
             <th>결제 비율</th>
@@ -559,22 +500,13 @@
             <td>({{payRate code06_cnt android_total_cnt}}%)<br><b>{{payRate code06_amt android_total_amt}}%</b></td>
             <td>({{payRate code15_cnt android_total_cnt}}%)<br><b>{{payRate code15_amt android_total_amt}}%</b></td>
             <td>({{payRate android_total_cnt android_total_cnt}}%)<br><b>{{payRate android_total_amt android_total_amt}}%</b></td>
-            <td style="border-bottom: hidden;border-top: hidden"></td>
-            <th>결제 비율</th>
-            <td>({{payRate code07_cnt ios_total_cnt}}%)<br><b>{{payRate code07_amt ios_total_amt}}%</b></td>
-            <td>({{payRate code08_cnt ios_total_cnt}}%)<br><b>{{payRate code08_amt ios_total_amt}}%</b></td>
-            <td>({{payRate code09_cnt ios_total_cnt}}%)<br><b>{{payRate code09_amt ios_total_amt}}%</b></td>
-            <td>({{payRate code10_cnt ios_total_cnt}}%)<br><b>{{payRate code10_amt ios_total_amt}}%</b></td>
-            <td>({{payRate code11_cnt ios_total_cnt}}%)<br><b>{{payRate code11_amt ios_total_amt}}%</b></td>
-            <td>({{payRate code12_cnt ios_total_cnt}}%)<br><b>{{payRate code12_amt ios_total_amt}}%</b></td>
-            <td>({{payRate ios_total_cnt ios_total_cnt}}%)<br><b>{{payRate ios_total_amt ios_total_amt}}%</b></td>
         </tr>
         </tbody>
     </table>
 </script>
 
 <script id="tmp_payTotalTable" type="text/x-handlebars-template">
-    <table class="table table-bordered mb0">
+    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
         <colgroup>
             <col width="35%"/><col width="65%"/>
         </colgroup>
@@ -592,5 +524,100 @@
             <td>{{addComma cancelCnt}}건</td>
             <td>{{vatMinus cancelAmt}}원</td>
         </tr>
+    </table>
+</script>
+
+
+<script id="tmp_payTableSummary4" type="text/x-handlebars-template">
+    <table class="table table-bordered mb0 _tableHeight" data-height="23px">
+        <colgroup>
+            <col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+            <col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+            <col width="7%"/><col width="7%"/><col width="7%"/><col width="7%"/>
+        </colgroup>
+        <tbody>
+        <tr>
+            <th class="_bgColor" data-bgcolor="#F1E7FB">
+                <a href="javascript://" onclick="click_code();" class="_fontColor" data-fontcolor="black">◈ 아이템별 아이폰</a>
+            </th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px"> 달 9</th>
+            <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 30</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 달 45</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px"> 달 92</th>
+            <th><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 달 200</th>
+            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300</th>
+            <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 500</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px"> 달 838</th>
+            <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 1030</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 달 1,530</th>
+            <th><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 달 2,080</th>
+            <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 달 3,770</th>
+            <th>총합</th>
+        </tr>
+        <tr>
+            <th>결제 건 수</th>
+            <td>0</td>
+            <td>{{addComma code07_cnt}}</td>
+            <td>0</td>
+            <td>0</td>
+            <td>{{addComma code08_cnt}}</td>
+            <td>{{addComma code09_cnt}}</td>
+            <td>{{addComma code10_cnt}}</td>
+            <td>0</td>
+            <td>{{addComma code11_cnt}}</td>
+            <td>0</td>
+            <td>{{addComma code12_cnt}}</td>
+            <td>0</td>
+            <td><b>{{addComma ios_total_cnt}}</b></td>
+        </tr>
+        <tr  style="color: #66a449;">
+            <th>부가세 포함 금액</th>
+            <td>0</td>
+            <td>{{addComma code07_amt}}</td>
+            <td>0</td>
+            <td>0</td>
+            <td>{{addComma code08_amt}}</td>
+            <td>{{addComma code09_amt}}</td>
+            <td>{{addComma code10_amt}}</td>
+            <td>0</td>
+            <td>{{addComma code11_amt}}</td>
+            <td>0</td>
+            <td>{{addComma code12_amt}}</td>
+            <td>0</td>
+            <td><b>{{addComma ios_total_amt}}</b></td>
+        </tr>
+        <tr style="color: #ff5600;">
+            <th>부가세 제외 금액</th>
+            <td>0</td>
+            <td>{{vatMinus code07_amt}}</td>
+            <td>0</td>
+            <td>0</td>
+            <td>{{vatMinus code10_amt}}</td>
+            <td>{{vatMinus code08_amt}}</td>
+            <td>{{vatMinus code09_amt}}</td>
+            <td>0</td>
+            <td>{{vatMinus code11_amt}}</td>
+            <td>0</td>
+            <td>{{vatMinus code12_amt}}</td>
+            <td>0</td>
+            <td><b>{{vatMinus ios_total_amt}}</b></td>
+        </tr>
+        <tr>
+            <th>결제 비율</th>
+            <td>0</td>
+            <td>({{payRate code07_cnt ios_total_cnt}}%)<br><b>{{payRate code07_amt ios_total_amt}}%</b></td>
+            <td>0</td>
+            <td>0</td>
+            <td>({{payRate code08_cnt ios_total_cnt}}%)<br><b>{{payRate code08_amt ios_total_amt}}%</b></td>
+            <td>({{payRate code09_cnt ios_total_cnt}}%)<br><b>{{payRate code09_amt ios_total_amt}}%</b></td>
+            <td>({{payRate code10_cnt ios_total_cnt}}%)<br><b>{{payRate code10_amt ios_total_amt}}%</b></td>
+            <td>0</td>
+            <td>({{payRate code11_cnt ios_total_cnt}}%)<br><b>{{payRate code11_amt ios_total_amt}}%</b></td>
+            <td>0</td>
+            <td>({{payRate code12_cnt ios_total_cnt}}%)<br><b>{{payRate code12_amt ios_total_amt}}%</b></td>
+            <td>0</td>
+            <td>({{payRate ios_total_cnt ios_total_cnt}}%)<br><b>{{payRate ios_total_amt ios_total_amt}}%</b></td>
+        </tr>
+        </tbody>
     </table>
 </script>
