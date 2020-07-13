@@ -173,9 +173,9 @@
                 , SUM(a.send_cnt)         AS send_cnt
                 , SUM(a.succ_cnt)         AS succ_cnt
                 , SUM(a.fail_cnt)           AS fail_cnt
-                , IF( SUM(a.send_cnt) > 0, FLOOR((SUM(a.succ_cnt)/SUM(a.send_cnt))*100), 0)        AS succ_rate
+                , IF( SUM(a.send_cnt) > 0, ROUND((SUM(a.succ_cnt)/SUM(a.send_cnt))*100, 2), 0)        AS succ_rate
                 , SUM(a.click_cnt)          AS click_cnt
-                , if( SUM(a.succ_cnt) > 0 , FLOOR((SUM(a.click_cnt)/SUM(a.succ_cnt))*100), 0)         AS click_rate
+                , if( SUM(a.succ_cnt) > 0 , ROUND((SUM(a.click_cnt)/SUM(a.succ_cnt))*100, 2), 0)         AS click_rate
         FROM(
           SELECT
               history.idx

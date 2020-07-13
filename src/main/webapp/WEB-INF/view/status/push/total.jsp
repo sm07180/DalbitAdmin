@@ -96,19 +96,19 @@
         <td>{{addComma sum_male_send_cnt}}</td>
         <td>{{addComma sum_male_succ_cnt}}</td>
         <td>{{addComma sum_male_fail_cnt}}</td>
-        <td>{{average sum_male_succ_cnt sum_male_send_cnt}}%</td>
+        <td>{{sum_male_succ_rate}}%</td>
         <td>{{addComma sum_female_send_cnt}}</td>
         <td>{{addComma sum_female_succ_cnt}}</td>
         <td>{{addComma sum_female_fail_cnt}}</td>
-        <td>{{average sum_female_succ_cnt sum_female_send_cnt}}%</td>
+        <td>{{sum_female_succ_rate}}%</td>
         <td>{{addComma sum_none_send_cnt}}</td>
         <td>{{addComma sum_none_succ_cnt}}</td>
         <td>{{addComma sum_none_fail_cnt}}</td>
-        <td>{{average sum_none_succ_cnt sum_none_send_cnt}}%</td>
+        <td>{{sum_none_succ_rate}}%</td>
         <td>{{addComma sum_total_send_cnt}}</td>
         <td>{{addComma sum_total_succ_cnt}}</td>
         <td>{{addComma sum_total_fail_cnt}}</td>
-        <td>{{average sum_total_succ_cnt sum_total_send_cnt}}%</td>
+        <td>{{sum_total_succ_rate}}%</td>
     </tr>
 </script>
 
@@ -127,19 +127,19 @@
         <td>{{addComma male_send_cnt}}</td>
         <td>{{addComma male_succ_cnt}}</td>
         <td>{{addComma male_fail_cnt}}</td>
-        <td>{{average male_succ_cnt male_send_cnt}}%</td>
+        <td>{{male_succ_rate}}%</td>
         <td>{{addComma female_send_cnt}}</td>
         <td>{{addComma female_succ_cnt}}</td>
         <td>{{addComma female_fail_cnt}}</td>
-        <td>{{average female_succ_cnt female_send_cnt}}%</td>
+        <td>{{female_succ_rate}}%</td>
         <td>{{addComma none_send_cnt}}</td>
         <td>{{addComma none_succ_cnt}}</td>
         <td>{{addComma none_fail_cnt}}</td>
-        <td>{{average none_succ_cnt none_send_cnt}}%</td>
+        <td>{{none_succ_rate}}%</td>
         <td>{{addComma total_send_cnt}}</td>
         <td>{{addComma total_succ_cnt}}</td>
         <td>{{addComma total_fail_cnt}}</td>
-        <td>{{average total_succ_cnt total_send_cnt}}%</td>
+        <td>{{total_succ_rate}}%</td>
     </tr>
     {{else}}
         <td colspan="11" class="noData">{{isEmptyData}}<td>
