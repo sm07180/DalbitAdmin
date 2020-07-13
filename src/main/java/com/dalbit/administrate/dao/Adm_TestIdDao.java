@@ -1,5 +1,6 @@
 package com.dalbit.administrate.dao;
 
+import com.dalbit.administrate.vo.AdminIdVo;
 import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.administrate.vo.TestIdVo;
 import com.dalbit.common.vo.SearchVo;
@@ -22,7 +23,7 @@ public interface Adm_TestIdDao {
     int insertTestId_history(TestIdVo testIdVo);
 
     @Transactional(readOnly = true)
-    List<TestIdVo> getTestIdSummary();
+    List<TestIdVo> getTestIdSummary(SearchVo searchVo);
 
     @Transactional(readOnly = true)
     List<TestIdListVo> getTestIdList(SearchVo searchVo);
@@ -37,4 +38,8 @@ public interface Adm_TestIdDao {
     void deleteTestId(String[] memNos);
 
     int updateInner(TestIdVo testIdVo);
+
+    int updateAdminId(AdminIdVo adminIdVo);
+
+    int updateAdminBadge(AdminIdVo adminIdVo);
 }

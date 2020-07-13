@@ -15,6 +15,11 @@
 
                                 <label><input type="text" class="form-control" name="searchText" id="searchText" placeholder="검색할 정보를 입력하세요"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
+
+                                <label class="control-inline fancy-checkbox custom-color-green">
+                                    <input type="checkbox" name="search_adminId" id="search_adminId" value="1" />
+                                    <span>운영자 계정 보기</span>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -103,6 +108,7 @@
                                         <th>최근수정일</th>
                                         <th>최근로그인</th>
                                         <th>상태</th>
+                                        <th>운영자<br />활성화</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody">
@@ -149,11 +155,10 @@
     }
 
     function getSummary(){
-        util.getAjaxData("summary", "/rest/administrate/testId/summary", null, fn_summary_success);
+        util.getAjaxData("summary", "/rest/administrate/testId/summary", $("#searchForm").serialize(), fn_summary_success);
     }
 
     function fn_summary_success(dst_id, response){
-        dalbitLog(response);
 
         if(response.result == 'success'){
             var totalCnt = 0;
@@ -189,7 +194,6 @@
     }
 
     function fn_list_success(dst_id, response){
-        dalbitLog(response);
 
         if(response.result == 'success'){
             var template = $('#tmp_list').html();
@@ -249,6 +253,11 @@
         }
     });
 
+    $('#search_adminId').on('change', function(){
+        getSummary();
+        getList();
+    });
+
     $('#bt_delete').on('click', function(){
         var checkeds = $("#tableBody").find('._chk:checked');
         if(0 == checkeds.length){
@@ -276,6 +285,23 @@
         $("#bt_search").click();
         ui.topScroll();
     });
+
+    $(document).on('change', '.onoffswitch-checkbox', function(){
+        var mem_no = $(this).prop('id').split('_')[1];
+        var is_admin = $(this).prop('checked') ? 1 : 0;
+
+        var data = {
+            mem_no : mem_no
+            , is_admin : is_admin
+        }
+
+        util.getAjaxData("adminIdChange", "/rest/administrate/testId/updateAdminId", data, fn_admin_success);
+    });
+
+    function fn_admin_success(dst_id, response, param){
+        console.log('fn_admin_success');
+        alert(response.message);
+    }
 
     /*=============엑셀==================*/
     $('#excelDownBtn').on('click', function(){
@@ -336,10 +362,11 @@
             <td>{{user.lastOpDate}}</td>
             <td>{{user.lastLoginDatetime}}</td>
             <td>{{stateName user.mem_state}}</td>
+            <td>{{{getOnOffSwitch user.is_admin user.mem_no}}}</td>
         </tr>
     {{else}}
         <tr>
-            <td colspan="12">{{isEmptyData}}</td>
+            <td colspan="20">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>

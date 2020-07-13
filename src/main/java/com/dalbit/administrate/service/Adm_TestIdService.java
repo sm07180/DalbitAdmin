@@ -1,8 +1,11 @@
 package com.dalbit.administrate.service;
 
 import com.dalbit.administrate.dao.Adm_TestIdDao;
+import com.dalbit.administrate.vo.AdminIdVo;
 import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.administrate.vo.TestIdVo;
+import com.dalbit.common.code.Status;
+import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
@@ -14,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.*;
@@ -53,8 +57,8 @@ public class Adm_TestIdService {
         return result;
     }
 
-    public List<TestIdVo> getTestIdSummary(){
-        List<TestIdVo> testIdSummary = admTestIdDao.getTestIdSummary();
+    public List<TestIdVo> getTestIdSummary(SearchVo searchVo){
+        List<TestIdVo> testIdSummary = admTestIdDao.getTestIdSummary(searchVo);
         return testIdSummary;
     }
 
@@ -174,5 +178,23 @@ public class Adm_TestIdService {
         model.addAttribute("workbookName", "회원 목록");
 
         return model;
+    }
+
+    @Transactional
+    public String updateAdminId(AdminIdVo adminIdVo){
+
+        try {
+            admTestIdDao.updateAdminId(adminIdVo);
+            admTestIdDao.updateAdminBadge(adminIdVo);
+
+            if(adminIdVo.getIs_admin() == 0){
+                return gsonUtil.toJson(new JsonOutputVo(Status.운영자아이디해제));
+            }else{
+                return gsonUtil.toJson(new JsonOutputVo(Status.운영자아이디등록));
+            }
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+
     }
 }

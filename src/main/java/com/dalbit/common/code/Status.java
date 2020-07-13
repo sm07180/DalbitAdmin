@@ -453,6 +453,9 @@ public enum Status {
     테스트아이디_회원검색_결과없음("C008", "testid.member.notFound", "회원검색이 안되었을 때"),
     테스트아이디_이미등록된테스트아이디("C008", "testid.already.regist", "테스트아이디가 이미 등록이 되었을 때"),
 
+    운영자아이디등록("C008", "adminId.insert", "운영자아이디 등록"),
+    운영자아이디해제("C008", "adminId.delete", "운영자아이디 해제"),
+
     // 이벤트 관리
     이벤트목록보기_성공("0", "event.list.view.success", "이벤트목록보기 성공 시"),
     이벤트목록보기_실패("C006", "event.list.view.fail", "이벤트목록보기 실패 시"),
