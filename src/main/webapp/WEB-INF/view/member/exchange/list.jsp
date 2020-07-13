@@ -136,14 +136,14 @@
                                 <td colspan="3">
                                     <div class="col-lg-6" style="border:solid 1px black">
                                         <a href="javascript://">
-                                            <img src="{{renderImage add_file1}}" class="_fullWidth _openImagePop thumbnail" />
+                                            <img src="{{renderImage add_file1}}" class="_fullWidth _openImagePop thumbnail" style="max-width:100px;max-height:150px;" />
                                         </a>
                                         {{#equal state '0'}}<input id="files1" type="file" onchange="photoSubmit($(this))">{{/equal}}
                                         <input type="hidden" class="_hidden_filename" name="add_file1" id="add_file1" value="{{add_file1}}" />
                                     </div>
                                     <div class="col-lg-6" style="border:solid 1px black">
                                         <a href="javascript://">
-                                            <img src="{{renderImage add_file2}}" class="_fullWidth _openImagePop thumbnail" />
+                                            <img src="{{renderImage add_file2}}" class="_fullWidth _openImagePop thumbnail" style="max-width:100px;max-height:150px;" />
                                         </a>
                                         {{#equal state '0'}}<input id="files2" type="file" onchange="photoSubmit($(this))"/>{{/equal}}
                                         <input type="hidden" class="_hidden_filename" name="add_file2" id="add_file2" value="{{add_file2}}" />
