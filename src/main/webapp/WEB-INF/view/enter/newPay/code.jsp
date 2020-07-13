@@ -177,6 +177,13 @@
             response.data.totalInfo.sum_code10Cnt,
             response.data.totalInfo.sum_code11Cnt,
             response.data.totalInfo.sum_code12Cnt,
+            response.data.totalInfo.sum_code16Cnt,
+            response.data.totalInfo.sum_code17Cnt,
+            response.data.totalInfo.sum_code18Cnt,
+            response.data.totalInfo.sum_code19Cnt,
+            response.data.totalInfo.sum_code20Cnt,
+            response.data.totalInfo.sum_code21Cnt,
+            response.data.totalInfo.sum_code22Cnt,
         ];
         var sum_ios_total_amt = [
             response.data.totalInfo.sum_code07Amt,
@@ -185,6 +192,13 @@
             response.data.totalInfo.sum_code10Amt,
             response.data.totalInfo.sum_code11Amt,
             response.data.totalInfo.sum_code12Amt,
+            response.data.totalInfo.sum_code16Amt,
+            response.data.totalInfo.sum_code17Amt,
+            response.data.totalInfo.sum_code18Amt,
+            response.data.totalInfo.sum_code19Amt,
+            response.data.totalInfo.sum_code20Amt,
+            response.data.totalInfo.sum_code21Amt,
+            response.data.totalInfo.sum_code22Amt,
         ];
         response.data.totalInfo["sum_ios_total_cnt"] = common.getListSum(sum_ios_total_cnt);
         response.data.totalInfo["sum_ios_total_amt"] = common.getListSum(sum_ios_total_amt);

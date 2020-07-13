@@ -14,6 +14,7 @@ import com.dalbit.payment.vo.Pay_PayInputVo;
 import com.dalbit.payment.vo.Pay_PayOutputVo;
 import com.dalbit.status.dao.Sta_LevelDao;
 import com.dalbit.status.vo.procedure.P_LevelInputVo;
+import com.dalbit.status.vo.procedure.P_LevelListOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo;
 import com.dalbit.util.DalbitUtil;
@@ -74,11 +75,26 @@ public class Sta_LevelService {
             summary = staLevelDao.getLevelSummary40(pLevelInputVo);
         }else if(pLevelInputVo.getLevel().equals("50")){    //41~50
             summary = staLevelDao.getLevelSummary50(pLevelInputVo);
-        }else if(pLevelInputVo.getLevel().equals("60")){    //50~
-//            summary = staLevelDao.getLevelSummary10(pLevelInputVo);
+        }else if(pLevelInputVo.getLevel().equals("60")){    //51~60
+            summary = staLevelDao.getLevelSummary60(pLevelInputVo);
         }
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, null, new PagingVo(0),summary));
+
+        return result;
+    }
+
+    /**
+     *  회원 레벨별 목록 조회
+     */
+    public String getLevelList(P_LevelInputVo pLevelInputVo) {
+        List<P_LevelListOutputVo> list = staLevelDao.getLevelList(pLevelInputVo);
+
+        //summary
+        P_LevelListOutputVo summary = new P_LevelListOutputVo();
+        summary.setMemAllCount(list.get(0).getMemAllCount());
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(0),summary));
 
         return result;
     }
