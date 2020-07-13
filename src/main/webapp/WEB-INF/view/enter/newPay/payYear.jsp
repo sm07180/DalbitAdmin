@@ -55,8 +55,8 @@
                     <th colspan="2" class="_stateTopTh">도서문화상품권<i class="fa fa-book"></i></th>
                     <th colspan="2" class="_stateTopTh">티머니<i class="fa fa-bus"></i></th>
                     <th colspan="2" class="_stateTopTh">캐시비<i class="fa fa-forumbee"></i></th>
-                    <%--<th colspan="2" class="_stateTopTh">페이코<i class="fa fa-paypal"></i></th>--%>
-                    <%--<th colspan="2" class="_stateTopTh">카카오페이<i class="fa fa-comment"></i></th>--%>
+                    <th colspan="2" class="_stateTopTh">페이코<i class="fa fa-paypal"></i></th>
+                    <th colspan="2" class="_stateTopTh">카카오페이<i class="fa fa-comment"></i></th>
                 </tr>
                 <tr>
                     <th class="_stateSubTh">건(비율)</th>
@@ -81,10 +81,10 @@
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
                     <th class="_stateSubTh">금액</th>
-                    <%--<th class="_stateSubTh">건</th>--%>
-                    <%--<th class="_stateSubTh">금액</th>--%>
-                    <%--<th class="_stateSubTh">건</th>--%>
-                    <%--<th class="_stateSubTh">금액</th>--%>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
+                    <th class="_stateSubTh">건</th>
+                    <th class="_stateSubTh">금액</th>
                 </tr>
                 </thead>
                 <tbody id="wayYearTableBody"></tbody>
@@ -378,10 +378,10 @@
         <td>{{vatMinus sum_tmoneyAmt}}</td>
         <td>{{vatMinus sum_cashbeeCnt}}</td>
         <td>{{vatMinus sum_cashbeeAmt}}</td>
-        <%--<td>{{vatMinus sum_paycoCnt}}</td>--%>
-        <%--<td>{{vatMinus sum_paycoAmt}}</td>--%>
-        <%--<td>{{vatMinus sum_kakaopayCnt}}</td>--%>
-        <%--<td>{{vatMinus sum_kakaopayAmt}}</td>--%>
+        <td>{{vatMinus sum_paycoCnt}}</td>
+        <td>{{vatMinus sum_paycoAmt}}</td>
+        <td>{{vatMinus sum_kakaopayCnt}}</td>
+        <td>{{vatMinus sum_kakaopayAmt}}</td>
     </tr>
 </script>
 
@@ -414,10 +414,10 @@
         <td>{{vatMinus tmoneyAmt}}</td>
         <td>{{vatMinus cashbeeCnt}}</td>
         <td>{{vatMinus cashbeeAmt}}</td>
-        <%--<td>{{vatMinus paycoCnt}}</td>--%>
-        <%--<td>{{vatMinus paycoAmt}}</td>--%>
-        <%--<td>{{vatMinus kakaopayCnt}}</td>--%>
-        <%--<td>{{vatMinus kakaopayAmt}}</td>--%>
+        <td>{{vatMinus paycoCnt}}</td>
+        <td>{{vatMinus paycoAmt}}</td>
+        <td>{{vatMinus kakaopayCnt}}</td>
+        <td>{{vatMinus kakaopayAmt}}</td>
 
     </tr>
     {{else}}

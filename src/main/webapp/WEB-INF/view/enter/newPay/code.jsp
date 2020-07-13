@@ -410,8 +410,8 @@
             {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td style="color:#ff5600;font-weight: bold">{{addComma ios_total_cnt}}({{average ios_total_cnt ios_total_cnt}}%)</td>
-        <td style="color:#ff5600;font-weight: bold">{{vatMinus ios_total_amt}}({{average ios_total_amt ios_total_amt}}%)</td>
+        <td style="font-weight: bold">{{addComma ios_total_cnt}}({{average ios_total_cnt ios_total_cnt}}%)</td>
+        <td style="font-weight: bold">{{vatMinus ios_total_amt}}({{average ios_total_amt ios_total_amt}}%)</td>
         <td>{{addComma code16Cnt}}</td>
         <td>{{vatMinus code16Amt}}</td>
         <td>{{addComma code07Cnt}}</td>
