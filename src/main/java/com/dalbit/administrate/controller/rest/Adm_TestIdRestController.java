@@ -1,6 +1,7 @@
 package com.dalbit.administrate.controller.rest;
 
 import com.dalbit.administrate.service.Adm_TestIdService;
+import com.dalbit.administrate.vo.AdminIdVo;
 import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.administrate.vo.TestIdVo;
 import com.dalbit.common.code.Status;
@@ -63,8 +64,8 @@ public class Adm_TestIdRestController {
     }
 
     @PostMapping("/summary")
-    public String summary(){
-        List<TestIdVo> summaryList = admTestIdService.getTestIdSummary();
+    public String summary(SearchVo searchVo){
+        List<TestIdVo> summaryList = admTestIdService.getTestIdSummary(searchVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, summaryList));
     }
 
@@ -97,4 +98,8 @@ public class Adm_TestIdRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 
+    @PostMapping("updateAdminId")
+    public String updateAdminId(HttpServletRequest request, AdminIdVo adminIdVo){
+        return admTestIdService.updateAdminId(adminIdVo);
+    }
 }

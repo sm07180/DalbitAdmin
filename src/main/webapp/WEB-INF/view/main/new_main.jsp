@@ -6,20 +6,56 @@
         <div class="container-fluid">
             <!--가입/탈퇴-->
             <h3><span id="dateArea"></span></h3>
-            <div class="widget widget-table mb10">
-                <div class="widget-header">
-                    <h3><i class="fa fa-bar-chart-o"></i> 가입 / 탈퇴</h3>
+            <div class="row">
+                <div class="widget widget-table mb10 col-lg-3">
+                    <div class="widget-header">
+                        <h3>
+                            <a href="javascript://">
+                                <i class="fa fa-bar-chart-o"></i> 가입 / 탈퇴
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="widget-content mt10">
+                        <table class="table table-condensed table-dark-header table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>수치</th>
+                                    <th>증감</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>가입</th>
+                                    <td>100</td>
+                                    <td>200</td>
+                                </tr>
+                                <tr>
+                                    <th>탈퇴</th>
+                                    <td>40</td>
+                                    <td>50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="widget-content mt10">
-                    <table class="table table-condensed table-dark-header table-bordered">
-                        <thead>
+                <!--//가입/탈퇴-->
+
+                <!--접속자-->
+                <div class="widget widget-table mb10 col-lg-3">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-bar-chart-o"></i> 접속자</h3>
+                    </div>
+                    <div class="widget-content mt10">
+                        <table class="table table-condensed table-dark-header table-bordered">
+                            <thead>
                             <tr>
                                 <th></th>
                                 <th>수치</th>
                                 <th>증감</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr>
                                 <th>가입</th>
                                 <td>100</td>
@@ -30,11 +66,88 @@
                                 <td>40</td>
                                 <td>50</td>
                             </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!--//접속자-->
+
+                <!--방송개설/청취자-->
+                <div class="widget widget-table mb10 col-lg-3">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-bar-chart-o"></i> 접속자</h3>
+                    </div>
+                    <div class="widget-content mt10">
+                        <table class="table table-condensed table-dark-header table-bordered">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>수치</th>
+                                <th>증감</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>가입</th>
+                                <td>100</td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <th>탈퇴</th>
+                                <td>40</td>
+                                <td>50</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--//방송개설/청취자-->
+
+                <!--결제/결제취소/환불/환전-->
+                <div class="widget widget-table mb10 col-lg-3">
+                    <div class="widget-header">
+                        <h3><i class="fa fa-bar-chart-o"></i> 결제/결제취소/환불/환전</h3>
+                    </div>
+                    <div class="widget-content mt10">
+                        <table class="table table-condensed table-dark-header table-bordered">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>건</th>
+                                <th>차이</th>
+                                <th>결제금액</th>
+                                <th>차이</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>결제</th>
+                                <td>100</td>
+                                <td>200</td>
+                                <td>200,000</td>
+                                <td>100,000</td>
+                            </tr>
+                            <tr>
+                                <th>결제취소</th>
+                                <td>40</td>
+                                <td>50</td>
+                                <td>1,350,000</td>
+                                <td>550,000</td>
+                            </tr>
+                            <tr>
+                                <th>환전</th>
+                                <td>40</td>
+                                <td>40</td>
+                                <td>500,000</td>
+                                <td>200,000</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--//결제/결제취소/환불/환전-->
             </div>
-            <!--//종합현황-->
+
 
             <!--방송건수 차트-->
             <div class="widget">
