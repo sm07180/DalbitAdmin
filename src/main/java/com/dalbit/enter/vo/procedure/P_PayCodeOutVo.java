@@ -40,4 +40,18 @@ public class P_PayCodeOutVo {
     private int sum_code14Amt;
     private int sum_code15Cnt;
     private int sum_code15Amt;
+    private int sum_code16Cnt;
+    private int sum_code16Amt;
+    private int sum_code17Cnt;
+    private int sum_code17Amt;
+    private int sum_code18Cnt;
+    private int sum_code18Amt;
+    private int sum_code19Cnt;
+    private int sum_code19Amt;
+    private int sum_code20Cnt;
+    private int sum_code20Amt;
+    private int sum_code21Cnt;
+    private int sum_code21Amt;
+    private int sum_code22Cnt;
+    private int sum_code22Amt;
 }
