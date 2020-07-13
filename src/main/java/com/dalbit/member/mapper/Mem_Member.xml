@@ -98,9 +98,12 @@
 
     <select id="callMemberSocialIdCheck" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo" resultType="integer">
         /* M_Member.xml - callMemberEditor */
-        select count(*) as cnt from rd_data.tb_member_basic where upper(mem_id)=upper(#{socialId})
-        union
-        select count(*) as cnt from rd_data.tb_member_withdrawal_bak where upper(mem_id)=upper(#{socialId})
+        SELECT
+            IF(count(*) != 0, count(*), (SELECT count(*) FROM rd_data.tb_member_withdrawal_bak WHERE upper(mem_id)=upper(#{socialId}))) AS cnt
+        FROM
+            rd_data.tb_member_basic
+        WHERE
+            upper(mem_id)=upper(#{socialId});
     </select>
 
     <update id="callMemberSocialIdEditor" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
