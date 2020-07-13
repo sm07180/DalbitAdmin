@@ -194,7 +194,7 @@
         tmp_ostype = $("#div_payY").find("select[name='ostype']").val();
         tmp_innerType = $("#div_payY").find("select[name='innerType']").val();
         tmp_payWay = $("#div_payY").find("select[name='payWay']").val();
-        dtList_info.reload(pay_listSummary);
+        dtList_info.reload();
     }
 
     /*=============엑셀==================*/
