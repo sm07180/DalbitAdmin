@@ -41,7 +41,7 @@ var BroadcastDataTableSource = {
                     return common.sexIcon(data) + '<br/>' + "(" +row.dj_korean_age + "세)";
                 }},
             {'title': '상태', 'data': 'state', 'width':'50px', 'render': function (data, type, row, meta) {
-                   return util.getCommonCodeLabel(data,room_state);
+                    return util.getCommonCodeLabel(data,room_state);
                 }},
             {'title': '숨김상태', 'data': 'hide', 'width':'50px', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";

@@ -13,7 +13,7 @@
                 <col width="5.8%"/><col width="5.8%"/>
             </colgroup>
             <thead>
-            <tr>
+            <tr class="_stateTopTh">
                 <th rowspan="2"></th>
                 <th colspan="4" class="_sex_male">남성</th>
                 <th colspan="4" class="_sex_female">여성</th>
@@ -21,7 +21,7 @@
                 <th colspan="4">합계</th>
             </tr>
 
-            <tr>
+            <tr class="_stateSubTh">
                 <th>발송건수</th>
                 <th>성공건수</th>
                 <th>실패건수</th>
@@ -61,6 +61,7 @@
 
     function fn_total_success(data, response){
         dalbitLog(response);
+
         var isDataEmpty = response.data.detailList == null;
         $("#tableTotalBody").empty();
         if(!isDataEmpty){
@@ -75,6 +76,9 @@
 
         var template = $('#tmp_totalDetail').html();
         var templateScript = Handlebars.compile(template);
+        response.data.detailList.nowMonth = moment().format("MM");
+        response.data.detailList.nowDay = moment().format("DD");
+        response.data.detailList.nowHour = moment().format("HH");
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
         $("#tableTotalBody").append(html);
@@ -87,7 +91,7 @@
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_total">
-    <tr class="font-bold">
+    <tr class="font-bold _stateSumTd" style="color: #ff5600;">
         <td>합계</td>
         <td>{{addComma sum_male_send_cnt}}</td>
         <td>{{addComma sum_male_succ_cnt}}</td>
@@ -110,8 +114,13 @@
 
 <script type="text/x-handlebars-template" id="tmp_totalDetail">
     {{#each this as |data|}}
-    <tr>
-        <td class="font-bold">
+    <%--<tr {{#dalbit_if ../nowDate '==' date}}{{#dalbit_if ../nowHour '==' hour}} class="font-bold _stateSubTh" {{/dalbit_if}}{{/dalbit_if}}>--%>
+    <tr
+            {{#dalbit_if ../slctType '==' '0'}}{{#dalbit_if ../nowHour '==' hour}} class="font-bold _stateSubTh" {{/dalbit_if}}{{/dalbit_if}}
+            {{#dalbit_if ../slctType '==' '1'}}{{#dalbit_if ../nowDay '==' day}} class="font-bold _stateSubTh" {{/dalbit_if}}{{/dalbit_if}}
+            {{#dalbit_if ../slctType '==' '2'}}{{#dalbit_if ../nowMonth '==' month}} class="font-bold _stateSubTh" {{/dalbit_if}}{{/dalbit_if}}
+    >
+        <td class="font-bold _stateSubTh">
             {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
             {{#equal ../slctType 1}}{{data.month}}월 {{data.day}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.year}}년 {{data.month}}월{{/equal}}
