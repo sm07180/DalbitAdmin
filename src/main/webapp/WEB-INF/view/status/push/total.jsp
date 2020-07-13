@@ -76,9 +76,9 @@
 
         var template = $('#tmp_totalDetail').html();
         var templateScript = Handlebars.compile(template);
-        response.data.detailList.nowMonth = moment().format("MM");
-        response.data.detailList.nowDay = moment().format("DD");
-        response.data.detailList.nowHour = moment().format("HH");
+        response.data.detailList.nowMonth = Number(moment().format("MM"));
+        response.data.detailList.nowDay = Number(moment().format("DD"));
+        response.data.detailList.nowHour = Number(moment().format("HH"));
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
         $("#tableTotalBody").append(html);
@@ -114,7 +114,6 @@
 
 <script type="text/x-handlebars-template" id="tmp_totalDetail">
     {{#each this as |data|}}
-    <%--<tr {{#dalbit_if ../nowDate '==' date}}{{#dalbit_if ../nowHour '==' hour}} class="font-bold _stateSubTh" {{/dalbit_if}}{{/dalbit_if}}>--%>
     <tr
             {{#dalbit_if ../slctType '==' '0'}}{{#dalbit_if ../nowHour '==' hour}} class="font-bold _stateSubTh" {{/dalbit_if}}{{/dalbit_if}}
             {{#dalbit_if ../slctType '==' '1'}}{{#dalbit_if ../nowDay '==' day}} class="font-bold _stateSubTh" {{/dalbit_if}}{{/dalbit_if}}
