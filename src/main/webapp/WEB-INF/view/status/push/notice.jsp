@@ -70,7 +70,6 @@
 
         var template = $('#tmp_noticeDetail').html();
         var templateScript = Handlebars.compile(template);
-        response.data.detailList.nowDate = moment().format("YYYY-MM-DD");
 
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
