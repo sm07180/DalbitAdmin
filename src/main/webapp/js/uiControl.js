@@ -210,11 +210,14 @@ ui.paintColor = function(){
             table.find('td').each(function(){
                 $(this).css('height', height);
             });
+            table.find('th').each(function(){
+                $(this).css('height', height);
+            });
         }
 
         var height_tr = table.data('height-tr');
         if (height_tr != null && height_tr != "") {
-            table.find('td').each(function(){
+            table.find('tr').each(function(){
                 $(this).css('height', height_tr);
             });
         }
@@ -223,6 +226,12 @@ ui.paintColor = function(){
         if (height_td != null && height_td != "") {
             table.find('td').each(function(){
                 $(this).css('height', height_td);
+            });
+        }
+        var height_th = table.data('height-th');
+        if (height_th != null && height_th != "") {
+            table.find('th').each(function(){
+                $(this).css('height', height_th);
             });
         }
     });
