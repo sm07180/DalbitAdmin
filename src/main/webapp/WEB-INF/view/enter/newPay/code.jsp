@@ -61,17 +61,17 @@
 
         <table class="table table-bordered _tableHeight" data-height="23px" title="'(판매종료)'는 2020.07.10 이전 결제 아이템 입니다.">
             <colgroup>
-                <col width="2.7%"/><col width="5%"/><col width="5%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                <col width="2.7%"/><col width="2.7%"/>
+                <col width="2.5%"/><col width="4%"/><col width="4%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
+                <col width="2.5%"/><col width="2.5%"/><col width="2.5%"/><col width="2.5%"/>
 
             </colgroup>
             <thead>
             <tr>
-                <th class="_stateTopTh" colspan="27">IOS</th>
+                <th class="_stateTopTh" colspan="29">IOS</th>
             </tr>
             <tr>
                 <th class="_stateTopTh" rowspan="2"></th>
@@ -80,19 +80,21 @@
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 3,900원<br/>(판매종료)</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 5,900원</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px"> 12,000원</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 26,000원<br/>(판매종료)</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 39,000원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 26,000원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 39,000원<br/>(판매종료)</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 65,000원</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px"> 109,000원</th>
-                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 199,000원</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 169,000원<br/>(판매종료)</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 199,000원</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원<br/>(판매종료)</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원</th>
                 <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 490,000원</th>
-
             </tr>
             <tr>
                 <th class="_stateSubTh">건(비율)</th>
                 <th class="_stateSubTh">금액(비율)</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
                 <th class="_stateSubTh">금액</th>
                 <th class="_stateSubTh">건</th>
@@ -395,6 +397,8 @@
         <td>{{vatMinus sum_code12Amt}}</td>
         <td>{{addComma sum_code21Cnt}}</td>
         <td>{{vatMinus sum_code21Amt}}</td>
+        <td>{{addComma sum_code22Cnt}}</td>
+        <td>{{vatMinus sum_code22Amt}}</td>
     </tr>
 </script>
 
@@ -406,8 +410,8 @@
             {{#equal ../slctType 1}}{{substr data.daily 8}}일{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma ios_total_cnt}}({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
-        <td style="font-weight: bold">{{vatMinus ios_total_amt}}({{average ios_total_amt sum_ios_total_amt}}%)</td>
+        <td style="color:#ff5600;font-weight: bold">{{addComma ios_total_cnt}}({{average ios_total_cnt ios_total_cnt}}%)</td>
+        <td style="color:#ff5600;font-weight: bold">{{vatMinus ios_total_amt}}({{average ios_total_amt ios_total_amt}}%)</td>
         <td>{{addComma code16Cnt}}</td>
         <td>{{vatMinus code16Amt}}</td>
         <td>{{addComma code07Cnt}}</td>
@@ -432,6 +436,8 @@
         <td>{{vatMinus code12Amt}}</td>
         <td>{{addComma code21Cnt}}</td>
         <td>{{vatMinus code21Amt}}</td>
+        <td>{{addComma code22Cnt}}</td>
+        <td>{{vatMinus code22Amt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>
