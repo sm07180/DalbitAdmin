@@ -38,7 +38,7 @@
                                   "
                         >
 
-                            <%--<a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">--%>
+                                <%--<a href="${0 < fn:length(menu.menu_url) ? menu.menu_url: 'javascript://'}" target="${menu.is_pop eq 1 ? '_black' : ''}" class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''}">--%>
                             <a href="${menu.is_pop eq 1 ? menu.menu_url : 'javascript://'}" data-url="${0 < fn:length(menu.menu_url) ? menu.menu_url: ''}"
                                target="${menu.is_pop eq 1 ? '_black' : ''}"
                                class="${isContainSubmenu ? 'js-sub-menu-toggle' : ''} _dalbit">
@@ -102,8 +102,11 @@
         ui.leftActiveFocus();
 
         if(common.isEmpty('${sessionScope.InforexMenuInfo}')){
-            inforexApi.callInforexMenuApi();
-            //var menuAA = '${sessionScope.InforexMenuInfo}';
+            try{
+                inforexApi.callInforexMenuApi();
+            }catch (e) {
+                console.log('인포렉스 메뉴 가져오기 실패');
+            }
 
         }
     });
@@ -120,8 +123,8 @@
 
     $('._commingSoon').on('click', function(e){
         <c:if test="${fn:contains('/dev/', cfn:getActiveProfile())}">
-            e.preventDefault();
-            alert('준비중입니다.');
+        e.preventDefault();
+        alert('준비중입니다.');
         </c:if>
     });
 
@@ -174,9 +177,9 @@
                         {{#equal menu.id menu2.id}}
                             <ul class="sub-menu">
                                 <li>
-                                <a href="javascript://" data-url="{{menu2.url}}" class="_inforex">
-                                    <span class="text">{{menu2.name}}</span>
-                                </a>
+                                    <a href="javascript://" data-url="{{menu2.url}}" class="_inforex">
+                                        <span class="text">{{menu2.name}}</span>
+                                    </a>
                                 </li>
                             </ul>
                         {{/equal}}
