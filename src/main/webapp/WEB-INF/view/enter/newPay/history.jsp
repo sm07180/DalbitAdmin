@@ -544,8 +544,8 @@
             <th><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 달 30<br/>(판매종료)</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 달 45</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px"> 달 92</th>
-            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 200<br/>(판매종료)</th>
-            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300</th>
+            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 200</th>
+            <th><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 달 300<br/>(판매종료)</th>
             <th><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 달 500</th>
             <th><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px"> 달 838</th>
             <th><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 달 1030<br/>(판매종료)</th>
