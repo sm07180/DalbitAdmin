@@ -261,7 +261,7 @@
                 if (confirm($("#bt_resatPass").data('nickname') + memberMessage.passwordReset)) {
                     obj.passwdReset = "Reset";
                     obj.phoneNum = tmp_phone;                   //0
-                    sendNoti = 1;
+                    sendNoti = 0;
                     obj.notiContents = memberMessage.passwordResetSms;
                     obj.notiMemo = memberMessage.passwordResetSms;
                 }else return;

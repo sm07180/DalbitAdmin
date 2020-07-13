@@ -84,13 +84,13 @@
     <table class="table table-bordered table-summary pull-right">
         <thead>
         <tr>
-            <th>수신대상</th>
-            <th>발송건수</th>
-            <th>성공건수</th>
-            <th>실패건수</th>
-            <th>성공율</th>
-            <th>클릭건수</th>
-            <th>클릭율</th>
+            <th style="min-width:70px">수신대상</th>
+            <th style="min-width:70px">발송건수</th>
+            <th style="min-width:70px">성공건수</th>
+            <th style="min-width:70px">실패건수</th>
+            <th style="min-width:80px">성공율</th>
+            <th style="min-width:70px">클릭건수</th>
+            <th style="min-width:80px">클릭율</th>
         </tr>
         </thead>
         <tbody id="summaryDataTable">
