@@ -35,6 +35,9 @@
         var data = dtList_info.getDataRow(code);
 
         historyDetail(data);
+
+        var scrollPosition = $("#tab_historyDetail").offset();
+        util.scrollPostion(scrollPosition.top);
     });
 
     $(function(){
@@ -56,6 +59,7 @@
         dtList_info = new DalbitDataTable($("#push_history_list_info"), dtList_info_data, PushDataTableSource.historyList, $("#searchForm"));
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
+        dtList_info.setPageLength(20)
         dtList_info.createDataTable(pushHistorySummary);
         //---------- Main DataTable ----------=
     };
