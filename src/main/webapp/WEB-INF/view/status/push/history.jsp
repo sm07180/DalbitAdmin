@@ -78,32 +78,6 @@
         $("#historyDetail").html(html);
     }
 
-    function fn_total_success(data, response){
-        dalbitLog(response);
-        var isDataEmpty = response.data.detailList == null;
-        $("#tableTotalBody").empty();
-        if(!isDataEmpty){
-            var template = $('#tmp_total').html();
-            var templateScript = Handlebars.compile(template);
-            var totalContext = response.data.totalInfo;
-            var totalHtml = templateScript(totalContext);
-            $("#tableTotalBody").append(totalHtml);
-
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
-        }
-
-        var template = $('#tmp_totalDetail').html();
-        var templateScript = Handlebars.compile(template);
-        var detailContext = response.data.detailList;
-        var html=templateScript(detailContext);
-        $("#tableTotalBody").append(html);
-
-        if(isDataEmpty){
-            $("#tableTotalBody td:last").remove();
-        }
-
-        ui.tableHeightSet();
-    }
 </script>
 
 <script id="pushHistory_tableSummary" type="text/x-handlebars-template">
