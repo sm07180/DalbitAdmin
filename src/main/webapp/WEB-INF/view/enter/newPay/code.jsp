@@ -59,47 +59,68 @@
             <tbody id="androidTableBody"></tbody>
         </table>
 
-            <table class="table table-bordered _tableHeight" data-height="23px">
-                <colgroup>
-                    <col width="2.7%"/><col width="5%"/><col width="5%"/>
-                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                    <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
-                    <col width="2.7%"/><col width="2.7%"/>
-                </colgroup>
-                <thead>
-                <tr>
-                    <th class="_stateTopTh" colspan="15">IOS</th>
-                </tr>
-                <tr>
-                    <th class="_stateTopTh" rowspan="2"></th>
-                    <th class="_stateSubTh" colspan="2">총계</th>
-                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 3,900원</th>
-                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_2.png" width="25px" height="25px"> 26,000원</th>
-                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 39,000원</th>
-                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 65,000원</th>
-                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 169,000원</th>
-                    <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원</th>
-                </tr>
-                <tr>
-                    <th class="_stateSubTh">건(비율)</th>
-                    <th class="_stateSubTh">금액(비율)</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                </tr>
-                </thead>
-                <tbody id="iosTableBody"></tbody>
-            </table>
+        <table class="table table-bordered _tableHeight" data-height="23px" title="'(판매종료)'는 2020.07.10 이전 결제 아이템 입니다.">
+            <colgroup>
+                <col width="2.7%"/><col width="5%"/><col width="5%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/><col width="2.7%"/>
+                <col width="2.7%"/><col width="2.7%"/>
+
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="_stateTopTh" colspan="27">IOS</th>
+            </tr>
+            <tr>
+                <th class="_stateTopTh" rowspan="2"></th>
+                <th class="_stateSubTh" colspan="2">총계</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0010.png" width="25px" height="25px"> 1,200원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_1.png" width="25px" height="25px"> 3,900원<br/>(판매종료)</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0050.png" width="25px" height="25px"> 5,900원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_0100.png" width="25px" height="25px"> 12,000원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 26,000원<br/>(판매종료)</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_3.png" width="25px" height="25px"> 39,000원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_4.png" width="25px" height="25px"> 65,000원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_1000.png" width="25px" height="25px"> 109,000원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_2000.png" width="25px" height="25px"> 199,000원</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_5.png" width="25px" height="25px"> 169,000원<br/>(판매종료)</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/store_6.png" width="25px" height="25px"> 299,000원<br/>(판매종료)</th>
+                <th class="_stateSubTh" colspan="2"><img src="https://image.dalbitlive.com/store/charge/200612/charge_item_5000.png" width="25px" height="25px"> 490,000원</th>
+
+            </tr>
+            <tr>
+                <th class="_stateSubTh">건(비율)</th>
+                <th class="_stateSubTh">금액(비율)</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+                <th class="_stateSubTh">건</th>
+                <th class="_stateSubTh">금액</th>
+            </tr>
+            </thead>
+            <tbody id="iosTableBody"></tbody>
+        </table>
     </div>
     <div class="widget-footer">
         <span>
@@ -203,6 +224,13 @@
                 response.data.detailList[i].code10Cnt,
                 response.data.detailList[i].code11Cnt,
                 response.data.detailList[i].code12Cnt,
+                response.data.detailList[i].code16Cnt,
+                response.data.detailList[i].code17Cnt,
+                response.data.detailList[i].code18Cnt,
+                response.data.detailList[i].code19Cnt,
+                response.data.detailList[i].code20Cnt,
+                response.data.detailList[i].code21Cnt,
+                response.data.detailList[i].code22Cnt,
             ];
             var ios_total_amt = [
                 response.data.detailList[i].code07Amt,
@@ -211,6 +239,13 @@
                 response.data.detailList[i].code10Amt,
                 response.data.detailList[i].code11Amt,
                 response.data.detailList[i].code12Amt,
+                response.data.detailList[i].code16Amt,
+                response.data.detailList[i].code17Amt,
+                response.data.detailList[i].code18Amt,
+                response.data.detailList[i].code19Amt,
+                response.data.detailList[i].code20Amt,
+                response.data.detailList[i].code21Amt,
+                response.data.detailList[i].code22Amt,
             ];
             response.data.detailList[i]["ios_total_cnt"] = common.getListSum(ios_total_cnt);
             response.data.detailList[i]["ios_total_amt"] = common.getListSum(ios_total_amt);
@@ -269,6 +304,8 @@
         ui.tableHeightSet();
     }
 </script>
+
+
 <script type="text/x-handlebars-template" id="tmp_android">
     <tr class="font-bold _stateSumTd">
         <td>소계</td>
@@ -334,18 +371,30 @@
         <td>소계</td>
         <td style="color:#ff5600;font-weight: bold">{{addComma sum_ios_total_cnt}}({{average sum_ios_total_cnt sum_ios_total_cnt}}%)</td>
         <td style="color:#ff5600;font-weight: bold">{{vatMinus sum_ios_total_amt}}({{average sum_ios_total_amt sum_ios_total_amt}}%)</td>
+        <td>{{addComma sum_code16Cnt}}</td>
+        <td>{{vatMinus sum_code16Amt}}</td>
         <td>{{addComma sum_code07Cnt}}</td>
         <td>{{vatMinus sum_code07Amt}}</td>
+        <td>{{addComma sum_code17Cnt}}</td>
+        <td>{{vatMinus sum_code17Amt}}</td>
+        <td>{{addComma sum_code18Cnt}}</td>
+        <td>{{vatMinus sum_code18Amt}}</td>
         <td>{{addComma sum_code08Cnt}}</td>
         <td>{{vatMinus sum_code08Amt}}</td>
         <td>{{addComma sum_code09Cnt}}</td>
         <td>{{vatMinus sum_code09Amt}}</td>
         <td>{{addComma sum_code10Cnt}}</td>
         <td>{{vatMinus sum_code10Amt}}</td>
+        <td>{{addComma sum_code19Cnt}}</td>
+        <td>{{vatMinus sum_code19Amt}}</td>
         <td>{{addComma sum_code11Cnt}}</td>
         <td>{{vatMinus sum_code11Amt}}</td>
+        <td>{{addComma sum_code20Cnt}}</td>
+        <td>{{vatMinus sum_code20Amt}}</td>
         <td>{{addComma sum_code12Cnt}}</td>
         <td>{{vatMinus sum_code12Amt}}</td>
+        <td>{{addComma sum_code21Cnt}}</td>
+        <td>{{vatMinus sum_code21Amt}}</td>
     </tr>
 </script>
 
@@ -359,18 +408,30 @@
         </td>
         <td>{{addComma ios_total_cnt}}({{average ios_total_cnt sum_ios_total_cnt}}%)</td>
         <td style="font-weight: bold">{{vatMinus ios_total_amt}}({{average ios_total_amt sum_ios_total_amt}}%)</td>
+        <td>{{addComma code16Cnt}}</td>
+        <td>{{vatMinus code16Amt}}</td>
         <td>{{addComma code07Cnt}}</td>
         <td>{{vatMinus code07Amt}}</td>
+        <td>{{addComma code17Cnt}}</td>
+        <td>{{vatMinus code17Amt}}</td>
+        <td>{{addComma code18Cnt}}</td>
+        <td>{{vatMinus code18Amt}}</td>
         <td>{{addComma code08Cnt}}</td>
         <td>{{vatMinus code08Amt}}</td>
         <td>{{addComma code09Cnt}}</td>
         <td>{{vatMinus code09Amt}}</td>
         <td>{{addComma code10Cnt}}</td>
         <td>{{vatMinus code10Amt}}</td>
+        <td>{{addComma code19Cnt}}</td>
+        <td>{{vatMinus code19Amt}}</td>
         <td>{{addComma code11Cnt}}</td>
         <td>{{vatMinus code11Amt}}</td>
+        <td>{{addComma code20Cnt}}</td>
+        <td>{{vatMinus code20Amt}}</td>
         <td>{{addComma code12Cnt}}</td>
         <td>{{vatMinus code12Amt}}</td>
+        <td>{{addComma code21Cnt}}</td>
+        <td>{{vatMinus code21Amt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>

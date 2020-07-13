@@ -74,7 +74,7 @@
 
 <script type="text/javascript">
     $(function(){
-        getPayAgeList();
+        // getPayAgeList();
     });
 
     function getPayAgeList (){

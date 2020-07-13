@@ -88,6 +88,20 @@ public class P_PayInfoOutVo {
     private int code15_cnt;
     private int code15_amt;
 
+    private int code16_cnt;
+    private int code16_amt;
+    private int code17_cnt;
+    private int code17_amt;
+    private int code18_cnt;
+    private int code18_amt;
+    private int code19_cnt;
+    private int code19_amt;
+    private int code20_cnt;
+    private int code20_amt;
+    private int code21_cnt;
+    private int code21_amt;
+    private int code22_cnt;
+    private int code22_amt;
 
     private int cancelCnt;
     private int cancelAmt;
