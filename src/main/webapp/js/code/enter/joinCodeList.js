@@ -17,5 +17,5 @@ var join_slctType = [
     , new COMMON_CODE('time', '0', '시간대별')
     , new COMMON_CODE('day', '1', '일자별')
     , new COMMON_CODE('month', '2', '월간별')
-    , new COMMON_CODE('history', '3', 'PUSH')
+    // , new COMMON_CODE('history', '3', 'PUSH')
 ];

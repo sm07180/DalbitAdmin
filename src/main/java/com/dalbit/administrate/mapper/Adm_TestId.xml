@@ -79,7 +79,7 @@
     </update>
 
 
-    <select id="getTestIdSummary" resultType="com.dalbit.administrate.vo.TestIdVo">
+    <select id="getTestIdSummary" parameterType="com.dalbit.common.vo.SearchVo" resultType="com.dalbit.administrate.vo.TestIdVo">
         /* Adm_TestId.xml - getTestIdSummary */
         SELECT
             EMP_NAME
@@ -87,6 +87,9 @@
         FROM rd_admin.tb_admin_test_account test
             , rd_data.tb_member_basic member
         where test.mem_no = member.mem_no
+        <if test="search_adminId == 1">
+            AND test.is_admin = #{search_adminId}
+        </if>
         GROUP BY EMP_NAME
         ORDER BY COUNT(EMP_NAME) DESC
     </select>
@@ -97,6 +100,7 @@
             test.emp_no
             , test.emp_name
             , test.relation
+            , test.is_admin
             , mem.mem_no
             , mem.mem_userid
             , mem.mem_userId
@@ -140,6 +144,9 @@
                     </when>
                 </choose>
             </if>
+            <if test="search_adminId == 1">
+                AND test.is_admin = #{search_adminId}
+            </if>
         order by test.reg_date desc
     </select>
 
@@ -180,5 +187,18 @@
          order by last_upd_date desc limit 1
     </select>
 
+    <update id="updateAdminId" parameterType="com.dalbit.administrate.vo.AdminIdVo">
+        /* Adm_TestId.xml - updateAdminId */
+        update rd_admin.tb_admin_test_account
+        set is_admin = #{is_admin}
+        where mem_no = #{mem_no}
+    </update>
+
+    <update id="updateAdminBadge" parameterType="com.dalbit.administrate.vo.AdminIdVo">
+        /* Adm_TestId.xml - updateAdminBadge */
+        update rd_data.tb_member_profile
+        set admin_badge = #{is_admin}
+        where mem_no = #{mem_no}
+    </update>
 
 </mapper>

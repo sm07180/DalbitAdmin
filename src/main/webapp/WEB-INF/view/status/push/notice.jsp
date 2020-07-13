@@ -13,7 +13,7 @@
                 <col width="5.2%"/><col width="5.2%"/><col width="5.2%"/><col width="5.2%"/>
             </colgroup>
             <thead>
-            <tr>
+            <tr class="_stateTopTh">
                 <th rowspan="2"></th>
                 <th colspan="2">DJ알림</th>
                 <th colspan="2">선물알림</th>
@@ -25,7 +25,7 @@
                 <th colspan="3">합계</th>
                 <th rowspan="2">총합</th>
             </tr>
-            <tr>
+            <tr class="_stateSubTh">
                 <th>설정</th>
                 <th>해제</th>
                 <th>설정</th>
@@ -70,6 +70,7 @@
 
         var template = $('#tmp_noticeDetail').html();
         var templateScript = Handlebars.compile(template);
+
         var detailContext = response.data.detailList;
         var html=templateScript(detailContext);
         $("#tableNoticeBody").append(html);
@@ -80,7 +81,7 @@
 <script type="text/x-handlebars-template" id="tmp_noticeDetail">
     {{#each this as |data|}}
     <tr>
-        <td>{{the_date}}</td>
+        <td class="_stateSubTh">{{the_date}}</td>
         <td>{{addComma set_1_y}}</td>
         <td>{{addComma set_1_n}}</td>
         <td>{{addComma set_2_y}}</td>

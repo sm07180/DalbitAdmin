@@ -263,7 +263,7 @@ public class Mem_MemberService {
                 // message set
                 Gson gson = new Gson();
                 HashMap<String,Object> tmp = new HashMap();
-                if(pMemberEditorVo.getProfileImage().equals("")){
+                if("".equals(pMemberEditorVo.getProfileImage())){
                     tmp.put("image", new ImageVo("",pMemberEditorVo.getMemSex(), DalbitUtil.getProperty("server.photo.url")).getUrl().replace(DalbitUtil.getProperty("server.photo.url"),""));
                 }else{
                     tmp.put("image", pMemberEditorVo.getBeforProfileImage());
@@ -292,7 +292,7 @@ public class Mem_MemberService {
 
             // 비밀번호 변경
             if(pMemberEditorVo.getNotiSms().equals("1")){
-                smsService.sendSms(new SmsVo(pMemberEditorVo.getNotiMemo() + " " + pMemberEditorVo.getPasswdReset()+ " 입니다.",pMemberEditorVo.getPhoneNum()));
+                smsService.sendSms(new SmsVo(pMemberEditorVo.getNotiMemo() + " " + pMemberEditorVo.getPasswdReset()+ " 입니다.",pMemberEditorVo.getPhoneNum(),"1"));
             }
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보수정성공));
         } else {

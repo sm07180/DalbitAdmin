@@ -12373,7 +12373,7 @@ body.topnav-fixed #wrapper {
 /*------------------------------------------------*/
 .top-bar {
     padding: 5px 0;
-    background-color: #555; }
+    background-color: black; }
 .top-bar .logo {
     position: relative;
     top: 7px; }

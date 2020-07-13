@@ -208,6 +208,7 @@
                 setYear(1);
             }
         }
+        $("#bt_search").click();
     }
 
     function setDay(days){

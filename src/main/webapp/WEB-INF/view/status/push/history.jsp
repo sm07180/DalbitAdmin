@@ -78,45 +78,19 @@
         $("#historyDetail").html(html);
     }
 
-    function fn_total_success(data, response){
-        dalbitLog(response);
-        var isDataEmpty = response.data.detailList == null;
-        $("#tableTotalBody").empty();
-        if(!isDataEmpty){
-            var template = $('#tmp_total').html();
-            var templateScript = Handlebars.compile(template);
-            var totalContext = response.data.totalInfo;
-            var totalHtml = templateScript(totalContext);
-            $("#tableTotalBody").append(totalHtml);
-
-            response.data.detailList.slctType = $('input[name="slctType"]:checked').val();
-        }
-
-        var template = $('#tmp_totalDetail').html();
-        var templateScript = Handlebars.compile(template);
-        var detailContext = response.data.detailList;
-        var html=templateScript(detailContext);
-        $("#tableTotalBody").append(html);
-
-        if(isDataEmpty){
-            $("#tableTotalBody td:last").remove();
-        }
-
-        ui.tableHeightSet();
-    }
 </script>
 
 <script id="pushHistory_tableSummary" type="text/x-handlebars-template">
     <table class="table table-bordered table-summary pull-right">
         <thead>
         <tr>
-            <th>수신대상</th>
-            <th>발송건수</th>
-            <th>성공건수</th>
-            <th>실패건수</th>
-            <th>성공율</th>
-            <th>클릭건수</th>
-            <th>클릭율</th>
+            <th style="min-width:70px">수신대상</th>
+            <th style="min-width:70px">발송건수</th>
+            <th style="min-width:70px">성공건수</th>
+            <th style="min-width:70px">실패건수</th>
+            <th style="min-width:80px">성공율</th>
+            <th style="min-width:70px">클릭건수</th>
+            <th style="min-width:80px">클릭율</th>
         </tr>
         </thead>
         <tbody id="summaryDataTable">
