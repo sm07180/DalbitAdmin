@@ -58,18 +58,13 @@ Handlebars.registerHelper("exchangeAmt", function (star, isSpecial) {
 
 Handlebars.registerHelper("adultStatusCheck", function (age, recantYn, opt) {
     if(common.calcAge(age) < 19) {
-        console.log('미성년 : ' + recantYn);
-        console.log(recantYn == 'y');
         //미성년
         if(recantYn == null || recantYn == 'y'){
-            console.log('철회');
             return opt.inverse(this);
         }else{
-            console.log('철회아님..');
             return opt.fn(this);
         }
     }else{
-        console.log('성인');
         return opt.fn(this);
     }
 });
