@@ -28,14 +28,19 @@ public class P_LevelOutputVo extends PagingVo {
     private String expPro;
     private String nextLevelExp;
     private String memExp;
+    private String levelUpDate;
+    private String levelUpDay;
+    private String present;
+    private String receive;
 
     //summary
     private int totalLevelCnt;
+    private int level0;
     private int level10;
     private int level20;
     private int level30;
     private int level40;
     private int level50;
-    private int level50Up;
+    private int level60;
 
 }

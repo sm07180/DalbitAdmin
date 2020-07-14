@@ -116,6 +116,13 @@
             response.data.info.code10_cnt,
             response.data.info.code11_cnt,
             response.data.info.code12_cnt,
+            response.data.info.code16_cnt,
+            response.data.info.code17_cnt,
+            response.data.info.code18_cnt,
+            response.data.info.code19_cnt,
+            response.data.info.code20_cnt,
+            response.data.info.code21_cnt,
+            response.data.info.code22_cnt,
         ];
         var ios_total_amt = [
             response.data.info.code07_amt,
@@ -124,6 +131,13 @@
             response.data.info.code10_amt,
             response.data.info.code11_amt,
             response.data.info.code12_amt,
+            response.data.info.code16_amt,
+            response.data.info.code17_amt,
+            response.data.info.code18_amt,
+            response.data.info.code19_amt,
+            response.data.info.code20_amt,
+            response.data.info.code21_amt,
+            response.data.info.code22_amt,
         ];
         response.data.info["ios_total_cnt"] = common.getListSum(ios_total_cnt);
         response.data.info["ios_total_amt"] = common.getListSum(ios_total_amt);

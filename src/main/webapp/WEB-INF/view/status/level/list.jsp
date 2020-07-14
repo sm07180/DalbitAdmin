@@ -8,7 +8,7 @@
             <div class="col-lg-12 form-inline no-padding">
                 <div class="widget widget-table searchBoxArea">
                     <div class="widget-header searchBoxRow">
-                        <h3 class="title"><i class="fa fa-search"></i> 레벨 분포 검색</h3>
+                        <h3 class="title"><i class="fa fa-search"></i> 레벨 분포 회원 검색</h3>
                         <div>
                             <%--<span id="searchFormRadio"></span>--%>
                             <%--<div class="input-group date" id="rangeDatepicker">--%>
@@ -30,6 +30,21 @@
                             <%--<a href="javascript://" class="_prevSearch">[이전]</a>--%>
                             <%--<a href="javascript://" class="_todaySearch">[오늘]</a>--%>
                             <%--<a href="javascript://" class="_nextSearch">[다음]</a>--%>
+
+                            <label class="control-inline"><span>◈ 최근 2주간 미접속 회원</span></label>
+                            <label class="control-inline fancy-radio custom-color-green" >
+                                <input type="radio" name="include_radio" checked="checked" value="0">
+                                <span><i></i>포함</span>
+                            </label>
+                            <label class="control-inline fancy-radio custom-color-green">
+                                <input type="radio" name="include_radio" value="1">
+                                <span><i></i>제외</span>
+                            </label>
+
+                            <label class="control-inline fancy-checkbox custom-color-green">
+                                <input type="checkbox" name="search_testId" id="search_testId" value="1" checked="true">
+                                <span>테스트 아이디 제외</span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -77,7 +92,7 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
-        getLevelList();
+
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
@@ -168,24 +183,34 @@
     function getMemLevelSearch(){
         sDate = $("#startDate").val();
         eDate = $("#endDate").val();
-
         txt_search = $('#txt_search').val();
+        tmp_inner = $('input[name="search_testId"]').is(":checked") ? "0" : "-1";
+
         dtList_info.reload(level_listSummary);
     }
 
+    $("input[name='include_radio']").change(function () {
+        tmp_include = this.value;
+        getMemLevelSearch();
+    });
+    var tmp_include = "0";
     var tmp_level = "";
+    var tmp_inner = 0;
     var dtList_info;
-    function getLevelList() {
+    var lengthCnt = 100;
+    function getMemLevelList() {
         var dtList_info_data = function(data) {
             data.searchText = txt_search;                        // 검색명
             data.sDate = sDate;
             data.eDate = eDate;
             data.level = tmp_level;
+            data.inner = tmp_inner;
+            data.include = tmp_include;
         };
-        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, levelDataTableSource.levelList);
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, levelDataTableSource.memLevelList);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
-        dtList_info.setPageLength(100);
+        dtList_info.setPageLength(lengthCnt);
         dtList_info.useInitReload(true);
         dtList_info.createDataTable(level_listSummary);
 
@@ -203,6 +228,14 @@
         var html = templateScript(data);
         $("#level_summaryArea").html(html);
 
+
+        $("#list_info th:eq(" + (2) + ")").css("background-color", "#ffe699");
+        $("#list_info th:eq(" + (11) + ")").css("background-color", "#ffe699");
+        for(var i=-1;i<lengthCnt;i++){
+            $("#list_info tr:eq(" + i + ") td:eq(" + (2) + ")").css("background-color", "#fff7e5");
+            $("#list_info tr:eq(" + i + ") td:eq(" + (11) + ")").css("background-color", "#fff7e5");
+        }
+
     }
 
     function sel_change_levelInnerArea(){
@@ -210,17 +243,18 @@
         dtList_info.reload(level_listSummary);
     }
 
-    var _level10;
     $(document).on('click', '._levelClick', function(){
         _level10 = $(this).data('level');
         var data = {};
         data.level = $(this).data('level');
+        data.inner = tmp_inner;
+        data.include = tmp_include;
 
         util.getAjaxData("summary", "/rest/status/level/summary",data, level_summary_success);
     });
 
-    function level_summary_success(dst_id, response) {
-        dalbitLog(response);
+    function level_summary_success(dst_id, response, param) {
+        dalbitLog(param);
 
         var template = $("#level_tableSummary2").html();
         var templateScript = Handlebars.compile(template);
@@ -229,20 +263,12 @@
         };
         var html = templateScript(data);
         $("#level_summaryArea2").html(html);
-        if(_level10 != 10){
-            $("#tr_level0").addClass('hide');
-            $("#td_level0").addClass('hide');
-        }else{
-            $("#tr_level0").removeClass('hide');
-            $("#td_level0").removeClass('hide');
-        }
 
-        if(_level10 != 10) {
-            var header = 10;
-            for (var i = _level10; i > (_level10 - 10); i--) {
-                $("#tableHeader tr:eq(0) th:eq(" + header + ")").html(i + "Lv");
-                header--;
-            }
+        var header = 9;
+        for (var i = 10; i > 0; i--) {
+            $("#tableHeader tr:eq(0) th:eq(" + header + ")").html(i + "Lv");
+            // $("#tableHeader tr:eq(0) th:eq(" + header + ")").html(param.level + "Lv");
+            header--;
         }
     }
     // /*=============엑셀==================*/
@@ -273,16 +299,18 @@
         </colgroup>
         <thead>
             <tr>
-                <th>사용자</th><th>10Lv</th><th>20Lv</th><th>30Lv</th><th>40Lv</th><th>50Lv</th>
+                <th>사용자</th><th>0Lv</th><th>1Lv~10Lv</th><th>11Lv~20Lv</th><th>21Lv~30Lv</th><th>31Lv~40Lv</th><th>41Lv~50Lv</th><th>51Lv~60Lv</th>
             </tr>
         </thead>
         <tr class="font-bold">
             <td>{{addComma content.totalLevelCnt}}</td>
+            <td>{{addComma content.level0}}</td>
             <td><a href="javascript://" class="_levelClick" data-level = "10">{{addComma content.level10}}</a></td>
             <td><a href="javascript://" class="_levelClick" data-level = "20">{{addComma content.level20}}</a></td>
             <td><a href="javascript://" class="_levelClick" data-level = "30">{{addComma content.level30}}</a></td>
             <td><a href="javascript://" class="_levelClick" data-level = "40">{{addComma content.level40}}</a></td>
             <td><a href="javascript://" class="_levelClick" data-level = "50">{{addComma content.level50}}</a></td>
+            <td><a href="javascript://" class="_levelClick" data-level = "60">{{addComma content.level60}}</a></td>
         </tr>
     </table>
 </script>
@@ -296,7 +324,6 @@
         </colgroup>
         <thead id="tableHeader">
             <tr>
-                <th id="tr_level0">0Lv</th>
                 <th>1Lv</th>
                 <th>2Lv</th>
                 <th>3Lv</th>
@@ -312,7 +339,6 @@
         </thead>
         <tbody>
             <tr class="font-bold">
-                <td id="td_level0">{{addComma content.level0}}</td>
                 <td>{{addComma content.level1}}</td>
                 <td>{{addComma content.level2}}</td>
                 <td>{{addComma content.level3}}</td>
