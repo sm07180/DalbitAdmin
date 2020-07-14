@@ -1,6 +1,7 @@
 package com.dalbit.administrate.dao;
 
 import com.dalbit.administrate.vo.AdminIdVo;
+import com.dalbit.administrate.vo.MemberBadgeVo;
 import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.administrate.vo.TestIdVo;
 import com.dalbit.common.vo.SearchVo;
@@ -8,6 +9,7 @@ import com.dalbit.member.vo.MemberVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Member;
 import java.util.List;
 
 @Repository
@@ -42,4 +44,8 @@ public interface Adm_TestIdDao {
     int updateAdminId(AdminIdVo adminIdVo);
 
     int updateAdminBadge(AdminIdVo adminIdVo);
+
+    int insertMemberBadge(MemberBadgeVo memberBadgeVo);
+
+    int deleteMemberBadge(MemberBadgeVo memberBadgeVo);
 }

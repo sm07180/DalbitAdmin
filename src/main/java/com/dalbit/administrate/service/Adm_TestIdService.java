@@ -2,6 +2,7 @@ package com.dalbit.administrate.service;
 
 import com.dalbit.administrate.dao.Adm_TestIdDao;
 import com.dalbit.administrate.vo.AdminIdVo;
+import com.dalbit.administrate.vo.MemberBadgeVo;
 import com.dalbit.administrate.vo.TestIdListVo;
 import com.dalbit.administrate.vo.TestIdVo;
 import com.dalbit.common.code.Status;
@@ -14,6 +15,7 @@ import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -186,6 +188,17 @@ public class Adm_TestIdService {
         try {
             admTestIdDao.updateAdminId(adminIdVo);
             admTestIdDao.updateAdminBadge(adminIdVo);
+
+            var memberBadgeVo = new MemberBadgeVo();
+            memberBadgeVo.setMem_no(adminIdVo.getMem_no());
+            memberBadgeVo.setSlct_type(6);
+            memberBadgeVo.setBadge_value(1);
+            if(adminIdVo.getIs_admin() == 0){
+                admTestIdDao.deleteMemberBadge(memberBadgeVo);
+            }else{
+                admTestIdDao.insertMemberBadge(memberBadgeVo);
+            }
+
 
             if(adminIdVo.getIs_admin() == 0){
                 return gsonUtil.toJson(new JsonOutputVo(Status.운영자아이디해제));
