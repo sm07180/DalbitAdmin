@@ -20,6 +20,7 @@ import com.dalbit.money.dao.Mon_ExchangeDao;
 import com.dalbit.money.vo.Mon_EnableOutputVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
+import com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo;
 import com.dalbit.money.vo.procedure.P_ExchangeCancelInputVo;
 import com.dalbit.payment.dao.Pay_PayDao;
 import com.dalbit.payment.vo.Pay_PaySumOutputVo;
@@ -129,6 +130,21 @@ public class Mon_ExchangeService {
 
         monExchangeInputVo.setIsSpecial(0);
         ArrayList<Integer> generalSummaryList = monExchangeDao.selectSummaryInfo(monExchangeInputVo);
+
+        var resultMap = new HashMap<>();
+        resultMap.put("specialSummaryList", specialSummaryList);
+        resultMap.put("generalSummaryList", generalSummaryList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+    }
+
+    public String selectStatSummaryInfo(Mon_ExchangeInputVo monExchangeInputVo){
+
+        monExchangeInputVo.setIsSpecial(1);
+        ArrayList<Mon_ExchangeSummaryOutputVo> specialSummaryList = monExchangeDao.selectStatSummaryInfo(monExchangeInputVo);
+
+        monExchangeInputVo.setIsSpecial(0);
+        ArrayList<Mon_ExchangeSummaryOutputVo> generalSummaryList = monExchangeDao.selectStatSummaryInfo(monExchangeInputVo);
 
         var resultMap = new HashMap<>();
         resultMap.put("specialSummaryList", specialSummaryList);
