@@ -201,4 +201,28 @@
         where mem_no = #{mem_no}
     </update>
 
+    <insert id="insertMemberBadge" parameterType="com.dalbit.administrate.vo.MemberBadgeVo">
+        /* Adm_TestId.xml - insertMemberBadge */
+        INSERT INTO rd_data.tb_member_badge(
+            mem_no
+            , slct_type
+            , badge_value
+            , start_date
+            , end_date
+        ) values(
+              #{mem_no}
+            , #{slct_type}
+            , #{badge_value}
+            , now()
+            , '9999-12-31 23:59:59'
+        )
+    </insert>
+
+    <delete id="deleteMemberBadge" parameterType="com.dalbit.administrate.vo.MemberBadgeVo">
+        /* Adm_TestId.xml - deleteMemberBadge */
+        delete from rd_data.tb_member_badge
+        where mem_no = #{mem_no}
+            and slct_type = #{slct_type}
+    </delete>
+
 </mapper>

@@ -73,7 +73,7 @@
                                     <th>경험치 200</th>
                                     <th>경험치 300</th>
                                     <th>경험치 500</th>
-                                    <th class="success font-bold">소계</th>
+                                    <th>소계</th>
                                 </tr>
                             </thead>
                             <tbody id="exp_status" class="_status">
@@ -109,7 +109,7 @@
                                     <th>달 8</th>
                                     <th>달 9</th>
                                     <th>달 10</th>
-                                    <th class="success font-bold">소계</th>
+                                    <th>소계</th>
                                 </tr>
                             </thead>
                             <tbody id="dal_status" class="_status">
@@ -254,7 +254,7 @@
             <td>{{addComma exp200}}</td>
             <td>{{addComma exp300}}</td>
             <td>{{addComma exp500}}</td>
-            <td class="success font-bold">{{addComma expSum}}</td>
+            <td>{{addComma expSum}}</td>
         </tr>
     {{/each}}
 </script>
@@ -274,7 +274,7 @@
             <td>{{addComma dal8}}</td>
             <td>{{addComma dal9}}</td>
             <td>{{addComma dal10}}</td>
-            <td class="success font-bold">{{addComma dalSum}}</td>
+            <td>{{addComma dalSum}}</td>
         </tr>
     {{/each}}
 </script>
