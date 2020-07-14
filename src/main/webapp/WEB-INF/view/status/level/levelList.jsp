@@ -21,14 +21,14 @@
                 <div class="col-md-5 no-padding mr5">
                     <table class="table table-bordered">
                         <colgroup>
-                            <col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+                            <col width="10%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
                         </colgroup>
                         <thead>
                         <tr>
-                            <th>레벨</th>
+                            <th style="background-color: #ffe699">레벨</th>
                             <th>레벨 명칭</th>
                             <th>경험치 범위(上)</th>
-                            <th>회원 수</th>
+                            <th style="background-color: #ffe699">회원 수</th>
                             <th>비율</th>
                         </tr>
                         </thead>
@@ -38,14 +38,14 @@
                 <div class="col-md-5 no-padding">
                     <table class="table table-bordered">
                         <colgroup>
-                            <col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
+                            <col width="10%"/><col width="20%"/><col width="20%"/><col width="20%"/><col width="20%"/>
                         </colgroup>
                         <thead>
                         <tr>
-                            <th>레벨</th>
+                            <th style="background-color: #ffe699">레벨</th>
                             <th>레벨 명칭</th>
                             <th>경험치 범위(上)</th>
-                            <th>회원 수</th>
+                            <th style="background-color: #ffe699">회원 수</th>
                             <th>비율</th>
                         </tr>
                         </thead>
@@ -82,7 +82,7 @@
 
         for(var i=0;i<response.data.length;i++){
             var tmp = "/status/level/popup/memLevelList?level=" + response.data[i].level;
-            response.data[i]["levelUrl"] = '<a href="javascript://" class="_openPop" data-url="' + tmp + '" data-width="'+ 1600 +'" data-height="'+ 900 +'">' + response.data[i].memCount + '</a>';
+            response.data[i]["levelUrl"] = '<a href="javascript://" class="_openPop" data-url="' + tmp + '" data-width="'+ 1600 +'" data-height="'+ 900 +'"><b>' + common.addComma(response.data[i].memCount) + '<b/></a>';
         }
 
         var leftCnt = (response.data.length/2).toFixed(0);
@@ -144,7 +144,7 @@
         </colgroup>
         <tr>
             <th>총 회원 수</th>
-            <td>{{addComma content.memAllCount}}</td>
+            <td class="font-bold" style="color:red;">{{addComma content.memAllCount}}</td>
         </tr>
     </table>
 </script>
@@ -152,12 +152,12 @@
 <script type="text/x-handlebars-template" id="tmp_levelBody1">
     {{#each this as |content|}}
     <tr>
-        <td>{{level}}</td>
+        <td style="background-color: #fff7e5">{{level}}</td>
         <td>{{grade}}</td>
         <td>
             {{addComma levelExp}} ~ {{addComma expRange}}
         </td>
-        <td>{{{levelUrl}}}</td>
+        <td style="background-color: #fff7e5">{{{levelUrl}}}</td>
         <td>{{pro}}%</td>
     </tr>
     {{else}}
@@ -168,12 +168,12 @@
 <script type="text/x-handlebars-template" id="tmp_levelBody2">
     {{#each this as |content|}}
     <tr>
-        <td>{{level}}</td>
+        <td style="background-color: #fff7e5">{{level}}</td>
         <td>{{grade}}</td>
         <td>
             {{addComma levelExp}} ~ {{addComma expRange}}
         </td>
-        <td>{{{levelUrl}}}</td>
+        <td style="background-color: #fff7e5">{{{levelUrl}}}</td>
         <td>{{pro}}%</td>
     </tr>
     {{else}}
