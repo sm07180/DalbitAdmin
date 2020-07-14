@@ -3,13 +3,13 @@ var levelDataTableSource = {
         'url': '/rest/status/level/list'
 
         , 'columns': [
-            {'title': 'level', 'data' : 'level', 'width':'80px'}
-            ,{'title': 'Exp(%)', 'data' : 'memExp', 'width':'80px', 'render': function (data, type, row, meta) {
+            {'title': '레벨', 'data' : 'level', 'width':'40px'}
+            ,{'title': '명칭', 'data' : 'grade', 'width':'80px'}
+            ,{'title': '경험치(비율)', 'data' : 'memExp', 'width':'80px', 'render': function (data, type, row, meta) {
                     return data + "(" + Number(row.expPro).toFixed(2) + "%)";
                 }}
             ,{'title': '누적 경험치', 'data' : 'exp', 'width':'80px'}
-            ,{'title': '레벨등급', 'data' : 'grade', 'width':'80px'}
-            ,{'title': 'UserID', 'data' : 'mem_userid', 'width':'80px', 'render': function (data, type, row, meta) {
+            ,{'title': '회원번호', 'data' : 'mem_no', 'width':'80px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }}
             ,{'title': '닉네임', 'data' : 'mem_nick', 'width':'80px'}

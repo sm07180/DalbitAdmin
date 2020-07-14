@@ -303,7 +303,7 @@
             </tr>
         </thead>
         <tr class="font-bold">
-            <td>{{addComma content.totalLevelCnt}}</td>
+            <td style="color: red">{{addComma content.totalLevelCnt}}</td>
             <td>{{addComma content.level0}}</td>
             <td><a href="javascript://" class="_levelClick" data-level = "10">{{addComma content.level10}}</a></td>
             <td><a href="javascript://" class="_levelClick" data-level = "20">{{addComma content.level20}}</a></td>
