@@ -302,13 +302,13 @@
             left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
             <if test="slctType == 2">
-                where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+                where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
             </if>
             <if test="slctType == 1">
-                where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
             </if>
             <if test="slctType == 0">
-                where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+                where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
             </if>
             and exchange.state = 1
             <choose>
@@ -335,13 +335,13 @@
             left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
             <if test="slctType == 2">
-                where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+                where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
             </if>
             <if test="slctType == 1">
-                where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
             </if>
             <if test="slctType == 0">
-                where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+                where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
             </if>
             and exchange.state = 1
             <choose>
@@ -367,13 +367,13 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         <if test="slctType == 2">
-            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
         </if>
         <if test="slctType == 1">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
         </if>
         <if test="slctType == 0">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
         </if>
         and exchange.state = 1
         <choose>
@@ -401,13 +401,13 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         <if test="slctType == 2">
-            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
         </if>
         <if test="slctType == 1">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
         </if>
         <if test="slctType == 0">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
         </if>
         and exchange.state = 2
         and exchange.last_reject = 1
@@ -435,13 +435,13 @@
         left join rd_data.tb_member_basic basic
         on exchange.mem_no = basic.mem_no
         <if test="slctType == 2">
-            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
         </if>
         <if test="slctType == 1">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
         </if>
         <if test="slctType == 0">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
         </if>
         and exchange.state = 2
         <choose>
@@ -467,13 +467,13 @@
             left join rd_data.tb_member_basic basic
             on exchange.mem_no = basic.mem_no
         <if test="slctType == 2">
-            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
         </if>
         <if test="slctType == 1">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
         </if>
         <if test="slctType == 0">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
+            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
         </if>
             and exchange.state = 2
             <choose>
