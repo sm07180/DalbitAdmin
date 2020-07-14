@@ -4,6 +4,7 @@ import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.money.vo.Mon_EnableOutputVo;
 import com.dalbit.money.vo.Mon_ExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
+import com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo;
 import com.dalbit.payment.vo.Pay_CancelVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,9 @@ public interface Mon_ExchangeDao {
 
     @Transactional(readOnly = true)
     ArrayList<Integer> selectSummaryInfo(Mon_ExchangeInputVo monExchangeInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<Mon_ExchangeSummaryOutputVo> selectStatSummaryInfo(Mon_ExchangeInputVo monExchangeInputVo);
 
     @Transactional(readOnly = true)
     int selectExchangeCnt(Mon_ExchangeInputVo monExchangeInputVo);

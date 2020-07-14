@@ -60,6 +60,12 @@ public class Mon_ExchangeRestController {
         return result;
     }
 
+    @PostMapping("stat/summary")
+    public String statSummary(Mon_ExchangeInputVo monExchangeInputVo) throws GlobalException {
+        String result = monExchangeService.selectStatSummaryInfo(monExchangeInputVo);
+        return result;
+    }
+
     @PostMapping("detail")
     public String detail(Mon_ExchangeInputVo monExchangeInputVo) throws GlobalException {
         String result = monExchangeService.selectExchangeDetail(monExchangeInputVo);
