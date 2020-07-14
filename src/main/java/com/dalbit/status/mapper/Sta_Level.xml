@@ -226,19 +226,13 @@
               , a.exp as levelExp
               , (select exp from rd_data.tbl_level_exp where level = a.level+1)	as nextlevelExp
               , (select exp from rd_data.tbl_level_exp where level = a.level+1) - 1 as expRange
-                <if test='inner != -1'>
-                    and c.inner = 0
-                </if>
-                <if test='inner == -1'>
-                    '1' as inner
-                </if>
          from rd_data.tbl_level_exp a
          join rd_data.tb_member_level b on a.level = b.level
          join rd_data.tb_member_basic c on b.mem_no = c.mem_no
-        group by a.level,a.grade
         <if test='inner != -1'>
-            and c.inner = 0
+            where c.inner = 0
         </if>
+        group by a.level,a.grade
         order by `level` desc
     </select>
 
