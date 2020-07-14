@@ -1,6 +1,7 @@
 package com.dalbit.status.dao;
 
 import com.dalbit.status.vo.procedure.P_LevelInputVo;
+import com.dalbit.status.vo.procedure.P_LevelListOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelOutputVo;
 import com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo;
 import org.springframework.stereotype.Repository;
@@ -34,4 +35,10 @@ public interface Sta_LevelDao {
 
     @Transactional(readOnly = true)
     P_LevelSummaryOutputVo getLevelSummary50(P_LevelInputVo pLevelInputVo);
+
+    @Transactional(readOnly = true)
+    P_LevelSummaryOutputVo getLevelSummary60(P_LevelInputVo pLevelInputVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<P_LevelListOutputVo> getLevelList(P_LevelInputVo pLevelInputVo);
 }

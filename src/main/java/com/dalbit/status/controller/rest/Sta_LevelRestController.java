@@ -44,4 +44,13 @@ public class Sta_LevelRestController {
         return sta_LevelService.getLevelSummary(pLevelInputVo);
 
     }
+
+    /**
+     * 회원 레벨 분포현황
+     */
+    @PostMapping("level")
+    public String level(P_LevelInputVo pLevelInputVo){
+        return sta_LevelService.getLevelList(pLevelInputVo);
+
+    }
 }

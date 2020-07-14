@@ -4,6 +4,8 @@
 
     <sql id="levelCondition">
         select b.level, b.exp, b.grade,a.mem_no, a.mem_userid,a.mem_nick, c.ruby as dal,c.gold as byeol, a.mem_join_date
+                , date_format(b.last_upd_date,'%Y.%m.%d %h:%i:%s') as levelUpDate
+                , TIMESTAMPDIFF(DAY, date_format(b.last_upd_date,'%Y.%m.%d'), date_format(now(),'%Y.%m.%d')) as levelUpDay
                 , a.mem_sex,(date_format(now(),'%Y') - mem_birth_year + 1) as age
                 , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_broadcast_room where mem_no=a.mem_no order by start_date desc limit 1) as broadDate
                 , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_member_broadcast_listening where mem_no=a.mem_no order by start_date desc limit 1) as listenDate
@@ -19,6 +21,16 @@
          inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no
           left join rd_data.tb_member_profile d on a.mem_no = d.mem_no
             , (select @rownum := #{pageStart}) r
+        where (a.mem_nick like concat('%', #{searchText}, '%') or a.mem_no like concat('%', #{searchText}, '%') or a.mem_userid like concat('%', #{searchText}, '%'))
+        <if test='level != null and level !="" '>
+            and b.`level` = #{level}
+        </if>
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
     </sql>
 
     <select id="getMemberLevelList" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">
@@ -27,10 +39,6 @@
         from (
         <include refid="levelCondition"/>
         ) a
-        where (mem_nick like concat('%', #{searchText}, '%') or mem_no like concat('%', #{searchText}, '%') or mem_userid like concat('%', #{searchText}, '%'))
-        <if test='level != null and level !="" '>
-          and `level` = #{level}
-        </if>
         order by `level` desc, exp desc
         limit #{pageStart}, #{pageCnt}
     </select>
@@ -40,22 +48,35 @@
         select count(*)
           from rd_data.tb_member_basic a
          inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
-         where (a.mem_nick like concat('%', #{searchText}, '%') or a.mem_no like concat('%', #{searchText}, '%') or a.mem_userid like concat('%', #{searchText}, '%'))
+        where (a.mem_nick like concat('%', #{searchText}, '%') or a.mem_no like concat('%', #{searchText}, '%') or a.mem_userid like concat('%', #{searchText}, '%'))
         <if test='level != null and level !="" '>
             and b.`level` = #{level}
+        </if>
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
         </if>
     </select>
 
     <select id="getLevelSummary" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">
         /* Sta_Level.xml - getLevelSummary */
         select count(*) as totalLevelCnt
-                ,count(case when level <![CDATA[<=]]> 10 then 1 end) as level10
+                ,count(case when level  <![CDATA[<]]>  1 then 1 end) as level0
+                ,count(case when level >= 1  and level <![CDATA[<=]]> 10 then 1 end) as level10
                 ,count(case when level >= 11 and level <![CDATA[<=]]> 20 then 1 end) as level20
                 ,count(case when level >= 21 and level <![CDATA[<=]]> 30 then 1 end) as level30
                 ,count(case when level >= 31 and level <![CDATA[<=]]> 40 then 1 end) as level40
                 ,count(case when level >= 41 and level <![CDATA[<=]]> 50 then 1 end) as level50
-                ,count(case when level >= 51 then 1 end) as level50up
-        from rd_data.tb_member_level
+                ,count(case when level >= 51 and level <![CDATA[<=]]> 60 then 1 end) as level60
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
+        <if test='inner != -1'>
+            where a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
     </select>
 
 
@@ -74,8 +95,14 @@
                 ,count(case when level = 8 then 1 end) as level8
                 ,count(case when level = 9 then 1 end) as level9
                 ,count(case when level = 10 then 1 end) as level10
-        from rd_data.tb_member_level
-        where level <![CDATA[<=]]> 10
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
+        where level > 0 and level  <![CDATA[<]]>  11
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
     </select>
     <select id="getLevelSummary20" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
         /* Sta_Level.xml - getLevelSummary */
@@ -90,8 +117,14 @@
                 ,count(case when level = 18 then 1 end) as level8
                 ,count(case when level = 19 then 1 end) as level9
                 ,count(case when level = 20 then 1 end) as level10
-        from rd_data.tb_member_level
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
         where level > 10 and level  <![CDATA[<]]>  21
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
     </select>
     <select id="getLevelSummary30" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
         /* Sta_Level.xml - getLevelSummary */
@@ -106,8 +139,14 @@
                 ,count(case when level = 28 then 1 end) as level8
                 ,count(case when level = 29 then 1 end) as level9
                 ,count(case when level = 30 then 1 end) as level10
-        from rd_data.tb_member_level
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
         where level > 20 and level  <![CDATA[<]]>  31
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
     </select>
     <select id="getLevelSummary40" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
         /* Sta_Level.xml - getLevelSummary */
@@ -122,8 +161,14 @@
                 ,count(case when level = 38 then 1 end) as level8
                 ,count(case when level = 39 then 1 end) as level9
                 ,count(case when level = 40 then 1 end) as level10
-        from rd_data.tb_member_level
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
         where level > 30 and level  <![CDATA[<]]>  41
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
     </select>
     <select id="getLevelSummary50" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
         /* Sta_Level.xml - getLevelSummary */
@@ -138,9 +183,63 @@
                 ,count(case when level = 48 then 1 end) as level8
                 ,count(case when level = 49 then 1 end) as level9
                 ,count(case when level = 50 then 1 end) as level10
-        from rd_data.tb_member_level
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
         where level > 40 and level  <![CDATA[<]]>  51
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
     </select>
 
+    <select id="getLevelSummary60" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelSummaryOutputVo">
+        /* Sta_Level.xml - getLevelSummary */
+        select count(*) as totalLevelCnt
+                ,count(case when level = 51 then 1 end) as level1
+                ,count(case when level = 52 then 1 end) as level2
+                ,count(case when level = 53 then 1 end) as level3
+                ,count(case when level = 54 then 1 end) as level4
+                ,count(case when level = 55 then 1 end) as level5
+                ,count(case when level = 56 then 1 end) as level6
+                ,count(case when level = 57 then 1 end) as level7
+                ,count(case when level = 58 then 1 end) as level8
+                ,count(case when level = 59 then 1 end) as level9
+                ,count(case when level = 60 then 1 end) as level10
+        FROM rd_data.tb_member_basic a join rd_data.tb_member_level b on a.mem_no=b.mem_no
+        where level > 50 and level  <![CDATA[<]]>  61
+        <if test='inner != -1'>
+            and a.inner = 0
+        </if>
+        <if test="include == 1">
+            and a.mem_join_date >= date_add(now(),interval -14 day)
+        </if>
+    </select>
+
+    <select id="getLevelList" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelListOutputVo">
+        /* Sta_Level.xml - getLevelList */
+        select a.level
+              ,a.grade
+              ,count(*) as memCount
+              ,round(count(*)/(select count(*) from rd_data.tb_member_basic <if test='inner != -1'> where `inner` = 0 </if>) * 100,2) as pro
+              ,(select count(*) from rd_data.tb_member_basic <if test='inner != -1'> where `inner` = 0 </if>)	as memAllCount
+              , a.exp as levelExp
+              , (select exp from rd_data.tbl_level_exp where level = a.level+1)	as nextlevelExp
+              , (select exp from rd_data.tbl_level_exp where level = a.level+1) - 1 as expRange
+                <if test='inner != -1'>
+                    and c.inner = 0
+                </if>
+                <if test='inner == -1'>
+                    '1' as inner
+                </if>
+         from rd_data.tbl_level_exp a
+         join rd_data.tb_member_level b on a.level = b.level
+         join rd_data.tb_member_basic c on b.mem_no = c.mem_no
+        group by a.level,a.grade
+        <if test='inner != -1'>
+            and c.inner = 0
+        </if>
+        order by `level` desc
+    </select>
 
 </mapper>
