@@ -319,23 +319,28 @@
         </div>
         <table class="table table-bordered table-dalbit">
             <colgroup>
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
+                <col width="4%" />
+                <col width="4%" />
+                <col width="4%" />
+                <col width="4%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
+                <col width="8%" />
             </colgroup>
             <tbody>
                 <tr class="align-middle">
                     <th>No</th>
                     <td>{{rowNum}}</td>
+
+                    <th>공지번호</th>
+                    <td>{{noticeIdx}}</td>
 
                     <th>구분</th>
                     <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
@@ -347,8 +352,8 @@
                     <td>{{addComma viewCnt}}</td>
                 </tr>
                 <tr>
-                    <th>플랫폼</th>
-                    <td>{{{getCommonCodeSelect platform 'platform'}}}</td>
+                    <th colspan="2">플랫폼</th>
+                    <td colspan="2">{{{getCommonCodeSelect platform 'platform'}}}</td>
 
                     <th>성별</th>
                     <td>{{{getCommonCodeSelect gender 'gender'}}}</td>
