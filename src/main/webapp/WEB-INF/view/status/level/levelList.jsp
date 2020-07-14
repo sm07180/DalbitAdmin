@@ -82,7 +82,7 @@
 
         for(var i=0;i<response.data.length;i++){
             var tmp = "/status/level/popup/memLevelList?level=" + response.data[i].level;
-            response.data[i]["levelUrl"] = '<a href="javascript://" class="_openPop" data-url="' + tmp + '" data-width="'+ 1600 +'" data-height="'+ 900 +'"><b>' + common.addComma(response.data[i].memCount) + '<b/></a>';
+            response.data[i]["levelUrl"] = '<a href="javascript://" class="_openPop" data-url="' + tmp + '" data-width="'+ 1430 +'" data-height="'+ 500 +'"><b>' + common.addComma(response.data[i].memCount) + '<b/></a>';
         }
 
         var leftCnt = (response.data.length/2).toFixed(0);
