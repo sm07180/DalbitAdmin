@@ -16,6 +16,8 @@
                   / ((select exp from rd_data.tbl_level_exp where `level` = b.level+1) - (select exp from rd_data.tbl_level_exp where `level` = b.level)) * 100) expPro
                 , b.exp - (select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level) as memExp
                 , ((select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level + 1) - (select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level)) as nextLevelExp
+                , (SELECT IFNULL(SUM(ruby_old - ruby_new), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` in (2,3,4) AND ( mem_no =a.mem_no ) ) AS present
+                , (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` = 5 AND ( mem_no = a.mem_no ) ) AS receive
           from rd_data.tb_member_basic a
          inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
          inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no
@@ -39,7 +41,7 @@
         from (
         <include refid="levelCondition"/>
         ) a
-        order by `level` desc, exp desc
+        order by exp desc
         limit #{pageStart}, #{pageCnt}
     </select>
 
