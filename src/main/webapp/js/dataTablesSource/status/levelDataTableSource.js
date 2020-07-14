@@ -3,13 +3,13 @@ var levelDataTableSource = {
         'url': '/rest/status/level/list'
 
         , 'columns': [
-            {'title': 'level', 'data' : 'level', 'width':'80px'}
-            ,{'title': 'Exp(%)', 'data' : 'memExp', 'width':'80px', 'render': function (data, type, row, meta) {
+            {'title': '레벨', 'data' : 'level', 'width':'40px'}
+            ,{'title': '명칭', 'data' : 'grade', 'width':'80px'}
+            ,{'title': '경험치(비율)', 'data' : 'memExp', 'width':'80px', 'render': function (data, type, row, meta) {
                     return data + "(" + Number(row.expPro).toFixed(2) + "%)";
                 }}
             ,{'title': '누적 경험치', 'data' : 'exp', 'width':'80px'}
-            ,{'title': '레벨등급', 'data' : 'grade', 'width':'80px'}
-            ,{'title': 'UserID', 'data' : 'mem_userid', 'width':'80px', 'render': function (data, type, row, meta) {
+            ,{'title': '회원번호', 'data' : 'mem_no', 'width':'80px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }}
             ,{'title': '닉네임', 'data' : 'mem_nick', 'width':'80px'}
@@ -52,23 +52,6 @@ var levelDataTableSource = {
             ,{'title': '선물 받은 수', 'data' : 'receive', 'width':'80px','render' : function(data){
                     return common.addComma(data) + "개"
                 }}
-        ]
-    },
-
-    'levelList': {
-        'url': '/rest/status/level/level'
-        , 'columns': [
-            {'title': '레벨', 'data' : 'level', 'width':'80px'},
-            {'title': '레벨명칭', 'data' : 'grade', 'width':'80px'},
-            {'title': '경험치 범위(上)', 'data' : 'expRange', 'width':'80px','render' : function(data, type, row, meta) {
-                    return  common.addComma(row.levelExp) + '~'+ common.addComma(data);
-                }},
-            {'title': '회원수', 'data' : 'memCount', 'width':'80px','render' : function(data, type, row, meta) {
-                    return  util.popupLink(common.addComma(data),"/status/level/popup/memLevelList?level=" + row.level,1600,900);
-                }},
-            {'title': '비율', 'data' : 'pro', 'width':'80px', 'width':'80px','render' : function(data, type, row, meta) {
-                    return  data + "%";
-                }},
         ]
     },
 }

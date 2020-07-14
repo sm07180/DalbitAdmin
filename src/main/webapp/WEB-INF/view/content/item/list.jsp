@@ -31,6 +31,7 @@
                 <li class="active"><a href="#chargeList" role="tab" data-toggle="tab" id="tab_chargeList" onclick="onClickHeaderTab(this.id)">충전 아이템</a></li>
                 <li><a href="#exchangeList" role="tab" data-toggle="tab" id="tab_exchangeList" onclick="onClickHeaderTab(this.id)">교환 아이템</a></li>
                 <li><a href="#giftList" role="tab" data-toggle="tab" id="tab_giftList" onclick="onClickHeaderTab(this.id)">선물 아이템</a></li>
+                <li><a href="#quick" role="tab" data-toggle="tab" id="tab_quick" onclick="onClickTab(this.id)">퀵 메시지</a></li>
                 <%--    TODO 추후 추가
                 <li><a href="#subscribeList" role="tab" data-toggle="tab" id="tab_subscribeList" onclick="onClickHeaderTab(this.id)">구독 아이템</a></li>
                 <li><a href="#broadcastList" role="tab" data-toggle="tab" id="tab_broadcastList" onclick="onClickHeaderTab(this.id)">방송 아이템</a></li>
@@ -40,6 +41,7 @@
                 <div class="tab-pane fade active in" id="chargeList"><jsp:include page="/WEB-INF/view/content/item/chargeList.jsp"/></div>     <!-- 충전 아이템 -->
                 <div class="tab-pane fade" id="exchangeList"><jsp:include page="/WEB-INF/view/content/item/exchangeList.jsp"/></div>          <!-- 교환 아이템 -->
                 <div class="tab-pane fade" id="giftList"><jsp:include page="/WEB-INF/view/content/item/giftList.jsp"/></div>                       <!-- 선물 아이템 -->
+                <div class="tab-pane fade" id="quick"><jsp:include page="/WEB-INF/view/content/item/quick.jsp"/></div>                       <!-- 퀵메시지 -->
                 <%--    TODO 추후 추가
                 <div class="tab-pane fade" id="subscribeList"><jsp:include page="/WEB-INF/view/content/item/subscribeList.jsp"/></div>     <!-- 구독 아이템 -->-
                 <div class="tab-pane fade" id="broadcastList"><jsp:include page="/WEB-INF/view/content/item/broadcastList.jsp"/></div>     <!-- 방송 아이템 -->
@@ -164,19 +166,26 @@
     // 검색
     function getItemInfo(){
         var selectTabId = $("#headerTab").find(".active").find("a").prop("id").split("_")[1];
-        console.log(selectTabId)
-        var targetFnc = eval("fnc_"+selectTabId);
+        console.log(selectTabId);
+        if(selectTabId != "quick"){
+            console.log(selectTabId);
+            var targetFnc = eval("fnc_"+selectTabId);
 
-        console.log(targetFnc)
-        console.log(targetFnc.dtList_info.dataTableSource);
+            console.log(targetFnc);
+            console.log(targetFnc.dtList_info.dataTableSource);
 
-        /* 엑셀저장을 위해 조회조건 임시저장 */
-        // tmp_search = $('#txt_search').val();
-        // tmp_gubun = $("select[name='selectGubun']").val();
+            /* 엑셀저장을 위해 조회조건 임시저장 */
+            // tmp_search = $('#txt_search').val();
+            // tmp_gubun = $("select[name='selectGubun']").val();
 
-        // targetFnc.dtList_info.reload();
-        console.log(targetFnc.dtList_info)
-        targetFnc.selectMainList();
+            // targetFnc.dtList_info.reload();
+            console.log(targetFnc.dtList_info);
+            targetFnc.selectMainList();
+        }else{
+            if(selectTabId == "quick"){
+                fnc_quick();
+            }
+        }
 
 
         /*검색결과 영역이 접혀 있을 시 열기*/
@@ -255,6 +264,12 @@
     function imgError(imgURL) {
         if(imgURL.length > 0){
             alert("이미지 URL이 정상적이지 않습니다.\n입력 URL :" + imgURL);
+        }
+    }
+
+    function onClickTab(id){
+        if(id == "tab_quick"){
+            fnc_quick();
         }
     }
 

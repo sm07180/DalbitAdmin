@@ -300,4 +300,14 @@ public class ItemRestController {
         return gsonUtil.toJson(new JsonOutputVo(Status.처리완료));
     }
 
+
+    /**
+     * 퀵 메시지
+     */
+    @PostMapping("quick")
+    public String quick() {
+        String result = itemService.getQuickList();
+        return result;
+    }
+
 }

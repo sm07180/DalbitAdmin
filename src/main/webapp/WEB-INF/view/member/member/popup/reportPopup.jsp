@@ -118,11 +118,10 @@
         $('#td_memSex').html("알수없음");
 
     function bt_complet_click(){
-        if (common.isEmpty($("#txt_adminMemo").val())) {
-            alert("등록할 운영자 메모를 입력해 주십시오.");
-            return;
-        }
-
+        // if (common.isEmpty($("#txt_adminMemo").val())) {
+        //     alert("등록할 운영자 메모를 입력해 주십시오.");
+        //     return;
+        // }
         var reportMessage ="";
         $('input:checkbox[name="declaration_Message"]').each(function() {
             if(this.checked){           //checked 처리된 항목의 값
