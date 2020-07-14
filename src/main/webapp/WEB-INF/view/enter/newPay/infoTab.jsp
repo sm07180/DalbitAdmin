@@ -10,7 +10,7 @@
                 <li><a href="#total" role="tab" data-toggle="tab" id="tab_payTime">시간대별</a></li>
                 <li class="active"><a href="#history" role="tab" data-toggle="tab" id="tab_payHistory">일간결제</a></li>
                 <li><a href="#month" role="tab" data-toggle="tab" id="tab_payMonth">월간결제</a></li>
-                <li><a href="#year" role="tab" data-toggle="tab" id="tab_payYear">년간결제</a></li>
+                <li><a href="#year" role="tab" data-toggle="tab" id="tab_payYear">연간결제</a></li>
                 <li><a href="#try" role="tab" data-toggle="tab" id="tab_payTry">결제 성공/시도</a></li>
                 <li><a href="#cancel" role="tab" data-toggle="tab" id="tab_payCancel">결제 취소</a></li>
                 <li><a href="#member" role="tab" data-toggle="tab" id="tab_payAge">결제 회원별</a></li>

@@ -482,7 +482,7 @@ public class Con_LoginService {
     }
 
     /**
-     * 로그인 현황 (년간별 / 주간)
+     * 로그인 현황 (연간별 / 주간)
      * @return
      */
     public String callLoginTotalWeek(StatVo statVo){

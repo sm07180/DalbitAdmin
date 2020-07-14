@@ -278,7 +278,7 @@
             }else if(dateType == 'next'){
                 setMonth(1);
             }
-        }else if($('input[name="slctType"]:checked').val() == 2){ // 년간
+        }else if($('input[name="slctType"]:checked').val() == 2){ // 연간
             if(common.isEmpty(dateType)){
                 $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
                 $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
