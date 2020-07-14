@@ -45,6 +45,9 @@
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline block">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li class="_tab">
+                        <a href="/status/exchange/info">총계</a>
+                    </li>
                     <li class="_tab active">
                         <a href="#recommend" id="tab_specialDj" name="tab_specialDj" role="tab" data-toggle="tab" data-specialDj="1">스페셜DJ</a>
                     </li>
