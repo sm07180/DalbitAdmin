@@ -193,6 +193,11 @@
         tmp_include = this.value;
         getMemLevelSearch();
     });
+
+    $("input[name='search_testId']").change(function () {
+        getMemLevelSearch();
+    });
+
     var tmp_include = "0";
     var tmp_level = "";
     var tmp_inner = 0;
@@ -265,9 +270,8 @@
         $("#level_summaryArea2").html(html);
 
         var header = 9;
-        for (var i = 10; i > 0; i--) {
+        for (var i = param.level; i > (param.level-10); i--) {
             $("#tableHeader tr:eq(0) th:eq(" + header + ")").html(i + "Lv");
-            // $("#tableHeader tr:eq(0) th:eq(" + header + ")").html(param.level + "Lv");
             header--;
         }
     }

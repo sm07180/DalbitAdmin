@@ -18,7 +18,7 @@
             <!-- //serachBox -->
         </form>
         <div>
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 no-padding" >
                 <table id="list_info" class="table table-sorting table-hover table-bordered">
                     <thead></thead>
                     <tbody></tbody>
@@ -45,6 +45,7 @@
     });
 
     var dtList_info;
+    var lengthCnt = 100;
     function getMemLevelList() {
         var dtList_info_data = function(data) {
             data.searchText = "";
@@ -54,8 +55,19 @@
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, levelDataTableSource.memLevelList);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
-        dtList_info.setPageLength(100);
+        dtList_info.setPageLength(lengthCnt);
         dtList_info.useInitReload(true);
-        dtList_info.createDataTable();
+        dtList_info.createDataTable(tableRowColor);
+    }
+
+    function tableRowColor(){
+        $("#list_info th:eq(" + (1) + ")").css("background-color", "#ffe699");
+        $("#list_info th:eq(" + (11) + ")").css("background-color", "#ffe699");
+        for(var i=-1;i<lengthCnt;i++){
+            $("#list_info tr:eq(" + i + ") td:eq(" + (1) + ")").css("background-color", "#fff7e5");
+            $("#list_info tr:eq(" + i + ") td:eq(" + (11) + ")").css("background-color", "#fff7e5");
+        }
+
+        window.resizeTo(window.outerWidth, $("#list_info").height()+200);
     }
 </script>
