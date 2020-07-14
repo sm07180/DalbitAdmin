@@ -146,6 +146,17 @@
 
     <select id="callServiceCenterItemGiftDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
     </select>
+
+    <select id="getQuickList" resultType="com.dalbit.content.vo.procedure.P_QuickListOutputVo">
+        select  @rownum := @rownum + 1 as rowNum,item_code
+             , concat(substr(item_name,1,4),'(유료)') as item_name
+             , use_day
+             , item_price
+             , if(substr(platform,1,1) = 1,concat(item_price,'개'),'') as pcPrice
+             , if(substr(platform,2,1) = 1,concat(item_price,'개'),'') as aosPrice
+             , if(substr(platform,3,1) = 1,concat(item_price,'개'),'') as iosPrice
+          from rd_data.tbl_quickmsg_item, (select @rownum := 3) r
+    </select>
     
     
     

@@ -42,5 +42,8 @@ public interface ItemDao {
     @Transactional(readOnly = true)
     ArrayList<P_itemGiftListOutputVo> callServiceCenterItemGiftList(ProcedureVo procedureVo);
 
+    @Transactional(readOnly = true)
+    ArrayList<P_QuickListOutputVo> getQuickList();
+
 
 }
