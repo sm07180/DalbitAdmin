@@ -430,6 +430,19 @@ public class ItemService {
 
         return result;
     }
+
+
+
+    /** 퀵 메시지 목록 */
+    public String getQuickList() {
+        ArrayList<P_QuickListOutputVo> list = itemDao.getQuickList();
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.조회, list, new PagingVo(0)));
+
+        return result;
+    }
+
 }
 
 
