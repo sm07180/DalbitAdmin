@@ -197,32 +197,44 @@
             from rd_data.tb_member_exchange exchange
                 left join rd_admin.tb_special_dj special
                 on exchange.mem_no = special.mem_no
-                    and special.select_year = #{search_year}
-                    and special.select_month = #{search_month}
+                    <choose>
+                        <when test="end_year == null">
+                            and special.select_year = #{search_year}
+                            and special.select_month = #{search_month}
+                        </when>
+                        <otherwise>
+                            and #{search_year} <![CDATA[<=]]> special.select_year
+                            and special.select_year <![CDATA[<=]]> #{end_year}
+
+                            and #{search_month} <![CDATA[<=]]> special.select_month
+                            and special.select_month <![CDATA[<=]]> #{end_month}
+                        </otherwise>
+                    </choose>
+
                 left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
-            <if test="slctType == 2">
-                where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
-            </if>
-            <if test="slctType == 1">
-                where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
-            </if>
-            <if test="slctType == 0">
-                where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-            </if>
+            where exchange.state = 0
+                <choose>
+                    <when test="end_year == null">
+                        and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    </when>
+                    <otherwise>
+                        and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
+                        and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                    </otherwise>
+                </choose>
 
-            and exchange.state = 0
-            <choose>
-                <when test="isSpecial == 0">
-                    and special.mem_no is null
-                </when>
-                <when test="isSpecial == 1">
-                    and special.mem_no is not null
-                </when>
-            </choose>
-            <if test='search_testId == 1'>
-                and basic.inner = 0
-            </if>
+                <choose>
+                    <when test="isSpecial == 0">
+                        and special.mem_no is null
+                    </when>
+                    <when test="isSpecial == 1">
+                        and special.mem_no is not null
+                    </when>
+                </choose>
+                <if test='search_testId == 1'>
+                    and basic.inner = 0
+                </if>
          )a
 
         union all
@@ -231,20 +243,33 @@
         from rd_data.tb_member_exchange exchange
         left join rd_admin.tb_special_dj special
         on exchange.mem_no = special.mem_no
-        and special.select_year = #{search_year}
-        and special.select_month = #{search_month}
+            <choose>
+                <when test="end_year == null">
+                    and special.select_year = #{search_year}
+                    and special.select_month = #{search_month}
+                </when>
+                <otherwise>
+                    and #{search_year} <![CDATA[<=]]> special.select_year
+                    and special.select_year <![CDATA[<=]]> #{end_year}
+
+                    and #{search_month} <![CDATA[<=]]> special.select_month
+                    and special.select_month <![CDATA[<=]]> #{end_month}
+                </otherwise>
+            </choose>
         left join rd_data.tb_member_basic basic
-        on exchange.mem_no = basic.mem_no
-        <if test="slctType == 2">
-            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
-        </if>
-        <if test="slctType == 1">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
-        </if>
-        <if test="slctType == 0">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-        </if>
-        and exchange.state = 0
+            on exchange.mem_no = basic.mem_no
+
+        where exchange.state = 0
+        <choose>
+            <when test="end_year == null">
+                and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+            </when>
+            <otherwise>
+                and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
+                and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+            </otherwise>
+        </choose>
+
         <choose>
             <when test="isSpecial == 0">
                 and special.mem_no is null
@@ -263,31 +288,42 @@
         from rd_data.tb_member_exchange exchange
             left join rd_admin.tb_special_dj special
                 on exchange.mem_no = special.mem_no
-                    and special.select_year = #{search_year}
-                    and special.select_month = #{search_month}
+                <choose>
+                    <when test="end_year == null">
+                        and special.select_year = #{search_year}
+                        and special.select_month = #{search_month}
+                    </when>
+                    <otherwise>
+                        and #{search_year} <![CDATA[<=]]> special.select_year
+                        and special.select_year <![CDATA[<=]]> #{end_year}
+
+                        and #{search_month} <![CDATA[<=]]> special.select_month
+                        and special.select_month <![CDATA[<=]]> #{end_month}
+                    </otherwise>
+                </choose>
             left join rd_data.tb_member_basic basic
-            on exchange.mem_no = basic.mem_no
-        <if test="slctType == 2">
-            where DATE_FORMAT(exchange.reg_date , '%Y') = concat(#{search_year})
-        </if>
-        <if test="slctType == 1">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
-        </if>
-        <if test="slctType == 0">
-            where DATE_FORMAT(exchange.reg_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-        </if>
-        and exchange.state = 0
-        <choose>
-            <when test="isSpecial == 0">
-                and special.mem_no is null
-            </when>
-            <when test="isSpecial == 1">
-                and special.mem_no is not null
-            </when>
-        </choose>
-        <if test='search_testId == 1'>
-            and basic.inner = 0
-        </if>
+                on exchange.mem_no = basic.mem_no
+            where exchange.state = 0
+            <choose>
+                <when test="end_year == null">
+                    and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                </when>
+                <otherwise>
+                    and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
+                    and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
 
         union all
         -- 처리완료 건 수
@@ -297,31 +333,42 @@
             from rd_data.tb_member_exchange exchange
             left join rd_admin.tb_special_dj special
                 on exchange.mem_no = special.mem_no
-                    and special.select_year = #{search_year}
-                    and special.select_month = #{search_month}
+                    <choose>
+                        <when test="end_year == null">
+                            and special.select_year = #{search_year}
+                            and special.select_month = #{search_month}
+                        </when>
+                        <otherwise>
+                            and #{search_year} <![CDATA[<=]]> special.select_year
+                            and special.select_year <![CDATA[<=]]> #{end_year}
+
+                            and #{search_month} <![CDATA[<=]]> special.select_month
+                            and special.select_month <![CDATA[<=]]> #{end_month}
+                        </otherwise>
+                    </choose>
             left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
-            <if test="slctType == 2">
-                where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
-            </if>
-            <if test="slctType == 1">
-                where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
-            </if>
-            <if test="slctType == 0">
-                where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-            </if>
-            and exchange.state = 1
-            <choose>
-                <when test="isSpecial == 0">
-                    and special.mem_no is null
-                </when>
-                <when test="isSpecial == 1">
-                    and special.mem_no is not null
-                </when>
-            </choose>
-            <if test='search_testId == 1'>
-                and basic.inner = 0
-            </if>
+            where exchange.state = 1
+                <choose>
+                    <when test="end_year == null">
+                        and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    </when>
+                    <otherwise>
+                        and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+                        and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="isSpecial == 0">
+                        and special.mem_no is null
+                    </when>
+                    <when test="isSpecial == 1">
+                        and special.mem_no is not null
+                    </when>
+                </choose>
+                <if test='search_testId == 1'>
+                    and basic.inner = 0
+                </if>
         )a
 
         union all
@@ -330,20 +377,74 @@
         from rd_data.tb_member_exchange exchange
             left join rd_admin.tb_special_dj special
                 on exchange.mem_no = special.mem_no
-                    and special.select_year = #{search_year}
-                    and special.select_month = #{search_month}
+                    <choose>
+                        <when test="end_year == null">
+                            and special.select_year = #{search_year}
+                            and special.select_month = #{search_month}
+                        </when>
+                        <otherwise>
+                            and #{search_year} <![CDATA[<=]]> special.select_year
+                            and special.select_year <![CDATA[<=]]> #{end_year}
+
+                            and #{search_month} <![CDATA[<=]]> special.select_month
+                            and special.select_month <![CDATA[<=]]> #{end_month}
+                        </otherwise>
+                    </choose>
             left join rd_data.tb_member_basic basic
                 on exchange.mem_no = basic.mem_no
-            <if test="slctType == 2">
-                where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
-            </if>
-            <if test="slctType == 1">
-                where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
-            </if>
-            <if test="slctType == 0">
-                where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-            </if>
-            and exchange.state = 1
+            where exchange.state = 1
+                <choose>
+                    <when test="end_year == null">
+                        and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    </when>
+                    <otherwise>
+                        and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+                        and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                    </otherwise>
+                </choose>
+                <choose>
+                    <when test="isSpecial == 0">
+                        and special.mem_no is null
+                    </when>
+                    <when test="isSpecial == 1">
+                        and special.mem_no is not null
+                    </when>
+                </choose>
+                <if test='search_testId == 1'>
+                    and basic.inner = 0
+                </if>
+
+        union all
+        -- 처리완료 별 수
+        select ifnull(sum(byeol), 0) byeol
+        from rd_data.tb_member_exchange exchange
+        left join rd_admin.tb_special_dj special
+            on exchange.mem_no = special.mem_no
+                <choose>
+                    <when test="end_year == null">
+                        and special.select_year = #{search_year}
+                        and special.select_month = #{search_month}
+                    </when>
+                    <otherwise>
+                        and #{search_year} <![CDATA[<=]]> special.select_year
+                        and special.select_year <![CDATA[<=]]> #{end_year}
+
+                        and #{search_month} <![CDATA[<=]]> special.select_month
+                        and special.select_month <![CDATA[<=]]> #{end_month}
+                    </otherwise>
+                </choose>
+        left join rd_data.tb_member_basic basic
+            on exchange.mem_no = basic.mem_no
+        where exchange.state = 1
+            <choose>
+                <when test="end_year == null">
+                    and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                </when>
+                <otherwise>
+                    and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+                    and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                </otherwise>
+            </choose>
             <choose>
                 <when test="isSpecial == 0">
                     and special.mem_no is null
@@ -355,38 +456,6 @@
             <if test='search_testId == 1'>
                 and basic.inner = 0
             </if>
-
-        union all
-        -- 처리완료 별 수
-        select ifnull(sum(byeol), 0) byeol
-        from rd_data.tb_member_exchange exchange
-        left join rd_admin.tb_special_dj special
-        on exchange.mem_no = special.mem_no
-        and special.select_year = #{search_year}
-        and special.select_month = #{search_month}
-        left join rd_data.tb_member_basic basic
-        on exchange.mem_no = basic.mem_no
-        <if test="slctType == 2">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
-        </if>
-        <if test="slctType == 1">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
-        </if>
-        <if test="slctType == 0">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-        </if>
-        and exchange.state = 1
-        <choose>
-            <when test="isSpecial == 0">
-                and special.mem_no is null
-            </when>
-            <when test="isSpecial == 1">
-                and special.mem_no is not null
-            </when>
-        </choose>
-        <if test='search_testId == 1'>
-            and basic.inner = 0
-        </if>
 
         union all
         -- 불가 건 수
@@ -395,87 +464,34 @@
         select 1 cnt
         from rd_data.tb_member_exchange exchange
         left join rd_admin.tb_special_dj special
-        on exchange.mem_no = special.mem_no
-        and special.select_year = #{search_year}
-        and special.select_month = #{search_month}
-        left join rd_data.tb_member_basic basic
-        on exchange.mem_no = basic.mem_no
-        <if test="slctType == 2">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
-        </if>
-        <if test="slctType == 1">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
-        </if>
-        <if test="slctType == 0">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-        </if>
-        and exchange.state = 2
-        and exchange.last_reject = 1
-        <choose>
-            <when test="isSpecial == 0">
-                and special.mem_no is null
-            </when>
-            <when test="isSpecial == 1">
-                and special.mem_no is not null
-            </when>
-        </choose>
-        <if test='search_testId == 1'>
-            and basic.inner = 0
-        </if>
-        )a
-
-        union all
-        -- 불가처리 금액
-        select ifnull(sum(cash_real), 0) cash_basic
-        from rd_data.tb_member_exchange exchange
-        left join rd_admin.tb_special_dj special
-        on exchange.mem_no = special.mem_no
-        and special.select_year = #{search_year}
-        and special.select_month = #{search_month}
-        left join rd_data.tb_member_basic basic
-        on exchange.mem_no = basic.mem_no
-        <if test="slctType == 2">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
-        </if>
-        <if test="slctType == 1">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
-        </if>
-        <if test="slctType == 0">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-        </if>
-        and exchange.state = 2
-        <choose>
-            <when test="isSpecial == 0">
-                and special.mem_no is null
-            </when>
-            <when test="isSpecial == 1">
-                and special.mem_no is not null
-            </when>
-        </choose>
-        <if test='search_testId == 1'>
-            and basic.inner = 0
-        </if>
-
-        union all
-        -- 불가 별 수
-        select ifnull(sum(byeol), 0) byeol
-        from rd_data.tb_member_exchange exchange
-            left join rd_admin.tb_special_dj special
-                on exchange.mem_no = special.mem_no
+            on exchange.mem_no = special.mem_no
+            <choose>
+                <when test="end_year == null">
                     and special.select_year = #{search_year}
                     and special.select_month = #{search_month}
-            left join rd_data.tb_member_basic basic
+                </when>
+                <otherwise>
+                    and #{search_year} <![CDATA[<=]]> special.select_year
+                    and special.select_year <![CDATA[<=]]> #{end_year}
+
+                    and #{search_month} <![CDATA[<=]]> special.select_month
+                    and special.select_month <![CDATA[<=]]> #{end_month}
+                </otherwise>
+            </choose>
+        left join rd_data.tb_member_basic basic
             on exchange.mem_no = basic.mem_no
-        <if test="slctType == 2">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y') = concat(#{search_year})
-        </if>
-        <if test="slctType == 1">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m') = concat(#{search_year}, #{search_month})
-        </if>
-        <if test="slctType == 0">
-            where DATE_FORMAT(exchange.last_upd_date , '%Y%m%d') = concat(#{search_year}, #{search_month}, #{search_day})
-        </if>
-            and exchange.state = 2
+
+        where exchange.state = 2
+            <choose>
+                <when test="end_year == null">
+                    and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    and exchange.last_reject = 1
+                </when>
+                <otherwise>
+                    and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+                    and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                </otherwise>
+            </choose>
             <choose>
                 <when test="isSpecial == 0">
                     and special.mem_no is null
@@ -487,6 +503,146 @@
             <if test='search_testId == 1'>
                 and basic.inner = 0
             </if>
+        )a
+
+        union all
+        -- 불가처리 금액
+        select ifnull(sum(cash_real), 0) cash_basic
+        from rd_data.tb_member_exchange exchange
+        left join rd_admin.tb_special_dj special
+            on exchange.mem_no = special.mem_no
+            <choose>
+                <when test="end_year == null">
+                    and special.select_year = #{search_year}
+                    and special.select_month = #{search_month}
+                </when>
+                <otherwise>
+                    and #{search_year} <![CDATA[<=]]> special.select_year
+                    and special.select_year <![CDATA[<=]]> #{end_year}
+
+                    and #{search_month} <![CDATA[<=]]> special.select_month
+                    and special.select_month <![CDATA[<=]]> #{end_month}
+                </otherwise>
+            </choose>
+        left join rd_data.tb_member_basic basic
+        on exchange.mem_no = basic.mem_no
+        where exchange.state = 2
+            <choose>
+                <when test="end_year == null">
+                    and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    and exchange.last_reject = 1
+                </when>
+                <otherwise>
+                    and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+                    and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+
+        union all
+        -- 불가 별 수
+        select ifnull(sum(byeol), 0) byeol
+        from rd_data.tb_member_exchange exchange
+            left join rd_admin.tb_special_dj special
+                on exchange.mem_no = special.mem_no
+                <choose>
+                    <when test="end_year == null">
+                        and special.select_year = #{search_year}
+                        and special.select_month = #{search_month}
+                    </when>
+                    <otherwise>
+                        and #{search_year} <![CDATA[<=]]> special.select_year
+                        and special.select_year <![CDATA[<=]]> #{end_year}
+
+                        and #{search_month} <![CDATA[<=]]> special.select_month
+                        and special.select_month <![CDATA[<=]]> #{end_month}
+                    </otherwise>
+                </choose>
+            left join rd_data.tb_member_basic basic
+            on exchange.mem_no = basic.mem_no
+        where exchange.state = 2
+            <choose>
+                <when test="end_year == null">
+                    and DATE_FORMAT(exchange.reg_date , '%Y%m') = concat(#{search_year}, #{search_month})
+                    and exchange.last_reject = 1
+                </when>
+                <otherwise>
+                    and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+                    and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="isSpecial == 0">
+                    and special.mem_no is null
+                </when>
+                <when test="isSpecial == 1">
+                    and special.mem_no is not null
+                </when>
+            </choose>
+            <if test='search_testId == 1'>
+                and basic.inner = 0
+            </if>
+    </select>
+
+    <select id="selectStatSummaryInfo" parameterType="com.dalbit.money.vo.Mon_ExchangeInputVo" resultType="com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo">
+        /* Mon_Exchange.xml - selectSummaryInfo */
+        select count(*) cnt
+            , sum(cash_real) sumCashReal
+            , sum(byeol) sumByeol
+        from rd_data.tb_member_exchange exchange
+        where state = 0
+            and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
+            and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+            <choose>
+                <when test="isSpecial == 0">
+                    and exchange.benefit = 0
+                </when>
+                <otherwise>
+                    and exchange.benefit != 0
+                </otherwise>
+            </choose>
+
+        union all
+
+        select count(*) cnt, sum(cash_real) sumCashReal, sum(byeol) sumByeol
+        from rd_data.tb_member_exchange exchange
+        where state = 1
+            and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+            and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+            <choose>
+                <when test="isSpecial == 0">
+                    and exchange.benefit = 0
+                </when>
+                <otherwise>
+                    and exchange.benefit != 0
+                </otherwise>
+            </choose>
+
+        union all
+
+        select count(*) cnt, sum(cash_real) sumCashReal, sum(byeol) sumByeol
+        from rd_data.tb_member_exchange exchange
+        where state = 2
+            and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.last_upd_date, '%Y%m%d')
+            and DATE_FORMAT(exchange.last_upd_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
+            <choose>
+                <when test="isSpecial == 0">
+                    and exchange.benefit = 0
+                </when>
+                <otherwise>
+                    and exchange.benefit != 0
+                </otherwise>
+            </choose>
     </select>
 
     <update id="updateLastReject" parameterType="com.dalbit.money.vo.Mon_ExchangeOutputVo">

@@ -107,17 +107,26 @@
     });
 
     function getList(){
-        var fullDate = $("#startDate").val();
-        var year = fullDate.split(".")[0];
-        var month = fullDate.split(".")[1];
-        var day = fullDate.split(".")[2];
+        var startDate = $("#startDate").val();
+        var year = startDate.split(".")[0];
+        var month = startDate.split(".")[1];
+        var day = startDate.split(".")[2];
 
-        var data = {};
-        data.search_year = year;
-        data.search_month = month;
-        data.search_day = day;
-        data.search_testId = 0;
-        data.slctType = $('input[name="slctType"]:checked').val();
+        var endDate = $("#endDate").val();
+        var end_year = endDate.split(".")[0];
+        var end_month = endDate.split(".")[1];
+        var end_day = endDate.split(".")[2];
+
+        var data = {
+            search_year : year
+            , search_month : month
+            , search_day : day
+            , search_testId : 0
+            , slctType : $('input[name="slctType"]:checked').val()
+            , end_year : end_year
+            , end_month : end_month
+            , end_day : end_day
+        };
 
         var template = $('#tmp_exchangeSummary').html();
         var templateScript = Handlebars.compile(template);
@@ -126,7 +135,7 @@
 
         ui.paintColor();
 
-        util.getAjaxData("select", "/rest/money/exchange/summary", data, fn_succ_summary);
+        util.getAjaxData("select", "/rest/money/exchange/stat/summary", data, fn_succ_summary);
 
         var data = {};
         data.search_testId = 0;
@@ -135,23 +144,22 @@
 
     }
     function fn_succ_summary(dst_id, response){
-        dalbitLog(response);
 
         var special_total_cnt = 0;
         var special_total_amount = 0;
         var special_total_star = 0;
+
         response.data.specialSummaryList.forEach(function(data, i){
-            $('._summary_special_'+i).html(common.addComma(data));
-            if(i == 0 || i == 3){
-                special_total_cnt += data;
-            }
-            if(i == 1 || i == 4){
-                special_total_amount += data;
-            }
-            if(i == 2 || i == 5){
-                special_total_star += data;
-            }
+            console.log(data);
+            $('._summary_special_cnt_' + i).html(common.addComma(data.cnt));
+            $('._summary_special_amount_' + i).html(common.addComma(data.sumCashReal));
+            $('._summary_special_star_' + i).html(common.addComma(data.sumByeol));
+
+            special_total_cnt += data.cnt;
+            special_total_amount += data.sumCashReal;
+            special_total_star += data.sumByeol;
         });
+
         $('._summary_total_special_cnt').html(common.addComma(special_total_cnt));
         $('._summary_total_special_amount').html(common.addComma(special_total_amount));
         $('._summary_total_special_star').html(common.addComma(special_total_star));
@@ -159,19 +167,17 @@
         var general_total_cnt = 0;
         var general_total_amount = 0;
         var general_total_star = 0;
-        response.data.generalSummaryList.forEach(function(data, i){
-            $('._summary_user_'+i).html(common.addComma(data));
 
-            if(i == 0 || i == 3){
-                general_total_cnt += data;
-            }
-            if(i == 1 || i == 4){
-                general_total_amount += data;
-            }
-            if(i == 2 || i == 5){
-                general_total_star += data;
-            }
+        response.data.generalSummaryList.forEach(function(data, i){
+            $('._summary_user_cnt_' + i).html(common.addComma(data.cnt));
+            $('._summary_user_amount_' + i).html(common.addComma(data.sumCashReal));
+            $('._summary_user_star_' + i).html(common.addComma(data.sumByeol));
+
+            general_total_cnt += data.cnt;
+            general_total_amount += data.sumCashReal;
+            general_total_star += data.sumByeol;
         });
+
         $('._summary_total_user_cnt').html(common.addComma(general_total_cnt));
         $('._summary_total_user_amount').html(common.addComma(general_total_amount));
         $('._summary_total_user_star').html(common.addComma(general_total_star));
@@ -179,7 +185,6 @@
 
     function fn_succ_enable_list(dst_id, response) {
         console.log("--------------------------");
-        dalbitLog(response);
         var exchangeAmt = common.exchangeAmt(response.data.totalGold,response.data.specialCnt).replace(/,/gi,"");
         var totalSuccAmt = common.vatMinus(response.data.totalSuccAmt).replace(/,/gi,"");
         response.data.netProfit = Number(totalSuccAmt)-(Number(exchangeAmt) + Number(response.data.totalExchangeAmt));
@@ -324,15 +329,15 @@
             <tbody id="tb_special_summary">
                 <tr>
                     <th>미처리</th>
-                    <td style="background-color: white"><span class="_summary_special_0">0</span>건</td>
-                    <td style="background-color: white"><span class="_summary_special_1">0</span>원</td>
-                    <td style="background-color: white"><span class="_summary_special_2">0</span>별</td>
+                    <td style="background-color: white"><span class="_summary_special_cnt_0">0</span>건</td>
+                    <td style="background-color: white"><span class="_summary_special_amount_0">0</span>원</td>
+                    <td style="background-color: white"><span class="_summary_special_star_0">0</span>별</td>
                 </tr>
                 <tr>
                     <th>처리완료</th>
-                    <td style="background-color: white"><span class="_summary_special_3">0</span>건</td>
-                    <td style="background-color: white"><span class="_summary_special_4">0</span>원</td>
-                    <td style="background-color: white"><span class="_summary_special_5">0</span>별</td>
+                    <td style="background-color: white"><span class="_summary_special_cnt_1">0</span>건</td>
+                    <td style="background-color: white"><span class="_summary_special_amount_1">0</span>원</td>
+                    <td style="background-color: white"><span class="_summary_special_star_1">0</span>별</td>
                 </tr>
                 <tr class="_fontColor" data-fontcolor="#ff5600">
                     <th>총계</th>
@@ -347,7 +352,7 @@
 
                 <tr>
                     <th>처리불가</th>
-                    <td style="background-color: white"><span class="_summary_special_6">0</span>건</td>
+                    <td style="background-color: white"><span class="_summary_special_cnt_2">0</span>건</td>
                     <!-- 양과장님 요청으로 데이터 삭제 처리 -->
                     <!--<td style="background-color: white"><span class="_summary_user_7">0</span>원</td>
                     <td style="background-color: white"><span class="_summary_user_8">0</span>별</td>-->
@@ -380,15 +385,15 @@
             <tbody id="tb_user_summary">
                 <tr>
                     <th>미처리</th>
-                    <td style="background-color: white"><span class="_summary_user_0">0</span>건</td>
-                    <td style="background-color: white"><span class="_summary_user_1">0</span>원</td>
-                    <td style="background-color: white"><span class="_summary_user_2">0</span>별</td>
+                    <td style="background-color: white"><span class="_summary_user_cnt_0">0</span>건</td>
+                    <td style="background-color: white"><span class="_summary_user_amount_0">0</span>원</td>
+                    <td style="background-color: white"><span class="_summary_user_star_0">0</span>별</td>
                 </tr>
                 <tr>
                     <th>처리완료</th>
-                    <td style="background-color: white"><span class="_summary_user_3">0</span>건</td>
-                    <td style="background-color: white"><span class="_summary_user_4">0</span>원</td>
-                    <td style="background-color: white"><span class="_summary_user_5">0</span>별</td>
+                    <td style="background-color: white"><span class="_summary_user_cnt_1">0</span>건</td>
+                    <td style="background-color: white"><span class="_summary_user_amount_1">0</span>원</td>
+                    <td style="background-color: white"><span class="_summary_user_star_1">0</span>별</td>
                 </tr>
                 <tr class="_fontColor" data-fontcolor="#ff5600">
                     <th>총계</th>
@@ -403,7 +408,7 @@
 
                 <tr>
                     <th>처리불가</th>
-                    <td style="background-color: white"><span class="_summary_user_6">0</span>건</td>
+                    <td style="background-color: white"><span class="_summary_user_cnt_2">0</span>건</td>
                     <!-- 양과장님 요청으로 데이터 삭제 처리 -->
                     <!--<td style="background-color: white"><span class="_summary_user_7">0</span>원</td>
                     <td style="background-color: white"><span class="_summary_user_8">0</span>별</td>-->

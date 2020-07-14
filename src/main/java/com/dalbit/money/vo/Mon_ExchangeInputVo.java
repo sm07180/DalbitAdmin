@@ -23,6 +23,11 @@ public class Mon_ExchangeInputVo extends PagingVo {
     private String excelYn;
     private int last_reject;
 
+    //환전통계 summary : 범위 때문에 end 날짜 추가
+    private String end_year;
+    private String end_month;
+    private String end_day;
+
     private String viewName;
     private String idxs;
     private String[] idxArr;
