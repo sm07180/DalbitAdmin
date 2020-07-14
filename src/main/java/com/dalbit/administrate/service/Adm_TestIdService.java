@@ -96,6 +96,13 @@ public class Adm_TestIdService {
         testIdVo.setMem_no(memNos[0]);
         testIdVo.setInner(0);
         admTestIdDao.updateInner(testIdVo);
+
+        //운영자 아이디 삭제
+        var memberBadgeVo = new MemberBadgeVo();
+        memberBadgeVo.setMemNos(memNos);
+        memberBadgeVo.setSlct_type(6);
+        memberBadgeVo.setBadge_value(1);
+        admTestIdDao.deleteMemberBadge(memberBadgeVo);
     }
 
     /**

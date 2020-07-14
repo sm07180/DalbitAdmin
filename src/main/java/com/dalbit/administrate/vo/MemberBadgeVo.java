@@ -11,6 +11,7 @@ import java.sql.Date;
 @ToString
 public class MemberBadgeVo {
 
+    private String[] memNos;
     private String mem_no;
     private int slct_type;
     private int badge_value;

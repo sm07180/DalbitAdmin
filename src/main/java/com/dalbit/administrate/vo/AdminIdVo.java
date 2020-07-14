@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class AdminIdVo {
 
+    private String[] memNos;
     private String mem_no;
     private int is_admin;
 }

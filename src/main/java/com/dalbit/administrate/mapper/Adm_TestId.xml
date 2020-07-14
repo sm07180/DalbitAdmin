@@ -198,7 +198,18 @@
         /* Adm_TestId.xml - updateAdminBadge */
         update rd_data.tb_member_profile
         set admin_badge = #{is_admin}
-        where mem_no = #{mem_no}
+        where
+            <choose>
+                <when test="mem_no != null">
+                    mem_no = #{mem_no}
+                </when>
+                <otherwise>
+                    mem_no in
+                    <foreach collection="memNos" item="memNo" separator="," open="(" close=")">
+                        #{memNo}
+                    </foreach>
+                </otherwise>
+            </choose>
     </update>
 
     <insert id="insertMemberBadge" parameterType="com.dalbit.administrate.vo.MemberBadgeVo">
@@ -221,7 +232,18 @@
     <delete id="deleteMemberBadge" parameterType="com.dalbit.administrate.vo.MemberBadgeVo">
         /* Adm_TestId.xml - deleteMemberBadge */
         delete from rd_data.tb_member_badge
-        where mem_no = #{mem_no}
+        where
+        <choose>
+            <when test="mem_no != null">
+                mem_no = #{mem_no}
+            </when>
+            <otherwise>
+                mem_no in
+                <foreach collection="memNos" item="memNo" separator="," open="(" close=")">
+                    #{memNo}
+                </foreach>
+            </otherwise>
+        </choose>
             and slct_type = #{slct_type}
     </delete>
 
