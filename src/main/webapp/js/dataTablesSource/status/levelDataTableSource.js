@@ -7,7 +7,7 @@ var levelDataTableSource = {
             ,{'title': 'Exp(%)', 'data' : 'memExp', 'width':'80px', 'render': function (data, type, row, meta) {
                     return data + "(" + Number(row.expPro).toFixed(2) + "%)";
                 }}
-            ,{'title': '다음Level<br/>Exp(수치)', 'data' : 'nextLevelExp', 'width':'80px'}
+            ,{'title': '누적 경험치', 'data' : 'exp', 'width':'80px'}
             ,{'title': '레벨등급', 'data' : 'grade', 'width':'80px'}
             ,{'title': 'UserID', 'data' : 'mem_userid', 'width':'80px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
@@ -44,6 +44,12 @@ var levelDataTableSource = {
                     return common.addComma(data) + "개"
                 }}
             ,{'title': '보유별', 'data' : 'byeol', 'width':'80px','render' : function(data){
+                    return common.addComma(data) + "개"
+                }}
+            ,{'title': '선물 한 수', 'data' : 'present', 'width':'80px','render' : function(data){
+                    return common.addComma(data) + "개"
+                }}
+            ,{'title': '선물 받은 수', 'data' : 'receive', 'width':'80px','render' : function(data){
                     return common.addComma(data) + "개"
                 }}
         ]
