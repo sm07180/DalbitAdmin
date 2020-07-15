@@ -61,7 +61,7 @@ var defaults = {
 	
 	// locale
 	isRTL: false,
-	firstDay: 1,
+	firstDay: 0,
 	monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 	monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 	dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'],
@@ -89,7 +89,11 @@ var defaults = {
 	
 	dropAccept: '*',
 	
-	handleWindowResize: true
+	handleWindowResize: true,
+
+	//custom
+	showTotal : false,	//합계 노출 여부
+
 	
 };
 
@@ -2306,10 +2310,12 @@ function BasicView(element, calendar, viewName) {
 				"</th>";
 		}
 
-		html +=
-			"<th class='pt5 fc-day-header fc-total " + headerClass + "' style='width:200px'>" +
-			'합계' +
-			"</th>"
+		if(calendar.options.showTotal){
+			html +=
+				"<th class='pt5 fc-day-header fc-total " + headerClass + "' style='width:200px'>" +
+				'합계' +
+				"</th>"
+		}
 
 		html += "</tr></thead>";
 
@@ -2345,7 +2351,9 @@ function BasicView(element, calendar, viewName) {
 				html += buildCellHTML(date);
 			}
 
-			html += buildTotalCellHTML()
+			if(calendar.options.showTotal){
+                html += buildTotalCellHTML()
+			}
 
 			html += "</tr>";
 		}

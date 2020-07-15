@@ -374,43 +374,43 @@
             </tr>
             </thead>
             <tbody>
-                <tr class="font-bold" style="background-color: #dbeef4">
-                    <td>총합</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {{#each this as |data|}}
-                <tr>
-                    <td class="font-bold _stateSubTh">
-                        {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
-                        {{#equal ../slctType 1}}{{substr data.daily 5}}{{/equal}}
-                        {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td style="background-color: #dbeef4"></td>
-                </tr>
-                {{else}}
-                <td colspan="12" class="noData">{{isEmptyData}}<td>
+            <tr class="font-bold" style="background-color: #dbeef4">
+                <td>총합</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {{#each this as |data|}}
+            <tr>
+                <td class="font-bold _stateSubTh">
+                    {{#equal ../slctType 0}}{{data.hour}}시{{/equal}}
+                    {{#equal ../slctType 1}}{{substr data.daily 5}}{{/equal}}
+                    {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="background-color: #dbeef4"></td>
+            </tr>
+            {{else}}
+            <td colspan="12" class="noData">{{isEmptyData}}<td>
                 {{/each}}
             </tbody>
         </table>
@@ -477,7 +477,7 @@
             </tr>
             {{else}}
             <td colspan="10" class="noData">{{isEmptyData}}<td>
-            {{/each}}
+                {{/each}}
             </tbody>
         </table>
     </div>

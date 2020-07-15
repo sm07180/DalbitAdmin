@@ -41,6 +41,9 @@
             <div class="col-md-6">
                 <br/>
                 <label id="liveTitle">ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.</label>
+                <br/>
+                <span id="liveSort" onchange="sortChange();"></span>
+                <span id="endSort" style="display: none" onchange="sortChange();"></span>
             </div>
             <div class="col-md-6 pull-right no-padding">
                 <span id="live_summaryArea"></span>
@@ -66,6 +69,10 @@
     $("#searchType_broad").html(util.getCommonCodeSelect(-1, searchType_broad));
     $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadio));
     $("#selJoinDate").html(util.getCommonCodeRadio(3, joinDate));
+
+    $("#liveSort").html(util.getCommonCodeSelect(0, liveSort));
+    $("#endSort").html(util.getCommonCodeSelect(0, endSort));
+
 
     var date = new Date();
     var sDate;
@@ -157,9 +164,13 @@
         liveState = tmp;
         if(tmp == 1){
             $("#liveTitle").html("ㆍ실시간 생방송 시작된 방송이 최상위 누적되어 보여집니다.<br/>ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 삭제됩니다.");
+            $("#liveSort").show();
+            $("#endSort").hide();
         }else if(tmp == 2){
             $("#liveTitle").html("ㆍ종료된 방송은 방송종료일을 기준으로 최상위 누적되어 보여집니다.<br/>" +
                 "ㆍDJ가 방송을 완료한 경우 해당 방송은 리스트에서 추가됩니다.");
+            $("#liveSort").hide();
+            $("#endSort").show();
         }
         room_liveType = tmp;
         var dtList_info_data = function (data) {
@@ -179,7 +190,37 @@
                 data.ortStartDate =2;
             }
             data.room_liveType = room_liveType;
-            data.sortStartDate = 0;
+
+            /*
+            *   정렬 부분
+            */
+            if(liveState == 1) {
+                if($("select[name='liveSort']").val() != 0){
+                    if ($("select[name='liveSort']").val() == 1)
+                        data.sortStartDate = 1;
+                    if ($("select[name='liveSort']").val() == 2)
+                        data.sortAirTime = 1;
+                    if ($("select[name='liveSort']").val() == 3)
+                        data.sortListener = 1;
+                    if ($("select[name='liveSort']").val() == 4)
+                        data.sortListener = 0;
+                    if ($("select[name='liveSort']").val() == 5)
+                        data.sortGift = 1;
+                }
+            }else{
+                if($("select[name='endSort']").val() != 0){
+                    if ($("select[name='endSort']").val() == 2)
+                        data.sortAirTime = 1;
+                    if ($("select[name='endSort']").val() == 3)
+                        data.sortListener = 1;
+                    if ($("select[name='endSort']").val() == 4)
+                        data.sortListener = 0;
+                    if ($("select[name='endSort']").val() == 5)
+                        data.sortGift = 1;
+                }
+            }
+            //---------------------------------------------------
+
             if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
                 data.startDate = sDate;
                 data.endDate = eDate;
@@ -188,9 +229,7 @@
             }else if($('input[name="joinDate"]:checked').val() == "4" ){
                 data.startDate = $("#onedayDate").val();
             }
-
         };
-        dalbitLog(dtList_info_data);
         if(liveState == 1){
             dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
         }else{
@@ -252,6 +291,10 @@
             tmp_room_slctType = $("select[name='searchBroad_broad']").val();
             tmp_room_searchText = $('#txt_search').val();
         }
+        dtList_info.reload(summary_table);
+    }
+
+    function sortChange(){
         dtList_info.reload(summary_table);
     }
 

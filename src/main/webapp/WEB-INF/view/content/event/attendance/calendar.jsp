@@ -223,6 +223,10 @@
             center: 'prev, title, next',
             right: 'today'
         },
+
+        firstDay: 1, //월요일부터 시작
+        showTotal: true, //합계 노출여부
+
         events: function(start, end, timezone, callback) {
             $.ajax({
                 url: '/rest/content/event/attendance/calendar/list',

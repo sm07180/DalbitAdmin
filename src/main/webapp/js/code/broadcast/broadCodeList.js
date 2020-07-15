@@ -99,6 +99,25 @@ var searchRoom_state = [
     , new COMMON_CODE('4', '2', '종료')
 ];
 
+var liveSort = [
+    new COMMON_CODE(null, 'liveSort', '실시간방송정렬')
+    , new COMMON_CODE('0', '0', '현재 실시간방송 순으로')
+    , new COMMON_CODE('1', '1', '최근 방송시작 순으로')
+    , new COMMON_CODE('2', '2', '진행시간 오래된 순으로')
+    , new COMMON_CODE('3', '3', '청취자 많은 순으로')
+    , new COMMON_CODE('4', '4', '청취자 적은 순으로')
+    , new COMMON_CODE('5', '5', '방송 중 선물 많이 받은 순으로')
+];
+
+var endSort = [
+    new COMMON_CODE(null, 'endSort', '실시간방송정렬')
+    , new COMMON_CODE('0', '0', '최근 방송 종료 순으로')
+    , new COMMON_CODE('2', '2', '진행시간 오래된 순으로')
+    , new COMMON_CODE('3', '3', '청취자 많은 순으로')
+    , new COMMON_CODE('4', '4', '청취자 적은 순으로')
+    , new COMMON_CODE('5', '5', '방송 중 선물 많이 받은 순으로')
+];
+
 
 // ------------------------- table -----------------------------
 var listen_summary = [
@@ -180,6 +199,6 @@ var forceExit_Message = [
     ,new COMMON_CODE('msg12', '12', '다수의 계정을 이용한 어뷰징 활동')
     ,new COMMON_CODE('msg13', '13', '서비스 내 현금 거래')
     ,new COMMON_CODE('msg14', '14', '고의적인 서비스 운영 방해')
-    ,new COMMON_CODE('msg99', '99', '서비스 자체 기준 위반 (입력창 있음)')
+    ,new COMMON_CODE('msg99', '99', '서비스 자체 기준 위반')
 ];
 
