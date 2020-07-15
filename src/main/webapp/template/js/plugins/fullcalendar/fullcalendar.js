@@ -465,7 +465,7 @@ function Calendar(element, options, eventSources) {
 					if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
 						if (elementOuterWidth != (elementOuterWidth = element.outerWidth())) {
 							ignoreWindowResize++; // in case the windowResize callback changes the height
-							updateSize();
+							//updateSize();
 							currentView.trigger('windowResize', _element);
 							ignoreWindowResize--;
 						}
@@ -2466,7 +2466,6 @@ function BasicView(element, calendar, viewName) {
 				);
 			}
 		});
-		
 	}
 	
 	
@@ -3217,6 +3216,7 @@ function AgendaView(element, calendar, viewName) {
 
 	
 	function setHeight(height) {
+		console.log('1111111111111111111111')
 		if (height === undefined) {
 			height = viewHeight;
 		}

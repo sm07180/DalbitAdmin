@@ -19,105 +19,49 @@
 <script type="text/javascript">
 
     $(function(){
-        init();
+        //init();
     });
 
-    function init(){
+    function getCalendarInfo(){
         $("#summary_today").html(moment(new Date()).format('YYYY-MM-DD'));
-
+        renderCalendar();
     }
 
-    // function getAttendanceWeek(startDate, endDate, index){
-    //     var data = {
-    //         search_startDate : startDate
-    //         , search_endDate : endDate
-    //         , index : index
-    //     }
-    //     util.getAjaxData("getCalendarWeekSum", "/rest/content/event/attendance/calendar/week", data, getCalendarWeek_success);
-    // }
+    function renderCalendar(){
+        $('.calendar').fullCalendar('destroy').fullCalendar({
+            header: {
+                //left: 'month, agendaWeek, agendaDay',
+                left: '',
+                center: 'prev, title, next',
+                right: 'today'
+            },
+            events: function(start, end, timezone, callback) {
+                $.ajax({
+                    url: '/rest/content/event/attendance/calendar/list',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        search_startDate : $('td.fc-day:first').data('date'),
+                        search_endDate: $('td.fc-day:last').data('date')
+                    },
+                    success: function(response) {
 
-    // function getCalendarWeek_success(dst_id, response, param) {
-    //
-    //     var date = $(".calendar").fullCalendar('getDate');
-    //     var month_int = date.getMonth() + 1;
-    //
-    //     var weekTotal = {
-    //         month : month_int
-    //         , index : param.index
-    //         , loginCnt : 0
-    //         , joinMem : 0
-    //         , sex_man : 0
-    //         , sex_female : 0
-    //         , sex_unknown : 0
-    //         , joinCnt : 0
-    //         , joinSum : 0
-    //         , expSum : 0
-    //         , dalSum : 0
-    //     }
-    //
-    //     if(!common.isEmpty(response.data)){
-    //         weekTotal.loginCnt = response.data.loginCnt;
-    //         weekTotal.joinCnt = response.data.joinCnt;
-    //         weekTotal.sex_man = response.data.sex_man;
-    //         weekTotal.sex_female += response.data.sex_female;
-    //         weekTotal.sex_unknown += response.data.sex_unknown;
-    //         weekTotal.joinSum += response.data.joinSum;
-    //         weekTotal.expSum += response.data.expSum;
-    //         weekTotal.dalSum += response.data.dalSum;
-    //     }
-    //
-    //     var weekTarget = $('.fc-week:eq('+param.index+')').find('.fc-day-content:last');
-    //     var template = $('#tmp_weekCalendarData').html();
-    //     var templateScript = Handlebars.compile(template);
-    //     var context = weekTotal;
-    //     var html=templateScript(context);
-    //
-    //     weekTarget.append(html);
-    //
-    // }
+                        // console.log('response');
+                        // console.log(response);
+                        response.data.forEach(function(info){
+                            var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
+                            var template = $('#tmp_calendarData').html();
+                            var templateScript = Handlebars.compile(template);
+                            var context = info;
+                            var html=templateScript(context);
+                            dayTarget.append(html);
 
-    $('.calendar').fullCalendar({
-        header: {
-            //left: 'month, agendaWeek, agendaDay',
-            left: '',
-            center: 'prev, title, next',
-            right: 'today'
-        },
-        events: function(start, end, timezone, callback) {
-            $.ajax({
-                url: '/rest/content/event/attendance/calendar/list',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    search_startDate : $('td.fc-day:first').data('date'),
-                    search_endDate: $('td.fc-day:last').data('date')
-                },
-                success: function(response) {
-
-                    // console.log('response');
-                    // console.log(response);
-                    response.data.forEach(function(info){
-                        var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
-                        var template = $('#tmp_calendarData').html();
-                        var templateScript = Handlebars.compile(template);
-                        var context = info;
-                        var html=templateScript(context);
-                        dayTarget.append(html);
-
-                    });
-
-                    //주별 합계 구하기
-                    // $('tr.fc-week').each(function(){
-                    //     var week = $(this);
-                    //     var startDate = week.find('td.fc-day:first').data('date');
-                    //     var endDate = week.find('td.fc-day:last').data('date');
-                    //     var index = $('tr.fc-week').index(week);
-                    //     getAttendanceWeek(startDate, endDate, index);
-                    // });
-                }
-            });
-        }
-    });
+                        });
+                    }
+                });
+            }
+        });
+    }
 
 </script>
 

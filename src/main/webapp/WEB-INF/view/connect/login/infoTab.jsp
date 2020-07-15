@@ -73,6 +73,8 @@
             getBrowserList();
         }else if(tabId == 'tab_loginHistory') {
             getLoginHistoryList();
+        }else if(tabId == 'tab_calendar'){
+            getCalendarInfo();
         }
 
     });
