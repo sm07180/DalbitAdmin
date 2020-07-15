@@ -15,7 +15,8 @@ var NoticeDataTableSource = {
             , {
                 'title': '제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     //return '<a href="javascript://" onclick="javascript:getNotice_detail(' + meta.row + ');">' + data + '</a>'
-                    return '<a href="javascript://" class="_getNoticeDetail" onclick="getNoticeDetail('+meta.row+');">' + data + '</a>'
+                    // return '<a href="javascript://" class="_getNoticeDetail" onclick="getNoticeDetail('+meta.row+');">' + data + '</a>'
+                    return '<a href="/content/notice/noticeDetail?noticeIdx=' + row.noticeIdx + '&rowNum = ' +row.rowNum+ '">' + data + '</a>'
                 }
             }
             , {'title': '등록일시', 'data': 'writeDateFormat'}

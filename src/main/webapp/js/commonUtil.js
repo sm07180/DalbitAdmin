@@ -483,7 +483,7 @@ util.editorInit = function(type) {
 
     targetEditor.summernote({
         lang: 'ko-KR',
-        height: '300px',
+        height: '500px',
         focus: false,
         callbacks: { // 콜백을 사용
             // 이미지를 업로드할 경우 이벤트를 발생
