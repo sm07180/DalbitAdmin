@@ -14,14 +14,17 @@ public class P_BroadcastListInputVo extends PagingVo {
     private String dj_searchText;
     private int room_slctType;
     private String room_searchText;
-    private int sortTitle;
-    private int sortStartDate;
-    private int sortAirTime;
     private int pageNo;
     private int room_liveType;
     private String room_no;
 
     private String startDate;
     private String endDate;
+
+    private String sortTitle;
+    private String sortStartDate;
+    private String sortAirTime;
+    private String sortListener;
+    private String sortGift;
 
 }
