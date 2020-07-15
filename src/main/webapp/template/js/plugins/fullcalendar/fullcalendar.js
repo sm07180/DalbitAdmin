@@ -2351,7 +2351,9 @@ function BasicView(element, calendar, viewName) {
 				html += buildCellHTML(date);
 			}
 
-			html += buildTotalCellHTML()
+			if(calendar.options.showTotal){
+                html += buildTotalCellHTML()
+			}
 
 			html += "</tr>";
 		}
