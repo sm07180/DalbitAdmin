@@ -600,8 +600,7 @@
             , sum(cash_real) sumCashReal
             , sum(byeol) sumByeol
         from rd_data.tb_member_exchange exchange
-        where state = 0
-            and concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
+        where concat(#{search_year}, #{search_month}, #{search_day}) <![CDATA[<=]]> DATE_FORMAT(exchange.reg_date, '%Y%m%d')
             and DATE_FORMAT(exchange.reg_date, '%Y%m%d') <![CDATA[<=]]> concat(#{end_year}, #{end_month}, #{end_day})
             <choose>
                 <when test="isSpecial == 0">

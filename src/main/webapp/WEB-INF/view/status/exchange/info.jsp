@@ -328,7 +328,7 @@
             </thead>
             <tbody id="tb_special_summary">
                 <tr>
-                    <th>미처리</th>
+                    <th>환전신청</th>
                     <td style="background-color: white"><span class="_summary_special_cnt_0">0</span>건</td>
                     <td style="background-color: white"><span class="_summary_special_amount_0">0</span>원</td>
                     <td style="background-color: white"><span class="_summary_special_star_0">0</span>별</td>
@@ -384,7 +384,7 @@
             </thead>
             <tbody id="tb_user_summary">
                 <tr>
-                    <th>미처리</th>
+                    <th>환전신청</th>
                     <td style="background-color: white"><span class="_summary_user_cnt_0">0</span>건</td>
                     <td style="background-color: white"><span class="_summary_user_amount_0">0</span>원</td>
                     <td style="background-color: white"><span class="_summary_user_star_0">0</span>별</td>
