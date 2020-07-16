@@ -26,7 +26,7 @@
             <ul class="nav nav-tabs nav-tabs-custom-colored mt5">
                 <li><a href="javascript: window.location.href = window.location.origin + '/member/member/list?tabtype=1';">회원</a></li>
                 <li><a href="javascript: window.location.href = window.location.origin + '/member/member/list?tabtype=2';">탈퇴회원</a></li>
-                <li class="active"><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="restrictionsList(1);">경고/정지회원</a></li>
+                <li><a href="#withdrawalList" role="tab" data-toggle="tab" id="tab_withdrawalList" onclick="restrictionsList(1);">경고/정지회원</a></li>
                 <li><a href="#forcedList" role="tab" data-toggle="tab" id="tab_forcedList" onclick="restrictionsList(2);">방송 강제퇴장 회원</a></li>
             </ul>
         </div>
