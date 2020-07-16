@@ -117,7 +117,7 @@
     </tr>
     {{else}}
     <%--<tr>--%>
-    <td colspan="11" class="noData">{{isEmptyData}}<td>
-        <%--</tr>--%>
-        {{/each}}
+        <td colspan="11" class="noData">{{isEmptyData}}<td>
+    <%--</tr>--%>
+    {{/each}}
 </script>
