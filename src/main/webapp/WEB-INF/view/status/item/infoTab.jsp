@@ -35,8 +35,11 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
+    var tabId;
     $("#tablist_con li a").on('click', function(){
-        var tabId = $(this).prop('id');
+        tabId = $(this).prop('id');
+        $("#slctTypeArea").show();
+        $("#slctTypeArea2").hide();
         if(tabId == 'tab_total'){
             getTotalList();
         }else if(tabId == 'tab_genderDetail'){
@@ -44,6 +47,8 @@
         }else if(tabId == 'tab_ageDetail'){
             getAgeList();
         }else if(tabId == 'tab_broadcastDetail'){
+            $("#slctTypeArea").hide();
+            $("#slctTypeArea2").show();
             getBroadList();
         }else if(tabId == 'tab_castDetail'){
         }else if(tabId == 'tab_storeEtcDetail') {

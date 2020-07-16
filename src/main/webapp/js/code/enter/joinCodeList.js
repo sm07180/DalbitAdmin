@@ -19,3 +19,9 @@ var join_slctType = [
     , new COMMON_CODE('month', '2', '월간별')
     // , new COMMON_CODE('history', '3', 'PUSH')
 ];
+var join_slctType2 = [
+    new COMMON_CODE(null, 'slctType2', '검색 조건')
+    , new COMMON_CODE('day', '0', '일자별')
+    , new COMMON_CODE('month', '2', '월간별')
+    // , new COMMON_CODE('history', '3', 'PUSH')
+];

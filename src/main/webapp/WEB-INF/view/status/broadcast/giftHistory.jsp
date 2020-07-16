@@ -48,7 +48,14 @@
 
         $("#searchForm #pageNo").val(giftHistoryListPagingInfo.pageNo);
         $("#searchForm #pageCnt").val(giftHistoryListPagingInfo.pageCnt);
-        util.getAjaxData("broadcastGiftHistory", "/rest/status/broadcast/broadcastGiftHistory/list", $("#searchForm").serialize(), fn_broadcastGiftHistory_success);
+
+        var data = {};
+        data.slctType = $('input[name="slctType2"]:checked').val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+        data.pageNo = giftHistoryListPagingInfo.pageNo;
+        data.pageCnt = giftHistoryListPagingInfo.pageCnt;
+        util.getAjaxData("broadcastGiftHistory", "/rest/status/broadcast/broadcastGiftHistory/list", data, fn_broadcastGiftHistory_success);
     }
 
     function fn_broadcastGiftHistory_success(dst_id, response) {

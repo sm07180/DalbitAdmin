@@ -31,9 +31,12 @@
 </div>
 
 <script type="text/javascript">
+    var tabId = "tab_total";
     $("#tablist_con li a").on('click', function(){
 
-        var tabId = $(this).prop('id');
+        $("#slctTypeArea").show();
+        $("#slctTypeArea2").hide();
+        tabId = $(this).prop('id');
         if(tabId == 'tab_total'){
             getTotalList();
         }else if(tabId == 'tab_platformDetail'){
@@ -50,9 +53,11 @@
         }else if(tabId == 'tab_giftDetail') {
             broadcastGift();
         }else if(tabId == 'tab_giftHistoryDetail') {
+            $("#slctTypeArea").hide();
+            $("#slctTypeArea2").show();
             getGiftHistoryList();
         }
-
+        // radioChange();
         $(".searchDate").html($("#onedayDate").val());
     });
 
