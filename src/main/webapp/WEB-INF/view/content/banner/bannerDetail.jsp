@@ -682,7 +682,7 @@
                 </td>
                 <td colspan="1">
                     <!--미리보기-->
-                    <img id="banner-thumb_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="border:0px; border-radius:0px;" src="" alt="" /></a>
+                    <img id="banner-thumb_img_urlViewer" class="thumbnail fullSize_background no-margin no-padding" style="width:100px; border:0px; border-radius:0px;" src="" alt="" /></a>
                 </td>
 
                 <th>비고</th>
