@@ -447,7 +447,7 @@ public class Mon_ExchangeService {
             hm.put("exchangeCash", exchangeVo.getCash_real());
             exchangeCashTotal += exchangeVo.getCash_real();
 
-            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(exchangeVo.getSocial_no()));
+            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
             hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
 
             hm.put("bankName", exchangeVo.getBank_name());
