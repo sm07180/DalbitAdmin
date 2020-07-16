@@ -73,7 +73,7 @@
                 <button class="btn btn-default" type="button" id="listBack">목록보기</button>
             </span>
         </div>
-        <table class="table table-bordered table-dalbit mb0">
+        <table class="table table-bordered table-dalbit mb0" style="border-color: black">
             <colgroup>
                 <col width="4%" />
                 <col width="4%" />
@@ -92,41 +92,41 @@
             </colgroup>
             <tbody>
                 <tr class="align-middle">
-                    <th>No</th>
-                    <td>{{rowNum}}</td>
+                    <th style="border-color: black">No</th>
+                    <td style="border-color: black">{{rowNum}}</td>
 
-                    <th>공지번호</th>
-                    <td>{{noticeIdx}}</td>
+                    <th style="border-color: black">공지번호</th>
+                    <td style="border-color: black">{{noticeIdx}}</td>
 
-                    <th>구분</th>
-                    <td>{{{getCommonCodeLabel slctType 'notice_slctType' 'Y' ''}}}</td>
+                    <th style="border-color: black">구분</th>
+                    <td style="border-color: black">{{{getCommonCodeLabel slctType 'notice_slctType' 'Y' ''}}}</td>
 
-                    <th>제목</th>
-                    <td colspan="5">{{title}}</td>
+                    <th style="border-color: black">제목</th>
+                    <td colspan="5" style="border-color: black">{{title}}</td>
 
-                    <th>조회수</th>
-                    <td>{{addComma viewCnt}}</td>
+                    <th style="border-color: black">조회수</th>
+                    <td style="border-color: black">{{addComma viewCnt}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">플랫폼</th>
-                    <td colspan="2">{{{getCommonCodeLabel platform 'platform'}}}</td>
+                    <th colspan="2" style="border-color: black">플랫폼</th>
+                    <td colspan="2" style="border-color: black">{{{getCommonCodeLabel platform 'platform'}}}</td>
 
-                    <th>성별</th>
-                    <td>{{{getCommonCodeLabel gender 'gender'}}}</td>
+                    <th style="border-color: black">성별</th>
+                    <td style="border-color: black">{{{getCommonCodeLabel gender 'gender'}}}</td>
 
-                    <th>등록일시</th>
-                    <td>{{writeDate}}</td>
+                    <th style="border-color: black">등록일시</th>
+                    <td style="border-color: black">{{writeDate}}</td>
 
-                    <th>게시중지일시</th>
-                    <td>
+                    <th style="border-color: black">게시중지일시</th>
+                    <td style="border-color: black">
                         {{offDate}}
                         {{#equal offDate ''}}-{{/equal}}
                     </td>
 
-                    <th>처리자</th>
-                    <td>{{opName}}</td>
-                    <th>게시상태</th>
-                    <td>
+                    <th style="border-color: black">처리자</th>
+                    <td style="border-color: black">{{opName}}</td>
+                    <th style="border-color: black">게시상태</th>
+                    <td style="border-color: black">
                         {{{getOnOffSwitch viewOn 'viewOn'}}}
                     </td>
                 </tr>
@@ -134,8 +134,8 @@
         </table>
     </div>
     <div class="row col-lg-12 form-inline" style="width: 1050px">
-        <div class="widget" id="div_editor">
-            <div class="widget-header">
+        <div class="widget" id="div_editor" style="border-color: black">
+            <div class="widget-header" style="border-color: black">
                 <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
             <div class="widget-content no-padding">
