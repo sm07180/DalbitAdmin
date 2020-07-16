@@ -18,7 +18,7 @@ public interface DeclarationDao {
     P_DeclarationListOutputVo getReportCount(String reported_mem_no);
 
     @Transactional(readOnly = true)
-    P_DeclarationDetailOutputVo callServiceCenterReportDetail(ProcedureVo procedureVo);
+    ArrayList<P_DeclarationDetailOutputVo> callServiceCenterReportDetail(ProcedureVo procedureVo);
 
     ProcedureVo callServiceCenterReportOperate(ProcedureVo procedureVo);
 

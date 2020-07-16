@@ -5,7 +5,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
+        <div class="row col-lg-9 form-inline" style="padding-top: 2px; padding-bottom: 0px;">
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#total" role="tab" data-toggle="tab" id="tab_total">총계</a></li>
@@ -35,8 +35,11 @@
 <!-- /#wrapper -->
 
 <script type="text/javascript">
+    var tabId;
     $("#tablist_con li a").on('click', function(){
-        var tabId = $(this).prop('id');
+        tabId = $(this).prop('id');
+        $("#slctTypeArea").show();
+        $("#slctTypeArea2").hide();
         if(tabId == 'tab_total'){
             getTotalList();
         }else if(tabId == 'tab_genderDetail'){
@@ -44,6 +47,8 @@
         }else if(tabId == 'tab_ageDetail'){
             getAgeList();
         }else if(tabId == 'tab_broadcastDetail'){
+            $("#slctTypeArea").hide();
+            $("#slctTypeArea2").show();
             getBroadList();
         }else if(tabId == 'tab_castDetail'){
         }else if(tabId == 'tab_storeEtcDetail') {

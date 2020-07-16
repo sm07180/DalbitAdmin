@@ -93,7 +93,10 @@ var defaults = {
 
 	//custom
 	showTotal : false,	//합계 노출 여부
-
+	sundayBgColor : '#ffffff',
+	saturdayBgColor : '#ffffff',
+    sundayFontColor : '',
+    saturdayFontColor : '',
 	
 };
 
@@ -465,7 +468,7 @@ function Calendar(element, options, eventSources) {
 					if (uid == resizeUID && !ignoreWindowResize && elementVisible()) {
 						if (elementOuterWidth != (elementOuterWidth = element.outerWidth())) {
 							ignoreWindowResize++; // in case the windowResize callback changes the height
-							updateSize();
+							//updateSize();
 							currentView.trigger('windowResize', _element);
 							ignoreWindowResize--;
 						}
@@ -2305,14 +2308,14 @@ function BasicView(element, calendar, viewName) {
 		for (col=0; col<colCnt; col++) {
 			date = cellToDate(0, col);
 			html +=
-				"<th class='pt5 fc-day-header fc-" + dayIDs[date.getDay()] + " " + headerClass + "'>" +
+				"<th class='pt5 fc-day-header fc-" + dayIDs[date.getDay()] + " " + headerClass + "' style='background-color: #d6d6d6;color: black;'>" +
 				htmlEscape(formatDate(date, colFormat)) +
 				"</th>";
 		}
 
 		if(calendar.options.showTotal){
 			html +=
-				"<th class='pt5 fc-day-header fc-total " + headerClass + "' style='width:200px'>" +
+				"<th class='pt5 fc-day-header fc-total " + headerClass + "' style='width:200px;background-color: #d6d6d6;color: black;'>" +
 				'합계' +
 				"</th>"
 		}
@@ -2348,7 +2351,7 @@ function BasicView(element, calendar, viewName) {
 
 			for (col=0; col<colCnt; col++) {
 				date = cellToDate(row, col);
-				html += buildCellHTML(date);
+				html += buildCellHTML(date, col);
 			}
 
 			if(calendar.options.showTotal){
@@ -2364,7 +2367,7 @@ function BasicView(element, calendar, viewName) {
 	}
 
 
-	function buildCellHTML(date) {
+	function buildCellHTML(date, col) {
 		var contentClass = tm + "-widget-content";
 		var month = t.start.getMonth();
 		var today = clearTime(new Date());
@@ -2372,7 +2375,7 @@ function BasicView(element, calendar, viewName) {
 		var classNames = [
 			'fc-day',
 			'fc-' + dayIDs[date.getDay()],
-			contentClass
+			contentClass,
 		];
 
 		if (date.getMonth() != month) {
@@ -2391,12 +2394,26 @@ function BasicView(element, calendar, viewName) {
 			classNames.push('fc-future');
 		}
 
+		//색칠하기
+		if(col == 0 || col == 6){
+			classNames.push('_bgColor');
+			classNames.push('_fontColor');
+			classNames.push('font-bold');
+		}
+
 		html +=
 			"<td" +
 			" class='" + classNames.join(' ') + "'" +
-			" data-date='" + formatDate(date, 'yyyy-MM-dd') + "'" +
-			">" +
-			"<div>";
+			" data-date='" + formatDate(date, 'yyyy-MM-dd') + "'";
+		if(col == 0){
+			html += " data-bgcolor='"+calendar.options.sundayBgColor+"'";
+			html += " data-fontcolor='"+calendar.options.sundayFontColor+"'";
+		}else if(col == 6){
+			html += " data-bgcolor='"+calendar.options.saturdayBgColor+"'";
+			html += " data-fontcolor='"+calendar.options.saturdayFontColor+"'";
+		}
+		html += ">";
+		html +="<div>";
 
 		if (showNumbers) {
 			html += "<div class='fc-day-number'>" + date.getDate() + "</div>";
@@ -2466,7 +2483,6 @@ function BasicView(element, calendar, viewName) {
 				);
 			}
 		});
-		
 	}
 	
 	

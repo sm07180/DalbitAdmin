@@ -15,10 +15,10 @@
                 <th>No</th>
                 <th>아이템 이미지</th>
                 <th>아이템 명</th>
-                <th>금액</th>
-                <th>판매 량</th>
-                <th>판매 달수</th>
-                <th>누적 판매량</th>
+                <th>아이템 달</th>
+                <th>아이템 판매 수</th>
+                <th>아이템 판매 달</th>
+                <th>아이템 누적 판매량</th>
                 <%--<th>누적 판매 달수</th>--%>
             </tr>
             </thead>
@@ -43,8 +43,14 @@
     function getBroadList(){
         $("#searchForm #pageNo").val(giftHistoryListPagingInfo.pageNo);
         $("#searchForm #pageCnt").val(giftHistoryListPagingInfo.pageCnt);
-        $("#searchForm #searchType").val(0);
-        util.getAjaxData("memberList", "/rest/status/item/broad/list", $("#searchForm").serialize(), fn_broadJoin_success);
+
+        var data = {};
+        data.slctType = $('input[name="slctType2"]:checked').val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+        data.pageNo = giftHistoryListPagingInfo.pageNo;
+        data.pageCnt = giftHistoryListPagingInfo.pageCnt;
+        util.getAjaxData("memberList", "/rest/status/item/broad/list", data, fn_broadJoin_success);
     }
 
     function fn_broadJoin_success(data, response){

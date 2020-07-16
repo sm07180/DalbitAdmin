@@ -3,7 +3,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid col-lg-8 no-padding">
+        <div class="container-fluid col-lg-9 no-padding">
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
                     <div class="widget widget-table searchBoxArea">
@@ -11,6 +11,7 @@
                             <h3 class="title"><i class="fa fa-search"></i> 검색조건</h3>
                             <div>
                                 <span id="slctTypeArea"></span>
+                                <span id="slctTypeArea2" style="display: none"></span>
                                 <div class="input-group date" id="oneDayDatePicker">
                                     <label for="onedayDate" class="input-group-addon">
                                         <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
@@ -86,6 +87,7 @@
 
     $(function(){
         $("#slctTypeArea").append(util.getCommonCodeRadio(0, join_slctType));
+        $("#slctTypeArea2").append(util.getCommonCodeRadio(0, join_slctType2));
 
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
             var selectDate = moment(dateText.date).format("YYYY.MM.DD");
@@ -116,6 +118,9 @@
     $(document).on('change', 'input[name="slctType"]', function(){
         radioChange();
     });
+    $(document).on('change', 'input[name="slctType2"]', function(){
+        radioChange();
+    });
 
     function getList(){
         util.getAjaxData("itemLive", "/rest/status/item/live/list", null, fn_live_success);
@@ -141,6 +146,7 @@
     $(document).on('click', '._todaySearch', function(){
         toDay = week[moment(new Date()).day()];
         $("input:radio[name='slctType']:radio[value='0']").prop('checked', true);
+        $("input:radio[name='slctType2']:radio[value='0']").prop('checked', true);
         radioChange();
 
         setTimeDate(dateTime);
@@ -149,65 +155,97 @@
     });
 
     function radioChange(){
-        if($('input[name="slctType"]:checked').val() == 0){
-            $("#oneDayDatePicker").show();
-            $("#rangeDatepicker").hide();
-        }else {
-            $("#oneDayDatePicker").hide();
-            $("#rangeDatepicker").show();
+        if(tabId != 'tab_broadcastDetail') {
+            if ($('input[name="slctType"]:checked').val() == 0) {
+                $("#oneDayDatePicker").show();
+                $("#rangeDatepicker").hide();
+            } else {
+                $("#oneDayDatePicker").hide();
+                $("#rangeDatepicker").show();
+            }
+        }else{
+            if ($('input[name="slctType2"]:checked').val() == 0) {
+                $("#oneDayDatePicker").show();
+                $("#rangeDatepicker").hide();
+            } else {
+                $("#oneDayDatePicker").hide();
+                $("#rangeDatepicker").show();
+            }
         }
+        // if($('input[name="slctType"]:checked').val() == 0){
+        //     $("#oneDayDatePicker").show();
+        //     $("#rangeDatepicker").hide();
+        // }else {
+        //     $("#oneDayDatePicker").hide();
+        //     $("#rangeDatepicker").show();
+        // }
         searchDate();
     }
 
     function searchDate(dateType){
-        var slctType = $('input[name="slctType"]:checked').val();
-        //시간별
-        if(slctType == 0){
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-
-                $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
-
-            }else if(dateType == 'prev'){
-                setDay(-1);
-
+        if(tabId != "tab_broadcastDetail"){
+            var slctType = $('input[name="slctType"]:checked').val();
+            //시간별
+            if(slctType == 0){
+                if(common.isEmpty(dateType)){
+                    $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                    $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                    $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
+                }else if(dateType == 'prev'){
+                    setDay(-1);
+                }else{
+                    setDay(1);
+                }
+                //일별
+            }else if(slctType == 1){
+                if(common.isEmpty(dateType)){
+                    $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                    $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+                    $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
+                    $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+                }else if(dateType == 'prev'){
+                    setMonth(-1);
+                }else if(dateType == 'next'){
+                    setMonth(1);
+                }
+                //월별
             }else{
-                setDay(1);
+                if(common.isEmpty(dateType)){
+                    $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
+                    $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
+                    $("._searchDate").html(moment(new Date()).format('YYYY년'));
+                    $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+                }else if(dateType == 'prev'){
+                    setYear(-1);
+                }else if(dateType == 'next'){
+                    setYear(1);
+                }
             }
-
-            //일별
-        }else if(slctType == 1){
-
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
-                $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
-
-                $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
-                $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-
-            }else if(dateType == 'prev'){
-                setMonth(-1);
-
-            }else if(dateType == 'next'){
-                setMonth(1);
-            }
-
-            //월별
         }else{
-
-            if(common.isEmpty(dateType)){
-                $("#startDate").val(moment(new Date()).format('YYYY.01.01'));
-                $("#endDate").val(moment(new Date()).format('YYYY.12.31'));
-
-                $("._searchDate").html(moment(new Date()).format('YYYY년'));
-                $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
-
-            }else if(dateType == 'prev'){
-                setYear(-1);
-
-            }else if(dateType == 'next'){
-                setYear(1);
+            var slctType = $('input[name="slctType2"]:checked').val();
+            //시간별
+            if(slctType == 0){
+                if(common.isEmpty(dateType)){
+                    $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                    $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+                    $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
+                }else if(dateType == 'prev'){
+                    setDay(-1);
+                }else{
+                    setDay(1);
+                }
+                //일별
+            }else if(slctType == 2){
+                if(common.isEmpty(dateType)){
+                    $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
+                    $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
+                    $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
+                    $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
+                }else if(dateType == 'prev'){
+                    setMonth(-1);
+                }else if(dateType == 'next'){
+                    setMonth(1);
+                }
             }
         }
         $("#bt_search").click();

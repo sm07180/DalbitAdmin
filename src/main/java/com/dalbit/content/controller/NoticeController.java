@@ -15,5 +15,14 @@ public class NoticeController {
         return "content/notice/list";
     }
 
+    @GetMapping("/noticeDetail")
+    public String noteDetail() {
+        return "content/notice/noticeDetail";
+    }
+
+    @GetMapping("/noticeEdit")
+    public String noticeEdit() {
+        return "content/notice/noticeEdit";
+    }
 
 }

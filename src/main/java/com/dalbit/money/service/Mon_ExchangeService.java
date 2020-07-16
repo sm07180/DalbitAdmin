@@ -24,6 +24,7 @@ import com.dalbit.money.vo.Mon_ExchangeSummaryOutputVo;
 import com.dalbit.money.vo.procedure.P_ExchangeCancelInputVo;
 import com.dalbit.payment.dao.Pay_PayDao;
 import com.dalbit.payment.vo.Pay_PaySumOutputVo;
+import com.dalbit.util.AES;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -225,7 +226,7 @@ public class Mon_ExchangeService {
             hm.put("exchangeCash", exchangeVo.getCash_real());
             exchangeCashTotal += exchangeVo.getCash_real();
 
-            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(exchangeVo.getSocial_no()));
+            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
             hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
 
             hm.put("bankName", exchangeVo.getBank_name());
@@ -288,8 +289,7 @@ public class Mon_ExchangeService {
     public String selectExchangeDetail(Mon_ExchangeInputVo monExchangeInputVo){
 
         Mon_ExchangeOutputVo monExchangeOutputVo = monExchangeDao.selectExchangeDetail(monExchangeInputVo);
-
-
+        monExchangeOutputVo.setSocial_no(AES.decrypt(monExchangeOutputVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
         P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo = new P_MemberParentsAgreeInputVo();
         pMemberParentsAgreeInputVo.setMemNo(monExchangeOutputVo.getMem_no());
         P_MemberParentsAgreeOutputVo memberParentsAgreeOutputVo = mem_MemberDao.getParentsAgreeInfo(pMemberParentsAgreeInputVo);
@@ -447,7 +447,7 @@ public class Mon_ExchangeService {
             hm.put("exchangeCash", exchangeVo.getCash_real());
             exchangeCashTotal += exchangeVo.getCash_real();
 
-            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(exchangeVo.getSocial_no()));
+            hm.put("socialNo", DalbitUtil.isEmpty(exchangeVo.getSocial_no()) ? "" : DalbitUtil.convertJuminNo(AES.decrypt(exchangeVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key"))));
             hm.put("phoneNo", DalbitUtil.isEmpty(exchangeVo.getPhone_no()) ? "" : DalbitUtil.convertPhoneNo(exchangeVo.getPhone_no()));
 
             hm.put("bankName", exchangeVo.getBank_name());

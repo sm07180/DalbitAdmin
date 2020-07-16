@@ -238,8 +238,6 @@
                 },
                 success: function(response) {
 
-                    console.log('response');
-                    console.log(response);
                     response.data.forEach(function(info){
                         var dayTarget = $('.fc-day[data-date="'+info.the_date+'"]').find('.fc-day-content');
                         var template = $('#tmp_calendarData').html();
