@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dalbit.customer.dao.Cus_RestrictionsDao">
+
+    <!-- 경고/정지회원 Count-->
+    <select id="getWithdrawalListCnt" parameterType="com.dalbit.customer.vo.procedure.P_WithdrawalListInputVo" resultType="java.lang.Integer">
+        /* Cus_Restrictions.xml - getWithdrawalListCnt */
+        SELECT
+          COUNT(*)
+        FROM
+        (
+            SELECT
+                report.reported_mem_no     AS mem_no
+                ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_nick
+                ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_sex
+                , (SELECT COUNT(*) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')	AS sanctions_cnt
+                , report.status		AS status
+                , report.op_code	AS op_code
+                , report.etc	AS op_etc
+                , basic.mem_state	AS mem_state
+                , report.op_name	AS op_name
+                , report.reason	AS reason
+                , report.op_msg	AS op_msg
+                , token.device_uuid	AS device_uuid
+                , basic.mem_phone		AS mem_phone
+                , report.op_date		AS start_date
+                , basic.block_end_date	AS end_date
+            FROM
+                (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
+            LEFT JOIN
+                rd_data.tb_member_report AS report
+                ON
+                report.idx = (SELECT MAX(idx) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')
+            LEFT JOIN
+                rd_data.tb_member_stmp_token AS token ON report.reported_mem_no = token.mem_no
+            WHERE
+                report.reported_mem_no IS NOT NULL
+            ORDER BY report.op_date desc
+        ) AS a
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND a.mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND a.mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND a.mem_phone like concat ('%', #{searchText}, '%')
+                    </when>
+                    <otherwise>
+                        AND (
+                          a.mem_no like concat ('%', #{searchText}, '%')
+                          OR a.mem_nick like concat ('%', #{searchText}, '%')
+                          OR a.mem_phone like concat ('%', #{searchText}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+
+            <if test='opCode != null and opCode != "" and opCode != "-1" '>
+                AND a.op_code = #{opCode}
+            </if>
+        </where>
+    </select>
+
+    <!-- 경고/정지회원 LIST-->
+    <select id="getWithdrawalList" parameterType="com.dalbit.customer.vo.procedure.P_WithdrawalListInputVo" resultType="com.dalbit.customer.vo.procedure.P_WithdrawalListOutputVo">
+        /* Cus_Restrictions.xml - getWithdrawalList */
+        SELECT
+            a.*
+            , @RNUM := @RNUM + 1 AS rowNum
+        FROM
+        (
+            SELECT
+                report.reported_mem_no     AS mem_no
+                ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_nick
+                ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_sex
+                , (SELECT COUNT(*) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')	AS sanctions_cnt
+                , report.status		AS status
+                , report.op_code	AS op_code
+                , report.etc	AS op_etc
+                , basic.mem_state	AS mem_state
+                , report.op_name	AS op_name
+                , report.reason	AS reason
+                , report.op_msg	AS op_msg
+                , token.device_uuid	AS device_uuid
+                , basic.mem_phone		AS mem_phone
+                , report.op_date		AS start_date
+                , basic.block_end_date	AS end_date
+
+            FROM
+                (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
+
+            LEFT JOIN
+                rd_data.tb_member_report AS report
+                ON
+                report.idx = (SELECT MAX(idx) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')
+            LEFT JOIN
+                rd_data.tb_member_stmp_token AS token ON report.reported_mem_no = token.mem_no
+            <where>
+                report.reported_mem_no IS NOT NULL
+            </where>
+            ORDER BY report.op_date desc
+            LIMIT  #{pageStart}, #{pageCnt}
+        ) AS a,
+        (SELECT @RNUM := #{pageStart}) r
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND a.mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND a.mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND a.mem_phone like concat ('%', #{searchText}, '%')
+                    </when>
+                    <otherwise>
+                        AND (
+                            a.mem_no like concat ('%', #{searchText}, '%')
+                            OR a.mem_nick like concat ('%', #{searchText}, '%')
+                            OR a.mem_phone like concat ('%', #{searchText}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+
+            <if test='opCode != null and opCode != "" and opCode != "-1" '>
+                AND a.op_code = #{opCode}
+            </if>
+        </where>
+    </select>
+
+
+
+
+    <!-- 방송 강제퇴장 회원 COUNT-->
+    <select id="getForcedListCnt" parameterType="com.dalbit.customer.vo.procedure.P_ForcedListInputVo" resultType="java.lang.Integer">
+        /* Cus_Restrictions.xml - getForcedListCnt */
+        SELECT
+          COUNT(*)
+        FROM
+        (
+            SELECT
+                listen.mem_no	 AS mem_no
+                ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
+                ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
+                ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
+                , device.device_token	 AS device_token
+                ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
+                ,IFNULL(basic.ip, (SELECT ip FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_ip
+                , listen.last_upd_date	 AS last_upd_date
+                , listen.room_no	 AS room_no
+                , room.title	 AS title
+                , dj_mem_no	 AS dj_mem_no
+                ,IFNULL(dj.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS dj_mem_userid
+                ,IFNULL(dj.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS dj_mem_nick
+                ,IFNULL(dj.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS dj_mem_sex
+            FROM
+                rd_data.tb_member_broadcast_listening AS listen
+            LEFT JOIN
+                rd_data.tb_member_basic AS basic ON  listen.mem_no = basic.mem_no
+            LEFT JOIN
+                rd_data.tb_member_basic AS dj ON  listen.dj_mem_no = dj.mem_no
+            LEFT JOIN
+                rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
+            LEFT JOIN
+                rd_data.tb_member_stmp_token_all AS device ON  listen.mem_no = device.mem_no
+            <where>
+                listen.forced = 'Y'
+            </where>
+            GROUP BY listen.room_no, listen.mem_no
+            ORDER BY listen.last_upd_date DESC
+        ) AS a
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND a.mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND a.mem_userid like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND a.mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 4'>
+                        AND a.mem_phone like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 5'>
+                        AND a.mem_ip like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 6'>
+                        AND a.dj_mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 7'>
+                        AND a.dj_mem_userid like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 8'>
+                        AND a.dj_mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <otherwise>
+                        AND
+                        (
+                            a.mem_no like concat ('%', #{searchText}, '%')
+                            OR a.mem_userid like concat ('%', #{searchText}, '%')
+                            OR a.mem_nick like concat ('%', #{searchText}, '%')
+                            OR a.mem_phone like concat ('%', #{searchText}, '%')
+                            OR a.mem_ip like concat ('%', #{searchText}, '%')
+                            OR a.dj_mem_no like concat ('%', #{searchText}, '%')
+                            OR a.dj_mem_userid like concat ('%', #{searchText}, '%')
+                            OR a.dj_mem_nick like concat ('%', #{searchText}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </select>
+
+    <!-- 방송 강제퇴장 회원 LIST-->
+    <select id="getForcedList" parameterType="com.dalbit.customer.vo.procedure.P_ForcedListInputVo" resultType="com.dalbit.customer.vo.procedure.P_ForcedListOutputVo">
+        /* Cus_Restrictions.xml - getForcedList */
+        SELECT
+            a.*
+            , (SELECT COUNT(*) FROM rd_data.tb_member_broadcast_listening WHERE room_no = a.room_no AND mem_no = a.mem_no) AS exit_cnt
+            , @RNUM := @RNUM + 1 AS rowNum
+        FROM
+        (
+            SELECT
+                listen.mem_no	 AS mem_no
+                ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
+                ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
+                ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
+                , device.device_token	 AS device_token
+                ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
+                ,IFNULL(basic.ip, (SELECT ip FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_ip
+                , listen.last_upd_date	 AS last_upd_date
+                , listen.room_no	 AS room_no
+                , room.title	 AS title
+                , dj_mem_no	 AS dj_mem_no
+                ,IFNULL(dj.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS dj_mem_userid
+                ,IFNULL(dj.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS dj_mem_nick
+                ,IFNULL(dj.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS dj_mem_sex
+            FROM
+                rd_data.tb_member_broadcast_listening AS listen
+            LEFT JOIN
+                rd_data.tb_member_basic AS basic ON  listen.mem_no = basic.mem_no
+            LEFT JOIN
+                rd_data.tb_member_basic AS dj ON  listen.dj_mem_no = dj.mem_no
+            LEFT JOIN
+                rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
+            LEFT JOIN
+                rd_data.tb_member_stmp_token_all AS device ON  listen.mem_no = device.mem_no
+            <where>
+                listen.forced = 'Y'
+            </where>
+            GROUP BY listen.room_no, listen.mem_no
+            ORDER BY listen.last_upd_date DESC
+        ) AS a,
+        (SELECT @RNUM := #{pageStart}) r
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND a.mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND a.mem_userid like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND a.mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 4'>
+                        AND a.mem_phone like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 5'>
+                        AND a.mem_ip like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 6'>
+                        AND a.dj_mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 7'>
+                        AND a.dj_mem_userid like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 8'>
+                        AND a.dj_mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <otherwise>
+                        AND
+                        (
+                        a.mem_no like concat ('%', #{searchText}, '%')
+                        OR a.mem_userid like concat ('%', #{searchText}, '%')
+                        OR a.mem_nick like concat ('%', #{searchText}, '%')
+                        OR a.mem_phone like concat ('%', #{searchText}, '%')
+                        OR a.mem_ip like concat ('%', #{searchText}, '%')
+                        OR a.dj_mem_no like concat ('%', #{searchText}, '%')
+                        OR a.dj_mem_userid like concat ('%', #{searchText}, '%')
+                        OR a.dj_mem_nick like concat ('%', #{searchText}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+        LIMIT  #{pageStart}, #{pageCnt}
+    </select>
+
+
+
+
+
+</mapper>
