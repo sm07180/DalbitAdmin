@@ -95,6 +95,8 @@ var defaults = {
 	showTotal : false,	//합계 노출 여부
 	sundayBgColor : '#ffffff',
 	saturdayBgColor : '#ffffff',
+    sundayFontColor : '',
+    saturdayFontColor : '',
 	
 };
 
@@ -2306,14 +2308,14 @@ function BasicView(element, calendar, viewName) {
 		for (col=0; col<colCnt; col++) {
 			date = cellToDate(0, col);
 			html +=
-				"<th class='pt5 fc-day-header fc-" + dayIDs[date.getDay()] + " " + headerClass + "'>" +
+				"<th class='pt5 fc-day-header fc-" + dayIDs[date.getDay()] + " " + headerClass + "' style='background-color: #d6d6d6;color: black;'>" +
 				htmlEscape(formatDate(date, colFormat)) +
 				"</th>";
 		}
 
 		if(calendar.options.showTotal){
 			html +=
-				"<th class='pt5 fc-day-header fc-total " + headerClass + "' style='width:200px'>" +
+				"<th class='pt5 fc-day-header fc-total " + headerClass + "' style='width:200px;background-color: #d6d6d6;color: black;'>" +
 				'합계' +
 				"</th>"
 		}
@@ -2395,6 +2397,8 @@ function BasicView(element, calendar, viewName) {
 		//색칠하기
 		if(col == 0 || col == 6){
 			classNames.push('_bgColor');
+			classNames.push('_fontColor');
+			classNames.push('font-bold');
 		}
 		
 		html +=
@@ -2403,8 +2407,10 @@ function BasicView(element, calendar, viewName) {
 			" data-date='" + formatDate(date, 'yyyy-MM-dd') + "'";
 		if(col == 0){
 			html += " data-bgcolor='"+calendar.options.sundayBgColor+"'";
+			html += " data-fontcolor='"+calendar.options.sundayFontColor+"'";
 		}else if(col == 6){
 			html += " data-bgcolor='"+calendar.options.saturdayBgColor+"'";
+			html += " data-fontcolor='"+calendar.options.saturdayFontColor+"'";
 		}
 		html += ">";
 		html +="<div>";

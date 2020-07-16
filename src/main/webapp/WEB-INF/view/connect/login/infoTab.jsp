@@ -17,10 +17,10 @@
                 <li><a href="#browserType" role="tab" data-toggle="tab" id="tab_loBrowserDetail">브라우저별</a></li>
                 <li><a href="#loginHistory" role="tab" data-toggle="tab" id="tab_loginHistory">접속로그</a></li>
             </ul>
-            <div class="tab-content  col-md-9">
+            <div class="tab-content  col-md-10">
                 <div class="tab-pane fade" id="timeOver"><jsp:include page="timeOver.jsp"/></div>      <!-- 시간대별 중복 -->
                 <div class="tab-pane fade in active" id="timeNonOver"><jsp:include page="timeNonOver.jsp"/></div>      <!-- 시간대별 비중복 -->
-                <div class="tab-pane fade" id="calendar"><jsp:include page="calendar.jsp"/></div>      <!-- 시간대별 비중복 -->
+                <div class="tab-pane fade" id="calendar"><jsp:include page="calendar.jsp"/></div>      <!-- 일자별 -->
                 <div class="tab-pane fade" id="monthNonOver"><jsp:include page="monthNonOver.jsp"/></div>      <!-- 월간별 비중복 -->
                 <div class="tab-pane fade" id="yearNonOver"><jsp:include page="yearNonOver.jsp"/></div>      <!-- 연간별 비중복 -->
                 <div class="tab-pane fade" id="age"><jsp:include page="age.jsp"/></div>             <!-- 연령대별 -->
@@ -35,7 +35,7 @@
 
 <script type="text/javascript">
 
-    var tabId;
+    var tabId = "tab_timeNonOver";
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
         if(tabId == 'tab_timeNonOver' || tabId == 'tab_loginHistory' || tabId == 'tab_timeOver'){
@@ -57,12 +57,13 @@
             $("#searchText").removeClass('hide');
         }
 
+        $("#searchForm").show();
+        console.log("---------------");
+        console.log(tabId);
         if(tabId == 'tab_timeOver'){
             getTimeOver();
         }else if(tabId == 'tab_timeNonOver') {
             getTimeNonOver();
-        }else if(tabId == 'tab_timeNonOver') {
-            getCalendar();
         }else if(tabId == 'tab_monthNonOver') {
             getMonthNonOver();
         }else if(tabId == 'tab_yearNonOver') {
@@ -74,6 +75,7 @@
         }else if(tabId == 'tab_loginHistory') {
             getLoginHistoryList();
         }else if(tabId == 'tab_calendar'){
+            $("#searchForm").hide();
             getCalendarInfo();
         }
 
@@ -81,8 +83,9 @@
 
     $("#bt_search").on('click', function(){
         searchClick = true;
-
-        if(tabId == 'tab_timeNonOver'){
+        if(tabId == 'tab_timeOver'){
+            getTimeOver();
+        }else if(tabId == 'tab_timeNonOver'){
             getTimeNonOver();
         }else if(tabId == 'tab_monthNonOver') {
             getMonthNonOver();

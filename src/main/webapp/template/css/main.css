@@ -1718,7 +1718,8 @@ html .fc,
 
 .fc td {
     padding: 0;
-    vertical-align: top; }
+    vertical-align: top;
+}
 
 /* Header
 ------------------------------------------------------------------------*/
@@ -2027,7 +2028,7 @@ table.fc-border-separate {
     padding: 0 2px; }
 
 .fc-grid .fc-day-number {
-    float: right;
+    float: left;
     padding: 0 2px; }
 
 .fc-grid .fc-other-month .fc-day-number {
