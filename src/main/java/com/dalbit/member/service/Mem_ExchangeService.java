@@ -6,9 +6,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.member.dao.Mem_ExchangeDao;
 import com.dalbit.member.vo.procedure.P_MemberExchangeInputVo;
 import com.dalbit.money.vo.Mon_ExchangeOutputVo;
-import com.dalbit.util.GsonUtil;
-import com.dalbit.util.JwtUtil;
-import com.dalbit.util.SocketUtil;
+import com.dalbit.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +45,9 @@ public class Mem_ExchangeService {
 
     public String getExchangeHistory_detail(P_MemberExchangeInputVo pMemberExchangeInputVo){
         ArrayList<Mon_ExchangeOutputVo> exchangeList = mem_ExchangeDao.getExchangeHistory_detail(pMemberExchangeInputVo);
+        for(int i=0; i < exchangeList.size(); i++){
+            exchangeList.get(i).setSocial_no(AES.decrypt(exchangeList.get(i).getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
+        }
 
         String result;
         if(exchangeList.size() > 0) {
