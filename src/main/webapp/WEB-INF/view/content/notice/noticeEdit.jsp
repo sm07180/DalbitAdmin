@@ -152,8 +152,15 @@
         <div class="col-md-12 no-padding">
             <label id="notice_title">ㆍ공지내용 등록 및 수정이 완료된 경우 [등록하기]버튼을 통하여 공지글 등록/수정이 완료됩니다.
                                 <br> ㆍ게시상태는 ON 으로 선택한 경우만 서비스 페이지에서 확인이 가능합니다.</label>
+            <span class="pull-right">
+            <button class="btn btn-default" type="button" id="mobileBtn" onclick="mobileBtnClick();">모바일형태</button>
+            <button class="btn btn-danger" type="button" id="deleteBtn">내용삭제</button>
+            {{^noticeIdx}}<button class="btn btn-default" type="button" id="insertBtn">등록하기</button>{{/noticeIdx}}
+            {{#noticeIdx}}<button class="btn btn-default" type="button" id="updateBtn">수정하기</button>{{/noticeIdx}}
+            <button class="btn btn-default" type="button" id="listBack">목록보기</button>
+        </span>
         </div>
-        <table class="table table-bordered table-dalbit mb0">
+        <table class="table table-bordered table-dalbit mb0" style="border-color: black">
             <colgroup>
                 <col width="4%" />
                 <col width="4%" />
@@ -172,41 +179,41 @@
             </colgroup>
             <tbody>
                 <tr class="align-middle">
-                    <th>No</th>
-                    <td>{{rowNum}}</td>
+                    <th style="border-color: black">No</th>
+                    <td style="border-color: black">{{rowNum}}</td>
 
-                    <th>공지번호</th>
-                    <td>{{noticeIdx}}</td>
+                    <th style="border-color: black">공지번호</th>
+                    <td style="border-color: black">{{noticeIdx}}</td>
 
-                    <th>구분</th>
-                    <td>{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
+                    <th style="border-color: black">구분</th>
+                    <td style="border-color: black">{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
 
-                    <th>제목</th>
-                    <td colspan="5"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
+                    <th style="border-color: black">제목</th>
+                    <td colspan="5" style="border-color: black"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
 
-                    <th>조회수</th>
-                    <td>{{addComma viewCnt}}</td>
+                    <th style="border-color: black">조회수</th>
+                    <td style="border-color: black">{{addComma viewCnt}}</td>
                 </tr>
                 <tr>
-                    <th colspan="2">플랫폼</th>
-                    <td colspan="2">{{{getCommonCodeSelect platform 'platform'}}}</td>
+                    <th colspan="2" style="border-color: black">플랫폼</th>
+                    <td colspan="2" style="border-color: black">{{{getCommonCodeSelect platform 'platform'}}}</td>
 
-                    <th>성별</th>
-                    <td>{{{getCommonCodeSelect gender 'gender'}}}</td>
+                    <th style="border-color: black">성별</th>
+                    <td style="border-color: black">{{{getCommonCodeSelect gender 'gender'}}}</td>
 
-                    <th>등록일시</th>
-                    <td>{{writeDate}}</td>
+                    <th style="border-color: black">등록일시</th>
+                    <td style="border-color: black">{{writeDate}}</td>
 
-                    <th>게시중지일시</th>
-                    <td>
+                    <th style="border-color: black">게시중지일시</th>
+                    <td style="border-color: black">
                         {{offDate}}
                         {{#equal offDate ''}}-{{/equal}}
                     </td>
 
-                    <th>처리자</th>
-                    <td>{{opName}}</td>
-                    <th>게시상태</th>
-                    <td>
+                    <th style="border-color: black">처리자</th>
+                    <td style="border-color: black">{{opName}}</td>
+                    <th style="border-color: black">게시상태</th>
+                    <td style="border-color: black">
                         {{{getOnOffSwitch viewOn 'viewOn'}}}
                     </td>
                 </tr>
@@ -214,8 +221,8 @@
         </table>
     </div>
     <div class="row col-lg-12 form-inline" style="width: 1050px">
-        <div class="widget" id="div_editor">
-            <div class="widget-header">
+        <div class="widget" id="div_editor" style="border-color: black">
+            <div class="widget-header" style="border-color: black">
                 <h3><i class="fa fa-user"></i> 내용 </h3>
             </div>
             <div class="widget-content no-padding">
