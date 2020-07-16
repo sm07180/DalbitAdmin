@@ -1716,8 +1716,7 @@ html .fc,
 .fc table {
     font-size: 1em; }
 
-.fc td,
-.fc th {
+.fc td {
     padding: 0;
     vertical-align: top; }
 
