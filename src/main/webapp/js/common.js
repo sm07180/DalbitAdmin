@@ -346,11 +346,11 @@ common.average = function(lvalue, rvalue) {
 common.sexIcon = function(sex){
     var sex_lowercase = sex.toLowerCase();
     if(sex_lowercase == 'm'){
-        return '<label class="font-bold" style="color: blue"><i class="fa fa-male"></i> 남성</label>';
+        return '<label class="font-bold" style="color: blue;margin-bottom: 0px"><i class="fa fa-male"></i> 남성</label>';
     }else if(sex_lowercase == 'f'){
-        return '<label class="font-bold" style="color: red"><i class="fa fa-female"></i> 여성</label>';
+        return '<label class="font-bold" style="color: red;margin-bottom: 0px"><i class="fa fa-female"></i> 여성</label>';
     }else{
-        return '<label class="font-bold" ><i class="fa fa-question"></i> 알수없음</label>';
+        return '<label class="font-bold" style="margin-bottom: 0px;"><i class="fa fa-question"></i> 알수없음</label>';
     }
 };
 
