@@ -2400,7 +2400,7 @@ function BasicView(element, calendar, viewName) {
 			classNames.push('_fontColor');
 			classNames.push('font-bold');
 		}
-		
+
 		html +=
 			"<td" +
 			" class='" + classNames.join(' ') + "'" +
