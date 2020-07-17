@@ -409,6 +409,7 @@
     }
 
     $(document).on('click', '._updateBtn', function(){
+
         if(confirm('수정하시겠습니까?')){
 
             var account_name = $("#account_name");
@@ -417,7 +418,6 @@
                 account_name.focus();
                 return
             }
-
             var data = $("#exchangeForm").serialize();
             util.getAjaxData("update", "/rest/money/exchange/update", $("#exchangeForm").serialize(), fn_succ_update);
         }
@@ -577,7 +577,8 @@
                 alert(response.message);
                 if (response.result == "success") {
                     me.parent().find('img.thumbnail').attr('src', response.data.url);
-                    me.parent().find('input._hidden_filename').val(response.data.url);
+                    me.parent().find('input._hidden_filename').val(response.data.path);
+                    pathChange();
                 }
             },
             error: function (e) {
@@ -585,6 +586,30 @@
                 alert("error : " + e);
             }
         });
+    }
+
+    /* 파일 경로를 바꿀 done */
+    function pathChange() {
+        // file1 upload -> done
+        if($("#add_file1").val().indexOf('_1/') >= 0) {
+            var data = {
+                'tempFileURI': $("#add_file1").val()
+            };
+            util.getAjaxData("add_file1", PHOTO_SERVER_URL + "/done", data, fn_pathChange_success);
+        }
+        // file2 upload -> done
+        if($("#add_file2").val().indexOf('_1/') >= 0) {
+            var data = {
+                'tempFileURI': $("#add_file2").val()
+            };
+            util.getAjaxData("add_file2", PHOTO_SERVER_URL + "/done", data, fn_pathChange_success);
+        }
+    }
+
+    function fn_pathChange_success(dst_id, response) {
+        console.log(response.data);
+        $("#"+dst_id).val(response.data.path);
+        $("#"+dst_id).parent().find('img.thumbnail').attr('src', response.data.url);
     }
 
 
