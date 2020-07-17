@@ -80,38 +80,15 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_totalJoinCnt}}</td>
+        <td>{{addComma sum_join03Cnt}}</td>
         <td>{{addComma sum_join00Cnt}}</td>
         <td>{{addComma sum_join01Cnt}}</td>
         <td>{{addComma sum_join02Cnt}}</td>
-        <td>{{addComma sum_join03Cnt}}</td>
         <td>{{addComma sum_join04Cnt}}</td>
         <td>{{addComma sum_join05Cnt}}</td>
         <td>{{addComma sum_join06Cnt}}</td>
-        <td>{{addComma sum_join07Cnt}}</td>
-        <td>{{addComma sum_join08Cnt}}</td>
-        <%--<td>{{addComma sum_join09Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join10Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join11Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join12Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join13Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join14Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join15Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join16Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join17Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join18Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join19Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join20Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join21Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join22Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join23Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join24Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join25Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join26Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join27Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join28Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join29Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join30Cnt}}</td>--%>
-        <%--<td>{{addComma sum_join99Cnt}}</td>--%>
+        <td>{{addComma sum_join09Cnt}}</td>
+        <td>{{addComma sum_join13Cnt}}</td>
     </tr>
 </script>
 
@@ -124,38 +101,15 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalJoinCnt}}</td>
+        <td>{{addComma join03Cnt}}</td>
         <td>{{addComma join00Cnt}}</td>
         <td>{{addComma join01Cnt}}</td>
         <td>{{addComma join02Cnt}}</td>
-        <td>{{addComma join03Cnt}}</td>
         <td>{{addComma join04Cnt}}</td>
         <td>{{addComma join05Cnt}}</td>
         <td>{{addComma join06Cnt}}</td>
-        <td>{{addComma join07Cnt}}</td>
-        <td>{{addComma join08Cnt}}</td>
-        <%--<td>{{addComma join09Cnt}}</td>   --%>
-        <%--<td>{{addComma join10Cnt}}</td>   --%>
-        <%--<td>{{addComma join11Cnt}}</td>   --%>
-        <%--<td>{{addComma join12Cnt}}</td>   --%>
-        <%--<td>{{addComma join13Cnt}}</td>   --%>
-        <%--<td>{{addComma join14Cnt}}</td>   --%>
-        <%--<td>{{addComma join15Cnt}}</td>   --%>
-        <%--<td>{{addComma join16Cnt}}</td>   --%>
-        <%--<td>{{addComma join17Cnt}}</td>   --%>
-        <%--<td>{{addComma join18Cnt}}</td>   --%>
-        <%--<td>{{addComma join19Cnt}}</td>   --%>
-        <%--<td>{{addComma join20Cnt}}</td>   --%>
-        <%--<td>{{addComma join21Cnt}}</td>   --%>
-        <%--<td>{{addComma join22Cnt}}</td>   --%>
-        <%--<td>{{addComma join23Cnt}}</td>   --%>
-        <%--<td>{{addComma join24Cnt}}</td>   --%>
-        <%--<td>{{addComma join25Cnt}}</td>   --%>
-        <%--<td>{{addComma join26Cnt}}</td>   --%>
-        <%--<td>{{addComma join27Cnt}}</td>   --%>
-        <%--<td>{{addComma join28Cnt}}</td>   --%>
-        <%--<td>{{addComma join29Cnt}}</td>   --%>
-        <%--<td>{{addComma join30Cnt}}</td>   --%>
-        <%--<td>{{addComma join99Cnt}}</td>   --%>
+        <td>{{addComma join09Cnt}}</td>
+        <td>{{addComma join13Cnt}}</td>
     </tr>
     {{else}}
     <tr>

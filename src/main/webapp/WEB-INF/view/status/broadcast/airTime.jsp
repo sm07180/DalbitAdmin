@@ -80,38 +80,15 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_totalBroadcast}}</td>
+        <td>{{addComma sum_broadcast03Time}}</td>
         <td>{{addComma sum_broadcast00Time}}</td>
         <td>{{addComma sum_broadcast01Time}}</td>
         <td>{{addComma sum_broadcast02Time}}</td>
-        <td>{{addComma sum_broadcast03Time}}</td>
         <td>{{addComma sum_broadcast04Time}}</td>
         <td>{{addComma sum_broadcast05Time}}</td>
         <td>{{addComma sum_broadcast06Time}}</td>
-        <td>{{addComma sum_broadcast07Time}}</td>
-        <td>{{addComma sum_broadcast08Time}}</td>
-        <%--<td>{{addComma sum_broadcast09Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast10Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast11Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast12Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast13Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast14Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast15Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast16Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast17Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast18Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast19Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast20Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast21Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast22Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast23Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast24Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast25Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast26Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast27Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast28Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast29Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast30Time}}</td>--%>
-        <%--<td>{{addComma sum_broadcast99Time}}</td>--%>
+        <td>{{addComma sum_broadcast09Time}}</td>
+        <td>{{addComma sum_broadcast13Time}}</td>
     </tr>
 </script>
 
@@ -124,38 +101,15 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalBroadcast}}</td>
-        <td>{{addComma broadcast00Time}}</td>   <!--00	일상 -->
-        <td>{{addComma broadcast01Time}}</td>   <!--01	수다/챗 -->
+        <td>{{addComma broadcast03Time}}</td>   <!--03	수다/챗 -->
+        <td>{{addComma broadcast00Time}}</td>   <!--00	일상/소통 -->
+        <td>{{addComma broadcast01Time}}</td>   <!--01	힐링 -->
         <td>{{addComma broadcast02Time}}</td>   <!--02	노래/연주 -->
-        <td>{{addComma broadcast03Time}}</td>   <!--03	노래방 -->
-        <td>{{addComma broadcast04Time}}</td>   <!--04	책/스토리 -->
-        <td>{{addComma broadcast05Time}}</td>   <!--05	여행 -->
-        <td>{{addComma broadcast06Time}}</td>   <!--06	힐링 -->
-        <td>{{addComma broadcast07Time}}</td>   <!--07	고민/사연 -->
-        <td>{{addComma broadcast08Time}}</td>   <!--08	사랑/우정 -->
-        <%--<td>{{addComma broadcast09Time}}</td>   <!--09	ASMR -->--%>
-        <%--<td>{{addComma broadcast10Time}}</td>   <!--10	유머 -->--%>
-        <%--<td>{{addComma broadcast11Time}}</td>   <!--11	스터디 -->--%>
-        <%--<td>{{addComma broadcast12Time}}</td>   --%>
-        <%--<td>{{addComma broadcast13Time}}</td>    <!--13	성우 -->--%>
-        <%--<td>{{addComma broadcast14Time}}</td>    <!--14	연애/오락 -->--%>
-        <%--<td>{{addComma broadcast15Time}}</td>    <!--15	먹방/요리 -->--%>
-        <%--<td>{{addComma broadcast16Time}}</td>    <!--16	건강/스포츠 -->--%>
-        <%--<td>{{addComma broadcast17Time}}</td>    <!--17	게임 -->--%>
-        <%--<td>{{addComma broadcast18Time}}</td>     --%>
-        <%--<td>{{addComma broadcast19Time}}</td>    <!-- 19	드라마/영화 -->--%>
-        <%--<td>{{addComma broadcast20Time}}</td>    <!-- 20	외국어 -->--%>
-        <%--<td>{{addComma broadcast21Time}}</td>    <!-- 21	판매/영업 -->--%>
-        <%--<td>{{addComma broadcast22Time}}</td>--%>
-        <%--<td>{{addComma broadcast23Time}}</td>--%>
-        <%--<td>{{addComma broadcast24Time}}</td>--%>
-        <%--<td>{{addComma broadcast25Time}}</td>--%>
-        <%--<td>{{addComma broadcast26Time}}</td>--%>
-        <%--<td>{{addComma broadcast27Time}}</td>--%>
-        <%--<td>{{addComma broadcast28Time}}</td>--%>
-        <%--<td>{{addComma broadcast29Time}}</td>--%>
-        <%--<td>{{addComma broadcast30Time}}</td>--%>
-        <%--<td>{{addComma broadcast99Time}}</td>--%>
+        <td>{{addComma broadcast04Time}}</td>   <!--04	미팅/소개팅 -->
+        <td>{{addComma broadcast05Time}}</td>   <!--05	고민/사연 -->
+        <td>{{addComma broadcast06Time}}</td>   <!--06	책/여행 -->
+        <td>{{addComma broadcast09Time}}</td>   <!--09	ASMR -->
+        <td>{{addComma broadcast13Time}}</td>   <!--13	성우 -->
     </tr>
     {{else}}
     <tr>

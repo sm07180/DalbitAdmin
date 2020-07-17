@@ -80,38 +80,15 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_totalCreateCnt}}</td>
+        <td>{{addComma sum_create03Cnt}}</td>
         <td>{{addComma sum_create00Cnt}}</td>
         <td>{{addComma sum_create01Cnt}}</td>
         <td>{{addComma sum_create02Cnt}}</td>
-        <td>{{addComma sum_create03Cnt}}</td>
         <td>{{addComma sum_create04Cnt}}</td>
         <td>{{addComma sum_create05Cnt}}</td>
         <td>{{addComma sum_create06Cnt}}</td>
-        <td>{{addComma sum_create07Cnt}}</td>
-        <td>{{addComma sum_create08Cnt}}</td>
-        <%--<td>{{addComma sum_create09Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create10Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create11Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create12Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create13Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create14Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create15Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create16Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create17Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create18Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create19Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create20Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create21Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create22Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create23Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create24Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create25Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create26Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create27Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create28Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create29Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create30Cnt}}</td>--%>
-        <%--<td>{{addComma sum_create99Cnt}}</td>--%>
+        <td>{{addComma sum_create09Cnt}}</td>
+        <td>{{addComma sum_create13Cnt}}</td>
     </tr>
 </script>
 
@@ -124,39 +101,15 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalCreateCnt}}</td>
-        <td>{{addComma create00Cnt}}</td>   <!--00	수다/챗 -->
-        <td>{{addComma create01Cnt}}</td>   <!--01	일상/소통 -->
-        <td>{{addComma create02Cnt}}</td>   <!--02	힐링 -->
-        <td>{{addComma create03Cnt}}</td>   <!--03	노래/연주 -->
+        <td>{{addComma create03Cnt}}</td>   <!--03	수다/챗 -->
+        <td>{{addComma create00Cnt}}</td>   <!--00	일상/소통 -->
+        <td>{{addComma create01Cnt}}</td>   <!--01	힐링 -->
+        <td>{{addComma create02Cnt}}</td>   <!--02	노래/연주 -->
         <td>{{addComma create04Cnt}}</td>   <!--04	미팅/소개팅 -->
         <td>{{addComma create05Cnt}}</td>   <!--05	고민/사연 -->
         <td>{{addComma create06Cnt}}</td>   <!--06	책/여행 -->
-        <td>{{addComma create07Cnt}}</td>   <!--07	ASMR -->
-        <td>{{addComma create08Cnt}}</td>   <!--08	성우 -->
-
-        <%--<td>{{addComma create09Cnt}}</td>   <!--09	ASMR -->--%>
-        <%--<td>{{addComma create10Cnt}}</td>   <!--10	유머 -->--%>
-        <%--<td>{{addComma create11Cnt}}</td>   <!--11	스터디 -->--%>
-        <%--<td>{{addComma create12Cnt}}</td>   --%>
-        <%--<td>{{addComma create13Cnt}}</td>    <!--13	성우 -->--%>
-        <%--<td>{{addComma create14Cnt}}</td>    <!--14	연애/오락 -->--%>
-        <%--<td>{{addComma create15Cnt}}</td>    <!--15	먹방/요리 -->--%>
-        <%--<td>{{addComma create16Cnt}}</td>    <!--16	건강/스포츠 -->--%>
-        <%--<td>{{addComma create17Cnt}}</td>    <!--17	게임 -->--%>
-        <%--<td>{{addComma create18Cnt}}</td>     --%>
-        <%--<td>{{addComma create19Cnt}}</td>    <!-- 19	드라마/영화 -->--%>
-        <%--<td>{{addComma create20Cnt}}</td>    <!-- 20	외국어 -->--%>
-        <%--<td>{{addComma create21Cnt}}</td>    <!-- 21	판매/영업 -->--%>
-        <%--<td>{{addComma create22Cnt}}</td>--%>
-        <%--<td>{{addComma create23Cnt}}</td>--%>
-        <%--<td>{{addComma create24Cnt}}</td>--%>
-        <%--<td>{{addComma create25Cnt}}</td>--%>
-        <%--<td>{{addComma create26Cnt}}</td>--%>
-        <%--<td>{{addComma create27Cnt}}</td>--%>
-        <%--<td>{{addComma create28Cnt}}</td>--%>
-        <%--<td>{{addComma create29Cnt}}</td>--%>
-        <%--<td>{{addComma create30Cnt}}</td>--%>
-        <%--<td>{{addComma create99Cnt}}</td>--%>
+        <td>{{addComma create09Cnt}}</td>   <!--09	ASMR -->
+        <td>{{addComma create13Cnt}}</td>   <!--13	성우 -->
     </tr>
     {{else}}
     <tr>
