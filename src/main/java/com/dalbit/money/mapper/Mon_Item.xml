@@ -3,7 +3,7 @@
 <mapper namespace="com.dalbit.money.dao.Mon_ItemDao" >
 
     <sql id="baseChangeItemList">
-        select  DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %h:%i:%s') as last_upd_date
+        select  DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s') as last_upd_date
                 ,c.mem_no
                 ,c.mem_userid
                 ,c.mem_nick
