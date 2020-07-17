@@ -19,7 +19,7 @@
                 <th>방송시간(분)</th>
                 <th>DJ</th>
                 <th>청취자</th>
-                <th>게스트</th>
+                <%--<th>게스트</th>--%>
                 <th>선물 건수</th>
                 <th>선물 달수</th>
             </tr>
@@ -80,7 +80,7 @@
         <td>{{addComma sum_broadcastingTime}}</td>
         <td>{{addComma sum_djCnt}}</td>
         <td>{{addComma sum_listenerCnt}}</td>
-        <td>{{addComma sum_guestCnt}}</td>
+        <%--<td>{{addComma sum_guestCnt}}</td>--%>
         <td>{{addComma sum_giftCnt}}</td>
         <td>{{addComma sum_giftAmount}}</td>
     </tr>
@@ -98,7 +98,7 @@
         <td>{{addComma broadcastingTime}}</td>
         <td>{{addComma djCnt}}</td>
         <td>{{addComma listenerCnt}}</td>
-        <td>{{addComma guestCnt}}</td>
+        <%--<td>{{addComma guestCnt}}</td>--%>
         <td>{{addComma giftCnt}}</td>
         <td>{{addComma giftAmount}}</td>
     </tr>

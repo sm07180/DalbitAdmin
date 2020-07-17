@@ -58,7 +58,6 @@
                 $("#endDate").val(end.format('YYYY.MM.DD'));
             }
         );
-        getPaySearch();
     });
 
     $(document).on('change', 'input[name="searchFormRadio"]', function(){
