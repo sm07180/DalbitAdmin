@@ -3,8 +3,7 @@
 <mapper namespace="com.dalbit.money.dao.Mon_ItemDao" >
 
     <sql id="baseChangeItemList">
-        select  @RNUM := @RNUM + 1 as rowNum
-                ,DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %h:%i:%s') as last_upd_date
+        select  DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s') as last_upd_date
                 ,c.mem_no
                 ,c.mem_userid
                 ,c.mem_nick
@@ -21,7 +20,7 @@
                 ,b.gold_new as gold_new
            from rd_data.tb_member_wallet_ruby a join rd_data.tb_member_wallet_gold b on a.mem_no = b.mem_no
           inner join rd_data.tb_member_basic c on a.mem_no = c.mem_no
-                ,(select @RNUM := 0) r
+                ,(select @rownum := #{pageStart}) r
           where a.type=6 and b.type=1
             and a.last_upd_date = b.last_upd_date
             <if test='sDate != null and eDate != ""'>
@@ -70,12 +69,12 @@
 
     <select id="selectChangeItemList" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="com.dalbit.money.vo.Mon_ItemOutputVo">
         /* Mon_Item.xml - selectChangeItemList */
-        select *
-        from(
+        select @rownum := @rownum + 1 as rowNum,a.*
+        from (
             <include refid="baseChangeItemList"/>
-        ) list
-        where list.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
+        ) a
         order by last_upd_date desc
+        limit #{pageStart}, #{pageCnt}
     </select>
 
     <select id="selectChangeItemSummary" parameterType="com.dalbit.money.vo.Mon_ItemInputVo" resultType="com.dalbit.money.vo.Mon_ItemOutputVo">

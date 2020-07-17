@@ -278,7 +278,7 @@
     <tr>
         <th>순위</th>
         <th>프로필 이미지</th>
-        <th>User ID</th>
+        <th>회원번호</th>
         <th>User 닉네임</th>
         <th>성별</th>
         <th>랭킹점수</th>
@@ -299,7 +299,7 @@
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
             </td>
             <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{mem_id}}</a>
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{memNo}}</a>
                 <br /> <br />
                 레벨 : {{level}} <br />
                 등급 : {{grade}}
@@ -332,7 +332,7 @@
     <tr>
         <th>순위</th>
         <th>프로필 이미지</th>
-        <th>User ID</th>
+        <th>회원번호</th>
         <th>User 닉네임</th>
         <th>성별</th>
         <th>랭킹 점수</th>
@@ -351,7 +351,7 @@
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
             </td>
             <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_id}}</a> <br /> <br />
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a> <br /> <br />
                 레벨 : {{level}} <br />
                 등급 : {{grade}}
             </td>

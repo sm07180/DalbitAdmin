@@ -77,7 +77,7 @@
     <tr class="success font-bold">
         <td>소계</td>
         <td>{{addComma sum_createCnt}}</td>
-        <td>{{addComma sum_broadcastingTime}}</td>
+        <td>{{timeStampMinutes sum_broadcastingTime}}</td>
         <td>{{addComma sum_djCnt}}</td>
         <td>{{addComma sum_listenerCnt}}</td>
         <%--<td>{{addComma sum_guestCnt}}</td>--%>
@@ -95,7 +95,7 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma createCnt}}</td>
-        <td>{{addComma broadcastingTime}}</td>
+        <td>{{timeStampMinutes broadcastingTime}}</td>
         <td>{{addComma djCnt}}</td>
         <td>{{addComma listenerCnt}}</td>
         <%--<td>{{addComma guestCnt}}</td>--%>
