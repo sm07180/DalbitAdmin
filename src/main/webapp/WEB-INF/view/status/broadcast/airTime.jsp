@@ -79,7 +79,7 @@
 <script type="text/x-handlebars-template" id="tmp_airTime">
     <tr class="success font-bold">
         <td>소계</td>
-        <td>{{addComma sum_totalBroadcast}}</td>
+        <td>{{addComma sum_totalBroadcastTime}}</td>
         <td>{{addComma sum_broadcast03Time}}</td>
         <td>{{addComma sum_broadcast00Time}}</td>
         <td>{{addComma sum_broadcast01Time}}</td>
@@ -100,7 +100,7 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalBroadcast}}</td>
+        <td>{{addComma totalBroadcastTime}}</td>
         <td>{{addComma broadcast03Time}}</td>   <!--03	수다/챗 -->
         <td>{{addComma broadcast00Time}}</td>   <!--00	일상/소통 -->
         <td>{{addComma broadcast01Time}}</td>   <!--01	힐링 -->
