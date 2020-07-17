@@ -17,7 +17,7 @@
                     <tr>
                         <th>No</th>
                         <th>교환일시</th>
-                        <th>아이디</th>
+                        <th>회원번호</th>
                         <th>닉네임</th>
                         <th>성별</th>
                         <th>등급</th>
@@ -130,7 +130,7 @@
         <td>
             {{data.last_upd_date}}
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex}}}</td>
         <td>{{addComma data.mem_grade}}</td>

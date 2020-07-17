@@ -278,7 +278,7 @@
     <tr>
         <th>순위</th>
         <th>프로필 이미지</th>
-        <th>User ID</th>
+        <th>회원번호</th>
         <th>User 닉네임</th>
         <th>성별</th>
         <th>랭킹점수</th>
@@ -332,7 +332,7 @@
     <tr>
         <th>순위</th>
         <th>프로필 이미지</th>
-        <th>User ID</th>
+        <th>회원번호</th>
         <th>User 닉네임</th>
         <th>성별</th>
         <th>랭킹 점수</th>

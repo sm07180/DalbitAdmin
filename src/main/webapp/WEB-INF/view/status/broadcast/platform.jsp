@@ -85,10 +85,10 @@
         <td>{{addComma sum_pcCnt}}</td>
         <td>{{addComma sum_androidCnt}}</td>
         <td>{{addComma sum_iosCnt}}</td>
-        <td>{{addComma sum_totalBroadcastingTime}}</td>
-        <td>{{addComma sum_pcTime}}</td>
-        <td>{{addComma sum_androidTime}}</td>
-        <td>{{addComma sum_iosTime}}</td>
+        <td>{{timeStampMinutes sum_totalBroadcastingTime}}</td>
+        <td>{{timeStampMinutes sum_pcTime}}</td>
+        <td>{{timeStampMinutes sum_androidTime}}</td>
+        <td>{{timeStampMinutes sum_iosTime}}</td>
     </tr>
 </script>
 
@@ -104,10 +104,10 @@
         <td>{{addComma pcCnt}}</td>
         <td>{{addComma androidCnt}}</td>
         <td>{{addComma iosCnt}}</td>
-        <td>{{addComma totalBroadcastingTime}}</td>
-        <td>{{addComma pcTime}}</td>
-        <td>{{addComma androidTime}}</td>
-        <td>{{addComma iosTime}}</td>
+        <td>{{timeStampMinutes totalBroadcastingTime}}</td>
+        <td>{{timeStampMinutes pcTime}}</td>
+        <td>{{timeStampMinutes androidTime}}</td>
+        <td>{{timeStampMinutes iosTime}}</td>
     </tr>
     {{else}}
     <%--<tr>--%>

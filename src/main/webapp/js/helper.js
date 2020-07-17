@@ -168,6 +168,10 @@ Handlebars.registerHelper("timeStamp", function(value) {
    return common.timeStamp(value);
 });
 
+Handlebars.registerHelper("timeStampMinutes", function(value) {
+   return common.timeStampMinutes(value);
+});
+
 Handlebars.registerHelper("replaceEnter", function(value) {
    return common.replaceEnter(value);
 });

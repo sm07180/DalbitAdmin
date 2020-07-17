@@ -166,6 +166,15 @@ common.timeStamp = function(time){
     return time ;
 }
 
+common.timeStampMinutes = function(time){
+    time = parseInt(time);
+    time = time * 60;
+    var hours = common.lpad(Math.floor(time / 3600),2,"0");
+    var minutes = common.lpad(Math.floor((time - (hours * 3600)) /60),2,"0");
+    var time = hours  + ":" + minutes;
+    return time ;
+}
+
 common.profileImage = function(PHOTO_SERVER_URL, path, gender){
     var image;
     if(common.isEmpty(path)){

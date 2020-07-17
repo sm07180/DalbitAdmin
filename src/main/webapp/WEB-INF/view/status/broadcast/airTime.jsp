@@ -79,16 +79,16 @@
 <script type="text/x-handlebars-template" id="tmp_airTime">
     <tr class="success font-bold">
         <td>소계</td>
-        <td>{{addComma sum_totalBroadcastTime}}</td>
-        <td>{{addComma sum_broadcast03Time}}</td>
-        <td>{{addComma sum_broadcast00Time}}</td>
-        <td>{{addComma sum_broadcast01Time}}</td>
-        <td>{{addComma sum_broadcast02Time}}</td>
-        <td>{{addComma sum_broadcast04Time}}</td>
-        <td>{{addComma sum_broadcast05Time}}</td>
-        <td>{{addComma sum_broadcast06Time}}</td>
-        <td>{{addComma sum_broadcast09Time}}</td>
-        <td>{{addComma sum_broadcast13Time}}</td>
+        <td>{{timeStampMinutes sum_totalBroadcastTime}}</td>
+        <td>{{timeStampMinutes sum_broadcast03Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast00Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast01Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast02Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast04Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast05Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast06Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast09Time}}</td>
+        <td>{{timeStampMinutes sum_broadcast13Time}}</td>
     </tr>
 </script>
 
