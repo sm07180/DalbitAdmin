@@ -100,16 +100,16 @@
             {{#equal ../slctType 1}}{{data.daily}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalBroadcastTime}}</td>
-        <td>{{addComma broadcast03Time}}</td>   <!--03	수다/챗 -->
-        <td>{{addComma broadcast00Time}}</td>   <!--00	일상/소통 -->
-        <td>{{addComma broadcast01Time}}</td>   <!--01	힐링 -->
-        <td>{{addComma broadcast02Time}}</td>   <!--02	노래/연주 -->
-        <td>{{addComma broadcast04Time}}</td>   <!--04	미팅/소개팅 -->
-        <td>{{addComma broadcast05Time}}</td>   <!--05	고민/사연 -->
-        <td>{{addComma broadcast06Time}}</td>   <!--06	책/여행 -->
-        <td>{{addComma broadcast09Time}}</td>   <!--09	ASMR -->
-        <td>{{addComma broadcast13Time}}</td>   <!--13	성우 -->
+        <td>{{timeStampMinutes totalBroadcastTime}}</td>
+        <td>{{timeStampMinutes broadcast03Time}}</td>   <!--03	수다/챗 -->
+        <td>{{timeStampMinutes broadcast00Time}}</td>   <!--00	일상/소통 -->
+        <td>{{timeStampMinutes broadcast01Time}}</td>   <!--01	힐링 -->
+        <td>{{timeStampMinutes broadcast02Time}}</td>   <!--02	노래/연주 -->
+        <td>{{timeStampMinutes broadcast04Time}}</td>   <!--04	미팅/소개팅 -->
+        <td>{{timeStampMinutes broadcast05Time}}</td>   <!--05	고민/사연 -->
+        <td>{{timeStampMinutes broadcast06Time}}</td>   <!--06	책/여행 -->
+        <td>{{timeStampMinutes broadcast09Time}}</td>   <!--09	ASMR -->
+        <td>{{timeStampMinutes broadcast13Time}}</td>   <!--13	성우 -->
     </tr>
     {{else}}
     <tr>
