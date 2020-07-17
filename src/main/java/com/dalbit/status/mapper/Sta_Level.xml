@@ -7,8 +7,8 @@
                 , @levelUpDate := (select date_format(last_upd_date,'%Y.%m.%d %h:%i:%s')  from rd_data.tb_member_exp_history where mem_no = a.mem_no AND level_up = 1 ORDER BY idx DESC LIMIT 1 ) AS levelUpDate
                 , TIMESTAMPDIFF(DAY, date_format(@levelUpDate,'%Y.%m.%d'), date_format(now(),'%Y.%m.%d')) as levelUpDay
                 , a.mem_sex,(date_format(now(),'%Y') - mem_birth_year + 1) as age
-                , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_broadcast_room where mem_no=a.mem_no order by start_date desc limit 1) as broadDate
-                , (select date_format(start_date,'%Y.%m.%d %h:%i:%s') from rd_data.tb_member_broadcast_listening where mem_no=a.mem_no order by start_date desc limit 1) as listenDate
+                , d.last_broadcast as broadDate
+                , d.last_listen as listenDate
                 , d.newdj_badge
                 , d.specialdj_badge
                 , (select badge_value from rd_data.tb_member_badge where mem_no = a.mem_no and slct_type='1') badge_value
