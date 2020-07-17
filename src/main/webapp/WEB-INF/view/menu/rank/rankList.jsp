@@ -299,7 +299,7 @@
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage rank.image_profile rank.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
             </td>
             <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{mem_id}}</a>
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{memNo}}">{{memNo}}</a>
                 <br /> <br />
                 레벨 : {{level}} <br />
                 등급 : {{grade}}
@@ -351,7 +351,7 @@
                 <img class="thumbnail fullSize_background" src="{{renderProfileImage fan.image_profile fan.mem_sex}}" style='height:68px; width:68px;margin-bottom: 0px' />
             </td>
             <td>
-                <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_id}}</a> <br /> <br />
+                <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a> <br /> <br />
                 레벨 : {{level}} <br />
                 등급 : {{grade}}
             </td>

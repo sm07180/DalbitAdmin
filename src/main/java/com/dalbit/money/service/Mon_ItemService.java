@@ -29,7 +29,8 @@ public class Mon_ItemService {
     SmsService smsService;
 
     public String selectChangeItemList(Mon_ItemInputVo monItemInputVo){
-
+        monItemInputVo.setPageStart(monItemInputVo.getPageStart() -1);
+        monItemInputVo.setPageStart(monItemInputVo.getPageStart() * monItemInputVo.getPageCnt());
         int changeItemCnt = monItemDao.selectChangeItemCnt(monItemInputVo);
 
         monItemInputVo.setTotalCnt(changeItemCnt);
