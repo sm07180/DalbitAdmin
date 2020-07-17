@@ -17,27 +17,15 @@
             <tr>
                 <th></th>
                 <th>소계</th>
-                <th>일상</th>
                 <th>수다/챗</th>
-                <th>노래/연주</th>
-                <th>노래방</th>
-                <th>책/스토리</th>
-                <th>여행</th>
+                <th>일상/소통</th>
                 <th>힐링</th>
+                <th>노래/연주</th>
+                <th>미팅/소개팅</th>
                 <th>고민/사연</th>
-                <th>사랑/우정</th>
+                <th>책/여행</th>
                 <th>ASMR</th>
-                <th>유머</th>
-                <th>스터디</th>
                 <th>성우</th>
-                <th>연애/오락</th>
-                <th>먹방/요리</th>
-                <th>건강/스포츠</th>
-                <th>게임</th>
-                <th>드라마/영화</th>
-                <th>외국어</th>
-                <th>판매/영업</th>
-                <th>기타</th>
             </tr>
             </thead>
             <tbody id="listenerListBody">
@@ -101,19 +89,19 @@
         <td>{{addComma sum_join06Cnt}}</td>
         <td>{{addComma sum_join07Cnt}}</td>
         <td>{{addComma sum_join08Cnt}}</td>
-        <td>{{addComma sum_join09Cnt}}</td>
-        <td>{{addComma sum_join10Cnt}}</td>
-        <td>{{addComma sum_join11Cnt}}</td>
+        <%--<td>{{addComma sum_join09Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join10Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join11Cnt}}</td>--%>
         <%--<td>{{addComma sum_join12Cnt}}</td>--%>
-        <td>{{addComma sum_join13Cnt}}</td>
-        <td>{{addComma sum_join14Cnt}}</td>
-        <td>{{addComma sum_join15Cnt}}</td>
-        <td>{{addComma sum_join16Cnt}}</td>
-        <td>{{addComma sum_join17Cnt}}</td>
+        <%--<td>{{addComma sum_join13Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join14Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join15Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join16Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join17Cnt}}</td>--%>
         <%--<td>{{addComma sum_join18Cnt}}</td>--%>
-        <td>{{addComma sum_join19Cnt}}</td>
-        <td>{{addComma sum_join20Cnt}}</td>
-        <td>{{addComma sum_join21Cnt}}</td>
+        <%--<td>{{addComma sum_join19Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join20Cnt}}</td>--%>
+        <%--<td>{{addComma sum_join21Cnt}}</td>--%>
         <%--<td>{{addComma sum_join22Cnt}}</td>--%>
         <%--<td>{{addComma sum_join23Cnt}}</td>--%>
         <%--<td>{{addComma sum_join24Cnt}}</td>--%>
@@ -123,7 +111,7 @@
         <%--<td>{{addComma sum_join28Cnt}}</td>--%>
         <%--<td>{{addComma sum_join29Cnt}}</td>--%>
         <%--<td>{{addComma sum_join30Cnt}}</td>--%>
-        <td>{{addComma sum_join99Cnt}}</td>
+        <%--<td>{{addComma sum_join99Cnt}}</td>--%>
     </tr>
 </script>
 
@@ -136,38 +124,38 @@
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
         <td>{{addComma totalJoinCnt}}</td>
-        <td>{{addComma join00Cnt}}</td>   <!--00	일상 -->
-        <td>{{addComma join01Cnt}}</td>   <!--01	수다/챗 -->
-        <td>{{addComma join02Cnt}}</td>   <!--02	노래/연주 -->
-        <td>{{addComma join03Cnt}}</td>   <!--03	노래방 -->
-        <td>{{addComma join04Cnt}}</td>   <!--04	책/스토리 -->
-        <td>{{addComma join05Cnt}}</td>   <!--05	여행 -->
-        <td>{{addComma join06Cnt}}</td>   <!--06	힐링 -->
-        <td>{{addComma join07Cnt}}</td>   <!--07	고민/사연 -->
-        <td>{{addComma join08Cnt}}</td>   <!--08	사랑/우정 -->
-        <td>{{addComma join09Cnt}}</td>   <!--09	ASMR -->
-        <td>{{addComma join10Cnt}}</td>   <!--10	유머 -->
-        <td>{{addComma join11Cnt}}</td>   <!--11	스터디 -->
+        <td>{{addComma join00Cnt}}</td>
+        <td>{{addComma join01Cnt}}</td>
+        <td>{{addComma join02Cnt}}</td>
+        <td>{{addComma join03Cnt}}</td>
+        <td>{{addComma join04Cnt}}</td>
+        <td>{{addComma join05Cnt}}</td>
+        <td>{{addComma join06Cnt}}</td>
+        <td>{{addComma join07Cnt}}</td>
+        <td>{{addComma join08Cnt}}</td>
+        <%--<td>{{addComma join09Cnt}}</td>   --%>
+        <%--<td>{{addComma join10Cnt}}</td>   --%>
+        <%--<td>{{addComma join11Cnt}}</td>   --%>
         <%--<td>{{addComma join12Cnt}}</td>   --%>
-        <td>{{addComma join13Cnt}}</td>    <!--13	성우 -->
-        <td>{{addComma join14Cnt}}</td>    <!--14	연애/오락 -->
-        <td>{{addComma join15Cnt}}</td>    <!--15	먹방/요리 -->
-        <td>{{addComma join16Cnt}}</td>    <!--16	건강/스포츠 -->
-        <td>{{addComma join17Cnt}}</td>    <!--17	게임 -->
-        <%--<td>{{addComma join18Cnt}}</td>     --%>
-        <td>{{addComma join19Cnt}}</td>    <!-- 19	드라마/영화 -->
-        <td>{{addComma join20Cnt}}</td>    <!-- 20	외국어 -->
-        <td>{{addComma join21Cnt}}</td>    <!-- 21	판매/영업 -->
-        <%--<td>{{addComma join22Cnt}}</td>--%>
-        <%--<td>{{addComma join23Cnt}}</td>--%>
-        <%--<td>{{addComma join24Cnt}}</td>--%>
-        <%--<td>{{addComma join25Cnt}}</td>--%>
-        <%--<td>{{addComma join26Cnt}}</td>--%>
-        <%--<td>{{addComma join27Cnt}}</td>--%>
-        <%--<td>{{addComma join28Cnt}}</td>--%>
-        <%--<td>{{addComma join29Cnt}}</td>--%>
-        <%--<td>{{addComma join30Cnt}}</td>--%>
-        <td>{{addComma join99Cnt}}</td>
+        <%--<td>{{addComma join13Cnt}}</td>   --%>
+        <%--<td>{{addComma join14Cnt}}</td>   --%>
+        <%--<td>{{addComma join15Cnt}}</td>   --%>
+        <%--<td>{{addComma join16Cnt}}</td>   --%>
+        <%--<td>{{addComma join17Cnt}}</td>   --%>
+        <%--<td>{{addComma join18Cnt}}</td>   --%>
+        <%--<td>{{addComma join19Cnt}}</td>   --%>
+        <%--<td>{{addComma join20Cnt}}</td>   --%>
+        <%--<td>{{addComma join21Cnt}}</td>   --%>
+        <%--<td>{{addComma join22Cnt}}</td>   --%>
+        <%--<td>{{addComma join23Cnt}}</td>   --%>
+        <%--<td>{{addComma join24Cnt}}</td>   --%>
+        <%--<td>{{addComma join25Cnt}}</td>   --%>
+        <%--<td>{{addComma join26Cnt}}</td>   --%>
+        <%--<td>{{addComma join27Cnt}}</td>   --%>
+        <%--<td>{{addComma join28Cnt}}</td>   --%>
+        <%--<td>{{addComma join29Cnt}}</td>   --%>
+        <%--<td>{{addComma join30Cnt}}</td>   --%>
+        <%--<td>{{addComma join99Cnt}}</td>   --%>
     </tr>
     {{else}}
     <tr>
