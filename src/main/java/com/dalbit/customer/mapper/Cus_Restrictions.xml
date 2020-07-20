@@ -25,6 +25,7 @@
                 , basic.mem_phone		AS mem_phone
                 , report.op_date		AS start_date
                 , basic.block_end_date	AS end_date
+                , ((date_format(now(),'%Y') - basic.mem_birth_year) + 1) as mem_age
             FROM
                 (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
             LEFT JOIN
@@ -91,6 +92,7 @@
                 , basic.mem_phone		AS mem_phone
                 , report.op_date		AS start_date
                 , basic.block_end_date	AS end_date
+                , ((date_format(now(),'%Y') - basic.mem_birth_year) + 1) as mem_age
             FROM
                 (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
             LEFT JOIN
@@ -148,6 +150,7 @@
                 ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
                 ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
                 ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
+                ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
                 , device.device_token	 AS device_token
                 ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
                 ,IFNULL(basic.ip, (SELECT ip FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_ip
@@ -236,6 +239,7 @@
                 ,IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_year
                 ,IFNULL(basic.mem_birth_month, (SELECT mem_birth_month FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_month
                 ,IFNULL(basic.mem_birth_day, (SELECT mem_birth_day FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_day
+                ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
                 , device.device_token	 AS device_token
                 ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
                 ,IFNULL(basic.ip, (SELECT ip FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_ip

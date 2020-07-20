@@ -11,6 +11,7 @@ public class P_WithdrawalListOutputVo extends SearchVo {
     private String mem_no;			// 회원번호
     private String mem_nick;		// 닉네임
     private String mem_sex;			// 성별
+    private int mem_age;			// 나이
     private String sanctions_cnt;	// 제재횟수
     private String op_code;			// 회원상태	(1:정상,2:경고,3:1일정지,4:3일정지,5:7일정지,6:영구정지,7:강제탈퇴)
     private String op_etc;			// 회원 신고내용

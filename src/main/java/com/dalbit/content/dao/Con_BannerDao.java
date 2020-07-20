@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 
 @Repository
-public interface BannerDao {
+public interface Con_BannerDao {
 
     @Transactional(readOnly = true)
     ArrayList<P_bannerListOutputVo> callContentsBannerList(P_bannerListInputVo pBannerListInputVo);

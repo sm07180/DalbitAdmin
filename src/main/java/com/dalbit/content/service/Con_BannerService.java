@@ -4,7 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
-import com.dalbit.content.dao.BannerDao;
+import com.dalbit.content.dao.Con_BannerDao;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 public class Con_BannerService {
 
     @Autowired
-    BannerDao bannerDao;
+    Con_BannerDao bannerDao;
 
     @Autowired
     GsonUtil gsonUtil;
