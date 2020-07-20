@@ -47,6 +47,9 @@ public class Bro_StoryService {
             MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(StoryList.get(i).getMem_no());
             if(!DalbitUtil.isEmpty(memInfoOutVo)) {
                 StoryList.get(i).setMem_sex(memInfoOutVo.getMem_sex());
+                StoryList.get(i).setMem_birth_year(memInfoOutVo.getMem_birth_year());
+                StoryList.get(i).setMem_birth_month(memInfoOutVo.getMem_birth_month());
+                StoryList.get(i).setMem_birth_day(memInfoOutVo.getMem_birth_day());
             }
         }
 

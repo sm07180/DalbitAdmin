@@ -16,6 +16,9 @@ public class P_MemberListenOutputVo extends SearchVo {
     private String dj_userId;
     private String dj_nickName;
     private String dj_mem_sex;
+    private String dj_birth_year;
+    private String dj_birth_month;
+    private String dj_birth_day;
     private String room_no;
     private String subject_type;
     private String title;

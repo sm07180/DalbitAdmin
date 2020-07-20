@@ -20,6 +20,9 @@ public class P_MemberJoinOutputVo extends SearchVo {
     private String mem_name;
     private String mem_sex;
     private String mem_slct;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private Date mem_join_date;
     private String memJoinDateFormat;
     private Date last_upd_date;

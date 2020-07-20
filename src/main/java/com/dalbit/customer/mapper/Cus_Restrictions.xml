@@ -76,6 +76,9 @@
                 report.reported_mem_no     AS mem_no
                 , basic.mem_nick
                 , basic.mem_sex
+                , basic.mem_birth_year
+                , basic.mem_birth_month
+                , basic.mem_birth_day
                 , (SELECT COUNT(*) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')	AS sanctions_cnt
                 , report.status		AS status
                 , report.op_code	AS op_code
@@ -230,6 +233,9 @@
                 ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
                 ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
                 ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
+                ,IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_year
+                ,IFNULL(basic.mem_birth_month, (SELECT mem_birth_month FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_month
+                ,IFNULL(basic.mem_birth_day, (SELECT mem_birth_day FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_day
                 , device.device_token	 AS device_token
                 ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
                 ,IFNULL(basic.ip, (SELECT ip FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_ip

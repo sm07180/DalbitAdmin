@@ -59,6 +59,9 @@ public class Cus_QuestionService {
             MemberVo memInfoOutVo = DalbitUtil.getMemInfo(questionList.get(i).getMem_no());
             if(!DalbitUtil.isEmpty(memInfoOutVo)) {
                 questionList.get(i).setMem_userid(memInfoOutVo.getMem_userid());
+                questionList.get(i).setMem_birth_year(memInfoOutVo.getMem_birth_year());
+                questionList.get(i).setMem_birth_month(memInfoOutVo.getMem_birth_month());
+                questionList.get(i).setMem_birth_day(memInfoOutVo.getMem_birth_day());
             }
         }
 

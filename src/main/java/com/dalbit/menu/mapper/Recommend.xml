@@ -9,6 +9,9 @@
                  select basic.mem_no
                       , basic.mem_id
                       , basic.mem_nick
+                      , basic.mem_birth_year
+                      , basic.mem_birth_month
+                      , basic.mem_birth_day
                       , profile.image_profile
                       , concat(level.level, ' / ', level.grade) as                         level
                       , level.grade

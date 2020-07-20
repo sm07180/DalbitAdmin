@@ -11,6 +11,7 @@ import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.DalbitUtil;
+import com.dalbit.util.DateUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
 import com.google.gson.Gson;
@@ -58,10 +59,16 @@ public class DeclarationService {
             MemberVo outVo = mem_MemberDao.getMemberInfo(declareList.get(i).getMem_no());
             if(!DalbitUtil.isEmpty(outVo)) {
                 declareList.get(i).setMem_sex(outVo.getMem_sex());
+                declareList.get(i).setMem_birth_year(outVo.getMem_birth_year());
+                declareList.get(i).setMem_birth_month(outVo.getMem_birth_month());
+                declareList.get(i).setMem_birth_day(outVo.getMem_birth_day());
             }
             MemberVo outVo2 = mem_MemberDao.getMemberInfo(declareList.get(i).getReported_mem_no());
             if(!DalbitUtil.isEmpty(outVo2)) {
                 declareList.get(i).setReported_mem_sex(outVo2.getMem_sex());
+                declareList.get(i).setReported_mem_birth_year(outVo2.getMem_birth_year());
+                declareList.get(i).setReported_mem_birth_month(outVo2.getMem_birth_month());
+                declareList.get(i).setReported_mem_birth_day(outVo2.getMem_birth_day());
             }
         }
 
@@ -128,6 +135,21 @@ public class DeclarationService {
         P_DeclarationDetailOutputVo declarationDetail = new Gson().fromJson(procedureVo.getExt(), P_DeclarationDetailOutputVo.class);
 
         String result;
+
+        if(!DalbitUtil.isEmpty(declarationDetail)){
+            MemberVo memInfoOutVo = DalbitUtil.getMemInfo(declarationDetail.getMem_no());
+            if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                declarationDetail.setMem_birth_year(memInfoOutVo.getMem_birth_year());
+                declarationDetail.setMem_birth_month(memInfoOutVo.getMem_birth_month());
+                declarationDetail.setMem_birth_day(memInfoOutVo.getMem_birth_day());
+            }
+            MemberVo memInfoOutVo2 = DalbitUtil.getMemInfo(declarationDetail.getReported_mem_no());
+            if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                declarationDetail.setReported_mem_birth_year(memInfoOutVo2.getMem_birth_year());
+                declarationDetail.setReported_mem_birth_month(memInfoOutVo2.getMem_birth_month());
+                declarationDetail.setReported_mem_birth_day(memInfoOutVo2.getMem_birth_day());
+            }
+        }
 
         if(Status.신고상세조회_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고상세조회_성공, declarationDetail));

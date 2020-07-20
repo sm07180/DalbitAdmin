@@ -540,7 +540,7 @@
         <tr>
             <th>성별</th>
             <td style="text-align: left">
-                {{{sexIcon dj_memSex}}}
+                {{{sexIcon dj_memSex dj_birth_year}}}
             </td>
             <th>방송 진행시간</th>
             <td style="text-align: left">

@@ -16,6 +16,9 @@ public class P_LikeListOutputVo extends PagingVo {
     private String mem_userid;
     private String mem_nick;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private int level;
     private String grade;
     private String goodDate;

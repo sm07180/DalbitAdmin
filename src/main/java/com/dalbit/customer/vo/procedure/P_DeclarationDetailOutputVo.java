@@ -24,6 +24,9 @@ public class P_DeclarationDetailOutputVo extends BaseVo {
     private int level;
     private String grade;
     private String memSex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private int payCount;
     private int payAmount;
     private int giftCount;
@@ -34,6 +37,9 @@ public class P_DeclarationDetailOutputVo extends BaseVo {
     private int reported_level;
     private String reported_grade;
     private String reported_memSex;
+    private String reported_mem_birth_year;
+    private String reported_mem_birth_month;
+    private String reported_mem_birth_day;
     private int reported_payCount;
     private int reported_payAmount;
     private int reported_giftCount;

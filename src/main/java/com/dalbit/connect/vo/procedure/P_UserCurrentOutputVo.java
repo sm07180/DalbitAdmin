@@ -20,6 +20,9 @@ public class P_UserCurrentOutputVo extends SearchVo {
     private String mem_name;
     private String mem_sex;
     private String mem_age;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private String broadcastingCnt;
     private String broadcastingTime;
     private String giftCnt;

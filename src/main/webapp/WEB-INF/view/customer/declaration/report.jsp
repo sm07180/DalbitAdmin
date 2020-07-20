@@ -323,14 +323,14 @@
 
         <table class="table table-bordered table-dalbit">
             <colgroup>
-                <col width="5%" />
+                <col width="4%" />
                 <col width="5%" />
                 <col width="5%" />
                 <col width="6%" />
+                <col width="4%" />
                 <col width="5%" />
                 <col width="5%" />
-                <col width="5%" />
-                <col width="5%" />
+                <col width="6%" />
                 <col width="5%" />
                 <col width="5%" />
                 <col width="5%" />
@@ -350,12 +350,12 @@
                 <td>{{mem_id}}</td>
                 <td>레벨 : {{level}}<br />등급 : {{grade}}</td>
                 <td>{{mem_nick}}</td>
-                <td>{{{sexIcon memSex}}}</td>
+                <td>{{{sexIcon memSex mem_birth_year}}}</td>
 
                 <td>{{reported_mem_id}}</td>
                 <td>레벨 : {{reported_level}}<br />등급 : {{reported_grade}}</td>
                 <td>{{reported_mem_nick}}</td>
-                <td>{{{sexIcon reported_memSex}}}</td>
+                <td>{{{sexIcon reported_memSex reported_mem_birth_year}}}</td>
 
                 <th>제재 조치</th>
                 <td colspan="3">

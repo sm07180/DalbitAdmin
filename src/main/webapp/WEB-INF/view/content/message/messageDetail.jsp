@@ -295,7 +295,7 @@
                         <p class="no-margin">{{this.dj_level}} / {{this.dj_grade}}</p>
                     </td>
                     <td>{{this.dj_nickname}}</td>
-                    <td>{{{sexIcon this.dj_memSex}}}</td>
+                    <td>{{{sexIcon this.dj_memSex this.dj_birth_year}}}</td>
                 </tr>
             {{/each}}
         </tbody>

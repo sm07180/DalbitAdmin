@@ -15,6 +15,9 @@ public class P_GiftListOutputVo extends PagingVo {
     private String userId;
     private String nickName;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
 
     private int level;
     private String grade;

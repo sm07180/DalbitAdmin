@@ -132,7 +132,7 @@
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex}}}</td>
+        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
         <td>{{addComma data.mem_grade}}</td>
         <td>{{addComma data.mem_level}}</td>
         <td>{{addComma data.changeCnt}}번</td>
