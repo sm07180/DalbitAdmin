@@ -419,7 +419,7 @@ common.koreaAge = function(birthDate){
 }
 
 common.isChild = function(birth){
-    return common.calcAge(birth) < 19;
+    return common.calcAge(birth) < 18;
 }
 
 common.calcAge = function(birth) {

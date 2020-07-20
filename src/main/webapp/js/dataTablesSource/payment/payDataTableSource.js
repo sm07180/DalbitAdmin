@@ -11,7 +11,7 @@ var payDataTableSource = {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             ,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
-                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                    return common.calcAge(row.birth) < 18 ? '<span style="color:red">미성년자</span>' : '-';
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
@@ -112,7 +112,7 @@ var payDataTableSource = {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             /*,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
-                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                    return common.calcAge(row.birth) < 18 ? '<span style="color:red">미성년자</span>' : '-';
                 }}*/
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
@@ -207,7 +207,7 @@ var payDataTableSource = {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             ,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
-                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                    return common.calcAge(row.birth) < 18 ? '<span style="color:red">미성년자</span>' : '-';
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);
@@ -279,7 +279,7 @@ var payDataTableSource = {
                     return row.order_id.split("_")[0]+'_<br/>'+row.order_id.split("_")[1];
                 }}
             ,{'title': '미성년자<br />여부', 'data': 'data', 'width':'70px', 'render': function (data, type, row) {
-                    return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
+                    return common.calcAge(row.birth) < 18 ? '<span style="color:red">미성년자</span>' : '-';
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data);

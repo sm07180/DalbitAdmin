@@ -68,7 +68,7 @@
         if(response.data.specialdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
         response.data["dj_badge"] = tmp_badge;
 
-        if(response.data.age < 19){
+        if(response.data.age < 18){
             response.data["adultYn"] = "n";
         } else {
             response.data["adultYn"] = "y";
