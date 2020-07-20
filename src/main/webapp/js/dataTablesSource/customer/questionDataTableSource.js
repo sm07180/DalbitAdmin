@@ -30,7 +30,7 @@ var questionDataTableSource = {
                         return data;
                     }            
                 }},
-            {'title': '성별', 'data': 'mem_sex', 'width':'90px', 'render': function (data, type, row, meta) {
+            {'title': '성별', 'data': 'mem_sex', 'width':'120px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '문의', 'data': 'totalQnaCnt','width':'60px','render':function (data,type,row,meta){
