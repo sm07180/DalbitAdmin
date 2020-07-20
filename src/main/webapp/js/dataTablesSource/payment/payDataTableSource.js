@@ -14,7 +14,7 @@ var payDataTableSource = {
                     return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }}
             , {'title': '구매<br />횟수', 'data': 'count', 'width':'55px', 'render': function(data, type, row) {
                     return common.addComma(String(data))+"건";
@@ -115,7 +115,7 @@ var payDataTableSource = {
                     return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
                 }}*/
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }}
             , {'title': '수단', 'data': 'pay_way', 'width':'70px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
@@ -210,7 +210,7 @@ var payDataTableSource = {
                     return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }}
             , {'title': '수단', 'data': 'pay_way', 'width':'70px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);
@@ -282,7 +282,7 @@ var payDataTableSource = {
                     return common.calcAge(row.birth) < 19 ? '<span style="color:red">미성년자</span>' : '-';
                 }}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }}
             , {'title': '수단', 'data': 'pay_way', 'width':'70px', 'render': function(data, type, row) {
                     return util.getCommonCodeLabel(data, payWay);

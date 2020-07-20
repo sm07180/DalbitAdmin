@@ -7,8 +7,8 @@ var RestrictionsDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + data + '">' + data + '</a>';
                 }}
             ,{'title': '닉네임', 'data': 'mem_nick', 'width':'110px'}
-            ,{'title': '성별', 'data': 'mem_sex', 'width':'50px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+            ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data, row.mem_birth_year);
                 }}
             ,{'title': '제재횟수', 'data': 'sanctions_cnt', 'width':'50px'}
             ,{'title': '회원상태', 'data': 'op_code', 'width':'50px', 'render': function (data, type, row, meta) {
@@ -43,8 +43,8 @@ var RestrictionsDataTableSource = {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + data + '</a>';
                 }}
             ,{'title': '닉네임', 'data': 'mem_nick', 'width':'120px'}
-            ,{'title': '성별', 'data': 'mem_sex', 'width':'50px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+            ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data, row.mem_birth_year);
                 }}
             ,{'title': '퇴장횟수', 'data': 'exit_cnt', 'width':'50px'}
             ,{'title': '연락처', 'data': 'mem_phone', 'width':'100px', 'render': function (data, type, row, meta) {

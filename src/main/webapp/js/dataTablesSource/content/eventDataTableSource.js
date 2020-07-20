@@ -112,12 +112,12 @@ var EventDataTableSource = {
                     }
                 }},
             {'title': '선정번호', 'data': 'order', 'defaultContent': ''},
-            {'title': '참여자 User ID', 'data': 'mem_userid', 'render': function (data, type, row, meta) {
+            {'title': '참여자 회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
             {'title': '참여자 닉네임', 'data': 'mem_nick'},
             {'title': '성별', 'data': 'mem_sex', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '연락처', 'data': 'mem_phone'},
             {'title': '응모횟수', 'data': 'applyCnt', 'render': function (data, type, row, meta) {

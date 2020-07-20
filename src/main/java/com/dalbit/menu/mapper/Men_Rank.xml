@@ -32,6 +32,9 @@
                     , lev.grade as grade
                     , mem.mem_nick as mem_nick
                     , mem.mem_sex as mem_sex
+                    , mem.mem_birth_year
+                    , mem.mem_birth_month
+                    , mem.mem_birth_day
                     , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
                     , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 1) as byeol
                     , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
@@ -109,6 +112,9 @@
                     , lev.grade as grade
                     , mem.mem_nick as mem_nick
                     , mem.mem_sex as mem_sex
+                    , mem.mem_birth_year
+                    , mem.mem_birth_month
+                    , mem.mem_birth_day
                     , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
                     , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 1) as byeol
                     , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no

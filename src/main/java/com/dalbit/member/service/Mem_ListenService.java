@@ -52,6 +52,9 @@ public class Mem_ListenService {
             MemberVo outVo = mem_MemberDao.getMemberInfo(listenList.get(i).getDj_mem_no());
             if(!DalbitUtil.isEmpty(outVo)) {
                 listenList.get(i).setDj_mem_sex(outVo.getMem_sex());
+                listenList.get(i).setDj_birth_year(outVo.getMem_birth_year());
+                listenList.get(i).setDj_birth_month(outVo.getMem_birth_month());
+                listenList.get(i).setDj_birth_day(outVo.getMem_birth_day());
             }
         }
 

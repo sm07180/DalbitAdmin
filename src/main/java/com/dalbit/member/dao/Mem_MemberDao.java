@@ -69,6 +69,8 @@ public interface Mem_MemberDao {
 
     @Transactional(readOnly = true)
     int callMemberBroadCasting_check(P_MemberReportVo pMemberReportVo);
+    @Transactional(readOnly = true)
+    int callMemberListening_check(P_MemberReportVo pMemberReportVo);
 
     int callMemberBasicReport_Edit(P_MemberReportVo pMemberReportVo);
     int callMemberWithdrawal_Add(P_MemberReportVo pMemberReportVo);

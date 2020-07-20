@@ -31,5 +31,8 @@ public class LiveVo extends PagingVo {
     private int airCount;
     private String start_date;
     private int airTime;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
 
 }

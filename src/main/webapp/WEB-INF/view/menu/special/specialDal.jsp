@@ -39,7 +39,7 @@
                     <th>No</th>
                     <th>방송상태</th>
                     <th>프로필</th>
-                    <th>UserID</th>
+                    <th>회원번호</th>
                     <th>User닉네임</th>
                     <th>성별</th>
                     <th>보유팬<br/>(1000명 이상)</th>
@@ -317,11 +317,11 @@
         <td style="width: 65px;height:65px;">
             <img class="thumbnail" src="{{renderProfileImage data.image_profile data.mem_sex}}" style="width: 65px;height:65px; margin-bottom: 0px;" onclick="fullSize_background(this.src);"/>
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_userid}}</a>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{mem_no}}">{{mem_no}}</a>
             <a href="javascript://" style="display:none;" class="_dalDetail" data-reqidx="{{req_idx}}"></a>
         </td>
         <td>{{mem_nick}}</td>
-        <td>{{{sexIcon mem_sex}}}</td>
+        <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
         <td>{{addComma fanCnt}} 명</td>
         <td>{{timeStamp airTime}}</td>
         <td>{{addComma giftedRuby}} 개</td>

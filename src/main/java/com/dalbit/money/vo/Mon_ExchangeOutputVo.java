@@ -14,6 +14,9 @@ public class Mon_ExchangeOutputVo{
     private String mem_name;
     private String mem_nick;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private String image_profile;
     private int mem_state;
     private String mem_phone;

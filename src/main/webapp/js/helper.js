@@ -248,8 +248,8 @@ Handlebars.registerHelper("evalJS_isEmpty", function(varName, options) {
     }
 });
 
-Handlebars.registerHelper("sexIcon", function(sex) {
-    return common.sexIcon(sex);
+Handlebars.registerHelper("sexIcon", function(sex, birthYear) {
+    return common.sexIcon(sex, birthYear);
 });
 
 Handlebars.registerHelper("koreaAge", function(birthDate) {

@@ -155,8 +155,14 @@
 
     <select id="callMemberBroadCasting_check" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo" resultType="integer">
         /* M_Member.xml - callMemberEditor */
-        /* 방송중, 방송중 대기 상태 count */
-        select count(*) as cnt from rd_data.tb_broadcast_room where mem_no = #{mem_no} and state in (1,2)
+        /* 방송중 상태 count */
+        select count(*) as cnt from rd_data.tb_broadcast_room where mem_no = #{mem_no} and state != 4
+    </select>
+
+    <select id="callMemberListening_check" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo" resultType="integer">
+        /* M_Member.xml - callMemberListening_check */
+        /* 청취중 상태 count */
+        select count(*) from rd_data.tb_broadcast_room_member where mem_no=#{mem_no} and state=0
     </select>
 
     <update id="callMemberBasicReport_Edit" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
@@ -315,6 +321,9 @@
             , a.mem_no
             , b.mem_nick
             , b.mem_sex
+            , b.mem_birth_year
+            , b.mem_birth_month
+            , b.mem_birth_day
             , a.os_type
             , a.device_uuid
             , a.device_token

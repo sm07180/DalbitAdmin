@@ -32,5 +32,8 @@ public class SpecialReqVo extends PagingVo {
     private String image_profile;
     private String mem_nick;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
 
 }

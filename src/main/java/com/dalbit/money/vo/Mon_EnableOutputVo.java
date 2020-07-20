@@ -12,6 +12,9 @@ public class Mon_EnableOutputVo {
     private String mem_userid;
     private String mem_nick;
     private String image_profile;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private int mem_state;
     private String mem_sex;
     private int gold;

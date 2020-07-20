@@ -31,7 +31,7 @@ var BroadcastDataTableSource = {
                     }
                     return tmp;
                 }},
-            {'title': 'DJ ID', 'data': 'dj_userid','width' : '65px','render': function (data, type, row, meta) {
+            {'title': 'DJ 회원번호', 'data': 'dj_mem_no','width' : '65px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.dj_mem_no);
                     tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
                     return tmp;

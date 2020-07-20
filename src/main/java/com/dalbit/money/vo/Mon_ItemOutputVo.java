@@ -13,6 +13,9 @@ public class Mon_ItemOutputVo {
     private String mem_userid;
     private String mem_nick;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private int inner;
     private int currentGold;
     private int currentRuby;

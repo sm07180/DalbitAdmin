@@ -112,7 +112,7 @@
                             <tr>
                                 <th>프로필 이미지</th>
                                 <th>태그부분</th>
-                                <th>User ID</th>
+                                <th>회원번호</th>
                                 <th>User 닉네임</th>
                                 <th>성별</th>
                                 <th>보유결제금액</th>
@@ -227,12 +227,12 @@
             {{#equal badge_popular '1'}} <span class ="label" style="background-color:#3761d9">인기</span><br/> {{/equal}}<br>
             {{#equal badge_newdj '1'}} <span class ="label" style="background-color:#d9c811">신입</span> {{/equal}}
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_id}}</a> <br /> <br />
+        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a> <br /> <br />
             레벨 : {{level}} <br />
             등급 : {{grade}}
         </td>
         <td>{{mem_nick}}</td>
-        <td>{{{sexIcon mem_sex}}}</td>
+        <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
         <td>{{addComma money}}원</td>
         <td>{{addComma byeol}}개</td>
         <td>{{addComma gifted_mem_no}}개</td>

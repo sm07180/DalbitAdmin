@@ -23,5 +23,9 @@ public class P_WithdrawalListOutputVo extends SearchVo {
     private String mem_phone;		// 연락처
     private String start_date;		// 시작일자
     private String end_date;		// 종료일자
-    
+
+    private String mem_birth_year;  // 회원 생년월일
+    private String mem_birth_month; // 회원 생년월일
+    private String mem_birth_day;   // 회원 생년월일
+
 }

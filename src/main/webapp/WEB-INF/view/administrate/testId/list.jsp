@@ -347,7 +347,7 @@
             <td>{{user.mem_no}}</td>
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
             <td>{{user.mem_nick}}</td>
-            <td>{{{sexIcon user.mem_sex}}}</td>
+            <td>{{{sexIcon user.mem_sex}}} <br/> ({{user.koreanAge}})</td>
             <td>{{user.charge}}</td>
             <td>{{user.chargeDate}}</td>
             <td>{{user.lastOpName}}</td>

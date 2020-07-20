@@ -8,6 +8,9 @@
                 ,c.mem_userid
                 ,c.mem_nick
                 ,c.mem_sex
+                ,c.mem_birth_year
+                ,c.mem_birth_month
+                ,c.mem_birth_day
                 ,c.inner
                 ,(select grade From rd_data.tb_member_level where mem_no = a.mem_no) as mem_grade
                 ,(select `level` From rd_data.tb_member_level where mem_no = a.mem_no) as mem_level

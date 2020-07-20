@@ -832,7 +832,7 @@
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
         <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex}}}</td>
+        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
 
         <td>{{data.birth}}</td>
         <td>{{{calcAge data.birth}}}{{#equal data.recant_yn 'y'}}<br /><span style='font-weight:bold'>[철회됨]</span>{{/equal}}</td>
@@ -1036,7 +1036,7 @@
                                            성별
                                         </th>
                                         <td>
-                                            {{{sexIcon parentInfo.parents_sex}}}
+                                            {{{sexIcon parentInfo.parents_sex parentInfo.mem_birth_year}}}
                                         </td>
                                     </tr>
                                     <tr>
@@ -1206,7 +1206,7 @@
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_userid}}</td>
         <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex}}}</td>
+        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
         <td>{{addComma data.gold}}별</td>
         <td>{{math data.gold "*" 60}}원</td>
         <td>{{specialBenefit data.gold data.specialCnt}}원</td>
@@ -1300,7 +1300,7 @@
         </td>
         <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
         <td>{{data.mem_nick}}</td>
-        <td>{{{sexIcon data.mem_sex}}}</td>
+        <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
         <td>{{data.mem_name}}</td>
         <td>{{data.account_name}}</td>
         <td>{{addComma data.cash_basic}}원</td>
