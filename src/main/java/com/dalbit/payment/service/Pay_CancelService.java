@@ -167,6 +167,10 @@ public class Pay_CancelService {
             //취소 업데이트
             result = payCancelDao.sendPayCancel(cancelVo);
 
+            P_MemberEditorVo pMemberEditorVo = new P_MemberEditorVo();
+            pMemberEditorVo.setMem_no(payCancelPhoneVo.getMemno());
+            pMemberEditorVo.setMinusDalCnt(payCancelPhoneVo.getDalcnt());
+            getMemberDalMinus(pMemberEditorVo);
         }catch (Exception e){
             throw new GlobalException(Status.비즈니스로직오류);
         }
