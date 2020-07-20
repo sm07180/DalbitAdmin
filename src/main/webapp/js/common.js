@@ -352,17 +352,17 @@ common.average = function(lvalue, rvalue) {
     return tmp.toFixed(1);
 };
 
-common.sexIcon = function(sex, birthYear){
+common.sexIcon = function(sex, birthYear, isBr){
     var sex_lowercase = sex.toLowerCase();
     if(birthYear > 0){
         var date = new Date();
         var koreanAge = date.getFullYear() - birthYear + 1;
         if(sex_lowercase == 'm'){
-            return '<label class="font-bold" style="color: blue;margin-bottom: 0px"><i class="fa fa-male"></i> 남성</label>(' + koreanAge + '세)';
+            return '<label class="font-bold" style="color: blue;margin-bottom: 0px"><i class="fa fa-male"></i> 남성</label>' + (!common.isEmpty(isBr) && isBr ? '<br>' : '') + '(' + koreanAge + '세)';
         }else if(sex_lowercase == 'f'){
-            return '<label class="font-bold" style="color: red;margin-bottom: 0px"><i class="fa fa-female"></i> 여성</label>(' + koreanAge + '세)';
+            return '<label class="font-bold" style="color: red;margin-bottom: 0px"><i class="fa fa-female"></i> 여성</label>' + (!common.isEmpty(isBr) && isBr ? '<br>' : '') + '(' + koreanAge + '세)';
         }else{
-            return '<label class="font-bold" style="margin-bottom: 0px;"><i class="fa fa-question"></i> 알수없음</label>(' + koreanAge + '세)';
+            return '<label class="font-bold" style="margin-bottom: 0px;"><i class="fa fa-question"></i> 알수없음</label>' + (!common.isEmpty(isBr) && isBr ? '<br>' : '') + '(' + koreanAge + '세)'
         }
     }else{
         if(sex_lowercase == 'm'){
