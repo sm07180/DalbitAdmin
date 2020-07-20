@@ -117,7 +117,7 @@ var BroadcastDataTableSource = {
                     }
                     return tmp;
                 }},
-            {'title': 'DJ ID', 'data': 'dj_userid','width' : '65px','render': function (data, type, row, meta) {
+            {'title': 'DJ 회원번호', 'data': 'dj_mem_no','width' : '65px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.dj_mem_no);
                     tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
                     return tmp;
@@ -183,14 +183,14 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','render':function(data){
                     return common.timeStamp(data);
                 }},
-            {'title': 'DJ ID', 'data': 'dj_userid','render': function (data, type, row, meta) {
+            {'title': 'DJ 회원번호', 'data': 'dj_mem_no','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.dj_mem_no);
                     tmp = tmp + '<br/>' +  row.dj_level +" / "+ row.dj_grade;
                     return tmp;
                 }},
             {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
             {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data) + "(" +row.dj_korean_age + "세)";
                 }},
             {'title': '숨김상태', 'data': 'hide', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";
@@ -252,14 +252,14 @@ var BroadcastDataTableSource = {
                     }
                 }},
 
-            {'title': 'User ID', 'data': 'userID', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no', 'width':'100px', 'render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
                     return tmp;
                 }},
             {'title': 'User 닉네임', 'data': 'nickName', 'width':'140px'},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '청취 시작 일시', 'data': 'startDateFormat', 'width':'120px'},
             {'title': '청취 종료시간', 'data': 'endDateFormat', 'width':'120px'},
@@ -292,14 +292,14 @@ var BroadcastDataTableSource = {
     'likeDetail': {
         'url': '/rest/broadcast/like/list'
         , 'columns': [
-            {'title': '보낸 User ID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no', 'width':'100px', 'render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
                     return tmp;
                 }},
             {'title': '보낸 User 닉네임', 'data': 'mem_nick','width' : '150px'},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '좋아요 보낸 일시', 'data': 'goodDate','width' : '150px'},
             {'title': '누적 부스터', 'data': 'accumCnt','width' : '150px', 'render': function (data) {
@@ -318,14 +318,14 @@ var BroadcastDataTableSource = {
     'giftDetail': {
         'url': '/rest/broadcast/gift/list'
         , 'columns': [
-            {'title': '보낸 User ID', 'data': 'userId', 'render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
                     return tmp;
                 }},
             {'title': '보낸 User 닉네임', 'data': 'nickName'},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '보낸 일시', 'data': 'giftDateFormat'},
             {'title': '몰래보낸선물', 'data': 'secret', 'render': function (data, type, row, meta) {
@@ -350,14 +350,14 @@ var BroadcastDataTableSource = {
     'storyDetail': {
         'url': '/rest/broadcast/story/list'
         , 'columns': [
-            {'title': '사연 보낸 청취자 ID','data':'userId', 'render': function (data, type, row, meta) {
+            {'title': '회원번호','data':'mem_no', 'render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.level +" / "+ row.grade;
                     return tmp;
                 }},
             {'title': '사연 보낸 청취자 닉네임', 'data': 'nickName'},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '보낸 일시', 'data': 'writeDateFormat'},
             {'title': '사연 내용', 'data': 'contents', 'render': function (data, type, row, meta) {

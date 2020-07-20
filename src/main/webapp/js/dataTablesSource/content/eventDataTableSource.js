@@ -150,8 +150,8 @@ var EventDataTableSource = {
     'reply': {
         'url': '/rest/content/event/reply'
         , 'columns': [
-            {'title': '회원 아이디', 'width':'80px', 'data': 'userId', 'render': function (data, type, row, meta) {
-                    var result = '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.write_mem_no + '">' + row.userId + '</a>' +
+            {'title': '회원 번호', 'width':'80px', 'data': 'write_mem_no', 'render': function (data, type, row, meta) {
+                    var result = '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.write_mem_no + '">' + row.write_mem_no + '</a>' +
                         '<p class="no-margin">' + row.level +' / ' + row.grade + '</p>';
                     return result;
                 }},

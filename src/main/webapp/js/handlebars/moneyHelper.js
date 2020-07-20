@@ -57,7 +57,7 @@ Handlebars.registerHelper("exchangeAmt", function (star, isSpecial) {
 });
 
 Handlebars.registerHelper("adultStatusCheck", function (age, recantYn, opt) {
-    if(common.calcAge(age) < 19) {
+    if(common.calcAge(age) < 20) {
         //미성년
         if(recantYn == null || recantYn == 'y'){
             return opt.inverse(this);

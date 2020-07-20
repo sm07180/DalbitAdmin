@@ -38,9 +38,8 @@ var RestrictionsDataTableSource = {
     ,'forcedList': {
         'url': '/rest/customer/restrictions/forced/list'
         , 'columns': [
-            {'title': '회원번호', 'data': 'mem_no', 'width':'100px'}
-            ,{'title': 'UserId', 'data': 'mem_userid', 'width':'90px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + data + '</a>';
+            {'title': '회원번호', 'data': 'mem_no', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo="' + data + '">' + data + '</a>';
                 }}
             ,{'title': '닉네임', 'data': 'mem_nick', 'width':'120px'}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
@@ -58,9 +57,8 @@ var RestrictionsDataTableSource = {
             ,{'title': '방송방제목', 'data': 'title', 'render': function (data, type, row, meta) {
                     return util.roomNoLink(data, row.room_no);
                 }}
-            ,{'title': 'DJ 회원번호', 'data': 'dj_mem_no', 'width':'100px'}
-            ,{'title': 'DJ UserId', 'data': 'dj_mem_userid', 'width':'90px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.dj_mem_no + '">' + data + '</a>';
+            ,{'title': 'DJ 회원번호', 'data': 'dj_mem_no', 'width':'100px', 'render': function (data, type, row, meta) {
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo="' + data + '">' + data + '</a>';
                 }}
             ,{'title': 'DJ 닉네임', 'data': 'dj_mem_nick', 'width':'120px'}
             // ,{'title': '회원디바이스', 'data': 'device_token'}
