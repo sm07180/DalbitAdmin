@@ -1178,7 +1178,7 @@
         <tr>
             <th>No</th>
             <th>상태</th>
-            <th>회원No</th>
+            <th>회원번호</th>
             <th>아이디</th>
             <th>닉네임</th>
             <th>성별</th>
