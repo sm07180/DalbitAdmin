@@ -189,7 +189,7 @@ var BroadcastDataTableSource = {
                     return tmp;
                 }},
             {'title': 'DJ 닉네임', 'data': 'dj_nickname'},
-            {'title': '성별', 'data': 'dj_memSex', 'width':'70px', 'render': function (data, type, row, meta) {
+            {'title': '성별', 'data': 'dj_memSex', 'width':'100px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data) + "(" +row.dj_korean_age + "세)";
                 }},
             {'title': '숨김상태', 'data': 'hide', 'render': function (data, type, row, meta) {

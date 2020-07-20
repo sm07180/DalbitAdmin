@@ -21,5 +21,5 @@ public interface Con_BannerDao {
     int callContentsBannerAdd(P_bannerInsertVo pBannerInsertVo);
     int callContentsBannerEdit(P_bannerUpdateVo pBannerUpdateVo);
     int callContentsBannerDelete(P_bannerDeleteVo pBannerDeleteVo);
-    
+
 }

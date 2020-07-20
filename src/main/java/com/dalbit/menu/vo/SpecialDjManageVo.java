@@ -24,6 +24,8 @@ public class SpecialDjManageVo extends PagingVo {
     private int condition_data2;
     private String condition_code3;
     private int condition_data3;
+    private int is_view;
+    private int platform;
     private String pc_image_url;
     private String mobile_image_url;
     private String reg_date;
