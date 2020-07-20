@@ -140,7 +140,7 @@ public class Mem_MemberService {
         P_MemberInfoOutputVo certification = mem_MemberDao.callMemberCertification(pMemberInfoInputVo);
         if(!DalbitUtil.isEmpty(certification)){
             //memberInfo.setCertification("통신사: " + certification.getComm_company() + " | 본인인증: Y");
-            memberInfo.setComm_company(certification.getComm_company());
+            memberInfo.setComm_company(certification.getComm_company().equals("KTF") ? "KT" : certification.getComm_company());
             memberInfo.setAuth_yn("Yes");
             memberInfo.setParents_agree_yn(certification.getParents_agree_yn());
             memberInfo.setRecant_yn(certification.getRecant_yn());
