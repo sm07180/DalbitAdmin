@@ -303,6 +303,8 @@
             , condition_data2
             , condition_code3
             , condition_data3
+            , is_view
+            , platform
             , pc_image_url
             , mobile_image_url
             , DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') reg_date
@@ -330,6 +332,8 @@
             , condition_data2
             , condition_code3
             , condition_data3
+            , is_view
+            , platform
             , pc_image_url
             , mobile_image_url
             , reg_date
@@ -348,6 +352,8 @@
             , #{condition_data2}
             , #{condition_code3}
             , #{condition_data3}
+            , #{is_view}
+            , #{platform}
             , #{pc_image_url}
             , #{mobile_image_url}
             , now()
@@ -369,6 +375,8 @@
             , condition_data2 = #{condition_data2}
             , condition_code3 = #{condition_code3}
             , condition_data3 = #{condition_data3}
+            , is_view = #{is_view}
+            , platform = #{platform}
             , pc_image_url = #{pc_image_url}
             , mobile_image_url = #{mobile_image_url}
             , last_upd_date = now()

@@ -55,6 +55,7 @@
 
 <script type="text/javascript" src="/js/dataTablesSource/menu/specialDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
 
@@ -222,52 +223,122 @@
         $('#condition_end_date').datepicker();
     }
 
-    $(document).on('click', '#_insertBtn', function(){
-        var data = {
-            select_year : $("#select_year").val()
-            , select_month : $("#select_month").val()
+    function validationCheck(){
+        var title = $("#title");
+        if(common.isEmpty(title.val())){
+            alert('제목을 입력해주세요.');
+            title.focus();
+            return false;
         }
-        util.getAjaxData("insertManageInfo", "/rest/menu/special/insertManageInfo", $("#manageForm").serialize(), fn_success_insertManageInfo);
+
+        var req_start_date = $("#req_start_date");
+        if(common.isEmpty(req_start_date.val())){
+            alert('신청기간 시작일을 선택해주세요.');
+            req_start_date.focus();
+            return false;
+        }
+
+        var req_end_date = $("#req_end_date");
+        if(common.isEmpty(req_end_date.val())){
+            alert('신청기간 종료일을 선택해주세요.');
+            req_end_date.focus();
+            return false;
+        }
+
+        var condition_start_date = $("#condition_start_date");
+        if(common.isEmpty(condition_start_date.val())){
+            alert('데이터 수집기간 시작일을 선택해주세요.');
+            condition_start_date.focus();
+            return false;
+        }
+
+        var condition_end_date = $("#condition_end_date");
+        if(common.isEmpty(condition_end_date.val())){
+            alert('데이터 수집기간 종료일을 선택해주세요.');
+            condition_end_date.focus();
+            return false;
+        }
+
+        var condition_data1 = $("#condition_data1");
+        if(common.isEmpty(condition_data1.val())){
+            alert('자격요건을 입력해주세요.');
+            condition_data1.focus();
+            return false;
+        }
+
+        var condition_data2 = $("#condition_data2");
+        if(common.isEmpty(condition_data2.val())){
+            alert('자격요건을 입력해주세요.');
+            condition_data2.focus();
+            return false;
+        }
+
+        var condition_data3 = $("#condition_data3");
+        if(common.isEmpty(condition_data3.val())){
+            alert('자격요건을 입력해주세요.');
+            condition_data3.focus();
+            return false;
+        }
+
+        var condition_data3 = $("#condition_data3");
+        if(common.isEmpty(condition_data3.val())){
+            alert('자격요건을 입력해주세요.');
+            condition_data3.focus();
+            return false;
+        }
+        if(0 == $('input[name="is_view"]:radio:checked').length){
+            alert('게시여부를 선택해주세요.');
+            return false;
+        }
+
+        if(0 == $('input[name="platform"]:radio:checked').length){
+            alert('플랫폼을 선택해주세요.');
+            return false;
+        }
+
+        var pc_image_url = $("#pc_image_url");
+        if(common.isEmpty(pc_image_url.val())){
+            alert('pc 이미지를 입력해주세요.');
+            pc_image_url.focus();
+            return false;
+        }
+
+        var mobile_image_url = $("#mobile_image_url");
+        if(common.isEmpty(mobile_image_url.val())){
+            alert('모바일 이미지를 입력해주세요.');
+            mobile_image_url.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    $(document).on('click', '#_insertBtn', function(){
+        if(validationCheck()){
+            var data = {
+                select_year : $("#select_year").val()
+                , select_month : $("#select_month").val()
+            }
+            util.getAjaxData("insertManageInfo", "/rest/menu/special/insertManageInfo", $("#manageForm").serialize(), fn_success_insertManageInfo);
+        }
     });
 
     $(document).on('click', '#_updateBtn', function(){
-        var data = {
-            select_year : $("#select_year").val()
-            , select_month : $("#select_month").val()
+        if(validationCheck()){
+            var data = {
+                select_year : $("#select_year").val()
+                , select_month : $("#select_month").val()
+            }
+            util.getAjaxData("updateManageInfo", "/rest/menu/special/updateManageInfo", $("#manageForm").serialize(), fn_success_insertManageInfo);
         }
-        util.getAjaxData("updateManageInfo", "/rest/menu/special/updateManageInfo", $("#manageForm").serialize(), fn_success_insertManageInfo);
     });
 
     $(document).on('click', '#pcPrevBtn', function(){
-        var tr = $("#pcPrevBtn").closest('tr');
-
-        if(0 == $("#pcImgPrevTr").length){
-            var html = "<tr id='pcImgPrevTr'>";
-            html +=         "<td colspan='2'>";
-            html +=             "<img src='"+$("#pc_image_url").val()+"' height='100px' class='thumbnail fullSize_background' />";
-            html +=         "</td>";
-            html +=    "</tr>"
-
-            tr.after(html);
-        }else{
-            $("#pcImgPrevTr").find('img').attr('src', $("#pc_image_url").val());
-        }
+        $("#pcImgPrevTd").find('img').attr('src', $("#pc_image_url").val());
     });
 
     $(document).on('click', '#mobilePrevBtn', function(){
-        var tr = $("#mobilePrevBtn").closest('tr');
-
-        if(0 == $("#mobileImgPrevTr").length){
-            var html = "<tr id='mobileImgPrevTr'>";
-            html +=         "<td colspan='2'>";
-            html +=             "<img src='"+$("#mobile_image_url").val()+"' height='100px' class='thumbnail fullSize_background' />";
-            html +=         "</td>";
-            html +=    "</tr>"
-
-            tr.after(html);
-        }else{
-            $("#mobileImgPrevTr").find('img').attr('src', $("#mobile_image_url").val());
-        }
+        $("#mobileImgPrevTd").find('img').attr('src', $("#mobile_image_url").val());
     });
 
     function fn_success_insertManageInfo(dst_id, response, param){
@@ -449,33 +520,35 @@
                                     </tr>
 
                                     <tr>
+                                        <th>게시여부</th>
+                                        <td colspan="3">{{{getCommonCodeRadio this.specialDjManageInfo.is_view 'content_viewOn' null 'is_view'}}}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>플랫폼</th>
+                                        <td colspan="3">{{{getCommonCodeRadio this.specialDjManageInfo.platform 'content_platform4' null 'platform'}}}</td>
+                                    </tr>
+
+                                    <tr>
                                         <th>pc 이미지</th>
-                                        <td colspan="3">
+                                        <td colspan="2">
                                             <input type="text" class="form-control" style="width:80%" id="pc_image_url" name="pc_image_url" value="{{this.specialDjManageInfo.pc_image_url}}" />
                                             <button type="button" id="pcPrevBtn">미리보기</button>
                                         </td>
+                                        <td id="pcImgPrevTd">
+                                            <img src="{{this.specialDjManageInfo.pc_image_url}}" height="70px" class="thumbnail fullSize_background" />
+                                        </td>
                                     </tr>
-                                    {{#if this.specialDjManageInfo}}
-                                        <tr id="pcImgPrevTr">
-                                            <td colspan="4">
-                                                <img src="{{this.specialDjManageInfo.pc_image_url}}" height="100px" class="thumbnail fullSize_background" />
-                                            </td>
-                                        </tr>
-                                    {{/if}}
                                     <tr>
                                         <th>모바일 이미지</th>
-                                        <td colspan="3">
+                                        <td colspan="2">
                                             <input type="text" class="form-control" style="width:80%" id="mobile_image_url" name="mobile_image_url" value="{{this.specialDjManageInfo.mobile_image_url}}" />
                                             <button type="button" id="mobilePrevBtn">미리보기</button>
                                         </td>
+                                        <td id="mobileImgPrevTd">
+                                            <img src="{{this.specialDjManageInfo.mobile_image_url}}" height="70px" class="thumbnail fullSize_background"  />
+                                        </td>
                                     </tr>
-                                    {{#if this.specialDjManageInfo}}
-                                        <tr id="mobileImgPrevTr">
-                                            <td colspan="4">
-                                                <img src="{{this.specialDjManageInfo.mobile_image_url}}" height="100px" class="thumbnail fullSize_background"  />
-                                            </td>
-                                        </tr>
-                                    {{/if}}
 
                                     {{#if this.specialDjManageInfo.op_name}}
                                     <tr>
