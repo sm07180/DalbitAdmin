@@ -19,18 +19,18 @@ var levelDataTableSource = {
             ,{'title': '태그', 'data' : '', 'width':'80px', 'render': function (data, type, row, meta) {
                     var tmp = "";
                     if(row.newdj_badge == "1"){
-                        tmp = tmp + '<span class ="label" style="background-color:#d9c811">' + "신입" + '</span><br/>';
+                        tmp = tmp + '<div class="mb5"><span class ="label" style="background-color:#d9c811">' + "신입" + '</span></div>';
                     }
                     if(row.specialdj_badge == "1"){
-                        tmp = tmp + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span><br/>';
+                        tmp = tmp + '<div class="mb5"><span class ="label" style="background-color:red">' + "스페셜DJ" + '</span></div>';
                     }
                     if(row.badge_value != "" && row.badge_value != null){
                         if(row.badge_value == 1){
-                            tmp = tmp + '<span class ="label" style="background-color:#006ad9">' + "회장" + '</span><br/>';
+                            tmp = tmp + '<div class="mb5"><span class ="label" style="background-color:#006ad9">' + "회장" + '</span></div>';
                         }else if(row.badge_value == 2){
-                            tmp = tmp + '<span class ="label" style="background-color:#d97c07">' + "부회장" + '</span><br/>';
+                            tmp = tmp + '<div class="mb5"><span class ="label" style="background-color:#d97c07">' + "부회장" + '</span></div>';
                         }else if(row.badge_value == 3){
-                            tmp = tmp + '<span class ="label" style="background-color:#0ed900">' + "사장" + '</span><br/>';
+                            tmp = tmp + '<div class="mb5"><span class ="label" style="background-color:#0ed900">' + "사장" + '</span></div>';
                         }
                     }
                     return tmp;

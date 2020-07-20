@@ -60,6 +60,7 @@ public class CommonService {
         result.put("roomState", setData(data, "broadcast_state"));
         result.put("roomRight", setData(data, "broadcast_auth"));
         result.put("declarReason", setData(data, "report_reason"));
+        result.put("special_dj_condition", setData(data, "special_dj_condition"));
 
         return result;
     }

@@ -140,4 +140,30 @@ public class Men_SpecialRestController {
         return result;
     }
 
+    /**
+     * 스페셜 달D 신청 상세 조회
+     */
+    @PostMapping("selectManageInfo")
+    public String manageInfo(SpecialDjManageVo specialDjManageVo) {
+        String result = menSpecialService.selectManageInfo(specialDjManageVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 관리 등록
+     */
+    @PostMapping("insertManageInfo")
+    public String insertManageInfo(SpecialDjManageVo specialDjManageVo) {
+        String result = menSpecialService.insertManageInfo(specialDjManageVo);
+        return result;
+    }
+
+    /**
+     * 스페셜 달D 신청 관리 수정
+     */
+    @PostMapping("updateManageInfo")
+    public String updateManageInfo(SpecialDjManageVo specialDjManageVo) {
+        String result = menSpecialService.updateManageInfo(specialDjManageVo);
+        return result;
+    }
 }
