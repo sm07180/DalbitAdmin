@@ -13,8 +13,8 @@
             </div>
 
             <!-- summary -->
-            <div class="pull-right no-padding">
-                <table class="table table-bordered table-summary">
+            <div class="pull-right">
+                <table class="table table-bordered table-summary pull-right">
                     <thead>
                     <th>승인 달D</th>
                     <th style="color: #ff0000;">총 신청 달D</th>
@@ -22,6 +22,8 @@
                     <tbody id="reqSummaryTableBody">
                     </tbody>
                 </table>
+
+                <button type="button" class="btn btn-primary pull-right mt10 mr15" id="bt_manage"><i class="fa fa-floppy-o"></i>신청관리</button>
             </div>
             <!-- //summary -->
 
@@ -47,6 +49,9 @@
 <div class="mt15">
     <form id="reqDalList"></form>
 </div>
+
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#detailView" id="showModal" style="display:none;">레이어팝업오픈버튼</button>
+<div class="modal fade" id="detailView" tabindex="-1" role="dialog" aria-labelledby="detailViewLabel" aria-hidden="true"></div>
 
 <script type="text/javascript" src="/js/dataTablesSource/menu/specialDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/menu/menuCodeList.js?${dummyData}"></script>
@@ -179,6 +184,105 @@
         util.excelDownload($(this), "/rest/menu/special/reqDalListExcel", formData);
     });
 
+    //신청관리 추가
+    $(document).on('click', '#bt_manage', function() {
+        var data = {
+            select_year : $("#select_year").val()
+            , select_month : $("#select_month").val()
+        }
+        util.getAjaxData("selectManageInfo", "/rest/menu/special/selectManageInfo", data, fn_success_manageInfo);
+    });
+
+    function fn_success_manageInfo(dst_id, response, param){
+        response.data.param = param;
+
+        var template = $('#tmp_req_manage').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html = templateScript(context);
+        $("#detailView").html(html);
+
+        calendarInit();
+        showModal();
+    }
+
+    function showModal(){
+        $("#showModal").click();
+    }
+
+    function closeModal(){
+        $("#layerCloseBtn").click();
+    }
+
+    function calendarInit(){
+
+        $('#req_start_date').datepicker();
+        $('#req_end_date').datepicker();
+        $('#condition_start_date').datepicker();
+        $('#condition_end_date').datepicker();
+    }
+
+    $(document).on('click', '#_insertBtn', function(){
+        var data = {
+            select_year : $("#select_year").val()
+            , select_month : $("#select_month").val()
+        }
+        util.getAjaxData("insertManageInfo", "/rest/menu/special/insertManageInfo", $("#manageForm").serialize(), fn_success_insertManageInfo);
+    });
+
+    $(document).on('click', '#_updateBtn', function(){
+        var data = {
+            select_year : $("#select_year").val()
+            , select_month : $("#select_month").val()
+        }
+        util.getAjaxData("updateManageInfo", "/rest/menu/special/updateManageInfo", $("#manageForm").serialize(), fn_success_insertManageInfo);
+    });
+
+    $(document).on('click', '#pcPrevBtn', function(){
+        var tr = $("#pcPrevBtn").closest('tr');
+
+        if(0 == $("#pcImgPrevTr").length){
+            var html = "<tr id='pcImgPrevTr'>";
+            html +=         "<td colspan='2'>";
+            html +=             "<img src='"+$("#pc_image_url").val()+"' height='100px' class='thumbnail fullSize_background' />";
+            html +=         "</td>";
+            html +=    "</tr>"
+
+            tr.after(html);
+        }else{
+            $("#pcImgPrevTr").find('img').attr('src', $("#pc_image_url").val());
+        }
+    });
+
+    $(document).on('click', '#mobilePrevBtn', function(){
+        var tr = $("#mobilePrevBtn").closest('tr');
+
+        if(0 == $("#mobileImgPrevTr").length){
+            var html = "<tr id='mobileImgPrevTr'>";
+            html +=         "<td colspan='2'>";
+            html +=             "<img src='"+$("#mobile_image_url").val()+"' height='100px' class='thumbnail fullSize_background' />";
+            html +=         "</td>";
+            html +=    "</tr>"
+
+            tr.after(html);
+        }else{
+            $("#mobileImgPrevTr").find('img').attr('src', $("#mobile_image_url").val());
+        }
+    });
+
+    function fn_success_insertManageInfo(dst_id, response, param){
+        if(response.result == 'success'){
+            if(dst_id == 'insertManageInfo'){
+                alert('스페셜DJ 신청관리가 등록되었습니다.');
+            }else if(dst_id = 'updateManageInfo'){
+                alert('스페셜DJ 신청관리가 수정되었습니다.');
+            }
+
+            closeModal();
+        }
+
+    }
+
 </script>
 
 <script id="tmp_reqDalList" type="text/x-handlebars-template">
@@ -245,4 +349,166 @@
             </div>
         </div>
     </div>
+</script>
+
+
+<script type="text/x-handlebars-template" id="tmp_req_manage">
+    <form id="manageForm">
+        <input type="hidden" name="idx" value="{{this.specialDjManageInfo.idx}}" />
+        <div class="modal-dialog" style="width:600px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="layerCloseBtn">&times;</button>
+                    <h4 class="modal-title" id="_layerTitle">스페셜 DJ 신청 관리</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12 form-inline block _modalLayer">
+                        <div class="col-lg-12">
+                            <table id="list_info" class="table table-sorting table-hover table-bordered">
+                                <tbody id="tableBody">
+
+                                    <tr>
+                                        <th>선정기간</th>
+                                        <td colspan="3">
+                                            {{this.param.select_year}}년 {{this.param.select_month}}월
+                                            <input type="hidden" name="select_year" id="select_year" value="{{this.param.select_year}}" />
+                                            <input type="hidden" name="select_month" id="select_month" value="{{this.param.select_month}}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>제목</th>
+                                        <td colspan="3">
+                                            <input type="text" class="form-control" style="width:100%" id="title" name="title" value="{{this.specialDjManageInfo.title}}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>신청 기간</th>
+                                        <td colspan="3">
+                                            <div class="form-inline">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon" id="view-iconStartDate"><i class="fa fa-calendar"></i></span>
+                                                    <input type="text" class="form-control" name="req_start_date" id="req_start_date" style="width:100px; background:white;" readonly="" value="{{this.specialDjManageInfo.req_start_date}}" />
+                                                </div>
+                                                <span> ~ </span>
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon" id="view-iconEndDate"><i class="fa fa-calendar"></i></span>
+                                                    <input type="text" class="form-control" name="req_end_date" id="req_end_date" style="width:100px; background:white;" readonly="" value="{{this.specialDjManageInfo.req_end_date}}" />
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>데이터 수집 기간</th>
+                                        <td colspan="3">
+                                            <div class="form-inline">
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input type="text" class="form-control" name="condition_start_date" id="condition_start_date" style="width:100px; background:white;" readonly="" value="{{this.specialDjManageInfo.condition_start_date}}">
+                                                </div>
+                                                <span> ~ </span>
+                                                <div class="input-group date">
+                                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                                    <input type="text" class="form-control" name="condition_end_date" id="condition_end_date" style="width:100px; background:white;" readonly="" value="{{this.specialDjManageInfo.condition_end_date}}">
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>자격요건1</th>
+                                        <td colspan="3">
+
+                                            <select class="form-control" name="condition_code1">
+                                                {{#each this.specialDjCondition}}
+                                                    <option value="{{cd}}" {{#equal ../specialDjManageInfo.condition_code1 cd}}selected{{/equal}}>{{cdNm}}</option>
+                                                {{/each}}
+                                            </select>
+                                            <input type="text" class="form-control" id="condition_data1" name="condition_data1" value="{{this.specialDjManageInfo.condition_data1}}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>자격요건2</th>
+                                        <td colspan="3">
+                                            <select class="form-control" name="condition_code2">
+                                                {{#each this.specialDjCondition}}
+                                                    <option value="{{cd}}" {{#equal ../specialDjManageInfo.condition_code2 cd}}selected{{/equal}}>{{cdNm}}</option>
+                                                {{/each}}
+                                            </select>
+                                            <input type="text" class="form-control" id="condition_data2" name="condition_data2" value="{{this.specialDjManageInfo.condition_data2}}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>자격요건3</th>
+                                        <td colspan="3">
+                                            <select class="form-control" name="condition_code3">
+                                                {{#each this.specialDjCondition}}
+                                                    <option value="{{cd}}" {{#equal ../specialDjManageInfo.condition_code3 cd}}selected{{/equal}}>{{cdNm}}</option>
+                                                {{/each}}
+                                            </select>
+                                            <input type="text" class="form-control" id="condition_data3" name="condition_data3" value="{{this.specialDjManageInfo.condition_data3}}" />
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>pc 이미지</th>
+                                        <td colspan="3">
+                                            <input type="text" class="form-control" style="width:80%" id="pc_image_url" name="pc_image_url" value="{{this.specialDjManageInfo.pc_image_url}}" />
+                                            <button type="button" id="pcPrevBtn">미리보기</button>
+                                        </td>
+                                    </tr>
+                                    {{#if this.specialDjManageInfo}}
+                                        <tr id="pcImgPrevTr">
+                                            <td colspan="4">
+                                                <img src="{{this.specialDjManageInfo.pc_image_url}}" height="100px" class="thumbnail fullSize_background" />
+                                            </td>
+                                        </tr>
+                                    {{/if}}
+                                    <tr>
+                                        <th>모바일 이미지</th>
+                                        <td colspan="3">
+                                            <input type="text" class="form-control" style="width:80%" id="mobile_image_url" name="mobile_image_url" value="{{this.specialDjManageInfo.mobile_image_url}}" />
+                                            <button type="button" id="mobilePrevBtn">미리보기</button>
+                                        </td>
+                                    </tr>
+                                    {{#if this.specialDjManageInfo}}
+                                        <tr id="mobileImgPrevTr">
+                                            <td colspan="4">
+                                                <img src="{{this.specialDjManageInfo.mobile_image_url}}" height="100px" class="thumbnail fullSize_background"  />
+                                            </td>
+                                        </tr>
+                                    {{/if}}
+
+                                    {{#if this.specialDjManageInfo.op_name}}
+                                    <tr>
+                                        <th>등록자</th>
+                                        <td>{{this.specialDjManageInfo.op_name}}</td>
+                                        <th>등록일</th>
+                                        <td>{{this.specialDjManageInfo.reg_date}}</td>
+                                    </tr>
+                                    {{/if}}
+
+                                    {{#if this.specialDjManageInfo.last_op_name}}
+                                    <tr>
+                                        <th>수정자</th>
+                                        <td>{{this.specialDjManageInfo.last_op_name}}</td>
+                                        <th>수정일</th>
+                                        <td>{{this.specialDjManageInfo.last_upd_date}}</td>
+                                    </tr>
+                                    {{/if}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-left" data-dismiss="modal"><i class="fa fa-times-circle"></i> 닫기</button>
+
+                    {{#if this.specialDjManageInfo}}
+                        <button type="button" class="btn btn-success" id="_updateBtn"><i class="fa fa-times-circle"></i> 수정</button>
+                    {{else}}
+                        <button type="button" class="btn btn-success" id="_insertBtn"><i class="fa fa-times-circle"></i> 등록</button>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </form>
 </script>

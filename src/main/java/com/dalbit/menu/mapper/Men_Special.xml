@@ -285,4 +285,95 @@
         set `order` = #{order}
         where mem_no = #{mem_no}
     </update>
+
+    <select id="selectManageInfo" parameterType="com.dalbit.menu.vo.SpecialDjManageVo" resultType="com.dalbit.menu.vo.SpecialDjManageVo">
+        /* Men_Special.xml - selectManageInfo */
+        select
+            idx
+            , title
+            , select_year
+            , select_month
+            , DATE_FORMAT(req_start_date, '%Y-%m-%d') req_start_date
+            , DATE_FORMAT(req_end_date, '%Y-%m-%d') req_end_date
+            , DATE_FORMAT(condition_start_date, '%Y-%m-%d') condition_start_date
+            , DATE_FORMAT(condition_end_date, '%Y-%m-%d') condition_end_date
+            , condition_code1
+            , condition_data1
+            , condition_code2
+            , condition_data2
+            , condition_code3
+            , condition_data3
+            , pc_image_url
+            , mobile_image_url
+            , DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') reg_date
+            , op_name
+            , DATE_FORMAT(last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
+            , last_op_name
+        from rd_admin.tb_req_special_dj_manage
+        where select_year = #{select_year}
+            and select_month = #{select_month}
+    </select>
+
+    <insert id="insertManageInfo" parameterType="com.dalbit.menu.vo.SpecialDjManageVo">
+        /* Men_Special.xml - insertManageInfo */
+        insert into rd_admin.tb_req_special_dj_manage(
+            title
+            , select_year
+            , select_month
+            , req_start_date
+            , req_end_date
+            , condition_start_date
+            , condition_end_date
+            , condition_code1
+            , condition_data1
+            , condition_code2
+            , condition_data2
+            , condition_code3
+            , condition_data3
+            , pc_image_url
+            , mobile_image_url
+            , reg_date
+            , op_name
+        ) values (
+            #{title}
+            , #{select_year}
+            , #{select_month}
+            , #{req_start_date}
+            , #{req_end_date}
+            , #{condition_start_date}
+            , #{condition_end_date}
+            , #{condition_code1}
+            , #{condition_data1}
+            , #{condition_code2}
+            , #{condition_data2}
+            , #{condition_code3}
+            , #{condition_data3}
+            , #{pc_image_url}
+            , #{mobile_image_url}
+            , now()
+            , #{op_name}
+        )
+    </insert>
+
+    <update id="updateManageInfo" parameterType="com.dalbit.menu.vo.SpecialDjManageVo">
+        /* Men_Special.xml - updateManageInfo */
+        update rd_admin.tb_req_special_dj_manage
+        set title = #{title}
+            , req_start_date = #{req_start_date}
+            , req_end_date = #{req_end_date}
+            , condition_start_date = #{condition_start_date}
+            , condition_end_date = #{condition_end_date}
+            , condition_code1 = #{condition_code1}
+            , condition_data1 = #{condition_data1}
+            , condition_code2 = #{condition_code2}
+            , condition_data2 = #{condition_data2}
+            , condition_code3 = #{condition_code3}
+            , condition_data3 = #{condition_data3}
+            , pc_image_url = #{pc_image_url}
+            , mobile_image_url = #{mobile_image_url}
+            , last_upd_date = now()
+            , last_op_name = #{op_name}
+        where select_year = #{select_year}
+            and select_month = #{select_month}
+    </update>
 </mapper>

@@ -1,9 +1,6 @@
 package com.dalbit.menu.dao;
 
-import com.dalbit.menu.vo.SpecialDjOrderVo;
-import com.dalbit.menu.vo.SpecialReqVo;
-import com.dalbit.menu.vo.SpecialSummaryVo;
-import com.dalbit.menu.vo.SpecialVo;
+import com.dalbit.menu.vo.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,5 +42,11 @@ public interface Men_SpecialDao {
     int reqCancel(SpecialVo specialVo);
 
     int updateOrder(SpecialDjOrderVo specialDjOrderVo);
+
+    SpecialDjManageVo selectManageInfo(SpecialDjManageVo specialDjManageVo);
+
+    int insertManageInfo(SpecialDjManageVo specialDjManageVo);
+
+    int updateManageInfo(SpecialDjManageVo specialDjManageVo);
 
 }

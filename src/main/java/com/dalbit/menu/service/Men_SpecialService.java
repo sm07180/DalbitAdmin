@@ -1,6 +1,10 @@
 package com.dalbit.menu.service;
 
 import com.dalbit.common.code.Status;
+import com.dalbit.common.dao.CommonDao;
+import com.dalbit.common.service.CommonService;
+import com.dalbit.common.vo.CodeListVo;
+import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.excel.service.ExcelService;
@@ -11,14 +15,12 @@ import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberReportVo;
 import com.dalbit.menu.dao.Men_SpecialDao;
-import com.dalbit.menu.vo.SpecialDjOrderVo;
-import com.dalbit.menu.vo.SpecialReqVo;
-import com.dalbit.menu.vo.SpecialSummaryVo;
-import com.dalbit.menu.vo.SpecialVo;
+import com.dalbit.menu.vo.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,9 @@ public class Men_SpecialService {
 
     @Autowired
     Mem_MemberDao mem_MemberDao;
+
+    @Autowired
+    CommonService commonService;
 
     /**
      * 스페셜 달D 건수
@@ -309,6 +314,59 @@ public class Men_SpecialService {
 
         }catch (Exception e){
             return gsonUtil.toJson(new JsonOutputVo(Status.스페셜DJ순위변경_실패));
+        }
+    }
+
+    /**
+     * 스페셜 달D 신청 관리 조회
+     */
+    public String selectManageInfo(SpecialDjManageVo specialDjManageVo) {
+
+        try{
+
+            SpecialDjManageVo specialDjManageInfo = menSpecialDao.selectManageInfo(specialDjManageVo);
+            List<CodeVo> specialDjCondition = commonService.getCodeList("special_dj_condition");
+
+            var result = new HashMap();
+            result.put("specialDjManageInfo", specialDjManageInfo);
+            result.put("specialDjCondition", specialDjCondition);
+
+            return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
+
+    /**
+     * 스페셜 달D 신청 관리 조회
+     */
+    public String insertManageInfo(SpecialDjManageVo specialDjManageVo) {
+
+        try{
+            specialDjManageVo.setOp_name(MemberVo.getMyMemNo());
+            menSpecialDao.insertManageInfo(specialDjManageVo);
+
+            return gsonUtil.toJson(new JsonOutputVo(Status.생성));
+
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
+        }
+    }
+
+    /**
+     * 스페셜 달D 신청 관리 조회
+     */
+    public String updateManageInfo(SpecialDjManageVo specialDjManageVo) {
+
+        try{
+            specialDjManageVo.setOp_name(MemberVo.getMyMemNo());
+            menSpecialDao.updateManageInfo(specialDjManageVo);
+
+            return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+
+        }catch (Exception e){
+            return gsonUtil.toJson(new JsonOutputVo(Status.비즈니스로직오류));
         }
     }
 }
