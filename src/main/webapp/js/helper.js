@@ -262,7 +262,7 @@ Handlebars.registerHelper("isChild", function(birthDate, options) {
 
 Handlebars.registerHelper("calcAge", function(value, state) {
     console.log(value);
-   if(common.calcAge(value) < 18) {
+   if(common.calcAge(value) < 20) {
        state = '<span style="color:red">미성년자</span>';
    } else {
        state = '-';

@@ -431,7 +431,7 @@ common.koreaAge = function(birthDate){
 }
 
 common.isChild = function(birth){
-    return common.calcAge(birth) < 18;
+    return common.calcAge(birth) < 20;
 }
 
 common.calcAge = function(birth) {
@@ -447,7 +447,8 @@ common.calcAge = function(birth) {
     birth = birth.replace('-', '');
     var birthdayy = birth.substr(0, 4);
     var birthdaymd = birth.substr(4, 4);
-    var age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
+    //var age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
+    var age = year - birthdayy + 1;
 
     return age;
 
