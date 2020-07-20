@@ -7,6 +7,9 @@
             a.mem_no,
             a.mem_userid,
             a.mem_nick,
+            a.mem_birth_year,
+            a.mem_birth_month,
+            a.mem_birth_day,
             a.mem_name,
             a.mem_phone,
             a.mem_slct,
@@ -110,6 +113,9 @@
             , b.mem_slct
             , b.mem_sex
             , a.last_upd_date
+            , b.mem_birth_year
+            , b.mem_birth_month
+            , b.mem_birth_day
         FROM rd_data.tb_broadcast_room AS a
         LEFT JOIN
             rd_data.tb_member_basic AS b

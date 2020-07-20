@@ -14,6 +14,10 @@ public class P_BroadcastGiftHistoryOutputDetailVo extends BaseVo {
     private String mem_no;
     private String mem_userid;
     private String mem_nick;
+    private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private String item_code;
     private String item_name;
     private String item_thumbnail;

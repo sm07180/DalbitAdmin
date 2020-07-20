@@ -39,6 +39,9 @@ public class Mem_MystarService {
             MemberVo outVo = mem_MemberDao.getMemberInfo(mystarList.get(i).getMem_no_star());
             if(!DalbitUtil.isEmpty(outVo)) {
                 mystarList.get(i).setStar_sex(outVo.getMem_sex());
+                mystarList.get(i).setMem_birth_year(outVo.getMem_birth_year());
+                mystarList.get(i).setMem_birth_month(outVo.getMem_birth_month());
+                mystarList.get(i).setMem_birth_day(outVo.getMem_birth_day());
             }
         }
         String result;
@@ -60,6 +63,9 @@ public class Mem_MystarService {
             MemberVo outVo = mem_MemberDao.getMemberInfo(myfanList.get(i).getMem_no_fan());
             if(!DalbitUtil.isEmpty(outVo)) {
                 myfanList.get(i).setFan_sex(outVo.getMem_sex());
+                myfanList.get(i).setMem_birth_year(outVo.getMem_birth_year());
+                myfanList.get(i).setMem_birth_month(outVo.getMem_birth_month());
+                myfanList.get(i).setMem_birth_day(outVo.getMem_birth_day());
             }
         }
 

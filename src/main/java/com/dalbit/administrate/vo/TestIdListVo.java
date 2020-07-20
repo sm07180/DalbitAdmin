@@ -23,6 +23,10 @@ public class TestIdListVo {
     private String is_admin;
 
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
+    private String koreanAge;
     private String type;
     private String charge;
     private String chargeDate;

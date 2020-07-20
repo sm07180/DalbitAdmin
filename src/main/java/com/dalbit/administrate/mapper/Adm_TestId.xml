@@ -106,6 +106,10 @@
             , mem.mem_userId
             , mem.mem_nick
             , mem.mem_sex
+            , mem.mem_birth_year
+            , mem.mem_birth_month
+            , mem.mem_birth_day
+            , concat((date_format(now(),'%Y') - mem_birth_year) + 1,'') as koreanAge
             , mem.mem_phone
             , mem.mem_state
             , DATE_FORMAT(test.reg_date, '%Y-%m-%d %H:%i:%s') as reg_date

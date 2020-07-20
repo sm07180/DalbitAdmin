@@ -717,6 +717,9 @@
             , basic.mem_nick
             , basic.mem_state
             , basic.mem_sex
+            , basic.mem_birth_year
+            , basic.mem_birth_month
+            , basic.mem_birth_day
             , (select image_profile from rd_data.tb_member_profile where mem_no=basic.mem_no) as image_profile
             , wallet.gold
             , ifnull(exchange.exchangeCnt, 0) exchangeCnt

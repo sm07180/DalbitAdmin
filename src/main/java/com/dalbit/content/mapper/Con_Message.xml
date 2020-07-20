@@ -117,6 +117,9 @@
                 , b.mem_nick AS dj_nickname
                 , b.mem_sex AS dj_memSex
                 , b.mem_userid AS dj_userid
+                , b.mem_birth_year as dj_birth_year
+                , b.mem_birth_month as dj_birth_month
+                , b.mem_birth_day as dj_birth_day
                 , c.level AS dj_level
                 , c.grade AS dj_grade
             FROM
