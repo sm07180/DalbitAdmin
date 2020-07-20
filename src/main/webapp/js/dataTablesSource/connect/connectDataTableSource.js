@@ -4,12 +4,12 @@ var connectDataTableSource = {
         'url': '/rest/connect/user/info/current'
         , 'columns': [
             {'title': '접속일시', 'data': 'connectDateFormat'},
-            {'title': '회원번호', 'data': 'mem_no'},
-            {'title': 'UserId', 'data': 'mem_userid', 'render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
+            {'title': 'UserId', 'data': 'mem_userid'},
             {'title': '닉네임', 'data': 'mem_nick'},
-            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
+            {'title': '성별', 'data': 'mem_sex', 'width':'120px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '이름', 'data': 'mem_name'},

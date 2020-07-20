@@ -820,7 +820,7 @@
             </td>
         </tr>
         <tr>
-            <th>회원NO</th>
+            <th>회원번호</th>
             <td style="text-align: left" id="memberNo">{{mem_no}}</td>
             <th>UserId</th>
             <td style="text-align: left" id="td_userid" data-userid="{{userId}}">

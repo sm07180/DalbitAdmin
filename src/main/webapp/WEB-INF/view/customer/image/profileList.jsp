@@ -200,7 +200,7 @@ var fnc_profileList = {};
             <div>
                 <h3 class="inner list-group-item-heading">
                     <a href="javascript://" class="_openMemberPop" data-memno="{{user.mem_no}}">
-                        <h5>{{user.mem_userid}}</h5>
+                        <h5>{{user.mem_no}}</h5>
                     </a>
                 </h3>
                 <ul class="list-unstyled">

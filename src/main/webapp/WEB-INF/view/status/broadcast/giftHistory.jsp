@@ -15,7 +15,7 @@
             <tr>
                 <th>NO</th>
                 <th>선물 일시</th>
-                <th>선물한 회원 번호</th>
+                <th>회원번호</th>
                 <th>닉네임</th>
                 <th>방송방 제목</th>
                 <th>DJ ID</th>

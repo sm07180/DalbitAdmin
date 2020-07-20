@@ -18,14 +18,14 @@ var customerDataTableSource = {
             ,{'title': '신고 구분', 'data' : 'reason', 'name' : 'sortReport', 'render': function(data) {
                 return util.getCommonCodeLabel(data, declaration_reason);
                 }}
-            ,{'title': '신고자 UserID', 'data': 'mem_userid', 'render': function (data, type, row, meta) {
+            ,{'title': '신고자 회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="'+row.mem_no+'">' + data + '</a>' +
                         '<a href="javascript://" style="display:none;" class="_getDeclarationDetail" onclick="getDeclarationDetail('+meta.row+');"></a>'}}
             ,{'title': '신고자 User닉네임', 'data': 'mem_nick'}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }}
-            ,{'title': '신고 대상 UserID', 'data': 'reported_userid', 'render': function (data, type, row) {
+            ,{'title': '신고대상 회원번호', 'data': 'reported_mem_no', 'render': function (data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="'+row.reported_mem_no+'">' + data + '</a>'}
                     , 'defaultContent': '-'}
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_nick'}

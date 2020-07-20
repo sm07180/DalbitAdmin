@@ -749,7 +749,7 @@
             <col width="3%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <col width="4%"/>
+            <col width="6%"/>
             <col width="5%"/>
             <col width="5%"/>
             <!--<col width="7%"/>-->
@@ -775,7 +775,7 @@
             <th>상태</th>
             <th><input type="checkbox" id="allChk"></th>
             <th>프로필</th>
-            <th>아이디</th>
+            <th>회원번호</th>
             <th>닉네임</th>
             <th>성별</th>
             <th>가입시<br />생년월일</th>
@@ -830,7 +830,7 @@
                      style="width: 50px;height: 50px;margin-bottom: 0px;" />
             </form>
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
 
@@ -1165,7 +1165,7 @@
             <col width="10%"/>
             <col width="10%"/>
             <col width="10%"/>
-            <col width="5%"/>
+            <col width="7%"/>
             <col width="10%"/>
             <col width="10%"/>
             <col width="10%"/>
@@ -1178,7 +1178,7 @@
         <tr>
             <th>No</th>
             <th>상태</th>
-            <th>회원No</th>
+            <th>회원번호</th>
             <th>아이디</th>
             <th>닉네임</th>
             <th>성별</th>
@@ -1231,7 +1231,7 @@
             <col width="3%"/>
             <col width="5%"/>
             <col width="5%"/>
-            <col width="4%"/>
+            <col width="6%"/>
             <col width="5%"/>
             <col width="5%"/>
             <col width="7%"/>
@@ -1255,7 +1255,7 @@
             <th>상태</th>
             <th>스페셜<br />여부</th>
             <th>프로필</th>
-            <th>아이디</th>
+            <th>회원번호</th>
             <th>닉네임</th>
             <th>성별</th>
             <th>이름</th>
@@ -1298,7 +1298,7 @@
                      style="width: 50px;height: 50px;margin-bottom: 0px;" />
             </form>
         </td>
-        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_userid}}</a></td>
+        <td><a href="javascript://" class="_openMemberPop" data-memno="{{data.mem_no}}">{{data.mem_no}}</a></td>
         <td>{{data.mem_nick}}</td>
         <td>{{{sexIcon data.mem_sex data.mem_birth_year}}}</td>
         <td>{{data.mem_name}}</td>
