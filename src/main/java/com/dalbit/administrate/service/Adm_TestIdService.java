@@ -213,11 +213,17 @@ public class Adm_TestIdService {
                 adminManagerVo.setIs_admin(adminIdVo.getIs_admin());
                 List<AdminManagerVo> managerList = admTestIdDao.selectAdminManager(adminManagerVo);
                 for(int i=0; i<managerList.size(); i++) {
-                    if(managerList.get(i).getMem_no().equals(memberBadgeVo.getMem_no())) {
-                        continue;
-                    } else {
+                    if(!managerList.get(i).getMem_no().equals(memberBadgeVo.getMem_no())) {
+                        
+                        //운영자 아이디를 모두 매니저로 등록
                         adminManagerVo.setManager_mem_no(managerList.get(i).getMem_no());
                         adminManagerVo.setMem_no(adminIdVo.getMem_no());
+                        adminManagerVo.setControl("1000000001");
+                        admTestIdDao.insertBroadAdminManager(adminManagerVo);
+
+                        //운영자 아이디에 넘어온 mem_no를 매니저로 등록
+                        adminManagerVo.setManager_mem_no(adminIdVo.getMem_no());
+                        adminManagerVo.setMem_no(managerList.get(i).getMem_no());
                         adminManagerVo.setControl("1000000001");
                         admTestIdDao.insertBroadAdminManager(adminManagerVo);
                     }
