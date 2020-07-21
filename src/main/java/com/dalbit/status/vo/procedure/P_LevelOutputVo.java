@@ -32,6 +32,8 @@ public class P_LevelOutputVo extends PagingVo {
     private String levelUpDay;
     private String present;
     private String receive;
+    private int totRcvRubyCnt;
+    private String fanNickName;
 
     //summary
     private int totalLevelCnt;

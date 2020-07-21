@@ -40,17 +40,23 @@ var levelDataTableSource = {
             ,{'title': '최근레벨업일시<br/>(며칠 전)', 'data' : 'levelUpDate', 'width':'80px','render' : function(data, type, row, meta) {
                     return data + '<br/>(' + row.levelUpDay + '일 전)';
                 }}
+            ,{'title': '1위팬 닉네임<br/>(선물 수)', 'data' : 'fanNickName', 'width':'100px','render' : function(data, type, row, meta) {
+                    if(row.totRcvRubyCnt > 0){
+                        return data + '<br/>(' + common.addComma(row.totRcvRubyCnt) + ')';
+                    }
+                    return '';
+                }}
             ,{'title': '보유달', 'data' : 'dal', 'width':'80px','render' : function(data){
-                    return common.addComma(data) + "개"
+                    return common.addComma(data);
                 }}
             ,{'title': '보유별', 'data' : 'byeol', 'width':'80px','render' : function(data){
-                    return common.addComma(data) + "개"
+                    return common.addComma(data);
                 }}
-            ,{'title': '선물 한 수', 'data' : 'present', 'width':'80px','render' : function(data){
-                    return common.addComma(data) + "개"
+            ,{'title': '선물 한<br/>달/별', 'data' : 'present', 'width':'80px','render' : function(data){
+                    return common.addComma(data);
                 }}
-            ,{'title': '선물 받은 수', 'data' : 'receive', 'width':'80px','render' : function(data){
-                    return common.addComma(data) + "개"
+            ,{'title': '선물 받은<br/>달/별', 'data' : 'receive', 'width':'80px','render' : function(data){
+                    return common.addComma(data);
                 }}
         ]
     },

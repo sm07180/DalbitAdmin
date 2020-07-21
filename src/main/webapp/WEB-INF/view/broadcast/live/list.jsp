@@ -151,7 +151,7 @@
     var liveState=1;
     var room_liveType = 1;
     var dtList_info="";
-    liveList(1);
+    // liveList(1);
 
     var tmp_slctType;
     var tmp_dj_slctType = -1;
@@ -159,6 +159,75 @@
     var tmp_room_slctType = -1;
     var tmp_room_searchText;
     var tmp_searchText = "";
+
+
+    var dtList_info_data = function (data) {
+        var slctType = $('input[name="searchRadio"]:checked').val();
+        data.slctType = slctType;
+        if(slctType == "1"){      // DJ정보
+            data.dj_slctType = $("select[name='searchType_broad']").val();
+            data.dj_searchText = tmp_searchText;
+            data.room_slctType = -1;
+            data.room_searchText = "";
+            data.ortStartDate =2;
+        }else {                                                              // 방송정보
+            data.dj_slctType = -1;
+            data.dj_searchText = "";
+            data.room_slctType = $("select[name='searchBroad_broad']").val();
+            data.room_searchText = tmp_searchText;
+            data.ortStartDate =2;
+        }
+        data.room_liveType = room_liveType;
+
+        /*
+        *   정렬 부분
+        */
+        if(liveState == 1) {
+            if($("select[name='liveSort']").val() != 0){
+                if ($("select[name='liveSort']").val() == 1)
+                    data.sortStartDate = 1;
+                if ($("select[name='liveSort']").val() == 2)
+                    data.sortAirTime = 1;
+                if ($("select[name='liveSort']").val() == 3)
+                    data.sortListener = 1;
+                if ($("select[name='liveSort']").val() == 4)
+                    data.sortListener = 0;
+                if ($("select[name='liveSort']").val() == 5)
+                    data.sortGift = 1;
+            }
+        }else{
+            if($("select[name='endSort']").val() != 0){
+                if ($("select[name='endSort']").val() == 2)
+                    data.sortAirTime = 1;
+                if ($("select[name='endSort']").val() == 3)
+                    data.sortListener = 1;
+                if ($("select[name='endSort']").val() == 4)
+                    data.sortListener = 0;
+                if ($("select[name='endSort']").val() == 5)
+                    data.sortGift = 1;
+            }
+        }
+        //---------------------------------------------------
+
+        if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
+            data.startDate = sDate;
+            data.endDate = eDate;
+        }else if($('input[name="joinDate"]:checked').val() == "3" ){
+            data.startDate = sDate;
+        }else if($('input[name="joinDate"]:checked').val() == "4" ){
+            data.startDate = $("#onedayDate").val();
+        }
+    };
+    if(liveState == 1){
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
+    }else{
+        dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.endLiveList);
+    }
+    dtList_info.useCheckBox(false);
+    dtList_info.useIndex(true);
+    dtList_info.setPageLength(50);
+    dtList_info.createDataTable(summary_table);
+
 
     function liveList(tmp){
         liveState = tmp;
@@ -173,78 +242,18 @@
             $("#endSort").show();
         }
         room_liveType = tmp;
-        var dtList_info_data = function (data) {
-            var slctType = $('input[name="searchRadio"]:checked').val();
-            data.slctType = slctType;
-            if(slctType == "1"){      // DJ정보
-                data.dj_slctType = $("select[name='searchType_broad']").val();
-                data.dj_searchText = tmp_searchText;
-                data.room_slctType = -1;
-                data.room_searchText = "";
-                data.ortStartDate =2;
-            }else {                                                              // 방송정보
-                data.dj_slctType = -1;
-                data.dj_searchText = "";
-                data.room_slctType = $("select[name='searchBroad_broad']").val();
-                data.room_searchText = tmp_searchText;
-                data.ortStartDate =2;
-            }
-            data.room_liveType = room_liveType;
 
-            /*
-            *   정렬 부분
-            */
-            if(liveState == 1) {
-                if($("select[name='liveSort']").val() != 0){
-                    if ($("select[name='liveSort']").val() == 1)
-                        data.sortStartDate = 1;
-                    if ($("select[name='liveSort']").val() == 2)
-                        data.sortAirTime = 1;
-                    if ($("select[name='liveSort']").val() == 3)
-                        data.sortListener = 1;
-                    if ($("select[name='liveSort']").val() == 4)
-                        data.sortListener = 0;
-                    if ($("select[name='liveSort']").val() == 5)
-                        data.sortGift = 1;
-                }
-            }else{
-                if($("select[name='endSort']").val() != 0){
-                    if ($("select[name='endSort']").val() == 2)
-                        data.sortAirTime = 1;
-                    if ($("select[name='endSort']").val() == 3)
-                        data.sortListener = 1;
-                    if ($("select[name='endSort']").val() == 4)
-                        data.sortListener = 0;
-                    if ($("select[name='endSort']").val() == 5)
-                        data.sortGift = 1;
-                }
-            }
-            //---------------------------------------------------
-
-            if($('input[name="joinDate"]:checked').val() != "4" && $('input[name="joinDate"]:checked').val() != "3") {               // 선택
-                data.startDate = sDate;
-                data.endDate = eDate;
-            }else if($('input[name="joinDate"]:checked').val() == "3" ){
-                data.startDate = sDate;
-            }else if($('input[name="joinDate"]:checked').val() == "4" ){
-                data.startDate = $("#onedayDate").val();
-            }
-        };
         if(liveState == 1){
-            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.liveList);
+            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,null);
         }else{
-            dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, BroadcastDataTableSource.endLiveList);
+            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,null);
         }
-        dtList_info.useCheckBox(false);
-        dtList_info.useIndex(true);
-        dtList_info.setPageLength(50);
-        dtList_info.createDataTable(summary_table);
 
-        getSearch();
+        // getSearch();
     }
 
     function summary_table(json){
-        // dalbitLog(json);
+        dalbitLog(json);
         var template = $("#platform_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {

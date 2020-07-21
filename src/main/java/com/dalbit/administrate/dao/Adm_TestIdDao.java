@@ -1,9 +1,6 @@
 package com.dalbit.administrate.dao;
 
-import com.dalbit.administrate.vo.AdminIdVo;
-import com.dalbit.administrate.vo.MemberBadgeVo;
-import com.dalbit.administrate.vo.TestIdListVo;
-import com.dalbit.administrate.vo.TestIdVo;
+import com.dalbit.administrate.vo.*;
 import com.dalbit.common.vo.SearchVo;
 import com.dalbit.member.vo.MemberVo;
 import org.springframework.stereotype.Repository;
@@ -48,4 +45,12 @@ public interface Adm_TestIdDao {
     int insertMemberBadge(MemberBadgeVo memberBadgeVo);
 
     int deleteMemberBadge(MemberBadgeVo memberBadgeVo);
+
+    List<AdminManagerVo> selectAdminManager(AdminManagerVo adminManagerVo);
+
+    int insertBroadAdminManager(AdminManagerVo adminManagerVo);
+
+   int selectAdminCheck(AdminManagerVo adminManagerVo);
+
+    int deleteBroadAdminManager(AdminManagerVo adminManagerVo);
 }
