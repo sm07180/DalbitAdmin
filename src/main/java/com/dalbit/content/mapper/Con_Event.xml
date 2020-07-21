@@ -93,6 +93,9 @@
                         ,(select mem_userid from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_userid
                         ,(select mem_nick from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_nick
                         ,(select mem_sex from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_sex
+                        ,(select mem_birth_year from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_birth_year
+                        ,(select mem_birth_month from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_birth_month
+                        ,(select mem_birth_day from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_birth_day
                         ,(select mem_phone from rd_data.tb_member_basic where mem_no = b.mem_no) as mem_phone
                         ,(select count(*) from rd_data.tb_broadcast_room_member where mem_no=b.mem_no and auth <![CDATA[<]]>  3) as listenCnt
                         ,(select count(*) from rd_data.tb_broadcast_room where mem_no=b.mem_no) as broadCnt

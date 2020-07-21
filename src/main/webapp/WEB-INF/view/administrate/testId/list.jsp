@@ -95,7 +95,7 @@
                                         <th>직원명</th>
                                         <th>관계</th>
                                         <th>회원번호</th>
-                                        <th>User ID</th>
+                                        <%--<th>User ID</th>--%>
                                         <th>User 닉네임</th>
                                         <th>성별</th>
                                         <th>달/별 충전</th>
@@ -344,10 +344,9 @@
             <td>{{user.emp_no}}</td>
             <td>{{user.emp_name}}</td>
             <td>{{relationName user.relation}}</td>
-            <td>{{user.mem_no}}</td>
-            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
+            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_no}}</a></td>
             <td>{{user.mem_nick}}</td>
-            <td>{{{sexIcon user.mem_sex}}}</td>
+            <td>{{{sexIcon user.mem_sex}}} <br/> ({{user.koreanAge}})</td>
             <td>{{user.charge}}</td>
             <td>{{user.chargeDate}}</td>
             <td>{{user.lastOpName}}</td>

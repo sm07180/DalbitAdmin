@@ -16,6 +16,9 @@
         , bro.badge_newdj as badge_newdj
         , mem.mem_no as mem_no
         , mem.mem_id as mem_id
+        , mem.mem_birth_year
+        , mem.mem_birth_month
+        , mem.mem_birth_day
         , lev.level as `level`
         , lev.grade as grade
         , mem.mem_nick as mem_nick

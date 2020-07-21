@@ -79,12 +79,13 @@ public class Bro_ListenerService {
                         outVo.setNickName("비회원");
                     }
                 }
-
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(broadList.get(i).getMem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
-                    broadList.get(i).setMem_sex(memInfoOutVo.getMem_sex());
+                    outVo.setMem_sex(memInfoOutVo.getMem_sex());
+                    outVo.setMem_birth_year(memInfoOutVo.getMem_birth_year());
+                    outVo.setMem_birth_month(memInfoOutVo.getMem_birth_month());
+                    outVo.setMem_birth_day(memInfoOutVo.getMem_birth_day());
                 }
-                outVo.setMem_sex(broadList.get(i).getMem_sex());
 
                 list.add(outVo);
             }

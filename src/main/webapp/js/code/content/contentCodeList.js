@@ -375,3 +375,18 @@ var attendance_searchType = [
     , new COMMON_CODE('memnick', '3', 'User닉네임')
 ];
 
+/** =------ inssaticon ---------- */
+var inssaticon_isUse = [
+    new COMMON_CODE(null, 'isUse', '노출여부')
+    , new COMMON_CODE('all', '-1', '노출여부(전체)')
+    , new COMMON_CODE('0', '0', '비노출')
+    , new COMMON_CODE('1', '1', '노출')
+];
+
+var inssaticon_category = [
+    new COMMON_CODE(null, 'category', '카테고리')
+    , new COMMON_CODE('all', '-1', '카테고리(전체)')
+    , new COMMON_CODE('0', '0', '나중에')
+    , new COMMON_CODE('1', '1', 'DB에서')
+    , new COMMON_CODE('2', '2', '처리해야함')
+];

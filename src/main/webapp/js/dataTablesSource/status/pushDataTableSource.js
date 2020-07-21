@@ -39,9 +39,9 @@ var PushDataTableSource = {
             ,{'title': '메시지제목', 'data' : 'send_title', 'render' : function(data, type, row, meta){
                     return '<a href="javascript://" class="_getPushHistoryDetail" data-idx="'+meta.row+'">' + data + '</a>'
                 }}
-            ,{'title': '발신자', 'data' : 'mem_nick', 'render' : function(data, type, row, meta){
+            ,{'title': '회원번호', 'data' : 'mem_no', 'render' : function(data, type, row, meta){
                     if(common.isEmpty(row.mem_no)){
-                        return data;
+                        return row.mem_nick;
                     }
 
                     return '<a href="javascript://" class="_openMemberPop" data-memNo="' + row.mem_no + '">' + data + '</a>';

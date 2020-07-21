@@ -20,7 +20,7 @@
                         </table>
                         <table id="loginHistoryList" class="table table-sorting table-hover table-bordered datatable" style="table-layout: fixed;word-break: break-word;">
                             <colgroup>
-                                <col width="2%"/><col width="5%"/><col width="7%"/><col width="4%"/><col width="6%"/><col width="9%"/>
+                                <col width="2%"/><col width="5%"/><col width="7%"/><col width="6%"/><col width="5%"/><col width="9%"/>
                                 <col width="20%"/><col width="4%"/><col width="4%"/><col width="3%"/><col width="4%"/>
                             </colgroup>
 
@@ -136,7 +136,7 @@
             {{mem_no}}<br/>
             <a href="javascript://" class="_openMemberPop" data-memNo="{{this.mem_no}}">{{mem_nick}}</a>
         </td>
-        <td>{{{sexIcon mem_sex}}}</td>
+        <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
         <td>{{ip}}</td>
         <td style="text-align:left">{{device_uuid}}</td>
         <td style="text-align:left">{{device_token}}</td>

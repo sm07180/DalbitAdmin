@@ -24,6 +24,9 @@ public class P_ImageBroadcastListOutputVo extends SearchVo {
     private String subject_type;
     private String title;
     private String state;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
 
     private Date start_date;
     private String start_dateFormat;

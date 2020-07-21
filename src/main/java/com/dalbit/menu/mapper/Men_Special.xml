@@ -46,6 +46,9 @@
         , profile.specialdj_badge as specialdj_badge
         , basic.mem_id as mem_id
         , basic.mem_nick as mem_nick
+        , basic.mem_birth_year
+        , basic.mem_birth_month
+        , basic.mem_birth_day
         , profile.image_profile  as image_profile
         , @RNUM := @RNUM + 1 as rowNum
         from rd_admin.tb_req_special_dj dj
@@ -180,6 +183,9 @@
             FROM rd_data.tb_member_broadcast_broadcasting
             WHERE mem_no = dj.mem_no AND last_upd_date between SUBDATE(NOW(), INTERVAL 3 MONTH) AND NOW()) as broadcastCnt,
             (select count(*) from rd_data.tb_member_report WHERE mem_no = dj.mem_no and op_code in (3,4,5,6) ) as reportCnt
+            ,basic.mem_birth_year
+            ,basic.mem_birth_month
+            ,basic.mem_birth_day
         from rd_admin.tb_special_dj dj
                 inner join rd_data.tb_member_basic basic on dj.mem_no = basic.mem_no
                 inner join rd_data.tb_member_profile pro on dj.mem_no = pro.mem_no
@@ -303,6 +309,8 @@
             , condition_data2
             , condition_code3
             , condition_data3
+            , is_view
+            , platform
             , pc_image_url
             , mobile_image_url
             , DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') reg_date
@@ -330,6 +338,8 @@
             , condition_data2
             , condition_code3
             , condition_data3
+            , is_view
+            , platform
             , pc_image_url
             , mobile_image_url
             , reg_date
@@ -348,6 +358,8 @@
             , #{condition_data2}
             , #{condition_code3}
             , #{condition_data3}
+            , #{is_view}
+            , #{platform}
             , #{pc_image_url}
             , #{mobile_image_url}
             , now()
@@ -369,6 +381,8 @@
             , condition_data2 = #{condition_data2}
             , condition_code3 = #{condition_code3}
             , condition_data3 = #{condition_data3}
+            , is_view = #{is_view}
+            , platform = #{platform}
             , pc_image_url = #{pc_image_url}
             , mobile_image_url = #{mobile_image_url}
             , last_upd_date = now()

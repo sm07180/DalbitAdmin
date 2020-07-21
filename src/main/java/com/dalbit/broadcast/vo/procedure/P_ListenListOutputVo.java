@@ -18,6 +18,9 @@ public class P_ListenListOutputVo extends PagingVo {
     private String userID;
     private String nickName;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private String level;
     private String grade;
     private Date start_date;

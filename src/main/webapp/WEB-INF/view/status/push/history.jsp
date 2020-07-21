@@ -165,9 +165,9 @@
                         <textarea class="form-control" name="send_cont" id="push-send_cont" rows="5" cols="30" style="width:100%; resize: none; background-color:white;" disabled="disabled" >{{send_cont}}</textarea>
                     </div>
                 </td>
-                <th>발신자</th>
+                <th>회원번호</th>
                 <td colspan="5">
-                    <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_nick}}</a>
+                    <a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a>
                 </td>
             </tr>
             <tr>

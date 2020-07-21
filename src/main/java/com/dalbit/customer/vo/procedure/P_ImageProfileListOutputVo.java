@@ -19,6 +19,10 @@ public class P_ImageProfileListOutputVo extends SearchVo {
     private String mem_phone;
     private String mem_slct;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_da;
+
     private ImageVo image_profile;
 
     private Date joinDate;

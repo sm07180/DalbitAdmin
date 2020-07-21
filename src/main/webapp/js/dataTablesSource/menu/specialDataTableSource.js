@@ -14,7 +14,7 @@ var specialDataTableSource = {
                 }}
             , {'title': '닉네임', 'width': '10%', 'data': 'mem_nick'}
             , {'title': '성별', 'data': 'mem_sex', 'width':'5%', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+                    return common.sexIcon(data, row.mem_birth_year);
                 }}
             , {'title': '신청일', 'data': 'reg_date', 'render': function(data, type, row) {
                     return common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss');

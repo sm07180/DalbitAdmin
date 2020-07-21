@@ -68,9 +68,11 @@ public class Bro_GiftService {
 
                 MemberVo memInfoOutVo = mem_MemberDao.getMemberInfo(GiftList.get(i).getMem_no());
                 if(!DalbitUtil.isEmpty(memInfoOutVo)) {
-                    GiftList.get(i).setMem_sex(memInfoOutVo.getMem_sex());
+                    outVo.setMem_sex(memInfoOutVo.getMem_sex());
+                    outVo.setMem_birth_year(memInfoOutVo.getMem_birth_year());
+                    outVo.setMem_birth_month(memInfoOutVo.getMem_birth_month());
+                    outVo.setMem_birth_day(memInfoOutVo.getMem_birth_day());
                 }
-                outVo.setMem_sex(GiftList.get(0).getMem_sex());
 
                 list.add(outVo);
             }

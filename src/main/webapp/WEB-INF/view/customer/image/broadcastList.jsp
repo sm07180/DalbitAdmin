@@ -206,11 +206,11 @@ var fnc_broadcastList = {};
                 <ul class="list-unstyled">
                     <li><strong>ID:</strong>
                         <a href="javascript://" class="_openMemberPop" data-memno="{{user.mem_no}}">
-                            {{user.mem_userid}}
+                            {{user.mem_no}}
                         </a>
                     </li>
                     <li><strong>Nick:</strong> {{replaceHtml user.mem_nick}}</li>
-                    <li class="sexType"><strong>Sex:</strong> {{{sexIcon user.mem_sex}}}</li>
+                    <li class="sexType"><strong>Sex:</strong> {{{sexIcon user.mem_sex user.mem_birth_year}}}</li>
                     <li><strong>No:</strong> {{user.mem_no}}</li>
                 </ul>
             </div>

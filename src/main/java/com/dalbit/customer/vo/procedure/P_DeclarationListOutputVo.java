@@ -15,10 +15,16 @@ public class P_DeclarationListOutputVo extends BaseVo {
     private String mem_userid;
     private String mem_nick;
     private String mem_sex;
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
     private String reported_mem_no;
     private String reported_userid;
     private String reported_nick;
     private String reported_mem_sex;
+    private String reported_mem_birth_year;
+    private String reported_mem_birth_month;
+    private String reported_mem_birth_day;
     private String room_no;
     private int reason;
     private String etc;

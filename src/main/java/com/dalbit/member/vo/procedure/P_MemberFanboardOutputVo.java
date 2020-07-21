@@ -25,6 +25,9 @@ public class P_MemberFanboardOutputVo extends SearchVo {
     private String STATUS;
     private String memSex;
     private int replyCnt;   // 팬보드 댓글수
+    private String mem_birth_year;
+    private String mem_birth_month;
+    private String mem_birth_day;
 
     //summary
 

@@ -311,7 +311,7 @@
                     {{rank.mem_nick}}
                 {{/equal}}
             </td>
-            <td>{{{sexIcon mem_sex}}}</td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
             <td>{{addComma listenCnt}}명</td>
@@ -356,7 +356,7 @@
                 등급 : {{grade}}
             </td>
             <td>{{mem_nick}}</td>
-            <td>{{{sexIcon mem_sex}}}</td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
             <td>{{timeStamp airTime}}</td>

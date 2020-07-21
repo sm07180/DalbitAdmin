@@ -127,6 +127,9 @@ public class Con_EventService {
                 outVo.setMem_userid(eventMemberList.get(i).getMem_userid());
                 outVo.setMem_nick(eventMemberList.get(i).getMem_nick());
                 outVo.setMem_sex(eventMemberList.get(i).getMem_sex());
+                outVo.setMem_birth_year(eventMemberList.get(i).getMem_birth_year());
+                outVo.setMem_birth_month(eventMemberList.get(i).getMem_birth_month());
+                outVo.setMem_birth_day(eventMemberList.get(i).getMem_birth_day());
                 outVo.setMem_phone(eventMemberList.get(i).getMem_phone());
                 outVo.setListenCnt(eventMemberList.get(i).getListenCnt());
                 outVo.setBroadCnt(eventMemberList.get(i).getBroadCnt());
@@ -244,6 +247,9 @@ public class Con_EventService {
             MemberVo outVo = memMemberDao.getMemberInfo(list.get(i).getMem_no());
             if(!DalbitUtil.isEmpty(outVo)) {
                 list.get(i).setMem_sex(outVo.getMem_sex());
+                list.get(i).setMem_birth_year(outVo.getMem_birth_year());
+                list.get(i).setMem_birth_month(outVo.getMem_birth_month());
+                list.get(i).setMem_birth_day(outVo.getMem_birth_day());
             }
         }
 

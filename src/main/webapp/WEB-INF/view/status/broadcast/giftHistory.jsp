@@ -7,19 +7,20 @@
         <span class="_searchDate"></span>
         <table class="table table-bordered">
             <colgroup>
-                <col width="2%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/>
-                <col width="9.8%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/><col width="9.8%"/>
-                <col width="9.8%"/>
+                <col width="2%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+                <col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>
+                <col width="8.3%"/><col width="8.3%"/>
             </colgroup>
             <thead>
             <tr>
                 <th>NO</th>
                 <th>선물 일시</th>
-                <th>선물한 회원 ID</th>
+                <th>회원번호</th>
                 <th>닉네임</th>
                 <th>방송방 제목</th>
                 <th>DJ ID</th>
                 <th>닉네임</th>
+                <th>성별</th>
                 <th>아이템<br />이미지</th>
                 <th>아이템명</th>
                 <th>아이템 수량</th>
@@ -90,11 +91,12 @@
                 {{indexDesc ../totalCnt rowNum}}
             </td>
             <td>{{convertToDate purchaseDate 'YYYY-MM-DD HH:MM:SS'}}</td>
-            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_userid}}</a></td>
+            <td><a href="javascript://" class="_openMemberPop" data-memNo="{{mem_no}}">{{mem_no}}</a></td>
             <td>{{mem_nick}}</td>
             <td><a href="javascript://" class="_openBroadcastPop" data-roomno="{{room_no}}">{{title}}</a></td>
             <td><a href="javascript://" class="_openMemberPop" data-memNo="{{gifted_mem_no}}">{{gifted_mem_userid}}</a></td>
             <td>{{gifted_mem_nick}}</td>
+            <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>
                 {{^equal item_thumbnail ''}}
                     <img src="{{data.item_thumbnail}}" width="50" height="50" />

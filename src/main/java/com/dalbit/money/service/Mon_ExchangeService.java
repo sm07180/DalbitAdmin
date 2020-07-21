@@ -92,6 +92,15 @@ public class Mon_ExchangeService {
                 monExchangeInputVo.setTotalCnt(rejectCnt);
                 ArrayList<Mon_ExchangeOutputVo> rejectList = monExchangeDao.selectExchangeList(monExchangeInputVo);
 
+                for(int i=0;i<rejectList.size();i++) {
+                    MemberVo outVo = mem_MemberDao.getMemberInfo(rejectList.get(i).getMem_no());
+                    if (!DalbitUtil.isEmpty(outVo)) {
+                        rejectList.get(i).setMem_sex(outVo.getMem_sex());
+                        rejectList.get(i).setMem_birth_year(outVo.getMem_birth_year());
+                        rejectList.get(i).setMem_birth_month(outVo.getMem_birth_month());
+                        rejectList.get(i).setMem_birth_day(outVo.getMem_birth_day());
+                    }
+                }
                 resultMap.put("rejectCnt", rejectCnt);
                 resultMap.put("rejectList", rejectList);
                 return gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
@@ -108,6 +117,9 @@ public class Mon_ExchangeService {
                 MemberVo outVo = mem_MemberDao.getMemberInfo(exchangeList.get(i).getMem_no());
                 if(!DalbitUtil.isEmpty(outVo)) {
                     exchangeList.get(i).setMem_sex(outVo.getMem_sex());
+                    exchangeList.get(i).setMem_birth_year(outVo.getMem_birth_year());
+                    exchangeList.get(i).setMem_birth_month(outVo.getMem_birth_month());
+                    exchangeList.get(i).setMem_birth_day(outVo.getMem_birth_day());
                 }
                 // 테스트 아이디 등록 여부
                 int testidCnt = monExchangeDao.testid_historyCnt(exchangeList.get(i).getMem_no());

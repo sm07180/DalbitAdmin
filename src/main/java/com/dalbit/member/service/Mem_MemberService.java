@@ -68,6 +68,15 @@ public class Mem_MemberService {
         ProcedureVo procedureVo = new ProcedureVo(pMemberListInputVo);
         ArrayList<P_MemberListOutputVo> memberList = mem_MemberDao.callMemberList(procedureVo);
 
+        for(int i=0;i<memberList.size();i ++ ){
+            MemberVo memInfoOutVo = DalbitUtil.getMemInfo(memberList.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(memInfoOutVo)) {
+                memberList.get(i).setMem_birth_year(memInfoOutVo.getMem_birth_year());
+                memberList.get(i).setMem_birth_month(memInfoOutVo.getMem_birth_month());
+                memberList.get(i).setMem_birth_day(memInfoOutVo.getMem_birth_day());
+            }
+        }
+
         String result;
         if(Integer.parseInt(procedureVo.getRet()) > 0) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.회원정보보기_성공, memberList, new PagingVo(procedureVo.getRet())));
@@ -374,7 +383,9 @@ public class Mem_MemberService {
         pMemberReportVo.setOpName(MemberVo.getMyMemNo());
 
         // 신고 대상자가 방송 중인지
-        int check = mem_MemberDao.callMemberBroadCasting_check(pMemberReportVo);
+        int broadCastingCheck = mem_MemberDao.callMemberBroadCasting_check(pMemberReportVo);
+        // 신고 대상자가 청취 중인지
+        int listeningCheck = mem_MemberDao.callMemberListening_check(pMemberReportVo);
 
 //        if(check > 0){
 //            return gsonUtil.toJson(new JsonOutputVo(Status.방송중));
@@ -384,12 +395,14 @@ public class Mem_MemberService {
         if(pMemberReportVo.getSlctType() > 2) {
             MemberVo MemVo = new MemberVo();
             MemVo.setMem_no(pMemberReportVo.getMem_no());
-            if(check > 0) {
+            if(broadCastingCheck > 0) {
                 //방송 강제 종료 처리
                 mem_BroadcastService.forcedEnd(MemVo);
             }
-            // 청취 종료 처리
-            mem_ListenService.forcedExit(MemVo);
+            if(listeningCheck > 0){
+                // 청취 종료 처리
+                mem_ListenService.forcedExit(MemVo);
+            }
          }
 
         // 신고 대상자 정보

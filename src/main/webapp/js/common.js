@@ -352,14 +352,26 @@ common.average = function(lvalue, rvalue) {
     return tmp.toFixed(1);
 };
 
-common.sexIcon = function(sex){
+common.sexIcon = function(sex, birthYear, isBr){
     var sex_lowercase = sex.toLowerCase();
-    if(sex_lowercase == 'm'){
-        return '<label class="font-bold" style="color: blue;margin-bottom: 0px"><i class="fa fa-male"></i> 남성</label>';
-    }else if(sex_lowercase == 'f'){
-        return '<label class="font-bold" style="color: red;margin-bottom: 0px"><i class="fa fa-female"></i> 여성</label>';
+    if(birthYear > 0){
+        var date = new Date();
+        var koreanAge = date.getFullYear() - birthYear + 1;
+        if(sex_lowercase == 'm'){
+            return '<label class="font-bold" style="color: blue;margin-bottom: 0px"><i class="fa fa-male"></i> 남성</label>' + (!common.isEmpty(isBr) && isBr ? '<br>' : '') + '(' + koreanAge + '세)';
+        }else if(sex_lowercase == 'f'){
+            return '<label class="font-bold" style="color: red;margin-bottom: 0px"><i class="fa fa-female"></i> 여성</label>' + (!common.isEmpty(isBr) && isBr ? '<br>' : '') + '(' + koreanAge + '세)';
+        }else{
+            return '<label class="font-bold" style="margin-bottom: 0px;"><i class="fa fa-question"></i> 알수없음</label>' + (!common.isEmpty(isBr) && isBr ? '<br>' : '') + '(' + koreanAge + '세)'
+        }
     }else{
-        return '<label class="font-bold" style="margin-bottom: 0px;"><i class="fa fa-question"></i> 알수없음</label>';
+        if(sex_lowercase == 'm'){
+            return '<label class="font-bold" style="color: blue;margin-bottom: 0px"><i class="fa fa-male"></i> 남성</label>';
+        }else if(sex_lowercase == 'f'){
+            return '<label class="font-bold" style="color: red;margin-bottom: 0px"><i class="fa fa-female"></i> 여성</label>';
+        }else{
+            return '<label class="font-bold" style="margin-bottom: 0px;"><i class="fa fa-question"></i> 알수없음</label>';
+        }
     }
 };
 
@@ -419,7 +431,7 @@ common.koreaAge = function(birthDate){
 }
 
 common.isChild = function(birth){
-    return common.calcAge(birth) < 18;
+    return common.calcAge(birth) < 20;
 }
 
 common.calcAge = function(birth) {
@@ -435,7 +447,8 @@ common.calcAge = function(birth) {
     birth = birth.replace('-', '');
     var birthdayy = birth.substr(0, 4);
     var birthdaymd = birth.substr(4, 4);
-    var age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
+    //var age = monthDay < birthdaymd ? year - birthdayy - 1 : year - birthdayy;
+    var age = year - birthdayy + 1;
 
     return age;
 

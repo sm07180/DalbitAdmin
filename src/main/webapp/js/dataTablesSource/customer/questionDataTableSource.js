@@ -18,7 +18,7 @@ var questionDataTableSource = {
                 }},
             {'title': '플랫폼', 'data': 'platform','width':'60px'},
             {'title': 'Browser', 'data': 'browser','width':'70px'},
-            {'title': '문의자UserId', 'data': 'mem_userid','width':'80px','render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no','width':'80px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(data, row.mem_no);
                     tmp = tmp + '<br/>' +  row.mem_level +" / "+ row.mem_grade;
                     return tmp;
@@ -30,8 +30,8 @@ var questionDataTableSource = {
                         return data;
                     }            
                 }},
-            {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
-                    return common.sexIcon(data);
+            {'title': '성별', 'data': 'mem_sex', 'width':'120px', 'render': function (data, type, row, meta) {
+                    return common.sexIcon(data, row.mem_birth_year);
                 }},
             {'title': '문의', 'data': 'totalQnaCnt','width':'60px','render':function (data,type,row,meta){
                     return common.addComma(data) + " 건";

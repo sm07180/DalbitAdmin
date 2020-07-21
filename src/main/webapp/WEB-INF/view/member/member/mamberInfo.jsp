@@ -68,7 +68,7 @@
         if(response.data.specialdj_badge == "1") tmp_badge = tmp_badge + '<span class ="label" style="background-color:red">' + "스페셜DJ" + '</span>';
         response.data["dj_badge"] = tmp_badge;
 
-        if(response.data.age < 18){
+        if(response.data.age < 19){
             response.data["adultYn"] = "n";
         } else {
             response.data["adultYn"] = "y";
@@ -720,109 +720,145 @@
     <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
     <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
         <colgroup>
-            <col width="10%"/><col width="10%"/><col width="10%"/><col width="8%"/><col width="12%"/><col width="10%"/><col width="35%"/><col width="5%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
+            <col width="8%"/>
         </colgroup>
         <tbody>
         <tr>
-            <th rowspan="7">프로필이미지</th>
-            <td rowspan="7" colspan="4" style="border: white">
+            <th rowspan="4">
+                프로필이미지
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_img" class="btn btn-default btn-sm" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                {{/equal}}
+            </th>
+            <td rowspan="4" style="border: white">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
-                    {{#equal memWithdrawal '0'}}
-                        <button type="button" id="bt_img" class="btn btn-default btn-sm" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
-                    {{/equal}}
                 </form>
             </td>
-        <tr>
-            <th>회원레벨</th>
-            <td colspan="2" style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
+            <th rowspan="4">
+                방송방 배경이미지
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_img" class="btn btn-default btn-sm" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                {{/equal}}
+            </th>
+            <td rowspan="4" style="border: white">
+                <form id="profileImg" method="post" enctype="multipart/form-data">
+                    <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
+                </form>
+            </td>
         </tr>
         <tr>
+            <th>회원레벨</th>
+            <td style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
+            <th>등급레벨</th>
+            <td colspan="2" style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
             <th>경험치</th>
             <td colspan="2" style="text-align: left">{{{getCommonCodeLabel grade 'grade'}}}</td>
         </tr>
         <tr>
             <th>회원상태</th>
-            <td colspan="2" style="text-align: left">
+            <td style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
+            </td>
+            <td colspan="5" style="text-align: left">
                 {{{block}}}
                 {{#equal memWithdrawal '0'}}
-                    <button type="button" class="btn btn-default btn-sm pull-right bt_report">경고/정지</button>
+                <button type="button" class="btn btn-default btn-sm pull-right bt_report">경고/정지</button>
                 {{/equal}}
                 <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
+            <td>
+                상세
             </td>
         </tr>
         <tr>
-            <th>Mobile 정보</th>
-            <td colspan="2" style="text-align: left">
-                {{deviceUuid}}
-                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
-                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">기기 차단</button>
+            <th>접속정보</th>
+            <td colspan="7" style="text-align: center">
+                <span class="pr15">* MobileID : {{deviceUuid}}</span>
+                <span class="pr15 pl15">* IP : {{ip}}</span>
+                <span class="pr15 pl15">* 접속상태 : {{connectState}}</span>
+                <%--<button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>--%>
+                <%--<button type="button" class="btn btn-danger btn-sm pull-right bt_report">기기 차단</button>--%>
+                <%--<button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>--%>
+                <%--<button type="button" class="btn btn-danger btn-sm pull-right bt_report">IP 차단</button>--%>
+
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">상세</button>
             </td>
         </tr>
         <tr>
-            <th>IP 정보</th>
-            <td colspan="2" style="text-align: left">
-                {{ip}}
-                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
-                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">IP 차단</button>
-            </td>
-        </tr>
-        <tr>
-            <th>접속상태</th>
-            <td colspan="2" style="text-align: left">{{connectState}}
-                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>
-            </td>
-        </tr>
-        </tr>
-        <tr>
-            <th>회원NO</th>
-            <td colspan="4" style="text-align: left" id="memberNo">{{mem_no}}</td>
+            <th>프로필메시지</th>
+            <td colspan="3" style="text-align: left" id="memberProfileMsg">{{??}}</td>
             <th>방송상태</th>
-            <td colspan="2" style="text-align: left">
+            <td colspan="3" style="text-align: left">
                 {{{icon_broadcastState}}}
+            </td>
+            <th>마이크</th>
+            <td>
+                ON
+            </td>
+            <td colspan="2">
                 <button type="button" id="bt_forcedEnd" class="btn btn-danger btn-sm pull-right">방송강제종료</button>
                 {{#equal broadcastState 'ON'}}
-                 - 방송제목 : {{{roomNoLink ../title ../room_no}}}
-                    {{#equal ../hide 0}}
-                        <button type="button" id="bt_broadCastHide" class="btn btn-info btn-sm pull-right">방송방 숨김</button>
-                    {{/equal}}
-                    {{#equal ../hide 1}}
-                        <button type="button" id="bt_broadCastHideCancel" class="btn btn-info btn-sm pull-right">방송방 숨김 해제</button>
-                    {{/equal}}
+                - 방송제목 : {{{roomNoLink ../title ../room_no}}}
+                {{#equal ../hide 0}}
+                <button type="button" id="bt_broadCastHide" class="btn btn-info btn-sm pull-right">방송방 숨김</button>
+                {{/equal}}
+                {{#equal ../hide 1}}
+                <button type="button" id="bt_broadCastHideCancel" class="btn btn-info btn-sm pull-right">방송방 숨김 해제</button>
+                {{/equal}}
                 {{/equal}}
             </td>
         </tr>
         <tr>
-            <th>회원이름</th>
-            <td style="text-align: left">{{userName}}</td>
-            <th>내/외국인 구분</th>
-            <td style="text-align: left" colspan="2">{{local}}</td>
-            <th>청취상태</th>
-            <td colspan="2" style="text-align: left">
-                {{{icon_listeningState}}}
-                {{#equal listeningState 'ON'}}
-                 - 방송제목 : {{{roomNoLink ../listen_title ../listen_room_no}}}
-                {{/equal}}
-                <button type="button" id="bt_forcedExit" class="btn btn-danger btn-sm pull-right" onclick="forcedListenExit();">청취강제종료</button>
-            </td>
-        </tr>
-        <tr>
+            <th>회원번호</th>
+            <td style="text-align: left" id="memberNo">{{mem_no}}</td>
             <th>UserId</th>
-            <td colspan="4" style="text-align: left" id="td_userid" data-userid="{{userId}}">
+            <td style="text-align: left" id="td_userid" data-userid="{{userId}}">
                 {{userId}}
                 {{^equal dj_badge ''}}
                 <label class="pull-right"> DJ타입 | {{{../dj_badge}}} </label>
                 {{/equal}}
             </td>
+            <th>청취상태</th>
+            <td colspan="6" style="text-align: left">
+                {{{icon_listeningState}}}
+                {{#equal listeningState 'ON'}}
+                - 방송제목 : {{{roomNoLink ../listen_title ../listen_room_no}}}
+                {{/equal}}
+            </td>
+            <td>
+                <button type="button" id="bt_forcedExit" class="btn btn-danger btn-sm pull-right" onclick="forcedListenExit();">청취강제종료</button>
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <th>닉네임</th>
+            <td colspan="3" style="text-align: left">
+                {{nickName}}
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
+                {{/equal}}
+            </td>
             <th>보유달</th>
-            <td style="text-align: left">
+            <td colspan="6" style="text-align: left">
                 <span class="col-md-3 no-padding">
                     {{addComma dal}} 달
                 </span>
                 <c:if test="${insertYn eq 'Y'}">
                     {{#equal memWithdrawal '0'}}
-                        <span class="col-md-9 no-padding" id="sp_dalPointEdit">
+                    <span class="col-md-9 no-padding" id="sp_dalPointEdit">
                             <select id="dalPlusMinus" name="dalPlusMinus" class="form-control searchType">
                                 <option value="1">+</option>
                                 <option value="2">-</option>
@@ -841,23 +877,18 @@
             </td>
         </tr>
         <tr>
-            <th>로그인 아이디</th>
-            <td colspan="4" style="text-align: left">
-                <div id="div_socialId">
-                    <input type="text" class="form-control" id="txt_socialId" style="width: 207px;" value="{{socialId}}" onkeyup="fnChkByte(this);">
-                    {{#equal memWithdrawal '0'}}
-                        <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
-                    {{/equal}}
-                </div>
-            </td>
+            <th>회원이름</th>
+            <td style="text-align: left">{{userName}}</td>
+            <th>내/외국인 구분</th>
+            <td style="text-align: left">{{local}}</td>
             <th>보유별</th>
-            <td style="text-align: left">
+            <td colspan="6" style="text-align: left">
                 <span class="col-md-3 no-padding">
                     {{addComma byeol}} 별
                 </span>
                 <c:if test="${insertYn eq 'Y'}">
                     {{#equal memWithdrawal '0'}}
-                        <span class="col-md-9 no-padding" id="sp_byeolPointEdit">
+                    <span class="col-md-9 no-padding" id="sp_byeolPointEdit">
                             <select id="byeolPlusMinus" name="byeolPlusMinus" class="form-control searchType">
                                 <option value="1">+</option>
                                 <option value="2">-</option>
@@ -871,138 +902,123 @@
             </td>
         </tr>
         <tr>
-            <th>연락처</th>
-            <td colspan="2" style="text-align: left">
-                <input type="text" class="form-control" id="txt_phon" style="width: 207px;" value="{{phoneNum}}">
-                {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
-                {{/equal}}
-            </td>
-            <th>본인인증 여부</th>
-            <td class="font-bold">
-                {{#equal auth_yn 'Yes'}}
-                    {{../comm_company}} &nbsp&nbsp|&nbsp&nbsp <label style="color: red; font-weight: bold">{{../auth_yn}}</label>
-                {{/equal}}
-                {{#equal auth_yn 'No'}}
-                    <label style="font-weight: bold;">{{../auth_yn}}</label>
-                {{/equal}}
+            <th>로그인 아이디</th>
+            <td colspan="3" style="text-align: left">
+                <div id="div_socialId">
+                    <input type="text" class="form-control" id="txt_socialId" style="width: 207px;" value="{{socialId}}" onkeyup="fnChkByte(this);">
+                    {{#equal memWithdrawal '0'}}
+                    <button type="button" id="bt_socialId" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                    {{/equal}}
+                </div>
             </td>
             <th>(내가/나를등록한)<br/>매니저정보</th>
-            <td colspan="2" style="text-align: left">
+            <td colspan="3" style="text-align: left">
                 {{addComma managerICnt}} 명 / {{addComma managerMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
-                {{/equal}}
-            </td>
-        </tr>
-        <tr>
-            <th>닉네임</th>
-            <td colspan="4" style="text-align: left">
-                {{nickName}}
-                {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_resatNick" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}" data-userId="{{userId}}">초기화</button>
+                <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-right">자세히</button>
                 {{/equal}}
             </td>
             <th>(내가/나를 등록한)<br/>블랙리스트</th>
-            <td colspan="2" style="text-align: left">
+            <td colspan="3" style="text-align: left">
                 {{addComma blackICnt}} 명 / {{addComma blackMeCnt}} 명
                 {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
+                <button type="button" id="bt_black" class="btn btn-default btn-sm pull-right">자세히</button>
                 {{/equal}}
             </td>
         </tr>
         <tr>
-            <th>생년월일</th>
-            {{^equal adultYn 'y'}}
-            <td colspan="2" style="text-align: left">
-                <div class="input-group date" id="date_birth">
-                    <input type="text" class="form-control" id="txt_birth" value="{{{../birthData}}}">
-                    {{#equal ../memWithdrawal '0'}}
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                    {{/equal}}
-                </div>
-                {{#equal ../memWithdrawal '0'}}
-                    <button type="button" id="bt_birth" class="btn btn-default btn-sm" data-memno="{{../../mem_no}}" data-nickname="{{../../nickName}}">변경</button>
+            <th>연락처</th>
+            <td colspan="3" style="text-align: left">
+                <input type="text" class="form-control" id="txt_phon" style="width: 207px;" value="{{phoneNum}}">
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{/equal}}
+            </td>
+            <th>회원가입일시</th>
+            <td colspan="3" style="text-align: left">{{joinDate}} <label id="memSlct"></label></td>
+            <th>회원탈퇴일시</th>
+            <td colspan="3" style="text-align: left">
+                {{#equal memWithdrawal '1'}}
+                {{../last_upd_date}}
+                {{/equal}}
+            </td>
+        </tr>
+        <tr>
+            <th>본인인증 여부</th>
+            <td class="font-bold">
+                {{#equal auth_yn 'Yes'}}
+                {{../comm_company}} &nbsp&nbsp|&nbsp&nbsp <label style="color: red; font-weight: bold">{{../auth_yn}}</label>
+                {{/equal}}
+                {{#equal auth_yn 'No'}}
+                <label style="font-weight: bold;">{{../auth_yn}}</label>
                 {{/equal}}
             </td>
             <th>법정대리인(보호자)</br>동의 여부</th>
             <td>
                 {{#equal ../parents_agree_yn 'y'}}
-                    <label style="color: red; font-weight: bold;">Yes</label>
-                    <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
-                    <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
+                <label style="color: red; font-weight: bold;">Yes</label>
+                <button type="button" id="bt_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
+                <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
                 {{else}}
-                    <label style="font-weight: bold;">No</label>
-                    <button type="button" id="bt_back_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
-                    <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
+                <label style="font-weight: bold;">No</label>
+                <button type="button" id="bt_back_recant" class="btn btn-default btn-sm pull-right" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
+                <button type="button" id="bt_agree_info" class="btn btn-default btn-sm pull-right">동의정보</button>
                 {{/equal}}
-
             </td>
-            {{else}}
-            <td colspan="4" style="text-align: left">
+            <th>최근 정보 수정<br/> 처리일시</th>
+            <td colspan="3" style="text-align: left">{{lastOpDate}}</td>
+            <th>최근 정보 수정 자</th>
+            <td colspan="2" style="text-align: left">{{lastOpName}}</td>
+            <td>
+                <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
+            </td>
+        </tr>
+        <tr>
+            <th>생년월일</th>
+            <td style="text-align: left">
                 <div class="input-group date" id="date_birth">
-                    <input type="text" class="form-control" id="txt_birth" value="{{{../birthData}}}">
-                    {{#equal ../memWithdrawal '0'}}
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input type="text" class="form-control pl5 pr5" id="txt_birth" value="{{{birthData}}}" style="width:70px">
+                    {{#equal memWithdrawal '0'}}
+                    <span class="input-group-addon pl5 pr5"><i class="glyphicon glyphicon-calendar"></i></span>
                     {{/equal}}
                 </div>
-                {{#equal ../memWithdrawal '0'}}
-                    <button type="button" id="bt_birth" class="btn btn-default btn-sm" data-memno="{{../../mem_no}}" data-nickname="{{../../nickName}}">변경</button>
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_birth" class="btn btn-default btn-sm" data-memno="{{../mem_no}}" data-nickname="{{../nickName}}">변경</button>
                 {{/equal}}
             </td>
-            {{/equal}}
-            <th>가입방법</th>
-            <td colspan="2" style="text-align: left"><label id="memSlct"></label></td>
-        </tr>
-        <tr>
             <th>나이</th>
-            <td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>
-            <th>성별</th>
-            <td style="text-align: left" colspan="2">
-                <label class="mt5">{{{getCommonCodeRadio memSex 'memSex'}}}</label>
-                {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
-                {{/equal}}
-            </td>
-            <th>회원가입일시</th>
-            <td colspan="2" style="text-align: left">{{joinDate}}</td>
-        </tr>
-        <tr>
-            <th>비밀번호</th>
-            <td colspan="4" style="text-align: left">
-                {{#equal memWithdrawal '0'}}
-                    <button type="button" id="bt_resatPass" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
-                {{/equal}}
-            </td>
-            <th>회원탈퇴일시</th>
-            <td colspan="2" style="text-align: left">
-                {{#equal memWithdrawal '1'}}
-                    {{../last_upd_date}}
-                {{/equal}}
-
-            </td>
-        </tr>
-        <tr>
-            <th rowspan="4">운영자메모</th>
-            <td rowspan="1" colspan="4" style="text-align: left">등록: {{addComma opMemoCnt}} 건
+            <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
+            <td style="text-align: left">{{koreaAge birthData}}세</td>
+            <th rowspan="2">운영자메모</th>
+            <td colspan="7" style="text-align: left">등록: {{addComma opMemoCnt}} 건
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>
             </td>
-            <th rowspan="1">최초방송일시</th>
-            <td rowspan="1" colspan="2" style="text-align: left">{{firstBroadcastDate}}</td>
         </tr>
         <tr>
-            <td rowspan="3" colspan="4" style="text-align: left">
+            <th>성별</th>
+            <td style="text-align: left" colspan="3">
+                <label class="mt5">{{{getCommonCodeRadio memSex 'memSex'}}}</label>
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_gender" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
+                {{/equal}}
+            </td>
+            <td colspan="7" style="text-align: left">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
                 <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
             </td>
-            <th rowspan="1">최근 정보 수정<br/> 처리일시</th>
-            <td rowspan="1" colspan="2" style="text-align: left">{{lastOpDate}}</td>
         </tr>
         <tr>
-            <th rowspan="2" >최근 정보 수정 자</th>
-            <td rowspan="2" colspan="2" style="text-align: left">{{lastOpName}}
-                <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">자세히</button>
+
+        </tr>
+        <tr>
+            <th>비밀번호</th>
+            <td colspan="3" style="text-align: left">
+                {{#equal memWithdrawal '0'}}
+                <button type="button" id="bt_resatPass" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
+                {{/equal}}
             </td>
+            <th>최초방송일시</th>
+            <td colspan="7" style="text-align: left">{{firstBroadcastDate}}</td>
         </tr>
         </tbody>
     </table>

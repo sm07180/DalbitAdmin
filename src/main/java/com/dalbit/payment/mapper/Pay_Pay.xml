@@ -12,6 +12,9 @@
           , ifnull(b.mem_id,c.mem_id) as mem_id
           , ifnull(b.mem_phone,c.mem_phone) as mem_phone
           , ifnull(b.mem_sex,c.mem_sex) as mem_sex
+          , ifnull(b.mem_birth_year,c.mem_birth_year) as mem_birth_year
+          , ifnull(b.mem_birth_month,c.mem_birth_month) as mem_birth_month
+          , ifnull(b.mem_birth_day,c.mem_birth_day) as mem_birth_day
         FROM ( SELECT pay.order_id,
                      pay.mem_no,
                      pay.pay_way,
