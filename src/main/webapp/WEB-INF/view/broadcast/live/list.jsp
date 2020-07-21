@@ -47,8 +47,8 @@
             </div>
             <div class="col-md-6 pull-right no-padding">
                 <span id="live_summaryArea"></span>
-                <span id="dj_typeSummaryArea"></span>
-                <span id="platform_summaryArea"></span>
+                <%--<span id="dj_typeSummaryArea"></span>--%>
+                <%--<span id="platform_summaryArea"></span>--%>
             </div>
             <div class="widget-content" style="border-top-width:0px;">
                 <table id="list_info" class="table table-sorting table-hover table-bordered">
@@ -244,9 +244,9 @@
         room_liveType = tmp;
 
         if(liveState == 1){
-            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,null);
+            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.liveList,summary_table);
         }else{
-            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,null);
+            dtList_info.changeReload(null,dtList_info_data,BroadcastDataTableSource.endLiveList,summary_table);
         }
 
         // getSearch();
@@ -254,21 +254,7 @@
 
     function summary_table(json){
         dalbitLog(json);
-        var template = $("#platform_tableSummary").html();
-        var templateScript = Handlebars.compile(template);
-        var data = {
-            content : json.summary
-            , length : json.recordsTotal
-        };
-        var html = templateScript(data);
-        $("#platform_summaryArea").html(html);
-
-        if(liveState == 1) {
-            var template = $("#live_tableSummary").html();
-        }else{
-            var template = $("#endlive_tableSummary").html();
-        }
-
+        var template = $("#live_tableSummary").html();
         var templateScript = Handlebars.compile(template);
         var data = {
             content : json.summary
@@ -276,16 +262,6 @@
         };
         var html = templateScript(data);
         $("#live_summaryArea").html(html);
-
-
-        var template = $("#dj_typeTableSummary").html();
-        var templateScript = Handlebars.compile(template);
-        var data = {
-            content : json.summary
-            , length : json.recordsTotal
-        };
-        var html = templateScript(data);
-        $("#dj_typeSummaryArea").html(html);
     }
 
     function getSearch(){
@@ -336,86 +312,49 @@
 
 </script>
 
-<script id="platform_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
-        <thead>
-            <tr class="align-middle">
-                <th colspan="1" rowspan="2" style="vertical-align: middle;color: red;">총 방송방</th>
-                <th colspan="3">플랫폼별</th>
-            </tr>
-            <tr>
-                <th>IOS</th>
-                <th>AOS</th>
-                <th>PC</th>
-            </tr>
-        </thead>
-        <tbody>
-            <td style="color: red;">{{#equal length '0'}}0{{/equal}}{{content.totalBroadCastCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}건</td>
-        </tbody>
-    </table>
-</script>
-
 <script id="live_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
-        <thead>
-            <tr style="height: 68px;">
-                <th style="vertical-align: middle;color:red;">총 청취자</th>
-                <th style="vertical-align: middle;">총 선물</th>
-                <th style="vertical-align: middle;">총 좋아요</th>
-                <th style="vertical-align: middle;">총 청취자<br/>부스터</th>
-                <th style="vertical-align: middle;">총 강제퇴장</th>
-            </tr>
-        </thead>
-        <tbody id="summaryDataTable">
-            <td style="color: red">{{#equal length '0'}}0{{/equal}}{{content.liveListenerCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>
-            <td>{{#equal length '0'}}0{{/equal}}{{content.totalForcedCnt}}건</td>
-        </tbody>
-    </table>
-</script>
-
-<script id="endlive_tableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
-        <thead>
-        <tr style="height: 68px;">
-            <th style="vertical-align: middle;color:red;">누적 청취자</th>
-            <th style="vertical-align: middle;">총 선물</th>
-            <th style="vertical-align: middle;">총 좋아요</th>
-            <th style="vertical-align: middle;">총 청취자<br/>부스터</th>
-            <th style="vertical-align: middle;">총 강제퇴장</th>
-        </tr>
-        </thead>
-        <tbody>
-        <td style="color: red">{{#equal length '0'}}0{{/equal}}{{content.totalListenerCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.totalGiftCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.totalGoodCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.totalBoosterCnt}}건</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.totalForcedCnt}}건</td>
-        </tbody>
-    </table>
-</script>
-
-<script id="dj_typeTableSummary" type="text/x-handlebars-template">
-    <table class="table table-bordered table-summary pull-right">
-        <thead>
+    <table class="table table-bordered table-summary pull-right" style="width: 80%">
         <tr>
-            <th colspan="3">DJ구분</th>
+            <th colspan="8" style="background-color: #bf9000;color: white">방송방</th>
+            <th colspan="3" style="background-color: #2f5496;color: white">청취자</th>
         </tr>
         <tr>
-            <th>일반</th>
-            <th>신입</th>
-            <th>스페셜DJ</th>
+            <th colspan="3" style="background-color: #fff2cc;">플랫폼</th>
+            <th colspan="2" style="background-color: #fff2cc;">DJ구분</th>
+            <th colspan="3" style="background-color: #fff2cc;">DJ성별</th>
+            <th colspan="3" style="background-color: #cdd4ea;">청취자성별</th>
         </tr>
-        </thead>
-        <tbody>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}}명</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
-        <td>{{#equal length '0'}}0{{/equal}}{{content.specialDjCnt}}명</td>
-        </tbody>
+        <tr>
+            <th style="background-color: #f2f2f2;">Android</th>
+            <th style="background-color: #f2f2f2;">IOS</th>
+            <th style="background-color: #f2f2f2;">PC</th>
+            <th style="background-color: #fee599;">일반(스페셜DJ)</th>
+            <th style="background-color: #fee599;">신입</th>
+            <th style="background-color: #f2f2f2;">{{{sexIcon 'm'}}}</th>
+            <th style="background-color: #f2f2f2;">{{{sexIcon 'f'}}}</th>
+            <th style="background-color: #f2f2f2;">{{{sexIcon 'n'}}}</th>
+            <th style="background-color: #f2f2f2;">{{{sexIcon 'm'}}}</th>
+            <th style="background-color: #f2f2f2;">{{{sexIcon 'f'}}}</th>
+            <th style="background-color: #f2f2f2;">{{{sexIcon 'n'}}}</th>
+        </tr>
+        <tr>
+            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}</td>
+            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}</td>
+            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}</td>
+            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}}({{content.specialDjCnt}})</td>
+            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
+            <td style="background-color: #cdd4ea; color: blue">{{content.broadMaleCnt}}</td>
+            <td style="background-color: #cdd4ea; color: red">{{content.broadFemaleCnt}}</td>
+            <td style="background-color: #cdd4ea;">{{content.broadNoneCnt}}</td>
+            <td style="background-color: #cdd4ea; color: blue">{{content.liveListenMaleCnt}}</td>
+            <td style="background-color: #cdd4ea; color: red">{{content.liveListenFemaleCnt}}</td>
+            <td style="background-color: #cdd4ea;">{{content.liveListenNoneCnt}}</td>
+        </tr>
+        <tr>
+            <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}}({{content.broadStateNomal}}/{{content.broadBreak}})</td>
+            <td class="font-bold" style="background-color: #d8d8d8;" colspan="2">총 수</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31">{{content.liveListenerCnt}}</td>
+        </tr>
     </table>
 </script>
