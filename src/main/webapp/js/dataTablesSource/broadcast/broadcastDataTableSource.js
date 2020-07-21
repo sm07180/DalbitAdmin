@@ -38,7 +38,9 @@ var BroadcastDataTableSource = {
             {'title': '성별', 'data': 'dj_memSex', 'width':'55px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data) + '<br/>' + "(" +row.dj_korean_age + "세)";
                 }},
-            {'title': '방송 누적<br/>개설 수', 'data': '','width' : '70px'},
+            {'title': '방송 누적<br/>개설 수', 'data': 'broadCastCnt','width' : '70px', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
             {'title': '상태', 'data': 'state', 'width':'120px', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data,room_state);
                 }},
@@ -46,7 +48,12 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '방송연장', 'data': '','width' : '55px'},
+            {'title': '방송연장', 'data': 'extend_time_count','width' : '55px','render': function (data){
+                    if(data > 0){
+                        return 'YES';
+                    }
+                    return 'NO';
+                }},
             {'title': '누적<br/>청취자', 'data': 'totalListener','width' : '55px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "명";
@@ -77,8 +84,11 @@ var BroadcastDataTableSource = {
             {'title': '나가기<br/>시도횟수', 'data': 'exit_try_count','width' : '55px','render': function (data){
                     return common.fontColor(data, 1, 'red') +'번';
                 }},
-            {'title': '입장/<br/>강제종료', 'data': '','width' : '55px','render': function (data){
-                    return '';
+            {'title': '입장/<br/>강제종료', 'data': '','width' : '55px','render': function (data, type, row, meta) {
+                    var tmp =  '<button type="button" id="bt_broadcastGo" class="btn btn-default btn-sm _openPlayerPop" data-roomno="' + row.room_no + '" >입장</button><br/>';
+                    tmp = tmp + '<button type="button" class="btn btn-danger btn-sm" onclick="forcedEnd($(this).data());" data-memno= "' + row.dj_mem_no + '" data-roomno="' + row.room_no + '" >강제종료</button>';
+
+                    return tmp;
                 }},
             {'title': '숨김상태', 'data': 'hide', 'width':'55px', 'render': function (data, type, row, meta) {
                     if(data == 0) return "N";
@@ -119,14 +129,16 @@ var BroadcastDataTableSource = {
                     }
                     return tmp;
                 }},
-            {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px','width' : '75px','render': function (data, type, row, meta) {
+            {'title': 'User 닉네임', 'data': 'dj_nickname','width' : '75px','render': function (data, type, row, meta) {
                     var tmp = util.memNoLink(row.dj_mem_no, row.dj_mem_no);
                     return tmp + '<br/>' + data;
                 }},
             {'title': '성별', 'data': 'dj_memSex', 'width':'55px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data) + '<br/>' + "(" +row.dj_korean_age + "세)";
                 }},
-            {'title': '방송 누적<br/>개설 수', 'data': '','width' : '70px'},
+            {'title': '방송 누적<br/>개설 수', 'data': 'broadCastCnt','width' : '70px', 'render': function (data, type, row, meta) {
+                    return common.addComma(data);
+                }},
             {'title': '상태', 'data': 'state', 'width':'120px', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data,room_state);
                 }},
@@ -135,7 +147,12 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '방송연장', 'data': '','width' : '55px'},
+            {'title': '방송연장', 'data': 'extend_time_count','width' : '55px','render': function (data){
+                    if(data > 0){
+                        return 'YES';
+                    }
+                    return 'NO';
+                }},
             {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '65px','render': function (data){
                     return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},

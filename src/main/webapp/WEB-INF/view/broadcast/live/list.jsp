@@ -321,6 +321,19 @@
         util.excelDownload($(this), "/rest/broadcast/broadcast/liveListExcel", formData)
     });
 
+    function forcedEnd(cancelData){
+        if(confirm("방송강제 종료 시도 하시겠습니까?")){
+            var data = {};
+            data.mem_no = cancelData.memno;
+            data.room_no = cancelData.roomno;
+            util.getAjaxData("forcedEnd", "/rest/member/broadcast/forcedEnd",data, forced_success);
+        }else return false;
+    }
+    function forced_success(dst_id, response) {
+        alert(response.message);
+        dtList_info.reload(summary_table);
+    }
+
 </script>
 
 <script id="platform_tableSummary" type="text/x-handlebars-template">
