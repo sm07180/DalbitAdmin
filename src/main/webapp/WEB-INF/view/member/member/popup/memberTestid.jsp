@@ -74,8 +74,8 @@
         <td>{{user.emp_no}}</td>
         <td>{{user.emp_name}}</td>
         <td>{{relationName user.relation}}</td>
-        <td>{{user.mem_no}}</td>
-        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_userId}}</a></td>
+        <td><a href="javascript://" class="_openMemberPop" data-memNo="{{user.mem_no}}">{{user.mem_no}}</a></td>
+        <td>{{user.mem_userId}}</td>
         <td>{{user.mem_nick}}</td>
         <td>{{{sexIcon user.mem_sex}}}</td>
         <td>{{user.type}}: {{user.charge}}<br/>

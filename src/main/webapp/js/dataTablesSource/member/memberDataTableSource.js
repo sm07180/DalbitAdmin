@@ -168,7 +168,7 @@ var MemberDataTableSource = {
         'url': '/rest/member/listen/list'
         , 'columns': [
             {'title': 'roomNo', 'data': 'room_no' , 'visible' : false},
-            {'title': 'DJID', 'data': 'dj_userId', 'width':'100px', 'render': function (data, type, row, meta) {
+            {'title': 'DJ회원번호', 'data': 'dj_mem_no', 'width':'100px', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.dj_mem_no);
                 }},
             {'title': 'DJ닉네임', 'data': 'dj_nickName', 'width':'100px'},
@@ -341,7 +341,7 @@ var MemberDataTableSource = {
     'mystar': {
         'url': '/rest/member/mystar/mystarlist'
         , 'columns': [
-            {'title': 'MyStar ID', 'data': 'mem_no_start_id', 'render': function (data, type, row, meta) {
+            {'title': 'MyStar 회원번호', 'data': 'mem_no_star', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no_star);
                 }},
             {'title': 'MyStar 닉네임', 'data': 'mem_no_start_nick'},
@@ -361,7 +361,7 @@ var MemberDataTableSource = {
     'myfan': {
         'url': '/rest/member/mystar/myfanlist'
         , 'columns': [
-            {'title': 'Fan ID', 'data': 'mem_no_fan_id', 'render': function (data, type, row, meta) {
+            {'title': 'Fan 회원번호', 'data': 'mem_no_fan', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no_fan);
                 }},
             {'title': 'Fan 닉네임', 'data': 'mem_no_fan_nick'},
@@ -434,13 +434,13 @@ var MemberDataTableSource = {
             ,{'title': '신고 구분', 'data' : 'reason', 'name' : 'sortReport', 'render': function(data) {
                     return util.getCommonCodeLabel(data, declaration_reason);
                 }}
-            ,{'title': '신고자 UserID', 'data': 'mem_userid', 'render': function (data, type, row) {
+            ,{'title': '신고자 회원번호', 'data': 'mem_no', 'render': function (data, type, row) {
                     return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}}
             ,{'title': '신고자 User닉네임', 'data': 'mem_nick'}
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
                 }}
-            ,{'title': '신고 대상 UserID', 'data': 'reported_userid', 'render': function (data, type, row) {
+            ,{'title': '신고대상 회원번호', 'data': 'reported_mem_no', 'render': function (data, type, row) {
                     return '<a href="javascript://" class="_getDeclarationDetail" data-idx="' + row.reportIdx + '">' + data + '</a>'}
                 , 'defaultContent': '-'}
             ,{'title': '신고 대상 User닉네임', 'data': 'reported_nick'}
@@ -578,7 +578,7 @@ var MemberDataTableSource = {
                     return common.getMemStateName(data);
                 }},
             {'title': '미성년자여부', 'data': 'birth','render' : function (data, type, row) {
-                    if(data < 19){
+                    if(data < 20){
                         return '<span style="color:red">미성년자</span>';
                     }
                     return "-";
@@ -632,10 +632,10 @@ var MemberDataTableSource = {
     'walletDalDetail': {
         'url': '/rest/member/wallet/dal/list'
         , 'columns': [
-            {'title': '회원번호', 'data': 'mem_no'},
-            {'title': 'UserID', 'data': 'userId', 'render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
+            {'title': 'UserID', 'data': 'userId'},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
@@ -664,10 +664,10 @@ var MemberDataTableSource = {
     'walletByeolDetail': {
         'url': '/rest/member/wallet/byeol/list'
         , 'columns': [
-            {'title': '회원번호', 'data': 'mem_no'},
-            {'title': 'UserID', 'data': 'userId', 'render': function (data, type, row, meta) {
+            {'title': '회원번호', 'data': 'mem_no', 'render': function (data, type, row, meta) {
                     return util.memNoLink(data, row.mem_no);
                 }},
+            {'title': 'UserID', 'data': 'userId'},
             {'title': 'User닉네임', 'data': 'nickName'},
             {'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
