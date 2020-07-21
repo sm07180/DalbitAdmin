@@ -987,7 +987,8 @@
                 {{/equal}}
             </td>
             <th>나이</th>
-            <td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>
+            <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
+            <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th rowspan="2">운영자메모</th>
             <td colspan="7" style="text-align: left">등록: {{addComma opMemoCnt}} 건
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">자세히</button>

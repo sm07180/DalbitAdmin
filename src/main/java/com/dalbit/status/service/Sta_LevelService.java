@@ -50,6 +50,13 @@ public class Sta_LevelService {
         List<P_LevelOutputVo> list = staLevelDao.getMemberLevelList(pLevelInputVo);
         int getLevelListCnt = staLevelDao.getLevelListCnt(pLevelInputVo);
 
+        for(int i=0;i<list.size();i++){
+            P_LevelOutputVo outputVo = staLevelDao.getTopFanInfo(list.get(i).getMem_no());
+            if(!DalbitUtil.isEmpty(outputVo)) {
+                list.get(i).setTotRcvRubyCnt(outputVo.getTotRcvRubyCnt());
+                list.get(i).setFanNickName(outputVo.getFanNickName());
+            }
+        }
         //summary
         P_LevelOutputVo summary = staLevelDao.getLevelSummary(pLevelInputVo);
 

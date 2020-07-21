@@ -45,6 +45,21 @@
         limit #{pageStart}, #{pageCnt}
     </select>
 
+
+    <select id="getTopFanInfo" parameterType="String" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">
+        /* Sta_Level.xml - getLevelList */
+        SELECT a.tot_rcv_ruby_cnt as totRcvRubyCnt,
+               d.mem_nick as fanNickName
+          FROM rd_data.tb_member_gift_mem  a
+         INNER JOIN rd_data.tb_member_basic AS d ON a.mem_no = d.mem_no AND d.mem_state != 5
+         INNER JOIN rd_data.tb_member_fanstar AS g ON a.mem_no = g.mem_no_fan AND g.mem_no_star = #{mem_no}
+          LEFT JOIN rd_data.tb_member_profile AS f ON a.mem_no = f.mem_no
+         WHERE gifted_mem_no = #{mem_no} AND a.tot_rcv_ruby_cnt <![CDATA[>]]> 0
+         ORDER BY a.tot_rcv_ruby_cnt DESC
+         limit 1
+    </select>
+
+
     <select id="getLevelListCnt" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="integer">
         /* Sta_Level.xml - getLevelListCnt */
         select count(*)

@@ -16,6 +16,9 @@ public interface Sta_LevelDao {
     ArrayList<P_LevelOutputVo> getMemberLevelList(P_LevelInputVo pLevelInputVo);
 
     @Transactional(readOnly = true)
+    P_LevelOutputVo getTopFanInfo(String mem_no);
+
+    @Transactional(readOnly = true)
     int getLevelListCnt(P_LevelInputVo pLevelInputVo);
 
     @Transactional(readOnly = true)
