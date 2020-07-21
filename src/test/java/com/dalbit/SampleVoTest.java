@@ -6,7 +6,7 @@ import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.MenuVo;
-import com.dalbit.common.vo.SmsVo;
+import com.dalbit.common.vo.SmsHistoryVo;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.inforex.vo.InforexPosCode;
 import com.dalbit.socket.service.SocketService;
@@ -140,7 +140,7 @@ public class SampleVoTest {
 
     @Test
     public void 문자발송테스트()throws GlobalException{
-        smsService.sendSms(new SmsVo("[내용]내용이에요 안드로이드는 제목이 보이죠?", "01073041558"));
+        smsService.sendSms(new SmsHistoryVo("[내용]내용이에요 안드로이드는 제목이 보이죠?", "01073041558"));
     }
 
     @Test
