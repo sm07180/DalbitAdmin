@@ -18,7 +18,7 @@
                           union
                           select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_star ) as mem_no_start_nick
                         ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as accumCnt
-                        ,(select sum(ruby) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = mem_no_fan and gifted_mem_no = a.mem_no_star) as totalItemCnt
+                        ,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = mem_no_star and mem_no = #{mem_no}) as totalItemCnt
                    From rd_data.tb_member_fanstar a
                   where mem_no_fan = #{mem_no}) as a, (select @rownum := #{pageNo} ) AS d
          order by totalItemCnt desc, reg_date desc
@@ -44,8 +44,8 @@
                         ,(select mem_nick From rd_data.tb_member_basic where mem_no = a.mem_no_fan
                           union
                           select mem_nick From rd_data.tb_member_withdrawal_bak where mem_no = a.mem_no_fan ) as mem_no_fan_nick
-                        ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = a.mem_no_fan and gifted_mem_no = mem_no_star) as accumCnt
-                        ,(select sum(ruby) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = a.mem_no_fan and gifted_mem_no = mem_no_star) as totalItemCnt
+                        ,(select count(*) AS accumCnt from rd_data.tb_member_broadcast_item where mem_no = #{mem_no} and gifted_mem_no = mem_no_star) as accumCnt
+                        ,(select tot_rcv_ruby_cnt from rd_data.tb_member_gift_mem where gifted_mem_no = #{mem_no} and mem_no = mem_no_fan) as totalItemCnt
                    From rd_data.tb_member_fanstar a
                   where mem_no_star = #{mem_no}) as a, (select @rownum := #{pageNo} ) AS d
          order by totalItemCnt desc, reg_date desc
