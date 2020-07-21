@@ -956,7 +956,8 @@
         </tr>
         <tr>
             <th>나이</th>
-            <td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>
+            <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
+            <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th>성별</th>
             <td style="text-align: left" colspan="2">
                 <label class="mt5">{{{getCommonCodeRadio memSex 'memSex'}}}</label>
