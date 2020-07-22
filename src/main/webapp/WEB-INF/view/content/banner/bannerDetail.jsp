@@ -669,10 +669,10 @@
             </tr>
             <tr>
                 <th>PC 링크</th>
-                <td colspan="5"><input type="text" class="form-control _trim" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{pc_link_url}}"></td>
+                <td colspan="5"><input type="text" class="form-control _trim" id="banner-pc_link_url"  name="pc_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{pc_link_url}}}"></td>
 
                 <th>Mobile 링크</th>
-                <td colspan="5"><input type="text" class="form-control _trim" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{mobile_link_url}}"></td>
+                <td colspan="5"><input type="text" class="form-control _trim" id="banner-mobile_link_url" name="mobile_link_url" placeholder="배너 클릭 시 이동할 링크" value="{{{mobile_link_url}}}"></td>
             </tr>
             <tr>
                 <th>썸네일 (공통)</th>

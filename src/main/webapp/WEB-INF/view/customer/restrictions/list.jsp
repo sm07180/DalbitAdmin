@@ -65,6 +65,7 @@
 <script src="/js/dataTablesSource/customer/restrictionsDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/restrictionsCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
 <script>
     var tabType = common.isEmpty(<%=in_tabType%>) ? 1 : <%=in_tabType%>;
@@ -82,7 +83,7 @@
         });
         <!-- 버튼 끝 -->
 
-        $("#searchRadio").html(util.getCommonCodeRadio(1, restrictions_searchRadioMember));
+        $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadioMember));
         $("#searchTarget").html(util.getCommonCodeSelect(-1, restrictions_searchTarget));
         $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType));
         $("#searchOpCode").html(util.getCommonCodeSelect(-1, restrictions_searchOpCode));
@@ -126,10 +127,8 @@
     var dtList_info;
     var dtList_info_data = function ( data ) {
         var searchType = $('#searchType option:selected').val();
-        if($('input[name="searchRadio"]:checked').val() == "2"){
+        if($('input[name="searchRadio"]:checked').val() != "1"){
             searchType = "9";       // IP 검색
-        }else if($('input[name="searchRadio"]:checked').val() == "3"){
-            searchType = "6";       // 모바일ID 검색
         }
 
         data.searchType = searchType;       // 검색구분
@@ -146,12 +145,9 @@
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
         var searchType = $('#searchType option:selected').val();
-        if($('input[name="searchRadio"]:checked').val() == "2"){
+        if($('input[name="searchRadio"]:checked').val() != "1"){
             searchType = "9";       // IP 검색
-        }else if($('input[name="searchRadio"]:checked').val() == "3"){
-            searchType = "6";       // 모바일ID 검색
         }
-
         data.searchType = searchType;       // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명
         data.searchTarget = $('#searchTarget option:selected').val();       //대상

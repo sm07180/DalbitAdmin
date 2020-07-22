@@ -305,11 +305,11 @@
                 $("#timeNonOverTableBody2 tr:eq(25) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
                 $("#timeNonOverTableBody2 tr:eq(25) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
 
-                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
-                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));
-                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_femaleCnt , totalInfo.sum_totalCnt) + "%");
-                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_noneCnt));
-                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_totalCnt));
+                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (1) + ")").html(common.addComma(totalInfo.sum_umaleCnt));
+                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (2) + ")").html(common.addComma(totalInfo.sum_ufemaleCnt));
+                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (3) + ")").html(common.average(totalInfo.sum_ufemaleCnt , totalInfo.sum_utotalCnt) + "%");
+                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (4) + ")").html(common.addComma(totalInfo.sum_unoneCnt));
+                $("#timeNonOverTableBody2 tr:eq(26) td:eq(" + (5) + ")").html(common.addComma(totalInfo.sum_utotalCnt));
             }else if(i == 4 || i == 5){
                 $("#timeNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 1) + ")").html(common.addComma(totalInfo.sum_maleCnt));
                 $("#timeNonOverTableBody2 tr:eq(0) td:eq(" + (tmp_index * 6 + 2) + ")").html(common.addComma(totalInfo.sum_femaleCnt));

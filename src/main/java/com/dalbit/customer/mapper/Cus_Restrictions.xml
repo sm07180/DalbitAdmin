@@ -76,6 +76,7 @@
                         OR a.mem_userid like concat ('%', #{searchText}, '%')
                         OR a.mem_nick like concat ('%', #{searchText}, '%')
                         OR a.mem_phone like concat ('%', #{searchText}, '%')
+                        OR a.device_uuid like concat ('%', #{searchText}, '%')
                         )
                     </otherwise>
                 </choose>
@@ -162,6 +163,7 @@
                         OR a.mem_userid like concat ('%', #{searchText}, '%')
                         OR a.mem_nick like concat ('%', #{searchText}, '%')
                         OR a.mem_phone like concat ('%', #{searchText}, '%')
+                        OR a.device_uuid like concat ('%', #{searchText}, '%')
                         )
                     </otherwise>
                 </choose>
@@ -250,6 +252,7 @@
                             OR a.mem_userid like concat ('%', #{searchText}, '%')
                             OR a.mem_nick like concat ('%', #{searchText}, '%')
                             OR a.mem_phone like concat ('%', #{searchText}, '%')
+                            OR a.device_uuid like concat ('%', #{searchText}, '%')
                             )
                         </otherwise>
                     </choose>
@@ -378,6 +381,7 @@
                             OR a.mem_userid like concat ('%', #{searchText}, '%')
                             OR a.mem_nick like concat ('%', #{searchText}, '%')
                             OR a.mem_phone like concat ('%', #{searchText}, '%')
+                            OR a.device_uuid like concat ('%', #{searchText}, '%')
                             )
                         </otherwise>
                     </choose>
@@ -400,9 +404,6 @@
                         </when>
                         <when test='searchType == 5'>
                             a.dj_mem_phone like concat ('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 6'>
-                            a.dj_device_uuid like concat ('%', #{searchText}, '%')
                         </when>
                         <when test='searchType == 9'>
                             a.dj_mem_ip like concat ('%', #{searchText}, '%')
