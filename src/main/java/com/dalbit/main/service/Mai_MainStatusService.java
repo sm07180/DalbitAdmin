@@ -3,6 +3,11 @@ package com.dalbit.main.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.enter.dao.Ent_JoinDao;
+import com.dalbit.enter.dao.Ent_PayDao;
+import com.dalbit.enter.vo.procedure.P_JoinWithdrawOutDetailVo;
+import com.dalbit.enter.vo.procedure.P_PayInfoOutVo;
+import com.dalbit.enter.vo.procedure.P_StatJoinOutVo;
 import com.dalbit.main.dao.Mai_MainStatusDao;
 import com.dalbit.main.vo.PayStatusInputVo;
 import com.dalbit.main.vo.PayStatusOutputVo;
@@ -15,10 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.dalbit.main.vo.procedure.P_StatVo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 @Slf4j
 @Service
@@ -138,6 +144,59 @@ public class Mai_MainStatusService {
         map.put("prevWeekList", prevWeekList);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, map));
+    }
+
+
+    /**
+     * 메인 가입현황 고정
+     * @return
+     */
+
+    @Autowired
+    Ent_JoinDao ent_JoinDao;
+    public String callStatJoin(){
+        ProcedureVo procedureVo = new ProcedureVo();
+        ent_JoinDao.callStatJoin(procedureVo);
+        P_StatJoinOutVo joinInfo = new Gson().fromJson(procedureVo.getExt(), P_StatJoinOutVo.class);
+
+        ent_JoinDao.callStatWithdraw(procedureVo);
+        P_StatJoinOutVo withdrawInfo = new Gson().fromJson(procedureVo.getExt(), P_StatJoinOutVo.class);
+
+        var result = new HashMap<String, Object>();
+        result.put("joinInfo", joinInfo);
+        result.put("withdrawInfo", withdrawInfo);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 결제/환불 고정
+     * @return
+     */
+    @Autowired
+    Ent_PayDao ent_PayDao;
+    public String callPayInfo(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        ent_PayDao.callPayInfo(procedureVo);
+
+        P_PayInfoOutVo info = new Gson().fromJson(procedureVo.getExt(), P_PayInfoOutVo.class);
+        var result = new HashMap<String, Object>();
+
+        pStatVo.setStartDate(pStatVo.getStartDate().replaceAll("\\.",""));
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(pStatVo.getStartDate());
+        }else {
+            pStatVo.setEndDate(pStatVo.getEndDate().replaceAll("\\.", ""));
+        }
+
+        P_PayInfoOutVo outVo = main_JoinDao.callPayCancelInfo(pStatVo);
+        if(!DalbitUtil.isEmpty(outVo)) {
+            info.setCancelCnt(outVo.getCancelCnt());
+            info.setCancelAmt(outVo.getCancelAmt());
+        }
+        result.put("info", info);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
 
 }
