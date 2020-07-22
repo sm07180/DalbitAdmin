@@ -16,7 +16,7 @@ public class P_ForcedListOutputVo extends SearchVo {
     private String mem_birth_month; // 회원 생년월일
     private String mem_birth_day;   // 회원 생년월일
     private int mem_age; 		// 강퇴회원 mem_age
-    private String device_token; 	// 강퇴회원 device_token
+    private String device_uuid; 	// 강퇴회원 device_uuid
     private String mem_phone; 		// 강퇴회원 mem_phone
     private String mem_ip; 		// 강퇴회원 ip
     private String last_upd_date; 	// 강퇴일시

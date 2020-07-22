@@ -13,6 +13,8 @@
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i> 회원 검색</h3>
                     <div>
+                        <span id="searchRadio"></span>
+                        <span id="searchTarget" style="display: none;"></span>
                         <span id="searchType"></span>
                         <label><input type="text" class="form-control" id="txt_search"></label>
                         <button type="submit" class="btn btn-success" id="bt_search">검색</button>
@@ -63,6 +65,7 @@
 <script src="/js/dataTablesSource/customer/restrictionsDataTableSource.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/restrictionsCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 
 <script>
     var tabType = common.isEmpty(<%=in_tabType%>) ? 1 : <%=in_tabType%>;
@@ -80,10 +83,20 @@
         });
         <!-- 버튼 끝 -->
 
-        $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType1));
+        $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadioMember));
+        $("#searchTarget").html(util.getCommonCodeSelect(-1, restrictions_searchTarget));
+        $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType));
         $("#searchOpCode").html(util.getCommonCodeSelect(-1, restrictions_searchOpCode));
 
         getRestrictionsInfo();
+    });
+
+    $('#searchRadio').change(function() {
+        if($('input[name="searchRadio"]:checked').val() == "1"){
+            $("#searchType").removeClass("hide");
+        }else{
+            $("#searchType").addClass("hide");
+        }
     });
 
     $(document).on('click', '#bt_state', function() {           // 상태 정상으로 변경
@@ -97,19 +110,28 @@
 
 
     function restrictionsList(type){
+        var code = -1;
+        if(tabType == type){
+            code = $('#searchType option:selected').val();
+        }
         tabType = type;
 
         if(tabType == 1) { // 경고정지회원
-            $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType1));
+            $("#searchTarget").hide();
         }else if(tabType == 2){ //방송 강제퇴장 회원
-            $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType2));
+            $("#searchTarget").show();
         }
 
     }
 
     var dtList_info;
     var dtList_info_data = function ( data ) {
-        data.searchType = $('#searchType option:selected').val();          // 검색구분
+        var searchType = $('#searchType option:selected').val();
+        if($('input[name="searchRadio"]:checked').val() != "1"){
+            searchType = "9";       // IP 검색
+        }
+
+        data.searchType = searchType;       // 검색구분
         data.searchText = $('#txt_search').val();            // 검색명
         data.opCode = $("#opCode").val();
         // data.pageCnt = 10;
@@ -122,8 +144,13 @@
 
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
-        data.searchType = $('#searchType option:selected').val();          // 검색구분
+        var searchType = $('#searchType option:selected').val();
+        if($('input[name="searchRadio"]:checked').val() != "1"){
+            searchType = "9";       // IP 검색
+        }
+        data.searchType = searchType;       // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명
+        data.searchTarget = $('#searchTarget option:selected').val();       //대상
         // data.pageCnt = 10;
     };
     dtList_info2 = new DalbitDataTable($("#tb_forcedList"), dtList_info_data2, RestrictionsDataTableSource.forcedList);

@@ -45,7 +45,7 @@ var RestrictionsDataTableSource = {
             ,{'title': '성별', 'data': 'mem_sex', 'width':'70px', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year, true);
                 }}
-            ,{'title': '퇴장횟수', 'data': 'exit_cnt', 'width':'50px'}
+            ,{'title': '누적퇴장', 'data': 'exit_cnt', 'width':'50px'}
             ,{'title': '연락처', 'data': 'mem_phone', 'width':'110px', 'render': function (data, type, row, meta) {
                     // return common.phoneNumHyphen(data);
                     return data;
