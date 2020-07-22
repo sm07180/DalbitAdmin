@@ -251,4 +251,40 @@
             and slct_type = #{slct_type}
     </delete>
 
+    <select id="selectAdminManager" parameterType="com.dalbit.administrate.vo.AdminManagerVo" resultType="com.dalbit.administrate.vo.AdminManagerVo">
+        /* Adm_TestId.xml - selectAdminManager */
+        select mem_no
+        from rd_admin.tb_admin_test_account
+        where is_admin = #{is_admin}
+    </select>
+
+    <insert id="insertBroadAdminManager" parameterType="com.dalbit.administrate.vo.AdminManagerVo">
+        /* Adm_TestId.xml - insertBroadAdminManager */
+        insert into rd_data.tb_member_broadcast_manager
+        (mem_no, manager_mem_no, control, last_upd_date)
+        values
+        (#{mem_no}, #{manager_mem_no}, #{control}, now())
+    </insert>
+
+    <select id="selectAdminCheck" parameterType="com.dalbit.administrate.vo.AdminManagerVo" resultType="integer">
+        /* Adm_TestId.xml - selectAdminCheck */
+        select count(*)
+        from (
+            select distinct(bro.mem_no) as mem_no
+              from rd_admin.tb_admin_test_account acc
+                 inner join rd_data.tb_member_broadcast_manager bro
+                 on acc.mem_no = bro.mem_no
+              where acc.is_admin = #{is_admin}
+              and bro.mem_no = #{mem_no}
+          ) a
+    </select>
+
+    <delete id="deleteBroadAdminManager" parameterType="com.dalbit.administrate.vo.AdminManagerVo">
+        /* Adm_TestId.xml - deleteBroadAdminManager */
+        delete from rd_data.tb_member_broadcast_manager
+        where
+          mem_no = #{mem_no}
+          or manager_mem_no = #{mem_no}
+    </delete>
+
 </mapper>
