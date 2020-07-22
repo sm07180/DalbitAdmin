@@ -14,7 +14,7 @@ var MemberDataTableSource = {
                     return util.memNoLink(data, row.mem_no);
                 }},
             // {'title': '로그인ID', 'data': 'mem_id', 'width':'100px'},
-            {'title': 'UserID', 'data': 'mem_userid', 'width':'ㅣㅑ100px', 'render': function (data, type, row, meta) {
+            {'title': 'UserID', 'data': 'mem_userid', 'width':'100px', 'render': function (data, type, row, meta) {
                     if(row.testId == "" || row.testId == null){
                         return util.memNoLink(data, row.mem_no);
                     }else{

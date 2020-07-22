@@ -5,13 +5,6 @@ var specialDataTableSource = {
             {'title': '회원번호', 'data': 'mem_no', 'width' : '10%', 'render': function(data, type, row) {
                     return '<a href="javascript://" class="_openMemberPop" data-memno="' + row.mem_no + '">' + data + '</a>'
                 }}
-            , {'title': '프로필', 'width': '65px', 'data': 'image_profile', 'render': function(data, type, row) {
-                    var image = 'https://devphoto2.dalbitlive.com/profile_3/profile_' + row.mem_sex + '_200327.jpg';
-                    if(!data == ''){
-                        image = PHOTO_SERVER_URL + data;
-                    }
-                    return '<img class="thumbnail fullSize_background" src="'+ image +'" style="width: 65px;height: 65px" />';
-                }}
             , {'title': '닉네임', 'width': '10%', 'data': 'mem_nick'}
             , {'title': '성별', 'data': 'mem_sex', 'width':'5%', 'render': function (data, type, row, meta) {
                     return common.sexIcon(data, row.mem_birth_year);
@@ -25,14 +18,29 @@ var specialDataTableSource = {
             , {'title': '연락처', 'data': 'mem_phone', 'width':'10%', 'render': function(data){
                     return common.phoneNumHyphen(data)
                 }}
-            , {'title': '주요방송시간1', 'data': 'broadcast_time1'}
-            , {'title': '주요방송시간2', 'data': 'broadcast_time2'}
-            , {'title': '상태', 'data': 'state',  'width': '10%','render': function(data) {
-                    return util.getCommonCodeLabel(data, special_state);
+            , {'title': '누적<br />방송시간', 'data': 'airTime','render': function(data) {
+                    return common.addComma(data)+' 분';
                 }}
-            , {'title': '처리자', 'data': 'op_name'}
-            , {'title': '처리 일시', 'data': 'last_upd_date', 'render': function(data, type, row) {
-                    return common.convertToDate(data, 'YYYY-MM-DD HH:mm:ss');
+            , {'title': '1시간 이상<br />방송 횟수', 'data': 'broadcastCnt','render': function(data) {
+                    return common.addComma(data)+' 회';
+                }}
+            , {'title': '좋아요', 'data': 'goodCnt', 'render': function(data) {
+                    return common.addComma(data)+' 회';
+                }}
+            , {'title': '팬', 'data': 'fanCnt', 'render': function(data) {
+                    return common.addComma(data)+' 명';
+                }}
+            , {'title': '누적<br />청취자 수', 'data': 'allListenCnt', 'render': function(data, type, row) {
+                    return common.addComma(data)+' 명';
+                }}
+            , {'title': '순수<br />청취자 수', 'data': 'listenCnt', 'render': function(data, type, row) {
+                    return common.addComma(data)+' 명';
+                }}
+            , {'title': '신고횟수', 'data': 'reportCnt', 'render': function(data, type, row) {
+                    return common.addComma(data)+' 번';
+                }}
+            , {'title': '받은 별', 'data': 'receiveStar', 'render': function(data, type, row) {
+                    return common.addComma(data)+' 별';
                 }}
         ]
         // , 'comments': ''

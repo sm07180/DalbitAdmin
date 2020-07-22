@@ -96,12 +96,6 @@
             responseRight[i] = response.data[i];
         }
 
-        console.log("----------------------------------------------");
-        console.log(responseLeft);
-        console.log(responseRight);
-        console.log("----------------------------------------------");
-
-
         $("#level_body1").empty();
         $("#level_body2").empty();
 
