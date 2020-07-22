@@ -189,47 +189,47 @@ public class Adm_TestIdService {
     @Transactional
     public String updateAdminId(AdminIdVo adminIdVo){
 
-        AdminManagerVo adminManagerVo = new AdminManagerVo();
+        var adminManagerVo = new AdminManagerVo();
         try {
-            admTestIdDao.updateAdminId(adminIdVo);
-            admTestIdDao.updateAdminBadge(adminIdVo);
-
             var memberBadgeVo = new MemberBadgeVo();
              memberBadgeVo.setMem_no(adminIdVo.getMem_no());
              memberBadgeVo.setSlct_type(6);
              memberBadgeVo.setBadge_value(1);
             if(adminIdVo.getIs_admin() == 0){
-                // 매니저 해제
-                adminManagerVo.setIs_admin(adminIdVo.getIs_admin());
-                adminManagerVo.setMem_no(adminIdVo.getMem_no());
-                int count = admTestIdDao.selectAdminCheck(adminManagerVo);
-                if(count > 0) {
-                    admTestIdDao.deleteBroadAdminManager(adminManagerVo);
-                }
-
+                // 운영자 뱃지 등록
                 admTestIdDao.deleteMemberBadge(memberBadgeVo);
+
+                // 매니저 해제
+                adminManagerVo.setIs_admin(1);
+                adminManagerVo.setMem_no(adminIdVo.getMem_no());
+
+                // tb_member_broadcast_manager에서 mem_no 삭제하기
+                admTestIdDao.deleteBroadAdminManagerMaster(adminManagerVo);
+                // tb_member_broadcast_manager에서 manager_mem_no 삭제하기
+                admTestIdDao.deleteBroadAdminManager(adminManagerVo);
             }else{
                 // 매니저 등록
                 adminManagerVo.setIs_admin(adminIdVo.getIs_admin());
                 List<AdminManagerVo> managerList = admTestIdDao.selectAdminManager(adminManagerVo);
                 for(int i=0; i<managerList.size(); i++) {
-                    if(!managerList.get(i).getMem_no().equals(memberBadgeVo.getMem_no())) {
-                        
-                        //운영자 아이디를 모두 매니저로 등록
-                        adminManagerVo.setManager_mem_no(managerList.get(i).getMem_no());
-                        adminManagerVo.setMem_no(adminIdVo.getMem_no());
-                        adminManagerVo.setControl("1000000001");
-                        admTestIdDao.insertBroadAdminManager(adminManagerVo);
+                    // 운영자 아이디로 등록된 회원번호 목록들(내가 버튼을 누른 회원번호)
+                    //운영자 아이디를 모두 매니저로 등록
+                    adminManagerVo.setManager_mem_no(managerList.get(i).getMem_no());
+                    adminManagerVo.setMem_no(adminIdVo.getMem_no());
+                    adminManagerVo.setControl("1000000001");
+                    admTestIdDao.insertBroadAdminManager(adminManagerVo);
 
-                        //운영자 아이디에 넘어온 mem_no를 매니저로 등록
-                        adminManagerVo.setManager_mem_no(adminIdVo.getMem_no());
-                        adminManagerVo.setMem_no(managerList.get(i).getMem_no());
-                        adminManagerVo.setControl("1000000001");
-                        admTestIdDao.insertBroadAdminManager(adminManagerVo);
-                    }
+                    //운영자 아이디에 넘어온 mem_no를 매니저로 등록
+                    adminManagerVo.setManager_mem_no(adminIdVo.getMem_no());
+                    adminManagerVo.setMem_no(managerList.get(i).getMem_no());
+                    adminManagerVo.setControl("1000000001");
+                    admTestIdDao.insertBroadAdminManager(adminManagerVo);
                 }
                 admTestIdDao.insertMemberBadge(memberBadgeVo);
             }
+
+            admTestIdDao.updateAdminId(adminIdVo);
+            admTestIdDao.updateAdminBadge(adminIdVo);
 
             if(adminIdVo.getIs_admin() == 0){
                 return gsonUtil.toJson(new JsonOutputVo(Status.운영자아이디해제));
