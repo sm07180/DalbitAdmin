@@ -13,6 +13,8 @@ import java.sql.Date;
 public class P_MemberInfoOutputVo extends SearchVo {
 
     private String profileImage;
+    private String profileMsg;
+    private String roomBgImage;
     private ImageVo profileImage_reset;
     private String mem_no;
     private String userId;

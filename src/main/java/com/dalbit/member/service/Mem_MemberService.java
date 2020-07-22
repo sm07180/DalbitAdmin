@@ -2,7 +2,10 @@ package com.dalbit.member.service;
 
 
 import com.dalbit.broadcast.dao.Bro_BroadcastDao;
+import com.dalbit.broadcast.service.Bro_BroadcastService;
 import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
+import com.dalbit.common.code.Code;
+import com.dalbit.common.code.ErrorStatus;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.SmsService;
 import com.dalbit.common.vo.*;
@@ -18,11 +21,14 @@ import com.dalbit.money.vo.Mon_ExchangeOutputVo;
 import com.dalbit.security.vo.InforexLoginUserInfoVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.*;
@@ -54,6 +60,9 @@ public class Mem_MemberService {
     Mem_ListenService mem_ListenService;
     @Autowired
     Mem_BroadcastService mem_BroadcastService;
+
+    @Autowired
+    Bro_BroadcastService bro_broadcastService;
 
     public ProcedureVo callMemberLogin(P_LoginVo pLoginVo) {
         ProcedureVo procedureVo = new ProcedureVo(pLoginVo);
@@ -499,6 +508,55 @@ public class Mem_MemberService {
 
         return gsonUtil.toJson(new JsonOutputVo(Status.회원제재처리성공));
     }
+
+
+
+    /**
+     * 회원 방송방 이미지 초기화
+     */
+    @Transactional
+    public String setInitBackgroundImage(P_MemberEditorVo pMemberEditorVo) throws GlobalException {
+
+        try {
+            //배경 초기화
+            P_BroadcastEditInputVo pBroadcastEditInputVo = new P_BroadcastEditInputVo();
+            pBroadcastEditInputVo.setRoom_no(pMemberEditorVo.getRoom_no());
+            pBroadcastEditInputVo.setMem_no(pMemberEditorVo.getMem_no());
+            pBroadcastEditInputVo.setForceExit("0");
+            int random = Integer.parseInt(DalbitUtil.randomBgValue());
+            pBroadcastEditInputVo.setBackgroundImage(Code.포토_배경_디폴트_PREFIX.getCode() + "/" + Code.배경이미지_파일명_PREFIX.getCode() + "200708_" + random + ".jpg");
+
+            String result = bro_broadcastService.callBroadcastEdit(pBroadcastEditInputVo);
+            log.debug(result);
+
+            // 방송방 수정 성공여부 확인
+            JsonParser parser = new JsonParser();
+            JsonElement element;
+            element = parser.parse(result);
+            String codeResult = element.getAsJsonObject().get("code").getAsString();
+
+            if(Status.방송방정보수정_성공.getMessageCode().equals(codeResult)) {
+
+                pMemberEditorVo.setOpName(MemberVo.getMyMemNo());
+                pMemberEditorVo.setEditContents("방송방 배경이미지 변경 : " + pMemberEditorVo.getBeforeMemberData().getRoomBgImage() + " >> " + pBroadcastEditInputVo.getBackgroundImage());
+                pMemberEditorVo.setType(0);
+                mem_MemberDao.callMemberEditHistoryAdd(pMemberEditorVo);
+
+                result = gsonUtil.toJson(new JsonOutputVo(Status.이미지초기화성공));
+                return result;
+            } else if(Status.방송방정보수정_방번호없음.getMessageCode().equals(codeResult)) {
+                return gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_방번호없음));
+            } else if(Status.방송방정보수정_종료된방.getMessageCode().equals(codeResult)) {
+                return gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_종료된방));
+            } else {
+                return gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_에러));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new GlobalException(ErrorStatus.서버처리중오류);
+        }
+    }
+
 
 
     //-------------------------------------------------------------------

@@ -9,8 +9,7 @@
     <div class="widget-content" >
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
             <li class="active"><a href="#infoDetail" role="tab" data-toggle="tab">상세정보</a></li>
-            <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail" onclick="tab_click(this.id);">방송내역</a></li>
-            <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="tab_click(this.id);">청취내역</a></li>
+            <li><a href="#broadcast" role="tab" data-toggle="tab" id="tab_broadcast" onclick="tab_click(this.id);">방송관리</a></li>
             <li><a href="#payDetail" role="tab" data-toggle="tab" id="tab_payDetail" onclick="tab_click(this.id);">결제/취소내역</a></li>
             <li><a href="#walletDetail" role="tab" data-toggle="tab" id="tab_walletDetail" onclick="tab_click(this.id);">내지갑</a></li>       <%-- 2020.07.02 김자운 주임 요청으로 인한 내지갑 UI및 기능 변경 %>
             <%--<li><a href="#giftDetail" role="tab" data-toggle="tab" id="tab_giftDetail" onclick="tab_click(this.id);">선물내역</a></li>--%>
@@ -25,8 +24,16 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active " id="infoDetail"><jsp:include page="mamberInfo.jsp"/></div>     <!-- 상세 -->
-            <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>       <!-- 방송 -->
-            <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>         <!-- 청취 -->
+            <div class="tab-pane fade" id="broadcast"><!-- 방송관리 -->
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li><a href="#broadDetail" role="tab" data-toggle="tab" id="tab_broadDetail" onclick="tab_click(this.id);">방송내역</a></li>
+                    <li><a href="#listenDetail" role="tab" data-toggle="tab" id="tab_listenDetail" onclick="tab_click(this.id);">청취내역</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="broadDetail"><jsp:include page="../broadcast/list.jsp"/></div>       <!-- 방송 -->
+                    <div class="tab-pane fade" id="listenDetail"><jsp:include page="../listen/list.jsp"/></div>         <!-- 청취 -->
+                </div>
+            </div>
             <div class="tab-pane fade" id="payDetail"><jsp:include page="../pay/list.jsp"/></div>               <!-- 결제 -->
             <div class="tab-pane fade" id="walletDetail"><jsp:include page="../wallet/list.jsp"/></div>             <!-- 내지갑-->
             <%--<div class="tab-pane fade" id="giftDetail"><jsp:include page="../gift/list.jsp"/></div>             <!-- 선물 -->--%>
@@ -56,7 +63,9 @@
     var dtList_top_info;
 
     function tab_click(tmp){
-        if(tmp == "tab_broadDetail"){
+        if(tmp == "tab_broadcast"){
+            $("#tab_broadDetail").click();
+        }else if(tmp == "tab_broadDetail"){
             getHistory_broadDetail(tmp);
         }else if(tmp == "tab_listenDetail"){
             getHistory_listenDetail(tmp);

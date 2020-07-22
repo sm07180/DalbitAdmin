@@ -39,6 +39,13 @@ $(document).on('click', '._openSmsSendPop', function(){
     util.windowOpen(url, 775, 560, 'smsSend');
 });
 
+/*인싸티콘 카테고리 리스트 팝업*/
+$(document).on('click', '._openCategoryListPop', function(){
+    var url = "/content/emoticon/popup/category/list";
+
+    util.windowOpen(url, 775, 560, 'categoryList');
+});
+
 $(document).on('click', 'img._imageFullPop', function(){
     $("#_imgFullLayer").html(util.imageFullSize("_imgFullLayer_modal", $(this).attr('src')));
     $('#_imgFullLayer_modal').modal('show');
