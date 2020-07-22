@@ -97,7 +97,7 @@
     var ip =  '<%=in_ip%>';
 
     $("#declaration_reason").html(util.getCommonCodeSelect(-1, declaration_reason,"Y"));
-    $("#blockScope_area").html(util.getCommonCodeCheck2(-1, block_scope,"Y"));
+    $("#blockScope_area").html(util.getCommonCodeCheck(-1, block_scope,"Y"));
 
     //아이디, 디바이스 아이디 default로 check한다.
     $("#blockScope_mem_no").attr({
