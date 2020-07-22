@@ -12,7 +12,7 @@
                     <span id="searchRadio"></span>
                     <span id="searchType_broad"></span>
 
-                    <span id="selJoinDate" style="padding-left: 10px"></span>
+                    <span id="selJoinDate" style="padding-left: 10px;display: none"></span>
                     <div class="input-group date" id="seldate">
                         <label for="onedayDate" class="input-group-addon">
                             <span><i class="fa fa-calendar" id="seldateDateBtn"></i></span>
@@ -183,6 +183,7 @@
         *   정렬 부분
         */
         if(liveState == 1) {
+            $("#selJoinDate").hide();
             if($("select[name='liveSort']").val() != 0){
                 if ($("select[name='liveSort']").val() == 1)
                     data.sortStartDate = 1;
@@ -196,6 +197,7 @@
                     data.sortGift = 1;
             }
         }else{
+            $("#selJoinDate").show();
             if($("select[name='endSort']").val() != 0){
                 if ($("select[name='endSort']").val() == 2)
                     data.sortAirTime = 1;
@@ -338,21 +340,21 @@
             <th style="background-color: #f2f2f2;">{{{sexIcon 'n'}}}</th>
         </tr>
         <tr>
-            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}</td>
-            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}</td>
-            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}</td>
-            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}}({{content.specialDjCnt}})</td>
-            <td style="background-color: #cdd4ea;">{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
-            <td style="background-color: #cdd4ea; color: blue">{{content.broadMaleCnt}}</td>
-            <td style="background-color: #cdd4ea; color: red">{{content.broadFemaleCnt}}</td>
-            <td style="background-color: #cdd4ea;">{{content.broadNoneCnt}}</td>
-            <td style="background-color: #cdd4ea; color: blue">{{content.liveListenMaleCnt}}</td>
-            <td style="background-color: #cdd4ea; color: red">{{content.liveListenFemaleCnt}}</td>
-            <td style="background-color: #cdd4ea;">{{content.liveListenNoneCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalAosCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalIosCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.totalPcCnt}}</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.normalDjCnt}} ({{content.specialDjCnt}})</td>
+            <td>{{#equal length '0'}}0{{/equal}}{{content.newDjCnt}}명</td>
+            <td>{{content.broadMaleCnt}}</td>
+            <td>{{content.broadFemaleCnt}}</td>
+            <td>{{content.broadNoneCnt}}</td>
+            <td>{{content.liveListenMaleCnt}}</td>
+            <td>{{content.liveListenFemaleCnt}}</td>
+            <td>{{content.liveListenNoneCnt}}</td>
         </tr>
         <tr>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="3">총 수(방송중/끊김)</td>
-            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}}({{content.broadStateNomal}}/{{content.broadBreak}})</td>
+            <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31" colspan="5">{{content.totalBroadCastCnt}} ({{content.broadStateNomal}}/{{content.broadBreak}})</td>
             <td class="font-bold" style="background-color: #d8d8d8;" colspan="2">총 수</td>
             <td class="font-bold" style="background-color: #d8d8d8; color: #ed7d31">{{content.liveListenerCnt}}</td>
         </tr>
