@@ -3,6 +3,8 @@ package com.dalbit.main.controller.rest;
 import com.dalbit.main.service.Mai_MainStatusService;
 import com.dalbit.main.vo.PayStatusInputVo;
 import com.dalbit.main.vo.procedure.P_ChartStatusInputVo;
+import com.dalbit.main.vo.procedure.P_StatVo;
+import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,33 @@ public class Mai_MainStatusRestController {
     @PostMapping("payCancel/status/info")
     public String payCancel(PayStatusInputVo payStatusInputVo){
         String result = mai_MainStatusService.getPayCancelDayStatusInfoList(payStatusInputVo);
+        return result;
+    }
+
+
+
+
+    @PostMapping("new/main/stat/join")
+    public String statJoin(){
+        String result = mai_MainStatusService.callStatJoin();
+        return result;
+    }
+
+//    @PostMapping("new/main/stat/join")
+//    public String statJoin(){
+//        String result = mai_MainStatusService.callStatJoin();
+//        return result;
+//    }
+
+    @PostMapping("new/main/stat/pay")
+    public String payInfo(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callPayInfo(pStatVo);
         return result;
     }
 }
