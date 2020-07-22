@@ -52,7 +52,7 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int broadCastCnt;
     private int extend_time_count;
 
-    /* total */
+    /* summary */
     private int totalBroadCastCnt;
     private int totalIosCnt;
     private int totalAosCnt;
@@ -71,6 +71,17 @@ public class P_BroadcastListOutputVo extends PagingVo {
     private int newDjCnt;
     private int specialDjCnt;
 
+    private int totalListenMaleCnt;
+    private int totalListenFemaleCnt;
+    private int totalListenNoneCnt;
+    private int liveListenMaleCnt;
+    private int liveListenFemaleCnt;
+    private int liveListenNoneCnt;
+    private int broadMaleCnt;
+    private int broadFemaleCnt;
+    private int broadNoneCnt;
+    private int broadStateNomal;
+    private int broadBreak;
 
     public void setStart_date(Date start_date){
         this.start_date = start_date;
