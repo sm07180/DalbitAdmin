@@ -233,7 +233,7 @@
         , receipt_ok_number
         , pay_amt
         , IF(receipt_code='i', '소득공제용', '지출증빙용') receipt_code
-        from rd_data.tb_payment_succ
+        from rd_data.tb_payment_succ, (select @RNUM := 0 ) AS b
         where pay_yn='y'
           and pay_way='VA'
           and receipt_code != 'n'
