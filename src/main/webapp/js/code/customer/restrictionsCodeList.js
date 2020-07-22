@@ -1,3 +1,10 @@
+var restrictions_searchRadioMember = [
+    new COMMON_CODE(null, 'searchRadio', '검색구분')
+    , new COMMON_CODE('1', '1', '회원')
+    , new COMMON_CODE('2', '2', 'IP')
+    , new COMMON_CODE('3', '3', '모바일ID')
+];
+
 var restrictions_searchType = [
     new COMMON_CODE(null, 'searchType', '정지/강퇴조회조건')
     , new COMMON_CODE('all', '-1', '회원정보구분(전체)')
@@ -6,7 +13,7 @@ var restrictions_searchType = [
     , new COMMON_CODE('memid', '3', 'UserID')
     , new COMMON_CODE('memnick', '4', '닉네임')
     , new COMMON_CODE('memphone', '5', '연락처')
-    , new COMMON_CODE('mobileId', '6', 'MobileID')
+    // , new COMMON_CODE('mobileId', '6', 'MobileID')
 ];
 
 
