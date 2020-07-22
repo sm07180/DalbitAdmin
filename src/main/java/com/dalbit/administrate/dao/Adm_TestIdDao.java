@@ -46,11 +46,12 @@ public interface Adm_TestIdDao {
 
     int deleteMemberBadge(MemberBadgeVo memberBadgeVo);
 
+    @Transactional(readOnly = true)
     List<AdminManagerVo> selectAdminManager(AdminManagerVo adminManagerVo);
 
     int insertBroadAdminManager(AdminManagerVo adminManagerVo);
 
-   int selectAdminCheck(AdminManagerVo adminManagerVo);
+    int deleteBroadAdminManagerMaster(AdminManagerVo adminManagerVo);
 
     int deleteBroadAdminManager(AdminManagerVo adminManagerVo);
 }
