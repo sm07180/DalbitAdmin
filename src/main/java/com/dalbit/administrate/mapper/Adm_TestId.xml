@@ -266,25 +266,27 @@
         (#{mem_no}, #{manager_mem_no}, #{control}, now())
     </insert>
 
-    <select id="selectAdminCheck" parameterType="com.dalbit.administrate.vo.AdminManagerVo" resultType="integer">
-        /* Adm_TestId.xml - selectAdminCheck */
-        select count(*)
-        from (
-            select distinct(bro.mem_no) as mem_no
-              from rd_admin.tb_admin_test_account acc
-                 inner join rd_data.tb_member_broadcast_manager bro
-                 on acc.mem_no = bro.mem_no
-              where acc.is_admin = #{is_admin}
-              and bro.mem_no = #{mem_no}
-          ) a
-    </select>
+    <delete id="deleteBroadAdminManagerMaster" parameterType="com.dalbit.administrate.vo.AdminManagerVo">
+        /* Adm_TestId.xml - deleteBroadAdminManagerMaster */
+        delete from rd_data.tb_member_broadcast_manager
+        where mem_no in (
+                        select
+                          mem_no
+                        from rd_data.tb_member_broadcast_manager
+                        where mem_no = (select mem_no from rd_admin.tb_admin_test_account where mem_no = #{mem_no} and is_admin = #{is_admin})
+                        )
+        and manager_mem_no in (select mem_no from rd_admin.tb_admin_test_account where is_admin = #{is_admin})
+    </delete>
 
     <delete id="deleteBroadAdminManager" parameterType="com.dalbit.administrate.vo.AdminManagerVo">
         /* Adm_TestId.xml - deleteBroadAdminManager */
         delete from rd_data.tb_member_broadcast_manager
-        where
-          mem_no = #{mem_no}
-          or manager_mem_no = #{mem_no}
+        where manager_mem_no in (
+                       select
+                         manager_mem_no
+                       from rd_data.tb_member_broadcast_manager
+                       where manager_mem_no = (select mem_no from rd_admin.tb_admin_test_account where mem_no = #{mem_no} and is_admin= #{is_admin})
+                       )
+        and mem_no in (select mem_no from rd_admin.tb_admin_test_account where is_admin = #{is_admin})
     </delete>
-
 </mapper>
