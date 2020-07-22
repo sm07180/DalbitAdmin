@@ -36,4 +36,12 @@ public class SpecialReqVo extends PagingVo {
     private String mem_birth_month;
     private String mem_birth_day;
 
+    private int airTime;
+    private int broadcastCnt;
+    private int goodCnt;
+    private int allListenCnt;
+    private int listenCnt;
+    private int reportCnt;
+    private int receiveStar;
+
 }
