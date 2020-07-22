@@ -21,4 +21,10 @@ public class Pay_PayController {
         return "payment/log/iosAttempList";
     }
 
+    @GetMapping("coocon/receipt/list")
+    public String cooconReceiptList() {
+        return "payment/log/cooconReceiptList";
+    }
+
+
 }

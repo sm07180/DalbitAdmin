@@ -63,3 +63,10 @@ var attempSearchType = [
     , new COMMON_CODE('mem_name','mem_name','이름')
     , new COMMON_CODE('product_nm','product_nm','상품명')
 ]
+
+var receiptSearchType = [
+    new COMMON_CODE(null, 'searchType', '검색구분')
+    , new COMMON_CODE('all', '', '검색구분(전체)')
+    , new COMMON_CODE('mem_name','mem_name','이름')
+    , new COMMON_CODE('receipt_ok_number','receipt_ok_number','승인번호')
+]

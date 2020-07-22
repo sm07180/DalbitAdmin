@@ -6,12 +6,8 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
-import com.dalbit.member.vo.MemberVo;
 import com.dalbit.payment.dao.Pay_PayDao;
-import com.dalbit.payment.vo.Pay_IosAttempInputVo;
-import com.dalbit.payment.vo.Pay_IosAttempOutputVo;
-import com.dalbit.payment.vo.Pay_PayInputVo;
-import com.dalbit.payment.vo.Pay_PayOutputVo;
+import com.dalbit.payment.vo.*;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -111,6 +107,19 @@ public class Pay_PayService {
         var resultMap = new HashMap();
         resultMap.put("attempCnt", attempCnt);
         resultMap.put("attempList", attempList);
+
+        String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
+        return result;
+    }
+
+    public String selectCooconReceiptList(Pay_CooconReceiptInputVo payCooconReceiptInputVo) {
+
+        int receiptCnt = payPayDao.selectCooconReceiptCnt(payCooconReceiptInputVo);
+        List<Pay_CooconReceiptOutputVo> receiptList = payPayDao.selectCooconReceiptList(payCooconReceiptInputVo);
+
+        var resultMap = new HashMap();
+        resultMap.put("receiptCnt", receiptCnt);
+        resultMap.put("receiptList", receiptList);
 
         String result = gsonUtil.toJson(new JsonOutputVo(Status.조회, resultMap));
         return result;

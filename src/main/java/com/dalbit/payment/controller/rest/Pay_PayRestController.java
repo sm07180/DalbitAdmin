@@ -1,6 +1,5 @@
 package com.dalbit.payment.controller.rest;
 
-import com.dalbit.administrate.vo.procedure.P_FaqListInputVo;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
@@ -8,6 +7,7 @@ import com.dalbit.exception.GlobalException;
 import com.dalbit.payment.service.Pay_PayService;
 import com.dalbit.payment.vo.Pay_IosAttempInputVo;
 import com.dalbit.payment.vo.Pay_PayInputVo;
+import com.dalbit.payment.vo.Pay_CooconReceiptInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +57,12 @@ public class Pay_PayRestController {
     @PostMapping("iosAttempList")
     public String iosAttempList(Pay_IosAttempInputVo payIosAttempInputVo) {
         String result = payPayService.selectIosAttempList(payIosAttempInputVo);
+        return result;
+    }
+
+    @PostMapping("cooconReceiptList")
+    public String cooconReceiptList(Pay_CooconReceiptInputVo payCooconReceiptInputVo) {
+        String result = payPayService.selectCooconReceiptList(payCooconReceiptInputVo);
         return result;
     }
 

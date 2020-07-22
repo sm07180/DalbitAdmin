@@ -29,4 +29,11 @@ public interface Pay_PayDao {
     @Transactional(readOnly=true)
     List<Pay_IosAttempOutputVo> selectIosAttempList(Pay_IosAttempInputVo payIosAttempInputVo);
 
+    @Transactional(readOnly=true)
+    int selectCooconReceiptCnt(Pay_CooconReceiptInputVo payCooconReceiptInputVo);
+
+    @Transactional(readOnly=true)
+    List<Pay_CooconReceiptOutputVo> selectCooconReceiptList(Pay_CooconReceiptInputVo payCooconReceiptInputVo);
+
+
 }
