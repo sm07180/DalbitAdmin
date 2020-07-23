@@ -247,6 +247,7 @@ public class Pay_CancelService {
         // 달 set
         pMemberEditorVo.setBeforDalCnt(beforDalCnt);
         pMemberEditorVo.setAfterDalCnt(afterDalCnt);
+        pMemberEditorVo.setAddDalCnt(pMemberEditorVo.getMinusDalCnt());
         pMemberEditorVo.setUse_contents("결제취소 : 달 " + pMemberEditorVo.getMinusDalCnt() + " 차감");
 
         // 달 차감

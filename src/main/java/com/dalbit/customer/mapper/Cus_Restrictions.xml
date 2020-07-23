@@ -123,6 +123,7 @@
                 report.idx = (SELECT MAX(idx) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')
             LEFT JOIN
                 rd_data.tb_member_stmp_token AS token ON report.reported_mem_no = token.mem_no
+            , (SELECT @RNUM := #{pageStart}) r
             <where>
                 report.reported_mem_no IS NOT NULL
                 <if test='opCode != null and opCode != "" and opCode != "-1" '>
@@ -130,8 +131,7 @@
                 </if>
             </where>
             ORDER BY report.op_date desc
-        ) AS a,
-        (SELECT @RNUM := #{pageStart}) r
+        ) AS a
         <where>
             <if test='searchText != null and searchText != ""'>
                 <choose>
@@ -341,13 +341,13 @@
                 rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
             LEFT JOIN
                 rd_data.tb_member_stmp_token_all AS device ON  listen.mem_no = device.mem_no
+            ,(SELECT @RNUM := #{pageStart}) r
             <where>
                 listen.forced = 'Y'
             </where>
             GROUP BY listen.room_no, listen.mem_no
             ORDER BY listen.last_upd_date DESC
-        ) AS a,
-        (SELECT @RNUM := #{pageStart}) r
+        ) AS a
         <where>
             <if test='searchText != null and searchText != ""'>
                 <if test='searchTarget != null and searchTarget != "" and searchTarget != "2" '>

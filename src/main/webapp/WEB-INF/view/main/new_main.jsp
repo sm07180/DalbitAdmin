@@ -61,11 +61,11 @@
                     <div class="widget-content mt10">
                         <table class="table table-condensed table-dark-header table-bordered">
                             <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>수치</th>
-                                    <th>증감</th>
-                                </tr>
+                            <tr>
+                                <th></th>
+                                <th>수치</th>
+                                <th>증감</th>
+                            </tr>
                             </thead>
                             <tbody id="joinWithdrawal_tableBody">
                             </tbody>
@@ -92,17 +92,7 @@
                                 <th>증감</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <th>가입</th>
-                                <td>100</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <th>탈퇴</th>
-                                <td>40</td>
-                                <td>50</td>
-                            </tr>
+                            <tbody id="login_tableBody">
                             </tbody>
                         </table>
                     </div>
@@ -139,7 +129,7 @@
                     <div class="widget-header">
                         <h3>
                             <a href="javascript://" onclick="labelClick(3);">
-                                <i class="fa fa-bar-chart-o"></i> 결제/결제 취소
+                                <i class="fa fa-bar-chart-o"></i> 결제/결제 취소/환불/환전
                             </a>
                         </h3>
                     </div>
@@ -190,11 +180,21 @@
         searchData("all");
     });
 
+    var dataType = 0;
+
+    var chartParam = {
+        slctType : 11
+        , liveType : 1
+        , viewType : 1
+    };
+
     var dateTime = new Date();
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     var week = ['일', '월', '화', '수', '목', '금', '토'];
     var toDay = week[moment(new Date()).day()];
     setTimeDate(dateTime);
+
+    var _datePicker = 0;
 
     $(function(){
         $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function (dateText, inst) {
@@ -249,7 +249,7 @@
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
-        console.log($('input[name="slctType"]:checked').val());
+        // console.log($('input[name="slctType"]:checked').val());
         if($('input[name="slctType"]:checked').val() == 0){
             _datePicker = 0;
         }else if($('input[name="slctType"]:checked').val() == 1){
@@ -277,7 +277,7 @@
         setTimeDate(dateTime);
     });
 
-    var _datePicker = 0;
+
 
     function changeDatepicker(){
         if(_datePicker == 0){
@@ -357,29 +357,26 @@
         $("#yearDate").val(moment($("#startDate").val()).format('YYYY'));
     }
 
-    var dataType = 0;
 
-    var chartParam = {
-        slctType : 11
-        , liveType : 1
-        , viewType : 1
-    };
 
     function searchData(tmp){
         chartParam.slctDate = $("#startDate").val() + ' 23:59:59';
 
         var data = {};
-        data.slctType = 1;
+        data.slctType = $('input[name="slctType"]:checked').val();
         data.startDate = $("#startDate").val();
         data.endDate = $("#endDate").val();
+
         if(tmp == "all"){
-            util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", chartParam, fn_join_withdrawal_success);
+            util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", data, fn_join_withdrawal_success);
+            util.getAjaxData("statLogin", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
             util.getAjaxData("memberList", "/rest/status/broadcast/info/total", data, fn_broadcastListener_success);
             util.getAjaxData("statPayInfo", "/rest/mainStatus/new/main/stat/pay", data, fn_paymentCancel_success);
         }else{
             if(dataType == 0){
-                util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", chartParam, fn_join_withdrawal_success);
+                util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", data, fn_join_withdrawal_success);
             }else if(dataType == 1){
+                util.getAjaxData("total", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
             }else if(dataType == 2){
                 util.getAjaxData("memberList", "/rest/status/broadcast/info/total", data, fn_broadcastListener_success);
             }else if(dataType == 3){
@@ -401,14 +398,21 @@
         var context = response.data;
         var html=templateScript(context);
         $("#joinWithdrawal_tableBody").append(html);
-
-
         if(dataType == 0) {
-            var data = {};
-            data.slctType = $('input[name="slctType"]:checked').val();
-            data.startDate = $("#startDate").val();
-            data.endDate = $("#endDate").val();
-            util.getAjaxData("memberList", "/rest/mainStatus/new/main/stat/join/list", data, fn_list_success);
+            listSort(dst_id, response, param);
+        }
+    }
+
+    function fn_login_success(dst_id, response, param){
+        $("#login_tableBody").empty();
+
+        var template = $('#tmp_login_tableBody').html();
+        var templateScript = Handlebars.compile(template);
+        var context = response.data;
+        var html=templateScript(context);
+        $("#login_tableBody").append(html);
+        if(dataType == 1) {
+            listSort(dst_id, response, param);
         }
     }
 
@@ -422,14 +426,9 @@
         var html=templateScript(context);
         $("#broadcastListener_tableBody").append(html);
 
-        if(dataType == 2){
-            var data = {};
-            data.slctType = $('input[name="slctType"]:checked').val();
-            data.startDate = $("#startDate").val();
-            data.endDate = $("#endDate").val();
-            util.getAjaxData("memberList", "/rest/status/broadcast/info/total", data, fn_list_success);
+        if(dataType == 2) {
+            listSort(dst_id, response, param);
         }
-
     }
 
     function fn_paymentCancel_success(dst_id, response, param){
@@ -437,59 +436,123 @@
 
         var template = $('#tmp_paymentCancel_tableBody').html();
         var templateScript = Handlebars.compile(template);
-        var context = response.data.info;
+        var context = response.data;
         var html=templateScript(context);
         $("#paymentCancel_tableBody").append(html);
 
+        if(dataType == 3) {
+            listSort(dst_id, response, param);
+        }
+
     }
 
-    function fn_list_success(dst_id, response, param){
-        if(dataType == 0 || dataType == 2) {
+    function listSort(dst_id, response, param){
+        if(dataType == 0) {
             var sortingField = "hour";
             response.data.detailList.sort(function(a, b) { // 오름차순
                 return a[sortingField] - b[sortingField];
             });
-            setChart(dst_id, response.data.detailList, param);
+            response.data.withdrawDetailList.sort(function(a, b) { // 오름차순
+                return a[sortingField] - b[sortingField];
+            });
+            setChart_join(dst_id, response.data, param);
+        }
+        if(dataType == 1) {
+            var sortingField = "hour";
+            response.data.overDetailList.sort(function(a, b) { // 오름차순
+                return a[sortingField] - b[sortingField];
+            });
+            response.data.detailList.sort(function(a, b) { // 오름차순
+                return a[sortingField] - b[sortingField];
+            });
+            setChart_join(dst_id, response.data, param);
+        }
+        if(dataType == 2) {
+            var sortingField = "hour";
+            response.data.detailList.sort(function(a, b) { // 오름차순
+                return a[sortingField] - b[sortingField];
+            });
+            setChart_join(dst_id, response.data, param);
+        }
+        if(dataType == 3) {
+            var sortingField = "hour";
+            response.data.detailList.sort(function(a, b) { // 오름차순
+                return a[sortingField] - b[sortingField];
+            });
+            response.data.detailList2.sort(function(a, b) { // 오름차순
+                return a[sortingField] - b[sortingField];
+            });
+            setChart_join(dst_id, response.data, param);
         }
     }
-    function setChart(dst_id, response, param){
-        var detailData = response;
-        var chartData = getChartData(detailData, param);
 
+    function setChart_join(dst_id, response, param){
+        var detailData = response;
+        var chartData;
+        var lineName;
+        var barName;
+        var lineTitle;
+        var barTitle;
+        if(dataType == 0) {
+            chartData = getChartData_join(detailData, param);
+            lineName = "가입";
+            barName = "탈퇴";
+            lineTitle = "<b>가입:%{y}";
+            barTitle = "<b>탈퇴:%{y}";
+        }else if(dataType == 1) {
+            chartData = getChartData_login(detailData, param);
+            lineName = "UV";
+            barName = "PV";
+            lineTitle = "<b>UV:%{y}";
+            barTitle = "<b>PV:%{y}";
+        }else if(dataType == 2) {
+            chartData = getChartData_broad(detailData, param);
+            lineName = "청취자";
+            barName = "방송방";
+            lineTitle = "<b>청취자:%{y}";
+            barTitle = "<b>방송방:%{y}";
+        }else if(dataType == 3) {
+            chartData = getChartData_pay(detailData, param);
+            lineName = "결제";
+            barName = "환전";
+            lineTitle = "<b>결제:%{yCnt} / %{y}";
+            barTitle = "<b>환전:%{yCnt} / %{y}";
+        }
         /* 라인차트 [start] */
         var trace = {
             x: chartData.x,
             y: chartData.y,
+            yCnt : chartData.yCnt,
             mode: 'lines',
-            name: eDisplayDate,
+            name: lineName,
             line: {
                 dash: 'line',
                 width: 4
-            }
-        };
+            },
+            marker: {
+            },
+            hovertemplate: lineTitle,
 
-        var data = [trace];
-        if(dataType == 0 ||dataType == 2) {
-            //바
-            var bar = {
-                // mode : 'bar',
-                type: 'bar',
-                x: chartData.x,
-                y: chartData.bar_y,
-                marker: {
-                    color: '#e48701',
-                    line: {
-                        width: 0
-                    }
-                }
-            };
-            var data = [trace, bar];
-        }
+        };
+        //바
+        var bar = {
+            type: 'bar',
+            x: chartData.x,
+            y: chartData.bar_y,
+            yCnt : chartData.bar_yCnt,
+            name: barName,
+            marker: {
+                color: '#e48701',
+                line: {
+                    width: 0
+                },
+            },
+            hovertemplate: barTitle,
+        };
+        var data = [trace, bar];
         var layout = {
-            /*height: 400,
-            width: 970,*/
             xaxis: {
-                range: [0, detailData.length],
+                range: [0, chartData.dataLength],
                 autorange: false
             },
             yaxis: {
@@ -511,9 +574,100 @@
         Plotly.newPlot('lineArea', data, layout, config);
     }
 
-
-    function getChartData(detailData, param) {
+    function getChartData_join(detailData, param) {
         //x축
+        var dataLength = detailData.detailList.length;
+        var arrayList_x = [];
+        for (var i = 0; i < detailData.detailList.length; i++) {
+            var array = {};
+            array = detailData.detailList[i].hour +'시';
+            arrayList_x.push(array);
+        }
+
+        //y축
+        var arrayList_y = [];
+        var max_y = 10;  //최대값
+        for(var i=0 ; i<detailData.detailList.length; i++) {
+            var array = {};
+            array = detailData.detailList[i].totalCnt;
+            arrayList_y.push(array);
+            if(max_y < array){
+                max_y = array + 10;
+            }
+        }
+        // 막대 ----------------
+        var arrayBarList_y = [];
+        var barMax_y = 10;  //최대값
+        for (var i = 0; i < detailData.withdrawDetailList.length; i++) {
+            var array = {};
+            array = detailData.withdrawDetailList[i].totalCnt;
+            arrayBarList_y.push(array);
+            if (barMax_y < array) {
+                barMax_y = array + 10;
+            }
+        }
+        if(barMax_y > max_y){
+            max_y = barMax_y;
+        }
+
+        var resultData = {
+            x : arrayList_x
+            , y : arrayList_y
+            , bar_y : arrayBarList_y
+            , max_y : max_y
+            , dataLength : dataLength
+        };
+        return resultData;
+    }
+
+    function getChartData_login(detailData, param) {
+        //x축
+        var dataLength = detailData.overDetailList.length;
+        var arrayList_x = [];
+        for (var i = 0; i < detailData.overDetailList.length; i++) {
+            var array = {};
+            array = detailData.overDetailList[i].hour +'시';
+            arrayList_x.push(array);
+        }
+
+        //y축
+        var arrayList_y = [];
+        var max_y = 10;  //최대값
+        for(var i=0 ; i<detailData.overDetailList.length; i++) {
+            var array = {};
+            array = detailData.overDetailList[i].totalCnt;
+            arrayList_y.push(array);
+            if(max_y < array){
+                max_y = array + 10;
+            }
+        }
+        // 막대 ----------------
+        var arrayBarList_y = [];
+        var barMax_y = 10;  //최대값
+        for (var i = 0; i < detailData.detailList.length; i++) {
+            var array = {};
+            array = detailData.detailList[i].totalCnt;
+            arrayBarList_y.push(array);
+            if (barMax_y < array) {
+                barMax_y = array + 10;
+            }
+        }
+        if(barMax_y > max_y){
+            max_y = barMax_y;
+        }
+        var resultData = {
+            x : arrayList_x
+            , y : arrayList_y
+            , bar_y : arrayBarList_y
+            , max_y : max_y
+            , dataLength : dataLength
+        };
+        return resultData;
+    }
+
+    function getChartData_broad(detailData, param) {
+        //x축
+        var dataLength = detailData.length;
         var arrayList_x = [];
         for (var i = 0; i < detailData.length; i++) {
             var array = {};
@@ -531,220 +685,123 @@
         var max_y = 10;  //최대값
         for(var i=0 ; i<detailData.length; i++) {
             var array = {};
-
-            if(dataType == 0) {
-                array = detailData[i].totalCnt;
-            } else if(dataType == 1) {
-            } else if(dataType == 2) {
-                array = detailData[i].createCnt;
-            } else if(dataType == 3) {
-                array = detailData[i].giftCnt;
-            }
+            array = detailData[i].listenerCnt;
             arrayList_y.push(array);
-            if(max_y < array){
+            if (max_y < array) {
                 max_y = array + 10;
             }
+        }
+        // 막대 ----------------
+        var arrayBarList_y = [];
+        var barMax_y = 10;  //최대값
+        for (var i = 0; i < detailData.length; i++) {
+            var array = {};
+            array = detailData[i].createCnt;
+            arrayBarList_y.push(array);
+            if (barMax_y < array) {
+                barMax_y = array + 10;
+            }
+        }
+        if(barMax_y > max_y){
+            max_y = barMax_y;
         }
         var resultData = {
             x : arrayList_x
             , y : arrayList_y
+            , bar_y : arrayBarList_y
             , max_y : max_y
+            , dataLength : dataLength
         };
 
-
-        if(dataType == 0 || dataType == 2) {
-            // 막대 ----------------
-            var barMax_y = 10;  //최대값
-            var arrayBarList_y = [];
-            var barMax_y = 10;  //최대값
-            for (var i = 0; i < detailData.length; i++) {
-                var array = {};
-                if (dataType == 2) {
-                    array = detailData[i].listenerCnt;
-                }else if (dataType == 2) {
-                    array = detailData[i].listenerCnt;
-                }
-                arrayBarList_y.push(array);
-                if (barMax_y < array) {
-                    barMax_y = array + 10;
-                }
-            }
-
-            var resultData = {
-                x : arrayList_x
-                , y : arrayList_y
-                , bar_y : arrayBarList_y
-                , max_y : max_y
-                , barMax_y : barMax_y
-            };
-        }
-
-        dalbitLog(resultData);
         return resultData;
     }
 
+    function getChartData_pay(detailData, param) {
+        //x축
+        var dataLength = detailData.detailList.length;
+        var arrayList_x = [];
+        for (var i = 0; i < detailData.detailList.length; i++) {
+            var array = {};
+            if (common.isEmpty(detailData.detailList[i].hour)) {
+                array = 0;
+            } else {
+                array = detailData.detailList[i].hour +'시';
+            }
+            arrayList_x.push(array);
+        }
 
+        //y축
+        var arrayList_y = [];
+        var arrayList_cnt = [];
+        var max_y = 10;  //최대값
+        for(var i=0 ; i<detailData.detailList.length; i++) {
+            var array = {};
+            array = detailData.detailList[i].succAmt;
+            arrayList_y.push(array);
 
+            var arrayCnt = {};
+            arrayCnt = detailData.detailList[i].succCmt;
+            arrayList_cnt.push(arrayCnt);
+            if (max_y < array) {
+                max_y = array + 10;
+            }
+        }
+        // 막대 ----------------
+        var arrayBarList_y = [];
+        var arrayBarList_Cnt = [];
+        var barMax_y = 10;  //최대값
+        for (var i = 0; i < detailData.detailList2.length; i++) {
+            var array = {};
+            array = detailData.detailList2[i].succAmt;
+            arrayBarList_y.push(array);
 
+            var arrayCnt = {};
+            arrayCnt = detailData.detailList2[i].succCmt;
+            arrayBarList_Cnt.push(arrayCnt);
+            if (barMax_y < array) {
+                barMax_y = array + 10;
+            }
+        }
+        if(barMax_y > max_y){
+            max_y = barMax_y;
+        }
+        var resultData = {
+            x : arrayList_x
+            , y : arrayList_y
+            , yCnt : arrayList_cnt
+            , bar_y : arrayBarList_y
+            , bar_yCnt : arrayBarList_Cnt
+            , max_y : max_y
+            , dataLength : dataLength
+        };
 
+        return resultData;
+    }
 
-
-
-
-
-
-
-
-
-
-
-    // function searchMain(){
-    //     var chartParam = {
-    //         slctType : 11
-    //         , liveType : 1
-    //         , viewType : 1
-    //     };
-    //
-    //     chartParam.slctDate = $("#startDate").val() + ' 23:59:59';
-    //
-    //     util.getAjaxData("chart", "/rest/mainStatus/chart/status/info", chartParam, fn_chart_success);
-    // }
-    //
-    // function fn_chart_success(dst_id, response, param){
-    //     var detailData = response.data;
-    //
-    //     var chartData = getChartData(detailData, param);
-    //
-    //     /* 라인차트 [start] */
-    //     var trace = {
-    //         x: chartData.x,
-    //         y: chartData.y,
-    //         mode: 'lines',
-    //         name: eDisplayDate,
-    //         line: {
-    //             dash: 'line',
-    //             width: 4
-    //         }
-    //     };
-    //     var data = [trace];
-    //     var layout = {
-    //         /*height: 400,
-    //         width: 970,*/
-    //         xaxis: {
-    //             range: [0, detailData.length],
-    //             autorange: false
-    //         },
-    //         yaxis: {
-    //             range: [0, chartData.max_y],
-    //             autorange: false
-    //         },
-    //         legend: {
-    //             y: 1,
-    //             y: 1,
-    //             traceorder: 'reversed',
-    //             font: {
-    //                 size: 13
-    //             }
-    //         }
-    //     };
-    //     var config = {
-    //         responsive: true
-    //     }
-    //     Plotly.newPlot('lineArea', data, layout, config);
-    // }
-    //
-    // function getChartData(detailData, param) {
-    //     console.log(param);
-    //     //x축
-    //     var arrayList_x = [];
-    //     if(param.viewType == 1) {
-    //         for (var i = 0; i < detailData.length; i++) {
-    //             var array = {};
-    //
-    //             if (common.isEmpty(detailData[i].hour)) {
-    //                 array = 0;
-    //             } else {
-    //                 array = detailData[i].hour +'시';
-    //             }
-    //             arrayList_x.push(array);
-    //         }
-    //     }
-    //     if(param.viewType == 2) {
-    //         for (var i = 0; i < detailData.length; i++) {
-    //             var array = {};
-    //
-    //             if (common.isEmpty(detailData[i].day)) {
-    //                 array = 0;
-    //             } else{
-    //                 array = detailData[i].day;
-    //             }
-    //             var arrayFormat = common.convertToDate(array, 'MM/DD');
-    //             arrayList_x.push(arrayFormat);
-    //         }
-    //     }
-    //     if(param.viewType == 3) {
-    //         dalbitLog(detailData);
-    //         for (var i = 0; i < detailData.length; i++) {
-    //             var array = {};
-    //
-    //             if (common.isEmpty(detailData[i].day)) {
-    //                 array = 0;
-    //             } else{
-    //                 array = detailData[i].day;
-    //             }
-    //
-    //             var arrayFormat = common.convertToDate(array, 'MM/DD');
-    //             arrayList_x.push(arrayFormat);
-    //         }
-    //     }
-    //
-    //     //y축
-    //     var arrayList_y = [];
-    //     var max_y = 10;  //최대값
-    //     for(var i=0 ; i<detailData.length; i++) {
-    //         var array = {};
-    //
-    //         if(param.slctType == 11) {
-    //             array = detailData[i].createCnt;
-    //         } else if(param.slctType == 12) {
-    //             array = detailData[i].broadcastingTime;
-    //         } else if(param.slctType == 13) {
-    //             array = detailData[i].listenerCnt;
-    //         } else if(param.slctType == 14) {
-    //             array = detailData[i].giftCnt;
-    //         } else if(param.slctType == 15) {
-    //             array = detailData[i].giftAmount;
-    //         } else if(param.slctType == 21) {
-    //             array = detailData[i].joinCnt;
-    //         } else {
-    //             array = detailData[i].withdrawalCnt;
-    //         }
-    //         arrayList_y.push(array);
-    //         if(max_y < array){
-    //             max_y = array + 10;
-    //         }
-    //     }
-    //     var resultData = {
-    //         x : arrayList_x
-    //         , y : arrayList_y
-    //         , max_y : max_y
-    //     };
-    //
-    //     dalbitLog(resultData);
-    //
-    //     return resultData;
-    // }
 </script>
 <script type="text/x-handlebars-template" id="tmp_joinWithdrawal_tableBody">
     <tr>
         <th>가입</th>
-        <td>{{addComma joinInfo.t_now_Cnt}}</td>
-        <td class="{{upAndDownClass joinInfo.t_now_inc_cnt}}"><i class="fa {{upAndDownIcon joinInfo.t_now_inc_cnt}}"></i> {{addComma joinInfo.t_now_inc_cnt}}</td>
+        <td>{{addComma totalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass totalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon totalInfo.sum_totalCnt}}"></i> {{addComma totalInfo.sum_totalCnt}}</td>
     </tr>
     <tr>
         <th>탈퇴</th>
-        <td>{{addComma withdrawInfo.t_now_Cnt}}</td>
-        <td class="{{upAndDownClass withdrawInfo.t_now_inc_cnt}}"><i class="fa {{upAndDownIcon withdrawInfo.t_now_inc_cnt}}"></i> {{addComma withdrawInfo.t_now_inc_cnt}}</td>
+        <td>{{addComma withdrawTotalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass withdrawTotalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon withdrawTotalInfo.sum_totalCnt}}"></i> {{addComma withdrawTotalInfo.sum_totalCnt}}</td>
+    </tr>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_login_tableBody">
+    <tr>
+        <th>PV</th>
+        <td>{{addComma overTotalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass overTotalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon overTotalInfo.sum_totalCnt}}"></i> {{addComma overTotalInfo.sum_totalCnt}}</td>
+    </tr>
+    <tr>
+        <th>UV</th>
+        <td>{{addComma totalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass totalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon totalInfo.sum_totalCnt}}"></i> {{addComma totalInfo.sum_totalCnt}}</td>
     </tr>
 </script>
 
@@ -764,16 +821,30 @@
 <script type="text/x-handlebars-template" id="tmp_paymentCancel_tableBody">
     <tr>
         <th>결제</th>
-        <td>{{addComma total_cnt}}</td>
-        <td>{{addComma total_amt}}</td>
-        <td class="{{upAndDownClass total_cnt}}"><i class="fa {{upAndDownIcon total_cnt}}"></i> {{addComma total_cnt}}</td>
-        <td class="{{upAndDownClass total_amt}}"><i class="fa {{upAndDownIcon total_amt}}"></i> {{addComma total_amt}}</td>
+        <td>{{addComma totalInfo.sum_succCnt}}</td>
+        <td>{{addComma totalInfo.sum_succAmt}}</td>
+        <td class="{{upAndDownClass totalInfo.sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo.sum_succCnt}}"></i> {{addComma totalInfo.sum_succCnt}} </td>
+        <td class="{{upAndDownClass totalInfo.sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo.sum_succAmt}}"></i> {{addComma totalInfo.sum_succAmt}} </td>
     </tr>
     <tr>
         <th>결제취소</th>
-        <td>{{addComma cancelCnt}}</td>
-        <td>{{addComma cancelAmt}}</td>
-        <td class="{{upAndDownClass cancelCnt}}"><i class="fa {{upAndDownIcon cancelCnt}}"></i> {{addComma cancelCnt}}</td>
-        <td class="{{upAndDownClass cancelAmt}}"><i class="fa {{upAndDownIcon cancelAmt}}"></i> {{addComma cancelAmt}}</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="{{upAndDownClass cancelCnt}}"><i class="fa {{upAndDownIcon cancelCnt}}"></i> 0 </td>
+        <td class="{{upAndDownClass cancelAmt}}"><i class="fa {{upAndDownIcon cancelAmt}}"></i> 0 </td>
+    </tr>
+    <tr>
+        <th>환불</th>
+        <td>0</td>
+        <td>0</td>
+        <td class="{{upAndDownClass cancelCnt}}"><i class="fa {{upAndDownIcon cancelCnt}}"></i> 0 </td>
+        <td class="{{upAndDownClass cancelAmt}}"><i class="fa {{upAndDownIcon cancelAmt}}"></i> 0 </td>
+    </tr>
+    <tr>
+        <th>환전</th>
+        <td>{{addComma totalInfo2.sum_succCnt}}</td>
+        <td>{{addComma totalInfo2.sum_succAmt}}</td>
+        <td class="{{upAndDownClass totalInfo2.sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.sum_succCnt}}"></i> {{addComma totalInfo2.sum_succCnt}} </td>
+        <td class="{{upAndDownClass totalInfo2.sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.sum_succAmt}}"></i> {{addComma totalInfo2.sum_succAmt}} </td>
     </tr>
 </script>
