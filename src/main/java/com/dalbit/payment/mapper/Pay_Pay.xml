@@ -67,8 +67,10 @@
                    or (c.mem_nick like concat('%', #{searchText}, '%')
                      or c.mem_no like concat('%', #{searchText}, '%')
                      or c.mem_id like concat('%', #{searchText}, '%')
-                     or c.mem_phone like concat('%', #{searchText}, '%')))
+                     or c.mem_phone like concat('%', #{searchText}, '%'))
+                    or (payAll.order_id = #{searchText})
                 )
+)
             </if>
             <if test='sDate != null and sDate != ""'>
                 and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) >= #{sDate}
