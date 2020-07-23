@@ -5,9 +5,9 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.excel.service.ExcelService;
 import com.dalbit.exception.GlobalException;
 import com.dalbit.payment.service.Pay_PayService;
+import com.dalbit.payment.vo.Pay_CooconReceiptInputVo;
 import com.dalbit.payment.vo.Pay_IosAttempInputVo;
 import com.dalbit.payment.vo.Pay_PayInputVo;
-import com.dalbit.payment.vo.Pay_CooconReceiptInputVo;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +60,26 @@ public class Pay_PayRestController {
         return result;
     }
 
+
+    /**
+     * 쿠콘 현금영수증 리스트
+     */
     @PostMapping("cooconReceiptList")
     public String cooconReceiptList(Pay_CooconReceiptInputVo payCooconReceiptInputVo) {
         String result = payPayService.selectCooconReceiptList(payCooconReceiptInputVo);
         return result;
+    }
+
+
+    /**
+     * 쿠콘 현금영수증 리스트 엑셀 출력
+     */
+    @PostMapping("receiptListExcel")
+    public String receiptListExcel(HttpServletRequest request, HttpServletResponse response, Model model, Pay_CooconReceiptInputVo payCooconReceiptInputVo) throws GlobalException {
+        Model resultModel = payPayService.getReceiptListExcel(payCooconReceiptInputVo, model);
+
+        excelService.renderMergedOutputModel(resultModel.asMap(), request, response);
+        return gsonUtil.toJson(new JsonOutputVo(Status.엑셀다운로드성공));
     }
 
 }

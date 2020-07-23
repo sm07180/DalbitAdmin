@@ -34,9 +34,9 @@
 
             <!-- error log table-->
             <div class="row col-lg-12 form-inline">
-                <%--<span>
+                <span>
                     <button class="btn btn-default print-btn" type="button" id="excelDownBtn"><i class="fa fa-print"></i>Excel Down</button>
-                </span>--%>
+                </span>
                 <div class="widget widget-table">
                     <div class="widget-content">
                         <table class="table table-bordered table-summary" id="Summary">
@@ -159,10 +159,9 @@
         formData.append("pageCnt", $("#pageCnt").val());
         formData.append("txt_startSel", $("#txt_startSel").val());
         formData.append("txt_endSel", $("#txt_endSel").val());
-        formData.append("ostype", $("#ostype").val());
         formData.append("searchText", $("#searchText").val());
 
-        util.excelDownload($(this), "/rest/sample/receiptListExcel", formData);
+        util.excelDownload($(this), "/rest/payment/pay/receiptListExcel", formData);
     });
 
 </script>
@@ -175,7 +174,7 @@
             <td>{{rcpt_nm}}</td>
             <td>{{order_id}}</td>
             <td>{{receipt_ok_number}}</td>
-            <td>{{pay_amt}}</td>
+            <td>{{addComma pay_amt}}원</td>
             <td>{{receipt_code}}</td>
         </tr>
     {{else}}

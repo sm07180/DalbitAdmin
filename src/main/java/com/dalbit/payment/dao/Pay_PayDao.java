@@ -36,4 +36,5 @@ public interface Pay_PayDao {
     List<Pay_CooconReceiptOutputVo> selectCooconReceiptList(Pay_CooconReceiptInputVo payCooconReceiptInputVo);
 
 
+    int getReceiptDataCnt(Pay_CooconReceiptInputVo payCooconReceiptInputVo);
 }
