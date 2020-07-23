@@ -17,7 +17,19 @@
                         <span id="searchTarget" style="display: none;"></span>
                         <span id="searchType"></span>
                         <label><input type="text" class="form-control" id="txt_search"></label>
+                        <div class="input-group date" id="oneDayDatePicker">
+                            <label for="onedayDate" class="input-group-addon">
+                                <span><i class="fa fa-calendar" id="onedayDateBtn"></i></span>
+                            </label>
+                            <input type="text" class="form-control" id="onedayDate" name="onedayDate">
+                        </div>
                         <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                        <a href="javascript://" class="_prevSearch">[이전]</a>
+                        <a href="javascript://" class="_todaySearch">[오늘]</a>
+                        <a href="javascript://" class="_nextSearch">[다음]</a>
+
+                        <input class="hide" name="startDate" id="startDate" style="width: 100px">
+                        <input class="hide" name="endDate" id="endDate" style="width: 100px">
                     </div>
                 </div>
             </div>
@@ -37,7 +49,9 @@
                 <div class="widget-header">
                     <h3><i class="fa fa-desktop"></i> 검색결과</h3>
                 </div>
+                <div class="row col-md-12 pull-left"><span class="_searchDate pl10"></span></div>
                 <div class="tab-content no-padding">
+
                     <div class="tab-pane fade in active " id="withdrawalList">       <!-- 경고/정지회원 -->
                         <div class="pull-left pt10 pl10"><span id="searchOpCode"></span></div>
                         <div class="widget-content">
@@ -82,7 +96,15 @@
         });
         <!-- 버튼 끝 -->
 
-        $("#searchRadio").html(util.getCommonCodeRadio(1, restrictions_searchRadioMember));
+        $('#onedayDate').datepicker("onedayDate", new Date()).on('changeDate', function(dateText, inst){
+            var selectDate = moment(dateText.date).format("YYYY.MM.DD");
+            $("#displayDate").val(selectDate+ ' - ' + selectDate);
+            $("#startDate").val(selectDate);
+            $("#endDate").val(selectDate);
+            getRestrictionsInfo();
+        });
+
+        $("#searchRadio").html(util.getCommonCodeRadio(1, searchRadioMember));
         $("#searchTarget").html(util.getCommonCodeSelect(-1, restrictions_searchTarget));
         $("#searchType").html(util.getCommonCodeSelect(-1, restrictions_searchType));
         $("#searchOpCode").html(util.getCommonCodeSelect(-1, restrictions_searchOpCode));
@@ -126,15 +148,15 @@
     var dtList_info;
     var dtList_info_data = function ( data ) {
         var searchType = $('#searchType option:selected').val();
-        if($('input[name="searchRadio"]:checked').val() == "2"){
-            searchType = "9";       // IP 검색
-        }else if($('input[name="searchRadio"]:checked').val() == "3"){
-            searchType = "6";       // 모바일ID 검색
+        if($('input[name="searchRadio"]:checked').val() != "1"){
+            searchType = $('input[name="searchRadio"]:checked').val();       // IP 검색 : 9 , 모바일ID 검색 : 6
         }
 
         data.searchType = searchType;       // 검색구분
         data.searchText = $('#txt_search').val();            // 검색명
         data.opCode = $("#opCode").val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
         // data.pageCnt = 10;
     };
     dtList_info = new DalbitDataTable($("#tb_withdrawalList"), dtList_info_data, RestrictionsDataTableSource.withdrawalList);
@@ -146,15 +168,15 @@
     var dtList_info2;
     var dtList_info_data2 = function ( data ) {
         var searchType = $('#searchType option:selected').val();
-        if($('input[name="searchRadio"]:checked').val() == "2"){
-            searchType = "9";       // IP 검색
-        }else if($('input[name="searchRadio"]:checked').val() == "3"){
-            searchType = "6";       // 모바일ID 검색
+        if($('input[name="searchRadio"]:checked').val() != "1"){
+            searchType = $('input[name="searchRadio"]:checked').val();       // IP 검색 : 9 , 모바일ID 검색 : 6
         }
 
         data.searchType = searchType;       // 검색구분
         data.searchText = $('#txt_search').val();                        // 검색명
         data.searchTarget = $('#searchTarget option:selected').val();       //대상
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
         // data.pageCnt = 10;
     };
     dtList_info2 = new DalbitDataTable($("#tb_forcedList"), dtList_info_data2, RestrictionsDataTableSource.forcedList);
@@ -166,6 +188,7 @@
 
 
     function getRestrictionsInfo() {                 // 검색
+        $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
         // $('#tabList_top').removeClass("show");
         if(tabType == "1"){
             $("#tab_withdrawalList").click();
@@ -190,6 +213,62 @@
 
     function fn_fail(data, textStatus, jqXHR){
         console.log(data, textStatus, jqXHR);
+    }
+
+
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    var week = ['일', '월', '화', '수', '목', '금', '토'];
+    var toDay = week[moment(new Date()).day()];
+    setTimeDate(dateTime);
+
+
+    $(document).on('click', '._prevSearch', function(){
+        searchDate('prev');
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        searchDate('next');
+    });
+
+    $(document).on('click', '._todaySearch', function(){
+        toDay = week[moment(new Date()).day()];
+
+        setTimeDate(dateTime);
+        $("#bt_search").click();
+    });
+
+    function setTimeDate(dateTime){
+        $("#onedayDate").val(dateTime);
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("._searchDate").html(dateTime + " (" + toDay + ")");
+    }
+
+    function searchDate(dateType){
+        //시간별
+        if(common.isEmpty(dateType)){
+            $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
+            $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
+
+            $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
+
+        }else if(dateType == 'prev'){
+            setDay(-1);
+
+        }else{
+            setDay(1);
+        }
+        $("#bt_search").click();
+    }
+
+    function setDay(days){
+        toDay = week[moment($("#startDate").val()).add('days', days).day()];
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val($("#startDate").val());
+
+        $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
+        $("#onedayDate").val($("#startDate").val());
     }
 
 </script>

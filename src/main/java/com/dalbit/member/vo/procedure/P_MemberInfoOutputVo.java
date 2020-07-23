@@ -29,9 +29,12 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private int opMemoCnt;
     private int level;
     private String grade;
+    private int exp;
+    private String expPer;
     private String memState;
     private String connectState;
     private String broadcastState;
+    private String micState;
     private String listeningState;
     private int dal;
     private int byeol;
@@ -43,10 +46,18 @@ public class P_MemberInfoOutputVo extends SearchVo {
     private String joinDate;
     private String withdrawalDate;
     private String firstBroadcastDate;
+    private String lastBroadcastDate;
     private String lastOpDate;
     private String lastOpName;
     private String memWithdrawal;
     private String last_upd_date;       // 탈퇴일시
+
+    private int op_code_2_cnt;   // 경고
+    private int op_code_3_cnt;   // 1일 정지
+    private int op_code_4_cnt;   // 3일 정지
+    private int op_code_5_cnt;   // 7일 정지
+    private int op_code_6_cnt;   // 영구 정지
+
 
     private String certification;
     private String comm_company;
