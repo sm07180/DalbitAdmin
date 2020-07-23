@@ -159,7 +159,6 @@
                     <!-- end chart tab nav -->
                     <div class="chart-content">
                         <div id='lineArea'></div>
-                        <%--<div class="demo-flot-chart sales-chart" data-ctype="#week" style="position: relative; padding: 0px;"><canvas class="flot-base" width="1142" height="350" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1142px; height: 350px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 13px; text-align: center;">Sun</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 984px; text-align: center;">Sun</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 151px; text-align: center;">Mon</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 1123px; text-align: center;">Mon</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 291px; text-align: center;">Tue</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 428px; text-align: center;">Wed</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 569px; text-align: center;">Thu</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 710px; text-align: center;">Fri</div><div style="position: absolute; max-width: 173px; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 339px; left: 847px; text-align: center;">Sat</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 329px; left: 11px; text-align: right;">0</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 274px; left: 6px; text-align: right;">50</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 220px; left: 0px; text-align: right;">100</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 166px; left: 0px; text-align: right;">150</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 112px; left: 0px; text-align: right;">200</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 58px; left: 0px; text-align: right;">250</div><div style="position: absolute; font: 400 10px/11.5px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(85, 85, 85); top: 4px; left: 0px; text-align: right;">300</div></div></div><canvas class="flot-overlay" width="1142" height="350" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1142px; height: 350px;"></canvas><div class="legend"><div style="position: absolute; width: 42px; height: 30px; top: 14px; right: 15px; background-color: transparent; opacity: 0.85;"> </div><table style="position:absolute;top:14px;right:15px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid transparent;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(125,147,154);overflow:hidden"></div></div></td><td class="legendLabel">Visits</td></tr><tr><td class="legendColorBox"><div style="border:1px solid transparent;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(29,146,175);overflow:hidden"></div></div></td><td class="legendLabel">Sales</td></tr></tbody></table></div></div>--%>
                     </div>
                     <!-- end chart placeholder-->
                     <hr class="separator">
@@ -360,7 +359,7 @@
 
 
     function searchData(tmp){
-        chartParam.slctDate = $("#startDate").val() + ' 23:59:59';
+        // chartParam.slctDate = $("#startDate").val() + ' 23:59:59';
 
         var data = {};
         data.slctType = $('input[name="slctType"]:checked').val();
@@ -374,13 +373,30 @@
             util.getAjaxData("statPayInfo", "/rest/mainStatus/new/main/stat/pay", data, fn_paymentCancel_success);
         }else{
             if(dataType == 0){
+                // 가입/탈퇴
                 util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", data, fn_join_withdrawal_success);
+                // 회원가입 플랫폼
+                util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platformGender_success);
+                // 회원가입 성별
+                // 회원가입 연령
             }else if(dataType == 1){
+                // 접속 자
                 util.getAjaxData("total", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
+                // 접속 플랫폼
+                // 접속자 성별
+                // 접속자 연령
             }else if(dataType == 2){
+                // 방송개설/청취자
                 util.getAjaxData("memberList", "/rest/status/broadcast/info/total", data, fn_broadcastListener_success);
+                // 방송 개설 성별
+                // 방송 개설 연령
             }else if(dataType == 3){
+                // 결제/결제취소/환불/환전
                 util.getAjaxData("statPayInfo", "/rest/mainStatus/new/main/stat/pay", data, fn_paymentCancel_success);
+                // 결제수단
+                // 결제성별
+                // 결제 연령
+                // 결제 취소 수단
             }
         }
     }
@@ -447,43 +463,28 @@
     }
 
     function listSort(dst_id, response, param){
+        var sortingField = "hour";
+        response.data.detailList.sort(function(a, b) { // 오름차순
+            return a[sortingField] - b[sortingField];
+        });
         if(dataType == 0) {
-            var sortingField = "hour";
-            response.data.detailList.sort(function(a, b) { // 오름차순
-                return a[sortingField] - b[sortingField];
-            });
             response.data.withdrawDetailList.sort(function(a, b) { // 오름차순
                 return a[sortingField] - b[sortingField];
             });
-            setChart_join(dst_id, response.data, param);
         }
         if(dataType == 1) {
-            var sortingField = "hour";
             response.data.overDetailList.sort(function(a, b) { // 오름차순
                 return a[sortingField] - b[sortingField];
             });
-            response.data.detailList.sort(function(a, b) { // 오름차순
-                return a[sortingField] - b[sortingField];
-            });
-            setChart_join(dst_id, response.data, param);
         }
         if(dataType == 2) {
-            var sortingField = "hour";
-            response.data.detailList.sort(function(a, b) { // 오름차순
-                return a[sortingField] - b[sortingField];
-            });
-            setChart_join(dst_id, response.data, param);
         }
         if(dataType == 3) {
-            var sortingField = "hour";
-            response.data.detailList.sort(function(a, b) { // 오름차순
-                return a[sortingField] - b[sortingField];
-            });
             response.data.detailList2.sort(function(a, b) { // 오름차순
                 return a[sortingField] - b[sortingField];
             });
-            setChart_join(dst_id, response.data, param);
         }
+        setChart_join(dst_id, response.data, param);
     }
 
     function setChart_join(dst_id, response, param){
@@ -493,26 +494,23 @@
         var barName;
         var lineTitle;
         var barTitle;
+        chartData = getChartData(detailData, param);
         if(dataType == 0) {
-            chartData = getChartData_join(detailData, param);
             lineName = "가입";
             barName = "탈퇴";
             lineTitle = "<b>가입:%{y}";
             barTitle = "<b>탈퇴:%{y}";
         }else if(dataType == 1) {
-            chartData = getChartData_login(detailData, param);
             lineName = "UV";
             barName = "PV";
             lineTitle = "<b>UV:%{y}";
             barTitle = "<b>PV:%{y}";
         }else if(dataType == 2) {
-            chartData = getChartData_broad(detailData, param);
             lineName = "청취자";
             barName = "방송방";
             lineTitle = "<b>청취자:%{y}";
             barTitle = "<b>방송방:%{y}";
         }else if(dataType == 3) {
-            chartData = getChartData_pay(detailData, param);
             lineName = "결제";
             barName = "환전";
             lineTitle = "<b>결제:%{yCnt} / %{y}";
@@ -574,11 +572,11 @@
         Plotly.newPlot('lineArea', data, layout, config);
     }
 
-    function getChartData_join(detailData, param) {
+    function getChartData(detailData, param) {
         //x축
-        var dataLength = detailData.detailList.length;
         var arrayList_x = [];
-        for (var i = 0; i < detailData.detailList.length; i++) {
+        var dataLength = detailData.detailList.length;
+        for (var i = 0; i < dataLength; i++) {
             var array = {};
             array = detailData.detailList[i].hour +'시';
             arrayList_x.push(array);
@@ -586,21 +584,52 @@
 
         //y축
         var arrayList_y = [];
+        var arrayList_yCnt = [];
         var max_y = 10;  //최대값
-        for(var i=0 ; i<detailData.detailList.length; i++) {
+        for(var i=0 ; i<dataLength; i++) {
             var array = {};
-            array = detailData.detailList[i].totalCnt;
+            if(dataType == 0) {
+                array = detailData.detailList[i].totalCnt;
+            }else if(dataType == 1) {
+                array = detailData.overDetailList[i].totalCnt;
+            }else if(dataType == 2) {
+                array = detailData.detailList[i].listenerCnt;
+            }else if(dataType == 3) {
+                array = detailData.detailList[i].succAmt;
+            }
             arrayList_y.push(array);
+
+            if(dataType == 3) {
+                var arrayCnt = {};
+                arrayCnt = detailData.detailList[i].succCnt;
+                arrayList_yCnt.push(arrayCnt);
+
+            }
             if(max_y < array){
                 max_y = array + 10;
             }
         }
         // 막대 ----------------
         var arrayBarList_y = [];
+        var arrayBarList_yCnt = [];
         var barMax_y = 10;  //최대값
-        for (var i = 0; i < detailData.withdrawDetailList.length; i++) {
+        for (var i = 0; i < dataLength; i++) {
             var array = {};
-            array = detailData.withdrawDetailList[i].totalCnt;
+            if(dataType == 0) {
+                array = detailData.withdrawDetailList[i].totalCnt;
+            }else if(dataType == 1) {
+                array = detailData.detailList[i].totalCnt;
+            }else if(dataType == 2) {
+                array = detailData.detailList[i].createCnt;
+            }else if(dataType == 3) {
+                array = detailData.detailList2[i].succAmt;
+            }
+            if(dataType == 3) {
+                var arrayCnt = {};
+                arrayCnt = detailData.detailList2[i].succCnt;
+                arrayBarList_yCnt.push(arrayCnt);
+            }
+
             arrayBarList_y.push(array);
             if (barMax_y < array) {
                 barMax_y = array + 10;
@@ -613,170 +642,38 @@
         var resultData = {
             x : arrayList_x
             , y : arrayList_y
+            , yCnt : arrayList_yCnt
             , bar_y : arrayBarList_y
-            , max_y : max_y
-            , dataLength : dataLength
-        };
-        return resultData;
-    }
-
-    function getChartData_login(detailData, param) {
-        //x축
-        var dataLength = detailData.overDetailList.length;
-        var arrayList_x = [];
-        for (var i = 0; i < detailData.overDetailList.length; i++) {
-            var array = {};
-            array = detailData.overDetailList[i].hour +'시';
-            arrayList_x.push(array);
-        }
-
-        //y축
-        var arrayList_y = [];
-        var max_y = 10;  //최대값
-        for(var i=0 ; i<detailData.overDetailList.length; i++) {
-            var array = {};
-            array = detailData.overDetailList[i].totalCnt;
-            arrayList_y.push(array);
-            if(max_y < array){
-                max_y = array + 10;
-            }
-        }
-        // 막대 ----------------
-        var arrayBarList_y = [];
-        var barMax_y = 10;  //최대값
-        for (var i = 0; i < detailData.detailList.length; i++) {
-            var array = {};
-            array = detailData.detailList[i].totalCnt;
-            arrayBarList_y.push(array);
-            if (barMax_y < array) {
-                barMax_y = array + 10;
-            }
-        }
-        if(barMax_y > max_y){
-            max_y = barMax_y;
-        }
-        var resultData = {
-            x : arrayList_x
-            , y : arrayList_y
-            , bar_y : arrayBarList_y
-            , max_y : max_y
-            , dataLength : dataLength
-        };
-        return resultData;
-    }
-
-    function getChartData_broad(detailData, param) {
-        //x축
-        var dataLength = detailData.length;
-        var arrayList_x = [];
-        for (var i = 0; i < detailData.length; i++) {
-            var array = {};
-
-            if (common.isEmpty(detailData[i].hour)) {
-                array = 0;
-            } else {
-                array = detailData[i].hour +'시';
-            }
-            arrayList_x.push(array);
-        }
-
-        //y축
-        var arrayList_y = [];
-        var max_y = 10;  //최대값
-        for(var i=0 ; i<detailData.length; i++) {
-            var array = {};
-            array = detailData[i].listenerCnt;
-            arrayList_y.push(array);
-            if (max_y < array) {
-                max_y = array + 10;
-            }
-        }
-        // 막대 ----------------
-        var arrayBarList_y = [];
-        var barMax_y = 10;  //최대값
-        for (var i = 0; i < detailData.length; i++) {
-            var array = {};
-            array = detailData[i].createCnt;
-            arrayBarList_y.push(array);
-            if (barMax_y < array) {
-                barMax_y = array + 10;
-            }
-        }
-        if(barMax_y > max_y){
-            max_y = barMax_y;
-        }
-        var resultData = {
-            x : arrayList_x
-            , y : arrayList_y
-            , bar_y : arrayBarList_y
+            , bar_yCnt : arrayBarList_yCnt
             , max_y : max_y
             , dataLength : dataLength
         };
 
+        console.log(resultData);
         return resultData;
     }
 
-    function getChartData_pay(detailData, param) {
-        //x축
-        var dataLength = detailData.detailList.length;
-        var arrayList_x = [];
-        for (var i = 0; i < detailData.detailList.length; i++) {
-            var array = {};
-            if (common.isEmpty(detailData.detailList[i].hour)) {
-                array = 0;
-            } else {
-                array = detailData.detailList[i].hour +'시';
-            }
-            arrayList_x.push(array);
+    function fn_platformGender_success(dst_id, response, param){
+        /* 파이차트 [start] */
+        var json = {
+            values: [57.7, 42.3],
+            labels: ['안드로이드', '아이폰'],
+            type: 'pie'
         }
 
-        //y축
-        var arrayList_y = [];
-        var arrayList_cnt = [];
-        var max_y = 10;  //최대값
-        for(var i=0 ; i<detailData.detailList.length; i++) {
-            var array = {};
-            array = detailData.detailList[i].succAmt;
-            arrayList_y.push(array);
+        var data = [json];
 
-            var arrayCnt = {};
-            arrayCnt = detailData.detailList[i].succCmt;
-            arrayList_cnt.push(arrayCnt);
-            if (max_y < array) {
-                max_y = array + 10;
-            }
-        }
-        // 막대 ----------------
-        var arrayBarList_y = [];
-        var arrayBarList_Cnt = [];
-        var barMax_y = 10;  //최대값
-        for (var i = 0; i < detailData.detailList2.length; i++) {
-            var array = {};
-            array = detailData.detailList2[i].succAmt;
-            arrayBarList_y.push(array);
-
-            var arrayCnt = {};
-            arrayCnt = detailData.detailList2[i].succCmt;
-            arrayBarList_Cnt.push(arrayCnt);
-            if (barMax_y < array) {
-                barMax_y = array + 10;
-            }
-        }
-        if(barMax_y > max_y){
-            max_y = barMax_y;
-        }
-        var resultData = {
-            x : arrayList_x
-            , y : arrayList_y
-            , yCnt : arrayList_cnt
-            , bar_y : arrayBarList_y
-            , bar_yCnt : arrayBarList_Cnt
-            , max_y : max_y
-            , dataLength : dataLength
+        var layout = {
+            title: '앱다운로드 현황',
+            height: 400,
+            width: 500
         };
 
-        return resultData;
+        Plotly.newPlot('pieArea', data, layout);
+
     }
+
+
 
 </script>
 <script type="text/x-handlebars-template" id="tmp_joinWithdrawal_tableBody">
