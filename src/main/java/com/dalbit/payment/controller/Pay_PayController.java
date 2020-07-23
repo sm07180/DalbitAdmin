@@ -3,7 +3,6 @@ package com.dalbit.payment.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Slf4j
@@ -20,5 +19,11 @@ public class Pay_PayController {
     public String iosAttempList() {
         return "payment/log/iosAttempList";
     }
+
+    @GetMapping("coocon/receipt/list")
+    public String cooconReceiptList() {
+        return "payment/log/cooconReceiptList";
+    }
+
 
 }

@@ -67,8 +67,8 @@
                    or (c.mem_nick like concat('%', #{searchText}, '%')
                      or c.mem_no like concat('%', #{searchText}, '%')
                      or c.mem_id like concat('%', #{searchText}, '%')
-                     or c.mem_phone like concat('%', #{searchText}, '%')))
-                )
+                     or c.mem_phone like concat('%', #{searchText}, '%'))
+                    or (payAll.order_id like concat('%', #{searchText}, '%'))))
             </if>
             <if test='sDate != null and sDate != ""'>
                 and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) >= #{sDate}
@@ -207,6 +207,7 @@
         </if>
         order by idx desc
     </sql>
+
     <select id="selectIosAttempCnt" parameterType="com.dalbit.payment.vo.Pay_IosAttempInputVo" resultType="int">
         /* Pay_Pay.xml - selectIosAttempCnt */
         select count(*)
@@ -223,4 +224,59 @@
         ) a
     </select>
 
+
+    <sql id="baseCooconReceipt">
+        select @RNUM := @RNUM + 1 rowNum
+        , pay_ok_date
+        , rcpt_nm
+        , order_id
+        , receipt_ok_number
+        , pay_amt
+        , IF(receipt_code='i', '소득공제용', '지출증빙용') receipt_code
+        from rd_data.tb_payment_succ, (select @RNUM := 0 ) AS b
+        where pay_yn='y'
+          and pay_way='VA'
+          and receipt_code != 'n'
+        <if test='txt_startSel != null and txt_startSel != ""'>
+            and DATE_FORMAT(#{txt_startSel},'%Y-%m-%d') <![CDATA[<=]]> pay_ok_date
+        </if>
+        <if test='txt_endSel != null and txt_endSel != ""'>
+            and pay_ok_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d')
+        </if>
+
+        <if test='searchText != null and searchText != ""'>
+            <choose>
+                <when test='searchType == "rcpt_nm"'>
+                    and rcpt_nm = #{searchText}
+
+                </when>
+                <when test='searchType == "receipt_ok_number"'>
+                    and receipt_ok_number = #{searchText}
+                </when>
+                <otherwise>
+                    and (
+                    rcpt_nm like concat ('%', upper(#{searchText}), '%')
+                    or receipt_ok_number like concat ('%', upper(#{searchText}), '%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+        order by pay_dt_comein asc
+    </sql>
+
+    <select id="selectCooconReceiptCnt" parameterType="com.dalbit.payment.vo.Pay_CooconReceiptInputVo" resultType="int">
+        /* Pay_Pay.xml - selectCooconReceiptCnt */
+        select count(*)
+        from (
+        <include refid="baseCooconReceipt" />
+        ) a
+    </select>
+
+    <select id="selectCooconReceiptList" parameterType="com.dalbit.payment.vo.Pay_CooconReceiptInputVo" resultType="com.dalbit.payment.vo.Pay_CooconReceiptOutputVo">
+        /* Pay_Pay.xml - selectCooconReceiptList */
+        select *
+        from (
+        <include refid="baseCooconReceipt" />
+        ) a
+    </select>
 </mapper>
