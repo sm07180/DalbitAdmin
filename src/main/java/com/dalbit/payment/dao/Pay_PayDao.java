@@ -35,5 +35,4 @@ public interface Pay_PayDao {
     @Transactional(readOnly=true)
     List<Pay_CooconReceiptOutputVo> selectCooconReceiptList(Pay_CooconReceiptInputVo payCooconReceiptInputVo);
 
-
 }

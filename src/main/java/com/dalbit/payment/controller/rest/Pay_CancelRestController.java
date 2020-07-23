@@ -2,7 +2,6 @@ package com.dalbit.payment.controller.rest;
 
 import com.dalbit.exception.GlobalException;
 import com.dalbit.payment.dao.Pay_CancelDao;
-import com.dalbit.payment.module.cnnew_v0003.CommonUtil;
 import com.dalbit.payment.service.Pay_CancelService;
 import com.dalbit.payment.vo.*;
 import com.dalbit.util.GsonUtil;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 @Slf4j
 @RestController
