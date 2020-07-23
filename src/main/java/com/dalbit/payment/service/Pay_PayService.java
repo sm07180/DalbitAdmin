@@ -8,7 +8,6 @@ import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.payment.dao.Pay_PayDao;
 import com.dalbit.payment.vo.*;
-import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
