@@ -5,9 +5,7 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.enter.dao.Ent_JoinDao;
 import com.dalbit.enter.dao.Ent_PayDao;
-import com.dalbit.enter.vo.procedure.P_JoinWithdrawOutDetailVo;
-import com.dalbit.enter.vo.procedure.P_PayInfoOutVo;
-import com.dalbit.enter.vo.procedure.P_StatJoinOutVo;
+import com.dalbit.enter.vo.procedure.*;
 import com.dalbit.main.dao.Mai_MainStatusDao;
 import com.dalbit.main.vo.PayStatusInputVo;
 import com.dalbit.main.vo.PayStatusOutputVo;
@@ -154,17 +152,28 @@ public class Mai_MainStatusService {
 
     @Autowired
     Ent_JoinDao ent_JoinDao;
-    public String callStatJoin(){
-        ProcedureVo procedureVo = new ProcedureVo();
-        ent_JoinDao.callStatJoin(procedureVo);
-        P_StatJoinOutVo joinInfo = new Gson().fromJson(procedureVo.getExt(), P_StatJoinOutVo.class);
+    public String callStatJoin(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        List<P_JoinTotalOutDetailVo> detailList =  ent_JoinDao.callJoinTotal(procedureVo);
 
-        ent_JoinDao.callStatWithdraw(procedureVo);
-        P_StatJoinOutVo withdrawInfo = new Gson().fromJson(procedureVo.getExt(), P_StatJoinOutVo.class);
+        P_JoinTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_JoinTotalOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        List<P_JoinWithdrawOutDetailVo> detailList2 =  ent_JoinDao.callJoinWithdraw(procedureVo);
+        P_JoinWithdrawOutVo totalInfo2 = new Gson().fromJson(procedureVo.getExt(), P_JoinWithdrawOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
 
         var result = new HashMap<String, Object>();
-        result.put("joinInfo", joinInfo);
-        result.put("withdrawInfo", withdrawInfo);
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+        result.put("withdrawTotalInfo", totalInfo2);
+        result.put("withdrawDetailList", detailList2);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
