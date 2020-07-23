@@ -8,6 +8,7 @@ import com.dalbit.excel.vo.ExcelVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.payment.dao.Pay_PayDao;
 import com.dalbit.payment.vo.*;
+import com.dalbit.sample.vo.ErrorVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -125,4 +126,37 @@ public class Pay_PayService {
         return result;
     }
 
+
+    public Model getReceiptListExcel(Pay_CooconReceiptInputVo payCooconReceiptInputVo, Model model) {
+
+        int getReceiptDataCnt = payPayDao.selectCooconReceiptCnt(payCooconReceiptInputVo);
+        payCooconReceiptInputVo.setTotalCnt(getReceiptDataCnt);
+
+        List<Pay_CooconReceiptOutputVo> list = payPayDao.selectCooconReceiptList(payCooconReceiptInputVo);
+
+        String[] headers = {"일시", "이름", "주문번호", " 승인번호", "금액", "증빙종류"};
+        int[] headerWidths = {3000, 4000, 10000, 3000, 3000, 3000};
+
+        List<Object[]> bodies = new ArrayList<>();
+        for(int i=0; i<list.size(); i++) {
+            HashMap hm = new LinkedHashMap();
+
+            hm.put("pay_ok_date", DalbitUtil.isEmpty(list.get(i).getPay_ok_date()) ? "" : list.get(i).getPay_ok_date());
+            hm.put("rcpt_nm", DalbitUtil.isEmpty(list.get(i).getRcpt_nm()) ? "" : list.get(i).getRcpt_nm());
+            hm.put("order_id", DalbitUtil.isEmpty(list.get(i).getOrder_id()) ? "" : list.get(i).getOrder_id());
+            hm.put("receipt_ok_number", DalbitUtil.isEmpty(list.get(i).getReceipt_ok_number()) ? "" : list.get(i).getReceipt_ok_number());
+            hm.put("pay_amt", DalbitUtil.isEmpty(list.get(i).getPay_amt()) ? "" : DalbitUtil.comma(list.get(i).getPay_amt()));
+            hm.put("receipt_code", DalbitUtil.isEmpty(list.get(i).getReceipt_code()) ? "" : list.get(i).getReceipt_code());
+
+            bodies.add(hm.values().toArray());
+        }
+
+        ExcelVo vo = new ExcelVo(headers, headerWidths, bodies);
+        SXSSFWorkbook workbook = excelService.excelDownload("쿠콘 현금영수증 발행내역",vo);
+        model.addAttribute("locale", Locale.KOREA);
+        model.addAttribute("workbook", workbook);
+        model.addAttribute("workbookName", "쿠콘 현금영수증 발행내역");
+
+        return model;
+    }
 }

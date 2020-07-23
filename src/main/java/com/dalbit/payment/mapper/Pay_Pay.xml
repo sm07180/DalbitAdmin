@@ -247,24 +247,21 @@
         <if test='searchText != null and searchText != ""'>
             <choose>
                 <when test='searchType == "rcpt_nm"'>
-                    and (
-                    rcpt_nm like concat ('%', upper(#{searchText}), '%')
-                    )
+                    and rcpt_nm = #{searchText}
+
                 </when>
                 <when test='searchType == "receipt_ok_number"'>
-                    and (
-                    receipt_ok_number like concat ('%', upper(#{searchText}), '%')
-                    )
+                    and receipt_ok_number = #{searchText}
                 </when>
                 <otherwise>
                     and (
-                    or rcpt_nm like concat ('%', upper(#{searchText}), '%')
+                    rcpt_nm like concat ('%', upper(#{searchText}), '%')
                     or receipt_ok_number like concat ('%', upper(#{searchText}), '%')
                     )
                 </otherwise>
             </choose>
         </if>
-        order by pay_ok_date desc
+        order by pay_dt_comein desc
     </sql>
 
     <select id="selectCooconReceiptCnt" parameterType="com.dalbit.payment.vo.Pay_CooconReceiptInputVo" resultType="int">
