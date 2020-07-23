@@ -261,7 +261,7 @@
                 </otherwise>
             </choose>
         </if>
-        order by pay_dt_comein desc
+        order by pay_dt_comein asc
     </sql>
 
     <select id="selectCooconReceiptCnt" parameterType="com.dalbit.payment.vo.Pay_CooconReceiptInputVo" resultType="int">
