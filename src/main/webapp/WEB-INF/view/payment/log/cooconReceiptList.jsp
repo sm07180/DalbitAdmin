@@ -169,7 +169,7 @@
 <script id="tmp_receiptList" type="text/x-handlebars-template">
     {{#each this.receiptList}}
         <tr>
-            <td>{{indexDesc ../receiptCnt rowNum}}</td>
+            <td>{{rowNum}}</td>
             <td>{{pay_ok_date}}</td>
             <td>{{rcpt_nm}}</td>
             <td>{{order_id}}</td>
