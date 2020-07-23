@@ -89,11 +89,17 @@ public class Mai_MainStatusRestController {
         return result;
     }
 
-//    @PostMapping("new/main/stat/join")
-//    public String statJoin(){
-//        String result = mai_MainStatusService.callStatJoin();
-//        return result;
-//    }
+    @PostMapping("new/main/stat/login")
+    public String statLogin(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callStatLogin(pStatVo);
+        return result;
+    }
 
     @PostMapping("new/main/stat/pay")
     public String payInfo(P_StatVo pStatVo){
