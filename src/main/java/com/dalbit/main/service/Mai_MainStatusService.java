@@ -3,6 +3,9 @@ package com.dalbit.main.service;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.connect.dao.Con_LoginDao;
+import com.dalbit.connect.vo.procedure.P_LoginTotalOutDetailVo;
+import com.dalbit.connect.vo.procedure.P_LoginTotalOutVo;
 import com.dalbit.enter.dao.Ent_JoinDao;
 import com.dalbit.enter.dao.Ent_PayDao;
 import com.dalbit.enter.vo.procedure.*;
@@ -10,6 +13,9 @@ import com.dalbit.main.dao.Mai_MainStatusDao;
 import com.dalbit.main.vo.PayStatusInputVo;
 import com.dalbit.main.vo.PayStatusOutputVo;
 import com.dalbit.main.vo.procedure.*;
+import com.dalbit.status.dao.Sta_ExchangeDao;
+import com.dalbit.status.vo.procedure.P_ExchangeTotalOutDetailVo;
+import com.dalbit.status.vo.procedure.P_ExchangeTotalOutVo;
 import com.dalbit.util.DalbitUtil;
 import com.dalbit.util.GsonUtil;
 import com.dalbit.util.MessageUtil;
@@ -34,6 +40,16 @@ public class Mai_MainStatusService {
     GsonUtil gsonUtil;
     @Autowired
     Mai_MainStatusDao main_JoinDao;
+
+
+    @Autowired
+    Ent_JoinDao ent_JoinDao;
+    @Autowired
+    Con_LoginDao con_LoginDao;
+    @Autowired
+    Ent_PayDao ent_PayDao;
+    @Autowired
+    Sta_ExchangeDao sta_ExchangeDao;
 
     /**
      * Total 메인
@@ -149,9 +165,6 @@ public class Mai_MainStatusService {
      * 메인 가입현황 고정
      * @return
      */
-
-    @Autowired
-    Ent_JoinDao ent_JoinDao;
     public String callStatJoin(P_StatVo pStatVo){
         ProcedureVo procedureVo = new ProcedureVo(pStatVo);
         List<P_JoinTotalOutDetailVo> detailList =  ent_JoinDao.callJoinTotal(procedureVo);
@@ -179,31 +192,65 @@ public class Mai_MainStatusService {
     }
 
     /**
+     * 메인 로그인현황 고정
+     * @return
+     */
+    public String callStatLogin(P_StatVo pStatVo){
+
+        // PV
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        List<P_LoginTotalOutDetailVo> detailList =  con_LoginDao.callLoginTotalAll(procedureVo);
+        P_LoginTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginTotalOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        //UV
+        procedureVo = new ProcedureVo(pStatVo);
+        List<P_LoginTotalOutDetailVo> detailList2 =  con_LoginDao.callLoginTotal(procedureVo);
+        P_LoginTotalOutVo totalInfo2 = new Gson().fromJson(procedureVo.getExt(), P_LoginTotalOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("overTotalInfo", totalInfo);
+        result.put("overDetailList", detailList);
+        result.put("totalInfo", totalInfo2);
+        result.put("detailList", detailList2);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
      * 결제/환불 고정
      * @return
      */
-    @Autowired
-    Ent_PayDao ent_PayDao;
     public String callPayInfo(P_StatVo pStatVo){
+        // 결제/취소/환불
         ProcedureVo procedureVo = new ProcedureVo(pStatVo);
-        ent_PayDao.callPayInfo(procedureVo);
+        List<P_PayTotalOutDetailVo> detailList =  ent_PayDao.callPayTotal(procedureVo);
+        P_PayTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_PayTotalOutVo.class);
 
-        P_PayInfoOutVo info = new Gson().fromJson(procedureVo.getExt(), P_PayInfoOutVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        // 환전
+        procedureVo = new ProcedureVo(pStatVo);
+        ArrayList<P_ExchangeTotalOutDetailVo> detailList2 = sta_ExchangeDao.callExchangeTotal(procedureVo);
+        P_ExchangeTotalOutVo totalInfo2 = new Gson().fromJson(procedureVo.getExt(), P_ExchangeTotalOutVo.class);
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
         var result = new HashMap<String, Object>();
-
-        pStatVo.setStartDate(pStatVo.getStartDate().replaceAll("\\.",""));
-        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
-            pStatVo.setEndDate(pStatVo.getStartDate());
-        }else {
-            pStatVo.setEndDate(pStatVo.getEndDate().replaceAll("\\.", ""));
-        }
-
-        P_PayInfoOutVo outVo = main_JoinDao.callPayCancelInfo(pStatVo);
-        if(!DalbitUtil.isEmpty(outVo)) {
-            info.setCancelCnt(outVo.getCancelCnt());
-            info.setCancelAmt(outVo.getCancelAmt());
-        }
-        result.put("info", info);
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+        result.put("totalInfo2", totalInfo2);
+        result.put("detailList2", detailList2);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
