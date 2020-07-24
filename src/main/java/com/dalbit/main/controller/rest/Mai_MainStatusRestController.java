@@ -112,4 +112,28 @@ public class Mai_MainStatusRestController {
         String result = mai_MainStatusService.callPayInfo(pStatVo);
         return result;
     }
+
+    @PostMapping("new/main/stat/login/total")
+    public String loginTotal(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callLoginTotal(pStatVo);
+        return result;
+    }
+
+    @PostMapping("new/main/stat/login/age")
+    public String loginAge(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callLoginAge(pStatVo);
+        return result;
+    }
 }

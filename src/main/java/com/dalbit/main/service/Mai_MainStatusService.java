@@ -4,6 +4,8 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.connect.dao.Con_LoginDao;
+import com.dalbit.connect.vo.procedure.P_LoginAgeOutDetailVo;
+import com.dalbit.connect.vo.procedure.P_LoginAgeOutVo;
 import com.dalbit.connect.vo.procedure.P_LoginTotalOutDetailVo;
 import com.dalbit.connect.vo.procedure.P_LoginTotalOutVo;
 import com.dalbit.enter.dao.Ent_JoinDao;
@@ -251,6 +253,46 @@ public class Mai_MainStatusService {
         result.put("detailList", detailList);
         result.put("totalInfo2", totalInfo2);
         result.put("detailList2", detailList2);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 로그인 성별 현황
+     * @return
+     */
+    public String callLoginTotal(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        List<P_LoginTotalOutDetailVo> detailList =  con_LoginDao.callLoginTotal(procedureVo);
+        P_LoginTotalOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginTotalOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
+    }
+
+    /**
+     * 로그인 연령별 현황
+     * @return
+     */
+    public String callLoginAge(P_StatVo pStatVo){
+        ProcedureVo procedureVo = new ProcedureVo(pStatVo);
+        List<P_LoginAgeOutDetailVo> detailList =  con_LoginDao.callLoginAge(procedureVo);
+        P_LoginAgeOutVo totalInfo = new Gson().fromJson(procedureVo.getExt(), P_LoginAgeOutVo.class);
+
+        if(Integer.parseInt(procedureVo.getRet()) <= 0){
+            return gsonUtil.toJson(new JsonOutputVo(Status.데이터없음));
+        }
+
+        var result = new HashMap<String, Object>();
+        result.put("totalInfo", totalInfo);
+        result.put("detailList", detailList);
 
         return gsonUtil.toJson(new JsonOutputVo(Status.조회, result));
     }
