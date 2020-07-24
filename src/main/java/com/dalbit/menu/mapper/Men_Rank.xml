@@ -21,150 +21,125 @@
     </select>
 
     <sql id="djCondition">
-        select *, @RNUM := @RNUM + 1 as rowNum
-            from (select
-                      dj.rank as djRank
-                    , dj.up_down as upDown
-                    , dj.mem_no as memNo
-                    , prof.image_profile as image_profile
-                    , mem.mem_id as mem_id
-                    , lev.`level` as `level`
-                    , lev.grade as grade
-                    , mem.mem_nick as mem_nick
-                    , mem.mem_sex as mem_sex
-                    , mem.mem_birth_year
-                    , mem.mem_birth_month
-                    , mem.mem_birth_day
-                    , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
-                    , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 1) as byeol
-                    , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
-                    , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
-                    , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                    , dj.ranking_date as ranking_date
-                    , dj.broadcast_point as airTime
-                    , CAST(dj.good_point AS INT) as goodCnt
-                    , CAST(dj.dj_point AS INT) AS rankPoint
-                    , dj.listener_point as listenCnt
-                    , dj.gift_point as itemCnt
-                  from
-                    <if test='rankType == "1"'>
-                        <if test='liveCnt != 0'>
-                          rd_data.tb_ranking_dj_live dj
-                        </if>
-                        <if test='liveCnt == 0'>
-                            rd_data.tb_ranking_dj_day dj
-                        </if>
-                    </if>
-                    <if test='rankType == "2"'>
-                        rd_data.tb_ranking_dj_week dj
-                    </if>
-                    <if test='rankType == "3"'>
-                        rd_data.tb_ranking_dj_month dj
-                    </if>
-                    inner join rd_data.tb_member_profile prof on prof.mem_no = dj.mem_no
-                    inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
-                    left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
-                where
-                    <if test='liveCnt != 0'>
-                      ranking_date = #{liveDate}
-                    </if>
-                    <if test='liveCnt == 0'>
-                      date_format(ranking_date,'%Y.%m.%d') = #{sDate}
-                    </if>
+        from
+          <if test='rankType == "1"'>
+              <if test='liveCnt != 0'>
+                rd_data.tb_ranking_dj_live dj
+              </if>
+              <if test='liveCnt == 0'>
+                  rd_data.tb_ranking_dj_day dj
+              </if>
+          </if>
+          <if test='rankType == "2"'>
+              rd_data.tb_ranking_dj_week dj
+          </if>
+          <if test='rankType == "3"'>
+              rd_data.tb_ranking_dj_month dj
+          </if>
+          inner join rd_data.tb_member_profile prof on prof.mem_no = dj.mem_no
+          inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
+          left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
+      where
+          <if test='liveCnt != 0'>
+            ranking_date = #{liveDate}
+          </if>
+          <if test='liveCnt == 0'>
+            date_format(ranking_date,'%Y.%m.%d') = #{sDate}
+          </if>
 
-                    <if test='txt_search != null and txt_search != ""'>
-                        <choose>
-                            <when test='selectGubun =="1"'>
-                                and mem.mem_no like concat('%', #{txt_search}, '%')
-                            </when>
-                            <when test='selectGubun =="2"'>
-                                and mem_id like concat('%', #{txt_search}, '%')
-                            </when>
-                            <when test='selectGubun =="3"'>
-                                and mem_nick like concat('%', #{txt_search}, '%')
-                            </when>
-                            <when test='selectGubun =="4"'>
-                                and mem.mem_phone like concat('%', #{txt_search}, '%')
-                            </when>
-                            <otherwise>
-                                and (mem.mem_no like concat('%', #{txt_search}, '%')
-                                or mem_id like concat('%', #{txt_search}, '%')
-                                or mem_nick like concat('%', #{txt_search}, '%')
-                                or mem.mem_phone like concat('%', #{txt_search}, '%'))
-                            </otherwise>
-                        </choose>
-                    </if>
-            ) a , (select @RNUM := 0) r
-            order by djRank asc
+          <if test='txt_search != null and txt_search != ""'>
+              <choose>
+                  <when test='selectGubun =="1"'>
+                      and mem.mem_no like concat('%', #{txt_search}, '%')
+                  </when>
+                  <when test='selectGubun =="2"'>
+                      and mem_id like concat('%', #{txt_search}, '%')
+                  </when>
+                  <when test='selectGubun =="3"'>
+                      and mem_nick like concat('%', #{txt_search}, '%')
+                  </when>
+                  <when test='selectGubun =="4"'>
+                      and mem.mem_phone like concat('%', #{txt_search}, '%')
+                  </when>
+                  <otherwise>
+                      and (mem.mem_no like concat('%', #{txt_search}, '%')
+                      or mem_id like concat('%', #{txt_search}, '%')
+                      or mem_nick like concat('%', #{txt_search}, '%')
+                      or mem.mem_phone like concat('%', #{txt_search}, '%'))
+                  </otherwise>
+              </choose>
+          </if>
     </sql>
 
     <sql id="fanCondition">
-        select *, @RNUM := @RNUM + 1 as rowNum
-           from (
-                  select
-                      <!--fan.fan_point as fanRank-->
-                      fan.rank as fanRank
-                    , fan.up_down as upDown
-                    , prof.image_profile as image_profile
-                    , mem.mem_id as mem_id
-                    , mem.mem_no as mem_no
-                    , lev.`level` as `level`
-                    , lev.grade as grade
-                    , mem.mem_nick as mem_nick
-                    , mem.mem_sex as mem_sex
-                    , mem.mem_birth_year
-                    , mem.mem_birth_month
-                    , mem.mem_birth_day
-                    , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
-                    , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 1) as byeol
-                    , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
-                    , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
-                    , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
-                    , fan.ranking_date as ranking_date
-                    , fan.listen_point as airTime
-                    , CAST(fan.fan_point AS INT) AS rankPoint
-                    , fan.gift_point as itemCnt
-                  from rd_data.tb_member_basic mem
-                    , rd_data.tb_member_profile prof
-                    , rd_data.tb_member_level lev
-                    <if test='rankType == "1"'>
-                        <if test='liveCnt != 0'>
-                            ,rd_data.tb_ranking_fan_live fan
-                        </if>
-                        <if test='liveCnt == "0"'>
-                            ,rd_data.tb_ranking_fan_day fan
-                        </if>
-                    </if>
-                    <if test='rankType == "2"'>
-                        , rd_data.tb_ranking_fan_week fan
-                    </if>
-                    <if test='rankType == "3"'>
-                        , rd_data.tb_ranking_fan_month fan
-                    </if>
-                  where mem.mem_no = prof.mem_no
-                        and mem.mem_no = lev.mem_no
-                        and mem.mem_no = fan.mem_no
-                        <if test='liveCnt != 0'>
-                           and ranking_date = #{liveDate}
-                        </if>
-                        <if test='liveCnt == 0'>
-                           and date_format(ranking_date,'%Y.%m.%d') = #{sDate}
-                        </if>
-                        <if test='txt_search != null and txt_search != ""'>
-                            and (mem.mem_no like concat('%', #{txt_search}, '%')
-                            or mem_id like concat('%', #{txt_search}, '%')
-                            or mem_nick like concat('%', #{txt_search}, '%')
-                            or mem.mem_phone like concat('%', #{txt_search}, '%'))
-                        </if>
-                ) a , (select @RNUM := 0) r
-            order by fanRank asc
+      from rd_data.tb_member_basic mem
+        , rd_data.tb_member_profile prof
+        , rd_data.tb_member_level lev
+        <if test='rankType == "1"'>
+            <if test='liveCnt != 0'>
+                ,rd_data.tb_ranking_fan_live fan
+            </if>
+            <if test='liveCnt == "0"'>
+                ,rd_data.tb_ranking_fan_day fan
+            </if>
+        </if>
+        <if test='rankType == "2"'>
+            , rd_data.tb_ranking_fan_week fan
+        </if>
+        <if test='rankType == "3"'>
+            , rd_data.tb_ranking_fan_month fan
+        </if>
+      where mem.mem_no = prof.mem_no
+            and mem.mem_no = lev.mem_no
+            and mem.mem_no = fan.mem_no
+            <if test='liveCnt != 0'>
+               and ranking_date = #{liveDate}
+            </if>
+            <if test='liveCnt == 0'>
+               and date_format(ranking_date,'%Y.%m.%d') = #{sDate}
+            </if>
+            <if test='txt_search != null and txt_search != ""'>
+                and (mem.mem_no like concat('%', #{txt_search}, '%')
+                or mem_id like concat('%', #{txt_search}, '%')
+                or mem_nick like concat('%', #{txt_search}, '%')
+                or mem.mem_phone like concat('%', #{txt_search}, '%'))
+            </if>
     </sql>
     <!-- DJ -->
     <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
         /* Men_Rank.xml - getMainDjRankingList */
         select *
-        from (
-        <include refid="djCondition"/>
+          from (
+            select *
+                  , @RNUM := @RNUM + 1 as rowNum
+            from (
+              select
+                dj.rank as djRank
+                , dj.up_down as upDown
+                , dj.mem_no as memNo
+                , prof.image_profile as image_profile
+                , mem.mem_id as mem_id
+                , lev.`level` as `level`
+                , lev.grade as grade
+                , mem.mem_nick as mem_nick
+                , mem.mem_sex as mem_sex
+                , mem.mem_birth_year
+                , mem.mem_birth_month
+                , mem.mem_birth_day
+                , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
+                , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 1) as byeol
+                , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
+                , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
+                , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
+                , dj.ranking_date as ranking_date
+                , dj.broadcast_point as airTime
+                , CAST(dj.good_point AS INT) as goodCnt
+                , CAST(dj.dj_point AS INT) AS rankPoint
+                , dj.listener_point as listenCnt
+                , dj.gift_point as itemCnt
+              <include refid="djCondition"/>
+            ) a , (select @RNUM := 0) r
+            order by djRank asc
         ) b
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
@@ -173,9 +148,7 @@
         /* Men_Rank.xml - getMainDjRankingListCnt */
         select
         count(*)
-        from (
         <include refid="djCondition"/>
-        ) as tb
     </select>
 
 
@@ -184,8 +157,35 @@
         /* Men_Rank.xml - getMainFanRankingList */
         select *
             from (
-            <include refid="fanCondition"/>
-            ) b
+              select *, @RNUM := @RNUM + 1 as rowNum
+                from (
+                    select
+                        <!--fan.fan_point as fanRank-->
+                        fan.rank as fanRank
+                        , fan.up_down as upDown
+                        , prof.image_profile as image_profile
+                        , mem.mem_id as mem_id
+                        , mem.mem_no as mem_no
+                        , lev.`level` as `level`
+                        , lev.grade as grade
+                        , mem.mem_nick as mem_nick
+                        , mem.mem_sex as mem_sex
+                        , mem.mem_birth_year
+                        , mem.mem_birth_month
+                        , mem.mem_birth_day
+                        , (select sum(ifnull(money,0)) from rd_data.tb_member_wallet where mem_no = mem.mem_no) as money
+                        , (select ifnull(sum(ifnull(gold, 0)), 0) from rd_data.tb_member_broadcast_item item where item.mem_no = mem.mem_no and item_type = 1) as byeol
+                        , (select count(if(gifted_mem_no!=0, gifted_mem_no, null)) from rd_data.tb_member_broadcast_item where mem_no = mem.mem_no) as gifted_mem_no
+                        , (select count(if(mem_no!=0, mem_no, null)) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as airCount
+                        , (select min(start_date) from rd_data.tb_member_broadcast_broadcasting where mem_no = mem.mem_no) as start_date
+                        , fan.ranking_date as ranking_date
+                        , fan.listen_point as airTime
+                        , CAST(fan.fan_point AS INT) AS rankPoint
+                        , fan.gift_point as itemCnt
+                    <include refid="fanCondition"/>
+                    ) a , (select @RNUM := 0) r
+                    order by fanRank asc
+                ) b
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
 
@@ -193,8 +193,6 @@
         /* Men_Rank.xml - getMainFanRankingListCnt */
         select
           count(*)
-            from (
-              <include refid="fanCondition"/>
-            ) as tb
+        <include refid="fanCondition"/>
     </select>
 </mapper>
