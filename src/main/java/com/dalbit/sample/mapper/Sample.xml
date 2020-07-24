@@ -91,18 +91,8 @@
         /* Sample.xml - getLogErrorDataCnt*/
         select
           count(*)
-        from (select idx
-        , mem_no
-        , ostype
-        , version
-        , build
-        , dtype
-        , ctype
-        , `desc`
-        , upd_date
         from rd_data.tb_log_error_data
         <include refid="condition"/>
-        ) as tb
     </select>
 
 </mapper>
