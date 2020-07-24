@@ -80,7 +80,7 @@
         , basic.mem_birth_day
         --                 , profile.image_profile  as image_profile
         , @RNUM := @RNUM + 1 as rowNum
-        , ifnull((select TRUNCATE(ifnull(sum(airtime), 0) / 3600, 0)
+        , ifnull((select TRUNCATE(ifnull(sum(airtime), 0) / 60, 0)
         from rd_data.tb_broadcast_room room
         where mem_no = basic.mem_no
         and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>start_date
