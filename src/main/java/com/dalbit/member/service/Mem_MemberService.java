@@ -374,7 +374,7 @@ public class Mem_MemberService {
             P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
             pMemberReportVo.setReported_mem_no(pMemberEditorVo.getMem_no());
-            pMemberReportVo.setSlctType(7);
+            pMemberReportVo.setSlctType(34);
             pMemberReportVo.setNotiContents(etcCont);
             pMemberReportVo.setNotimemo(etcCont);
             mem_MemberDao.callMemberNotification_Add(pMemberReportVo);
