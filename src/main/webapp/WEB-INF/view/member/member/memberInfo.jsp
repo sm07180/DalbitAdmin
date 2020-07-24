@@ -74,6 +74,8 @@
             response.data["adultYn"] = "y";
         }
 
+        response.data["op_code_stop_cnt"] = Number(response.data.op_code_3_cnt) + Number(response.data.op_code_4_cnt) + Number(response.data.op_code_5_cnt);
+
         var template = $('#tmp_memberInfoFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
@@ -82,7 +84,7 @@
         init();
 
         // $("#txt_birth").val(response.data.birthDate);
-        $("#memSlct").html(util.renderSlct(response.data.memSlct, "40"));
+        $("#memSlct").html(util.renderSlct(response.data.memSlct, "30"));
         report = "/member/member/popup/reportPopup?"
             + "memNo=" + encodeURIComponent(response.data.mem_no)
             + "&memId=" + encodeURIComponent(response.data.userId)
@@ -157,7 +159,8 @@
             getAdminMemoList(this.id,"운영자메모");
         });
         $('.bt_connectState').click(function() {         //접속상태
-            getInfoDetail('bt_connectState',"접속상태");
+            $("#tab_connectState").click();
+            // getInfoDetail('bt_connectState',"접속상태");
         });
         $('#bt_manager').click(function() {             //매니저 자세히
             getInfoDetail(this.id,"(내가 등록한) 매니저");
@@ -166,16 +169,20 @@
             getInfoDetail(this.id,"(내가 등록학) 블랙리스트");
         });
         $('#bt_editHistory').click(function() {         //최근정보 내역
-            getInfoDetail(this.id,"정보수정내역");
+            // getInfoDetail(this.id,"정보수정내역");
+            tab_click("tab_editHistory_all");
         });
         $('#bt_profileMsg_editHistory').click(function() {         //프로필메시지 수정내역
-            getInfoDetail("bt_editHistory","프로필메시지 수정내역");
+            // getInfoDetail("bt_editHistory","프로필메시지 수정내역");
+            tab_click("tab_editHistory_profileMsg");
         });
         $('#bt_profileImg_editHistory').click(function() {         //프로필이미지 수정내역
-            getInfoDetail("bt_editHistory","프로필이미지 수정내역");
+            // getInfoDetail("bt_editHistory","프로필이미지 수정내역");
+            tab_click("tab_editHistory_profileImg");
         });
         $('#bt_bgImg_editHistory').click(function() {         //방송방배경이미지 수정내역
-            getInfoDetail("bt_editHistory","방송방배경이미지 수정내역");
+            // getInfoDetail("bt_editHistory","방송방배경이미지 수정내역");
+            tab_click("tab_editHistory_bgImg");
         });
         $('#bt_reportDetail').click(function() {         //회원상태 상세
             $("#tab_declarationDetail").click();
@@ -393,7 +400,7 @@
                 alert("프로필 이미지가 초기화 되었습니다.");
             } else if (tmp_bt == "bt_phon") {                 //휴대폰 번호 변경
                 if(response == 0){
-                    alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");
+                    alert("비정상적인 연락처 입니다. 연락처를 확인 해주십시오.");ㅅ
                     return;
                 }
                 alert("연락처가 변경되었습니다.");
@@ -605,11 +612,17 @@
                 data.addDalCnt = $("#txt_dalAddCnt").val();
             }
             if(confirm($("#txt_dalAddCnt").val() + "달을 변경하시겠습니까?")) {
+                if($("#sp_dalPointEdit").find("select[name='pointEditStory']").val() == '2'){
+                    data.type = '7'
+                }else{
+                    data.type = '12'
+                }
+
                 data.pointEditStroy=$("#sp_dalPointEdit").find("#pointEditStory option:checked").text();
                 util.getAjaxData("dalAdd", "/rest/member/member/daladd", data, dalbyeoladd_success, fn_fail);
             } else return;
         }else if(tmp == "byeol"){
-            if($("#sp_byeollPointEdit").find("select[name='pointEditStory']").val() == "-1"){
+            if($("#sp_byeolPointEdit").find("select[name='pointEditStory']").val() == "-1"){
                 alert("달 변경 사유를 선택해 주세요.");
                 return;
             }
@@ -626,7 +639,14 @@
             }else{
                 data.addByeolCnt = $("#txt_byeolAddCnt").val();
             }
+            alert($("#sp_byeolPointEdit").find("select[name='pointEditStory']").val())
             if(confirm($("#txt_byeolAddCnt").val() + "별을 변경하시겠습니까?")) {
+                if($("#sp_byeolPointEdit").find("select[name='pointEditStory']").val() == '2'){
+                    data.type = '4'
+                }else{
+                    data.type = '6'
+                }
+
                 data.pointEditStroy=$("#sp_byeolPointEdit").find("#pointEditStory option:checked").text();
                 util.getAjaxData("byeoladd", "/rest/member/member/byeoladd", data, dalbyeoladd_success, fn_fail);
 
@@ -768,16 +788,16 @@
     <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
         <colgroup>
             <col width="6%"/>
-            <col width="13%"/>
+            <col width="18%"/>
             <col width="6%"/>
-            <col width="13%"/>
+            <col width="18%"/>
             <col width="6%"/>
-            <col width="8%"/>
-            <col width="8%"/>
-            <col width="8%"/>
-            <col width="8%"/>
-            <col width="8%"/>
-            <col width="8%"/>
+            <col width="7%"/>
+            <col width="7%"/>
+            <col width="7%"/>
+            <col width="7%"/>
+            <col width="7%"/>
+            <col width="7%"/>
             <col width="4%"/>
         </colgroup>
         <tbody>
@@ -810,10 +830,10 @@
         <tr>
             <th>회원레벨</th>
             <td style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
-            <th>경험치</th>
-            <td style="text-align: left">{{{getCommonCodeLabel grade 'grade'}}}</td>
             <th>레벨등급</th>
-            <td colspan="2" style="text-align: left">{{{getCommonCodeLabel level 'level'}}}</td>
+            <td colspan="2" style="text-align: left">{{grade}}</td>
+            <th>경험치</th>
+            <td style="text-align: left">{{exp}}({{substr expPer '0' '5'}}%)</td>
             <td>
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_levelDetail">상세</button>
             </td>
@@ -823,28 +843,32 @@
             <td style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
             </td>
-            <td colspan="5" style="text-align: left">
-                {{{block}}}
+            <td colspan="3" style="text-align: center">
+                <%--{{{block}}}--%>
+                경고 : {{op_code_2_cnt}}회,  정지 : {{op_code_stop_cnt}}회,  영구정지 : {{op_code_6_cnt}}회
+            </td>
+            <td colspan="2">
                 {{#equal memWithdrawal '0'}}
                 <button type="button" class="btn btn-default btn-sm pull-right bt_report">경고/정지</button>
                 {{/equal}}
                 <button type="button" class="btn btn-info btn-sm pull-right" id="bt_state">정상변경</button>
+            </td>
             <td>
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_reportDetail">상세</button>
             </td>
         </tr>
         <tr>
             <th>접속정보</th>
-            <td colspan="5" style="text-align: left">
+            <td colspan="5" style="text-align: left;">
                 <span>
                     * MobileID : {{deviceUuid}} <br>
                     * IP : {{ip}}<br>
                     * 접속상태 : {{connectState}}
                 </span>
             </td>
-            <td style="border-left">
-                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">기기 차단</button>
-                <button type="button" class="btn btn-danger btn-sm pull-right bt_report">IP 차단</button>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm pull-left bt_report">기기 차단</button>
+                <button type="button" class="btn btn-danger btn-sm pull-left bt_report">IP 차단</button>
             </td>
             <%--<span class="pr15 pl15"></span>--%>
             <%--<span class="pr15 pl15">* 접속상태 : {{connectState}}</span>--%>
@@ -860,12 +884,14 @@
             <th>최초방송일시</th>
             <td colspan="3" style="text-align: left">{{firstBroadcastDate}}</td>
             <th>최근방송일시</th>
-            <td colspan="3" style="text-align: left">추가해야해</td>
+            <td colspan="3" style="text-align: left">{{lastBroadcastDate}}</td>
         </tr>
         <tr>
             <th>프로필메시지</th>
-            <td colspan="3" style="text-align: left" id="memberProfileMsg">
+            <td colspan="2" style="text-align: left; border-right-width: 0px;" id="memberProfileMsg">
                 {{profileMsg}}
+            </td>
+            <td>
                 <button type="button" id="bt_profileMsg_editHistory" class="btn btn-default btn-sm pull-right">상세</button>
             </td>
             <th>방송상태</th>
@@ -877,7 +903,11 @@
             </td>
             <th>마이크</th>
             <td>
-                ON
+                {{#dalbit_if micState '==' 'ON'}}
+                    <i class="fa fa-microphone" style="color: #a037d9;font-size:20px;"></i>{{micState}}
+                {{else}}
+                    <i class="fa fa-microphone-slash" style="color: #000000;font-size:20px;"></i>{{micState}}
+                {{/dalbit_if}}
             </td>
             <td>
                 <button type="button" id="bt_forcedEnd" class="btn btn-danger btn-sm pull-right">방송강제종료</button>
@@ -896,9 +926,9 @@
             <td style="text-align: left" id="memberNo">{{mem_no}}</td>
             <th>UserID</th>
             <td style="text-align: left" id="td_userid" data-userid="{{userId}}">
-                {{userId}}
+                {{userId}}<br>
                 {{^equal dj_badge ''}}
-                <label class="pull-right"> DJ타입 | {{{../dj_badge}}} </label>
+                <label class="pull-left pt5"> DJ타입 | {{{../dj_badge}}} </label>
                 {{/equal}}
             </td>
             <th>청취상태</th>
@@ -949,7 +979,7 @@
         <tr>
             <th>이름</th>
             <td>
-                <input type="text" class="form-control" id="txt_userName" value="{{userName}}" style="width:70%;">
+                <input type="text" class="form-control" id="txt_userName" value="{{userName}}" style="width:65%;">
                 {{#equal memWithdrawal '0'}}
                 <button type="button" id="bt_userName" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                 {{/equal}}
@@ -1011,7 +1041,7 @@
                 {{/equal}}
             </td>
             <th>회원가입일시</th>
-            <td colspan="3" style="text-align: left">{{joinDate}} <label id="memSlct"></label></td>
+            <td colspan="3" style="text-align: left">{{joinDate}} <label class="no-margin" id="memSlct"></label></td>
             <th>회원탈퇴일시</th>
             <td colspan="3" style="text-align: left">
                 {{#equal memWithdrawal '1'}}
@@ -1044,7 +1074,8 @@
             <th>최근정보<br/>수정일시</th>
             <td colspan="3" style="text-align: left">{{lastOpDate}}</td>
             <th>최근정보<br/>수정자</th>
-            <td colspan="3" style="text-align: left">{{lastOpName}}
+            <td colspan="2" style="text-align: left">{{lastOpName}}</td>
+            <td>
                 <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">상세</button>
             </td>
         </tr>
@@ -1065,9 +1096,11 @@
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th rowspan="2">운영자 메모</th>
-            <td rowspan="2" colspan="7" style="text-align: left">
+            <td rowspan="2" colspan="6" style="text-align: left; border-right-width:0px;">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
-                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
+            </td>
+            <td rowspan="2">
+                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-left" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
             </td>
         </tr>
         <tr>
@@ -1089,7 +1122,8 @@
                 {{/equal}}
             </td>
             <th>최근메모 등록</th>
-            <td colspan="7" style="text-align: left">등록: {{addComma opMemoCnt}} 건
+            <td colspan="6" style="text-align: left">등록: {{addComma opMemoCnt}} 건</td>
+            <td>
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">상세</button>
             </td>
         </tr>

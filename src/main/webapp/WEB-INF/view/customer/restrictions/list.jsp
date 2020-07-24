@@ -77,6 +77,7 @@
 </div>
 
 <script src="/js/dataTablesSource/customer/restrictionsDataTableSource.js?${dummyData}"></script>
+<script type="text/javascript" src="/js/code/member/memberCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/restrictionsCodeList.js?${dummyData}"></script>
 <script type="text/javascript" src="/js/code/customer/customerCodeList.js?${dummyData}"></script>
 
