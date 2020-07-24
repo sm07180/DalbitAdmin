@@ -43,7 +43,6 @@
                     AND report.op_code = #{opCode}
                 </if>
             </where>
-            ORDER BY report.op_date desc
         ) AS a
         <where>
             <if test='searchText != null and searchText != ""'>
@@ -130,7 +129,6 @@
                     AND report.op_code = #{opCode}
                 </if>
             </where>
-            ORDER BY report.op_date desc
         ) AS a
         <where>
             <if test='searchText != null and searchText != ""'>
@@ -169,6 +167,7 @@
                 </choose>
             </if>
         </where>
+        ORDER BY start_date desc
         LIMIT  #{pageStart}, #{pageCnt}
     </select>
 
