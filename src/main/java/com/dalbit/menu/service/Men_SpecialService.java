@@ -93,8 +93,14 @@ public class Men_SpecialService {
 
         List<SpecialReqVo> list = menSpecialDao.getReqSpecialList(specialReqVo);
 
-        String[] headers = {"No", "회원번호", "닉네임", "신청일", "이름", "연락처", "제목", "내용", "상태", "처리자", "처리일시"};
-        int[] headerWidths = {3000, 5000, 5000, 6000, 5000, 5000, 5000, 5000, 3000, 3000, 6000};
+        String[] headers = {"No", "회원번호", "닉네임", "신청일", "이름"
+                , "연락처", "누적 방송시간", "1시간 이상 방송 횟수", "좋아요 수", "팬 수"
+                , "누적 청취자 수", "순수 청취자 수", "신고횟수", "받은 별", "방송소개"
+                , "내가 스페셜 DJ가 된다면", "상태", "처리자", "처리일시"};
+        int[] headerWidths = {3000, 5000, 5000, 6000, 3000
+                , 5000, 3000, 3000, 3000, 3000
+                , 3000, 3000, 3000, 3000, 5000
+                , 6000, 3000, 5000, 6000};
 
         List<Object[]> bodies = new ArrayList<>();
         for(int i=0; i<list.size(); i++) {
@@ -106,9 +112,27 @@ public class Men_SpecialService {
             hm.put("reg_date", DalbitUtil.isEmpty(list.get(i).getReg_date()) ? "" : list.get(i).getReg_date());
             hm.put("mem_name", DalbitUtil.isEmpty(list.get(i).getMem_name()) ? "" : list.get(i).getMem_name());
             hm.put("mem_phone", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getMem_phone());
+
+            hm.put("airTime", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAirTime());
+            hm.put("broadcastCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getBroadcastCnt());
+            hm.put("goodCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getGoodCnt());
+            hm.put("fanCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getFanCnt());
+            hm.put("allListenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getAllListenCnt());
+            hm.put("listenCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getListenCnt());
+            hm.put("reportCnt", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReportCnt());
+            hm.put("receiveStar", DalbitUtil.isEmpty(list.get(i).getMem_phone()) ? "" : list.get(i).getReceiveStar());
+
             hm.put("title", DalbitUtil.isEmpty(list.get(i).getTitle()) ? "" : list.get(i).getTitle());
             hm.put("contents", DalbitUtil.isEmpty(list.get(i).getContents()) ? "" : list.get(i).getContents());
-            hm.put("state", DalbitUtil.isEmpty(list.get(i).getState()) ? "" : list.get(i).getState());
+
+            String state = "신청";
+            if(list.get(i).getState() == 2){
+                state = "승인";
+            }else if(list.get(i).getState() == 3){
+                state = "반려";
+            }
+
+            hm.put("state", state);
             hm.put("op_name", DalbitUtil.isEmpty(list.get(i).getOp_name()) ? "" : list.get(i).getOp_name());
             hm.put("last_upd_date" , DalbitUtil.isEmpty(list.get(i).getLast_upd_date()) ? "" : list.get(i).getLast_upd_date());
 

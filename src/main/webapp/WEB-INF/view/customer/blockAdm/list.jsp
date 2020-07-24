@@ -153,6 +153,7 @@
         dtList_info.useCheckBox(true);
         dtList_info.useIndex(true);
         dtList_info.useInitReload(true);
+        dtList_info.setPageLength(50);
         dtList_info.createDataTable();
 
 
