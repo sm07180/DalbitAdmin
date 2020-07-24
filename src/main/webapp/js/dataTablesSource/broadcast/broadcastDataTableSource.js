@@ -3,7 +3,12 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
             {'title': '플랫폼', 'data': 'osType','width' : '50px', 'render': function (data) {
-                    return util.getCommonCodeLabel(data, os_type);
+                    if(data == 3){
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/4bb20760-4afb-46a1-8bdf-35106f1a4e46.svg"> <br/>' ;
+                    }else{
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/dca7b592-edb6-4080-b763-7e535529661f.svg"> <br/>' ;
+                    }
+                    return tmp + util.getCommonCodeLabel(data, os_type);
                 }},
             {'title': '주제', 'data': 'subject_name','width' : '65px'},
             {'title': '제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {
@@ -107,7 +112,12 @@ var BroadcastDataTableSource = {
         'url': '/rest/broadcast/broadcast/list'
         , 'columns': [
             {'title': '플랫폼', 'data': 'osType','width' : '65px', 'render': function (data) {
-                    return util.getCommonCodeLabel(data, os_type);
+                    if(data == 3){
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/4bb20760-4afb-46a1-8bdf-35106f1a4e46.svg"> <br/>' ;
+                    }else{
+                        var tmp = '<img src="https://cdn.zeplin.io/5e841bd8a790d06f2465dd87/assets/dca7b592-edb6-4080-b763-7e535529661f.svg"> <br/>' ;
+                    }
+                    return tmp + util.getCommonCodeLabel(data, os_type);
                 }},
             {'title': '주제', 'data': 'subject_name','width' : '65px'},
             {'title': '제목', 'data': 'title','width' : '150px', 'render': function (data, type, row, meta) {

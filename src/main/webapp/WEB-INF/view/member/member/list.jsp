@@ -138,10 +138,10 @@
             return;
         }
         /* 엑셀저장을 위해 조회조건 임시저장 */
-        if($('input[name="searchRadio"]:checked').val() == "1"){
-            tmp_searchType = $("select[name='searchType']").val();
+        if($('input[name="searchRadio"]:checked').val() != "1"){
+            tmp_searchType = $('input[name="searchRadio"]:checked').val();
         }else{
-            tmp_searchType = 6;
+            tmp_searchType = $("select[name='searchType']").val();
         }
         tmp_searchText = $('#txt_search').val();
 
