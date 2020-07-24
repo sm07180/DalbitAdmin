@@ -99,7 +99,8 @@ var MemberDataTableSource = {
         'url': '/rest/member/member/list'
         , 'columns': [
             {'title': '회원번호', 'data': 'mem_no', 'width':'100px', 'render': function (data, type, row, meta) {
-                    return '<a href="javascript://" class="getMemberDetail" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
+                    // return '<a href="javascript://" class="getMemberDetail" onclick="javascript:getMemNo_info('+meta.row+');">' + data + '</a>'
+                    return '<a href="javascript://" class="_openMemberPop" data-memNo="' + data + '">' + data + '</a>';
                 }},
              {'title': 'UserID', 'data': 'mem_userid', 'width':'100px'},
              {'title': '닉네임', 'data': 'mem_nick', 'width':'80px'},

@@ -1,8 +1,14 @@
 package com.dalbit.member.vo.procedure;
 
 import com.dalbit.common.vo.BaseVo;
+import com.google.gson.Gson;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -45,5 +51,18 @@ public class P_MemberEditorVo extends BaseVo {
     private String use_contents;
     private String pointEditStroy;
 
+
+    private P_MemberInfoOutputVo beforeMemberData;
+
+    public void setBeforeMemberData(String beforeMemberData){
+        try {
+            new JSONObject(beforeMemberData);
+
+            this.beforeMemberData = new Gson().fromJson(beforeMemberData, P_MemberInfoOutputVo.class);
+
+        } catch (JSONException ex) {
+            this.beforeMemberData = null;
+        }
+    }
 }
 

@@ -174,7 +174,7 @@
                     fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                     fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
 
-                }else if(type == "31" || type == "35" || type == "36"){ //mem_no
+                }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
                     fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
                     fnc_pushDetail.target.find("#input_targetLink").show();
                     fnc_pushDetail.target.find("#input_targetLink").val("");
@@ -297,7 +297,7 @@
                 fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                 fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
 
-            }else if(type == "31" || type == "35" || type == "36"){ //mem_no
+            }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
                 fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
                 fnc_pushDetail.target.find("#input_targetLink").show();
                 fnc_pushDetail.target.find("#input_targetLink").attr("disabled", true);
@@ -524,15 +524,18 @@
             var type = fnc_pushDetail.target.find("input[name=slct_push]:radio:checked").val()
             if(type == "1"){ //room_no
                 resultJson['room_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
+                resultJson['target_mem_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetMemNo");
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
 
-            }else if(type == "31" || type == "35" || type == "36"){ //mem_no
+            }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
                 resultJson['target_mem_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
 
             }else if(type == "5" || type == "6" || type == "7"){ //board_idx
                 resultJson['board_idx'] = fnc_pushDetail.target.find("#input_targetLink").val();
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").val();
+            }else if(type == "2"){
+                resultJson['target_mem_no'] = '10000000000001';
             }
 
             // 발송상태
@@ -627,7 +630,7 @@
                         fnc_pushDetail.target.find("#input_targetLink").focus();
                         return false;
                     }
-                }else if(type == "31" || type == "35" || type == "36"){ //mem_no
+                }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
                     if (common.isEmpty(data.target_mem_no)) {
                         alert("회원을 선택하여 주시기 바랍니다.");
                         fnc_pushDetail.target.find("#input_targetLink").focus();
@@ -675,6 +678,7 @@
 
             fnc_pushDetail.target.find("#input_targetLink").val(data.room_no);
             fnc_pushDetail.target.find("#input_targetLink").data("targetinfo", data.room_no);
+            fnc_pushDetail.target.find("#input_targetLink").data("targetMemNo", data.dj_mem_no);
     };
 
 

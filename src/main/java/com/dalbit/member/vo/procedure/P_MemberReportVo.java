@@ -34,4 +34,9 @@ public class P_MemberReportVo {
 
     private String slctOs; // OS Type 구분.. (a: AOS, b: IOS)
 
+    // 알림..
+    private String targetRoomNo;
+    private String targetBoardIdx;
+    private String targetMemNo;
 }
+

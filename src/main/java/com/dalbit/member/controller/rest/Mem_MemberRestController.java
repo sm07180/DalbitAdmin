@@ -138,6 +138,17 @@ public class Mem_MemberRestController {
     }
 
 
+    /**
+     * 회원 방송방 이미지 초기화
+     */
+    @PostMapping("initBgImg")
+    public String initBgImg(P_MemberEditorVo pMemberEditorVo, HttpServletRequest request) throws GlobalException {
+
+        String result = mem_MemberService.setInitBackgroundImage(pMemberEditorVo);
+        return result;
+    }
+
+
     //------------------------------------------------------------------------
     /* 자세히 보기 */
 

@@ -7,6 +7,7 @@ var restrictions_searchType = [
     , new COMMON_CODE('memnick', '4', '닉네임')
     , new COMMON_CODE('memphone', '5', '연락처')
     , new COMMON_CODE('mobileId', '6', 'MobileID')
+    , new COMMON_CODE('ip', '9', 'IP')
 ];
 
 

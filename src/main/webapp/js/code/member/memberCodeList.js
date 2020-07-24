@@ -159,7 +159,8 @@ var loginHistorySearchType = [
 var searchRadioMember = [
     new COMMON_CODE(null, 'searchRadio', '검색구분')
     , new COMMON_CODE('1', '1', '회원')
-    , new COMMON_CODE('2', '2', 'IP')
+    , new COMMON_CODE('9', '9', 'IP')
+    , new COMMON_CODE('6', '6', '모바일ID')
 ];
 
 
@@ -200,6 +201,7 @@ var mem_wallet_dal_code = [
     , new COMMON_CODE('6', '6', '달 교환')
     , new COMMON_CODE('7', '7', '이벤트 받기')
     , new COMMON_CODE('8', '8', '환불차감')
+    , new COMMON_CODE('12', '12', '운영자지급')
 ];
 
 var mem_wallet_byeol_code = [
@@ -208,5 +210,6 @@ var mem_wallet_byeol_code = [
     , new COMMON_CODE('1', '1', '달 교환')
     , new COMMON_CODE('2', '2', '선물')
     , new COMMON_CODE('3', '3', '환전')
-    , new COMMON_CODE('7', '7', '이벤트 받기')
+    , new COMMON_CODE('4', '4', '이벤트 받기')
+    , new COMMON_CODE('6', '6', '운영자지급')
 ];

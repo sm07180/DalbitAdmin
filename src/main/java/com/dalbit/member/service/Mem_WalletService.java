@@ -84,7 +84,7 @@ public class Mem_WalletService {
             HashMap hm = new LinkedHashMap();
 
             String gubun =  "";
-            //(1: 루비구매, 2: 아이템선물, 3: 아이템사용, 4: 루비선물보내기, 5:루비선물받기, 6: 루비 교환, 7: 이벤트 받기, 8: 환불차감
+            //(1: 루비구매, 2: 아이템선물, 3: 아이템사용, 4: 루비선물보내기, 5:루비선물받기, 6: 루비 교환, 7: 이벤트 받기, 8: 환불차감, 12:운영자지급
             switch (DalbitUtil.isEmpty(list.get(i).getGubun())? "99" : list.get(i).getGubun()){
                 case "1" :
                     gubun = "달 구매";
@@ -109,6 +109,9 @@ public class Mem_WalletService {
                     break;
                 case "8" :
                     gubun = "환불";
+                    break;
+                case "12" :
+                    gubun = "운영자지급";
                     break;
                 default:
                     gubun = "?";
@@ -203,7 +206,7 @@ public class Mem_WalletService {
             HashMap hm = new LinkedHashMap();
 
             String gubun =  "";
-            //(1: 루비교환, 2: 선물, 3: 환전, 4: 이벤트 받기, 7: 운영 지급 )
+            //(1: 루비교환, 2: 선물, 3: 환전, 4: 이벤트 받기, 6: 운영 지급 )
             switch (DalbitUtil.isEmpty(list.get(i).getGubun())? "99" : list.get(i).getGubun()){
                 case "1" :
                     gubun = "달 교환";
@@ -217,7 +220,7 @@ public class Mem_WalletService {
                 case "4" :
                     gubun = "이벤트";
                     break;
-                case "7" :
+                case "6" :
                     gubun = "운영자 지급";
                     break;
                 default:

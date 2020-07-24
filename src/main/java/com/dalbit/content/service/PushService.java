@@ -288,7 +288,10 @@ public class PushService {
 
                             pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
                             pMemberReportVo.setReported_mem_no(target);
-                            pMemberReportVo.setSlctType(7);
+                            pMemberReportVo.setSlctType(Integer.parseInt(pPushInsertVo.getSlct_push()));
+                            pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
+                            pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
+                            pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
                             pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                             pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                             int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
@@ -339,7 +342,10 @@ public class PushService {
 
                         pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
                         pMemberReportVo.setReported_mem_no(target.getMem_no());
-                        pMemberReportVo.setSlctType(7);
+                        pMemberReportVo.setSlctType(Integer.parseInt(pPushInsertVo.getSlct_push()));
+                        pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
+                        pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
+                        pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
                         pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                         pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                         int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
@@ -387,7 +393,10 @@ public class PushService {
                     P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
                     pMemberReportVo.setSlctOs(pPushStmpInsertVo.getSlctOs());
-                    pMemberReportVo.setSlctType(7);
+                    pMemberReportVo.setSlctType(Integer.parseInt(pPushInsertVo.getSlct_push()));
+                    pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
+                    pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
+                    pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
                     pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                     pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                     int notiResult = pushDao.callContentsNotiAddALL(pMemberReportVo);
