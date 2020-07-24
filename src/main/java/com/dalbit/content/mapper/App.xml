@@ -3,33 +3,33 @@
 <mapper namespace="com.dalbit.content.dao.AppDao" >
 
     <sql id="appCondition">
-        select
-        idx
-        , os
-        , version
-        , build_no
-        , upBuild_no
-        , is_use
-        , reg_date
-        , op_name as opName
-        , @RNUM := @RNUM + 1 as rowNum
-        from
-        rd_admin.tb_app_version
-        , (select @RNUM := 0) r
         <where>
           <if test = 'os != null and os != ""'>
             os = #{os}
           </if>
         </where>
-        order by idx desc
     </sql>
 
     <select id="getAppVersionList" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
         /* App.xml - getAppVersionList */
         select *
-        from (
-          <include refid="appCondition"/>
-        ) a
+          from (
+            select
+                idx
+                , os
+                , version
+                , build_no
+                , upBuild_no
+                , is_use
+                , reg_date
+                , op_name as opName
+                , @RNUM := @RNUM + 1 as rowNum
+              from
+                rd_admin.tb_app_version
+                , (select @RNUM := 0) r
+                <include refid="appCondition"/>
+              order by idx desc
+            ) a
         limit  #{pageStart}, #{pageCnt}
     </select>
 
@@ -37,9 +37,9 @@
         /* App.xml - getAppVersionListCnt */
         select
           count(*)
-          from (
-        <include refid="appCondition"/>
-          ) as tb
+        from
+          rd_admin.tb_app_version
+            <include refid="appCondition"/>
     </select>
 
     <select id="getListDetail" parameterType="com.dalbit.content.vo.AppVo" resultType="com.dalbit.content.vo.AppVo">
