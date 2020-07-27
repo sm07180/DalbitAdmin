@@ -57,6 +57,11 @@
                                 <i class="fa fa-bar-chart-o"></i> 가입 / 탈퇴
                             </a>
                         </h3>
+                        <h3 class="pull-right">
+                            <a href="/enter/join/info" onclick="labelClick(0);">
+                                <i class="fa fa-search"></i> 상세보기
+                            </a>
+                        </h3>
                     </div>
                     <div class="widget-content mt10">
                         <table class="table table-condensed table-dark-header table-bordered">
@@ -80,6 +85,11 @@
                         <h3>
                             <a href="javascript://" onclick="labelClick(1);">
                                 <i class="fa fa-bar-chart-o"></i> 접속자 (PV/UV)
+                            </a>
+                        </h3>
+                        <h3 class="pull-right">
+                            <a href="/connect/login/info" onclick="labelClick(0);">
+                                <i class="fa fa-search"></i> 상세보기
                             </a>
                         </h3>
                     </div>
@@ -107,6 +117,11 @@
                                 <i class="fa fa-bar-chart-o"></i> 방송개설/청취자
                             </a>
                         </h3>
+                        <h3 class="pull-right">
+                            <a href="/status/broadcast/info" onclick="labelClick(0);">
+                                <i class="fa fa-search"></i> 상세보기
+                            </a>
+                        </h3>
                     </div>
                     <div class="widget-content mt10">
                         <table class="table table-condensed table-dark-header table-bordered">
@@ -130,6 +145,11 @@
                         <h3>
                             <a href="javascript://" onclick="labelClick(3);">
                                 <i class="fa fa-bar-chart-o"></i> 결제/결제 취소/환불/환전
+                            </a>
+                        </h3>
+                        <h3 class="pull-right">
+                            <a href="/enter/newPay/info" onclick="labelClick(0);">
+                                <i class="fa fa-search"></i> 상세보기
                             </a>
                         </h3>
                     </div>
@@ -266,8 +286,6 @@
             _datePicker = 2;
         }
         changeDatepicker();
-
-        searchData("all");
     });
 
     $(document).on('click', '._prevSearch', function(){
@@ -366,15 +384,10 @@
     }
 
 
+    var data = {};
 
     function searchData(tmp){
         // chartParam.slctDate = $("#startDate").val() + ' 23:59:59';
-
-        var data = {};
-        data.slctType = $('input[name="slctType"]:checked').val();
-        data.startDate = $("#startDate").val();
-        data.endDate = $("#endDate").val();
-
         $("#joinChart").hide();
         $("#loginChart").hide();
         $("#broadCastChart").hide();
@@ -390,10 +403,14 @@
             $("#payChart").show();
         }
 
+        data.slctType = $('input[name="slctType"]:checked').val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+
         if(tmp == "all"){
             util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", data, fn_join_withdrawal_success);
             util.getAjaxData("statLogin", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
-            util.getAjaxData("memberList", "/rest/status/broadcast/info/total", data, fn_broadcastListener_success);
+            util.getAjaxData("statBroadCast", "/rest/mainStatus/new/main/stat/broadCast", data, fn_broadcastListener_success);
             util.getAjaxData("statPayInfo", "/rest/mainStatus/new/main/stat/pay", data, fn_paymentCancel_success);
         }else{
             if(dataType == 0){
@@ -401,10 +418,10 @@
                 util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", data, fn_join_withdrawal_success);
             }else if(dataType == 1){
                 // 접속 자
-                util.getAjaxData("total", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
+                util.getAjaxData("statLogin", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
             }else if(dataType == 2){
                 // 방송개설/청취자
-                util.getAjaxData("memberList", "/rest/status/broadcast/info/total", data, fn_broadcastListener_success);
+                util.getAjaxData("statBroadCast", "/rest/mainStatus/new/main/stat/broadCast", data, fn_broadcastListener_success);
             }else if(dataType == 3){
                 // 결제/결제취소/환불/환전
                 util.getAjaxData("statPayInfo", "/rest/mainStatus/new/main/stat/pay", data, fn_paymentCancel_success);
@@ -427,16 +444,12 @@
         $("#joinWithdrawal_tableBody").append(html);
         if(dataType == 0) {
             listSort(dst_id, response, param);
+            // 회원가입 플랫폼
+            util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platform_success);
+            // 회원가입 성별, 회원가입 연령
+            util.getAjaxData("genderList", "/rest/enter/join/info/gender", data, fn_genderAge_success);
         }
 
-        var data = {};
-        data.slctType = $('input[name="slctType"]:checked').val();
-        data.startDate = $("#startDate").val();
-        data.endDate = $("#endDate").val();
-        // 회원가입 플랫폼
-        util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platform_success);
-        // 회원가입 성별, 회원가입 연령
-        util.getAjaxData("genderList", "/rest/enter/join/info/gender", data, fn_genderAge_success);
     }
 
     function fn_login_success(dst_id, response, param){
@@ -449,42 +462,28 @@
         $("#login_tableBody").append(html);
         if(dataType == 1) {
             listSort(dst_id, response, param);
+            // 접속 플랫폼
+            util.getAjaxData("browser", "/rest/connect/login/info/browser", data, fn_loginBrowser_success);
+            // 접속자 성별
+            util.getAjaxData("loginTotal", "/rest/mainStatus/new/main/stat/login/total", data, fn_loginTotal_success);
+            // 접속자 연령
+            util.getAjaxData("loginTotal", "/rest/mainStatus/new/main/stat/login/age", data, fn_loginAge_success);
         }
-
-
-        var data = {};
-        data.slctType = $('input[name="slctType"]:checked').val();
-        data.startDate = $("#startDate").val();
-        data.endDate = $("#endDate").val();
-        // 접속 플랫폼
-        util.getAjaxData("browser", "/rest/connect/login/info/browser", data, fn_loginBrowser_success);
-        // 접속자 성별
-        util.getAjaxData("loginTotal", "/rest/mainStatus/new/main/stat/login/total", data, fn_loginTotal_success);
-        // 접속자 연령
-        util.getAjaxData("loginTotal", "/rest/mainStatus/new/main/stat/login/age", data, fn_loginAge_success);
-
     }
 
 
     function fn_broadcastListener_success(dst_id, response, param){
         $("#broadcastListener_tableBody").empty();
-
         var template = $('#tmp_broadcastListener_tableBody').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data.totalInfo;
         var html=templateScript(context);
         $("#broadcastListener_tableBody").append(html);
-
         if(dataType == 2) {
             listSort(dst_id, response, param);
+            // 방송 개설 성별, 방송 개설 연령
+            util.getAjaxData("broadcastDj", "/rest/status/broadcast/info/dj", data, fn_broadcastDj_success);
         }
-
-        var data = {};
-        data.slctType = $('input[name="slctType"]:checked').val();
-        data.startDate = $("#startDate").val();
-        data.endDate = $("#endDate").val();
-        // 방송 개설 성별, 방송 개설 연령
-        util.getAjaxData("broadcastDj", "/rest/status/broadcast/info/dj", data, fn_broadcastDj_success);
     }
 
     function fn_paymentCancel_success(dst_id, response, param){
@@ -495,46 +494,70 @@
         var context = response.data;
         var html=templateScript(context);
         $("#paymentCancel_tableBody").append(html);
-
         if(dataType == 3) {
             listSort(dst_id, response, param);
+            // 결제수단
+            util.getAjaxData("way", "/rest/enter/pay/way", data, fn_payWay_success);
+            // 결제성별, 결제 연령
+            util.getAjaxData("age", "/rest/enter/pay/age", data, fn_agePay_success);
+            // 결제 취소 수단
         }
-
-        var data = {};
-        data.slctType = $('input[name="slctType"]:checked').val();
-        data.startDate = $("#startDate").val();
-        data.endDate = $("#endDate").val();
-
-        // 결제수단
-        util.getAjaxData("way", "/rest/enter/pay/way", data, fn_payWay_success);
-        // 결제성별, 결제 연령
-        util.getAjaxData("age", "/rest/enter/pay/age", data, fn_agePay_success);
-        // 결제 취소 수단
-
     }
 
     function listSort(dst_id, response, param){
-        var sortingField = "hour";
-        response.data.detailList.sort(function(a, b) { // 오름차순
-            return a[sortingField] - b[sortingField];
-        });
-        if(dataType == 0) {
-            response.data.withdrawDetailList.sort(function(a, b) { // 오름차순
+        if($('input[name="slctType"]:checked').val() == 0 || $('input[name="slctType"]:checked').val() == 2) {
+            if($('input[name="slctType"]:checked').val() == 0){
+                var sortingField = "hour";
+            }else{
+                if(dataType == 0 || dataType == 2 || dataType == 3) {
+                    var sortingField = "monthly";
+                }else if(dataType == 1) {
+                    var sortingField = "month";
+                }
+            }
+            response.data.detailList.sort(function(a, b) { // 오름차순
                 return a[sortingField] - b[sortingField];
             });
-        }
-        if(dataType == 1) {
-            response.data.overDetailList.sort(function(a, b) { // 오름차순
-                return a[sortingField] - b[sortingField];
+            if(dataType == 0) {
+                response.data.withdrawDetailList.sort(function(a, b) { // 오름차순
+                    return a[sortingField] - b[sortingField];
+                });
+            }
+            if(dataType == 1) {
+                response.data.overDetailList.sort(function(a, b) { // 오름차순
+                    return a[sortingField] - b[sortingField];
+                });
+            }
+            if(dataType == 2) {
+            }
+            if(dataType == 3) {
+                response.data.detailList2.sort(function(a, b) { // 오름차순
+                    return a[sortingField] - b[sortingField];
+                });
+            }
+        }else if($('input[name="slctType"]:checked').val() == 1) {
+            response.data.detailList.sort(function(a, b) { // 오름차순
+                return a.daily < b.daily ? -1 : a.daily > b.daily ? 1 : 0;
             });
+            if(dataType == 0) {
+                response.data.withdrawDetailList.sort(function(a, b) { // 오름차순
+                    return a.daily < b.daily ? -1 : a.daily > b.daily ? 1 : 0;
+                });
+            }
+            if(dataType == 1) {
+                response.data.overDetailList.sort(function(a, b) { // 오름차순
+                    return a.daily < b.daily ? -1 : a.daily > b.daily ? 1 : 0;
+                });
+            }
+            if(dataType == 2) {
+            }
+            if(dataType == 3) {
+                response.data.detailList2.sort(function(a, b) { // 오름차순
+                    return a.daily < b.daily ? -1 : a.daily > b.daily ? 1 : 0;
+                });
+            }
         }
-        if(dataType == 2) {
-        }
-        if(dataType == 3) {
-            response.data.detailList2.sort(function(a, b) { // 오름차순
-                return a[sortingField] - b[sortingField];
-            });
-        }
+
         setChart1(dst_id, response.data, param);
     }
 
@@ -564,8 +587,8 @@
         }else if(dataType == 3) {
             lineName = "결제";
             barName = "환전";
-            lineTitle = "<b>결제:%{customdata:,.0f}건 / %{y:,.0f}";
-            barTitle = "<b>환전:%{customdata:,.0f}건 / %{y:,.0f}";
+            lineTitle = "<b>%{customdata}";
+            barTitle = "<b>%{customdata}";
         }
         /* 라인차트 [start] */
 
@@ -607,7 +630,21 @@
         var dataLength = detailData.detailList.length;
         for (var i = 0; i < dataLength; i++) {
             var array = {};
-            array = detailData.detailList[i].hour +'시';
+            if($('input[name="slctType"]:checked').val() == 0) {
+                array = detailData.detailList[i].hour + '시';
+            }else if($('input[name="slctType"]:checked').val() == 1){
+                if(dataType == 0 || dataType == 2 || dataType == 3) {
+                    array = detailData.detailList[i].daily.split("-")[1] + "월" + detailData.detailList[i].daily.split("-")[2] + "일";
+                }else if(dataType == 1) {
+                    array = detailData.detailList[i].month + "월" + detailData.detailList[i].day + "일";
+                }
+            }else if($('input[name="slctType"]:checked').val() == 2){
+                if(dataType == 0 || dataType == 2 || dataType == 3) {
+                    array = detailData.detailList[i].monthly + "월";
+                }else if(dataType == 1) {
+                    array = detailData.detailList[i].month + "월";
+                }
+            }
             arrayList_x.push(array);
         }
 
@@ -630,9 +667,11 @@
 
             if(dataType == 3) {
                 var arrayCnt = {};
-                arrayCnt = detailData.detailList[i].succCnt;
+                arrayCnt = "결제:" + common.addComma(detailData.detailList[i].succCnt)+ "건 "
+                    + common.addComma(detailData.detailList[i].inc_succCnt) + " / "
+                    + common.addComma(detailData.detailList[i].succAmt) + "원 "
+                    + common.addComma(detailData.detailList[i].inc_succAmt);
                 arrayList_yCnt.push(arrayCnt);
-
             }
             if(max_y < array){
                 max_y = array + 10;
@@ -642,6 +681,7 @@
         var arrayBarList_y = [];
         var arrayBarList_yCnt = [];
         var barMax_y = 10;  //최대값
+
         for (var i = 0; i < dataLength; i++) {
             var array = {};
             if(dataType == 0) {
@@ -651,11 +691,22 @@
             }else if(dataType == 2) {
                 array = detailData.detailList[i].createCnt;
             }else if(dataType == 3) {
-                array = detailData.detailList2[i].succAmt;
+                if(!common.isEmpty(detailData.detailList2[i])){
+                    array = detailData.detailList2[i].succAmt;
+                }else{
+                    array = 0;
+                }
             }
             if(dataType == 3) {
                 var arrayCnt = {};
-                arrayCnt = detailData.detailList2[i].succCnt;
+                if(!common.isEmpty(detailData.detailList2[i])) {
+                    arrayCnt = "환전:" + common.addComma(detailData.detailList2[i].succCnt)+ "건 "
+                        + common.addComma(detailData.detailList2[i].inc_succCnt) + " / "
+                        + common.addComma(detailData.detailList2[i].succAmt) + "원 "
+                        + common.addComma(detailData.detailList2[i].inc_succAmt);
+                }else{
+                    arrayCnt = "환전:0건/0";
+                }
                 arrayBarList_yCnt.push(arrayCnt);
             }
 
@@ -687,12 +738,12 @@
     <tr>
         <th>가입</th>
         <td>{{addComma totalInfo.sum_totalCnt}}</td>
-        <td class="{{upAndDownClass totalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon totalInfo.sum_totalCnt}}"></i> {{addComma totalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass totalInfo.inc_sum_totalCnt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_totalCnt}}"></i> {{addComma totalInfo.inc_sum_totalCnt}}</td>
     </tr>
     <tr>
         <th>탈퇴</th>
         <td>{{addComma withdrawTotalInfo.sum_totalCnt}}</td>
-        <td class="{{upAndDownClass withdrawTotalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon withdrawTotalInfo.sum_totalCnt}}"></i> {{addComma withdrawTotalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass withdrawTotalInfo.inc_sum_totalCnt}}"><i class="fa {{upAndDownIcon withdrawTotalInfo.inc_sum_totalCnt}}"></i> {{addComma withdrawTotalInfo.inc_sum_totalCnt}}</td>
     </tr>
 </script>
 
@@ -700,12 +751,12 @@
     <tr>
         <th>PV</th>
         <td>{{addComma overTotalInfo.sum_totalCnt}}</td>
-        <td class="{{upAndDownClass overTotalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon overTotalInfo.sum_totalCnt}}"></i> {{addComma overTotalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass overTotalInfo.inc_sum_totalCnt}}"><i class="fa {{upAndDownIcon overTotalInfo.inc_sum_totalCnt}}"></i> {{addComma overTotalInfo.inc_sum_totalCnt}}</td>
     </tr>
     <tr>
         <th>UV</th>
         <td>{{addComma totalInfo.sum_totalCnt}}</td>
-        <td class="{{upAndDownClass totalInfo.sum_totalCnt}}"><i class="fa {{upAndDownIcon totalInfo.sum_totalCnt}}"></i> {{addComma totalInfo.sum_totalCnt}}</td>
+        <td class="{{upAndDownClass totalInfo.inc_sum_totalCnt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_totalCnt}}"></i> {{addComma totalInfo.inc_sum_totalCnt}}</td>
     </tr>
 </script>
 
@@ -713,12 +764,12 @@
     <tr>
         <th>방송방</th>
         <td>{{addComma sum_createCnt}}</td>
-        <td class="{{upAndDownClass sum_createCnt}}"><i class="fa {{upAndDownIcon sum_createCnt}}"></i> {{addComma sum_createCnt}}</td>
+        <td class="{{upAndDownClass inc_sum_createCnt}}"><i class="fa {{upAndDownIcon inc_sum_createCnt}}"></i> {{addComma inc_sum_createCnt}}</td>
     </tr>
     <tr>
         <th>청취자</th>
         <td>{{addComma sum_listenerCnt}}</td>
-        <td class="{{upAndDownClass sum_listenerCnt}}"><i class="fa {{upAndDownIcon sum_listenerCnt}}"></i> {{addComma sum_listenerCnt}}</td>
+        <td class="{{upAndDownClass inc_sum_listenerCnt}}"><i class="fa {{upAndDownIcon inc_sum_listenerCnt}}"></i> {{addComma inc_sum_listenerCnt}}</td>
     </tr>
 </script>
 
@@ -726,29 +777,29 @@
     <tr>
         <th>결제</th>
         <td>{{addComma totalInfo.sum_succCnt}}</td>
+        <td class="{{upAndDownClass totalInfo.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_succCnt}}"></i> {{addComma totalInfo.inc_sum_succCnt}} </td>
         <td>{{addComma totalInfo.sum_succAmt}}</td>
-        <td class="{{upAndDownClass totalInfo.sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo.sum_succCnt}}"></i> {{addComma totalInfo.sum_succCnt}} </td>
-        <td class="{{upAndDownClass totalInfo.sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo.sum_succAmt}}"></i> {{addComma totalInfo.sum_succAmt}} </td>
+        <td class="{{upAndDownClass totalInfo.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo.inc_sum_succAmt}}"></i> {{addComma totalInfo.inc_sum_succAmt}} </td>
     </tr>
     <tr>
         <th>결제취소</th>
         <td>0</td>
-        <td>0</td>
         <td class="{{upAndDownClass cancelCnt}}"><i class="fa {{upAndDownIcon cancelCnt}}"></i> 0 </td>
+        <td>0</td>
         <td class="{{upAndDownClass cancelAmt}}"><i class="fa {{upAndDownIcon cancelAmt}}"></i> 0 </td>
     </tr>
     <tr>
         <th>환불</th>
         <td>0</td>
-        <td>0</td>
         <td class="{{upAndDownClass cancelCnt}}"><i class="fa {{upAndDownIcon cancelCnt}}"></i> 0 </td>
+        <td>0</td>
         <td class="{{upAndDownClass cancelAmt}}"><i class="fa {{upAndDownIcon cancelAmt}}"></i> 0 </td>
     </tr>
     <tr>
         <th>환전</th>
         <td>{{addComma totalInfo2.sum_succCnt}}</td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succCnt}}"></i> {{addComma totalInfo2.sum_inc_succCnt}} </td>
         <td>{{addComma totalInfo2.sum_succAmt}}</td>
-        <td class="{{upAndDownClass totalInfo2.sum_succCnt}}"><i class="fa {{upAndDownIcon totalInfo2.sum_succCnt}}"></i> {{addComma totalInfo2.sum_succCnt}} </td>
-        <td class="{{upAndDownClass totalInfo2.sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.sum_succAmt}}"></i> {{addComma totalInfo2.sum_succAmt}} </td>
+        <td class="{{upAndDownClass totalInfo2.inc_sum_succAmt}}"><i class="fa {{upAndDownIcon totalInfo2.inc_sum_succAmt}}"></i> {{addComma totalInfo2.sum_inc_succAmt}} </td>
     </tr>
 </script>

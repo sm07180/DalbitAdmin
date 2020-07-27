@@ -18,4 +18,6 @@ public class P_JoinTotalOutVo {
     private int sum_age40Cnt;
     private int sum_age50Cnt;
     private int sum_age60Cnt;
+
+    private int inc_sum_totalCnt;
 }

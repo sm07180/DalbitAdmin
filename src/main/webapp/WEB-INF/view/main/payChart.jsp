@@ -49,32 +49,55 @@
         ]
 
         //바
-        var payWay = {
+        // var payWay = {
+        //     type: 'bar',
+        //     x: chartData.x,
+        //     y: chartData.y,
+        //     customdata : chartData.xCnt,
+        //     name: "",
+        //     marker: { color: color, line: { width: 0 }, },
+        //     hovertemplate: "<b>%{customdata:,.0f}건 / %{y:,.0f}",
+        // };
+        //
+        // var data = [payWay];
+        //
+        // var layout = {
+        //     xaxis: { range: [0, 12], autorange: false },
+        //     yaxis: { range: [0, chartData.max_x], autorange: false ,tickformat: ',d',},
+        //     legend: { y: 1, y: 1, traceorder: 'reversed',separators : '.,'
+        //         , font: { size: 13 }
+        //     }
+        // };
+        //
+        // var config = {responsive: true};
+        // Plotly.newPlot('payWayBarChart', data, layout, config );
+
+
+        var data = [{
             type: 'bar',
             x: chartData.x,
             y: chartData.y,
-            customdata : chartData.xCnt,
-            name: "",
+            orientation: 'h',
             marker: { color: color, line: { width: 0 }, },
-            hovertemplate: "<b>%{customdata:,.0f}건 / %{y:,.0f}",
-        };
-
-        var data = [payWay];
+            customdata : chartData.xCnt,
+            hovertemplate: "<b>%{customdata:,.0f}건 / %{x:,.0f}",
+        }];
 
         var layout = {
-            xaxis: { range: [0, 12], autorange: false },
-            yaxis: { range: [0, chartData.max_x], autorange: false ,tickformat: ',d',},
+            xaxis: { range: [0, chartData.max_x], autorange: false },
+            yaxis: { range: [0, 12], autorange: false ,tickformat: ',d',},
             legend: { y: 1, y: 1, traceorder: 'reversed',separators : '.,'
                 , font: { size: 13 }
             }
         };
 
-        var config = {responsive: true};
-        Plotly.newPlot('payWayBarChart', data, layout, config );
+        Plotly.newPlot('payWayBarChart', data, layout);
+
+
 
         var json = {
-            values: chartData.y,
-            labels: chartData.x,
+            values: chartData.x,
+            labels: chartData.y,
             type: 'pie'
         }
         var data = [json];
@@ -102,12 +125,8 @@
             detailData.sum_kakaopayAmt,
         ];
 
-        arrayList_max_x.sort(function(a, b) { // 오름차순
-            return b - a;
-        });
-
         var max_x;
-        max_x = arrayList_max_x[0];
+        max_x = Math.max.apply(null, arrayList_max_x);
 
         //x축
         var arrayList_x = [
@@ -156,9 +175,9 @@
         ];
 
         var resultData = {
-            x : arrayList_y
+            x : arrayList_x
             , xCnt : arrayList_xCnt
-            , y : arrayList_x
+            , y : arrayList_y
             , max_x : max_x
         };
 

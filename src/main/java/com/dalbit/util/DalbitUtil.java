@@ -4,6 +4,7 @@ import com.dalbit.administrate.service.Adm_AuthorityService;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
 import com.dalbit.common.vo.MenuVo;
+import com.dalbit.main.vo.procedure.P_StatVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
@@ -845,5 +846,49 @@ public class DalbitUtil {
 
     public static String convertNumberType(int data){
         return NumberFormat.getInstance().format(data);
+    }
+
+    public static HashMap<String, String> getPreviousDate(P_StatVo pStatVo){
+
+        HashMap<String, String> map = new HashMap<>();
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy.MM.dd");
+        // 시작일
+        int sYear  = Integer.parseInt(pStatVo.getStartDate().substring(0, 4));
+        int sMonth = Integer.parseInt(pStatVo.getStartDate().substring(5, 7));
+        int sDay = Integer.parseInt(pStatVo.getStartDate().substring(8, 10));
+        Calendar sCal = Calendar.getInstance();
+        sCal.set(sYear, sMonth - 1, sDay);
+
+        // 종료일
+        int eYear  = Integer.parseInt(pStatVo.getEndDate().substring(0, 4));
+        int eMonth = Integer.parseInt(pStatVo.getEndDate().substring(5, 7));
+        int eDay = Integer.parseInt(pStatVo.getEndDate().substring(8, 10));
+        Calendar eCal = Calendar.getInstance();
+        eCal.set(eYear, eMonth - 1, eDay);
+
+        // 증감 데이터
+        if(pStatVo.getSlctType() == 0){ // 시간대
+            sCal.add(Calendar.DATE, -1);     // 하루 전
+            eCal.add(Calendar.DATE, -1);     // 하루 전
+        }else if(pStatVo.getSlctType() == 1){   //일자별
+            sCal.add(Calendar.MONTH, -1);    // 한달 전
+            eCal.add(Calendar.MONTH, -1);    // 한달 전
+        }else if(pStatVo.getSlctType() == 2){   // 월간별
+            sCal.add(Calendar.YEAR, -1);     // 1년 전
+            eCal.add(Calendar.YEAR, -1);     // 1년 전
+        }
+        String sDate = dateFormatter.format(sCal.getTime());
+        String eDate;
+        if(pStatVo.getSlctType() == 0) { // 시간대
+            eDate = sDate;
+        }else{
+            eDate = eCal.get(Calendar.YEAR) + "." + DalbitUtil.lpad(String.valueOf(eCal.get(Calendar.MONTH) + 1), 2, "0") + "." + eCal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        }
+
+        map.put("sDate",sDate);
+        map.put("eDate",eDate);
+
+        return map;
     }
 }

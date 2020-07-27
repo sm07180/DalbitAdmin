@@ -71,11 +71,21 @@
 
 
 
-        var sortingField = "hour";
-        response.data.detailList.sort(function(a, b) { // 오름차순
-            return a[sortingField] - b[sortingField];
-        });
+        if($('input[name="slctType"]:checked').val() == 0 || $('input[name="slctType"]:checked').val() == 2) {
+            if($('input[name="slctType"]:checked').val() == 0){
+                var sortingField = "hour";
+            }else{
+                var sortingField = "monthly";
+            }
+            response.data.detailList.sort(function(a, b) { // 오름차순
+                return a[sortingField] - b[sortingField];
+            });
 
+        }else if($('input[name="slctType"]:checked').val() == 1) {
+            response.data.detailList.sort(function(a, b) { // 오름차순
+                return a.daily < b.daily ? -1 : a.daily > b.daily ? 1 : 0;
+            });
+        }
 
         setChart2(dst_id, response.data, param);
     }
@@ -144,7 +154,13 @@
         var dataLength = detailData.detailList.length;
         for (var i = 0; i < dataLength; i++) {
             var array = {};
-            array = detailData.detailList[i].hour +'시';
+            if($('input[name="slctType"]:checked').val() == 0) {
+                array = detailData.detailList[i].hour +'시';
+            }else if($('input[name="slctType"]:checked').val() == 1) {
+                array = detailData.detailList[i].daily.split("-")[1] + "월" + detailData.detailList[i].daily.split("-")[2] + "일";
+            }else if($('input[name="slctType"]:checked').val() == 2) {
+                array = detailData.detailList[i].monthly + "월";
+            }
             arrayList_x.push(array);
         }
 
