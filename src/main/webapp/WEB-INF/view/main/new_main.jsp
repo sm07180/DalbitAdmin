@@ -618,7 +618,16 @@
             yaxis: { range: [0, chartData.max_y], autorange: false ,tickformat: ',d',},
             legend: { y: 1, y: 1, traceorder: 'reversed',separators : '.,'
                     , font: { size: 13 }
-            }
+            },
+            margin: {
+                l: 120,
+                r: 50,
+                t: 20,
+                b: 50,
+                pad: 4
+            },
+            height : 290,
+
         };
         var config = { responsive: true };
         Plotly.newPlot('lineArea', data, layout, config);
