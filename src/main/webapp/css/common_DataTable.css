@@ -131,3 +131,24 @@ table td.text-center {
 .al {
     text-align: left !important;
 }
+
+
+table.colorV2 {
+    border-color:black;
+}
+
+table.colorV2 tr th {
+    border-color:black;
+    color:black;
+}
+
+table.colorV2 tr td {
+    border-color:black;
+    color:black;
+}
+
+table.colorV2 tr td:last-child {
+    border-width: 1px;
+    border-color:black;
+    color:black;
+}

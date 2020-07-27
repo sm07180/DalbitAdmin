@@ -163,7 +163,8 @@
 
     $(document).on('click', '#tb_memberList .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
-            $(this).parent().parent().find('.getMemberDetail').click();
+            $(this).parent().parent().find('._openMemberPop').click();
+            // $(this).parent().parent().find('.getMemberDetail').click();
         } else {
             $("#tabList_top").removeClass("show");
         }
@@ -171,7 +172,8 @@
 
     $(document).on('click', '#tb_withdrawalList .dt-body-center input[type="checkbox"]', function(){
         if($(this).prop('checked')){
-            $(this).parent().parent().find('.getMemberDetail').click();
+            $(this).parent().parent().find('._openMemberPop').click();
+            // $(this).parent().parent().find('.getMemberDetail').click();
         }
     });
 
