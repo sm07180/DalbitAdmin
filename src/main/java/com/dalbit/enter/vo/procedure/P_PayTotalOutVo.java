@@ -19,4 +19,15 @@ public class P_PayTotalOutVo {
     private int sum_cancCnt;
     private int sum_cancAmt;
 
+    private int inc_sum_succCnt;
+    private int inc_sum_succAmt;
+    private int inc_sum_firstCnt;
+    private int inc_sum_firstAmt;
+    private int inc_sum_reCnt;
+    private int inc_sum_reAmt;
+    private int inc_sum_tryCnt;
+    private int inc_sum_succRate;
+    private int inc_sum_cancCnt;
+    private int inc_sum_cancAmt;
+
 }

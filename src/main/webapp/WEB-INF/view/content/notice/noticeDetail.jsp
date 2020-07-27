@@ -127,7 +127,7 @@
                     <td style="border-color: black">{{opName}}</td>
                     <th style="border-color: black">게시상태</th>
                     <td style="border-color: black">
-                        {{{getOnOffSwitch viewOn 'viewOn'}}}
+                        {{{getCommonCodeLabel viewOn 'viewOn'}}}
                     </td>
                 </tr>
             </tbody>

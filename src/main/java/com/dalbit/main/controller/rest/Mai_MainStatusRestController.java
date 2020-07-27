@@ -80,11 +80,9 @@ public class Mai_MainStatusRestController {
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
             pStatVo.setStartDate(null);
         }
-
         if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
             pStatVo.setEndDate(null);
         }
-
         String result = mai_MainStatusService.callStatJoin(pStatVo);
         return result;
     }
@@ -101,6 +99,18 @@ public class Mai_MainStatusRestController {
         return result;
     }
 
+    @PostMapping("new/main/stat/broadCast")
+    public String statBroadCast(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callStatBroadCast(pStatVo);
+        return result;
+    }
+
     @PostMapping("new/main/stat/pay")
     public String payInfo(P_StatVo pStatVo){
         if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
@@ -110,6 +120,30 @@ public class Mai_MainStatusRestController {
             pStatVo.setEndDate(null);
         }
         String result = mai_MainStatusService.callPayInfo(pStatVo);
+        return result;
+    }
+
+    @PostMapping("new/main/stat/login/total")
+    public String loginTotal(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callLoginTotal(pStatVo);
+        return result;
+    }
+
+    @PostMapping("new/main/stat/login/age")
+    public String loginAge(P_StatVo pStatVo){
+        if(DalbitUtil.isEmpty(pStatVo.getStartDate())){
+            pStatVo.setStartDate(null);
+        }
+        if(DalbitUtil.isEmpty(pStatVo.getEndDate())){
+            pStatVo.setEndDate(null);
+        }
+        String result = mai_MainStatusService.callLoginAge(pStatVo);
         return result;
     }
 }

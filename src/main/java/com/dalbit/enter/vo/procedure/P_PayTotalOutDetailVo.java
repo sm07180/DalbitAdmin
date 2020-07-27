@@ -26,4 +26,8 @@ public class P_PayTotalOutDetailVo {
     private int tryCnt;
     private int succRate;
     private int cancCnt;
+
+
+    private int inc_succCnt;
+    private int inc_succAmt;
 }
