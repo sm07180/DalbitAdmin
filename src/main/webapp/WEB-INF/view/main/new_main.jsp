@@ -155,13 +155,22 @@
 
             <!--방송건수 차트-->
             <div class="widget row">
-                <div class="widget-content">
-                    <!-- end chart tab nav -->
-                    <div class="chart-content">
-                        <div id='lineArea'></div>
-                    </div>
-                    <!-- end chart placeholder-->
-                    <hr class="separator">
+                <!-- end chart tab nav -->
+                <div class="chart-content">
+                    <div id='lineArea'></div>
+                </div>
+
+                <div class="col-md-12" style="display: none" id="joinChart">
+                    <jsp:include page="joinChart.jsp"/>
+                </div>
+                <div class="col-md-12 " style="display: none" id="loginChart">
+                    <jsp:include page="loginChart.jsp"/>
+                </div>
+                <div class="col-md-12 " style="display: none" id="broadCastChart">
+                    <jsp:include page="broadCastChart.jsp"/>
+                </div>
+                <div class="col-md-12 " style="display: none" id="payChart">
+                    <jsp:include page="payChart.jsp"/>
                 </div>
             </div>
         </div> <!-- //container-fluid -->
@@ -366,6 +375,21 @@
         data.startDate = $("#startDate").val();
         data.endDate = $("#endDate").val();
 
+        $("#joinChart").hide();
+        $("#loginChart").hide();
+        $("#broadCastChart").hide();
+        $("#payChart").hide();
+
+        if(dataType == 0) {
+            $("#joinChart").show();
+        }else if(dataType == 1){
+            $("#loginChart").show();
+        }else if(dataType == 2){
+            $("#broadCastChart").show();
+        }else{
+            $("#payChart").show();
+        }
+
         if(tmp == "all"){
             util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", data, fn_join_withdrawal_success);
             util.getAjaxData("statLogin", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
@@ -375,28 +399,15 @@
             if(dataType == 0){
                 // 가입/탈퇴
                 util.getAjaxData("statJoin", "/rest/mainStatus/new/main/stat/join", data, fn_join_withdrawal_success);
-                // 회원가입 플랫폼
-                util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platformGender_success);
-                // 회원가입 성별
-                // 회원가입 연령
             }else if(dataType == 1){
                 // 접속 자
                 util.getAjaxData("total", "/rest/mainStatus/new/main/stat/login", data, fn_login_success);
-                // 접속 플랫폼
-                // 접속자 성별
-                // 접속자 연령
             }else if(dataType == 2){
                 // 방송개설/청취자
                 util.getAjaxData("memberList", "/rest/status/broadcast/info/total", data, fn_broadcastListener_success);
-                // 방송 개설 성별
-                // 방송 개설 연령
             }else if(dataType == 3){
                 // 결제/결제취소/환불/환전
                 util.getAjaxData("statPayInfo", "/rest/mainStatus/new/main/stat/pay", data, fn_paymentCancel_success);
-                // 결제수단
-                // 결제성별
-                // 결제 연령
-                // 결제 취소 수단
             }
         }
     }
@@ -417,6 +428,15 @@
         if(dataType == 0) {
             listSort(dst_id, response, param);
         }
+
+        var data = {};
+        data.slctType = $('input[name="slctType"]:checked').val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+        // 회원가입 플랫폼
+        util.getAjaxData("platformGenderList", "/rest/enter/join/platform/gender", data, fn_platform_success);
+        // 회원가입 성별, 회원가입 연령
+        util.getAjaxData("genderList", "/rest/enter/join/info/gender", data, fn_genderAge_success);
     }
 
     function fn_login_success(dst_id, response, param){
@@ -430,6 +450,19 @@
         if(dataType == 1) {
             listSort(dst_id, response, param);
         }
+
+
+        var data = {};
+        data.slctType = $('input[name="slctType"]:checked').val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+        // 접속 플랫폼
+        util.getAjaxData("browser", "/rest/connect/login/info/browser", data, fn_loginBrowser_success);
+        // 접속자 성별
+        util.getAjaxData("loginTotal", "/rest/mainStatus/new/main/stat/login/total", data, fn_loginTotal_success);
+        // 접속자 연령
+        util.getAjaxData("loginTotal", "/rest/mainStatus/new/main/stat/login/age", data, fn_loginAge_success);
+
     }
 
 
@@ -445,6 +478,13 @@
         if(dataType == 2) {
             listSort(dst_id, response, param);
         }
+
+        var data = {};
+        data.slctType = $('input[name="slctType"]:checked').val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+        // 방송 개설 성별, 방송 개설 연령
+        util.getAjaxData("broadcastDj", "/rest/status/broadcast/info/dj", data, fn_broadcastDj_success);
     }
 
     function fn_paymentCancel_success(dst_id, response, param){
@@ -459,6 +499,17 @@
         if(dataType == 3) {
             listSort(dst_id, response, param);
         }
+
+        var data = {};
+        data.slctType = $('input[name="slctType"]:checked').val();
+        data.startDate = $("#startDate").val();
+        data.endDate = $("#endDate").val();
+
+        // 결제수단
+        util.getAjaxData("way", "/rest/enter/pay/way", data, fn_payWay_success);
+        // 결제성별, 결제 연령
+        util.getAjaxData("age", "/rest/enter/pay/age", data, fn_agePay_success);
+        // 결제 취소 수단
 
     }
 
@@ -484,10 +535,10 @@
                 return a[sortingField] - b[sortingField];
             });
         }
-        setChart_join(dst_id, response.data, param);
+        setChart1(dst_id, response.data, param);
     }
 
-    function setChart_join(dst_id, response, param){
+    function setChart1(dst_id, response, param){
         var detailData = response;
         var chartData;
         var lineName;
@@ -498,77 +549,55 @@
         if(dataType == 0) {
             lineName = "가입";
             barName = "탈퇴";
-            lineTitle = "<b>가입:%{y}";
-            barTitle = "<b>탈퇴:%{y}";
+            lineTitle = "<b>가입:%{y:,.0f}";
+            barTitle = "<b>탈퇴:%{y:,.0f}";
         }else if(dataType == 1) {
             lineName = "UV";
             barName = "PV";
-            lineTitle = "<b>UV:%{y}";
-            barTitle = "<b>PV:%{y}";
+            lineTitle = "<b>UV:%{y:,.0f}";
+            barTitle = "<b>PV:%{y:,.0f}";
         }else if(dataType == 2) {
             lineName = "청취자";
             barName = "방송방";
-            lineTitle = "<b>청취자:%{y}";
-            barTitle = "<b>방송방:%{y}";
+            lineTitle = "<b>청취자:%{y:.0f}";
+            barTitle = "<b>방송방:%{y:,.0f}";
         }else if(dataType == 3) {
             lineName = "결제";
             barName = "환전";
-            lineTitle = "<b>결제:%{yCnt} / %{y}";
-            barTitle = "<b>환전:%{yCnt} / %{y}";
+            lineTitle = "<b>결제:%{customdata:,.0f}건 / %{y:,.0f}";
+            barTitle = "<b>환전:%{customdata:,.0f}건 / %{y:,.0f}";
         }
         /* 라인차트 [start] */
+
         var trace = {
             x: chartData.x,
             y: chartData.y,
-            yCnt : chartData.yCnt,
+            customdata : chartData.yCnt,
             mode: 'lines',
             name: lineName,
-            line: {
-                dash: 'line',
-                width: 4
-            },
-            marker: {
-            },
+            line: { dash: 'line', width: 4 },
+            marker: { },
             hovertemplate: lineTitle,
-
         };
         //바
         var bar = {
             type: 'bar',
             x: chartData.x,
             y: chartData.bar_y,
-            yCnt : chartData.bar_yCnt,
+            customdata : chartData.bar_yCnt,
             name: barName,
-            marker: {
-                color: '#e48701',
-                line: {
-                    width: 0
-                },
-            },
+            marker: { color: '#e48701', line: { width: 0 }, },
             hovertemplate: barTitle,
         };
         var data = [trace, bar];
         var layout = {
-            xaxis: {
-                range: [0, chartData.dataLength],
-                autorange: false
-            },
-            yaxis: {
-                range: [0, chartData.max_y],
-                autorange: false
-            },
-            legend: {
-                y: 1,
-                y: 1,
-                traceorder: 'reversed',
-                font: {
-                    size: 13
-                }
+            xaxis: { range: [0, chartData.dataLength], autorange: false },
+            yaxis: { range: [0, chartData.max_y], autorange: false ,tickformat: ',d',},
+            legend: { y: 1, y: 1, traceorder: 'reversed',separators : '.,'
+                , font: { size: 13 }
             }
         };
-        var config = {
-            responsive: true
-        };
+        var config = { responsive: true };
         Plotly.newPlot('lineArea', data, layout, config);
     }
 
@@ -652,28 +681,6 @@
         console.log(resultData);
         return resultData;
     }
-
-    function fn_platformGender_success(dst_id, response, param){
-        /* 파이차트 [start] */
-        var json = {
-            values: [57.7, 42.3],
-            labels: ['안드로이드', '아이폰'],
-            type: 'pie'
-        }
-
-        var data = [json];
-
-        var layout = {
-            title: '앱다운로드 현황',
-            height: 400,
-            width: 500
-        };
-
-        Plotly.newPlot('pieArea', data, layout);
-
-    }
-
-
 
 </script>
 <script type="text/x-handlebars-template" id="tmp_joinWithdrawal_tableBody">
