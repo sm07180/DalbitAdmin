@@ -66,7 +66,14 @@
             yaxis: { range: [0, chartData.max_y], autorange: false},
             legend: { y: 1, y: 1, traceorder: 'reversed'
                 , font: { size: 13 }
-            }
+            },
+            margin: {
+                l: 120,
+                r: 50,
+                t: 20,
+                b: 20,
+                pad: 4
+            },
         };
 
         var config = {responsive: true};

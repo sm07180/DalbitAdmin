@@ -18,10 +18,10 @@
             <div id='payAgePieChart'></div>
         </div>
         <%--<div class="col-md-6 no-padding">--%>
-        <%--<div id='payCancelWayBarChart'></div>--%>
+            <%--<div id='payCancelWayBarChart'></div>--%>
         <%--</div>--%>
         <%--<div class="col-md-6 no-padding">--%>
-        <%--<div id='payCancelWayPieChart'></div>--%>
+            <%--<div id='payCancelWayPieChart'></div>--%>
         <%--</div>--%>
         <!-- end chart placeholder-->
     </div>
@@ -88,7 +88,14 @@
             yaxis: { range: [0, 12], autorange: false ,tickformat: ',d',},
             legend: { y: 1, y: 1, traceorder: 'reversed',separators : '.,'
                 , font: { size: 13 }
-            }
+            },
+            margin: {
+                l: 120,
+                r: 50,
+                t: 20,
+                b: 20,
+                pad: 4
+            },
         };
 
         Plotly.newPlot('payWayBarChart', data, layout);
@@ -102,7 +109,13 @@
         }
         var data = [json];
         var layout = {
-            title: '',
+            margin: {
+                l: 120,
+                r: 50,
+                t: 20,
+                b: 20,
+                pad: 4
+            },
         };
         Plotly.newPlot('payWayPieChart', data, layout);
     }
