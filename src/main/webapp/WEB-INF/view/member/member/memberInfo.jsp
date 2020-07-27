@@ -642,11 +642,12 @@
             }
 
             if(confirm($("#txt_byeolAddCnt").val() + "별을 변경하시겠습니까?")) {
-                if($("#sp_byeolPointEdit").find("select[name='pointEditStory']").val() == '2'){
-                    data.type = '4'
-                }else{
-                    data.type = '6'
-                }
+                // if($("#sp_byeolPointEdit").find("select[name='pointEditStory']").val() == '2'){
+                //     data.type = '4'
+                // }else{
+                //     data.type = '6'
+                // }
+                data.type = $("#sp_byeolPointEdit").find("#pointEditStory option:checked").val();
 
                 data.pointEditStroy=$("#sp_byeolPointEdit").find("#pointEditStory option:checked").text();
                 util.getAjaxData("byeoladd", "/rest/member/member/byeoladd", data, dalbyeoladd_success, fn_fail);
@@ -965,7 +966,7 @@
                                 <option value="2">-</option>
                             </select>
                             <input type="text" class="form-control" id="txt_dalAddCnt" style="width: 100px">
-                            {{{getCommonCodeSelect pointEditStory 'pointEditStory'}}}
+                            {{{getCommonCodeSelect pointEditStory 'dalPointEditStory' 'Y' 'pointEditStory'}}}
                             <button type="button" id="bt_dalAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">변경</button>
                         </span>
                     {{/equal}}
@@ -1001,7 +1002,7 @@
                                 <option value="2">-</option>
                             </select>
                             <input type="text" class="form-control" id="txt_byeolAddCnt" style="width: 100px">
-                            {{{getCommonCodeSelect pointEditStory 'pointEditStory'}}}
+                            {{{getCommonCodeSelect pointEditStory 'byeolPointEditStory' 'Y' 'pointEditStory'}}}
                             <button type="button" id="bt_byeolAdd" class="btn btn-default btn-sm" data-memno="{{mem_no}}">변경</button>
                         </span>
                     {{/equal}}
