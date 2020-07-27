@@ -100,10 +100,10 @@ var testId_withdrawal = [
 var pointEditStory = [
     new COMMON_CODE('','pointEditStory','달/별수정사유')
     ,new COMMON_CODE('-1','-1','지급사유 선택')
-    ,new COMMON_CODE('0','0','소실금액 복구')
-    ,new COMMON_CODE('1','1','직원 테스트')
-    ,new COMMON_CODE('2','2','이벤트 지급')
-    ,new COMMON_CODE('3','3','스페셜DJ 혜택')
+    ,new COMMON_CODE('12','12','소실금액 복구')
+    ,new COMMON_CODE('13','13','직원 테스트')
+    ,new COMMON_CODE('23','23','이벤트 지급')
+    ,new COMMON_CODE('22','22','스페셜DJ 혜택')
 ];
 
 var memJoinDateSort = [
@@ -199,9 +199,15 @@ var mem_wallet_dal_code = [
     , new COMMON_CODE('4', '4', '달 선물보내기')
     , new COMMON_CODE('5', '5', '달 선물받기')
     , new COMMON_CODE('6', '6', '달 교환')
-    , new COMMON_CODE('7', '7', '이벤트 받기')
+    , new COMMON_CODE('7', '7', '이벤트 받기(자동)')
     , new COMMON_CODE('8', '8', '환불차감')
-    , new COMMON_CODE('12', '12', '운영자지급')
+    , new COMMON_CODE('9', '9', '퀵 메시지 구매')
+    , new COMMON_CODE('10', '10', '레벨업 보상')
+    , new COMMON_CODE('11', '11', '출석체크 보상')
+    , new COMMON_CODE('12', '12', '소실금액복구')
+    , new COMMON_CODE('13', '13', '테스트지급및회수')
+    , new COMMON_CODE('22', '22', '스페셜DJ혜택')
+    , new COMMON_CODE('23', '23', '이벤트 받기(어드민)')
 ];
 
 var mem_wallet_byeol_code = [

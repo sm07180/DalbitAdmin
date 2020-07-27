@@ -188,7 +188,7 @@
             $("#tab_declarationDetail").click();
         });
         $('#bt_levelDetail').click(function() {         //레벨 상세
-            alert("개발해야해")
+            $("#tab_levelDetail").click();
         });
         $('.bt_report').click(function() {           // 회원상태(경고/정지)
             reportPopup();
@@ -612,11 +612,12 @@
                 data.addDalCnt = $("#txt_dalAddCnt").val();
             }
             if(confirm($("#txt_dalAddCnt").val() + "달을 변경하시겠습니까?")) {
-                if($("#sp_dalPointEdit").find("select[name='pointEditStory']").val() == '2'){
-                    data.type = '7'
-                }else{
-                    data.type = '12'
-                }
+                // if($("#sp_dalPointEdit").find("select[name='pointEditStory']").val() == '2'){
+                //     data.type = '7'
+                // }else{
+                //     data.type = '12'
+                // }
+                data.type = $("#sp_dalPointEdit").find("#pointEditStory option:checked").val();
 
                 data.pointEditStroy=$("#sp_dalPointEdit").find("#pointEditStory option:checked").text();
                 util.getAjaxData("dalAdd", "/rest/member/member/daladd", data, dalbyeoladd_success, fn_fail);
@@ -639,7 +640,7 @@
             }else{
                 data.addByeolCnt = $("#txt_byeolAddCnt").val();
             }
-            alert($("#sp_byeolPointEdit").find("select[name='pointEditStory']").val())
+
             if(confirm($("#txt_byeolAddCnt").val() + "별을 변경하시겠습니까?")) {
                 if($("#sp_byeolPointEdit").find("select[name='pointEditStory']").val() == '2'){
                     data.type = '4'
@@ -785,7 +786,7 @@
 
 <script id="tmp_memberInfoFrm" type="text/x-handlebars-template">
     <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
-    <table class="table table-bordered table-dalbit" style="margin-bottom: 0px;">
+    <table class="table table-bordered table-dalbit colorV2" style="margin-bottom: 0px;">
         <colgroup>
             <col width="6%"/>
             <col width="18%"/>
@@ -809,7 +810,7 @@
                 <br><button type="button" id="bt_profileImg_editHistory" class="btn btn-default btn-sm">상세</button>
                 {{/equal}}
             </th>
-            <td rowspan="5" style="border: white">
+            <td rowspan="5">
                 <form id="profileImg" method="post" enctype="multipart/form-data">
                     <img id="image_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage profileImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
                 </form>
@@ -821,7 +822,7 @@
                 <br><button type="button" id="bt_bgImg_editHistory" class="btn btn-default btn-sm">상세</button>
                 {{/equal}}
             </th>
-            <td rowspan="5" style="border: white">
+            <td rowspan="5">
                 <form id="bgImg" method="post" enctype="multipart/form-data">
                     <img id="image_bg_section" class="thumbnail fullSize_background no-padding" src="{{renderProfileImage roomBgImage memSex}}" alt="your image" style="width: 150px;height: 150px" />
                 </form>
@@ -1096,7 +1097,7 @@
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th rowspan="2">운영자 메모</th>
-            <td rowspan="2" colspan="6" style="text-align: left; border-right-width:0px;">
+            <td rowspan="2" colspan="6" style="text-align: left; border-right-color:white;">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
             </td>
             <td rowspan="2">
