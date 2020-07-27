@@ -30,11 +30,7 @@
 <script type="text/javascript">
 
     function fn_payWay_success(dst_id, response, param){
-        setPayWayChart(dst_id, response.data.totalInfo, param);
-    }
-
-    function setPayWayChart(dst_id, response, param){
-        var detailData = response;
+        var detailData = response.data.totalInfo;
         var chartData = getPayWayChart(detailData, param);
 
         var color = [
@@ -87,7 +83,6 @@
         };
         Plotly.newPlot('payWayPieChart', data, layout);
     }
-
 
     function getPayWayChart(detailData, param) {
 
@@ -171,88 +166,76 @@
         return resultData;
     }
 
-    // function fn_genderAge_success(dst_id, response, param){
-    //     var age10_cnt = [
-    //         response.data.totalInfo.sum_age10FCnt,
-    //         response.data.totalInfo.sum_age10MCnt,
-    //         response.data.totalInfo.sum_age10NCnt,
-    //     ];
-    //     response.data.totalInfo.age10Cnt = common.getListSum(age10_cnt);
-    //     var age20_cnt = [
-    //         response.data.totalInfo.sum_age20FCnt,
-    //         response.data.totalInfo.sum_age20MCnt,
-    //         response.data.totalInfo.sum_age20NCnt,
-    //     ];
-    //     response.data.totalInfo.age20Cnt = common.getListSum(age20_cnt);
-    //     var age30_cnt = [
-    //         response.data.totalInfo.sum_age30FCnt,
-    //         response.data.totalInfo.sum_age30MCnt,
-    //         response.data.totalInfo.sum_age30NCnt,
-    //     ];
-    //     response.data.totalInfo.age30Cnt = common.getListSum(age30_cnt);
-    //     var age40_cnt = [
-    //         response.data.totalInfo.sum_age40FCnt,
-    //         response.data.totalInfo.sum_age40MCnt,
-    //         response.data.totalInfo.sum_age40NCnt,
-    //     ];
-    //     response.data.totalInfo.age40Cnt = common.getListSum(age40_cnt);
-    //     var age50_cnt = [
-    //         response.data.totalInfo.sum_age50FCnt,
-    //         response.data.totalInfo.sum_age50MCnt,
-    //         response.data.totalInfo.sum_age50NCnt,
-    //     ];
-    //     response.data.totalInfo.age50Cnt = common.getListSum(age50_cnt);
-    //     var age60_cnt = [
-    //         response.data.totalInfo.sum_age60FCnt,
-    //         response.data.totalInfo.sum_age60MCnt,
-    //         response.data.totalInfo.sum_age60NCnt,
-    //     ];
-    //     response.data.totalInfo.age60Cnt = common.getListSum(age60_cnt);
-    //
-    //     setChart3(dst_id, response.data.totalInfo, param);
-    // }
-    //
-    // function setChart3(dst_id, response, param){
-    //     var detailData = response;
-    //     var chartData = getChartData3(detailData, param);
-    //
-    //     var json = {
-    //         values: chartData.sumGender,
-    //         labels: ['남', '여', '알수없음'],
-    //         type: 'pie'
-    //     }
-    //     var data = [json];
-    //     var layout = {
-    //         title: '',
-    //     };
-    //     Plotly.newPlot('pieArea2', data, layout);
-    //
-    //     var json = {
-    //         values: chartData.sumAge,
-    //         labels: ['10대','20대','30대','40대','50대','60대'],
-    //         type: 'pie'
-    //     }
-    //     var data = [json];
-    //     var layout = {
-    //         title: '',
-    //     };
-    //     Plotly.newPlot('pieArea3', data, layout);
-    //
-    // }
-    //
-    //
-    // function getChartData3(detailData, param) {
-    //     //x축
-    //     var sumGender = [detailData.sum_totalMCnt, detailData.sum_totalFCnt, detailData.sum_totalNCnt];
-    //     var sumAge = [detailData.age10Cnt, detailData.age20Cnt, detailData.age30Cnt, detailData.age40Cnt, detailData.age50Cnt, detailData.age60Cnt];
-    //
-    //     var resultData = {
-    //         sumGender : sumGender
-    //         ,sumAge : sumAge
-    //     };
-    //
-    //     console.log(resultData);
-    //     return resultData;
-    // }
+
+    function fn_agePay_success(dst_id, response, param){
+        var detailData = response.data.totalInfo;
+        var chartData = getPayGenderAgeChart(detailData, param);
+
+        var json = {
+            values: chartData.genderAmt,
+            labels: chartData.genderType,
+            type: 'pie'
+        }
+        var data = [json];
+        var layout = {
+            title: '',
+        };
+        Plotly.newPlot('payGenderPieChart', data, layout);
+
+
+        var json = {
+            values: chartData.ageAmt,
+            labels: chartData.ageType,
+            type: 'pie'
+        }
+        var data = [json];
+        var layout = {
+            title: '',
+        };
+        Plotly.newPlot('payAgePieChart', data, layout);
+
+    }
+
+    function getPayGenderAgeChart(detailData, param) {
+
+        var genderAmt = [
+            detailData.sum_maleAmt,
+            detailData.sum_femaleAmt,
+            detailData.sum_noneAmt,
+        ];
+        var genderType = [
+            "남",
+            "여",
+            "알수없음",
+        ];
+
+        var ageAmt = [
+            detailData.sum_age10Amt,
+            detailData.sum_age20Amt,
+            detailData.sum_age30Amt,
+            detailData.sum_age40Amt,
+            detailData.sum_age50Amt,
+            detailData.sum_age60Amt,
+        ];
+        var ageType = [
+            "10대",
+            "20대",
+            "30대",
+            "40대",
+            "50대",
+            "60대",
+        ];
+
+        var resultData = {
+            genderAmt : genderAmt
+            , genderType : genderType
+            , ageAmt : ageAmt
+            , ageType : ageType
+        };
+
+        console.log(resultData);
+        return resultData;
+    }
+
 
 </script>

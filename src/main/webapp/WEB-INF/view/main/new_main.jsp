@@ -507,8 +507,8 @@
 
         // 결제수단
         util.getAjaxData("way", "/rest/enter/pay/way", data, fn_payWay_success);
-        // 결제성별
-        // 결제 연령
+        // 결제성별, 결제 연령
+        util.getAjaxData("age", "/rest/enter/pay/age", data, fn_agePay_success);
         // 결제 취소 수단
 
     }
