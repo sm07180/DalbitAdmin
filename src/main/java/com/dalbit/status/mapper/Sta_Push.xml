@@ -16,32 +16,6 @@
         /* Sta_Push.xml - callPushHistoryListCnt */
         SELECT
             COUNT(*)
-        FROM
-        (
-            SELECT
-                idx
-                ,send_date
-                ,target_mem
-                ,target_platform
-                ,push_slct
-                ,push_type
-                ,image_type
-                ,send_type
-                ,target_cnt
-                ,send_title
-                ,send_cont
-                ,mem_no
-                ,mem_nick
-                ,send_etc
-                ,send_cnt
-                ,succ_cnt
-                ,fail_cnt
-                ,succ_rate
-                ,click_cnt
-                ,click_rate
-                ,admin_idx
-                ,ins_date
-                ,last_upd_date
             FROM
                 rd_stmp.smtp_push_history
             <where>
@@ -62,26 +36,24 @@
                 <if test='push_slct != null and push_slct != "" and push_slct != "-1"'>
                     AND push_slct = #{push_slct}
                 </if>
+
+                <if test='searchText != null and searchText != ""'>
+                    <choose>
+                        <when test='searchType == 1'>
+                            AND a.send_title like concat ('%', #{searchText}, '%')
+                        </when>
+                        <when test='searchType == 2'>
+                            AND a.send_cont like concat ('%', #{searchText}, '%')
+                        </when>
+                        <when test='searchType == 3'>
+                            AND (a.mem_no like concat ('%', #{searchText}, '%') OR a.mem_nick like concat ('%', #{searchText}, '%'))
+                        </when>
+                        <otherwise>
+                            AND (a.send_title like concat ('%', #{searchText}, '%') OR a.send_cont like concat ('%', #{searchText}, '%') OR (a.mem_no like concat ('%', #{searchText}, '%') OR a.mem_nick like concat ('%', #{searchText}, '%')))
+                        </otherwise>
+                    </choose>
+                </if>
             </where>
-        ) AS a
-        <where>
-            <if test='searchText != null and searchText != ""'>
-                <choose>
-                    <when test='searchType == 1'>
-                        AND a.send_title like concat ('%', #{searchText}, '%')
-                    </when>
-                    <when test='searchType == 2'>
-                        AND a.send_cont like concat ('%', #{searchText}, '%')
-                    </when>
-                    <when test='searchType == 3'>
-                        AND (a.mem_no like concat ('%', #{searchText}, '%') OR a.mem_nick like concat ('%', #{searchText}, '%'))
-                    </when>
-                    <otherwise>
-                        AND (a.send_title like concat ('%', #{searchText}, '%') OR a.send_cont like concat ('%', #{searchText}, '%') OR (a.mem_no like concat ('%', #{searchText}, '%') OR a.mem_nick like concat ('%', #{searchText}, '%')))
-                    </otherwise>
-                </choose>
-            </if>
-        </where>
     </select>
 
     <select id="callPushHistoryList" parameterType="com.dalbit.status.vo.procedure.P_PushHistoryInputVo" resultType="com.dalbit.status.vo.procedure.P_PushHistoryOutputVo">
