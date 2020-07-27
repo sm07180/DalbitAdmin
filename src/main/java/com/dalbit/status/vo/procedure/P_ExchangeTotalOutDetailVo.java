@@ -21,6 +21,9 @@ public class P_ExchangeTotalOutDetailVo extends SearchVo {
     private int cancCnt;
     private int cancAmt;
 
+    private int inc_succCnt;
+    private int inc_succAmt;
+
 }
 
 

@@ -23,6 +23,13 @@
 <script type="text/javascript">
 
     function fn_loginBrowser_success(dst_id, response, param){
+
+        if($('input[name="slctType"]:checked').val() == 1) {
+            response.data.detailList.sort(function(a, b) { // 오름차순
+                return a["day"] - b["day"];
+            });
+        }
+
         var detailData = response.data;
         var chartData = getLoginBrowserChart(detailData, param);
 
@@ -85,7 +92,13 @@
         var dataLength = detailData.detailList.length;
         for (var i = 0; i < dataLength; i++) {
             var array = {};
-            array = detailData.detailList[i].hour +'시';
+            if($('input[name="slctType"]:checked').val() == 0) {
+                array = detailData.detailList[i].hour +'시';
+            }else if($('input[name="slctType"]:checked').val() == 1) {
+                array = detailData.detailList[i].month +'월' + detailData.detailList[i].day + "일";
+            }else if($('input[name="slctType"]:checked').val() == 2) {
+                array = detailData.detailList[i].month +'월';
+            }
             arrayList_x.push(array);
         }
 
@@ -124,11 +137,16 @@
                 max_pc = array + 10;
             }
         }
-        var max_y;
-        max_y = max_aos;
-        (max_y < max_ios) ? max_y = max_ios : ((max_y < max_pc) ?  max_y = max_pc : max_y = max_aos);
 
         var sumPlaform = [detailData.totalInfo.sum_androidCnt, detailData.totalInfo.sum_iosCnt, detailData.totalInfo.sum_pcCnt];
+
+        var max_y;
+        var max_list = [
+            Math.max.apply(null, arrayList_aos),
+            Math.max.apply(null, arrayList_ios),
+            Math.max.apply(null, arrayList_pc),
+        ];
+        max_y = Math.max.apply(null, max_list);
 
         var resultData = {
             x : arrayList_x
@@ -136,8 +154,8 @@
             , ios : arrayList_ios
             , pc : arrayList_pc
             , sumPlaform : sumPlaform
-            , max_y : max_y
             , dataLength : dataLength
+            , max_y : max_y
         };
 
         console.log(resultData);

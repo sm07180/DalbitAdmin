@@ -19,4 +19,6 @@ public class P_LoginTotalOutVo {
     private int sum_ufemaleCnt;
     private int sum_unoneCnt;
 
+    private int inc_sum_totalCnt;
+    private int inc_sum_unoneCnt;
 }
