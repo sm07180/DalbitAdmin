@@ -6,43 +6,43 @@
     <select id="getWithdrawalListCnt" parameterType="com.dalbit.customer.vo.procedure.P_WithdrawalListInputVo" resultType="java.lang.Integer">
         /* Cus_Restrictions.xml - getWithdrawalListCnt */
         SELECT
-          COUNT(*)
+        COUNT(*)
         FROM
         (
-            SELECT
-                report.reported_mem_no     AS mem_no
-                , IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_nick
-                , IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_sex
-                , IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_name
-                , IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_userid
-                , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = report.reported_mem_no) AS ip
-                , (SELECT COUNT(*) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')	AS sanctions_cnt
-                , report.status		AS status
-                , report.op_code	AS op_code
-                , report.etc	AS op_etc
-                , basic.mem_state	AS mem_state
-                , report.op_name	AS op_name
-                , report.reason	AS reason
-                , report.op_msg	AS op_msg
-                , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
-                , basic.mem_phone		AS mem_phone
-                , report.op_date		AS start_date
-                , basic.block_end_date	AS end_date
-                , ((date_format(now(),'%Y') - basic.mem_birth_year) + 1) as mem_age
-            FROM
-                (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
-            LEFT JOIN
-                rd_data.tb_member_report AS report
-                ON
-                report.idx = (SELECT MAX(idx) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')
-            <where>
-                report.reported_mem_no IS NOT NULL
-                <if test='opCode != null and opCode != "" and opCode != "-1" '>
-                    AND report.op_code = #{opCode}
-                </if>
-                AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
-            </where>
-            ORDER BY report.op_date desc
+        SELECT
+        report.reported_mem_no     AS mem_no
+        , IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_nick
+        , IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_sex
+        , IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_name
+        , IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = report.reported_mem_no)) AS mem_userid
+        , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = report.reported_mem_no) AS ip
+        , (SELECT COUNT(*) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')	AS sanctions_cnt
+        , report.status		AS status
+        , report.op_code	AS op_code
+        , report.etc	AS op_etc
+        , basic.mem_state	AS mem_state
+        , report.op_name	AS op_name
+        , report.reason	AS reason
+        , report.op_msg	AS op_msg
+        , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
+        , basic.mem_phone		AS mem_phone
+        , report.op_date		AS start_date
+        , basic.block_end_date	AS end_date
+        , ((date_format(now(),'%Y') - basic.mem_birth_year) + 1) as mem_age
+        FROM
+        (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
+        LEFT JOIN
+        rd_data.tb_member_report AS report
+        ON
+        report.idx = (SELECT MAX(idx) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')
+        <where>
+            report.reported_mem_no IS NOT NULL
+            <if test='opCode != null and opCode != "" and opCode != "-1" '>
+                AND report.op_code = #{opCode}
+            </if>
+            AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+        </where>
+        ORDER BY report.op_date desc
         ) AS a
         <where>
             <if test='searchText != null and searchText != ""'>
@@ -88,91 +88,91 @@
     <select id="getWithdrawalList" parameterType="com.dalbit.customer.vo.procedure.P_WithdrawalListInputVo" resultType="com.dalbit.customer.vo.procedure.P_WithdrawalListOutputVo">
         /* Cus_Restrictions.xml - getWithdrawalList */
         SELECT
-            a.*
-            , @RNUM := @RNUM + 1 AS rowNum
+        a.*
+        , @RNUM := @RNUM + 1 AS rowNum
         FROM
         (
-            SELECT
-                a.*
-            FROM
-            (
-                SELECT
-                    report.reported_mem_no     AS mem_no
-                    , basic.mem_nick
-                    , basic.mem_sex
-                    , basic.mem_name
-                    , basic.mem_userid
-                    , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = report.reported_mem_no) AS ip
-                    , basic.mem_birth_year
-                    , basic.mem_birth_month
-                    , basic.mem_birth_day
-                    , (SELECT COUNT(*) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')	AS sanctions_cnt
-                    , report.status		AS status
-                    , report.op_code	AS op_code
-                    , report.etc	AS op_etc
-                    , basic.mem_state	AS mem_state
-                    , report.op_name	AS op_name
-                    , report.reason	AS reason
-                    , report.op_msg	AS op_msg
-                    , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
-                    , basic.mem_phone		AS mem_phone
-                    , report.op_date		AS start_date
-                    , basic.block_end_date	AS end_date
-                    , ((date_format(now(),'%Y') - basic.mem_birth_year) + 1) as mem_age
-                FROM
-                    (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
-                LEFT JOIN
-                    rd_data.tb_member_report AS report
-                    ON
-                    report.idx = (SELECT MAX(idx) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')
-                <where>
-                    report.reported_mem_no IS NOT NULL
-                    <if test='opCode != null and opCode != "" and opCode != "-1" '>
-                        AND report.op_code = #{opCode}
-                    </if>
-                    AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
-                </where>
-            ) AS a
-            <where>
-                <if test='searchText != null and searchText != ""'>
-                    <choose>
-                        <when test='searchType == 1'>
-                            AND a.mem_no like concat ('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 2'>
-                            AND a.mem_name like concat ('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 3'>
-                            AND a.mem_userid like concat ('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 4'>
-                            AND a.mem_nick like concat ('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 5'>
-                            AND a.mem_phone like concat ('%', #{searchText}, '%')
-                        </when>
-                        <when test='searchType == 6'>
-                            AND a.device_uuid = #{searchText}
-                        </when>
-                        <when test='searchType == 9'>
-                            AND a.ip = #{searchText}
-                        </when>
-                        <otherwise>
-                            AND (
-                            a.mem_no like concat ('%', #{searchText}, '%')
-                            OR a.mem_name like concat ('%', #{searchText}, '%')
-                            OR a.mem_userid like concat ('%', #{searchText}, '%')
-                            OR a.mem_nick like concat ('%', #{searchText}, '%')
-                            OR a.mem_phone like concat ('%', #{searchText}, '%')
-                            OR a.device_uuid = #{searchText}
-                            OR a.ip = #{searchText}
-                            )
-                        </otherwise>
-                    </choose>
-                </if>
-            </where>
-            ORDER BY a.start_date DESC
-            LIMIT  #{pageStart}, #{pageCnt}
+        SELECT
+        a.*
+        FROM
+        (
+        SELECT
+        report.reported_mem_no     AS mem_no
+        , basic.mem_nick
+        , basic.mem_sex
+        , basic.mem_name
+        , basic.mem_userid
+        , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = report.reported_mem_no) AS ip
+        , basic.mem_birth_year
+        , basic.mem_birth_month
+        , basic.mem_birth_day
+        , (SELECT COUNT(*) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')	AS sanctions_cnt
+        , report.status		AS status
+        , report.op_code	AS op_code
+        , report.etc	AS op_etc
+        , basic.mem_state	AS mem_state
+        , report.op_name	AS op_name
+        , report.reason	AS reason
+        , report.op_msg	AS op_msg
+        , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
+        , basic.mem_phone		AS mem_phone
+        , report.op_date		AS start_date
+        , basic.block_end_date	AS end_date
+        , ((date_format(now(),'%Y') - basic.mem_birth_year) + 1) as mem_age
+        FROM
+        (SELECT * FROM rd_data.tb_member_basic WHERE mem_state != 1) AS basic
+        LEFT JOIN
+        rd_data.tb_member_report AS report
+        ON
+        report.idx = (SELECT MAX(idx) FROM rd_data.tb_member_report WHERE reported_mem_no = basic.mem_no AND status != '0' AND op_code != '1')
+        <where>
+            report.reported_mem_no IS NOT NULL
+            <if test='opCode != null and opCode != "" and opCode != "-1" '>
+                AND report.op_code = #{opCode}
+            </if>
+            AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+        </where>
+        ) AS a
+        <where>
+            <if test='searchText != null and searchText != ""'>
+                <choose>
+                    <when test='searchType == 1'>
+                        AND a.mem_no like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 2'>
+                        AND a.mem_name like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 3'>
+                        AND a.mem_userid like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 4'>
+                        AND a.mem_nick like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 5'>
+                        AND a.mem_phone like concat ('%', #{searchText}, '%')
+                    </when>
+                    <when test='searchType == 6'>
+                        AND a.device_uuid = #{searchText}
+                    </when>
+                    <when test='searchType == 9'>
+                        AND a.ip = #{searchText}
+                    </when>
+                    <otherwise>
+                        AND (
+                        a.mem_no like concat ('%', #{searchText}, '%')
+                        OR a.mem_name like concat ('%', #{searchText}, '%')
+                        OR a.mem_userid like concat ('%', #{searchText}, '%')
+                        OR a.mem_nick like concat ('%', #{searchText}, '%')
+                        OR a.mem_phone like concat ('%', #{searchText}, '%')
+                        OR a.device_uuid = #{searchText}
+                        OR a.ip = #{searchText}
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+        ORDER BY a.start_date DESC
+        LIMIT  #{pageStart}, #{pageCnt}
         ) AS a,
         (SELECT @RNUM := #{pageStart}) r
     </select>
@@ -184,44 +184,44 @@
     <select id="getForcedListCnt" parameterType="com.dalbit.customer.vo.procedure.P_ForcedListInputVo" resultType="java.lang.Integer">
         /* Cus_Restrictions.xml - getForcedListCnt */
         SELECT
-          COUNT(*)
+        COUNT(*)
         FROM
         (
-            SELECT
-                listen.mem_no	 AS mem_no
-                ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
-                ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
-                ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
-                ,IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_name
-                ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
-                ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)		 AS device_uuid
-                ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
-                , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.mem_no) AS mem_ip
-                , listen.last_upd_date	 AS last_upd_date
-                , listen.room_no	 AS room_no
-                , room.title	 AS title
-                , dj_mem_no	 AS dj_mem_no
-                ,IFNULL(dj.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_userid
-                ,IFNULL(dj.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_nick
-                ,IFNULL(dj.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_sex
-                ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
-                ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
-                ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
-                ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
-            FROM
-                rd_data.tb_member_broadcast_listening AS listen
-            LEFT JOIN
-                rd_data.tb_member_basic AS basic ON  listen.mem_no = basic.mem_no
-            LEFT JOIN
-                rd_data.tb_member_basic AS dj ON  listen.dj_mem_no = dj.mem_no
-            LEFT JOIN
-                rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
-            <where>
-                listen.forced = 'Y'
-                AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
-            </where>
-            GROUP BY listen.room_no, listen.mem_no
-            ORDER BY listen.last_upd_date DESC
+        SELECT
+        listen.mem_no	 AS mem_no
+        ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
+        ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
+        ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
+        ,IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_name
+        ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
+        ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)		 AS device_uuid
+        ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
+        , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.mem_no) AS mem_ip
+        , listen.last_upd_date	 AS last_upd_date
+        , listen.room_no	 AS room_no
+        , room.title	 AS title
+        , dj_mem_no	 AS dj_mem_no
+        ,IFNULL(dj.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_userid
+        ,IFNULL(dj.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_nick
+        ,IFNULL(dj.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_sex
+        ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
+        ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
+        ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
+        ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
+        FROM
+        rd_data.tb_member_broadcast_listening AS listen
+        LEFT JOIN
+        rd_data.tb_member_basic AS basic ON  listen.mem_no = basic.mem_no
+        LEFT JOIN
+        rd_data.tb_member_basic AS dj ON  listen.dj_mem_no = dj.mem_no
+        LEFT JOIN
+        rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
+        <where>
+            listen.forced = 'Y'
+            AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+        </where>
+        GROUP BY listen.room_no, listen.mem_no
+        ORDER BY listen.last_upd_date DESC
         ) AS a
         <where>
             <if test='searchText != null and searchText != ""'>
@@ -309,49 +309,49 @@
     <select id="getForcedList" parameterType="com.dalbit.customer.vo.procedure.P_ForcedListInputVo" resultType="com.dalbit.customer.vo.procedure.P_ForcedListOutputVo">
         /* Cus_Restrictions.xml - getForcedList */
         SELECT
-            a.*
-            , (SELECT COUNT(*) FROM rd_data.tb_member_broadcast_listening WHERE mem_no = a.mem_no AND forced = 'Y') AS exit_cnt
-            , @RNUM := @RNUM + 1 AS rowNum
+        a.*
+        , (SELECT COUNT(*) FROM rd_data.tb_member_broadcast_listening WHERE mem_no = a.mem_no AND forced = 'Y') AS exit_cnt
+        , @RNUM := @RNUM + 1 AS rowNum
         FROM
         (
-            SELECT
-                listen.mem_no	 AS mem_no
-                ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
-                ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
-                ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
-                ,IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_name
-                ,IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_year
-                ,IFNULL(basic.mem_birth_month, (SELECT mem_birth_month FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_month
-                ,IFNULL(basic.mem_birth_day, (SELECT mem_birth_day FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_day
-                ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
-                , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)	 AS device_uuid
-                ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
-                ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.mem_no) AS mem_ip
-                , listen.last_upd_date	 AS last_upd_date
-                , listen.room_no	 AS room_no
-                , room.title	 AS title
-                , dj_mem_no	 AS dj_mem_no
-                ,IFNULL(dj.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_userid
-                ,IFNULL(dj.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_nick
-                ,IFNULL(dj.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_sex
-                ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
-                ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
-                ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
-                ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
-            FROM
-                rd_data.tb_member_broadcast_listening AS listen
-            LEFT JOIN
-                rd_data.tb_member_basic AS basic ON  listen.mem_no = basic.mem_no
-            LEFT JOIN
-                rd_data.tb_member_basic AS dj ON  listen.dj_mem_no = dj.mem_no
-            LEFT JOIN
-                rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
-            <where>
-                listen.forced = 'Y'
-                AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
-            </where>
-            GROUP BY listen.room_no, listen.mem_no
-            ORDER BY listen.last_upd_date DESC
+        SELECT
+        listen.mem_no	 AS mem_no
+        ,IFNULL(basic.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_userid
+        ,IFNULL(basic.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_nick
+        ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
+        ,IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_name
+        ,IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_year
+        ,IFNULL(basic.mem_birth_month, (SELECT mem_birth_month FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_month
+        ,IFNULL(basic.mem_birth_day, (SELECT mem_birth_day FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_day
+        ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
+        , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)	 AS device_uuid
+        ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
+        ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.mem_no) AS mem_ip
+        , listen.last_upd_date	 AS last_upd_date
+        , listen.room_no	 AS room_no
+        , room.title	 AS title
+        , dj_mem_no	 AS dj_mem_no
+        ,IFNULL(dj.mem_userid, (SELECT mem_userid FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_userid
+        ,IFNULL(dj.mem_nick, (SELECT mem_nick FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_nick
+        ,IFNULL(dj.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_sex
+        ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
+        ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
+        ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
+        ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
+        FROM
+        rd_data.tb_member_broadcast_listening AS listen
+        LEFT JOIN
+        rd_data.tb_member_basic AS basic ON  listen.mem_no = basic.mem_no
+        LEFT JOIN
+        rd_data.tb_member_basic AS dj ON  listen.dj_mem_no = dj.mem_no
+        LEFT JOIN
+        rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
+        <where>
+            listen.forced = 'Y'
+            AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+        </where>
+        GROUP BY listen.room_no, listen.mem_no
+        ORDER BY listen.last_upd_date DESC
         ) AS a,
         (SELECT @RNUM := #{pageStart}) r
         <where>
@@ -420,13 +420,13 @@
                         </when>
                         <otherwise>
                             (
-                                a.dj_mem_no like concat ('%', #{searchText}, '%')
-                                OR a.dj_mem_name like concat ('%', #{searchText}, '%')
-                                OR a.dj_mem_userid like concat ('%', #{searchText}, '%')
-                                OR a.dj_mem_nick like concat ('%', #{searchText}, '%')
-                                OR a.dj_mem_phone like concat ('%', #{searchText}, '%')
-                                OR a.dj_device_uuid = #{searchText}
-                                OR a.dj_mem_ip = #{searchText}
+                            a.dj_mem_no like concat ('%', #{searchText}, '%')
+                            OR a.dj_mem_name like concat ('%', #{searchText}, '%')
+                            OR a.dj_mem_userid like concat ('%', #{searchText}, '%')
+                            OR a.dj_mem_nick like concat ('%', #{searchText}, '%')
+                            OR a.dj_mem_phone like concat ('%', #{searchText}, '%')
+                            OR a.dj_device_uuid = #{searchText}
+                            OR a.dj_mem_ip = #{searchText}
                             )
                         </otherwise>
                     </choose>
