@@ -46,10 +46,10 @@ public class ReplicationDatabaseConfig {
     @Value("${spring.datasource.slave.url}")
     private String JDBC_SLAVE_URL;
 
-    @Value("${spring.datasource.master.maximum-pool-size}")
+    @Value("${spring.datasource.slave.maximum-pool-size}")
     private int JDBC_SLAVE_MAXIMUM_POOL_SIZE;
 
-    @Value("${spring.datasource.master.minimum-idle}")
+    @Value("${spring.datasource.slave.minimum-idle}")
     private int JDBC_SLAVE_MINIMUM_IDLE;
 
     @Value("${spring.datasource.username}")
@@ -66,6 +66,26 @@ public class ReplicationDatabaseConfig {
 
     @Value("${spring.datasource.hikari.idle-timeout}")
     private long IDLE_TIMEOUT;
+
+
+    //email datasource
+    @Value("${spring.datasource.email.driverClassName}")
+    private String JDBC_EMAIL_DRIVER_CLASS_NAME;
+
+    @Value("${spring.datasource.email.url}")
+    private String JDBC_EMAIL_URL;
+
+    @Value("${spring.datasource.email.username}")
+    private String JDBC_EMAIL_USERNAME;
+
+    @Value("${spring.datasource.email.password}")
+    private String JDBC_EMAIL_PASSWORD;
+
+    @Value("${spring.datasource.email.maximum-pool-size}")
+    private int JDBC_EMAIL_MAXIMUM_POOL_SIZE;
+
+    @Value("${spring.datasource.email.minimum-idle}")
+    private int JDBC_EMAIL_MINIMUM_IDLE;
 
     @Bean
     public DataSource masterDataSource() {
@@ -102,12 +122,30 @@ public class ReplicationDatabaseConfig {
     }
 
     @Bean
+    public DataSource emailDataSource() {
+        HikariConfig emailHikariConfig = new HikariConfig();
+        //emailHikariConfig.setDriverClassName(JDBC_EMAIL_DRIVER_CLASS_NAME);
+        emailHikariConfig.setJdbcUrl(JDBC_EMAIL_URL);
+        emailHikariConfig.setUsername(JDBC_EMAIL_USERNAME);
+        emailHikariConfig.setPassword(JDBC_EMAIL_PASSWORD);
+        emailHikariConfig.setMaximumPoolSize(JDBC_SLAVE_MAXIMUM_POOL_SIZE);
+        emailHikariConfig.setMinimumIdle(JDBC_SLAVE_MINIMUM_IDLE);
+        emailHikariConfig.setConnectionTimeout(CONNECTION_TIMEOUT);
+        emailHikariConfig.setIdleTimeout(IDLE_TIMEOUT);
+        emailHikariConfig.setMaxLifetime(MAX_LIFETIME);
+
+        return new HikariDataSource(emailHikariConfig);
+    }
+
+    @Bean
     public DataSource routingDataSource(@Qualifier("masterDataSource") DataSource masterDataSource,
-                                        @Qualifier("slaveDataSource") DataSource slaveDataSource) {
+                                        @Qualifier("slaveDataSource") DataSource slaveDataSource,
+                                        @Qualifier("emailDataSource") DataSource emailDataSource) {
 
         var dataSourceMap = new HashMap<>();
         dataSourceMap.put("master", masterDataSource);
         dataSourceMap.put("slave", slaveDataSource);
+        dataSourceMap.put("email", emailDataSource);
 
         var routingDataSource = new ReplicationRoutingDataSource();
         routingDataSource.setTargetDataSources(dataSourceMap);

@@ -292,6 +292,7 @@ public class PushService {
                             pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
                             pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
                             pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
+                            pMemberReportVo.setTargetRedirectUrl(pPushInsertVo.getRedirect_url());
                             pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                             pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                             int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
@@ -346,6 +347,7 @@ public class PushService {
                         pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
                         pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
                         pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
+                        pMemberReportVo.setTargetRedirectUrl(pPushInsertVo.getRedirect_url());
                         pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                         pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                         int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
@@ -397,6 +399,7 @@ public class PushService {
                     pMemberReportVo.setTargetMemNo(pPushInsertVo.getTarget_mem_no());
                     pMemberReportVo.setTargetRoomNo(pPushInsertVo.getRoom_no());
                     pMemberReportVo.setTargetBoardIdx(pPushInsertVo.getBoard_idx());
+                    pMemberReportVo.setTargetRedirectUrl(pPushInsertVo.getRedirect_url());
                     pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                     pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                     int notiResult = pushDao.callContentsNotiAddALL(pMemberReportVo);

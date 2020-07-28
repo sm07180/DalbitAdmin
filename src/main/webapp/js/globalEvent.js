@@ -11,7 +11,7 @@ $(document).on('click', '._openPop', function(){
 /*회원정보보기 팝업*/
 $(document).on('click', '._openMemberPop', function(){
     var url = "/member/member/popup/memberPopup?memNo="+encodeURIComponent($(this).data('memno'));
-    util.windowOpen(url, 1600, 800, 'memberInfo' + $(this).data('memno'));
+    util.windowOpen(url, 1260, 735, 'memberInfo' + $(this).data('memno'));
 });
 
 /*방송정보보기 팝업*/
@@ -37,6 +37,13 @@ $(document).on('click', '._openSmsSendPop', function(){
     var url = "/customer/sms/popup/smsSendPopup?cmid="+encodeURIComponent($(this).data('cmid'))+"&rownum="+encodeURIComponent($(this).data('rownum'))+"&logtable="+encodeURIComponent($(this).data('logtable'));;
 
     util.windowOpen(url, 775, 560, 'smsSend');
+});
+
+/*인싸티콘 카테고리 리스트 팝업*/
+$(document).on('click', '._openCategoryListPop', function(){
+    var url = "/content/emoticon/popup/category/list";
+
+    util.windowOpen(url, 775, 560, 'categoryList');
 });
 
 $(document).on('click', 'img._imageFullPop', function(){

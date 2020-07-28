@@ -190,7 +190,7 @@
     </insert>
     <insert id="callMemberNotification_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberNotification_Add */
-        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)) )
+        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
     </insert>
     <insert id="callMemberWithdrawal_bak_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
@@ -267,7 +267,7 @@
 
     <insert id="callMemberAddDal_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
-        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new, op_name ) VALUES ( #{mem_no}, IFNULL(#{type}, 12), #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt}, #{opName});
+        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new, op_name ) VALUES ( #{mem_no}, IFNULL(#{type}, 11), #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt}, #{opName});
     </insert>
 
     <!-- 별추가 -->
@@ -315,29 +315,6 @@
     </select>
 
     <sql id="baseLoginHistory">
-        select
-            @rownum := @rownum + 1 as rowNum
-            , a.idx
-            , a.mem_no
-            , b.mem_nick
-            , b.mem_sex
-            , b.mem_birth_year
-            , b.mem_birth_month
-            , b.mem_birth_day
-            , a.os_type
-            , a.device_uuid
-            , a.device_token
-            , a.app_version
-            , a.browser
-            , a.device_manufacturer
-            , a.device_model
-            , a.sdk_version
-            , a.adid
-            , a.location
-            , a.ip
-            , DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
-        from rd_data.tb_member_basic b left join rd_data.tb_member_session a on a.mem_no = b.mem_no
-            , (select @rownum := 0) AS b
         <where>
             <if test='searchText != null and searchText != ""'>
                 and ((b.mem_no like concat ('%', upper(#{searchText}), '%')
@@ -357,22 +334,44 @@
                 and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{txt_endSel},'%Y-%m-%d 23:59:59')
             </if>
         </where>
-        order by a.idx desc
     </sql>
 
     <select id="selectLoginHistoryCnt" parameterType="com.dalbit.member.vo.LoginHistoryVo" resultType="int">
         /* Mem_Member.xml - selectLoginHistoryCnt */
         select count(*)
-        from(
-            <include refid="baseLoginHistory" />
-        ) a
+            from rd_data.tb_member_basic b left join rd_data.tb_member_session a on a.mem_no = b.mem_no
+            <include refid="baseLoginHistory"/>
     </select>
 
     <select id="selectLoginHistory" parameterType="com.dalbit.member.vo.LoginHistoryVo" resultType="com.dalbit.member.vo.LoginHistoryVo">
         /* Mem_Member.xml - selectLoginHistory */
         select *
-        from(
-            <include refid="baseLoginHistory" />
+          from(
+            select
+                @rownum := @rownum + 1 as rowNum
+                , a.idx
+                , a.mem_no
+                , b.mem_nick
+                , b.mem_sex
+                , b.mem_birth_year
+                , b.mem_birth_month
+                , b.mem_birth_day
+                , a.os_type
+                , a.device_uuid
+                , a.device_token
+                , a.app_version
+                , a.browser
+                , a.device_manufacturer
+                , a.device_model
+                , a.sdk_version
+                , a.adid
+                , a.location
+                , a.ip
+                , DATE_FORMAT(a.last_upd_date, '%Y-%m-%d %H:%i:%s') last_upd_date
+            from rd_data.tb_member_basic b left join rd_data.tb_member_session a on a.mem_no = b.mem_no
+            , (select @rownum := 0) AS b
+          <include refid="baseLoginHistory"/>
+        order by a.idx desc
         ) a
         where a.rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
