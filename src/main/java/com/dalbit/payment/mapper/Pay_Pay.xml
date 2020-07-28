@@ -56,7 +56,7 @@
                  LEFT JOIN (select mem_no, ruby FROM rd_data.tb_member_wallet) wallet ON pay.mem_no = wallet.mem_no
                  , (select @rownum := #{pageStart}) r ) payAll
            left join rd_data.tb_member_basic b on b.mem_no = payAll.mem_no
-           left join rd_data.tb_member_withdrawal_bak c on b.mem_no = c.mem_no
+           left join rd_data.tb_member_withdrawal_bak c on c.mem_no = payAll.mem_no
 
         <where>
             <if test='searchText != null and searchText != ""'>
