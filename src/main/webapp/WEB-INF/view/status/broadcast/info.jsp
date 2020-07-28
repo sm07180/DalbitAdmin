@@ -154,6 +154,7 @@
         $("#startDate").val(dateTime);
         $("#endDate").val(dateTime);
         $("._searchDate").html(dateTime + " (" + toDay + ")");
+        $("._searchDate2").html(dateTime + " (" + toDay + ")");
     }
 
     $(document).on('change', 'input[name="slctType"]', function(){
@@ -237,7 +238,7 @@
                     $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
 
                     $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
-
+                    $("#onedayDate").val($("#startDate").val());
                 }else if(dateType == 'prev'){
                     setDay(-1);
 
@@ -287,7 +288,8 @@
                 if(common.isEmpty(dateType)){
                     $("#startDate").val(moment(new Date()).format('YYYY.MM.DD'));
                     $("#endDate").val(moment(new Date()).format('YYYY.MM.DD'));
-                    $("._searchDate").html(moment(new Date()).format('YYYY.MM.DD'));
+                    $("._searchDate2").html(moment(new Date()).format('YYYY.MM.DD'));
+                    $("#onedayDate").val($("#startDate").val());
                 }else if(dateType == 'prev'){
                     setDay(-1);
 
@@ -300,7 +302,7 @@
                     $("#startDate").val(moment(new Date()).format('YYYY.MM.01'));
                     $("#endDate").val(moment(moment(new Date()).format('YYYY.MM.01')).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
 
-                    $("._searchDate").html(moment(new Date()).format('YYYY년 MM월'));
+                    $("._searchDate2").html(moment(new Date()).format('YYYY년 MM월'));
                     $("#displayDate").val($("#startDate").val() + ' - ' + $("#endDate").val());
 
                 }else if(dateType == 'prev'){
@@ -320,6 +322,7 @@
         $("#endDate").val($("#startDate").val());
 
         $("._searchDate").html($("#startDate").val());
+        $("._searchDate2").html($("#startDate").val());
         $("#onedayDate").val($("#startDate").val());
     }
 
@@ -328,6 +331,7 @@
         $("#endDate").val(moment($("#startDate").val()).add('months', 1).add('days', -1).format('YYYY.MM.DD'));
 
         $("._searchDate").html(moment($("#startDate").val()).format('YYYY년 MM월'));
+        $("._searchDate2").html(moment($("#startDate").val()).format('YYYY년 MM월'));
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
     }
 
@@ -336,6 +340,7 @@
         $("#endDate").val(moment($("#startDate").val()).add('years', 1).add('days', -1).format('YYYY.12.31'));
 
         $("._searchDate").html(moment($("#startDate").val()).format('YYYY년'));
+        $("._searchDate2").html(moment($("#startDate").val()).format('YYYY년'));
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
     }
 </script>
