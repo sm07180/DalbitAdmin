@@ -54,6 +54,7 @@
             data.genderStr = (gender == "undefined" ? "null" : gender);
             data.timeStr = (time == "undefined" ? "null" :  common.lpad(time,2,"0"));
             data.ageStr = (age == "undefined" ? "null" : age);
+            data.success = "Y";
         };
         console.log("-----------------------------------");
         console.log(dtList_info_data);

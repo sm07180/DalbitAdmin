@@ -21,5 +21,6 @@ public class Pay_PayInputVo extends SearchVo {
     private String genderStr;
     private String timeStr;
     private String ageStr;
+    private String success;
 
 }
