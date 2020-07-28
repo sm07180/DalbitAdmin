@@ -241,6 +241,15 @@
         getPayCodeList();
     }
 
+    function click_popupGender(tmp){
+        var popupUrl = "/enter/newPay/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=" + tmp + "&time=null&age=null";
+        util.windowOpen(popupUrl,"1550","885","결제목록");
+    }
+    function click_popupAge(tmp){
+        var popupUrl = "/enter/newPay/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=null&time=null&age=" + tmp;
+        util.windowOpen(popupUrl,"1550","885","결제목록");
+    }
+
 </script>
 
 
@@ -373,18 +382,18 @@
         <tbody>
         <tr>
             <th>결제 건 수</th>
-            <td><label class="font-bold" style="color: blue">{{addComma male_cnt}}</label></td>
-            <td><label class="font-bold" style="color: red">{{addComma female_cnt}}</label></td>
-            <td>{{addComma none_cnt}}</td>
+            <td onclick="click_popupGender('m')"><label class="font-bold" style="color: blue">{{addComma male_cnt}}</label></td>
+            <td onclick="click_popupGender('f')"><label class="font-bold" style="color: red">{{addComma female_cnt}}</label></td>
+            <td onclick="click_popupGender('n')">{{addComma none_cnt}}</td>
             <td><b>{{addComma total_cnt}}</b></td>
             <td></td>
             <th>결제 건 수</th>
-            <td>{{addComma age10_cnt}}</td>
-            <td>{{addComma age20_cnt}}</td>
-            <td>{{addComma age30_cnt}}</td>
-            <td>{{addComma age40_cnt}}</td>
-            <td>{{addComma age50_cnt}}</td>
-            <td>{{addComma age60_cnt}}</td>
+            <td onclick="click_popupAge('10')">{{addComma age10_cnt}}</td>
+            <td onclick="click_popupAge('20')">{{addComma age20_cnt}}</td>
+            <td onclick="click_popupAge('30')">{{addComma age30_cnt}}</td>
+            <td onclick="click_popupAge('40')">{{addComma age40_cnt}}</td>
+            <td onclick="click_popupAge('50')">{{addComma age50_cnt}}</td>
+            <td onclick="click_popupAge('60')">{{addComma age60_cnt}}</td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr style="color: #66a449;">

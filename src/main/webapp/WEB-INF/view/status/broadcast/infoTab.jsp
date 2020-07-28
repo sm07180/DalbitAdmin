@@ -63,10 +63,15 @@
 
     $("#bt_search").on('click', function(){
 
-        if($('input[name="slctType"]:first').prop('checked')){
-            $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
+        if(tabId == 'tab_giftHistoryDetail') {
+            if ($('input[name="slctType2"]:first').prop('checked')) {
+                $("._searchDate2").html($("#startDate").val() + " (" + toDay + ")");
+            }
+        }else{
+            if($('input[name="slctType"]:first').prop('checked')){
+                $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
+            }
         }
-
         $("#tablist_con li.active a").click();
     });
 </script>

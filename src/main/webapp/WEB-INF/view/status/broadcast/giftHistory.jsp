@@ -4,7 +4,7 @@
 <!-- 방송 > 선물내역 -->
 <div class="widget widget-table mb10">
     <div class="widget-content mt10">
-        <span class="_searchDate"></span>
+        <span class="_searchDate2"></span>
         <table class="table table-bordered">
             <colgroup>
                 <col width="2%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/><col width="8.3%"/>

@@ -73,6 +73,10 @@
             <if test='sDate != null and sDate != ""'>
                 and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) >= #{sDate}
                 and if(cancel_dt !='',DATE_FORMAT(cancel_dt, '%Y.%m.%d'),if(pay_ok_date = '' ,DATE_FORMAT(pay_dt_comein, '%Y.%m.%d') ,DATE_FORMAT(pay_ok_date, '%Y.%m.%d'))) <![CDATA[<=]]>  #{eDate}
+                <if test='timeStr != null and timeStr != "" and timeStr != "null"'>
+                    and pay_ok_time <![CDATA[>=]]> concat(#{timeStr}, ':00:00')
+                    and pay_ok_time <![CDATA[<=]]> concat(#{timeStr}, ':59:59')
+                </if>
             </if>
             <if test="searchPayStatus != -1">    <!-- 전체가 아닐때 -->
                 <if test="searchPayStatus == 1">  <!-- 결제 완료 -->
@@ -93,6 +97,29 @@
             </if>
             <if test="payWay != 'all'">
                 and pay_way = #{payWay}
+            </if>
+            <if test="genderStr != 'null'">
+                and b.mem_sex = #{genderStr}
+            </if>
+            <if test="ageStr != null">
+                <if test="ageStr == '10'">
+                    and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -20 year), '%Y')
+                </if>
+                <if test="ageStr == '20'">
+                    and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -20 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -30 year), '%Y')
+                </if>
+                <if test="ageStr == '30'">
+                    and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -30 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -40 year), '%Y')
+                </if>
+                <if test="ageStr == '40'">
+                    and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -40 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -50 year), '%Y')
+                </if>
+                <if test="ageStr == '50'">
+                    and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -50 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -60 year), '%Y')
+                </if>
+                <if test="ageStr == '60'">
+                    and b.mem_birth_year  <![CDATA[<=]]> date_format(date_add(now(), interval -60 year), '%Y') and b.mem_birth_year  <![CDATA[>]]> date_format(date_add(now(), interval -70 year), '%Y')
+                </if>
             </if>
         </where>
     </sql>

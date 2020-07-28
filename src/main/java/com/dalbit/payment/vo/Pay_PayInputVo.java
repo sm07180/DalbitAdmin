@@ -18,4 +18,8 @@ public class Pay_PayInputVo extends SearchVo {
     private String innerType;
     private String payWay;
 
+    private String genderStr;
+    private String timeStr;
+    private String ageStr;
+
 }

@@ -676,10 +676,8 @@
 
             if(dataType == 3) {
                 var arrayCnt = {};
-                arrayCnt = "결제:" + common.addComma(detailData.detailList[i].succCnt)+ "건 "
-                    + common.addComma(detailData.detailList[i].inc_succCnt) + " / "
-                    + common.addComma(detailData.detailList[i].succAmt) + "원 "
-                    + common.addComma(detailData.detailList[i].inc_succAmt);
+                arrayCnt = "결제:" + common.addComma(detailData.detailList[i].succCnt)+ "건 : " + common.addComma(detailData.detailList[i].succAmt) + "원<br>"
+                      + "증감: " + common.addComma(detailData.detailList[i].inc_succCnt) + "건 : " + common.addComma(detailData.detailList[i].inc_succAmt) + "원";
                 arrayList_yCnt.push(arrayCnt);
             }
             if(max_y < array){
@@ -709,10 +707,8 @@
             if(dataType == 3) {
                 var arrayCnt = {};
                 if(!common.isEmpty(detailData.detailList2[i])) {
-                    arrayCnt = "환전:" + common.addComma(detailData.detailList2[i].succCnt)+ "건 "
-                        + common.addComma(detailData.detailList2[i].inc_succCnt) + " / "
-                        + common.addComma(detailData.detailList2[i].succAmt) + "원 "
-                        + common.addComma(detailData.detailList2[i].inc_succAmt);
+                    arrayCnt = "결제:" + common.addComma(detailData.detailList2[i].succCnt)+ "건 : " + common.addComma(detailData.detailList2[i].succAmt) + "원<br>"
+                            + "증감: " + common.addComma(detailData.detailList2[i].inc_succCnt) + "건 : " + common.addComma(detailData.detailList2[i].inc_succAmt) + "원";
                 }else{
                     arrayCnt = "환전:0건/0";
                 }
