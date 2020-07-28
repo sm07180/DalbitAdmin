@@ -107,7 +107,7 @@
                 and pay_way = #{payWay}
             </if>
             <if test="genderStr != 'null' and genderStr != null">
-                and b.mem_sex = #{genderStr}
+                and (b.mem_sex = #{genderStr} or c.mem_sex = #{genderStr})
             </if>
             <if test="ageStr != null">
                 <if test="ageStr == '10'">
