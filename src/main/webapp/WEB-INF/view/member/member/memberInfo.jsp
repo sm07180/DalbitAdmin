@@ -805,7 +805,7 @@
         <tbody>
         <tr>
             <th rowspan="5">
-                프로필이미지
+                프로필<br>이미지
                 {{#equal memWithdrawal '0'}}
                 <br><button type="button" id="bt_img" class="btn btn-default btn-sm no-margin" style="margin-left: 10px" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
                 <br><button type="button" id="bt_profileImg_editHistory" class="btn btn-default btn-sm">상세</button>
@@ -883,13 +883,13 @@
             </td>
         </tr>
         <tr>
-            <th>최초방송일시</th>
+            <th>최초<br>방송일시</th>
             <td colspan="3" style="text-align: left">{{firstBroadcastDate}}</td>
-            <th>최근방송일시</th>
+            <th>최근<br>방송일시</th>
             <td colspan="3" style="text-align: left">{{lastBroadcastDate}}</td>
         </tr>
         <tr>
-            <th>프로필메시지</th>
+            <th>프로필<br>메시지</th>
             <td colspan="2" style="text-align: left; border-right-width: 0px;" id="memberProfileMsg">
                 {{profileMsg}}
             </td>
@@ -1042,9 +1042,9 @@
                 <button type="button" id="bt_phon" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">변경</button>
                 {{/equal}}
             </td>
-            <th>회원가입일시</th>
+            <th>회원<br>가입일시</th>
             <td colspan="3" style="text-align: left">{{joinDate}} <label class="no-margin" id="memSlct"></label></td>
-            <th>회원탈퇴일시</th>
+            <th>회원<br>탈퇴일시</th>
             <td colspan="3" style="text-align: left">
                 {{#equal memWithdrawal '1'}}
                 {{../last_upd_date}}
@@ -1097,7 +1097,7 @@
             <th>나이</th>
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
-            <th rowspan="2">운영자 메모</th>
+            <th rowspan="2">운영자<br>메모</th>
             <td rowspan="2" colspan="6" style="text-align: left; border-right-color:white;">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
             </td>
@@ -1123,7 +1123,7 @@
                 <button type="button" id="bt_resatPass" class="btn btn-default btn-sm" data-memno="{{mem_no}}" data-nickname="{{nickName}}">초기화</button>
                 {{/equal}}
             </td>
-            <th>최근메모 등록</th>
+            <th>최근메모<br>등록</th>
             <td colspan="6" style="text-align: left">등록: {{addComma opMemoCnt}} 건</td>
             <td>
                 <button type="button" id="bt_adminMemoList" class="btn btn-default btn-sm pull-right">상세</button>
