@@ -54,9 +54,8 @@
             data.genderStr = (gender == "undefined" ? "null" : gender);
             data.timeStr = (time == "undefined" ? "null" :  common.lpad(time,2,"0"));
             data.ageStr = (age == "undefined" ? "null" : age);
+            data.success = "Y";
         };
-        console.log("-----------------------------------");
-        console.log(dtList_info_data);
         dtList_info = new DalbitDataTable($("#div_payY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);
