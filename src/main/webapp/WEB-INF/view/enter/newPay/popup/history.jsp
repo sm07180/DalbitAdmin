@@ -12,7 +12,7 @@
 <div class="widget widget-table mb10">
     <div class="widget-content mt10" id="div_payY">
         <table class="table table-bordered" id="list_info">
-            <thead>`
+            <thead>
             </thead>
             <tbody>
             </tbody>
@@ -56,8 +56,6 @@
             data.ageStr = (age == "undefined" ? "null" : age);
             data.success = "Y";
         };
-        console.log("-----------------------------------");
-        console.log(dtList_info_data);
         dtList_info = new DalbitDataTable($("#div_payY").find("#list_info"), dtList_info_data, payDataTableSource.payHistory);
         dtList_info.useCheckBox(false);
         dtList_info.useIndex(true);

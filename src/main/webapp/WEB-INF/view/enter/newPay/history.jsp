@@ -382,18 +382,18 @@
         <tbody>
         <tr>
             <th>결제 건 수</th>
-            <td onclick="click_popupGender('m')"><label class="font-bold" style="color: blue">{{addComma male_cnt}}</label></td>
-            <td onclick="click_popupGender('f')"><label class="font-bold" style="color: red">{{addComma female_cnt}}</label></td>
-            <td onclick="click_popupGender('n')">{{addComma none_cnt}}</td>
+            <td onclick="click_popupGender('m')"><a href="javascript://"><span class="font-bold" style="color: blue">{{addComma male_cnt}}</span></a></td>
+            <td onclick="click_popupGender('f')"><a href="javascript://"><span class="font-bold" style="color: red"> {{addComma female_cnt}}</span></a></td>
+            <td onclick="click_popupGender('n')"><a href="javascript://"><span class="font-bold _fontColor" data-fontColor="#555">{{addComma none_cnt}}</span></a></td>
             <td><b>{{addComma total_cnt}}</b></td>
             <td></td>
             <th>결제 건 수</th>
-            <td onclick="click_popupAge('10')">{{addComma age10_cnt}}</td>
-            <td onclick="click_popupAge('20')">{{addComma age20_cnt}}</td>
-            <td onclick="click_popupAge('30')">{{addComma age30_cnt}}</td>
-            <td onclick="click_popupAge('40')">{{addComma age40_cnt}}</td>
-            <td onclick="click_popupAge('50')">{{addComma age50_cnt}}</td>
-            <td onclick="click_popupAge('60')">{{addComma age60_cnt}}</td>
+            <td onclick="click_popupAge('10')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10_cnt}}</span></a></td>
+            <td onclick="click_popupAge('20')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20_cnt}}</span></a></td>
+            <td onclick="click_popupAge('30')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age30_cnt}}</span></a></td>
+            <td onclick="click_popupAge('40')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age40_cnt}}</span></a></td>
+            <td onclick="click_popupAge('50')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age50_cnt}}</span></a></td>
+            <td onclick="click_popupAge('60')"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age60_cnt}}</span></a></td>
             <td><b>{{addComma total_cnt}}</b></td>
         </tr>
         <tr style="color: #66a449;">
