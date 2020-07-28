@@ -148,7 +148,6 @@ table.colorV2 tr td {
 }
 
 table.colorV2 tr td:last-child {
-    border-width: 1px;
-    border-color:black;
-    color:black;
+    border-right-width: 1px;
+    border-right-color:black;
 }
