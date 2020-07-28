@@ -98,7 +98,7 @@
             <if test="payWay != 'all'">
                 and pay_way = #{payWay}
             </if>
-            <if test="genderStr != 'null'">
+            <if test="genderStr != 'null' and genderStr != null">
                 and b.mem_sex = #{genderStr}
             </if>
             <if test="ageStr != null">
