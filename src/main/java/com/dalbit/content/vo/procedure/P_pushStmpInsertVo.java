@@ -23,6 +23,7 @@ public class P_pushStmpInsertVo extends BaseVo {
         this.setEtc_contents(pPushInsertVo.getEtc_contents());
         this.setRoom_no(pPushInsertVo.getRoom_no());
         this.setBoard_idx(pPushInsertVo.getBoard_idx());
+        this.setRedirect_url(pPushInsertVo.getRedirect_url());
         this.setTarget_mem_no(DalbitUtil.isEmpty(pPushInsertVo.getTarget_mem_no()) ? mem_no : pPushInsertVo.getTarget_mem_no());
         this.setImage_type(pPushInsertVo.getImage_type());
         this.setSlctPush(pPushInsertVo.getIs_all());
@@ -60,6 +61,7 @@ public class P_pushStmpInsertVo extends BaseVo {
     private String room_no;				// DJ방생성시 방송방 번호
     private String target_mem_no;		// 타겟회원의 마이페이지 이동할 경우
     private String board_idx;			// 해당 게시판 이동할 경우
+    private String redirect_url;			// 직접입력 URL
     private String sendDate;			// 발송일시
     private String etcData;             // ETC!!!!!!!!!!!!
     private String image_type;

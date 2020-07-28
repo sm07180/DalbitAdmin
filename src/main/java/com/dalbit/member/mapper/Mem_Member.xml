@@ -190,7 +190,7 @@
     </insert>
     <insert id="callMemberNotification_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberNotification_Add */
-        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)) )
+        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
     </insert>
     <insert id="callMemberWithdrawal_bak_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */

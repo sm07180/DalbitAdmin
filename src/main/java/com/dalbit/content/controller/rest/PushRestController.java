@@ -45,7 +45,7 @@ public class PushRestController {
      */
     @PostMapping("insert")
     public String insert(P_pushInsertVo pPushInsertVo) throws GlobalException {
-        String result = pushService.callContentsPushAdd(pPushInsertVo);
+         String result = pushService.callContentsPushAdd(pPushInsertVo);
         return result;
     }
 
