@@ -185,7 +185,7 @@
             tab_click("tab_editHistory_bgImg");
         });
         $('#bt_reportDetail').click(function() {         //회원상태 상세
-            $("#tab_declarationDetail").click();
+            $("#tab_declaration").click();
         });
         $('#bt_levelDetail').click(function() {         //레벨 상세
             $("#tab_levelDetail").click();
@@ -1097,11 +1097,9 @@
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th rowspan="2">운영자<br>메모</th>
-            <td rowspan="2" colspan="6" style="text-align: left; border-right-color:white;">
+            <td rowspan="2" colspan="7" style="text-align: left;">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
-            </td>
-            <td rowspan="2">
-                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-left" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
+                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
             </td>
         </tr>
         <tr>
