@@ -579,7 +579,7 @@ var MemberDataTableSource = {
                     return common.getMemStateName(data);
                 }},
             {'title': '미성년자여부', 'data': 'birth','render' : function (data, type, row) {
-                    if(data < 20){
+                    if(common.calcAge(data) < 20){
                         return '<span style="color:red">미성년자</span>';
                     }
                     return "-";
