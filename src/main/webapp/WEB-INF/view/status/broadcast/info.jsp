@@ -58,14 +58,14 @@
                                     <col width="16%"/>
                                 </colgroup>
                                 <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>실시간</th>
-                                        <th>전일</th>
-                                        <th>증감</th>
-                                        <th>주간</th>
-                                        <th>증감</th>
-                                    </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>실시간</th>
+                                    <th>전일</th>
+                                    <th>증감</th>
+                                    <th>주간</th>
+                                    <th>증감</th>
+                                </tr>
                                 </thead>
                                 <tbody id="broadSumStatus">
                                 </tbody>
@@ -107,11 +107,11 @@
             </div>
 
         </div>
-            <!-- tab -->
-            <div class="no-padding" id="infoTab">
-                <jsp:include page="infoTab.jsp"/>
-            </div>
-            <!-- //tab -->
+        <!-- tab -->
+        <div class="no-padding" id="infoTab">
+            <jsp:include page="infoTab.jsp"/>
+        </div>
+        <!-- //tab -->
     </div>
 </div>
 

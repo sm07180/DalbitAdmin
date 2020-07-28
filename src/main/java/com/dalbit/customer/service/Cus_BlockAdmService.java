@@ -58,7 +58,7 @@ public class Cus_BlockAdmService {
         }
 
         int result = 0;
-        if(DalbitUtil.isEmpty(blockAdmVo.getBlock_text())){
+        if(!DalbitUtil.isEmpty(blockAdmVo.getBlock_text())){
             cusBlockAdmDao.insertBlockHistory(blockAdmVo);
             result = cusBlockAdmDao.insertBlock(blockAdmVo);
         }

@@ -131,7 +131,7 @@ public class Cus_QuestionService {
                     P_MemberReportVo pMemberReportVo = new P_MemberReportVo();
 
                     pMemberReportVo.setReported_mem_no(questionDetail.getMem_no());
-                    pMemberReportVo.setSlctType(7);
+                    pMemberReportVo.setSlctType(34);
                     pMemberReportVo.setNotiContents("등록한 1:1문의에 답변이 등록되었습니다.");
                     pMemberReportVo.setNotimemo("등록한 1:1문의에 답변이 등록되었습니다.");
                     memMemberDao.callMemberNotification_Add(pMemberReportVo);

@@ -95,27 +95,27 @@
     </select>
 
     <sql id="totalCondition">
-        select os as platform
-          , version as appVersion
-          , build_no as buildVersion
-          , (select count(*) from rd_data.tb_member_stmp where os_type = os and app_version = version and build_version = build_no) as userCnt
-          , reg_date as reg_date
-          , @RNUM := @RNUM + 1 as rowNum
-          from rd_admin.tb_app_version
-                , (select @RNUM := 0) r
-            <where>
-                <if test='platform != 0'>
-                    os = #{platform}
-                </if>
-            </where>
-          order by reg_date desc
+        <where>
+            <if test='platform != 0'>
+                os = #{platform}
+            </if>
+        </where>
     </sql>
 
     <select id="selectTotalList" parameterType="com.dalbit.status.vo.procedure.P_AppVersionVo" resultType="com.dalbit.status.vo.procedure.P_AppVersionVo">
         /* Sta_AppVersion.xml - selectTotalList */
        select *
-        from (
-        <include refid="totalCondition"/>
+          from (
+            select os as platform
+                , version as appVersion
+                , build_no as buildVersion
+                , (select count(*) from rd_data.tb_member_stmp where os_type = os and app_version = version and build_version = build_no) as userCnt
+                , reg_date as reg_date
+                , @RNUM := @RNUM + 1 as rowNum
+              from rd_admin.tb_app_version
+              , (select @RNUM := 0) r
+            <include refid="totalCondition"/>
+            order by reg_date desc
         )a
         limit #{pageStart}, #{pageCnt}
     </select>
@@ -124,9 +124,8 @@
         /* Sta_AppVersion.xml - selectTotalListCnt */
         select
           count(*)
-        from (
-          <include refid="totalCondition"/>
-        ) a
+        from rd_admin.tb_app_version
+        <include refid="totalCondition"/>
     </select>
 
 </mapper>

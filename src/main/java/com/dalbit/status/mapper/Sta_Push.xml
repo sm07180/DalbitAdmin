@@ -19,51 +19,56 @@
         FROM
         (
             SELECT
-                idx
-                ,send_date
-                ,target_mem
-                ,target_platform
-                ,push_slct
-                ,push_type
-                ,image_type
-                ,send_type
-                ,target_cnt
-                ,send_title
-                ,send_cont
-                ,mem_no
-                ,mem_nick
-                ,send_etc
-                ,send_cnt
-                ,succ_cnt
-                ,fail_cnt
-                ,succ_rate
-                ,click_cnt
-                ,click_rate
-                ,admin_idx
-                ,ins_date
-                ,last_upd_date
+                history.idx
+                ,history.send_date
+                ,history.target_mem
+                ,history.target_platform
+                ,history.push_slct
+                ,history.push_type
+                ,history.image_type
+                ,history.send_type
+                ,history.target_cnt
+                ,history.send_title
+                ,history.send_cont
+                ,IF(history.admin_idx = '0', history.mem_no, NULL)  AS mem_no
+                ,IF(history.admin_idx = '0', history.mem_nick, admin.op_name)   AS mem_nick
+                ,history.send_etc
+                ,history.send_cnt
+                ,history.succ_cnt
+                ,history.fail_cnt
+                ,history.succ_rate
+                ,history.click_cnt
+                ,history.click_rate
+                ,history.admin_idx
+                ,history.ins_date
+                ,history.last_upd_date
             FROM
-                rd_stmp.smtp_push_history
+                rd_stmp.smtp_push_history AS history
+            LEFT JOIN
+                rd_admin.tb_admin_push AS admin
+            ON
+                history.admin_idx = admin.idx
             <where>
-                send_date
+                history.send_date
                 BETWEEN
                     DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00')
                 AND
                     DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
 
                 <if test='platform != null and platform != "" and platform != "1"'>
-                    AND CONCAT('1',target_platform) = #{platform}
+                    AND CONCAT('1',history.target_platform) = #{platform}
                 </if>
 
                 <if test='send_type != null and send_type != "" and send_type != "-1"'>
-                    AND send_type = #{send_type}
+                    AND history.send_type = #{send_type}
                 </if>
 
                 <if test='push_slct != null and push_slct != "" and push_slct != "-1"'>
-                    AND push_slct = #{push_slct}
+                    AND history.push_slct = #{push_slct}
                 </if>
             </where>
-        ) AS a
+        ) AS a,
+        (select @rownum := #{pageStart}) AS b
         <where>
             <if test='searchText != null and searchText != ""'>
                 <choose>

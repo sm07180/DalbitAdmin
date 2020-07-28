@@ -76,17 +76,18 @@ var push_slctPush2 = [
     , new COMMON_CODE('room', '1', '방송방')       								// [room_no]
     , new COMMON_CODE('main', '2', '메인')
 //    , new COMMON_CODE('incast', '4', '등록 된 캐스트')
-    , new COMMON_CODE('spdj', '5', '스페셜 DJ 선정 페이지')
+//     , new COMMON_CODE('spdj', '5', '스페셜 DJ 선정 페이지')          // 이상훈과장 요청으로 제거  전유신 2020.07.28
     , new COMMON_CODE('event', '6', '이벤트 페이지')           					// [board_idx]
     , new COMMON_CODE('notice', '7', '공지사항 페이지')                       	// [board_idx]
     , new COMMON_CODE('fan', '31', '팬보드/댓글')								// [mem_no]
-    , new COMMON_CODE('wallet', '32', '마이페이지>내지갑>달')						// [mem_no]
+    , new COMMON_CODE('wallet', '32', '내지갑(달)')						// [mem_no]
 //    , new COMMON_CODE('cast', '33', '마이페이지>캐스트>캐스트 정보 변경 페이지')
     , new COMMON_CODE('noti', '34', '알림')
-    , new COMMON_CODE('mypage', '35', '대상 마이페이지')							// [mem_no]
-    , new COMMON_CODE('djpage', '36', '레벨업 대상 마이페이지')              		// [mem_no]
+    , new COMMON_CODE('mypage', '35', '마이페이지')							// [mem_no]
+    , new COMMON_CODE('djpage', '36', '대상 프로필')              		// [mem_no]
     , new COMMON_CODE('question', '37', '1:1문의')
     , new COMMON_CODE('broadnoti', '38', '방송공지')
+    , new COMMON_CODE('input', '50', '직접입력')
 ];
 
 var push_slctPush3 = [
