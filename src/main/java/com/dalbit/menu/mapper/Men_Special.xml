@@ -294,7 +294,11 @@
         select
         count(*)
         from (
-        <include refid="special"/>
+            select dj.mem_no, dj.select_year, dj.select_month
+            from rd_admin.tb_special_dj dj
+            inner join rd_data.tb_member_basic basic on dj.mem_no = basic.mem_no
+            left join rd_admin.tb_req_special_dj redj on dj.mem_no = redj.mem_no and dj.req_idx = redj.idx
+            <include refid="special"/>
         ) a
         where a.mem_no = #{mem_no}
         and a.select_year = #{select_year}
