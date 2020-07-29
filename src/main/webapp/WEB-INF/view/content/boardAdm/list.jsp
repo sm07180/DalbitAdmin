@@ -9,25 +9,38 @@
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i><span id="title"/></h3>
                     <div>
-                        <span id="searchRadio"></span>
-                        <div class="input-group date" id="data_startSel">
-                            <label for="start_sel" class="input-group-addon">
-                                <span><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>
-                            </label>
-                            <input type="text" class="form-control" id="start_sel" name="start_sel">
+                        <%--<div class="input-group date" id="data_startSel">--%>
+                            <%--<label for="start_sel" class="input-group-addon">--%>
+                                <%--<span><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>--%>
+                            <%--</label>--%>
+                            <%--<input type="text" class="form-control" id="start_sel" name="start_sel">--%>
                             <%--<input type="hidden" id="txt_startSel" name="txt_startSel">--%>
-                        </div>
-                        <label>~</label>
-                        <div class="input-group date" id="data_endSel">
-                            <label for="end_sel" class="input-group-addon">
-                                <span><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>
-                            </label>
-                            <input type="text" class="form-control" id="end_sel" name="end_sel">
+                        <%--</div>--%>
+                        <%--<label>~</label>--%>
+                        <%--<div class="input-group date" id="data_endSel">--%>
+                            <%--<label for="end_sel" class="input-group-addon">--%>
+                                <%--<span><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>--%>
+                            <%--</label>--%>
+                            <%--<input type="text" class="form-control" id="end_sel" name="end_sel">--%>
                             <%--<input type="hidden" id="txt_endSel" name="txt_endSel">--%>
+                        <%--</div>--%>
+                        <%--<span id="searchType"></span>--%>
+
+                        <span id="searchFormRadio"></span>
+                        <div class="input-group date" id="rangeDatepicker">
+                            <label for="displayDate" class="input-group-addon">
+                                <span><i class="fa fa-calendar"></i></span>
+                            </label>
+                            <input type="text" name="displayDate" id="displayDate" class="form-control" />
                         </div>
-                        <span id="searchType"></span>
+                        <input type="hidden" name="startDate" id="startDate">
+                        <input type="hidden" name="endDate" id="endDate" />
+
+                        <%--<input name="startDate" id="startDate">--%>
+                        <%--<input name="endDate" id="endDate" />--%>
+
                         <label><input type="text" class="form-control" id="txt_search" placeholder="검색할 정보를 입력하세요"></label>
-                        <button type="submit" class="btn btn-success" id="bt_search">검색</button>
+                        <button type="button" class="btn btn-success" id="bt_search">검색</button>
                         <a href="javascript://" class="_prevSearch">[이전]</a>
                         <a href="javascript://" class="_todaySearch">[오늘]</a>
                         <a href="javascript://" class="_nextSearch">[다음]</a>
@@ -36,17 +49,94 @@
             </div>
         </div>
         <!-- //serachBox -->
-
         <!-- tab -->
         <div class="row col-lg-12 form-inline">
             <jsp:include page="boardAdmTab.jsp"/>
         </div>
         <!-- //tab -->
-
     </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper -->
 
 <script type="text/javascript" src="/js/code/content/contentCodeList.js?${dummyData}"></script>
 <script type="text/javascript">
 
+    var dateTime = new Date();
+    dateTime = moment(dateTime).format("YYYY.MM.DD");
+    setTimeDate(dateTime);
+    var _searchFormRadio ="";
+    $(document).ready(function() {
+        $("#searchFormRadio").html(util.getCommonCodeRadio(2, searchFormRadio));
+
+        $("#displayDate").statsDaterangepicker(
+            function(start, end, t1) {
+                $("#startDate").val(start.format('YYYY.MM.DD'));
+                $("#endDate").val(end.format('YYYY.MM.DD'));
+            }
+        );
+    });
+
+    $(document).on('change', 'input[name="searchFormRadio"]', function(){
+        radioChange();
+    });
+
+    function radioChange(){
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+        if(_searchFormRadio == 2){
+            setTimeDate(dateTime);
+        }
+        setStartDay();
+    }
+
+    $(document).on('click', '._prevSearch', function(){
+        searchDate('prev');
+    });
+
+    $(document).on('click', '._nextSearch', function(){
+        searchDate('next');
+    });
+
+    $(document).on('click', '._todaySearch', function(){
+        $("input:radio[name='searchFormRadio']:radio[value='2']").prop('checked', true);
+        _searchFormRadio = $('input[name="searchFormRadio"]:checked').val();
+        setTimeDate(dateTime);
+        setStartDay();
+    });
+
+    function setTimeDate(dateTime){
+        $("#startDate").val(dateTime);
+        $("#endDate").val(dateTime);
+        $("#displayDate").val(dateTime + " - " + dateTime);
+    }
+
+    function searchDate(dateType){
+        if(dateType == 'prev'){
+            setDay(-1);
+        }else if(dateType == 'next'){
+            setDay(1);
+        }
+    }
+
+    function setDay(days){
+        $("#startDate").val(moment($("#startDate").val()).add('days', days).format('YYYY.MM.DD'));
+        $("#endDate").val(moment($("#endDate").val()).add('days', days).format('YYYY.MM.DD'));
+
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
+        $("#bt_search").click();
+    }
+    function setStartDay(){
+        var date = new Date();
+        $("#endDate").val(dateTime);
+
+        if(_searchFormRadio == 1) {     // 일주일 전
+            sDate = new Date(Date.parse(date) - 7 * 1000 * 60 * 60 * 24);           // 일주일 전
+            sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
+            $("#startDate").val(sDate);
+        }else if(_searchFormRadio == 0) {       // 한달전
+            $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
+        }
+        $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
+
+        $("#bt_search").click();
+    }
 </script>

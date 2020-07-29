@@ -20,57 +20,22 @@
     var StoryPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
-        $('#title').html('사연검색');
-        $('#searchRadio').html(util.getCommonCodeRadio('3', story_searchRadio));
-        $('#searchType').html(util.getCommonCodeSelect('-1', story_searchSelect));
-        init();
-        storyList();
-    });
-
-    $('input[id="txt_search"]').keydown(function(e) {
-        if(e.keyCode == 13) {
-            compare();
-            StoryPagingInfo.pageNo = 1;
-            storyList();
-        }
-    });
-
-    $('#bt_search').on('click', function() {
-        compare();
-        StoryPagingInfo.pageNo = 1;
-        storyList();
     });
 
     function init() {
-        var date = new Date();
-        var thisYear = date.getFullYear();
-        var thisMonth = date.getMonth() + 1;
-        $('#start_sel').datepicker("setDate", thisYear + "." + thisMonth + ".01");
-        $('#end_sel').datepicker("setDate", date);
-    }
-
-    $('#searchRadio').on('change', function() {
-       var val =  $('input[name="searchRadio"]:checked').val();
-       if(val == 1 || val == 2) {
-           $("#start_sel, #end_sel").prop("disabled", true);
-       } else {
-           $("#start_sel, #end_sel").prop("disabled", false);
-       }
-    });
-
-    function compare() {
-        var startSel = $('#start_sel').val().format('YYYYMMDD');
-        alert(startSel);
     }
 
     function storyList() {
+        $('#title').html('사연검색');
+        StoryPagingInfo.pageNo = 1;
+
         var data = {
             'pageStart': StoryPagingInfo.pageNo
             , 'pageCnt' : StoryPagingInfo.pageCnt
             , 'txt_search' : $('#txt_search').val()
             , 'searchType' : $('select[name="searchType"]').find('option:selected').val()
-            , 'start_sel' : $('#start_sel').val()
-            , 'end_sel' : $('#end_sel').val()
+            , 'start_sel' : $("#startDate").val()
+            , 'end_sel' : $("#endDate").val()
         };
         util.getAjaxData("storyList", "/rest/content/boardAdm/storyList", data, fn_success_storyList);
     }
