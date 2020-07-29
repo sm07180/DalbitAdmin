@@ -19,6 +19,12 @@ public class P_MemberNoticeOutputVo extends SearchVo {
     private Date last_upd_date;
     private String lastUpdDateFormat;
 
+    private String mem_no;
+    private String mem_nick;
+    private String mem_sex;
+    private String mem_birth_year;
+    private String title;
+
     public void setLast_upd_date(Date last_upd_date){
         this.last_upd_date = last_upd_date;
         this.lastUpdDateFormat = DalbitUtil.convertDateFormat(last_upd_date, "yyyy.MM.dd HH:mm:ss");

@@ -13,7 +13,7 @@
 </ul>
 <div class="tab-content no-padding">
     <!-- 회원/방송공지 -->
-    <%--<div class="tab-pane fade" id="noticeList"><jsp:include page="noticeList.jsp"/></div>               <!-- 사연 -->--%>
+    <div class="tab-pane fade in active" id="noticeList"><jsp:include page="noticeList.jsp"/></div>               <!-- 사연 -->
     <!-- 프로필메세지 -->
     <!-- 팬보드 -->
     <div class="tab-pane fade" id="storyList"><jsp:include page="storyList.jsp"/></div>               <!-- 사연 -->
@@ -26,7 +26,7 @@
     $("#tablist_con li a").on('click', function(){
         tabId = $(this).prop('id');
         if(tabId == "tab_noticeList" ){
-
+            noticeList();
         }else if(tabId == "tab_profileMsgList" ){
         }else if(tabId == "tab_fanBoardList" ){
         }else if(tabId == "tab_storyList" ){
@@ -42,7 +42,7 @@
     });
     $('#bt_search').on('click', function() {
         if(tabId == "tab_noticeList" ){
-
+            noticeList();
         }else if(tabId == "tab_profileMsgList" ){
         }else if(tabId == "tab_fanBoardList" ){
         }else if(tabId == "tab_storyList" ){

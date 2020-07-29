@@ -9,23 +9,6 @@
                 <div class="widget-header searchBoxRow">
                     <h3 class="title"><i class="fa fa-search"></i><span id="title"/></h3>
                     <div>
-                        <%--<div class="input-group date" id="data_startSel">--%>
-                            <%--<label for="start_sel" class="input-group-addon">--%>
-                                <%--<span><i class="glyphicon glyphicon-calendar" id="i_startSel"></i></span>--%>
-                            <%--</label>--%>
-                            <%--<input type="text" class="form-control" id="start_sel" name="start_sel">--%>
-                            <%--<input type="hidden" id="txt_startSel" name="txt_startSel">--%>
-                        <%--</div>--%>
-                        <%--<label>~</label>--%>
-                        <%--<div class="input-group date" id="data_endSel">--%>
-                            <%--<label for="end_sel" class="input-group-addon">--%>
-                                <%--<span><i class="glyphicon glyphicon-calendar" id="i_endSel"></i></span>--%>
-                            <%--</label>--%>
-                            <%--<input type="text" class="form-control" id="end_sel" name="end_sel">--%>
-                            <%--<input type="hidden" id="txt_endSel" name="txt_endSel">--%>
-                        <%--</div>--%>
-                        <%--<span id="searchType"></span>--%>
-
                         <span id="searchFormRadio"></span>
                         <div class="input-group date" id="rangeDatepicker">
                             <label for="displayDate" class="input-group-addon">
@@ -138,5 +121,15 @@
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 
         $("#bt_search").click();
+    }
+
+    function handlebarsPaging(targetId, pagingInfo) {
+        if(targetId == "notice_paginate_top" || targetId == "notice_paginate") {
+            noticePagingInfo = pagingInfo;
+            noticeList(pagingInfo.pageNo);
+        }else if(targetId == "list_info_paginate_top"){
+            StoryPagingInfo = pagingInfo;
+            storyList();
+        }
     }
 </script>

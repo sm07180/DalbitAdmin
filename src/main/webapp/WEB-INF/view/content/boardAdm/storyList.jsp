@@ -20,7 +20,7 @@
     var StoryPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
-        storyList();
+        // storyList();
     });
 
     function storyList() {
@@ -51,18 +51,15 @@
         StoryPagingInfo.pageNo=1;
 
         if(response.data.length == 0) {
-            $("#list_info_paginate_top").hide();
-            $('#list_info_paginate').hide();
+            $("storyList").find("#list_info_paginate_top").hide();
+            $("storyList").find('#list_info_paginate').hide();
         } else {
-            $("#list_info_paginate_top").show();
-            $('#list_info.paginate').show();
+            $("storyList").find("#list_info_paginate_top").show();
+            $("storyList").find('#list_info.paginate').show();
         }
     }
 
-    function handlebarsPaging(targetId, pagingInfo) {
-        StoryPagingInfo = pagingInfo;
-        storyList();
-    }
+
 
     $(document).on('click', '._deleteStory', function() {
         if(confirm('삭제하시겠습니까?')){

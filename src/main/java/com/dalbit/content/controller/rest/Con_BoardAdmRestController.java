@@ -3,6 +3,7 @@ package com.dalbit.content.controller.rest;
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
 import com.dalbit.content.vo.BoardAdmStoryVo;
+import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,5 +33,13 @@ public class Con_BoardAdmRestController {
     @PostMapping("/deleteStory")
     public String deleteStory(P_StoryDeleteVo pStoryDeleteVo) {
         return conBoardAdmService.callStoryDelete(pStoryDeleteVo);
+    }
+
+    /**
+     * 회원/방송공지 조회
+     */
+    @PostMapping("/noticeList")
+    public String noticeList(P_MemberNoticeInputVo pMemberNoticeInputVo) {
+        return conBoardAdmService.selectNoticeList(pMemberNoticeInputVo);
     }
 }

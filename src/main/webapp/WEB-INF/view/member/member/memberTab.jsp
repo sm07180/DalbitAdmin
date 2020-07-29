@@ -48,7 +48,7 @@
                     <li><a href="#banwordDetail" role="tab" data-toggle="tab" id="tab_banwordDetail" onclick="tab_click(this.id);">금지어</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../notice/list.jsp"/></div>         <!-- 회원/방송공지 -->
+                    <div class="tab-pane fade" id="noticeDetail"><jsp:include page="../../content/boardAdm/noticeList.jsp"/></div>         <!-- 회원/방송공지 -->
                     <div class="tab-pane fade" id="fanboardDetail"><jsp:include page="../fanboard/list.jsp"/></div>       <!-- 팬보드 -->
                     <div class="tab-pane fade" id="banwordDetail"><jsp:include page="../banword/list.jsp"/></div>         <!-- 금지어 -->
                 </div>
@@ -121,7 +121,8 @@
         }else if(tmp == "tab_notice"){
             $("#tab_noticeDetail").click();
         }else if(tmp == "tab_noticeDetail"){
-            getHistory_noticeDetail(tmp);
+            noticeList();
+            // getHistory_noticeDetail(tmp);
         }else if(tmp == "tab_fanboardDetail"){
             getHistory_fanbroadDetail(tmp);
         }else if(tmp == "tab_banwordDetail"){

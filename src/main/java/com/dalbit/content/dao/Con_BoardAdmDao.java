@@ -17,4 +17,5 @@ public interface Con_BoardAdmDao {
     int selectStoryListCnt(BoardAdmStoryVo boardAdmStoryVo);
 
     ProcedureVo callStoryDelete(ProcedureVo procedureVo);
+
 }

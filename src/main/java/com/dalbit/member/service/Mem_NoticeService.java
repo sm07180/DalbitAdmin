@@ -42,14 +42,22 @@ public class Mem_NoticeService {
      * 회원 공지 삭제
      */
     public String getNoticeDelete(P_MemberNoticeDeleteVo pMemberNoticeDeleteVo){
-        ProcedureVo procedureVo = new ProcedureVo(pMemberNoticeDeleteVo);
-        if(pMemberNoticeDeleteVo.getType().equals("1")) {
-            mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo);
-        }else if(pMemberNoticeDeleteVo.getType().equals("2")) {
-            mem_NoticeDao.callBroadNoticeDelete(pMemberNoticeDeleteVo);
+
+        for(int i=0;i<pMemberNoticeDeleteVo.getNociceType().length;i++){
+
+            pMemberNoticeDeleteVo.getNoticeIdx()[i] = pMemberNoticeDeleteVo.getNoticeIdx()[i].replace("[","");
+            pMemberNoticeDeleteVo.getNoticeIdx()[i] = pMemberNoticeDeleteVo.getNoticeIdx()[i].replace("]","");
+            pMemberNoticeDeleteVo.getNociceType()[i] = pMemberNoticeDeleteVo.getNociceType()[i].replace("[","");
+            pMemberNoticeDeleteVo.getNociceType()[i] = pMemberNoticeDeleteVo.getNociceType()[i].replace("]","");
+
+            if(pMemberNoticeDeleteVo.getNociceType()[i].equals("1")) {
+                mem_NoticeDao.callMemberNoticeDelete(pMemberNoticeDeleteVo.getNoticeIdx()[i]);
+            }else if(pMemberNoticeDeleteVo.getNociceType()[i].equals("2")) {
+                mem_NoticeDao.callBroadNoticeDelete(pMemberNoticeDeleteVo.getNoticeIdx()[i]);
+            }
         }
 
-        String result = "";
+        String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.공지삭제_성공));
         return result;
     }
