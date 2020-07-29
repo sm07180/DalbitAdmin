@@ -1,5 +1,6 @@
 package com.dalbit.content.dao;
 
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,4 +15,6 @@ public interface Con_BoardAdmDao {
 
     @Transactional(readOnly = true)
     int selectStoryListCnt(BoardAdmStoryVo boardAdmStoryVo);
+
+    ProcedureVo callStoryDelete(ProcedureVo procedureVo);
 }

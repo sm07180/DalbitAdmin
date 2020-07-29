@@ -1,5 +1,6 @@
 package com.dalbit.content.controller.rest;
 
+import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import lombok.extern.slf4j.Slf4j;
@@ -23,5 +24,13 @@ public class Con_BoardAdmRestController {
     @PostMapping("/storyList")
     public String selectStoryList(BoardAdmStoryVo boardAdmStoryVo) {
         return conBoardAdmService.selectStoryList(boardAdmStoryVo);
+    }
+
+    /**
+     * 사연 삭제
+     */
+    @PostMapping("/deleteStory")
+    public String deleteStory(P_StoryDeleteVo pStoryDeleteVo) {
+        return conBoardAdmService.callStoryDelete(pStoryDeleteVo);
     }
 }

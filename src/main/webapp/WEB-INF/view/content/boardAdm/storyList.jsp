@@ -66,6 +66,20 @@
         storyList();
     }
 
+    $(document).on('click', '._deleteStory', function() {
+        var data = {
+            storyIdx : $(this).data('storyidx')
+            , room_no : $(this).data('roomno')
+        };
+        util.getAjaxData("deleteStory", "/rest/content/boardAdm/deleteStory", data, fn_success_deleteStory);
+    });
+
+    function fn_success_deleteStory(dst_id, response) {
+        alert(response.message);
+        storyList();
+    }
+
+
 </script>
 
 <script id="tmp_storyTable" type="text/x-handlebars-template">
@@ -133,7 +147,7 @@
             </td>
             <td>{{convertToDate send_date "YYYY.MM.DD HH:mm:ss"}}</td>
             <td class="word-break">{{story_content}}</td>
-            <td><a href="javascript://">[삭제]</a></td>
+            <td><a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a></td>
         </tr>
         {{else}}
         <tr>
