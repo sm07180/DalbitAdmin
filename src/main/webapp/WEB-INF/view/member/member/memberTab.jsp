@@ -17,10 +17,11 @@
             <li><a href="#changeDetail" role="tab" data-toggle="tab" id="tab_changeDetail" onclick="tab_click(this.id);">교환내역</a></li>
             <li><a href="#mystarDetail" role="tab" data-toggle="tab" id="tab_mystarDetail" onclick="tab_click(this.id);">마이스타/팬</a></li>
             <li><a href="#notice" role="tab" data-toggle="tab" id="tab_notice" onclick="tab_click(this.id);">회원게시관리</a></li>
-            <li><a href="#declarationDetail" role="tab" data-toggle="tab" id="tab_declarationDetail" onclick="tab_click(this.id);">신고내역</a></li>
+            <li><a href="#declaration" role="tab" data-toggle="tab" id="tab_declaration" onclick="tab_click(this.id);">신고내역</a></li>
             <li><a href="#questionDetail" role="tab" data-toggle="tab" id="tab_questionDetail" onclick="tab_click(this.id);">문의내역</a></li>
             <li><a href="#connectState" role="tab" data-toggle="tab" id="tab_connectState" onclick="tab_click(this.id);">접속내역</a></li>
             <li><a href="#edit" role="tab" data-toggle="tab" id="tab_edit" onclick="tab_click(this.id);">수정내역</a></li>
+            <li><a href="#levelDetail" role="tab" data-toggle="tab" id="tab_levelDetail" onclick="tab_click(this.id);">레벨</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade in active " id="infoDetail"><jsp:include page="memberInfo.jsp"/></div>     <!-- 상세 -->
@@ -52,22 +53,38 @@
                     <div class="tab-pane fade" id="banwordDetail"><jsp:include page="../banword/list.jsp"/></div>         <!-- 금지어 -->
                 </div>
             </div>
-            <div class="tab-pane fade" id="declarationDetail"><jsp:include page="../declaration/list.jsp"/></div> <!-- 신고 -->
+            <div class="tab-pane fade" id="declaration"><!-- 신고내역 -->
+                <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+                    <li><a href="#declarationDetail" role="tab" data-toggle="tab" id="tab_declarationDetail" onclick="tab_click(this.id);">신고</a></li>
+                    <li><a href="#withdrawalDetail" role="tab" data-toggle="tab" id="tab_withdrawalDetail" onclick="tab_click(this.id);">경고/정지</a></li>
+                    <li><a href="#forcedDetail" role="tab" data-toggle="tab" id="tab_forcedDetail" onclick="tab_click(this.id);">방송 강제퇴장</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="declarationDetail"><jsp:include page="../declaration/list.jsp"/></div>         <!-- 신고 -->
+                    <div class="tab-pane fade" id="withdrawalDetail"><jsp:include page="/WEB-INF/view/customer/restrictions/withdrawalList.jsp"/></div>       <!-- 경고/정지 -->
+                    <div class="tab-pane fade" id="forcedDetail"><jsp:include page="/WEB-INF/view/customer/restrictions/forcedList.jsp"/></div>         <!-- 방송 강제퇴장 -->
+                </div>
+
+
+            </div>
             <div class="tab-pane fade" id="questionDetail"><jsp:include page="../question/list.jsp"/></div>     <!-- 문의 -->
             <div class="tab-pane fade" id="connectState"><jsp:include page="../connect/list.jsp"/></div>     <!-- 접속내역 -->
             <div class="tab-pane fade" id="edit"><!-- 수정내역 -->
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_all" onclick="getHistory_editHistory(this.id, -1);">전체</a></li>
                     <%-- TODO 추후 구분코드 추가 시 기능 개발 필요 - 전유신 20.07.23 --%>
+                    <%--
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileImg" onclick="getHistory_editHistory(this.id, 1);">프로필이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_bgImg" onclick="getHistory_editHistory(this.id, 2);">방송배경이미지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_profileMsg" onclick="getHistory_editHistory(this.id, 3);">프로필메시지</a></li>
                     <li><a href="#editHistory" role="tab" data-toggle="tab" id="tab_editHistory_etc" onclick="getHistory_editHistory(this.id, 4);">개인정보</a></li>
+                    --%>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade" id="editHistory"><jsp:include page="../edit/list.jsp"/></div>     <!-- 수정내역 -->
                 </div>
             </div>
+            <div class="tab-pane fade" id="levelDetail"><jsp:include page="../level/list.jsp"/></div>     <!-- 레벨 -->
         </div>
     </div>
 </div>
@@ -109,8 +126,14 @@
             getHistory_fanbroadDetail(tmp);
         }else if(tmp == "tab_banwordDetail"){
             getHistory_banwordDetail(tmp);
+        }else if(tmp == "tab_declaration"){
+            $("#tab_declarationDetail").click();
         }else if(tmp == "tab_declarationDetail"){
             getHistory_declarationDetail(tmp);
+        }else if(tmp == "tab_withdrawalDetail"){
+            getRes_withdrawalList(memNo);
+        }else if(tmp == "tab_forcedDetail") {
+            getRes_forcedList(memNo);
         }else if(tmp == "tab_questionDetail"){
             getHistory_questionDetail(tmp);
         }else if(tmp == "tab_exchangeDetail"){
@@ -118,13 +141,14 @@
         }else if(tmp == "tab_connectState"){
             getHistory_connectState(tmp);
         }else if(tmp == "tab_edit"){
+            $("#tab_edit").focus();
             $("#tab_editHistory_all").click();
         }else if(tmp == "tab_editHistory_all"){
-            $("#tab_edit").click();
             $("#tab_editHistory_all").click();
-        }else if(tmp == "tab_editHistory_profileImg"){
             $("#tab_edit").click();
+        }else if(tmp == "tab_editHistory_profileImg"){
             $("#tab_editHistory_profileImg").click();
+            $("#tab_edit").click();
         }else if(tmp == "tab_editHistory_bgImg"){
             $("#tab_edit").click();
             $("#tab_editHistory_bgImg").click();
@@ -134,6 +158,8 @@
         }else if(tmp == "tab_editHistory_etc"){
             $("#tab_edit").click();
             $("#tab_editHistory_etc").click();
+        }else if(tmp == "tab_levelDetail"){
+            getHistory_levelHistory(tmp);
         }
 
     }

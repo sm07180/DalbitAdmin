@@ -190,7 +190,7 @@
     </insert>
     <insert id="callMemberNotification_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberReportVo">
         /* M_Member.xml - callMemberNotification_Add */
-        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)) )
+        insert into rd_data.tb_member_notification( mem_no, type_noti, contents, memo, target_mem_no, room_no, link  ) values ( #{reported_mem_no}, IFNULL(#{slctType},34), #{notiContents}, #{notimemo}, IFNULL(#{targetMemNo}, #{reported_mem_no}), IFNULL(#{targetRoomNo}, IFNULL(#{targetBoardIdx}, NULL)), IFNULL(#{targetRedirectUrl}, NULL) )
     </insert>
     <insert id="callMemberWithdrawal_bak_Add" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
@@ -267,7 +267,7 @@
 
     <insert id="callMemberAddDal_history" parameterType="com.dalbit.member.vo.procedure.P_MemberEditorVo">
         /* M_Member.xml - callMemberBasicAdd */
-        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new, op_name ) VALUES ( #{mem_no}, IFNULL(#{type}, 12), #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt}, #{opName});
+        INSERT INTO rd_data.tb_member_wallet_ruby( mem_no, `type`, use_contents, ruby, ruby_old, ruby_new, op_name ) VALUES ( #{mem_no}, IFNULL(#{type}, 11), #{use_contents}, #{addDalCnt}, #{beforDalCnt}, #{afterDalCnt}, #{opName});
     </insert>
 
     <!-- 별추가 -->

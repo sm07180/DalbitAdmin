@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="col-md-4 no-padding pull-right mb5">
+        <div class="col-md-6 no-padding pull-right mb5">
             <div class="pull-right">
                 <span id="pay_summaryArea2"></span>
             </div>

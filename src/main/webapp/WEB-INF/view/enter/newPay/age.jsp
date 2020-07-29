@@ -116,8 +116,24 @@
         }else{
             $("#ageTableBody").append(totalHtml);
         }
-
         ui.tableHeightSet();
+        ui.paintColor();
+    }
+    function genderAgeClick(tmp){
+        sDate = $("#startDate").val();
+        eDate = $("#endDate").val();
+        if($('input[name="slctType"]:checked').val() == 0){
+            var popupUrl = "/enter/newPay/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=" + tmp.gender +  "&time=" + tmp.hour + "&age=" + tmp.age;
+        }else if($('input[name="slctType"]:checked').val() == 1){
+            tmp.daily = tmp.daily.replace(/-/gi,".");
+            var popupUrl = "/enter/newPay/popup/history?sDate=" + tmp.daily + "&eDate=" + tmp.daily + "&gender=" + tmp.gender +  "&time=null" + "&age=" + tmp.age;
+        }else if($('input[name="slctType"]:checked').val() == 2){
+            var tmp_monthly = sDate.substr(0,5);
+            sDate = tmp_monthly + common.lpad(tmp.monthly,2,"0") + ".01";
+            eDate = moment(sDate).add('months', 1).add('days', -1).format('YYYY.MM.DD');
+            var popupUrl = "/enter/newPay/popup/history?sDate=" + sDate + "&eDate=" + eDate + "&gender=" + tmp.gender +  "&time=null" + "&age=" + tmp.age;
+        }
+        util.windowOpen(popupUrl,"1550","885","결제목록");
     }
 </script>
 <script type="text/x-handlebars-template" id="tmp_age">
@@ -158,13 +174,21 @@
             {{#equal ../slctType 1}}{{substr data.daily 5}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}">
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a>
+        </td>
         <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
-        <td style="color: blue;">{{addComma maleCnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-gender="m" style="color: blue;">
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma maleCnt}}</span></a>
+        </td>
         <td style="color: blue;">{{vatMinus maleAmt}}</td>
-        <td style="color: red;">{{addComma femaleCnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-gender="f" style="color: red;">
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma femaleCnt}}</span></a>
+        </td>
         <td style="color: red;">{{vatMinus femaleAmt}}</td>
-        <td>{{addComma noneCnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-gender="n" >
+            <a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma noneCnt}}</span></a>
+        </td>
         <td>{{vatMinus noneAmt}}</td>
         <td style="border-bottom: hidden;"></td>
         <td class="font-bold _stateSubTh">
@@ -172,22 +196,22 @@
             {{#equal ../slctType 1}}{{substr data.daily 5}}{{/equal}}
             {{#equal ../slctType 2}}{{data.monthly}}월{{/equal}}
         </td>
-        <td>{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma totalCnt}}<br/>({{average totalCnt sum_totalCnt}}%)</span></a></td>
         <td><b>{{vatMinus totalAmt}}<br/>({{average totalAmt sum_totalAmt}}%)</b></td>
-        <td>{{addComma age10Cnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="10"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age10Cnt}}</span></a></td>
         <td>{{vatMinus age10Amt}}</td>
-        <td>{{addComma age20Cnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="20"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age20Cnt}}</span></a></td>
         <td>{{vatMinus age20Amt}}</td>
-        <td>{{addComma age30Cnt}}</td>
-        <td>{{vatMinus age30Amt}}</td>
-        <td>{{addComma age40Cnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="30"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age30Cnt}}</span></a></td>
+        <td >{{vatMinus age30Amt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="40"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age40Cnt}}</span></a></td>
         <td>{{vatMinus age40Amt}}</td>
-        <td>{{addComma age50Cnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="50"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age50Cnt}}</span></a></td>
         <td>{{vatMinus age50Amt}}</td>
-        <td>{{addComma age60Cnt}}</td>
+        <td onclick="genderAgeClick($(this).data());" data-hour="{{data.hour}}" data-daily="{{data.daily}}" data-monthly="{{data.monthly}}" data-age="60"><a href="javascript://"><span class="_fontColor" data-fontcolor="#555">{{addComma age60Cnt}}</span></a></td>
         <td>{{vatMinus age60Amt}}</td>
     </tr>
     {{else}}
     <td colspan="11" class="noData">{{isEmptyData}}<td>
-    {{/each}}
+        {{/each}}
 </script>

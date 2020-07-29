@@ -105,22 +105,12 @@
                 if ($(this).val() == "11") {
                     fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
                 }
-                if ($(this).val() == "01") {
-                    fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
 
-                    fnc_pushDetail.target.find("input[name='slct_push']").prop('checked', false);
+                fnc_pushDetail.target.find("input[name='is_direct']").prop("disabled", false);
 
-                    fnc_pushDetail.target.find("#label_targetType").text("");
-                    fnc_pushDetail.target.find("#input_targetLink").hide();
-                    fnc_pushDetail.target.find("#input_targetLink").val("");
-                    fnc_pushDetail.target.find("#btn_selectMember_link").hide();
-                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
-                }else{
-                    fnc_pushDetail.target.find("input[name='is_direct']").prop("disabled", false);
+                fnc_pushDetail.target.find("input[name='slct_push']").prop("disabled", false);
+                fnc_pushDetail.target.find("input[name='slct_push'][value='2']").click();
 
-                    fnc_pushDetail.target.find("input[name='slct_push']").prop("disabled", false);
-                    fnc_pushDetail.target.find("input[name='slct_push'][value='2']").click();
-                }
             });
 
 
@@ -156,16 +146,9 @@
             });
 
 
-            //푸시 타입 선택
-            fnc_pushDetail.target.find("input[name=slct_push]:radio").click(function () {
-                if(fnc_pushDetail.target.find("input[name='send_type']:checked").val() == '01'){
-                    alert("푸시 타입은 푸시 발송 시에만 선택 가능 합니다.");
-                    return false;
-                }
-            });
-
             fnc_pushDetail.target.find("input[name=slct_push]:radio").change(function () {
                 var type = this.value;
+                fnc_pushDetail.target.find("#input_targetLink").css("width", "150px");
                 if(type == "1"){ //room_no
                     fnc_pushDetail.target.find("#label_targetType").text("방송방 번호:");
                     fnc_pushDetail.target.find("#input_targetLink").show();
@@ -174,7 +157,7 @@
                     fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                     fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
 
-                }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
+                }else if(type == "31" || type == "36" || type == "38"){ //mem_no
                     fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
                     fnc_pushDetail.target.find("#input_targetLink").show();
                     fnc_pushDetail.target.find("#input_targetLink").val("");
@@ -186,6 +169,14 @@
                     fnc_pushDetail.target.find("#label_targetType").text("게시 번호:");
                     fnc_pushDetail.target.find("#input_targetLink").show();
                     fnc_pushDetail.target.find("#input_targetLink").val("");
+                    fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
+                    fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+                }else if(type == "50"){ //redirect_url
+                    fnc_pushDetail.target.find("#label_targetType").text("URL:");
+                    fnc_pushDetail.target.find("#input_targetLink").show();
+                    fnc_pushDetail.target.find("#input_targetLink").val("");
+                    fnc_pushDetail.target.find("#input_targetLink").css("width", "350px");
                     fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
                     fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                     fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
@@ -276,20 +267,21 @@
             fnc_pushDetail.target.find("input[name=is_all][value='"+ detailData.is_all +"']").prop("checked", true);
 
             //발송 형태
-            if (detailData.send_type == "2") {
-                fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
-
-                fnc_pushDetail.target.find("input[name='slct_push']").prop('checked', false);
-
-                fnc_pushDetail.target.find("#label_targetType").text("");
-                fnc_pushDetail.target.find("#input_targetLink").hide();
-                fnc_pushDetail.target.find("#input_targetLink").val("");
-                fnc_pushDetail.target.find("#btn_selectMember_link").hide();
-                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
-            }
+            // if (detailData.send_type == "2") {
+            //     fnc_pushDetail.target.find("input[name='is_direct'][value='0']").click();
+            //
+            //     fnc_pushDetail.target.find("input[name='slct_push']").prop('checked', false);
+            //
+            //     fnc_pushDetail.target.find("#label_targetType").text("");
+            //     fnc_pushDetail.target.find("#input_targetLink").hide();
+            //     fnc_pushDetail.target.find("#input_targetLink").val("");
+            //     fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+            //     fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+            // }
 
 
             var type = detailData.slct_push;
+            fnc_pushDetail.target.find("#input_targetLink").css("width", "150px");
             if(type == "1"){ //room_no
                 fnc_pushDetail.target.find("#label_targetType").text("방송방 번호:");
                 fnc_pushDetail.target.find("#input_targetLink").show();
@@ -297,7 +289,7 @@
                 fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                 fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").show();
 
-            }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
+            }else if(type == "31" || type == "36" || type == "38"){ //mem_no
                 fnc_pushDetail.target.find("#label_targetType").text("회원 번호:");
                 fnc_pushDetail.target.find("#input_targetLink").show();
                 fnc_pushDetail.target.find("#input_targetLink").attr("disabled", true);
@@ -307,6 +299,13 @@
             }else if(type == "5" || type == "6" || type == "7"){ //board_idx
                 fnc_pushDetail.target.find("#label_targetType").text("게시 번호:");
                 fnc_pushDetail.target.find("#input_targetLink").show();
+                fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
+                fnc_pushDetail.target.find("#btn_selectMember_link").hide();
+                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+            }else if(type == "50"){ //redirect_url
+                fnc_pushDetail.target.find("#label_targetType").text("URL:");
+                fnc_pushDetail.target.find("#input_targetLink").show();
+                fnc_pushDetail.target.find("#input_targetLink").css("width", "350px");
                 fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
                 fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                 fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
@@ -527,15 +526,21 @@
                 resultJson['target_mem_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetMemNo");
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
 
-            }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
+            }else if(type == "31" || type == "36" || type == "38"){ //mem_no
                 resultJson['target_mem_no'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").data("targetinfo");
 
             }else if(type == "5" || type == "6" || type == "7"){ //board_idx
                 resultJson['board_idx'] = fnc_pushDetail.target.find("#input_targetLink").val();
                 resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").val();
+
             }else if(type == "2"){
                 resultJson['target_mem_no'] = '10000000000001';
+
+            }else if(type == "50"){ //redirect_url
+                resultJson['redirect_url'] = fnc_pushDetail.target.find("#input_targetLink").val();
+                resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").val();
+
             }
 
             // 발송상태
@@ -630,7 +635,7 @@
                         fnc_pushDetail.target.find("#input_targetLink").focus();
                         return false;
                     }
-                }else if(type == "31" || type == "35" || type == "36" || type == "38"){ //mem_no
+                }else if(type == "31" || type == "36" || type == "38"){ //mem_no
                     if (common.isEmpty(data.target_mem_no)) {
                         alert("회원을 선택하여 주시기 바랍니다.");
                         fnc_pushDetail.target.find("#input_targetLink").focus();
@@ -642,6 +647,13 @@
                         fnc_pushDetail.target.find("#input_targetLink").focus();
                         return false;
                     }
+                }else if(type == "50") { //redirect_url
+                    if (common.isEmpty(data.redirect_url)) {
+                        alert("이동 URL을 입력하여 주시기 바랍니다.");
+                        fnc_pushDetail.target.find("#input_targetLink").focus();
+                        return false;
+                    }
+
                 }
             }
 

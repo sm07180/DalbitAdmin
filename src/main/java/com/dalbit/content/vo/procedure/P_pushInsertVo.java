@@ -30,6 +30,7 @@ public class P_pushInsertVo extends BaseVo {
     private String room_no;				// DJ방생성시 방송방 번호
     private String target_mem_no;		// 타겟회원의 마이페이지 이동할 경우
     private String board_idx;			// 해당 게시판 이동할 경우
+    private String redirect_url;			// 직접입력 URL
     private String target_info;
     private String image_type;
 

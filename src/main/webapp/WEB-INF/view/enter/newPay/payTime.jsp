@@ -187,7 +187,8 @@
                     accumAmt = "null";
 
                 if (index == 0) {
-                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").html(common.addComma(succCnt));
+                    // $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").attr("onclick",hourClick(detail.hour));
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").find('._data').html(common.addComma(succCnt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 2) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 3) + ")").html(common.vatMinus(accumAmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 4) + ")").html();
@@ -197,8 +198,12 @@
                             $("#timeTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index + i) + ")").css("font-weight", "bold");
                         }
                     }
+                    // data set
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").data("hour",detail.hour);
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index + 1) + ")").data("sDate", moment($("#startDate").val()).add('days', -2).format('YYYY.MM.DD'));
+
                 } else if (index == 1 || index == 2) {
-                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 1) + ")").html(common.addComma(succCnt));
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 1) + ")").find('._data').html(common.addComma(succCnt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 4) + ")").html();
@@ -207,6 +212,14 @@
                             $("#timeTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index * 5 + i) + ")").css("background-color", "#e3ecfb");
                             $("#timeTableBody tr._tr_" + (detail.hour) + " td:eq(" + (index * 5 + i) + ")").css("font-weight", "bold");
                         }
+                    }
+
+                    // data set
+                    $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 1) + ")").data("hour",detail.hour);
+                    if(index == 1){
+                        $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 1) + ")").data("sDate", moment($("#startDate").val()).add('days', -1).format('YYYY.MM.DD'));
+                    }else{
+                        $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (index * 5 + 1) + ")").data("sDate", moment($("#startDate").val()).add('days', 0).format('YYYY.MM.DD'));
                     }
                 } else if(index == 7) {     // 평균
                     $("#timeTableBody tr._tr_" + detail.hour + " td:eq(" + (3 * 5 + 1) + ")").html(common.addComma((succCnt/7).toFixed(1)));
@@ -222,7 +235,7 @@
                 }
                 // 하단
                 if (index == 3) {
-                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 1) + ")").html(common.addComma(succCnt));
+                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 1) + ")").find('._data').html(common.addComma(succCnt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 2) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 3) + ")").html(common.vatMinus(accumAmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 4) + ")").html();
@@ -232,8 +245,11 @@
                             $("#timeTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index + i) + ")").css("font-weight", "bold");
                         }
                     }
+                    // data set
+                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 1) + ")").data("hour",detail.hour);
+                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index + 1) + ")").data("sDate", moment($("#startDate").val()).add('days', -6).format('YYYY.MM.DD'));
                 }else if(index == 4 || index == 5 || index == 6){
-                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 1) + ")").html(common.addComma(succCnt));
+                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 1) + ")").find('._data').html(common.addComma(succCnt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 2) + ")").html(common.vatMinus(succAmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 3) + ")").html(common.vatMinus(accumAmt));
                     $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 4) + ")").html();
@@ -242,6 +258,15 @@
                             $("#timeTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index * 5 + i) + ")").css("background-color", "#e3ecfb");
                             $("#timeTableBody2 tr._tr_" + (detail.hour) + " td:eq(" + (tmp_index * 5 + i) + ")").css("font-weight", "bold");
                         }
+                    }
+                    // data set
+                    $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 1) + ")").data("hour",detail.hour);
+                    if(index == 6){
+                        $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 1) + ")").data("sDate", moment($("#startDate").val()).add('days', -3).format('YYYY.MM.DD'));
+                    }else if(index == 5){
+                        $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 1) + ")").data("sDate", moment($("#startDate").val()).add('days', -4).format('YYYY.MM.DD'));
+                    }else if(index == 4){
+                        $("#timeTableBody2 tr._tr_" + detail.hour + " td:eq(" + (tmp_index * 5 + 1) + ")").data("sDate", moment($("#startDate").val()).add('days', -5).format('YYYY.MM.DD'));
                     }
                 }
             });
@@ -344,7 +369,17 @@
                 $("#timeTableBody2 tr:eq(2) td:eq(" + (tmp_index * 4 + 3) + ")").html();
             }
         }
+        ui.paintColor();
         ui.tableHeightSet();
+    }
+
+    function hourClick(tmp){
+        if(tmp.hour > -1 ){
+            var popupUrl = "/enter/newPay/popup/history?sDate=" + tmp.sDate + "&eDate=" + tmp.sDate + "&gender=null&time=" + tmp.hour + "&age=null";
+            util.windowOpen(popupUrl,"1550","885","결제목록");
+        }else{
+            alert('데이터가 없습니다.');
+        }
     }
 </script>
 
@@ -380,9 +415,9 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())" style="background-color: #FFF7E5"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="background-color: #FFF7E5"></td><td style="border-bottom: hidden;border-top: hidden"></td>
         <td></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
@@ -413,10 +448,10 @@
     {{#each this.slctType_date}}
     <tr class="_tr_{{this}}">
         <td class="font-bold" style="background-color: #dae3f3">{{this}}</td>
-        <td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
-        <td></td><td></td><td></td><td></td>
+        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a></td><td></td><td></td><td></td><td style="border-bottom: hidden;border-top: hidden"></td>
+        <td onclick="hourClick($(this).data())"><a href="javascript://"><span class="_data _fontColor" data-fontcolor="#555"></span></a></td><td></td><td></td><td></td>
     </tr>
     {{/each}}
 </script>

@@ -38,5 +38,6 @@ public class P_MemberReportVo {
     private String targetRoomNo;
     private String targetBoardIdx;
     private String targetMemNo;
+    private String targetRedirectUrl;
 }
 
