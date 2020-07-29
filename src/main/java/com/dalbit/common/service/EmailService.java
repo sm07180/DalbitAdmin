@@ -20,9 +20,12 @@ public class EmailService {
      * */
     public int sendEmail() throws UnsupportedEncodingException {
 
-        String title = new String("제목".getBytes("utf-8"), "euc-kr");
+        /*String title = new String("제목".getBytes("utf-8"), "euc-kr");
         String rcvMail = new String("leejaeho114@gmail.com".getBytes("utf-8"), "euc-kr");
-        String msgCont = new String("내용".getBytes("utf-8"), "euc-kr");
+        String msgCont = new String("내용".getBytes("utf-8"), "euc-kr");*/
+        String title = "제목";
+        String rcvMail = "leejaeho114@gmail.com";
+        String msgCont = "내용";
 
         return emailDao.sendEmail(new EmailVo(title, rcvMail, msgCont));
     }
