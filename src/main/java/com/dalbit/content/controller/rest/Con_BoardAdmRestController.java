@@ -2,6 +2,7 @@ package com.dalbit.content.controller.rest;
 
 import com.dalbit.broadcast.vo.procedure.P_StoryDeleteVo;
 import com.dalbit.content.service.Con_BoardAdmService;
+import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,14 @@ public class Con_BoardAdmRestController {
     @Autowired
     Con_BoardAdmService conBoardAdmService;
 
+
+    /**
+     * 팬보드 조회
+     */
+    @PostMapping("/fanBoardList")
+    public String selectFanBoardList(BoardAdmFanBoardVo boardAdmFanBoardVo) {
+        return conBoardAdmService.selectFanBoardList(boardAdmFanBoardVo);
+    }
 
     /**
      * 사연 조회
