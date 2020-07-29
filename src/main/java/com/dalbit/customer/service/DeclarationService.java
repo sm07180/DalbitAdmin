@@ -49,33 +49,32 @@ public class DeclarationService {
 
         ArrayList<P_DeclarationListOutputVo> declareList = declarationDao.callServiceCenterReportList(procedureVo);
 
-        for(int i=0;i<declareList.size();i ++ ){
-            P_DeclarationListOutputVo outVo = declarationDao.getReportCount(declareList.get(i).getReported_mem_no());
-            declareList.get(i).setTotalReportedCnt(outVo.getTotalReportedCnt());
-            declareList.get(i).setTotalOpCnt(outVo.getTotalOpCnt());
-        }
-
-        for(int i=0;i<declareList.size();i++){
-            MemberVo outVo = mem_MemberDao.getMemberInfo(declareList.get(i).getMem_no());
-            if(!DalbitUtil.isEmpty(outVo)) {
-                declareList.get(i).setMem_sex(outVo.getMem_sex());
-                declareList.get(i).setMem_birth_year(outVo.getMem_birth_year());
-                declareList.get(i).setMem_birth_month(outVo.getMem_birth_month());
-                declareList.get(i).setMem_birth_day(outVo.getMem_birth_day());
-            }
-            MemberVo outVo2 = mem_MemberDao.getMemberInfo(declareList.get(i).getReported_mem_no());
-            if(!DalbitUtil.isEmpty(outVo2)) {
-                declareList.get(i).setReported_mem_sex(outVo2.getMem_sex());
-                declareList.get(i).setReported_mem_birth_year(outVo2.getMem_birth_year());
-                declareList.get(i).setReported_mem_birth_month(outVo2.getMem_birth_month());
-                declareList.get(i).setReported_mem_birth_day(outVo2.getMem_birth_day());
-            }
-        }
-
-
         String result;
 
         if(declareList.size() > 0) {
+
+            for(int i=0;i<declareList.size();i ++ ){
+                P_DeclarationListOutputVo outVo = declarationDao.getReportCount(declareList.get(i).getReported_mem_no());
+                declareList.get(i).setTotalReportedCnt(outVo.getTotalReportedCnt());
+                declareList.get(i).setTotalOpCnt(outVo.getTotalOpCnt());
+            }
+
+            for(int i=0;i<declareList.size();i++){
+                MemberVo outVo = mem_MemberDao.getMemberInfo(declareList.get(i).getMem_no());
+                if(!DalbitUtil.isEmpty(outVo)) {
+                    declareList.get(i).setMem_sex(outVo.getMem_sex());
+                    declareList.get(i).setMem_birth_year(outVo.getMem_birth_year());
+                    declareList.get(i).setMem_birth_month(outVo.getMem_birth_month());
+                    declareList.get(i).setMem_birth_day(outVo.getMem_birth_day());
+                }
+                MemberVo outVo2 = mem_MemberDao.getMemberInfo(declareList.get(i).getReported_mem_no());
+                if(!DalbitUtil.isEmpty(outVo2)) {
+                    declareList.get(i).setReported_mem_sex(outVo2.getMem_sex());
+                    declareList.get(i).setReported_mem_birth_year(outVo2.getMem_birth_year());
+                    declareList.get(i).setReported_mem_birth_month(outVo2.getMem_birth_month());
+                    declareList.get(i).setReported_mem_birth_day(outVo2.getMem_birth_day());
+                }
+            }
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_성공, declareList, new PagingVo(procedureVo.getRet())));
         } else if(Status.신고목록조회_데이터없음.getMessageCode().equals(procedureVo.getRet())){
             result = gsonUtil.toJson(new JsonOutputVo(Status.신고목록조회_데이터없음));
