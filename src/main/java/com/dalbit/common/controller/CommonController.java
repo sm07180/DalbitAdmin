@@ -3,6 +3,7 @@ package com.dalbit.common.controller;
 import com.dalbit.common.annotation.NoLogging;
 import com.dalbit.common.code.Status;
 import com.dalbit.common.service.CommonService;
+import com.dalbit.common.service.EmailService;
 import com.dalbit.common.vo.CodeListVo;
 import com.dalbit.common.vo.CodeVo;
 import com.dalbit.common.vo.JsonOutputVo;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Slf4j
@@ -27,6 +29,9 @@ public class CommonController {
 
     @Autowired
     CommonService commonService;
+
+    @Autowired
+    EmailService emailService;
 
     @NoLogging
     @GetMapping("/ctrl/check/service")
@@ -41,6 +46,12 @@ public class CommonController {
     public String codeList(CodeListVo codeListVo){
         String codeList = commonService.getCodeList(codeListVo);
         return codeList;
+    }
+
+    @GetMapping("sendEmail")
+    public String sendEmail() throws UnsupportedEncodingException {
+        emailService.sendEmail();
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회));
     }
 
 }
