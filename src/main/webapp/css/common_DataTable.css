@@ -133,21 +133,25 @@ table td.text-center {
 }
 
 
-table.colorV2 {
+table.borderBlack {
     border-color:black;
 }
 
-table.colorV2 tr th {
-    border-color:black;
-    color:black;
-}
-
-table.colorV2 tr td {
+table.borderBlack tr th {
     border-color:black;
     color:black;
 }
 
-table.colorV2 tr td:last-child {
+table.borderBlack tr td {
+    border-color:black;
+    color:black;
+}
+
+table.borderBlack tr td:last-child {
     border-right-width: 1px;
     border-right-color:black;
+}
+
+.break-word {
+    word-break: break-word;
 }
