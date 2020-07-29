@@ -24,8 +24,8 @@
                 <th colspan="2">가상계좌아체<i class="fa fa-money"></i></th>
                 <th colspan="2">문화상품권<i class="fa fa-barcode"></i></th>
                 <th colspan="2">해피머니상품권<i class="fa fa-smile-o"></i></th>
-                <th colspan="2">스마트문상(게임)<i class="fa fa-gamepad"></i></th>
-                <th colspan="2">도서문화상품권<i class="fa fa-book"></i></th>
+                <%--<th colspan="2">스마트문상(게임)<i class="fa fa-gamepad"></i></th>--%>
+                <%--<th colspan="2">도서문화상품권<i class="fa fa-book"></i></th>--%>
             </tr>
             <tr>
                 <th>건(비율)</th>
@@ -42,10 +42,10 @@
                 <th>금액</th>
                 <th>건</th>
                 <th>금액</th>
-                <th>건</th>
-                <th>금액</th>
-                <th>건</th>
-                <th>금액</th>
+                <%--<th>건</th>--%>
+                <%--<th>금액</th>--%>
+                <%--<th>건</th>--%>
+                <%--<th>금액</th>--%>
             </tr>
             </thead>
             <tbody id="wayTableBody"></tbody>
@@ -114,10 +114,10 @@
         <td>{{vatMinus sum_gmAmt}}</td>
         <td>{{addComma sum_hmCnt}}</td>
         <td>{{vatMinus sum_hmAmt}}</td>
-        <td>{{vatMinus sum_ggCnt}}</td>
-        <td>{{vatMinus sum_ggAmt}}</td>
-        <td>{{vatMinus sum_gcCnt}}</td>
-        <td>{{vatMinus sum_gcAmt}}</td>
+        <%--<td>{{vatMinus sum_ggCnt}}</td>--%>
+        <%--<td>{{vatMinus sum_ggAmt}}</td>--%>
+        <%--<td>{{vatMinus sum_gcCnt}}</td>--%>
+        <%--<td>{{vatMinus sum_gcAmt}}</td>--%>
     </tr>
 </script>
 
@@ -143,10 +143,10 @@
         <td>{{vatMinus gmAmt}}</td>
         <td>{{addComma hmCnt}}</td>
         <td>{{vatMinus hmAmt}}</td>
-        <td>{{vatMinus ggCnt}}</td>
-        <td>{{vatMinus ggAmt}}</td>
-        <td>{{vatMinus gcCnt}}</td>
-        <td>{{vatMinus gcAmt}}</td>
+        <%--<td>{{vatMinus ggCnt}}</td>--%>
+        <%--<td>{{vatMinus ggAmt}}</td>--%>
+        <%--<td>{{vatMinus gcCnt}}</td>--%>
+        <%--<td>{{vatMinus gcAmt}}</td>--%>
 
     </tr>
     {{else}}
