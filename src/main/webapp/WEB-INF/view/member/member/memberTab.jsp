@@ -141,13 +141,14 @@
         }else if(tmp == "tab_connectState"){
             getHistory_connectState(tmp);
         }else if(tmp == "tab_edit"){
+            $("#tab_edit").focus();
             $("#tab_editHistory_all").click();
         }else if(tmp == "tab_editHistory_all"){
-            $("#tab_edit").click();
             $("#tab_editHistory_all").click();
-        }else if(tmp == "tab_editHistory_profileImg"){
             $("#tab_edit").click();
+        }else if(tmp == "tab_editHistory_profileImg"){
             $("#tab_editHistory_profileImg").click();
+            $("#tab_edit").click();
         }else if(tmp == "tab_editHistory_bgImg"){
             $("#tab_edit").click();
             $("#tab_editHistory_bgImg").click();

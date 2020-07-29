@@ -185,7 +185,7 @@
             tab_click("tab_editHistory_bgImg");
         });
         $('#bt_reportDetail').click(function() {         //회원상태 상세
-            $("#tab_declarationDetail").click();
+            $("#tab_declaration").click();
         });
         $('#bt_levelDetail').click(function() {         //레벨 상세
             $("#tab_levelDetail").click();
@@ -797,9 +797,9 @@
             <col width="7%"/>
             <col width="7%"/>
             <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
-            <col width="7%"/>
+            <col width="6%"/>
+            <col width="6%"/>
+            <col width="9%"/>
             <col width="4%"/>
         </colgroup>
         <tbody>
@@ -845,17 +845,15 @@
             <td style="text-align: left">
                 {{{getCommonCodeLabel memState 'mem_state'}}}
             </td>
-            <td colspan="3" style="text-align: center">
+            <td colspan="4" style="text-align: center;">
                 <%--{{{block}}}--%>
                 경고 : {{op_code_2_cnt}}회,  정지 : {{op_code_stop_cnt}}회,  영구정지 : {{op_code_6_cnt}}회
             </td>
             <td colspan="2" style="border-right-color:white;border-right-width:0px;">
                 {{#equal memWithdrawal '0'}}
-                <button type="button" class="btn btn-default btn-sm pull-right bt_report">경고/정지</button>
+                <button type="button" class="btn btn-default btn-sm pull-left bt_report">경고/정지</button>
                 {{/equal}}
-                <button type="button" class="btn btn-info btn-sm pull-right mr5" id="bt_state">정상변경</button>
-            </td>
-            <td>
+                <button type="button" class="btn btn-info btn-sm pull-left ml5" id="bt_state">정상변경</button>
                 <button type="button" class="btn btn-default btn-sm pull-right" id="bt_reportDetail">상세</button>
             </td>
         </tr>
@@ -868,9 +866,11 @@
                     * 접속상태 : {{connectState}}
                 </span>
             </td>
-            <td style="border-right-color:white;border-right-width:0px;">
+            <td colspan="2" style="border-right-color:white;border-right-width:0px;">
                 <button type="button" class="btn btn-danger btn-sm pull-left bt_report">기기 차단</button>
-                <button type="button" class="btn btn-danger btn-sm pull-left bt_report mt5">IP 차단</button>
+                <button type="button" class="btn btn-danger btn-sm pull-left bt_report ml5">IP 차단</button>
+
+                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">상세</button>
             </td>
             <%--<span class="pr15 pl15"></span>--%>
             <%--<span class="pr15 pl15">* 접속상태 : {{connectState}}</span>--%>
@@ -878,23 +878,20 @@
             <%--<button type="button" class="btn btn-danger btn-sm pull-right bt_report">기기 차단</button>--%>
             <%--<button type="button" class="btn btn-default btn-sm pull-right bt_connectState">자세히</button>--%>
             <%--<button type="button" class="btn btn-danger btn-sm pull-right bt_report">IP 차단</button>--%>
-            <td>
-                <button type="button" class="btn btn-default btn-sm pull-right bt_connectState">상세</button>
-            </td>
         </tr>
         <tr>
             <th>최초<br>방송일시</th>
-            <td colspan="3" style="text-align: left">{{firstBroadcastDate}}</td>
+            <td colspan="4" style="text-align: left">{{firstBroadcastDate}}</td>
             <th>최근<br>방송일시</th>
-            <td colspan="3" style="text-align: left">{{lastBroadcastDate}}</td>
+            <td colspan="2" style="text-align: left">{{lastBroadcastDate}}</td>
         </tr>
         <tr>
             <th>프로필<br>메시지</th>
-            <td colspan="2" style="text-align: left; border-right-width: 0px;" id="memberProfileMsg">
-                {{profileMsg}}
-            </td>
-            <td>
-                <button type="button" id="bt_profileMsg_editHistory" class="btn btn-default btn-sm pull-right">상세</button>
+            <td colspan="3" style="text-align: left" id="memberProfileMsg">
+                <div>
+                    <div style="display:inline-block;width:85%">{{profileMsg}}</div>
+                    <button type="button" id="bt_profileMsg_editHistory" class="btn btn-default btn-sm pull-right">상세</button>
+                </div>
             </td>
             <th>방송상태</th>
             <td colspan="4" style="text-align: left">
@@ -1021,14 +1018,14 @@
             </td>
             <td colspan="2"></td>
             <th>매니저</th>
-            <td colspan="3" style="text-align: left">
+            <td colspan="4" style="text-align: left">
                 <%--{{addComma managerICnt}} 명 / {{addComma managerMeCnt}} 명--%>
                 {{#equal memWithdrawal '0'}}
                 <button type="button" id="bt_manager" class="btn btn-default btn-sm pull-left">상세</button>
                 {{/equal}}
             </td>
             <th>블랙리스트</th>
-            <td colspan="3" style="text-align: left">
+            <td colspan="2" style="text-align: left">
                 <%--{{addComma blackICnt}} 명 / {{addComma blackMeCnt}} 명--%>
                 {{#equal memWithdrawal '0'}}
                 <button type="button" id="bt_black" class="btn btn-default btn-sm pull-left">상세</button>
@@ -1045,9 +1042,9 @@
             </td>
             <td colspan="2"></td>
             <th>회원<br>가입일시</th>
-            <td colspan="3" style="text-align: left">{{joinDate}} <label class="no-margin" id="memSlct"></label></td>
+            <td colspan="4" style="text-align: left">{{joinDate}} <label class="no-margin" id="memSlct"></label></td>
             <th>회원<br>탈퇴일시</th>
-            <td colspan="3" style="text-align: left">
+            <td colspan="2" style="text-align: left">
                 {{#equal memWithdrawal '1'}}
                 {{../last_upd_date}}
                 {{/equal}}
@@ -1076,9 +1073,9 @@
                 {{/equal}}
             </td>
             <th>최근정보<br/>수정일시</th>
-            <td colspan="3" style="text-align: left">{{lastOpDate}}</td>
+            <td colspan="4" style="text-align: left">{{lastOpDate}}</td>
             <th>최근정보<br/>수정자</th>
-            <td colspan="2" style="text-align: left;border-right-color:white;border-right-width:0px;">{{lastOpName}}</td>
+            <td colspan="1" style="text-align: left;border-right-color:white;border-right-width:0px;">{{lastOpName}}</td>
             <td>
                 <button type="button" id="bt_editHistory" class="btn btn-default btn-sm pull-right">상세</button>
             </td>
@@ -1100,11 +1097,9 @@
             <%--<td style="text-align: left">{{koreaAge birthData}}세 (만 {{age}}세)</td>--%>
             <td style="text-align: left">{{koreaAge birthData}}세</td>
             <th rowspan="2">운영자<br>메모</th>
-            <td rowspan="2" colspan="6" style="text-align: left; border-right-color:white;">
+            <td rowspan="2" colspan="7" style="text-align: left;">
                 <textarea type="textarea" class="form-control" id="txt_adminMemo" style="width: 90%;height: 76px"></textarea>
-            </td>
-            <td rowspan="2">
-                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-left" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
+                <button type="button" id="bt_adminMemo" class="btn btn-default btn-sm pull-right" data-memno="{{mem_no}}" data-nickname="{{nickName}}">등록</button>
             </td>
         </tr>
         <tr>
