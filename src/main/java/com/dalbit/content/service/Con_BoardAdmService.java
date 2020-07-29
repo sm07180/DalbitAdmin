@@ -6,11 +6,12 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BoardAdmDao;
+import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
+import com.dalbit.util.GsonUtil;
 import com.dalbit.member.dao.Mem_NoticeDao;
 import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
 import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
-import com.dalbit.util.GsonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,20 @@ public class Con_BoardAdmService {
 
     @Autowired
     Mem_NoticeDao mem_NoticeDao;
+
+    /**
+     * 팬보드 조회
+     */
+    public String selectFanBoardList(BoardAdmFanBoardVo boardAdmFanBoardVo) {
+        int fanBoardCount = conBoardAdmDao.selectFanBoardListCnt(boardAdmFanBoardVo);
+        boardAdmFanBoardVo.setTotalCnt(fanBoardCount);
+        ArrayList<BoardAdmFanBoardVo> fanBoardList = conBoardAdmDao.selectFanBoardList(boardAdmFanBoardVo);
+
+        String result;
+        result = gsonUtil.toJson(new JsonOutputVo(Status.Fan목록보기성공, fanBoardList, new PagingVo(boardAdmFanBoardVo.getTotalCnt(), boardAdmFanBoardVo.getPageStart(), boardAdmFanBoardVo.getPageCnt())));
+
+        return result;
+    }
 
     /**
      * 사연 조회
