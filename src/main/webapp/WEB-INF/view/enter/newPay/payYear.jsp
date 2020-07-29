@@ -51,8 +51,8 @@
                     <th colspan="2" class="_stateTopTh">가상계좌아체<i class="fa fa-money"></i></th>
                     <th colspan="2" class="_stateTopTh">문화상품권<i class="fa fa-barcode"></i></th>
                     <th colspan="2" class="_stateTopTh">해피머니상품권<i class="fa fa-smile-o"></i></th>
-                    <th colspan="2" class="_stateTopTh">스마트문상(게임)<i class="fa fa-gamepad"></i></th>
-                    <th colspan="2" class="_stateTopTh">도서문화상품권<i class="fa fa-book"></i></th>
+                    <%--<th colspan="2" class="_stateTopTh">스마트문상(게임)<i class="fa fa-gamepad"></i></th>--%>
+                    <%--<th colspan="2" class="_stateTopTh">도서문화상품권<i class="fa fa-book"></i></th>--%>
                     <th colspan="2" class="_stateTopTh">티머니<i class="fa fa-bus"></i></th>
                     <th colspan="2" class="_stateTopTh">캐시비<i class="fa fa-forumbee"></i></th>
                     <th colspan="2" class="_stateTopTh">페이코<i class="fa fa-paypal"></i></th>
@@ -73,10 +73,10 @@
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
                     <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
-                    <th class="_stateSubTh">건</th>
-                    <th class="_stateSubTh">금액</th>
+                    <%--<th class="_stateSubTh">건</th>--%>
+                    <%--<th class="_stateSubTh">금액</th>--%>
+                    <%--<th class="_stateSubTh">건</th>--%>
+                    <%--<th class="_stateSubTh">금액</th>--%>
                     <th class="_stateSubTh">건</th>
                     <th class="_stateSubTh">금액</th>
                     <th class="_stateSubTh">건</th>
@@ -369,10 +369,10 @@
         <td>{{vatMinus sum_gmAmt}}</td>
         <td>{{addComma sum_hmCnt}}</td>
         <td>{{vatMinus sum_hmAmt}}</td>
-        <td>{{vatMinus sum_ggCnt}}</td>
-        <td>{{vatMinus sum_ggAmt}}</td>
-        <td>{{vatMinus sum_gcCnt}}</td>
-        <td>{{vatMinus sum_gcAmt}}</td>
+        <%--<td>{{vatMinus sum_ggCnt}}</td>--%>
+        <%--<td>{{vatMinus sum_ggAmt}}</td>--%>
+        <%--<td>{{vatMinus sum_gcCnt}}</td>--%>
+        <%--<td>{{vatMinus sum_gcAmt}}</td>--%>
 
         <td>{{vatMinus sum_tmoneyCnt}}</td>
         <td>{{vatMinus sum_tmoneyAmt}}</td>
@@ -405,10 +405,10 @@
         <td>{{vatMinus gmAmt}}</td>
         <td>{{addComma hmCnt}}</td>
         <td>{{vatMinus hmAmt}}</td>
-        <td>{{vatMinus ggCnt}}</td>
-        <td>{{vatMinus ggAmt}}</td>
-        <td>{{vatMinus gcCnt}}</td>
-        <td>{{vatMinus gcAmt}}</td>
+        <%--<td>{{vatMinus ggCnt}}</td>--%>
+        <%--<td>{{vatMinus ggAmt}}</td>--%>
+        <%--<td>{{vatMinus gcCnt}}</td>--%>
+        <%--<td>{{vatMinus gcAmt}}</td>--%>
 
         <td>{{vatMinus tmoneyCnt}}</td>
         <td>{{vatMinus tmoneyAmt}}</td>
