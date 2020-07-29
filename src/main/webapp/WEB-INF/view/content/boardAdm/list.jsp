@@ -43,19 +43,6 @@
         </div>
         <!-- //tab -->
 
-        <!-- table -->
-        <div class="row col-lg-12 form-inline">
-            <div class="tab-content no-padding">
-                <div class="tab-pane fade in active" id="storyList">       <!-- 회원 -->
-                    <div class="widget-content">
-                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
-                        <div id="storyTable"></div>
-                        <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- //table -->
     </div> <!-- //page-wrapper -->
 </div> <!-- //wrapper -->
 
