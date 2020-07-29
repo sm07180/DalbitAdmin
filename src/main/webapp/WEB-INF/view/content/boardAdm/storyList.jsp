@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- table -->
-<div class="row col-lg-12 form-inline">
+<div class="no-padding col-lg-12 form-inline">
     <div class="tab-content no-padding">
         <div class="tab-pane fade in active" id="storyList">
             <div class="widget-content">
@@ -20,14 +20,11 @@
     var StoryPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
+        storyList();
     });
-
-    function init() {
-    }
 
     function storyList() {
         $('#title').html('사연검색');
-        StoryPagingInfo.pageNo = 1;
 
         var data = {
             'pageStart': StoryPagingInfo.pageNo
@@ -51,6 +48,7 @@
         StoryPagingInfo.totalCnt = response.pagingVo.totalCnt;
         util.renderPagingNavigation('list_info_paginate_top', StoryPagingInfo);
         util.renderPagingNavigation('list_info_paginate', StoryPagingInfo);
+        StoryPagingInfo.pageNo=1;
 
         if(response.data.length == 0) {
             $("#list_info_paginate_top").hide();
@@ -66,10 +64,40 @@
         storyList();
     }
 
+    $(document).on('click', '._deleteStory', function() {
+        if(confirm('삭제하시겠습니까?')){
+            var data = {
+                storyIdx: $(this).data('storyidx')
+                , room_no: $(this).data('roomno')
+            };
+            util.getAjaxData("deleteStory", "/rest/content/boardAdm/deleteStory", data, fn_success_deleteStory);
+        }
+        return false;
+    });
+
+    function fn_success_deleteStory(dst_id, response) {
+        alert(response.message);
+        storyList();
+    }
+
+
 </script>
 
 <script id="tmp_storyTable" type="text/x-handlebars-template">
     <table id="tb_storyList" class="table table-sorting table-hover table-bordered mt10">
+
+        <colgroup>
+            <col width="3%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="15%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="10%"/>
+            <col width="20%"/>
+            <col width="5%"/>
+        </colgroup>
+
         <thead>
         <tr>
             <th rowspan="2">No</th>
@@ -87,24 +115,14 @@
             <th>성별 <br />(나이)</th>
         </tr>
         </thead>
-        <colgroup>
-            <col width="3%"/>
-            <col width="10%"/>
-            <col width="10%"/>
-            <col width="15%"/>
-            <col width="10%"/>
-            <col width="10%"/>
-            <col width="10%"/>
-            <col width="20%"/>
-            <col width="10%"/>
-        </colgroup>
+
         <tbody>
         {{#each this.data as |data|}}
         <tr>
             <td>{{indexDesc ../pagingVo.totalCnt rowNum}}</td>
             <td>
                 {{^equal dj_mem_nick ''}}
-                {{../dj_mem_nick}}
+                {{{memNoLink ../dj_mem_nick ../dj_mem_no}}}
                 {{else}}
                 -
                 {{/equal}}
@@ -119,7 +137,7 @@
             <td>{{title}}</td>
             <td>
                 {{^equal send_mem_nick ''}}
-                {{../send_mem_nick}}
+                {{{memNoLink ../send_mem_nick ../send_mem_no}}}
                 {{else}}
                 -
                 {{/equal}}
@@ -133,7 +151,7 @@
             </td>
             <td>{{convertToDate send_date "YYYY.MM.DD HH:mm:ss"}}</td>
             <td class="word-break">{{story_content}}</td>
-            <td><a href="javascript://">[삭제]</a></td>
+            <td><div style="width:45px;"><a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a></div></td>
         </tr>
         {{else}}
         <tr>

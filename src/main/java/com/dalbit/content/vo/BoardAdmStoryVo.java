@@ -18,7 +18,8 @@ public class BoardAdmStoryVo extends PagingVo {
     private String end_sel;
 
     /* output */
-    private int idx;
+    private int storyIdx;           // 사연 idx
+    private String room_no;         // 사연 방송방 번호
     private String dj_mem_no;       // 대상 회원 멤버 번호
     private String dj_mem_nick;     // 대상 회원 닉네임
     private String dj_mem_sex;      // 대상 회원 성별

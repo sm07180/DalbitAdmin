@@ -32,18 +32,21 @@
                 </choose>
             </if>
             <if test='start_sel != null and start_sel !=""'>
-                 and sto.write_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y-%m-%d 00:00:00')
+                 and sto.write_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
             </if>
             <if test='end_sel != null and end_sel != ""'>
-                 and sto.write_date <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y-%m-%d 23:59:59')
+                 and sto.write_date <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59')
             </if>
         </where>
     </sql>
 
     <select id="selectStoryList" parameterType="com.dalbit.content.vo.BoardAdmStoryVo" resultType="com.dalbit.content.vo.BoardAdmStoryVo">
+    /* Con_BoardAdm.xml - selectStoryList*/
       select *
         from (
                 select
+                   sto.idx as storyIdx,
+                   sto.room_no as room_no,
                    bas.mem_no     as dj_mem_no,
                    bas.mem_nick   as dj_mem_nick,
                    bas.mem_userid as dj_mem_userid,
@@ -71,6 +74,7 @@
     </select>
 
     <select id="selectStoryListCnt" parameterType="com.dalbit.content.vo.BoardAdmStoryVo" resultType="integer">
+      /* Con_BoardAdm.xml - selectStoryListCnt*/
       select
         count(*)
       from rd_data.tb_broadcast_room bro
@@ -78,4 +82,10 @@
               inner join rd_data.tb_member_basic bas on bro.mem_no = bas.mem_no
         <include refid="storyCondition"/>
     </select>
+
+    <select id="callStoryDelete" statementType="CALLABLE" parameterType="com.dalbit.common.vo.ProcedureVo" resultType="com.dalbit.common.vo.ProcedureVo">
+        /* Con_BoardAdm.xml - callStoryDelete */
+        call rd_admin.sp_admin_broadcast_room_story_delete(#{data, mode=IN, jdbcType=VARCHAR}, #{ret, mode=OUT, jdbcType=INTEGER}, #{ext, mode=OUT, jdbcType=VARCHAR})
+    </select>
+
 </mapper>
