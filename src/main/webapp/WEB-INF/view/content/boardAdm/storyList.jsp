@@ -20,14 +20,11 @@
     var StoryPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
+        storyList();
     });
-
-    function init() {
-    }
 
     function storyList() {
         $('#title').html('사연검색');
-        StoryPagingInfo.pageNo = 1;
 
         var data = {
             'pageStart': StoryPagingInfo.pageNo
@@ -51,6 +48,7 @@
         StoryPagingInfo.totalCnt = response.pagingVo.totalCnt;
         util.renderPagingNavigation('list_info_paginate_top', StoryPagingInfo);
         util.renderPagingNavigation('list_info_paginate', StoryPagingInfo);
+        StoryPagingInfo.pageNo=1;
 
         if(response.data.length == 0) {
             $("#list_info_paginate_top").hide();
@@ -67,11 +65,14 @@
     }
 
     $(document).on('click', '._deleteStory', function() {
-        var data = {
-            storyIdx : $(this).data('storyidx')
-            , room_no : $(this).data('roomno')
-        };
-        util.getAjaxData("deleteStory", "/rest/content/boardAdm/deleteStory", data, fn_success_deleteStory);
+        if(confirm('삭제하시겠습니까?')){
+            var data = {
+                storyIdx: $(this).data('storyidx')
+                , room_no: $(this).data('roomno')
+            };
+            util.getAjaxData("deleteStory", "/rest/content/boardAdm/deleteStory", data, fn_success_deleteStory);
+        }
+        return false;
     });
 
     function fn_success_deleteStory(dst_id, response) {
@@ -147,7 +148,7 @@
             </td>
             <td>{{convertToDate send_date "YYYY.MM.DD HH:mm:ss"}}</td>
             <td class="word-break">{{story_content}}</td>
-            <td><a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a></td>
+            <td class="word-break"><a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a></td>
         </tr>
         {{else}}
         <tr>
