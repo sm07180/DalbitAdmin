@@ -56,7 +56,7 @@
                                     <col width="40px"/>
                                     <col width="50px" /> <!-- No -->
                                     <col width="100px" /> <!-- 카테고리 -->
-                                    <col width="250px" /> <!-- 이모티콘 -->
+                                    <col width="100px" /> <!-- 이모티콘 내용 -->
                                     <col width="100px" /> <!-- 등록일 -->
                                     <col width="100px" /> <!-- 클릭 수 -->
                                     <col width="100px" /> <!-- 일간 클릭 수 -->
@@ -215,11 +215,7 @@
         <td>{{rowNum}}</td>
         <td>{{category}}</td>
         <td>
-            <div class="row col-md-12">
-                <div class="col-md-3">
-                    <input type="input" class="col-md-12 form-control" style="text-align:center; width:200px" value="{{inssaticon}}">
-                </div>
-            </div>
+            <input type="input" class="form-control" style="text-align:center; width: auto;" value="{{inssaticon}}">
         </td>
         <td>{{reqDate}}</td>
         <td>{{inssaticonClickCnt}}</td>
