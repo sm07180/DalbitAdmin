@@ -133,7 +133,9 @@
     }
 
     $(document).on('click', '._deleteFanBoard', function() {
-        if(confirm("삭제하시겠습니까?")){
+        if($(this).data('status') == 2) {
+            alert('이미 삭제된 댓글입니다.');
+        } else if(confirm("삭제하시겠습니까?")){
             var data = {
                 'idx' : $(this).data('idx')
             };
@@ -229,7 +231,7 @@
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td>{{replaceHtml contents}}</td>
                 <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-memno="{{star_mem_no}}">[댓글]</a></td>
-                <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}">[삭제]</a></td>
+                <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
             </tr>
         {{else}}
         <tr>
