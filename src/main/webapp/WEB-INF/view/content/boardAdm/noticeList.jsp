@@ -43,9 +43,6 @@
         noticeList();
     });
 
-    function init() {
-    }
-
     var memNo;
     function noticeList(pagingInfo) {
         $('#title').html('회원/방송공지');
