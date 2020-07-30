@@ -19,7 +19,7 @@
               , (select mem_nick from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_mem_nick
               , (select mem_state from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_mem_state
               , (select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_mem_sex
-              , (select mem_birth_year from rd_data.tb_member_basic where mem_no = fan.mem_no) as fan_birth_year
+              , (select mem_birth_year from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_birth_year
               , status
               , last_upd_date
               , contents
@@ -38,6 +38,31 @@
       from rd_data.tb_member_fanboard
     </select>
 
+    <update id="deleteFanBoard">
+        update rd_data.tb_member_fanboard
+        set `status` = 2
+          ,  contents = #{contents}
+        where idx = #{idx}
+    </update>
+
+    <select id="selectReply" parameterType="com.dalbit.content.vo.BoardAdmFanBoardReplyVo" resultType="com.dalbit.content.vo.BoardAdmFanBoardReplyVo">
+        SELECT
+            a.idx AS board_idx,
+            a.board_no AS board_no,
+            a.writer_no AS writer_mem_no,
+            b.mem_nick AS nickName,
+            b.mem_userid as userId,
+            b.mem_sex AS memSex,
+            b.mem_birth_year,
+            ( SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.writer_no ) AS profileImage,
+            a.contents AS contents,
+            a.`status` AS `status`,
+            a.last_upd_date AS writeDate,
+            depth
+         from (select idx, board_no, contents, writer_no, `status`, last_upd_date, depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} and board_no = #{board_no} and `status` = 1) as a
+          join rd_data.tb_member_basic as b on a.writer_no = b.mem_no
+          order by writeDate desc
+    </select>
     <sql id="storyCondition">
         <where>
             <if test='txt_search != null and txt_search != ""'>

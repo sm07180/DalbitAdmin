@@ -394,20 +394,8 @@ var inssaticon_category = [
 
 /** =------ boardAdm ---------- */
 
-var story_searchRadio = [
-    new COMMON_CODE('', 'searchRadio', '날짜선택')
-    , new COMMON_CODE('month', '1', '한 달')
-    , new COMMON_CODE('week', '2', '일주일')
-    , new COMMON_CODE('select', '3', '날짜선택')
-];
-
-var story_searchSelect = [
-    new COMMON_CODE(null, 'searchType', '검색조건')
-    , new COMMON_CODE('all', '-1', '검색조건(전체)')
-    , new COMMON_CODE('djmemno', '1', '대상 회원번호')
-    , new COMMON_CODE('djmemid', '2', '대상 UserID')
-    , new COMMON_CODE('djmemnick', '3', '대상 User닉네임')
-    , new COMMON_CODE('sendmemno', '4', '보낸 회원번호')
-    , new COMMON_CODE('sendmemid', '5', '보낸 UserID')
-    , new COMMON_CODE('sendmemnick', '6', '보낸 User닉네임')
+var fanBoard_status = [
+  new COMMON_CODE(null, 'status', '게시글 상태')
+    , new COMMON_CODE('1', 1, '정상')
+    , new COMMON_CODE('2', 2, '삭제')
 ];
