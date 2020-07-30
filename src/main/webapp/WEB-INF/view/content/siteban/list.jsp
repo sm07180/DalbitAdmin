@@ -100,11 +100,20 @@
         }
 
         $("#idx").val(response.data.idx);
-        var banwords = response.data.ban_word.split('|');
+        var banword = response.data.ban_word.split('|');
+
+        var wordList = new Array();
+        banword.forEach(function(data){
+            wordList.push({"word":data, "len":data.length})
+        });
+
+
+        var sortBanwords = getSortBanword(wordList);
+        var banwordArr = sortBanwords.split('|')
 
         var template = $('#tmp_banword').html();
         var templateScript = Handlebars.compile(template);
-        var context = banwords;
+        var context = banwordArr;
         var html = templateScript(context);
         $("#tableBody").html(html);
 
@@ -137,7 +146,6 @@
 
     $('#regBtn').on('click', function(){
 
-        console.log('click');
         var banword = $('#banword');
         if(banword.val().length < 2){
             alert('2글자 이상으로 등록해주세요.');
@@ -163,19 +171,14 @@
     });
 
     function insertBanword(type){
-        var banwords = '';
+
         var wordList = new Array();
         $('._banword span.text-danger').each(function(){
-
             wordList.push({"word":$(this).text(), "len":$(this).text().length})
         });
-        wordList.sort(function(a, b){
-            return a.len > b.len ? -1 : a.len < b.len ? 1 : 0;
-        });
-        wordList.each(function(i, word){
-            banwords += word.word + '|';
-        });
-        banwords = banwords.substr(0, banwords.length-1);
+
+        var banwords = getSortBanword(wordList);
+
         var data = {
             idx : $("#idx").val()
             , ban_word : banwords
@@ -183,6 +186,21 @@
         };
         util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_updt);
     }
+
+    //금칙어 길이순으로 정렬
+    function getSortBanword(paramWordList){
+        var banwords = '';
+        var wordList = paramWordList;
+        wordList.sort(function(a, b){
+            return a.len > b.len ? -1 : a.len < b.len ? 1 : 0;
+        });
+        wordList.forEach(function(word, i){
+            banwords += word.word + '|';
+        });
+        banwords = banwords.substr(0, banwords.length-1);
+        return banwords;
+    }
+
     function fn_succ_updt(){
         $("#banword").val('');
         init();
