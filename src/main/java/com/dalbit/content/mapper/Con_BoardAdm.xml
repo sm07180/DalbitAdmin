@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dalbit.content.dao.Con_BoardAdmDao" >
 
+    <sql id="fanBoardCondition">
+        <where>
+          <if test='txt_search != null and txt_search != ""'>
+                  (star_mem_no like concat('%',#{txt_search},'%') or fan_mem_no like concat('%',#{txt_search},'%')
+                  or star_userid like concat('%',#{txt_search},'%') or fan_userid like concat('%',#{txt_search},'%')
+                  or star_mem_nick like concat('%',#{txt_search},'%') or fan_mem_nick like concat('%',#{txt_search},'%'))
+          </if>
+          <if test='start_sel != null and start_sel != ""'>
+              and last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
+          </if>
+          <if test='end_sel != null and end_sel != ""'>
+              and last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59')
+          </if>
+        </where>
+    </sql>
+
     <select id="selectFanBoardList" parameterType="com.dalbit.content.vo.BoardAdmFanBoardVo" resultType="com.dalbit.content.vo.BoardAdmFanBoardVo">
         select *
         from (
@@ -10,12 +26,14 @@
               , board_no
               , (select pro.image_profile from rd_data.tb_member_basic bas inner join rd_data.tb_member_profile pro on bas.mem_no = pro.mem_no where pro.mem_no = fan.mem_no) as star_image_profile
               , (select mem_no from rd_data.tb_member_basic where mem_no = fan.mem_no) as star_mem_no
+              , (select mem_userid from rd_data.tb_member_basic where mem_no = fan.mem_no) as star_userid
               , (select mem_nick from rd_data.tb_member_basic where mem_no = fan.mem_no) as star_mem_nick
               , (select mem_state from rd_data.tb_member_basic where mem_no = fan.mem_no) as star_mem_state
               , (select mem_sex from rd_data.tb_member_basic where mem_no = fan.mem_no) as star_mem_sex
               , (select mem_birth_year from rd_data.tb_member_basic where mem_no = fan.mem_no) as star_birth_year
               , (select pro.image_profile from rd_data.tb_member_basic bas inner join rd_data.tb_member_profile pro on bas.mem_no = pro.mem_no where pro.mem_no = fan.writer_no) as fan_image_profile
               , (select mem_no from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_mem_no
+              , (select mem_userid from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_userid
               , (select mem_nick from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_mem_nick
               , (select mem_state from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_mem_state
               , (select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no) as fan_mem_sex
@@ -27,6 +45,7 @@
               , @RNUM := @RNUM +1 as rowNum
             from rd_data.tb_member_fanboard fan
                 , (select @RNUM := 0) r
+                <include refid="fanBoardCondition"/>
             order by idx desc
         ) a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
@@ -36,6 +55,7 @@
       select
         count(*)
       from rd_data.tb_member_fanboard
+        <include refid="fanBoardCondition"/>
     </select>
 
     <update id="deleteFanBoard">
