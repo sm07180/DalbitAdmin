@@ -5,9 +5,12 @@
     <sql id="fanBoardCondition">
         <where>
           <if test='txt_search != null and txt_search != ""'>
-                  (star_mem_no like concat('%',#{txt_search},'%') or fan_mem_no like concat('%',#{txt_search},'%')
-                  or star_userid like concat('%',#{txt_search},'%') or fan_userid like concat('%',#{txt_search},'%')
-                  or star_mem_nick like concat('%',#{txt_search},'%') or fan_mem_nick like concat('%',#{txt_search},'%'))
+              (select mem_no from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
+              or (select mem_userid from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
+              or (select mem_nick from rd_data.tb_member_basic where mem_no = fan.mem_no) like concat ('%',#{txt_search},'%')
+              or (select mem_no from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
+              or (select mem_userid from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
+              or (select mem_nick from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
           </if>
           <if test='start_sel != null and start_sel != ""'>
               and last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
@@ -54,7 +57,7 @@
     <select id="selectFanBoardListCnt" parameterType="com.dalbit.content.vo.BoardAdmFanBoardVo" resultType="integer">
       select
         count(*)
-      from rd_data.tb_member_fanboard
+      from rd_data.tb_member_fanboard fan
         <include refid="fanBoardCondition"/>
     </select>
 
