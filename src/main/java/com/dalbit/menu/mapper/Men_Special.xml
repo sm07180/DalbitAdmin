@@ -5,27 +5,26 @@
     <select id="summary" parameterType="com.dalbit.menu.vo.SpecialSummaryVo" resultType="com.dalbit.menu.vo.SpecialSummaryVo">
         /* Men_Special.xml - summary */
         select
-        (select
-        count(*)
-        from rd_admin.tb_req_special_dj redj
-        inner join rd_data.tb_member_basic mem
-        on redj.mem_no = mem.mem_no
-        and concat(#{select_year}, #{select_month}) = DATE_FORMAT(redj.reg_date, '%Y%m')
-        where redj.state <![CDATA[<>]]> 2
-        ) as requestDal
+            (select
+                count(*)
+                from rd_admin.tb_req_special_dj redj
+                inner join rd_data.tb_member_basic mem
+                    on redj.mem_no = mem.mem_no
+                    and concat(#{select_year}, #{select_month}) = DATE_FORMAT(redj.reg_date, '%Y%m')
+                where redj.state <![CDATA[<>]]> 2
+            ) as requestDal
         , (select
-        count(*)
-        from rd_admin.tb_special_dj dj
-        inner join rd_data.tb_member_basic mem
-        on dj.mem_no = mem.mem_no
-        <where>
-            <if test='select_year != null and select_year != ""' >
-                dj.select_year = #{select_year}
-            </if>
-            <if test='select_month != null and select_month != ""' >
-                and dj.select_month = #{select_month}
-            </if>
-        </where>
+            count(*)
+            from rd_admin.tb_special_dj dj
+            inner join rd_data.tb_member_basic mem
+                on dj.mem_no = mem.mem_no
+                where 1=1
+                <if test='select_year != null and select_year != ""' >
+                    and dj.select_year = #{select_year}
+                </if>
+                <if test='select_month != null and select_month != ""' >
+                    and dj.select_month = #{select_month}
+                </if>
         ) as approveDal
     </select>
 
@@ -57,82 +56,83 @@
     <select id="getReqSpecialList" parameterType="com.dalbit.menu.vo.SpecialReqVo" resultType="com.dalbit.menu.vo.SpecialReqVo">
         /* Men_Special.xml - getReqSpecialList */
         select
-        *
+            *
         from (
-        select
-        dj.idx as idx
-        , dj.mem_no as mem_no
-        , dj.mem_name as mem_name
-        , dj.mem_phone as mem_phone
-        , dj.title as title
-        , dj.reg_date as reg_date
-        , dj.contents as contents
-        , dj.broadcast_time1 as broadcast_time1
-        , dj.broadcast_time2 as broadcast_time2
-        , dj.state as state
-        , dj.op_name as op_name
-        , dj.last_upd_date as last_upd_date
-        , profile.specialdj_badge as specialdj_badge
-        , basic.mem_id as mem_id
-        , basic.mem_nick as mem_nick
-        , basic.mem_birth_year
-        , basic.mem_birth_month
-        , basic.mem_birth_day
-        --                 , profile.image_profile  as image_profile
-        , @RNUM := @RNUM + 1 as rowNum
-        , ifnull((select TRUNCATE(ifnull(sum(airtime), 0) / 60, 0)
-        from rd_data.tb_broadcast_room room
-        where mem_no = basic.mem_no
-        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>start_date
-        and start_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) airTime
-        , ifnull((select count(*)
-        from rd_data.tb_broadcast_room room
-        where mem_no = basic.mem_no
-        and 3600<![CDATA[<=]]>airtime
-        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>start_date
-        and start_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) broadcastCnt
-        , ifnull((select count(*)
-        from rd_data.tb_broadcast_room_good good
-        where dj_mem_no = basic.mem_no
-        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
-        and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) goodCnt
-        , ifnull((select count(*)
-        from rd_data.tb_member_fanstar
-        where mem_no_star = basic.mem_no), 0) fanCnt
-        , ifnull((select count(*)
-        from rd_data.tb_member_broadcast_listening
-        where dj_mem_no = basic.mem_no
-        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
-        and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
-        , ifnull((select count(distinct listen.mem_no)
-        from rd_data.tb_member_broadcast_listening listen
-        where dj_mem_no = basic.mem_no
-        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
-        and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) listenCnt
-        , ifnull((select count(*)
-        from rd_data.tb_member_report report
-        where reported_mem_no = basic.mem_no
-        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>report.reg_date
-        and report.reg_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) reportCnt
-        , ifnull((select sum(gold)
-        from rd_data.tb_member_wallet_gold gold
-        where gold.mem_no = basic.mem_no
-        and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
-        and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) receiveStar
-        from rd_admin.tb_req_special_dj dj
-        , rd_data.tb_member_profile profile
-        , rd_data.tb_member_basic basic
-        , rd_admin.tb_req_special_dj_manage manage
-        , (select @RNUM := 0) r
-        where basic.mem_no = dj.mem_no
-        and profile.mem_no = dj.mem_no
-        and basic.mem_no = profile.mem_no
-        and dj.state <![CDATA[<>]]> 2
-        and concat(#{select_year}, #{select_month}) = DATE_FORMAT(dj.reg_date, '%Y%m')
-        and manage.select_year = #{select_year}
-        and manage.select_month = #{select_month}
-        <include refid="reqSpecial" />
-        order by idx desc
+            select
+                dj.idx as idx
+                , dj.mem_no as mem_no
+                , dj.mem_name as mem_name
+                , dj.mem_phone as mem_phone
+                , dj.title as title
+                , dj.reg_date as reg_date
+                , dj.contents as contents
+                , dj.broadcast_time1 as broadcast_time1
+                , dj.broadcast_time2 as broadcast_time2
+                , dj.state as state
+                , dj.op_name as op_name
+                , dj.last_upd_date as last_upd_date
+                , profile.specialdj_badge as specialdj_badge
+                , basic.mem_id as mem_id
+                , basic.mem_nick as mem_nick
+                , basic.mem_birth_year
+                , basic.mem_birth_month
+                , basic.mem_birth_day
+                -- , profile.image_profile  as image_profile
+                , @RNUM := @RNUM + 1 as rowNum
+                , ifnull((select TRUNCATE(ifnull(sum(airtime), 0) / 60, 0)
+                            from rd_data.tb_broadcast_room room
+                            where mem_no = basic.mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>start_date
+                            and start_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) airTime
+                , ifnull((select count(*)
+                            from rd_data.tb_broadcast_room room
+                            where mem_no = basic.mem_no
+                            and 3600<![CDATA[<=]]>airtime
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>start_date
+                            and start_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) broadcastCnt
+                , ifnull((select count(*)
+                            from rd_data.tb_broadcast_room_good good
+                            where dj_mem_no = basic.mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
+                            and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) goodCnt
+                , ifnull((select count(*)
+                            from rd_data.tb_member_fanstar
+                            where mem_no_star = basic.mem_no), 0) fanCnt
+                            , ifnull((select count(*)
+                            from rd_data.tb_member_broadcast_listening
+                            where dj_mem_no = basic.mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
+                            and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) allListenCnt
+                , ifnull((select count(distinct listen.mem_no)
+                            from rd_data.tb_member_broadcast_listening listen
+                            where dj_mem_no = basic.mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
+                            and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) listenCnt
+                , ifnull((select count(*)
+                            from rd_data.tb_member_report report
+                            where reported_mem_no = basic.mem_no
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>report.reg_date
+                            and report.reg_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) reportCnt
+                , ifnull((select sum(gold)
+                            from rd_data.tb_member_wallet_gold gold
+                            where gold.mem_no = basic.mem_no
+                            and gold.type = 2
+                            and DATE_FORMAT(manage.condition_start_date, '%Y-%m-%d 00:00:00')<![CDATA[<=]]>last_upd_date
+                            and last_upd_date<![CDATA[<=]]>DATE_FORMAT(manage.condition_end_date, '%Y-%m-%d 23:59:59')), 0) receiveStar
+            from rd_admin.tb_req_special_dj dj
+            , rd_data.tb_member_profile profile
+            , rd_data.tb_member_basic basic
+            , rd_admin.tb_req_special_dj_manage manage
+            , (select @RNUM := 0) r
+            where basic.mem_no = dj.mem_no
+            and profile.mem_no = dj.mem_no
+            and basic.mem_no = profile.mem_no
+            and dj.state <![CDATA[<>]]> 2
+            and concat(#{select_year}, #{select_month}) = DATE_FORMAT(dj.reg_date, '%Y%m')
+            and manage.select_year = #{select_year}
+            and manage.select_month = #{select_month}
+            <include refid="reqSpecial" />
+            order by idx desc
         ) a
         limit #{pageStart}, #{pageCnt}
     </select>
