@@ -192,7 +192,7 @@
         var banwords = '';
         var wordList = paramWordList;
         wordList.sort(function(a, b){
-            return a.len > b.len ? -1 : a.len < b.len ? 1 : 0;
+            return a.len > b.len ? 1 : a.len < b.len ? -1 : 0;
         });
         wordList.forEach(function(word, i){
             banwords += word.word + '|';
