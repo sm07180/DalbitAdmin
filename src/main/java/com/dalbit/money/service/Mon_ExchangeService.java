@@ -315,6 +315,7 @@ public class Mon_ExchangeService {
 
     public String updateExchangeDetail(Mon_ExchangeOutputVo monExchangeOutputVo){
 
+        monExchangeOutputVo.setSocial_no(AES.encrypt(monExchangeOutputVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
         monExchangeDao.updateExchangeDetail(monExchangeOutputVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
