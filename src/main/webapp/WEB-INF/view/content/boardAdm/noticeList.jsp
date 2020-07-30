@@ -7,8 +7,8 @@
         <div class="dataTables_paginate paging_full_numbers" id="notice_paginate_top"></div>
         <table id="noticeTable" class="table table-sorting table-hover table-bordered mt10">
             <colgroup>
-                <col width="1%"/><col width="3%"/><col width="3%"/><col width="3%"/><col width="6%"/>
-                <col width="6%"/><col width="10%"/><col width="10%"/><col width="20%"/>
+                <col width="1%"/><col width="3%"/><col width="3%"/><col width="5%"/><col width="9%"/>
+                <col width="7%"/><col width="15%"/><col width="9%"/><col width="15%"/>
             </colgroup>
             <thead>
             <tr>
@@ -151,7 +151,7 @@
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td><a href="javascript://" class="_openBroadcastPop" data-roomNo="{{room_no}}">{{title}}</a></td>
             <td>{{lastUpdDateFormat}}</td>
-            <td style="word-break:break-all"><span>{{{replaceHtml contents}}}</span></td>
+            <td class="word-break" style=""><span>{{{replaceHtml contents}}}</span></td>
         </tr>
     {{/each}}
 </script>
