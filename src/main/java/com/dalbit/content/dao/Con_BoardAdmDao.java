@@ -1,6 +1,8 @@
 package com.dalbit.content.dao;
 
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.content.vo.BoardAdmFanBoardDeleteVo;
+import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
 import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,11 @@ public interface Con_BoardAdmDao {
     @Transactional(readOnly = true)
     ArrayList<BoardAdmFanBoardVo> selectFanBoardList(BoardAdmFanBoardVo boardAdmFanBoardVo);
 
+    int deleteFanBoard(BoardAdmFanBoardDeleteVo boardAdmFanBoardDeleteVo);
+
+    @Transactional(readOnly = true)
+    ArrayList<BoardAdmFanBoardReplyVo> selectReply(BoardAdmFanBoardReplyVo boardAdmFanBoardReplyVo);
+
     @Transactional(readOnly = true)
     int selectFanBoardListCnt(BoardAdmFanBoardVo boardAdmFanBoardVo);
 
@@ -24,5 +31,7 @@ public interface Con_BoardAdmDao {
     int selectStoryListCnt(BoardAdmStoryVo boardAdmStoryVo);
 
     ProcedureVo callStoryDelete(ProcedureVo procedureVo);
+
+
 
 }
