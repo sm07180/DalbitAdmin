@@ -4,11 +4,11 @@
 
     <insert id="sendEmail" parameterType="com.dalbit.common.vo.EmailVo">
         CALL c_dalbit.sp_dalbit_mail_send(
-            #{title}
+            CAST(_utf8 #{title} AS CHAR CHARACTER SET euckr)
             , #{rcvMemId}
             , #{rcvMail}
             , #{sendMail}
-            , #{msgCont}
+            CAST(_utf8 #{msgCont} AS CHAR CHARACTER SET euckr)
             , #{sendType}
         )
     </insert>

@@ -105,7 +105,8 @@
         var json = {
             values: chartData.x,
             labels: chartData.y,
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {
@@ -206,7 +207,8 @@
         var json = {
             values: chartData.genderAmt,
             labels: chartData.genderType,
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {
@@ -218,7 +220,8 @@
         var json = {
             values: chartData.ageAmt,
             labels: chartData.ageType,
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {
