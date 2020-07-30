@@ -4,6 +4,7 @@
 
     <sql id="baseExchangeHistory">
          SELECT a.*,
+                concat(mem_birth_year,'-',mem_birth_month,'-',mem_birth_day) as birth,
                 ifnull(exchangeCnt, 0)    exchangeCnt,
                 ifnull(totalCashBasic, 0) totalCashBasic,
                 ifnull(totalCashReal, 0)  totalCashReal
@@ -49,7 +50,9 @@
                         exchange.send_type,
                         exchange.last_upd_date,
                         wallet.gold,
-                        birth
+                        ifnull(basic.mem_birth_year,withdrawal.mem_birth_year) as mem_birth_year,
+                        lpad(ifnull(basic.mem_birth_month,withdrawal.mem_birth_month),2,'0') as mem_birth_month,
+                        lpad(ifnull(basic.mem_birth_day,withdrawal.mem_birth_day),2,'0') as mem_birth_day
                  FROM rd_data.tb_member_exchange exchange
                 INNER JOIN rd_data.tb_member_profile profile
                    ON exchange.mem_no = profile.mem_no
@@ -59,23 +62,6 @@
                    ON exchange.mem_no = basic.mem_no
                  LEFT JOIN rd_data.tb_member_withdrawal_bak withdrawal
                    ON exchange.mem_no = withdrawal.mem_no
-                 LEFT JOIN (select mem_no,
-                                 mem_nick,
-                                 mem_userid,
-                                 mem_id,
-                                 mem_phone,
-                                 `inner`,
-                                 concat(mem_birth_year, '-', IF(length(mem_birth_month) = 1, concat('0', mem_birth_month), mem_birth_month), '-', IF(length(mem_birth_day) = 1, concat('0', mem_birth_day), mem_birth_day)) as birth
-                              FROM rd_data.tb_member_basic
-                      UNION SELECT mem_no,
-                                   mem_nick,
-                                   mem_userid,
-                                   mem_id,
-                                   mem_phone,
-                                   `inner`,
-                                   concat(mem_birth_year, '-', IF(length(mem_birth_month) = 1, concat('0', mem_birth_month), mem_birth_month), '-', IF(length(mem_birth_day) = 1, concat('0', mem_birth_day), mem_birth_day)) as birth
-                              FROM rd_data.tb_member_withdrawal_bak) member
-                          ON exchange.mem_no = member.mem_no
                        INNER JOIN (select @RNUM := #{pageNo}) r
                         WHERE (exchange.state in (0, 1) or (exchange.state = 2))
                         order by exchange.idx desc) a
