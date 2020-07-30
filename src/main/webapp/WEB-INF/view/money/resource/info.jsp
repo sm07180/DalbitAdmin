@@ -52,8 +52,8 @@
     <div class="widget-content">
         <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
             <li class="active"><a href="#resourceTime" role="tab" data-toggle="tab" onclick="infoTabClick(0);">시간대별</a></li>
-            <li><a href="#resourceDay" role="tab" data-toggle="tab" onclick="infoTabClick(1);">일간별</a></li>
-            <li><a href="#resourceMonth" role="tab" data-toggle="tab" onclick="infoTabClick(2);">월간별</a></li>
+            <li><a href="#resourceDay" role="tab" data-toggle="tab" onclick="infoTabClick(1);">월간별</a></li>
+            <li><a href="#resourceMonth" role="tab" data-toggle="tab" onclick="infoTabClick(2);">연간별</a></li>
         </ul>
         <div class="tab-content no-padding">
             <div id="infoTable_dal"></div>
