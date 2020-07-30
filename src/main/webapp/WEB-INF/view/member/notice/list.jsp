@@ -51,7 +51,7 @@
 
                 util.getAjaxData("delete", "/rest/member/notice/delete",data, noticeDel_success);
             }
-        }return false;
+        } return false;
     }
 
     function noticeDel_success(dst_id, response){
