@@ -164,10 +164,17 @@
 
     function insertBanword(type){
         var banwords = '';
+        var wordList = new Array();
         $('._banword span.text-danger').each(function(){
-            banwords += $(this).text() + '|';
-        });
 
+            wordList.push({"word":$(this).text(), "len":$(this).text().length})
+        });
+        wordList.sort(function(a, b){
+            return a.len > b.len ? -1 : a.len < b.len ? 1 : 0;
+        });
+        wordList.each(function(i, word){
+            banwords += word.word + '|';
+        });
         banwords = banwords.substr(0, banwords.length-1);
         var data = {
             idx : $("#idx").val()
