@@ -6,9 +6,9 @@
     <div class="tab-content no-padding">
         <div class="tab-pane fade in active" id="storyList">
             <div class="widget-content">
-                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
+                <div class="dataTables_paginate paging_full_numbers" id="story_paginate_top"></div>
                 <div id="storyTable"></div>
-                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                <div class="dataTables_paginate paging_full_numbers" id="story_paginate"></div>
             </div>
         </div>
     </div>
@@ -20,7 +20,6 @@
     var StoryPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
-        // storyList();
     });
 
     function storyList() {
@@ -46,16 +45,16 @@
         $('#storyTable').html(html);
 
         StoryPagingInfo.totalCnt = response.pagingVo.totalCnt;
-        util.renderPagingNavigation('list_info_paginate_top', StoryPagingInfo);
-        util.renderPagingNavigation('list_info_paginate', StoryPagingInfo);
+        util.renderPagingNavigation('story_paginate_top', StoryPagingInfo);
+        util.renderPagingNavigation('story_paginate', StoryPagingInfo);
         StoryPagingInfo.pageNo=1;
 
         if(response.data.length == 0) {
-            $("storyList").find("#list_info_paginate_top").hide();
-            $("storyList").find('#list_info_paginate').hide();
+            $("storyList").find("#story_paginate_top").hide();
+            $("storyList").find('#story_paginate').hide();
         } else {
-            $("storyList").find("#list_info_paginate_top").show();
-            $("storyList").find('#list_info.paginate').show();
+            $("storyList").find("#story_paginate_top").show();
+            $("storyList").find('#story_paginate').show();
         }
     }
 
