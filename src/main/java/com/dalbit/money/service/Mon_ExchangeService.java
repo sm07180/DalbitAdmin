@@ -322,6 +322,8 @@ public class Mon_ExchangeService {
 
     public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
 
+        monExchangeOutputVo.setSocial_no(AES.encrypt(monExchangeOutputVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
+
         //최근 불가 모두 0으로 업데이트
         monExchangeDao.updateLastReject(monExchangeOutputVo);
         
