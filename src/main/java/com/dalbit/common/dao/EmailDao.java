@@ -8,7 +8,5 @@ import javax.annotation.Resource;
 
 @Repository
 public interface EmailDao {
-    @Qualifier("emailDataSource")
-    @Resource(name="email")
     int sendEmail(EmailVo emailVo);
 }

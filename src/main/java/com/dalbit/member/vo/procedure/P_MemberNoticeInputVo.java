@@ -9,4 +9,6 @@ import lombok.Setter;
 public class P_MemberNoticeInputVo extends SearchVo {
     private int pageNo;
     private String mem_no;
+    private String sDate;
+    private String eDate;
 }

@@ -32,7 +32,7 @@
             data.slctPlatform = tmp_slctPlatform;
             data.slctState = tmp_slctState;
         };
-        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, questionDataTableSource.questList);
+        dtList_info_detail = new DalbitDataTable($("#"+tmp).find("#list_info_detail"), dtList_info_detail_data, questionDataTableSource.memDetail_questList);
         dtList_info_detail.useCheckBox(false);
         dtList_info_detail.useIndex(true);
         dtList_info_detail.setPageLength(50);

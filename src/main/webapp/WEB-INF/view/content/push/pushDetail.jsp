@@ -109,7 +109,6 @@
                 fnc_pushDetail.target.find("input[name='is_direct']").prop("disabled", false);
 
                 fnc_pushDetail.target.find("input[name='slct_push']").prop("disabled", false);
-                fnc_pushDetail.target.find("input[name='slct_push'][value='2']").click();
 
             });
 
@@ -148,7 +147,7 @@
 
             fnc_pushDetail.target.find("input[name=slct_push]:radio").change(function () {
                 var type = this.value;
-                fnc_pushDetail.target.find("#input_targetLink").css("width", "150px");
+                fnc_pushDetail.target.find("#div_inputEtc").show();
                 if(type == "1"){ //room_no
                     fnc_pushDetail.target.find("#label_targetType").text("방송방 번호:");
                     fnc_pushDetail.target.find("#input_targetLink").show();
@@ -173,13 +172,10 @@
                     fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                     fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
                 }else if(type == "50"){ //redirect_url
-                    fnc_pushDetail.target.find("#label_targetType").text("URL:");
-                    fnc_pushDetail.target.find("#input_targetLink").show();
+                    fnc_pushDetail.target.find("#div_inputEtc").hide();
+                    fnc_pushDetail.target.find("#div_inputLink").show();
+
                     fnc_pushDetail.target.find("#input_targetLink").val("");
-                    fnc_pushDetail.target.find("#input_targetLink").css("width", "350px");
-                    fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
-                    fnc_pushDetail.target.find("#btn_selectMember_link").hide();
-                    fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
                 }else{
                     fnc_pushDetail.target.find("#label_targetType").text("");
                     fnc_pushDetail.target.find("#input_targetLink").hide();
@@ -206,13 +202,13 @@
 
             // 등록 버튼
             fnc_pushDetail.target.find("#insertBtn").on("click", function () {
-                if(!confirm("등록 하시겠습니까?")){
-                    return false;
-                }
-
                 var data = fnc_pushDetail.getDetailData();
 
                 if(!fnc_pushDetail.isValid(data)){
+                    return false;
+                }
+
+                if(!confirm("등록 하시겠습니까?")){
                     return false;
                 }
 
@@ -222,13 +218,13 @@
 
             // 수정 버튼
             fnc_pushDetail.target.find("#updateBtn").on("click", function () {
-                if(!confirm("재발송 하시겠습니까?")){
-                    return false;
-                }
-
                 var data = fnc_pushDetail.getDetailData();
 
                 if(!fnc_pushDetail.isValid(data)){
+                    return false;
+                }
+
+                if(!confirm("재발송 하시겠습니까?")){
                     return false;
                 }
 
@@ -281,7 +277,7 @@
 
 
             var type = detailData.slct_push;
-            fnc_pushDetail.target.find("#input_targetLink").css("width", "150px");
+            fnc_pushDetail.target.find("#div_inputEtc").show();
             if(type == "1"){ //room_no
                 fnc_pushDetail.target.find("#label_targetType").text("방송방 번호:");
                 fnc_pushDetail.target.find("#input_targetLink").show();
@@ -303,12 +299,14 @@
                 fnc_pushDetail.target.find("#btn_selectMember_link").hide();
                 fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
             }else if(type == "50"){ //redirect_url
-                fnc_pushDetail.target.find("#label_targetType").text("URL:");
-                fnc_pushDetail.target.find("#input_targetLink").show();
-                fnc_pushDetail.target.find("#input_targetLink").css("width", "350px");
-                fnc_pushDetail.target.find("#input_targetLink").attr("disabled", false);
-                fnc_pushDetail.target.find("#btn_selectMember_link").hide();
-                fnc_pushDetail.target.find("#btn_selectBroadcastLive_link").hide();
+                fnc_pushDetail.target.find("#div_inputEtc").hide();
+                fnc_pushDetail.target.find("#div_inputLink").show();
+
+                fnc_pushDetail.target.find("#input_targetLink").val("");
+                var links = JSON.parse(detailData.target_info);
+                fnc_pushDetail.target.find("#input_mobileLink").val(links.mobile)
+                fnc_pushDetail.target.find("#input_pcLink").val(links.pc)
+
             }else{
                 fnc_pushDetail.target.find("#label_targetType").text("");
                 fnc_pushDetail.target.find("#input_targetLink").hide();
@@ -538,8 +536,13 @@
                 resultJson['target_mem_no'] = '10000000000001';
 
             }else if(type == "50"){ //redirect_url
-                resultJson['redirect_url'] = fnc_pushDetail.target.find("#input_targetLink").val();
-                resultJson['target_info'] = fnc_pushDetail.target.find("#input_targetLink").val();
+                var inputLink = {
+                    "mobile" : fnc_pushDetail.target.find("#input_mobileLink").val()
+                    ,"pc" : fnc_pushDetail.target.find("#input_pcLink").val()
+                }
+
+                resultJson['redirect_url'] = inputLink.mobile;
+                resultJson['target_info'] = JSON.stringify(inputLink);
 
             }
 
@@ -649,8 +652,20 @@
                     }
                 }else if(type == "50") { //redirect_url
                     if (common.isEmpty(data.redirect_url)) {
-                        alert("이동 URL을 입력하여 주시기 바랍니다.");
-                        fnc_pushDetail.target.find("#input_targetLink").focus();
+                        alert("URL을 입력하여 주시기 바랍니다.");
+                        fnc_pushDetail.target.find("#input_mobileLink").focus();
+                        return false;
+                    }
+
+                    if(common.isEmpty(fnc_pushDetail.target.find("#input_mobileLink").val())){
+                        alert("Mobile URL을 입력하여 주시기 바랍니다.");
+                        fnc_pushDetail.target.find("#input_mobileLink").focus();
+                        return false;
+                    }
+
+                    if(common.isEmpty(fnc_pushDetail.target.find("#input_pcLink").val())){
+                        alert("PC URL을 입력하여 주시기 바랍니다.");
+                        fnc_pushDetail.target.find("#input_pcLink").focus();
                         return false;
                     }
 
@@ -833,11 +848,18 @@
             <tr>
                 <th>이동대상지정</th>
                 <td colspan="11">
-                    <div>
+                    <div id="div_inputEtc">
                         <label id="label_targetType"></label>
                         <input type="text" id="input_targetLink" value="{{target_info}}" data-targetinfo="{{target_info}}" style="display:none;">
                         <input type="button" value="회원검색" class="btn btn-success btn-xs" id="btn_selectMember_link" style="display:none;"/>
                         <input type="button" value="라이브방송방검색" class="btn btn-success btn-xs" id="btn_selectBroadcastLive_link" style="display:none;"/>
+                    </div>
+                    <div id="div_inputLink" style="display:none;">
+                        <label style="width:75px;">Mobile Link : </label>
+                        <input type="text" id="input_mobileLink" style="width:350px;">
+                        <br>
+                        <label style="width:75px;">PC Link : </label>
+                        <input type="text" id="input_pcLink" style="width:350px;">
                     </div>
                     <div style="padding-left: 30px;">
                     </div>

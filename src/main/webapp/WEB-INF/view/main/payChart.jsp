@@ -85,7 +85,7 @@
 
         var layout = {
             xaxis: { range: [0, chartData.max_x], autorange: false ,tickformat: ',d',},
-            yaxis: { range: [0, 12], autorange: false ,tickformat: ',d',},
+            yaxis: { range: [0, 10], autorange: false ,tickformat: ',d',},
             legend: { y: 1, y: 1, traceorder: 'reversed',separators : '.,'
                 , font: { size: 13 }
             },
@@ -105,7 +105,8 @@
         var json = {
             values: chartData.x,
             labels: chartData.y,
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {
@@ -130,8 +131,8 @@
             detailData.sum_vaAmt,
             detailData.sum_gmAmt,
             detailData.sum_hmAmt,
-            detailData.sum_ggAmt,
-            detailData.sum_gcAmt,
+            // detailData.sum_ggAmt,
+            // detailData.sum_gcAmt,
             detailData.sum_tmoneyAmt,
             detailData.sum_cashbeeAmt,
             detailData.sum_paycoAmt,
@@ -149,8 +150,8 @@
             detailData.sum_vaAmt,
             detailData.sum_gmAmt,
             detailData.sum_hmAmt,
-            detailData.sum_ggAmt,
-            detailData.sum_gcAmt,
+            // detailData.sum_ggAmt,
+            // detailData.sum_gcAmt,
             detailData.sum_tmoneyAmt,
             detailData.sum_cashbeeAmt,
             detailData.sum_paycoAmt,
@@ -163,8 +164,8 @@
             detailData.sum_vaCnt,
             detailData.sum_gmCnt,
             detailData.sum_hmCnt,
-            detailData.sum_ggCnt,
-            detailData.sum_gcCnt,
+            // detailData.sum_ggCnt,
+            // detailData.sum_gcCnt,
             detailData.sum_tmoneyCnt,
             detailData.sum_cashbeeCnt,
             detailData.sum_paycoCnt,
@@ -179,8 +180,8 @@
             "가상계좌아체",
             "문화상품권",
             "해피머니상품권",
-            "스마트문상(게임)",
-            "도서문화상품권",
+            // "스마트문상(게임)",
+            // "도서문화상품권",
             "티머니",
             "캐시비",
             "페이코",
@@ -206,7 +207,8 @@
         var json = {
             values: chartData.genderAmt,
             labels: chartData.genderType,
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {
@@ -218,7 +220,8 @@
         var json = {
             values: chartData.ageAmt,
             labels: chartData.ageType,
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {

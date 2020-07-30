@@ -3,8 +3,16 @@ var BannerDataTableSource = {
         'url': '/rest/content/banner/list'
 
         , 'columns': [
-            {'title': '노출구분', 'data': 'view_type', 'render': function (data, type, row, meta) {
-                    return util.getCommonCodeLabel(data, banner_loginType);
+            {'title': '플랫폼', 'data': 'platform', 'render': function (data, type, row, meta) {
+                if(data == '111'){
+                    return '전체'
+                }
+
+                /*data.split('').each(function(index){
+                    console.log(index);
+                });*/
+                return data;
+                    //return util.getCommonCodeLabel(data, banner_loginType);
                 }},
             {'title': '배너구분', 'data': 'position', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, banner_bannerType);
@@ -15,7 +23,7 @@ var BannerDataTableSource = {
                     }
 
                     // return '<img src="'+data+'?45x45" style="width: 45px; height: 45px;" data-toggle="modal" data-target="#imgModal" onclick="fullSize(this.src);" />'
-                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" height="50px" />';
+                    return '<img class="thumbnail fullSize_background" src="'+ data +'" width="50px" max-height="50px" />';
 
                 }},
             {'title': '배너 제목', 'data': 'title', 'render': function (data, type, row, meta) {

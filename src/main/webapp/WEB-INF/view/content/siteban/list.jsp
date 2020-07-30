@@ -27,16 +27,17 @@
 
                         <div class="widget-content">
                             <form id="form">
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="col-xs-4 no-padding">
-                                        <input class="form-control" id="banword" type="text" placeholder="등록할 금지어를 입력해주세요." />
-                                    </div>
-                                    <button type="button" id="regBtn" class="btn-success btn pull-left">등록</button>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <div class="col-xs-4 no-padding">
+                                            <input class="form-control" id="banword" type="text" placeholder="등록할 금지어를 입력해주세요." />
+                                        </div>
+                                        <button type="button" id="regBtn" class="btn-success btn pull-left">등록</button>
 
-                                    <button type="button" class="btn btn-default pull-right" id="deleteBtn2"><i class="fa fa-trash-o"></i>선택삭제</button>
+                                        <button type="button" class="btn btn-default pull-right" id="deleteBtn2"><i class="fa fa-trash-o"></i>선택삭제</button>
+                                    </div>
                                 </div>
-                            </div>
+                                <input type="text" name="dummy" style="display:none;" />
                             </form>
                             <table id="list" class="table table-sorting table-hover-ban table-bordered datatable ui-pg-table">
                                 <%--<colgroup>
@@ -90,11 +91,8 @@
     }
 
     function fn_succ_list(dst_id, response){
-        console.log(response);
-
         if(dst_id == 'insert'){
             ui.topScroll();
-            $("#banword").val('');
             alert('등록되었습니다.');
         }else if(dst_id == 'delete'){
             ui.topScroll();
@@ -112,6 +110,13 @@
 
 
     }
+
+    $("#banword").on('keydown', function(event){
+        if (event.keyCode === 13) {
+            $("#regBtn").click();
+        };
+    });
+
 
     $(document).on('click', '._banword', function(){
         var checkbox = $(this).parent().find('input[type="checkbox"]');
@@ -172,6 +177,7 @@
         util.getAjaxData(type, '/rest/content/siteban/update', data, fn_succ_updt);
     }
     function fn_succ_updt(){
+        $("#banword").val('');
         init();
     }
 

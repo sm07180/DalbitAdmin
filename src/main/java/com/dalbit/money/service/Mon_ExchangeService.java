@@ -315,11 +315,14 @@ public class Mon_ExchangeService {
 
     public String updateExchangeDetail(Mon_ExchangeOutputVo monExchangeOutputVo){
 
+        monExchangeOutputVo.setSocial_no(AES.encrypt(monExchangeOutputVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
         monExchangeDao.updateExchangeDetail(monExchangeOutputVo);
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
     }
 
     public String updateExchangeComplete(Mon_ExchangeOutputVo monExchangeOutputVo) throws GlobalException {
+
+        monExchangeOutputVo.setSocial_no(AES.encrypt(monExchangeOutputVo.getSocial_no(), DalbitUtil.getProperty("social.secret.key")));
 
         //최근 불가 모두 0으로 업데이트
         monExchangeDao.updateLastReject(monExchangeOutputVo);

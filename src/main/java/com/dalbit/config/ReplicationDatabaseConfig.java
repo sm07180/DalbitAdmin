@@ -125,15 +125,16 @@ public class ReplicationDatabaseConfig {
     @Bean
     public DataSource emailDataSource() {
         HikariConfig emailHikariConfig = new HikariConfig();
-        //emailHikariConfig.setDriverClassName(JDBC_EMAIL_DRIVER_CLASS_NAME);
+        emailHikariConfig.setDriverClassName(JDBC_EMAIL_DRIVER_CLASS_NAME);
         emailHikariConfig.setJdbcUrl(JDBC_EMAIL_URL);
         emailHikariConfig.setUsername(JDBC_EMAIL_USERNAME);
         emailHikariConfig.setPassword(JDBC_EMAIL_PASSWORD);
-        emailHikariConfig.setMaximumPoolSize(JDBC_SLAVE_MAXIMUM_POOL_SIZE);
-        emailHikariConfig.setMinimumIdle(JDBC_SLAVE_MINIMUM_IDLE);
+        emailHikariConfig.setMaximumPoolSize(JDBC_EMAIL_MAXIMUM_POOL_SIZE);
+        emailHikariConfig.setMinimumIdle(JDBC_EMAIL_MINIMUM_IDLE);
         emailHikariConfig.setConnectionTimeout(CONNECTION_TIMEOUT);
         emailHikariConfig.setIdleTimeout(IDLE_TIMEOUT);
         emailHikariConfig.setMaxLifetime(MAX_LIFETIME);
+        emailHikariConfig.setConnectionTestQuery("select 1");
 
         return new HikariDataSource(emailHikariConfig);
     }

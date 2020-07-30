@@ -143,7 +143,8 @@
         var json = {
             values: chartData.sumPlaform,
             labels: ['안드로이드', 'IOS', 'PC'],
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
 
         var data = [json];
@@ -274,7 +275,8 @@
         var json = {
             values: chartData.sumGender,
             labels: ['남', '여', '알수없음'],
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {
@@ -285,7 +287,8 @@
         var json = {
             values: chartData.sumAge,
             labels: ['10대','20대','30대','40대','50대','60대'],
-            type: 'pie'
+            type: 'pie',
+            hole: .6
         }
         var data = [json];
         var layout = {

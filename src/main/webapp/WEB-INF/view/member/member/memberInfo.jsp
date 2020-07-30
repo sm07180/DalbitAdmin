@@ -278,6 +278,16 @@
                 }else return;
 
             }else if(tmp == "bt_bg_img"){                        //배경사진초기화
+                if(memberInfo_responseDate.broadcastState != "ON"){
+                    alert("종료된 방송방은 수정이 불가능 합니다.");
+                    return;
+                }
+
+                if(memberInfo_responseDate.roomBgImage.indexOf("/bg_3/roombg") > -1){
+                    alert("이미 기본 배경이미지 입니다.");
+                    return;
+                }
+
                 if(confirm("방송방 배경 이미지를 초기화 하시겠습니까?")){
                     obj.mem_no = memNo;
                     obj.room_no = memberInfo_responseDate.room_no;
@@ -285,6 +295,7 @@
                     util.getAjaxData("initBgImg", "/rest/member/member/initBgImg", obj, member_update_success, fn_fail);
                     return;
                 }else return;
+
             }else if(tmp == "bt_resatPass"){
                 if(common.isEmpty($("#txt_phon").val().replace(/-/gi, ""))){
                     alert("전화번호를 입력해 주십시오.");
@@ -787,7 +798,7 @@
 
 <script id="tmp_memberInfoFrm" type="text/x-handlebars-template">
     <label style="height: 30px;"> ㆍ회원상세 정보입니다. 일부 정보 수정 시 버튼 클릭하면 즉시 적용 됩니다.</label>
-    <table class="table table-bordered table-dalbit colorV2" style="margin-bottom: 0px;">
+    <table class="table table-bordered table-dalbit borderBlack" style="margin-bottom: 0px;">
         <colgroup>
             <col width="6%"/>
             <col width="18%"/>

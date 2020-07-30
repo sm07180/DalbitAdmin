@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class ReplicationRoutingDataSource extends AbstractRoutingDataSource {
 
-    @Autowired
-    HttpServletRequest request;
-
     @Override
     protected Object determineCurrentLookupKey() {
 
