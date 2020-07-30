@@ -15,9 +15,9 @@
     <div class="tab-content no-padding">
         <div class="tab-pane fade in active">
             <div class="widget-content">
-                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate_top"></div>
+                <div class="dataTables_paginate paging_full_numbers" id="fanBoard_paginate_top"></div>
                 <div id="fanBoardTable"></div>
-                <div class="dataTables_paginate paging_full_numbers" id="list_info_paginate"></div>
+                <div class="dataTables_paginate paging_full_numbers" id="fanBoard_paginate"></div>
             </div>
         </div>
     </div>
@@ -45,7 +45,6 @@
     var fanBoardPagingInfo = new PAGING_INFO(0,1,100);
 
     $(document).ready(function() {
-       fanBoardList();
     });
 
     function fanBoardList() {
@@ -54,6 +53,9 @@
         var data = {
             'pageStart' : fanBoardPagingInfo.pageNo
             , 'pageCnt' : fanBoardPagingInfo.pageCnt
+            , 'txt_search' : $('#txt_search').val()
+            , 'start_sel' : $("#startDate").val()
+            , 'end_sel' : $("#endDate").val()
         };
         util.getAjaxData("fanBoardList", "/rest/content/boardAdm/fanBoardList", data, fn_success_fanBoardList);
     }
@@ -67,16 +69,16 @@
         $('#fanBoardTable').html(html);
 
         fanBoardPagingInfo.totalCnt = response.pagingVo.totalCnt;
-        util.renderPagingNavigation('list_info_paginate_top', fanBoardPagingInfo);
-        util.renderPagingNavigation('list_info_paginate', fanBoardPagingInfo);
+        util.renderPagingNavigation('fanBoard_paginate_top', fanBoardPagingInfo);
+        util.renderPagingNavigation('fanBoard_paginate', fanBoardPagingInfo);
         fanBoardPagingInfo.pageNo=1;
 
         if(response.data.length == 0) {
-            $("#list_info_paginate_top").hide();
-            $('#list_info_paginate').hide();
+            $("#fanBoard_paginate_top").hide();
+            $('#fanBoard_paginate').hide();
         } else {
-            $("#list_info_paginate_top").show();
-            $('#list_info.paginate').show();
+            $("#fanBoard_paginate_top").show();
+            $('#fanBoard_paginate').show();
         }
 
         function handlebarsPaging(targetId, pagingInfo) {
