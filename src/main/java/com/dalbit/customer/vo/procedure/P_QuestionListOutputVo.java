@@ -25,7 +25,13 @@ public class P_QuestionListOutputVo extends BaseVo {
     private int slct_type;
     private String question_title;
     private String question_contents;
-    private String add_file;
+    private String add_file1;
+    private String file_name1;
+    private String add_file2;
+    private String file_name2;
+    private String add_file3;
+    private String file_name3;
+    private String fileCnt;
     private String email;
     private String answer;
     private int state;
