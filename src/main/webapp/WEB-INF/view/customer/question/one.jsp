@@ -366,9 +366,9 @@
                         -
                         {{else}}
                         <form id="profileImg" method="post" enctype="multipart/form-data">
-                            <img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file1}}" alt="your image" style="width: 150px;height: 150px" />
-                            <img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file2}}" alt="your image" style="width: 150px;height: 150px" />
-                            <img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file3}}" alt="your image" style="width: 150px;height: 150px" />
+                            {{#dalbit_if ../add_file1 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file1}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
+                            {{#dalbit_if ../add_file2 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file2}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
+                            {{#dalbit_if ../add_file3 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file3}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
                             <button type="button" id="bt_fileDel" class="btn btn-danger btn-sm" style="margin-left: 10px" onclick="fileDel();">첨부파일 삭제</button>
                         </form>
                         {{/equal}}
