@@ -194,6 +194,7 @@
             reportPopup();
         });
         $('#bt_state').click(function() {           // 상태 정상으로 변경
+            console.log("@@@@@@@@@@@@@@@@");
             stateEdit();
         });
 
@@ -579,6 +580,8 @@
     }
 
     function stateEdit() {
+        console.log("---------------------------------------");
+        console.log(memNo);
         if(confirm("상태를 정상으로 변경 하시겠습니까?")) {
             var obj = new Object();
             obj.mem_no = memNo;
