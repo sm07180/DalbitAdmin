@@ -102,7 +102,7 @@
                     <td style="border-color: black">{{{getCommonCodeLabel slctType 'notice_slctType' 'Y' ''}}}</td>
 
                     <th style="border-color: black">제목</th>
-                    <td colspan="5" style="border-color: black">{{title}}</td>
+                    <td colspan="5" style="border-color: black">{{{title}}}</td>
 
                     <th style="border-color: black">조회수</th>
                     <td style="border-color: black">{{addComma viewCnt}}</td>

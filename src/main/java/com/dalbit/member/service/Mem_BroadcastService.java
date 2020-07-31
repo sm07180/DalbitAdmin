@@ -8,6 +8,7 @@ import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_BroadcastDao;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
@@ -17,10 +18,14 @@ import com.dalbit.member.vo.procedure.P_MemberBroadcastOutputVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
+import okhttp3.FormBody;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -49,6 +54,9 @@ public class Mem_BroadcastService {
     @Value("${ant.app.name}")
     private String antName;
 
+    @Value("${server.api.url}")
+    private String SERVER_API_URL;
+
     public String getBroadHistory(P_MemberBroadcastInputVo pMemberBroadcastInputVo){
 
         ProcedureVo procedureVo = new ProcedureVo(pMemberBroadcastInputVo);
@@ -67,7 +75,7 @@ public class Mem_BroadcastService {
     /**
      * 회원 방송 강제 종료
      */
-    public String forcedEnd(MemberVo MemberVo) {
+    public String forcedEnd(MemberVo MemberVo) throws GlobalException {
         ArrayList<P_MemberBroadcastOutputVo> list = mem_BroadcastDao.callbroadCastList(MemberVo);
 
         P_MemberAdminMemoAddVo pMemberAdminMemoAddVo = new P_MemberAdminMemoAddVo();
@@ -95,39 +103,58 @@ public class Mem_BroadcastService {
             bro_BroadcastDao.callBroadcastInfo(procedureVo2);
 
             P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo2.getExt(), P_BroadcastDetailOutputVo.class);
-            P_BroadcastEditInputVo pBroadcastEditInputVo = new P_BroadcastEditInputVo();
-            pBroadcastEditInputVo.setRoom_no(room_no);
-            pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
+//            P_BroadcastEditInputVo pBroadcastEditInputVo = new P_BroadcastEditInputVo();
+//            pBroadcastEditInputVo.setRoom_no(room_no);
+//            pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
+//
+//            // 회원 방 나가기 상태
+//            bro_BroadcastDao.callBroadcastMemberExit(pBroadcastEditInputVo);
+//            // 방 종료 상태
+//            bro_BroadcastDao.callBroadcastExit(pBroadcastEditInputVo);
+//
+//            //option
+//            HashMap<String,Object> param = new HashMap<>();
+//            param.put("roomNo",room_no);
+//            param.put("memNo",MemberVo.getMem_no());
+//
+//            //option
+//            param.put("ctrlRole","");
+//            param.put("recvMemNo","roomOut");
+//            param.put("recvType","chat");
+//            param.put("recvPosition","chat");
+//            param.put("recvLevel",0);
+//            param.put("recvTime",0);
+//
+//            socketUtil.setSocket(param,"chatEnd","roomOut",jwtUtil.generateToken(MemberVo.getMem_no(), true));
+            OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
 
-            // 회원 방 나가기 상태
-            bro_BroadcastDao.callBroadcastMemberExit(pBroadcastEditInputVo);
-            // 방 종료 상태
-            bro_BroadcastDao.callBroadcastExit(pBroadcastEditInputVo);
-
-            //option
-            HashMap<String,Object> param = new HashMap<>();
-            param.put("roomNo",room_no);
-            param.put("memNo",MemberVo.getMem_no());
-
-            //option
-            param.put("ctrlRole","");
-            param.put("recvMemNo","roomOut");
-            param.put("recvType","chat");
-            param.put("recvPosition","chat");
-            param.put("recvLevel",0);
-            param.put("recvTime",0);
-
-            socketUtil.setSocket(param,"chatEnd","roomOut",jwtUtil.generateToken(MemberVo.getMem_no(), true));
-
+            var formBody = new FormBody.Builder()
+                    .add("room_no", room_no)
+                    .add("start_date", broadcastDetail.getStartDate())
+                    .add("mem_no", MemberVo.getMem_no())
+                    .build();
             try{
-                HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(room_no);
-                if(broadInfo != null && !DalbitUtil.isEmpty(broadInfo.get("bjStreamId"))){
-                    OkHttpClientUtil httpUtil = new OkHttpClientUtil();
-                    httpUtil.sendDelete(antServer + "/" + antName + "/rest/v2/broadcasts/" + broadInfo.get("bjStreamId"));
-                }
-            }catch (Exception e){
+                String url = SERVER_API_URL + "/admin/broadcast/forceExit";
+                Response response = okHttpClientUtil.sendPost(url, formBody);
+                String inforexLoginResult = response.body().string();
+                log.debug(inforexLoginResult);
+
+//                return gsonUtil.toJson(new JsonOutputVo(Status.방송방메시지발송_성공));
+            }catch (IOException | GlobalException e){
                 e.printStackTrace();
+//                throw new GlobalException(Status.방송방메시지발송_에러);
             }
+
+
+//            try{
+//                HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(room_no);
+//                if(broadInfo != null && !DalbitUtil.isEmpty(broadInfo.get("bjStreamId"))){
+//                    OkHttpClientUtil httpUtil = new OkHttpClientUtil();
+//                    httpUtil.sendDelete(antServer + "/" + antName + "/rest/v2/broadcasts/" + broadInfo.get("bjStreamId"));
+//                }
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
         }
 
         String result = "";
