@@ -127,7 +127,7 @@ public class Mem_MemberRestController {
      * 회원 경고/정지
      */
     @PostMapping("report")
-    public String report(P_MemberReportVo pMemberReportVo, HttpServletRequest request){
+    public String report(P_MemberReportVo pMemberReportVo, HttpServletRequest request) throws GlobalException{
         pMemberReportVo.setIp(DalbitUtil.getIp(request));
         pMemberReportVo.setBrowser(DalbitUtil.getUserAgent(request));
 
