@@ -8,10 +8,12 @@ var BannerDataTableSource = {
                     return '전체'
                 }
 
-                /*data.split('').each(function(index){
-                    console.log(index);
-                });*/
-                return data;
+                var platformData = data.split('');
+                var platformDisplay = platformData[0] == '1' ? 'PC<br />' : '';
+                    platformDisplay += platformData[1] == '1' ? 'Android<br />' : '';
+                    platformDisplay += platformData[2] == '1' ? 'IOS' : '';
+
+                return platformDisplay;
                     //return util.getCommonCodeLabel(data, banner_loginType);
                 }},
             {'title': '배너구분', 'data': 'position', 'render': function (data, type, row, meta) {

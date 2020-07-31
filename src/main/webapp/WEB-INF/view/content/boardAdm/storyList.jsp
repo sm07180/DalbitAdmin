@@ -120,7 +120,7 @@
                 {{^equal dj_mem_nick ''}}
                 {{{memNoLink ../dj_mem_nick ../dj_mem_no}}}
                 {{else}}
-                -
+                (탈퇴한 회원)
                 {{/equal}}
             </td>
             <td>
@@ -135,7 +135,7 @@
                 {{^equal send_mem_nick ''}}
                 {{{memNoLink ../send_mem_nick ../send_mem_no}}}
                 {{else}}
-                -
+                (탈퇴한 회원)
                 {{/equal}}
             </td>
             <td>
