@@ -24,9 +24,9 @@
         getRes_withdrawalList(targetMemNo);
     });
 
-    $(document).on('click', '#bt_state', function() {           // 상태 정상으로 변경
+    $(document).on('click', '#bt_state_withdrawalList', function() {           // 상태 정상으로 변경
         var memNo = $(this).data("memno");
-        stateEdit(memNo);
+        stateEdit_withdrawalList(memNo);
     });
 
     $(document).on('change', '#opCode', function() {          // 경고/정지회원 회원상태 select
@@ -66,15 +66,15 @@
         dtList_info.createDataTable();
     }
 
-    function stateEdit(memNo) {
+    function stateEdit_withdrawalList(memNo) {
         if(confirm("상태를 정상으로 변경 하시겠습니까?")) {
             var obj = new Object();
             obj.mem_no = memNo;
-            util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_success, fn_fail);
+            util.getAjaxData("editor", "/rest/member/member/state_edit", obj, state_edit_withdrawalList_success, fn_fail);
         }return false;
     }
 
-    function state_edit_success(dst_id, response) {
+    function state_edit_withdrawalList_success(dst_id, response) {
         getRestrictionsInfo();
     }
 
