@@ -116,7 +116,11 @@
             sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
             $("#startDate").val(sDate);
         }else if(_searchFormRadio == 0) {       // 한달전
-            $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
+            // $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));       // 06.31과 같은 예외가 나와 수정했습니다
+            setMonth = date.getMonth();
+            setDay = (new Date(date.getFullYear(), date.getMonth(), 0)).getDate();
+            sDate = date.getFullYear() + "." + common.lpad(setMonth, 2, "0") + "." + common.lpad(setDay, 2, "0");
+            $('#startDate').val(sDate);
         }
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 
