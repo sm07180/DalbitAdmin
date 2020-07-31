@@ -94,13 +94,16 @@
             var data = {
               'mem_no' : $(this).data('memno')
               , 'board_no' : $(this).data('board_no')
+                , 'idx' : $(this).data('idx')
             };
             util.getAjaxData("selectReply", "/rest/content/boardAdm/selectReply", data, fn_success_selectReply);
         }
     });
 
     function fn_success_selectReply(dst_id, response) {
-        // dalbitLog(response);
+        if(response.data.length == 0) {
+            alert('삭제된 댓글입니다');
+        }
         $('#div_reply').empty();
         $('#div_fanboard').empty();
         for(var i=0 ; i<response.data.length; i++){
@@ -230,7 +233,7 @@
                 <td>{{{getCommonCodeLabel status 'fanBoard_status'}}}</td>
                 <td>{{convertToDate last_upd_date 'YYYY-MM-DD HH:mm:ss'}}</td>
                 <td>{{replaceHtml contents}}</td>
-                <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-memno="{{star_mem_no}}">[댓글]</a></td>
+                <td>{{replyCnt}}<a href="javascript://" class="_selectReply" data-idx="{{idx}}" data-board_no="{{board_no}}" data-reply="{{replyCnt}}" data-memno="{{star_mem_no}}">[댓글]</a></td>
                 <td><a href="javascript://" class="_deleteFanBoard" data-idx="{{idx}}" data-status="{{status}}">[삭제]</a></td>
             </tr>
         {{else}}
