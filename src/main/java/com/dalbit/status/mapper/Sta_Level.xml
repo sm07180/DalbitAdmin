@@ -7,8 +7,8 @@
                 , @levelUpDate := (select date_format(last_upd_date,'%Y.%m.%d %H:%i:%s')  from rd_data.tb_member_exp_history where mem_no = a.mem_no AND level_up = 1 ORDER BY idx DESC LIMIT 1 ) AS levelUpDate
                 , TIMESTAMPDIFF(DAY, date_format(@levelUpDate,'%Y.%m.%d'), date_format(now(),'%Y.%m.%d')) as levelUpDay
                 , a.mem_sex,(date_format(now(),'%Y') - mem_birth_year + 1) as age
-                , d.last_broadcast as broadDate
-                , d.last_listen as listenDate
+                , date_format(d.last_broadcast,'%Y.%m.%d %H:%i:%s') as broadDate
+                , date_format(d.last_listen,'%Y.%m.%d %H:%i:%s') as listenDate
                 , d.newdj_badge
                 , d.specialdj_badge
                 , (select badge_value from rd_data.tb_member_badge where mem_no = a.mem_no and slct_type='1') badge_value
@@ -18,11 +18,14 @@
                 , ((select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level + 1) - (select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level)) as nextLevelExp
                 , (SELECT IFNULL(SUM(ruby_old - ruby_new), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` in (2,3,4) AND ( mem_no =a.mem_no ) ) AS present
                 , (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` = 5 AND ( mem_no = a.mem_no ) ) AS receive
+                , @lastLoginDate := (select date_format(last_upd_date,'%Y.%m.%d %H:%i:%s') from rd_data.tb_member_connect_state where mem_no=a.mem_no) as lastLoginDate
+                , TIMESTAMPDIFF(DAY, date_format(@lastLoginDate,'%Y.%m.%d'), date_format(now(),'%Y.%m.%d')) as loginDay
           from rd_data.tb_member_basic a
          inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
          inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no
           left join rd_data.tb_member_profile d on a.mem_no = d.mem_no
             , (select @rownum := #{pageStart}) r
+            , (select @ranking := #{pageStart}) ranking
         where (a.mem_nick like concat('%', #{searchText}, '%') or a.mem_no like concat('%', #{searchText}, '%') or a.mem_userid like concat('%', #{searchText}, '%'))
         <if test='level != null and level !="" '>
             and b.`level` = #{level}
@@ -33,14 +36,22 @@
         <if test="include == 1">
             and a.mem_join_date >= date_add(now(),interval -14 day)
         </if>
+        <if test="filter">
+            limit 100
+        </if>
     </sql>
 
     <select id="getMemberLevelList" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">
         /* Sta_Level.xml - getLevelList */
-        select @rownum := @rownum + 1 as rowNum,a.*
+        select @rownum := @rownum + 1 as rowNum, @ranking := @ranking + 1 as ranking ,a.*
         from (
         <include refid="levelCondition"/>
         ) a
+        <if test="filter">
+            where a.lastLoginDate >= date_add(now(),interval -8 day)
+              and a.mem_no in (select mem_no_star from rd_data.tb_member_fanstar where mem_no_star = a.mem_no)
+        </if>
+
         order by exp desc
         limit #{pageStart}, #{pageCnt}
     </select>
@@ -75,6 +86,7 @@
         <if test="include == 1">
             and a.mem_join_date >= date_add(now(),interval -14 day)
         </if>
+
     </select>
 
     <select id="getLevelSummary" parameterType="com.dalbit.status.vo.procedure.P_LevelInputVo" resultType="com.dalbit.status.vo.procedure.P_LevelOutputVo">

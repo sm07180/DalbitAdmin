@@ -14,5 +14,6 @@ public class P_LevelInputVo extends SearchVo {
     private String level;
     private int inner;
     private String include;
+    private int filter;
 
 }

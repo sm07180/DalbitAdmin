@@ -24,7 +24,7 @@
         , report.op_name	AS op_name
         , report.reason	AS reason
         , report.op_msg	AS op_msg
-        , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
+        , (SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
         , basic.mem_phone		AS mem_phone
         , report.op_date		AS start_date
         , basic.block_end_date	AS end_date
@@ -40,7 +40,9 @@
             <if test='opCode != null and opCode != "" and opCode != "-1" '>
                 AND report.op_code = #{opCode}
             </if>
-            AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+              AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         ORDER BY report.op_date desc
         ) AS a
@@ -114,7 +116,7 @@
         , report.op_name	AS op_name
         , report.reason	AS reason
         , report.op_msg	AS op_msg
-        , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
+        , (SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = basic.mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS device_uuid
         , basic.mem_phone		AS mem_phone
         , report.op_date		AS start_date
         , basic.block_end_date	AS end_date
@@ -130,7 +132,9 @@
             <if test='opCode != null and opCode != "" and opCode != "-1" '>
                 AND report.op_code = #{opCode}
             </if>
-            AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+              AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         ) AS a
         <where>
@@ -194,7 +198,7 @@
         ,IFNULL(basic.mem_sex, (SELECT mem_sex FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_sex
         ,IFNULL(basic.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_name
         ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
-        ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)		 AS device_uuid
+        ,(SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)		 AS device_uuid
         ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
         , (SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.mem_no) AS mem_ip
         , listen.last_upd_date	 AS last_upd_date
@@ -207,7 +211,7 @@
         ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
         ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
         ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
-        ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
+        ,(SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
         FROM
         rd_data.tb_member_broadcast_listening AS listen
         LEFT JOIN
@@ -218,7 +222,9 @@
         rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
         <where>
             listen.forced = 'Y'
-            AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+                AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         GROUP BY listen.room_no, listen.mem_no
         ORDER BY listen.last_upd_date DESC
@@ -305,7 +311,6 @@
         </where>
     </select>
 
-    <!-- 방송 강제퇴장 회원 LIST-->
     <select id="getForcedList" parameterType="com.dalbit.customer.vo.procedure.P_ForcedListInputVo" resultType="com.dalbit.customer.vo.procedure.P_ForcedListOutputVo">
         /* Cus_Restrictions.xml - getForcedList */
         SELECT
@@ -324,7 +329,7 @@
         ,IFNULL(basic.mem_birth_month, (SELECT mem_birth_month FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_month
         ,IFNULL(basic.mem_birth_day, (SELECT mem_birth_day FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_birth_day
         ,((date_format(now(),'%Y') - (IFNULL(basic.mem_birth_year, (SELECT mem_birth_year FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)))) + 1) AS mem_age
-        , (SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)	 AS device_uuid
+        , (SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.mem_no ORDER BY last_upd_date DESC LIMIT 1)	 AS device_uuid
         ,IFNULL(basic.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.mem_no)) AS mem_phone
         ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.mem_no) AS mem_ip
         , listen.last_upd_date	 AS last_upd_date
@@ -337,7 +342,7 @@
         ,IFNULL(dj.mem_name, (SELECT mem_name FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_name
         ,IFNULL(dj.mem_phone, (SELECT mem_phone FROM rd_data.tb_member_withdrawal_bak WHERE mem_no = listen.dj_mem_no)) AS dj_mem_phone
         ,(SELECT ip FROM rd_data.tb_member_connect_state WHERE mem_no = listen.dj_mem_no) AS dj_mem_ip
-        ,(SELECT device_uuid FROM rd_data.tb_member_session_history WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
+        ,(SELECT device_uuid FROM rd_data.tb_member_session WHERE mem_no = listen.dj_mem_no ORDER BY last_upd_date DESC LIMIT 1)	AS dj_device_uuid
         FROM
         rd_data.tb_member_broadcast_listening AS listen
         LEFT JOIN
@@ -348,7 +353,9 @@
         rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
         <where>
             listen.forced = 'Y'
-            AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+                AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         GROUP BY listen.room_no, listen.mem_no
         ORDER BY listen.last_upd_date DESC
@@ -436,5 +443,6 @@
         </where>
         LIMIT  #{pageStart}, #{pageCnt}
     </select>
+    <!-- 방송 강제퇴장 회원 LIST-->
 
 </mapper>

@@ -3,7 +3,8 @@ var levelDataTableSource = {
         'url': '/rest/status/level/list'
 
         , 'columns': [
-            {'title': '레벨', 'data' : 'level', 'width':'40px'}
+            {'title': '순위', 'data' : 'ranking', 'width':'40px'}
+            ,{'title': '레벨', 'data' : 'level', 'width':'40px'}
             ,{'title': '명칭', 'data' : 'grade', 'width':'80px'}
             ,{'title': '경험치(비율)', 'data' : 'memExp', 'width':'80px', 'render': function (data, type, row, meta) {
                     return data + "(" + Number(row.expPro).toFixed(2) + "%)";
@@ -37,8 +38,11 @@ var levelDataTableSource = {
                 }}
             ,{'title': '최근방송일시', 'data' : 'broadDate', 'width':'80px'}
             ,{'title': '최근청취일시', 'data' : 'listenDate', 'width':'80px'}
-            ,{'title': '최근레벨업일시<br/>(며칠 전)', 'data' : 'levelUpDate', 'width':'80px','render' : function(data, type, row, meta) {
+            ,{'title': '최근레벨업일시<br/>(며칠 전)', 'data' : 'levelUpDate', 'width':'90px','render' : function(data, type, row, meta) {
                     return data + '<br/>(' + row.levelUpDay + '일 전)';
+                }}
+            ,{'title': '최근 접속 기록', 'data' : 'lastLoginDate', 'width':'90px','render' : function(data, type, row, meta) {
+                    return data + '<br/>(' + row.loginDay + '일 전)';
                 }}
             ,{'title': '1위팬 닉네임<br/>(선물 수)', 'data' : 'fanNickName', 'width':'100px','render' : function(data, type, row, meta) {
                     if(row.totRcvRubyCnt > 0){

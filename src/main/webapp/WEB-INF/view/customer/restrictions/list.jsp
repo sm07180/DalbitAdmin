@@ -126,15 +126,17 @@
     function getRestrictionsInfo(type) {                 // 검색
         // if(!common.isEmpty(type)){setTabType(type)};
 
-        $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
+        if(!common.isEmpty($("#startDate").val())){
+            $("._searchDate").html($("#startDate").val() + " (" + toDay + ")");
+        }
         // $('#tabList_top').removeClass("show");
 
         if(tabType == "1"){
             $("#tab_withdrawalList").click();
-            getRes_withdrawalList();
+            // getRes_withdrawalList();
         }else if(tabType == "2"){
             $("#tab_forcedList").click();
-            getRes_forcedList();
+            // getRes_forcedList();
         }
     }
 
@@ -142,7 +144,7 @@
     dateTime = moment(dateTime).format("YYYY.MM.DD");
     var week = ['일', '월', '화', '수', '목', '금', '토'];
     var toDay = week[moment(new Date()).day()];
-    setTimeDate(dateTime);
+    // setTimeDate(dateTime);
 
 
     $(document).on('click', '._prevSearch', function(){
