@@ -443,5 +443,6 @@
         </where>
         LIMIT  #{pageStart}, #{pageCnt}
     </select>
+    <!-- 방송 강제퇴장 회원 LIST-->
 
 </mapper>

@@ -146,7 +146,7 @@
                 {{/equal}}
             </td>
             <td>{{convertToDate send_date "YYYY.MM.DD HH:mm:ss"}}</td>
-            <td class="word-break">{{story_content}}</td>
+            <td class="word-break">{{replaceHtml story_content}}</td>
             <td><div style="width:45px;"><a href="javascript://" class="_deleteStory" data-storyidx="{{data.storyIdx}}" data-roomno="{{data.room_no}}">[삭제]</a></div></td>
         </tr>
         {{else}}

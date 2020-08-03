@@ -68,8 +68,7 @@
         response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
         response.data["answer"] = params.answer;
         response.data["rowNum"] = params.rowNum;
-        var add_file_cnt = response.data.add_file.split(",");
-        response.data["add_file_cnt"] = common.isEmpty(response.data.add_file) ? 0 : add_file_cnt.length;
+        response.data["add_file_cnt"] = response.data.fileCnt;
         if(response.data.state == "2" && response.data.op_name == LOGIN_USER_NAME){
             response.data["editAuth"] = "Y";
         }else{
@@ -361,13 +360,15 @@
                         <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="util.textareaResize(this, 114)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
                     </td>
 
-                    <th>첨부파일 <br /> {{add_file_cnt}} 건</th>
+                    <th>첨부파일 <br /> {{fileCnt}} 건</th>
                     <td colspan="3">
-                        {{#equal add_file ''}}
+                        {{#equal fileCnt 0}}
                         -
                         {{else}}
                         <form id="profileImg" method="post" enctype="multipart/form-data">
-                            <img id="image_section" class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file}}" alt="your image" style="width: 150px;height: 150px" />
+                            {{#dalbit_if ../add_file1 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file1}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
+                            {{#dalbit_if ../add_file2 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file2}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
+                            {{#dalbit_if ../add_file3 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file3}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
                             <button type="button" id="bt_fileDel" class="btn btn-danger btn-sm" style="margin-left: 10px" onclick="fileDel();">첨부파일 삭제</button>
                         </form>
                         {{/equal}}

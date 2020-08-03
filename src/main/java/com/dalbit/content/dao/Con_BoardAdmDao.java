@@ -34,6 +34,4 @@ public interface Con_BoardAdmDao {
 
     ProcedureVo callStoryDelete(ProcedureVo procedureVo);
 
-
-
 }

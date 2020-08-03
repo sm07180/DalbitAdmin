@@ -10,7 +10,7 @@
         /* Cus_Question.xml - getQuestionCount */
         select count(*) totalQnaCnt
                 ,SUM( if( state = 1, 1, 0)) as totalOpCnt
-          from rd_data.tb_service_center_qna
+          from rd_data.tb_service_center_qna_v25
          where mem_no=#{mem_no};
     </select>
 
@@ -28,7 +28,7 @@
     </select>
 
     <update id="callServiceCenterQnaUpdate" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
-        update rd_data.tb_service_center_qna set answer=#{answer},op_date=now(),op_name=#{opName} where idx = #{qnaIdx}
+        update rd_data.tb_service_center_qna_v25 set answer=#{answer},op_date=now(),op_name=#{opName} where idx = #{qnaIdx}
     </update>
 
     <select id="getFaqGroupList" resultType="com.dalbit.customer.vo.FaqVo">
@@ -55,13 +55,13 @@
               IFNULL(sum(if(slct_type = 6, 1, 0)),0)  as type6Cnt,
               IFNULL(sum(if(slct_type = 7, 1, 0)),0)  as type7Cnt,
               IFNULL(sum(if(slct_type = 99, 1, 0)),0) as type99Cnt
-             from rd_data.tb_service_center_qna
+             from rd_data.tb_service_center_qna_v25
             where idx > 0
               and mem_no = #{mem_no}
     </select>
 
     <delete id="callQuestionDelete" parameterType="com.dalbit.customer.vo.procedure.P_QuestionDeleteVo">
-         delete From rd_data.tb_service_center_qna
+         delete From rd_data.tb_service_center_qna_v25
           where idx in
             <foreach collection="delList" item="item" separator="," open="(" close=")">
                 #{item.qnaIdx}
@@ -70,16 +70,16 @@
 
     <select id="callServiceCenterQnaStateCheck" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo" resultType="integer">
         select count(*) as cnt
-             from rd_data.tb_service_center_qna
+             from rd_data.tb_service_center_qna_v25
             where idx = #{qnaIdx} and state = 2
     </select>
 
     <update id="callServiceCenterQnaCatch" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
-         update rd_data.tb_service_center_qna set state=2, op_name=#{opName} where idx =#{qnaIdx} and state = 0
+         update rd_data.tb_service_center_qna_v25 set state=2, op_name=#{opName} where idx =#{qnaIdx} and state = 0
     </update>
 
     <update id="callServiceCenterQnaChatchRelease" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
-         update rd_data.tb_service_center_qna set state=0, op_name='' where idx =#{qnaIdx} and state = 2
+         update rd_data.tb_service_center_qna_v25 set state=0, op_name='' where idx =#{qnaIdx} and state = 2
     </update>
 
     <insert id="callAdminMemoQuestionAdd" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
@@ -104,11 +104,11 @@
 
     <select id="callServiceCenterQnaState" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo" resultType="com.dalbit.customer.vo.procedure.P_QuestionDetailOutputVo">
         select state
-             from rd_data.tb_service_center_qna
+             from rd_data.tb_service_center_qna_v25
             where idx = #{qnaIdx}
     </select>
 
     <update id="callQuestionFileDel" parameterType="com.dalbit.customer.vo.procedure.P_QuestionOperateVo">
-         update rd_data.tb_service_center_qna set add_file='' where idx=#{qnaIdx}
+         update rd_data.tb_service_center_qna_v25 set add_file1='', add_file2='', add_file3='', file_name1='', file_name1='', file_name1='' where idx=#{qnaIdx}
     </update>
 </mapper>
