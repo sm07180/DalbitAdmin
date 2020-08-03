@@ -12,19 +12,17 @@
               ,count(case when cancel_state = 'Y' then 1 end) as cancelCnt
               ,sum(case when cancel_state = 'Y' then pay_amt end) as cancelAmt
           FROM ( SELECT pay.pay_yn, floor(pay.pay_amt) as pay_amt
-                       , member.inner as chrgr_yn
+                       , ifnull(basic.inner,member.inner) as chrgr_yn
                        , pay.cancel_dt , pay.cancel_state
                    FROM rd_data.tb_payment_succ pay
                    LEFT JOIN (select mem_no, count(mem_no) memCnt, sum(pay_amt) paySum
                    FROM rd_data.tb_payment_succ
                   WHERE pay_yn = 'Y' group by mem_no) summary
                      ON pay.mem_no = summary.mem_no
-                   LEFT JOIN (select mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`
-                   FROM rd_data.tb_member_basic
-                  UNION
-                  SELECT mem_no, mem_nick, mem_userid, mem_id, mem_phone, `inner`
-                    FROM rd_data.tb_member_withdrawal_bak) member
-                      ON pay.mem_no = member.mem_no
+                   LEFT JOIN rd_data.tb_member_basic basic
+                     on pay.mem_no = basic.mem_no
+                   LEFT JOIN rd_data.tb_member_withdrawal_bak member
+                     ON pay.mem_no = member.mem_no
                     LEFT JOIN (select mem_no, ruby
                                  FROM rd_data.tb_member_wallet) wallet
                                    ON pay.mem_no = wallet.mem_no , (select @rownum := 0) r
