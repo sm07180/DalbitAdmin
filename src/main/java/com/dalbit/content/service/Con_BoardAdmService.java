@@ -108,11 +108,8 @@ public class Con_BoardAdmService {
     public String selectNoticeList(P_MemberNoticeInputVo pMemberNoticeInputVo) {
         pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() -1);
         pMemberNoticeInputVo.setPageNo(pMemberNoticeInputVo.getPageNo() * pMemberNoticeInputVo.getPageCnt());
-//        int totalCnt = mem_NoticeDao.callNoticeHistory_totalCnt(pMemberNoticeInputVo);
-//        ArrayList<P_MemberNoticeOutputVo> noticeList = mem_NoticeDao.callNoticeHistory(pMemberNoticeInputVo);
-
-        int totalCnt = conBoardAdmDao.callNoticeHistory_totalCnt(pMemberNoticeInputVo);
-        ArrayList<P_MemberNoticeOutputVo> noticeList = conBoardAdmDao.callNoticeHistory(pMemberNoticeInputVo);
+        int totalCnt = mem_NoticeDao.callNoticeHistory_totalCnt(pMemberNoticeInputVo);
+        ArrayList<P_MemberNoticeOutputVo> noticeList = mem_NoticeDao.callNoticeHistory(pMemberNoticeInputVo);
 
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(totalCnt)));

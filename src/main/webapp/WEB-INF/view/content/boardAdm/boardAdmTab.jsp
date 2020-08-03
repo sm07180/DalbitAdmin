@@ -6,10 +6,10 @@
 
 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
     <li class="active"><a href="#noticeList" role="tab" data-toggle="tab" id="tab_noticeList">회원/방송공지</a></li>
-    <li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>
+    <%--<li><a href="#profileMsgList" role="tab" data-toggle="tab" id="tab_profileMsgList">프로필메세지</a></li>--%>
     <li><a href="#fanBoardList" role="tab" data-toggle="tab" id="tab_fanBoardList">팬보드</a></li>
     <li><a href="#storyList" role="tab" data-toggle="tab" id="tab_storyList">사연</a></li>
-    <li><a href="#banWordList" role="tab" data-toggle="tab" id="tab_banWordList">금지어</a></li>
+    <%--<li><a href="#banWordList" role="tab" data-toggle="tab" id="tab_banWordList">금지어</a></li>--%>
 </ul>
 <div class="tab-content no-padding">
     <!-- 회원/방송공지 -->
