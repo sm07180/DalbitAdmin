@@ -1,6 +1,7 @@
 package com.dalbit.member.controller.rest;
 
 import com.dalbit.excel.service.ExcelService;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.service.Mem_BroadcastService;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.member.vo.procedure.P_MemberBroadcastInputVo;
@@ -39,7 +40,7 @@ public class Mem_BroadcastRestController {
      * 회원 방송 강제 종료
      */
     @PostMapping("forcedEnd")
-    public String forcedEnd(MemberVo MemberVo){
+    public String forcedEnd(MemberVo MemberVo) throws GlobalException {
         String result = mem_BroadcastService.forcedEnd(MemberVo);
         return result;
 

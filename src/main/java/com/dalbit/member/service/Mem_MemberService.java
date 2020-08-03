@@ -388,7 +388,7 @@ public class Mem_MemberService {
     /**
      * 회원 경고/정지
      */
-    public String getMemberReport(P_MemberReportVo pMemberReportVo){
+    public String getMemberReport(P_MemberReportVo pMemberReportVo) throws GlobalException{
         pMemberReportVo.setOpName(MemberVo.getMyMemNo());
 
         // 신고 대상자가 방송 중인지

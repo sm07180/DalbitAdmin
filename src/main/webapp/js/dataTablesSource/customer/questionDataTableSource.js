@@ -56,9 +56,8 @@ var questionDataTableSource = {
                     }
                     return data;
                 }},
-            {'title': '첨부<br>파일', 'data': 'add_file','width':'40px', 'render' : function(data, type, row, meta){
-                    var fileCnt = common.isEmpty(data) ? 0 : data.split(",").length;
-                    return fileCnt +'건';
+            {'title': '첨부<br>파일', 'data': 'fileCnt','width':'40px', 'render' : function(data, type, row, meta){
+                    return data +'건';
                 }},
             {'title': '처리상태', 'data': 'state','width':'60px','render' : function(data){
                     return util.getCommonCodeLabel(data, question_status);

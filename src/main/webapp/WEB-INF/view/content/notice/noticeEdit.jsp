@@ -189,7 +189,7 @@
                     <td style="border-color: black">{{{getCommonCodeSelect slctType 'notice_slctType' 'Y' ''}}}</td>
 
                     <th style="border-color: black">제목</th>
-                    <td colspan="5" style="border-color: black"><input type="text" name="title" id="title" class="form-control" value="{{title}}" maxlen></td>
+                    <td colspan="5" style="border-color: black"><input type="text" name="title" id="title" class="form-control" value="{{{title}}}" maxlen></td>
 
                     <th style="border-color: black">조회수</th>
                     <td style="border-color: black">{{addComma viewCnt}}</td>

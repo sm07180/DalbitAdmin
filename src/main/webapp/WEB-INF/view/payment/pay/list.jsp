@@ -118,7 +118,17 @@
             sDate = date.getFullYear() +"."+ common.lpad(sDate.getMonth() + 1,2,"0") +"."+ common.lpad(sDate.getDate()+1,2,"0");      // 일주일전
             $("#startDate").val(sDate);
         }else if(_searchFormRadio == 0) {       // 한달전
-            $("#startDate").val(date.getFullYear() +"."+ common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0"));        // 한달전
+            var setMonthDate;
+            var cal = common.lpad(date.getMonth(),2,"0") + "." + common.lpad(new Date(date.getFullYear(), date.getMonth(), 0).getDate(),2,"0");
+
+            if(common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0") > cal) {
+                setMonthDate = cal;
+            } else {
+                setMonthDate = common.lpad(date.getMonth(),2,"0") +"."+ common.lpad(date.getDate(),2,"0");
+            }
+
+            sDate = date.getFullYear() + "." + setMonthDate;
+            $('#startDate').val(sDate);
         }
         $("#displayDate").val($("#startDate").val() + " - " + $("#endDate").val());
 

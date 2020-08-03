@@ -8,6 +8,7 @@ import com.dalbit.common.vo.ImageVo;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.member.dao.Mem_BroadcastDao;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
@@ -17,10 +18,14 @@ import com.dalbit.member.vo.procedure.P_MemberBroadcastOutputVo;
 import com.dalbit.util.*;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
+import okhttp3.FormBody;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,6 +53,9 @@ public class Mem_BroadcastService {
 
     @Value("${ant.app.name}")
     private String antName;
+
+    @Value("${server.api.url}")
+    private String SERVER_API_URL;
 
     public String getBroadHistory(P_MemberBroadcastInputVo pMemberBroadcastInputVo){
 
@@ -86,6 +94,7 @@ public class Mem_BroadcastService {
         }
 
         String room_no;
+        String forceExitResult ="";
         for (int i=0; i<list.size();i++) {
             room_no = list.get(i).getRoom_no();
             // 방송 시작시간
@@ -95,43 +104,29 @@ public class Mem_BroadcastService {
             bro_BroadcastDao.callBroadcastInfo(procedureVo2);
 
             P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo2.getExt(), P_BroadcastDetailOutputVo.class);
+
+            // 방송 강제종료 api 호출
             P_BroadcastEditInputVo pBroadcastEditInputVo = new P_BroadcastEditInputVo();
+            pBroadcastEditInputVo.setMem_no(MemberVo.getMem_no());
             pBroadcastEditInputVo.setRoom_no(room_no);
             pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
-
-            // 회원 방 나가기 상태
-            bro_BroadcastDao.callBroadcastMemberExit(pBroadcastEditInputVo);
-            // 방 종료 상태
-            bro_BroadcastDao.callBroadcastExit(pBroadcastEditInputVo);
-
-            //option
-            HashMap<String,Object> param = new HashMap<>();
-            param.put("roomNo",room_no);
-            param.put("memNo",MemberVo.getMem_no());
-
-            //option
-            param.put("ctrlRole","");
-            param.put("recvMemNo","roomOut");
-            param.put("recvType","chat");
-            param.put("recvPosition","chat");
-            param.put("recvLevel",0);
-            param.put("recvTime",0);
-
-            socketUtil.setSocket(param,"chatEnd","roomOut",jwtUtil.generateToken(MemberVo.getMem_no(), true));
-
-            try{
-                HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(room_no);
-                if(broadInfo != null && !DalbitUtil.isEmpty(broadInfo.get("bjStreamId"))){
-                    OkHttpClientUtil httpUtil = new OkHttpClientUtil();
-                    httpUtil.sendDelete(antServer + "/" + antName + "/rest/v2/broadcasts/" + broadInfo.get("bjStreamId"));
-                }
-            }catch (Exception e){
-                e.printStackTrace();
+            pBroadcastEditInputVo.setOpName(MemberVo.getMyMemNo());
+            pBroadcastEditInputVo.setRoomExit("Y");
+            forceExitResult = DalbitUtil.broadcastForceExit(pBroadcastEditInputVo);
+            log.info(forceExitResult);
+            if(forceExitResult.equals("error") || forceExitResult.equals("noAuth")){
+                break;
             }
         }
 
-        String result = "";
-        result = gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_성공));
+        String result;
+        if(forceExitResult.equals("error")){
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_실패));
+        }else if (forceExitResult.equals("noAuth")){
+            return gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_권한없음));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_성공));
+        }
 
         return result;
     }

@@ -2,16 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<div class="col-lg-12 no-padding">
-    <div class="widget widget-table" id="main_table">
-        <div class="pull-left pt10 pl10"><span id="searchTarget"></span></div>
-        <div class="widget-content">
-            <table id="tb_res_forcedList" class="table table-sorting table-hover table-bordered">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
+<div class="pull-left pt10 pl10"><span id="searchTarget"></span></div>
+<div class="widget-content">
+    <table id="tb_res_forcedList" class="table table-sorting table-hover table-bordered">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
 </div>
 
 <script src="/js/dataTablesSource/customer/restrictionsDataTableSource.js?${dummyData}"></script>

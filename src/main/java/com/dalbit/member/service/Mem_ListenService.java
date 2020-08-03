@@ -81,45 +81,35 @@ public class Mem_ListenService {
         ProcedureVo procedureVo = new ProcedureVo(pMemberAdminMemoAddVo);
         mem_MemberDao.callMemAdminMemoAdd(procedureVo);
 
+        String listenForceExitResult="";
         for (int i=0; i<list.size();i++) {
             P_ListenForceLeaveVo pListenForceLeaveVo = new P_ListenForceLeaveVo();
+            pListenForceLeaveVo.setOpName(MemberVo.getMyMemNo());
             pListenForceLeaveVo.setRoom_no(list.get(i).getRoom_no());
             pListenForceLeaveVo.setMem_no(MemberVo.getMem_no());
-            ProcedureVo procedureVo2 = new ProcedureVo(pListenForceLeaveVo);
-            bro_ListenerDao.callForceLeave(procedureVo2);
+            pListenForceLeaveVo.setMem_nickName(list.get(i).getMem_nick());
+            pListenForceLeaveVo.setNotificationYn("N");
+            pListenForceLeaveVo.setRoomBlock("N");
+            pListenForceLeaveVo.setReport_title("");
+            pListenForceLeaveVo.setReport_message("");
+            pListenForceLeaveVo.setNotiMemo("");
+            listenForceExitResult = DalbitUtil.listenForceExit(pListenForceLeaveVo);
 
-            //청취자 강제 퇴장
-            HashMap<String, Object> param = new HashMap<>();
-            param.put("roomNo", list.get(i).getRoom_no());
-            param.put("target_memNo", MemberVo.getMem_no());
-            param.put("target_nickName", list.get(i).getMem_nick());
-            param.put("memNo", list.get(i).getDj_mem_no());
-            param.put("nickName", list.get(i).getDj_nickName());
-            // option
-            param.put("ctrlRole", "ctrlRole");
-            param.put("revMemNo", MemberVo.getMem_no());     // 받는 사람
-            param.put("recvType", "system");
-            param.put("recvPosition", "top1");
-            param.put("recvLevel", 2);
-            param.put("recvTime", 1);
-
-            // message set
-            Gson gson = new Gson();
-            HashMap<String, Object> tmp = new HashMap();
-            tmp.put("revMemNo", MemberVo.getMem_no());     // 받는 사람
-            tmp.put("revMemNk", list.get(i).getMem_nick());
-            tmp.put("sndAuth", 4);
-            tmp.put("sndMemNo", list.get(i).getDj_mem_no());            // 보낸 사람
-            tmp.put("sndMemNk", list.get(i).getDj_nickName());
-            String message = gson.toJson(tmp);
-
-            socketUtil.setSocket(param, "reqKickOut", message, jwtUtil.generateToken(MemberVo.getMem_no(), true));
+            if(listenForceExitResult.equals("error") || listenForceExitResult.equals("noAuth")){
+                break;
+            }
 
             //TODO - api에서는 reqChangeCount로 팬랭킹을 내려주는데. 일단 관리자에서는 제외한다.
         }
 
         String result = "";
-        result = gsonUtil.toJson(new JsonOutputVo(Status.회원청취강제종료시도_성공));
+        if(listenForceExitResult.equals("error")){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원청취강제종료시도_실패));
+        }else if (listenForceExitResult.equals("noAuth")){
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원청취강제종료시도_권한없음));
+        }else{
+            result = gsonUtil.toJson(new JsonOutputVo(Status.회원청취강제종료시도_성공));
+        }
 
         return result;
     }

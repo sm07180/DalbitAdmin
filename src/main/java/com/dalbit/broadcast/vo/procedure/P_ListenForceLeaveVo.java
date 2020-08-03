@@ -15,4 +15,10 @@ public class P_ListenForceLeaveVo {
     private String dj_mem_no;
     private String dj_nickname;
     private String forced;
+    private String opName;
+
+    private String notificationYn;
+    private String roomBlock;
+    private String report_title;
+    private String report_message;
 }
