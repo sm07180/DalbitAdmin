@@ -23,4 +23,7 @@ public interface Adm_MenuDao {
     int callMenuInsert(P_MenuUpdateInputVo pMenuUpdateInputVo);
     int callMenuInfoUpdate(P_MenuInfoUpdateInputVo pMenuInfoUpdateInputVo);
     int callMenuDelete(P_MenuDeleteInputVo pMenuDeleteInputVo);
+
+    @Transactional(readOnly = true)
+    String getMobileAuth(String opName);
 }

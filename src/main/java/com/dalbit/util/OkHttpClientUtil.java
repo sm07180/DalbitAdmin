@@ -88,6 +88,25 @@ public class OkHttpClientUtil {
 
     }
 
+    public Response sendPostApi(String url, RequestBody formBody, String authToken) throws GlobalException {
+        try{
+
+            Request request = new Request.Builder()
+                    .addHeader("authToken", authToken)
+                    .url(url)
+                    .post(formBody)
+                    .build();
+
+            Call call = client.newCall(request);
+            Response response = call.execute();
+
+            return response;
+        }catch (Exception e){
+            throw new GlobalException(ErrorStatus.잘못된호출);
+        }
+
+    }
+
 
     public String sendDelete(String url) throws IOException {
         Request request = new Request.Builder().url(url).delete().build();

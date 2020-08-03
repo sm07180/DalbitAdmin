@@ -56,4 +56,18 @@
          delete from rd_admin.tb_admin_menu where idx = #{idx}
     </delete>
 
+    <select id="getMobileAuth" parameterType="string" resultType="string">
+        select distinct test.mem_no
+          from rd_admin.tb_admin_test_account test
+             , rd_admin.tb_admin_menu_auth auth
+             , rd_admin.tb_admin_menu menu
+         where test.emp_no = auth.emp_no
+           and auth.menu_idx = menu.idx
+           and test.emp_name =#{opName}
+           and menu.is_use = 1
+           and menu.mobile_yn = 'Y'
+        order by menu.order_no asc
+        limit 1
+    </select>
+
 </mapper>

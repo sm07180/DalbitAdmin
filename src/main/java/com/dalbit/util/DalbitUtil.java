@@ -1,15 +1,23 @@
 package com.dalbit.util;
 
+import com.dalbit.administrate.dao.Adm_MenuDao;
 import com.dalbit.administrate.service.Adm_AuthorityService;
+import com.dalbit.broadcast.vo.procedure.P_BroadcastEditInputVo;
+import com.dalbit.broadcast.vo.procedure.P_ListenForceLeaveVo;
 import com.dalbit.common.vo.CookieVo;
 import com.dalbit.common.vo.LocationVo;
 import com.dalbit.common.vo.MenuVo;
+import com.dalbit.exception.GlobalException;
 import com.dalbit.main.vo.procedure.P_StatVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +26,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -34,6 +43,9 @@ public class DalbitUtil {
 
     private static Environment environment;
     private static Mem_MemberDao mem_MemberDao;
+    private static Adm_MenuDao adm_MenuDao;
+    private static JwtUtil jwtUtil;
+    private static String SERVER_API_URL;
 
     @Autowired
     private Environment activeEnvironment;
@@ -41,12 +53,22 @@ public class DalbitUtil {
     @Autowired
     private Mem_MemberDao activeMem_MemberDao;
 
+    @Autowired
+    private Adm_MenuDao active_adm_MenuDao;
+
+    @Autowired
+    private JwtUtil active_jwtUtil;
+
+    @Value("${server.api.url}")
+    private String active_SERVER_API_URL;
+
     @PostConstruct
     private void init () {
-
         environment = this.activeEnvironment;
         mem_MemberDao = this.activeMem_MemberDao;
-
+        jwtUtil = this.active_jwtUtil;
+        SERVER_API_URL = this.active_SERVER_API_URL;
+        adm_MenuDao = this.active_adm_MenuDao;
     }
 
     private static Adm_AuthorityService admAuthorityService;
@@ -844,6 +866,7 @@ public class DalbitUtil {
         return memInfoOutVo;
     }
 
+
     public static String convertNumberType(int data){
         return NumberFormat.getInstance().format(data);
     }
@@ -890,5 +913,65 @@ public class DalbitUtil {
         map.put("eDate",eDate);
 
         return map;
+    }
+    /*
+     * 방송 강제종료 api 호출
+     */
+    public static String broadcastForceExit(P_BroadcastEditInputVo pBroadcastEditInputVo){
+
+        String authMemNo = adm_MenuDao.getMobileAuth(pBroadcastEditInputVo.getOpName());
+        if(DalbitUtil.isEmpty(authMemNo)){
+            return "noAuth";
+        }
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        RequestBody formBody = new FormBody.Builder()
+                .add("room_no", pBroadcastEditInputVo.getRoom_no())
+                .add("start_date", pBroadcastEditInputVo.getStart_date())
+                .add("mem_no", pBroadcastEditInputVo.getMem_no())
+                .add("roomExit", pBroadcastEditInputVo.getRoomExit())
+                .build();
+
+        String inforexLoginResult;
+        try{
+            String url = SERVER_API_URL + "/admin/broadcast/forceExit";
+            Response response = okHttpClientUtil.sendPostApi(url, formBody, jwtUtil.generateToken(authMemNo, true));
+            inforexLoginResult = response.body().string();
+            log.debug(inforexLoginResult);
+            return inforexLoginResult;
+        }catch (IOException | GlobalException e){
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    public static String listenForceExit(P_ListenForceLeaveVo pListenForceLeaveVo){
+        String authMemNo = adm_MenuDao.getMobileAuth(pListenForceLeaveVo.getOpName());
+        if(DalbitUtil.isEmpty(authMemNo)){
+            return "noAuth";
+        }
+        OkHttpClientUtil okHttpClientUtil = new OkHttpClientUtil();
+        RequestBody formBody = new FormBody.Builder()
+                .add("room_no", pListenForceLeaveVo.getRoom_no())
+                .add("mem_no", pListenForceLeaveVo.getMem_no())
+                .add("mem_nick", pListenForceLeaveVo.getMem_nickName())
+                .add("roomBlock", pListenForceLeaveVo.getRoomBlock())
+                .add("notificationYn", pListenForceLeaveVo.getNotificationYn())
+                .add("report_title", pListenForceLeaveVo.getReport_title())
+                .add("report_message", pListenForceLeaveVo.getReport_message())
+//                .add("notiMemo", pListenForceLeaveVo.getNotiMemo())
+                .build();
+
+        String inforexLoginResult;
+        try{
+            String url = SERVER_API_URL + "/admin/forcedOut";
+//            String url = "https://devm-bgko.dalbitlive.com:4431/admin/forcedOut";
+            Response response = okHttpClientUtil.sendPostApi(url, formBody, jwtUtil.generateToken(authMemNo, true));
+            inforexLoginResult = response.body().string();
+            log.debug(inforexLoginResult);
+            return inforexLoginResult;
+        }catch (IOException | GlobalException e){
+            e.printStackTrace();
+            return "error";
+        }
     }
 }
