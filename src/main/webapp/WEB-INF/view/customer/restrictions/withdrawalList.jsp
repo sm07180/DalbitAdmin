@@ -39,8 +39,8 @@
         var dtList_info_data = function ( data ) {
             var searchType = $('#searchType option:selected').val();
             var searchText = $('#txt_search').val();
-            var startDate = $("#startDate").val();
-            var endDate = $("#endDate").val();
+            var startDate = common.isEmpty($("#onedayDate").val()) ? "-1" : $("#startDate").val();
+            var endDate = common.isEmpty($("#onedayDate").val()) ? "-1" : $("#endDate").val();
             if($('input[name="searchRadio"]:checked').val() != "1"){
                 searchType = $('input[name="searchRadio"]:checked').val();       // IP 검색 : 9 , 모바일ID 검색 : 6
             }
