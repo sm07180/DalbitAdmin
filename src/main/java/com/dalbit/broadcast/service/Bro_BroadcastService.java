@@ -278,6 +278,7 @@ public class Bro_BroadcastService {
         bro_BroadcastDao.callBroadcastEdit(procedureVo);
         String result;
 
+        String forceExitResult = "";
         if(Status.방송방정보수정_성공.getMessageCode().equals(procedureVo.getRet())) {
             result = gsonUtil.toJson(new JsonOutputVo(Status.방송방정보수정_성공));
             // 방송방 강제 종료 ------------------------------------
@@ -288,37 +289,16 @@ public class Bro_BroadcastService {
                 // 방송 시작시간
                 bro_BroadcastDao.callBroadcastInfo(procedureVo);
                 P_BroadcastDetailOutputVo broadcastDetail = new Gson().fromJson(procedureVo.getExt(), P_BroadcastDetailOutputVo.class);
+
+                // 방송 강제종료 api 호출
                 pBroadcastEditInputVo.setStart_date(broadcastDetail.getStartDate());
-
-                // 회원 방 나가기 상태
-                bro_BroadcastDao.callBroadcastMemberExit(pBroadcastEditInputVo);
-                // 방 종료 상태
-                bro_BroadcastDao.callBroadcastExit(pBroadcastEditInputVo);
-
-                HashMap<String,Object> param = new HashMap<>();
-                param.put("roomNo",pBroadcastEditInputVo.getRoom_no());
-                param.put("memNo",pBroadcastEditInputVo.getMem_no());
-
-                //option
-                param.put("ctrlRole","");
-                param.put("recvMemNo","roomOut");
-                param.put("recvType","chat");
-                param.put("recvPosition","chat");
-                param.put("recvLevel",0);
-                param.put("recvTime",0);
-
-                socketUtil.setSocket(param,"chatEnd","roomOut",jwtUtil.generateToken(pBroadcastEditInputVo.getMem_no(), true));
-
-                try{
-                    HashMap broadInfo = bro_BroadcastDao.callBroadcastSimpleInfo(pBroadcastEditInputVo.getRoom_no());
-                    if(broadInfo != null && !DalbitUtil.isEmpty(broadInfo.get("bjStreamId"))){
-                        OkHttpClientUtil httpUtil = new OkHttpClientUtil();
-                        httpUtil.sendDelete(antServer + "/" + antName + "/rest/v2/broadcasts/" + broadInfo.get("bjStreamId"));
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
+                pBroadcastEditInputVo.setRoomExit("N");
+                forceExitResult = DalbitUtil.broadcastForceExit(pBroadcastEditInputVo);
+                if(forceExitResult.equals("error")){
+                    return gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_실패));
+                }else if(forceExitResult.equals("noAuth")){
+                    return gsonUtil.toJson(new JsonOutputVo(Status.회원방송강제종료시도_권한없음));
                 }
-
 //            }else if(pBroadcastEditInputVo.getForceExit().equals("0") && pBroadcastEditInputVo.getSendNoti().equals("1")){
             }else if(pBroadcastEditInputVo.getForceExit().equals("0")){
 

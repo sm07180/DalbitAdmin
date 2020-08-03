@@ -16,7 +16,7 @@ var RestrictionsDataTableSource = {
                 }}
             ,{'title': '처리자', 'data': 'op_name', 'width':'50px'}
             ,{'title': '상태', 'data': 'reason', 'width':'60px', 'render': function (data, type, row, meta) {
-                    return '<button type="button" class="btn btn-info btn-xs no-margin" id="bt_state" data-memno="'+ row.mem_no +'">정상변경</button>';
+                    return '<button type="button" class="btn btn-info btn-xs no-margin" id="bt_state_withdrawalList" data-memno="'+ row.mem_no +'">정상변경</button>';
                 }}
             ,{'title': '정지사유', 'data': 'reason', 'width':'90px', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, declaration_reason);
