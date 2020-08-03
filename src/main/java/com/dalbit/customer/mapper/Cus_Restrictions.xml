@@ -40,7 +40,9 @@
             <if test='opCode != null and opCode != "" and opCode != "-1" '>
                 AND report.op_code = #{opCode}
             </if>
-            AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+              AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         ORDER BY report.op_date desc
         ) AS a
@@ -130,7 +132,9 @@
             <if test='opCode != null and opCode != "" and opCode != "-1" '>
                 AND report.op_code = #{opCode}
             </if>
-            AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+              AND report.op_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         ) AS a
         <where>
@@ -218,7 +222,9 @@
         rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
         <where>
             listen.forced = 'Y'
-            AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+                AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         GROUP BY listen.room_no, listen.mem_no
         ORDER BY listen.last_upd_date DESC
@@ -305,7 +311,6 @@
         </where>
     </select>
 
-    <!-- 방송 강제퇴장 회원 LIST-->
     <select id="getForcedList" parameterType="com.dalbit.customer.vo.procedure.P_ForcedListInputVo" resultType="com.dalbit.customer.vo.procedure.P_ForcedListOutputVo">
         /* Cus_Restrictions.xml - getForcedList */
         SELECT
@@ -348,7 +353,9 @@
         rd_data.tb_broadcast_room AS room ON  listen.room_no = room.room_no
         <where>
             listen.forced = 'Y'
-            AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            <if test="startDate != '-1'">
+                AND listen.last_upd_date BETWEEN DATE_FORMAT(#{startDate}, '%Y-%m-%d 00:00:00') AND DATE_FORMAT(#{endDate}, '%Y-%m-%d 23:59:59')
+            </if>
         </where>
         GROUP BY listen.room_no, listen.mem_no
         ORDER BY listen.last_upd_date DESC

@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="col-lg-12 no-padding">
-    <div class="widget widget-table" id="main_table">
-        <div class="pull-left pt10 pl10"><span id="searchOpCode"></span></div>
-        <div class="widget-content">
-            <table id="tb_res_withdrawalList" class="table table-sorting table-hover table-bordered">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
+<div class="pull-left pt10 pl10"><span id="searchOpCode"></span></div>
+<div class="widget-content">
+    <table id="tb_res_withdrawalList" class="table table-sorting table-hover table-bordered">
+        <thead></thead>
+        <tbody></tbody>
+    </table>
 </div>
 
 
@@ -39,8 +35,8 @@
         var dtList_info_data = function ( data ) {
             var searchType = $('#searchType option:selected').val();
             var searchText = $('#txt_search').val();
-            var startDate = $("#startDate").val();
-            var endDate = $("#endDate").val();
+            var startDate = common.isEmpty($("#onedayDate").val()) ? "-1" : $("#startDate").val();
+            var endDate = common.isEmpty($("#onedayDate").val()) ? "-1" : $("#endDate").val();
             if($('input[name="searchRadio"]:checked').val() != "1"){
                 searchType = $('input[name="searchRadio"]:checked').val();       // IP 검색 : 9 , 모바일ID 검색 : 6
             }
