@@ -114,6 +114,5 @@ public class Con_BoardAdmService {
         String result;
         result = gsonUtil.toJson(new JsonOutputVo(Status.공지보기성공, noticeList, new PagingVo(totalCnt)));
         return result;
-
     }
 }

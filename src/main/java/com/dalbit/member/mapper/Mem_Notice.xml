@@ -23,7 +23,7 @@
              where (b.mem_no like CONCAT('%',#{mem_no},'%') OR b.mem_userid like CONCAT('%',#{mem_no},'%') OR b.mem_nick like CONCAT('%',#{mem_no},'%'))
                 <if test='sDate != null and sDate !=""'>
                     and a.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 00:00:00')
-                    and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 23:59:59')
+                    and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{eDate}, '%Y.%m.%d 23:59:59')
                 </if>
              union
             select a.idx
@@ -42,7 +42,7 @@
                and (b.mem_no like CONCAT('%',#{mem_no},'%') OR b.mem_userid like CONCAT('%',#{mem_no},'%') OR b.mem_nick like CONCAT('%',#{mem_no},'%'))
                 <if test='sDate != null and sDate !=""'>
                     and a.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 00:00:00')
-                    and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{sDate}, '%Y.%m.%d 23:59:59')
+                    and a.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{eDate}, '%Y.%m.%d 23:59:59')
                 </if>
     </sql>
 

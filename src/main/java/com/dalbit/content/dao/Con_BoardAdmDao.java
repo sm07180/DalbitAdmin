@@ -5,6 +5,8 @@ import com.dalbit.content.vo.BoardAdmFanBoardDeleteVo;
 import com.dalbit.content.vo.BoardAdmFanBoardReplyVo;
 import com.dalbit.content.vo.BoardAdmFanBoardVo;
 import com.dalbit.content.vo.BoardAdmStoryVo;
+import com.dalbit.member.vo.procedure.P_MemberNoticeInputVo;
+import com.dalbit.member.vo.procedure.P_MemberNoticeOutputVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
