@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="dummyData"><%= java.lang.Math.round(java.lang.Math.random() * 1000000) %></c:set>
 
 <div id="wrapper">
     <div id="page-wrapper">
@@ -65,6 +66,7 @@
 
             <div class="col-md-12 no-padding">
                 <label id="level" onchange="sel_change_levelInnerArea();"></label>
+                <label id="levelFilter" onchange="sel_change_levelFilter();"></label>
                 <table id="list_info" class="table table-sorting table-hover table-bordered">
                     <thead></thead>
                     <tbody></tbody>
@@ -76,6 +78,7 @@
 </div> <!-- //wrapper -->
 
 <script src="/js/dataTablesSource/status/levelDataTableSource.js?${dummyData}"></script>
+<script src="/js/code/status/statusCodeList.js?${dummyData}"></script>
 
 <script type="text/javascript">
 
@@ -201,6 +204,7 @@
     var tmp_include = "0";
     var tmp_level = "";
     var tmp_inner = 0;
+    var tmp_filter = 0;
     var dtList_info;
     var lengthCnt = 100;
     function getMemLevelList() {
@@ -211,6 +215,7 @@
             data.level = tmp_level;
             data.inner = tmp_inner;
             data.include = tmp_include;
+            data.filter = tmp_filter;
         };
         dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, levelDataTableSource.memLevelList);
         dtList_info.useCheckBox(false);
@@ -220,6 +225,7 @@
         dtList_info.createDataTable(level_listSummary);
 
         $("#level").html(util.getCommonCodeSelect('', level));
+        $("#levelFilter").html(util.getCommonCodeSelect('', levelFilter));
 
     }
 
@@ -234,17 +240,21 @@
         $("#level_summaryArea").html(html);
 
 
-        $("#list_info th:eq(" + (1) + ")").css("background-color", "#ffe699");
-        $("#list_info th:eq(" + (11) + ")").css("background-color", "#ffe699");
+        $("#list_info th:eq(" + (2) + ")").css("background-color", "#ffe699");
+        $("#list_info th:eq(" + (12) + ")").css("background-color", "#ffe699");
         for(var i=-1;i<lengthCnt;i++){
-            $("#list_info tr:eq(" + i + ") td:eq(" + (1) + ")").css("background-color", "#fff7e5");
-            $("#list_info tr:eq(" + i + ") td:eq(" + (11) + ")").css("background-color", "#fff7e5");
+            $("#list_info tr:eq(" + i + ") td:eq(" + (2) + ")").css("background-color", "#fff7e5");
+            $("#list_info tr:eq(" + i + ") td:eq(" + (12) + ")").css("background-color", "#fff7e5");
         }
 
     }
 
     function sel_change_levelInnerArea(){
         tmp_level = $("select[name='level']").val();
+        dtList_info.reload(level_listSummary);
+    }
+    function sel_change_levelFilter(){
+        tmp_filter = $("select[name='levelFilter']").val();
         dtList_info.reload(level_listSummary);
     }
 

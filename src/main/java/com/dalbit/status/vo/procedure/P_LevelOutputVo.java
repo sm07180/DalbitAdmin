@@ -9,6 +9,7 @@ import lombok.Setter;
 public class P_LevelOutputVo extends PagingVo {
 
     // output
+    private int ranking;
     private String level;
     private String exp;
     private String grade;
@@ -34,6 +35,8 @@ public class P_LevelOutputVo extends PagingVo {
     private String receive;
     private int totRcvRubyCnt;
     private String fanNickName;
+    private String lastLoginDate;
+    private String loginDay;
 
     //summary
     private int totalLevelCnt;
