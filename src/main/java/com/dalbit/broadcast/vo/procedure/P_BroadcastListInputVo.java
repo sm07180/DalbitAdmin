@@ -26,5 +26,6 @@ public class P_BroadcastListInputVo extends PagingVo {
     private String sortAirTime;
     private String sortListener;
     private String sortGift;
+    private String sortByeol;
 
 }
