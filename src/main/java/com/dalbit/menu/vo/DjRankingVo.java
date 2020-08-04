@@ -34,6 +34,7 @@ public class DjRankingVo extends PagingVo {
     private String start_date;
     private int airTime;
 
+    private String ranking_type;
     private String reward_rank;
     private String reward_dal;
     private String reward_byeol;
