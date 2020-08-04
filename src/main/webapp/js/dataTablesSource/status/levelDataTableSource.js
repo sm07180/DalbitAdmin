@@ -45,10 +45,10 @@ var levelDataTableSource = {
                     return data + '<br/>(' + row.loginDay + '일 전)';
                 }}
             ,{'title': '1위팬 닉네임<br/>(선물 수)', 'data' : 'fanNickName', 'width':'100px','render' : function(data, type, row, meta) {
-                    if(row.totRcvRubyCnt > 0){
+                    // if(row.totRcvRubyCnt > 0){
                         return data + '<br/>(' + common.addComma(row.totRcvRubyCnt) + ')';
-                    }
-                    return '';
+                    // }
+                    // return '';
                 }}
             ,{'title': '보유달', 'data' : 'dal', 'width':'80px','render' : function(data){
                     return common.addComma(data);

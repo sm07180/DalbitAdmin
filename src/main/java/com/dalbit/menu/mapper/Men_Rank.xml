@@ -140,6 +140,7 @@
                 , rewardDj.reward_byeol
                 , rewardDj.reward_exp
                 , rewardDj.reward_yn
+                , rewardDj.ranking_type
               <include refid="djCondition"/>
             ) a , (select @RNUM := 0) r
             order by djRank asc
@@ -190,6 +191,7 @@
                         , rewardFan.reward_byeol
                         , rewardFan.reward_exp
                         , rewardFan.reward_yn
+                        , rewardFan.ranking_type
                     <include refid="fanCondition"/>
                     ) a , (select @RNUM := 0) r
                     order by fanRank asc
