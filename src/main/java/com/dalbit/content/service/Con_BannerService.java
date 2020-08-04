@@ -5,16 +5,20 @@ import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BannerDao;
+import com.dalbit.content.vo.BannerOrderVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -160,4 +164,13 @@ public class Con_BannerService {
         return result;
     }
 
+    public String updateOrder(BannerOrderVo bannerOrderVo) {
+        BannerOrderVo[] orderArr = new Gson().fromJson(bannerOrderVo.getJsonParam(), BannerOrderVo[].class);
+
+        Arrays.stream(orderArr).parallel().forEach(order -> {
+            bannerDao.updateOrder(new BannerOrderVo(order.getBanner_idx(), order.getOrder()));
+        });
+
+        return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+    }
 }

@@ -228,7 +228,6 @@
     //수정 데이터 조회 후 UI 처리
     fnc_bannerDetail.initUpdateUI= function(){
         var detailData = getSelectDataInfo().detailData;
-        console.log(detailData);
 
         //OS 구분
         if(detailData.platform == "111"){
@@ -557,17 +556,17 @@
             <tbody>
             <tr class="align-middle">
                 <th rowspan="2">No</th>
-                <td rowspan="2">{{rowNum}}</td>
+                <td rowspan="2" colspan="2">{{rowNum}}</td>
 
                 <th rowspan="2">배너 제목</th>
-                <td colspan="6"  rowspan="2"><input type="text" class="form-control" id="banner-title" name="title" placeholder="배너 제목을 입력하세요." value="{{title}}"></td>
+                <td colspan="5"  rowspan="2"><input type="text" class="form-control" id="banner-title" name="title" placeholder="배너 제목을 입력하세요." value="{{title}}"></td>
 
-                <th>등록/수정자</th>
-                <td colspan="2">{{opName}}</td>
+                <th>등록자/등록일시</th>
+                <td colspan="2">{{opName}} / {{moment reg_date 'YYYY-MM-DD HH:mm:ss'}}</td>
             </tr>
             <tr>
-                <th>등록/수정일시</th>
-                <td colspan="2">{{lastUpdDate}}</td>
+                <th>수정자/수정일시</th>
+                <td colspan="2">{{lastOpName}} / {{moment lastUpdDate 'YYYY-MM-DD HH:mm:ss'}}</td>
             </tr>
             <tr>
                 <th>플랫폼</th>
@@ -590,11 +589,17 @@
                 <td colspan="5">{{{getCommonCodeRadio position 'banner_bannerType' 'Y' 'position'}}}</td>
             </tr>
             <tr>
+
+                <th><span style="color:red">게시중여부</span><br />게시여부 + 노출기간</th>
+                <td colspan="2">
+                    {{{isCurrentDisplay is_view start_datetime end_datetime}}}
+                </td>
+
                 <th>게시여부</th>
                 <td colspan="2">{{{getCommonCodeRadio is_view 'content_viewOn' 'N' 'is_view'}}}</td>
 
                 <th>노출 기간</th>
-                <td colspan="8">
+                <td colspan="5">
                     <div>
                         {{{getCommonCodeRadio term_type 'banner_exposureType' 'N' 'term_type'}}}
                     </div>
@@ -644,13 +649,13 @@
                 <th colspan="12">배너 이미지</th>
             </tr>
             <tr class="_show_popup_image">
-                <th>PC (1618px x 000px)</th>
+                <th>PC<br />(1618px x 000px)</th>
                 <td colspan="5">
                     <input type="text" class="_trim" id="banner-pc_img_url" name="pc_img_url" style="width:70%" value="{{pc_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-pc_img_url')">
                 </td>
 
-                <th>Mobile (1618px x 000px)</th>
+                <th>Mobile<br />(1618px x 000px)</th>
                 <td colspan="5">
                     <input type="text" class="_trim" id="banner-mobile_img_url" name="mobile_img_url" style="width:70%" value="{{mobile_img_url}}" >
                     <input type="button" value="미리보기" onclick="getImg('banner-mobile_img_url')">
