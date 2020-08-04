@@ -38,6 +38,7 @@ public class FanRankingVo extends PagingVo {
     private String mem_birth_month;
     private String mem_birth_day;
 
+    private String ranking_type;
     private String reward_rank;
     private String reward_dal;
     private String reward_byeol;
