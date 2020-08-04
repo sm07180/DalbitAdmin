@@ -392,7 +392,7 @@
 
 <script type="text/x-handlebars-template" id="tmp_infoTable_byeol">
     <div class="col-md-12 no-padding">
-        <table class="table table-bordered mb10">
+        <table class="table table-bordered mb10 mt5">
             <tr>
                 <th rowspan="3"  class="_bgColor _fontColor" data-bgcolor="#0f243e" data-fontcolor="white">회원</th>
                 <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#b4c7e7">교환</th>
@@ -402,6 +402,7 @@
                 <th class="_bgColor" data-bgcolor="#b4c7e7">영구정지</th>
                 <th class="_bgColor" data-bgcolor="#b4c7e7">탈퇴</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
+                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
             </tr>
             <tr>
                 <th colspan="2" class="_bgColor" data-bgcolor="#c5d8f1">승인</th>
@@ -419,16 +420,18 @@
                 <td>{{addComma sum_block_cnt}}</td>
                 <td>{{addComma sum_withdrawal_cnt}}</td>
                 <td>{{addComma sum_mem_total_cnt}}</td>
+                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
             </tr>
             <tr>
                 <th rowspan="3" class="_bgColor _fontColor" data-bgcolor="#974806" data-fontcolor="white">운영자</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">교환</th>
-                <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">선물</th>
+                <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#ffe699">교환</th>
+                <th rowspan="2" colspan="2" class="_bgColor" data-bgcolor="#ffe699">선물</th>
                 <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">환전</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#ffe699">소실금액 복구</th>
                 <th colspan="2" class="_bgColor" data-bgcolor="#ffe699">직원 테스트 지급</th>
                 <th class="_bgColor" data-bgcolor="#ffe699">이벤트(직접지급)</th>
                 <th rowspan="2" class="_bgColor" data-bgcolor="#d8d8d8">소계</th>
+                <th style="background-color: white; border-bottom: hidden;border-top: hidden;"></th>
                 <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="white">총 소진 별</th>
                 <th rowspan="2" class="_bgColor _fontColor" data-bgcolor="black" data-fontcolor="red">총 보유 별</th>
             </tr>
@@ -440,8 +443,8 @@
                 <th class="_bgColor" data-bgcolor="#fff2cc">(변동)이벤트명</th>
             </tr>
             <tr>
-                <td>{{addComma sum_op_change_cnt}}</td>
-                <td>{{addComma sum_op_gift_cnt}}</td>
+                <td colspan="2">{{addComma sum_op_change_cnt}}</td>
+                <td colspan="2">{{addComma sum_op_gift_cnt}}</td>
                 <td>{{addComma sum_op_exchange_cnt}}</td>
                 <td>{{addComma sum_op_cancel_cnt}}</td>
                 <td>{{addComma sum_op_admin_cnt}}</td>
@@ -449,6 +452,7 @@
                 <td>{{addComma sum_op_test_out_cnt}}</td>
                 <td>{{addComma sum_op_event_cnt}}</td>
                 <td>{{addComma sum_op_total_cnt}}</td>
+                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
                 <td>{{addComma total_use_byeol}}</td>
                 <td>{{addComma total_exist_byeol}}</td>
             </tr>
