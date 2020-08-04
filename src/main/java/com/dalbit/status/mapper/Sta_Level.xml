@@ -40,6 +40,7 @@
         <if test="filter == 1">
             and e.last_upd_date >= date_add(now(),interval -8 day)
             and a.mem_no in (select mem_no_star from rd_data.tb_member_fanstar where mem_no_star = a.mem_no)
+            order by exp desc
             limit 300
         </if>
     </sql>
