@@ -1,6 +1,8 @@
 package com.dalbit.content.dao;
 
+import com.dalbit.content.vo.BannerOrderVo;
 import com.dalbit.content.vo.procedure.*;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,5 +23,6 @@ public interface Con_BannerDao {
     int callContentsBannerAdd(P_bannerInsertVo pBannerInsertVo);
     int callContentsBannerEdit(P_bannerUpdateVo pBannerUpdateVo);
     int callContentsBannerDelete(P_bannerDeleteVo pBannerDeleteVo);
+    int updateOrder(BannerOrderVo bannerOrderVo);
 
 }

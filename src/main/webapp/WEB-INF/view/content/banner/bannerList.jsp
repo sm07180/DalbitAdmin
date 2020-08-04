@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -59,7 +58,9 @@ var fnc_bannerList = {};
         fnc_bannerList.dtList_info = new DalbitDataTable(fnc_bannerList.targetDataTable, dtList_info_data, BannerDataTableSource.list, $("#searchForm"));
         fnc_bannerList.dtList_info.useCheckBox(true);
         fnc_bannerList.dtList_info.useIndex(true);
-        fnc_bannerList.dtList_info.createDataTable(this.initSummary);
+        fnc_bannerList.dtList_info.setPageLength(1000);
+        fnc_bannerList.dtList_info.createDataTable();
+        //fnc_bannerList.dtList_info.createDataTable(this.initSummary);
 
         //---------- Main DataTable ----------=
 
@@ -74,9 +75,11 @@ var fnc_bannerList = {};
         var context = json.summary;
         var html=templateScript(context);
 
-        fnc_bannerList.divDataTable = fnc_bannerList.targetDataTable.parent("div");
+        /*fnc_bannerList.divDataTable = fnc_bannerList.targetDataTable.parent("div");
         fnc_bannerList.target.find("#div_summary").remove();
-        fnc_bannerList.divDataTable.find(".top-right").prepend(html);
+        fnc_bannerList.divDataTable.find(".top-right").prepend(html);*/
+
+        fnc_bannerList.bindOrderEvent();
     };
 
 
@@ -89,9 +92,38 @@ var fnc_bannerList = {};
         fnc_bannerList.divDataTable.find(".footer-left").append(delBtn);
         fnc_bannerList.divDataTable.find(".footer-right").append(addBtn);
         fnc_bannerList.divDataTable.find(".footer-right").append(excelBtn);
+
     };
 
+    fnc_bannerList.bindOrderEvent = function(){
+        dragEventBind();
+    };
 
+    $(document).on('click', '#btn_order', function(){
+
+        if($('#position').val() == -1){
+            alert('배너 구분이 전체 상태에선 순서변경이 불가합니다.');
+            return false;
+        }
+
+        if(confirm('순서를 변경하시겠습니까?')){
+            var bannerList = new Array();
+            $('._getNoticeDetail').each(function(index){
+                bannerList.push({
+                    banner_idx : $(this).data('banner-idx')
+                    , order : index
+                });
+            });
+
+            var data = {
+                jsonParam : JSON.stringify(bannerList)
+            }
+            util.getAjaxData('setOrder', "/rest/content/banner/updateOrder", data, function(dst_id, data){
+                alert(data.message);
+                fnc_bannerList.selectMainList();
+            });
+        }
+    })
 
     fnc_bannerList.initEvent= function(){
         fnc_bannerList.target.find("#btn_insert").on("click", function () { //등록
@@ -113,7 +145,10 @@ var fnc_bannerList = {};
         // CheckBox 이벤트
         fnc_bannerList.target.find('tbody').on('change', 'input[type="checkbox"]', function () {
             if($(this).prop('checked')){
+                $("#bannerListContent").show();
                 $(this).parent().parent().find('._getNoticeDetail').click();
+            }else{
+                $("#bannerListContent").hide();
             }
         });
     };
@@ -139,7 +174,6 @@ var fnc_bannerList = {};
             return false;
         }
 
-        dalbitLog(checkDatas);
         if(confirm("선택하신 " + checkDatas.length + "건의 정보를 삭제 하시겠습니까?")){
 
             var itemCodes = "";
@@ -245,6 +279,58 @@ var fnc_bannerList = {};
     //     console.log("fn_fail_excel");
     // }
     /*----------- 엑셀 ---------=*/
+
+
+    /*ondrop="fnc_castList.drop(event)"
+    ondragover="fnc_castList.allowDrop(event)"
+    draggable="true"
+    ondragstart="fnc_castList.drag(event)"*/
+
+    var dragInfo = {
+        index : null
+        , tr : null
+    }
+    function dragEventBind(){
+
+        if($("#position").val() == -1){
+            return false;
+        }
+
+        var sortBtn = '<input type="button" value="순서변경" class="btn btn-success btn-sm" id="btn_order" style="margin-left: 3px;"/>'
+        fnc_bannerList.divDataTable.find(".top-right").html(sortBtn);
+
+        var dragTarget = $('#list_info_bannerList tbody tr');
+
+        dragTarget.attr('draggable', 'true');
+
+        dragTarget.on('drop', function(event){
+            event.preventDefault();
+            var drag_index = dragInfo.index;
+
+            var target_index = dragTarget.index(event.target.closest('tr'));
+            if(target_index < drag_index){
+                event.target.closest('tr').before(dragInfo.tr);
+            }else{
+                event.target.closest('tr').after(dragInfo.tr);
+            }
+        });
+
+        dragTarget.on('drag', function(event){
+            dragInfo.index = dragTarget.index(event.target);
+            dragInfo.tr = event.target.closest('tr');
+        });
+
+        dragTarget.on('dragover', function(event){
+            event.preventDefault();
+        });
+
+        dragTarget.on('dragstart', function(event){
+
+        });
+    }
+
+
+
 </script>
 
 

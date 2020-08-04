@@ -676,38 +676,38 @@
                 {{#dalbit_if ../detailList.slctType '==' '1'}}{{#dalbit_if ../detailList.nowDay '==' day}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
                 {{#dalbit_if ../detailList.slctType '==' '2'}}{{#dalbit_if ../detailList.nowMonth '==' monthly}} class="font-bold _bgColor" data-bgcolor="#c5d8f1" {{/dalbit_if}}{{/dalbit_if}}
             >
-                <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
-                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
-                    {{#dalbit_if ../detailList.slctType '==' '1'}}{{substr daily 5}}{{/dalbit_if}}
-                    {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
-                </td>
-                <td>{{addComma changeCnt}}</td>
-                <td>{{addComma giftCnt}}</td>
-                <td>{{addComma exchangeCnt}}</td>
-                <td>{{addComma cancelCnt}}</td>
-                <td>{{addComma eventCnt}}</td>
-                <td>{{addComma blockCnt}}</td>
-                <td>{{addComma withdrawalCnt}}</td>
-                <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma memTotalCnt}}</td>
-                <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
-                <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
-                    {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
-                    {{#dalbit_if ../detailList.slctType '==' '1status/push/info'}}{{substr daily 5}}{{/dalbit_if}}
-                    {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
-                </td>
-                <td>{{addComma opChangeCnt}}</td>
-                <td>{{addComma opGiftCnt}}</td>
-                <td>{{addComma opExchangeCnt}}</td>
-                <td>{{addComma opCancelCnt}}</td>
-                <td>{{addComma opAdminCnt}}</td>
-                <td>{{addComma opTestInCnt}}</td>
-                <td>{{addComma opTestOutCnt}}</td>
-                <td>{{addComma opEventCnt}}</td>
-                <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma opTotalCnt}}</td>
+            <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
+                {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1'}}{{substr daily 5}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
+            </td>
+            <td>{{addComma changeCnt}}</td>
+            <td>{{addComma giftCnt}}</td>
+            <td>{{addComma exchangeCnt}}</td>
+            <td>{{addComma cancelCnt}}</td>
+            <td>{{addComma eventCnt}}</td>
+            <td>{{addComma blockCnt}}</td>
+            <td>{{addComma withdrawalCnt}}</td>
+            <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma memTotalCnt}}</td>
+            <td style="background-color: white; border-bottom: hidden;border-top: hidden;"></td>
+            <td class="font-bold _bgColor" data-bgcolor="#c5d8f1">
+                {{#dalbit_if ../detailList.slctType '==' '0'}}{{hour}}시{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '1status/push/info'}}{{substr daily 5}}{{/dalbit_if}}
+                {{#dalbit_if ../detailList.slctType '==' '2'}}{{monthly}}월{{/dalbit_if}}
+            </td>
+            <td>{{addComma opChangeCnt}}</td>
+            <td>{{addComma opGiftCnt}}</td>
+            <td>{{addComma opExchangeCnt}}</td>
+            <td>{{addComma opCancelCnt}}</td>
+            <td>{{addComma opAdminCnt}}</td>
+            <td>{{addComma opTestInCnt}}</td>
+            <td>{{addComma opTestOutCnt}}</td>
+            <td>{{addComma opEventCnt}}</td>
+            <td class="_bgColor" data-bgcolor="#d8d8d8">{{addComma opTotalCnt}}</td>
             </tr>
             {{else}}
             <td colspan="19" class="noData">{{isEmptyData}}<td>
-            {{/each}}
+                {{/each}}
                 <tr class="font-bold" style="background-color: #d8d8d8">
                     <td>총합</td>
                     <td>{{addComma totalInfo.sum_change_cnt}}</td>

@@ -195,6 +195,8 @@
                     data.sortListener = 0;
                 if ($("select[name='liveSort']").val() == 5)
                     data.sortGift = 1;
+                if ($("select[name='liveSort']").val() == 6)
+                    data.sortByeol = 1;
             }
         }else{
             $("#selJoinDate").show();
@@ -207,6 +209,8 @@
                     data.sortListener = 0;
                 if ($("select[name='endSort']").val() == 5)
                     data.sortGift = 1;
+                if ($("select[name='endSort']").val() == 6)
+                    data.sortByeol = 1;
             }
         }
         //---------------------------------------------------

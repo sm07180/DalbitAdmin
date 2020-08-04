@@ -277,3 +277,24 @@ Handlebars.registerHelper("substr", function(value, st, ed) {
 Handlebars.registerHelper("moment", function(value, format) {
     return moment(value).format(format);
 });
+
+Handlebars.registerHelper("isCurrentDisplay", function(is_view, startDate, endDate) {
+
+    var on_text = '<span style="color:blue;">ON</span>';
+    var off_text = '<span style="color:gray">OFF</span>';
+
+    if(is_view == 1){
+        if(startDate != '0000-00-00 00:00:00'){
+            var start = moment(startDate).format('YYYYMMDDHHmmss');
+            var end = moment(endDate).format('YYYYMMDDHHmmss');
+            var current = moment(new Date()).format('YYYYMMDDHHmmss');
+            if(start <= current && current <= end){
+                return on_text;
+            }else{
+                return off_text;
+            }
+        }
+        return on_text
+    }
+    return off_text;
+});
