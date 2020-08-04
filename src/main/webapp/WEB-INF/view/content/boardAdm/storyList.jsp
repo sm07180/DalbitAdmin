@@ -130,7 +130,7 @@
                 -
                 {{/equal}}
             </td>
-            <td>{{title}}</td>
+            <td>{{replaceHtml title}}</td>
             <td>
                 {{^equal send_mem_nick ''}}
                 {{{memNoLink ../send_mem_nick ../send_mem_no}}}
