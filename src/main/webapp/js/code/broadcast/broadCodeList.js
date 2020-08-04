@@ -106,7 +106,8 @@ var liveSort = [
     , new COMMON_CODE('2', '2', '진행시간 오래된 순으로')
     , new COMMON_CODE('3', '3', '청취자 많은 순으로')
     , new COMMON_CODE('4', '4', '청취자 적은 순으로')
-    , new COMMON_CODE('5', '5', '방송 중 선물 많이 받은 순으로')
+    , new COMMON_CODE('5', '5', '선물 건 수 많이 받은 순으로')
+    , new COMMON_CODE('6', '6', '선물 별 수 많이 받은 순으로')
 ];
 
 var endSort = [
@@ -115,7 +116,8 @@ var endSort = [
     , new COMMON_CODE('2', '2', '진행시간 오래된 순으로')
     , new COMMON_CODE('3', '3', '청취자 많은 순으로')
     , new COMMON_CODE('4', '4', '청취자 적은 순으로')
-    , new COMMON_CODE('5', '5', '방송 중 선물 많이 받은 순으로')
+    , new COMMON_CODE('5', '5', '선물 건 수 많이 받은 순으로')
+    , new COMMON_CODE('6', '6', '선물 별 수 많이 받은 순으로')
 ];
 
 
