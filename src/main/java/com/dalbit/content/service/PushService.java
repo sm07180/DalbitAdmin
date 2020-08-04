@@ -244,6 +244,7 @@ public class PushService {
         int failCnt=0;
         int sucNotiCnt=0;
         int failNotiCnt=0;
+        int rejectNotiCnt=0;
 
         // 내부 개발 테스트 표시 추가 2020.07.01
         if("local".equals(DalbitUtil.getActiveProfile())){
@@ -295,14 +296,23 @@ public class PushService {
                             pMemberReportVo.setTargetRedirectUrl(pPushInsertVo.getTarget_info());
                             pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                             pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
-                            int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
+                            pMemberReportVo.setPush_slct(pPushInsertVo.getPush_slct());
+                            int notiResult;
+                            if(!DalbitUtil.isMemberPushRejection(pMemberReportVo.getMem_no(), pMemberReportVo.getPush_slct())){
+                                notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
+                            }else {
+                                notiResult = -3;
+                            }
 
                             if(notiResult > 0){
                                 sucNotiCnt++;
+                            }else if(notiResult == -3){
+                                rejectNotiCnt++;
                             }else{
                                 failNotiCnt++;
                             }
                         }catch (Exception e){
+                            e.printStackTrace();
                             log.error("[NOTI 발송 실패 - PUSH 발송]");
                         }
                     }
@@ -350,10 +360,18 @@ public class PushService {
                         pMemberReportVo.setTargetRedirectUrl(pPushInsertVo.getTarget_info());
                         pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                         pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
-                        int notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
+                        pMemberReportVo.setPush_slct(pPushInsertVo.getPush_slct());
+                        int notiResult;
+                        if(!DalbitUtil.isMemberPushRejection(pMemberReportVo.getMem_no(), pMemberReportVo.getPush_slct())){
+                            notiResult = memMemberDao.callMemberNotification_Add(pMemberReportVo);
+                        }else {
+                            notiResult = -3;
+                        }
 
                         if(notiResult > 0){
                             sucNotiCnt++;
+                        }else if(notiResult == -3){
+                            rejectNotiCnt++;
                         }else{
                             failNotiCnt++;
                         }
@@ -402,13 +420,9 @@ public class PushService {
                     pMemberReportVo.setTargetRedirectUrl(pPushInsertVo.getTarget_info());
                     pMemberReportVo.setNotiContents(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
                     pMemberReportVo.setNotimemo(pPushInsertVo.getSend_cont().replaceAll("\n", "<br>"));
-                    int notiResult = pushDao.callContentsNotiAddALL(pMemberReportVo);
-
-                    if(notiResult > 0){
-                        sucNotiCnt++;
-                    }else{
-                        failNotiCnt++;
-                    }
+                    pMemberReportVo.setPush_slct(pPushInsertVo.getPush_slct());
+                    int notiResult = memMemberDao.callMemberNotification_Add_ALL(pMemberReportVo);
+                    sucNotiCnt = notiResult;
 
                 }catch (Exception e){
                     log.error("[NOTI 발송 실패 - PUSH 발송]");
