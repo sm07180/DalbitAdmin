@@ -39,12 +39,12 @@
           inner join rd_data.tb_member_profile prof on prof.mem_no = dj.mem_no
           inner join  rd_data.tb_member_level lev on prof.mem_no = lev.mem_no
           left join rd_data.tb_member_basic mem on prof.mem_no = mem.mem_no
-      where
+          left join rd_data.tb_member_ranking_reward_dj rewardDj on  mem.mem_no = rewardDj.mem_no
           <if test='liveCnt != 0'>
-            ranking_date = #{liveDate}
+            where dj.ranking_date = #{liveDate}
           </if>
           <if test='liveCnt == 0'>
-            date_format(ranking_date,'%Y.%m.%d') = #{sDate}
+            where date_format(dj.ranking_date,'%Y.%m.%d') = #{sDate}
           </if>
 
           <if test='txt_search != null and txt_search != ""'>
@@ -73,37 +73,35 @@
 
     <sql id="fanCondition">
       from rd_data.tb_member_basic mem
-        , rd_data.tb_member_profile prof
-        , rd_data.tb_member_level lev
+        left join rd_data.tb_member_profile prof on mem.mem_no = prof.mem_no
+        left join rd_data.tb_member_level lev on mem.mem_no = lev.mem_no
         <if test='rankType == "1"'>
             <if test='liveCnt != 0'>
-                ,rd_data.tb_ranking_fan_live fan
+                left join rd_data.tb_ranking_fan_live fan on mem.mem_no = fan.mem_no
             </if>
             <if test='liveCnt == "0"'>
-                ,rd_data.tb_ranking_fan_day fan
+                left join rd_data.tb_ranking_fan_day fan on mem.mem_no = fan.mem_no
             </if>
         </if>
         <if test='rankType == "2"'>
-            , rd_data.tb_ranking_fan_week fan
+            left join rd_data.tb_ranking_fan_week fan on mem.mem_no = fan.mem_no
         </if>
         <if test='rankType == "3"'>
-            , rd_data.tb_ranking_fan_month fan
+            left join rd_data.tb_ranking_fan_month fan on mem.mem_no = fan.mem_no
         </if>
-      where mem.mem_no = prof.mem_no
-            and mem.mem_no = lev.mem_no
-            and mem.mem_no = fan.mem_no
-            <if test='liveCnt != 0'>
-               and ranking_date = #{liveDate}
-            </if>
-            <if test='liveCnt == 0'>
-               and date_format(ranking_date,'%Y.%m.%d') = #{sDate}
-            </if>
-            <if test='txt_search != null and txt_search != ""'>
-                and (mem.mem_no like concat('%', #{txt_search}, '%')
-                or mem_id like concat('%', #{txt_search}, '%')
-                or mem_nick like concat('%', #{txt_search}, '%')
-                or mem.mem_phone like concat('%', #{txt_search}, '%'))
-            </if>
+        left join rd_data.tb_member_ranking_reward_fan rewardFan on  mem.mem_no = rewardFan.mem_no
+        <if test='liveCnt != 0'>
+           where fan.ranking_date = #{liveDate}
+        </if>
+        <if test='liveCnt == 0'>
+            where date_format(fan.ranking_date,'%Y.%m.%d') = #{sDate}
+        </if>
+        <if test='txt_search != null and txt_search != ""'>
+            and (mem.mem_no like concat('%', #{txt_search}, '%')
+            or mem_id like concat('%', #{txt_search}, '%')
+            or mem_nick like concat('%', #{txt_search}, '%')
+            or mem.mem_phone like concat('%', #{txt_search}, '%'))
+        </if>
     </sql>
     <!-- DJ -->
     <select id="getMainDjRankingList" parameterType="com.dalbit.menu.vo.DjRankingVo" resultType="com.dalbit.menu.vo.DjRankingVo">
@@ -137,6 +135,11 @@
                 , CAST(dj.dj_point AS INT) AS rankPoint
                 , dj.listener_point as listenCnt
                 , dj.gift_point as itemCnt
+                , rewardDj.rank as reward_rank
+                , rewardDj.reward_dal
+                , rewardDj.reward_byeol
+                , rewardDj.reward_exp
+                , rewardDj.reward_yn
               <include refid="djCondition"/>
             ) a , (select @RNUM := 0) r
             order by djRank asc
@@ -182,6 +185,11 @@
                         , fan.listen_point as airTime
                         , CAST(fan.fan_point AS INT) AS rankPoint
                         , fan.gift_point as itemCnt
+                        , rewardFan.rank as reward_rank
+                        , rewardFan.reward_dal
+                        , rewardFan.reward_byeol
+                        , rewardFan.reward_exp
+                        , rewardFan.reward_yn
                     <include refid="fanCondition"/>
                     ) a , (select @RNUM := 0) r
                     order by fanRank asc
