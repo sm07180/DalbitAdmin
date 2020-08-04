@@ -133,10 +133,10 @@
 
         if(tabType == "1"){
             $("#tab_withdrawalList").click();
-            getRes_withdrawalList();
+            // getRes_withdrawalList();
         }else if(tabType == "2"){
             $("#tab_forcedList").click();
-            getRes_forcedList();
+            // getRes_forcedList();
         }
     }
 

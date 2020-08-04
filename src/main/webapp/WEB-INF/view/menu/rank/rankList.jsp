@@ -279,7 +279,11 @@
         <th>순위</th>
         <th>프로필 이미지</th>
         <th>회원번호</th>
-        <th>User 닉네임</th>
+        <th>닉네임</th>
+        <th>보상 지급 여부</th>
+        <th>보상 배지</th>
+        <th>보상 달</th>
+        <th>보상 랜덤 경험치</th>
         <th>성별</th>
         <th>랭킹점수</th>
         <th>받은 별</th>
@@ -311,6 +315,13 @@
                     {{rank.mem_nick}}
                 {{/equal}}
             </td>
+            <td>
+                {{#dalbit_if reward_yn "==" "0"}}NO{{/dalbit_if}}
+                {{#dalbit_if reward_yn "==" "1"}}YES{{/dalbit_if}}
+            </td>
+            <td>{{reward_rank}}</td>
+            <td>{{addComma reward_dal}}</td>
+            <td>{{addComma reward_exp}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
@@ -333,7 +344,11 @@
         <th>순위</th>
         <th>프로필 이미지</th>
         <th>회원번호</th>
-        <th>User 닉네임</th>
+        <th>닉네임</th>
+        <th>보상 지급 여부</th>
+        <th>보상 배지</th>
+        <th>보상 달</th>
+        <th>보상 랜덤 경험치</th>
         <th>성별</th>
         <th>랭킹 점수</th>
         <th>보낸 달</th>
@@ -356,6 +371,13 @@
                 등급 : {{grade}}
             </td>
             <td>{{mem_nick}}</td>
+            <td>
+                {{#dalbit_if reward_yn "==" "0"}}NO{{/dalbit_if}}
+                {{#dalbit_if reward_yn "==" "1"}}YES{{/dalbit_if}}
+            </td>
+            <td>{{reward_rank}}</td>
+            <td>{{addComma reward_dal}}</td>
+            <td>{{addComma reward_exp}}</td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
             <td>{{addComma rankPoint}}점</td>
             <td>{{addComma itemCnt}}개</td>
