@@ -153,5 +153,9 @@
             <td>{{lastUpdDateFormat}}</td>
             <td class="word-break" style=""><span>{{{replaceHtml contents}}}</span></td>
         </tr>
+    {{else}}
+        <tr>
+            <td colspan="9">{{isEmptyData}}</td>
+        </tr>
     {{/each}}
 </script>
