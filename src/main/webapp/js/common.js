@@ -46,12 +46,17 @@ common.getMaxDay = function(year, month){
     return date.getDate();
 }
 
-common.addComma = function(value){
+common.addComma = function(value, blank){
     if(common.isEmpty(value)){
         return 0;
     }
     if(value == "null" || value == "NaN"){
         return '';
+    }
+    if(!common.isEmpty(blank) && value == 0) {
+        if (blank == "Y") {
+            return '';
+        }
     }
     var regExp = /\B(?=(\d{3})+(?!\d))/g
     return value.toString().replace(regExp, ",");

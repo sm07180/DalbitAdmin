@@ -61,11 +61,30 @@
     var memNo;
     var memId;
     var slct_type;
+    var noticeType = 0;
+    var email;
+    var phone;
     function quest_detail_success(data, response, params){
         $('#tab_customerQuestion').addClass("show");
         qnaIdx = params.qnaIdx;
         answer = params.answer;
-        response.data["mem_userid"] = memInfo(response.data.mem_userid,response.data.mem_no);
+        memNo = response.data.mem_no;
+        memId = response.data.mem_userid;
+        phone = response.data.phone;
+        email = response.data.email;
+
+        if(!common.isEmpty(response.data.phone)){
+            noticeType = 1;
+        }
+        if(!common.isEmpty(response.data.email)){
+            noticeType = 2;
+        }
+        if(!common.isEmpty(response.data.email) && !common.isEmpty(response.data.phone)){
+            noticeType = 3;
+        }
+        response.data["noticeType"] = noticeType;
+
+        response.data["mem_no"] = memInfo(response.data.mem_no,response.data.mem_no);
         response.data["answer"] = params.answer;
         response.data["rowNum"] = params.rowNum;
         response.data["add_file_cnt"] = response.data.fileCnt;
@@ -74,15 +93,21 @@
         }else{
             response.data["editAuth"] = "N";
         }
-        response.data["question_contents"] = response.data.question_contents.replace(/\\n/gi, "\r\n");
+        if(noticeType == 2){
+            response.data["question_contents"] = response.data.question_contents.replace(/\\n/gi, "\r\n");
+        }else{
+            if(!common.isEmpty(response.data.answer)){
+                response.data["msg_body"] = response.data.answer;
+            }else{
+                response.data["msg_body"] = "[달빛라이브]\n";
+            }
+        }
         var template = $('#tmp_question_detailFrm').html();
         var templateScript = Handlebars.compile(template);
         var context = response.data;
         var html=templateScript(context);
         $("#question_detailFrm").html(html);
 
-        memNo = response.data.mem_no;
-        memId = response.data.mem_userid;
 
         util.editorInit("question");
         util.getAjaxData("getGroup", "/rest/customer/question/getFaqGroupList", null, fn_getFaqGroup_success);
@@ -100,7 +125,7 @@
             $("#bt_chatchRelease").addClass("hide");
         }
         //textarea resize
-        resize(document.getElementById("question_contents"));
+        // resize(document.getElementById("question_contents"));
 
         var scrollPosition = $("#div_questionTab").offset();
         util.scrollPostion(scrollPosition.top);
@@ -121,7 +146,16 @@
     function operate_click(){
         var data = {};
         data["qnaIdx"] = qnaIdx;
-        data["answer"] = $("#editor").summernote('code');
+        if(noticeType == 2){
+            data["answer"] = $("#editor").summernote('code');
+        }else{
+            data["answer"] = $("#smsSend-msg_body").val();
+        }
+        data.title = $("#smsSend-subject").val();
+        data.noticeType = noticeType;
+        data.phone = phone;
+        data.email = email;
+        console.log(data);
         if(confirm("등록하시겠습니까?")){
             util.getAjaxData("insert", "/rest/customer/question/operate", data, fn_insert_success);
         }
@@ -134,7 +168,7 @@
             alert(response.message);
         }
         dtList_info.reload();
-        $("#question_detailFrm").empty();
+        $('#tab_customerQuestion').removeClass("show");
     }
 
     // function update_click(){
@@ -208,10 +242,10 @@
         }
     }
 
-    function resize(obj) {
-        obj.style.height = "114px";
-        obj.style.height = (12+obj.scrollHeight)+"px";
-    }
+    // function resize(obj) {
+    //     obj.style.height = "114px";
+    //     obj.style.height = (12+obj.scrollHeight)+"px";
+    // }
 
     function adminMemoAdd(){
         console.log($("#txt_qnaAdminMemo").val());
@@ -302,7 +336,7 @@
                     <td>{{browser}}</td>
 
                     <th>회원번호</th>
-                    <td>{{mem_no}}</td>
+                    <td>{{{mem_no}}}</td>
 
                     <th>접수일시</th>
                     <td>{{write_date}}</td>
@@ -334,8 +368,10 @@
 
                     <th>문의자<br /></th>
                     <td>
-                        {{{mem_userid}}}
-                        <br/>{{mem_level}}/{{mem_grade}}
+                        {{#dalbit_if mem_userid '!=' ''}}
+                            {{mem_userid}}<br/>
+                        {{/dalbit_if}}
+                        {{mem_level}}/{{mem_grade}}
                     </td>
 
                     <th>처리일시</th>
@@ -345,38 +381,50 @@
                     <td>{{op_name}}</td>
                 </tr>
                 <tr>
+                    <th colspan="2">문의회원정보</th>
+                    <td colspan="4">
+                        <%--<textarea class="form-control" id="mem_info" oninput="util.textareaResize(this, 100)" style="height: 100%">{{{replaceHtml question_contents}}}</textarea>--%>
+                    </td>
+
+                    <th rowspan="2">문의자<br />닉네임</th>
+                    <td rowspan="2">{{mem_nick}}</td>
+
+                    <th rowspan="2">문의자 이메일</th>
+                    <td rowspan="2">{{email}}</td>
+                    <th rowspan="2">연락처</th>
+                    <td rowspan="2">{{phone}}</td>
+                </tr>
+                <tr>
                     <th colspan="2">문의제목</th>
                     <td colspan="4"><input type="text" class="form-control fit-table" value="{{question_title}}" /></td>
-
-                    <th>문의자<br />닉네임</th>
-                    <td>{{mem_nick}}</td>
-
-                    <th>문의자 이메일</th>
-                    <td colspan="3">{{email}}</td>
                 </tr>
                 <tr>
                     <th colspan="2">문의내용</th>
-                    <td colspan="6">
-                        <textarea class="form-control fit-table" id="question_contents" rows="5" oninput="util.textareaResize(this, 114)" style="overflow:hidden;">{{{replaceHtml question_contents}}}</textarea>
+                    <td colspan="5">
+                        <textarea class="form-control" id="question_contents" oninput="util.textareaResize(this, 200)" style="height: 100%">{{{replaceHtml question_contents}}}</textarea>
                     </td>
 
                     <th>첨부파일 <br /> {{fileCnt}} 건</th>
-                    <td colspan="3">
+                    <td colspan="4">
                         {{#equal fileCnt 0}}
                         -
                         {{else}}
+                        <div class="col-md-12 no-padding">
                         <form id="profileImg" method="post" enctype="multipart/form-data">
                             {{#dalbit_if ../add_file1 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file1}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
                             {{#dalbit_if ../add_file2 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file2}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
                             {{#dalbit_if ../add_file3 "!=" ""}}<img class="thumbnail fullSize_background col-md-10 no-padding" src="{{renderImage ../add_file3}}" alt="your image" style="width: 150px;height: 150px" />{{/dalbit_if}}
-                            <button type="button" id="bt_fileDel" class="btn btn-danger btn-sm" style="margin-left: 10px" onclick="fileDel();">첨부파일 삭제</button>
                         </form>
+                        </div>
+                        <div class="col-md-12 no-padding">
+                        <button type="button" id="bt_fileDel" class="btn btn-danger btn-sm" style="" onclick="fileDel();">첨부파일 삭제</button>
+                        </div>
                         {{/equal}}
                     </td>
                 </tr>
 
                 <tr>
-                    <th colspan="2">매크로 답변하기</th>
+                    <th colspan="2">매크로 답변</th>
                     <td colspan="2" id="_faqGroupArea"></td>
                     <td colspan="2" id="_faqSubArea"></td>
 
@@ -426,7 +474,24 @@
                 <div class="widget-header">
                     <h3><i class="fa fa-user"></i> 답변 </h3>
                 </div>
-                <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
+                {{#dalbit_if noticeType '==' 2}}
+                    <div class="_editor" id="editor" name="editor">{{{replaceHtml answer}}}</div>
+                {{else}}
+                <div>
+                    <div><span class="font-bold">제목</span></div>
+                    <input style="width: 25%" type="text" class="form-control" name="subject" id="smsSend-subject" placeholder="LMS 발송 제목을 입력해주세요." value="[달빛라이브]{{question_title}}" maxlength="30" disabled>
+                    <span style="color: red; font-size:0.9em">* 제목은 수정이 불가능합니다.</span>
+                    <br/>
+                </div>
+                <div>
+                    <div><span class="font-bold">내용</span></div>
+                    <div>
+                        <textarea class="form-control" name="msg_body" id="smsSend-msg_body" rows="8" cols="30" placeholder="LMS 발송 문자 내용을 입력해 주세요." style="resize: none">{{{msg_body}}}</textarea>
+                        <span style="color: red; font-size:0.9em">* 1000자 이상 시 나눠서 발송 됩니다.</span><br>
+                    </div>
+                </div>
+                {{/dalbit_if}}
+
             </div>
 
         </div>

@@ -17,6 +17,9 @@ public class P_QuestionTotalOutDetailVo extends SearchVo {
     private int regCnt;
     private int opCnt;
     private int nopCnt;
+    private int no_regCnt;
+    private int no_opCnt;
+    private int no_nopCnt;
 }
 
 

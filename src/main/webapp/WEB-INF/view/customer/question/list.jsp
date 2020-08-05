@@ -3,8 +3,7 @@
 
 <div id="wrapper">
     <div id="page-wrapper">
-        <div class="container-fluid">
-
+        <div class="container-fluid no-padding">
             <!-- serachBox -->
             <form id="searchForm">
                 <div class="row col-lg-12 form-inline">
@@ -14,7 +13,6 @@
                             <div>
                                 <span name="question_searchType" id="question_searchType"></span>
                                 <span name="question_selbox_type" id="question_selbox_type"></span>
-                                <span name="question_platform" id="question_platform"></span>
                                 <label><input type="text" class="form-control" id="txt_search"></label>
                                 <button type="button" class="btn btn-success" id="bt_search">검색</button>
                             </div>
@@ -23,6 +21,17 @@
                 </div>
             </form>
             <!-- //serachBox -->
+            <div class="row col-lg-12 form-inline" style="padding-top: 2px; padding-bottom: 15px;">
+                <div class="widget-content">
+                    <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
+                        <li><a href="/status/question/info?tabType=1" id="tab_totalDetail">총계</a></li>
+                        <li><a href="/status/question/info?tabType=2" id="tab_typeDetail">유형별</a></li>
+                        <li><a href="/status/question/info?tabType=3" id="tab_platformDetail">플랫폼별</a></li>
+                        <li><a href="/status/question/info?tabType=4" id="tab_untreatedDetail">미처리</a></li>
+                        <li class="active"><a href="" >1:1문의내역</a></li>
+                    </ul>
+                </div>
+            </div>
             <!-- DATA TABLE -->
             <div class="row col-lg-12 form-inline">
                 <div class="widget widget-table">
@@ -71,13 +80,13 @@
     });
     $("#question_searchType").html(util.getCommonCodeSelect(-1, question_searchType));
     $("#question_selbox_type").html(util.getCommonCodeSelect(-1, question_selbox_type));
-    $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
 
     $('#one_title').html("ㆍ회원의 1:1문의 내용을 확인하고, 답변 및 처리할 수 있습니다. 신중히 확인 한 후 답변바랍니다.");
 
     var tmp_searchText;
     var tmp_searchType= -1;
     var tmp_slctState =-1;
+    var tmp_slctMember =-1;
     var tmp_slctPlatform = null;
 
     var dtList_info;
@@ -86,6 +95,7 @@
         data.searchType = tmp_searchType;
         data.slctState = tmp_slctState;
         data.slctPlatform = tmp_slctPlatform;
+        data.slctMember = tmp_slctMember;
     };
     dtList_info = new DalbitDataTable($("#list_info"), dtList_info_data, questionDataTableSource.questList);
     dtList_info.useCheckBox(true);
@@ -104,7 +114,6 @@
     function getUserInfo(){                 // 검색
         /* 엑셀저장을 위해 조회조건 임시저장 */
         tmp_searchText = $('#txt_search').val();
-        tmp_slctPlatform = $('#platform').val();
         dtList_info.reload(question_summary_table);
 
         /*검색결과 영역이 접혀 있을 시 열기*/
@@ -127,12 +136,18 @@
     }
 
     function initDataTableTop_select_question(){
-        var topTable = '<br/><br/><span name="question_status" id="question_status" onchange="question_status_change()"></span>';
+        var topTable = '<br/><br/><span name="question_status" id="question_status" onchange="question_status_change()"></span>' +
+                                '<span name="question_mem_state" id="question_mem_state" onchange="question_status_change()"></span>' +
+                                '<span name="question_platform" id="question_platform" onchange="question_status_change()"></span>';
         $("#main_table").find(".top-left").addClass("no-padding").append(topTable);
         $("#question_status").html(util.getCommonCodeSelect(-1, question_status));
+        $("#question_mem_state").html(util.getCommonCodeSelect(-1, question_mem_state));
+        $("#question_platform").html(util.getCommonCodeSelect(-1, question_platform));
     }
     function question_status_change(){
+        tmp_slctMember = $("#question_mem_state").find("#question_mem_state option:selected").val();
         tmp_slctState = $("#question_status").find("#question_status option:selected").val();
+        tmp_slctPlatform = $('#platform').val();
         dtList_info.reload(question_summary_table);
     }
 

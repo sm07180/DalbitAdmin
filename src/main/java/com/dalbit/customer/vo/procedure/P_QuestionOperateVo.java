@@ -13,4 +13,9 @@ public class P_QuestionOperateVo extends SearchVo {
     private String answer;
     private String memo;
     private String mem_no;
+
+    private String title;
+    private int noticeType;
+    private String phone;
+    private String email;
 }

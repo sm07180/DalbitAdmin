@@ -584,6 +584,12 @@ public enum Status {
     //ip/deviceUuid 차단해지
     회원ipUuid차단해지_성공("0", "ipDeviceUuid.block.delete.success", "회원 ip/deviceUuid 차단 성공 시"),
     회원ipUuid차단해지_실패("C006", "ipDeviceUuid.block.delete.fail", "회원 ip/deviceUuid 차단 실패 시"),
+
+    문자발송_성공("0", "sms.send.success", "문자 발송 성공 시"),
+    문자발송_실패("C006", "sms.send.fail", "문자 발송 실패 시"),
+
+
+
     ;
 
 

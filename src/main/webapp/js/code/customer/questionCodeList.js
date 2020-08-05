@@ -56,3 +56,10 @@ var question_platform = [
     , new COMMON_CODE('IOS-Mobile', 'IOS-Mobile', 'IOS-Mobile')
     , new COMMON_CODE('Web-Mobile', 'Web-Mobile', 'Web-Mobile')
 ];
+
+var question_mem_state = [
+    new COMMON_CODE(null, 'question_mem_state', '문의자구분')
+    , new COMMON_CODE('all', '0', '문의자(전체)')
+    , new COMMON_CODE('1', '1', '회원')
+    , new COMMON_CODE('2', '2', '비회원')
+];

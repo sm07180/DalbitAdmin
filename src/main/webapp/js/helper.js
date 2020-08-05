@@ -3,8 +3,8 @@
  * Number Add Comma
  * 숫자 콤마 추가
  */
-Handlebars.registerHelper("addComma", function (value) {
-    return common.addComma(value);
+Handlebars.registerHelper("addComma", function (value,blank) {
+    return common.addComma(value, blank);
 })
 
 
