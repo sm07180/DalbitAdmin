@@ -80,10 +80,10 @@ public class Con_BannerRestController {
         return con_BannerService.updateOrder(bannerOrderVo);
     }
 
-
-
-
-
+    @PostMapping("bannerStat")
+    public String bannerStat(){
+        return con_BannerService.bannerStat();
+    }
 
     @PostMapping("statistics")
     public String statisticsList(HttpServletRequest request, BannerVo bannerVo) {
