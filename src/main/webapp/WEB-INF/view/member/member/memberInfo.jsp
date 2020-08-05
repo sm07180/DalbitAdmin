@@ -782,6 +782,26 @@
         }
     });
 
+    $(document).on('click', '#bt_cancel_cert', function(){
+        var data = {
+            memNo : memNo
+        }
+        util.getAjaxData("cancelCert", "/rest/member/member/cancel/cert", data, function(dst_id, response){
+            alert("본인인증 정보가 철회되었습니다.");
+            getMemNo_info_reload(memNo);
+        });
+    });
+
+    $(document).on('click', '#bt_rollback_cert', function(){
+        var data = {
+            memNo : memNo
+        }
+        util.getAjaxData("cancelCert", "/rest/member/member/rollback/cert", data, function(dst_id, response){
+            alert("본인인증 정보가 복귀되었습니다.");
+            getMemNo_info_reload(memNo);
+        });
+    });
+
     function fn_succ_recant(){
         alert("법정대리인(동의)를 철회하였습니다.");
         getMemNo_info_reload(memNo);
@@ -1065,10 +1085,14 @@
             <th>본인인증</th>
             <td class="font-bold">
                 {{#equal auth_yn 'Yes'}}
-                {{../comm_company}} &nbsp&nbsp|&nbsp&nbsp <label style="color: red; font-weight: bold">{{../auth_yn}}</label>
+                    {{../comm_company}} &nbsp&nbsp|&nbsp&nbsp <label style="color: red; font-weight: bold">{{../auth_yn}}</label>
+                    <button type="button" id="bt_cancel_cert" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">철회</button>
                 {{/equal}}
                 {{#equal auth_yn 'No'}}
-                <label style="font-weight: bold;">{{../auth_yn}}</label>
+                    <label style="font-weight: bold;">{{../auth_yn}}</label>
+                    {{#equal ../certificationBakYn 'Y'}}
+                        <button type="button" id="bt_rollback_cert" class="btn btn-default btn-sm pull-right ml5" style="background-color: #46B0CF; border-color: #46B0CF">복귀</button>
+                    {{/equal}}
                 {{/equal}}
             </td>
             <th>법정대리인<br>(보호자)</br>동의</th>

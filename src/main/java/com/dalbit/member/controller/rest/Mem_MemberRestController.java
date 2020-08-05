@@ -261,4 +261,14 @@ public class Mem_MemberRestController {
     public int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
         return mem_MemberService.updateBackRecant(pMemberParentsAgreeInputVo);
     }
+
+    @PostMapping("cancel/cert")
+    public String cancelCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
+        return mem_MemberService.cancelCert(pMemberParentsAgreeInputVo);
+    }
+
+    @PostMapping("rollback/cert")
+    public String rollbackCert(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo){
+        return mem_MemberService.rollbackCert(pMemberParentsAgreeInputVo);
+    }
 }
