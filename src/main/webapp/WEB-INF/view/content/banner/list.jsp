@@ -30,7 +30,8 @@
                         <div class="row col-md-12">
                             <h3 class="title"><i class="fa fa-search"></i>배너검색</h3>
                             <div>
-                                <span id="search_viewOn_aria"></span>
+                                <%--<span id="search_viewOn_aria"></span>--%>
+                                <input type="hidden" name="is_view" id="is_view" value="1" />
                                 <span id="search_bannerType_aria"></span>
                                 <span id="search_platformGroup_aria"></span>
 
@@ -71,9 +72,9 @@
     var endDate;
     function init() {
         //검색조건 불러오기
-        $("#search_platformGroup_aria").html(util.getCommonCodeSelect(-1, platformGroup));
+        $("#search_platformGroup_aria").html(util.getCommonCodeSelect(-1, content_platform2));
         $("#search_bannerType_aria").html(util.getCommonCodeSelect(-1, banner_bannerType, 'N', 'position'));
-        $("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn, 'N', 'is_view'));
+        /*$("#search_viewOn_aria").html(util.getCommonCodeSelect(-1, viewOn, 'N', 'is_view'));*/
 
         // init DatePicker
         $('#banner-reportrange').daterangepicker({

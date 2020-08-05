@@ -3,6 +3,78 @@
 
 <div id="main-header">
     <div id="page-wrapper">
+
+        <div class="row col-lg-12 form-inline">
+            <table id="banner_stat" class="table table-sorting table-hover table-bordered" style="border-left:#FFFFFF;">
+                <colgroup>
+                    <col width="50%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                    <col width="3%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="_bgColor _noBorder" data-bgcolor="#FFF"></th>
+                        <th class="_bgColor" data-bgcolor="#d8d8d8">구분</th>
+                        <th colspan="2" class="_bgColor" data-bgcolor="#d8d8d8">게시</th>
+                        <th colspan="3" class="_bgColor" data-bgcolor="#d8d8d8">플랫폼 게시</th>
+                        <th colspan="7" class="_bgColor" data-bgcolor="#d8d8d8">배너위치별 게시</th>
+                    </tr>
+                    <tr>
+                        <th class="_bgColor _noBorder" data-bgcolor="#FFF"></th>
+                        <th>형태</th>
+                        <th class="_fontColor" data-fontcolor="red">ON</th>
+                        <th>OFF</th>
+                        <th>PC</th>
+                        <th>AOS</th>
+                        <th>IOS</th>
+                        <th>Main<br />Top</th>
+                        <th>Main<br />Center</th>
+                        <th>GNB<br />(PC)</th>
+                        <th>시작<br />팝업</th>
+                        <th>종료<br />팝업</th>
+                        <th>팝업<br />(이미지)</th>
+                        <th>팝업<br />(텍스트)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="_bgColor _noBorder" data-bgcolor="#FFF"></td>
+                        <td class="_bgColor" data-bgcolor="#c5d8f1">수치</td>
+                        <td id="stat_on" class="_bgColor _fontColor" data-bgcolor="#c5d8f1" data-fontcolor="red">0</td>
+                        <td id="stat_off" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_pc" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_aos" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_ios" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_mainTop" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_mainCenter" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_gnb" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_start" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_end" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_image" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                        <td id="stat_text" class="_bgColor" data-bgcolor="#c5d8f1">0</td>
+                    </tr>
+                    <tr>
+                        <td class="_bgColor _noBorder" data-bgcolor="#FFF"></td>
+                        <td class="_bgColor font-bold" data-bgcolor="#ffe699">총 합</td>
+                        <td id="stat_sum_onOff" colspan="2" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
+                        <td id="stat_sum_platform" colspan="3" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
+                        <td id="stat_sum_position" colspan="7" class="_bgColor _fontColor" data-bgcolor="#fff2cc" data-fontcolor="red">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <!-- DATA TABLE -->
         <div class="row col-lg-12 form-inline mb10">
             <div class="widget widget-table">
@@ -45,6 +117,17 @@ var fnc_bannerList = {};
 
         fnc_bannerList.initDataTable();
         fnc_bannerList.initEvent();
+
+        fnc_bannerList.getBannerStat();
+
+
+        if($("#bannerTab").length == 0){
+            var template = $('#tmp_banner_tab').html();
+            var templateScript = Handlebars.compile(template);
+            var context = null;
+            var html=templateScript(context);
+            $("#list_info_bannerList").before(html);
+        }
     };
 
 
@@ -152,6 +235,36 @@ var fnc_bannerList = {};
             }
         });
     };
+
+    fnc_bannerList.getBannerStat = function(){
+        util.getAjaxData('bannerStat', "/rest/content/banner/bannerStat", null, function(dst_id, response){
+            var data = response.data;
+            $("#stat_on").html(common.addComma(data.on_cnt));
+            $("#stat_off").html(common.addComma(data.off_cnt));
+            $("#stat_pc").html(common.addComma(data.pc_cnt));
+            $("#stat_aos").html(common.addComma(data.aos_cnt));
+            $("#stat_ios").html(common.addComma(data.ios_cnt));
+            $("#stat_mainTop").html(common.addComma(data.mainTop_cnt));
+            $("#stat_mainCenter").html(common.addComma(data.mainCenter_cnt));
+            $("#stat_gnb").html(common.addComma(data.gnb_cnt));
+            $("#stat_start").html(common.addComma(data.start_cnt));
+            $("#stat_end").html(common.addComma(data.end_cnt));
+            $("#stat_image").html(common.addComma(data.image_cnt));
+            $("#stat_text").html(common.addComma(data.text_cnt));
+
+            $("#stat_sum_onOff").html(common.addComma(data.on_cnt + data.off_cnt));
+            $("#stat_sum_platform").html(common.addComma(data.on_cnt));
+
+            var sum_position = data.mainTop_cnt;
+            sum_position += data.mainCenter_cnt;
+            sum_position += data.gnb_cnt;
+            sum_position += data.start_cnt;
+            sum_position += data.end_cnt;
+            sum_position += data.image_cnt;
+            sum_position += data.text_cnt;
+            $("#stat_sum_position").html(common.addComma(sum_position));
+        });
+    }
 
 
 //=------------------------------ Option --------------------------------------------
@@ -329,8 +442,53 @@ var fnc_bannerList = {};
         });
     }
 
+    $(document).on('click', "#bannerTab ul li", function(){
+        var me = $(this);
+        var activeClass = 'active';
 
+        $("#bannerTab ul li").removeClass(activeClass);
+        me.addClass(activeClass);
+        $('#is_view').val(me.data('is_view'));
+        $('#bt_search').click();
+    });
 
+    $(document).on('click', "#bannerTab ul li", function(){
+        var me = $(this);
+        var activeClass = 'active';
+
+        $("#bannerTab ul li").removeClass(activeClass);
+        me.addClass(activeClass);
+        $('#is_view').val(me.data('is_view'));
+        $('#bt_search').click();
+    });
+
+    $(document).on('click', '._down', function(){
+        if($('#position').val() == -1){
+            alert('배너 구분이 전체 상태에선 순서변경이 불가합니다.');
+            return false;
+        }
+
+        var targetTr = $(this).closest('tr');
+        var selector = $('#list_info_bannerList tbody tr');
+        var targetIndex = selector.index(targetTr);
+        if(selector.index(targetTr) < selector.length -1){
+            $(selector[targetIndex+1]).after(targetTr);
+        }
+    });
+
+    $(document).on('click', '._up', function(){
+        if($('#position').val() == -1){
+            alert('배너 구분이 전체 상태에선 순서변경이 불가합니다.');
+            return false;
+        }
+
+        var targetTr = $(this).closest('tr');
+        var selector = $('#list_info_bannerList tbody tr');
+        var targetIndex = selector.index(targetTr);
+        if(0 < selector.index(targetTr)){
+            $(selector[targetIndex-1]).before(targetTr);
+        }
+    });
 </script>
 
 
@@ -369,5 +527,21 @@ var fnc_bannerList = {};
             </tr>
             </tbody>
         </table>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="tmp_banner_tab">
+    <div id="bannerTab" style="margin-bottom: -7px;">
+        <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist">
+            <li data-is_view='-1'>
+                <a href="javascript://">전체</a>
+            </li>
+            <li class="active" data-is_view='1'>
+                <a href="javascript://">게시 ON</a>
+            </li>
+            <li data-is_view='0'>
+                <a href="javascript://">게시 OFF</a>
+            </li>
+        </ul>
     </div>
 </script>

@@ -333,7 +333,7 @@ public class Mon_ExchangeService {
             message.append("[달빛라이브] 회원님께서 신청하신 환전요청 건이 승인이 완료되어 요청금액이 입금되었습니다.");
             //message.append("\n\n※ 마이페이지>내지갑에서도 내역을 확인할 수 있습니다.");
 
-            smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
+            //smsService.sendSms(new SmsVo(message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
             //smsService.sendMms(new SmsHistoryVo("[달빛라이브]", message.toString(), monExchangeOutputVo.getPhone_no(), Code.SMS발송_환전완료.getCode()));
 
             try{    // PUSH 발송
