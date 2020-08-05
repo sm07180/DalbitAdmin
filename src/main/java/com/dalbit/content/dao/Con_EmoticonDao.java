@@ -1,5 +1,6 @@
 package com.dalbit.content.dao;
 
+import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.vo.procedure.*;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,16 +11,14 @@ import java.util.ArrayList;
 public interface Con_EmoticonDao {
 
     @Transactional(readOnly = true)
-    ArrayList<P_bannerListOutputVo> callContentsInssaticonList(P_bannerListInputVo pBannerListInputVo);
+    ArrayList<P_EmoticonCategoryListOutputVo> callAdminEmoticonCategorySelect(ProcedureVo procedureVo);
+
+    ProcedureVo callAdminEmoticonCategoryEdit(ProcedureVo procedureVo);
 
     @Transactional(readOnly = true)
-    int callContentsInssaticonListCnt(P_bannerListInputVo pBannerListInputVo);
+    ArrayList<P_EmoticonListOutputVo> callAdminEmoticonSelect(ProcedureVo procedureVo);
 
-    @Transactional(readOnly = true)
-    P_bannerDetailOutputVo callContentsInssaticonDetail(P_bannerDetailInputVo pBannerDetailInputVo);
+    ProcedureVo callAdminEmoticonAdd(ProcedureVo procedureVo);
+    ArrayList<P_EmoticonListOutputVo> callAdminEmoticonEdit(ProcedureVo procedureVo);
 
-    int callContentsInssaticonAdd(P_bannerInsertVo pBannerInsertVo);
-    int callContentsInssaticonEdit(P_bannerUpdateVo pBannerUpdateVo);
-    int callContentsInssaticonDelete(P_bannerDeleteVo pBannerDeleteVo);
-    
 }
