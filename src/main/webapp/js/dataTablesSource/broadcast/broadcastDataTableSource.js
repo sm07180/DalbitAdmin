@@ -53,7 +53,7 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '방송연장', 'data': 'extend_time_count','width' : '55px','render': function (data){
+            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
                     if(data > 0){
                         return 'YES';
                     }
@@ -77,6 +77,10 @@ var BroadcastDataTableSource = {
             {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
+                }},
+            {'title': '받은 별', 'data': 'byeolCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "개";
                 }},
             // {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
             //         var tmp = common.addComma(data);
@@ -163,13 +167,13 @@ var BroadcastDataTableSource = {
             {'title': '진행시간', 'data': 'airTime','width' : '65px','render': function (data){
                     return common.timeStamp(data);
                 }},
-            {'title': '방송연장', 'data': 'extend_time_count','width' : '55px','render': function (data){
+            {'title': '방송<br/>연장', 'data': 'extend_time_count','width' : '35px','render': function (data){
                     if(data > 0){
                         return 'YES';
                     }
                     return 'NO';
                 }},
-            {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '65px','render': function (data){
+            {'title': '<lable style="color:red">누적<br/>청취자</lable>', 'data': 'totalListener','width' : '55px','render': function (data){
                     return '<lable style="color:red">' + common.addComma(data) + ' 명</lable>';
                 }},
             {'title': '좋아요', 'data': 'goodCnt','width' : '40px','render': function (data){
@@ -183,6 +187,10 @@ var BroadcastDataTableSource = {
             {'title': '선물', 'data': 'giftCnt','width' : '40px','render': function (data){
                     var tmp = common.addComma(data);
                     return tmp + "건";
+                }},
+            {'title': '받은 별', 'data': 'byeolCnt','width' : '50px','render': function (data){
+                    var tmp = common.addComma(data);
+                    return tmp + "개";
                 }},
             // {'title': '팬 수', 'data': 'fanCnt','width' : '40px','render': function (data){
             //         var tmp = common.addComma(data);

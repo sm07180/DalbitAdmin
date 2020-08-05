@@ -18,15 +18,15 @@
         , ((select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level + 1) - (select exp FROM rd_data.tbl_level_exp WHERE `level` = b.level)) as nextLevelExp
         , (SELECT IFNULL(SUM(ruby_old - ruby_new), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` in (2,3,4) AND ( mem_no =a.mem_no ) ) AS present
         , (SELECT IFNULL(SUM(ruby_new - ruby_old), 0) FROM rd_data.tb_member_wallet_ruby WHERE `type` = 5 AND ( mem_no = a.mem_no ) ) AS receive
-        , @lastLoginDate := date_format(e.last_upd_date,'%Y.%m.%d %H:%i:%s') as last_upd_date
+        , @lastLoginDate := date_format(e.last_upd_date,'%Y.%m.%d %H:%i:%s') as lastLoginDate
         , TIMESTAMPDIFF(DAY, date_format(@lastLoginDate,'%Y.%m.%d'), date_format(now(),'%Y.%m.%d')) as loginDay
         from rd_data.tb_member_basic a
         inner join rd_data.tb_member_level b on a.mem_no = b.mem_no
         inner join rd_data.tb_member_wallet c on a.mem_no = c.mem_no
         left join rd_data.tb_member_profile d on a.mem_no = d.mem_no
         left join rd_data.tb_member_connect_state e on a.mem_no = e.mem_no
-        , (select @rownum := 0) r
-        , (select @ranking := 0) ranking
+        , (select @rownum := #{pageStart}) r
+        , (select @ranking := #{pageStart}) ranking
         where (a.mem_nick like concat('%', #{searchText}, '%') or a.mem_no like concat('%', #{searchText}, '%') or a.mem_userid like concat('%', #{searchText}, '%'))
         <if test='level != null and level !="" '>
             and b.`level` = #{level}
@@ -39,7 +39,15 @@
         </if>
         <if test="filter == 1">
             and e.last_upd_date >= date_add(now(),interval -8 day)
-            and a.mem_no in (select mem_no_star from rd_data.tb_member_fanstar where mem_no_star = a.mem_no)
+            and a.mem_no in (SELECT a.mem_no_star
+                                FROM rd_data.tb_member_fanstar a
+                                left JOIN rd_data.tb_member_basic AS d ON a.mem_no_fan = d.mem_no AND d.mem_state != 5
+                                left JOIN rd_data.tb_member_gift_mem AS g ON a.mem_no_fan = g.mem_no and g.gifted_mem_no = a.mem_no_star
+                                LEFT JOIN rd_data.tb_member_profile AS f ON a.mem_no_fan = f.mem_no
+                                WHERE a.mem_no_star = a.mem_no
+                                and g.tot_rcv_ruby_cnt > 0
+                              )
+            order by exp desc
             limit 300
         </if>
     </sql>
@@ -64,7 +72,7 @@
          left JOIN rd_data.tb_member_gift_mem AS g ON a.mem_no_fan = g.mem_no and g.gifted_mem_no = a.mem_no_star
           LEFT JOIN rd_data.tb_member_profile AS f ON a.mem_no_fan = f.mem_no
          WHERE a.mem_no_star = #{mem_no}
-         ORDER BY g.tot_rcv_ruby_cnt DESC
+         ORDER BY g.tot_rcv_ruby_cnt DESC, a.reg_date desc
          limit 1;
     </select>
 

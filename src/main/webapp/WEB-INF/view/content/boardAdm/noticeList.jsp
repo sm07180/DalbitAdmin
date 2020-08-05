@@ -149,9 +149,13 @@
                 {{mem_nick}}
             </td>
             <td>{{{sexIcon mem_sex mem_birth_year}}}</td>
-            <td><a href="javascript://" class="_openBroadcastPop" data-roomNo="{{room_no}}">{{title}}</a></td>
+            <td><a href="javascript://" class="_openBroadcastPop" data-roomNo="{{room_no}}">{{replaceHtml title}}</a></td>
             <td>{{lastUpdDateFormat}}</td>
             <td class="word-break" style=""><span>{{{replaceHtml contents}}}</span></td>
+        </tr>
+    {{else}}
+        <tr>
+            <td colspan="9">{{isEmptyData}}</td>
         </tr>
     {{/each}}
 </script>

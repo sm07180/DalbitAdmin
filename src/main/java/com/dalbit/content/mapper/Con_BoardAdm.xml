@@ -13,10 +13,10 @@
               or (select mem_nick from rd_data.tb_member_basic where mem_no = fan.writer_no) like concat ('%',#{txt_search},'%')
           </if>
           <if test='start_sel != null and start_sel != ""'>
-              and last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
+              and fan.last_upd_date <![CDATA[>=]]> DATE_FORMAT(#{start_sel}, '%Y.%m.%d 00:00:00')
           </if>
           <if test='end_sel != null and end_sel != ""'>
-              and last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59')
+              and fan.last_upd_date <![CDATA[<=]]> DATE_FORMAT(#{end_sel}, '%Y.%m.%d 23:59:59')
           </if>
         </where>
     </sql>
@@ -25,46 +25,36 @@
         select *
           from (
             select
-                idx
-                , board_no
-                , (select pro.image_profile from rd_data.tb_member_basic bas inner join rd_data.tb_member_profile pro on bas.mem_no = pro.mem_no where pro.mem_no = fan.mem_no
-                union select pro.image_profile from rd_data.tb_member_withdrawal_bak bak inner join rd_data.tb_member_profile pro on bak.mem_no = pro.mem_no where pro.mem_no = fan.mem_no) as star_image_profile
-                , (select mem_no from rd_data.tb_member_basic where mem_no = fan.mem_no
-                union select mem_no from rd_data.tb_member_withdrawal_bak where mem_no = fan.mem_no) as star_mem_no
-                , (select mem_userid from rd_data.tb_member_basic where mem_no = fan.mem_no
-                union select mem_userid from rd_data.tb_member_withdrawal_bak where mem_no = fan.mem_no) as star_userid
-                , (select mem_nick from rd_data.tb_member_basic where mem_no = fan.mem_no
-                union select mem_nick from rd_data.tb_member_withdrawal_bak where mem_no = fan.mem_no) as star_mem_nick
-                , (select mem_state from rd_data.tb_member_basic where mem_no = fan.mem_no
-                union select mem_state from rd_data.tb_member_withdrawal_bak where mem_no = fan.mem_no) as star_mem_state
-                , (select mem_sex from rd_data.tb_member_basic where mem_no = fan.mem_no
-                union select mem_sex from rd_data.tb_member_withdrawal_bak where mem_no = fan.mem_no) as star_mem_sex
-                , (select mem_birth_year from rd_data.tb_member_basic where mem_no = fan.mem_no
-                union select mem_birth_year from rd_data.tb_member_withdrawal_bak where mem_no = fan.mem_no) as star_birth_year
+                fan.idx
+                , fan.board_no
+                , (select pro.image_profile from rd_data.tb_member_profile pro where pro.mem_no = fan.mem_no) as star_image_profile
+                , fan.mem_no as star_mem_no
+                , ifnull(member.mem_userid, withdrawal_member.mem_userid) as star_userid
+                , ifnull(member.mem_nick, withdrawal_member.mem_nick) as star_mem_nick
+                , ifnull(member.mem_state, withdrawal_member.mem_state) as star_mem_state
+                , ifnull(member.mem_sex, withdrawal_member.mem_sex) as star_mem_sex
+                , ifnull(member.mem_birth_year, withdrawal_member.mem_birth_year) as star_birth_year
 
-                , (select pro.image_profile from rd_data.tb_member_basic bas inner join rd_data.tb_member_profile pro on bas.mem_no = pro.mem_no where pro.mem_no = fan.writer_no
-                union select pro.image_profile from rd_data.tb_member_withdrawal_bak bak inner join rd_data.tb_member_profile pro on bak.mem_no = pro.mem_no where pro.mem_no = fan.writer_no) as fan_image_profile
-                , (select mem_no from rd_data.tb_member_basic where mem_no = fan.writer_no
-                union select mem_no from rd_data.tb_member_withdrawal_bak where mem_no = fan.writer_no) as fan_mem_no
-                , (select mem_userid from rd_data.tb_member_basic where mem_no = fan.writer_no
-                union select mem_userid from rd_data.tb_member_withdrawal_bak where mem_no = fan.writer_no) as fan_userid
-                , (select mem_nick from rd_data.tb_member_basic where mem_no = fan.writer_no
-                union select mem_nick from rd_data.tb_member_withdrawal_bak where mem_no = fan.writer_no) as fan_mem_nick
-                , (select mem_state from rd_data.tb_member_basic where mem_no = fan.writer_no
-                union select mem_state from rd_data.tb_member_withdrawal_bak where mem_no = fan.writer_no) as fan_mem_state
-                , (select mem_sex from rd_data.tb_member_basic where mem_no = fan.writer_no
-                union select mem_sex from rd_data.tb_member_withdrawal_bak where mem_no = fan.writer_no) as fan_mem_sex
-                , (select mem_birth_year from rd_data.tb_member_basic where mem_no = fan.writer_no
-                union select mem_birth_year from rd_data.tb_member_withdrawal_bak where mem_no = fan.writer_no) as fan_birth_year
-                , status
-                , last_upd_date
-                , contents
+                , (select pro.image_profile from rd_data.tb_member_profile pro where pro.mem_no = fan.writer_no) as fan_image_profile
+                , fan.writer_no as fan_mem_no
+                , ifnull(writer_member.mem_userid, writer_withdrawal_member.mem_userid)  as fan_userid
+                , ifnull(writer_member.mem_nick, writer_withdrawal_member.mem_nick) as fan_mem_nick
+                , ifnull(writer_member.mem_state, writer_withdrawal_member.mem_state) as fan_mem_state
+                , ifnull(writer_member.mem_sex, writer_withdrawal_member.mem_sex) as fan_mem_sex
+                , ifnull(writer_member.mem_birth_year, writer_withdrawal_member.mem_birth_year) as fan_birth_year
+                , fan.status
+                , fan.last_upd_date
+                , fan.contents
                 , (select count(*) from rd_data.tb_member_fanboard WHERE mem_no =  fan.mem_no and `status` = 1 AND board_no = fan.board_no AND depth = 2 ) as replyCnt
                 , @RNUM := @RNUM +1 as rowNum
             from rd_data.tb_member_fanboard fan
-                , (select @RNUM := 0) r
+                inner join (select @RNUM := 0) r
+                left outer join rd_data.tb_member_basic member on fan.mem_no = member.mem_no
+                left outer join rd_data.tb_member_withdrawal_bak withdrawal_member on fan.mem_no = withdrawal_member.mem_no
+                left outer join rd_data.tb_member_basic writer_member on fan.writer_no = writer_member.mem_no
+                left outer join rd_data.tb_member_withdrawal_bak writer_withdrawal_member on fan.writer_no = writer_withdrawal_member.mem_no
                 <include refid="fanBoardCondition"/>
-            order by idx desc
+            order by fan.idx desc
         ) a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>
@@ -85,20 +75,21 @@
 
     <select id="selectReply" parameterType="com.dalbit.content.vo.BoardAdmFanBoardReplyVo" resultType="com.dalbit.content.vo.BoardAdmFanBoardReplyVo">
         SELECT
-            a.idx AS board_idx,
-            a.board_no AS board_no,
-            a.writer_no AS writer_mem_no,
-            b.mem_nick AS nickName,
-            b.mem_userid as userId,
-            b.mem_sex AS memSex,
-            b.mem_birth_year,
-            ( SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.writer_no ) AS profileImage,
-            a.contents AS contents,
-            a.`status` AS `status`,
-            a.last_upd_date AS writeDate,
-            depth
+              a.idx AS board_idx,
+              a.board_no AS board_no,
+              a.writer_no AS writer_mem_no,
+              ifnull(bas.mem_nick, bak.mem_nick) AS nickName,
+              ifnull(bas.mem_userid, bak.mem_userid) as userId,
+              ifnull(bas.mem_sex, bak.mem_sex) AS memSex,
+              ifnull(bas.mem_birth_year, bak.mem_birth_year) as mem_birth_year,
+              ( SELECT image_profile FROM rd_data.tb_member_profile WHERE mem_no = a.writer_no ) AS profileImage,
+              a.contents AS contents,
+              a.`status` AS `status`,
+              a.last_upd_date AS writeDate,
+              depth
          from (select idx, board_no, contents, writer_no, `status`, last_upd_date, depth from rd_data.tb_member_fanboard where mem_no = #{mem_no} and board_no = #{board_no} and `status` = 1) as a
-          join rd_data.tb_member_basic as b on a.writer_no = b.mem_no
+          left outer join rd_data.tb_member_basic bas on a.writer_no = bas.mem_no
+          left outer join rd_data.tb_member_withdrawal_bak bak on a.writer_no = bak.mem_no
           order by writeDate desc
     </select>
 
@@ -142,33 +133,34 @@
 
     <select id="selectStoryList" parameterType="com.dalbit.content.vo.BoardAdmStoryVo" resultType="com.dalbit.content.vo.BoardAdmStoryVo">
     /* Con_BoardAdm.xml - selectStoryList*/
-      select *
+        select
+          *
         from (
-                select
-                   sto.idx as storyIdx,
-                   sto.room_no as room_no,
-                   bas.mem_no     as dj_mem_no,
-                   bas.mem_nick   as dj_mem_nick,
-                   bas.mem_userid as dj_mem_userid,
-                   bas.mem_sex    as dj_mem_sex,
-                   bas.mem_birth_year as dj_birth_year,
-                   bro.title      as title,
-                   sto.mem_nick   as send_mem_nick,
-                   sto.mem_userid as send_mem_userid,
-                   sto.mem_sex    as send_mem_sex,
-                   sto.writer_no as send_mem_no,
-                   (select bas.mem_birth_year
-                      from rd_data.tb_broadcast_room_story sto inner join rd_data.tb_member_basic bas on sto.writer_no = bas.mem_no
-                      where bas.mem_no = send_mem_no group by bas.mem_no) as send_birth_year,
-                   sto.write_date as send_date,
-                   sto.contents   as story_content,
-                   @RNUM := @RNUM + 1 as rowNum
-                 from rd_data.tb_broadcast_room bro
-                   inner join rd_data.tb_broadcast_room_story sto on sto.room_no = bro.room_no
-                   inner join rd_data.tb_member_basic bas on bro.mem_no = bas.mem_no
-                  , (select @RNUM := 0) r
-                  <include refid="storyCondition"/>
-                  order by sto.idx desc
+            select
+            sto.idx as storyIdx,
+            sto.room_no as room_no,
+            bas.mem_no     as dj_mem_no,
+            bas.mem_nick   as dj_mem_nick,
+            bas.mem_userid as dj_mem_userid,
+            bas.mem_sex    as dj_mem_sex,
+            bas.mem_birth_year as dj_birth_year,
+            bro.title      as title,
+            sto.mem_nick   as send_mem_nick,
+            sto.mem_userid as send_mem_userid,
+            sto.mem_sex    as send_mem_sex,
+            sto.writer_no as send_mem_no,
+            (select bas.mem_birth_year
+            from rd_data.tb_broadcast_room_story sto inner join rd_data.tb_member_basic bas on sto.writer_no = bas.mem_no
+            where bas.mem_no = send_mem_no group by bas.mem_no) as send_birth_year,
+            sto.write_date as send_date,
+            sto.contents   as story_content,
+            @RNUM := @RNUM + 1 as rowNum
+        from rd_data.tb_broadcast_room bro
+        inner join rd_data.tb_broadcast_room_story sto on sto.room_no = bro.room_no
+        inner join rd_data.tb_member_basic bas on bro.mem_no = bas.mem_no
+        , (select @RNUM := 0) r
+        <include refid="storyCondition"/>
+        order by sto.idx desc
         ) a
         where rowNum between #{searchStartNo, jdbcType=INTEGER} and #{searchEndNo, jdbcType=INTEGER}
     </select>

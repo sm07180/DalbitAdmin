@@ -9,7 +9,7 @@
             <div class="widget-content">
                 <ul class="nav nav-tabs nav-tabs-custom-colored" role="tablist" id="tablist_con">
                     <li class="active"><a href="#levelList" role="tab" data-toggle="tab" id="tab_levelList">레벨 회원 분포현황</a></li>
-                    <li><a href="#memList" role="tab" data-toggle="tab" id="tab_memList">레벨 회원 순으로 보기</a></li>
+                    <li><a href="#memList" role="tab" data-toggle="tab" id="tab_memList">레벨 회원 내역</a></li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="levelList"><jsp:include page="levelList.jsp"/></div>      <!-- 레벨 회원 분포현황 -->
@@ -29,6 +29,7 @@
         if(tabId == 'tab_levelList'){
             getLevelList();
         }else if(tabId == 'tab_memList'){
+            tmp_filter = 0;
             getMemLevelList();
         }
 

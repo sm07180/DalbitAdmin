@@ -4,6 +4,7 @@ import com.dalbit.common.code.Status;
 import com.dalbit.common.vo.JsonOutputVo;
 import com.dalbit.common.vo.PagingVo;
 import com.dalbit.content.service.Con_BannerService;
+import com.dalbit.content.vo.BannerOrderVo;
 import com.dalbit.content.vo.BannerVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.util.DalbitUtil;
@@ -74,11 +75,15 @@ public class Con_BannerRestController {
         return result;
     }
 
+    @PostMapping("updateOrder")
+    public String order(BannerOrderVo bannerOrderVo){
+        return con_BannerService.updateOrder(bannerOrderVo);
+    }
 
-
-
-
-
+    @PostMapping("bannerStat")
+    public String bannerStat(){
+        return con_BannerService.bannerStat();
+    }
 
     @PostMapping("statistics")
     public String statisticsList(HttpServletRequest request, BannerVo bannerVo) {
