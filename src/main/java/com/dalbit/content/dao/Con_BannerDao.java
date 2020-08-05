@@ -25,6 +25,7 @@ public interface Con_BannerDao {
     int callContentsBannerEdit(P_bannerUpdateVo pBannerUpdateVo);
     int callContentsBannerDelete(P_bannerDeleteVo pBannerDeleteVo);
     int updateOrder(BannerOrderVo bannerOrderVo);
+    @Transactional(readOnly = true)
     BannerStatVo bannerStat();
 
 }
