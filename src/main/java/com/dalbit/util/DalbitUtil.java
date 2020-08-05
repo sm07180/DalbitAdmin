@@ -11,6 +11,7 @@ import com.dalbit.exception.GlobalException;
 import com.dalbit.main.vo.procedure.P_StatVo;
 import com.dalbit.member.dao.Mem_MemberDao;
 import com.dalbit.member.vo.MemberVo;
+import com.dalbit.member.vo.procedure.P_MemberSetting;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.FormBody;
@@ -972,6 +973,40 @@ public class DalbitUtil {
         }catch (IOException | GlobalException e){
             e.printStackTrace();
             return "error";
+        }
+    }
+
+    /**
+     * PUSH/알림 사용 여부 체크
+     *
+     * TRUE : 거부
+     * FALSE : 승인
+     *
+     * */
+    public static boolean isMemberPushRejection(String mem_no, String pushType){
+        if(isEmpty(mem_no)){return true;}
+
+        P_MemberSetting setting =  mem_MemberDao.getMemberSetting(mem_no);
+
+        if(isEmpty(setting)){return true;}
+
+        int type = Integer.parseInt(pushType);
+        if(type == 11){ // DJ방송 알림
+            return setting.getSet_1() == 0;
+        }else if(type == 18){   // DJ 방송공지 알림
+            return setting.getSet_2() == 0;
+        }else if(type == 16){   //팬 알림
+            return setting.getSet_3() == 0;
+        }else if(type == 17){   //팬보드 알림
+            return setting.getSet_4() == 0;
+        }else if(type == 15 || type == 61){ //선물 알림
+            return setting.getSet_5() == 0;
+        }else if(type == 60){      // 1:1 문의 답변 알림
+            return setting.getSet_6() == 0;
+        }else if(type == 51 || type == 59 || type == 92 || type == 93 || type == 94 ) {     // 서비스 알림
+            return setting.getSet_7() == 0;
+        }else{     // 기타
+            return setting.getAll_ok() == 0;
         }
     }
 }

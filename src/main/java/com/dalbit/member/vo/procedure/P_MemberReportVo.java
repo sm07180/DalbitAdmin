@@ -39,5 +39,6 @@ public class P_MemberReportVo {
     private String targetBoardIdx;
     private String targetMemNo;
     private String targetRedirectUrl;
+    private String push_slct;
 }
 

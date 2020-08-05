@@ -6,6 +6,7 @@ import com.dalbit.common.vo.PagingVo;
 import com.dalbit.common.vo.ProcedureVo;
 import com.dalbit.content.dao.Con_BannerDao;
 import com.dalbit.content.vo.BannerOrderVo;
+import com.dalbit.content.vo.BannerStatVo;
 import com.dalbit.content.vo.procedure.*;
 import com.dalbit.member.vo.MemberVo;
 import com.dalbit.util.GsonUtil;
@@ -172,5 +173,10 @@ public class Con_BannerService {
         });
 
         return gsonUtil.toJson(new JsonOutputVo(Status.수정));
+    }
+
+    public String bannerStat(){
+        BannerStatVo bannerStatVo = bannerDao.bannerStat();
+        return gsonUtil.toJson(new JsonOutputVo(Status.조회, bannerStatVo));
     }
 }

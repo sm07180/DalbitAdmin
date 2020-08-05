@@ -77,6 +77,7 @@ public interface Mem_MemberDao {
     int callMemberWithdrawal_fanDel(P_MemberReportVo pMemberReportVo);
     int callMemberWithdrawal_starDel(P_MemberReportVo pMemberReportVo);
     int callMemberNotification_Add(P_MemberReportVo pMemberReportVo);
+    int callMemberNotification_Add_ALL(P_MemberReportVo pMemberReportVo);
 
     int callMemberWithdrawal_bak_Add(P_MemberReportVo pMemberReportVo);
     int callMemberBasic_del(P_MemberReportVo pMemberReportVo);
@@ -134,4 +135,7 @@ public interface Mem_MemberDao {
     int updateRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
 
     int updateBackRecant(P_MemberParentsAgreeInputVo pMemberParentsAgreeInputVo);
+
+    @Transactional(readOnly = true)
+    P_MemberSetting getMemberSetting(String mem_no);
 }

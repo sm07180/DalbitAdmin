@@ -590,7 +590,7 @@
             </tr>
             <tr>
 
-                <th><span style="color:red">게시중여부</span><br />게시여부 + 노출기간</th>
+                <th><span style="color:red">노출상태</span><br />게시여부 + 노출기간</th>
                 <td colspan="2">
                     {{{isCurrentDisplay is_view start_datetime end_datetime}}}
                 </td>

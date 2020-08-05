@@ -47,13 +47,15 @@ var BannerDataTableSource = {
                     return util.getCommonCodeLabel(data, content_viewOn);
 
                 }},
-            {'title': '이미지등록여부', 'data': '', 'render': function (data, type, row, meta) {
+            {'title': '이미지 등록', 'data': '', 'render': function (data, type, row, meta) {
                 var text = "";
                 if(common.isEmpty(row.pc_img_url)){
-                    text += "PC : X / ";
+                    text += "PC : X";
                 }else{
-                    text += "PC : O / ";
+                    text += "PC : O";
                 }
+
+                text += '<br />'
 
                 if(common.isEmpty(row.mobile_img_url)){
                     text += "Mobile : X";
@@ -69,7 +71,7 @@ var BannerDataTableSource = {
             {'title': '로그인<br />구분', 'data': 'view_type', 'render': function (data, type, row, meta) {
                     return util.getCommonCodeLabel(data, banner_loginType);
                 }},
-            {'title': '게시중<br />여부', 'data': 'is_view', 'render': function (data, type, row, meta) {
+            {'title': '노출상태', 'data': 'is_view', 'render': function (data, type, row, meta) {
 
                     var on_text = '<span style="color:blue;">ON</span>';
                     var off_text = '<span style="color:gray">OFF</span>';
@@ -89,15 +91,22 @@ var BannerDataTableSource = {
                     }
                     return off_text;
                 }},
-            {'title': '노출', 'data': 'banner_col10', 'defaultContent': '0'},
+            /*수치 개발 안되어 주석처리 - [2020.08.04 양효진과장 요청]*/
+            /*{'title': '노출', 'data': 'banner_col10', 'defaultContent': '0'},
             {'title': '클릭', 'data': 'banner_col11', 'defaultContent': '0'},
             {'title': '<label style="color: blue">남</label>', 'data': 'banner_col12', 'defaultContent': '0'},
-            {'title': '<label style="color: red">여</label>', 'data': 'banner_col13', 'defaultContent': '0'},
+            {'title': '<label style="color: red">여</label>', 'data': 'banner_col13', 'defaultContent': '0'},*/
             {'title': '등록자명', 'data': 'opName', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data + '<br />' + row.reg_dateFormat;
                 }},
             {'title': '수정자명', 'data': 'lastOpName', 'defaultContent': '-', 'render': function (data, type, row, meta) {
                     return data + '<br />' + row.lastUpdDateFormat;
+                }},
+            {'title': 'down', 'data': 'lastOpName', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return '<button type="button" class="btn btn-info _down"><i class="toggle-icon fa fa-angle-down"></i></button>';
+                }},
+            {'title': 'up', 'data': 'lastOpName', 'defaultContent': '-', 'render': function (data, type, row, meta) {
+                    return '<button type="button" class="btn btn-danger _up"><i class="toggle-icon fa fa-angle-up"></i></button>';
                 }},
 
         ]

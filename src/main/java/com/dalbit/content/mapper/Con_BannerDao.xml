@@ -38,13 +38,7 @@
         FROM rd_admin.tb_admin_banner
     </sql>
 
-    <!-- 배너 -->
-    <select id="callContentsBannerListCnt" parameterType="com.dalbit.content.vo.procedure.P_bannerListInputVo" resultType="java.lang.Integer">
-        /* Con_BannerDao.xml - callContentsBannerListCnt */
-        SELECT
-          COUNT(*)
-        FROM
-          rd_admin.tb_admin_banner
+    <sql id="bannerListWhere">
         <where>
             <if test='is_view != null and is_view != "" and is_view != "-1" '>
                 AND is_view = #{is_view}
@@ -52,16 +46,16 @@
             <if test='position != null and position != "" and position != "-1" '>
                 AND position = #{position}
             </if>
-            <if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>
+            <if test='platform != null and platform != ""'>
                 <choose>
-                    <when test='platformGroup == "2" '>
-                        AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))
+                    <when test='platform == "1" '>
+                        AND platform like '1%'
                     </when>
-                    <when test='platformGroup == "3" '>
-                        AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
+                    <when test='platform == "2" '>
+                        AND (platform like '01%' or platform like '11%')
                     </when>
-                    <when test='platformGroup == "4" '>
-                        AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
+                    <when test='platform == "3" '>
+                        AND platform like '%1'
                     </when>
                 </choose>
             </if>
@@ -69,6 +63,15 @@
                 AND title like CONCAT('%',#{searchText},'%')
             </if>
         </where>
+    </sql>
+    <!-- 배너 -->
+    <select id="callContentsBannerListCnt" parameterType="com.dalbit.content.vo.procedure.P_bannerListInputVo" resultType="java.lang.Integer">
+        /* Con_BannerDao.xml - callContentsBannerListCnt */
+        SELECT
+          COUNT(*)
+        FROM
+          rd_admin.tb_admin_banner
+          <include refid="bannerListWhere" />
     </select>
 
     <select id="callContentsBannerList" parameterType="com.dalbit.content.vo.procedure.P_bannerListInputVo" resultType="com.dalbit.content.vo.procedure.P_bannerListOutputVo">
@@ -79,30 +82,7 @@
         FROM
         (
             <include refid="bannerSelect"/>
-            <where>
-                <if test='is_view != null and is_view != "" and is_view != "-1" '>
-                    AND is_view = #{is_view}
-                </if>
-                <if test='position != null and position != "" and position != "-1" '>
-                    AND position = #{position}
-                </if>
-                <if test='platformGroup != null and platformGroup != "" and platformGroup != "1"'>
-                    <choose>
-                        <when test='platformGroup == "2" '>
-                            AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NULL OR mobile_img_url = ''))
-                        </when>
-                        <when test='platformGroup == "3" '>
-                            AND ((pc_img_url IS NULL OR pc_img_url = '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
-                        </when>
-                        <when test='platformGroup == "4" '>
-                            AND ((pc_img_url IS NOT NULL AND pc_img_url != '') AND (mobile_img_url IS NOT NULL AND mobile_img_url != ''))
-                        </when>
-                    </choose>
-                </if>
-                <if test='searchText != null and searchText != ""'>
-                        AND title like CONCAT('%',#{searchText},'%')
-                </if>
-            </where>
+            <include refid="bannerListWhere" />
         ) AS a,
         (select @rownum := #{pageStart}) AS b
         <trim prefix="ORDER BY">
@@ -223,5 +203,23 @@
         SET `order` = #{order}
         where idx = #{banner_idx}
     </update>
+
+    <select id="bannerStat" resultType="com.dalbit.content.vo.BannerStatVo">
+        select *
+        from(
+            (select count(*) on_cnt from rd_admin.tb_admin_banner where is_view = 1) as on_cnt
+            , (select count(*) off_cnt from rd_admin.tb_admin_banner where is_view = 0) as off_cnt
+            , (select count(*) pc_cnt from rd_admin.tb_admin_banner where is_view = 1 and platform like '1%') as pc_cnt
+            , (select count(*) aos_cnt from rd_admin.tb_admin_banner where is_view = 1 and (platform like '01%' or platform like '11%')) as aos_cnt
+            , (select count(*) ios_cnt from rd_admin.tb_admin_banner where is_view = 1 and platform like '%1') as ios_cnt
+            , (select count(*) mainTop_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 1) as mainTop_cnt
+            , (select count(*) mainCenter_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 9) as mainCenter_cnt
+            , (select count(*) gnb_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 0) as gnb_cnt
+            , (select count(*) start_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 7) as start_cnt
+            , (select count(*) end_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 8) as end_cnt
+            , (select count(*) image_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 6 and popup_type = 0) as image_cnt
+            , (select count(*) text_cnt from rd_admin.tb_admin_banner where is_view = 1 and position = 6 and popup_type = 1) as text_cnt
+        )
+    </select>
 
 </mapper>
