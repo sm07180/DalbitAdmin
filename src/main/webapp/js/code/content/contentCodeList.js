@@ -387,9 +387,6 @@ var inssaticon_isUse = [
 var inssaticon_category = [
     new COMMON_CODE(null, 'category', '카테고리')
     , new COMMON_CODE('all', '-1', '카테고리(전체)')
-    , new COMMON_CODE('0', '0', '나중에')
-    , new COMMON_CODE('1', '1', 'DB에서')
-    , new COMMON_CODE('2', '2', '처리해야함')
 ];
 
 /** =------ boardAdm ---------- */

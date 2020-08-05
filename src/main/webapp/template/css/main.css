@@ -14180,6 +14180,7 @@ fieldset[disabled] .btn-default.active {
 .onoffswitch {
     position: relative;
     width: 50px;
+    margin: auto;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none; }
